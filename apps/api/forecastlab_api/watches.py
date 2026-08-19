@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+import json
 import uuid
 from urllib.parse import urlparse
 
-import httpx
 from sqlalchemy.orm import Session
 
 from forecastlab.fetch import fetch_document
 from forecastlab.hashing import content_hash
+from forecastlab.http_client import safe_get
+from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import utcnow
 from forecastlab.watchers import canonical_watch_value, extract_json_path, watch_changed
 from forecastlab_api.config import settings
@@ -43,10 +45,10 @@ def check_watch(session: Session, watch: Watch) -> WatchEvent:
                 name = parsed.path.rstrip("/").split("/")[-1]
                 payload = {"name": name, **get_indicator(name)}
             else:
-                with httpx.Client(timeout=15.0, follow_redirects=True) as client:
-                    response = client.get(watch.endpoint_url)
-                    response.raise_for_status()
-                    payload = response.json()
+                response = safe_get(watch.endpoint_url, expect_json=True)
+                if response.truncated:
+                    raise UnsafeURLError("response_too_large")
+                payload = json.loads(response.content.decode("utf-8"))
             extracted = extract_json_path(payload, watch.json_path)
             value = canonical_watch_value(extracted)
         else:
@@ -84,6 +86,3 @@ def check_watch(session: Session, watch: Watch) -> WatchEvent:
             question.stale = True
             question.status = "stale"
     return event
-
-
-check_watch = check_watch

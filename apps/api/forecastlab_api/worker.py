@@ -8,15 +8,26 @@ from sqlalchemy import select
 
 from forecastlab.logging import setup_logging
 from forecastlab.timeutil import as_utc, utcnow
-from forecastlab_api.db import Base, SessionLocal, engine
-from forecastlab_api.jobs import claim_next_job, finish_job, recover_stale_jobs, touch_worker
-from forecastlab_api.models import ForecastRun, Watch
+from forecastlab_api.experiments import execute_benchmark_task
+from forecastlab_api.jobs import (
+    claim_next_job,
+    error_category,
+    finish_job,
+    is_transient,
+    recover_stale_jobs,
+    retry_job,
+    touch_worker,
+)
+from forecastlab_api.migrate import apply_schema
+from forecastlab_api.models import BenchmarkTask, ForecastRun, Job, Watch
 from forecastlab_api.pipeline import execute_run
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
 from forecastlab_api.watches import check_watch
 
 
 def process_once() -> bool:
+    from forecastlab_api.db import SessionLocal
+
     with SessionLocal() as session:
         touch_worker(session, "idle")
         recover_stale_jobs(session)
@@ -27,9 +38,7 @@ def process_once() -> bool:
             ran = False
             for watch in due:
                 last_checked = as_utc(watch.last_checked_at) if watch.last_checked_at else None
-                stale = last_checked is None or utcnow() - last_checked >= timedelta(
-                    seconds=watch.poll_seconds
-                )
+                stale = last_checked is None or utcnow() - last_checked >= timedelta(seconds=watch.poll_seconds)
                 if stale:
                     check_watch(session, watch)
                     ran = True
@@ -44,6 +53,11 @@ def process_once() -> bool:
                 if run is None:
                     raise RuntimeError("run_not_found")
                 execute_run(session, run, job=job)
+            elif job.job_type == "benchmark_task":
+                task = session.get(BenchmarkTask, payload["task_id"])
+                if task is None:
+                    raise RuntimeError("benchmark_task_not_found")
+                execute_benchmark_task(session, task, job=job)
             elif job.job_type == "watch_check":
                 watch = session.get(Watch, payload["watch_id"])
                 if watch:
@@ -55,23 +69,46 @@ def process_once() -> bool:
             return True
         except Exception as exc:
             session.rollback()
-            with SessionLocal() as retry_session:
-                failed = retry_session.get(type(job), job.id)
+            from forecastlab_api.db import SessionLocal as RetrySessionLocal
+
+            with RetrySessionLocal() as retry_session:
+                failed = retry_session.get(Job, job.id)
                 if failed:
-                    finish_job(retry_session, failed, ok=False, error=str(exc)[:500])
-                    run_id = json.loads(failed.payload_json).get("run_id")
-                    if run_id:
-                        run = retry_session.get(ForecastRun, run_id)
-                        if run:
+                    category = error_category(exc)
+                    if is_transient(exc):
+                        retry_job(retry_session, failed, error=str(exc)[:500], category=category)
+                    else:
+                        finish_job(retry_session, failed, ok=False, error=str(exc)[:500], category=category)
+                    payload = json.loads(failed.payload_json)
+                    if payload.get("run_id"):
+                        run = retry_session.get(ForecastRun, payload["run_id"])
+                        if run and not is_transient(exc):
                             run.status = "failed"
                             run.error_message = str(exc)[:500]
+                    if payload.get("task_id") and not is_transient(exc):
+                        task = retry_session.get(BenchmarkTask, payload["task_id"])
+                        if task:
+                            task.status = "failed"
+                            task.error = str(exc)[:500]
+                            task.completed_at = utcnow()
                     retry_session.commit()
             return True
 
 
+def drain_jobs(*, max_steps: int = 200) -> int:
+    processed = 0
+    for _ in range(max_steps):
+        if not process_once():
+            break
+        processed += 1
+    return processed
+
+
 def main() -> None:
+    from forecastlab_api.db import SessionLocal
+
     setup_logging()
-    Base.metadata.create_all(engine)
+    apply_schema()
     with SessionLocal() as session:
         seed_sample_question(session)
         seed_synthetic_benchmarks(session)

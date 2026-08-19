@@ -28,20 +28,28 @@ class UnsafeURLError(ValueError):
 
 def _is_private(ip: str) -> bool:
     address = ipaddress.ip_address(ip)
-    return any(address in network for network in PRIVATE_NETWORKS)
+    return any(address in network for network in PRIVATE_NETWORKS) or address.is_multicast
+
+
+def host_matches(host: str, trusted_domain: str) -> bool:
+    host = host.lower().rstrip(".")
+    trusted = trusted_domain.lower().lstrip(".")
+    return host == trusted or host.endswith("." + trusted)
 
 
 def validate_url(url: str, *, allow_local_fixtures: bool = False) -> str:
     parsed = urlparse(url)
     if parsed.scheme not in {"http", "https"}:
         raise UnsafeURLError("Only http and https URLs are allowed")
+    if parsed.username or parsed.password:
+        raise UnsafeURLError("Embedded credentials are not allowed")
     host = (parsed.hostname or "").lower()
     if not host:
         raise UnsafeURLError("URL host is required")
     if allow_local_fixtures and (
         host in {"127.0.0.1", "localhost", "fixtures.forecastlab.local"}
-        or host.endswith(".forecastlab.test")
-        or host.endswith(".forecastlab.local")
+        or host_matches(host, "forecastlab.test")
+        or host_matches(host, "forecastlab.local")
     ):
         return url
     if host in BLOCKED_HOSTS or host.endswith(".local") or host.endswith(".internal"):
