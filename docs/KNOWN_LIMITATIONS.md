@@ -9,5 +9,5 @@
 - Auto-rerun is disabled. Watches only mark a forecast stale. Reruns require user action.
 - Reliability diagrams are withheld below 20 resolved rows. That threshold is not a calibration claim.
 - Synthetic benchmarks cannot support product-level forecasting-quality claims.
-- Startup applies Alembic. Isolated unit tests may still use `create_all`. Wipe `data/forecastlab.db` if you still have a pre-integrity local file.
+- Startup applies Alembic to head and stops if a revision fails. Isolated unit tests may still use `create_all`. Back up `data/forecastlab.db` before upgrading an existing local file.
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.

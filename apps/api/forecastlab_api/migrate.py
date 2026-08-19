@@ -5,20 +5,21 @@ from pathlib import Path
 
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import inspect, text
+from sqlalchemy import create_engine, inspect
 
 from forecastlab_api.config import ROOT, settings
 from forecastlab_api.db import engine
-from forecastlab_api.models import Base
 
 ALEMBIC_INI = ROOT / "alembic.ini"
+BASELINE_REVISION = "20260818_0001"
 
 
 def alembic_config(database_url: str | None = None) -> Config:
     cfg = Config(str(ALEMBIC_INI))
     cfg.set_main_option("script_location", str(ROOT / "alembic"))
-    if database_url:
-        cfg.set_main_option("sqlalchemy.url", database_url)
+    url = database_url or settings.database_url
+    cfg.set_main_option("sqlalchemy.url", url)
+    cfg.attributes["forecastlab_database_url"] = url
     return cfg
 
 
@@ -27,7 +28,7 @@ def apply_migrations(database_url: str | None = None) -> None:
 
 
 def apply_schema(database_url: str | None = None) -> None:
-    """Apply Alembic migrations. Existing local DBs without alembic_version are stamped after create_all."""
+    """Upgrade to Alembic head under a lock. Migration failures abort startup."""
     lock_path = Path(settings.data_dir) / "migrate.lock"
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     with lock_path.open("w") as lock:
@@ -45,27 +46,14 @@ def _exclusive_lock(handle) -> None:
 
 
 def _apply_schema_unlocked(database_url: str | None = None) -> None:
-    from sqlalchemy import create_engine
-
-    bind = engine if database_url is None else create_engine(database_url)
-    inspector = inspect(bind)
-    if inspector.has_table("alembic_version") and inspector.has_table("benchmark_experiments"):
-        return
+    url = database_url or settings.database_url
+    bind = engine if database_url is None else create_engine(url)
+    created = database_url is not None
     try:
-        apply_migrations(database_url)
-        return
-    except Exception:
         inspector = inspect(bind)
         if inspector.has_table("questions") and not inspector.has_table("alembic_version"):
-            Base.metadata.create_all(bind)
-            with bind.connect() as connection:
-                if connection.dialect.name == "sqlite":
-                    connection.execute(text("CREATE TABLE IF NOT EXISTS alembic_version (version_num VARCHAR(32) NOT NULL)"))
-                    connection.commit()
-            command.stamp(alembic_config(database_url), "head")
-            return
-        Base.metadata.create_all(bind)
-        try:
-            command.stamp(alembic_config(database_url), "head")
-        except Exception:
-            pass
+            command.stamp(alembic_config(url), BASELINE_REVISION)
+        apply_migrations(url)
+    finally:
+        if created:
+            bind.dispose()

@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine, inspect, text
 
-from forecastlab_api.migrate import apply_migrations
+from forecastlab_api.migrate import apply_migrations, apply_schema
 
 
 def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
@@ -8,6 +8,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     from forecastlab_api.config import settings
 
     monkeypatch.setattr(settings, "database_url", db_url)
+    monkeypatch.setattr(settings, "data_dir", tmp_path)
     apply_migrations(db_url)
     engine = create_engine(db_url)
     tables = inspect(engine).get_table_names()
@@ -16,3 +17,19 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "benchmark_experiments" in tables
     assert "benchmark_tasks" in tables
     assert "alembic_version" in tables
+    question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
+    assert "requested_mode" in question_cols
+    with engine.connect() as connection:
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260819_0002"
+
+
+def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
+    db_url = f"sqlite:///{tmp_path}/schema.db"
+    from forecastlab_api.config import settings
+
+    monkeypatch.setattr(settings, "database_url", db_url)
+    monkeypatch.setattr(settings, "data_dir", tmp_path)
+    apply_schema(db_url)
+    engine = create_engine(db_url)
+    with engine.connect() as connection:
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260819_0002"

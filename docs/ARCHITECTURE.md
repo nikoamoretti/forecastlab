@@ -30,7 +30,7 @@ Jobs are rows, not threads. Statuses: pending, running, completed, failed. A wor
 
 ## Storage
 
-SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup run Alembic (`20260818_0001` baseline including integrity and experiment tables). Isolated unit tests may still call `create_all`. Do not treat the local database as a production cluster. Existing pre-migration local files should be removed so the upgrade can create the new schema.
+SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup run Alembic under a file lock and fail closed if a revision errors. `20260818_0001` creates a complete empty schema. `20260819_0002` inspects an original MVP database and adds missing integrity columns, experiment tables, backfills, and uniqueness constraints. Isolated unit tests may still call `create_all`. Back up `data/forecastlab.db` before the first launch after an upgrade (`cp data/forecastlab.db data/forecastlab.db.bak`). Do not treat the local database as a production cluster.
 
 SQLite strips timezone info on read. Health checks, watch polling, and latency math always run datetimes through `as_utc`.
 

@@ -41,6 +41,6 @@ The settings page stores provider, base URL, model name, keys, timeout, and a co
 - Reliability diagrams appear only after 20 resolved predictions. Twenty rows are not a calibration claim.
 - Bundled benchmarks are **synthetic fixtures**.
 - The product does not claim calibration.
-- Existing local databases from the first MVP should be deleted (`rm data/forecastlab.db`) so Alembic can create the integrity schema.
+- Existing local MVP databases are upgraded in place. Back up first: `cp data/forecastlab.db data/forecastlab.db.bak`.
 
 See `docs/` for method, evaluation protocol, architecture, security, and limits.

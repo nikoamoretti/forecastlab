@@ -77,13 +77,14 @@ This pass does not claim calibration and does not claim that ForecastLab matches
 
 ### Database
 
-Startup applies Alembic rather than relying on `create_all` alone. Isolated unit tests may still call `create_all`. Existing pre-repair local files should be removed (`rm data/forecastlab.db`).
+Startup applies Alembic to head under a lock and fails closed. Isolated unit tests may still call `create_all`. Original MVP databases are upgraded in place by `20260819_0002`. Back up `data/forecastlab.db` before the first launch after an upgrade.
 
 ## Database migrations added
 
 | Revision | File | Role |
 |---|---|---|
-| `20260818_0001` | `alembic/versions/20260818_0001_integrity_schema.py` | Baseline schema including execution-context, experiment, uniqueness, and job-lease columns. Uses metadata `create_all` as the documented first revision. |
+| `20260818_0001` | `alembic/versions/20260818_0001_integrity_schema.py` | Baseline `create_all` for an empty database. Not rewritten. |
+| `20260819_0002` | `alembic/versions/20260819_0002_legacy_integrity_upgrade.py` | Inspect-and-alter upgrade from the original MVP schema, including backfills and uniqueness constraints. |
 
 A file lock (`data/migrate.lock`, gitignored) prevents API and worker from migrating the same SQLite file concurrently.
 
@@ -169,7 +170,7 @@ Compose was then torn down. The first one-click relaunch failed because Compose 
 - Reliability diagrams stay hidden below 20 rows; 20 rows are not a calibration claim.
 - Auto-rerun remains unimplemented by choice.
 - Next 15 still pulls transitive `postcss` / `sharp` advisories. `npm audit fix --force` would jump to Next 16 and was not applied.
-- Isolated unit tests may still use `create_all`. Wipe `data/forecastlab.db` if a pre-integrity file remains.
+- Isolated unit tests may still use `create_all`. An existing MVP database is upgraded in place; back it up first. Uniqueness is installed only after exact duplicate clones are collapsed. Distinct duplicate history stops the migration.
 
 ## Recommended next milestone
 

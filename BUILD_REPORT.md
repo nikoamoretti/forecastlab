@@ -34,7 +34,7 @@ Temporary product name: **ForecastLab**. Preseen branding was not used. No calib
 
 Double-click `Start ForecastLab.command`, or `./scripts/dev_up.sh`. Stop with `Stop ForecastLab.command` or `./scripts/dev_down.sh`.
 
-If a local database predates this pass: `rm data/forecastlab.db`.
+If a local database predates the integrity schema, back it up (`cp data/forecastlab.db data/forecastlab.db.bak`) and let Alembic upgrade it in place.
 
 ## Exact test results (this session)
 
