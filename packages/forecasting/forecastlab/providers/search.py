@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import httpx
-from tenacity import retry, stop_after_attempt, wait_exponential_jitter
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential_jitter
 
+from forecastlab.errors import ConfigurationError, PermanentProviderError, TransientProviderError, classify_http_status
+from forecastlab.execution import ExecutionContext
 from forecastlab.hashing import redact_secrets
 from forecastlab.providers.mock import MockSearchProvider
 from forecastlab.schemas import SearchHit
 from forecastlab.timeutil import parse_datetime
 
 
-class SearchProviderError(RuntimeError):
+class SearchProviderError(PermanentProviderError):
     pass
 
 
@@ -18,11 +20,16 @@ class TavilySearchProvider:
 
     def __init__(self, api_key: str, timeout: float = 30.0) -> None:
         if not api_key:
-            raise SearchProviderError("Search API key is not configured")
+            raise ConfigurationError(["search_api_key_missing"])
         self.api_key = api_key
         self.timeout = timeout
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential_jitter(initial=1, max=8), reraise=True)
+    @retry(
+        retry=retry_if_exception_type(TransientProviderError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential_jitter(initial=1, max=8),
+        reraise=True,
+    )
     def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]:
         payload = {
             "api_key": self.api_key,
@@ -34,10 +41,13 @@ class TavilySearchProvider:
         try:
             with httpx.Client(timeout=self.timeout) as client:
                 response = client.post("https://api.tavily.com/search", json=payload)
+        except httpx.TimeoutException as exc:
+            raise TransientProviderError(redact_secrets(str(exc))) from exc
         except httpx.HTTPError as exc:
-            raise SearchProviderError(redact_secrets(str(exc))) from exc
+            raise TransientProviderError(redact_secrets(str(exc))) from exc
         if response.status_code >= 400:
-            raise SearchProviderError(f"Tavily HTTP {response.status_code}: {redact_secrets(response.text[:300])}")
+            error_cls = classify_http_status(response.status_code)
+            raise error_cls(f"Tavily HTTP {response.status_code}: {redact_secrets(response.text[:300])}")
         data = response.json()
         hits: list[SearchHit] = []
         for item in data.get("results") or []:
@@ -53,9 +63,24 @@ class TavilySearchProvider:
         return hits
 
 
-def build_search_provider(name: str, api_key: str | None) -> MockSearchProvider | TavilySearchProvider:
+def build_search_provider(
+    name: str,
+    api_key: str | None,
+    *,
+    execution: ExecutionContext | None = None,
+) -> MockSearchProvider | TavilySearchProvider:
+    if execution is not None:
+        if execution.search_is_mock:
+            return MockSearchProvider()
+        if execution.search_provider == "tavily":
+            if not api_key:
+                raise ConfigurationError(["search_api_key_missing"])
+            return TavilySearchProvider(api_key)
+        raise ConfigurationError(["unknown_search_provider"])
+    if name in {"mock", "demo"}:
+        return MockSearchProvider()
     if name == "tavily":
         if not api_key:
-            return MockSearchProvider()
+            raise ConfigurationError(["search_api_key_missing"])
         return TavilySearchProvider(api_key)
-    return MockSearchProvider()
+    raise ConfigurationError(["unknown_search_provider"])

@@ -102,6 +102,7 @@ class FetchedDocument(BaseModel):
     rejected: bool = False
     rejection_reason: str | None = None
     as_of_eligible: bool = True
+    published_at_unknown: bool = False
 
 
 class ForecastProfile(BaseModel):

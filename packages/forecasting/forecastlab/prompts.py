@@ -2,7 +2,17 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from forecastlab.hashing import sha256_text
+
 PROMPTS_DIR = Path(__file__).resolve().parents[3] / "prompts"
+
+
+def prompt_hashes(*, prompts_dir: Path | None = None) -> dict[str, str]:
+    directory = prompts_dir or PROMPTS_DIR
+    hashes: dict[str, str] = {}
+    for path in sorted(directory.glob("*.txt")):
+        hashes[path.stem] = sha256_text(path.read_text(encoding="utf-8"))
+    return hashes
 
 
 def load_prompt(name: str, *, prompts_dir: Path | None = None) -> tuple[str, str]:

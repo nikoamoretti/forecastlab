@@ -4,9 +4,20 @@ from pathlib import Path
 
 import yaml
 
+from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.schemas import ForecastProfile
 
 PROFILES_DIR = Path(__file__).resolve().parents[3] / "configs" / "forecast_profiles"
+
+
+def profile_hash(profile: ForecastProfile) -> str:
+    return sha256_text(canonical_json(profile.model_dump(mode="json")))
+
+
+def effective_profile(profile: ForecastProfile, *, user_max_cost_usd: float) -> ForecastProfile:
+    return profile.model_copy(
+        update={"max_estimated_cost_usd": min(profile.max_estimated_cost_usd, float(user_max_cost_usd))}
+    )
 
 
 def load_profile(profile_id: str, *, profiles_dir: Path | None = None) -> ForecastProfile:

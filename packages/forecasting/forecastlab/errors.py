@@ -1,0 +1,36 @@
+from __future__ import annotations
+
+
+class ConfigurationError(ValueError):
+    def __init__(self, reasons: list[str], message: str | None = None) -> None:
+        self.reasons = reasons
+        super().__init__(message or "; ".join(reasons))
+
+
+class PermanentProviderError(RuntimeError):
+    pass
+
+
+class TransientProviderError(RuntimeError):
+    pass
+
+
+class EvidenceIntegrityError(RuntimeError):
+    pass
+
+
+class StructuredOutputError(ValueError):
+    pass
+
+
+class BudgetExceeded(RuntimeError):
+    def __init__(self, stage: str, reason: str) -> None:
+        self.stage = stage
+        self.reason = reason
+        super().__init__(f"Budget exceeded at {stage}: {reason}")
+
+
+def classify_http_status(status_code: int) -> type[Exception]:
+    if status_code in {408, 429} or status_code >= 500:
+        return TransientProviderError
+    return PermanentProviderError

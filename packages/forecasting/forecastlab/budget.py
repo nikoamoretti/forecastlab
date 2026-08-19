@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import time
 
-from forecastlab.providers.base import BudgetExceeded
+from forecastlab.errors import BudgetExceeded
 from forecastlab.schemas import BudgetState, ForecastProfile
 from forecastlab.timeutil import utcnow
 
@@ -47,27 +47,27 @@ class Budget:
 
     def add_model_call(self, stage: str, tokens: int, cost_usd: float) -> None:
         self.check(stage)
+        if self.state.model_calls + 1 > self.profile.max_model_calls:
+            self._stop(stage, "max_model_calls")
+        if self.state.tokens + tokens > self.profile.max_tokens:
+            self._stop(stage, "max_tokens")
+        if self.state.cost_usd + cost_usd > self.profile.max_estimated_cost_usd:
+            self._stop(stage, "max_estimated_cost_usd")
         self.state.model_calls += 1
         self.state.tokens += tokens
         self.state.cost_usd += cost_usd
-        if self.state.model_calls > self.profile.max_model_calls:
-            self._stop(stage, "max_model_calls")
-        if self.state.tokens > self.profile.max_tokens:
-            self._stop(stage, "max_tokens")
-        if self.state.cost_usd > self.profile.max_estimated_cost_usd:
-            self._stop(stage, "max_estimated_cost_usd")
 
     def add_search(self, stage: str = "search") -> None:
         self.check(stage)
-        self.state.search_calls += 1
-        if self.state.search_calls > self.profile.max_search_calls:
+        if self.state.search_calls + 1 > self.profile.max_search_calls:
             self._stop(stage, "max_search_calls")
+        self.state.search_calls += 1
 
     def add_fetch(self, stage: str = "fetch") -> None:
         self.check(stage)
-        self.state.fetches += 1
-        if self.state.fetches > self.profile.max_fetched_documents:
+        if self.state.fetches + 1 > self.profile.max_fetched_documents:
             self._stop(stage, "max_fetched_documents")
+        self.state.fetches += 1
 
     def snapshot(self) -> dict[str, object]:
         return {

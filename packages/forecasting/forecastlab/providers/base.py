@@ -3,14 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Protocol
 
+from forecastlab.errors import BudgetExceeded
 from forecastlab.schemas import ModelUsage, SearchHit
 
-
-class BudgetExceeded(RuntimeError):
-    def __init__(self, stage: str, reason: str) -> None:
-        self.stage = stage
-        self.reason = reason
-        super().__init__(f"Budget exceeded at {stage}: {reason}")
+__all__ = ["BudgetExceeded", "ChatResult", "ModelProvider", "SearchProvider", "NullUsage"]
 
 
 @dataclass

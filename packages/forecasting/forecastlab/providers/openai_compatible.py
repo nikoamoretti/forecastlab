@@ -4,9 +4,11 @@ import json
 from typing import Any
 
 import httpx
-from tenacity import retry, stop_after_attempt, wait_exponential_jitter
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential_jitter
 
+from forecastlab.errors import PermanentProviderError, TransientProviderError, classify_http_status
 from forecastlab.hashing import redact_secrets
+from forecastlab.pricing import lookup_rate
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import ModelUsage
 
@@ -14,7 +16,7 @@ DEFAULT_XAI_BASE = "https://api.x.ai/v1"
 DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
 
 
-class ProviderError(RuntimeError):
+class ProviderError(PermanentProviderError):
     pass
 
 
@@ -22,8 +24,13 @@ def _usage_from_response(data: dict[str, Any], *, model: str, provider: str, lat
     usage = data.get("usage") or {}
     prompt = int(usage.get("prompt_tokens") or 0)
     completion = int(usage.get("completion_tokens") or 0)
-    # Conservative placeholder if the vendor omits cost.
-    cost = (prompt * 0.000002) + (completion * 0.000008)
+    rate = lookup_rate(provider, model)
+    if rate:
+        cost = (prompt / 1_000_000) * float(rate.get("input_per_million") or 0) + (
+            completion / 1_000_000
+        ) * float(rate.get("output_per_million") or 0)
+    else:
+        cost = 0.0
     return ModelUsage(
         prompt_tokens=prompt,
         completion_tokens=completion,
@@ -52,7 +59,12 @@ class OpenAICompatibleProvider:
         self.model = model
         self.timeout = timeout
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential_jitter(initial=1, max=8), reraise=True)
+    @retry(
+        retry=retry_if_exception_type(TransientProviderError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential_jitter(initial=1, max=8),
+        reraise=True,
+    )
     def complete_json(
         self,
         *,
@@ -79,10 +91,13 @@ class OpenAICompatibleProvider:
         try:
             with httpx.Client(timeout=timeout or self.timeout) as client:
                 response = client.post(url, headers=headers, json=body)
+        except httpx.TimeoutException as exc:
+            raise TransientProviderError(redact_secrets(str(exc))) from exc
         except httpx.HTTPError as exc:
-            raise ProviderError(redact_secrets(str(exc))) from exc
+            raise TransientProviderError(redact_secrets(str(exc))) from exc
         if response.status_code >= 400:
-            raise ProviderError(f"Model provider HTTP {response.status_code}: {redact_secrets(response.text[:400])}")
+            error_cls = classify_http_status(response.status_code)
+            raise error_cls(f"Model provider HTTP {response.status_code}: {redact_secrets(response.text[:400])}")
         data = response.json()
         content = data["choices"][0]["message"]["content"]
         try:
