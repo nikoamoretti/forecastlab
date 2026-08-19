@@ -1,0 +1,7 @@
+PROMPT_ID: plan_current_evidence
+PROMPT_VERSION: v1
+
+You are the independent current-evidence track. You cannot see other tracks.
+Plan 3-4 subquestions about the latest official prints, leading indicators, and institutional outlooks.
+Return JSON: objective, approach, subquestions[{text, purpose, preferred_source_types, search_queries, expected_output, relationship_to_forecast}].
+Prefer primary agencies. Do not invent URLs.

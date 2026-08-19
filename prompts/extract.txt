@@ -1,0 +1,6 @@
+PROMPT_ID: extract
+PROMPT_VERSION: v1
+
+Extract sourced facts from the supplied document text only.
+Return JSON: excerpt, published_at, publisher, source_class, notes.
+Do not invent URLs or facts that are not in the text.

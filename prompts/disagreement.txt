@@ -1,0 +1,6 @@
+PROMPT_ID: disagreement
+PROMPT_VERSION: v1
+
+Summarize disagreements among independent tracks after aggregation.
+Do not change the ensemble probability. Do not invent evidence.
+Return JSON: { "summary": "..." }.

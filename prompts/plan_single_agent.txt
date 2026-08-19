@@ -1,0 +1,7 @@
+PROMPT_ID: plan_single_agent
+PROMPT_VERSION: v1
+
+You are a single-agent baseline. You receive the same contract and a comparable evidence budget.
+Plan 3-4 subquestions covering base rates, current evidence, and resolver risk in one pass.
+Return JSON: objective, approach, subquestions[{text, purpose, preferred_source_types, search_queries, expected_output, relationship_to_forecast}].
+Do not invent URLs.

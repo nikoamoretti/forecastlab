@@ -1,0 +1,61 @@
+[project]
+name = "forecastlab"
+version = "0.1.0"
+description = "Local-first probabilistic forecasting laboratory for binary questions."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.32.0",
+  "sqlalchemy>=2.0.36",
+  "alembic>=1.14.0",
+  "pydantic>=2.10.0",
+  "pydantic-settings>=2.6.0",
+  "httpx>=0.28.0",
+  "trafilatura>=2.0.0",
+  "tenacity>=9.0.0",
+  "pypdf>=5.1.0",
+  "python-multipart>=0.0.17",
+  "pyyaml>=6.0.2",
+  "structlog>=24.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.8.0",
+  "mypy>=1.13.0",
+  "types-pyyaml>=6.0.12",
+]
+
+[build-system]
+requires = ["setuptools>=75.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["packages/forecasting", "apps/api"]
+include = ["forecastlab*", "forecastlab_api*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["packages/forecasting", "apps/api"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["packages/forecasting", "apps/api", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+packages = ["forecastlab", "forecastlab_api"]
+mypy_path = "packages/forecasting:apps/api"
+warn_unused_ignores = false
+disable_error_code = ["type-arg", "no-any-return", "attr-defined", "arg-type", "no-untyped-def", "assignment", "misc"]
