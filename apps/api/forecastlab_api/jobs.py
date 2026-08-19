@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import uuid
 from datetime import timedelta
+from typing import Literal
 
 from sqlalchemy import select, update
 from sqlalchemy.orm import Session
@@ -10,6 +11,8 @@ from sqlalchemy.orm import Session
 from forecastlab.errors import PermanentProviderError, TransientProviderError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.models import Job, JobEvent, WorkerHeartbeat
+
+RetryOutcome = Literal["rescheduled", "exhausted"]
 
 STALE_AFTER = timedelta(seconds=180)
 LEASE_SECONDS = 180
@@ -59,13 +62,18 @@ def recover_stale_jobs(session: Session) -> int:
         if job.attempts >= job.max_attempts:
             job.status = "failed"
             job.error = "stale_worker_max_attempts"
+            job.error_category = "stale_worker_max_attempts"
             job.finished_at = now
+            from forecastlab_api.experiments import fail_job_relatives
+
+            fail_job_relatives(session, job, error="stale_worker_max_attempts", category="stale_worker_max_attempts")
         else:
             job.status = "pending"
             job.error = "recovered_after_stale_heartbeat"
             job.available_at = now
             job.lease_owner = None
             job.lease_expires_at = None
+            _reset_task_for_retry(session, job)
         recovered += 1
     return recovered
 
@@ -158,7 +166,7 @@ def finish_job(session: Session, job: Job, *, ok: bool, error: str | None = None
     )
 
 
-def retry_job(session: Session, job: Job, *, error: str, category: str) -> None:
+def retry_job(session: Session, job: Job, *, error: str, category: str) -> RetryOutcome:
     history = []
     try:
         history = json.loads(job.error_history_json or "[]")
@@ -170,11 +178,28 @@ def retry_job(session: Session, job: Job, *, error: str, category: str) -> None:
     job.error_category = category
     if job.attempts >= job.max_attempts:
         finish_job(session, job, ok=False, error=error, category=category)
-        return
+        return "exhausted"
     job.status = "pending"
     job.available_at = utcnow() + TRANSIENT_BACKOFF
     job.lease_owner = None
     job.lease_expires_at = None
+    _reset_task_for_retry(session, job)
+    return "rescheduled"
+
+
+def _reset_task_for_retry(session: Session, job: Job) -> None:
+    try:
+        payload = json.loads(job.payload_json or "{}")
+    except json.JSONDecodeError:
+        return
+    task_id = payload.get("task_id")
+    if not task_id:
+        return
+    from forecastlab_api.models import BenchmarkTask
+
+    task = session.get(BenchmarkTask, task_id)
+    if task is not None and task.status == "running":
+        task.status = "pending"
 
 
 def error_category(exc: Exception) -> str:
@@ -205,3 +230,11 @@ def touch_worker(session: Session, status: str = "idle") -> None:
     else:
         row.last_seen_at = utcnow()
         row.status = status
+
+
+def touch_worker_standalone(status: str = "running") -> None:
+    from forecastlab_api.db import SessionLocal
+
+    with SessionLocal() as session:
+        touch_worker(session, status)
+        session.commit()

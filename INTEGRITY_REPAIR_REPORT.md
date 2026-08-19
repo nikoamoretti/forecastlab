@@ -65,6 +65,7 @@ This pass does not claim calibration and does not claim that ForecastLab matches
 - Reliability is per profile. Paired comparisons and a deterministic bootstrap (seed `20260818`, 2000 samples, 95% percentile) are returned.
 - Equal-budget profiles `single_agent_equal_budget_v1` and `three_track_equal_budget_v1` share configured ceilings and are the default scientific comparison.
 - `20260819_0003` adds `BenchmarkProfileSnapshot`, per-dataset import uniqueness, and stored resolution-contract fields. Benchmark tasks use those snapshots and the dataset contract; they do not reload prompts, profiles, or Settings.
+- `20260819_0004` binds one `ForecastRun` to each `BenchmarkTask`. Retries reuse that run. Transient errors reschedule or exhaust; exhaustion fails the job, run, task, and experiment. Mixed task outcomes set `completed_with_failures`.
 
 ### Jobs and retrieval
 
@@ -87,6 +88,7 @@ Startup applies Alembic to head under a lock and fails closed. Isolated unit tes
 | `20260818_0001` | `alembic/versions/20260818_0001_integrity_schema.py` | Baseline `create_all` for an empty database. Not rewritten. |
 | `20260819_0002` | `alembic/versions/20260819_0002_legacy_integrity_upgrade.py` | Inspect-and-alter upgrade from the original MVP schema, including backfills and uniqueness constraints. |
 | `20260819_0003` | `alembic/versions/20260819_0003_experiment_snapshots.py` | Profile/prompt snapshots, frozen provider fields, stored resolution-contract columns, and `UNIQUE(dataset_id, import_hash)`. |
+| `20260819_0004` | `alembic/versions/20260819_0004_benchmark_task_run_identity.py` | One `ForecastRun` per `BenchmarkTask`, task question identity, result `partial`, and terminal experiment states. |
 
 A file lock (`data/migrate.lock`, gitignored) prevents API and worker from migrating the same SQLite file concurrently.
 

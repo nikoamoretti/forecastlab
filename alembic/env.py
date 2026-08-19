@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import sys
 from logging.config import fileConfig
 from pathlib import Path
@@ -15,7 +16,7 @@ from forecastlab_api.config import settings
 from forecastlab_api.models import Base
 
 config = context.config
-if config.config_file_name is not None:
+if config.config_file_name is not None and not logging.getLogger().handlers:
     fileConfig(config.config_file_name)
 url = config.attributes.get("forecastlab_database_url") or settings.database_url
 config.set_main_option("sqlalchemy.url", url)

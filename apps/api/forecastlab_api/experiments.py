@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 import uuid
+from collections.abc import Callable
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
 from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from forecastlab.evaluation import (
@@ -32,8 +34,11 @@ from forecastlab_api.models import (
     BenchmarkQuestion,
     BenchmarkResult,
     BenchmarkTask,
+    ForecastRun,
     ForecastVersion,
+    Job,
     Question,
+    ResearchTrack,
 )
 from forecastlab_api.persist import save_contract
 from forecastlab_api.pipeline import (
@@ -46,6 +51,21 @@ from forecastlab_api.secrets import load_secrets
 
 SYNTHETIC_DATASET_NAME = "synthetic_fixtures_v1"
 DEFAULT_EXPERIMENT_PROFILES = ("single_agent_equal_budget_v1", "three_track_equal_budget_v1")
+TERMINAL_TASK_STATUSES = frozenset({"completed", "failed"})
+TERMINAL_EXPERIMENT_STATUSES = frozenset({"completed", "completed_with_failures", "failed"})
+CRASH_HOOKS: dict[str, Callable[[str], None]] = {}
+
+
+class InjectedCrash(RuntimeError):
+    def __init__(self, phase: str) -> None:
+        self.phase = phase
+        super().__init__(f"injected_crash:{phase}")
+
+
+def maybe_crash(phase: str) -> None:
+    hook = CRASH_HOOKS.get(phase)
+    if hook is not None:
+        hook(phase)
 
 
 def _truthy(value: Any, default: bool = False) -> bool:
@@ -466,8 +486,23 @@ def _load_snapshot(session: Session, experiment_id: str, profile_id: str) -> Ben
     return snapshot
 
 
-def _shared_benchmark_question(session: Session, experiment: BenchmarkExperiment, item: BenchmarkQuestion) -> Question:
-    notes = f"benchmark:{item.id}:{experiment.id}"
+def _task_question_notes(task_id: str) -> str:
+    return f"benchmark-task:{task_id}"
+
+
+def ensure_task_question(
+    session: Session,
+    task: BenchmarkTask,
+    item: BenchmarkQuestion,
+) -> Question:
+    if task.question_id:
+        question = session.get(Question, task.question_id)
+        if question is not None:
+            if question.contract is None:
+                save_contract(session, question, contract_from_benchmark(item))
+                session.flush()
+            return question
+    notes = _task_question_notes(task.id)
     question = session.scalar(select(Question).where(Question.notes == notes))
     if question is None:
         question = Question(
@@ -476,7 +511,7 @@ def _shared_benchmark_question(session: Session, experiment: BenchmarkExperiment
             notes=notes,
             status="draft",
             requested_mode="backtest",
-            requested_profile_id="three_track_ensemble",
+            requested_profile_id=task.profile_id,
             requested_as_of=as_utc(item.forecast_date),
             is_benchmark=True,
         )
@@ -485,23 +520,182 @@ def _shared_benchmark_question(session: Session, experiment: BenchmarkExperiment
     if question.contract is None:
         save_contract(session, question, contract_from_benchmark(item))
         session.flush()
+    task.question_id = question.id
     return question
 
 
-def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> None:
+def ensure_task_run(
+    session: Session,
+    *,
+    task: BenchmarkTask,
+    question: Question,
+    context: ExecutionContext,
+    as_of: datetime | None,
+) -> ForecastRun:
+    if task.run_id:
+        run = session.get(ForecastRun, task.run_id)
+        if run is not None:
+            if run.benchmark_task_id is None:
+                run.benchmark_task_id = task.id
+            return run
+    existing = session.scalar(select(ForecastRun).where(ForecastRun.benchmark_task_id == task.id))
+    if existing is not None:
+        task.run_id = existing.id
+        return existing
+    run = create_run_record(
+        session,
+        question=question,
+        context=context,
+        as_of=as_of,
+        enqueue=False,
+        benchmark_task_id=task.id,
+    )
+    task.run_id = run.id
+    return run
+
+
+def _result_is_partial(session: Session, run: ForecastRun, *, failed: bool) -> bool:
+    if failed:
+        return False
+    tracks = session.scalars(select(ResearchTrack).where(ResearchTrack.run_id == run.id)).all()
+    return any(track.status == "failed" or track.error_message for track in tracks)
+
+
+def finalize_benchmark_task(
+    session: Session,
+    task: BenchmarkTask,
+    *,
+    status: Literal["completed", "failed"],
+    experiment: BenchmarkExperiment,
+    item: BenchmarkQuestion,
+    run: ForecastRun | None,
+    probability: float | None = None,
+    error: str | None = None,
+    error_category: str | None = None,
+    partial: bool = False,
+) -> BenchmarkResult:
     existing = session.scalar(select(BenchmarkResult).where(BenchmarkResult.benchmark_task_id == task.id))
-    if existing is not None and task.status == "completed":
+    if existing is None:
+        failed = status == "failed"
+        existing = BenchmarkResult(
+            id=str(uuid.uuid4()),
+            experiment_id=experiment.id,
+            benchmark_task_id=task.id,
+            benchmark_question_id=item.id,
+            run_id=run.id if run is not None else task.run_id,
+            profile_id=task.profile_id,
+            probability=probability,
+            brier=None if failed or probability is None else brier_score(probability, item.outcome),
+            log_loss_value=None if failed or probability is None else log_loss(probability, item.outcome),
+            cost_usd=run.cost_usd if run is not None else 0.0,
+            latency_ms=run.latency_ms if run is not None else 0,
+            failed=failed,
+            partial=partial,
+        )
+        session.add(existing)
+        try:
+            with session.begin_nested():
+                session.flush()
+        except IntegrityError:
+            recovered = session.scalar(select(BenchmarkResult).where(BenchmarkResult.benchmark_task_id == task.id))
+            if recovered is None:
+                raise
+            existing = recovered
+        session.commit()
+    maybe_crash("after_benchmark_result")
+    task.status = status
+    task.completed_at = utcnow()
+    task.error = error
+    task.error_category = error_category
+    session.commit()
+    maybe_crash("after_task_completion_before_counts")
+    _refresh_experiment_counts(session, experiment)
+    return existing
+
+
+def finalize_from_run(
+    session: Session,
+    *,
+    task: BenchmarkTask,
+    experiment: BenchmarkExperiment,
+    item: BenchmarkQuestion,
+    run: ForecastRun,
+    error: str | None = None,
+    error_category: str | None = None,
+) -> BenchmarkResult:
+    version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+    probability = version.ensemble_probability if version is not None else None
+    failed = probability is None
+    return finalize_benchmark_task(
+        session,
+        task,
+        status="failed" if failed else "completed",
+        experiment=experiment,
+        item=item,
+        run=run,
+        probability=probability,
+        error=error or (run.error_message if failed else None),
+        error_category=error_category,
+        partial=_result_is_partial(session, run, failed=failed),
+    )
+
+
+def fail_job_relatives(session: Session, job: Job, *, error: str, category: str) -> None:
+    try:
+        payload = json.loads(job.payload_json or "{}")
+    except json.JSONDecodeError:
+        payload = {}
+    task = session.get(BenchmarkTask, payload["task_id"]) if payload.get("task_id") else None
+    run = None
+    if task and task.run_id:
+        run = session.get(ForecastRun, task.run_id)
+    elif payload.get("run_id"):
+        run = session.get(ForecastRun, payload["run_id"])
+    if run is not None and run.status not in TERMINAL_TASK_STATUSES:
+        run.status = "failed"
+        run.error_message = error
+        run.error_stage = category
+        run.finished_at = utcnow()
+        run.progress_stage = "failed"
+        run.progress_message = error
+    if task is None:
         return
     experiment = session.get(BenchmarkExperiment, task.experiment_id)
     item = session.get(BenchmarkQuestion, task.benchmark_question_id)
     if experiment is None or item is None:
+        task.status = "failed"
+        task.error = error
+        task.error_category = category
+        task.completed_at = utcnow()
+        return
+    finalize_benchmark_task(
+        session,
+        task,
+        status="failed",
+        experiment=experiment,
+        item=item,
+        run=run,
+        error=error,
+        error_category=category,
+    )
+
+
+def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> None:
+    existing = session.scalar(select(BenchmarkResult).where(BenchmarkResult.benchmark_task_id == task.id))
+    experiment = session.get(BenchmarkExperiment, task.experiment_id)
+    item = session.get(BenchmarkQuestion, task.benchmark_question_id)
+    if experiment is None or item is None:
         raise RuntimeError("benchmark_task_missing_parent")
+    if existing is not None and task.status in TERMINAL_TASK_STATUSES:
+        _refresh_experiment_counts(session, experiment)
+        return
     snapshot = _load_snapshot(session, experiment.id, task.profile_id)
     if experiment.status == "pending":
         experiment.status = "running"
         experiment.started_at = experiment.started_at or utcnow()
-    task.status = "running"
-    task.started_at = utcnow()
+    if task.status not in TERMINAL_TASK_STATUSES:
+        task.status = "running"
+        task.started_at = task.started_at or utcnow()
     task.attempts += 1
     profile = ForecastProfile.model_validate(json.loads(snapshot.effective_profile_json))
     bundle = PromptBundle.model_validate(json.loads(snapshot.prompt_bundle_json))
@@ -517,17 +711,24 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
             "evidence_policy": snapshot.evidence_policy,
         }
     )
-    question = _shared_benchmark_question(session, experiment, item)
+    question = ensure_task_question(session, task, item)
     question.requested_profile_id = task.profile_id
-    run = create_run_record(
+    session.commit()
+    maybe_crash("after_task_question_identity")
+    run = ensure_task_run(
         session,
+        task=task,
         question=question,
         context=context,
         as_of=as_utc(item.forecast_date),
-        enqueue=False,
     )
-    task.run_id = run.id
     session.commit()
+    maybe_crash("after_run_creation")
+    version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+    if version is not None or existing is not None:
+        finalize_from_run(session, task=task, experiment=experiment, item=item, run=run)
+        session.commit()
+        return
     execute_run(
         session,
         run,
@@ -537,41 +738,26 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
         model_timeout=snapshot.model_timeout_seconds,
     )
     session.refresh(run)
-    latest = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
-    prob = latest.ensemble_probability if latest else None
-    failed = prob is None
-    if existing is None:
-        session.add(
-            BenchmarkResult(
-                id=str(uuid.uuid4()),
-                experiment_id=experiment.id,
-                benchmark_task_id=task.id,
-                benchmark_question_id=item.id,
-                run_id=run.id,
-                profile_id=task.profile_id,
-                probability=prob,
-                brier=None if failed else brier_score(prob or 0, item.outcome),
-                log_loss_value=None if failed else log_loss(prob or 0, item.outcome),
-                cost_usd=run.cost_usd,
-                latency_ms=run.latency_ms,
-                failed=failed,
-            )
-        )
-    task.status = "failed" if failed else "completed"
-    task.completed_at = utcnow()
-    task.error = run.error_message if failed else None
-    _refresh_experiment_counts(session, experiment)
+    maybe_crash("after_forecast_version")
+    finalize_from_run(session, task=task, experiment=experiment, item=item, run=run)
+    session.commit()
 
 
 def _refresh_experiment_counts(session: Session, experiment: BenchmarkExperiment) -> None:
     tasks = session.scalars(select(BenchmarkTask).where(BenchmarkTask.experiment_id == experiment.id)).all()
     experiment.completed_tasks = sum(1 for item in tasks if item.status == "completed")
     experiment.failed_tasks = sum(1 for item in tasks if item.status == "failed")
-    if all(item.status in {"completed", "failed"} for item in tasks):
-        experiment.status = "completed"
-        experiment.completed_at = utcnow()
-    else:
+    unfinished = [item for item in tasks if item.status not in TERMINAL_TASK_STATUSES]
+    if unfinished:
         experiment.status = "running"
+        return
+    if experiment.failed_tasks == 0:
+        experiment.status = "completed"
+    elif experiment.completed_tasks == 0:
+        experiment.status = "failed"
+    else:
+        experiment.status = "completed_with_failures"
+    experiment.completed_at = utcnow()
 
 
 def experiment_progress(session: Session, experiment: BenchmarkExperiment) -> dict:
@@ -684,6 +870,7 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
                 "cost_usd": item.cost_usd,
                 "latency_ms": item.latency_ms,
                 "failed": item.failed,
+                "partial": item.partial,
                 "question": question.question if question else None,
                 "category": question.category if question else None,
                 "outcome": question.outcome if question else None,

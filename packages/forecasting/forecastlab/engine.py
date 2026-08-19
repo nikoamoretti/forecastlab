@@ -11,7 +11,13 @@ from pydantic import ValidationError
 
 from forecastlab.aggregation import AggregationBreakdown, aggregate_track_probabilities
 from forecastlab.budget import Budget
-from forecastlab.errors import BudgetExceeded, EvidenceIntegrityError
+from forecastlab.errors import (
+    BudgetExceeded,
+    ConfigurationError,
+    EvidenceIntegrityError,
+    StructuredOutputError,
+    TransientProviderError,
+)
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.fetch import fetch_document
 from forecastlab.profiles import load_profile
@@ -57,6 +63,7 @@ class EngineResult:
     stop_reason: str | None
     stop_stage: str | None
     fixture_evidence_used: bool = False
+    partial: bool = False
 
 
 def _emit(
@@ -114,7 +121,10 @@ def _ask_model(
     except ValidationError:
         repair = user + "\n\nPrevious JSON failed validation. Return corrected JSON only.\n" + json.dumps(parsed)[:4000]
         parsed = _ask_json(model, budget, stage, prompt_name, repair, schema_name, prompt_versions, prompt_bundle)
-        return model_cls.model_validate(parsed)
+        try:
+            return model_cls.model_validate(parsed)
+        except ValidationError as exc:
+            raise StructuredOutputError(f"invalid_structured_output:{schema_name}") from exc
 
 
 def _cached_search(search: SearchProvider, query: str, max_results: int) -> list[SearchHit]:
@@ -303,6 +313,8 @@ def _run_track(
         return TrackResult(track_type=track, plan=plan, forecast=forecast, evidence=evidence, rejected=rejected)
     except BudgetExceeded:
         raise
+    except (TransientProviderError, ConfigurationError, EvidenceIntegrityError, StructuredOutputError):
+        raise
     except Exception as exc:
         return TrackResult(
             track_type=track,
@@ -420,6 +432,8 @@ def run_forecast_engine(
                 prompt_bundle,
             )
             summary = str(parsed.get("summary") or "")
+        except (TransientProviderError, ConfigurationError, EvidenceIntegrityError, StructuredOutputError):
+            raise
         except (BudgetExceeded, ValueError, ValidationError, json.JSONDecodeError):
             summary = None
 
@@ -441,6 +455,7 @@ def run_forecast_engine(
         stop_reason=budget.state.stop_reason,
         stop_stage=budget.state.stop_stage,
         fixture_evidence_used=fixture_used,
+        partial=bool(failed) and breakdown.ensemble_probability is not None,
     )
 
 

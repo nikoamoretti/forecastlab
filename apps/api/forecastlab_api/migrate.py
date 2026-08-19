@@ -6,9 +6,9 @@ from pathlib import Path
 from alembic import command
 from alembic.config import Config
 from sqlalchemy import create_engine, inspect
+from sqlalchemy.pool import NullPool
 
 from forecastlab_api.config import ROOT, settings
-from forecastlab_api.db import engine
 
 ALEMBIC_INI = ROOT / "alembic.ini"
 BASELINE_REVISION = "20260818_0001"
@@ -24,7 +24,24 @@ def alembic_config(database_url: str | None = None) -> Config:
 
 
 def apply_migrations(database_url: str | None = None) -> None:
-    command.upgrade(alembic_config(database_url), "head")
+    url = database_url or settings.database_url
+    if _already_at_head(url):
+        return
+    command.upgrade(alembic_config(url), "head")
+
+
+def _already_at_head(url: str) -> bool:
+    from alembic.runtime.migration import MigrationContext
+    from alembic.script import ScriptDirectory
+
+    bind = create_engine(url, poolclass=NullPool)
+    try:
+        with bind.connect() as connection:
+            current = MigrationContext.configure(connection).get_current_revision()
+    finally:
+        bind.dispose()
+    head = ScriptDirectory.from_config(alembic_config(url)).get_current_head()
+    return bool(current) and current == head
 
 
 def apply_schema(database_url: str | None = None) -> None:
@@ -47,13 +64,12 @@ def _exclusive_lock(handle) -> None:
 
 def _apply_schema_unlocked(database_url: str | None = None) -> None:
     url = database_url or settings.database_url
-    bind = engine if database_url is None else create_engine(url)
-    created = database_url is not None
+    bind = create_engine(url, poolclass=NullPool)
     try:
         inspector = inspect(bind)
-        if inspector.has_table("questions") and not inspector.has_table("alembic_version"):
-            command.stamp(alembic_config(url), BASELINE_REVISION)
-        apply_migrations(url)
+        needs_stamp = inspector.has_table("questions") and not inspector.has_table("alembic_version")
     finally:
-        if created:
-            bind.dispose()
+        bind.dispose()
+    if needs_stamp:
+        command.stamp(alembic_config(url), BASELINE_REVISION)
+    apply_migrations(url)

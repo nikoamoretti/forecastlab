@@ -8,7 +8,7 @@ from sqlalchemy import select
 
 from forecastlab.logging import setup_logging
 from forecastlab.timeutil import as_utc, utcnow
-from forecastlab_api.experiments import execute_benchmark_task
+from forecastlab_api.experiments import execute_benchmark_task, fail_job_relatives
 from forecastlab_api.jobs import (
     claim_next_job,
     error_category,
@@ -75,22 +75,14 @@ def process_once() -> bool:
                 failed = retry_session.get(Job, job.id)
                 if failed:
                     category = error_category(exc)
+                    message = str(exc)[:500]
                     if is_transient(exc):
-                        retry_job(retry_session, failed, error=str(exc)[:500], category=category)
+                        outcome = retry_job(retry_session, failed, error=message, category=category)
+                        if outcome == "exhausted":
+                            fail_job_relatives(retry_session, failed, error=message, category=category)
                     else:
-                        finish_job(retry_session, failed, ok=False, error=str(exc)[:500], category=category)
-                    payload = json.loads(failed.payload_json)
-                    if payload.get("run_id"):
-                        run = retry_session.get(ForecastRun, payload["run_id"])
-                        if run and not is_transient(exc):
-                            run.status = "failed"
-                            run.error_message = str(exc)[:500]
-                    if payload.get("task_id") and not is_transient(exc):
-                        task = retry_session.get(BenchmarkTask, payload["task_id"])
-                        if task:
-                            task.status = "failed"
-                            task.error = str(exc)[:500]
-                            task.completed_at = utcnow()
+                        finish_job(retry_session, failed, ok=False, error=message, category=category)
+                        fail_job_relatives(retry_session, failed, error=message, category=category)
                     retry_session.commit()
             return True
 

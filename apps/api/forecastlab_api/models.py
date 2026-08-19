@@ -59,6 +59,7 @@ class ResolutionContractRow(Base):
 
 class ForecastRun(Base):
     __tablename__ = "forecast_runs"
+    __table_args__ = (UniqueConstraint("benchmark_task_id", name="uq_forecast_run_benchmark_task"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"))
@@ -88,6 +89,7 @@ class ForecastRun(Base):
     fixture_evidence_used: Mapped[bool] = mapped_column(Boolean, default=False)
     code_commit: Mapped[str | None] = mapped_column(String(64), nullable=True)
     synthetic_fixture_run: Mapped[bool] = mapped_column(Boolean, default=False)
+    benchmark_task_id: Mapped[str | None] = mapped_column(ForeignKey("benchmark_tasks.id"), nullable=True)
 
     question: Mapped[Question] = relationship(back_populates="runs")
     tracks: Mapped[list[ResearchTrack]] = relationship(back_populates="run")
@@ -337,8 +339,10 @@ class BenchmarkTask(Base):
     profile_id: Mapped[str] = mapped_column(String(64))
     status: Mapped[str] = mapped_column(String(32), default="pending")
     run_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    question_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     attempts: Mapped[int] = mapped_column(Integer, default=0)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    error_category: Mapped[str | None] = mapped_column(String(64), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
@@ -360,6 +364,7 @@ class BenchmarkResult(Base):
     cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
     latency_ms: Mapped[int] = mapped_column(Integer, default=0)
     failed: Mapped[bool] = mapped_column(Boolean, default=False)
+    partial: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
 

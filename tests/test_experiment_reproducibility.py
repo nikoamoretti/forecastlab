@@ -253,19 +253,24 @@ def test_shared_resolution_contract(client, monkeypatch) -> None:
     assert summary["progress"]["completed_tasks"] == 2
     with SessionLocal() as session:
         item = session.query(BenchmarkQuestion).filter_by(dataset_id=imported["dataset_id"]).one()
-        questions = session.query(Question).filter(Question.notes == f"benchmark:{item.id}:{experiment_id}").all()
-        assert len(questions) == 1
-        contract = questions[0].contract
-        assert contract is not None
-        assert contract.exact_yes == item.exact_yes == "Yes if the fixture series exceeds 1.0"
-        assert contract.exact_no == item.exact_no
-        assert contract.authoritative_source == item.authoritative_source
-        assert questions[0].runs
-        assert {run.profile_id for run in questions[0].runs} == {
+        questions = (
+            session.query(Question)
+            .filter(Question.is_benchmark.is_(True), Question.original_text == item.question)
+            .all()
+        )
+        assert len(questions) == 2
+        contracts = {question.contract.exact_yes for question in questions if question.contract}
+        assert contracts == {item.exact_yes}
+        assert all(question.contract and question.contract.exact_no == item.exact_no for question in questions)
+        assert all(
+            question.contract and question.contract.authoritative_source == item.authoritative_source
+            for question in questions
+        )
+        assert {run.profile_id for question in questions for run in question.runs} == {
             "single_agent_equal_budget_v1",
             "three_track_equal_budget_v1",
         }
-        assert {run.question_id for run in questions[0].runs} == {questions[0].id}
+        assert all(len(question.runs) == 1 for question in questions)
 
 
 def test_dataset_same_question_two_datasets(client) -> None:

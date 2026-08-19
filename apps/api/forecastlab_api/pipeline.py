@@ -5,6 +5,7 @@ import threading
 import uuid
 from datetime import datetime
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from forecastlab.engine import operationalize_only, run_forecast_engine
@@ -17,8 +18,8 @@ from forecastlab.providers.search import build_search_provider
 from forecastlab.schemas import ForecastProfile, ResolutionContract
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
-from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease
-from forecastlab_api.models import ForecastRun, Question
+from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease, touch_worker_standalone
+from forecastlab_api.models import ForecastRun, ForecastVersion, Question
 from forecastlab_api.persist import persist_engine_result, save_contract
 from forecastlab_api.secrets import load_secrets
 
@@ -88,6 +89,9 @@ def resolve_for_question(
     )
 
 
+HEARTBEAT_INTERVAL_SECONDS = 8.0
+
+
 def create_run_record(
     session: Session,
     *,
@@ -95,6 +99,7 @@ def create_run_record(
     context: ExecutionContext,
     as_of: datetime | None,
     enqueue: bool = True,
+    benchmark_task_id: str | None = None,
 ) -> ForecastRun:
     run = ForecastRun(
         id=str(uuid.uuid4()),
@@ -105,6 +110,7 @@ def create_run_record(
         status="pending",
         progress_stage="queued",
         progress_message="Waiting for worker",
+        benchmark_task_id=benchmark_task_id,
     )
     apply_execution_context(run, context)
     session.add(run)
@@ -153,6 +159,15 @@ def execute_run(
 ) -> None:
     secrets = load_secrets()
     question = run.question
+    existing_version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+    if existing_version is not None:
+        run.status = "completed"
+        run.finished_at = run.finished_at or utcnow()
+        run.progress_pct = 100
+        run.progress_stage = "report"
+        run.progress_message = "Forecast ready"
+        session.commit()
+        return
     raw_context = json.loads(run.execution_context_json or "{}")
     if raw_context:
         context = ExecutionContext.model_validate(raw_context)
@@ -209,14 +224,13 @@ def execute_run(
     stop_heartbeat = threading.Event()
 
     def heartbeat_loop() -> None:
-        while not stop_heartbeat.wait(8):
+        while not stop_heartbeat.wait(HEARTBEAT_INTERVAL_SECONDS):
+            touch_worker_standalone("running")
             if job is not None:
                 touch_job_lease(job.id)
 
-    worker: threading.Thread | None = None
-    if job is not None:
-        worker = threading.Thread(target=heartbeat_loop, daemon=True)
-        worker.start()
+    worker = threading.Thread(target=heartbeat_loop, daemon=True)
+    worker.start()
 
     def progress(stage: str, message: str, pct: float, extra=None) -> None:
         run.progress_stage = stage

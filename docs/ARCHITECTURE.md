@@ -26,11 +26,15 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 
 ## Jobs
 
-Jobs are rows, not threads. Statuses: pending, running, completed, failed. A worker claims a pending job with `UPDATE ... WHERE status='pending' RETURNING` under a SQLite write lock. Leases last 180 seconds and are refreshed by a background heartbeat on a short-lived session so a long model call is not marked stale. Transient provider errors retry with backoff; configuration, evidence-integrity, and 4xx failures do not. Duplicate `idempotency_key` values reuse the existing job. `persist_engine_result` is idempotent on `run_id`.
+Jobs are rows, not threads. Statuses: pending, running, completed, failed. A worker claims a pending job with `UPDATE ... WHERE status='pending' RETURNING` under a SQLite write lock. Leases last 180 seconds. A background heartbeat refreshes both the job lease and `/health/worker` during long provider calls. Transient provider errors (timeouts, HTTP 429, HTTP 5xx) retry with backoff and return `rescheduled` or `exhausted`. Exhaustion marks the job, run, task, and experiment terminal. Configuration, evidence-integrity, structured-output, and other 4xx failures do not retry. Duplicate `idempotency_key` values reuse the existing job. `persist_engine_result` is idempotent on `run_id`.
+
+A benchmark task is one durable identity for its whole lifetime, including crashes and retries:
+
+`BenchmarkTask` → one benchmark-only `Question` → one `ForecastRun` (`forecast_runs.benchmark_task_id`, unique) → zero or one `BenchmarkResult`.
 
 ## Storage
 
-SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup run Alembic under a file lock and fail closed if a revision errors. `20260818_0001` creates a complete empty schema. `20260819_0002` inspects an original MVP database and adds missing integrity columns, experiment tables, backfills, and uniqueness constraints. `20260819_0003` adds per-experiment profile snapshots, stored resolution-contract fields, and `UNIQUE(dataset_id, import_hash)`. Isolated unit tests may still call `create_all`. Back up `data/forecastlab.db` before the first launch after an upgrade (`cp data/forecastlab.db data/forecastlab.db.bak`). Do not treat the local database as a production cluster.
+SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup inspect the current revision on a dedicated connection, skip Alembic when already at head, and otherwise upgrade under a file lock. A revision error fails closed. `20260818_0001` creates a complete empty schema. `20260819_0002` inspects an original MVP database and adds missing integrity columns, experiment tables, backfills, and uniqueness constraints. `20260819_0003` adds per-experiment profile snapshots, stored resolution-contract fields, and `UNIQUE(dataset_id, import_hash)`. `20260819_0004` adds `ForecastRun.benchmark_task_id`, task `question_id` / `error_category`, and `BenchmarkResult.partial`. Isolated unit tests may still call `create_all`. Back up `data/forecastlab.db` before the first launch after an upgrade (`cp data/forecastlab.db data/forecastlab.db.bak`). Do not treat the local database as a production cluster.
 
 SQLite strips timezone info on read. Health checks, watch polling, and latency math always run datetimes through `as_utc`.
 

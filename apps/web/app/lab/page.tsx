@@ -33,16 +33,19 @@ export default function LabPage() {
   useEffect(() => {
     if (!experimentId) return;
     let cancelled = false;
+    const terminal = new Set(["completed", "completed_with_failures", "failed"]);
     const timer = setInterval(async () => {
       try {
         const next = await api<any>(`/api/experiments/${experimentId}`);
-        if (!cancelled) setProgress(next);
-        if (next.status === "completed") {
+        if (cancelled) return;
+        setProgress(next);
+        if (terminal.has(next.status)) {
           const full = await api<any>(`/api/experiments/${experimentId}/summary`);
           if (!cancelled) setSummary(full);
+          clearInterval(timer);
         }
       } catch {
-        /* keep polling */
+        /* keep polling until a terminal status is observed */
       }
     }, 1200);
     return () => {

@@ -187,7 +187,7 @@ def persist_engine_result(session: Session, run: ForecastRun, result: EngineResu
 
     run.status = "completed"
     run.progress_stage = "report"
-    run.progress_message = "Forecast ready"
+    run.progress_message = "Partial forecast" if result.partial else "Forecast ready"
     if not question.is_benchmark:
         question.status = "complete"
         question.stale = False

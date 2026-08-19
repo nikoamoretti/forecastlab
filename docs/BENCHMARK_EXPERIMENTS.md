@@ -18,7 +18,26 @@ The HTTP handler does not call `execute_run()`. Execution later uses only the st
 
 ## Tasks
 
-Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Tasks load the stored effective `ForecastProfile` and `PromptBundle`; they do not call `load_profile()` or `load_prompt()` against mutable files. Every profile forecasting one benchmark question receives the identical stored resolution contract from the dataset. Benchmark tasks do not operationalize the question through a model. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
+Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Tasks load the stored effective `ForecastProfile` and `PromptBundle`; they do not call `load_profile()` or `load_prompt()` against mutable files. Every profile forecasting one benchmark question receives the identical stored resolution contract from the dataset. Each task still owns its own benchmark-only `Question` and `ForecastRun`. Retries reuse those rows. Benchmark tasks do not operationalize the question through a model. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
+
+## Identity and terminal states
+
+Invariant for the lifetime of a task, including crashes and retries:
+
+1. one `BenchmarkTask`
+2. one benchmark-only `Question`
+3. one `ForecastRun`
+4. zero or one `BenchmarkResult`
+
+`finalize_benchmark_task()` is the only path that marks a task completed or failed, writes or reuses the result, and refreshes experiment counts. Experiment statuses:
+
+- `pending`
+- `running`
+- `completed` — every task succeeded
+- `completed_with_failures` — mix of successes and failures
+- `failed` — every task failed
+
+The Lab stops polling and loads the summary for every terminal experiment status. Transient provider errors reschedule the job. When attempts are exhausted, the job, run, task, and experiment become terminal. Track-local permanent errors may leave a partial result; transient, configuration, evidence-integrity, and structured-output errors are not converted into missing-track results.
 
 ## Profiles
 

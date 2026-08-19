@@ -40,6 +40,7 @@ REQUIRED_RUN_COLUMNS = {
     "fixture_evidence_used",
     "code_commit",
     "synthetic_fixture_run",
+    "benchmark_task_id",
 }
 REQUIRED_TABLES = {"benchmark_datasets", "benchmark_experiments", "benchmark_tasks", "benchmark_profile_snapshots"}
 
@@ -122,7 +123,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260819_0003"
+        assert current == "20260819_0004"
 
 
 def _assert_uniqueness(engine: Engine) -> None:
@@ -259,7 +260,6 @@ def upgraded_legacy_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> G
 
     from forecastlab_api import db as db_module
     from forecastlab_api import main as main_mod
-    from forecastlab_api import migrate as migrate_mod
     from forecastlab_api.config import settings
 
     session_engine = create_engine(db_url, future=True, connect_args={"check_same_thread": False})
@@ -272,7 +272,6 @@ def upgraded_legacy_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> G
     monkeypatch.setattr(db_module, "engine", session_engine)
     monkeypatch.setattr(db_module, "SessionLocal", SessionLocal)
     monkeypatch.setattr(main_mod, "SessionLocal", SessionLocal)
-    monkeypatch.setattr(migrate_mod, "engine", session_engine)
 
     def get_db():
         session = SessionLocal()
