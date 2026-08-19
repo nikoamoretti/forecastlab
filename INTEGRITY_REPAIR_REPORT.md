@@ -1,6 +1,6 @@
 # ForecastLab integrity repair report
 
-Date: 2026-08-19. Branch: `grok/integrity-evaluation-repair`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
+Date: 2026-08-19. Branch: `grok/integrity-evaluation-repair` (first integrity pass). Current verification continuation: `grok/integrity-repair-2` — see `INTEGRITY_REPAIR_2_REPORT.md` for the final gate. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
 
 Reviewed baseline: `2caa33abc0cbd3e2c379de0763f13878839b3b6e` on `grok/forecastlab-mvp` (not modified).
 
@@ -96,13 +96,15 @@ A file lock (`data/migrate.lock`, gitignored) prevents API and worker from migra
 
 ## Exact tests
 
-Python suite after the repair (from `/Users/nico-yardlogix/projects/forecastlab`):
+Python suite after the first integrity repair (from `/Users/nico-yardlogix/projects/forecastlab`):
 
 ```text
 python -m pytest -q
 ...........................................................              [100%]
 59 passed
 ```
+
+That 59-test count is historical. The current `grok/integrity-repair-2` suite is 109 tests. See `INTEGRITY_REPAIR_2_REPORT.md`.
 
 Focused additions include:
 
@@ -162,7 +164,7 @@ Compose was then torn down. The first one-click relaunch failed because Compose 
 
 ## CI status
 
-`.github/workflows/ci.yml` runs pytest, ruff, mypy, npm typecheck, production build, and Playwright without paid keys. The branch has not been pushed, so GitHub has not recorded a green run yet.
+`.github/workflows/ci.yml` runs pytest, ruff, mypy, npm typecheck, production build, and Playwright without paid keys. Later verification and CI status for `grok/integrity-repair-2` are in `INTEGRITY_REPAIR_2_REPORT.md`.
 
 ## Remaining limitations
 

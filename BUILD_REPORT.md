@@ -1,8 +1,8 @@
 # ForecastLab build report
 
-Date: 2026-08-19. Branch: `grok/integrity-evaluation-repair`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
+Date: 2026-08-19. Current verification branch: `grok/integrity-repair-2`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
 
-The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. This file records the integrity-repair verification pass. See `INTEGRITY_REPAIR_REPORT.md` for defects, corrections, and remaining limits.
+The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. The first integrity pass on `grok/integrity-evaluation-repair` is recorded in `INTEGRITY_REPAIR_REPORT.md`. **Current verification numbers, Docker results, limitations, and the first real-benchmark instructions are in `INTEGRITY_REPAIR_2_REPORT.md`.** Do not use the older 59-test count or “CI not pushed” notes below as the current status.
 
 ## Completion status
 
@@ -36,43 +36,13 @@ Double-click `Start ForecastLab.command`, or `./scripts/dev_up.sh`. Stop with `S
 
 If a local database predates the integrity schema, back it up (`cp data/forecastlab.db data/forecastlab.db.bak`) and let Alembic upgrade it in place.
 
-## Exact test results (this session)
+## Exact test results (first integrity pass; superseded)
 
-Commands run from `/Users/nico-yardlogix/projects/forecastlab`.
+The 2026-08-19 `grok/integrity-evaluation-repair` session recorded 59 pytest tests, mypy on 43 files, and a local Playwright pass. That count is historical.
 
-```text
-python -m pytest -q
-59 passed
-```
+The current `grok/integrity-repair-2` gate is **109 pytest tests**, mypy on **44 files**, `npm ci` + typecheck + production build, and Playwright `2 passed`. See `INTEGRITY_REPAIR_2_REPORT.md` for the exact command output.
 
-```text
-python -m ruff check packages apps/api tests
-All checks passed!
-```
-
-```text
-python -m mypy
-Success: no issues found in 43 source files
-```
-
-```text
-cd apps/web && npm run typecheck
-# tsc --noEmit  (exit 0)
-```
-
-```text
-cd apps/web && npm run build
-# Next.js 15.5.23 production build succeeded
-```
-
-```text
-cd apps/web && npx playwright test --workers=1 --reporter=line
-[chromium] › e2e/experiment.spec.ts
-[chromium] › e2e/happy-path.spec.ts
-2 passed
-```
-
-`npm audit --omit=dev` reported 3 high findings in Next 15 transitive `postcss` / `sharp`. A force fix would install Next 16 and was not applied.
+`npm audit --omit=dev` still reported 3 high findings in Next 15 transitive `postcss` / `sharp`. A force fix would install Next 16 and was not applied.
 
 ## Visual verification
 
@@ -98,7 +68,7 @@ Web image: `node:24-bookworm-slim` (local; `node:22-slim` pull hung). Named volu
 
 ## CI
 
-`.github/workflows/ci.yml` is present. The branch was not pushed, so GitHub has not run it.
+`.github/workflows/ci.yml` is present and runs pytest, ruff, mypy, `npm ci`, typecheck, production build, and Playwright without paid keys. Judge CI against the exact SHA on `grok/integrity-repair-2` in GitHub Actions. Do not treat this file as a CI certificate.
 
 ## Recommended next milestone
 
