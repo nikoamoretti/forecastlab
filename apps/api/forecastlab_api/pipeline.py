@@ -254,6 +254,7 @@ def execute_run(
             profile=profile,
             execution=context,
             prompt_bundle=prompt_bundle,
+            run_id=run.id,
         )
         persist_engine_result(session, run, result)
         snapshot = context.model_dump(mode="json")

@@ -28,6 +28,7 @@ class ModelProvider(Protocol):
         schema_name: str,
         temperature: float = 0.2,
         timeout: float | None = None,
+        max_output_tokens: int | None = None,
     ) -> ChatResult: ...
 
 

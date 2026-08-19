@@ -6,8 +6,10 @@ from urllib.parse import urlparse
 
 BLOCKED_HOSTS = {
     "localhost",
+    "metadata",
     "metadata.google.internal",
     "metadata.google.com",
+    "169.254.169.254",
 }
 PRIVATE_NETWORKS = [
     ipaddress.ip_network("0.0.0.0/8"),

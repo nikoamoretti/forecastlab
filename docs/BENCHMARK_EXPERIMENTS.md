@@ -46,7 +46,7 @@ Default scientific comparison:
 - `single_agent_equal_budget_v1`
 - `three_track_equal_budget_v1`
 
-Those two share configured search, fetch, token, cost, and wall-clock ceilings. The full ensemble (`three_track_ensemble`, `three_track_full_v1`) remains optional. `model_only_v1` is contract-only. `single_agent_baseline` and `three_track_ensemble` remain for demo compatibility.
+Those two share configured search, fetch, token, cost, and wall-clock ceilings and are the default Lab selection. The full ensemble (`three_track_ensemble`, `three_track_full_v1`) remains optional. Each task still reserves model calls before they start and uses a per-run search/fetch cache, so a retry or rerun does not reuse another run's evidence. `model_only_v1` is contract-only. `single_agent_baseline` and `three_track_ensemble` remain for demo compatibility.
 
 Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and latency are reported.
 

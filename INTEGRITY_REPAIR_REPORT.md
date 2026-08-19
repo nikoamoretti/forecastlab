@@ -45,7 +45,7 @@ This pass does not claim calibration and does not claim that ForecastLab matches
 - The shared loaded YAML profile is copied, not mutated.
 - Pre-run estimates that exceed the ceiling are rejected.
 - Pricing rates live in `configs/pricing/models.yaml` and are labeled estimated/manual.
-- Budget reservations happen before each provider call. Partial results survive a budget stop.
+- Budget reservations happen before each provider call. A reservation covers one call, estimated input tokens, max output tokens, estimated cost, and wall-clock time. Unused reservation is reconciled after the call. Missing provider usage keeps the reserved amount and is labeled estimated. This is not a provider-enforced hard dollar cap. Partial results survive a budget stop.
 
 ### Historical evidence
 
@@ -73,7 +73,9 @@ This pass does not claim calibration and does not claim that ForecastLab matches
 - 180s leases with a heartbeat on a short-lived session.
 - Tenacity retries only `TransientProviderError`.
 - `persist_engine_result()` returns the existing version when a run is already persisted.
-- Shared `safe_get()` for evidence, Wayback, and external watchers: no unrestricted redirects, hop revalidation, streamed byte cap, content-type allowlist, SSRF checks.
+- Shared `safe_get()` for evidence, Wayback, and external watchers: `client.stream("GET")` with incremental byte accounting, no `client.get()` before the limit, hop revalidation, content-type allowlist, SSRF checks.
+- Search and fetch caches are per `ForecastRun`. They do not leak across run ids, providers, modes, `as_of` values, or configuration hashes. A watch-triggered rerun fetches fresh evidence.
+- User watches reject loopback, private, and metadata targets at creation. Demo indicators are an internal in-process source.
 - Trusted domains use exact hostname boundaries.
 - Auto-rerun is disabled. Copy: “Changes mark the forecast stale. Reruns require user action.”
 

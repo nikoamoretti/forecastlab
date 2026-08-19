@@ -22,7 +22,9 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 
 ## Providers
 
-`ModelProvider.complete_json` and `SearchProvider.search` are the only model/search seams. Mock implementations satisfy the same types as the OpenAI-compatible and Tavily adapters.
+`ModelProvider.complete_json` and `SearchProvider.search` are the only model/search seams. Mock implementations satisfy the same types as the OpenAI-compatible and Tavily adapters. Each model call is reserved before it starts (`budget.reserve_model_call`): one call, estimated input tokens, maximum output tokens, estimated cost, and a wall-clock allowance. If the reservation cannot fit, the call is not sent. The provider request includes `max_tokens` as an output cap. After the response, unused reservation is released. Missing usage keeps the reserved amount and is labeled estimated. ForecastLab does not claim a provider-enforced hard dollar cap.
+
+Search and fetch caches live on one `RunCache` per forecast run. The cache is keyed to run id, model provider, search provider, mode, `as_of`, and configuration hash. A later run, including a rerun after a watch change, starts empty and fetches fresh evidence.
 
 ## Jobs
 

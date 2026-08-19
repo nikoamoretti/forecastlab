@@ -19,7 +19,7 @@ export default function ForecastPage() {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [openTrack, setOpenTrack] = useState<string | null>(null);
-  const [watchUrl, setWatchUrl] = useState("http://127.0.0.1:8765/demo/indicators/inflation");
+  const [watchUrl, setWatchUrl] = useState("https://example.com/status.json");
 
   async function load() {
     const payload = await api<any>(`/api/questions/${id}/report`);
@@ -64,7 +64,7 @@ export default function ForecastPage() {
       method: "POST",
       body: JSON.stringify({
         endpoint_url: watchUrl,
-        endpoint_type: watchUrl.includes("json") || watchUrl.includes("/demo/") ? "json" : "html",
+        endpoint_type: watchUrl.includes("json") ? "json" : "html",
         json_path: "$.value",
         auto_rerun: false
       })
@@ -83,6 +83,8 @@ export default function ForecastPage() {
   const stage = run.progress_stage || "queued";
   const done = stage === "report" || run.status === "completed";
   const context = run.execution_context || {};
+  const budget = run.budget || {};
+  const costKind = budget.cost_is_estimated ? "estimated" : "provider-reported";
   const modeLabel = String(context.effective_mode || run.mode || "demo").toUpperCase();
   const missingTracks = (aggregation.missing_track_types || []).length > 0;
   const rejectedEvidence = evidence.filter((item: any) => item.rejected);
@@ -100,7 +102,7 @@ export default function ForecastPage() {
           </p>
           <p className="mt-2 text-sm">
             Deadline {data.contract?.resolution_deadline || "—"} · sources {evidence.length} · cost $
-            {Number(run.cost_usd || 0).toFixed(4)} · {run.latency_ms || 0} ms · {run.mode || "demo"}
+            {Number(run.cost_usd || 0).toFixed(4)} ({costKind}) · {run.latency_ms || 0} ms · {run.mode || "demo"}
           </p>
         </div>
         <div className="border border-rule bg-white/60 p-5">
@@ -154,9 +156,10 @@ export default function ForecastPage() {
             <dd className="font-mono text-xs">{context.code_commit || run.code_commit || "unavailable"}</dd>
           </div>
           <div>
-            <dt className="text-ink/60">Cost ceiling / actual</dt>
+            <dt className="text-ink/60">Cost ceiling / used</dt>
             <dd>
-              ${Number(context.effective_max_cost_usd ?? 0).toFixed(2)} / ${Number(run.cost_usd || 0).toFixed(4)}
+              ${Number(context.effective_max_cost_usd ?? 0).toFixed(2)} / ${Number(run.cost_usd || 0).toFixed(4)}{" "}
+              ({costKind})
             </dd>
           </div>
           <div>
@@ -366,6 +369,12 @@ export default function ForecastPage() {
           <div>
             <dt className="text-ink/60">Error</dt>
             <dd>{run.error_message || "none"}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Reservations</dt>
+            <dd>
+              {(budget.reservations || []).length} model calls · {costKind} cost
+            </dd>
           </div>
         </dl>
       </section>

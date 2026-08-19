@@ -120,6 +120,7 @@ class ForecastProfile(BaseModel):
     max_search_calls: int = 36
     max_fetched_documents: int = 24
     max_tokens: int = 200_000
+    max_output_tokens_per_call: int = 4096
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)
@@ -131,6 +132,9 @@ class BudgetState(BaseModel):
     fetches: int = 0
     tokens: int = 0
     cost_usd: float = 0.0
+    reserved_tokens: int = 0
+    reserved_cost_usd: float = 0.0
+    cost_is_estimated: bool = False
     started_monotonic: float = 0.0
     stopped: bool = False
     stop_reason: str | None = None

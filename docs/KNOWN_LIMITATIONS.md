@@ -13,3 +13,5 @@
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.
 - Benchmark retries reuse the same task, question, and run. They do not create replacement identities. Exhausted transient errors fail the job, run, task, and experiment.
 - Experiment terminal states are `completed`, `completed_with_failures`, and `failed`. A running task after a permanently failed job is a defect.
+- Budget reservations prevent ForecastLab from starting a call that cannot fit. They are not a vendor-enforced hard dollar cap. If a provider omits usage, the reserved token and cost amounts are kept and labeled estimated.
+- Search and fetch caches are per run. They do not survive a rerun after a watch change.

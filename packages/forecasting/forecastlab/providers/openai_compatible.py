@@ -73,13 +73,14 @@ class OpenAICompatibleProvider:
         schema_name: str,
         temperature: float = 0.2,
         timeout: float | None = None,
+        max_output_tokens: int | None = None,
     ) -> ChatResult:
         url = f"{self.base_url}/chat/completions"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
         }
-        body = {
+        body: dict[str, Any] = {
             "model": self.model,
             "temperature": temperature,
             "response_format": {"type": "json_object"},
@@ -88,6 +89,8 @@ class OpenAICompatibleProvider:
                 {"role": "user", "content": user},
             ],
         }
+        if max_output_tokens is not None:
+            body["max_tokens"] = max_output_tokens
         try:
             with httpx.Client(timeout=timeout or self.timeout) as client:
                 response = client.post(url, headers=headers, json=body)

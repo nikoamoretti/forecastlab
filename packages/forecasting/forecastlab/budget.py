@@ -1,16 +1,79 @@
 from __future__ import annotations
 
 import time
+import uuid
+from dataclasses import dataclass
+from typing import Any
 
 from forecastlab.errors import BudgetExceeded
-from forecastlab.schemas import BudgetState, ForecastProfile
+from forecastlab.pricing import estimate_call_cost
+from forecastlab.schemas import BudgetState, ForecastProfile, ModelUsage
 from forecastlab.timeutil import utcnow
+
+DEFAULT_MAX_OUTPUT_TOKENS = 4096
+DEFAULT_CALL_WALL_CLOCK_SECONDS = 5.0
+
+
+def estimate_prompt_tokens(*parts: str) -> int:
+    text = " ".join(part for part in parts if part)
+    return max(1, (len(text) + 8) // 4)
+
+
+@dataclass
+class Reservation:
+    id: str
+    stage: str
+    model_calls: int
+    estimated_input_tokens: int
+    max_output_tokens: int
+    reserved_tokens: int
+    estimated_cost_usd: float
+    wall_clock_seconds: float
+    actual_prompt_tokens: int | None = None
+    actual_completion_tokens: int | None = None
+    actual_tokens: int | None = None
+    actual_cost_usd: float | None = None
+    unused_tokens: int = 0
+    unused_cost_usd: float = 0.0
+    cost_source: str = "reserved"
+    reconciled: bool = False
+    released: bool = False
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "stage": self.stage,
+            "model_calls": self.model_calls,
+            "estimated_input_tokens": self.estimated_input_tokens,
+            "max_output_tokens": self.max_output_tokens,
+            "reserved_tokens": self.reserved_tokens,
+            "estimated_cost_usd": self.estimated_cost_usd,
+            "wall_clock_seconds": self.wall_clock_seconds,
+            "actual_prompt_tokens": self.actual_prompt_tokens,
+            "actual_completion_tokens": self.actual_completion_tokens,
+            "actual_tokens": self.actual_tokens,
+            "actual_cost_usd": self.actual_cost_usd,
+            "unused_tokens": self.unused_tokens,
+            "unused_cost_usd": self.unused_cost_usd,
+            "cost_source": self.cost_source,
+            "reconciled": self.reconciled,
+            "released": self.released,
+        }
 
 
 class Budget:
-    def __init__(self, profile: ForecastProfile) -> None:
+    def __init__(
+        self,
+        profile: ForecastProfile,
+        *,
+        provider: str = "mock",
+        model: str = "mock-forecast-v1",
+    ) -> None:
         self.profile = profile
+        self.provider = provider
+        self.model = model
         self.state = BudgetState(started_monotonic=time.monotonic())
+        self.reservations: list[Reservation] = []
 
     def estimate_workload(self) -> dict[str, int | float]:
         tracks = len(self.profile.tracks)
@@ -27,11 +90,14 @@ class Budget:
             "max_tokens": self.profile.max_tokens,
             "max_estimated_cost_usd": self.profile.max_estimated_cost_usd,
             "max_wall_clock_seconds": self.profile.max_wall_clock_seconds,
+            "max_output_tokens_per_call": self.profile.max_output_tokens_per_call,
         }
 
+    def _elapsed(self) -> float:
+        return time.monotonic() - self.state.started_monotonic
+
     def _check_time(self, stage: str) -> None:
-        elapsed = time.monotonic() - self.state.started_monotonic
-        if elapsed > self.profile.max_wall_clock_seconds:
+        if self._elapsed() > self.profile.max_wall_clock_seconds:
             self._stop(stage, "max_wall_clock_seconds")
 
     def _stop(self, stage: str, reason: str) -> None:
@@ -45,17 +111,102 @@ class Budget:
             raise BudgetExceeded(self.state.stop_stage or stage, self.state.stop_reason or "stopped")
         self._check_time(stage)
 
-    def add_model_call(self, stage: str, tokens: int, cost_usd: float) -> None:
+    def max_output_tokens_for_call(self, estimated_input_tokens: int) -> int:
+        remaining = self.profile.max_tokens - self.state.tokens
+        allowed = remaining - max(0, estimated_input_tokens)
+        return max(1, min(self.profile.max_output_tokens_per_call, allowed))
+
+    def estimate_model_cost(self, estimated_input_tokens: int, max_output_tokens: int) -> float:
+        return estimate_call_cost(self.provider, self.model, estimated_input_tokens, max_output_tokens)
+
+    def reserve_model_call(
+        self,
+        stage: str,
+        *,
+        estimated_input_tokens: int,
+        max_output_tokens: int,
+        estimated_cost_usd: float | None = None,
+        wall_clock_seconds: float = DEFAULT_CALL_WALL_CLOCK_SECONDS,
+    ) -> Reservation:
         self.check(stage)
+        reserved_tokens = max(0, estimated_input_tokens) + max(0, max_output_tokens)
+        cost = self.estimate_model_cost(estimated_input_tokens, max_output_tokens) if estimated_cost_usd is None else estimated_cost_usd
+        remaining_time = self.profile.max_wall_clock_seconds - self._elapsed()
+        if remaining_time < max(0.0, wall_clock_seconds):
+            self._stop(stage, "max_wall_clock_seconds")
         if self.state.model_calls + 1 > self.profile.max_model_calls:
             self._stop(stage, "max_model_calls")
-        if self.state.tokens + tokens > self.profile.max_tokens:
+        if self.state.tokens + reserved_tokens > self.profile.max_tokens:
             self._stop(stage, "max_tokens")
-        if self.state.cost_usd + cost_usd > self.profile.max_estimated_cost_usd:
+        if self.state.cost_usd + cost > self.profile.max_estimated_cost_usd + 1e-12:
             self._stop(stage, "max_estimated_cost_usd")
+        reservation = Reservation(
+            id=str(uuid.uuid4()),
+            stage=stage,
+            model_calls=1,
+            estimated_input_tokens=estimated_input_tokens,
+            max_output_tokens=max_output_tokens,
+            reserved_tokens=reserved_tokens,
+            estimated_cost_usd=cost,
+            wall_clock_seconds=wall_clock_seconds,
+        )
         self.state.model_calls += 1
-        self.state.tokens += tokens
-        self.state.cost_usd += cost_usd
+        self.state.tokens += reserved_tokens
+        self.state.cost_usd += cost
+        self.state.reserved_tokens += reserved_tokens
+        self.state.reserved_cost_usd += cost
+        self.reservations.append(reservation)
+        return reservation
+
+    def release_reservation(self, reservation: Reservation) -> None:
+        if reservation.released or reservation.reconciled:
+            return
+        self.state.tokens = max(0, self.state.tokens - reservation.reserved_tokens)
+        self.state.cost_usd = max(0.0, self.state.cost_usd - reservation.estimated_cost_usd)
+        self.state.model_calls = max(0, self.state.model_calls - reservation.model_calls)
+        self.state.reserved_tokens = max(0, self.state.reserved_tokens - reservation.reserved_tokens)
+        self.state.reserved_cost_usd = max(0.0, self.state.reserved_cost_usd - reservation.estimated_cost_usd)
+        reservation.released = True
+        reservation.cost_source = "released"
+
+    def reconcile_model_call(self, reservation: Reservation, usage: ModelUsage | None) -> Reservation:
+        if reservation.released or reservation.reconciled:
+            return reservation
+        if usage is None or (usage.prompt_tokens == 0 and usage.completion_tokens == 0):
+            reservation.cost_source = "estimated"
+            reservation.reconciled = True
+            self.state.cost_is_estimated = True
+            return reservation
+        actual_tokens = usage.prompt_tokens + usage.completion_tokens
+        actual_cost = float(usage.cost_usd)
+        unused_tokens = max(0, reservation.reserved_tokens - actual_tokens)
+        unused_cost = max(0.0, reservation.estimated_cost_usd - actual_cost)
+        self.state.tokens = max(0, self.state.tokens - unused_tokens)
+        self.state.cost_usd = max(0.0, self.state.cost_usd - unused_cost)
+        if actual_tokens > reservation.reserved_tokens:
+            self.state.tokens += actual_tokens - reservation.reserved_tokens
+        if actual_cost > reservation.estimated_cost_usd:
+            self.state.cost_usd += actual_cost - reservation.estimated_cost_usd
+        reservation.actual_prompt_tokens = usage.prompt_tokens
+        reservation.actual_completion_tokens = usage.completion_tokens
+        reservation.actual_tokens = actual_tokens
+        reservation.actual_cost_usd = actual_cost
+        reservation.unused_tokens = unused_tokens
+        reservation.unused_cost_usd = unused_cost
+        reservation.cost_source = "provider_reported"
+        reservation.reconciled = True
+        return reservation
+
+    def add_model_call(self, stage: str, tokens: int, cost_usd: float) -> None:
+        reservation = self.reserve_model_call(
+            stage,
+            estimated_input_tokens=max(0, tokens),
+            max_output_tokens=0,
+            estimated_cost_usd=cost_usd,
+            wall_clock_seconds=0,
+        )
+        usage = ModelUsage(prompt_tokens=max(0, tokens), completion_tokens=0, cost_usd=cost_usd)
+        self.reconcile_model_call(reservation, usage)
 
     def add_search(self, stage: str = "search") -> None:
         self.check(stage)
@@ -72,7 +223,11 @@ class Budget:
     def snapshot(self) -> dict[str, object]:
         return {
             **self.state.model_dump(),
-            "elapsed_seconds": time.monotonic() - self.state.started_monotonic,
+            "elapsed_seconds": self._elapsed(),
             "now": utcnow().isoformat(),
             "estimate": self.estimate_workload(),
+            "reservations": [item.as_dict() for item in self.reservations],
+            "cost_is_estimated": self.state.cost_is_estimated,
+            "provider": self.provider,
+            "model": self.model,
         }

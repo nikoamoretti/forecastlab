@@ -19,6 +19,7 @@ ALLOWED_CONTENT_TYPES = (
     "application/xml",
     "text/xml",
 )
+REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 
 
 @dataclass
@@ -29,6 +30,7 @@ class SafeResponse:
     content: bytes
     content_type: str
     truncated: bool = False
+    bytes_read: int = 0
 
 
 def _content_type_allowed(content_type: str) -> bool:
@@ -36,6 +38,13 @@ def _content_type_allowed(content_type: str) -> bool:
     if not lowered:
         return True
     return any(lowered == allowed or lowered.startswith(allowed) for allowed in ALLOWED_CONTENT_TYPES)
+
+
+def _absolute_location(current: str, location: str) -> str:
+    if location.startswith("/"):
+        parsed = urlparse(current)
+        return f"{parsed.scheme}://{parsed.netloc}{location}"
+    return location
 
 
 def safe_get(
@@ -55,39 +64,40 @@ def safe_get(
         client_kwargs["transport"] = transport
     with httpx.Client(**client_kwargs) as client:
         for _ in range(MAX_REDIRECTS + 1):
-            response = client.get(current, headers=request_headers)
-            if response.status_code in {301, 302, 303, 307, 308}:
-                location = response.headers.get("location")
-                if not location:
-                    raise UnsafeURLError("Redirect missing Location")
-                if location.startswith("/"):
-                    parsed = urlparse(current)
-                    location = f"{parsed.scheme}://{parsed.netloc}{location}"
-                current = validate_url(location, allow_local_fixtures=allow_local_fixtures)
-                continue
-            declared = response.headers.get("content-length")
-            if declared and int(declared) > max_bytes:
-                raise UnsafeURLError("Declared content length exceeds limit")
-            content_type = response.headers.get("content-type", "")
-            if expect_json and "json" not in content_type and response.status_code < 400:
-                raise UnsafeURLError(f"Unsafe content type: {content_type or 'missing'}")
-            if response.status_code < 400 and not _content_type_allowed(content_type):
-                raise UnsafeURLError(f"Unsafe content type: {content_type or 'missing'}")
-            chunks: list[bytes] = []
-            total = 0
-            truncated = False
-            for chunk in response.iter_bytes():
-                total += len(chunk)
-                if total > max_bytes:
-                    truncated = True
-                    break
-                chunks.append(chunk)
-            return SafeResponse(
-                url=url,
-                final_url=str(response.url),
-                status_code=response.status_code,
-                content=b"".join(chunks),
-                content_type=content_type,
-                truncated=truncated,
-            )
+            with client.stream("GET", current, headers=request_headers) as response:
+                if response.status_code in REDIRECT_STATUSES:
+                    location = response.headers.get("location")
+                    if not location:
+                        raise UnsafeURLError("Redirect missing Location")
+                    current = validate_url(
+                        _absolute_location(current, location),
+                        allow_local_fixtures=allow_local_fixtures,
+                    )
+                    continue
+                declared = response.headers.get("content-length")
+                if declared and int(declared) > max_bytes:
+                    raise UnsafeURLError("Declared content length exceeds limit")
+                content_type = response.headers.get("content-type", "")
+                if expect_json and "json" not in content_type and response.status_code < 400:
+                    raise UnsafeURLError(f"Unsafe content type: {content_type or 'missing'}")
+                if response.status_code < 400 and not _content_type_allowed(content_type):
+                    raise UnsafeURLError(f"Unsafe content type: {content_type or 'missing'}")
+                chunks: list[bytes] = []
+                total = 0
+                for chunk in response.iter_bytes():
+                    next_total = total + len(chunk)
+                    if next_total > max_bytes:
+                        chunks.clear()
+                        raise UnsafeURLError("Response exceeds byte limit")
+                    chunks.append(chunk)
+                    total = next_total
+                return SafeResponse(
+                    url=url,
+                    final_url=str(response.url),
+                    status_code=response.status_code,
+                    content=b"".join(chunks),
+                    content_type=content_type,
+                    truncated=False,
+                    bytes_read=total,
+                )
     raise UnsafeURLError("Too many redirects")

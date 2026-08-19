@@ -33,6 +33,22 @@ def lookup_rate(provider: str, model: str, *, path: Path | None = None) -> dict[
     return None
 
 
+def estimate_call_cost(
+    provider: str,
+    model: str,
+    input_tokens: int,
+    output_tokens: int,
+    *,
+    path: Path | None = None,
+) -> float:
+    rate = lookup_rate(provider, model, path=path)
+    if rate is None:
+        return 0.0
+    input_rate = float(rate.get("input_per_million") or 0)
+    output_rate = float(rate.get("output_per_million") or 0)
+    return (max(0, input_tokens) / 1_000_000) * input_rate + (max(0, output_tokens) / 1_000_000) * output_rate
+
+
 def estimate_cost(provider: str, model: str, max_tokens: int, *, path: Path | None = None) -> dict[str, Any]:
     rate = lookup_rate(provider, model, path=path)
     if rate is None:

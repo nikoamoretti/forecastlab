@@ -21,6 +21,7 @@ from forecastlab.logging import configure_logging
 from forecastlab.profiles import list_profiles, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
 from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
+from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.db import SessionLocal, get_db
@@ -54,7 +55,7 @@ from forecastlab_api.pipeline import create_run, execute_run, operationalize_que
 from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.secrets import public_settings, update_settings
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
-from forecastlab_api.watches import attach_demo_watch, check_watch
+from forecastlab_api.watches import attach_demo_watch, check_watch, validate_user_watch
 
 configure_logging(settings.log_level)
 app = FastAPI(title="ForecastLab", version="0.2.0")
@@ -444,6 +445,10 @@ def add_watch(question_id: str, body: WatchIn, db: Session = Depends(get_db)) ->
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
+    try:
+        validate_user_watch(endpoint_url=body.endpoint_url, endpoint_type=body.endpoint_type)
+    except UnsafeURLError as exc:
+        raise HTTPException(400, str(exc)) from exc
     watch = Watch(
         id=str(uuid.uuid4()),
         question_id=question.id,
