@@ -11,10 +11,12 @@ from pydantic import ValidationError
 
 from forecastlab.aggregation import AggregationBreakdown, aggregate_track_probabilities
 from forecastlab.budget import Budget
+from forecastlab.errors import BudgetExceeded, EvidenceIntegrityError
+from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.fetch import fetch_document
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import load_prompt
-from forecastlab.providers.base import BudgetExceeded, ChatResult, ModelProvider, SearchProvider
+from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
 from forecastlab.ranking import rank_hits
 from forecastlab.schemas import (
     FetchedDocument,
@@ -24,12 +26,13 @@ from forecastlab.schemas import (
     SearchHit,
     TrackForecastOutput,
 )
+from forecastlab.timeutil import as_utc
 from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
 
 ProgressFn = Callable[[str, str, float, dict[str, Any] | None], None]
 
 _SEARCH_CACHE: dict[tuple[str, int], list[SearchHit]] = {}
-_FETCH_CACHE: dict[tuple[str, str, str], FetchedDocument] = {}
+_FETCH_CACHE: dict[tuple[str, str, str, str], FetchedDocument] = {}
 
 
 @dataclass
@@ -53,6 +56,7 @@ class EngineResult:
     stopped_early: bool
     stop_reason: str | None
     stop_stage: str | None
+    fixture_evidence_used: bool = False
 
 
 def _emit(
@@ -119,8 +123,9 @@ def _cached_fetch(
     allow_local_fixtures: bool,
     snapshot_url: str | None,
     snapshot_at: datetime | None,
+    mode: str = "live",
 ) -> FetchedDocument:
-    key = (url, snapshot_url or "", as_of.isoformat() if as_of else "")
+    key = (url, snapshot_url or "", as_of.isoformat() if as_of else "", mode)
     if key not in _FETCH_CACHE:
         _FETCH_CACHE[key] = fetch_document(
             url,
@@ -128,6 +133,7 @@ def _cached_fetch(
             allow_local_fixtures=allow_local_fixtures,
             snapshot_url=snapshot_url,
             snapshot_at=snapshot_at,
+            mode=mode,
         )
     return _FETCH_CACHE[key]
 
@@ -151,6 +157,7 @@ def _record(doc: FetchedDocument, *, track: str, subquestion: str, evidence_id: 
         "snapshot_url": doc.snapshot_url,
         "snapshot_at": doc.snapshot_at.isoformat() if doc.snapshot_at else None,
         "status_code": doc.status_code,
+        "published_at_unknown": doc.published_at_unknown,
     }
 
 
@@ -191,34 +198,63 @@ def _run_track(
         )
         plan.subquestions = plan.subquestions[: profile.subquestions_per_track]
         _emit(progress, "evidence", f"Collecting evidence for {track}", 0.35)
-        for sub in plan.subquestions:
-            budget.check(f"search:{track}")
-            query = sub.search_queries[0] if sub.search_queries else sub.text
-            budget.add_search(f"search:{track}")
-            hits = rank_hits(_cached_search(search, query, profile.search_results_per_subquestion))
-            for hit in hits[: profile.fetches_per_subquestion]:
-                snapshot_url = None
-                snapshot_at = None
-                if mode == "backtest" and as_of:
-                    snaps = mock_snapshots(hit.url) if allow_local_fixtures else discover_snapshots(hit.url)
-                    nearest = nearest_eligible_snapshot(snaps, as_of)
-                    if nearest is not None:
+        if profile.max_search_calls > 0 and profile.max_fetched_documents > 0:
+            for sub in plan.subquestions:
+                budget.check(f"search:{track}")
+                query = sub.search_queries[0] if sub.search_queries else sub.text
+                budget.add_search(f"search:{track}")
+                hits = rank_hits(_cached_search(search, query, profile.search_results_per_subquestion))
+                for hit in hits[: profile.fetches_per_subquestion]:
+                    snapshot_url = None
+                    snapshot_at = None
+                    if mode == "backtest" and as_of:
+                        snaps = (
+                            mock_snapshots(hit.url)
+                            if allow_local_fixtures
+                            else discover_snapshots(hit.url, as_of=as_of)
+                        )
+                        nearest = nearest_eligible_snapshot(snaps, as_of)
+                        if nearest is None:
+                            rejected.append(
+                                {
+                                    "id": f"ev-{uuid.uuid4().hex[:10]}",
+                                    "track_type": track,
+                                    "subquestion": sub.text,
+                                    "url": hit.url,
+                                    "title": hit.title,
+                                    "publisher": None,
+                                    "published_at": None,
+                                    "retrieved_at": None,
+                                    "excerpt": "",
+                                    "content_hash": "",
+                                    "source_class": hit.source_class,
+                                    "as_of_eligible": False,
+                                    "rejected": True,
+                                    "rejection_reason": "no_eligible_historical_snapshot",
+                                    "snapshot_url": None,
+                                    "snapshot_at": None,
+                                    "status_code": 0,
+                                    "published_at_unknown": True,
+                                }
+                            )
+                            continue
                         snapshot_url = nearest.snapshot_url
                         snapshot_at = nearest.timestamp
-                budget.add_fetch(f"fetch:{track}")
-                doc = _cached_fetch(
-                    hit.url,
-                    as_of=as_of if mode == "backtest" else None,
-                    allow_local_fixtures=allow_local_fixtures,
-                    snapshot_url=snapshot_url,
-                    snapshot_at=snapshot_at,
-                )
-                record = _record(doc, track=track, subquestion=sub.text, evidence_id=f"ev-{uuid.uuid4().hex[:10]}")
-                record["source_class"] = hit.source_class
-                if doc.rejected or not doc.as_of_eligible:
-                    rejected.append(record)
-                    continue
-                evidence.append(record)
+                    budget.add_fetch(f"fetch:{track}")
+                    doc = _cached_fetch(
+                        hit.url,
+                        as_of=as_of if mode == "backtest" else None,
+                        allow_local_fixtures=allow_local_fixtures,
+                        snapshot_url=snapshot_url,
+                        snapshot_at=snapshot_at,
+                        mode=mode,
+                    )
+                    record = _record(doc, track=track, subquestion=sub.text, evidence_id=f"ev-{uuid.uuid4().hex[:10]}")
+                    record["source_class"] = hit.source_class
+                    if doc.rejected or not doc.as_of_eligible:
+                        rejected.append(record)
+                        continue
+                    evidence.append(record)
         _emit(progress, "forecast", f"Producing {track} estimate", 0.7)
         forecast = _ask_model(
             model,
@@ -278,8 +314,15 @@ def run_forecast_engine(
     search: SearchProvider,
     allow_local_fixtures: bool = True,
     progress: ProgressFn | None = None,
+    profile: ForecastProfile | None = None,
+    execution: ExecutionContext | None = None,
 ) -> EngineResult:
-    profile = load_profile(profile_id)
+    profile = profile or load_profile(profile_id)
+    if as_of is not None:
+        as_of = as_utc(as_of)
+    if execution is not None:
+        allow_local_fixtures = execution.fixture_evidence_allowed
+        mode = execution.effective_mode
     budget = Budget(profile)
     prompt_versions = dict(profile.prompt_versions)
     _emit(progress, "operationalize", "Operationalizing the question", 0.08)
@@ -366,6 +409,12 @@ def run_forecast_engine(
             summary = None
 
     _emit(progress, "report", "Preparing the forecast report", 0.96)
+    all_urls = [item.get("url") or "" for track in tracks for item in track.evidence + track.rejected]
+    fixture_used = any("fixtures.forecastlab.local" in url for url in all_urls if url)
+    if execution is not None and execution.effective_mode == "live":
+        assert_no_fixture_evidence(all_urls, live=True)
+        if fixture_used:
+            raise EvidenceIntegrityError("live_run_fixture_evidence_violation")
     return EngineResult(
         contract=contract,
         tracks=tracks,
@@ -376,6 +425,7 @@ def run_forecast_engine(
         stopped_early=budget.state.stopped,
         stop_reason=budget.state.stop_reason,
         stop_stage=budget.state.stop_stage,
+        fixture_evidence_used=fixture_used,
     )
 
 

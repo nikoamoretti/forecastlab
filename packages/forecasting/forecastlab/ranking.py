@@ -3,11 +3,12 @@ from __future__ import annotations
 from urllib.parse import urlparse
 
 from forecastlab.schemas import SearchHit
+from forecastlab.ssrf import host_matches
 
-PRIMARY_HOST_HINTS = (
-    ".gov",
-    ".gov.uk",
-    ".europa.eu",
+PRIMARY_DOMAINS = (
+    "gov",
+    "gov.uk",
+    "europa.eu",
     "bls.gov",
     "bea.gov",
     "census.gov",
@@ -23,6 +24,7 @@ PRIMARY_HOST_HINTS = (
     "statcan.gc.ca",
     "ecb.europa.eu",
     "bis.org",
+    "stlouisfed.org",
 )
 
 SOCIAL_HOSTS = (
@@ -40,11 +42,11 @@ def classify_source(url: str) -> str:
     parsed = urlparse(url)
     host = (parsed.hostname or "").lower()
     path = (parsed.path or "").lower()
-    if host.endswith("forecastlab.local") and any(
+    if host_matches(host, "forecastlab.local") and any(
         token in path for token in ("bls", "fred", "cbo", "nber", "jolts")
     ):
         return "primary"
-    if any(host.endswith(hint.lstrip(".")) or hint in host for hint in PRIMARY_HOST_HINTS):
+    if any(host_matches(host, domain) for domain in PRIMARY_DOMAINS):
         return "primary"
     return "secondary"
 
@@ -59,7 +61,7 @@ def rank_hits(hits: list[SearchHit]) -> list[SearchHit]:
             value += 0.2
         if hit.published_at is not None:
             value += 0.3
-        if any(social in host for social in SOCIAL_HOSTS):
+        if any(host_matches(host, social) for social in SOCIAL_HOSTS):
             value -= 2.0
         if host.endswith(".edu"):
             value += 0.5

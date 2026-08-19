@@ -6,14 +6,14 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
-import httpx
 import trafilatura
 from pypdf import PdfReader
 
 from forecastlab.hashing import content_hash
+from forecastlab.http_client import SafeResponse, safe_get
 from forecastlab.schemas import FetchedDocument
 from forecastlab.ssrf import UnsafeURLError, validate_url
-from forecastlab.timeutil import parse_datetime, utcnow
+from forecastlab.timeutil import as_utc, parse_datetime, utcnow
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "sources"
 MAX_BYTES = 2_000_000
@@ -25,6 +25,7 @@ FIXTURE_PAGES: dict[str, str] = {
     "https://fixtures.forecastlab.local/cbo-outlook": "cbo-outlook.html",
     "https://fixtures.forecastlab.local/nber-cycles": "nber-cycles.html",
     "https://fixtures.forecastlab.local/jolts": "jolts.html",
+    "https://fixtures.forecastlab.local/undated": "undated.html",
 }
 
 
@@ -47,6 +48,34 @@ def _extract_pdf(data: bytes) -> str:
     return "\n".join(pages)
 
 
+def _rejected(
+    url: str,
+    reason: str,
+    *,
+    now: datetime,
+    published: datetime | None = None,
+    snapshot_url: str | None = None,
+    snapshot_at: datetime | None = None,
+    status_code: int = 0,
+) -> FetchedDocument:
+    return FetchedDocument(
+        url=url,
+        title="",
+        publisher=None,
+        published_at=published,
+        retrieved_at=now,
+        text="",
+        content_hash=content_hash(""),
+        snapshot_url=snapshot_url,
+        snapshot_at=snapshot_at,
+        status_code=status_code,
+        rejected=True,
+        rejection_reason=reason,
+        as_of_eligible=False,
+        published_at_unknown=published is None,
+    )
+
+
 def fetch_document(
     url: str,
     *,
@@ -55,19 +84,28 @@ def fetch_document(
     snapshot_url: str | None = None,
     snapshot_at: datetime | None = None,
     limits: FetchLimits | None = None,
+    mode: str = "live",
 ) -> FetchedDocument:
     limits = limits or FetchLimits()
     now = utcnow()
+    if as_of is not None:
+        as_of = as_utc(as_of)
+    if snapshot_at is not None:
+        snapshot_at = as_utc(snapshot_at)
+    historical = mode == "backtest" or as_of is not None
+    if mode == "backtest" and as_of is None:
+        return _rejected(url, "unverifiable_as_of", now=now)
+
     if url in FIXTURE_PAGES and allow_local_fixtures:
         path = FIXTURES_DIR / FIXTURE_PAGES[url]
         raw = path.read_text(encoding="utf-8")
         text, title = _extract_html(raw, url)
         published = _published_from_html(raw)
-        eligible = True
-        reason = None
-        if as_of and published and published > as_of:
-            eligible = False
-            reason = "published_after_as_of"
+        if historical and as_of:
+            if published is None:
+                return _rejected(url, "unverifiable_as_of", now=now)
+            if published > as_of:
+                return _rejected(url, "published_after_as_of", now=now, published=published)
         return FetchedDocument(
             url=url,
             title=title or path.stem.replace("-", " ").title(),
@@ -79,61 +117,48 @@ def fetch_document(
             snapshot_url=snapshot_url or url,
             snapshot_at=snapshot_at or published,
             status_code=200,
-            rejected=not eligible,
-            rejection_reason=reason,
-            as_of_eligible=eligible,
+            rejected=False,
+            rejection_reason=None,
+            as_of_eligible=True,
+            published_at_unknown=published is None,
         )
 
+    if historical and not snapshot_url:
+        return _rejected(url, "no_eligible_historical_snapshot", now=now, snapshot_at=snapshot_at)
+    if historical and snapshot_at and as_of and snapshot_at > as_of:
+        return _rejected(url, "snapshot_after_as_of", now=now, snapshot_url=snapshot_url, snapshot_at=snapshot_at)
+
     try:
-        validate_url(url, allow_local_fixtures=allow_local_fixtures)
+        validate_url(snapshot_url or url, allow_local_fixtures=allow_local_fixtures)
     except UnsafeURLError as exc:
-        return FetchedDocument(
-            url=url,
-            title="",
-            publisher=None,
-            published_at=None,
-            retrieved_at=now,
-            text="",
-            content_hash=content_hash(""),
-            status_code=0,
-            rejected=True,
-            rejection_reason=f"unsafe_url:{exc}",
-            as_of_eligible=False,
-        )
+        return _rejected(url, f"unsafe_url:{exc}", now=now)
 
     target = snapshot_url or url
     try:
-        with httpx.Client(timeout=limits.timeout, follow_redirects=True, max_redirects=3) as client:
-            response = client.get(target, headers={"User-Agent": "ForecastLab/0.1 research-fetch"})
-            data = response.content[: limits.max_bytes]
-            status = response.status_code
-            content_type = response.headers.get("content-type", "")
-    except httpx.HTTPError as exc:
-        return FetchedDocument(
-            url=url,
-            title="",
-            retrieved_at=now,
-            text="",
-            content_hash=content_hash(""),
-            status_code=0,
-            rejected=True,
-            rejection_reason=f"fetch_error:{exc.__class__.__name__}",
-            as_of_eligible=False,
+        response: SafeResponse = safe_get(
+            target,
+            allow_local_fixtures=allow_local_fixtures,
+            timeout=limits.timeout,
+            max_bytes=limits.max_bytes,
+        )
+    except UnsafeURLError as exc:
+        return _rejected(url, f"unsafe_url:{exc}", now=now, snapshot_url=snapshot_url, snapshot_at=snapshot_at)
+    except Exception as exc:
+        return _rejected(
+            url,
+            f"historical_fetch_failed:{exc.__class__.__name__}" if historical else f"fetch_error:{exc.__class__.__name__}",
+            now=now,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
         )
 
-    if status >= 400:
-        return FetchedDocument(
-            url=url,
-            title="",
-            retrieved_at=now,
-            text="",
-            content_hash=content_hash(""),
-            status_code=status,
-            rejected=True,
-            rejection_reason=f"http_{status}",
-            as_of_eligible=False,
-        )
+    if response.truncated:
+        return _rejected(url, "response_too_large", now=now, status_code=response.status_code)
+    if response.status_code >= 400:
+        return _rejected(url, f"http_{response.status_code}", now=now, status_code=response.status_code)
 
+    data = response.content
+    content_type = response.content_type
     if "pdf" in content_type or target.lower().endswith(".pdf"):
         text = _extract_pdf(data)
         title = urlparse(url).path.rsplit("/", 1)[-1]
@@ -143,14 +168,16 @@ def fetch_document(
         text, title = _extract_html(raw, url)
         published = _published_from_html(raw)
 
-    eligible = True
-    reason = None
-    if as_of and published and published > as_of:
-        eligible = False
-        reason = "published_after_as_of"
-    if as_of and snapshot_at and snapshot_at > as_of:
-        eligible = False
-        reason = "snapshot_after_as_of"
+    if historical and as_of and published and published > as_of:
+        return _rejected(
+            url,
+            "published_after_as_of",
+            now=now,
+            published=published,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
+            status_code=response.status_code,
+        )
 
     return FetchedDocument(
         url=url,
@@ -162,10 +189,11 @@ def fetch_document(
         content_hash=content_hash(text),
         snapshot_url=snapshot_url,
         snapshot_at=snapshot_at,
-        status_code=status,
-        rejected=not eligible,
-        rejection_reason=reason,
-        as_of_eligible=eligible,
+        status_code=response.status_code,
+        rejected=False,
+        rejection_reason=None,
+        as_of_eligible=True,
+        published_at_unknown=published is None,
     )
 
 
