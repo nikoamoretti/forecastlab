@@ -1,0 +1,2 @@
+question,forecast_date,resolution_date,outcome,resolution_source,category,provenance,is_synthetic
+Will EVENT happen before DEADLINE?,2024-01-01,2025-01-01,0,https://example.org/resolution,category,user_import,false

@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Will synthetic JSON series J exceed threshold 4 before 2026-12-31?",
+    "forecast_date": "2024-08-01",
+    "resolution_date": "2026-01-01",
+    "outcome": 0,
+    "resolution_source": "https://fixtures.forecastlab.local/synthetic-j",
+    "category": "test",
+    "provenance": "ForecastLab synthetic fixture",
+    "is_synthetic": true
+  }
+]
