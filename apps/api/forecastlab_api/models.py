@@ -25,6 +25,10 @@ class Question(Base):
     status: Mapped[str] = mapped_column(String(32), default="draft")
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     stale: Mapped[bool] = mapped_column(Boolean, default=False)
+    requested_mode: Mapped[str] = mapped_column(String(32), default="demo")
+    requested_profile_id: Mapped[str] = mapped_column(String(64), default="three_track_ensemble")
+    requested_as_of: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    is_benchmark: Mapped[bool] = mapped_column(Boolean, default=False)
 
     contract: Mapped[ResolutionContractRow | None] = relationship(back_populates="question", uselist=False)
     runs: Mapped[list[ForecastRun]] = relationship(back_populates="question")
@@ -78,6 +82,12 @@ class ForecastRun(Base):
     progress_pct: Mapped[float] = mapped_column(Float, default=0.0)
     progress_stage: Mapped[str] = mapped_column(String(64), default="queued")
     progress_message: Mapped[str] = mapped_column(Text, default="Waiting for worker")
+    execution_context_json: Mapped[str] = mapped_column(Text, default="{}")
+    configuration_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    evidence_policy: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    fixture_evidence_used: Mapped[bool] = mapped_column(Boolean, default=False)
+    code_commit: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    synthetic_fixture_run: Mapped[bool] = mapped_column(Boolean, default=False)
 
     question: Mapped[Question] = relationship(back_populates="runs")
     tracks: Mapped[list[ResearchTrack]] = relationship(back_populates="run")
@@ -87,6 +97,7 @@ class ForecastRun(Base):
 
 class ResearchTrack(Base):
     __tablename__ = "research_tracks"
+    __table_args__ = (UniqueConstraint("run_id", "track_type", name="uq_track_run_type"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
@@ -145,12 +156,14 @@ class EvidenceItem(Base):
     snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     snapshot_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     status_code: Mapped[int] = mapped_column(Integer, default=200)
+    published_at_unknown: Mapped[bool] = mapped_column(Boolean, default=False)
 
     run: Mapped[ForecastRun] = relationship(back_populates="evidence")
 
 
 class ForecastVersion(Base):
     __tablename__ = "forecast_versions"
+    __table_args__ = (UniqueConstraint("run_id", name="uq_forecast_version_run"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"))
@@ -190,6 +203,11 @@ class Job(Base):
     progress_stage: Mapped[str] = mapped_column(String(64), default="queued")
     progress_message: Mapped[str] = mapped_column(Text, default="")
     progress_pct: Mapped[float] = mapped_column(Float, default=0.0)
+    lease_owner: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    lease_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    available_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    error_category: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    error_history_json: Mapped[str] = mapped_column(Text, default="[]")
 
 
 class JobEvent(Base):
@@ -203,11 +221,26 @@ class JobEvent(Base):
     payload_json: Mapped[str] = mapped_column(Text, default="{}")
 
 
+class BenchmarkDataset(Base):
+    __tablename__ = "benchmark_datasets"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    name: Mapped[str] = mapped_column(String(128))
+    description: Mapped[str] = mapped_column(Text, default="")
+    dataset_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    provenance: Mapped[str] = mapped_column(String(128), default="user_import")
+    is_synthetic: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    question_count: Mapped[int] = mapped_column(Integer, default=0)
+    metadata_json: Mapped[str] = mapped_column(Text, default="{}")
+
+
 class BenchmarkQuestion(Base):
     __tablename__ = "benchmark_questions"
     __table_args__ = (UniqueConstraint("import_hash", name="uq_benchmark_import_hash"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_id: Mapped[str | None] = mapped_column(ForeignKey("benchmark_datasets.id"), nullable=True)
     question: Mapped[str] = mapped_column(Text)
     forecast_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     resolution_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -219,10 +252,57 @@ class BenchmarkQuestion(Base):
     is_synthetic: Mapped[bool] = mapped_column(Boolean, default=False)
 
 
-class BenchmarkResult(Base):
-    __tablename__ = "benchmark_results"
+class BenchmarkExperiment(Base):
+    __tablename__ = "benchmark_experiments"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("benchmark_datasets.id"))
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    code_commit: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    execution_context_json: Mapped[str] = mapped_column(Text, default="{}")
+    model_provider: Mapped[str] = mapped_column(String(64), default="mock")
+    model_name: Mapped[str] = mapped_column(String(128), default="mock-forecast-v1")
+    search_provider: Mapped[str] = mapped_column(String(64), default="mock")
+    profile_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    profile_hashes_json: Mapped[str] = mapped_column(Text, default="{}")
+    prompt_hashes_json: Mapped[str] = mapped_column(Text, default="{}")
+    evidence_policy: Mapped[str] = mapped_column(String(64), default="synthetic_historical_fixtures")
+    experiment_hash: Mapped[str] = mapped_column(String(64), default="")
+    is_synthetic: Mapped[bool] = mapped_column(Boolean, default=True)
+    total_tasks: Mapped[int] = mapped_column(Integer, default=0)
+    completed_tasks: Mapped[int] = mapped_column(Integer, default=0)
+    failed_tasks: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class BenchmarkTask(Base):
+    __tablename__ = "benchmark_tasks"
+    __table_args__ = (
+        UniqueConstraint("experiment_id", "benchmark_question_id", "profile_id", name="uq_benchmark_task"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("benchmark_experiments.id"))
+    benchmark_question_id: Mapped[str] = mapped_column(ForeignKey("benchmark_questions.id"))
+    profile_id: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    run_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class BenchmarkResult(Base):
+    __tablename__ = "benchmark_results"
+    __table_args__ = (UniqueConstraint("benchmark_task_id", name="uq_benchmark_result_task"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str | None] = mapped_column(ForeignKey("benchmark_experiments.id"), nullable=True)
+    benchmark_task_id: Mapped[str | None] = mapped_column(ForeignKey("benchmark_tasks.id"), nullable=True)
     benchmark_question_id: Mapped[str] = mapped_column(ForeignKey("benchmark_questions.id"))
     run_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     profile_id: Mapped[str] = mapped_column(String(64))

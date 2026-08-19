@@ -1,4 +1,13 @@
-from forecastlab.evaluation import brier_score, log_loss, mean, median, reliability_bins
+from forecastlab.evaluation import (
+    BOOTSTRAP_SEED,
+    bootstrap_mean_ci,
+    brier_score,
+    log_loss,
+    mean,
+    median,
+    paired_profile_comparison,
+    reliability_bins,
+)
 
 
 def test_brier_and_log_loss() -> None:
@@ -16,3 +25,23 @@ def test_reliability_requires_twenty_points() -> None:
     large = reliability_bins(pairs)
     assert large["available"] is True
     assert large["sample_count"] == 20
+    assert "not a calibration claim" in str(large["message"]).lower() or "display" in str(large).lower()
+
+
+def test_paired_bootstrap_is_deterministic() -> None:
+    left = {
+        "q1": {"brier": 0.1, "log_loss": 0.2, "cost_usd": 1.0, "latency_ms": 10},
+        "q2": {"brier": 0.2, "log_loss": 0.3, "cost_usd": 1.0, "latency_ms": 12},
+        "q3": {"brier": 0.3, "log_loss": 0.4, "cost_usd": 1.2, "latency_ms": 11},
+    }
+    right = {
+        "q1": {"brier": 0.2, "log_loss": 0.3, "cost_usd": 2.0, "latency_ms": 20},
+        "q2": {"brier": 0.2, "log_loss": 0.3, "cost_usd": 2.0, "latency_ms": 22},
+        "q3": {"brier": 0.4, "log_loss": 0.5, "cost_usd": 2.2, "latency_ms": 21},
+    }
+    first = paired_profile_comparison(left, right, left_id="a", right_id="b")
+    second = paired_profile_comparison(left, right, left_id="a", right_id="b")
+    assert first["paired_brier_bootstrap"] == second["paired_brier_bootstrap"]
+    assert first["paired_brier_bootstrap"]["seed"] == BOOTSTRAP_SEED
+    again = bootstrap_mean_ci([-0.1, 0.0, -0.1])
+    assert again == bootstrap_mean_ci([-0.1, 0.0, -0.1])
