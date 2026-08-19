@@ -11,6 +11,7 @@ from forecastlab.engine import operationalize_only, run_forecast_engine
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import ExecutionContext, resolve_execution_context
 from forecastlab.profiles import load_profile
+from forecastlab.prompts import PromptBundle
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.providers.search import build_search_provider
 from forecastlab.schemas import ForecastProfile, ResolutionContract
@@ -141,7 +142,15 @@ def start_run(
     return create_run_record(session, question=question, context=context, as_of=as_of, enqueue=enqueue)
 
 
-def execute_run(session: Session, run: ForecastRun, job=None) -> None:
+def execute_run(
+    session: Session,
+    run: ForecastRun,
+    job=None,
+    *,
+    profile: ForecastProfile | None = None,
+    prompt_bundle: PromptBundle | None = None,
+    model_timeout: float | None = None,
+) -> None:
     secrets = load_secrets()
     question = run.question
     raw_context = json.loads(run.execution_context_json or "{}")
@@ -161,12 +170,17 @@ def execute_run(session: Session, run: ForecastRun, job=None) -> None:
         raise ConfigurationError(["live_run_mock_model_violation"])
     if context.effective_mode == "live" and context.search_is_mock:
         raise ConfigurationError(["live_run_mock_search_violation"])
+    timeout = (
+        model_timeout
+        if model_timeout is not None
+        else float(context.model_timeout_seconds or secrets.get("model_timeout_seconds") or 60)
+    )
     model = build_model_provider(
         provider=context.model_provider,
         api_key=secrets.get("model_api_key"),
-        base_url=context.model_base_url or secrets.get("model_base_url"),
+        base_url=context.model_base_url,
         model=context.model_name,
-        timeout=float(secrets.get("model_timeout_seconds") or 60),
+        timeout=timeout,
         execution=context,
     )
     search = build_search_provider(
@@ -190,7 +204,8 @@ def execute_run(session: Session, run: ForecastRun, job=None) -> None:
         )
     run.started_at = utcnow()
     run.status = "running"
-    profile = apply_execution_limits(load_profile(context.profile_id), context)
+    if profile is None:
+        profile = apply_execution_limits(load_profile(context.profile_id), context)
     stop_heartbeat = threading.Event()
 
     def heartbeat_loop() -> None:
@@ -224,6 +239,7 @@ def execute_run(session: Session, run: ForecastRun, job=None) -> None:
             progress=progress,
             profile=profile,
             execution=context,
+            prompt_bundle=prompt_bundle,
         )
         persist_engine_result(session, run, result)
         snapshot = context.model_dump(mode="json")

@@ -80,4 +80,7 @@ def test_api_key_redaction() -> None:
 def test_synthetic_benchmark_file_exists() -> None:
     path = Path(__file__).resolve().parents[1] / "fixtures" / "benchmarks" / "synthetic_binary.csv"
     assert path.exists()
-    assert "is_synthetic" in path.read_text(encoding="utf-8")
+    text = path.read_text(encoding="utf-8")
+    assert "is_synthetic" in text
+    assert "exact_yes" in text
+    assert "exact_no" in text

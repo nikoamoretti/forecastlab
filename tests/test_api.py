@@ -274,3 +274,4 @@ def test_json_benchmark_import(client) -> None:
     template = client.get("/api/benchmarks/template.csv")
     assert template.status_code == 200
     assert "question,forecast_date" in template.text
+    assert "exact_yes,exact_no,resolution_deadline" in template.text

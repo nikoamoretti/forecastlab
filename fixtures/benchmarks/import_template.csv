@@ -1,2 +1,2 @@
-question,forecast_date,resolution_date,outcome,resolution_source,category,provenance,is_synthetic
-Will EVENT happen before DEADLINE?,2024-01-01,2025-01-01,0,https://example.org/resolution,category,user_import,false
+question,forecast_date,resolution_date,outcome,resolution_source,category,provenance,is_synthetic,exact_yes,exact_no,resolution_deadline,authoritative_source,fallback_sources,geography,units,ambiguity_notes,cancellation_conditions,resolver_risk_notes
+Will EVENT happen before DEADLINE?,2024-01-01,2025-01-01,0,https://example.org/resolution,category,user_import,false,Yes if EVENT is observed before DEADLINE,No if EVENT is not observed before DEADLINE,2025-01-01,https://example.org/resolution,[],worldwide,binary,Define EVENT unambiguously.,Cancelled if the source is discontinued.,Resolver must use the authoritative source.

@@ -15,7 +15,7 @@ from forecastlab.errors import BudgetExceeded, EvidenceIntegrityError
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.fetch import fetch_document
 from forecastlab.profiles import load_profile
-from forecastlab.prompts import load_prompt
+from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
 from forecastlab.ranking import rank_hits
 from forecastlab.schemas import (
@@ -70,6 +70,12 @@ def _emit(
         progress(stage, message, pct, extra)
 
 
+def _resolve_prompt(prompt_name: str, prompt_bundle: PromptBundle | None) -> tuple[str, str]:
+    if prompt_bundle is not None:
+        return prompt_bundle.get(prompt_name)
+    return load_prompt(prompt_name)
+
+
 def _ask_json(
     model: ModelProvider,
     budget: Budget,
@@ -78,8 +84,9 @@ def _ask_json(
     user: str,
     schema_name: str,
     prompt_versions: dict[str, str],
+    prompt_bundle: PromptBundle | None = None,
 ) -> dict[str, Any]:
-    system, version = load_prompt(prompt_name)
+    system, version = _resolve_prompt(prompt_name, prompt_bundle)
     prompt_versions[prompt_name] = version
     result: ChatResult = model.complete_json(system=system, user=user, schema_name=schema_name)
     tokens = result.usage.prompt_tokens + result.usage.completion_tokens
@@ -99,13 +106,14 @@ def _ask_model(
     schema_name: str,
     prompt_versions: dict[str, str],
     model_cls: type,
+    prompt_bundle: PromptBundle | None = None,
 ) -> Any:
-    parsed = _ask_json(model, budget, stage, prompt_name, user, schema_name, prompt_versions)
+    parsed = _ask_json(model, budget, stage, prompt_name, user, schema_name, prompt_versions, prompt_bundle)
     try:
         return model_cls.model_validate(parsed)
     except ValidationError:
         repair = user + "\n\nPrevious JSON failed validation. Return corrected JSON only.\n" + json.dumps(parsed)[:4000]
-        parsed = _ask_json(model, budget, stage, prompt_name, repair, schema_name, prompt_versions)
+        parsed = _ask_json(model, budget, stage, prompt_name, repair, schema_name, prompt_versions, prompt_bundle)
         return model_cls.model_validate(parsed)
 
 
@@ -174,6 +182,7 @@ def _run_track(
     allow_local_fixtures: bool,
     prompt_versions: dict[str, str],
     progress: ProgressFn | None = None,
+    prompt_bundle: PromptBundle | None = None,
 ) -> TrackResult:
     evidence: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
@@ -195,6 +204,7 @@ def _run_track(
             "research_plan",
             prompt_versions,
             ResearchPlan,
+            prompt_bundle,
         )
         plan.subquestions = plan.subquestions[: profile.subquestions_per_track]
         _emit(progress, "evidence", f"Collecting evidence for {track}", 0.35)
@@ -282,6 +292,7 @@ def _run_track(
             "track_forecast",
             prompt_versions,
             TrackForecastOutput,
+            prompt_bundle,
         )
         allowed = {item["id"] for item in evidence}
         forecast.key_drivers = [
@@ -316,6 +327,7 @@ def run_forecast_engine(
     progress: ProgressFn | None = None,
     profile: ForecastProfile | None = None,
     execution: ExecutionContext | None = None,
+    prompt_bundle: PromptBundle | None = None,
 ) -> EngineResult:
     profile = profile or load_profile(profile_id)
     if as_of is not None:
@@ -337,6 +349,7 @@ def run_forecast_engine(
             "resolution_contract",
             prompt_versions,
             ResolutionContract,
+            prompt_bundle,
         )
 
     tracks: list[TrackResult] = []
@@ -357,6 +370,7 @@ def run_forecast_engine(
                     allow_local_fixtures=allow_local_fixtures,
                     prompt_versions=prompt_versions,
                     progress=progress,
+                    prompt_bundle=prompt_bundle,
                 )
             )
         except BudgetExceeded as exc:
@@ -403,6 +417,7 @@ def run_forecast_engine(
                 ),
                 "disagreement_summary",
                 prompt_versions,
+                prompt_bundle,
             )
             summary = str(parsed.get("summary") or "")
         except (BudgetExceeded, ValueError, ValidationError, json.JSONDecodeError):

@@ -179,6 +179,16 @@ class BenchmarkImportRow(BaseModel):
     category: str
     provenance: str = "user_import"
     is_synthetic: bool = False
+    exact_yes: str | None = None
+    exact_no: str | None = None
+    resolution_deadline: datetime | None = None
+    authoritative_source: str | None = None
+    fallback_sources: list[str] = Field(default_factory=list)
+    geography: str | None = None
+    units: str | None = None
+    ambiguity_notes: str = ""
+    cancellation_conditions: str = ""
+    resolver_risk_notes: str = ""
 
     @field_validator("outcome")
     @classmethod

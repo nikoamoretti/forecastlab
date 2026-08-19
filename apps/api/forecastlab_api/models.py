@@ -237,7 +237,7 @@ class BenchmarkDataset(Base):
 
 class BenchmarkQuestion(Base):
     __tablename__ = "benchmark_questions"
-    __table_args__ = (UniqueConstraint("import_hash", name="uq_benchmark_import_hash"),)
+    __table_args__ = (UniqueConstraint("dataset_id", "import_hash", name="uq_benchmark_dataset_import"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     dataset_id: Mapped[str | None] = mapped_column(ForeignKey("benchmark_datasets.id"), nullable=True)
@@ -250,6 +250,16 @@ class BenchmarkQuestion(Base):
     provenance: Mapped[str] = mapped_column(String(128), default="user_import")
     import_hash: Mapped[str] = mapped_column(String(64))
     is_synthetic: Mapped[bool] = mapped_column(Boolean, default=False)
+    exact_yes: Mapped[str] = mapped_column(Text, default="")
+    exact_no: Mapped[str] = mapped_column(Text, default="")
+    resolution_deadline: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    authoritative_source: Mapped[str] = mapped_column(Text, default="")
+    fallback_sources_json: Mapped[str] = mapped_column(Text, default="[]")
+    geography: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    units: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    ambiguity_notes: Mapped[str] = mapped_column(Text, default="")
+    cancellation_conditions: Mapped[str] = mapped_column(Text, default="")
+    resolver_risk_notes: Mapped[str] = mapped_column(Text, default="")
 
 
 class BenchmarkExperiment(Base):
@@ -265,6 +275,8 @@ class BenchmarkExperiment(Base):
     execution_context_json: Mapped[str] = mapped_column(Text, default="{}")
     model_provider: Mapped[str] = mapped_column(String(64), default="mock")
     model_name: Mapped[str] = mapped_column(String(128), default="mock-forecast-v1")
+    model_base_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    model_timeout_seconds: Mapped[float] = mapped_column(Float, default=60.0)
     search_provider: Mapped[str] = mapped_column(String(64), default="mock")
     profile_ids_json: Mapped[str] = mapped_column(Text, default="[]")
     profile_hashes_json: Mapped[str] = mapped_column(Text, default="{}")
@@ -275,6 +287,42 @@ class BenchmarkExperiment(Base):
     total_tasks: Mapped[int] = mapped_column(Integer, default=0)
     completed_tasks: Mapped[int] = mapped_column(Integer, default=0)
     failed_tasks: Mapped[int] = mapped_column(Integer, default=0)
+
+    snapshots: Mapped[list[BenchmarkProfileSnapshot]] = relationship(back_populates="experiment")
+
+
+class BenchmarkProfileSnapshot(Base):
+    __tablename__ = "benchmark_profile_snapshots"
+    __table_args__ = (UniqueConstraint("experiment_id", "profile_id", name="uq_benchmark_profile_snapshot"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("benchmark_experiments.id"))
+    profile_id: Mapped[str] = mapped_column(String(64))
+    source_profile_json: Mapped[str] = mapped_column(Text)
+    effective_profile_json: Mapped[str] = mapped_column(Text)
+    profile_hash: Mapped[str] = mapped_column(String(64))
+    prompt_bundle_json: Mapped[str] = mapped_column(Text)
+    prompt_versions_json: Mapped[str] = mapped_column(Text, default="{}")
+    prompt_hashes_json: Mapped[str] = mapped_column(Text, default="{}")
+    model_provider: Mapped[str] = mapped_column(String(64))
+    model_name: Mapped[str] = mapped_column(String(128))
+    model_base_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    search_provider: Mapped[str] = mapped_column(String(64))
+    model_timeout_seconds: Mapped[float] = mapped_column(Float, default=60.0)
+    evidence_policy: Mapped[str] = mapped_column(String(64))
+    effective_max_cost_usd: Mapped[float] = mapped_column(Float)
+    effective_max_tokens: Mapped[int] = mapped_column(Integer)
+    effective_max_model_calls: Mapped[int] = mapped_column(Integer)
+    effective_max_search_calls: Mapped[int] = mapped_column(Integer)
+    effective_max_fetched_documents: Mapped[int] = mapped_column(Integer)
+    effective_max_wall_clock_seconds: Mapped[int] = mapped_column(Integer)
+    pricing_snapshot_json: Mapped[str] = mapped_column(Text, default="{}")
+    pricing_hash: Mapped[str] = mapped_column(String(64), default="")
+    execution_context_json: Mapped[str] = mapped_column(Text)
+    configuration_hash: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    experiment: Mapped[BenchmarkExperiment] = relationship(back_populates="snapshots")
 
 
 class BenchmarkTask(Base):

@@ -9,7 +9,10 @@ export default function LabPage() {
   const [datasets, setDatasets] = useState<any[]>([]);
   const [datasetId, setDatasetId] = useState("");
   const [profiles, setProfiles] = useState<any[]>([]);
-  const [selected, setSelected] = useState<string[]>(["single_agent_baseline", "three_track_ensemble"]);
+  const [selected, setSelected] = useState<string[]>([
+    "single_agent_equal_budget_v1",
+    "three_track_equal_budget_v1",
+  ]);
   const [experimentId, setExperimentId] = useState<string | null>(null);
   const [progress, setProgress] = useState<any>(null);
   const [summary, setSummary] = useState<any>(null);

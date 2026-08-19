@@ -2,29 +2,32 @@
 
 ## Datasets
 
-A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. The bundled `synthetic_fixtures_v1` dataset is labeled synthetic and is not a public leaderboard.
+A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash over the question, the full resolution contract, dates, outcome, category, provenance, and synthetic flag. Rows are canonicalized and sorted before hashing, so file order does not change identity. Uniqueness is `UNIQUE(dataset_id, import_hash)`, so the same question may appear in separately versioned datasets. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. Real imports require nonempty `exact_yes` and `exact_no`. The bundled `synthetic_fixtures_v1` dataset is labeled synthetic and is not a public leaderboard.
 
 ## Experiments
 
 Creating an experiment:
 
-1. Freezes dataset hash, profiles, prompt hashes, providers, evidence policy, ceilings, and git commit.
-2. Creates one `BenchmarkTask` per question × profile.
-3. Enqueues one idempotent `benchmark_task` job per task.
-4. Returns immediately.
+1. Writes one `BenchmarkProfileSnapshot` per selected profile with the source and effective profile payloads, full prompt texts (`PromptBundle`), prompt versions and hashes, frozen provider fields, per-profile limits, pricing snapshot, and execution context. API keys are never stored.
+2. Freezes dataset hash, profile hashes, prompt hashes, model provider, model name, model base URL, search provider, timeout, evidence policy, and git commit.
+3. Creates one `BenchmarkTask` per question × profile.
+4. Enqueues one idempotent `benchmark_task` job per task.
+5. Returns immediately.
 
-The HTTP handler does not call `execute_run()`. Settings changes after creation do not rewrite the frozen configuration. API keys are never stored on the experiment.
+The HTTP handler does not call `execute_run()`. Execution later uses only the stored snapshot. Editing prompt files, profile YAML, or Settings after creation does not change that experiment. If a frozen real provider later has no key, the task fails clearly. Providers are never switched. Each profile keeps its own stored limits.
 
 ## Tasks
 
-Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
+Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Tasks load the stored effective `ForecastProfile` and `PromptBundle`; they do not call `load_profile()` or `load_prompt()` against mutable files. Every profile forecasting one benchmark question receives the identical stored resolution contract from the dataset. Benchmark tasks do not operationalize the question through a model. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
 
 ## Profiles
 
-- `model_only_v1`: contract only, no search or fetches.
-- `single_agent_equal_budget_v1` and `three_track_equal_budget_v1`: matching total search, fetch, token, cost, and wall-clock ceilings.
-- `three_track_full_v1`: larger research budget.
-- `single_agent_baseline` and `three_track_ensemble` remain for demo compatibility.
+Default scientific comparison:
+
+- `single_agent_equal_budget_v1`
+- `three_track_equal_budget_v1`
+
+Those two share configured search, fetch, token, cost, and wall-clock ceilings. The full ensemble (`three_track_ensemble`, `three_track_full_v1`) remains optional. `model_only_v1` is contract-only. `single_agent_baseline` and `three_track_ensemble` remain for demo compatibility.
 
 Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and latency are reported.
 

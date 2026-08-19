@@ -28,7 +28,7 @@ cd apps/web && npm install && npm run build
 3. Searches, fetches, and stores evidence with hashes, timestamps, and rejection reasons.
 4. Aggregates track probabilities in code: clip, logit mean, shrink toward the base-rate track.
 5. Versions the result. A watch can mark a question stale. Reruns require user action.
-6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode.
+6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode. Creating an experiment snapshots profiles, prompts, provider settings, and the resolution contract. Later edits to those files or to Settings do not change that experiment.
 
 ## Settings
 

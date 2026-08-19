@@ -41,7 +41,7 @@ REQUIRED_RUN_COLUMNS = {
     "code_commit",
     "synthetic_fixture_run",
 }
-REQUIRED_TABLES = {"benchmark_datasets", "benchmark_experiments", "benchmark_tasks"}
+REQUIRED_TABLES = {"benchmark_datasets", "benchmark_experiments", "benchmark_tasks", "benchmark_profile_snapshots"}
 
 
 def _engine(path: Path) -> Engine:
@@ -93,7 +93,13 @@ def _assert_legacy_rows_survived(engine: Engine) -> None:
         job = connection.execute(text("SELECT available_at, error_history_json FROM jobs WHERE id = :id"), {"id": JOB_ID}).one()
         assert job.available_at is not None
         assert job.error_history_json == "[]"
-        assert connection.execute(text("SELECT id FROM benchmark_questions WHERE id = :id"), {"id": BENCH_Q_ID}).scalar_one() == BENCH_Q_ID
+        bench = connection.execute(
+            text("SELECT exact_yes, exact_no, authoritative_source FROM benchmark_questions WHERE id = :id"),
+            {"id": BENCH_Q_ID},
+        ).one()
+        assert bench.exact_yes
+        assert bench.exact_no
+        assert bench.authoritative_source
         assert connection.execute(text("SELECT id FROM benchmark_results WHERE id = :id"), {"id": BENCH_RESULT_ID}).scalar_one() == BENCH_RESULT_ID
         assert connection.execute(text("SELECT id FROM watches WHERE id = :id"), {"id": WATCH_ID}).scalar_one() == WATCH_ID
 
@@ -116,7 +122,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260819_0002"
+        assert current == "20260819_0003"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

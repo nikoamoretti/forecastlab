@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import uuid
 from datetime import datetime
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -15,46 +16,142 @@ from forecastlab.evaluation import (
     paired_profile_comparison,
     reliability_bins,
 )
-from forecastlab.execution import configuration_hash, resolve_execution_context
+from forecastlab.execution import ExecutionContext, configuration_hash, resolve_execution_context
 from forecastlab.gitinfo import current_git_commit
-from forecastlab.hashing import canonical_json, import_hash, sha256_text
-from forecastlab.profiles import list_profiles, load_profile, profile_hash
-from forecastlab.prompts import prompt_hashes
+from forecastlab.hashing import canonical_json, import_hash, redact_secrets, sha256_text
+from forecastlab.pricing import load_pricing, pricing_hash
+from forecastlab.profiles import effective_profile, list_profiles, load_profile, profile_hash
+from forecastlab.prompts import PromptBundle, load_prompt_bundle
+from forecastlab.schemas import ForecastProfile, ResolutionContract
 from forecastlab.timeutil import as_utc, parse_datetime, utcnow
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
     BenchmarkDataset,
     BenchmarkExperiment,
+    BenchmarkProfileSnapshot,
     BenchmarkQuestion,
     BenchmarkResult,
     BenchmarkTask,
     ForecastVersion,
     Question,
 )
-from forecastlab_api.pipeline import create_run_record, execute_run, provider_settings_from_secrets
+from forecastlab_api.persist import save_contract
+from forecastlab_api.pipeline import (
+    apply_execution_limits,
+    create_run_record,
+    execute_run,
+    provider_settings_from_secrets,
+)
 from forecastlab_api.secrets import load_secrets
 
 SYNTHETIC_DATASET_NAME = "synthetic_fixtures_v1"
-DEFAULT_EXPERIMENT_PROFILES = ("single_agent_baseline", "three_track_ensemble")
+DEFAULT_EXPERIMENT_PROFILES = ("single_agent_equal_budget_v1", "three_track_equal_budget_v1")
 
 
-def dataset_hash_for_rows(rows: list[dict], *, is_synthetic: bool, name: str) -> str:
-    payload = {
-        "name": name,
-        "is_synthetic": is_synthetic,
-        "rows": [import_hash(_row_fields(row)) for row in rows],
-    }
-    return sha256_text(canonical_json(payload))
+def _truthy(value: Any, default: bool = False) -> bool:
+    if value is True or value is False:
+        return value
+    if value is None or value == "":
+        return default
+    return str(value).strip().lower() in {"1", "true", "yes"}
 
 
-def _row_fields(row: dict) -> dict[str, str]:
+def _parse_fallback_sources(value: Any) -> list[str]:
+    if value is None or value == "":
+        return []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    text = str(value).strip()
+    if text.startswith("["):
+        parsed = json.loads(text)
+        if not isinstance(parsed, list):
+            raise ValueError("fallback_sources_invalid")
+        return [str(item).strip() for item in parsed if str(item).strip()]
+    return [part.strip() for part in text.replace("|", ";").split(";") if part.strip()]
+
+
+def _require_text(value: Any, field: str) -> str:
+    text = str(value or "").strip()
+    if not text:
+        raise ValueError(f"{field}_required")
+    return text
+
+
+def _iso(value: datetime) -> str:
+    return as_utc(value).isoformat()
+
+
+def canonical_benchmark_row(row: dict[str, Any], *, is_synthetic: bool, provenance: str = "user_import") -> dict[str, Any]:
+    question = _require_text(row.get("question"), "question")
+    try:
+        outcome = int(row["outcome"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("invalid_outcome") from exc
+    if outcome not in (0, 1):
+        raise ValueError("invalid_outcome")
+    forecast_date = parse_datetime(str(row.get("forecast_date") or ""))
+    resolution_date = parse_datetime(str(row.get("resolution_date") or ""))
+    if forecast_date is None or resolution_date is None:
+        raise ValueError("forecast_date_and_resolution_date_required")
+    if forecast_date >= resolution_date:
+        raise ValueError("forecast_date_after_resolution_date")
+    deadline = parse_datetime(str(row.get("resolution_deadline") or "")) or resolution_date
+    if deadline is None:
+        raise ValueError("resolution_deadline_required")
+    resolution_source = str(row.get("resolution_source") or "").strip()
+    if is_synthetic:
+        exact_yes = str(row.get("exact_yes") or "").strip() or f"Yes if: {question}"
+        exact_no = str(row.get("exact_no") or "").strip() or f"No if not: {question}"
+        authoritative = str(row.get("authoritative_source") or resolution_source).strip() or "synthetic fixture"
+    else:
+        exact_yes = _require_text(row.get("exact_yes"), "exact_yes")
+        exact_no = _require_text(row.get("exact_no"), "exact_no")
+        authoritative = _require_text(row.get("authoritative_source") or resolution_source, "authoritative_source")
     return {
-        "question": str(row["question"]).strip(),
-        "forecast_date": str(row["forecast_date"]),
-        "resolution_date": str(row["resolution_date"]),
-        "outcome": str(row["outcome"]),
-        "resolution_source": str(row["resolution_source"]),
+        "question": question,
+        "exact_yes": exact_yes,
+        "exact_no": exact_no,
+        "resolution_deadline": _iso(deadline),
+        "authoritative_source": authoritative,
+        "fallback_sources": _parse_fallback_sources(row.get("fallback_sources")),
+        "geography": str(row.get("geography") or "").strip(),
+        "units": str(row.get("units") or "").strip(),
+        "ambiguity_notes": str(row.get("ambiguity_notes") or "").strip(),
+        "cancellation_conditions": str(row.get("cancellation_conditions") or "").strip(),
+        "resolver_risk_notes": str(row.get("resolver_risk_notes") or "").strip(),
+        "forecast_date": _iso(forecast_date),
+        "resolution_date": _iso(resolution_date),
+        "outcome": outcome,
+        "resolution_source": resolution_source or authoritative,
+        "category": str(row.get("category") or "uncategorized").strip() or "uncategorized",
+        "provenance": str(row.get("provenance") or provenance).strip() or provenance,
+        "is_synthetic": is_synthetic,
     }
+
+
+def dataset_hash_for_rows(rows: list[dict], *, is_synthetic: bool, name: str | None = None) -> str:
+    del name
+    canonical = [canonical_benchmark_row(row, is_synthetic=is_synthetic) for row in rows]
+    canonical.sort(key=lambda item: canonical_json(item))
+    return sha256_text(canonical_json({"is_synthetic": is_synthetic, "rows": canonical}))
+
+
+def contract_from_benchmark(item: BenchmarkQuestion) -> ResolutionContract:
+    deadline = as_utc(item.resolution_deadline) or as_utc(item.resolution_date)
+    if deadline is None:
+        raise ValueError("resolution_deadline_required")
+    return ResolutionContract(
+        exact_yes=item.exact_yes,
+        exact_no=item.exact_no,
+        resolution_deadline=deadline,
+        authoritative_source=item.authoritative_source or item.resolution_source,
+        fallback_sources=json.loads(item.fallback_sources_json or "[]"),
+        geography=item.geography or None,
+        units=item.units or None,
+        ambiguity_notes=item.ambiguity_notes or "",
+        cancellation_conditions=item.cancellation_conditions or "",
+        resolver_risk_notes=item.resolver_risk_notes or "",
+    )
 
 
 def ensure_dataset(
@@ -69,12 +166,14 @@ def ensure_dataset(
     flags = []
     for row in rows:
         raw = row.get("is_synthetic", is_synthetic)
-        flag = raw is True or str(raw).lower() == "true"
-        flags.append(flag)
+        flags.append(_truthy(raw, default=is_synthetic))
     if flags and any(flag != flags[0] for flag in flags):
         raise ValueError("mixed_synthetic_and_real")
     agreed_synthetic = flags[0] if flags else is_synthetic
-    digest = dataset_hash_for_rows(rows, is_synthetic=agreed_synthetic, name=name)
+    normalized = [canonical_benchmark_row(row, is_synthetic=agreed_synthetic, provenance=provenance) for row in rows]
+    digest = sha256_text(
+        canonical_json({"is_synthetic": agreed_synthetic, "rows": sorted(normalized, key=canonical_json)})
+    )
     existing = session.scalar(select(BenchmarkDataset).where(BenchmarkDataset.dataset_hash == digest))
     created = 0
     duplicates = 0
@@ -92,38 +191,49 @@ def ensure_dataset(
         )
         session.add(existing)
         session.flush()
-    for index, row in enumerate(rows, start=1):
-        try:
-            fields = _row_fields(row)
-            item_hash = import_hash(fields)
-            found = session.scalar(select(BenchmarkQuestion).where(BenchmarkQuestion.import_hash == item_hash))
-            if found:
-                if found.dataset_id is None:
-                    found.dataset_id = existing.id
-                duplicates += 1
-                continue
-            forecast_date = parse_datetime(fields["forecast_date"])
-            resolution_date = parse_datetime(fields["resolution_date"])
-            if forecast_date is None or resolution_date is None:
-                raise ValueError("forecast_date and resolution_date are required")
-            session.add(
-                BenchmarkQuestion(
-                    id=str(uuid.uuid4()),
-                    dataset_id=existing.id,
-                    question=fields["question"],
-                    forecast_date=forecast_date,
-                    resolution_date=resolution_date,
-                    outcome=int(fields["outcome"]),
-                    resolution_source=fields["resolution_source"],
-                    category=str(row.get("category") or "uncategorized"),
-                    provenance=str(row.get("provenance") or provenance),
-                    import_hash=item_hash,
-                    is_synthetic=agreed_synthetic,
-                )
+    seen_hashes: set[str] = set()
+    for fields in normalized:
+        item_hash = import_hash(fields)
+        if item_hash in seen_hashes:
+            duplicates += 1
+            continue
+        found = session.scalar(
+            select(BenchmarkQuestion).where(
+                BenchmarkQuestion.dataset_id == existing.id,
+                BenchmarkQuestion.import_hash == item_hash,
             )
-            created += 1
-        except Exception as exc:
-            errors.append(f"row {index}: {exc}")
+        )
+        if found:
+            duplicates += 1
+            seen_hashes.add(item_hash)
+            continue
+        seen_hashes.add(item_hash)
+        session.add(
+            BenchmarkQuestion(
+                id=str(uuid.uuid4()),
+                dataset_id=existing.id,
+                question=fields["question"],
+                forecast_date=parse_datetime(fields["forecast_date"]),
+                resolution_date=parse_datetime(fields["resolution_date"]),
+                outcome=int(fields["outcome"]),
+                resolution_source=fields["resolution_source"],
+                category=fields["category"],
+                provenance=fields["provenance"],
+                import_hash=item_hash,
+                is_synthetic=agreed_synthetic,
+                exact_yes=fields["exact_yes"],
+                exact_no=fields["exact_no"],
+                resolution_deadline=parse_datetime(fields["resolution_deadline"]),
+                authoritative_source=fields["authoritative_source"],
+                fallback_sources_json=json.dumps(fields["fallback_sources"]),
+                geography=fields["geography"] or None,
+                units=fields["units"] or None,
+                ambiguity_notes=fields["ambiguity_notes"],
+                cancellation_conditions=fields["cancellation_conditions"],
+                resolver_risk_notes=fields["resolver_risk_notes"],
+            )
+        )
+        created += 1
     session.flush()
     existing.question_count = int(
         session.scalar(
@@ -132,6 +242,99 @@ def ensure_dataset(
         or 0
     )
     return existing, created, duplicates, errors
+
+
+def _safe_json(payload: Any) -> str:
+    text = payload if isinstance(payload, str) else canonical_json(payload)
+    return redact_secrets(text)
+
+
+def _persist_profile_snapshot(
+    session: Session,
+    *,
+    experiment: BenchmarkExperiment,
+    profile_id: str,
+    settings_data: dict[str, Any],
+    frozen: dict[str, Any],
+    synthetic: bool,
+    as_of: datetime,
+    bundle: PromptBundle,
+    pricing_payload: dict[str, Any],
+    pricing_digest: str,
+) -> BenchmarkProfileSnapshot:
+    source = load_profile(profile_id)
+    context = resolve_execution_context(
+        requested_mode="backtest",
+        profile_id=profile_id,
+        settings=settings_data,
+        synthetic_fixture_run=synthetic,
+        as_of=as_of,
+    )
+    context = context.model_copy(
+        update={
+            "model_provider": frozen["model_provider"],
+            "model_name": frozen["model_name"],
+            "model_base_url": frozen["model_base_url"],
+            "model_timeout_seconds": frozen["model_timeout_seconds"],
+            "search_provider": frozen["search_provider"],
+            "evidence_policy": frozen["evidence_policy"],
+            "model_is_mock": frozen["model_is_mock"],
+            "search_is_mock": frozen["search_is_mock"],
+            "prompt_versions": bundle.versions(),
+            "prompt_hashes": bundle.hashes(),
+        }
+    )
+    effective = apply_execution_limits(effective_profile(source, user_max_cost_usd=float(settings_data["max_cost_usd"])), context)
+    snapshot_payload = {
+        "profile_id": profile_id,
+        "source_profile": source.model_dump(mode="json"),
+        "effective_profile": effective.model_dump(mode="json"),
+        "profile_hash": profile_hash(source),
+        "prompt_hashes": bundle.hashes(),
+        "prompt_versions": bundle.versions(),
+        "model_provider": frozen["model_provider"],
+        "model_name": frozen["model_name"],
+        "model_base_url": frozen["model_base_url"],
+        "search_provider": frozen["search_provider"],
+        "model_timeout_seconds": frozen["model_timeout_seconds"],
+        "evidence_policy": frozen["evidence_policy"],
+        "effective_max_cost_usd": effective.max_estimated_cost_usd,
+        "effective_max_tokens": effective.max_tokens,
+        "effective_max_model_calls": effective.max_model_calls,
+        "effective_max_search_calls": effective.max_search_calls,
+        "effective_max_fetched_documents": effective.max_fetched_documents,
+        "effective_max_wall_clock_seconds": effective.max_wall_clock_seconds,
+        "pricing_hash": pricing_digest,
+    }
+    snapshot = BenchmarkProfileSnapshot(
+        id=str(uuid.uuid4()),
+        experiment_id=experiment.id,
+        profile_id=profile_id,
+        source_profile_json=_safe_json(source.model_dump(mode="json")),
+        effective_profile_json=_safe_json(effective.model_dump(mode="json")),
+        profile_hash=profile_hash(source),
+        prompt_bundle_json=_safe_json(bundle.model_dump(mode="json")),
+        prompt_versions_json=_safe_json(bundle.versions()),
+        prompt_hashes_json=_safe_json(bundle.hashes()),
+        model_provider=frozen["model_provider"],
+        model_name=frozen["model_name"],
+        model_base_url=frozen["model_base_url"],
+        search_provider=frozen["search_provider"],
+        model_timeout_seconds=frozen["model_timeout_seconds"],
+        evidence_policy=frozen["evidence_policy"],
+        effective_max_cost_usd=effective.max_estimated_cost_usd,
+        effective_max_tokens=effective.max_tokens,
+        effective_max_model_calls=effective.max_model_calls,
+        effective_max_search_calls=effective.max_search_calls,
+        effective_max_fetched_documents=effective.max_fetched_documents,
+        effective_max_wall_clock_seconds=effective.max_wall_clock_seconds,
+        pricing_snapshot_json=_safe_json(pricing_payload),
+        pricing_hash=pricing_digest,
+        execution_context_json=_safe_json(context.model_dump(mode="json")),
+        configuration_hash=configuration_hash(snapshot_payload),
+    )
+    session.add(snapshot)
+    return snapshot
 
 
 def create_experiment(
@@ -143,9 +346,7 @@ def create_experiment(
     dataset = session.get(BenchmarkDataset, dataset_id)
     if dataset is None:
         raise ValueError("dataset_not_found")
-    questions = session.scalars(
-        select(BenchmarkQuestion).where(BenchmarkQuestion.dataset_id == dataset.id)
-    ).all()
+    questions = session.scalars(select(BenchmarkQuestion).where(BenchmarkQuestion.dataset_id == dataset.id)).all()
     if not questions:
         raise ValueError("dataset_empty")
     unique_profiles = list(dict.fromkeys(profile_ids))
@@ -162,39 +363,77 @@ def create_experiment(
         synthetic_fixture_run=dataset.is_synthetic,
         as_of=questions[0].forecast_date,
     )
-    hashes = {profile_id: profile_hash(load_profile(profile_id)) for profile_id in unique_profiles}
-    prompts = prompt_hashes()
-    experiment_payload = {
-        "dataset_hash": dataset.dataset_hash,
-        "profile_ids": unique_profiles,
-        "profile_hashes": hashes,
-        "prompt_hashes": prompts,
+    frozen = {
         "model_provider": template.model_provider,
         "model_name": template.model_name,
+        "model_base_url": template.model_base_url,
         "search_provider": template.search_provider,
+        "model_timeout_seconds": float(settings_data.get("model_timeout_seconds") or 60.0),
         "evidence_policy": template.evidence_policy,
-        "effective_max_cost_usd": template.effective_max_cost_usd,
-        "is_synthetic": dataset.is_synthetic,
+        "model_is_mock": template.model_is_mock,
+        "search_is_mock": template.search_is_mock,
     }
+    bundle = load_prompt_bundle()
+    pricing_payload = load_pricing()
+    pricing_digest = pricing_hash()
+    hashes = {profile_id: profile_hash(load_profile(profile_id)) for profile_id in unique_profiles}
     experiment = BenchmarkExperiment(
         id=str(uuid.uuid4()),
         dataset_id=dataset.id,
         status="pending",
         code_commit=current_git_commit(),
-        execution_context_json=template.model_dump_json(),
-        model_provider=template.model_provider,
-        model_name=template.model_name,
-        search_provider=template.search_provider,
+        execution_context_json=_safe_json(
+            {
+                **template.model_dump(mode="json"),
+                **{key: frozen[key] for key in ("model_provider", "model_name", "model_base_url", "search_provider", "model_timeout_seconds", "evidence_policy")},
+            }
+        ),
+        model_provider=frozen["model_provider"],
+        model_name=frozen["model_name"],
+        model_base_url=frozen["model_base_url"],
+        model_timeout_seconds=frozen["model_timeout_seconds"],
+        search_provider=frozen["search_provider"],
         profile_ids_json=json.dumps(unique_profiles),
         profile_hashes_json=json.dumps(hashes),
-        prompt_hashes_json=json.dumps(prompts),
-        evidence_policy=template.evidence_policy,
-        experiment_hash=configuration_hash(experiment_payload),
+        prompt_hashes_json=_safe_json(bundle.hashes()),
+        evidence_policy=frozen["evidence_policy"],
         is_synthetic=dataset.is_synthetic,
         total_tasks=len(questions) * len(unique_profiles),
     )
     session.add(experiment)
     session.flush()
+    snapshot_hashes: dict[str, str] = {}
+    for profile_id in unique_profiles:
+        snapshot = _persist_profile_snapshot(
+            session,
+            experiment=experiment,
+            profile_id=profile_id,
+            settings_data=settings_data,
+            frozen=frozen,
+            synthetic=dataset.is_synthetic,
+            as_of=as_utc(questions[0].forecast_date) or questions[0].forecast_date,
+            bundle=bundle,
+            pricing_payload=pricing_payload,
+            pricing_digest=pricing_digest,
+        )
+        snapshot_hashes[profile_id] = snapshot.configuration_hash
+    experiment.experiment_hash = configuration_hash(
+        {
+            "dataset_hash": dataset.dataset_hash,
+            "profile_ids": unique_profiles,
+            "profile_hashes": hashes,
+            "prompt_hashes": bundle.hashes(),
+            "model_provider": frozen["model_provider"],
+            "model_name": frozen["model_name"],
+            "model_base_url": frozen["model_base_url"],
+            "search_provider": frozen["search_provider"],
+            "model_timeout_seconds": frozen["model_timeout_seconds"],
+            "evidence_policy": frozen["evidence_policy"],
+            "snapshot_configuration_hashes": snapshot_hashes,
+            "pricing_hash": pricing_digest,
+            "is_synthetic": dataset.is_synthetic,
+        }
+    )
     for question in questions:
         for profile_id in unique_profiles:
             task = BenchmarkTask(
@@ -215,6 +454,40 @@ def create_experiment(
     return experiment
 
 
+def _load_snapshot(session: Session, experiment_id: str, profile_id: str) -> BenchmarkProfileSnapshot:
+    snapshot = session.scalar(
+        select(BenchmarkProfileSnapshot).where(
+            BenchmarkProfileSnapshot.experiment_id == experiment_id,
+            BenchmarkProfileSnapshot.profile_id == profile_id,
+        )
+    )
+    if snapshot is None:
+        raise RuntimeError("benchmark_snapshot_missing")
+    return snapshot
+
+
+def _shared_benchmark_question(session: Session, experiment: BenchmarkExperiment, item: BenchmarkQuestion) -> Question:
+    notes = f"benchmark:{item.id}:{experiment.id}"
+    question = session.scalar(select(Question).where(Question.notes == notes))
+    if question is None:
+        question = Question(
+            id=str(uuid.uuid4()),
+            original_text=item.question,
+            notes=notes,
+            status="draft",
+            requested_mode="backtest",
+            requested_profile_id="three_track_ensemble",
+            requested_as_of=as_utc(item.forecast_date),
+            is_benchmark=True,
+        )
+        session.add(question)
+        session.flush()
+    if question.contract is None:
+        save_contract(session, question, contract_from_benchmark(item))
+        session.flush()
+    return question
+
+
 def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> None:
     existing = session.scalar(select(BenchmarkResult).where(BenchmarkResult.benchmark_task_id == task.id))
     if existing is not None and task.status == "completed":
@@ -223,39 +496,29 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
     item = session.get(BenchmarkQuestion, task.benchmark_question_id)
     if experiment is None or item is None:
         raise RuntimeError("benchmark_task_missing_parent")
+    snapshot = _load_snapshot(session, experiment.id, task.profile_id)
     if experiment.status == "pending":
         experiment.status = "running"
         experiment.started_at = experiment.started_at or utcnow()
     task.status = "running"
     task.started_at = utcnow()
     task.attempts += 1
-    settings_data = provider_settings_from_secrets()
-    frozen = json.loads(experiment.execution_context_json or "{}")
-    settings_data["model_provider"] = experiment.model_provider
-    settings_data["model_name"] = experiment.model_name
-    settings_data["search_provider"] = experiment.search_provider
-    settings_data["max_cost_usd"] = float(
-        frozen.get("effective_max_cost_usd") or settings_data.get("max_cost_usd") or 5.0
+    profile = ForecastProfile.model_validate(json.loads(snapshot.effective_profile_json))
+    bundle = PromptBundle.model_validate(json.loads(snapshot.prompt_bundle_json))
+    context = ExecutionContext.model_validate(json.loads(snapshot.execution_context_json))
+    context = context.model_copy(
+        update={
+            "profile_id": task.profile_id,
+            "model_provider": snapshot.model_provider,
+            "model_name": snapshot.model_name,
+            "model_base_url": snapshot.model_base_url,
+            "model_timeout_seconds": snapshot.model_timeout_seconds,
+            "search_provider": snapshot.search_provider,
+            "evidence_policy": snapshot.evidence_policy,
+        }
     )
-    context = resolve_execution_context(
-        requested_mode="backtest",
-        profile_id=task.profile_id,
-        settings=settings_data,
-        synthetic_fixture_run=experiment.is_synthetic,
-        as_of=as_utc(item.forecast_date),
-    )
-    question = Question(
-        id=str(uuid.uuid4()),
-        original_text=item.question,
-        notes=f"benchmark:{item.id}:{experiment.id}",
-        status="draft",
-        requested_mode="backtest",
-        requested_profile_id=task.profile_id,
-        requested_as_of=as_utc(item.forecast_date),
-        is_benchmark=True,
-    )
-    session.add(question)
-    session.flush()
+    question = _shared_benchmark_question(session, experiment, item)
+    question.requested_profile_id = task.profile_id
     run = create_run_record(
         session,
         question=question,
@@ -265,7 +528,14 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
     )
     task.run_id = run.id
     session.commit()
-    execute_run(session, run, job=job)
+    execute_run(
+        session,
+        run,
+        job=job,
+        profile=profile,
+        prompt_bundle=bundle,
+        model_timeout=snapshot.model_timeout_seconds,
+    )
     session.refresh(run)
     latest = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
     prob = latest.ensemble_probability if latest else None
@@ -331,6 +601,12 @@ def experiment_progress(session: Session, experiment: BenchmarkExperiment) -> di
         "is_synthetic": experiment.is_synthetic,
         "experiment_hash": experiment.experiment_hash,
         "code_commit": experiment.code_commit,
+        "model_provider": experiment.model_provider,
+        "model_name": experiment.model_name,
+        "model_base_url": experiment.model_base_url,
+        "model_timeout_seconds": experiment.model_timeout_seconds,
+        "search_provider": experiment.search_provider,
+        "evidence_policy": experiment.evidence_policy,
     }
 
 
@@ -428,6 +704,8 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
         "evidence_policy": experiment.evidence_policy,
         "model_provider": experiment.model_provider,
         "model_name": experiment.model_name,
+        "model_base_url": experiment.model_base_url,
+        "model_timeout_seconds": experiment.model_timeout_seconds,
         "search_provider": experiment.search_provider,
         "notice": (
             "Software-verification fixtures only. Not evidence of real-world forecasting quality."

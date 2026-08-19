@@ -5,6 +5,8 @@ from typing import Any
 
 import yaml
 
+from forecastlab.hashing import canonical_json, sha256_text
+
 PRICING_PATH = Path(__file__).resolve().parents[3] / "configs" / "pricing" / "models.yaml"
 
 
@@ -13,6 +15,10 @@ def load_pricing(*, path: Path | None = None) -> dict[str, Any]:
     if not target.exists():
         return {"source": "missing", "last_updated": None, "estimated": True, "providers": {}}
     return yaml.safe_load(target.read_text(encoding="utf-8")) or {}
+
+
+def pricing_hash(*, path: Path | None = None) -> str:
+    return sha256_text(canonical_json(load_pricing(path=path)))
 
 
 def lookup_rate(provider: str, model: str, *, path: Path | None = None) -> dict[str, Any] | None:

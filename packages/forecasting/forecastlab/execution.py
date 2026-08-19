@@ -39,6 +39,7 @@ class ExecutionContext(BaseModel):
     model_provider: str
     model_name: str
     model_base_url: str | None = None
+    model_timeout_seconds: float = 60.0
     model_is_mock: bool
 
     search_provider: str
@@ -275,6 +276,7 @@ def _build_context(
         "model_provider": model_provider,
         "model_name": model_name,
         "model_base_url": model_base_url,
+        "model_timeout_seconds": cfg.model_timeout_seconds,
         "search_provider": search_provider,
         "evidence_policy": evidence_policy,
         "fixture_evidence_allowed": fixture_allowed,
@@ -295,6 +297,7 @@ def _build_context(
         model_provider=model_provider,
         model_name=model_name,
         model_base_url=model_base_url,
+        model_timeout_seconds=cfg.model_timeout_seconds,
         model_is_mock=model_is_mock,
         search_provider=search_provider,
         search_is_mock=search_is_mock,

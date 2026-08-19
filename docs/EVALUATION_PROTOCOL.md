@@ -2,16 +2,16 @@
 
 ## Allowed data
 
-A benchmark row needs: question, forecast date, resolution date, outcome (0/1), resolution source, category, provenance. Import hashes detect duplicates. ForecastLab ships **synthetic** CSV fixtures for software tests (`fixtures/benchmarks/synthetic_binary.csv`) and a blank template (`fixtures/benchmarks/import_template.csv`). Those rows are labeled synthetic in the UI. They are not a public scoring set. This MVP does not invent public questions or scrape Metaculus.
+A benchmark row needs: question, forecast date, resolution date, outcome (0/1), resolution source, category, provenance, and a resolution contract (`exact_yes`, `exact_no`, `resolution_deadline`, `authoritative_source`, plus optional fallback sources, geography, units, and notes). Real imports require `exact_yes` and `exact_no`. Forecast date must precede resolution date. Import hashes are unique per dataset, not globally. Dataset hashes include the full contract and are independent of row order. ForecastLab ships **synthetic** CSV fixtures for software tests (`fixtures/benchmarks/synthetic_binary.csv`) and a blank template (`fixtures/benchmarks/import_template.csv`). Those rows are labeled synthetic in the UI. They are not a public scoring set. This MVP does not invent public questions or scrape Metaculus.
 
 ## Fair baseline
 
-Every comparison uses at least:
+Every default comparison uses:
 
-1. `single_agent_baseline`
-2. `three_track_ensemble`
+1. `single_agent_equal_budget_v1`
+2. `three_track_equal_budget_v1`
 
-Lab comparisons should use `single_agent_equal_budget_v1` and `three_track_equal_budget_v1` when the question is “does coded aggregation help at the same ceiling?” `three_track_full_v1` is the higher-research product profile. Older IDs remain for the demo.
+The full ensemble remains optional. `three_track_full_v1` is the higher-research product profile. Older IDs remain for the demo. Every profile on one benchmark question forecasts the same stored contract.
 
 ## Scoring
 

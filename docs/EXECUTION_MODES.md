@@ -34,3 +34,11 @@ Every forecast goes through `resolve_execution_context()` before a job or run is
 - Evidence policy: `synthetic_historical_fixtures`.
 
 Synthetic status is never inferred from missing credentials.
+
+## Frozen experiment execution
+
+Product forecasts may still load prompt files and YAML profiles from disk. Benchmark execution does not.
+
+At experiment creation ForecastLab stores a `BenchmarkProfileSnapshot` for each selected profile, including full prompt text, the effective profile, provider fields, timeout, evidence policy, limits, and a pricing snapshot. Tasks reconstruct `ForecastProfile`, `PromptBundle`, and `ExecutionContext` from that row. They do not call `load_profile()` or `load_prompt()`, and they do not re-read Settings for provider, model, base URL, search provider, timeout, or evidence policy.
+
+API keys are loaded at execution time only. If a frozen real provider is missing a required key, the task fails. The run never switches to a different provider. Changing Settings or editing source files after creation leaves already-created experiments unchanged.
