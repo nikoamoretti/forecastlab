@@ -14,7 +14,7 @@ Subquestions are generated from the contract and track charter. They are capped 
 
 ## Evidence
 
-Search hits are ranked with a deterministic heuristic that prefers official domains, HTTPS, and dated documents, and that downranks social posts. Fetched pages are stored with URL, title, publisher, timestamps, excerpt, hash, and eligibility. Backtests reject publications or snapshots after `as_of`. Current search snippets may discover URLs but are not treated as evidence after the cutoff. Every source shown in a report is a stored `EvidenceItem`. The model is not allowed to invent URLs.
+Search hits are ranked with a deterministic heuristic that prefers official domains, HTTPS, and dated documents, and that downranks social posts. Hostname checks use exact domain boundaries. Fetched pages are stored with URL, title, publisher, timestamps, excerpt, hash, and eligibility. Backtests reject publications or snapshots after `as_of` and never fall back to the current page. Current search snippets may discover URLs but are not treated as evidence after the cutoff. Every source shown in a report is a stored `EvidenceItem`. The model is not allowed to invent URLs. See `docs/EVIDENCE_CUTOFF_POLICY.md`.
 
 ## Aggregation
 

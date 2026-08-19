@@ -11,7 +11,7 @@ Every comparison uses at least:
 1. `single_agent_baseline`
 2. `three_track_ensemble`
 
-The single-agent profile receives the same contract family and a comparable evidence budget. It is not starved of documents to make the ensemble look good.
+Lab comparisons should use `single_agent_equal_budget_v1` and `three_track_equal_budget_v1` when the question is “does coded aggregation help at the same ceiling?” `three_track_full_v1` is the higher-research product profile. Older IDs remain for the demo.
 
 ## Scoring
 
@@ -27,4 +27,6 @@ Prefer temporal splits: forecast dates before resolution dates, and never score 
 
 ## Calibration displays
 
-A reliability diagram is shown only when at least 20 resolved predictions exist. Below that, the UI reports the sample size and refuses the chart.
+Reliability is computed separately per profile and never mixed. A reliability diagram is shown only when at least 20 resolved predictions exist for that profile. Twenty observations are a display threshold, not enough for a calibration claim.
+
+See `docs/BENCHMARK_EXPERIMENTS.md`.

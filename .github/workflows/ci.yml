@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install Python
+        run: python -m pip install -e ".[dev]"
+      - name: Python tests
+        run: python -m pytest -q
+      - name: Ruff
+        run: python -m ruff check packages apps/api tests
+      - name: Mypy
+        run: python -m mypy
+      - name: Frontend
+        working-directory: apps/web
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+      - name: Install Playwright
+        working-directory: apps/web
+        run: npx playwright install --with-deps chromium
+      - name: Start API and worker
+        run: |
+          mkdir -p data/local
+          uvicorn forecastlab_api.main:app --host 127.0.0.1 --port 8765 &
+          python -m forecastlab_api.worker &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:8765/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "API failed to start" >&2
+          exit 1
+      - name: Start web
+        working-directory: apps/web
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:3000 >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "web failed to start" >&2
+          exit 1
+      - name: Playwright
+        working-directory: apps/web
+        run: npx playwright test
+        env:
+          FORECASTLAB_API_ORIGIN: http://127.0.0.1:8765

@@ -26,11 +26,11 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 
 ## Jobs
 
-Jobs are rows, not threads. Statuses: pending, running, completed, failed. Heartbeats older than 45 seconds are recovered on worker start. Duplicate `idempotency_key` values reuse the existing job.
+Jobs are rows, not threads. Statuses: pending, running, completed, failed. A worker claims a pending job with `UPDATE ... WHERE status='pending' RETURNING` under a SQLite write lock. Leases last 180 seconds and are refreshed by a background heartbeat on a short-lived session so a long model call is not marked stale. Transient provider errors retry with backoff; configuration, evidence-integrity, and 4xx failures do not. Duplicate `idempotency_key` values reuse the existing job. `persist_engine_result` is idempotent on `run_id`.
 
 ## Storage
 
-SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. Local boot uses SQLAlchemy `create_all`. Alembic is installed for later revisioned migrations; do not treat the MVP database as a production cluster.
+SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup run Alembic (`20260818_0001` baseline including integrity and experiment tables). Isolated unit tests may still call `create_all`. Do not treat the local database as a production cluster. Existing pre-migration local files should be removed so the upgrade can create the new schema.
 
 SQLite strips timezone info on read. Health checks, watch polling, and latency math always run datetimes through `as_utc`.
 
@@ -40,4 +40,4 @@ FastAPI dependencies that `yield` a session commit *after* the HTTP response is 
 
 ## UI proxy
 
-The Next.js app calls relative `/api/...` and `/demo/...` routes. Catch-all App Router handlers forward those requests to `http://127.0.0.1:8765` so the browser does not depend on cross-origin access to the API port.
+The Next.js app calls relative `/api/...` and `/demo/...` routes. Catch-all App Router handlers forward those requests to `FORECASTLAB_API_ORIGIN` (default `http://127.0.0.1:8765`) so the browser does not depend on cross-origin access to the API port. Docker Compose sets `FORECASTLAB_API_ORIGIN=http://api:8765` on the web service.

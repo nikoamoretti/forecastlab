@@ -19,10 +19,16 @@ export PYTHONPATH="$ROOT/packages/forecasting:$ROOT/apps/api:${PYTHONPATH:-}"
 export FORECASTLAB_DATABASE_URL="sqlite:///$ROOT/data/forecastlab.db"
 export PYTHONUNBUFFERED=1
 ./scripts/dev_down.sh >/dev/null 2>&1 || true
-nohup python -m forecastlab_api.worker >> logs/worker.log 2>&1 &
-echo $! > logs/worker.pid
 nohup python -m uvicorn forecastlab_api.main:app --host 127.0.0.1 --port 8765 >> logs/api.log 2>&1 &
 echo $! > logs/api.pid
+for i in {1..40}; do
+  if curl -sf http://127.0.0.1:8765/health >/dev/null; then
+    break
+  fi
+  sleep 0.25
+done
+nohup python -m forecastlab_api.worker >> logs/worker.log 2>&1 &
+echo $! > logs/worker.pid
 (
   cd apps/web
   nohup npm run dev -- --hostname 127.0.0.1 --port 3000 >> "$ROOT/logs/web.log" 2>&1 &

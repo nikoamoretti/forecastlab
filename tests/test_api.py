@@ -68,6 +68,12 @@ def test_full_mock_forecast_contract_edit_report_export(client) -> None:
     report = client.get(f"/api/questions/{qid}/report")
     payload = report.json()
     latest = payload["latest_run"]
+    context = latest["execution_context"]
+    assert context["effective_mode"] == "demo"
+    assert context["model_is_mock"] is True
+    assert context["search_is_mock"] is True
+    assert context["fixture_evidence_used"] is True
+    assert latest["configuration_hash"]
     assert payload["latest_probability"] is not None
     assert 0.02 <= payload["latest_probability"] <= 0.98
     tracks = latest["tracks"]
@@ -122,7 +128,74 @@ def test_watcher_and_second_version(client) -> None:
     assert again["versions"][0]["previous_version_id"] == again["versions"][1]["id"]
 
 
+def test_live_mode_without_keys_is_422(client) -> None:
+    created = client.post(
+        "/api/questions",
+        json={"question": "Will live mode reject missing keys?", "mode": "live"},
+    )
+    qid = created.json()["id"]
+    operationalized = client.post(f"/api/questions/{qid}/operationalize")
+    assert operationalized.status_code == 422
+    run = client.post(f"/api/questions/{qid}/runs", json={"profile_id": "three_track_ensemble", "mode": "live"})
+    assert run.status_code == 422
+    body = run.json()
+    assert "reasons" in body
+    again = client.get(f"/api/questions/{qid}").json()
+    assert again["runs"] == []
+    assert again["status"] == "draft"
+
+
+def test_backtest_without_as_of_is_422(client) -> None:
+    created = client.post(
+        "/api/questions",
+        json={"question": "Will backtest require as_of?", "mode": "backtest"},
+    )
+    qid = created.json()["id"]
+    run = client.post(f"/api/questions/{qid}/runs", json={"profile_id": "three_track_ensemble", "mode": "backtest"})
+    assert run.status_code == 422
+
+
+def test_providers_readiness_and_mock_probe(client) -> None:
+    health = client.get("/health/providers").json()
+    assert health["demo"]["ready"] is True
+    assert "reasons" in health["live"]
+    assert "sk-" not in str(health)
+    model = client.post("/api/settings/test-model").json()
+    assert model["success"] is True
+    assert model["provider"] == "mock"
+    search = client.post("/api/settings/test-search").json()
+    assert search["success"] is True
+
+
+def test_persist_is_idempotent(client) -> None:
+    from sqlalchemy import select
+
+    from forecastlab_api.db import SessionLocal
+    from forecastlab_api.models import ForecastRun, ForecastVersion, ResearchTrack
+    from forecastlab_api.pipeline import execute_run
+
+    created = client.post(
+        "/api/questions",
+        json={"question": "Will the US unemployment rate exceed 5% before 30 June 2027?", "mode": "demo"},
+    )
+    qid = created.json()["id"]
+    client.post(f"/api/questions/{qid}/operationalize")
+    run = client.post(f"/api/questions/{qid}/runs", json={"profile_id": "three_track_ensemble", "mode": "demo"})
+    run_id = run.json()["id"]
+    with SessionLocal() as session:
+        row = session.get(ForecastRun, run_id)
+        assert row is not None
+        execute_run(session, row)
+        session.commit()
+        versions = session.scalars(select(ForecastVersion).where(ForecastVersion.run_id == run_id)).all()
+        tracks = session.scalars(select(ResearchTrack).where(ResearchTrack.run_id == run_id)).all()
+        assert len(versions) == 1
+        assert len(tracks) == 3
+
+
 def test_benchmark_import_and_compare(client) -> None:
+    from forecastlab_api.worker import drain_jobs
+
     csv = (
         "question,forecast_date,resolution_date,outcome,resolution_source,category,provenance,is_synthetic\n"
         "Will unique test series Z exceed threshold 9 before 2026-12-31?,2024-08-01,2026-01-01,1,https://fixtures.forecastlab.local/synthetic-z,test,api-test,true\n"
@@ -133,19 +206,50 @@ def test_benchmark_import_and_compare(client) -> None:
     )
     assert imported.status_code == 200
     assert imported.json()["created"] >= 1
+    assert imported.json()["is_synthetic"] is True
+    assert imported.json()["dataset_hash"]
     dup = client.post(
         "/api/benchmarks/import",
         files={"file": ("bench.csv", BytesIO(csv.encode("utf-8")), "text/csv")},
     )
     assert dup.json()["duplicates"] >= 1
-    ran = client.post("/api/benchmarks/run")
-    assert ran.status_code == 200
-    summary = client.get("/api/benchmarks/summary").json()
+    mixed = (
+        "question,forecast_date,resolution_date,outcome,resolution_source,category,provenance,is_synthetic\n"
+        "Will mix A happen?,2024-08-01,2026-01-01,1,https://example.com/a,test,api-test,true\n"
+        "Will mix B happen?,2024-08-01,2026-01-01,0,https://example.com/b,test,api-test,false\n"
+    )
+    rejected = client.post(
+        "/api/benchmarks/import",
+        files={"file": ("mix.csv", BytesIO(mixed.encode("utf-8")), "text/csv")},
+    )
+    assert rejected.status_code == 400
+    datasets = client.get("/api/datasets").json()["datasets"]
+    synth = next(item for item in datasets if item["name"] == "synthetic_fixtures_v1")
+    created = client.post(
+        "/api/experiments",
+        json={"dataset_id": synth["id"], "profile_ids": ["single_agent_baseline", "three_track_ensemble"]},
+    )
+    assert created.status_code == 200
+    assert created.json()["total_tasks"] == synth["question_count"] * 2
+    first_id = created.json()["id"]
+    drain_jobs(max_steps=80)
+    summary = client.get(f"/api/experiments/{first_id}/summary").json()
     ids = {row["profile_id"] for row in summary["profiles"]}
     assert "single_agent_baseline" in ids
     assert "three_track_ensemble" in ids
     assert summary["synthetic"] is True
-    assert summary["reliability"]["available"] is False
+    assert summary["dataset_hash"]
+    assert "Software-verification fixtures only" in summary["notice"]
+    assert summary["reliability_by_profile"]
+    assert all(item.get("available") is False for item in summary["reliability_by_profile"].values())
+    second = client.post(
+        "/api/experiments",
+        json={"dataset_id": synth["id"], "profile_ids": ["single_agent_baseline"]},
+    )
+    assert second.json()["id"] != first_id
+    board = client.get("/api/dashboard").json()
+    assert all("synthetic series A" not in item["original_text"] for item in board["questions"])
+    assert all(not item.get("is_benchmark") for item in board["questions"])
 
 
 def test_json_benchmark_import(client) -> None:

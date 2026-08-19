@@ -12,6 +12,9 @@ test("mock happy path", async ({ page }) => {
   await page.getByRole("button", { name: /Save contract and launch mock run/i }).click();
   await expect(page.getByText("Ensemble estimate")).toBeVisible({ timeout: 120000 });
   await expect(page.getByText("37.4%").first()).toBeVisible({ timeout: 120000 });
+  await expect(page.getByText("DEMO", { exact: true })).toBeVisible();
+  await expect(page.getByText("demo_fixtures")).toBeVisible();
+  await expect(page.getByText("Fixture evidence used")).toBeVisible();
   await expect(page.getByText("Independent tracks")).toBeVisible();
   await expect(page.getByText("Evidence ledger")).toBeVisible();
   await expect(page.getByRole("table").getByRole("link").first()).toBeVisible();

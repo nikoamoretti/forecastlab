@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { api } from "@/lib/api";
 
 type Contract = {
@@ -18,6 +18,25 @@ type Contract = {
   resolver_risk_notes?: string;
 };
 
+type Preview = {
+  ready: boolean;
+  reasons?: string[];
+  detail?: string;
+  context?: {
+    effective_mode: string;
+    model_provider: string;
+    model_name: string;
+    search_provider: string;
+    evidence_policy: string;
+    effective_max_cost_usd: number;
+    planned_model_calls: number;
+    planned_search_calls: number;
+    planned_fetches: number;
+    estimated_upper_bound_cost_usd: number | null;
+    estimate_exceeds_ceiling?: boolean;
+  } | null;
+};
+
 export default function NewQuestionPage() {
   const router = useRouter();
   const [question, setQuestion] = useState(
@@ -30,15 +49,35 @@ export default function NewQuestionPage() {
   );
   const [mode, setMode] = useState("demo");
   const [profileId, setProfileId] = useState("three_track_ensemble");
+  const [profiles, setProfiles] = useState<Array<{ id: string; label: string }>>([]);
   const [asOf, setAsOf] = useState("");
+  const [preview, setPreview] = useState<Preview | null>(null);
   const [step, setStep] = useState<"ask" | "contract">("ask");
   const [questionId, setQuestionId] = useState<string | null>(null);
   const [contract, setContract] = useState<Contract | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    api<Array<{ id: string; label: string }>>("/api/profiles")
+      .then(setProfiles)
+      .catch(() => setProfiles([]));
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams({ profile_id: profileId, mode });
+    if (asOf) params.set("as_of", asOf);
+    api<Preview>(`/api/execution/preview?${params.toString()}`)
+      .then(setPreview)
+      .catch(() => setPreview({ ready: mode === "demo", reasons: ["preview_unavailable"] }));
+  }, [mode, profileId, asOf]);
+
   async function createAndOperationalize(event: React.FormEvent) {
     event.preventDefault();
+    if (preview && !preview.ready) {
+      setError(preview.detail || preview.reasons?.join(", ") || "Selected mode is not ready");
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
@@ -74,6 +113,10 @@ export default function NewQuestionPage() {
   async function saveAndRun(event: React.FormEvent) {
     event.preventDefault();
     if (!questionId || !contract) return;
+    if (preview && !preview.ready) {
+      setError(preview.detail || "Selected mode is not ready");
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
@@ -109,6 +152,13 @@ export default function NewQuestionPage() {
     }
   }
 
+  const launchLabel =
+    mode === "live"
+      ? "Save contract and launch live run"
+      : mode === "backtest"
+        ? "Save contract and launch backtest"
+        : "Save contract and launch mock run";
+
   if (step === "contract" && contract) {
     return (
       <form onSubmit={saveAndRun} className="mx-auto max-w-3xl space-y-6">
@@ -135,8 +185,11 @@ export default function NewQuestionPage() {
             />
           </label>
         ))}
-        <button disabled={busy} className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50">
-          {busy ? "Starting…" : "Save contract and launch mock run"}
+        <button
+          disabled={busy || Boolean(preview && !preview.ready)}
+          className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
+        >
+          {busy ? "Starting…" : launchLabel}
         </button>
       </form>
     );
@@ -185,12 +238,17 @@ export default function NewQuestionPage() {
             value={profileId}
             onChange={(event) => setProfileId(event.target.value)}
           >
-            <option value="three_track_ensemble">three_track_ensemble</option>
-            <option value="single_agent_baseline">single_agent_baseline</option>
+            {(profiles.length ? profiles : [{ id: "three_track_ensemble", label: "three_track_ensemble" }]).map(
+              (item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label || item.id}
+                </option>
+              )
+            )}
           </select>
         </label>
         <label className="block">
-          <span className="text-sm">as_of (optional, ISO)</span>
+          <span className="text-sm">as_of (required for backtest)</span>
           <input
             className="mt-2 w-full border border-rule bg-white p-3"
             placeholder="2024-06-01T00:00:00Z"
@@ -199,6 +257,26 @@ export default function NewQuestionPage() {
           />
         </label>
       </div>
+      <section className="border border-rule bg-white/70 p-4 text-sm">
+        <p className="font-mono text-xs uppercase tracking-[0.2em]">Mode readiness</p>
+        <p className="mt-2">{preview?.ready ? `${mode} is ready` : `${mode} is not ready`}</p>
+        {preview?.reasons?.length ? <p className="mt-1">Missing: {preview.reasons.join(", ")}</p> : null}
+        {preview?.context ? (
+          <ul className="mt-2 space-y-1">
+            <li>
+              Workload estimate: {preview.context.planned_model_calls} model calls,{" "}
+              {preview.context.planned_search_calls} searches, {preview.context.planned_fetches} fetches
+            </li>
+            <li>Effective cost ceiling: ${Number(preview.context.effective_max_cost_usd).toFixed(2)}</li>
+            <li>
+              Upper-bound cost:{" "}
+              {preview.context.estimated_upper_bound_cost_usd == null
+                ? "unavailable / conservative token tracking only"
+                : `$${preview.context.estimated_upper_bound_cost_usd.toFixed(4)} (estimated)`}
+            </li>
+          </ul>
+        ) : null}
+      </section>
       <label className="block">
         <span className="text-sm">Preferred resolution source</span>
         <input
@@ -216,7 +294,10 @@ export default function NewQuestionPage() {
           onChange={(event) => setNotes(event.target.value)}
         />
       </label>
-      <button disabled={busy} className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50">
+      <button
+        disabled={busy || Boolean(preview && !preview.ready && mode !== "demo")}
+        className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
+      >
         {busy ? "Operationalizing…" : "Review resolution contract"}
       </button>
     </form>

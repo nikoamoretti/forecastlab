@@ -8,25 +8,36 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from forecastlab.evaluation import brier_score, log_loss, mean, median, reliability_bins
-from forecastlab.hashing import import_hash
+from forecastlab.errors import ConfigurationError
+from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.logging import configure_logging
-from forecastlab.profiles import list_profiles
+from forecastlab.profiles import list_profiles, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
 from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
-from forecastlab.timeutil import as_utc, parse_datetime, utcnow
+from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
-from forecastlab_api.db import Base, SessionLocal, engine, get_db
+from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
+from forecastlab_api.experiments import (
+    DEFAULT_EXPERIMENT_PROFILES,
+    create_experiment,
+    ensure_dataset,
+    experiment_progress,
+    experiment_summary,
+    serialize_dataset,
+)
 from forecastlab_api.jobs import recover_stale_jobs
+from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import (
+    BenchmarkDataset,
+    BenchmarkExperiment,
     BenchmarkQuestion,
     BenchmarkResult,
     EvidenceItem,
@@ -39,13 +50,14 @@ from forecastlab_api.models import (
     WorkerHeartbeat,
 )
 from forecastlab_api.persist import save_contract
-from forecastlab_api.pipeline import create_run, execute_run, operationalize_question
+from forecastlab_api.pipeline import create_run, execute_run, operationalize_question, provider_settings_from_secrets
+from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.secrets import public_settings, update_settings
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
 from forecastlab_api.watches import attach_demo_watch, check_watch
 
 configure_logging(settings.log_level)
-app = FastAPI(title="ForecastLab", version="0.1.0")
+app = FastAPI(title="ForecastLab", version="0.2.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.web_origin, "http://127.0.0.1:3000", "http://localhost:3000"],
@@ -90,11 +102,21 @@ class WatchIn(BaseModel):
     endpoint_type: str = "json"
     json_path: str | None = "$.value"
     poll_seconds: int = 300
-    auto_rerun: bool = False
+    auto_rerun: bool | None = None
 
 
 class SimulateIn(BaseModel):
     value: float
+
+
+class ExperimentIn(BaseModel):
+    dataset_id: str
+    profile_ids: list[str] = Field(default_factory=lambda: list(DEFAULT_EXPERIMENT_PROFILES))
+
+
+@app.exception_handler(ConfigurationError)
+def configuration_error_handler(_request, exc: ConfigurationError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
 
 
 def _row(model: Any) -> dict[str, Any]:
@@ -135,6 +157,10 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
         "notes": question.notes,
         "forecast_deadline": question.forecast_deadline.isoformat() if question.forecast_deadline else None,
         "created_at": question.created_at.isoformat(),
+        "requested_mode": question.requested_mode,
+        "requested_profile_id": question.requested_profile_id,
+        "requested_as_of": question.requested_as_of.isoformat() if question.requested_as_of else None,
+        "is_benchmark": question.is_benchmark,
         "latest_probability": latest.ensemble_probability if latest else None,
         "previous_probability": versions[1].ensemble_probability if len(versions) > 1 else None,
         "version_count": len(versions),
@@ -142,6 +168,7 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
         "runs": [_row(run) for run in runs],
         "versions": [_row(version) for version in versions],
         "watches": [_row(watch) for watch in watches],
+        "watcher_policy": "Changes mark the forecast stale. Reruns require user action.",
     }
 
 
@@ -149,7 +176,7 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
 def startup() -> None:
     settings.data_dir.mkdir(parents=True, exist_ok=True)
     (settings.data_dir / "local").mkdir(parents=True, exist_ok=True)
-    Base.metadata.create_all(engine)
+    apply_schema()
     with SessionLocal() as session:
         recover_stale_jobs(session)
         seed_sample_question(session)
@@ -181,6 +208,7 @@ def health_worker(db: Session = Depends(get_db)) -> dict[str, Any]:
 @app.get("/health/providers")
 def health_providers() -> dict[str, Any]:
     pub = public_settings()
+    ready = readiness(provider_settings_from_secrets())
     return {
         "mode": pub.mode,
         "model_provider": pub.model_provider,
@@ -188,39 +216,76 @@ def health_providers() -> dict[str, Any]:
         "model_api_key_set": pub.model_api_key_set,
         "search_provider": pub.search_provider,
         "search_api_key_set": pub.search_api_key_set,
+        **ready,
     }
 
 
 @app.get("/api/dashboard")
 def dashboard(db: Session = Depends(get_db)) -> dict[str, Any]:
-    questions = db.scalars(select(Question).order_by(Question.created_at.desc())).all()
+    questions = db.scalars(
+        select(Question).where(Question.is_benchmark.is_(False)).order_by(Question.created_at.desc())
+    ).all()
     events = db.scalars(select(WatchEvent).order_by(WatchEvent.created_at.desc()).limit(8)).all()
     bench = db.scalars(select(BenchmarkResult)).all()
     bench_questions = db.scalar(select(func.count()).select_from(BenchmarkQuestion)) or 0
+    synthetic = db.scalar(select(BenchmarkDataset).where(BenchmarkDataset.is_synthetic.is_(True)))
     return {
         "sample_question": SAMPLE_QUESTION,
         "questions": [_question_out(db, item) for item in questions],
         "watch_events": [_row(event) for event in events],
         "benchmark_count": len(bench),
         "benchmark_question_count": int(bench_questions),
-        "synthetic_benchmarks": True,
+        "synthetic_benchmarks": synthetic is not None,
         "mode": public_settings().mode,
     }
 
 
 @app.get("/api/profiles")
 def profiles() -> list[dict[str, Any]]:
-    return [item.model_dump() for item in list_profiles()]
+    return [{**item.model_dump(), "profile_hash": profile_hash(item)} for item in list_profiles()]
+
+
+@app.get("/api/execution/preview")
+def execution_preview(profile_id: str = "three_track_ensemble", mode: str = "demo", as_of: str | None = None) -> dict[str, Any]:
+    ready = readiness(provider_settings_from_secrets())
+    payload: dict[str, Any] = {"readiness": ready, "mode": mode, "ready": ready.get(mode, {}).get("ready", False)}
+    if mode == "backtest" and not as_of:
+        payload["ready"] = False
+        payload["reasons"] = ["as_of_required"]
+        payload["context"] = None
+        return payload
+    try:
+        context = resolve_execution_context(
+            requested_mode=mode,  # type: ignore[arg-type]
+            profile_id=profile_id,
+            settings=provider_settings_from_secrets(),
+            as_of=datetime.fromisoformat(as_of.replace("Z", "+00:00")) if as_of else None,
+        )
+        payload["ready"] = True
+        payload["reasons"] = []
+        payload["context"] = context.model_dump(mode="json")
+    except ConfigurationError as exc:
+        payload["ready"] = False
+        payload["reasons"] = exc.reasons
+        payload["detail"] = str(exc)
+        payload["context"] = None
+    return payload
 
 
 @app.post("/api/questions")
 def create_question(body: CreateQuestionIn, db: Session = Depends(get_db)) -> dict[str, Any]:
+    if body.mode not in {"demo", "live", "backtest"}:
+        raise HTTPException(422, "Unknown mode")
     question = Question(
         id=str(uuid.uuid4()),
         original_text=body.question.strip(),
         notes=body.notes,
         forecast_deadline=body.forecast_deadline,
         status="draft",
+        requested_mode=body.mode,
+        requested_profile_id=body.profile_id,
+        requested_as_of=body.as_of,
+        is_benchmark=False,
     )
     db.add(question)
     db.flush()
@@ -275,6 +340,9 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
+    question.requested_mode = body.mode
+    question.requested_profile_id = body.profile_id
+    question.requested_as_of = body.as_of
     run = create_run(db, question=question, profile_id=body.profile_id, mode=body.mode, as_of=body.as_of)
     if settings.embedded_worker:
         execute_run(db, run)
@@ -297,8 +365,6 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         for key in ("plan_json", "key_drivers_json", "counterarguments_json", "unresolved_json"):
             if track.get(key):
                 track[key.replace("_json", "")] = json.loads(track[key])
-        if "key_drivers" in track and isinstance(track["key_drivers"], list):
-            pass
         if "unresolved" in track:
             track["unresolved_uncertainties"] = track["unresolved"]
     if run.aggregation_json:
@@ -307,6 +373,16 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         payload["budget"] = json.loads(run.budget_json)
     if run.prompt_versions_json:
         payload["prompt_versions"] = json.loads(run.prompt_versions_json)
+    if run.execution_context_json:
+        try:
+            payload["execution_context"] = json.loads(run.execution_context_json)
+        except json.JSONDecodeError:
+            payload["execution_context"] = {}
+    if run.provider_json:
+        try:
+            payload["providers"] = json.loads(run.provider_json)
+        except json.JSONDecodeError:
+            payload["providers"] = {}
     return payload
 
 
@@ -326,12 +402,17 @@ def report(question_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
 def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextResponse:
     payload = report(question_id, db)
     latest = payload.get("latest_run") or {}
+    context = latest.get("execution_context") or {}
     lines = [
         "# ForecastLab report",
         "",
         f"**Question:** {payload['original_text']}",
         f"**Status:** {payload['status']}",
         f"**Ensemble probability:** {payload.get('latest_probability')}",
+        f"**Mode:** {context.get('effective_mode') or latest.get('mode')}",
+        f"**Model:** {context.get('model_provider')} / {context.get('model_name')}",
+        f"**Search:** {context.get('search_provider')}",
+        f"**Profile:** {context.get('profile_id')} {context.get('configuration_hash')}",
         "",
         "## Resolution contract",
         json.dumps(payload.get("contract"), indent=2),
@@ -370,12 +451,12 @@ def add_watch(question_id: str, body: WatchIn, db: Session = Depends(get_db)) ->
         endpoint_type=body.endpoint_type,
         json_path=body.json_path,
         poll_seconds=body.poll_seconds,
-        auto_rerun=body.auto_rerun,
+        auto_rerun=False,
         status="active",
     )
     db.add(watch)
     db.commit()
-    return _row(watch)
+    return {**_row(watch), "policy": "Changes mark the forecast stale. Reruns require user action."}
 
 
 @app.post("/api/watches/{watch_id}/check")
@@ -398,6 +479,16 @@ def put_settings(body: SettingsUpdate) -> SettingsPublic:
     return update_settings(body)
 
 
+@app.post("/api/settings/test-model")
+def post_test_model() -> dict[str, Any]:
+    return test_model_connection()
+
+
+@app.post("/api/settings/test-search")
+def post_test_search() -> dict[str, Any]:
+    return test_search_connection()
+
+
 @app.get("/demo/indicators/{name}")
 def demo_indicator(name: str) -> dict[str, Any]:
     try:
@@ -414,16 +505,6 @@ def demo_simulate(name: str, body: SimulateIn) -> dict[str, Any]:
     except KeyError as exc:
         raise HTTPException(404, "Unknown demo indicator") from exc
     return {"name": name, **payload, "hash": demo_payload_hash(name)}
-
-
-def _benchmark_fields(row: dict[str, Any]) -> dict[str, str]:
-    return {
-        "question": str(row["question"]).strip(),
-        "forecast_date": str(row["forecast_date"]),
-        "resolution_date": str(row["resolution_date"]),
-        "outcome": str(row["outcome"]),
-        "resolution_source": str(row["resolution_source"]),
-    }
 
 
 def _parse_benchmark_file(raw: str, filename: str) -> list[dict[str, Any]]:
@@ -444,152 +525,134 @@ def benchmark_template() -> PlainTextResponse:
     return PlainTextResponse(path.read_text(encoding="utf-8"), media_type="text/csv")
 
 
+@app.get("/api/datasets")
+def list_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
+    rows = db.scalars(select(BenchmarkDataset).order_by(BenchmarkDataset.created_at.desc())).all()
+    return {"datasets": [serialize_dataset(item) for item in rows]}
+
+
 @app.post("/api/benchmarks/import")
-async def import_benchmarks(file: UploadFile = File(...), db: Session = Depends(get_db)) -> dict[str, Any]:
+async def import_benchmarks(
+    file: UploadFile = File(...),
+    name: str | None = Form(default=None),
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
     raw = (await file.read()).decode("utf-8")
     try:
         rows = _parse_benchmark_file(raw, file.filename or "benchmarks.csv")
     except Exception as exc:
         raise HTTPException(400, f"Could not parse file: {exc}") from exc
-    created = 0
-    duplicates = 0
-    errors: list[str] = []
-    for index, row in enumerate(rows, start=1):
-        try:
-            fields = _benchmark_fields(row)
-            digest = import_hash(fields)
-            if db.scalar(select(BenchmarkQuestion).where(BenchmarkQuestion.import_hash == digest)):
-                duplicates += 1
-                continue
-            forecast_date = parse_datetime(fields["forecast_date"])
-            resolution_date = parse_datetime(fields["resolution_date"])
-            if forecast_date is None or resolution_date is None:
-                raise ValueError("forecast_date and resolution_date are required")
-            db.add(
-                BenchmarkQuestion(
-                    id=str(uuid.uuid4()),
-                    question=fields["question"],
-                    forecast_date=forecast_date,
-                    resolution_date=resolution_date,
-                    outcome=int(fields["outcome"]),
-                    resolution_source=fields["resolution_source"],
-                    category=str(row.get("category") or "uncategorized"),
-                    provenance=str(row.get("provenance") or "user_import"),
-                    import_hash=digest,
-                    is_synthetic=str(row.get("is_synthetic", "")).lower() == "true",
-                )
-            )
-            created += 1
-        except Exception as exc:
-            errors.append(f"row {index}: {exc}")
+    dataset_name = (name or (file.filename or "imported_dataset")).rsplit(".", 1)[0]
+    try:
+        dataset, created, duplicates, errors = ensure_dataset(
+            session=db,
+            name=dataset_name,
+            description=f"Imported from {file.filename}",
+            rows=rows,
+            provenance="user_import",
+            is_synthetic=False,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
     db.commit()
-    return {"created": created, "duplicates": duplicates, "errors": errors, "synthetic_label": True}
+    return {
+        "created": created,
+        "duplicates": duplicates,
+        "errors": errors,
+        "dataset_id": dataset.id,
+        "dataset_name": dataset.name,
+        "dataset_hash": dataset.dataset_hash,
+        "synthetic": dataset.is_synthetic,
+        "is_synthetic": dataset.is_synthetic,
+    }
+
+
+@app.post("/api/experiments")
+def post_experiment(body: ExperimentIn, db: Session = Depends(get_db)) -> dict[str, Any]:
+    try:
+        experiment = create_experiment(db, dataset_id=body.dataset_id, profile_ids=body.profile_ids)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    except ConfigurationError:
+        raise
+    db.commit()
+    return {
+        "id": experiment.id,
+        "status": experiment.status,
+        "total_tasks": experiment.total_tasks,
+        "is_synthetic": experiment.is_synthetic,
+        "experiment_hash": experiment.experiment_hash,
+        "progress": experiment_progress(db, experiment),
+    }
+
+
+@app.get("/api/experiments")
+def list_experiments(db: Session = Depends(get_db)) -> dict[str, Any]:
+    rows = db.scalars(select(BenchmarkExperiment).order_by(BenchmarkExperiment.created_at.desc())).all()
+    return {
+        "experiments": [
+            {
+                "id": item.id,
+                "dataset_id": item.dataset_id,
+                "status": item.status,
+                "total_tasks": item.total_tasks,
+                "completed_tasks": item.completed_tasks,
+                "failed_tasks": item.failed_tasks,
+                "is_synthetic": item.is_synthetic,
+                "experiment_hash": item.experiment_hash,
+                "created_at": item.created_at.isoformat() if item.created_at else None,
+            }
+            for item in rows
+        ]
+    }
+
+
+@app.get("/api/experiments/{experiment_id}")
+def get_experiment(experiment_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    experiment = db.get(BenchmarkExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Experiment not found")
+    return experiment_progress(db, experiment)
+
+
+@app.get("/api/experiments/{experiment_id}/summary")
+def get_experiment_summary(experiment_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    experiment = db.get(BenchmarkExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Experiment not found")
+    return experiment_summary(db, experiment)
 
 
 @app.post("/api/benchmarks/run")
 def run_benchmarks(db: Session = Depends(get_db)) -> dict[str, Any]:
-    questions = db.scalars(select(BenchmarkQuestion)).all()
-    if not questions:
-        raise HTTPException(400, "No benchmark questions imported")
-    created = 0
-    for item in questions:
-        for profile_id in ("single_agent_baseline", "three_track_ensemble"):
-            q = Question(
-                id=str(uuid.uuid4()),
-                original_text=item.question,
-                notes=f"benchmark:{item.id}",
-                status="draft",
-            )
-            db.add(q)
-            db.flush()
-            run = create_run(db, question=q, profile_id=profile_id, mode="demo", as_of=item.forecast_date)
-            execute_run(db, run)
-            db.refresh(run)
-            latest = db.scalar(
-                select(ForecastVersion)
-                .where(ForecastVersion.run_id == run.id)
-                .order_by(ForecastVersion.created_at.desc())
-            )
-            prob = latest.ensemble_probability if latest else None
-            failed = prob is None
-            db.add(
-                BenchmarkResult(
-                    id=str(uuid.uuid4()),
-                    benchmark_question_id=item.id,
-                    run_id=run.id,
-                    profile_id=profile_id,
-                    probability=prob,
-                    brier=None if failed else brier_score(prob or 0, item.outcome),
-                    log_loss_value=None if failed else log_loss(prob or 0, item.outcome),
-                    cost_usd=run.cost_usd,
-                    latency_ms=run.latency_ms,
-                    failed=failed,
-                )
-            )
-            created += 1
+    dataset = db.scalar(select(BenchmarkDataset).where(BenchmarkDataset.is_synthetic.is_(True)))
+    if dataset is None:
+        raise HTTPException(400, "No benchmark dataset available")
+    experiment = create_experiment(db, dataset_id=dataset.id, profile_ids=list(DEFAULT_EXPERIMENT_PROFILES))
     db.commit()
-    return {"created": created}
+    return {"experiment_id": experiment.id, "created": experiment.total_tasks, "async": True}
 
 
 @app.get("/api/benchmarks/summary")
-def benchmark_summary(db: Session = Depends(get_db)) -> dict[str, Any]:
-    rows = db.scalars(select(BenchmarkResult)).all()
-    by_profile: dict[str, list[BenchmarkResult]] = {}
-    for row in rows:
-        by_profile.setdefault(row.profile_id, []).append(row)
-    profiles_out = []
-    pairs: list[tuple[float, int]] = []
-    questions = {item.id: item for item in db.scalars(select(BenchmarkQuestion)).all()}
-    categories: dict[str, list[float]] = {}
-    for profile_id, items in by_profile.items():
-        briers = [item.brier for item in items if item.brier is not None]
-        losses = [item.log_loss_value for item in items if item.log_loss_value is not None]
-        costs = [item.cost_usd for item in items]
-        lats = [item.latency_ms for item in items]
-        failures = [item for item in items if item.failed]
-        mean_brier = mean(briers)
-        mean_cost = mean(costs)
-        profiles_out.append(
-            {
-                "profile_id": profile_id,
-                "n": len(items),
-                "brier": mean_brier,
-                "log_loss": mean(losses),
-                "mean_cost_usd": mean_cost,
-                "median_cost_usd": median(costs),
-                "mean_latency_ms": mean([float(x) for x in lats]),
-                "failure_rate": len(failures) / len(items) if items else None,
-                "brier_per_dollar": None if not mean_cost else (mean_brier / mean_cost if mean_brier is not None else None),
-            }
-        )
-        for item in items:
-            question = questions.get(item.benchmark_question_id)
-            if item.probability is not None and question is not None:
-                pairs.append((item.probability, question.outcome))
-            if item.brier is not None and question is not None:
-                categories.setdefault(f"{profile_id}:{question.category}", []).append(item.brier)
-    question_rows = []
-    for item in rows:
-        question = questions.get(item.benchmark_question_id)
-        question_rows.append(
-            {
-                **_row(item),
-                "question": question.question if question else None,
-                "category": question.category if question else None,
-                "outcome": question.outcome if question else None,
-            }
-        )
-    return {
-        "synthetic": True,
-        "profiles": profiles_out,
-        "rows": question_rows,
-        "by_category": [
-            {"key": key, "n": len(values), "brier": mean(values)} for key, values in sorted(categories.items())
-        ],
-        "profile_configs": [item.model_dump() for item in list_profiles()],
-        "reliability": reliability_bins(pairs),
-        "note": "Fixture outcomes are synthetic. This is not a claim about real-world calibration.",
-    }
+def benchmark_summary(experiment_id: str | None = None, db: Session = Depends(get_db)) -> dict[str, Any]:
+    experiment = None
+    if experiment_id:
+        experiment = db.get(BenchmarkExperiment, experiment_id)
+    else:
+        experiment = db.scalar(select(BenchmarkExperiment).order_by(BenchmarkExperiment.created_at.desc()))
+    if experiment is None:
+        return {
+            "synthetic": False,
+            "is_synthetic": False,
+            "profiles": [],
+            "rows": [],
+            "reliability_by_profile": {},
+            "paired_comparisons": [],
+            "notice": "No experiment has been run yet.",
+            "datasets": [serialize_dataset(item) for item in db.scalars(select(BenchmarkDataset)).all()],
+            "profile_configs": [item.model_dump() for item in list_profiles()],
+        }
+    return experiment_summary(db, experiment)
 
 
 def create_app() -> FastAPI:

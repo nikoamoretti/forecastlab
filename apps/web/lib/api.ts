@@ -19,19 +19,27 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       headers,
       cache: "no-store"
     });
+    const text = await response.text();
     if (response.status === 404 && attempt < attempts - 1) {
       await sleep(120 * (attempt + 1));
       continue;
     }
     if (!response.ok) {
-      lastError = new Error(`${response.status} ${path}`);
+      let detail = `${response.status} ${path}`;
+      try {
+        const body = text ? JSON.parse(text) : {};
+        if (typeof body.detail === "string") detail = body.detail;
+        else if (Array.isArray(body.reasons) && body.reasons.length) detail = body.reasons.join(", ");
+      } catch {
+        if (text) detail = text.slice(0, 240);
+      }
+      lastError = new Error(detail);
       if (response.status >= 500 && attempt < attempts - 1) {
         await sleep(150 * (attempt + 1));
         continue;
       }
       throw lastError;
     }
-    const text = await response.text();
     return (text ? JSON.parse(text) : {}) as T;
   }
   throw lastError || new Error(`failed ${path}`);

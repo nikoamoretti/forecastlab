@@ -6,8 +6,8 @@
 - Live providers inherit vendor outages, rate limits, and prompt brittleness.
 - Wayback coverage is incomplete; missing snapshots mean missing evidence, not proof of absence.
 - Model pretraining can leak post-cutoff facts into backtests.
-- Auto-rerun is off by default because watches can otherwise spend money.
-- Reliability diagrams are withheld below 20 resolved rows.
-- Synthetic benchmarks cannot support product-level calibration claims.
-- Local SQLite uses `create_all` on startup. Alembic is a declared dependency for later PostgreSQL-compatible migrations, not a full revision history in this MVP.
+- Auto-rerun is disabled. Watches only mark a forecast stale. Reruns require user action.
+- Reliability diagrams are withheld below 20 resolved rows. That threshold is not a calibration claim.
+- Synthetic benchmarks cannot support product-level forecasting-quality claims.
+- Startup applies Alembic. Isolated unit tests may still use `create_all`. Wipe `data/forecastlab.db` if you still have a pre-integrity local file.
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.

@@ -32,8 +32,10 @@ def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Generator[TestCli
     Base.metadata.create_all(engine)
     monkeypatch.setattr(db_module, "engine", engine)
     monkeypatch.setattr(db_module, "SessionLocal", SessionLocal)
-    monkeypatch.setattr(main_mod, "engine", engine)
     monkeypatch.setattr(main_mod, "SessionLocal", SessionLocal)
+    from forecastlab_api import migrate as migrate_mod
+
+    monkeypatch.setattr(migrate_mod, "engine", engine)
 
     def get_db():
         session = SessionLocal()

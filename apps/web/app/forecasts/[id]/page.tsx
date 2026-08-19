@@ -49,7 +49,11 @@ export default function ForecastPage() {
   async function rerun() {
     await api(`/api/questions/${id}/runs`, {
       method: "POST",
-      body: JSON.stringify({ profile_id: "three_track_ensemble", mode: data?.latest_run?.mode || "demo" })
+      body: JSON.stringify({
+        profile_id: data?.requested_profile_id || data?.latest_run?.profile_id || "three_track_ensemble",
+        mode: data?.requested_mode || data?.latest_run?.mode || "demo",
+        as_of: data?.requested_as_of || undefined
+      })
     });
     await load();
   }
@@ -78,6 +82,10 @@ export default function ForecastPage() {
   const previous = data.previous_probability ?? versions[1]?.ensemble_probability;
   const stage = run.progress_stage || "queued";
   const done = stage === "report" || run.status === "completed";
+  const context = run.execution_context || {};
+  const modeLabel = String(context.effective_mode || run.mode || "demo").toUpperCase();
+  const missingTracks = (aggregation.missing_track_types || []).length > 0;
+  const rejectedEvidence = evidence.filter((item: any) => item.rejected);
 
   return (
     <article className="space-y-10">
@@ -105,6 +113,81 @@ export default function ForecastPage() {
           </p>
         </div>
       </header>
+
+      <section className="border border-ink bg-white/70 p-4" aria-label="Execution identity">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">{modeLabel}</p>
+        <dl className="mt-3 grid gap-2 text-sm md:grid-cols-3">
+          <div>
+            <dt className="text-ink/60">Model</dt>
+            <dd>
+              {context.model_provider || run.providers?.model_provider || "—"} / {context.model_name || "—"}
+              {context.model_is_mock ? " (mock)" : ""}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Search</dt>
+            <dd>
+              {context.search_provider || "—"}
+              {context.search_is_mock ? " (mock)" : ""}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Evidence policy</dt>
+            <dd>{context.evidence_policy || run.evidence_policy || "—"}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Fixture evidence used</dt>
+            <dd>{context.fixture_evidence_used || run.fixture_evidence_used ? "yes" : "no"}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Profile</dt>
+            <dd>
+              {context.profile_id || run.profile_id} v{context.profile_version || 1}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Configuration hash</dt>
+            <dd className="font-mono text-xs">{context.configuration_hash || run.configuration_hash || "—"}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Git commit</dt>
+            <dd className="font-mono text-xs">{context.code_commit || run.code_commit || "unavailable"}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Cost ceiling / actual</dt>
+            <dd>
+              ${Number(context.effective_max_cost_usd ?? 0).toFixed(2)} / ${Number(run.cost_usd || 0).toFixed(4)}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Tokens / as_of</dt>
+            <dd>
+              {run.tokens || 0} · {run.as_of || "live clock"}
+            </dd>
+          </div>
+        </dl>
+      </section>
+      {context.synthetic_fixture_run || context.fixture_evidence_used ? (
+        <p className="border border-copper px-4 py-3 text-sm">
+          Mixed or synthetic execution. Fixture evidence is for software verification, not real-world quality.
+        </p>
+      ) : null}
+      {missingTracks ? (
+        <p className="border border-copper px-4 py-3 text-sm">
+          Partial tracks: {aggregation.missing_track_types.join(", ")}
+        </p>
+      ) : null}
+      {run.error_stage === "budget" || String(run.error_message || "").includes("Budget") ? (
+        <p className="border border-copper px-4 py-3 text-sm">Budget stop. Partial results were preserved.</p>
+      ) : null}
+      {rejectedEvidence.length ? (
+        <p className="border border-rule px-4 py-3 text-sm">
+          {rejectedEvidence.length} evidence rejection{rejectedEvidence.length === 1 ? "" : "s"} recorded.
+        </p>
+      ) : null}
+      {run.status === "failed" ? (
+        <p className="border border-copper px-4 py-3 text-sm">Provider or run failure: {run.error_message}</p>
+      ) : null}
 
       <ol className="grid gap-2 md:grid-cols-6" aria-label="Forecast stages">
         {STAGES.map((item) => {
@@ -241,11 +324,11 @@ export default function ForecastPage() {
 
       <section>
         <h3 className="font-serif text-2xl">Watchers</h3>
+        <p className="mt-2 text-sm text-ink/70">Changes mark the forecast stale. Reruns require user action.</p>
         <ul className="mt-3 space-y-2 text-sm">
           {(data.watches || []).map((watch: any) => (
             <li key={watch.id}>
-              {watch.endpoint_url} ({watch.endpoint_type}) · last value {watch.previous_value || "—"} · auto-rerun{" "}
-              {watch.auto_rerun ? "on" : "off"}
+              {watch.endpoint_url} ({watch.endpoint_type}) · last value {watch.previous_value || "—"}
             </li>
           ))}
         </ul>

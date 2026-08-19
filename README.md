@@ -27,18 +27,20 @@ cd apps/web && npm install && npm run build
 2. Runs independent tracks: base rate, current evidence, skeptic. A single-agent profile exists as a comparison, not a handicapped straw man.
 3. Searches, fetches, and stores evidence with hashes, timestamps, and rejection reasons.
 4. Aggregates track probabilities in code: clip, logit mean, shrink toward the base-rate track.
-5. Versions the result. A watch can mark a question stale; rerun is explicit unless auto-rerun is enabled.
+5. Versions the result. A watch can mark a question stale. Reruns require user action.
+6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode.
 
 ## Settings
 
-The settings page stores provider, base URL, model name, keys, timeout, and a cost ceiling in `data/local/credentials.json` with mode `0600`. Keys are never returned to the browser.
+The settings page stores provider, base URL, model name, keys, timeout, and a cost ceiling in `data/local/credentials.json` with mode `0600`. Keys are never returned to the browser. The cost ceiling is applied to every run. Live and backtest modes fail closed when providers are missing. Model cost figures may be estimated.
 
 ## Honesty constraints
 
 - Binary questions only.
 - Historical mode is an **evidence-cutoff backtest**. Model pretraining can still leak later facts.
-- Reliability diagrams appear only after 20 resolved predictions.
+- Reliability diagrams appear only after 20 resolved predictions. Twenty rows are not a calibration claim.
 - Bundled benchmarks are **synthetic fixtures**.
 - The product does not claim calibration.
+- Existing local databases from the first MVP should be deleted (`rm data/forecastlab.db`) so Alembic can create the integrity schema.
 
 See `docs/` for method, evaluation protocol, architecture, security, and limits.
