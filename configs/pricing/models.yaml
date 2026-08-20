@@ -22,3 +22,18 @@ providers:
     default:
       input_per_million: 8.0
       output_per_million: 24.0
+search:
+  mock:
+    per_request: 0.0
+    source: fixture
+    estimated: true
+  tavily:
+    per_request: null
+    estimated_per_request: 0.008
+    source: manual conservative estimate, not a Tavily invoice
+    estimated: true
+  unknown:
+    per_request: null
+    estimated_per_request: 0.01
+    source: manual
+    estimated: true

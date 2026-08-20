@@ -213,6 +213,7 @@ def error_category(exc: Exception) -> str:
         "EvidenceIntegrityError",
         "BudgetExceeded",
         "StructuredOutputError",
+        "ExperimentEnvironmentMismatch",
     }:
         return name
     return "PermanentProviderError"

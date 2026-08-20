@@ -70,8 +70,18 @@ class ForecastRun(Base):
     finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     job_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     status: Mapped[str] = mapped_column(String(32), default="pending")
-    cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    cost_usd: Mapped[float] = mapped_column(Float, default=0.0)  # total lifetime cost, including failed attempts and search
     tokens: Mapped[int] = mapped_column(Integer, default=0)
+    model_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    search_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    failed_attempt_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    total_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    prompt_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    completion_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    total_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    provider_request_count: Mapped[int] = mapped_column(Integer, default=0)
+    run_attempt_count: Mapped[int] = mapped_column(Integer, default=0)
+    cost_source: Mapped[str] = mapped_column(String(32), default="estimated")
     latency_ms: Mapped[int] = mapped_column(Integer, default=0)
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     error_stage: Mapped[str | None] = mapped_column(String(64), nullable=True)
@@ -157,6 +167,12 @@ class EvidenceItem(Base):
     rejection_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
     snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     snapshot_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    requested_snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    requested_snapshot_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    final_snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    final_snapshot_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    archived_original_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    snapshot_verification_status: Mapped[str | None] = mapped_column(String(64), nullable=True)
     status_code: Mapped[int] = mapped_column(Integer, default=200)
     published_at_unknown: Mapped[bool] = mapped_column(Boolean, default=False)
 
@@ -225,6 +241,7 @@ class JobEvent(Base):
 
 class BenchmarkDataset(Base):
     __tablename__ = "benchmark_datasets"
+    __table_args__ = (UniqueConstraint("builtin_key", "builtin_version", name="uq_benchmark_dataset_builtin"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     name: Mapped[str] = mapped_column(String(128))
@@ -235,6 +252,10 @@ class BenchmarkDataset(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     question_count: Mapped[int] = mapped_column(Integer, default=0)
     metadata_json: Mapped[str] = mapped_column(Text, default="{}")
+    builtin_key: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    builtin_version: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    is_builtin: Mapped[bool] = mapped_column(Boolean, default=False)
+    archived_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class BenchmarkQuestion(Base):
@@ -289,6 +310,14 @@ class BenchmarkExperiment(Base):
     total_tasks: Mapped[int] = mapped_column(Integer, default=0)
     completed_tasks: Mapped[int] = mapped_column(Integer, default=0)
     failed_tasks: Mapped[int] = mapped_column(Integer, default=0)
+    environment_identity_json: Mapped[str] = mapped_column(Text, default="{}")
+    tracked_source_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    pyproject_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    dependency_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    package_lock_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    working_tree_dirty: Mapped[bool] = mapped_column(Boolean, default=False)
+    application_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    container_image_digest: Mapped[str | None] = mapped_column(String(128), nullable=True)
 
     snapshots: Mapped[list[BenchmarkProfileSnapshot]] = relationship(back_populates="experiment")
 
@@ -410,3 +439,54 @@ class WorkerHeartbeat(Base):
     id: Mapped[str] = mapped_column(String(32), primary_key=True)
     last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     status: Mapped[str] = mapped_column(String(32), default="idle")
+
+
+class ForecastRunAttempt(Base):
+    __tablename__ = "forecast_run_attempts"
+    __table_args__ = (UniqueConstraint("run_id", "attempt_number", name="uq_forecast_run_attempt"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    job_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    attempt_number: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(32), default="running")
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    error_category: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    model_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    search_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    total_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    prompt_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    completion_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    search_calls: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class ProviderCallLedger(Base):
+    __tablename__ = "provider_call_ledger"
+    __table_args__ = (
+        UniqueConstraint("run_id", "logical_call_id", "physical_attempt_number", name="uq_provider_call_physical"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    run_attempt_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_run_attempts.id"), nullable=True)
+    logical_call_id: Mapped[str] = mapped_column(String(36))
+    physical_attempt_number: Mapped[int] = mapped_column(Integer, default=1)
+    stage: Mapped[str] = mapped_column(String(64))
+    provider_type: Mapped[str] = mapped_column(String(16))
+    provider: Mapped[str] = mapped_column(String(64))
+    model: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    request_started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    request_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    status: Mapped[str] = mapped_column(String(32), default="reserved")
+    reserved_input_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    reserved_output_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    reserved_cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    actual_prompt_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    actual_completion_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    actual_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cost_source: Mapped[str] = mapped_column(String(32), default="reserved")
+    provider_request_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    error_category: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)

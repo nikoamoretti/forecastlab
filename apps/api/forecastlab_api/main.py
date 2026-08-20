@@ -29,6 +29,7 @@ from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indi
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
     create_experiment,
+    current_builtin_dataset,
     ensure_dataset,
     experiment_progress,
     experiment_summary,
@@ -43,7 +44,9 @@ from forecastlab_api.models import (
     BenchmarkResult,
     EvidenceItem,
     ForecastRun,
+    ForecastRunAttempt,
     ForecastVersion,
+    ProviderCallLedger,
     Question,
     ResearchTrack,
     Watch,
@@ -384,6 +387,15 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
             payload["providers"] = json.loads(run.provider_json)
         except json.JSONDecodeError:
             payload["providers"] = {}
+    attempts = db.scalars(select(ForecastRunAttempt).where(ForecastRunAttempt.run_id == run.id)).all()
+    ledger = db.scalars(select(ProviderCallLedger).where(ProviderCallLedger.run_id == run.id)).all()
+    payload["run_attempts"] = [_row(item) for item in attempts]
+    payload["provider_call_ledger"] = [_row(item) for item in ledger]
+    payload["model_cost_usd"] = run.model_cost_usd
+    payload["search_cost_usd"] = run.search_cost_usd
+    payload["failed_attempt_cost_usd"] = run.failed_attempt_cost_usd
+    payload["total_cost_usd"] = run.total_cost_usd or run.cost_usd
+    payload["cost_usd"] = run.total_cost_usd or run.cost_usd
     return payload
 
 
@@ -628,11 +640,40 @@ def get_experiment_summary(experiment_id: str, db: Session = Depends(get_db)) ->
     return experiment_summary(db, experiment)
 
 
+@app.get("/api/experiments/{experiment_id}/export.csv")
+def export_experiment_csv(experiment_id: str, db: Session = Depends(get_db)) -> PlainTextResponse:
+    experiment = db.get(BenchmarkExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Experiment not found")
+    summary = experiment_summary(db, experiment)
+    buffer = io.StringIO()
+    writer = csv.DictWriter(
+        buffer,
+        fieldnames=[
+            "question",
+            "profile_id",
+            "status",
+            "probability",
+            "outcome",
+            "brier",
+            "log_loss_value",
+            "cost_usd",
+            "latency_ms",
+            "failed",
+            "partial",
+        ],
+    )
+    writer.writeheader()
+    for row in summary.get("rows") or []:
+        writer.writerow({key: row.get(key) for key in writer.fieldnames})
+    return PlainTextResponse(buffer.getvalue(), media_type="text/csv")
+
+
 @app.post("/api/benchmarks/run")
 def run_benchmarks(db: Session = Depends(get_db)) -> dict[str, Any]:
-    dataset = db.scalar(select(BenchmarkDataset).where(BenchmarkDataset.is_synthetic.is_(True)))
+    dataset = current_builtin_dataset(db)
     if dataset is None:
-        raise HTTPException(400, "No benchmark dataset available")
+        raise HTTPException(400, "No current built-in benchmark dataset available")
     experiment = create_experiment(db, dataset_id=dataset.id, profile_ids=list(DEFAULT_EXPERIMENT_PROFILES))
     db.commit()
     return {"experiment_id": experiment.id, "created": experiment.total_tasks, "async": True}

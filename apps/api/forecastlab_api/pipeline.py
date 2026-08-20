@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from forecastlab.engine import operationalize_only, run_forecast_engine
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import ExecutionContext, resolve_execution_context
+from forecastlab.pricing import load_pricing
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.factory import build_model_provider
@@ -22,6 +23,7 @@ from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease, touch_
 from forecastlab_api.models import ForecastRun, ForecastVersion, Question
 from forecastlab_api.persist import persist_engine_result, save_contract
 from forecastlab_api.secrets import load_secrets
+from forecastlab_api.usage_ledger import PersistentUsageLedger, apply_totals_to_run
 
 
 def provider_settings_from_secrets(data: dict | None = None) -> dict:
@@ -156,6 +158,7 @@ def execute_run(
     profile: ForecastProfile | None = None,
     prompt_bundle: PromptBundle | None = None,
     model_timeout: float | None = None,
+    pricing_catalog: dict | None = None,
 ) -> None:
     secrets = load_secrets()
     question = run.question
@@ -190,19 +193,9 @@ def execute_run(
         if model_timeout is not None
         else float(context.model_timeout_seconds or secrets.get("model_timeout_seconds") or 60)
     )
-    model = build_model_provider(
-        provider=context.model_provider,
-        api_key=secrets.get("model_api_key"),
-        base_url=context.model_base_url,
-        model=context.model_name,
-        timeout=timeout,
-        execution=context,
-    )
-    search = build_search_provider(
-        context.search_provider,
-        secrets.get("search_api_key"),
-        execution=context,
-    )
+    catalog = pricing_catalog if pricing_catalog is not None else load_pricing()
+    if profile is None:
+        profile = apply_execution_limits(load_profile(context.profile_id), context)
     contract = None
     if question.contract:
         contract = ResolutionContract(
@@ -217,10 +210,39 @@ def execute_run(
             cancellation_conditions=question.contract.cancellation_conditions,
             resolver_risk_notes=question.contract.resolver_risk_notes,
         )
-    run.started_at = utcnow()
+    run.started_at = run.started_at or utcnow()
     run.status = "running"
-    if profile is None:
-        profile = apply_execution_limits(load_profile(context.profile_id), context)
+    session.commit()
+    from forecastlab_api.db import SessionLocal
+
+    ledger = PersistentUsageLedger(
+        SessionLocal,
+        max_cost_usd=profile.max_estimated_cost_usd,
+        max_tokens=profile.max_tokens,
+    )
+    attempt_number = job.attempts if job is not None else max(1, int(run.run_attempt_count or 0) + 1)
+    attempt = ledger.begin_attempt(run_id=run.id, job_id=job.id if job is not None else None, attempt_number=attempt_number)
+    model = build_model_provider(
+        provider=context.model_provider,
+        api_key=secrets.get("model_api_key"),
+        base_url=context.model_base_url,
+        model=context.model_name,
+        timeout=timeout,
+        execution=context,
+        ledger=ledger,
+        run_id=run.id,
+        run_attempt_id=attempt.id,
+        pricing_catalog=catalog,
+    )
+    search = build_search_provider(
+        context.search_provider,
+        secrets.get("search_api_key"),
+        execution=context,
+        ledger=ledger,
+        run_id=run.id,
+        run_attempt_id=attempt.id,
+        pricing_catalog=catalog,
+    )
     stop_heartbeat = threading.Event()
 
     def heartbeat_loop() -> None:
@@ -240,6 +262,9 @@ def execute_run(
             heartbeat(session, job, stage=stage, message=message, pct=pct)
         session.commit()
 
+    prior_elapsed = 0.0
+    if run.started_at:
+        prior_elapsed = max(0.0, (utcnow() - as_utc(run.started_at)).total_seconds())
     try:
         result = run_forecast_engine(
             question=question.original_text,
@@ -255,8 +280,12 @@ def execute_run(
             execution=context,
             prompt_bundle=prompt_bundle,
             run_id=run.id,
+            ledger=ledger,
+            pricing_catalog=catalog,
+            prior_elapsed_seconds=prior_elapsed,
         )
         persist_engine_result(session, run, result)
+        apply_totals_to_run(run, ledger.totals(run.id))
         snapshot = context.model_dump(mode="json")
         snapshot["fixture_evidence_used"] = bool(result.fixture_evidence_used)
         run.execution_context_json = json.dumps(snapshot)
@@ -264,6 +293,16 @@ def execute_run(
         if run.started_at:
             run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
         session.commit()
+        ledger.finish_attempt(attempt.id, status="completed")
+    except Exception as exc:
+        ledger.finish_attempt(
+            attempt.id,
+            status="failed",
+            error_category=exc.__class__.__name__,
+            error_message=str(exc),
+        )
+        apply_totals_to_run(run, ledger.totals(run.id))
+        raise
     finally:
         stop_heartbeat.set()
 

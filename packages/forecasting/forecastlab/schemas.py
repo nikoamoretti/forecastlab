@@ -77,6 +77,8 @@ class ModelUsage(BaseModel):
     latency_ms: int = 0
     model: str = ""
     provider: str = ""
+    request_id: str | None = None
+    cost_source: str = "estimated"
 
 
 class SearchHit(BaseModel):
@@ -98,6 +100,12 @@ class FetchedDocument(BaseModel):
     content_hash: str
     snapshot_url: str | None = None
     snapshot_at: datetime | None = None
+    requested_snapshot_url: str | None = None
+    requested_snapshot_at: datetime | None = None
+    final_snapshot_url: str | None = None
+    final_snapshot_at: datetime | None = None
+    archived_original_url: str | None = None
+    snapshot_verification_status: str | None = None
     status_code: int = 200
     rejected: bool = False
     rejection_reason: str | None = None
@@ -131,10 +139,17 @@ class BudgetState(BaseModel):
     search_calls: int = 0
     fetches: int = 0
     tokens: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
     cost_usd: float = 0.0
+    model_cost_usd: float = 0.0
+    search_cost_usd: float = 0.0
+    failed_attempt_cost_usd: float = 0.0
     reserved_tokens: int = 0
     reserved_cost_usd: float = 0.0
     cost_is_estimated: bool = False
+    cost_label: str = "estimated"
+    provider_request_count: int = 0
     started_monotonic: float = 0.0
     stopped: bool = False
     stop_reason: str | None = None

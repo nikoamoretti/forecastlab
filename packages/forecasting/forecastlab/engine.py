@@ -19,6 +19,7 @@ from forecastlab.errors import (
     TransientProviderError,
 )
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
+from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
@@ -155,6 +156,12 @@ def _record(doc, *, track: str, subquestion: str, evidence_id: str) -> dict[str,
         "rejection_reason": doc.rejection_reason,
         "snapshot_url": doc.snapshot_url,
         "snapshot_at": doc.snapshot_at.isoformat() if doc.snapshot_at else None,
+        "requested_snapshot_url": doc.requested_snapshot_url,
+        "requested_snapshot_at": doc.requested_snapshot_at.isoformat() if doc.requested_snapshot_at else None,
+        "final_snapshot_url": doc.final_snapshot_url,
+        "final_snapshot_at": doc.final_snapshot_at.isoformat() if doc.final_snapshot_at else None,
+        "archived_original_url": doc.archived_original_url,
+        "snapshot_verification_status": doc.snapshot_verification_status,
         "status_code": doc.status_code,
         "published_at_unknown": doc.published_at_unknown,
     }
@@ -324,6 +331,9 @@ def run_forecast_engine(
     prompt_bundle: PromptBundle | None = None,
     run_id: str | None = None,
     cache: RunCache | None = None,
+    ledger: UsageLedger | None = None,
+    pricing_catalog: dict[str, Any] | None = None,
+    prior_elapsed_seconds: float = 0.0,
 ) -> EngineResult:
     profile = profile or load_profile(profile_id)
     if as_of is not None:
@@ -342,10 +352,15 @@ def run_forecast_engine(
         as_of=as_of,
         configuration_hash=configuration_hash,
     )
-    budget = Budget(
+    totals = ledger.totals(run_id) if ledger is not None and run_id else RunUsageTotals()
+    budget = Budget.from_persisted(
         profile,
+        totals,
         provider=model_provider,
         model=execution.model_name if execution is not None else getattr(model, "model", getattr(model, "name", "mock")),
+        search_provider=search_provider,
+        pricing_catalog=pricing_catalog,
+        prior_elapsed_seconds=prior_elapsed_seconds,
     )
     prompt_versions = dict(profile.prompt_versions)
     _emit(progress, "operationalize", "Operationalizing the question", 0.08)

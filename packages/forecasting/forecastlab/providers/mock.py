@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import json
 import re
+import uuid
 from typing import Any
 
+from forecastlab.ledger import UsageLedger
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import ModelUsage, SearchHit
 from forecastlab.timeutil import parse_datetime
@@ -62,8 +64,18 @@ def _usage(model: str, content: str) -> ModelUsage:
 class MockModelProvider:
     name = "mock"
 
-    def __init__(self, model: str = "mock-forecast-v1") -> None:
+    def __init__(
+        self,
+        model: str = "mock-forecast-v1",
+        *,
+        ledger: UsageLedger | None = None,
+        run_id: str | None = None,
+        run_attempt_id: str | None = None,
+    ) -> None:
         self.model = model
+        self.ledger = ledger
+        self.run_id = run_id
+        self.run_attempt_id = run_attempt_id
 
     def complete_json(
         self,
@@ -78,7 +90,24 @@ class MockModelProvider:
         prompt_id = _prompt_id(system)
         payload = self._payload(prompt_id, user, schema_name)
         content = json.dumps(payload)
-        return ChatResult(content=content, parsed=payload, usage=_usage(self.model, content))
+        usage = _usage(self.model, content)
+        result = ChatResult(content=content, parsed=payload, usage=usage)
+        if self.ledger is not None and self.run_id:
+            entry = self.ledger.reserve(
+                run_id=self.run_id,
+                run_attempt_id=self.run_attempt_id,
+                logical_call_id=str(uuid.uuid4()),
+                physical_attempt_number=1,
+                stage=schema_name,
+                provider_type="model",
+                provider=self.name,
+                model=self.model,
+                reserved_input_tokens=usage.prompt_tokens,
+                reserved_output_tokens=usage.completion_tokens,
+                reserved_cost_usd=usage.cost_usd,
+            )
+            self.ledger.reconcile(entry.id, usage)
+        return result
 
     def _payload(self, prompt_id: str, user: str, schema_name: str) -> dict[str, Any]:
         if "operationalize" in prompt_id or schema_name == "resolution_contract":
@@ -337,5 +366,33 @@ def mock_search_hits(query: str, *, max_results: int = 3) -> list[SearchHit]:
 class MockSearchProvider:
     name = "mock"
 
+    def __init__(
+        self,
+        *,
+        ledger: UsageLedger | None = None,
+        run_id: str | None = None,
+        run_attempt_id: str | None = None,
+    ) -> None:
+        self.ledger = ledger
+        self.run_id = run_id
+        self.run_attempt_id = run_attempt_id
+
     def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]:
-        return mock_search_hits(query, max_results=max_results)
+        hits = mock_search_hits(query, max_results=max_results)
+        if self.ledger is not None and self.run_id:
+            usage = ModelUsage(provider="mock", model="mock-search", cost_source="estimated")
+            entry = self.ledger.reserve(
+                run_id=self.run_id,
+                run_attempt_id=self.run_attempt_id,
+                logical_call_id=str(uuid.uuid4()),
+                physical_attempt_number=1,
+                stage="search",
+                provider_type="search",
+                provider=self.name,
+                model="mock-search",
+                reserved_input_tokens=0,
+                reserved_output_tokens=0,
+                reserved_cost_usd=0.0,
+            )
+            self.ledger.reconcile(entry.id, usage)
+        return hits

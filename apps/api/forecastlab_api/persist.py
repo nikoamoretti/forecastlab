@@ -83,8 +83,17 @@ def persist_engine_result(session: Session, run: ForecastRun, result: EngineResu
         return existing
 
     run.finished_at = utcnow()
-    run.cost_usd = float(result.budget.get("cost_usd") or 0)
-    run.tokens = int(result.budget.get("tokens") or 0)
+    run.cost_usd = float(result.budget.get("total_cost_usd") or result.budget.get("cost_usd") or 0)
+    run.total_cost_usd = float(result.budget.get("total_cost_usd") or result.budget.get("cost_usd") or 0)
+    run.model_cost_usd = float(result.budget.get("model_cost_usd") or 0)
+    run.search_cost_usd = float(result.budget.get("search_cost_usd") or 0)
+    run.failed_attempt_cost_usd = float(result.budget.get("failed_attempt_cost_usd") or 0)
+    run.tokens = int(result.budget.get("tokens") or result.budget.get("total_tokens") or 0)
+    run.prompt_tokens = int(result.budget.get("prompt_tokens") or 0)
+    run.completion_tokens = int(result.budget.get("completion_tokens") or 0)
+    run.total_tokens = int(result.budget.get("total_tokens") or run.tokens)
+    run.provider_request_count = int(result.budget.get("provider_request_count") or 0)
+    run.cost_source = str(result.budget.get("cost_label") or "estimated")
     run.prompt_versions_json = json.dumps(result.prompt_versions)
     run.budget_json = json.dumps(jsonable(result.budget))
     run.aggregation_json = json.dumps(jsonable(result.aggregation))
@@ -162,11 +171,17 @@ def persist_engine_result(session: Session, run: ForecastRun, result: EngineResu
                             content_hash=item.get("content_hash") or "",
                             source_class=item.get("source_class") or "secondary",
                             published_at=parse_datetime(item.get("published_at")),
-                            snapshot_at=parse_datetime(item.get("snapshot_at")),
                             as_of_eligible=bool(item.get("as_of_eligible", True)),
                             rejected=bool(item.get("rejected")),
                             rejection_reason=item.get("rejection_reason"),
-                            snapshot_url=item.get("snapshot_url"),
+                            snapshot_url=item.get("snapshot_url") or item.get("final_snapshot_url"),
+                            snapshot_at=parse_datetime(item.get("snapshot_at") or item.get("final_snapshot_at")),
+                            requested_snapshot_url=item.get("requested_snapshot_url"),
+                            requested_snapshot_at=parse_datetime(item.get("requested_snapshot_at")),
+                            final_snapshot_url=item.get("final_snapshot_url"),
+                            final_snapshot_at=parse_datetime(item.get("final_snapshot_at")),
+                            archived_original_url=item.get("archived_original_url"),
+                            snapshot_verification_status=item.get("snapshot_verification_status"),
                             status_code=int(item.get("status_code") or 0),
                             published_at_unknown=bool(item.get("published_at_unknown")),
                         )
