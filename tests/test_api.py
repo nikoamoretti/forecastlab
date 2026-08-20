@@ -8,6 +8,10 @@ def test_health(client) -> None:
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
+    assert response.json()["version"] == "0.3.1"
+    meta = client.get("/api/meta")
+    assert meta.status_code == 200
+    assert meta.json()["application_version"] == "0.3.1"
     worker = client.get("/health/worker")
     assert worker.status_code == 200
     assert "fresh" in worker.json()

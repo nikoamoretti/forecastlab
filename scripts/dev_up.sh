@@ -2,12 +2,11 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
-if [[ ! -d .venv ]]; then
-  python3.12 -m venv .venv
+if ! command -v uv >/dev/null 2>&1; then
+  python3.12 -m pip install -q uv
 fi
+uv sync --extra dev --frozen
 source .venv/bin/activate
-python -m pip install -q --upgrade pip
-python -m pip install -q -e ".[dev]"
 if [[ ! -d apps/web/node_modules ]]; then
   (cd apps/web && npm install)
 fi

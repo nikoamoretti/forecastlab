@@ -153,3 +153,4 @@ def test_dirty_tree_blocks_real_experiment(client, monkeypatch) -> None:
 def test_identity_builder_includes_required_fields() -> None:
     identity = build_environment_identity(prompt_bundle_hash="p", profile_hashes={"a": "b"}, pricing_catalog={"x": 1})
     assert {"git_commit", "tracked_source_hash", "pyproject_hash", "package_lock_hash", "pricing_hash"} <= set(identity)
+    assert identity["application_version"] == "0.3.1"

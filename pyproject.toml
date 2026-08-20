@@ -1,6 +1,6 @@
 [project]
 name = "forecastlab"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Local-first probabilistic forecasting laboratory for binary questions."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -36,6 +36,12 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["packages/forecasting", "apps/api"]
 include = ["forecastlab*", "forecastlab_api*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "forecastlab.version.__version__"}
+
+[tool.uv]
+package = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -9,6 +9,7 @@ from typing import Any
 from forecastlab.gitinfo import ROOT, current_git_commit
 from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.pricing import load_pricing, pricing_hash
+from forecastlab.version import __version__
 
 SOURCE_GLOBS = (
     "packages/forecasting/forecastlab/**/*.py",
@@ -38,6 +39,17 @@ def tracked_source_hash(*, root: Path | None = None) -> str:
         digest.update(path.read_bytes())
         digest.update(b"\0")
     return digest.hexdigest()
+
+
+def python_dependency_hash(*, root: Path | None = None) -> str | None:
+    return file_hash("uv.lock", root=root) or file_hash("poetry.lock", root=root)
+
+
+def require_python_lock(*, root: Path | None = None, synthetic: bool = False) -> str | None:
+    digest = python_dependency_hash(root=root)
+    if digest is None and not synthetic:
+        raise ValueError("python_lockfile_required")
+    return digest
 
 
 def file_hash(relative: str, *, root: Path | None = None) -> str | None:
@@ -78,12 +90,12 @@ def build_environment_identity(
         "working_tree_dirty": working_tree_dirty(root=root),
         "tracked_source_hash": tracked_source_hash(root=root),
         "pyproject_hash": file_hash("pyproject.toml", root=root),
-        "dependency_hash": file_hash("uv.lock", root=root) or file_hash("poetry.lock", root=root),
+        "dependency_hash": python_dependency_hash(root=root),
         "package_lock_hash": file_hash("apps/web/package-lock.json", root=root),
         "prompt_bundle_hash": prompt_bundle_hash,
         "profile_hashes": profile_hashes or {},
         "pricing_hash": pricing_hash(catalog=catalog),
-        "application_version": "0.3.0",
+        "application_version": __version__,
         "container_image_digest": os.environ.get("FORECASTLAB_IMAGE_DIGEST"),
     }
 

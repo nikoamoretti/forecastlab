@@ -23,6 +23,7 @@ from forecastlab.providers.mock import SAMPLE_QUESTION
 from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
 from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
+from forecastlab.version import __version__
 from forecastlab_api.config import settings
 from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
@@ -61,7 +62,7 @@ from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
 from forecastlab_api.watches import attach_demo_watch, check_watch, validate_user_watch
 
 configure_logging(settings.log_level)
-app = FastAPI(title="ForecastLab", version="0.2.0")
+app = FastAPI(title="ForecastLab", version=__version__)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.web_origin, "http://127.0.0.1:3000", "http://localhost:3000"],
@@ -190,7 +191,12 @@ def startup() -> None:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "forecastlab-api"}
+    return {"status": "ok", "service": "forecastlab-api", "version": __version__}
+
+
+@app.get("/api/meta")
+def api_meta() -> dict[str, str]:
+    return {"application_version": __version__, "service": "forecastlab-api"}
 
 
 @app.get("/health/db")
