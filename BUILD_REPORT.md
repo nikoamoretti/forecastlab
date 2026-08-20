@@ -1,8 +1,8 @@
 # ForecastLab build report
 
-Date: 2026-08-19. Current verification branch: `grok/integrity-repair-3`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
+Date: 2026-08-19. Current verification branch: `grok/live-readiness`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
 
-The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. The first integrity pass on `grok/integrity-evaluation-repair` is recorded in `INTEGRITY_REPAIR_REPORT.md`. Integrity-repair-2 numbers live in `INTEGRITY_REPAIR_2_REPORT.md`. **Current verification numbers, Docker results, limitations, and the first real-benchmark instructions are in `INTEGRITY_REPAIR_3_REPORT.md`.** Do not use older test counts as the current status.
+The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. Integrity-repair reports remain historical. **Current live-provider readiness numbers are in `LIVE_READINESS_REPORT.md`.** Integrity-repair-3 remains the prior schema/ledger certificate. Do not use older test counts as the current status.
 
 ## Completion status
 
@@ -40,7 +40,7 @@ If a local database predates the integrity schema, back it up (`cp data/forecast
 
 The 2026-08-19 `grok/integrity-evaluation-repair` session recorded 59 pytest tests, mypy on 43 files, and a local Playwright pass. That count is historical.
 
-The current `grok/integrity-repair-3` gate is **137 pytest tests**, mypy on **48 files**, `npm ci` + typecheck + production build, and Playwright `2 passed`. See `INTEGRITY_REPAIR_3_REPORT.md` for the exact command output.
+The current `grok/live-readiness` gate is **151 pytest tests**, mypy on **50 files**, install from `uv.lock`, `npm ci` + typecheck + production build, and Playwright `2 passed`. See `LIVE_READINESS_REPORT.md` for the exact command output.
 
 `npm audit --omit=dev` still reported 3 high findings in Next 15 transitive `postcss` / `sharp`. A force fix would install Next 16 and was not applied.
 
@@ -52,7 +52,8 @@ Inspected in the running app:
 - New question: mode readiness, workload estimate, effective ceiling, profile list including equal-budget profiles.
 - Report: DEMO execution strip with mock providers, `demo_fixtures`, fixture evidence used, configuration hash, commit, ceiling vs actual, synthetic warning, watcher honesty copy.
 - Settings: provider selects, live/backtest readiness, connection tests, clear-key actions, estimated-cost note.
-- Lab: synthetic dataset badge and hash, profile checkboxes, Create experiment (async), no leftover “Run baseline vs ensemble” primary action.
+- Lab: synthetic dataset badge and hash, profile checkboxes, Create experiment (async), Experiment spend totals, no leftover “Run baseline vs ensemble” primary action.
+- Nav shows application version `v0.3.1` from `/api/meta`.
 
 ## Docker
 
@@ -68,7 +69,7 @@ Web image: `node:24-bookworm-slim` (local; `node:22-slim` pull hung). Named volu
 
 ## CI
 
-`.github/workflows/ci.yml` is present and runs pytest, ruff, mypy, `npm ci`, typecheck, production build, and Playwright without paid keys. Judge CI against the exact SHA on `grok/integrity-repair-3` in GitHub Actions. Do not treat this file as a CI certificate.
+`.github/workflows/ci.yml` is present and runs pytest, ruff, mypy, `npm ci`, typecheck, production build, and Playwright without paid keys. Judge CI against the exact SHA on `grok/live-readiness` in GitHub Actions. Do not treat this file as a CI certificate.
 
 ## Recommended next milestone
 

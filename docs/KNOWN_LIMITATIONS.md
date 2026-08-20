@@ -13,9 +13,10 @@
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.
 - Benchmark retries reuse the same task, question, and run. They do not create replacement identities. Exhausted transient errors fail the job, run, task, and experiment.
 - Experiment terminal states are `completed`, `completed_with_failures`, and `failed`. A running task after a permanently failed job is a defect.
-- Budget reservations prevent ForecastLab from starting a call that cannot fit the **run-lifetime** ceiling. They are not a vendor-enforced hard dollar cap. If a provider omits usage, the reserved token and cost amounts are kept and labeled estimated. Search prices are estimated unless the provider reports a cost.
-- A queued benchmark experiment fails closed if application code or dependency identity changed after creation. Prompt and profile files are snapshotted; mutating those files does not fail-close execution. Pricing-file mutation does not change an already-created experiment.
-- Historical evidence is accepted only after the final Wayback capture is verified. Incomplete archive coverage still means missing evidence, not proof of absence.
+- Budget reservations prevent ForecastLab from starting a call that cannot fit the **run-lifetime** ceiling. They are not a vendor-enforced hard dollar cap. A failed real-model request without usage keeps estimated input tokens, maximum output tokens, and both reserved costs. Search prices are estimated unless the provider reports a cost.
+- A queued benchmark experiment fails closed if application code or dependency identity changed after creation. Real experiments also fail closed when no Python lockfile hash exists. Prompt and profile files are snapshotted; mutating those files does not fail-close execution. Pricing-file mutation does not change an already-created experiment.
+- The paid smoke runner is the only supported first live call. It is tightly capped (`live_smoke_v1`) and still spends real money when enabled. It has not been executed against paid vendors in this verification pass.
+- Historical evidence is accepted only after the final Wayback capture is verified. A rejected final capture keeps the actual archived original URL, final snapshot URL/timestamp, and failure reason. Incomplete archive coverage still means missing evidence, not proof of absence.
 - Partial forecasts are scored separately from full forecasts. Mixing them into a single headline success rate is a defect.
 - Built-in synthetic datasets are versioned. Older fixture versions remain as archived history when content changes.
 - Search and fetch caches are per run. They do not survive a rerun after a watch change.

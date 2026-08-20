@@ -59,11 +59,11 @@ At experiment creation ForecastLab persists:
 - Git commit SHA and dirty-tree flag
 - Hash of tracked `packages/forecasting/forecastlab/**/*.py` and `apps/api/forecastlab_api/**/*.py`
 - `pyproject.toml` hash
-- `uv.lock` or `poetry.lock` hash when present
+- `uv.lock` or `poetry.lock` hash when present (live-readiness now requires a Python lock hash for real experiments)
 - `apps/web/package-lock.json` hash
 - Prompt-bundle hash and profile-snapshot hashes
 - Pricing-catalog payload and hash
-- Application version `0.3.0`
+- Application version `0.3.0` (superseded by `0.3.1` on `grok/live-readiness`; see `LIVE_READINESS_REPORT.md`)
 - Optional `FORECASTLAB_IMAGE_DIGEST`
 
 Local databases, logs, secrets, caches, and ignored files are excluded.

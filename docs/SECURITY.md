@@ -9,5 +9,7 @@
 - Trusted-domain classification uses exact hostname boundaries (`host == domain or host.endswith("." + domain)`). `bls.gov.attacker.example` is not a primary source.
 - Execution contexts, exports, benchmark records, run attempts, and the provider-call ledger never store API keys, authorization headers, or complete provider responses. Ledger rows keep tokens, cost, request IDs when available, and short error text.
 - Cost figures are labeled `provider_reported`, `estimated`, `mixed`, or `unavailable`. Search rates in `configs/pricing/models.yaml` are manual conservative estimates, not vendor invoices.
+- Real model calls reserve estimated input tokens plus maximum output tokens before the HTTP request. Timeouts, 429s, and 5xx responses without usage keep that conservative reservation. Vendor identity (`xai`, `openai`, `openai_compatible`) is stored separately from the OpenAI-compatible transport.
+- `scripts/paid_smoke.py` does nothing unless `FORECASTLAB_RUN_PAID_SMOKE=1` and live model plus search credentials exist. It never reads hard-coded keys. CI, Docker verification, and ordinary pytest do not run a paid call.
 - Local fixture hosts are allowed only when `allow_local_fixtures` is on.
 - There is no arbitrary code execution and no tool that writes outside the data directory by design.

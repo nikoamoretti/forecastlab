@@ -9,7 +9,7 @@ A `BenchmarkDataset` is an immutable named collection of questions. Importing CS
 Creating an experiment:
 
 1. Writes one `BenchmarkProfileSnapshot` per selected profile with the source and effective profile payloads, full prompt texts (`PromptBundle`), prompt versions and hashes, frozen provider fields, per-profile limits, pricing snapshot, and execution context. API keys are never stored.
-2. Freezes dataset hash, profile hashes, prompt hashes, model provider, model name, model base URL, search provider, timeout, evidence policy, git commit, tracked forecasting/API source hash, `pyproject.toml` hash, lockfile hash when present, `apps/web/package-lock.json` hash, pricing-catalog payload and hash, and application version. Real experiments cannot be created from a dirty tracked working tree. Synthetic software-verification experiments may be created while dirty and stay labeled synthetic.
+2. Freezes dataset hash, profile hashes, prompt hashes, model provider, model name, model base URL, search provider, timeout, evidence policy, git commit, tracked forecasting/API source hash, `pyproject.toml` hash, Python lockfile hash, `apps/web/package-lock.json` hash, pricing-catalog payload and hash, and application version `0.3.1`. Real experiments cannot be created from a dirty tracked working tree and fail closed when no supported Python lockfile exists (`uv.lock` or `poetry.lock`). Synthetic software-verification experiments may be created while dirty or without a Python lock and stay labeled synthetic.
 3. Creates one `BenchmarkTask` per question × profile.
 4. Enqueues one idempotent `benchmark_task` job per task.
 5. Returns immediately.
@@ -52,7 +52,9 @@ Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and
 
 ## Scoring
 
-Summaries are scoped to one experiment. Each profile reports total, full, partial, and failed counts plus completion, partial, and failure rates. Two metric sets are computed: **all-valid** (full and partial probabilities) and **full-run-only** (successful non-partial runs). Both include Brier, log loss, mean/median total cost, mean latency, and Brier per dollar. Brier-per-dollar uses total `ForecastRun` cost, including failed attempts and search charges. Paired comparisons are computed twice: all-valid and full-only. Question-level tables and CSV export include status `full` | `partial` | `failed`. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
+Summaries are scoped to one experiment. Each profile reports total, full, partial, and failed counts plus completion, partial, and failure rates. Two metric sets are computed: **all-valid** (full and partial probabilities) and **full-run-only** (successful non-partial runs). Both include Brier, log loss, mean/median total cost, mean latency, and Brier per dollar. Brier-per-dollar uses total `ForecastRun` cost, including failed attempts and search charges. Experiment spend also reports total experiment cost, total successful/full cost, total partial cost, total failed-task cost, mean cost per started task, model cost, search cost, and failed-attempt cost. Failed tasks stay in commercial totals. The Lab UI shows those values. Paired comparisons are computed twice: all-valid and full-only. Question-level tables and CSV export include status `full` | `partial` | `failed`. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
+
+`live_smoke_v1` is a tightly capped one-track profile for one explicitly opted-in live smoke forecast. It is not a scientific comparison profile.
 
 ## Paired comparisons
 

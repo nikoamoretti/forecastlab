@@ -15,11 +15,23 @@ Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Stop with `Stop ForecastLab
 Developer commands:
 
 ```bash
-python3.12 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
+uv sync --extra dev --frozen
+source .venv/bin/activate
 pytest -q
-cd apps/web && npm install && npm run build
+cd apps/web && npm ci && npm run build
 ```
+
+Application version is `0.3.1` from `packages/forecasting/forecastlab/version.py`. Real experiments require the committed `uv.lock`.
+
+## First paid smoke forecast
+
+This command does nothing unless you set the opt-in flag and already have live model plus search credentials in `data/local/credentials.json` or the matching environment. It spends real money under a tight cap. Do not run it from CI.
+
+```bash
+FORECASTLAB_RUN_PAID_SMOKE=1 uv run python scripts/paid_smoke.py
+```
+
+`live_smoke_v1` allows one research track, one subquestion, one search call, at most two fetched documents, at most three model calls, 4000 tokens, and a $0.25 estimated-cost ceiling. The runner refuses a dirty Git tree, a missing `uv.lock`, mock/fixture evidence, the wrong vendor identity, a missing ledger row, or lifetime cost above that ceiling.
 
 ## What it does
 

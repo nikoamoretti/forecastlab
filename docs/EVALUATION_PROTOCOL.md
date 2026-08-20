@@ -21,6 +21,7 @@ The full ensemble remains optional. `three_track_full_v1` is the higher-research
 - All-valid metrics include full and partial probabilities
 - Full-run-only metrics exclude partials and failures
 - Brier-per-dollar uses total run cost, including failed attempts and search charges
+- Experiment spend includes failed-task cost; failed tasks do not disappear from commercial reporting
 - Paired comparisons are produced for both all-valid and full-only sets
 
 ## Time and leakage
