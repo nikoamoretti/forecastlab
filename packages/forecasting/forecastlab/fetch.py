@@ -15,7 +15,7 @@ from forecastlab.http_client import SafeResponse, safe_get
 from forecastlab.schemas import FetchedDocument
 from forecastlab.ssrf import UnsafeURLError, validate_url
 from forecastlab.timeutil import as_utc, parse_datetime, utcnow
-from forecastlab.wayback import verify_final_capture
+from forecastlab.wayback import parse_wayback_url, verify_final_capture
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "sources"
 MAX_BYTES = 2_000_000
@@ -211,6 +211,7 @@ def fetch_document(
             capture, verification_status = verify_final_capture(response, requested_url=url, as_of=as_of)
         except EvidenceIntegrityError as exc:
             reason = str(exc)
+            parsed = parse_wayback_url(response.final_url)
             return _rejected(
                 url,
                 reason,
@@ -220,7 +221,8 @@ def fetch_document(
                 requested_snapshot_url=snapshot_url,
                 requested_snapshot_at=snapshot_at,
                 final_snapshot_url=response.final_url,
-                archived_original_url=url,
+                final_snapshot_at=parsed.timestamp if parsed else None,
+                archived_original_url=parsed.archived_original_url if parsed else None,
                 snapshot_verification_status=reason,
                 status_code=response.status_code,
             )

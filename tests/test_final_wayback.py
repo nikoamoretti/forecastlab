@@ -129,3 +129,37 @@ def test_requested_and_final_metadata_in_evidence(client) -> None:
     assert "id_" in doc.final_snapshot_url
     assert doc.archived_original_url.endswith("example.org/report")
     assert doc.snapshot_verification_status == "verified"
+
+
+def test_rejected_wayback_preserves_actual_final_metadata() -> None:
+    from unittest.mock import patch
+
+    from forecastlab.fetch import fetch_document
+    from forecastlab.http_client import SafeResponse as SR
+
+    requested = "https://example.org/a"
+    final = "https://web.archive.org/web/20240115120000/https://other.example/b?x=1"
+    response = SR(
+        url="https://web.archive.org/web/20240101000000/https://example.org/a",
+        final_url=final,
+        status_code=200,
+        content=b"<html><body>mismatch</body></html>",
+        content_type="text/html",
+    )
+    with patch("forecastlab.fetch.safe_get", return_value=response):
+        doc = fetch_document(
+            requested,
+            as_of=datetime(2024, 6, 1, tzinfo=UTC),
+            allow_local_fixtures=False,
+            snapshot_url="https://web.archive.org/web/20240101000000/https://example.org/a",
+            snapshot_at=datetime(2024, 1, 1, tzinfo=UTC),
+            mode="backtest",
+        )
+    assert doc.rejected is True
+    assert doc.rejection_reason == "final_snapshot_original_url_mismatch"
+    assert doc.final_snapshot_url == final
+    assert doc.final_snapshot_at == datetime(2024, 1, 15, 12, 0, tzinfo=UTC)
+    assert doc.archived_original_url is not None
+    assert "other.example/b" in doc.archived_original_url
+    assert doc.archived_original_url != requested
+    assert "example.org/a" not in (doc.archived_original_url or "")

@@ -104,6 +104,7 @@ def _ask_json(
             user=user,
             schema_name=schema_name,
             max_output_tokens=max_output,
+            estimated_input_tokens=estimated_input,
         )
     except Exception:
         budget.release_reservation(reservation)

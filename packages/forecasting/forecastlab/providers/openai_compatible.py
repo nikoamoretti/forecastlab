@@ -56,8 +56,6 @@ def _usage_from_response(
 
 
 class OpenAICompatibleProvider:
-    name = "openai_compatible"
-
     def __init__(
         self,
         *,
@@ -70,9 +68,12 @@ class OpenAICompatibleProvider:
         run_attempt_id: str | None = None,
         pricing_catalog: dict[str, Any] | None = None,
         stage: str = "model",
+        provider_id: str = "openai_compatible",
     ) -> None:
         if not api_key:
             raise ProviderError("Model API key is not configured")
+        self.provider_id = provider_id
+        self.name = provider_id
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
         self.model = model
@@ -92,6 +93,7 @@ class OpenAICompatibleProvider:
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        estimated_input_tokens: int | None = None,
     ) -> ChatResult:
         url = f"{self.base_url}/chat/completions"
         headers = {
@@ -109,11 +111,12 @@ class OpenAICompatibleProvider:
         }
         if max_output_tokens is not None:
             body["max_tokens"] = max_output_tokens
-        reserved_out = max_output_tokens or 0
+        reserved_in = max(0, int(estimated_input_tokens or 0))
+        reserved_out = max(0, int(max_output_tokens or 0))
         reserved_cost = estimate_call_cost(
             self.name,
             self.model,
-            0,
+            reserved_in,
             reserved_out,
             catalog=self.pricing_catalog,
         )
@@ -156,7 +159,7 @@ class OpenAICompatibleProvider:
             provider_type="model",
             provider=self.name,
             model=self.model,
-            reserved_input_tokens=0,
+            reserved_input_tokens=reserved_in,
             reserved_output_tokens=reserved_out,
             reserved_cost_usd=reserved_cost,
             send=send,

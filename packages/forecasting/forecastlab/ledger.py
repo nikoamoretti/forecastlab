@@ -76,6 +76,7 @@ class RunAttemptRef:
 class UsageLedger(Protocol):
     def begin_attempt(self, *, run_id: str, job_id: str | None, attempt_number: int) -> RunAttemptRef: ...
     def finish_attempt(self, attempt_id: str, *, status: str, error_category: str | None = None, error_message: str | None = None) -> None: ...
+    def attempt_totals(self, run_id: str, run_attempt_id: str) -> RunUsageTotals: ...
     def reserve(
         self,
         *,
@@ -115,14 +116,27 @@ def _charge(entry: LedgerEntry) -> tuple[int, int, float, str]:
     return prompt_n + completion_n, completion_n, cost, source
 
 
-def summarize_entries(entries: list[LedgerEntry], *, attempt_count: int = 0) -> RunUsageTotals:
+def _keep_reservation(entry: LedgerEntry) -> None:
+    entry.actual_prompt_tokens = entry.reserved_input_tokens
+    entry.actual_completion_tokens = entry.reserved_output_tokens
+    entry.actual_cost_usd = entry.reserved_cost_usd
+    entry.cost_source = "estimated"
+
+
+def summarize_entries(
+    entries: list[LedgerEntry],
+    *,
+    attempt_count: int = 0,
+    run_attempt_id: str | None = None,
+) -> RunUsageTotals:
     from forecastlab.pricing import combine_cost_labels
 
-    totals = RunUsageTotals(run_attempt_count=attempt_count)
+    scoped = [item for item in entries if run_attempt_id is None or item.run_attempt_id == run_attempt_id]
+    totals = RunUsageTotals(run_attempt_count=1 if run_attempt_id is not None else attempt_count)
     labels: list[str] = []
     logical_model: set[str] = set()
     logical_search: set[str] = set()
-    for entry in entries:
+    for entry in scoped:
         if entry.status == "released":
             continue
         tokens, _completion, cost, source = _charge(entry)
@@ -231,9 +245,8 @@ class InMemoryUsageLedger:
         if entry.status in {"succeeded", "failed", "released"}:
             return entry
         if usage is None or (usage.prompt_tokens == 0 and usage.completion_tokens == 0 and usage.cost_usd == 0):
-            entry.cost_source = "estimated"
+            _keep_reservation(entry)
             entry.status = status
-            entry.actual_cost_usd = entry.reserved_cost_usd
             return entry
         entry.actual_prompt_tokens = usage.prompt_tokens
         entry.actual_completion_tokens = usage.completion_tokens
@@ -249,8 +262,7 @@ class InMemoryUsageLedger:
         entry.error_message = error_message[:500]
         entry.status = "failed"
         if usage is None:
-            entry.cost_source = "estimated"
-            entry.actual_cost_usd = entry.reserved_cost_usd
+            _keep_reservation(entry)
         return entry
 
     def release(self, entry_id: str) -> LedgerEntry:
@@ -264,6 +276,9 @@ class InMemoryUsageLedger:
     def totals(self, run_id: str) -> RunUsageTotals:
         attempts = [item for item in self._attempts if item.run_id == run_id]
         return summarize_entries(self.entries(run_id), attempt_count=len(attempts))
+
+    def attempt_totals(self, run_id: str, run_attempt_id: str) -> RunUsageTotals:
+        return summarize_entries(self.entries(run_id), run_attempt_id=run_attempt_id)
 
     def entries(self, run_id: str) -> list[LedgerEntry]:
         return [item for item in self._entries.values() if item.run_id == run_id]

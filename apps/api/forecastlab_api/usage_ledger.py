@@ -38,6 +38,16 @@ def _entry_from_row(row: ProviderCallLedger) -> LedgerEntry:
     )
 
 
+def apply_totals_to_attempt(row: ForecastRunAttempt, totals: RunUsageTotals) -> None:
+    row.model_cost_usd = totals.model_cost_usd
+    row.search_cost_usd = totals.search_cost_usd
+    row.total_cost_usd = totals.total_cost_usd
+    row.prompt_tokens = totals.prompt_tokens
+    row.completion_tokens = totals.completion_tokens
+    row.search_calls = totals.search_calls
+    row.provider_request_count = totals.provider_request_count
+
+
 def apply_totals_to_run(run: ForecastRun, totals: RunUsageTotals) -> None:
     run.model_cost_usd = totals.model_cost_usd
     run.search_cost_usd = totals.search_cost_usd
@@ -117,17 +127,12 @@ class PersistentUsageLedger:
             row = session.get(ForecastRunAttempt, attempt_id)
             if row is None:
                 return
-            totals = self.totals(row.run_id)
+            totals = self.attempt_totals(row.run_id, row.id)
             row.status = status
             row.completed_at = utcnow()
             row.error_category = error_category
             row.error_message = (error_message or "")[:500] or None
-            row.model_cost_usd = totals.model_cost_usd
-            row.search_cost_usd = totals.search_cost_usd
-            row.total_cost_usd = totals.total_cost_usd
-            row.prompt_tokens = totals.prompt_tokens
-            row.completion_tokens = totals.completion_tokens
-            row.search_calls = totals.search_calls
+            apply_totals_to_attempt(row, totals)
             self._refresh_run(session, row.run_id)
             session.commit()
 
@@ -181,6 +186,7 @@ class PersistentUsageLedger:
             )
             session.add(existing)
             self._refresh_run(session, run_id)
+            self._refresh_attempt(session, run_attempt_id)
             session.commit()
             session.refresh(existing)
             return _entry_from_row(existing)
@@ -193,8 +199,10 @@ class PersistentUsageLedger:
             if row.status in {"succeeded", "failed", "released"}:
                 return _entry_from_row(row)
             if usage is None or (usage.prompt_tokens == 0 and usage.completion_tokens == 0 and usage.cost_usd == 0):
-                row.cost_source = "estimated"
+                row.actual_prompt_tokens = row.reserved_input_tokens
+                row.actual_completion_tokens = row.reserved_output_tokens
                 row.actual_cost_usd = row.reserved_cost_usd
+                row.cost_source = "estimated"
             else:
                 row.actual_prompt_tokens = usage.prompt_tokens
                 row.actual_completion_tokens = usage.completion_tokens
@@ -204,6 +212,7 @@ class PersistentUsageLedger:
             row.status = status
             row.request_completed_at = utcnow()
             self._refresh_run(session, row.run_id)
+            self._refresh_attempt(session, row.run_attempt_id)
             session.commit()
             session.refresh(row)
             return _entry_from_row(row)
@@ -217,10 +226,13 @@ class PersistentUsageLedger:
             row.status = "failed"
             row.error_category = error_category
             row.error_message = error_message[:500]
-            if usage is None and row.actual_cost_usd is None:
+            if usage is None:
+                row.actual_prompt_tokens = row.reserved_input_tokens
+                row.actual_completion_tokens = row.reserved_output_tokens
                 row.actual_cost_usd = row.reserved_cost_usd
                 row.cost_source = "estimated"
             self._refresh_run(session, row.run_id)
+            self._refresh_attempt(session, row.run_attempt_id)
             session.commit()
             session.refresh(row)
             return _entry_from_row(row)
@@ -244,6 +256,10 @@ class PersistentUsageLedger:
         with self.session_factory() as session:
             return self._totals(session, run_id)
 
+    def attempt_totals(self, run_id: str, run_attempt_id: str) -> RunUsageTotals:
+        with self.session_factory() as session:
+            return self._attempt_totals(session, run_id, run_attempt_id)
+
     def entries(self, run_id: str) -> list[LedgerEntry]:
         with self.session_factory() as session:
             rows = session.scalars(select(ProviderCallLedger).where(ProviderCallLedger.run_id == run_id)).all()
@@ -254,11 +270,23 @@ class PersistentUsageLedger:
         attempts = session.scalars(select(ForecastRunAttempt).where(ForecastRunAttempt.run_id == run_id)).all()
         return summarize_entries([_entry_from_row(item) for item in rows], attempt_count=len(attempts))
 
+    def _attempt_totals(self, session: Session, run_id: str, run_attempt_id: str) -> RunUsageTotals:
+        rows = session.scalars(select(ProviderCallLedger).where(ProviderCallLedger.run_id == run_id)).all()
+        return summarize_entries([_entry_from_row(item) for item in rows], run_attempt_id=run_attempt_id)
+
     def _refresh_run(self, session: Session, run_id: str) -> None:
         run = session.get(ForecastRun, run_id)
         if run is None:
             return
         apply_totals_to_run(run, self._totals(session, run_id))
+
+    def _refresh_attempt(self, session: Session, run_attempt_id: str | None) -> None:
+        if not run_attempt_id:
+            return
+        row = session.get(ForecastRunAttempt, run_attempt_id)
+        if row is None:
+            return
+        apply_totals_to_attempt(row, self._attempt_totals(session, row.run_id, row.id))
 
 
 def default_ledger() -> PersistentUsageLedger:

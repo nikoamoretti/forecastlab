@@ -41,6 +41,7 @@ def build_model_provider(
             run_id=run_id,
             run_attempt_id=run_attempt_id,
             pricing_catalog=pricing_catalog,
+            provider_id=execution.model_provider,
         )
     if provider in {"mock", "demo"}:
         return MockModelProvider(
@@ -64,5 +65,6 @@ def build_model_provider(
             run_id=run_id,
             run_attempt_id=run_attempt_id,
             pricing_catalog=pricing_catalog,
+            provider_id=provider,
         )
     raise ProviderError(f"Unknown model provider: {provider}")

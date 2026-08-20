@@ -86,6 +86,7 @@ class MockModelProvider:
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        estimated_input_tokens: int | None = None,
     ) -> ChatResult:
         prompt_id = _prompt_id(system)
         payload = self._payload(prompt_id, user, schema_name)

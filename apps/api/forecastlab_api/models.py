@@ -460,6 +460,7 @@ class ForecastRunAttempt(Base):
     prompt_tokens: Mapped[int] = mapped_column(Integer, default=0)
     completion_tokens: Mapped[int] = mapped_column(Integer, default=0)
     search_calls: Mapped[int] = mapped_column(Integer, default=0)
+    provider_request_count: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class ProviderCallLedger(Base):
