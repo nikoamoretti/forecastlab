@@ -22,11 +22,11 @@ jobs:
       - name: Install Python from lockfile
         run: uv sync --extra dev --frozen
       - name: Python tests
-        run: uv run pytest -q
+        run: uv run python -m pytest -q
       - name: Ruff
-        run: uv run ruff check packages apps/api tests
+        run: uv run python -m ruff check packages apps/api tests
       - name: Mypy
-        run: uv run mypy
+        run: uv run python -m mypy
       - name: Frontend
         working-directory: apps/web
         run: |

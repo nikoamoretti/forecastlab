@@ -45,7 +45,7 @@ package = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["packages/forecasting", "apps/api"]
+pythonpath = [".", "packages/forecasting", "apps/api"]
 asyncio_mode = "auto"
 filterwarnings = ["ignore::DeprecationWarning"]
 
