@@ -4,20 +4,31 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import uuid
 from collections.abc import Callable
 from datetime import datetime
 from typing import Any
+from urllib.parse import urlparse
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from forecastlab.environment import working_tree_dirty
 from forecastlab.gitinfo import ROOT
+from forecastlab.hashing import redact_secrets
 from forecastlab.profiles import load_profile
-from forecastlab.schemas import ResolutionContract
+from forecastlab.schemas import ForecastProfile, ResolutionContract
 from forecastlab.timeutil import utcnow
-from forecastlab_api.models import EvidenceItem, ForecastRun, ForecastRunAttempt, ProviderCallLedger, Question
+from forecastlab_api.migrate import apply_schema
+from forecastlab_api.models import (
+    EvidenceItem,
+    ForecastRun,
+    ForecastRunAttempt,
+    ForecastVersion,
+    ProviderCallLedger,
+    Question,
+)
 from forecastlab_api.persist import save_contract
 from forecastlab_api.pipeline import execute_run, start_run
 from forecastlab_api.secrets import load_secrets
@@ -48,6 +59,17 @@ SMOKE_CONTRACT = ResolutionContract(
 ABSENT_MESSAGE = "Paid live smoke test not executed because explicit opt-in was absent."
 CREDENTIALS_MISSING_MESSAGE = "credentials_missing"
 FIXTURE_HOSTS = ("fixtures.forecastlab.local",)
+INTERNAL_HOSTS = frozenset(
+    {
+        "fixtures.forecastlab.local",
+        "127.0.0.1",
+        "localhost",
+        "::1",
+    }
+)
+TERMINAL_LEDGER_STATUSES = frozenset({"succeeded", "failed", "released"})
+MIN_PROBABILITY = 0.01
+MAX_PROBABILITY = 0.99
 
 
 def credentials_ready(secrets: dict[str, Any] | None = None) -> bool:
@@ -78,6 +100,7 @@ def execute_live_smoke(*, session_factory: Callable[[], Session] | None = None) 
     expected_model = str(secrets.get("model_provider"))
     expected_search = str(secrets.get("search_provider"))
     profile = load_profile(SMOKE_PROFILE_ID)
+    apply_schema()
     factory = session_factory or _session_factory()
     with factory() as session:
         question = Question(
@@ -101,16 +124,42 @@ def execute_live_smoke(*, session_factory: Callable[[], Session] | None = None) 
             enqueue=False,
         )
         session.commit()
-        execute_run(session, run)
+        try:
+            execute_run(session, run)
+        except Exception as exc:
+            session.refresh(run)
+            if run.status == "failed":
+                raise RuntimeError("smoke_forecast_failed") from exc
+            raise
         session.refresh(run)
         payload = _audit(session, run, expected_model=expected_model, expected_search=expected_search, profile=profile)
         session.commit()
         return payload
 
 
-def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_search: str, profile) -> dict[str, Any]:
-    from forecastlab.schemas import ForecastProfile
+def _internal_host(host: str) -> bool:
+    name = host.lower().rstrip(".")
+    if name in INTERNAL_HOSTS or name in FIXTURE_HOSTS:
+        return True
+    return name.endswith(".forecastlab.local") or "fixture" in name or name.startswith("demo.")
 
+
+def _accepted_external_evidence(item: EvidenceItem) -> bool:
+    if item.rejected or not item.as_of_eligible:
+        return False
+    url = (item.url or "").strip()
+    if not url:
+        return False
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return False
+    host = (parsed.hostname or "").lower()
+    if not host or _internal_host(host):
+        return False
+    return True
+
+
+def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_search: str, profile) -> dict[str, Any]:
     assert isinstance(profile, ForecastProfile)
     attempts = session.scalars(select(ForecastRunAttempt).where(ForecastRunAttempt.run_id == run.id)).all()
     ledger = session.scalars(select(ProviderCallLedger).where(ProviderCallLedger.run_id == run.id)).all()
@@ -131,7 +180,9 @@ def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_
         raise RuntimeError(f"search_identity_incorrect:{search_provider}")
     if any(any(host in (item.url or "") for host in FIXTURE_HOSTS) for item in evidence):
         raise RuntimeError("mock_or_fixture_evidence_used")
-    if run.status not in {"completed", "failed"}:
+    if run.status == "failed":
+        raise RuntimeError("smoke_forecast_failed")
+    if run.status != "completed":
         raise RuntimeError(f"run_not_terminal:{run.status}")
     if not ledger:
         raise RuntimeError("provider_ledger_empty")
@@ -139,17 +190,26 @@ def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_
         raise RuntimeError("vendor_identity_incorrect")
     if any(item.provider_type == "search" and item.provider != expected_search for item in ledger):
         raise RuntimeError("search_identity_incorrect")
-    if not any(item.provider_type == "model" and item.status in {"succeeded", "failed"} for item in ledger):
-        raise RuntimeError("completed_provider_request_missing_from_ledger")
-    if not any(item.provider_type == "search" and item.status in {"succeeded", "failed"} for item in ledger):
-        raise RuntimeError("completed_provider_request_missing_from_ledger")
+    if any(item.status not in TERMINAL_LEDGER_STATUSES for item in ledger):
+        raise RuntimeError("smoke_nonterminal_ledger_entry")
+    if not any(item.provider_type == "model" and item.status == "succeeded" for item in ledger):
+        raise RuntimeError("smoke_no_successful_model_request")
+    if not any(item.provider_type == "search" and item.status == "succeeded" for item in ledger):
+        raise RuntimeError("smoke_no_successful_search_request")
+    if not any(_accepted_external_evidence(item) for item in evidence):
+        raise RuntimeError("smoke_no_accepted_external_evidence")
     ceiling = float(profile.max_estimated_cost_usd)
     total = float(run.total_cost_usd or run.cost_usd or 0)
     if total > ceiling + 1e-9:
         raise RuntimeError("lifetime_cost_exceeds_ceiling")
-    from forecastlab_api.models import ForecastVersion
-
     version = session.scalars(select(ForecastVersion).where(ForecastVersion.run_id == run.id)).first()
+    if version is None:
+        raise RuntimeError("smoke_forecast_version_missing")
+    probability = version.ensemble_probability
+    if probability is None:
+        raise RuntimeError("smoke_probability_missing")
+    if not (MIN_PROBABILITY <= float(probability) <= MAX_PROBABILITY):
+        raise RuntimeError("smoke_probability_out_of_range")
     return {
         "run_id": run.id,
         "status": run.status,
@@ -199,6 +259,13 @@ def print_result(payload: dict[str, Any]) -> None:
         print(row)
 
 
+def normalize_smoke_reason(exc: BaseException) -> str:
+    raw = redact_secrets(str(exc) or type(exc).__name__)
+    compact = "-".join(raw.split())
+    cleaned = "".join(ch if ch.isalnum() or ch in {":", "_", "-", "."} else "_" for ch in compact)
+    return (cleaned or type(exc).__name__)[:180]
+
+
 def main() -> int:
     if not opted_in():
         print(ABSENT_MESSAGE)
@@ -206,6 +273,10 @@ def main() -> int:
     if not credentials_ready():
         print(CREDENTIALS_MISSING_MESSAGE)
         return 2
-    payload = execute_live_smoke()
+    try:
+        payload = execute_live_smoke()
+    except Exception as exc:
+        print(f"paid_smoke_failed:{normalize_smoke_reason(exc)}", file=sys.stderr)
+        return 1
     print_result(payload)
     return 0
