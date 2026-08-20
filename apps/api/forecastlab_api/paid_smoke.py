@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 import uuid
@@ -67,7 +68,7 @@ INTERNAL_HOSTS = frozenset(
         "::1",
     }
 )
-TERMINAL_LEDGER_STATUSES = frozenset({"succeeded", "failed", "released"})
+ALLOWED_LEDGER_STATUSES = frozenset({"succeeded", "failed"})
 MIN_PROBABILITY = 0.01
 MAX_PROBABILITY = 0.99
 
@@ -159,6 +160,18 @@ def _accepted_external_evidence(item: EvidenceItem) -> bool:
     return True
 
 
+def _require_valid_probability(value: Any) -> float:
+    if value is None:
+        raise RuntimeError("smoke_probability_missing")
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        raise RuntimeError("smoke_probability_invalid") from None
+    if not math.isfinite(number) or number < MIN_PROBABILITY or number > MAX_PROBABILITY:
+        raise RuntimeError("smoke_probability_invalid")
+    return number
+
+
 def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_search: str, profile) -> dict[str, Any]:
     assert isinstance(profile, ForecastProfile)
     attempts = session.scalars(select(ForecastRunAttempt).where(ForecastRunAttempt.run_id == run.id)).all()
@@ -190,13 +203,17 @@ def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_
         raise RuntimeError("vendor_identity_incorrect")
     if any(item.provider_type == "search" and item.provider != expected_search for item in ledger):
         raise RuntimeError("search_identity_incorrect")
-    if any(item.status not in TERMINAL_LEDGER_STATUSES for item in ledger):
+    if any(item.status == "released" for item in ledger):
+        raise RuntimeError("smoke_released_ledger_entry")
+    if any(item.status not in ALLOWED_LEDGER_STATUSES for item in ledger):
         raise RuntimeError("smoke_nonterminal_ledger_entry")
     if not any(item.provider_type == "model" and item.status == "succeeded" for item in ledger):
         raise RuntimeError("smoke_no_successful_model_request")
     if not any(item.provider_type == "search" and item.status == "succeeded" for item in ledger):
         raise RuntimeError("smoke_no_successful_search_request")
-    if not any(_accepted_external_evidence(item) for item in evidence):
+    accepted = [item for item in evidence if _accepted_external_evidence(item)]
+    accepted_urls = sorted({item.url for item in accepted if item.url})
+    if not accepted:
         raise RuntimeError("smoke_no_accepted_external_evidence")
     ceiling = float(profile.max_estimated_cost_usd)
     total = float(run.total_cost_usd or run.cost_usd or 0)
@@ -205,15 +222,29 @@ def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_
     version = session.scalars(select(ForecastVersion).where(ForecastVersion.run_id == run.id)).first()
     if version is None:
         raise RuntimeError("smoke_forecast_version_missing")
-    probability = version.ensemble_probability
-    if probability is None:
-        raise RuntimeError("smoke_probability_missing")
-    if not (MIN_PROBABILITY <= float(probability) <= MAX_PROBABILITY):
-        raise RuntimeError("smoke_probability_out_of_range")
+    probability = _require_valid_probability(version.ensemble_probability)
+    ledger_rows = [
+        {
+            "id": item.id,
+            "stage": item.stage,
+            "provider_type": item.provider_type,
+            "provider": item.provider,
+            "physical_attempt_number": item.physical_attempt_number,
+            "status": item.status,
+            "reserved_input_tokens": item.reserved_input_tokens,
+            "reserved_output_tokens": item.reserved_output_tokens,
+            "reserved_cost_usd": item.reserved_cost_usd,
+            "actual_prompt_tokens": item.actual_prompt_tokens,
+            "actual_completion_tokens": item.actual_completion_tokens,
+            "actual_cost_usd": item.actual_cost_usd,
+            "cost_source": item.cost_source,
+        }
+        for item in sorted(ledger, key=lambda item: (item.stage, item.provider_type, item.physical_attempt_number, item.id))
+    ]
     return {
         "run_id": run.id,
         "status": run.status,
-        "probability": version.ensemble_probability if version is not None else None,
+        "probability": probability,
         "model_provider": model_provider,
         "search_provider": search_provider,
         "model_cost_usd": run.model_cost_usd,
@@ -223,29 +254,15 @@ def _audit(session: Session, run: ForecastRun, *, expected_model: str, expected_
         "cost_source": run.cost_source,
         "run_attempt_count": len(attempts),
         "provider_request_count": len(ledger),
-        "ledger": [
-            {
-                "id": item.id,
-                "stage": item.stage,
-                "provider_type": item.provider_type,
-                "provider": item.provider,
-                "physical_attempt_number": item.physical_attempt_number,
-                "status": item.status,
-                "reserved_input_tokens": item.reserved_input_tokens,
-                "reserved_output_tokens": item.reserved_output_tokens,
-                "reserved_cost_usd": item.reserved_cost_usd,
-                "actual_prompt_tokens": item.actual_prompt_tokens,
-                "actual_completion_tokens": item.actual_completion_tokens,
-                "actual_cost_usd": item.actual_cost_usd,
-                "cost_source": item.cost_source,
-            }
-            for item in ledger
-        ],
+        "accepted_external_evidence_count": len(accepted),
+        "accepted_evidence_urls": accepted_urls,
+        "ledger": ledger_rows,
         "checked_at": utcnow().isoformat(),
     }
 
 
 def print_result(payload: dict[str, Any]) -> None:
+    print(f"run_id={payload['run_id']}")
     print(f"status={payload['status']}")
     print(f"probability={payload['probability']}")
     print(f"model_provider={payload['model_provider']}")
@@ -254,9 +271,16 @@ def print_result(payload: dict[str, Any]) -> None:
     print(f"search_cost_usd={payload['search_cost_usd']}")
     print(f"failed_attempt_cost_usd={payload['failed_attempt_cost_usd']}")
     print(f"total_cost_usd={payload['total_cost_usd']}")
+    print(f"cost_source={payload['cost_source']}")
+    print(f"run_attempt_count={payload['run_attempt_count']}")
+    print(f"provider_request_count={payload['provider_request_count']}")
+    print(f"accepted_external_evidence_count={payload['accepted_external_evidence_count']}")
+    for url in payload["accepted_evidence_urls"]:
+        print(f"accepted_evidence_url={url}")
+    print(f"checked_at={payload['checked_at']}")
     print("ledger:")
     for row in payload["ledger"]:
-        print(row)
+        print(json.dumps(row, sort_keys=True))
 
 
 def normalize_smoke_reason(exc: BaseException) -> str:

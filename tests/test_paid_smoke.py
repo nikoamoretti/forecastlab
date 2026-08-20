@@ -18,10 +18,12 @@ from forecastlab_api.paid_smoke import (
     CREDENTIALS_MISSING_MESSAGE,
     SMOKE_PROFILE_ID,
     _audit,
+    _require_valid_probability,
     credentials_ready,
     execute_live_smoke,
     main,
     opted_in,
+    print_result,
 )
 
 LIVE_SECRETS = {
@@ -193,6 +195,7 @@ def _seed_smoke_run(
     evidence_url: str = "https://www.bls.gov/news.release/empsit.nr0.htm",
     evidence_rejected: bool = False,
     evidence_eligible: bool = True,
+    evidence_rows: list[dict[str, Any]] | None = None,
     ledger_rows: list[dict[str, Any]] | None = None,
     fixture_evidence_used: bool = False,
     total_cost: float = 0.01,
@@ -227,14 +230,17 @@ def _seed_smoke_run(
                 ensemble_probability=probability,
             )
         )
-    if include_evidence:
+    rows = evidence_rows
+    if rows is None and include_evidence:
+        rows = [{"url": evidence_url, "rejected": evidence_rejected, "as_of_eligible": evidence_eligible}]
+    for item in rows or []:
         session.add(
             EvidenceItem(
                 id=str(uuid.uuid4()),
                 run_id=run.id,
-                url=evidence_url,
-                rejected=evidence_rejected,
-                as_of_eligible=evidence_eligible,
+                url=str(item["url"]),
+                rejected=bool(item.get("rejected", False)),
+                as_of_eligible=bool(item.get("as_of_eligible", True)),
             )
         )
     for row in ledger_rows if ledger_rows is not None else _default_ledger():
@@ -327,6 +333,8 @@ def test_completed_run_with_probability_passes(client) -> None:
         payload = _audit_seeded(session)
     assert payload["status"] == "completed"
     assert payload["probability"] == 0.22
+    assert payload["accepted_external_evidence_count"] == 1
+    assert payload["accepted_evidence_urls"] == ["https://www.bls.gov/news.release/empsit.nr0.htm"]
 
 
 def test_failed_run_returns_nonzero(client, monkeypatch, capsys) -> None:
@@ -391,7 +399,7 @@ def test_only_failed_search_ledger_rows_fail(client) -> None:
         _audit_seeded(session, ledger_rows=rows)
 
 
-def test_failed_retry_then_successful_request_passes(client) -> None:
+def test_failed_retry_then_successful_request_passes(client, capsys) -> None:
     from forecastlab_api.db import SessionLocal
 
     rows = [
@@ -426,9 +434,14 @@ def test_failed_retry_then_successful_request_passes(client) -> None:
     assert payload["probability"] == 0.22
     assert any(row["status"] == "failed" for row in payload["ledger"])
     assert any(row["provider_type"] == "model" and row["status"] == "succeeded" for row in payload["ledger"])
+    print_result(payload)
+    printed = capsys.readouterr().out
+    parsed = [_parse_ledger_json(line) for line in _ledger_lines(printed)]
+    assert any(row["status"] == "failed" for row in parsed)
+    assert any(row["provider_type"] == "model" and row["status"] == "succeeded" for row in parsed)
 
 
-def test_reserved_nonterminal_ledger_row_fails(client) -> None:
+def test_released_ledger_entry_fails(client) -> None:
     from forecastlab_api.db import SessionLocal
 
     rows = _default_ledger()
@@ -439,7 +452,26 @@ def test_reserved_nonterminal_ledger_row_fails(client) -> None:
             "stage": "forecast",
             "provider_type": "model",
             "provider": "xai",
-            "status": "reserved",
+            "status": "released",
+        }
+    )
+    with SessionLocal() as session, pytest.raises(RuntimeError, match="smoke_released_ledger_entry"):
+        _audit_seeded(session, ledger_rows=rows)
+
+
+@pytest.mark.parametrize("status", ["reserved", "running", "pending", "unknown"])
+def test_nonterminal_ledger_row_fails(client, status: str) -> None:
+    from forecastlab_api.db import SessionLocal
+
+    rows = _default_ledger()
+    rows.append(
+        {
+            "logical_call_id": "model-2",
+            "physical_attempt_number": 1,
+            "stage": "forecast",
+            "provider_type": "model",
+            "provider": "xai",
+            "status": status,
         }
     )
     with SessionLocal() as session, pytest.raises(RuntimeError, match="smoke_nonterminal_ledger_entry"):
@@ -468,5 +500,96 @@ def test_successful_stubbed_live_smoke_main_returns_zero(client, monkeypatch, ca
     monkeypatch.setattr("forecastlab_api.paid_smoke._session_factory", lambda: SessionLocal)
     assert main() == 0
     captured = capsys.readouterr()
-    assert "status=completed" in captured.out
+    out = captured.out
+    for marker in (
+        "run_id=",
+        "status=completed",
+        "probability=",
+        "model_provider=xai",
+        "search_provider=tavily",
+        "model_cost_usd=",
+        "search_cost_usd=",
+        "failed_attempt_cost_usd=",
+        "total_cost_usd=",
+        "cost_source=",
+        "run_attempt_count=",
+        "provider_request_count=",
+        "accepted_external_evidence_count=",
+        "accepted_evidence_url=https://www.bls.gov/",
+        "checked_at=",
+        "ledger:",
+    ):
+        assert marker in out
+    for line in _ledger_lines(out):
+        _parse_ledger_json(line)
     assert "paid_smoke_failed:" not in captured.err
+
+
+def test_accepted_evidence_payload_deduplicates_and_excludes_rejected(client) -> None:
+    from forecastlab_api.db import SessionLocal
+
+    rows = [
+        {"url": "https://www.bls.gov/news.release/empsit.nr0.htm", "rejected": False, "as_of_eligible": True},
+        {"url": "https://www.bls.gov/news.release/empsit.nr0.htm", "rejected": False, "as_of_eligible": True},
+        {"url": "https://fred.stlouisfed.org/series/UNRATE", "rejected": True, "as_of_eligible": True},
+        {"url": "https://www.bls.gov/cps/", "rejected": False, "as_of_eligible": False},
+    ]
+    with SessionLocal() as session:
+        payload = _audit_seeded(session, evidence_rows=rows)
+    assert payload["accepted_external_evidence_count"] == 2
+    assert payload["accepted_evidence_urls"] == ["https://www.bls.gov/news.release/empsit.nr0.htm"]
+
+
+@pytest.mark.parametrize("probability", [0.0, 1.0, -0.1, 1.1, float("nan"), float("inf"), float("-inf")])
+def test_invalid_probability_fails(client, probability: float) -> None:
+    from forecastlab_api.db import SessionLocal
+
+    with SessionLocal() as session:
+        run = _seed_smoke_run(session, probability=0.22)
+        session.commit()
+        version = session.scalars(select(ForecastVersion).where(ForecastVersion.run_id == run.id)).one()
+        version.ensemble_probability = probability
+        with pytest.raises(RuntimeError, match="smoke_probability_invalid"):
+            _audit(session, run, expected_model="xai", expected_search="tavily", profile=load_profile(SMOKE_PROFILE_ID))
+    with pytest.raises(RuntimeError, match="smoke_probability_invalid"):
+        _require_valid_probability(probability)
+
+
+def test_non_numeric_probability_fails() -> None:
+    with pytest.raises(RuntimeError, match="smoke_probability_invalid"):
+        _require_valid_probability("not-a-number")
+
+
+def test_secret_redaction_in_failure_output(monkeypatch, capsys) -> None:
+    monkeypatch.setenv("FORECASTLAB_RUN_PAID_SMOKE", "1")
+    monkeypatch.setattr("forecastlab_api.paid_smoke.credentials_ready", lambda: True)
+    secrets = (
+        "xai-abcdefghijklmnopqrstuvwxyz",
+        "sk-abcdefghijklmnopqrstuvwxyz",
+        "tvly-abcdefghijklmnopqrstuvwxyz",
+    )
+    def _raise_with(secret: str):
+        def _fail(**_kwargs: Any) -> dict[str, Any]:
+            raise RuntimeError(f"provider failed with {secret}")
+
+        return _fail
+
+    for key in secrets:
+        monkeypatch.setattr("forecastlab_api.paid_smoke.execute_live_smoke", _raise_with(key))
+        assert main() == 1
+        err = capsys.readouterr().err
+        assert key not in err
+        assert "paid_smoke_failed:" in err
+        assert "REDACTED" in err
+
+
+def _ledger_lines(output: str) -> list[str]:
+    after = output.split("ledger:\n", 1)
+    assert len(after) == 2
+    return [line for line in after[1].splitlines() if line.strip()]
+
+
+def _parse_ledger_json(line: str) -> dict[str, Any]:
+    parsed = json_lib.loads(line)
+    assert isinstance(parsed, dict)
+    return parsed

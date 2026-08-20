@@ -25,7 +25,7 @@ This is a small live-provider readiness patch. It does not add forecasting archi
 FORECASTLAB_RUN_PAID_SMOKE=1 uv run python scripts/paid_smoke.py
 ```
 
-Requirements the runner checks itself: clean Git working tree, committed `uv.lock`, live model and search credentials (not hard-coded), profile `live_smoke_v1`, one binary question with a manually specified BLS U-3 resolution contract, one research track, one subquestion, one search call, at most two fetched documents, at most three model calls, 4000 tokens, and a $0.25 estimated-cost ceiling. The run fails if mock or fixture evidence appears, vendor identity is wrong, a completed provider request is missing from the ledger, or lifetime totals exceed that ceiling under ForecastLab’s conservative accounting.
+Requirements the runner checks itself: clean Git working tree, committed `uv.lock`, live model and search credentials (not hard-coded), profile `live_smoke_v1`, one binary question with a manually specified BLS U-3 resolution contract, one research track, one subquestion, one search call, at most two fetched documents, at most three model calls, 4000 tokens, and a $0.25 estimated-cost ceiling. The run fails closed unless the forecast is completed, a `ForecastVersion` exists, the probability is a finite value between 0.01 and 0.99, accepted external evidence is present, the ledger contains at least one successful model request and one successful search request, and every ledger row is `succeeded` or `failed`. Released, reserved, running, pending, or unknown ledger rows fail. Successful output prints the full audit, including accepted evidence URLs and deterministic JSON ledger rows. Secrets are redacted from failure text.
 
 ## Python tests
 
