@@ -10,6 +10,8 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from forecastlab.environment import build_environment_identity, compare_environment, working_tree_dirty
+from forecastlab.errors import ExperimentEnvironmentMismatch
 from forecastlab.evaluation import (
     brier_score,
     log_loss,
@@ -48,8 +50,11 @@ from forecastlab_api.pipeline import (
     provider_settings_from_secrets,
 )
 from forecastlab_api.secrets import load_secrets
+from forecastlab_api.usage_ledger import apply_totals_to_run, default_ledger
 
 SYNTHETIC_DATASET_NAME = "synthetic_fixtures_v1"
+CURRENT_BUILTIN_KEY = "forecastlab.synthetic.binary"
+CURRENT_BUILTIN_VERSION = "2"
 DEFAULT_EXPERIMENT_PROFILES = ("single_agent_equal_budget_v1", "three_track_equal_budget_v1")
 TERMINAL_TASK_STATUSES = frozenset({"completed", "failed"})
 TERMINAL_EXPERIMENT_STATUSES = frozenset({"completed", "completed_with_failures", "failed"})
@@ -182,6 +187,9 @@ def ensure_dataset(
     rows: list[dict],
     provenance: str,
     is_synthetic: bool,
+    builtin_key: str | None = None,
+    builtin_version: str | None = None,
+    is_builtin: bool = False,
 ) -> tuple[BenchmarkDataset, int, int, list[str]]:
     flags = []
     for row in rows:
@@ -208,6 +216,9 @@ def ensure_dataset(
             is_synthetic=agreed_synthetic,
             question_count=0,
             metadata_json=json.dumps({"row_count": len(rows), "name": name}),
+            builtin_key=builtin_key,
+            builtin_version=builtin_version,
+            is_builtin=is_builtin,
         )
         session.add(existing)
         session.flush()
@@ -255,6 +266,11 @@ def ensure_dataset(
         )
         created += 1
     session.flush()
+    if builtin_key and builtin_version:
+        existing.builtin_key = builtin_key
+        existing.builtin_version = builtin_version
+        existing.is_builtin = True
+        existing.archived_at = None
     existing.question_count = int(
         session.scalar(
             select(func.count()).select_from(BenchmarkQuestion).where(BenchmarkQuestion.dataset_id == existing.id)
@@ -374,6 +390,8 @@ def create_experiment(
         raise ValueError("profiles_required")
     for profile_id in unique_profiles:
         load_profile(profile_id)
+    if working_tree_dirty() and not dataset.is_synthetic:
+        raise ValueError("dirty_working_tree")
     secrets = load_secrets()
     settings_data = provider_settings_from_secrets(secrets)
     template = resolve_execution_context(
@@ -395,8 +413,13 @@ def create_experiment(
     }
     bundle = load_prompt_bundle()
     pricing_payload = load_pricing()
-    pricing_digest = pricing_hash()
+    pricing_digest = pricing_hash(catalog=pricing_payload)
     hashes = {profile_id: profile_hash(load_profile(profile_id)) for profile_id in unique_profiles}
+    identity = build_environment_identity(
+        prompt_bundle_hash=sha256_text(canonical_json(bundle.hashes())),
+        profile_hashes=hashes,
+        pricing_catalog=pricing_payload,
+    )
     experiment = BenchmarkExperiment(
         id=str(uuid.uuid4()),
         dataset_id=dataset.id,
@@ -419,6 +442,14 @@ def create_experiment(
         evidence_policy=frozen["evidence_policy"],
         is_synthetic=dataset.is_synthetic,
         total_tasks=len(questions) * len(unique_profiles),
+        environment_identity_json=_safe_json(identity),
+        tracked_source_hash=identity.get("tracked_source_hash"),
+        pyproject_hash=identity.get("pyproject_hash"),
+        dependency_hash=identity.get("dependency_hash"),
+        package_lock_hash=identity.get("package_lock_hash"),
+        working_tree_dirty=bool(identity.get("working_tree_dirty")),
+        application_version=identity.get("application_version"),
+        container_image_digest=identity.get("container_image_digest"),
     )
     session.add(experiment)
     session.flush()
@@ -452,6 +483,8 @@ def create_experiment(
             "snapshot_configuration_hashes": snapshot_hashes,
             "pricing_hash": pricing_digest,
             "is_synthetic": dataset.is_synthetic,
+            "tracked_source_hash": identity.get("tracked_source_hash"),
+            "environment_identity_hash": sha256_text(canonical_json({k: v for k, v in identity.items() if k != "working_tree_dirty"})),
         }
     )
     for question in questions:
@@ -587,7 +620,7 @@ def finalize_benchmark_task(
             probability=probability,
             brier=None if failed or probability is None else brier_score(probability, item.outcome),
             log_loss_value=None if failed or probability is None else log_loss(probability, item.outcome),
-            cost_usd=run.cost_usd if run is not None else 0.0,
+            cost_usd=(run.total_cost_usd or run.cost_usd) if run is not None else 0.0,
             latency_ms=run.latency_ms if run is not None else 0,
             failed=failed,
             partial=partial,
@@ -624,6 +657,7 @@ def finalize_from_run(
     error_category: str | None = None,
 ) -> BenchmarkResult:
     version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+    apply_totals_to_run(run, default_ledger().totals(run.id))
     probability = version.ensemble_probability if version is not None else None
     failed = probability is None
     return finalize_benchmark_task(
@@ -690,6 +724,7 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
         _refresh_experiment_counts(session, experiment)
         return
     snapshot = _load_snapshot(session, experiment.id, task.profile_id)
+    _assert_frozen_environment(experiment, snapshot)
     if experiment.status == "pending":
         experiment.status = "running"
         experiment.started_at = experiment.started_at or utcnow()
@@ -729,6 +764,10 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
         finalize_from_run(session, task=task, experiment=experiment, item=item, run=run)
         session.commit()
         return
+    try:
+        pricing_catalog = json.loads(snapshot.pricing_snapshot_json or "{}")
+    except json.JSONDecodeError:
+        pricing_catalog = {}
     execute_run(
         session,
         run,
@@ -736,6 +775,7 @@ def execute_benchmark_task(session: Session, task: BenchmarkTask, job=None) -> N
         profile=profile,
         prompt_bundle=bundle,
         model_timeout=snapshot.model_timeout_seconds,
+        pricing_catalog=pricing_catalog,
     )
     session.refresh(run)
     maybe_crash("after_forecast_version")
@@ -796,6 +836,47 @@ def experiment_progress(session: Session, experiment: BenchmarkExperiment) -> di
     }
 
 
+def _result_status(item: BenchmarkResult) -> str:
+    if item.failed:
+        return "failed"
+    if item.partial:
+        return "partial"
+    return "full"
+
+
+def _metric_set(items: list[BenchmarkResult]) -> dict[str, Any]:
+    briers = [item.brier for item in items if item.brier is not None]
+    losses = [item.log_loss_value for item in items if item.log_loss_value is not None]
+    costs = [item.cost_usd for item in items]
+    lats = [float(item.latency_ms) for item in items]
+    mean_brier = mean(briers)
+    mean_cost = mean(costs)
+    return {
+        "n": len(items),
+        "brier": mean_brier,
+        "log_loss": mean(losses),
+        "mean_cost_usd": mean_cost,
+        "median_cost_usd": median(costs),
+        "mean_latency_ms": mean(lats),
+        "brier_per_dollar": None if not mean_cost or mean_brier is None else mean_brier / mean_cost,
+    }
+
+
+def _paired_map(items: list[BenchmarkResult], questions: dict[str, BenchmarkQuestion]) -> dict[str, dict[str, float]]:
+    payload: dict[str, dict[str, float]] = {}
+    for item in items:
+        question = questions.get(item.benchmark_question_id)
+        if item.probability is None or question is None or item.brier is None:
+            continue
+        payload[item.benchmark_question_id] = {
+            "brier": item.brier,
+            "log_loss": item.log_loss_value or 0.0,
+            "cost_usd": item.cost_usd,
+            "latency_ms": float(item.latency_ms),
+        }
+    return payload
+
+
 def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dict:
     dataset = session.get(BenchmarkDataset, experiment.dataset_id)
     rows = session.scalars(select(BenchmarkResult).where(BenchmarkResult.experiment_id == experiment.id)).all()
@@ -810,55 +891,62 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
         by_profile.setdefault(row.profile_id, []).append(row)
     profiles_out = []
     reliability_by_profile = {}
-    paired_maps: dict[str, dict[str, dict[str, float]]] = {}
+    paired_all: dict[str, dict[str, dict[str, float]]] = {}
+    paired_full: dict[str, dict[str, dict[str, float]]] = {}
     profile_hashes = json.loads(experiment.profile_hashes_json or "{}")
     for profile_id, items in by_profile.items():
-        briers = [item.brier for item in items if item.brier is not None]
-        losses = [item.log_loss_value for item in items if item.log_loss_value is not None]
-        costs = [item.cost_usd for item in items]
-        lats = [float(item.latency_ms) for item in items]
-        failures = [item for item in items if item.failed]
-        mean_brier = mean(briers)
-        mean_cost = mean(costs)
+        full_items = [item for item in items if not item.failed and not item.partial]
+        partial_items = [item for item in items if item.partial and not item.failed]
+        failed_items = [item for item in items if item.failed]
+        valid_items = [item for item in items if item.probability is not None and not item.failed]
+        all_valid = _metric_set(valid_items)
+        full_only = _metric_set(full_items)
+        total = len(items)
         profiles_out.append(
             {
                 "profile_id": profile_id,
                 "profile_hash": profile_hashes.get(profile_id),
-                "n": len(items),
-                "brier": mean_brier,
-                "log_loss": mean(losses),
-                "mean_cost_usd": mean_cost,
-                "median_cost_usd": median(costs),
-                "mean_latency_ms": mean(lats),
-                "failure_rate": len(failures) / len(items) if items else None,
-                "brier_per_dollar": None
-                if not mean_cost
-                else (mean_brier / mean_cost if mean_brier is not None else None),
+                "n": total,
+                "total_count": total,
+                "full_count": len(full_items),
+                "partial_count": len(partial_items),
+                "failed_count": len(failed_items),
+                "completion_rate": len(full_items) / total if total else None,
+                "partial_rate": len(partial_items) / total if total else None,
+                "failure_rate": len(failed_items) / total if total else None,
+                "all_valid": all_valid,
+                "full_only": full_only,
+                "brier": all_valid["brier"],
+                "log_loss": all_valid["log_loss"],
+                "mean_cost_usd": all_valid["mean_cost_usd"],
+                "median_cost_usd": all_valid["median_cost_usd"],
+                "mean_latency_ms": all_valid["mean_latency_ms"],
+                "brier_per_dollar": all_valid["brier_per_dollar"],
             }
         )
         pairs: list[tuple[float, int]] = []
-        paired_maps[profile_id] = {}
-        for item in items:
+        for item in valid_items:
             question = questions.get(item.benchmark_question_id)
-            if item.probability is not None and question is not None and item.brier is not None:
+            if item.probability is not None and question is not None:
                 pairs.append((item.probability, question.outcome))
-                paired_maps[profile_id][item.benchmark_question_id] = {
-                    "brier": item.brier,
-                    "log_loss": item.log_loss_value or 0.0,
-                    "cost_usd": item.cost_usd,
-                    "latency_ms": float(item.latency_ms),
-                }
         reliability_by_profile[profile_id] = reliability_bins(pairs)
+        paired_all[profile_id] = _paired_map(valid_items, questions)
+        paired_full[profile_id] = _paired_map(full_items, questions)
     comparisons = []
-    ids = list(paired_maps)
+    comparisons_full = []
+    ids = list(paired_all)
     for i, left in enumerate(ids):
         for right in ids[i + 1 :]:
             comparisons.append(
-                paired_profile_comparison(paired_maps[left], paired_maps[right], left_id=left, right_id=right)
+                paired_profile_comparison(paired_all[left], paired_all[right], left_id=left, right_id=right)
+            )
+            comparisons_full.append(
+                paired_profile_comparison(paired_full[left], paired_full[right], left_id=left, right_id=right)
             )
     question_rows = []
     for item in rows:
         question = questions.get(item.benchmark_question_id)
+        status = _result_status(item)
         question_rows.append(
             {
                 "id": item.id,
@@ -871,6 +959,7 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
                 "latency_ms": item.latency_ms,
                 "failed": item.failed,
                 "partial": item.partial,
+                "status": status,
                 "question": question.question if question else None,
                 "category": question.category if question else None,
                 "outcome": question.outcome if question else None,
@@ -902,11 +991,45 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
         "profiles": profiles_out,
         "reliability_by_profile": reliability_by_profile,
         "paired_comparisons": comparisons,
+        "paired_comparisons_all_valid": comparisons,
+        "paired_comparisons_full_only": comparisons_full,
         "rows": question_rows,
+        "environment_identity": json.loads(experiment.environment_identity_json or "{}"),
         "progress": experiment_progress(session, experiment),
         "profile_configs": [item.model_dump() for item in list_profiles()],
         "execution_context": json.loads(experiment.execution_context_json or "{}"),
     }
+
+
+def _assert_frozen_environment(experiment: BenchmarkExperiment, snapshot: BenchmarkProfileSnapshot) -> None:
+    frozen = json.loads(experiment.environment_identity_json or "{}")
+    if not frozen:
+        raise ExperimentEnvironmentMismatch("Experiment is missing a frozen execution identity")
+    try:
+        frozen_pricing = json.loads(snapshot.pricing_snapshot_json or "{}")
+    except json.JSONDecodeError:
+        frozen_pricing = {}
+    current = build_environment_identity(
+        prompt_bundle_hash=frozen.get("prompt_bundle_hash"),
+        profile_hashes=frozen.get("profile_hashes") or {},
+        pricing_catalog=frozen_pricing,
+    )
+    mismatches = compare_environment(frozen, current)
+    if mismatches:
+        raise ExperimentEnvironmentMismatch(
+            f"Experiment environment mismatch: {', '.join(mismatches)}"
+        )
+
+
+def current_builtin_dataset(session: Session) -> BenchmarkDataset | None:
+    return session.scalar(
+        select(BenchmarkDataset).where(
+            BenchmarkDataset.builtin_key == CURRENT_BUILTIN_KEY,
+            BenchmarkDataset.builtin_version == CURRENT_BUILTIN_VERSION,
+            BenchmarkDataset.is_builtin.is_(True),
+            BenchmarkDataset.archived_at.is_(None),
+        )
+    )
 
 
 def serialize_dataset(dataset: BenchmarkDataset) -> dict:
@@ -917,6 +1040,10 @@ def serialize_dataset(dataset: BenchmarkDataset) -> dict:
         "dataset_hash": dataset.dataset_hash,
         "provenance": dataset.provenance,
         "is_synthetic": dataset.is_synthetic,
+        "builtin_key": dataset.builtin_key,
+        "builtin_version": dataset.builtin_version,
+        "is_builtin": dataset.is_builtin,
+        "archived_at": dataset.archived_at.isoformat() if isinstance(dataset.archived_at, datetime) else dataset.archived_at,
         "created_at": dataset.created_at.isoformat() if isinstance(dataset.created_at, datetime) else dataset.created_at,
         "question_count": dataset.question_count,
     }

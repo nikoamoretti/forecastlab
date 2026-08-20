@@ -30,6 +30,11 @@ class BudgetExceeded(RuntimeError):
         super().__init__(f"Budget exceeded at {stage}: {reason}")
 
 
+class ExperimentEnvironmentMismatch(ConfigurationError):
+    def __init__(self, message: str) -> None:
+        super().__init__(["experiment_environment_mismatch"], message)
+
+
 def classify_http_status(status_code: int) -> type[Exception]:
     if status_code in {408, 429} or status_code >= 500:
         return TransientProviderError
