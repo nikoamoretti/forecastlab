@@ -113,7 +113,7 @@ No paid call was made inside Docker.
 
 ## GitHub Actions
 
-CI now installs with `uv sync --extra dev --frozen` and runs `uv run python -m pytest -q`, `uv run python -m ruff`, and `uv run python -m mypy`. Adding `.` to pytest `pythonpath` keeps `from tests...` imports working in the locked environment. Judge the Actions run against the exact final SHA after push. Do not treat an earlier integrity-repair SHA as this certificate.
+CI now installs with `uv sync --extra dev --frozen` and runs `uv run python -m pytest -q`, `uv run python -m ruff`, and `uv run python -m mypy`. Adding `.` to pytest `pythonpath` keeps `from tests...` imports working in the locked environment. Cache prune is disabled so leftover API/worker processes cannot fail the post-job uv cache step. Judge the Actions run against the exact final SHA after push. Do not treat an earlier integrity-repair SHA as this certificate.
 
 ## Secret scan
 

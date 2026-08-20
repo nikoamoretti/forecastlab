@@ -13,6 +13,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          prune-cache: false
           python-version: "3.12"
       - uses: actions/setup-node@v4
         with:
@@ -66,3 +67,9 @@ jobs:
         run: npx playwright test
         env:
           FORECASTLAB_API_ORIGIN: http://127.0.0.1:8765
+      - name: Stop background servers
+        if: always()
+        run: |
+          pkill -f 'uvicorn forecastlab_api.main:app' || true
+          pkill -f 'forecastlab_api.worker' || true
+          pkill -f 'next-server' || true
