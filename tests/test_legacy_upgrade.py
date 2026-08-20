@@ -42,7 +42,14 @@ REQUIRED_RUN_COLUMNS = {
     "synthetic_fixture_run",
     "benchmark_task_id",
 }
-REQUIRED_TABLES = {"benchmark_datasets", "benchmark_experiments", "benchmark_tasks", "benchmark_profile_snapshots"}
+REQUIRED_TABLES = {
+    "benchmark_datasets",
+    "benchmark_experiments",
+    "benchmark_tasks",
+    "benchmark_profile_snapshots",
+    "forecast_run_attempts",
+    "provider_call_ledger",
+}
 
 
 def _engine(path: Path) -> Engine:
@@ -123,7 +130,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260819_0004"
+        assert current == "20260819_0005"
 
 
 def _assert_uniqueness(engine: Engine) -> None:
@@ -262,7 +269,10 @@ def upgraded_legacy_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> G
     from forecastlab_api import main as main_mod
     from forecastlab_api.config import settings
 
-    session_engine = create_engine(db_url, future=True, connect_args={"check_same_thread": False})
+    session_engine = create_engine(db_url, future=True, connect_args={"check_same_thread": False, "timeout": 30})
+    from forecastlab_api.db import configure_sqlite_engine
+
+    configure_sqlite_engine(session_engine)
     SessionLocal = sessionmaker(bind=session_engine, autoflush=False, autocommit=False, expire_on_commit=False)
     monkeypatch.setattr(settings, "database_url", db_url)
     monkeypatch.setattr(settings, "embedded_worker", True)

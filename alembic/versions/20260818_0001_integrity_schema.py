@@ -1,15 +1,17 @@
-"""Baseline schema including integrity and experiment tables.
+"""Frozen baseline schema originally introduced by 20260818_0001.
 
 Revision ID: 20260818_0001
 Revises:
 Create Date: 2026-08-18
+
+This revision no longer imports live SQLAlchemy metadata. It creates the
+integrity-era schema that existed when the revision was introduced.
 """
 
 from __future__ import annotations
 
+import sqlalchemy as sa
 from alembic import op
-
-from forecastlab_api.models import Base
 
 revision = "20260818_0001"
 down_revision = None
@@ -18,10 +20,310 @@ depends_on = None
 
 
 def upgrade() -> None:
-    bind = op.get_bind()
-    Base.metadata.create_all(bind)
+    op.create_table(
+        "questions",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("original_text", sa.Text(), nullable=False),
+        sa.Column("normalized_text", sa.Text(), nullable=True),
+        sa.Column("question_type", sa.String(32), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("forecast_deadline", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("notes", sa.Text(), nullable=True),
+        sa.Column("stale", sa.Boolean(), nullable=False),
+        sa.Column("requested_mode", sa.String(32), nullable=False, server_default="demo"),
+        sa.Column("requested_profile_id", sa.String(64), nullable=False, server_default="three_track_ensemble"),
+        sa.Column("requested_as_of", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("is_benchmark", sa.Boolean(), nullable=False, server_default=sa.false()),
+    )
+    op.create_table(
+        "resolution_contracts",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("question_id", sa.String(36), sa.ForeignKey("questions.id"), nullable=False),
+        sa.Column("exact_yes", sa.Text(), nullable=False),
+        sa.Column("exact_no", sa.Text(), nullable=False),
+        sa.Column("resolution_deadline", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("authoritative_source", sa.Text(), nullable=False),
+        sa.Column("fallback_sources_json", sa.Text(), nullable=False),
+        sa.Column("geography", sa.String(128), nullable=True),
+        sa.Column("units", sa.String(128), nullable=True),
+        sa.Column("ambiguity_notes", sa.Text(), nullable=False),
+        sa.Column("cancellation_conditions", sa.Text(), nullable=False),
+        sa.Column("resolver_risk_notes", sa.Text(), nullable=False),
+        sa.Column("version", sa.Integer(), nullable=False),
+        sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False),
+    )
+    op.create_table(
+        "forecast_runs",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("question_id", sa.String(36), sa.ForeignKey("questions.id"), nullable=False),
+        sa.Column("profile_id", sa.String(64), nullable=False),
+        sa.Column("mode", sa.String(32), nullable=False),
+        sa.Column("as_of", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("started_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("finished_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("job_id", sa.String(36), nullable=True),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("cost_usd", sa.Float(), nullable=False),
+        sa.Column("tokens", sa.Integer(), nullable=False),
+        sa.Column("latency_ms", sa.Integer(), nullable=False),
+        sa.Column("error_message", sa.Text(), nullable=True),
+        sa.Column("error_stage", sa.String(64), nullable=True),
+        sa.Column("provider_json", sa.Text(), nullable=False),
+        sa.Column("prompt_versions_json", sa.Text(), nullable=False),
+        sa.Column("budget_json", sa.Text(), nullable=False),
+        sa.Column("aggregation_json", sa.Text(), nullable=False),
+        sa.Column("disagreement_summary", sa.Text(), nullable=True),
+        sa.Column("progress_pct", sa.Float(), nullable=False),
+        sa.Column("progress_stage", sa.String(64), nullable=False),
+        sa.Column("progress_message", sa.Text(), nullable=False),
+        sa.Column("execution_context_json", sa.Text(), nullable=False, server_default="{}"),
+        sa.Column("configuration_hash", sa.String(64), nullable=True),
+        sa.Column("evidence_policy", sa.String(64), nullable=True),
+        sa.Column("fixture_evidence_used", sa.Boolean(), nullable=False, server_default=sa.false()),
+        sa.Column("code_commit", sa.String(64), nullable=True),
+        sa.Column("synthetic_fixture_run", sa.Boolean(), nullable=False, server_default=sa.false()),
+    )
+    op.create_table(
+        "research_tracks",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("run_id", sa.String(36), sa.ForeignKey("forecast_runs.id"), nullable=False),
+        sa.Column("track_type", sa.String(32), nullable=False),
+        sa.Column("plan_json", sa.Text(), nullable=False),
+        sa.Column("probability", sa.Float(), nullable=True),
+        sa.Column("prior_probability", sa.Float(), nullable=True),
+        sa.Column("reasoning_summary", sa.Text(), nullable=True),
+        sa.Column("key_drivers_json", sa.Text(), nullable=False),
+        sa.Column("counterarguments_json", sa.Text(), nullable=False),
+        sa.Column("unresolved_json", sa.Text(), nullable=False),
+        sa.Column("resolver_risk", sa.Float(), nullable=True),
+        sa.Column("evidence_quality", sa.Float(), nullable=True),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("error_message", sa.Text(), nullable=True),
+        sa.Column("independent", sa.Boolean(), nullable=False),
+        sa.UniqueConstraint("run_id", "track_type", name="uq_track_run_type"),
+    )
+    op.create_table(
+        "subquestions",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("track_id", sa.String(36), sa.ForeignKey("research_tracks.id"), nullable=False),
+        sa.Column("text", sa.Text(), nullable=False),
+        sa.Column("purpose", sa.Text(), nullable=False),
+        sa.Column("preferred_source_types_json", sa.Text(), nullable=False),
+        sa.Column("search_queries_json", sa.Text(), nullable=False),
+        sa.Column("expected_output", sa.Text(), nullable=False),
+        sa.Column("relationship_to_forecast", sa.Text(), nullable=False),
+        sa.Column("sort_order", sa.Integer(), nullable=False),
+    )
+    op.create_table(
+        "evidence_items",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("run_id", sa.String(36), sa.ForeignKey("forecast_runs.id"), nullable=False),
+        sa.Column("track_id", sa.String(36), nullable=True),
+        sa.Column("subquestion", sa.Text(), nullable=True),
+        sa.Column("url", sa.Text(), nullable=False),
+        sa.Column("title", sa.Text(), nullable=False),
+        sa.Column("publisher", sa.String(256), nullable=True),
+        sa.Column("published_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("retrieved_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("excerpt", sa.Text(), nullable=False),
+        sa.Column("content_hash", sa.String(64), nullable=False),
+        sa.Column("source_class", sa.String(32), nullable=False),
+        sa.Column("as_of_eligible", sa.Boolean(), nullable=False),
+        sa.Column("rejected", sa.Boolean(), nullable=False),
+        sa.Column("rejection_reason", sa.Text(), nullable=True),
+        sa.Column("snapshot_url", sa.Text(), nullable=True),
+        sa.Column("snapshot_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("status_code", sa.Integer(), nullable=False),
+        sa.Column("published_at_unknown", sa.Boolean(), nullable=False, server_default=sa.false()),
+    )
+    op.create_table(
+        "forecast_versions",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("question_id", sa.String(36), sa.ForeignKey("questions.id"), nullable=False),
+        sa.Column("run_id", sa.String(36), sa.ForeignKey("forecast_runs.id"), nullable=False),
+        sa.Column("raw_track_probabilities_json", sa.Text(), nullable=False),
+        sa.Column("ensemble_probability", sa.Float(), nullable=True),
+        sa.Column("aggregation_json", sa.Text(), nullable=False),
+        sa.Column("shrinkage", sa.Float(), nullable=False),
+        sa.Column("track_spread", sa.Float(), nullable=True),
+        sa.Column("key_drivers_json", sa.Text(), nullable=False),
+        sa.Column("counterarguments_json", sa.Text(), nullable=False),
+        sa.Column("evidence_ids_json", sa.Text(), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("trigger_event", sa.String(64), nullable=False),
+        sa.Column("previous_version_id", sa.String(36), nullable=True),
+        sa.UniqueConstraint("run_id", name="uq_forecast_version_run"),
+    )
+    op.create_table(
+        "jobs",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("job_type", sa.String(64), nullable=False),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("payload_json", sa.Text(), nullable=False),
+        sa.Column("attempts", sa.Integer(), nullable=False),
+        sa.Column("max_attempts", sa.Integer(), nullable=False),
+        sa.Column("idempotency_key", sa.String(128), nullable=False),
+        sa.Column("error", sa.Text(), nullable=True),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("started_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("finished_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("heartbeat_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("progress_stage", sa.String(64), nullable=False),
+        sa.Column("progress_message", sa.Text(), nullable=False),
+        sa.Column("progress_pct", sa.Float(), nullable=False),
+        sa.Column("lease_owner", sa.String(64), nullable=True),
+        sa.Column("lease_expires_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("available_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("error_category", sa.String(64), nullable=True),
+        sa.Column("error_history_json", sa.Text(), nullable=False, server_default="[]"),
+        sa.UniqueConstraint("idempotency_key", name="uq_jobs_idempotency"),
+    )
+    op.create_table(
+        "job_events",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("job_id", sa.String(36), sa.ForeignKey("jobs.id"), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("stage", sa.String(64), nullable=False),
+        sa.Column("message", sa.Text(), nullable=False),
+        sa.Column("payload_json", sa.Text(), nullable=False),
+    )
+    op.create_table(
+        "benchmark_datasets",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("name", sa.String(128), nullable=False),
+        sa.Column("description", sa.Text(), nullable=False),
+        sa.Column("dataset_hash", sa.String(64), nullable=False),
+        sa.Column("provenance", sa.String(128), nullable=False),
+        sa.Column("is_synthetic", sa.Boolean(), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("question_count", sa.Integer(), nullable=False),
+        sa.Column("metadata_json", sa.Text(), nullable=False),
+        sa.UniqueConstraint("dataset_hash", name="uq_benchmark_datasets_hash"),
+    )
+    op.create_table(
+        "benchmark_questions",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("dataset_id", sa.String(36), sa.ForeignKey("benchmark_datasets.id"), nullable=True),
+        sa.Column("question", sa.Text(), nullable=False),
+        sa.Column("forecast_date", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("resolution_date", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("outcome", sa.Integer(), nullable=False),
+        sa.Column("resolution_source", sa.Text(), nullable=False),
+        sa.Column("category", sa.String(64), nullable=False),
+        sa.Column("provenance", sa.String(128), nullable=False),
+        sa.Column("import_hash", sa.String(64), nullable=False),
+        sa.Column("is_synthetic", sa.Boolean(), nullable=False),
+        sa.UniqueConstraint("import_hash", name="uq_benchmark_import_hash"),
+    )
+    op.create_table(
+        "benchmark_experiments",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("dataset_id", sa.String(36), sa.ForeignKey("benchmark_datasets.id"), nullable=False),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("started_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("completed_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("code_commit", sa.String(64), nullable=True),
+        sa.Column("execution_context_json", sa.Text(), nullable=False),
+        sa.Column("model_provider", sa.String(64), nullable=False),
+        sa.Column("model_name", sa.String(128), nullable=False),
+        sa.Column("search_provider", sa.String(64), nullable=False),
+        sa.Column("profile_ids_json", sa.Text(), nullable=False),
+        sa.Column("profile_hashes_json", sa.Text(), nullable=False),
+        sa.Column("prompt_hashes_json", sa.Text(), nullable=False),
+        sa.Column("evidence_policy", sa.String(64), nullable=False),
+        sa.Column("experiment_hash", sa.String(64), nullable=False),
+        sa.Column("is_synthetic", sa.Boolean(), nullable=False),
+        sa.Column("total_tasks", sa.Integer(), nullable=False),
+        sa.Column("completed_tasks", sa.Integer(), nullable=False),
+        sa.Column("failed_tasks", sa.Integer(), nullable=False),
+    )
+    op.create_table(
+        "benchmark_tasks",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("experiment_id", sa.String(36), sa.ForeignKey("benchmark_experiments.id"), nullable=False),
+        sa.Column("benchmark_question_id", sa.String(36), sa.ForeignKey("benchmark_questions.id"), nullable=False),
+        sa.Column("profile_id", sa.String(64), nullable=False),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("run_id", sa.String(36), nullable=True),
+        sa.Column("attempts", sa.Integer(), nullable=False),
+        sa.Column("error", sa.Text(), nullable=True),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("started_at", sa.DateTime(timezone=True), nullable=True),
+        sa.Column("completed_at", sa.DateTime(timezone=True), nullable=True),
+        sa.UniqueConstraint("experiment_id", "benchmark_question_id", "profile_id", name="uq_benchmark_task"),
+    )
+    op.create_table(
+        "benchmark_results",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("experiment_id", sa.String(36), sa.ForeignKey("benchmark_experiments.id"), nullable=True),
+        sa.Column("benchmark_task_id", sa.String(36), sa.ForeignKey("benchmark_tasks.id"), nullable=True),
+        sa.Column("benchmark_question_id", sa.String(36), sa.ForeignKey("benchmark_questions.id"), nullable=False),
+        sa.Column("run_id", sa.String(36), nullable=True),
+        sa.Column("profile_id", sa.String(64), nullable=False),
+        sa.Column("probability", sa.Float(), nullable=True),
+        sa.Column("brier", sa.Float(), nullable=True),
+        sa.Column("log_loss_value", sa.Float(), nullable=True),
+        sa.Column("cost_usd", sa.Float(), nullable=False),
+        sa.Column("latency_ms", sa.Integer(), nullable=False),
+        sa.Column("failed", sa.Boolean(), nullable=False),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.UniqueConstraint("benchmark_task_id", name="uq_benchmark_result_task"),
+    )
+    op.create_table(
+        "watches",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("question_id", sa.String(36), sa.ForeignKey("questions.id"), nullable=False),
+        sa.Column("endpoint_url", sa.Text(), nullable=False),
+        sa.Column("endpoint_type", sa.String(16), nullable=False),
+        sa.Column("json_path", sa.String(256), nullable=True),
+        sa.Column("poll_seconds", sa.Integer(), nullable=False),
+        sa.Column("previous_hash", sa.String(64), nullable=True),
+        sa.Column("previous_value", sa.Text(), nullable=True),
+        sa.Column("status", sa.String(32), nullable=False),
+        sa.Column("auto_rerun", sa.Boolean(), nullable=False),
+        sa.Column("last_checked_at", sa.DateTime(timezone=True), nullable=True),
+    )
+    op.create_table(
+        "watch_events",
+        sa.Column("id", sa.String(36), primary_key=True),
+        sa.Column("watch_id", sa.String(36), sa.ForeignKey("watches.id"), nullable=False),
+        sa.Column("old_hash", sa.String(64), nullable=True),
+        sa.Column("new_hash", sa.String(64), nullable=True),
+        sa.Column("old_value", sa.Text(), nullable=True),
+        sa.Column("new_value", sa.Text(), nullable=True),
+        sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("material", sa.Boolean(), nullable=False),
+        sa.Column("resulting_version_id", sa.String(36), nullable=True),
+        sa.Column("fetch_status", sa.String(32), nullable=False),
+    )
+    op.create_table(
+        "worker_heartbeats",
+        sa.Column("id", sa.String(32), primary_key=True),
+        sa.Column("last_seen_at", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("status", sa.String(32), nullable=False),
+    )
 
 
 def downgrade() -> None:
-    bind = op.get_bind()
-    Base.metadata.drop_all(bind)
+    for table in (
+        "worker_heartbeats",
+        "watch_events",
+        "watches",
+        "benchmark_results",
+        "benchmark_tasks",
+        "benchmark_experiments",
+        "benchmark_questions",
+        "benchmark_datasets",
+        "job_events",
+        "jobs",
+        "forecast_versions",
+        "evidence_items",
+        "subquestions",
+        "research_tracks",
+        "forecast_runs",
+        "resolution_contracts",
+        "questions",
+    ):
+        op.drop_table(table)
