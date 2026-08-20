@@ -2,19 +2,19 @@
 
 ## Datasets
 
-A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash over the question, the full resolution contract, dates, outcome, category, provenance, and synthetic flag. Rows are canonicalized and sorted before hashing, so file order does not change identity. Uniqueness is `UNIQUE(dataset_id, import_hash)`, so the same question may appear in separately versioned datasets. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. Real imports require nonempty `exact_yes` and `exact_no`. The bundled `synthetic_fixtures_v1` dataset is labeled synthetic and is not a public leaderboard.
+A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash over the question, the full resolution contract, dates, outcome, category, provenance, and synthetic flag. Rows are canonicalized and sorted before hashing, so file order does not change identity. Uniqueness is `UNIQUE(dataset_id, import_hash)`, so the same question may appear in separately versioned datasets. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. Real imports require nonempty `exact_yes` and `exact_no`. The bundled `synthetic_fixtures_v1` dataset is the current built-in fixture: `builtin_key=forecastlab.synthetic.binary`, `builtin_version=2`. Seeding looks up that exact identity. Content changes archive the previous version instead of silently duplicating the current one. The compatibility `/api/benchmarks/run` endpoint selects that exact current built-in dataset, not the first synthetic row. It is not a public leaderboard.
 
 ## Experiments
 
 Creating an experiment:
 
 1. Writes one `BenchmarkProfileSnapshot` per selected profile with the source and effective profile payloads, full prompt texts (`PromptBundle`), prompt versions and hashes, frozen provider fields, per-profile limits, pricing snapshot, and execution context. API keys are never stored.
-2. Freezes dataset hash, profile hashes, prompt hashes, model provider, model name, model base URL, search provider, timeout, evidence policy, and git commit.
+2. Freezes dataset hash, profile hashes, prompt hashes, model provider, model name, model base URL, search provider, timeout, evidence policy, git commit, tracked forecasting/API source hash, `pyproject.toml` hash, lockfile hash when present, `apps/web/package-lock.json` hash, pricing-catalog payload and hash, and application version. Real experiments cannot be created from a dirty tracked working tree. Synthetic software-verification experiments may be created while dirty and stay labeled synthetic.
 3. Creates one `BenchmarkTask` per question × profile.
 4. Enqueues one idempotent `benchmark_task` job per task.
 5. Returns immediately.
 
-The HTTP handler does not call `execute_run()`. Execution later uses only the stored snapshot. Editing prompt files, profile YAML, or Settings after creation does not change that experiment. If a frozen real provider later has no key, the task fails clearly. Providers are never switched. Each profile keeps its own stored limits.
+The HTTP handler does not call `execute_run()`. Execution later uses only the stored snapshot, including the frozen pricing catalog. It does not reload `configs/pricing/models.yaml`. Editing prompt files, profile YAML, or Settings after creation does not change that experiment. Before a benchmark task executes, ForecastLab recomputes the current code and dependency identity and refuses with `ExperimentEnvironmentMismatch` if it differs. Pricing-file edits and ignored local files (logs, databases) do not fail-close an already-created experiment; the stored pricing payload is the one used. If a frozen real provider later has no key, the task fails clearly. Providers are never switched. Each profile keeps its own stored limits. Normal non-benchmark product runs use current code.
 
 ## Tasks
 
@@ -52,7 +52,7 @@ Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and
 
 ## Scoring
 
-Summaries are scoped to one experiment. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
+Summaries are scoped to one experiment. Each profile reports total, full, partial, and failed counts plus completion, partial, and failure rates. Two metric sets are computed: **all-valid** (full and partial probabilities) and **full-run-only** (successful non-partial runs). Both include Brier, log loss, mean/median total cost, mean latency, and Brier per dollar. Brier-per-dollar uses total `ForecastRun` cost, including failed attempts and search charges. Paired comparisons are computed twice: all-valid and full-only. Question-level tables and CSV export include status `full` | `partial` | `failed`. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
 
 ## Paired comparisons
 

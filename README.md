@@ -28,11 +28,11 @@ cd apps/web && npm install && npm run build
 3. Searches, fetches, and stores evidence with hashes, timestamps, and rejection reasons.
 4. Aggregates track probabilities in code: clip, logit mean, shrink toward the base-rate track.
 5. Versions the result. A watch can mark a question stale. Reruns require user action.
-6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode. Creating an experiment snapshots profiles, prompts, provider settings, and the resolution contract. Later edits to those files or to Settings do not change that experiment.
+6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode. Creating an experiment freezes profiles, prompts, provider settings, the resolution contract, pricing, and the code/dependency identity. Later edits to those files or to Settings do not change that experiment. A benchmark task fails closed if the executing code or dependency identity differs from the freeze.
 
 ## Settings
 
-The settings page stores provider, base URL, model name, keys, timeout, and a cost ceiling in `data/local/credentials.json` with mode `0600`. Keys are never returned to the browser. The cost ceiling is applied to every run. Live and backtest modes fail closed when providers are missing. Model cost figures may be estimated.
+The settings page stores provider, base URL, model name, keys, timeout, and a cost ceiling in `data/local/credentials.json` with mode `0600`. Keys are never returned to the browser. The cost ceiling applies to the full lifetime of a `ForecastRun`, including retries, failed attempts, and search charges. `cost_usd` is total lifetime cost. Live and backtest modes fail closed when providers are missing. Monetary figures are labeled provider reported, estimated, mixed, or unavailable.
 
 ## Honesty constraints
 
@@ -41,6 +41,8 @@ The settings page stores provider, base URL, model name, keys, timeout, and a co
 - Reliability diagrams appear only after 20 resolved predictions. Twenty rows are not a calibration claim.
 - Bundled benchmarks are **synthetic fixtures**.
 - The product does not claim calibration.
-- Existing local MVP databases are upgraded in place. Back up first: `cp data/forecastlab.db data/forecastlab.db.bak`.
+- Existing local MVP databases are upgraded in place. Fresh and upgraded databases share the same schema contract. Back up first: `cp data/forecastlab.db data/forecastlab.db.bak`.
+- Built-in synthetic fixtures are versioned (`forecastlab.synthetic.binary` v2). Older versions stay as archived history.
+- Lab summaries separate full, partial, and failed forecasts.
 
 See `docs/` for method, evaluation protocol, architecture, security, and limits.

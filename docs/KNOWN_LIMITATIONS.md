@@ -13,5 +13,9 @@
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.
 - Benchmark retries reuse the same task, question, and run. They do not create replacement identities. Exhausted transient errors fail the job, run, task, and experiment.
 - Experiment terminal states are `completed`, `completed_with_failures`, and `failed`. A running task after a permanently failed job is a defect.
-- Budget reservations prevent ForecastLab from starting a call that cannot fit. They are not a vendor-enforced hard dollar cap. If a provider omits usage, the reserved token and cost amounts are kept and labeled estimated.
+- Budget reservations prevent ForecastLab from starting a call that cannot fit the **run-lifetime** ceiling. They are not a vendor-enforced hard dollar cap. If a provider omits usage, the reserved token and cost amounts are kept and labeled estimated. Search prices are estimated unless the provider reports a cost.
+- A queued benchmark experiment fails closed if application code or dependency identity changed after creation. Prompt and profile files are snapshotted; mutating those files does not fail-close execution. Pricing-file mutation does not change an already-created experiment.
+- Historical evidence is accepted only after the final Wayback capture is verified. Incomplete archive coverage still means missing evidence, not proof of absence.
+- Partial forecasts are scored separately from full forecasts. Mixing them into a single headline success rate is a defect.
+- Built-in synthetic datasets are versioned. Older fixture versions remain as archived history when content changes.
 - Search and fetch caches are per run. They do not survive a rerun after a watch change.

@@ -1,8 +1,8 @@
 # ForecastLab build report
 
-Date: 2026-08-19. Current verification branch: `grok/integrity-repair-2`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
+Date: 2026-08-19. Current verification branch: `grok/integrity-repair-3`. Workspace: `/Users/nico-yardlogix/projects/forecastlab`.
 
-The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. The first integrity pass on `grok/integrity-evaluation-repair` is recorded in `INTEGRITY_REPAIR_REPORT.md`. **Current verification numbers, Docker results, limitations, and the first real-benchmark instructions are in `INTEGRITY_REPAIR_2_REPORT.md`.** Do not use the older 59-test count or “CI not pushed” notes below as the current status.
+The previous MVP report on `grok/forecastlab-mvp` @ `2caa33a` remains the reviewed baseline. The first integrity pass on `grok/integrity-evaluation-repair` is recorded in `INTEGRITY_REPAIR_REPORT.md`. Integrity-repair-2 numbers live in `INTEGRITY_REPAIR_2_REPORT.md`. **Current verification numbers, Docker results, limitations, and the first real-benchmark instructions are in `INTEGRITY_REPAIR_3_REPORT.md`.** Do not use older test counts as the current status.
 
 ## Completion status
 
@@ -40,7 +40,7 @@ If a local database predates the integrity schema, back it up (`cp data/forecast
 
 The 2026-08-19 `grok/integrity-evaluation-repair` session recorded 59 pytest tests, mypy on 43 files, and a local Playwright pass. That count is historical.
 
-The current `grok/integrity-repair-2` gate is **109 pytest tests**, mypy on **44 files**, `npm ci` + typecheck + production build, and Playwright `2 passed`. See `INTEGRITY_REPAIR_2_REPORT.md` for the exact command output.
+The current `grok/integrity-repair-3` gate is **137 pytest tests**, mypy on **48 files**, `npm ci` + typecheck + production build, and Playwright `2 passed`. See `INTEGRITY_REPAIR_3_REPORT.md` for the exact command output.
 
 `npm audit --omit=dev` still reported 3 high findings in Next 15 transitive `postcss` / `sharp`. A force fix would install Next 16 and was not applied.
 
@@ -68,7 +68,7 @@ Web image: `node:24-bookworm-slim` (local; `node:22-slim` pull hung). Named volu
 
 ## CI
 
-`.github/workflows/ci.yml` is present and runs pytest, ruff, mypy, `npm ci`, typecheck, production build, and Playwright without paid keys. Judge CI against the exact SHA on `grok/integrity-repair-2` in GitHub Actions. Do not treat this file as a CI certificate.
+`.github/workflows/ci.yml` is present and runs pytest, ruff, mypy, `npm ci`, typecheck, production build, and Playwright without paid keys. Judge CI against the exact SHA on `grok/integrity-repair-3` in GitHub Actions. Do not treat this file as a CI certificate.
 
 ## Recommended next milestone
 
