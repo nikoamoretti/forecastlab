@@ -143,5 +143,5 @@ def test_cdx_query_includes_cutoff(monkeypatch) -> None:
     monkeypatch.setattr(wayback, "safe_get", fake_get)
     snaps = wayback.discover_snapshots("https://example.org", as_of=datetime(2024, 6, 1, tzinfo=UTC))
     assert "to=20240601000000" in captured["url"]
-    assert "filter=statuscode:200" in captured["url"]
+    assert "filter=statuscode%3A200" in captured["url"] or "filter=statuscode:200" in captured["url"]
     assert snaps[0].timestamp.year == 2024

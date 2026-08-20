@@ -79,7 +79,8 @@ export default function LabPage() {
 
   const dataset = datasets.find((item) => item.id === datasetId);
   const rows = summary?.rows || [];
-  const comparisons = summary?.paired_comparisons || [];
+  const comparisons = summary?.paired_comparisons_all_valid || summary?.paired_comparisons || [];
+  const fullComparisons = summary?.paired_comparisons_full_only || [];
   const reliability = summary?.reliability_by_profile || {};
 
   return (
@@ -153,34 +154,113 @@ export default function LabPage() {
       {summary?.is_synthetic || summary?.synthetic ? <p className="border border-copper px-4 py-3">{SYNTHETIC_NOTICE}</p> : null}
       {summary ? (
         <>
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-rule">
-                <th className="py-2">Profile</th>
-                <th>n</th>
-                <th>Brier</th>
-                <th>Log loss</th>
-                <th>Failure rate</th>
-                <th>Mean cost</th>
-                <th>Mean latency</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(summary.profiles || []).map((profile: any) => (
-                <tr key={profile.profile_id} className="border-b border-rule/70">
-                  <td className="py-2">{profile.profile_id}</td>
-                  <td>{profile.n}</td>
-                  <td>{profile.brier?.toFixed?.(4) ?? "—"}</td>
-                  <td>{profile.log_loss?.toFixed?.(4) ?? "—"}</td>
-                  <td>{pct(profile.failure_rate)}</td>
-                  <td>${Number(profile.mean_cost_usd || 0).toFixed(4)}</td>
-                  <td>{Math.round(profile.mean_latency_ms || 0)} ms</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
           <section>
-            <h3 className="font-serif text-2xl">Paired comparisons</h3>
+            <h3 className="font-serif text-2xl">Outcome mix</h3>
+            <p className="mt-2 text-sm text-ink/70">
+              Full forecasts, partial forecasts, and failed tasks are counted separately. Headline scores below do not
+              hide partials inside ordinary success rates.
+            </p>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Profile</th>
+                  <th>Total</th>
+                  <th>Full</th>
+                  <th>Partial</th>
+                  <th>Failed</th>
+                  <th>Completion rate</th>
+                  <th>Partial rate</th>
+                  <th>Failure rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(summary.profiles || []).map((profile: any) => (
+                  <tr key={`${profile.profile_id}-mix`} className="border-b border-rule/70">
+                    <td className="py-2">{profile.profile_id}</td>
+                    <td>{profile.total_count ?? profile.n}</td>
+                    <td>{profile.full_count ?? "—"}</td>
+                    <td>{profile.partial_count ?? "—"}</td>
+                    <td>{profile.failed_count ?? "—"}</td>
+                    <td>{pct(profile.completion_rate)}</td>
+                    <td>{pct(profile.partial_rate)}</td>
+                    <td>{pct(profile.failure_rate)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h3 className="font-serif text-2xl">All-valid metrics</h3>
+            <p className="mt-2 text-sm text-ink/70">Includes full and partial forecasts that produced a probability.</p>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Profile</th>
+                  <th>n</th>
+                  <th>Brier</th>
+                  <th>Log loss</th>
+                  <th>Mean total cost</th>
+                  <th>Median total cost</th>
+                  <th>Mean latency</th>
+                  <th>Brier per dollar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(summary.profiles || []).map((profile: any) => {
+                  const block = profile.all_valid || profile;
+                  return (
+                    <tr key={`${profile.profile_id}-all-valid`} className="border-b border-rule/70">
+                      <td className="py-2">{profile.profile_id}</td>
+                      <td>{block.n}</td>
+                      <td>{block.brier?.toFixed?.(4) ?? "—"}</td>
+                      <td>{block.log_loss?.toFixed?.(4) ?? "—"}</td>
+                      <td>${Number(block.mean_cost_usd || 0).toFixed(4)}</td>
+                      <td>${Number(block.median_cost_usd || 0).toFixed(4)}</td>
+                      <td>{Math.round(block.mean_latency_ms || 0)} ms</td>
+                      <td>{block.brier_per_dollar?.toFixed?.(4) ?? "—"}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h3 className="font-serif text-2xl">Full-run-only metrics</h3>
+            <p className="mt-2 text-sm text-ink/70">Excludes partial and failed forecasts.</p>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Profile</th>
+                  <th>n</th>
+                  <th>Brier</th>
+                  <th>Log loss</th>
+                  <th>Mean total cost</th>
+                  <th>Median total cost</th>
+                  <th>Mean latency</th>
+                  <th>Brier per dollar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(summary.profiles || []).map((profile: any) => {
+                  const block = profile.full_only || {};
+                  return (
+                    <tr key={`${profile.profile_id}-full-only`} className="border-b border-rule/70">
+                      <td className="py-2">{profile.profile_id}</td>
+                      <td>{block.n ?? "—"}</td>
+                      <td>{block.brier?.toFixed?.(4) ?? "—"}</td>
+                      <td>{block.log_loss?.toFixed?.(4) ?? "—"}</td>
+                      <td>${Number(block.mean_cost_usd || 0).toFixed(4)}</td>
+                      <td>${Number(block.median_cost_usd || 0).toFixed(4)}</td>
+                      <td>{Math.round(block.mean_latency_ms || 0)} ms</td>
+                      <td>{block.brier_per_dollar?.toFixed?.(4) ?? "—"}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h3 className="font-serif text-2xl">Paired comparisons (all valid)</h3>
             <table className="mt-3 w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-rule">
@@ -213,6 +293,39 @@ export default function LabPage() {
             </table>
           </section>
           <section>
+            <h3 className="font-serif text-2xl">Paired comparisons (full-run-only)</h3>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Pair</th>
+                  <th>n</th>
+                  <th>Δ Brier</th>
+                  <th>Wins/ties/losses</th>
+                  <th>95% interval</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fullComparisons.map((row: any) => (
+                  <tr key={`full-${row.left_profile_id}-${row.right_profile_id}`} className="border-b border-rule/70">
+                    <td className="py-2">
+                      {row.left_profile_id} vs {row.right_profile_id}
+                    </td>
+                    <td>{row.n}</td>
+                    <td>{row.mean_paired_brier_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>
+                      {row.wins_left}/{row.ties}/{row.losses_left}
+                    </td>
+                    <td>
+                      {row.paired_brier_bootstrap?.available
+                        ? `${row.paired_brier_bootstrap.low.toFixed(4)} to ${row.paired_brier_bootstrap.high.toFixed(4)}`
+                        : row.paired_brier_bootstrap?.message || "unavailable"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+          <section>
             <h3 className="font-serif text-2xl">Reliability by profile</h3>
             <ul className="mt-3 space-y-1 text-sm">
               {Object.entries(reliability).map(([profileId, item]: [string, any]) => (
@@ -225,6 +338,11 @@ export default function LabPage() {
               Twenty observations are a display threshold only and are not enough for a calibration claim.
             </p>
           </section>
+          <p>
+            <a className="border border-rule px-4 py-2" href={`/api/experiments/${summary.experiment_id}/export.csv`}>
+              Export CSV
+            </a>
+          </p>
           <section>
             <h3 className="font-serif text-2xl">Question-level results</h3>
             <table className="mt-3 w-full text-left text-sm">
@@ -235,6 +353,7 @@ export default function LabPage() {
                   <th>p</th>
                   <th>y</th>
                   <th>Brier</th>
+                  <th>Status</th>
                   <th>Failed</th>
                 </tr>
               </thead>
@@ -246,6 +365,7 @@ export default function LabPage() {
                     <td>{pct(row.probability)}</td>
                     <td>{row.outcome}</td>
                     <td>{row.brier?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.status || (row.failed ? "failed" : row.partial ? "partial" : "full")}</td>
                     <td>{row.failed ? "yes" : "no"}</td>
                   </tr>
                 ))}

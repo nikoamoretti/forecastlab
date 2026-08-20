@@ -9,11 +9,13 @@ from urllib.parse import urlparse
 import trafilatura
 from pypdf import PdfReader
 
+from forecastlab.errors import EvidenceIntegrityError
 from forecastlab.hashing import content_hash
 from forecastlab.http_client import SafeResponse, safe_get
 from forecastlab.schemas import FetchedDocument
 from forecastlab.ssrf import UnsafeURLError, validate_url
 from forecastlab.timeutil import as_utc, parse_datetime, utcnow
+from forecastlab.wayback import verify_final_capture
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "sources"
 MAX_BYTES = 2_000_000
@@ -56,6 +58,12 @@ def _rejected(
     published: datetime | None = None,
     snapshot_url: str | None = None,
     snapshot_at: datetime | None = None,
+    requested_snapshot_url: str | None = None,
+    requested_snapshot_at: datetime | None = None,
+    final_snapshot_url: str | None = None,
+    final_snapshot_at: datetime | None = None,
+    archived_original_url: str | None = None,
+    snapshot_verification_status: str | None = None,
     status_code: int = 0,
 ) -> FetchedDocument:
     return FetchedDocument(
@@ -68,6 +76,12 @@ def _rejected(
         content_hash=content_hash(""),
         snapshot_url=snapshot_url,
         snapshot_at=snapshot_at,
+        requested_snapshot_url=requested_snapshot_url,
+        requested_snapshot_at=requested_snapshot_at,
+        final_snapshot_url=final_snapshot_url,
+        final_snapshot_at=final_snapshot_at,
+        archived_original_url=archived_original_url,
+        snapshot_verification_status=snapshot_verification_status or reason,
         status_code=status_code,
         rejected=True,
         rejection_reason=reason,
@@ -116,6 +130,12 @@ def fetch_document(
             content_hash=content_hash(text),
             snapshot_url=snapshot_url or url,
             snapshot_at=snapshot_at or published,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+            final_snapshot_url=snapshot_url or url,
+            final_snapshot_at=snapshot_at or published,
+            archived_original_url=url,
+            snapshot_verification_status="fixture",
             status_code=200,
             rejected=False,
             rejection_reason=None,
@@ -124,9 +144,24 @@ def fetch_document(
         )
 
     if historical and not snapshot_url:
-        return _rejected(url, "no_eligible_historical_snapshot", now=now, snapshot_at=snapshot_at)
+        return _rejected(
+            url,
+            "no_eligible_historical_snapshot",
+            now=now,
+            snapshot_at=snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+        )
     if historical and snapshot_at and as_of and snapshot_at > as_of:
-        return _rejected(url, "snapshot_after_as_of", now=now, snapshot_url=snapshot_url, snapshot_at=snapshot_at)
+        return _rejected(
+            url,
+            "snapshot_after_as_of",
+            now=now,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+        )
 
     try:
         validate_url(snapshot_url or url, allow_local_fixtures=allow_local_fixtures)
@@ -142,7 +177,15 @@ def fetch_document(
             max_bytes=limits.max_bytes,
         )
     except UnsafeURLError as exc:
-        return _rejected(url, f"unsafe_url:{exc}", now=now, snapshot_url=snapshot_url, snapshot_at=snapshot_at)
+        return _rejected(
+            url,
+            f"unsafe_url:{exc}",
+            now=now,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+        )
     except Exception as exc:
         return _rejected(
             url,
@@ -150,12 +193,40 @@ def fetch_document(
             now=now,
             snapshot_url=snapshot_url,
             snapshot_at=snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
         )
 
     if response.truncated:
         return _rejected(url, "response_too_large", now=now, status_code=response.status_code)
     if response.status_code >= 400:
         return _rejected(url, f"http_{response.status_code}", now=now, status_code=response.status_code)
+
+    final_url = response.final_url
+    final_at = snapshot_at
+    archived_original = url
+    verification_status = "live" if not historical else "unverified"
+    if historical and as_of is not None:
+        try:
+            capture, verification_status = verify_final_capture(response, requested_url=url, as_of=as_of)
+        except EvidenceIntegrityError as exc:
+            reason = str(exc)
+            return _rejected(
+                url,
+                reason,
+                now=now,
+                snapshot_url=snapshot_url,
+                snapshot_at=snapshot_at,
+                requested_snapshot_url=snapshot_url,
+                requested_snapshot_at=snapshot_at,
+                final_snapshot_url=response.final_url,
+                archived_original_url=url,
+                snapshot_verification_status=reason,
+                status_code=response.status_code,
+            )
+        final_url = capture.final_url
+        final_at = capture.timestamp
+        archived_original = capture.archived_original_url
 
     data = response.content
     content_type = response.content_type
@@ -187,14 +258,20 @@ def fetch_document(
         retrieved_at=now,
         text=text[:20_000],
         content_hash=content_hash(text),
-        snapshot_url=snapshot_url,
-        snapshot_at=snapshot_at,
-        status_code=response.status_code,
-        rejected=False,
-        rejection_reason=None,
-        as_of_eligible=True,
-        published_at_unknown=published is None,
-    )
+            snapshot_url=final_url or snapshot_url,
+            snapshot_at=final_at or snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+            final_snapshot_url=final_url,
+            final_snapshot_at=final_at,
+            archived_original_url=archived_original,
+            snapshot_verification_status=verification_status,
+            status_code=response.status_code,
+            rejected=False,
+            rejection_reason=None,
+            as_of_eligible=True,
+            published_at_unknown=published is None,
+        )
 
 
 def _published_from_html(raw: str) -> datetime | None:

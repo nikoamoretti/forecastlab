@@ -170,6 +170,70 @@ export default function ForecastPage() {
           </div>
         </dl>
       </section>
+      <section className="border border-rule bg-white/70 p-4" aria-label="Provider usage audit">
+        <h3 className="font-serif text-2xl">Provider usage audit</h3>
+        <p className="mt-2 text-sm text-ink/70">
+          Lifetime totals include successful calls, failed attempts, provider retries, and search charges.
+          The reported <code>cost_usd</code> field is total lifetime cost.
+        </p>
+        <dl className="mt-3 grid gap-2 text-sm md:grid-cols-3">
+          <div>
+            <dt className="text-ink/60">Model cost</dt>
+            <dd>${Number(run.model_cost_usd || 0).toFixed(4)}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Search cost</dt>
+            <dd>${Number(run.search_cost_usd || 0).toFixed(4)}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Failed-attempt cost</dt>
+            <dd>${Number(run.failed_attempt_cost_usd || 0).toFixed(4)}</dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Total cost</dt>
+            <dd>
+              ${Number(run.total_cost_usd || run.cost_usd || 0).toFixed(4)} ({costKind})
+            </dd>
+          </div>
+          <div>
+            <dt className="text-ink/60">Attempts / provider requests</dt>
+            <dd>
+              {run.run_attempt_count || (run.run_attempts || []).length} /{" "}
+              {run.provider_request_count || (run.provider_call_ledger || []).length}
+            </dd>
+          </div>
+        </dl>
+        {(run.provider_call_ledger || []).length ? (
+          <table className="mt-4 w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-rule">
+                <th className="py-2">Stage</th>
+                <th>Provider</th>
+                <th>Physical</th>
+                <th>Status</th>
+                <th>Cost</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(run.provider_call_ledger || []).map((entry: any) => (
+                <tr key={entry.id} className="border-b border-rule/70">
+                  <td className="py-2">{entry.stage}</td>
+                  <td>
+                    {entry.provider_type} / {entry.provider}
+                  </td>
+                  <td>{entry.physical_attempt_number}</td>
+                  <td>{entry.status}</td>
+                  <td>${Number(entry.actual_cost_usd ?? entry.reserved_cost_usd ?? 0).toFixed(4)}</td>
+                  <td>{entry.cost_source || "estimated"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="mt-3 text-sm text-ink/70">No provider-call ledger rows for this run yet.</p>
+        )}
+      </section>
       {context.synthetic_fixture_run || context.fixture_evidence_used ? (
         <p className="border border-copper px-4 py-3 text-sm">
           Mixed or synthetic execution. Fixture evidence is for software verification, not real-world quality.

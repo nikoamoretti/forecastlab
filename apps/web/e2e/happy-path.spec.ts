@@ -16,6 +16,7 @@ test("mock happy path", async ({ page }) => {
   await expect(page.getByText("demo_fixtures")).toBeVisible();
   await expect(page.getByText("Fixture evidence used")).toBeVisible();
   await expect(page.getByText("Independent tracks")).toBeVisible();
+  await expect(page.getByText("Provider usage audit")).toBeVisible();
   await expect(page.getByText("Evidence ledger")).toBeVisible();
   await expect(page.getByRole("table").getByRole("link").first()).toBeVisible();
   await expect(page.getByText("base_rate").first()).toBeVisible();
