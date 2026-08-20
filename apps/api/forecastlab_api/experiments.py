@@ -10,7 +10,12 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from forecastlab.environment import build_environment_identity, compare_environment, working_tree_dirty
+from forecastlab.environment import (
+    build_environment_identity,
+    compare_environment,
+    require_python_lock,
+    working_tree_dirty,
+)
 from forecastlab.errors import ExperimentEnvironmentMismatch
 from forecastlab.evaluation import (
     brier_score,
@@ -392,6 +397,8 @@ def create_experiment(
         load_profile(profile_id)
     if working_tree_dirty() and not dataset.is_synthetic:
         raise ValueError("dirty_working_tree")
+    if not dataset.is_synthetic:
+        require_python_lock(synthetic=False)
     secrets = load_secrets()
     settings_data = provider_settings_from_secrets(secrets)
     template = resolve_execution_context(
@@ -877,6 +884,47 @@ def _paired_map(items: list[BenchmarkResult], questions: dict[str, BenchmarkQues
     return payload
 
 
+def _experiment_spend(session: Session, experiment: BenchmarkExperiment, rows: list[BenchmarkResult]) -> dict[str, Any]:
+    tasks = session.scalars(select(BenchmarkTask).where(BenchmarkTask.experiment_id == experiment.id)).all()
+    runs = session.scalars(
+        select(ForecastRun).where(ForecastRun.benchmark_task_id.in_([task.id for task in tasks] or [""]))
+    ).all()
+    run_by_task = {item.benchmark_task_id: item for item in runs if item.benchmark_task_id}
+    result_task_ids = {item.benchmark_task_id for item in rows}
+
+    def run_cost(run: ForecastRun | None, fallback: float = 0.0) -> float:
+        if run is None:
+            return fallback
+        return float(run.total_cost_usd or run.cost_usd or fallback)
+
+    full_cost = 0.0
+    partial_cost = 0.0
+    failed_cost = 0.0
+    for item in rows:
+        amount = run_cost(run_by_task.get(item.benchmark_task_id), item.cost_usd)
+        if item.failed:
+            failed_cost += amount
+        elif item.partial:
+            partial_cost += amount
+        else:
+            full_cost += amount
+    for run in runs:
+        if run.benchmark_task_id not in result_task_ids:
+            failed_cost += run_cost(run)
+    started = experiment.total_tasks or len(tasks)
+    total = sum(run_cost(run) for run in runs) or (full_cost + partial_cost + failed_cost)
+    return {
+        "total_cost_usd": total,
+        "total_full_cost_usd": full_cost,
+        "total_partial_cost_usd": partial_cost,
+        "total_failed_task_cost_usd": failed_cost,
+        "mean_cost_per_started_task": (total / started) if started else None,
+        "model_cost_usd": sum(float(run.model_cost_usd or 0) for run in runs),
+        "search_cost_usd": sum(float(run.search_cost_usd or 0) for run in runs),
+        "failed_attempt_cost_usd": sum(float(run.failed_attempt_cost_usd or 0) for run in runs),
+    }
+
+
 def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dict:
     dataset = session.get(BenchmarkDataset, experiment.dataset_id)
     rows = session.scalars(select(BenchmarkResult).where(BenchmarkResult.experiment_id == experiment.id)).all()
@@ -993,6 +1041,7 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
         "paired_comparisons": comparisons,
         "paired_comparisons_all_valid": comparisons,
         "paired_comparisons_full_only": comparisons_full,
+        "spend": _experiment_spend(session, experiment, rows),
         "rows": question_rows,
         "environment_identity": json.loads(experiment.environment_identity_json or "{}"),
         "progress": experiment_progress(session, experiment),
@@ -1014,6 +1063,8 @@ def _assert_frozen_environment(experiment: BenchmarkExperiment, snapshot: Benchm
         profile_hashes=frozen.get("profile_hashes") or {},
         pricing_catalog=frozen_pricing,
     )
+    if not experiment.is_synthetic and (not frozen.get("dependency_hash") or not current.get("dependency_hash")):
+        raise ExperimentEnvironmentMismatch("python_lockfile_required")
     mismatches = compare_environment(frozen, current)
     if mismatches:
         raise ExperimentEnvironmentMismatch(

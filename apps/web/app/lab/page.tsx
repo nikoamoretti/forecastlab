@@ -155,6 +155,39 @@ export default function LabPage() {
       {summary ? (
         <>
           <section>
+            <h3 className="font-serif text-2xl">Experiment spend</h3>
+            <p className="mt-2 text-sm text-ink/70">
+              Totals include successful, partial, and failed tasks. Failed-attempt and search charges stay in commercial
+              cost reporting.
+            </p>
+            <dl className="mt-3 grid gap-2 text-sm md:grid-cols-4">
+              <div>
+                <dt className="text-ink/60">Total experiment cost</dt>
+                <dd>${Number(summary.spend?.total_cost_usd || 0).toFixed(4)}</dd>
+              </div>
+              <div>
+                <dt className="text-ink/60">Full / partial / failed-task</dt>
+                <dd>
+                  ${Number(summary.spend?.total_full_cost_usd || 0).toFixed(4)} / $
+                  {Number(summary.spend?.total_partial_cost_usd || 0).toFixed(4)} / $
+                  {Number(summary.spend?.total_failed_task_cost_usd || 0).toFixed(4)}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-ink/60">Mean cost per started task</dt>
+                <dd>${Number(summary.spend?.mean_cost_per_started_task || 0).toFixed(4)}</dd>
+              </div>
+              <div>
+                <dt className="text-ink/60">Model / search / failed-attempt</dt>
+                <dd>
+                  ${Number(summary.spend?.model_cost_usd || 0).toFixed(4)} / $
+                  {Number(summary.spend?.search_cost_usd || 0).toFixed(4)} / $
+                  {Number(summary.spend?.failed_attempt_cost_usd || 0).toFixed(4)}
+                </dd>
+              </div>
+            </dl>
+          </section>
+          <section>
             <h3 className="font-serif text-2xl">Outcome mix</h3>
             <p className="mt-2 text-sm text-ink/70">
               Full forecasts, partial forecasts, and failed tasks are counted separately. Headline scores below do not

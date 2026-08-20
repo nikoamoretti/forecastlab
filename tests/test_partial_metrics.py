@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from forecastlab.evaluation import brier_score
 from forecastlab_api.experiments import experiment_summary
 from forecastlab_api.models import (
@@ -132,3 +134,9 @@ def test_full_partial_failed_counts_and_metric_sets(client) -> None:
         full_n = summary["paired_comparisons_full_only"][0]["n"]
         assert all_n >= full_n
         assert full_n == 1
+        spend = summary["spend"]
+        assert spend["total_failed_task_cost_usd"] == pytest.approx(2.0)
+        assert spend["total_full_cost_usd"] == pytest.approx(3.0)
+        assert spend["total_partial_cost_usd"] == pytest.approx(1.0)
+        assert spend["total_cost_usd"] == pytest.approx(6.0)
+        assert spend["mean_cost_per_started_task"] == pytest.approx(1.2)

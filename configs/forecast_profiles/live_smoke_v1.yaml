@@ -1,0 +1,22 @@
+id: live_smoke_v1
+version: 1
+label: Live smoke
+description: Tightly capped one-track live smoke profile. Not a scientific comparison profile.
+tracks:
+  - current_evidence
+subquestions_per_track: 1
+search_results_per_subquestion: 1
+fetches_per_subquestion: 1
+aggregation_method: equal_weight_logit_shrinkage
+shrinkage: 0.10
+max_model_calls: 3
+max_search_calls: 1
+max_fetched_documents: 2
+max_tokens: 4000
+max_output_tokens_per_call: 512
+max_estimated_cost_usd: 0.25
+max_wall_clock_seconds: 120
+prompt_versions:
+  operationalize: v1
+  plan_current_evidence: v1
+  forecast_current_evidence: v1
