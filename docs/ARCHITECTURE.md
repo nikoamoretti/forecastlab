@@ -4,7 +4,7 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 
 ## Layout
 
-- `packages/forecasting`: typed engine, aggregation, evaluation, providers, fetch/SSRF, Wayback eligibility, watchers.
+- `packages/forecasting`: Forecast Contract compiler and domain types, typed engine, aggregation, evaluation, providers, fetch/SSRF, Wayback eligibility, watchers.
 - `apps/api`: FastAPI, SQLAlchemy, durable jobs, settings, demo indicators.
 - `apps/web`: Next.js App Router UI.
 - `configs/forecast_profiles`: versioned YAML profiles.
@@ -13,12 +13,15 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 
 ## Request path
 
-1. The UI creates a question and optionally a run.
-2. The API writes a `Job` with an idempotency key.
-3. A worker claims the job, heartbeats, and executes `run_forecast_engine`.
-4. Each track plans, searches, fetches, and forecasts without seeing other tracks.
-5. Aggregation is ordinary Python. The model may summarize disagreement afterward; it cannot change the number.
-6. A `ForecastVersion` is stored. Watches can mark the question stale.
+1. The UI submits a natural-language question to `POST /api/contracts/generate`.
+2. `QuestionCompiler` performs a vague-question preflight and uses the selected existing model seam for structured JSON. It stores a versioned `ForecastContract` as `draft`; no evidence research or forecast run begins.
+3. The user reviews the outcome, resolver, deadline, and ambiguity fields. `POST /api/contracts/{id}/approve` validates the required resolution fields and changes the contract to `approved`.
+4. Approval synchronizes the approved fields into the existing `ResolutionContractRow`. This compatibility projection lets the current engine consume the contract without changing provider, research-track, or aggregation behavior.
+5. When the user starts a run, the API writes a `Job` with an idempotency key.
+6. A worker claims the job, heartbeats, and executes `run_forecast_engine`.
+7. Each track plans, searches, fetches, and forecasts without seeing other tracks.
+8. Aggregation is ordinary Python. The model may summarize disagreement afterward; it cannot change the number.
+9. A `ForecastVersion` is stored. Watches can mark the question stale.
 
 ## Providers
 
@@ -36,7 +39,7 @@ A benchmark task is one durable identity for its whole lifetime, including crash
 
 ## Storage
 
-SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup inspect the current revision on a dedicated connection, skip Alembic when already at head, and otherwise upgrade under a file lock. A revision error fails closed. `20260818_0001` is a frozen explicit Alembic baseline (no live `Base.metadata.create_all()`). `20260819_0002` inspects an original MVP database and adds missing integrity columns, experiment tables, backfills, and uniqueness constraints. `20260819_0003` adds per-experiment profile snapshots, stored resolution-contract fields, and `UNIQUE(dataset_id, import_hash)`. `20260819_0004` adds `ForecastRun.benchmark_task_id`, task `question_id` / `error_category`, and `BenchmarkResult.partial`. `20260819_0005` adds run-attempt and provider-call ledger tables, run cost breakdown columns, final Wayback metadata, environment-identity columns, built-in dataset identity, and the remaining foreign keys. `20260819_0006` adds `ForecastRunAttempt.provider_request_count` so attempt totals stay attempt-specific. Isolated unit tests may still call `create_all`. Fresh empty→head and original-MVP→head databases must match on tables, columns, nullability, keys, and indexes, allowing only the documented SQLite representation differences. `PRAGMA foreign_key_check` must be empty. Back up `data/forecastlab.db` before the first launch after an upgrade (`cp data/forecastlab.db data/forecastlab.db.bak`). Do not treat the local database as a production cluster.
+SQLite by default. Schema types stay PostgreSQL-friendly. Secrets live in `data/local/credentials.json` and are never selected into API responses. API and worker startup inspect the current revision on a dedicated connection, skip Alembic when already at head, and otherwise upgrade under a file lock. A revision error fails closed. `20260818_0001` is a frozen explicit Alembic baseline (no live `Base.metadata.create_all()`). `20260819_0002` inspects an original MVP database and adds missing integrity columns, experiment tables, backfills, and uniqueness constraints. `20260819_0003` adds per-experiment profile snapshots, stored resolution-contract fields, and `UNIQUE(dataset_id, import_hash)`. `20260819_0004` adds `ForecastRun.benchmark_task_id`, task `question_id` / `error_category`, and `BenchmarkResult.partial`. `20260819_0005` adds run-attempt and provider-call ledger tables, run cost breakdown columns, final Wayback metadata, environment-identity columns, built-in dataset identity, and the remaining foreign keys. `20260819_0006` adds `ForecastRunAttempt.provider_request_count` so attempt totals stay attempt-specific. `20260821_0007` adds versioned `forecast_contracts` while leaving existing `resolution_contracts` and forecast rows intact. Isolated unit tests may still call `create_all`. Fresh empty→head and original-MVP→head databases must match on tables, columns, nullability, keys, and indexes, allowing only the documented SQLite representation differences. `PRAGMA foreign_key_check` must be empty. Back up `data/forecastlab.db` before the first launch after an upgrade (`cp data/forecastlab.db data/forecastlab.db.bak`). Do not treat the local database as a production cluster.
 
 SQLite strips timezone info on read. Health checks, watch polling, and latency math always run datetimes through `as_utc`.
 

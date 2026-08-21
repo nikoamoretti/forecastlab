@@ -11,6 +11,7 @@ TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
 JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
 WatchKind = Literal["html", "json"]
+ForecastContractStatus = Literal["draft", "approved", "superseded"]
 
 
 class ResolutionContract(BaseModel):
@@ -24,6 +25,72 @@ class ResolutionContract(BaseModel):
     ambiguity_notes: str = ""
     cancellation_conditions: str = ""
     resolver_risk_notes: str = ""
+
+
+class ForecastContract(BaseModel):
+    id: str
+    question_id: str
+    version: int = Field(default=1, ge=1)
+    created_at: datetime
+    created_by: str
+
+    original_question: str
+    normalized_question: str
+
+    yes_condition: str = ""
+    no_condition: str = ""
+
+    resolution_date: datetime | None = None
+    authoritative_source: str = ""
+    fallback_sources: list[str] = Field(default_factory=list)
+    resolution_method: str = ""
+
+    ambiguity_notes: str = ""
+    cancellation_conditions: str = ""
+    resolver_risk_notes: str = ""
+
+    forecast_type: str = "binary"
+    geography: str | None = None
+    units: str | None = None
+    domain: str | None = None
+
+    initial_reference_class: str = ""
+    suggested_drivers: list[str] = Field(default_factory=list)
+    known_dependencies: list[str] = Field(default_factory=list)
+
+    status: ForecastContractStatus = "draft"
+
+    def approval_errors(self) -> list[str]:
+        errors: list[str] = []
+        if not self.yes_condition.strip():
+            errors.append("yes_condition_required")
+        if not self.no_condition.strip():
+            errors.append("no_condition_required")
+        if self.resolution_date is None:
+            errors.append("resolution_date_required")
+        if not self.authoritative_source.strip():
+            errors.append("authoritative_source_required")
+        if not self.resolution_method.strip():
+            errors.append("resolution_method_required")
+        if self.yes_condition.strip().casefold() == self.no_condition.strip().casefold() and self.yes_condition.strip():
+            errors.append("outcome_conditions_must_differ")
+        return errors
+
+    def to_resolution_contract(self) -> ResolutionContract:
+        if self.resolution_date is None:
+            raise ValueError("resolution_date_required")
+        return ResolutionContract(
+            exact_yes=self.yes_condition,
+            exact_no=self.no_condition,
+            resolution_deadline=self.resolution_date,
+            authoritative_source=self.authoritative_source,
+            fallback_sources=self.fallback_sources,
+            geography=self.geography,
+            units=self.units,
+            ambiguity_notes=self.ambiguity_notes,
+            cancellation_conditions=self.cancellation_conditions,
+            resolver_risk_notes=self.resolver_risk_notes,
+        )
 
 
 class SubquestionPlan(BaseModel):

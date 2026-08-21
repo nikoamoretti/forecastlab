@@ -11,7 +11,9 @@ The governing principles are in [Forecasting Research Charter](FORECASTING_RESEA
 ```text
 Question
 ↓
-Resolution contract
+Forecast Contract generation
+↓
+Human review and approval
 ↓
 Reference class
 ↓
@@ -36,9 +38,9 @@ Each stage must leave a stored, auditable artifact. A later stage may reject an 
 
 V1 accepts binary questions about future events. The original wording, author-supplied context, creation time, and intended forecast cutoff must be retained. A question is not forecastable until its resolution contract passes review.
 
-### 2. Resolution contract
+### 2. Forecast Contract
 
-The contract converts ordinary wording into explicit scoring rules. It is frozen for an experiment before any forecast is generated. A material contract change creates a new question version and cannot be applied retroactively to improve a score.
+The Forecast Contract converts ordinary wording into explicit scoring rules and research guidance. It is frozen for an experiment before any forecast is generated. A material contract change creates a new contract version and cannot be applied retroactively to improve a score.
 
 ### 3. Reference class
 
@@ -88,6 +90,17 @@ The question compiler must produce an editable resolution contract with these re
 | Resolver risk | Records ways official scoring could differ from an ordinary-language interpretation. |
 
 The compiler must reject a contract when yes and no are not mutually exclusive, both could be false without a cancellation rule, the resolver cannot be identified, or the resolution date is not operationally usable.
+
+### Forecast Contract lifecycle
+
+1. **Generate:** the compiler normalizes the original question and returns structured JSON containing the outcome, resolution, ambiguity, metadata, and initial research-guidance fields. Generation does not begin research and does not estimate a probability.
+2. **Draft:** the generated contract is stored as `draft` with its own identifier, question identifier, version, creation time, and creator. Drafts may be incomplete, but their missing fields must remain explicit.
+3. **Review:** a human reviews the normalized question, yes and no conditions, resolution date, authoritative and fallback sources, resolution method, ambiguity notes, cancellation conditions, and resolver risks.
+4. **Approve:** a draft may become `approved` only when `yes_condition`, `no_condition`, `resolution_date`, `authoritative_source`, and `resolution_method` are present and the outcome conditions differ. Approval is the gate before the new contract flow starts research.
+5. **Freeze:** an approved contract supplies the immutable resolution inputs to forecasting. The initial reference class, suggested drivers, and known dependencies are research guidance only; they are not evidence and do not determine the forecast probability.
+6. **Supersede:** a material correction creates a higher contract version. Approving it marks the prior approved version `superseded`; historical forecasts retain the version they used.
+
+The first implementation stores Forecast Contracts separately from legacy resolution-contract rows. Approval writes the approved outcome and resolution fields into the legacy shape so existing forecast records and execution remain compatible. Legacy entry points that predate the Forecast Contract API remain a compatibility boundary and must not be described as V1-conforming unless they enforce the same approval gate.
 
 ## Forecast decomposition
 

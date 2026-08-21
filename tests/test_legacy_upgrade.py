@@ -49,6 +49,7 @@ REQUIRED_TABLES = {
     "benchmark_profile_snapshots",
     "forecast_run_attempts",
     "provider_call_ledger",
+    "forecast_contracts",
 }
 
 
@@ -130,7 +131,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260819_0006"
+        assert current == "20260821_0007"
 
 
 def _assert_uniqueness(engine: Engine) -> None:
@@ -191,6 +192,25 @@ def test_stamped_baseline_missing_integrity_columns(tmp_path: Path, monkeypatch:
     _assert_integrity_schema(engine)
     _assert_legacy_rows_survived(engine)
     _assert_uniqueness(engine)
+
+
+def test_forecast_contract_migration_preserves_existing_resolution_contracts(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    engine = _build_legacy_db(tmp_path / "forecast-contract.db", stamped=True)
+    _migrate(tmp_path, engine, monkeypatch)
+    with engine.connect() as connection:
+        legacy_count = connection.execute(
+            text("SELECT COUNT(*) FROM resolution_contracts WHERE id = :id"),
+            {"id": CONTRACT_ID},
+        ).scalar_one()
+        new_count = connection.execute(text("SELECT COUNT(*) FROM forecast_contracts")).scalar_one()
+    assert legacy_count == 1
+    assert new_count == 0
+    assert "resolution_method" in {
+        column["name"] for column in inspect(engine).get_columns("forecast_contracts")
+    }
 
 
 def test_empty_database_reaches_head(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

@@ -31,6 +31,10 @@ class Question(Base):
     is_benchmark: Mapped[bool] = mapped_column(Boolean, default=False)
 
     contract: Mapped[ResolutionContractRow | None] = relationship(back_populates="question", uselist=False)
+    forecast_contracts: Mapped[list[ForecastContractRow]] = relationship(
+        back_populates="question",
+        order_by="ForecastContractRow.version",
+    )
     runs: Mapped[list[ForecastRun]] = relationship(back_populates="question")
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="question")
     watches: Mapped[list[Watch]] = relationship(back_populates="question")
@@ -55,6 +59,45 @@ class ResolutionContractRow(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     question: Mapped[Question] = relationship(back_populates="contract")
+
+
+class ForecastContractRow(Base):
+    __tablename__ = "forecast_contracts"
+    __table_args__ = (UniqueConstraint("question_id", "version", name="uq_forecast_contract_question_version"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"))
+    version: Mapped[int] = mapped_column(Integer, default=1)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    created_by: Mapped[str] = mapped_column(String(128), default="user")
+
+    original_question: Mapped[str] = mapped_column(Text)
+    normalized_question: Mapped[str] = mapped_column(Text)
+
+    yes_condition: Mapped[str] = mapped_column(Text, default="")
+    no_condition: Mapped[str] = mapped_column(Text, default="")
+
+    resolution_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    authoritative_source: Mapped[str] = mapped_column(Text, default="")
+    fallback_sources_json: Mapped[str] = mapped_column(Text, default="[]")
+    resolution_method: Mapped[str] = mapped_column(Text, default="")
+
+    ambiguity_notes: Mapped[str] = mapped_column(Text, default="")
+    cancellation_conditions: Mapped[str] = mapped_column(Text, default="")
+    resolver_risk_notes: Mapped[str] = mapped_column(Text, default="")
+
+    forecast_type: Mapped[str] = mapped_column(String(32), default="binary")
+    geography: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    units: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    domain: Mapped[str | None] = mapped_column(String(128), nullable=True)
+
+    initial_reference_class: Mapped[str] = mapped_column(Text, default="")
+    suggested_drivers_json: Mapped[str] = mapped_column(Text, default="[]")
+    known_dependencies_json: Mapped[str] = mapped_column(Text, default="[]")
+
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+
+    question: Mapped[Question] = relationship(back_populates="forecast_contracts")
 
 
 class ForecastRun(Base):

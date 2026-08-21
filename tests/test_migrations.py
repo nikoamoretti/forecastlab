@@ -18,11 +18,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "benchmark_tasks" in tables
     assert "forecast_run_attempts" in tables
     assert "provider_call_ledger" in tables
+    assert "forecast_contracts" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260819_0006"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260821_0007"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -40,4 +41,4 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260819_0006"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260821_0007"

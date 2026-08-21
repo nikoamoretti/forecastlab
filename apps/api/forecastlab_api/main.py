@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from forecastlab.contracts import ForecastContractError
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.logging import configure_logging
@@ -25,6 +26,13 @@ from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.version import __version__
 from forecastlab_api.config import settings
+from forecastlab_api.contracts import (
+    apply_forecast_contract_review,
+    approve_forecast_contract,
+    build_question_compiler,
+    forecast_contract_from_row,
+    store_forecast_contract,
+)
 from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
 from forecastlab_api.experiments import (
@@ -44,6 +52,7 @@ from forecastlab_api.models import (
     BenchmarkQuestion,
     BenchmarkResult,
     EvidenceItem,
+    ForecastContractRow,
     ForecastRun,
     ForecastRunAttempt,
     ForecastVersion,
@@ -96,6 +105,34 @@ class ContractIn(BaseModel):
     resolver_risk_notes: str = ""
 
 
+class GenerateContractIn(BaseModel):
+    question: str
+    mode: str = "demo"
+    profile_id: str = "three_track_ensemble"
+    as_of: datetime | None = None
+    created_by: str = "user"
+
+
+class ApproveContractIn(BaseModel):
+    normalized_question: str | None = None
+    yes_condition: str | None = None
+    no_condition: str | None = None
+    resolution_date: datetime | None = None
+    authoritative_source: str | None = None
+    fallback_sources: list[str] | None = None
+    resolution_method: str | None = None
+    ambiguity_notes: str | None = None
+    cancellation_conditions: str | None = None
+    resolver_risk_notes: str | None = None
+    forecast_type: str | None = None
+    geography: str | None = None
+    units: str | None = None
+    domain: str | None = None
+    initial_reference_class: str | None = None
+    suggested_drivers: list[str] | None = None
+    known_dependencies: list[str] | None = None
+
+
 class RunIn(BaseModel):
     profile_id: str = "three_track_ensemble"
     mode: str = "demo"
@@ -121,6 +158,11 @@ class ExperimentIn(BaseModel):
 
 @app.exception_handler(ConfigurationError)
 def configuration_error_handler(_request, exc: ConfigurationError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+
+
+@app.exception_handler(ForecastContractError)
+def forecast_contract_error_handler(_request, exc: ForecastContractError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
 
 
@@ -255,6 +297,61 @@ def profiles() -> list[dict[str, Any]]:
     return [{**item.model_dump(), "profile_hash": profile_hash(item)} for item in list_profiles()]
 
 
+@app.post("/api/contracts/generate")
+def generate_contract(body: GenerateContractIn, db: Session = Depends(get_db)) -> dict[str, Any]:
+    if body.mode not in {"demo", "live", "backtest"}:
+        raise HTTPException(422, "Unknown mode")
+    question_id = str(uuid.uuid4())
+    compiler = build_question_compiler(mode=body.mode, profile_id=body.profile_id, as_of=body.as_of)
+    contract = compiler.compile(
+        body.question,
+        question_id=question_id,
+        created_by=body.created_by,
+    )
+    question = Question(
+        id=question_id,
+        original_text=contract.original_question,
+        normalized_text=contract.normalized_question,
+        forecast_deadline=contract.resolution_date,
+        status="draft",
+        requested_mode=body.mode,
+        requested_profile_id=body.profile_id,
+        requested_as_of=body.as_of,
+        is_benchmark=False,
+    )
+    db.add(question)
+    db.flush()
+    if body.mode == "demo":
+        attach_demo_watch(db, question)
+    row = store_forecast_contract(db, contract)
+    db.commit()
+    return forecast_contract_from_row(row).model_dump(mode="json")
+
+
+@app.get("/api/contracts/{contract_id}")
+def get_contract(contract_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    row = db.get(ForecastContractRow, contract_id)
+    if row is None:
+        raise HTTPException(404, "Forecast Contract not found")
+    return forecast_contract_from_row(row).model_dump(mode="json")
+
+
+@app.post("/api/contracts/{contract_id}/approve")
+def approve_contract(
+    contract_id: str,
+    body: ApproveContractIn | None = None,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    row = db.get(ForecastContractRow, contract_id)
+    if row is None:
+        raise HTTPException(404, "Forecast Contract not found")
+    if body is not None:
+        apply_forecast_contract_review(row, body.model_dump(exclude_unset=True))
+    approve_forecast_contract(db, row)
+    db.commit()
+    return forecast_contract_from_row(row).model_dump(mode="json")
+
+
 @app.get("/api/execution/preview")
 def execution_preview(profile_id: str = "three_track_ensemble", mode: str = "demo", as_of: str | None = None) -> dict[str, Any]:
     ready = readiness(provider_settings_from_secrets())
@@ -350,6 +447,13 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
+    if question.forecast_contracts and not any(
+        contract.status == "approved" for contract in question.forecast_contracts
+    ):
+        raise ForecastContractError(
+            ["approved_forecast_contract_required"],
+            "Approve the Forecast Contract before research begins",
+        )
     question.requested_mode = body.mode
     question.requested_profile_id = body.profile_id
     question.requested_as_of = body.as_of
