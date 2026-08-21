@@ -52,6 +52,7 @@ REQUIRED_TABLES = {
     "forecast_contracts",
     "forecast_graphs",
     "forecast_nodes",
+    "evidence_claims",
 }
 
 
@@ -113,6 +114,7 @@ def _assert_legacy_rows_survived(engine: Engine) -> None:
         assert bench.authoritative_source
         assert connection.execute(text("SELECT id FROM benchmark_results WHERE id = :id"), {"id": BENCH_RESULT_ID}).scalar_one() == BENCH_RESULT_ID
         assert connection.execute(text("SELECT id FROM watches WHERE id = :id"), {"id": WATCH_ID}).scalar_one() == WATCH_ID
+        assert connection.execute(text("SELECT COUNT(*) FROM evidence_claims")).scalar_one() == 0
 
 
 def _assert_integrity_schema(engine: Engine) -> None:
@@ -133,7 +135,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260821_0008"
+        assert current == "20260821_0009"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

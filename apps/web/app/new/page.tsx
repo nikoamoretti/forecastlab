@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 
@@ -236,6 +237,12 @@ export default function NewQuestionPage() {
                   <p className="mt-3 text-xs text-ink/60">
                     {relationships.length ? relationships.join(" · ") : "Directly beneath the forecast outcome"}
                   </p>
+                  <Link
+                    className="mt-4 inline-block text-xs font-medium text-copper underline underline-offset-4"
+                    href={`/nodes/${node.id}`}
+                  >
+                    View evidence claims
+                  </Link>
                 </article>
               );
             })}

@@ -5,6 +5,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+from forecastlab.timeutil import as_utc
+
 QuestionType = Literal["binary"]
 RunMode = Literal["live", "backtest", "demo"]
 TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
@@ -23,6 +25,7 @@ ForecastNodeType = Literal[
     "resolver",
 ]
 ForecastNodeStatus = Literal["pending", "completed", "failed"]
+EvidenceStance = Literal["supports", "refutes"]
 
 
 class ResolutionContract(BaseModel):
@@ -213,6 +216,53 @@ class FetchedDocument(BaseModel):
     rejection_reason: str | None = None
     as_of_eligible: bool = True
     published_at_unknown: bool = False
+
+
+class EvidenceClaim(BaseModel):
+    id: str
+    evidence_item_id: str
+    forecast_node_id: str
+
+    claim: str
+    excerpt: str
+
+    source_url: str
+    source_title: str
+    publisher: str
+    publication_date: datetime
+    retrieval_date: datetime
+
+    supports_or_refutes: EvidenceStance
+    confidence: float = Field(ge=0.0, le=1.0)
+    source_quality: float = Field(ge=0.0, le=1.0)
+    primary_source: bool
+
+    as_of_eligible: bool
+    cutoff_verified: bool
+
+    def forecasting_errors(self, *, cutoff: datetime | None = None) -> list[str]:
+        errors: list[str] = []
+        required_text = {
+            "id_required": self.id,
+            "evidence_item_id_required": self.evidence_item_id,
+            "forecast_node_id_required": self.forecast_node_id,
+            "claim_required": self.claim,
+            "excerpt_required": self.excerpt,
+            "source_url_required": self.source_url,
+            "source_title_required": self.source_title,
+            "publisher_required": self.publisher,
+        }
+        errors.extend(reason for reason, value in required_text.items() if not value.strip())
+        if not self.as_of_eligible:
+            errors.append("claim_not_as_of_eligible")
+        if not self.cutoff_verified:
+            errors.append("claim_cutoff_not_verified")
+        if as_utc(self.publication_date) > as_utc(self.retrieval_date):
+            errors.append("publication_after_retrieval")
+        if cutoff is not None:
+            if as_utc(self.publication_date) > as_utc(cutoff):
+                errors.append("claim_after_cutoff")
+        return errors
 
 
 class ForecastProfile(BaseModel):

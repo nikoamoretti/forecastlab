@@ -2,7 +2,7 @@
 
 Status: intended V1 forecasting architecture. This is a conceptual specification, not an implementation claim.
 
-This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, the Forecast Contract and Forecast Graph planning foundations, independent research tracks, evidence provenance, and deterministic aggregation. Graph-driven evidence execution, scenario synthesis, and the `hierarchical_forecaster` comparison remain V1 requirements that are not yet implemented or proven.
+This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, the Forecast Contract and Forecast Graph planning foundations, a node-linked Evidence Claims foundation, independent research tracks, evidence provenance, and deterministic aggregation. Graph-driven evidence execution, scenario synthesis, and the `hierarchical_forecaster` comparison remain V1 requirements that are not yet implemented or proven.
 
 The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Evaluation and adoption are governed by [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md) and [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
 
@@ -20,6 +20,10 @@ Reference-class guidance
 Forecast Graph generation, validation, and freeze
 ↓
 Evidence collection
+↓
+Document retrieval and cutoff validation
+↓
+Evidence Claim extraction and node linkage
 ↓
 Independent research tracks
 ↓
@@ -52,7 +56,7 @@ The system creates a question-specific graph of subforecasts and drivers. The gr
 
 ### 5. Evidence collection
 
-Evidence is collected against the graph and track charters. Search results are discovery aids; only retrieved, stored, eligible material may support factual drivers. Backtests follow [Evidence Cutoff Policy](EVIDENCE_CUTOFF_POLICY.md).
+Evidence is collected against the graph and track charters. Search results are discovery aids; only retrieved, stored, eligible documents may produce Evidence Claims. Each claim is linked to one Forecast Node before it can become forecasting context. Backtests follow [Evidence Cutoff Policy](EVIDENCE_CUTOFF_POLICY.md).
 
 ### 6. Independent research tracks
 
@@ -169,6 +173,18 @@ For this specification:
 Evidence records must also retain a content hash, title or record description, publisher when available, track and node usage, and rejection reason when ineligible. Duplicate URLs or materially duplicated content must be detected so repetition is not mistaken for independent corroboration.
 
 An inference may combine multiple evidence items, but it must link to them and be labeled as an inference. An unsupported claim must be removed from the forecast packet or recorded as a failure.
+
+### Evidence Claims lifecycle
+
+1. **Retrieve:** a fetched document retains its canonical URL, title, publisher, publication date, retrieval date, content hash, cutoff status, and any rejection reason. A search hit alone cannot produce a claim.
+2. **Assign:** extraction is requested for one explicit Forecast Node and one stored `EvidenceItem`. The node identifier is mandatory; there is no unassigned Evidence Claim.
+3. **Extract:** `EvidenceExtractor` requests structured JSON containing the factual claim, an exact document excerpt, support or refutation stance, claim-support confidence, source quality, and primary-source assessment. Source metadata is copied from the fetched document rather than accepted from model output.
+4. **Validate:** extraction fails closed when the document is rejected, lacks URL, title, publisher, text, or a verified publication date, or was published after the cutoff. Each excerpt must occur in the retrieved document. A malformed batch is rejected in full rather than partially accepted.
+5. **Persist:** `EvidenceClaim` stores the parent evidence-item and node identifiers together with the copied provenance and assessment fields. Persistence verifies that both parents exist, the parent evidence item is eligible, its source metadata matches the claim, and the evidence item and node belong to the same forecasting question.
+6. **Review:** `GET /api/nodes/{id}/evidence` presents Node → Claims → Sources, while `GET /api/evidence/{id}` returns a full individual claim. The minimal UI exposes this chain without adding an evidence editor.
+7. **Context gate:** only claims with verified cutoff eligibility and all mandatory provenance fields are eligible for a future forecasting context. Rejected evidence and invalid claims are excluded by the claim-context selector.
+
+This layer is a stored and reviewable foundation only. It is not yet invoked by the live research-track execution flow, and neither the current forecast prompts nor probability aggregation consume Evidence Claims. Semantic entailment beyond exact-excerpt grounding remains an extractor-model assessment that future evaluation must measure.
 
 ## Independent tracks
 

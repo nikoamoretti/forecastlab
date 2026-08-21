@@ -135,6 +135,7 @@ class ForecastNodeRow(Base):
     status: Mapped[str] = mapped_column(String(32), default="pending")
 
     graph: Mapped[ForecastGraphRow] = relationship(back_populates="nodes")
+    evidence_claims: Mapped[list[EvidenceClaimRow]] = relationship(back_populates="forecast_node")
 
 
 class ForecastRun(Base):
@@ -257,6 +258,35 @@ class EvidenceItem(Base):
     published_at_unknown: Mapped[bool] = mapped_column(Boolean, default=False)
 
     run: Mapped[ForecastRun] = relationship(back_populates="evidence")
+    claims: Mapped[list[EvidenceClaimRow]] = relationship(back_populates="evidence_item")
+
+
+class EvidenceClaimRow(Base):
+    __tablename__ = "evidence_claims"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    evidence_item_id: Mapped[str] = mapped_column(ForeignKey("evidence_items.id"))
+    forecast_node_id: Mapped[str] = mapped_column(ForeignKey("forecast_nodes.id"))
+
+    claim: Mapped[str] = mapped_column(Text)
+    excerpt: Mapped[str] = mapped_column(Text)
+
+    source_url: Mapped[str] = mapped_column(Text)
+    source_title: Mapped[str] = mapped_column(Text)
+    publisher: Mapped[str] = mapped_column(String(256))
+    publication_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    retrieval_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    supports_or_refutes: Mapped[str] = mapped_column(String(16))
+    confidence: Mapped[float] = mapped_column(Float)
+    source_quality: Mapped[float] = mapped_column(Float)
+    primary_source: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    as_of_eligible: Mapped[bool] = mapped_column(Boolean, default=False)
+    cutoff_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    evidence_item: Mapped[EvidenceItem] = relationship(back_populates="claims")
+    forecast_node: Mapped[ForecastNodeRow] = relationship(back_populates="evidence_claims")
 
 
 class ForecastVersion(Base):

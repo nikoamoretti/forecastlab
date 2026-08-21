@@ -47,21 +47,7 @@ def build_graph_generator(question: Question) -> GraphGenerator:
 
 
 def forecast_graph_from_row(row: ForecastGraphRow) -> ForecastGraph:
-    nodes = [
-        ForecastNode(
-            id=node.id,
-            graph_id=node.graph_id,
-            parent_node_id=node.parent_node_id,
-            question=node.question,
-            node_type=node.node_type,  # type: ignore[arg-type]
-            importance_weight=node.importance_weight,
-            dependencies=_json_list(node.dependencies_json),
-            preferred_sources=_json_list(node.preferred_sources_json),
-            required_output_type=node.required_output_type,
-            status=node.status,  # type: ignore[arg-type]
-        )
-        for node in row.nodes
-    ]
+    nodes = [forecast_node_from_row(node) for node in row.nodes]
     return ForecastGraph(
         id=row.id,
         contract_id=row.contract_id,
@@ -71,6 +57,21 @@ def forecast_graph_from_row(row: ForecastGraphRow) -> ForecastGraph:
         generation_model=row.generation_model,
         root_question=row.root_question,
         nodes=nodes,
+    )
+
+
+def forecast_node_from_row(node: ForecastNodeRow) -> ForecastNode:
+    return ForecastNode(
+        id=node.id,
+        graph_id=node.graph_id,
+        parent_node_id=node.parent_node_id,
+        question=node.question,
+        node_type=node.node_type,  # type: ignore[arg-type]
+        importance_weight=node.importance_weight,
+        dependencies=_json_list(node.dependencies_json),
+        preferred_sources=_json_list(node.preferred_sources_json),
+        required_output_type=node.required_output_type,
+        status=node.status,  # type: ignore[arg-type]
     )
 
 

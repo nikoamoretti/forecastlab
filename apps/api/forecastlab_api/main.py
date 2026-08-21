@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 
 from forecastlab.contracts import ForecastContractError
 from forecastlab.errors import ConfigurationError
+from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.graphs import ForecastGraphError
 from forecastlab.logging import configure_logging
@@ -36,6 +37,7 @@ from forecastlab_api.contracts import (
 )
 from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
+from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
     create_experiment,
@@ -45,7 +47,12 @@ from forecastlab_api.experiments import (
     experiment_summary,
     serialize_dataset,
 )
-from forecastlab_api.graphs import build_graph_generator, forecast_graph_from_row, store_forecast_graph
+from forecastlab_api.graphs import (
+    build_graph_generator,
+    forecast_graph_from_row,
+    forecast_node_from_row,
+    store_forecast_graph,
+)
 from forecastlab_api.jobs import recover_stale_jobs
 from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import (
@@ -53,9 +60,11 @@ from forecastlab_api.models import (
     BenchmarkExperiment,
     BenchmarkQuestion,
     BenchmarkResult,
+    EvidenceClaimRow,
     EvidenceItem,
     ForecastContractRow,
     ForecastGraphRow,
+    ForecastNodeRow,
     ForecastRun,
     ForecastRunAttempt,
     ForecastVersion,
@@ -171,6 +180,11 @@ def forecast_contract_error_handler(_request, exc: ForecastContractError) -> JSO
 
 @app.exception_handler(ForecastGraphError)
 def forecast_graph_error_handler(_request, exc: ForecastGraphError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+
+
+@app.exception_handler(EvidenceClaimError)
+def evidence_claim_error_handler(_request, exc: EvidenceClaimError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
 
 
@@ -402,6 +416,25 @@ def get_graph(graph_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     if row is None:
         raise HTTPException(404, "Forecast Graph not found")
     return forecast_graph_from_row(row).model_dump(mode="json")
+
+
+@app.get("/api/nodes/{node_id}/evidence")
+def get_node_evidence(node_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    node = db.get(ForecastNodeRow, node_id)
+    if node is None:
+        raise HTTPException(404, "Forecast Node not found")
+    return {
+        "node": forecast_node_from_row(node).model_dump(mode="json"),
+        "claims": [claim.model_dump(mode="json") for claim in evidence_for_node(db, node_id)],
+    }
+
+
+@app.get("/api/evidence/{evidence_id}")
+def get_evidence(evidence_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    row = db.get(EvidenceClaimRow, evidence_id)
+    if row is None:
+        raise HTTPException(404, "Evidence Claim not found")
+    return evidence_claim_from_row(row).model_dump(mode="json")
 
 
 @app.get("/api/execution/preview")

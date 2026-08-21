@@ -1,0 +1,28 @@
+PROMPT_ID: evidence_claims
+PROMPT_VERSION: v1
+
+Extract factual evidence claims relevant to the supplied Forecast Node from the supplied document text only.
+Return one JSON object only. Do not estimate a probability, summarize unsupported material, or use outside knowledge.
+
+Required JSON shape:
+{
+  "claims": [
+    {
+      "claim": "A concise factual statement supported by the excerpt",
+      "excerpt": "An exact contiguous excerpt copied from the supplied document",
+      "supports_or_refutes": "supports | refutes",
+      "confidence": 0.0,
+      "source_quality": 0.0,
+      "primary_source": true
+    }
+  ]
+}
+
+Rules:
+- Every excerpt must appear verbatim in the supplied document text.
+- Every claim must be directly supported by its excerpt and relevant to the Forecast Node question.
+- Return no claim when the document does not contain relevant support or refutation.
+- Confidence measures how clearly the excerpt supports the claim, not forecast confidence.
+- Source quality is between 0 and 1 and assesses the supplied source for this specific claim.
+- primary_source is true only when the source is the original official record, direct measurement, or first-party filing.
+- Do not return source URLs, titles, publishers, or dates; ForecastLab copies those from the fetched document.

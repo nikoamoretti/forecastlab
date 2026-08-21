@@ -21,6 +21,14 @@ test("mock happy path", async ({ page }) => {
   await expect(page.getByText("adversarial", { exact: true })).toBeVisible();
   await expect(page.getByText("resolver", { exact: true })).toBeVisible();
   await expect(page.getByText(/Importance 90%/i)).toBeVisible();
+  const evidenceHref = await page.getByRole("link", { name: "View evidence claims" }).first().getAttribute("href");
+  expect(evidenceHref).toBeTruthy();
+  const evidencePage = await page.context().newPage();
+  await evidencePage.goto(evidenceHref!);
+  await expect(evidencePage.getByText("Forecast Node", { exact: true })).toBeVisible();
+  await expect(evidencePage.getByRole("heading", { name: "Claims", exact: true })).toBeVisible();
+  await expect(evidencePage.getByText(/No Evidence Claims have been extracted/i)).toBeVisible();
+  await evidencePage.close();
   await page.getByRole("button", { name: /Launch mock run/i }).click();
   await expect(page.getByText("Ensemble estimate")).toBeVisible({ timeout: 120000 });
   await expect(page.getByText("37.4%").first()).toBeVisible({ timeout: 120000 });
