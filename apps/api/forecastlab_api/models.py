@@ -98,6 +98,43 @@ class ForecastContractRow(Base):
     status: Mapped[str] = mapped_column(String(32), default="draft")
 
     question: Mapped[Question] = relationship(back_populates="forecast_contracts")
+    forecast_graphs: Mapped[list[ForecastGraphRow]] = relationship(
+        back_populates="contract",
+        order_by="ForecastGraphRow.version",
+    )
+
+
+class ForecastGraphRow(Base):
+    __tablename__ = "forecast_graphs"
+    __table_args__ = (UniqueConstraint("contract_id", "version", name="uq_forecast_graph_contract_version"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    contract_id: Mapped[str] = mapped_column(ForeignKey("forecast_contracts.id"))
+    version: Mapped[int] = mapped_column(Integer, default=1)
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    generation_model: Mapped[str] = mapped_column(String(256))
+    root_question: Mapped[str] = mapped_column(Text)
+
+    contract: Mapped[ForecastContractRow] = relationship(back_populates="forecast_graphs")
+    nodes: Mapped[list[ForecastNodeRow]] = relationship(back_populates="graph")
+
+
+class ForecastNodeRow(Base):
+    __tablename__ = "forecast_nodes"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    graph_id: Mapped[str] = mapped_column(ForeignKey("forecast_graphs.id"))
+    parent_node_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_nodes.id"), nullable=True)
+    question: Mapped[str] = mapped_column(Text)
+    node_type: Mapped[str] = mapped_column(String(32))
+    importance_weight: Mapped[float] = mapped_column(Float)
+    dependencies_json: Mapped[str] = mapped_column(Text, default="[]")
+    preferred_sources_json: Mapped[str] = mapped_column(Text, default="[]")
+    required_output_type: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+
+    graph: Mapped[ForecastGraphRow] = relationship(back_populates="nodes")
 
 
 class ForecastRun(Base):

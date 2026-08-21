@@ -143,6 +143,10 @@ def test_forecast_contract_api_generate_get_approve_and_run(client) -> None:
     assert question["contract"]["exact_no"] == draft["no_condition"]
     assert question["normalized_text"] == draft["normalized_question"]
 
+    graph = client.post(f"/api/contracts/{draft['id']}/graph")
+    assert graph.status_code == 200
+    assert graph.json()["status"] == "approved"
+
     run = client.post(
         f"/api/questions/{draft['question_id']}/runs",
         json={"profile_id": "three_track_ensemble", "mode": "demo"},

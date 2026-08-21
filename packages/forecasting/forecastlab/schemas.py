@@ -12,6 +12,17 @@ JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
 WatchKind = Literal["html", "json"]
 ForecastContractStatus = Literal["draft", "approved", "superseded"]
+ForecastGraphStatus = Literal["draft", "approved", "superseded"]
+ForecastNodeType = Literal[
+    "base_rate",
+    "trend",
+    "driver",
+    "dependency",
+    "scenario",
+    "adversarial",
+    "resolver",
+]
+ForecastNodeStatus = Literal["pending", "completed", "failed"]
 
 
 class ResolutionContract(BaseModel):
@@ -91,6 +102,30 @@ class ForecastContract(BaseModel):
             cancellation_conditions=self.cancellation_conditions,
             resolver_risk_notes=self.resolver_risk_notes,
         )
+
+
+class ForecastNode(BaseModel):
+    id: str
+    graph_id: str
+    parent_node_id: str | None = None
+    question: str
+    node_type: ForecastNodeType
+    importance_weight: float = Field(ge=0.0, le=1.0)
+    dependencies: list[str] = Field(default_factory=list)
+    preferred_sources: list[str] = Field(default_factory=list)
+    required_output_type: str
+    status: ForecastNodeStatus = "pending"
+
+
+class ForecastGraph(BaseModel):
+    id: str
+    contract_id: str
+    version: int = Field(default=1, ge=1)
+    status: ForecastGraphStatus = "draft"
+    created_at: datetime
+    generation_model: str
+    root_question: str
+    nodes: list[ForecastNode] = Field(default_factory=list)
 
 
 class SubquestionPlan(BaseModel):

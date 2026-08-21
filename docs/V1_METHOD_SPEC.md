@@ -2,7 +2,7 @@
 
 Status: intended V1 forecasting architecture. This is a conceptual specification, not an implementation claim.
 
-This document defines the method ForecastLab V1 must implement and evaluate. The current MVP already contains resolution contracts, independent research tracks, evidence provenance, and deterministic aggregation. Dynamic subforecast graphs, scenario synthesis, and the `hierarchical_forecaster` comparison are V1 requirements that are not yet proven or necessarily implemented.
+This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, the Forecast Contract and Forecast Graph planning foundations, independent research tracks, evidence provenance, and deterministic aggregation. Graph-driven evidence execution, scenario synthesis, and the `hierarchical_forecaster` comparison remain V1 requirements that are not yet implemented or proven.
 
 The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Evaluation and adoption are governed by [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md) and [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
 
@@ -15,9 +15,9 @@ Forecast Contract generation
 ↓
 Human review and approval
 ↓
-Reference class
+Reference-class guidance
 ↓
-Forecast decomposition
+Forecast Graph generation, validation, and freeze
 ↓
 Evidence collection
 ↓
@@ -131,6 +131,18 @@ Each node must define:
 The graph must be acyclic for calculation, retain stable node identifiers, and record why a dependency exists. If two nodes reuse the same evidence or derive from the same upstream fact, that relationship must be represented rather than treated as independence.
 
 The graph is frozen before final evidence synthesis for an evaluation run. Development experiments may revise graph-generation rules, but validation and test runs may not change them after outcomes or scores are observed.
+
+### Forecast Graph lifecycle
+
+1. **Eligibility:** only an `approved` Forecast Contract may be used to generate a graph. The approved contract's normalized binary outcome is the graph root and is not rewritten by the generator.
+2. **Generate:** `GraphGenerator` returns structured JSON containing 5–10 question-specific research nodes. Every generated graph includes at least one `base_rate`, `driver`, `adversarial`, and `resolver` node. Other permitted node types are `trend`, `dependency`, and `scenario`.
+3. **Relate:** each node records an optional parent, explicit node dependencies, preferred source guidance, required output type, and an importance weight. Importance expresses materiality to the outcome, not confidence or an aggregation weight.
+4. **Validate:** approval requires a root outcome, at least three nodes, an adversarial node, a resolver node, unique node identifiers and questions, valid parent and dependency references, and no cycles. Generator output also has to satisfy the stricter 5–10-node and required-type constraints.
+5. **Approve and freeze:** the current minimal API has no graph editor or separate human approval endpoint. `POST /api/contracts/{id}/graph` validates generated output and stores it directly as `approved`; invalid output is rejected rather than partially stored. Repeating the request returns the existing approved graph.
+6. **Gate:** a question created through the first-class Forecast Contract flow cannot start forecasting until its current approved contract has an approved graph. Legacy questions without first-class contracts remain a compatibility boundary.
+7. **Supersede:** the data model reserves `superseded` for a future versioning workflow. This foundation does not expose graph regeneration or mutation after approval.
+
+This foundation stores and displays the research plan only. The existing evidence collectors and independent track engine do not yet execute graph nodes, and probability aggregation does not consume graph weights or edges. Those integrations require separate evidence and aggregation work and must not be inferred from graph approval.
 
 ## Evidence model
 

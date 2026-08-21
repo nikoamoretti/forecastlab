@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 from forecastlab.contracts import ForecastContractError
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import readiness, resolve_execution_context
+from forecastlab.graphs import ForecastGraphError
 from forecastlab.logging import configure_logging
 from forecastlab.profiles import list_profiles, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
@@ -44,6 +45,7 @@ from forecastlab_api.experiments import (
     experiment_summary,
     serialize_dataset,
 )
+from forecastlab_api.graphs import build_graph_generator, forecast_graph_from_row, store_forecast_graph
 from forecastlab_api.jobs import recover_stale_jobs
 from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import (
@@ -53,6 +55,7 @@ from forecastlab_api.models import (
     BenchmarkResult,
     EvidenceItem,
     ForecastContractRow,
+    ForecastGraphRow,
     ForecastRun,
     ForecastRunAttempt,
     ForecastVersion,
@@ -163,6 +166,11 @@ def configuration_error_handler(_request, exc: ConfigurationError) -> JSONRespon
 
 @app.exception_handler(ForecastContractError)
 def forecast_contract_error_handler(_request, exc: ForecastContractError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+
+
+@app.exception_handler(ForecastGraphError)
+def forecast_graph_error_handler(_request, exc: ForecastGraphError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
 
 
@@ -352,6 +360,50 @@ def approve_contract(
     return forecast_contract_from_row(row).model_dump(mode="json")
 
 
+@app.post("/api/contracts/{contract_id}/graph")
+def generate_graph(contract_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    contract_row = db.get(ForecastContractRow, contract_id)
+    if contract_row is None:
+        raise HTTPException(404, "Forecast Contract not found")
+    if contract_row.status != "approved":
+        raise ForecastGraphError(
+            ["approved_forecast_contract_required"],
+            "Approve the Forecast Contract before generating a Forecast Graph",
+        )
+
+    existing = db.scalar(
+        select(ForecastGraphRow)
+        .where(
+            ForecastGraphRow.contract_id == contract_id,
+            ForecastGraphRow.status == "approved",
+        )
+        .order_by(ForecastGraphRow.version.desc())
+        .limit(1)
+    )
+    if existing is not None:
+        return forecast_graph_from_row(existing).model_dump(mode="json")
+
+    latest_version = db.scalar(
+        select(func.max(ForecastGraphRow.version)).where(ForecastGraphRow.contract_id == contract_id)
+    )
+    generator = build_graph_generator(contract_row.question)
+    graph = generator.generate(
+        forecast_contract_from_row(contract_row),
+        version=int(latest_version or 0) + 1,
+    )
+    row = store_forecast_graph(db, graph)
+    db.commit()
+    return forecast_graph_from_row(row).model_dump(mode="json")
+
+
+@app.get("/api/graphs/{graph_id}")
+def get_graph(graph_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    row = db.get(ForecastGraphRow, graph_id)
+    if row is None:
+        raise HTTPException(404, "Forecast Graph not found")
+    return forecast_graph_from_row(row).model_dump(mode="json")
+
+
 @app.get("/api/execution/preview")
 def execution_preview(profile_id: str = "three_track_ensemble", mode: str = "demo", as_of: str | None = None) -> dict[str, Any]:
     ready = readiness(provider_settings_from_secrets())
@@ -447,13 +499,22 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
-    if question.forecast_contracts and not any(
-        contract.status == "approved" for contract in question.forecast_contracts
-    ):
-        raise ForecastContractError(
-            ["approved_forecast_contract_required"],
-            "Approve the Forecast Contract before research begins",
-        )
+    if question.forecast_contracts:
+        approved_contracts = [contract for contract in question.forecast_contracts if contract.status == "approved"]
+        if not approved_contracts:
+            raise ForecastContractError(
+                ["approved_forecast_contract_required"],
+                "Approve the Forecast Contract before research begins",
+            )
+        if not any(
+            graph.status == "approved"
+            for contract in approved_contracts
+            for graph in contract.forecast_graphs
+        ):
+            raise ForecastGraphError(
+                ["approved_forecast_graph_required"],
+                "Generate an approved Forecast Graph before research begins",
+            )
     question.requested_mode = body.mode
     question.requested_profile_id = body.profile_id
     question.requested_as_of = body.as_of

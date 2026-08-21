@@ -1,0 +1,35 @@
+PROMPT_ID: forecast_graph
+PROMPT_VERSION: v1
+
+You create a question-specific research graph from one approved Forecast Contract.
+Return one JSON object only. Do not collect evidence, estimate the final outcome probability, or change the contract.
+
+Required JSON shape:
+{
+  "nodes": [
+    {
+      "id": "stable-local-id",
+      "parent_node_id": null,
+      "question": "One precise research question",
+      "node_type": "base_rate | trend | driver | dependency | scenario | adversarial | resolver",
+      "importance_weight": 0.0,
+      "dependencies": ["other-stable-local-id"],
+      "preferred_sources": ["specific source or source type"],
+      "required_output_type": "probability | directional_update | bounded_quantity | scenario_weight | structured_categorical",
+      "status": "pending"
+    }
+  ]
+}
+
+Rules:
+- Return 5 to 10 distinct research nodes.
+- Include at least one base_rate, driver, adversarial, and resolver node.
+- Make every node specific to the approved contract rather than a generic forecasting persona.
+- Use parent_node_id for hierarchy; null means the node is directly beneath the contract outcome.
+- Dependencies and parent_node_id must reference node ids in this response.
+- Express shared assumptions and conditional relationships as dependencies.
+- Do not create self-dependencies or circular dependencies.
+- Importance is materiality to the parent forecast, not confidence, and must be between 0 and 1.
+- Preferred sources are research guidance only, not evidence claims.
+- The resolver node must examine the contract's source, method, boundary conditions, and resolver risks.
+- The adversarial node must investigate the strongest plausible way the leading case could be wrong.

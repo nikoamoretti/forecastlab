@@ -24,6 +24,30 @@ type ForecastContract = {
   status: "draft" | "approved" | "superseded";
 };
 
+type ForecastNode = {
+  id: string;
+  graph_id: string;
+  parent_node_id: string | null;
+  question: string;
+  node_type: "base_rate" | "trend" | "driver" | "dependency" | "scenario" | "adversarial" | "resolver";
+  importance_weight: number;
+  dependencies: string[];
+  preferred_sources: string[];
+  required_output_type: string;
+  status: "pending" | "completed" | "failed";
+};
+
+type ForecastGraph = {
+  id: string;
+  contract_id: string;
+  version: number;
+  status: "draft" | "approved" | "superseded";
+  created_at: string;
+  generation_model: string;
+  root_question: string;
+  nodes: ForecastNode[];
+};
+
 type Preview = {
   ready: boolean;
   reasons?: string[];
@@ -53,8 +77,9 @@ export default function NewQuestionPage() {
   const [profiles, setProfiles] = useState<Array<{ id: string; label: string }>>([]);
   const [asOf, setAsOf] = useState("");
   const [preview, setPreview] = useState<Preview | null>(null);
-  const [step, setStep] = useState<"ask" | "contract">("ask");
+  const [step, setStep] = useState<"ask" | "contract" | "graph">("ask");
   const [contract, setContract] = useState<ForecastContract | null>(null);
+  const [graph, setGraph] = useState<ForecastGraph | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -99,7 +124,7 @@ export default function NewQuestionPage() {
     }
   }
 
-  async function approveAndRun(event: React.FormEvent) {
+  async function approveAndGenerateGraph(event: React.FormEvent) {
     event.preventDefault();
     if (!contract) return;
     if (preview && !preview.ready) {
@@ -109,7 +134,7 @@ export default function NewQuestionPage() {
     setBusy(true);
     setError(null);
     try {
-      await api(`/api/contracts/${contract.id}/approve`, {
+      const approved = await api<ForecastContract>(`/api/contracts/${contract.id}/approve`, {
         method: "POST",
         body: JSON.stringify({
           normalized_question: contract.normalized_question,
@@ -127,6 +152,29 @@ export default function NewQuestionPage() {
           known_dependencies: contract.known_dependencies
         })
       });
+      setContract(approved);
+      const generatedGraph = await api<ForecastGraph>(`/api/contracts/${contract.id}/graph`, {
+        method: "POST"
+      });
+      setGraph(generatedGraph);
+      setStep("graph");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not approve contract and generate Research Graph");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function launchRun(event: React.FormEvent) {
+    event.preventDefault();
+    if (!contract || !graph) return;
+    if (preview && !preview.ready) {
+      setError(preview.detail || "Selected mode is not ready");
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
       await api(`/api/questions/${contract.question_id}/runs`, {
         method: "POST",
         body: JSON.stringify({
@@ -137,21 +185,75 @@ export default function NewQuestionPage() {
       });
       router.push(`/forecasts/${contract.question_id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not approve and start run");
+      setError(err instanceof Error ? err.message : "Could not start run");
       setBusy(false);
     }
   }
 
   const launchLabel =
     mode === "live"
-      ? "Approve contract and launch live run"
+      ? "Launch live run"
       : mode === "backtest"
-        ? "Approve contract and launch backtest"
-        : "Approve contract and launch mock run";
+        ? "Launch backtest"
+        : "Launch mock run";
+
+  if (step === "graph" && contract && graph) {
+    const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+    return (
+      <form onSubmit={launchRun} className="mx-auto max-w-4xl space-y-6">
+        <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Research Graph</p>
+        <h2 className="font-serif text-4xl">Review the research plan before forecasting starts.</h2>
+        {error ? <p className="text-copper">{error}</p> : null}
+        <section className="border border-rule bg-white p-5">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">Forecast Contract</p>
+          <p className="mt-2 font-serif text-2xl">{graph.root_question}</p>
+          <p className="mt-3 text-sm text-ink/70">Yes: {contract.yes_condition}</p>
+          <p className="mt-1 text-sm text-ink/70">No: {contract.no_condition}</p>
+        </section>
+        <p aria-hidden="true" className="text-center text-2xl text-copper">↓</p>
+        <section>
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 className="font-serif text-3xl">Research Graph</h3>
+            <p className="font-mono text-xs uppercase tracking-[0.16em]">{graph.nodes.length} nodes</p>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {graph.nodes.map((node) => {
+              const relationships = [
+                ...(node.parent_node_id ? [`Parent: ${nodesById.get(node.parent_node_id)?.node_type || "node"}`] : []),
+                ...node.dependencies.map(
+                  (dependencyId) => `Depends on: ${nodesById.get(dependencyId)?.node_type || "node"}`
+                )
+              ];
+              return (
+                <article key={node.id} className="border border-rule bg-white/70 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-mono text-xs uppercase tracking-[0.16em] text-copper">
+                      {node.node_type.replace("_", " ")}
+                    </p>
+                    <p className="text-xs">Importance {Math.round(node.importance_weight * 100)}%</p>
+                  </div>
+                  <p className="mt-3 text-sm leading-6">{node.question}</p>
+                  <p className="mt-3 text-xs text-ink/60">
+                    {relationships.length ? relationships.join(" · ") : "Directly beneath the forecast outcome"}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+        <button
+          disabled={busy || Boolean(preview && !preview.ready)}
+          className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
+        >
+          {busy ? "Starting…" : launchLabel}
+        </button>
+      </form>
+    );
+  }
 
   if (step === "contract" && contract) {
     return (
-      <form onSubmit={approveAndRun} className="mx-auto max-w-3xl space-y-6">
+      <form onSubmit={approveAndGenerateGraph} className="mx-auto max-w-3xl space-y-6">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Forecast Contract</p>
         <h2 className="font-serif text-4xl">Review the contract before research starts.</h2>
         {error ? <p className="text-copper">{error}</p> : null}
@@ -184,7 +286,7 @@ export default function NewQuestionPage() {
           disabled={busy || Boolean(preview && !preview.ready)}
           className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
         >
-          {busy ? "Starting…" : launchLabel}
+          {busy ? "Generating graph…" : "Approve and generate Research Graph"}
         </button>
       </form>
     );

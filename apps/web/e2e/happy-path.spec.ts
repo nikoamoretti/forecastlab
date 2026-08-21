@@ -12,7 +12,16 @@ test("mock happy path", async ({ page }) => {
   await expect(page.getByText("Yes means")).toBeVisible();
   await expect(page.getByText("No means")).toBeVisible();
   await expect(page.getByText("Resolution source")).toBeVisible();
-  await page.getByRole("button", { name: /Approve contract and launch mock run/i }).click();
+  await page.getByRole("button", { name: /Approve and generate Research Graph/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the research plan/i })).toBeVisible({
+    timeout: 30000
+  });
+  await expect(page.getByRole("heading", { name: "Research Graph", exact: true })).toBeVisible();
+  await expect(page.getByText("base rate", { exact: true })).toBeVisible();
+  await expect(page.getByText("adversarial", { exact: true })).toBeVisible();
+  await expect(page.getByText("resolver", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Importance 90%/i)).toBeVisible();
+  await page.getByRole("button", { name: /Launch mock run/i }).click();
   await expect(page.getByText("Ensemble estimate")).toBeVisible({ timeout: 120000 });
   await expect(page.getByText("37.4%").first()).toBeVisible({ timeout: 120000 });
   await expect(page.getByText("DEMO", { exact: true })).toBeVisible();

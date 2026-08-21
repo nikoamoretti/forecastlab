@@ -50,6 +50,8 @@ REQUIRED_TABLES = {
     "forecast_run_attempts",
     "provider_call_ledger",
     "forecast_contracts",
+    "forecast_graphs",
+    "forecast_nodes",
 }
 
 
@@ -131,7 +133,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260821_0007"
+        assert current == "20260821_0008"
 
 
 def _assert_uniqueness(engine: Engine) -> None:
@@ -206,8 +208,10 @@ def test_forecast_contract_migration_preserves_existing_resolution_contracts(
             {"id": CONTRACT_ID},
         ).scalar_one()
         new_count = connection.execute(text("SELECT COUNT(*) FROM forecast_contracts")).scalar_one()
+        graph_count = connection.execute(text("SELECT COUNT(*) FROM forecast_graphs")).scalar_one()
     assert legacy_count == 1
     assert new_count == 0
+    assert graph_count == 0
     assert "resolution_method" in {
         column["name"] for column in inspect(engine).get_columns("forecast_contracts")
     }
