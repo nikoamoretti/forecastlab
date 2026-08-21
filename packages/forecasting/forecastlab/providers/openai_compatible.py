@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import uuid
-from typing import Any
+from typing import Any, Literal
 
 import httpx
 
@@ -16,10 +16,29 @@ from forecastlab.schemas import ModelUsage
 
 DEFAULT_XAI_BASE = "https://api.x.ai/v1"
 DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
+_OPENAI_MAX_COMPLETION_TOKEN_PREFIXES = ("gpt-5", "o1", "o3", "o4")
+_OPENAI_NO_TEMPERATURE_PREFIXES = _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES
 
 
 class ProviderError(PermanentProviderError):
     pass
+
+
+def _is_openai_model_family(provider_id: str, model: str, prefixes: tuple[str, ...]) -> bool:
+    return provider_id.strip().lower() == "openai" and model.strip().lower().startswith(prefixes)
+
+
+def _completion_limit_field(
+    provider_id: str,
+    model: str,
+) -> Literal["max_tokens", "max_completion_tokens"]:
+    if _is_openai_model_family(provider_id, model, _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES):
+        return "max_completion_tokens"
+    return "max_tokens"
+
+
+def _supports_temperature(provider_id: str, model: str) -> bool:
+    return not _is_openai_model_family(provider_id, model, _OPENAI_NO_TEMPERATURE_PREFIXES)
 
 
 def _usage_from_response(
@@ -102,15 +121,16 @@ class OpenAICompatibleProvider:
         }
         body: dict[str, Any] = {
             "model": self.model,
-            "temperature": temperature,
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
         }
+        if _supports_temperature(self.provider_id, self.model):
+            body["temperature"] = temperature
         if max_output_tokens is not None:
-            body["max_tokens"] = max_output_tokens
+            body[_completion_limit_field(self.provider_id, self.model)] = max_output_tokens
         reserved_in = max(0, int(estimated_input_tokens or 0))
         reserved_out = max(0, int(max_output_tokens or 0))
         reserved_cost = estimate_call_cost(
