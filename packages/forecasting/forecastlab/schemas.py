@@ -348,6 +348,10 @@ class ForecastProfile(BaseModel):
     label: str
     description: str
     execution_strategy: ForecastExecutionStrategy = "legacy_tracks"
+    graph_generation_enabled: bool = False
+    evidence_claims_enabled: bool = False
+    node_forecasting_enabled: bool = False
+    graph_aggregation_enabled: bool = False
     tracks: list[TrackType]
     subquestions_per_track: int = 4
     search_results_per_subquestion: int = 3

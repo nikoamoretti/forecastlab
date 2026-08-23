@@ -7,6 +7,20 @@ class ConfigurationError(ValueError):
         super().__init__(message or "; ".join(reasons))
 
 
+class GraphForecastExecutionError(ConfigurationError):
+    """A permanent, audit-recorded failure in the graph forecaster pipeline."""
+
+    def __init__(
+        self,
+        reasons: list[str],
+        *,
+        stage: str,
+        message: str | None = None,
+    ) -> None:
+        self.stage = stage
+        super().__init__(reasons, message or f"Graph forecast execution failed at {stage}: {'; '.join(reasons)}")
+
+
 class PermanentProviderError(RuntimeError):
     pass
 

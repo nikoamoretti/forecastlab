@@ -196,3 +196,50 @@ def test_v1_report_renders_first_class_log_odds_aggregation() -> None:
     assert "### Node contributions" in markdown
     assert "Weighted log-odds contribution: -0.619039208406" in markdown
     assert "What is the historical base rate?: p=0.35, weight=1.0" in markdown
+
+
+def test_v1_report_exposes_incomplete_graph_execution_without_probability() -> None:
+    run = {
+        "profile_id": "graph_forecaster_v1",
+        "status": "failed",
+        "forecast_contract": {"id": "contract-1", "status": "approved"},
+        "forecast_graph": {
+            "id": "graph-1",
+            "status": "approved",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What is the base rate?",
+                    "node_type": "base_rate",
+                    "importance_weight": 1.0,
+                }
+            ],
+        },
+        "node_runs": [],
+        "evidence_claims": [],
+        "aggregation": {},
+        "graph_execution_failures": [
+            {
+                "node_id": "node-a",
+                "stage": "node_forecast",
+                "error_code": "no_eligible_evidence",
+                "error_message": "node_forecast_evidence_required",
+            }
+        ],
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    assert report["final_probability"] is None
+    assert report["nodes"][0]["forecast_status"] == "failed"
+    assert report["nodes"][0]["failures"][0]["error_code"] == "no_eligible_evidence"
+    assert report["final_answer"] == {
+        "status": "failed",
+        "probability": None,
+        "statement": "No final probability was produced because graph execution was incomplete.",
+    }
+    markdown = "\n".join(v1_report_markdown(report))
+    assert "### Execution failures" in markdown
+    assert "no_eligible_evidence" in markdown
+    assert "### Final answer" in markdown

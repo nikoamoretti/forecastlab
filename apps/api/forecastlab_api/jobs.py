@@ -214,6 +214,7 @@ def error_category(exc: Exception) -> str:
         "BudgetExceeded",
         "StructuredOutputError",
         "ExperimentEnvironmentMismatch",
+        "GraphForecastExecutionError",
     }:
         return name
     return "PermanentProviderError"

@@ -25,11 +25,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "evidence_claims" in tables
     assert "forecast_node_runs" in tables
     assert "forecast_aggregations" in tables
+    assert "graph_execution_failures" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0014"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -59,6 +60,17 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "node_contributions_json",
             "created_at",
         } <= aggregation_cols
+        failure_cols = {
+            column["name"] for column in inspect(engine).get_columns("graph_execution_failures")
+        }
+        assert {
+            "forecast_run_id",
+            "node_id",
+            "stage",
+            "error_code",
+            "error_message",
+            "created_at",
+        } <= failure_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -70,7 +82,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0014"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:

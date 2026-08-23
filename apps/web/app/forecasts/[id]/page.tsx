@@ -99,6 +99,10 @@ export default function ForecastPage() {
     "importance_weighted_log_odds_v1"
   ].includes(aggregationMethod);
   const logOddsAggregation = aggregationMethod === "importance_weighted_log_odds_v1";
+  const graphExecutionFailed = v1Report?.execution_status === "failed";
+  const displayedProbability = graphExecutionFailed
+    ? null
+    : v1Report?.final_probability ?? data.latest_probability;
   const finalCalculationStep = [...calculationTrace].reverse().find((item: any) => item.step === "final") || {};
 
   return (
@@ -120,10 +124,12 @@ export default function ForecastPage() {
         <div className="border border-rule bg-white/60 p-5">
           <p className="font-mono text-xs uppercase tracking-[0.2em]">Ensemble estimate</p>
           <p className="font-serif text-6xl leading-none">
-            {pct(v1Report?.final_probability ?? data.latest_probability)}
+            {pct(displayedProbability)}
           </p>
           <p className="mt-3 text-sm">
-            {logOddsAggregation
+            {graphExecutionFailed
+              ? "No probability was produced because graph execution was incomplete."
+              : logOddsAggregation
               ? "Deterministic importance-weighted log odds. Not a calibrated probability."
               : graphAggregation
               ? "Deterministic dependency-aware weighted mean. Not a calibrated probability."
@@ -346,7 +352,7 @@ export default function ForecastPage() {
         </section>
       ) : null}
 
-      {v1Report && graphAggregation ? (
+      {v1Report && (graphAggregation || graphExecutionFailed) ? (
         <section className="space-y-5" aria-label="V1 Forecast Graph report">
           <div>
             <h3 className="font-serif text-2xl">Forecast Graph report</h3>
@@ -357,7 +363,13 @@ export default function ForecastPage() {
             </p>
           </div>
           <p className="mt-2 text-sm text-ink/70">
-            Final calculation: {aggregation.formula || "Weighted node contributions are summed deterministically."}
+            {graphExecutionFailed
+              ? "Final calculation unavailable because the graph run was incomplete."
+              : `Final calculation: ${
+                  reportCalculation.formula ||
+                  aggregation.formula ||
+                  "Weighted node contributions are summed deterministically."
+                }`}
           </p>
           <div className="grid gap-4">
             {reportNodes.map((node: any) => (
@@ -368,6 +380,15 @@ export default function ForecastPage() {
                       {String(node.node_type || "node").replace("_", " ")}
                     </p>
                     <h4 className="mt-2 font-serif text-xl">{node.question}</h4>
+                    {node.failures?.length ? (
+                      <ul className="mt-3 space-y-1 text-sm text-red-800">
+                        {node.failures.map((failure: any) => (
+                          <li key={failure.id || `${failure.stage}-${failure.error_code}`}>
+                            {failure.stage}: {failure.error_code}. {failure.error_message}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                     <p className="mt-3 text-sm leading-relaxed">{node.reasoning || "No node reasoning was produced."}</p>
                     <p className="mt-2 font-mono text-xs text-ink/60">Model: {node.model_used || "not recorded"}</p>
                     <div className="mt-3 text-sm">
@@ -450,20 +471,22 @@ export default function ForecastPage() {
               </article>
             ))}
           </div>
-          <p className="mt-3 text-sm">
-            {logOddsAggregation ? (
+          {v1Report.final_probability != null ? (
+            <p className="mt-3 text-sm">
+              {logOddsAggregation ? (
               <>
                 Combined log odds {Number(finalCalculationStep.combined_log_odds).toFixed(6)} → final probability{" "}
                 {Number(v1Report.final_probability).toFixed(6)}
               </>
-            ) : (
+              ) : (
               <>
                 Sum of contributions {Number(aggregation.unbounded_probability).toFixed(6)} → final probability{" "}
                 {Number(aggregation.final_probability).toFixed(6)}
               </>
-            )}
-          </p>
-          <div>
+              )}
+            </p>
+          ) : null}
+          {calculationTrace.length ? <div>
             <h4 className="font-serif text-xl">Calculation trace</h4>
             <table className="mt-3 w-full text-left text-sm">
               <thead>
@@ -504,6 +527,12 @@ export default function ForecastPage() {
                 })}
               </tbody>
             </table>
+          </div> : null}
+          <div>
+            <h4 className="font-serif text-xl">Final answer</h4>
+            <p className="mt-2 text-sm">
+              {v1Report.final_answer?.statement || "No final answer was produced."}
+            </p>
           </div>
         </section>
       ) : null}

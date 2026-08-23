@@ -19,6 +19,7 @@ from forecastlab.schemas import (
 )
 from forecastlab_api.models import (
     EvidenceClaimRow,
+    ForecastAggregationRow,
     ForecastGraphRow,
     ForecastNodeRunRow,
     ForecastVersion,
@@ -227,6 +228,11 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
         assert version is not None
         assert version.ensemble_probability is not None
         assert version.trigger_event == "graph_forecaster_v1"
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run_id)
+        )
+        assert aggregation is not None
+        assert aggregation.final_probability == version.ensemble_probability
 
     node_runs = client.get(f"/api/forecasts/{draft['question_id']}/node-runs")
     assert node_runs.status_code == 200
@@ -246,7 +252,8 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert len(latest["evidence_claims"]) == 7
     assert latest["forecast_contract"]["status"] == "approved"
     assert latest["forecast_graph"]["status"] == "approved"
-    assert latest["aggregation"]["method"] == "dependency_discounted_weighted_mean_v1"
+    assert latest["aggregation"]["method"] == "importance_weighted_log_odds_v1"
+    assert latest["forecast_aggregation"]["method"] == "importance_weighted_log_odds_v1"
     assert latest["aggregation"]["calculation_trace"][-1]["step"] == "final"
     v1_report = report["v1_report"]
     assert v1_report["final_probability"] == report["latest_probability"]
@@ -260,7 +267,7 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
 
     markdown = client.get(f"/api/questions/{draft['question_id']}/export.md").text
     assert "Normalized weight:" in markdown
-    assert "Probability contribution:" in markdown
+    assert "Weighted log-odds contribution:" in markdown
     assert "Supporting evidence:" in markdown
     assert "Uncertainty:" in markdown
     assert "Model used: mock:mock-forecast-v1" in markdown

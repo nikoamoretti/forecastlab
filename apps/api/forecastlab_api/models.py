@@ -137,6 +137,7 @@ class ForecastNodeRow(Base):
     graph: Mapped[ForecastGraphRow] = relationship(back_populates="nodes")
     evidence_claims: Mapped[list[EvidenceClaimRow]] = relationship(back_populates="forecast_node")
     runs: Mapped[list[ForecastNodeRunRow]] = relationship(back_populates="node")
+    execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(back_populates="node")
 
 
 class ForecastRun(Base):
@@ -190,6 +191,9 @@ class ForecastRun(Base):
     aggregation: Mapped[ForecastAggregationRow | None] = relationship(
         back_populates="forecast_run",
         uselist=False,
+    )
+    graph_execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(
+        back_populates="forecast_run"
     )
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="run")
 
@@ -337,6 +341,23 @@ class ForecastAggregationRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="aggregation")
+
+
+class GraphExecutionFailureRow(Base):
+    """A durable stage or node failure that prevented a graph forecast probability."""
+
+    __tablename__ = "graph_execution_failures"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    node_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_nodes.id"), nullable=True)
+    stage: Mapped[str] = mapped_column(String(64))
+    error_code: Mapped[str] = mapped_column(String(128))
+    error_message: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    forecast_run: Mapped[ForecastRun] = relationship(back_populates="graph_execution_failures")
+    node: Mapped[ForecastNodeRow | None] = relationship(back_populates="execution_failures")
 
 
 class ForecastVersion(Base):

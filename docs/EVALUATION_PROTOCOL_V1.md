@@ -81,11 +81,13 @@ Their required roles are:
 | `three_track_equal_budget` | Measures independent base-rate, current-evidence, and skeptic tracks under the same total ceiling as the single-agent comparison. | Implemented profile: `three_track_equal_budget_v1`. |
 | `hierarchical_forecaster` | Measures the V1 subforecast-graph and scenario method under a pre-registered total ceiling. | Experimental framework profile: `graph_forecaster_v1`; not validated as the required final configuration. |
 
-The current `three_track_forecaster` versus `graph_forecaster_v1` comparison uses ten synthetic questions and is a software-verification experiment, not a V1-complete comparison.
+The current `three_track_forecaster` versus `graph_forecaster_v1` comparison uses ten synthetic questions and is a software-verification experiment, not a V1-complete comparison. The graph profile now executes the complete Contract, Graph, Evidence Claim, Node Forecast, Graph Aggregation, Forecast Version, and report lifecycle.
 
 ### Fairness controls
 
 All configurations must receive the same frozen question and resolution contract, forecast cutoff, outcome, model family and version, provider identity, and evidence-eligibility policy unless one of those is the pre-registered treatment. The single-agent, three-track, and hierarchical research configurations must have equal total ceilings for model calls, search calls, fetched documents, tokens, estimated cost, and wall-clock time.
+
+The dedicated ten-question software-verification workflow enforces these controls for its two selected profiles: paired tasks use equivalent question and resolution-contract content, the same per-question forecast cutoff, the same provider and evidence-policy snapshots, and equal total ceilings. Profiles may consume different amounts within those ceilings; cost, latency, and completion remain measured outcomes.
 
 The model-only baseline has no search or fetch access by definition. Its lower resource use must be reported, not artificially spent. Equal ceilings do not imply equal actual cost, latency, or completion; those are measured outcomes.
 
@@ -105,6 +107,8 @@ Metrics are reported per configuration and for paired comparisons. Brier score i
 | Sharpness | Measures how concentrated forecasts are away from an uninformative 0.50. Greater sharpness is useful only when calibration and accuracy are maintained. |
 
 Quality metrics must be shown for all valid probabilities and separately for full forecasts. Partial forecasts must remain labeled. Failed forecasts have no invented probability and remain visible through completion and failure metrics.
+
+For `graph_forecaster_v1`, every frozen graph node must produce an eligible node forecast before aggregation. Missing evidence, a failed or invalid node forecast, or aggregation failure makes the run failed. Completed node work and structured failure records remain auditable, but the evaluator must not renormalize a subset or assign a fallback probability.
 
 ### Operational
 
@@ -203,4 +207,4 @@ Results must be labeled development, validation, test, or prospective. Synthetic
 
 ## Current limitations
 
-ForecastLab has not yet assembled the required real split corpus or implemented and validated the required hierarchical configuration. Existing reliability displays use a minimum sample gate, but that gate is not evidence of calibration. Evidence-cutoff backtests cannot eliminate knowledge embedded in model weights. Until the full protocol is completed, methodology claims remain hypotheses.
+ForecastLab has not yet assembled the required real split corpus or validated the experimental graph configuration as the required hierarchical method. The current aggregator is a simple importance-weighted log-odds rule; it displays dependencies but does not model them probabilistically or synthesize scenarios. Existing reliability displays use a minimum sample gate, but that gate is not evidence of calibration. Evidence-cutoff backtests cannot eliminate knowledge embedded in model weights. Until the full protocol is completed, methodology claims remain hypotheses.

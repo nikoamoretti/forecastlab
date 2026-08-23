@@ -8,7 +8,7 @@ from typing import Any
 
 from forecastlab.budget import Budget, estimate_prompt_tokens
 from forecastlab.engine import ProgressFn
-from forecastlab.errors import BudgetExceeded, StructuredOutputError
+from forecastlab.errors import BudgetExceeded, PermanentProviderError, StructuredOutputError
 from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.graph_aggregation import METHOD as GRAPH_AGGREGATION_METHOD
@@ -48,6 +48,7 @@ class ForecastNodeExecution:
     claims: list[EvidenceClaim] = field(default_factory=list)
     claim_extraction_errors: list[str] = field(default_factory=list)
     error: str | None = None
+    error_stage: str | None = None
 
 
 @dataclass
@@ -63,6 +64,21 @@ class GraphEngineResult:
     stop_stage: str | None
     fixture_evidence_used: bool = False
     partial: bool = False
+
+
+@dataclass
+class GraphNodeForecastResult:
+    """Research and node-level forecasts before any graph aggregation policy is applied."""
+
+    contract: ForecastContract
+    graph: ForecastGraph
+    nodes: list[ForecastNodeExecution]
+    prompt_versions: dict[str, str]
+    budget: dict[str, Any]
+    stopped_early: bool
+    stop_reason: str | None
+    stop_stage: str | None
+    fixture_evidence_used: bool = False
 
 
 class _BudgetedModel:
@@ -339,7 +355,7 @@ def _forecast_node(
     return forecaster.forecast(contract=contract, node=node, claims=claims)
 
 
-def run_graph_forecast_engine(
+def run_graph_node_forecasts(
     *,
     contract: ForecastContract,
     graph: ForecastGraph,
@@ -359,14 +375,13 @@ def run_graph_forecast_engine(
     pricing_catalog: dict[str, Any] | None = None,
     prior_elapsed_seconds: float = 0.0,
     persist_research: ResearchPersistFn | None = None,
-) -> GraphEngineResult:
-    """Run the opt-in Contract -> Graph -> Claims -> Node forecast pipeline."""
+    capture_node_failures: bool = False,
+) -> GraphNodeForecastResult:
+    """Run Contract -> Graph -> Claims -> Node forecasts without aggregating them."""
 
     profile = profile or load_profile(profile_id)
     if profile.execution_strategy != "graph_nodes":
         raise ValueError("graph_execution_strategy_required")
-    if profile.aggregation_method != GRAPH_AGGREGATION_METHOD:
-        raise ValueError("graph_aggregation_method_required")
     if contract.status != "approved":
         raise ValueError("approved_forecast_contract_required")
     if graph.status != "approved" or graph.contract_id != contract.id:
@@ -410,6 +425,11 @@ def run_graph_forecast_engine(
     for index, node in enumerate(ordered_nodes):
         pct = 0.15 + 0.65 * (index / max(1, len(ordered_nodes)))
         _emit(progress, "node_research", f"Researching graph node {index + 1} of {len(ordered_nodes)}", pct)
+        evidence: list[dict[str, Any]] = []
+        rejected: list[dict[str, Any]] = []
+        claims: list[EvidenceClaim] = []
+        extraction_errors: list[str] = []
+        stage = "node_research"
         try:
             evidence, rejected, claims, extraction_errors = _research_node(
                 node=node,
@@ -426,6 +446,7 @@ def run_graph_forecast_engine(
             )
             if persist_research is not None:
                 persist_research(node, evidence, rejected, claims)
+            stage = "node_forecast"
             _emit(progress, "node_forecast", f"Forecasting graph node {index + 1} of {len(ordered_nodes)}", pct + 0.05)
             node_forecast = _forecast_node(
                 contract=contract,
@@ -461,25 +482,159 @@ def run_graph_forecast_engine(
                 )
             )
         except BudgetExceeded as exc:
-            results.append(ForecastNodeExecution(node=node, node_run=None, error=str(exc)))
+            results.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=None,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    error=str(exc),
+                    error_stage=exc.stage,
+                )
+            )
             stopped = True
             _emit(progress, "budget", f"Stopped early: {exc.reason}", 0.82, {"stage": exc.stage})
             break
+        except StructuredOutputError as exc:
+            if not capture_node_failures or stage != "node_forecast":
+                raise
+            results.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=None,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    error=str(exc),
+                    error_stage=stage,
+                )
+            )
+            _emit(
+                progress,
+                "node_failed",
+                f"Node forecast {index + 1} failed validation",
+                pct + 0.05,
+                {"node_id": node.id, "error": str(exc)},
+            )
+        except PermanentProviderError as exc:
+            if not capture_node_failures:
+                raise
+            results.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=None,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    error=str(exc),
+                    error_stage=stage,
+                )
+            )
+            _emit(
+                progress,
+                "node_failed",
+                f"Graph node {index + 1} failed permanently",
+                pct + 0.05,
+                {"node_id": node.id, "stage": stage, "error": str(exc)},
+            )
 
     completed_ids = {item.node.id for item in results}
     for node in ordered_nodes:
         if node.id not in completed_ids:
-            results.append(ForecastNodeExecution(node=node, node_run=None, error="not_run_after_budget_stop"))
+            results.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=None,
+                    error="not_run_after_budget_stop",
+                    error_stage="budget",
+                )
+            )
+    all_urls = [
+        item.get("url") or ""
+        for result in results
+        for item in result.evidence + result.rejected
+    ]
+    fixture_used = any("fixtures.forecastlab.local" in url for url in all_urls if url)
+    if execution is not None and execution.effective_mode == "live":
+        assert_no_fixture_evidence(all_urls, live=True)
+
+    return GraphNodeForecastResult(
+        contract=contract,
+        graph=graph,
+        nodes=results,
+        prompt_versions=prompt_versions,
+        budget=budget.snapshot(),
+        stopped_early=stopped or budget.state.stopped,
+        stop_reason=budget.state.stop_reason,
+        stop_stage=budget.state.stop_stage,
+        fixture_evidence_used=fixture_used,
+    )
+
+
+def run_graph_forecast_engine(
+    *,
+    contract: ForecastContract,
+    graph: ForecastGraph,
+    profile_id: str,
+    mode: str,
+    as_of: datetime | None,
+    model: ModelProvider,
+    search: SearchProvider,
+    run_id: str,
+    allow_local_fixtures: bool = True,
+    progress: ProgressFn | None = None,
+    profile: ForecastProfile | None = None,
+    execution: ExecutionContext | None = None,
+    prompt_bundle: PromptBundle | None = None,
+    cache: RunCache | None = None,
+    ledger: UsageLedger | None = None,
+    pricing_catalog: dict[str, Any] | None = None,
+    prior_elapsed_seconds: float = 0.0,
+    persist_research: ResearchPersistFn | None = None,
+) -> GraphEngineResult:
+    """Run the original opt-in graph path with its existing aggregation policy."""
+
+    effective_profile = profile or load_profile(profile_id)
+    if effective_profile.aggregation_method != GRAPH_AGGREGATION_METHOD:
+        raise ValueError("graph_aggregation_method_required")
+    node_result = run_graph_node_forecasts(
+        contract=contract,
+        graph=graph,
+        profile_id=profile_id,
+        mode=mode,
+        as_of=as_of,
+        model=model,
+        search=search,
+        run_id=run_id,
+        allow_local_fixtures=allow_local_fixtures,
+        progress=progress,
+        profile=effective_profile,
+        execution=execution,
+        prompt_bundle=prompt_bundle,
+        cache=cache,
+        ledger=ledger,
+        pricing_catalog=pricing_catalog,
+        prior_elapsed_seconds=prior_elapsed_seconds,
+        persist_research=persist_research,
+    )
 
     probabilities = {
         item.node.id: item.node_run.probability if item.node_run is not None else None
-        for item in results
+        for item in node_result.nodes
     }
-    failures = {item.node.id: item.error or "node_failed" for item in results if item.node_run is None}
+    failures = {
+        item.node.id: item.error or "node_failed"
+        for item in node_result.nodes
+        if item.node_run is None
+    }
     _emit(progress, "aggregate", "Aggregating node probabilities with graph weights", 0.86)
     aggregation = aggregate_graph_probabilities(graph, probabilities, failed_nodes=failures)
     contribution_by_node = {item.node_id: item for item in aggregation.contributions}
-    for item in results:
+    for item in node_result.nodes:
         if item.node_run is None:
             continue
         contribution = contribution_by_node[item.node.id]
@@ -493,25 +648,16 @@ def run_graph_forecast_engine(
         )
 
     _emit(progress, "report", "Preparing the graph forecast report", 0.96)
-    all_urls = [
-        item.get("url") or ""
-        for result in results
-        for item in result.evidence + result.rejected
-    ]
-    fixture_used = any("fixtures.forecastlab.local" in url for url in all_urls if url)
-    if execution is not None and execution.effective_mode == "live":
-        assert_no_fixture_evidence(all_urls, live=True)
-
     return GraphEngineResult(
-        contract=contract,
-        graph=graph,
-        nodes=results,
+        contract=node_result.contract,
+        graph=node_result.graph,
+        nodes=node_result.nodes,
         aggregation=aggregation,
-        prompt_versions=prompt_versions,
-        budget=budget.snapshot(),
-        stopped_early=stopped or budget.state.stopped,
-        stop_reason=budget.state.stop_reason,
-        stop_stage=budget.state.stop_stage,
-        fixture_evidence_used=fixture_used,
+        prompt_versions=node_result.prompt_versions,
+        budget=node_result.budget,
+        stopped_early=node_result.stopped_early,
+        stop_reason=node_result.stop_reason,
+        stop_stage=node_result.stop_stage,
+        fixture_evidence_used=node_result.fixture_evidence_used,
         partial=bool(failures) and aggregation.ensemble_probability is not None,
     )

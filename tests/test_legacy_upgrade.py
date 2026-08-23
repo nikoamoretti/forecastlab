@@ -55,6 +55,7 @@ REQUIRED_TABLES = {
     "evidence_claims",
     "forecast_node_runs",
     "forecast_aggregations",
+    "graph_execution_failures",
 }
 
 
@@ -138,7 +139,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260823_0014"
+        assert current == "20260823_0015"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

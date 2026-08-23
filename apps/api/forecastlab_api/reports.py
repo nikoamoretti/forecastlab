@@ -47,6 +47,12 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         if node_id:
             claims_by_node.setdefault(node_id, []).append(claim)
     node_runs_by_id = {str(item.get("node_id")): item for item in node_runs if item.get("node_id")}
+    failures = run.get("graph_execution_failures") or []
+    failures_by_node: dict[str, list[dict[str, Any]]] = {}
+    for failure in failures:
+        node_id = str(failure.get("node_id") or "")
+        if node_id:
+            failures_by_node.setdefault(node_id, []).append(failure)
 
     report_nodes: list[dict[str, Any]] = []
     covered_node_ids: list[str] = []
@@ -88,7 +94,10 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "required_output_type": node.get("required_output_type"),
                 "importance_weight": node.get("importance_weight"),
                 "status": node.get("status"),
-                "forecast_status": "completed" if node_run else "missing",
+                "forecast_status": (
+                    "failed" if failures_by_node.get(node_id) else "completed" if node_run else "missing"
+                ),
+                "failures": failures_by_node.get(node_id) or [],
                 "probability": node_contribution.get("input_probability", node_run.get("probability")),
                 "confidence": node_run.get("confidence"),
                 "uncertainty": node_run.get("uncertainty"),
@@ -119,9 +128,11 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
 
     total_nodes = len(graph_nodes)
     covered_nodes = len(covered_node_ids)
+    final_probability = aggregation.get("final_probability", aggregation.get("ensemble_probability"))
     return {
         "profile_id": run.get("profile_id"),
-        "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
+        "execution_status": run.get("status"),
+        "final_probability": final_probability,
         "forecast_contract": run.get("forecast_contract"),
         "graph": {
             "id": graph.get("id"),
@@ -152,6 +163,16 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
             "node_contributions": aggregation.get("node_contributions") or [],
             "trace": aggregation.get("calculation_trace") or [],
+        },
+        "failures": failures,
+        "final_answer": {
+            "status": "completed" if final_probability is not None else "failed",
+            "probability": final_probability,
+            "statement": (
+                f"The graph_forecaster_v1 probability is {final_probability}."
+                if final_probability is not None
+                else "No final probability was produced because graph execution was incomplete."
+            ),
         },
     }
 
@@ -245,4 +266,21 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
     )
     for step in calculation.get("trace") or []:
         lines.append(f"- {step}")
+    failures = report.get("failures") or []
+    if failures:
+        lines.extend(["", "### Execution failures"])
+        for failure in failures:
+            node_suffix = f" for node {failure.get('node_id')}" if failure.get("node_id") else ""
+            lines.append(
+                f"- {failure.get('stage')}{node_suffix}: "
+                f"{failure.get('error_code')}: {failure.get('error_message')}"
+            )
+    final_answer = report.get("final_answer") or {}
+    lines.extend(
+        [
+            "",
+            "### Final answer",
+            final_answer.get("statement") or "No final answer was produced.",
+        ]
+    )
     return lines

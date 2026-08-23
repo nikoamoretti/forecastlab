@@ -73,6 +73,7 @@ from forecastlab_api.models import (
     ForecastRun,
     ForecastRunAttempt,
     ForecastVersion,
+    GraphExecutionFailureRow,
     ProviderCallLedger,
     Question,
     ResearchTrack,
@@ -634,13 +635,25 @@ def execute_forecast_v1(
     return _row(run)
 
 
+@app.post("/api/forecasts/{forecast_id}/execute-graph")
+def execute_graph_forecast(
+    forecast_id: str,
+    body: ExecuteV1In | None = None,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    """Start the complete graph_forecaster_v1 execution pipeline."""
+
+    run = _start_v1_run(forecast_id, body or ExecuteV1In(), db)
+    return _row(run)
+
+
 @app.post("/api/forecasts/{forecast_id}/node-runs")
 def post_forecast_node_runs(
     forecast_id: str,
     body: ExecuteV1In | None = None,
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    """Start the graph execution that creates auditable node runs without changing aggregation policy."""
+    """Start graph execution and return its auditable node runs."""
 
     run = _start_v1_run(forecast_id, body or ExecuteV1In(), db)
     return {
@@ -701,13 +714,26 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         .where(ForecastNodeRunRow.forecast_run_id == run.id)
         .order_by(ForecastNodeRunRow.created_at, ForecastNodeRunRow.id)
     ).all()
+    graph_failures = db.scalars(
+        select(GraphExecutionFailureRow)
+        .where(GraphExecutionFailureRow.forecast_run_id == run.id)
+        .order_by(GraphExecutionFailureRow.created_at, GraphExecutionFailureRow.id)
+    ).all()
     payload = _row(run)
     payload["tracks"] = [_row(track) for track in tracks]
     payload["evidence"] = [_row(item) for item in evidence]
     payload["evidence_claims"] = [evidence_claim_from_row(item).model_dump(mode="json") for item in claims]
     payload["node_runs"] = [item.model_dump(mode="json") for item in node_runs_for_run(db, run.id)]
-    if node_runs:
-        graph_row = node_runs[0].node.graph
+    payload["graph_execution_failures"] = [_row(item) for item in graph_failures]
+    graph_row = node_runs[0].node.graph if node_runs else None
+    if graph_row is None and run.execution_context_json:
+        try:
+            graph_id = json.loads(run.execution_context_json).get("forecast_graph_id")
+        except json.JSONDecodeError:
+            graph_id = None
+        if graph_id:
+            graph_row = db.get(ForecastGraphRow, graph_id)
+    if graph_row is not None:
         contract_row = graph_row.contract
         payload["forecast_contract"] = forecast_contract_from_row(contract_row).model_dump(mode="json")
         payload["forecast_graph"] = forecast_graph_from_row(graph_row).model_dump(mode="json")
@@ -750,6 +776,37 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     if v1_report is not None:
         payload["v1_report"] = v1_report
     return payload
+
+
+@app.get("/api/forecasts/{forecast_id}/graph-report")
+def graph_forecast_report(forecast_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    question = db.get(Question, forecast_id)
+    if question is None:
+        raise HTTPException(404, "Forecast not found")
+    run = db.scalar(
+        select(ForecastRun)
+        .where(
+            ForecastRun.question_id == forecast_id,
+            ForecastRun.profile_id == "graph_forecaster_v1",
+        )
+        .order_by(ForecastRun.started_at.desc(), ForecastRun.id.desc())
+        .limit(1)
+    )
+    if run is None:
+        raise HTTPException(404, "Graph forecast has not been executed")
+    payload = get_run(run.id, db)
+    report_payload = payload.get("v1_report")
+    return {
+        "forecast_id": forecast_id,
+        "run_id": run.id,
+        "profile_id": run.profile_id,
+        "status": run.status,
+        "final_probability": (
+            report_payload.get("final_probability") if report_payload is not None else None
+        ),
+        "report": report_payload,
+        "failures": payload.get("graph_execution_failures") or [],
+    }
 
 
 @app.get("/api/questions/{question_id}/report")

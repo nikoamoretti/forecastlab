@@ -5,6 +5,7 @@ from sqlalchemy import select
 from forecastlab_api.experiments import V1_EVALUATION_METRICS, V1_EVALUATION_PROFILES
 from forecastlab_api.models import (
     BenchmarkDataset,
+    BenchmarkProfileSnapshot,
     BenchmarkResult,
     BenchmarkTask,
     ForecastContractRow,
@@ -23,6 +24,29 @@ def test_three_track_experiment_alias_preserves_existing_execution_settings() ->
     )
 
     assert alias == existing
+
+
+def test_v1_comparison_profiles_share_resource_ceilings() -> None:
+    from forecastlab.profiles import load_profile
+
+    baseline = load_profile("three_track_forecaster")
+    graph = load_profile("graph_forecaster_v1")
+    ceiling_fields = (
+        "max_model_calls",
+        "max_search_calls",
+        "max_fetched_documents",
+        "max_tokens",
+        "max_estimated_cost_usd",
+        "max_wall_clock_seconds",
+    )
+
+    assert {field: getattr(graph, field) for field in ceiling_fields} == {
+        field: getattr(baseline, field) for field in ceiling_fields
+    }
+    assert graph.graph_generation_enabled is True
+    assert graph.evidence_claims_enabled is True
+    assert graph.node_forecasting_enabled is True
+    assert graph.graph_aggregation_enabled is True
 
 
 def test_v1_evaluation_dataset_seed_is_idempotent(client) -> None:
@@ -110,6 +134,63 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
     from forecastlab_api import main as main_mod
 
     with main_mod.SessionLocal() as session:
+        all_tasks = session.scalars(
+            select(BenchmarkTask).where(BenchmarkTask.experiment_id == created["id"])
+        ).all()
+        paired: dict[str, list[BenchmarkTask]] = {}
+        for task in all_tasks:
+            paired.setdefault(task.benchmark_question_id, []).append(task)
+        assert len(paired) == 10
+        for pair in paired.values():
+            assert {task.profile_id for task in pair} == set(V1_EVALUATION_PROFILES)
+            runs = [session.get(ForecastRun, task.run_id) for task in pair]
+            assert all(run is not None for run in runs)
+            assert len({run.as_of for run in runs if run is not None}) == 1
+            contracts = [
+                session.scalar(
+                    select(ForecastContractRow).where(
+                        ForecastContractRow.question_id == task.question_id,
+                        ForecastContractRow.status == "approved",
+                    )
+                )
+                for task in pair
+            ]
+            assert all(contract is not None for contract in contracts)
+            frozen_contracts = {
+                (
+                    contract.original_question,
+                    contract.normalized_question,
+                    contract.yes_condition,
+                    contract.no_condition,
+                    contract.resolution_date,
+                    contract.authoritative_source,
+                    contract.resolution_method,
+                )
+                for contract in contracts
+                if contract is not None
+            }
+            assert len(frozen_contracts) == 1
+
+        snapshots = session.scalars(
+            select(BenchmarkProfileSnapshot).where(
+                BenchmarkProfileSnapshot.experiment_id == created["id"]
+            )
+        ).all()
+        assert len(snapshots) == 2
+        assert len(
+            {
+                (
+                    item.effective_max_cost_usd,
+                    item.effective_max_tokens,
+                    item.effective_max_model_calls,
+                    item.effective_max_search_calls,
+                    item.effective_max_fetched_documents,
+                    item.effective_max_wall_clock_seconds,
+                )
+                for item in snapshots
+            }
+        ) == 1
+
         tasks = session.scalars(
             select(BenchmarkTask).where(
                 BenchmarkTask.experiment_id == created["id"],
