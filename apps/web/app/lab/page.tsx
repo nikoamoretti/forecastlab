@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 import { api, pct } from "@/lib/api";
 
 const SYNTHETIC_NOTICE = "Software-verification fixtures only. Not evidence of real-world forecasting quality.";
+const FAILURE_TAXONOMY = {
+  Question: ["ambiguous_resolution", "incorrect_contract", "wrong_resolver"],
+  Research: ["missing_evidence", "poor_source_quality", "cutoff_failure"],
+  Reasoning: ["bad_prior", "overconfidence", "ignored_counterargument", "narrative_bias"],
+  Aggregation: ["incorrect_weighting", "dependency_failure"],
+  Operational: ["provider_failure", "timeout", "budget_failure"]
+};
 
 export default function LabPage() {
   const controlledProfilesAvailable = ["three_track_forecaster", "graph_forecaster_v1"];
@@ -24,6 +31,10 @@ export default function LabPage() {
   const [controlledExperimentId, setControlledExperimentId] = useState<string | null>(null);
   const [controlledProgress, setControlledProgress] = useState<any>(null);
   const [controlledReport, setControlledReport] = useState<any>(null);
+  const [controlledAnalysis, setControlledAnalysis] = useState<any>(null);
+  const [reviewRunId, setReviewRunId] = useState("");
+  const [failureCategory, setFailureCategory] = useState("missing_evidence");
+  const [failureAnnotation, setFailureAnnotation] = useState("");
   const [message, setMessage] = useState("");
 
   async function loadMeta() {
@@ -77,8 +88,15 @@ export default function LabPage() {
         if (cancelled) return;
         setControlledProgress(next);
         if (terminal.has(next.status)) {
-          const report = await api<any>(`/api/evaluation/experiments/${controlledExperimentId}/report`);
-          if (!cancelled) setControlledReport(report);
+          const [report, analysis] = await Promise.all([
+            api<any>(`/api/evaluation/experiments/${controlledExperimentId}/report`),
+            api<any>(`/api/evaluation/experiments/${controlledExperimentId}/analysis`)
+          ]);
+          if (!cancelled) {
+            setControlledReport(report);
+            setControlledAnalysis(analysis);
+            setReviewRunId((current) => current || analysis.rows?.[0]?.evaluation_run_id || "");
+          }
           clearInterval(timer);
         }
       } catch {
@@ -123,9 +141,32 @@ export default function LabPage() {
       });
       setControlledExperimentId(created.id);
       setControlledReport(null);
+      setControlledAnalysis(null);
+      setReviewRunId("");
       setMessage("Controlled comparison queued. Both profiles will use the same frozen inputs.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not create the controlled comparison.");
+    }
+  }
+
+  async function saveFailureClassification() {
+    if (!reviewRunId || !failureAnnotation.trim() || !controlledExperimentId) return;
+    setMessage("Saving internal failure classification…");
+    try {
+      await api(`/api/evaluation/runs/${reviewRunId}/failures`, {
+        method: "POST",
+        body: JSON.stringify({
+          category: failureCategory,
+          annotation: failureAnnotation,
+          created_by: "internal_reviewer"
+        })
+      });
+      const analysis = await api<any>(`/api/evaluation/experiments/${controlledExperimentId}/analysis`);
+      setControlledAnalysis(analysis);
+      setFailureAnnotation("");
+      setMessage("Internal review annotation saved.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not save the classification.");
     }
   }
 
@@ -243,6 +284,92 @@ export default function LabPage() {
               </tbody>
             </table>
             <p className="mt-3 text-sm text-ink/70">{controlledReport.notice}</p>
+          </div>
+        ) : null}
+        {controlledAnalysis ? (
+          <div className="mt-5 border-t border-rule pt-5">
+            <h4 className="font-serif text-xl">Performance analysis</h4>
+            <p className="mt-2 text-sm text-ink/70">{controlledAnalysis.notice}</p>
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              {(controlledAnalysis.profiles || []).map((profile: any) => (
+                <article key={`analysis-${profile.profile_id}`} className="border border-rule p-4 text-sm">
+                  <h5 className="font-mono text-xs uppercase tracking-[0.14em]">{profile.profile_id}</h5>
+                  <dl className="mt-3 grid grid-cols-2 gap-2">
+                    <div><dt className="text-ink/60">Brier</dt><dd>{profile.performance.brier_score?.toFixed?.(4) ?? "—"}</dd></div>
+                    <div><dt className="text-ink/60">Log loss</dt><dd>{profile.performance.log_loss?.toFixed?.(4) ?? "—"}</dd></div>
+                    <div><dt className="text-ink/60">Completion / partial / failed</dt><dd>{pct(profile.reliability.completion_rate)} / {pct(profile.reliability.partial_rate)} / {pct(profile.reliability.failure_rate)}</dd></div>
+                    <div><dt className="text-ink/60">Evidence coverage</dt><dd>{pct(profile.research.evidence_coverage)}</dd></div>
+                    <div><dt className="text-ink/60">Sources / claims</dt><dd>{profile.research.source_count} / {profile.research.claim_count}</dd></div>
+                    <div><dt className="text-ink/60">Total / per question</dt><dd>${Number(profile.cost.total_cost || 0).toFixed(4)} / ${Number(profile.cost.cost_per_question || 0).toFixed(4)}</dd></div>
+                  </dl>
+                  <p className="mt-3 text-ink/70">
+                    Calibration buckets: {profile.performance.calibration_buckets.available
+                      ? `${profile.performance.calibration_buckets.bins.length} occupied bins`
+                      : profile.performance.calibration_buckets.message}
+                  </p>
+                  <p className="mt-2 font-mono text-xs text-ink/60">
+                    Probability distribution: {profile.performance.probability_distribution.map((bin: any) => bin.count).join(" · ")}
+                  </p>
+                </article>
+              ))}
+            </div>
+            <section className="mt-5 border border-rule p-4">
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-copper">Internal error review</p>
+              <p className="mt-2 text-sm text-ink/70">Experiment → question → forecast → failure classification</p>
+              <label className="mt-4 block">
+                <span className="text-sm">Forecast</span>
+                <select
+                  className="mt-2 w-full border border-rule bg-white p-3"
+                  value={reviewRunId}
+                  onChange={(event) => setReviewRunId(event.target.value)}
+                >
+                  {(controlledAnalysis.rows || []).map((row: any) => (
+                    <option key={row.evaluation_run_id} value={row.evaluation_run_id}>
+                      {row.question} · {row.profile_id}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {(() => {
+                const reviewed = (controlledAnalysis.rows || []).find((row: any) => row.evaluation_run_id === reviewRunId);
+                if (!reviewed) return null;
+                return (
+                  <div className="mt-3 text-sm">
+                    <p>Probability: {pct(reviewed.probability)} · Outcome: {reviewed.outcome ?? "—"} · Brier: {reviewed.brier_score?.toFixed?.(4) ?? "—"}</p>
+                    {reviewed.error ? <p className="mt-1 text-red-800">Execution error: {reviewed.error}</p> : null}
+                    {(reviewed.failures || []).length ? (
+                      <ul className="mt-3 space-y-2">
+                        {reviewed.failures.map((failure: any) => (
+                          <li key={failure.id} className="border-l-2 border-copper pl-3">
+                            <span className="font-mono text-xs">{failure.failure_group} / {failure.category}</span>
+                            <p>{failure.annotation}</p>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : <p className="mt-2 text-ink/60">No internal classifications yet.</p>}
+                  </div>
+                );
+              })()}
+              <div className="mt-4 grid gap-3 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
+                <label>
+                  <span className="text-sm">Failure classification</span>
+                  <select className="mt-2 w-full border border-rule bg-white p-3" value={failureCategory} onChange={(event) => setFailureCategory(event.target.value)}>
+                    {Object.entries(FAILURE_TAXONOMY).map(([group, categories]) => (
+                      <optgroup key={group} label={group}>
+                        {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+                      </optgroup>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <span className="text-sm">Internal annotation</span>
+                  <textarea className="mt-2 min-h-24 w-full border border-rule bg-white p-3" value={failureAnnotation} onChange={(event) => setFailureAnnotation(event.target.value)} placeholder="Record the observed failure and why this classification applies." />
+                </label>
+              </div>
+              <button className="mt-3 border border-ink bg-ink px-4 py-2 text-paper disabled:opacity-50" onClick={saveFailureClassification} disabled={!reviewRunId || !failureAnnotation.trim()}>
+                Save internal classification
+              </button>
+            </section>
           </div>
         ) : null}
       </section>

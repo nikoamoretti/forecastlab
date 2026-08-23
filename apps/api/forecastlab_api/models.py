@@ -588,6 +588,43 @@ class EvaluationResult(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
 
+class ForecastFailure(Base):
+    """An internal, human-reviewable classification attached to one evaluation run."""
+
+    __tablename__ = "forecast_failures"
+    __table_args__ = (
+        UniqueConstraint(
+            "evaluation_run_id",
+            "category",
+            name="uq_forecast_failure_run_category",
+        ),
+        CheckConstraint(
+            "failure_group IN ('question', 'research', 'reasoning', 'aggregation', 'operational')",
+            name="ck_forecast_failure_group",
+        ),
+        CheckConstraint(
+            "category IN ("
+            "'ambiguous_resolution', 'incorrect_contract', 'wrong_resolver', "
+            "'missing_evidence', 'poor_source_quality', 'cutoff_failure', "
+            "'bad_prior', 'overconfidence', 'ignored_counterargument', 'narrative_bias', "
+            "'incorrect_weighting', 'dependency_failure', "
+            "'provider_failure', 'timeout', 'budget_failure'"
+            ")",
+            name="ck_forecast_failure_category",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("evaluation_experiments.id"))
+    evaluation_run_id: Mapped[str] = mapped_column(ForeignKey("evaluation_runs.id"))
+    failure_group: Mapped[str] = mapped_column(String(32))
+    category: Mapped[str] = mapped_column(String(64))
+    annotation: Mapped[str] = mapped_column(Text)
+    created_by: Mapped[str] = mapped_column(String(128), default="internal_reviewer")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
 def _frozen_experiment_configuration_guard(
     _mapper: object,
     _connection: Connection,

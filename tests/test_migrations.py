@@ -31,11 +31,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "evaluation_experiments" in tables
     assert "evaluation_runs" in tables
     assert "evaluation_results" in tables
+    assert "forecast_failures" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -140,6 +141,19 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "evidence_coverage",
             "completion_status",
         } <= evaluation_result_cols
+        forecast_failure_cols = {
+            column["name"] for column in inspect(engine).get_columns("forecast_failures")
+        }
+        assert {
+            "experiment_id",
+            "evaluation_run_id",
+            "failure_group",
+            "category",
+            "annotation",
+            "created_by",
+            "created_at",
+            "updated_at",
+        } <= forecast_failure_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -151,7 +165,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:

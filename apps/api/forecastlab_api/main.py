@@ -38,6 +38,12 @@ from forecastlab_api.contracts import (
 )
 from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
+from forecastlab_api.evaluation_analysis import (
+    build_forecast_research_analysis,
+    classify_forecast_failure,
+    serialize_forecast_failure,
+    update_failure_annotation,
+)
 from forecastlab_api.evaluation_datasets import (
     EvaluationDatasetValidationError,
     import_evaluation_dataset,
@@ -199,6 +205,16 @@ class EvaluationExperimentIn(BaseModel):
     dataset_id: str
     profile_ids: list[str] = Field(default_factory=lambda: list(CONTROLLED_COMPARISON_PROFILES))
     synthetic_test: bool = False
+
+
+class ForecastFailureIn(BaseModel):
+    category: str
+    annotation: str
+    created_by: str = "internal_reviewer"
+
+
+class ForecastFailureAnnotationIn(BaseModel):
+    annotation: str
 
 
 @app.exception_handler(ConfigurationError)
@@ -1099,6 +1115,59 @@ def get_evaluation_experiment_report(
     if experiment is None:
         raise HTTPException(404, "Evaluation experiment not found")
     return evaluation_comparison_report(db, experiment).model_dump(mode="json")
+
+
+@app.get("/api/evaluation/experiments/{experiment_id}/analysis")
+def get_evaluation_experiment_analysis(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(EvaluationExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Evaluation experiment not found")
+    return build_forecast_research_analysis(db, experiment).model_dump(mode="json")
+
+
+@app.post("/api/evaluation/runs/{evaluation_run_id}/failures", status_code=201)
+def post_forecast_failure(
+    evaluation_run_id: str,
+    body: ForecastFailureIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        failure = classify_forecast_failure(
+            db,
+            evaluation_run_id=evaluation_run_id,
+            category=body.category,
+            annotation=body.annotation,
+            created_by=body.created_by,
+        )
+    except ValueError as exc:
+        status = 404 if str(exc) == "evaluation_run_not_found" else 400
+        raise HTTPException(status, str(exc)) from exc
+    db.commit()
+    db.refresh(failure)
+    return serialize_forecast_failure(failure)
+
+
+@app.patch("/api/evaluation/failures/{failure_id}")
+def patch_forecast_failure_annotation(
+    failure_id: str,
+    body: ForecastFailureAnnotationIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        failure = update_failure_annotation(
+            db,
+            failure_id=failure_id,
+            annotation=body.annotation,
+        )
+    except ValueError as exc:
+        status = 404 if str(exc) == "forecast_failure_not_found" else 400
+        raise HTTPException(status, str(exc)) from exc
+    db.commit()
+    db.refresh(failure)
+    return serialize_forecast_failure(failure)
 
 
 @app.post("/api/benchmarks/import")
