@@ -106,6 +106,21 @@ def estimate_workload(profile: ForecastProfile) -> dict[str, int]:
             "planned_fetches": profile.max_fetched_documents,
             "planned_max_tokens": profile.max_tokens,
         }
+    if profile.execution_strategy == "single_model":
+        searches = 1 if profile.max_search_calls > 0 else 0
+        fetches = (
+            min(profile.fetches_per_subquestion, profile.max_fetched_documents)
+            if searches and profile.max_fetched_documents > 0
+            else 0
+        )
+        return {
+            "tracks": 1,
+            "subquestions": 0,
+            "planned_model_calls": min(1, profile.max_model_calls),
+            "planned_search_calls": searches,
+            "planned_fetches": fetches,
+            "planned_max_tokens": profile.max_tokens,
+        }
     tracks = max(1, len(profile.tracks))
     subq = tracks * profile.subquestions_per_track
     searches = 0 if profile.max_search_calls == 0 else subq

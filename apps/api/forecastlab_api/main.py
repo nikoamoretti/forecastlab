@@ -570,6 +570,8 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     requested_profile = load_profile(body.profile_id)
     if requested_profile.execution_strategy == "graph_nodes":
         approved_contract_for_question(db, question.id)
+    elif requested_profile.execution_strategy == "single_model":
+        approved_contract_for_question(db, question.id)
     elif question.forecast_contracts:
         approved_contracts = [contract for contract in question.forecast_contracts if contract.status == "approved"]
         if not approved_contracts:

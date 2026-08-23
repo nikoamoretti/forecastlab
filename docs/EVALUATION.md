@@ -18,7 +18,7 @@ Evidence coverage is an operational completeness measure. Graph execution counts
 
 ## First V1 experiment workflow
 
-The Lab includes a fixed ten-question synthetic workflow comparing `three_track_forecaster` with `graph_forecaster_v1`. It produces twenty asynchronous tasks and reports Brier score, log loss, total cost, latency, completion rate, and evidence coverage. This workflow verifies experiment plumbing only. It is not a real benchmark, a calibration study, or evidence of profile superiority.
+The Lab includes a fixed ten-question synthetic workflow comparing `single_model_forecaster_v1`, `three_track_forecaster`, and `graph_forecaster_v1`. It produces thirty asynchronous tasks and reports Brier score, log loss, total cost, latency, completion rate, and evidence coverage. The single-model profile makes one structured forecast call from the approved Forecast Contract and one evidence packet, without graph construction or probability aggregation. This workflow verifies experiment plumbing only. It is not a real benchmark, a calibration study, or evidence of profile superiority.
 
 ## Time and leakage
 

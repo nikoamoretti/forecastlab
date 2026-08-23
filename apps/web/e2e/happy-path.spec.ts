@@ -69,3 +69,31 @@ test("V1 graph report shows node evidence and calculation trace", async ({ page 
   await expect(page.getByRole("heading", { name: "Final answer" })).toBeVisible();
   await expect(report.getByText(/graph_forecaster_v1 probability is/i)).toBeVisible();
 });
+
+test("single-model baseline skips graph construction and aggregation", async ({ page }) => {
+  test.setTimeout(180000);
+  await page.goto("/new");
+  await page.getByLabel("Forecast profile").selectOption("single_model_forecaster_v1");
+  await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the contract/i })).toBeVisible({ timeout: 30000 });
+  await page.getByRole("button", { name: "Approve Forecast Contract" }).click();
+
+  await expect(page.getByRole("heading", { name: /Ready for a single-model forecast/i })).toBeVisible({
+    timeout: 30000
+  });
+  await expect(page.getByText(/creates no Forecast Graph and performs no probability aggregation/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Research Graph", exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: /Launch mock run/i }).click();
+
+  await expect(page.getByText("Single-model estimate")).toBeVisible({ timeout: 120000 });
+  await expect(page.getByText("36.0%").first()).toBeVisible();
+  await expect(
+    page.getByText("Direct structured model probability. No probability aggregation.", { exact: true })
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Single-model forecast" })).toBeVisible();
+  await expect(page.getByText(/one approved Forecast Contract/i)).toBeVisible();
+  await expect(page.getByText("Uncertainty", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Synthetic mock evidence is not real-world forecasting evidence/i)).toBeVisible();
+  await expect(page.getByText("single_model_forecast", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Forecast Graph report" })).toHaveCount(0);
+});

@@ -1,0 +1,21 @@
+id: single_model_forecaster_v1
+version: 1
+label: Single-model forecaster V1
+description: One direct structured forecast from an approved Forecast Contract and a deterministic evidence packet.
+execution_strategy: single_model
+tracks:
+  - single_agent
+subquestions_per_track: 0
+search_results_per_subquestion: 3
+fetches_per_subquestion: 3
+aggregation_method: direct_model_probability_v1
+shrinkage: 0.0
+max_model_calls: 40
+max_search_calls: 36
+max_fetched_documents: 24
+max_tokens: 200000
+max_output_tokens_per_call: 4096
+max_estimated_cost_usd: 5.0
+max_wall_clock_seconds: 180
+prompt_versions:
+  forecast_single_model: v1

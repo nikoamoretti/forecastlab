@@ -10,7 +10,7 @@ from forecastlab.timeutil import as_utc
 QuestionType = Literal["binary"]
 RunMode = Literal["live", "backtest", "demo"]
 TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
-ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes"]
+ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes", "single_model"]
 JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
 WatchKind = Literal["html", "json"]
@@ -174,6 +174,33 @@ class TrackForecastOutput(BaseModel):
                 continue
             cleaned.append(driver)
         return cleaned
+
+
+class SingleModelForecastOutput(BaseModel):
+    """One direct forecast authored from an approved contract and evidence packet."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    probability: float = Field(ge=0.01, le=0.99)
+    reasoning: str = Field(min_length=1)
+    uncertainty: list[str] = Field(min_length=1)
+    evidence_ids: list[str] = Field(default_factory=list)
+
+    @field_validator("reasoning")
+    @classmethod
+    def validate_reasoning(cls, value: str) -> str:
+        normalized = value.strip()
+        if not normalized:
+            raise ValueError("reasoning_required")
+        return normalized
+
+    @field_validator("uncertainty", "evidence_ids")
+    @classmethod
+    def normalize_string_lists(cls, values: list[str]) -> list[str]:
+        normalized = [value.strip() for value in values]
+        if any(not value for value in normalized):
+            raise ValueError("list_items_must_not_be_blank")
+        return list(dict.fromkeys(normalized))
 
 
 class ModelUsage(BaseModel):

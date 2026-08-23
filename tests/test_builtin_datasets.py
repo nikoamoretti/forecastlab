@@ -109,4 +109,4 @@ def test_lab_summary_labels_exist() -> None:
     assert "Outcome mix" in text
     assert "Run V1 10-question comparison" in text
     assert "Evidence coverage" in text
-    assert "without claiming either profile is superior" in text
+    assert "without claiming any profile is superior" in text

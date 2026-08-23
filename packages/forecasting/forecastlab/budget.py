@@ -132,6 +132,27 @@ class Budget:
                 "max_wall_clock_seconds": self.profile.max_wall_clock_seconds,
                 "max_output_tokens_per_call": self.profile.max_output_tokens_per_call,
             }
+        if self.profile.execution_strategy == "single_model":
+            searches = 1 if self.profile.max_search_calls > 0 else 0
+            fetches = (
+                min(self.profile.fetches_per_subquestion, self.profile.max_fetched_documents)
+                if searches and self.profile.max_fetched_documents > 0
+                else 0
+            )
+            return {
+                "tracks": 1,
+                "subquestions": 0,
+                "planned_search_calls": searches,
+                "planned_fetches": fetches,
+                "planned_model_calls": min(1, self.profile.max_model_calls),
+                "max_model_calls": self.profile.max_model_calls,
+                "max_search_calls": self.profile.max_search_calls,
+                "max_fetched_documents": self.profile.max_fetched_documents,
+                "max_tokens": self.profile.max_tokens,
+                "max_estimated_cost_usd": self.profile.max_estimated_cost_usd,
+                "max_wall_clock_seconds": self.profile.max_wall_clock_seconds,
+                "max_output_tokens_per_call": self.profile.max_output_tokens_per_call,
+            }
         tracks = len(self.profile.tracks)
         subq = tracks * self.profile.subquestions_per_track
         return {

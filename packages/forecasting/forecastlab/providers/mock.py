@@ -119,6 +119,8 @@ class MockModelProvider:
             return self._extract(user)
         if schema_name == "forecast_node":
             return self._forecast_node(user)
+        if schema_name == "single_model_forecast":
+            return self._single_model_forecast(user)
         if "forecast" in prompt_id or schema_name == "track_forecast":
             return self._forecast(user)
         if "disagreement" in prompt_id or schema_name == "disagreement_summary":
@@ -255,6 +257,23 @@ class MockModelProvider:
             "supporting_claim_ids": supporting,
             "opposing_claim_ids": opposing,
             "uncertainty_notes": ["Synthetic mock evidence is not real-world forecasting evidence."],
+        }
+
+    def _single_model_forecast(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            packet = payload.get("evidence_packet") or []
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            packet = []
+        evidence_ids = [str(item["id"]) for item in packet if isinstance(item, dict) and item.get("id")]
+        return {
+            "probability": 0.36,
+            "reasoning": (
+                "The mock single-model baseline evaluates one approved Forecast Contract against "
+                f"one packet containing {len(evidence_ids)} provenance-bearing evidence excerpts."
+            ),
+            "uncertainty": ["Synthetic mock evidence is not real-world forecasting evidence."],
+            "evidence_ids": evidence_ids[:2],
         }
 
     def _forecast(self, user: str) -> dict[str, Any]:

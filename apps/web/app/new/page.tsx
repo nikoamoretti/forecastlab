@@ -75,17 +75,19 @@ export default function NewQuestionPage() {
   );
   const [mode, setMode] = useState("demo");
   const [profileId, setProfileId] = useState("three_track_ensemble");
-  const [profiles, setProfiles] = useState<Array<{ id: string; label: string }>>([]);
+  const [profiles, setProfiles] = useState<
+    Array<{ id: string; label: string; execution_strategy?: string }>
+  >([]);
   const [asOf, setAsOf] = useState("");
   const [preview, setPreview] = useState<Preview | null>(null);
-  const [step, setStep] = useState<"ask" | "contract" | "graph">("ask");
+  const [step, setStep] = useState<"ask" | "contract" | "ready" | "graph">("ask");
   const [contract, setContract] = useState<ForecastContract | null>(null);
   const [graph, setGraph] = useState<ForecastGraph | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    api<Array<{ id: string; label: string }>>("/api/profiles")
+    api<Array<{ id: string; label: string; execution_strategy?: string }>>("/api/profiles")
       .then(setProfiles)
       .catch(() => setProfiles([]));
   }, []);
@@ -125,7 +127,11 @@ export default function NewQuestionPage() {
     }
   }
 
-  async function approveAndGenerateGraph(event: React.FormEvent) {
+  const selectedProfile = profiles.find((profile) => profile.id === profileId);
+  const isSingleModel =
+    selectedProfile?.execution_strategy === "single_model" || profileId === "single_model_forecaster_v1";
+
+  async function approveAndPrepareForecast(event: React.FormEvent) {
     event.preventDefault();
     if (!contract) return;
     if (preview && !preview.ready) {
@@ -154,13 +160,24 @@ export default function NewQuestionPage() {
         })
       });
       setContract(approved);
+      if (isSingleModel) {
+        setGraph(null);
+        setStep("ready");
+        return;
+      }
       const generatedGraph = await api<ForecastGraph>(`/api/contracts/${contract.id}/graph`, {
         method: "POST"
       });
       setGraph(generatedGraph);
       setStep("graph");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not approve contract and generate Research Graph");
+      setError(
+        err instanceof Error
+          ? err.message
+          : isSingleModel
+            ? "Could not approve Forecast Contract"
+            : "Could not approve contract and generate Research Graph"
+      );
     } finally {
       setBusy(false);
     }
@@ -168,7 +185,7 @@ export default function NewQuestionPage() {
 
   async function launchRun(event: React.FormEvent) {
     event.preventDefault();
-    if (!contract || !graph) return;
+    if (!contract || (!isSingleModel && !graph)) return;
     if (preview && !preview.ready) {
       setError(preview.detail || "Selected mode is not ready");
       return;
@@ -197,6 +214,33 @@ export default function NewQuestionPage() {
       : mode === "backtest"
         ? "Launch backtest"
         : "Launch mock run";
+
+  if (step === "ready" && contract && isSingleModel) {
+    return (
+      <form onSubmit={launchRun} className="mx-auto max-w-3xl space-y-6">
+        <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Single-model baseline</p>
+        <h2 className="font-serif text-4xl">Ready for a single-model forecast.</h2>
+        {error ? <p className="text-copper">{error}</p> : null}
+        <section className="border border-rule bg-white p-5">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">Approved Forecast Contract</p>
+          <p className="mt-2 font-serif text-2xl">{contract.normalized_question}</p>
+          <p className="mt-3 text-sm text-ink/70">Yes: {contract.yes_condition}</p>
+          <p className="mt-1 text-sm text-ink/70">No: {contract.no_condition}</p>
+          <p className="mt-1 text-sm text-ink/70">Resolver: {contract.authoritative_source}</p>
+        </section>
+        <p className="text-sm text-ink/70">
+          One model receives this contract and one evidence packet. This profile creates no Forecast Graph and performs
+          no probability aggregation.
+        </p>
+        <button
+          disabled={busy || Boolean(preview && !preview.ready)}
+          className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
+        >
+          {busy ? "Starting…" : launchLabel}
+        </button>
+      </form>
+    );
+  }
 
   if (step === "graph" && contract && graph) {
     const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
@@ -260,7 +304,7 @@ export default function NewQuestionPage() {
 
   if (step === "contract" && contract) {
     return (
-      <form onSubmit={approveAndGenerateGraph} className="mx-auto max-w-3xl space-y-6">
+      <form onSubmit={approveAndPrepareForecast} className="mx-auto max-w-3xl space-y-6">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Forecast Contract</p>
         <h2 className="font-serif text-4xl">Review the contract before research starts.</h2>
         {error ? <p className="text-copper">{error}</p> : null}
@@ -293,7 +337,13 @@ export default function NewQuestionPage() {
           disabled={busy || Boolean(preview && !preview.ready)}
           className="border border-ink bg-ink px-5 py-2 text-paper disabled:opacity-50"
         >
-          {busy ? "Generating graph…" : "Approve and generate Research Graph"}
+          {busy
+            ? isSingleModel
+              ? "Approving…"
+              : "Generating graph…"
+            : isSingleModel
+              ? "Approve Forecast Contract"
+              : "Approve and generate Research Graph"}
         </button>
       </form>
     );

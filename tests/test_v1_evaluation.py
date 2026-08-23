@@ -8,8 +8,11 @@ from forecastlab_api.models import (
     BenchmarkProfileSnapshot,
     BenchmarkResult,
     BenchmarkTask,
+    ForecastAggregationRow,
     ForecastContractRow,
+    ForecastNodeRunRow,
     ForecastRun,
+    ProviderCallLedger,
 )
 
 
@@ -31,6 +34,7 @@ def test_v1_comparison_profiles_share_resource_ceilings() -> None:
 
     baseline = load_profile("three_track_forecaster")
     graph = load_profile("graph_forecaster_v1")
+    single = load_profile("single_model_forecaster_v1")
     ceiling_fields = (
         "max_model_calls",
         "max_search_calls",
@@ -42,7 +46,7 @@ def test_v1_comparison_profiles_share_resource_ceilings() -> None:
 
     assert {field: getattr(graph, field) for field in ceiling_fields} == {
         field: getattr(baseline, field) for field in ceiling_fields
-    }
+    } == {field: getattr(single, field) for field in ceiling_fields}
     assert graph.graph_generation_enabled is True
     assert graph.evidence_claims_enabled is True
     assert graph.node_forecasting_enabled is True
@@ -75,7 +79,7 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
     assert workflow_response.status_code == 200
     workflow = workflow_response.json()
     assert workflow["question_count"] == 10
-    assert workflow["task_count"] == 20
+    assert workflow["task_count"] == 30
     assert workflow["profiles"] == list(V1_EVALUATION_PROFILES)
     assert workflow["metrics"] == list(V1_EVALUATION_METRICS)
     assert len(workflow["questions"]) == 10
@@ -85,35 +89,35 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
 
     assert created_response.status_code == 200
     created = created_response.json()
-    assert created["total_tasks"] == 20
+    assert created["total_tasks"] == 30
     assert created["is_synthetic"] is True
     assert created["workflow"]["question_count"] == 10
 
     from forecastlab_api.worker import drain_jobs
 
-    assert drain_jobs(max_steps=30) == 20
+    assert drain_jobs(max_steps=40) == 30
 
     progress = client.get(f"/api/experiments/{created['id']}").json()
     assert progress["status"] == "completed"
-    assert progress["completed_tasks"] == 20
+    assert progress["completed_tasks"] == 30
     assert progress["failed_tasks"] == 0
 
     summary = client.get(f"/api/experiments/{created['id']}/summary").json()
-    assert summary["sample_size"] == 20
+    assert summary["sample_size"] == 30
     assert summary["model_provider"] == "mock"
     assert summary["search_provider"] == "mock"
     assert {item["profile_id"] for item in summary["profiles"]} == set(V1_EVALUATION_PROFILES)
     assert "do not establish profile superiority" in summary["comparison_interpretation"]
     assert set(summary["metric_definitions"]) == set(V1_EVALUATION_METRICS)
-    assert len(summary["paired_comparisons_all_valid"]) == 1
-    comparison = summary["paired_comparisons_all_valid"][0]
-    assert comparison["n"] == 10
-    assert comparison["mean_paired_brier_difference"] is not None
-    assert comparison["mean_log_loss_difference"] is not None
-    assert comparison["mean_cost_difference"] is not None
-    assert comparison["mean_latency_difference"] is not None
-    assert comparison["mean_evidence_coverage_difference"] is not None
-    assert comparison["evidence_coverage_pair_count"] == 10
+    assert len(summary["paired_comparisons_all_valid"]) == 3
+    for comparison in summary["paired_comparisons_all_valid"]:
+        assert comparison["n"] == 10
+        assert comparison["mean_paired_brier_difference"] is not None
+        assert comparison["mean_log_loss_difference"] is not None
+        assert comparison["mean_cost_difference"] is not None
+        assert comparison["mean_latency_difference"] is not None
+        assert comparison["mean_evidence_coverage_difference"] is not None
+        assert comparison["evidence_coverage_pair_count"] == 10
     for profile in summary["profiles"]:
         assert profile["total_count"] == 10
         assert profile["completion_rate"] == 1.0
@@ -125,7 +129,7 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
         assert profile["all_valid"]["mean_evidence_coverage"] == 1.0
         assert profile["all_valid"]["evidence_coverage_n"] == 10
     assert all(row["evidence_coverage"] == 1.0 for row in summary["rows"])
-    assert {row["evidence_total_units"] for row in summary["rows"]} == {3, 7}
+    assert {row["evidence_total_units"] for row in summary["rows"]} == {1, 3, 7}
 
     export = client.get(f"/api/experiments/{created['id']}/export.csv")
     assert export.status_code == 200
@@ -176,7 +180,7 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
                 BenchmarkProfileSnapshot.experiment_id == created["id"]
             )
         ).all()
-        assert len(snapshots) == 2
+        assert len(snapshots) == 3
         assert len(
             {
                 (
@@ -191,14 +195,14 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
             }
         ) == 1
 
-        tasks = session.scalars(
+        graph_tasks = session.scalars(
             select(BenchmarkTask).where(
                 BenchmarkTask.experiment_id == created["id"],
                 BenchmarkTask.profile_id == "graph_forecaster_v1",
             )
         ).all()
-        assert len(tasks) == 10
-        for task in tasks:
+        assert len(graph_tasks) == 10
+        for task in graph_tasks:
             assert task.question_id is not None
             contract = session.scalar(
                 select(ForecastContractRow).where(
@@ -210,10 +214,41 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
         results = session.scalars(
             select(BenchmarkResult).where(BenchmarkResult.experiment_id == created["id"])
         ).all()
-        assert len(results) == 20
+        assert len(results) == 30
         graph_runs = session.scalars(
             select(ForecastRun).where(
-                ForecastRun.benchmark_task_id.in_([task.id for task in tasks]),
+                ForecastRun.benchmark_task_id.in_([task.id for task in graph_tasks]),
             )
         ).all()
         assert len(graph_runs) == 10
+
+        single_tasks = session.scalars(
+            select(BenchmarkTask).where(
+                BenchmarkTask.experiment_id == created["id"],
+                BenchmarkTask.profile_id == "single_model_forecaster_v1",
+            )
+        ).all()
+        assert len(single_tasks) == 10
+        single_runs = session.scalars(
+            select(ForecastRun).where(
+                ForecastRun.benchmark_task_id.in_([task.id for task in single_tasks]),
+            )
+        ).all()
+        assert len(single_runs) == 10
+        for run in single_runs:
+            model_calls = session.scalars(
+                select(ProviderCallLedger).where(
+                    ProviderCallLedger.run_id == run.id,
+                    ProviderCallLedger.provider_type == "model",
+                )
+            ).all()
+            assert len(model_calls) == 1
+            assert model_calls[0].stage == "single_model_forecast"
+            assert session.scalar(
+                select(ForecastNodeRunRow).where(ForecastNodeRunRow.forecast_run_id == run.id)
+            ) is None
+            assert session.scalar(
+                select(ForecastAggregationRow).where(
+                    ForecastAggregationRow.forecast_run_id == run.id
+                )
+            ) is None

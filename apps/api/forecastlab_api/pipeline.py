@@ -18,6 +18,7 @@ from forecastlab.prompts import PromptBundle
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.providers.search import build_search_provider
 from forecastlab.schemas import ForecastProfile, ResolutionContract
+from forecastlab.single_model import run_single_model_forecast
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease, touch_worker_standalone
@@ -335,6 +336,37 @@ def execute_run(
                 fixture_evidence_used = bool(result.fixture_evidence_used)
                 forecast_contract_id = result.contract.id
                 forecast_graph_id = result.graph.id
+        elif profile.execution_strategy == "single_model":
+            from forecastlab_api.contracts import forecast_contract_from_row
+            from forecastlab_api.v1_execution import approved_contract_for_question
+
+            progress("contract", "Resolving the approved Forecast Contract", 0.08)
+            forecast_contract = forecast_contract_from_row(
+                approved_contract_for_question(session, question.id)
+            )
+            result = run_single_model_forecast(
+                contract=forecast_contract,
+                profile_id=context.profile_id,
+                mode=context.effective_mode,
+                as_of=as_utc(run.as_of) if run.as_of else None,
+                model=model,
+                search=search,
+                allow_local_fixtures=(
+                    context.fixture_evidence_allowed and settings.allow_local_fixtures
+                ),
+                progress=progress,
+                profile=profile,
+                execution=context,
+                prompt_bundle=prompt_bundle,
+                run_id=run.id,
+                ledger=ledger,
+                pricing_catalog=catalog,
+                prior_elapsed_seconds=prior_elapsed,
+            )
+            persist_engine_result(session, run, result)
+            fixture_evidence_used = bool(result.fixture_evidence_used)
+            forecast_contract_id = forecast_contract.id
+            forecast_graph_id = None
         else:
             result = run_forecast_engine(
                 question=question.original_text,
@@ -364,6 +396,8 @@ def execute_run(
         if profile.execution_strategy == "graph_nodes":
             snapshot["forecast_contract_id"] = forecast_contract_id
             snapshot["forecast_graph_id"] = forecast_graph_id
+        elif profile.execution_strategy == "single_model":
+            snapshot["forecast_contract_id"] = forecast_contract_id
         run.execution_context_json = json.dumps(snapshot)
         run.fixture_evidence_used = fixture_evidence_used
         if run.started_at:

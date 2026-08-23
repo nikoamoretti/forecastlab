@@ -74,7 +74,9 @@ export default function LabPage() {
     setExperimentId(created.id);
     setSummary(null);
     if (created.workflow?.dataset?.id) setDatasetId(created.workflow.dataset.id);
-    setMessage("V1 experiment queued. Polling 20 profile-question tasks.");
+    setMessage(
+      `V1 experiment queued. Polling ${created.workflow?.task_count || v1Workflow?.task_count || 0} profile-question tasks.`
+    );
   }
 
   async function onImport(event: React.ChangeEvent<HTMLInputElement>) {
@@ -113,7 +115,7 @@ export default function LabPage() {
         </p>
         <p className="mt-2 text-sm text-ink/70">
           Measures Brier score, log loss, cost, latency, completion rate, and evidence coverage. This framework reports
-          differences without claiming either profile is superior.
+          differences without claiming any profile is superior.
         </p>
         <button
           className="mt-4 border border-ink bg-ink px-4 py-2 text-paper disabled:opacity-50"

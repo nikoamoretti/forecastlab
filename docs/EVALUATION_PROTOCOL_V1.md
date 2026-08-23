@@ -81,13 +81,13 @@ Their required roles are:
 | `three_track_equal_budget` | Measures independent base-rate, current-evidence, and skeptic tracks under the same total ceiling as the single-agent comparison. | Implemented profile: `three_track_equal_budget_v1`. |
 | `hierarchical_forecaster` | Measures the V1 subforecast-graph and scenario method under a pre-registered total ceiling. | Experimental framework profile: `graph_forecaster_v1`; not validated as the required final configuration. |
 
-The current `three_track_forecaster` versus `graph_forecaster_v1` comparison uses ten synthetic questions and is a software-verification experiment, not a V1-complete comparison. The graph profile now executes the complete Contract, Graph, Evidence Claim, Node Forecast, Graph Aggregation, Forecast Version, and report lifecycle.
+The current `single_model_forecaster_v1` versus `three_track_forecaster` versus `graph_forecaster_v1` comparison uses ten synthetic questions and is a software-verification experiment, not a V1-complete comparison. The single-model profile executes one direct contract-and-evidence forecasting call without graph construction or aggregation. The graph profile executes the complete Contract, Graph, Evidence Claim, Node Forecast, Graph Aggregation, Forecast Version, and report lifecycle. Adding this diagnostic profile does not replace the four required configurations above.
 
 ### Fairness controls
 
 All configurations must receive the same frozen question and resolution contract, forecast cutoff, outcome, model family and version, provider identity, and evidence-eligibility policy unless one of those is the pre-registered treatment. The single-agent, three-track, and hierarchical research configurations must have equal total ceilings for model calls, search calls, fetched documents, tokens, estimated cost, and wall-clock time.
 
-The dedicated ten-question software-verification workflow enforces these controls for its two selected profiles: paired tasks use equivalent question and resolution-contract content, the same per-question forecast cutoff, the same provider and evidence-policy snapshots, and equal total ceilings. Profiles may consume different amounts within those ceilings; cost, latency, and completion remain measured outcomes.
+The dedicated ten-question software-verification workflow enforces these controls for its three selected profiles: paired tasks use equivalent question and resolution-contract content, the same per-question forecast cutoff, the same provider and evidence-policy snapshots, and equal total ceilings. Profiles may consume different amounts within those ceilings; cost, latency, and completion remain measured outcomes.
 
 The model-only baseline has no search or fetch access by definition. Its lower resource use must be reported, not artificially spent. Equal ceilings do not imply equal actual cost, latency, or completion; those are measured outcomes.
 

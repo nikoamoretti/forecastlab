@@ -94,6 +94,7 @@ export default function ForecastPage() {
   const reportCalculation = v1Report?.calculation || {};
   const calculationTrace = v1Report?.calculation?.trace || [];
   const aggregationMethod = reportCalculation.method || aggregation.method;
+  const directModelProbability = aggregationMethod === "direct_model_probability_v1";
   const graphAggregation = [
     "dependency_discounted_weighted_mean_v1",
     "importance_weighted_log_odds_v1"
@@ -122,20 +123,24 @@ export default function ForecastPage() {
           </p>
         </div>
         <div className="border border-rule bg-white/60 p-5">
-          <p className="font-mono text-xs uppercase tracking-[0.2em]">Ensemble estimate</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em]">
+            {directModelProbability ? "Single-model estimate" : "Ensemble estimate"}
+          </p>
           <p className="font-serif text-6xl leading-none">
             {pct(displayedProbability)}
           </p>
           <p className="mt-3 text-sm">
             {graphExecutionFailed
               ? "No probability was produced because graph execution was incomplete."
+              : directModelProbability
+              ? "Direct structured model probability. No probability aggregation."
               : logOddsAggregation
               ? "Deterministic importance-weighted log odds. Not a calibrated probability."
               : graphAggregation
               ? "Deterministic dependency-aware weighted mean. Not a calibrated probability."
               : "Coded logit mean with shrinkage. Not a calibrated probability."}
           </p>
-          {!logOddsAggregation ? (
+          {!logOddsAggregation && !directModelProbability ? (
             <p className="mt-2 text-sm">
               {graphAggregation ? "Node spread" : "Track spread"}:{" "}
               {aggregation.track_spread == null ? "—" : Number(aggregation.track_spread).toFixed(3)}
@@ -539,7 +544,9 @@ export default function ForecastPage() {
 
       {tracks.length ? (
         <section>
-          <h3 className="font-serif text-2xl">Independent tracks</h3>
+          <h3 className="font-serif text-2xl">
+            {directModelProbability ? "Single-model forecast" : "Independent tracks"}
+          </h3>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {tracks.map((track: any) => (
               <button
@@ -550,6 +557,16 @@ export default function ForecastPage() {
                 <p className="font-mono text-xs uppercase tracking-[0.2em]">{track.track_type}</p>
                 <p className="mt-2 font-serif text-4xl">{pct(track.probability)}</p>
                 <p className="mt-3 text-sm leading-relaxed">{track.reasoning_summary}</p>
+                {directModelProbability && track.unresolved_uncertainties?.length ? (
+                  <div className="mt-3 text-xs text-ink/70">
+                    <p className="font-medium">Uncertainty</p>
+                    <ul className="mt-1 list-disc space-y-1 pl-4">
+                      {track.unresolved_uncertainties.map((item: string) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
                 {openTrack === track.id ? (
                   <p className="mt-3 text-xs text-ink/70">
                     Resolver risk {track.resolver_risk} · quality {track.evidence_quality}

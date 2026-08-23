@@ -70,7 +70,11 @@ CURRENT_BUILTIN_VERSION = "2"
 DEFAULT_EXPERIMENT_PROFILES = ("single_agent_equal_budget_v1", "three_track_equal_budget_v1")
 V1_EVALUATION_DATASET_KEY = "forecastlab.v1.evaluation.synthetic"
 V1_EVALUATION_DATASET_VERSION = "1"
-V1_EVALUATION_PROFILES = ("three_track_forecaster", "graph_forecaster_v1")
+V1_EVALUATION_PROFILES = (
+    "single_model_forecaster_v1",
+    "three_track_forecaster",
+    "graph_forecaster_v1",
+)
 V1_EVALUATION_QUESTION_COUNT = 10
 V1_EVALUATION_METRICS = (
     "brier_score",
