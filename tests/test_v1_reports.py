@@ -65,6 +65,8 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
                 "supporting_claim_ids": ["support-a"],
                 "opposing_claim_ids": ["oppose-a"],
                 "uncertainty": 0.3,
+                "uncertainty_notes": ["The base-rate source covers a narrow reference class."],
+                "model_used": "stub:node-v1",
                 "raw_importance_weight": 0.8,
                 "dependency_factor": 1.0,
                 "normalized_weight": 0.7,
@@ -78,6 +80,8 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
                 "supporting_claim_ids": [],
                 "opposing_claim_ids": [],
                 "uncertainty": 0.6,
+                "uncertainty_notes": ["No claim was selected for this fixture node."],
+                "model_used": "stub:node-v1",
                 "raw_importance_weight": 0.6,
                 "dependency_factor": 0.5,
                 "normalized_weight": 0.3,
@@ -108,6 +112,10 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
     assert report["final_probability"] == 0.54
     assert report["graph"]["node_count"] == 2
     assert report["nodes"][0]["question"] == "What is the base rate?"
+    assert report["nodes"][0]["uncertainty_notes"] == [
+        "The base-rate source covers a narrow reference class."
+    ]
+    assert report["nodes"][0]["model_used"] == "stub:node-v1"
     assert [item["id"] for item in report["nodes"][0]["supporting_evidence"]] == ["support-a"]
     assert [item["id"] for item in report["nodes"][0]["opposing_evidence"]] == ["oppose-a"]
     assert [item["id"] for item in report["nodes"][1]["uncited_evidence"]] == ["uncited-b"]
@@ -121,6 +129,9 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
     assert "Opposing evidence:" in markdown
     assert "Claim support-a" in markdown
     assert "Excerpt: Excerpt support-a" in markdown
+    assert "Uncertainty:" in markdown
+    assert "The base-rate source covers a narrow reference class." in markdown
+    assert "Model used: stub:node-v1" in markdown
     assert "Final probability:** 0.54" in markdown
 
 

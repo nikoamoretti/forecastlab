@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import uuid
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -8,14 +7,14 @@ from datetime import datetime
 from typing import Any
 
 from forecastlab.budget import Budget, estimate_prompt_tokens
-from forecastlab.engine import ProgressFn, _ask_model
+from forecastlab.engine import ProgressFn
 from forecastlab.errors import BudgetExceeded, StructuredOutputError
 from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.graph_aggregation import METHOD as GRAPH_AGGREGATION_METHOD
 from forecastlab.graph_aggregation import GraphAggregationBreakdown, aggregate_graph_probabilities
 from forecastlab.ledger import RunUsageTotals, UsageLedger
-from forecastlab.node_forecasting import calculate_node_forecast
+from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
@@ -27,9 +26,9 @@ from forecastlab.schemas import (
     ForecastContract,
     ForecastGraph,
     ForecastNode,
-    ForecastNodeOutput,
     ForecastNodeRun,
     ForecastProfile,
+    NodeForecast,
 )
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
@@ -66,8 +65,8 @@ class GraphEngineResult:
     partial: bool = False
 
 
-class _BudgetedEvidenceModel:
-    """Apply the run budget to EvidenceExtractor's existing provider seam."""
+class _BudgetedModel:
+    """Apply the run budget to a structured model service's provider seam."""
 
     def __init__(self, delegate: ModelProvider, budget: Budget, *, stage: str) -> None:
         self.delegate = delegate
@@ -289,7 +288,7 @@ def _research_node(
         evidence.append(record)
 
         extractor = EvidenceExtractor(
-            _BudgetedEvidenceModel(model, budget, stage=f"extract_claims:{node.id}"),
+            _BudgetedModel(model, budget, stage=f"extract_claims:{node.id}"),
             prompt_bundle=prompt_bundle,
         )
         try:
@@ -322,20 +321,6 @@ def _research_node(
     return evidence, rejected, eligible_claims_for_forecasting(claims, cutoff=as_of), extraction_errors
 
 
-def _mock_node_output(node: ForecastNode, claims: list[EvidenceClaim]) -> ForecastNodeOutput:
-    supporting = [claim.id for claim in claims if claim.supports_or_refutes == "supports"]
-    opposing = [claim.id for claim in claims if claim.supports_or_refutes == "refutes"]
-    return ForecastNodeOutput(
-        reasoning=(
-            f"{node.node_type} reasoning uses {len(claims)} eligible, provenance-linked Evidence Claim(s); "
-            "uncertainty remains explicit because this is the deterministic demo path."
-        ),
-        supporting_claim_ids=supporting,
-        opposing_claim_ids=opposing,
-        uncertainty=0.35 if claims else 0.8,
-    )
-
-
 def _forecast_node(
     *,
     contract: ForecastContract,
@@ -345,26 +330,13 @@ def _forecast_node(
     budget: Budget,
     prompt_versions: dict[str, str],
     prompt_bundle: PromptBundle | None = None,
-) -> ForecastNodeOutput:
-    if model.name == "mock":
-        return _mock_node_output(node, claims)
-    context = {
-        "forecast_contract": contract.model_dump(mode="json"),
-        "forecast_node": node.model_dump(mode="json"),
-        "evidence_claims": [claim.model_dump(mode="json") for claim in claims],
-    }
-    output = _ask_model(
-        model,
-        budget,
-        f"forecast_node:{node.id}",
-        "forecast_node",
-        json.dumps(context),
-        "forecast_node",
-        prompt_versions,
-        ForecastNodeOutput,
-        prompt_bundle,
+) -> NodeForecast:
+    forecaster = NodeForecaster(
+        _BudgetedModel(model, budget, stage=f"forecast_node:{node.id}"),
+        prompt_bundle=prompt_bundle,
+        prompt_versions=prompt_versions,
     )
-    return output
+    return forecaster.forecast(contract=contract, node=node, claims=claims)
 
 
 def run_graph_forecast_engine(
@@ -455,7 +427,7 @@ def run_graph_forecast_engine(
             if persist_research is not None:
                 persist_research(node, evidence, rejected, claims)
             _emit(progress, "node_forecast", f"Forecasting graph node {index + 1} of {len(ordered_nodes)}", pct + 0.05)
-            output = _forecast_node(
+            node_forecast = _forecast_node(
                 contract=contract,
                 node=node,
                 claims=claims,
@@ -464,16 +436,17 @@ def run_graph_forecast_engine(
                 prompt_versions=prompt_versions,
                 prompt_bundle=prompt_bundle,
             )
-            node_forecast = calculate_node_forecast(node=node, claims=claims, output=output)
             node_run = ForecastNodeRun(
                 id=str(uuid.uuid4()),
-                forecast_run_id=run_id,
+                run_id=run_id,
                 node_id=node.id,
                 probability=node_forecast.probability,
                 confidence=node_forecast.confidence,
                 reasoning=node_forecast.reasoning,
                 supporting_claim_ids=node_forecast.supporting_claim_ids,
                 opposing_claim_ids=node_forecast.opposing_claim_ids,
+                uncertainty_notes=node_forecast.uncertainty_notes,
+                model_used=node_forecast.model_used,
                 uncertainty=node_forecast.uncertainty,
                 created_at=utcnow(),
             )

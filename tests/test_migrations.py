@@ -28,7 +28,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0012"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0013"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -42,6 +42,8 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "dependency_factor",
             "normalized_weight",
             "probability_contribution",
+            "uncertainty_notes_json",
+            "model_used",
         } <= node_run_cols
         result_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_results")}
         assert {"evidence_coverage", "evidence_covered_units", "evidence_total_units"} <= result_cols
@@ -56,7 +58,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0012"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0013"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:
@@ -80,10 +82,11 @@ def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> Non
         row = connection.execute(
             text(
                 "SELECT confidence, raw_importance_weight, dependency_factor, normalized_weight, "
-                "probability_contribution FROM forecast_node_runs WHERE id = 'node-run-1'"
+                "probability_contribution, uncertainty_notes_json, model_used "
+                "FROM forecast_node_runs WHERE id = 'node-run-1'"
             )
         ).one()
-        assert tuple(row) == (0.0, 0.0, 1.0, 0.0, 0.0)
+        assert tuple(row) == (0.0, 0.0, 1.0, 0.0, 0.0, "[]", "legacy:deterministic-node-v1")
 
 
 def test_v1_evaluation_migration_preserves_existing_benchmark_results(tmp_path) -> None:

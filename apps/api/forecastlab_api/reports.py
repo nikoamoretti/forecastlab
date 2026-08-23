@@ -83,6 +83,8 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "probability": node_run.get("probability"),
                 "confidence": node_run.get("confidence"),
                 "uncertainty": node_run.get("uncertainty"),
+                "uncertainty_notes": node_run.get("uncertainty_notes") or [],
+                "model_used": node_run.get("model_used"),
                 "reasoning": node_run.get("reasoning"),
                 "raw_importance_weight": node_run.get("raw_importance_weight"),
                 "dependency_factor": node_run.get("dependency_factor"),
@@ -158,13 +160,19 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 f"#### {node.get('node_type')}: {node.get('question')}",
                 f"Probability: {node.get('probability')}",
                 f"Confidence: {node.get('confidence')}",
+                f"Model used: {node.get('model_used')}",
                 f"Normalized weight: {node.get('normalized_weight')}",
                 f"Probability contribution: {node.get('probability_contribution')}",
                 node.get("reasoning") or "No node reasoning was produced.",
-                "",
-                "Supporting evidence:",
+                "Uncertainty:",
             ]
         )
+        uncertainty_notes = node.get("uncertainty_notes") or []
+        if uncertainty_notes:
+            lines.extend(f"- {note}" for note in uncertainty_notes)
+        else:
+            lines.append("- No uncertainty notes were produced.")
+        lines.extend(["", "Supporting evidence:"])
         supporting = node.get("supporting_evidence") or []
         if supporting:
             for claim in supporting:

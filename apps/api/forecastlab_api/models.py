@@ -304,6 +304,12 @@ class ForecastNodeRunRow(Base):
     supporting_claim_ids_json: Mapped[str] = mapped_column(Text, default="[]")
     opposing_claim_ids_json: Mapped[str] = mapped_column(Text, default="[]")
     uncertainty: Mapped[float] = mapped_column(Float)
+    uncertainty_notes_json: Mapped[str] = mapped_column(Text, default="[]", server_default="[]")
+    model_used: Mapped[str] = mapped_column(
+        String(255),
+        default="legacy:deterministic-node-v1",
+        server_default="legacy:deterministic-node-v1",
+    )
     raw_importance_weight: Mapped[float] = mapped_column(Float, default=0.0, server_default="0")
     dependency_factor: Mapped[float] = mapped_column(Float, default=1.0, server_default="1")
     normalized_weight: Mapped[float] = mapped_column(Float, default=0.0, server_default="0")

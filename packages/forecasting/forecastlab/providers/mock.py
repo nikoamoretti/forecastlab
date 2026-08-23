@@ -117,6 +117,8 @@ class MockModelProvider:
             return self._plan(user)
         if "extract" in prompt_id or schema_name == "evidence_extract":
             return self._extract(user)
+        if schema_name == "forecast_node":
+            return self._forecast_node(user)
         if "forecast" in prompt_id or schema_name == "track_forecast":
             return self._forecast(user)
         if "disagreement" in prompt_id or schema_name == "disagreement_summary":
@@ -231,6 +233,28 @@ class MockModelProvider:
             "publisher": "Fixture statistical agency",
             "source_class": "primary" if "bls" in user.lower() else "secondary",
             "notes": "Extracted from supplied document text only.",
+        }
+
+    def _forecast_node(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            claims = payload.get("evidence_claims") or []
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            claims = []
+        supporting = [str(claim["id"]) for claim in claims if claim.get("supports_or_refutes") == "supports"]
+        opposing = [str(claim["id"]) for claim in claims if claim.get("supports_or_refutes") == "refutes"]
+        total = len(supporting) + len(opposing)
+        directional_balance = (len(supporting) - len(opposing)) / total if total else 0.0
+        probability = min(0.95, max(0.05, 0.5 + 0.1 * directional_balance))
+        return {
+            "probability": probability,
+            "reasoning": (
+                f"The mock node forecast cites {len(supporting)} supporting and {len(opposing)} opposing "
+                "provenance-linked Evidence Claims."
+            ),
+            "supporting_claim_ids": supporting,
+            "opposing_claim_ids": opposing,
+            "uncertainty_notes": ["Synthetic mock evidence is not real-world forecasting evidence."],
         }
 
     def _forecast(self, user: str) -> dict[str, Any]:

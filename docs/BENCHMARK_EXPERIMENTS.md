@@ -53,7 +53,7 @@ Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and
 First V1 framework comparison:
 
 - `three_track_forecaster` is a frozen experiment alias for the existing `three_track_ensemble` execution path.
-- `graph_forecaster_v1` executes approved contracts, graph nodes, Evidence Claims, deterministic node probabilities, and graph aggregation.
+- `graph_forecaster_v1` executes approved contracts, graph nodes, Evidence Claims, strictly validated model-authored node probabilities, and unchanged deterministic graph aggregation.
 
 `GET /api/evaluations/v1` returns the fixed ten-question workflow and its metrics. `POST /api/evaluations/v1` creates exactly twenty tasks: ten questions × the two profiles above. The Lab exposes the same workflow as **Run V1 10-question comparison**. It is synthetic software verification and cannot establish profile superiority.
 

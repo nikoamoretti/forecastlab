@@ -16,7 +16,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from forecastlab.contracts import ForecastContractError
-from forecastlab.errors import ConfigurationError
+from forecastlab.errors import ConfigurationError, StructuredOutputError
 from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.graphs import ForecastGraphError
@@ -197,6 +197,11 @@ def forecast_graph_error_handler(_request, exc: ForecastGraphError) -> JSONRespo
 @app.exception_handler(EvidenceClaimError)
 def evidence_claim_error_handler(_request, exc: EvidenceClaimError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+
+
+@app.exception_handler(StructuredOutputError)
+def structured_output_error_handler(_request, exc: StructuredOutputError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": [str(exc)]})
 
 
 def _row(model: Any) -> dict[str, Any]:
@@ -590,16 +595,14 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     return _row(run)
 
 
-@app.post("/api/forecasts/{forecast_id}/execute-v1")
-def execute_forecast_v1(
+def _start_v1_run(
     forecast_id: str,
-    body: ExecuteV1In | None = None,
-    db: Session = Depends(get_db),
-) -> dict[str, Any]:
+    body: ExecuteV1In,
+    db: Session,
+) -> ForecastRun:
     question = db.get(Question, forecast_id)
     if question is None:
         raise HTTPException(404, "Forecast not found")
-    body = body or ExecuteV1In()
     if body.mode not in {"demo", "live", "backtest"}:
         raise HTTPException(422, "Unknown mode")
     approved_contract_for_question(db, question.id)
@@ -617,7 +620,35 @@ def execute_forecast_v1(
         execute_run(db, run)
         db.refresh(run)
     db.commit()
+    return run
+
+
+@app.post("/api/forecasts/{forecast_id}/execute-v1")
+def execute_forecast_v1(
+    forecast_id: str,
+    body: ExecuteV1In | None = None,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    run = _start_v1_run(forecast_id, body or ExecuteV1In(), db)
     return _row(run)
+
+
+@app.post("/api/forecasts/{forecast_id}/node-runs")
+def post_forecast_node_runs(
+    forecast_id: str,
+    body: ExecuteV1In | None = None,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    """Start the graph execution that creates auditable node runs without changing aggregation policy."""
+
+    run = _start_v1_run(forecast_id, body or ExecuteV1In(), db)
+    return {
+        "forecast_id": forecast_id,
+        "run_id": run.id,
+        "profile_id": run.profile_id,
+        "status": run.status,
+        "node_runs": [item.model_dump(mode="json") for item in node_runs_for_run(db, run.id)],
+    }
 
 
 @app.get("/api/forecasts/{forecast_id}/node-runs")

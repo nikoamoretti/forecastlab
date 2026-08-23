@@ -57,10 +57,11 @@ class ContextCapturingModel:
             self.forecast_contexts.append(payload)
             claim_id = payload["evidence_claims"][0]["id"]
             result = {
+                "probability": 0.41,
                 "reasoning": f"The estimate is supported by Evidence Claim {claim_id}.",
                 "supporting_claim_ids": [claim_id],
                 "opposing_claim_ids": [],
-                "uncertainty": 0.4,
+                "uncertainty_notes": ["Only one eligible source is available."],
             }
         else:
             raise AssertionError(f"Unexpected schema: {schema_name}")
@@ -161,14 +162,16 @@ def test_forecasting_model_receives_contract_node_and_claims_not_raw_webpages() 
     assert events == ["extract", "persist", "forecast"]
     assert len(model.forecast_contexts) == 1
     context = model.forecast_contexts[0]
-    assert set(context) == {"forecast_contract", "forecast_node", "evidence_claims"}
+    assert set(context) == {"forecast_contract", "node_question", "evidence_claims"}
     assert context["forecast_contract"]["id"] == "contract-v1"
-    assert context["forecast_node"]["id"] == "node-v1"
+    assert context["node_question"] == "What historical base rate applies?"
     assert len(context["evidence_claims"]) == 1
     assert "document" not in context
     assert "text" not in context
     assert result.nodes[0].node_run is not None
-    assert result.nodes[0].node_run.probability != 0.41
+    assert result.nodes[0].node_run.probability == 0.41
+    assert result.nodes[0].node_run.uncertainty_notes == ["Only one eligible source is available."]
+    assert result.nodes[0].node_run.model_used == "stub:stub-v1"
     assert result.nodes[0].node_run.confidence > 0
     assert result.nodes[0].node_run.normalized_weight == 1.0
     assert result.nodes[0].node_run.probability_contribution == result.nodes[0].node_run.probability
@@ -201,7 +204,7 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
         assert session.scalar(select(func.count()).select_from(ForecastGraphRow)) == 0
 
     response = client.post(
-        f"/api/forecasts/{draft['question_id']}/execute-v1",
+        f"/api/forecasts/{draft['question_id']}/node-runs",
         json={"mode": "demo"},
     )
 
@@ -209,16 +212,18 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     run = response.json()
     assert run["profile_id"] == "graph_forecaster_v1"
     assert run["status"] == "completed"
+    assert len(run["node_runs"]) == 7
+    run_id = run["run_id"]
 
     with main_mod.SessionLocal() as session:
         assert session.scalar(select(func.count()).select_from(ForecastGraphRow)) == 1
         assert session.scalar(
             select(func.count()).select_from(ForecastNodeRunRow).where(
-                ForecastNodeRunRow.forecast_run_id == run["id"]
+                ForecastNodeRunRow.forecast_run_id == run_id
             )
         ) == 7
         assert session.scalar(select(func.count()).select_from(EvidenceClaimRow)) == 7
-        version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run["id"]))
+        version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id))
         assert version is not None
         assert version.ensemble_probability is not None
         assert version.trigger_event == "graph_forecaster_v1"
@@ -226,9 +231,12 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     node_runs = client.get(f"/api/forecasts/{draft['question_id']}/node-runs")
     assert node_runs.status_code == 200
     node_payload = node_runs.json()
-    assert node_payload["run_id"] == run["id"]
+    assert node_payload["run_id"] == run_id
     assert len(node_payload["node_runs"]) == 7
     assert all(item["supporting_claim_ids"] for item in node_payload["node_runs"])
+    assert all(item["run_id"] == run_id for item in node_payload["node_runs"])
+    assert all(item["uncertainty_notes"] for item in node_payload["node_runs"])
+    assert all(item["model_used"] == "mock:mock-forecast-v1" for item in node_payload["node_runs"])
     assert sum(item["normalized_weight"] for item in node_payload["node_runs"]) == pytest.approx(1.0)
     assert all(item["confidence"] > 0 for item in node_payload["node_runs"])
 
@@ -245,6 +253,8 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert len(v1_report["nodes"]) == 7
     assert all(node["question"] for node in v1_report["nodes"])
     assert all(node["supporting_evidence"] for node in v1_report["nodes"])
+    assert all(node["uncertainty_notes"] for node in v1_report["nodes"])
+    assert all(node["model_used"] == "mock:mock-forecast-v1" for node in v1_report["nodes"])
     assert v1_report["evidence_coverage"]["rate"] == 1.0
     assert v1_report["calculation"]["trace"][-1]["step"] == "final"
 
@@ -252,6 +262,8 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert "Normalized weight:" in markdown
     assert "Probability contribution:" in markdown
     assert "Supporting evidence:" in markdown
+    assert "Uncertainty:" in markdown
+    assert "Model used: mock:mock-forecast-v1" in markdown
     assert "Calculation trace" in markdown
 
 

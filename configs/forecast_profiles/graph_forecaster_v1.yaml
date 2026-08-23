@@ -1,5 +1,5 @@
 id: graph_forecaster_v1
-version: 2
+version: 3
 label: Graph forecaster V1
 description: Opt-in Forecast Contract, Forecast Graph, and Evidence Claims execution path.
 execution_strategy: graph_nodes
@@ -20,4 +20,4 @@ max_wall_clock_seconds: 180
 prompt_versions:
   forecast_graph: v1
   evidence_claims: v1
-  forecast_node: v2
+  forecast_node: v3

@@ -356,6 +356,17 @@ export default function ForecastPage() {
                     </p>
                     <h4 className="mt-2 font-serif text-xl">{node.question}</h4>
                     <p className="mt-3 text-sm leading-relaxed">{node.reasoning || "No node reasoning was produced."}</p>
+                    <p className="mt-2 font-mono text-xs text-ink/60">Model: {node.model_used || "not recorded"}</p>
+                    <div className="mt-3 text-sm">
+                      <p className="font-medium">Uncertainty</p>
+                      {node.uncertainty_notes?.length ? (
+                        <ul className="mt-1 list-disc space-y-1 pl-5 text-ink/70">
+                          {node.uncertainty_notes.map((note: string) => <li key={note}>{note}</li>)}
+                        </ul>
+                      ) : (
+                        <p className="mt-1 text-ink/60">No uncertainty notes were produced.</p>
+                      )}
+                    </div>
                   </div>
                   <dl className="grid min-w-52 grid-cols-2 gap-x-5 gap-y-2 text-sm">
                     <div>

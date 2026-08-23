@@ -63,5 +63,7 @@ test("V1 graph report shows node evidence and calculation trace", async ({ page 
   await expect(report.getByText(/7\/7/)).toBeVisible();
   await expect(page.getByText("Supporting evidence", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Opposing evidence", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Uncertainty", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(/Model: mock:mock-forecast-v1/).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Calculation trace" })).toBeVisible();
 });

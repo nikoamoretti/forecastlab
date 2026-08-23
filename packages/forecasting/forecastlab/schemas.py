@@ -267,29 +267,50 @@ class EvidenceClaim(BaseModel):
 
 
 class ForecastNodeOutput(BaseModel):
-    """Model-authored node analysis. Probability is intentionally absent."""
+    """Strict model-authored probability and audit trail for one graph node."""
 
     model_config = ConfigDict(extra="forbid")
 
+    probability: float = Field(ge=0.0, le=1.0)
     reasoning: str = Field(min_length=1)
     supporting_claim_ids: list[str] = Field(default_factory=list)
     opposing_claim_ids: list[str] = Field(default_factory=list)
-    uncertainty: float = Field(ge=0.0, le=1.0)
+    uncertainty_notes: list[str] = Field(default_factory=list)
+
+    @field_validator("reasoning")
+    @classmethod
+    def validate_reasoning(cls, value: str) -> str:
+        normalized = value.strip()
+        if not normalized:
+            raise ValueError("reasoning_required")
+        return normalized
+
+    @field_validator("uncertainty_notes")
+    @classmethod
+    def validate_uncertainty_notes(cls, values: list[str]) -> list[str]:
+        normalized = [value.strip() for value in values]
+        if any(not value for value in normalized):
+            raise ValueError("uncertainty_notes_must_not_be_blank")
+        return list(dict.fromkeys(normalized))
 
 
 class NodeForecast(BaseModel):
     node_id: str
-    probability: float = Field(ge=0.01, le=0.99)
+    probability: float = Field(ge=0.0, le=1.0)
     confidence: float = Field(ge=0.0, le=1.0)
     reasoning: str = Field(min_length=1)
     supporting_claim_ids: list[str] = Field(default_factory=list)
     opposing_claim_ids: list[str] = Field(default_factory=list)
+    uncertainty_notes: list[str] = Field(default_factory=list)
+    model_used: str = Field(min_length=1)
+    # Retained for existing reports and stored rows. It is derived from cited-claim
+    # confidence, not authored by the model or used by graph aggregation.
     uncertainty: float = Field(ge=0.0, le=1.0)
 
 
 class ForecastNodeRun(NodeForecast):
     id: str
-    forecast_run_id: str
+    run_id: str
     raw_importance_weight: float = Field(default=0.0, ge=0.0)
     dependency_factor: float = Field(default=1.0, ge=0.0, le=1.0)
     normalized_weight: float = Field(default=0.0, ge=0.0, le=1.0)
