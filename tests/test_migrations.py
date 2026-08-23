@@ -26,11 +26,13 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "forecast_node_runs" in tables
     assert "forecast_aggregations" in tables
     assert "graph_execution_failures" in tables
+    assert "evaluation_datasets" in tables
+    assert "evaluation_questions" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -71,6 +73,35 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "error_message",
             "created_at",
         } <= failure_cols
+        dataset_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_datasets")
+        }
+        assert {
+            "name",
+            "version",
+            "description",
+            "dataset_hash",
+            "status",
+            "created_at",
+            "frozen_at",
+            "question_count",
+            "provenance",
+        } <= dataset_cols
+        evaluation_question_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_questions")
+        }
+        assert {
+            "dataset_id",
+            "question_text",
+            "normalized_question",
+            "resolution_contract",
+            "forecast_date",
+            "resolution_date",
+            "outcome",
+            "resolution_source",
+            "category",
+            "domain",
+        } <= evaluation_question_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -82,7 +113,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:
