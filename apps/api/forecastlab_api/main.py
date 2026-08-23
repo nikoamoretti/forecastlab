@@ -749,6 +749,11 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
         for node_run in latest["node_runs"]:
             lines.append(f"### Node {node_run.get('node_id')}")
             lines.append(f"Probability: {node_run.get('probability')}")
+            lines.append(f"Confidence: {node_run.get('confidence')}")
+            lines.append(f"Raw importance weight: {node_run.get('raw_importance_weight')}")
+            lines.append(f"Dependency factor: {node_run.get('dependency_factor')}")
+            lines.append(f"Normalized weight: {node_run.get('normalized_weight')}")
+            lines.append(f"Probability contribution: {node_run.get('probability_contribution')}")
             lines.append(node_run.get("reasoning") or "")
             lines.append("")
     lines.append("## Evidence")

@@ -7,13 +7,15 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
-from forecastlab.aggregation import AggregationBreakdown, aggregate_track_probabilities
 from forecastlab.budget import Budget, estimate_prompt_tokens
 from forecastlab.engine import ProgressFn, _ask_model
 from forecastlab.errors import BudgetExceeded, StructuredOutputError
 from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
+from forecastlab.graph_aggregation import METHOD as GRAPH_AGGREGATION_METHOD
+from forecastlab.graph_aggregation import GraphAggregationBreakdown, aggregate_graph_probabilities
 from forecastlab.ledger import RunUsageTotals, UsageLedger
+from forecastlab.node_forecasting import calculate_node_forecast
 from forecastlab.profiles import load_profile
 from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
 from forecastlab.ranking import rank_hits
@@ -53,7 +55,7 @@ class GraphEngineResult:
     contract: ForecastContract
     graph: ForecastGraph
     nodes: list[ForecastNodeExecution]
-    aggregation: AggregationBreakdown
+    aggregation: GraphAggregationBreakdown
     prompt_versions: dict[str, str]
     budget: dict[str, Any]
     stopped_early: bool
@@ -318,43 +320,16 @@ def _research_node(
 
 
 def _mock_node_output(node: ForecastNode, claims: list[EvidenceClaim]) -> ForecastNodeOutput:
-    probabilities = {
-        "base_rate": 0.42,
-        "trend": 0.34,
-        "driver": 0.40,
-        "dependency": 0.39,
-        "scenario": 0.44,
-        "adversarial": 0.38,
-        "resolver": 0.41,
-    }
     supporting = [claim.id for claim in claims if claim.supports_or_refutes == "supports"]
     opposing = [claim.id for claim in claims if claim.supports_or_refutes == "refutes"]
     return ForecastNodeOutput(
-        probability=probabilities[node.node_type],
         reasoning=(
-            f"Node estimate uses {len(claims)} eligible, provenance-linked Evidence Claim(s); "
+            f"{node.node_type} reasoning uses {len(claims)} eligible, provenance-linked Evidence Claim(s); "
             "uncertainty remains explicit because this is the deterministic demo path."
         ),
         supporting_claim_ids=supporting,
         opposing_claim_ids=opposing,
         uncertainty=0.35 if claims else 0.8,
-    )
-
-
-def _validate_node_output(output: ForecastNodeOutput, claims: list[EvidenceClaim]) -> ForecastNodeOutput:
-    by_id = {claim.id: claim for claim in claims}
-    supplied = [*output.supporting_claim_ids, *output.opposing_claim_ids]
-    if any(claim_id not in by_id for claim_id in supplied):
-        raise StructuredOutputError("node_forecast_unknown_claim_id")
-    if any(by_id[claim_id].supports_or_refutes != "supports" for claim_id in output.supporting_claim_ids):
-        raise StructuredOutputError("node_forecast_supporting_stance_mismatch")
-    if any(by_id[claim_id].supports_or_refutes != "refutes" for claim_id in output.opposing_claim_ids):
-        raise StructuredOutputError("node_forecast_opposing_stance_mismatch")
-    return output.model_copy(
-        update={
-            "supporting_claim_ids": list(dict.fromkeys(output.supporting_claim_ids)),
-            "opposing_claim_ids": list(dict.fromkeys(output.opposing_claim_ids)),
-        }
     )
 
 
@@ -386,7 +361,7 @@ def _forecast_node(
         ForecastNodeOutput,
         prompt_bundle,
     )
-    return _validate_node_output(output, claims)
+    return output
 
 
 def run_graph_forecast_engine(
@@ -415,6 +390,8 @@ def run_graph_forecast_engine(
     profile = profile or load_profile(profile_id)
     if profile.execution_strategy != "graph_nodes":
         raise ValueError("graph_execution_strategy_required")
+    if profile.aggregation_method != GRAPH_AGGREGATION_METHOD:
+        raise ValueError("graph_aggregation_method_required")
     if contract.status != "approved":
         raise ValueError("approved_forecast_contract_required")
     if graph.status != "approved" or graph.contract_id != contract.id:
@@ -483,15 +460,17 @@ def run_graph_forecast_engine(
                 prompt_versions=prompt_versions,
                 prompt_bundle=prompt_bundle,
             )
+            node_forecast = calculate_node_forecast(node=node, claims=claims, output=output)
             node_run = ForecastNodeRun(
                 id=str(uuid.uuid4()),
                 forecast_run_id=run_id,
                 node_id=node.id,
-                probability=output.probability,
-                reasoning=output.reasoning,
-                supporting_claim_ids=output.supporting_claim_ids,
-                opposing_claim_ids=output.opposing_claim_ids,
-                uncertainty=output.uncertainty,
+                probability=node_forecast.probability,
+                confidence=node_forecast.confidence,
+                reasoning=node_forecast.reasoning,
+                supporting_claim_ids=node_forecast.supporting_claim_ids,
+                opposing_claim_ids=node_forecast.opposing_claim_ids,
+                uncertainty=node_forecast.uncertainty,
                 created_at=utcnow(),
             )
             results.append(
@@ -520,14 +499,21 @@ def run_graph_forecast_engine(
         for item in results
     }
     failures = {item.node.id: item.error or "node_failed" for item in results if item.node_run is None}
-    base_rate = next((item.node.id for item in results if item.node.node_type == "base_rate"), "base_rate")
-    _emit(progress, "aggregate", "Aggregating node probabilities with the existing method", 0.86)
-    aggregation = aggregate_track_probabilities(
-        probabilities,
-        shrinkage=profile.shrinkage,
-        anchor_track=base_rate,
-        failed_tracks=failures,
-    )
+    _emit(progress, "aggregate", "Aggregating node probabilities with graph weights", 0.86)
+    aggregation = aggregate_graph_probabilities(graph, probabilities, failed_nodes=failures)
+    contribution_by_node = {item.node_id: item for item in aggregation.contributions}
+    for item in results:
+        if item.node_run is None:
+            continue
+        contribution = contribution_by_node[item.node.id]
+        item.node_run = item.node_run.model_copy(
+            update={
+                "raw_importance_weight": contribution.raw_importance_weight,
+                "dependency_factor": contribution.dependency_factor,
+                "normalized_weight": contribution.normalized_weight,
+                "probability_contribution": contribution.probability_contribution,
+            }
+        )
 
     _emit(progress, "report", "Preparing the graph forecast report", 0.96)
     all_urls = [

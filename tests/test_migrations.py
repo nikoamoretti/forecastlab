@@ -1,6 +1,7 @@
+from alembic import command
 from sqlalchemy import create_engine, inspect, text
 
-from forecastlab_api.migrate import apply_migrations, apply_schema
+from forecastlab_api.migrate import alembic_config, apply_migrations, apply_schema
 
 
 def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
@@ -27,13 +28,21 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0010"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0011"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
         assert "exact_no" in question_cols
         run_cols = {column["name"] for column in inspect(engine).get_columns("forecast_runs")}
         assert "benchmark_task_id" in run_cols
+        node_run_cols = {column["name"] for column in inspect(engine).get_columns("forecast_node_runs")}
+        assert {
+            "confidence",
+            "raw_importance_weight",
+            "dependency_factor",
+            "normalized_weight",
+            "probability_contribution",
+        } <= node_run_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -45,4 +54,31 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0010"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0011"
+
+
+def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:
+    db_url = f"sqlite:///{tmp_path}/node-run.db"
+    command.upgrade(alembic_config(db_url), "20260822_0010")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO forecast_node_runs "
+                "(id, forecast_run_id, node_id, probability, reasoning, supporting_claim_ids_json, "
+                "opposing_claim_ids_json, uncertainty, created_at) VALUES "
+                "('node-run-1', 'missing-run', 'missing-node', 0.55, 'legacy output', '[]', '[]', 0.4, "
+                "'2026-08-22 00:00:00')"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with engine.connect() as connection:
+        row = connection.execute(
+            text(
+                "SELECT confidence, raw_importance_weight, dependency_factor, normalized_weight, "
+                "probability_contribution FROM forecast_node_runs WHERE id = 'node-run-1'"
+            )
+        ).one()
+        assert tuple(row) == (0.0, 0.0, 1.0, 0.0, 0.0)

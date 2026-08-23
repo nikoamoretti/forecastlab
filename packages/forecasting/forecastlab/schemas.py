@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from forecastlab.timeutil import as_utc
 
@@ -267,22 +267,33 @@ class EvidenceClaim(BaseModel):
 
 
 class ForecastNodeOutput(BaseModel):
-    probability: float = Field(ge=0.01, le=0.99)
-    reasoning: str
+    """Model-authored node analysis. Probability is intentionally absent."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    reasoning: str = Field(min_length=1)
     supporting_claim_ids: list[str] = Field(default_factory=list)
     opposing_claim_ids: list[str] = Field(default_factory=list)
     uncertainty: float = Field(ge=0.0, le=1.0)
 
 
-class ForecastNodeRun(BaseModel):
-    id: str
-    forecast_run_id: str
+class NodeForecast(BaseModel):
     node_id: str
     probability: float = Field(ge=0.01, le=0.99)
-    reasoning: str
+    confidence: float = Field(ge=0.0, le=1.0)
+    reasoning: str = Field(min_length=1)
     supporting_claim_ids: list[str] = Field(default_factory=list)
     opposing_claim_ids: list[str] = Field(default_factory=list)
     uncertainty: float = Field(ge=0.0, le=1.0)
+
+
+class ForecastNodeRun(NodeForecast):
+    id: str
+    forecast_run_id: str
+    raw_importance_weight: float = Field(default=0.0, ge=0.0)
+    dependency_factor: float = Field(default=1.0, ge=0.0, le=1.0)
+    normalized_weight: float = Field(default=0.0, ge=0.0, le=1.0)
+    probability_contribution: float = Field(default=0.0, ge=0.0, le=1.0)
     created_at: datetime
 
 

@@ -4,6 +4,7 @@ import json
 from datetime import UTC, datetime
 from typing import Any
 
+import pytest
 from sqlalchemy import func, select
 
 from forecastlab.graph_execution import run_graph_forecast_engine
@@ -56,7 +57,6 @@ class ContextCapturingModel:
             self.forecast_contexts.append(payload)
             claim_id = payload["evidence_claims"][0]["id"]
             result = {
-                "probability": 0.41,
                 "reasoning": f"The estimate is supported by Evidence Claim {claim_id}.",
                 "supporting_claim_ids": [claim_id],
                 "opposing_claim_ids": [],
@@ -133,6 +133,7 @@ def test_forecasting_model_receives_contract_node_and_claims_not_raw_webpages() 
         label="Graph test",
         description="Test profile",
         execution_strategy="graph_nodes",
+        aggregation_method="dependency_discounted_weighted_mean_v1",
         tracks=["single_agent"],
         subquestions_per_track=1,
         search_results_per_subquestion=1,
@@ -167,6 +168,11 @@ def test_forecasting_model_receives_contract_node_and_claims_not_raw_webpages() 
     assert "document" not in context
     assert "text" not in context
     assert result.nodes[0].node_run is not None
+    assert result.nodes[0].node_run.probability != 0.41
+    assert result.nodes[0].node_run.confidence > 0
+    assert result.nodes[0].node_run.normalized_weight == 1.0
+    assert result.nodes[0].node_run.probability_contribution == result.nodes[0].node_run.probability
+    assert result.aggregation.method == "dependency_discounted_weighted_mean_v1"
     assert result.aggregation.ensemble_probability is not None
 
 
@@ -223,6 +229,8 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert node_payload["run_id"] == run["id"]
     assert len(node_payload["node_runs"]) == 7
     assert all(item["supporting_claim_ids"] for item in node_payload["node_runs"])
+    assert sum(item["normalized_weight"] for item in node_payload["node_runs"]) == pytest.approx(1.0)
+    assert all(item["confidence"] > 0 for item in node_payload["node_runs"])
 
     report = client.get(f"/api/questions/{draft['question_id']}/report").json()
     latest = report["latest_run"]
@@ -230,6 +238,12 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert len(latest["evidence_claims"]) == 7
     assert latest["forecast_contract"]["status"] == "approved"
     assert latest["forecast_graph"]["status"] == "approved"
+    assert latest["aggregation"]["method"] == "dependency_discounted_weighted_mean_v1"
+    assert latest["aggregation"]["calculation_trace"][-1]["step"] == "final"
+
+    markdown = client.get(f"/api/questions/{draft['question_id']}/export.md").text
+    assert "Normalized weight:" in markdown
+    assert "Probability contribution:" in markdown
 
 
 def test_legacy_forecast_execution_remains_available(client) -> None:

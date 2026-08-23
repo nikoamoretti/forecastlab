@@ -1,5 +1,5 @@
 id: graph_forecaster_v1
-version: 1
+version: 2
 label: Graph forecaster V1
 description: Opt-in Forecast Contract, Forecast Graph, and Evidence Claims execution path.
 execution_strategy: graph_nodes
@@ -8,8 +8,8 @@ tracks:
 subquestions_per_track: 1
 search_results_per_subquestion: 2
 fetches_per_subquestion: 1
-aggregation_method: equal_weight_logit_shrinkage
-shrinkage: 0.10
+aggregation_method: dependency_discounted_weighted_mean_v1
+shrinkage: 0.0
 max_model_calls: 32
 max_search_calls: 10
 max_fetched_documents: 10
@@ -20,4 +20,4 @@ max_wall_clock_seconds: 180
 prompt_versions:
   forecast_graph: v1
   evidence_claims: v1
-  forecast_node: v1
+  forecast_node: v2

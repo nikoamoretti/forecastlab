@@ -82,10 +82,15 @@ def forecast_node_run_from_row(row: ForecastNodeRunRow) -> ForecastNodeRun:
         forecast_run_id=row.forecast_run_id,
         node_id=row.node_id,
         probability=row.probability,
+        confidence=row.confidence,
         reasoning=row.reasoning,
         supporting_claim_ids=json.loads(row.supporting_claim_ids_json or "[]"),
         opposing_claim_ids=json.loads(row.opposing_claim_ids_json or "[]"),
         uncertainty=row.uncertainty,
+        raw_importance_weight=row.raw_importance_weight,
+        dependency_factor=row.dependency_factor,
+        normalized_weight=row.normalized_weight,
+        probability_contribution=row.probability_contribution,
         created_at=row.created_at,
     )
 
@@ -223,10 +228,15 @@ def persist_graph_engine_result(
                 forecast_run_id=node_run.forecast_run_id,
                 node_id=node_run.node_id,
                 probability=node_run.probability,
+                confidence=node_run.confidence,
                 reasoning=node_run.reasoning,
                 supporting_claim_ids_json=json.dumps(node_run.supporting_claim_ids),
                 opposing_claim_ids_json=json.dumps(node_run.opposing_claim_ids),
                 uncertainty=node_run.uncertainty,
+                raw_importance_weight=node_run.raw_importance_weight,
+                dependency_factor=node_run.dependency_factor,
+                normalized_weight=node_run.normalized_weight,
+                probability_contribution=node_run.probability_contribution,
                 created_at=node_run.created_at,
             )
         )

@@ -127,7 +127,7 @@ Each node must define:
 | Field | Meaning |
 | --- | --- |
 | Question | A resolvable or estimable subquestion stated without assuming the parent answer. |
-| Importance | A pre-aggregation estimate of how materially the node can affect the parent forecast. It is not confidence. |
+| Importance | A pre-aggregation estimate of how materially the node can affect the parent forecast. In `graph_forecaster_v1`, it is the raw aggregation weight before dependency discounting and normalization. It is not confidence. |
 | Dependencies | Other nodes or common causes that make the node conditionally related. |
 | Preferred evidence | Source types, records, and time windows best suited to answer the node. |
 | Output type | Probability, directional update, bounded quantity, scenario weight, or structured categorical result. |
@@ -140,13 +140,13 @@ The graph is frozen before final evidence synthesis for an evaluation run. Devel
 
 1. **Eligibility:** only an `approved` Forecast Contract may be used to generate a graph. The approved contract's normalized binary outcome is the graph root and is not rewritten by the generator.
 2. **Generate:** `GraphGenerator` returns structured JSON containing 5–10 question-specific research nodes. Every generated graph includes at least one `base_rate`, `driver`, `adversarial`, and `resolver` node. Other permitted node types are `trend`, `dependency`, and `scenario`.
-3. **Relate:** each node records an optional parent, explicit node dependencies, preferred source guidance, required output type, and an importance weight. Importance expresses materiality to the outcome, not confidence or an aggregation weight.
+3. **Relate:** each node records an optional parent, explicit node dependencies, preferred source guidance, required output type, and an importance weight. Importance expresses materiality to the outcome, not confidence. The graph forecaster uses it as the raw aggregation weight under the fixed calculation below.
 4. **Validate:** approval requires a root outcome, at least three nodes, an adversarial node, a resolver node, unique node identifiers and questions, valid parent and dependency references, and no cycles. Generator output also has to satisfy the stricter 5–10-node and required-type constraints.
 5. **Approve and freeze:** the current minimal API has no graph editor or separate human approval endpoint. `POST /api/contracts/{id}/graph` validates generated output and stores it directly as `approved`; invalid output is rejected rather than partially stored. Repeating the request returns the existing approved graph.
 6. **Gate:** a question created through the first-class Forecast Contract flow cannot start forecasting until its current approved contract has an approved graph. Legacy questions without first-class contracts remain a compatibility boundary.
 7. **Supersede:** the data model reserves `superseded` for a future versioning workflow. This foundation does not expose graph regeneration or mutation after approval.
 
-The opt-in `graph_forecaster_v1` profile executes the approved graph. The legacy profiles still use independent tracks. Graph importance weights and dependency edges remain research-plan metadata and are deliberately not consumed by the current aggregation baseline.
+The opt-in `graph_forecaster_v1` profile executes the approved graph. The legacy profiles still use independent tracks and their existing aggregation. The graph profile uses importance weights and declared relationships through the deterministic rule below.
 
 ## Evidence model
 
@@ -192,10 +192,13 @@ The opt-in graph execution path invokes this layer for each researched node. Leg
 2. **Require contract:** execution fails before research unless the question has an `approved` first-class Forecast Contract. A legacy `ResolutionContractRow` alone does not satisfy this gate.
 3. **Ensure graph:** the worker loads the latest approved graph for that approved contract. If none exists, it generates, validates, stores, and commits the graph before starting node research.
 4. **Research nodes:** nodes are processed in dependency-safe order. Search and retrieval use the existing providers, cache, cutoff rules, and run budget. Retrieved documents may be given to `EvidenceExtractor`, but they are never included directly in a node-forecast prompt.
-5. **Build forecasting context:** the node forecaster receives exactly the approved Forecast Contract, the current Forecast Node, and eligible Evidence Claims linked to that node. Unknown claim identifiers and support/refutation stance mismatches fail structured-output validation.
-6. **Persist node output:** each successful node produces a `ForecastNodeRun` containing probability, reasoning, supporting and opposing claim identifiers, uncertainty, run identity, node identity, and creation time.
-7. **Aggregate without a method change:** successful node probabilities are passed to the existing equal-weight logit-shrinkage function. The base-rate node supplies the existing anchor role. Importance weights, graph edges, and dependency metadata do not alter the calculation in this pass.
-8. **Report:** the normal forecast version and report surfaces include the final probability, aggregation trace, approved contract and graph, node runs, Evidence Claims, evidence items, execution identity, and cost data. A missing node caused by a budget stop is exposed as partial rather than imputed.
+5. **Build forecasting context:** the node forecaster receives exactly the approved Forecast Contract, the current Forecast Node, and eligible Evidence Claims linked to that node. The model returns reasoning, selected supporting and opposing claim identifiers, and uncertainty. It cannot return a probability. Unknown claim identifiers and support/refutation stance mismatches fail structured-output validation.
+6. **Calculate node forecast:** application code deterministically converts the selected claims into a `NodeForecast`. For each claim, `strength = claim confidence × source quality × source factor`, where the source factor is `1.0` for a primary source and `0.85` otherwise. Supporting and opposing strengths determine a directional balance. Evidence coverage is capped at `total strength / 2`, certainty is `1 - uncertainty`, and the probability is `sigmoid(3 × balance × coverage × certainty)`, clipped to `[0.01, 0.99]`. Node confidence is `coverage × certainty`. No model-authored number enters this arithmetic.
+7. **Persist node output:** each successful `ForecastNodeRun` stores the node probability, confidence, model reasoning, supporting and opposing claim identifiers, uncertainty, raw importance weight, dependency factor, normalized weight, probability contribution, run identity, node identity, and creation time.
+8. **Aggregate graph:** for each available node, code calculates `dependency factor = 1 / (1 + distinct dependency and parent relationships)` and `adjusted weight = importance × dependency factor`. Adjusted weights are normalized to sum to one, then `contribution = normalized weight × clipped node probability`. The final probability is the sum of contributions clipped to `[0.02, 0.98]`. If every available importance weight is zero, equal raw weights are used before the same dependency discount. Missing nodes are omitted and the remaining weights are renormalized; their declared relationships still count in dependency factors. A run with no available node probability fails.
+9. **Report:** the normal forecast version and report surfaces include every node probability, confidence, raw and normalized weights, dependency factors, contributions, final probability, and a structured calculation trace alongside the approved contract and graph, Evidence Claims, source records, execution identity, and cost data. A missing node caused by a budget stop is exposed as partial rather than imputed.
+
+This dependency discount is a transparent V1 double-counting safeguard, not a learned causal model and not a claim of calibration. Reproducibility depends on the frozen graph, selected claim IDs, claim assessments, uncertainty, and profile version. The aggregator sorts by stable node ID and uses fixed arithmetic, so input ordering cannot change the result.
 
 `POST /api/forecasts/{id}/execute-v1` starts this opt-in path, and `GET /api/forecasts/{id}/node-runs` returns node outputs from the latest V1 run. `POST /api/questions/{id}/runs` remains available; selecting `graph_forecaster_v1` there applies the same approved-contract gate. No benchmark profile is changed by this integration.
 

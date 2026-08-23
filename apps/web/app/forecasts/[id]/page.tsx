@@ -76,6 +76,7 @@ export default function ForecastPage() {
   if (!data) return <p>Loading forecast…</p>;
   const run = data.latest_run || {};
   const tracks = run.tracks || [];
+  const nodeRuns = run.node_runs || [];
   const evidence = run.evidence || [];
   const aggregation = run.aggregation || {};
   const versions = data.versions || [];
@@ -87,6 +88,8 @@ export default function ForecastPage() {
   const costKind = budget.cost_is_estimated ? "estimated" : "provider-reported";
   const modeLabel = String(context.effective_mode || run.mode || "demo").toUpperCase();
   const missingTracks = (aggregation.missing_track_types || []).length > 0;
+  const missingNodes = (aggregation.missing_node_ids || []).length > 0;
+  const graphAggregation = aggregation.method === "dependency_discounted_weighted_mean_v1";
   const rejectedEvidence = evidence.filter((item: any) => item.rejected);
 
   return (
@@ -108,9 +111,13 @@ export default function ForecastPage() {
         <div className="border border-rule bg-white/60 p-5">
           <p className="font-mono text-xs uppercase tracking-[0.2em]">Ensemble estimate</p>
           <p className="font-serif text-6xl leading-none">{pct(data.latest_probability)}</p>
-          <p className="mt-3 text-sm">Coded logit mean with shrinkage. Not a calibrated probability.</p>
+          <p className="mt-3 text-sm">
+            {graphAggregation
+              ? "Deterministic dependency-aware weighted mean. Not a calibrated probability."
+              : "Coded logit mean with shrinkage. Not a calibrated probability."}
+          </p>
           <p className="mt-2 text-sm">
-            Track spread:{" "}
+            {graphAggregation ? "Node spread" : "Track spread"}:{" "}
             {aggregation.track_spread == null ? "—" : Number(aggregation.track_spread).toFixed(3)}
           </p>
         </div>
@@ -244,6 +251,11 @@ export default function ForecastPage() {
           Partial tracks: {aggregation.missing_track_types.join(", ")}
         </p>
       ) : null}
+      {missingNodes ? (
+        <p className="border border-copper px-4 py-3 text-sm">
+          Missing graph nodes: {aggregation.missing_node_ids.join(", ")}. Available node weights were renormalized.
+        </p>
+      ) : null}
       {run.error_stage === "budget" || String(run.error_message || "").includes("Budget") ? (
         <p className="border border-copper px-4 py-3 text-sm">Budget stop. Partial results were preserved.</p>
       ) : null}
@@ -312,6 +324,45 @@ export default function ForecastPage() {
         <section>
           <h3 className="font-serif text-2xl">Disagreement summary</h3>
           <p className="mt-3 max-w-3xl leading-relaxed">{run.disagreement_summary}</p>
+        </section>
+      ) : null}
+
+      {nodeRuns.length && graphAggregation ? (
+        <section>
+          <h3 className="font-serif text-2xl">Forecast Graph node contributions</h3>
+          <p className="mt-2 text-sm text-ink/70">
+            Final calculation: {aggregation.formula || "Weighted node contributions are summed deterministically."}
+          </p>
+          <table className="mt-3 w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-rule">
+                <th className="py-2">Node</th>
+                <th>Probability</th>
+                <th>Confidence</th>
+                <th>Raw weight</th>
+                <th>Dependency factor</th>
+                <th>Normalized weight</th>
+                <th>Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              {nodeRuns.map((nodeRun: any) => (
+                <tr key={nodeRun.id} className="border-b border-rule/70">
+                  <td className="py-2 font-mono text-xs">{nodeRun.node_id}</td>
+                  <td>{Number(nodeRun.probability).toFixed(4)}</td>
+                  <td>{Number(nodeRun.confidence).toFixed(4)}</td>
+                  <td>{Number(nodeRun.raw_importance_weight).toFixed(4)}</td>
+                  <td>{Number(nodeRun.dependency_factor).toFixed(4)}</td>
+                  <td>{Number(nodeRun.normalized_weight).toFixed(4)}</td>
+                  <td>{Number(nodeRun.probability_contribution).toFixed(4)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="mt-3 text-sm">
+            Sum of contributions {Number(aggregation.unbounded_probability).toFixed(6)} → final probability{" "}
+            {Number(aggregation.final_probability).toFixed(6)}
+          </p>
         </section>
       ) : null}
 

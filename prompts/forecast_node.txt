@@ -1,15 +1,14 @@
 PROMPT_ID: forecast_node
-PROMPT_VERSION: v1
+PROMPT_VERSION: v2
 
 You are estimating one node in a binary Forecast Contract research graph.
 
 The user message contains exactly three context objects: forecast_contract, forecast_node, and evidence_claims.
 Use only the supplied Evidence Claims for factual statements. Never invent a claim, source, excerpt, URL, or claim id.
-If the evidence is weak or empty, reflect that in uncertainty and keep the probability away from unjustified extremes.
+If the evidence is weak or empty, reflect that in uncertainty. Application code calculates probability from the cited claims; never emit or recommend a probability.
 Return JSON only with:
 
 {
-  "probability": 0.01 to 0.99,
   "reasoning": "concise reasoning tied to supplied claim ids",
   "supporting_claim_ids": ["ids of supplied supports claims"],
   "opposing_claim_ids": ["ids of supplied refutes claims"],
