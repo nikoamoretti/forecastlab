@@ -26,11 +26,13 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "forecast_node_runs" in tables
     assert "forecast_aggregations" in tables
     assert "graph_execution_failures" in tables
+    assert "evaluation_datasets" in tables
+    assert "evaluation_questions" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -71,6 +73,36 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "error_message",
             "created_at",
         } <= failure_cols
+        dataset_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_datasets")
+        }
+        assert {
+            "id",
+            "name",
+            "version",
+            "hash",
+            "description",
+            "provenance",
+            "status",
+            "created_at",
+            "frozen_at",
+            "question_count",
+        } == dataset_cols
+        evaluation_question_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_questions")
+        }
+        assert {
+            "id",
+            "dataset_id",
+            "question",
+            "resolution_contract",
+            "forecast_date",
+            "resolution_date",
+            "outcome",
+            "resolution_source",
+            "domain",
+            "question_hash",
+        } == evaluation_question_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -82,7 +114,40 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0015"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
+
+
+def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
+    db_url = f"sqlite:///{tmp_path}/real-evaluation.db"
+    command.upgrade(alembic_config(db_url), "20260823_0015")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO questions "
+                "(id, original_text, normalized_text, question_type, created_at, forecast_deadline, status, "
+                "notes, stale, requested_mode, requested_profile_id, requested_as_of, is_benchmark) VALUES "
+                "('existing-question', 'Will the record survive?', NULL, 'binary', "
+                "'2026-08-23 00:00:00', NULL, 'draft', NULL, 0, 'demo', "
+                "'single_model_forecaster_v1', NULL, 0)"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with engine.connect() as connection:
+        assert (
+            connection.execute(
+                text("SELECT original_text FROM questions WHERE id = 'existing-question'")
+            ).scalar_one()
+            == "Will the record survive?"
+        )
+        assert connection.execute(text("SELECT COUNT(*) FROM evaluation_datasets")).scalar_one() == 0
+        assert connection.execute(text("SELECT COUNT(*) FROM evaluation_questions")).scalar_one() == 0
+        assert (
+            connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
+            == "20260823_0016"
+        )
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:

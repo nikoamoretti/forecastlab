@@ -2,7 +2,21 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    UniqueConstraint,
+    event,
+    inspect,
+    select,
+)
+from sqlalchemy.engine import Connection
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from forecastlab.timeutil import utcnow
@@ -418,6 +432,113 @@ class JobEvent(Base):
     stage: Mapped[str] = mapped_column(String(64))
     message: Mapped[str] = mapped_column(Text)
     payload_json: Mapped[str] = mapped_column(Text, default="{}")
+
+
+class FrozenEvaluationDatasetError(ValueError):
+    """Raised when application code attempts to alter a frozen evaluation release."""
+
+
+class EvaluationDataset(Base):
+    __tablename__ = "evaluation_datasets"
+    __table_args__ = (
+        UniqueConstraint("name", "version", name="uq_evaluation_dataset_name_version"),
+        CheckConstraint(
+            "status IN ('draft', 'reviewed', 'frozen')",
+            name="ck_evaluation_dataset_status",
+        ),
+        CheckConstraint("question_count >= 0", name="ck_evaluation_dataset_question_count"),
+        CheckConstraint(
+            "status != 'frozen' OR frozen_at IS NOT NULL",
+            name="ck_evaluation_dataset_frozen_at",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    version: Mapped[str] = mapped_column(String(64))
+    hash: Mapped[str] = mapped_column(String(64), unique=True)
+    description: Mapped[str] = mapped_column(Text, default="")
+    provenance: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    frozen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    question_count: Mapped[int] = mapped_column(Integer, default=0)
+
+    questions: Mapped[list[EvaluationQuestion]] = relationship(
+        back_populates="dataset",
+        order_by="EvaluationQuestion.question_hash",
+        cascade="all, delete-orphan",
+    )
+
+
+class EvaluationQuestion(Base):
+    __tablename__ = "evaluation_questions"
+    __table_args__ = (
+        UniqueConstraint(
+            "dataset_id",
+            "question_hash",
+            name="uq_evaluation_dataset_question_hash",
+        ),
+        CheckConstraint("outcome IN (0, 1)", name="ck_evaluation_question_binary_outcome"),
+        CheckConstraint(
+            "forecast_date < resolution_date",
+            name="ck_evaluation_question_date_order",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_datasets.id", ondelete="CASCADE")
+    )
+    question: Mapped[str] = mapped_column(Text)
+    resolution_contract: Mapped[str] = mapped_column(Text)
+    forecast_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    resolution_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    outcome: Mapped[int] = mapped_column(Integer)
+    resolution_source: Mapped[str] = mapped_column(Text)
+    domain: Mapped[str] = mapped_column(String(128))
+    question_hash: Mapped[str] = mapped_column(String(64))
+
+    dataset: Mapped[EvaluationDataset] = relationship(back_populates="questions")
+
+
+def _frozen_evaluation_dataset_before_update(
+    _mapper: object,
+    _connection: Connection,
+    target: EvaluationDataset,
+) -> None:
+    status_history = inspect(target).attrs.status.history
+    prior_status = status_history.deleted[0] if status_history.deleted else target.status
+    if prior_status == "frozen":
+        raise FrozenEvaluationDatasetError("frozen_evaluation_dataset_immutable")
+
+
+def _frozen_evaluation_dataset_before_delete(
+    _mapper: object,
+    _connection: Connection,
+    target: EvaluationDataset,
+) -> None:
+    if target.status == "frozen":
+        raise FrozenEvaluationDatasetError("frozen_evaluation_dataset_immutable")
+
+
+def _frozen_evaluation_question_guard(
+    _mapper: object,
+    connection: Connection,
+    target: EvaluationQuestion,
+) -> None:
+    status = connection.execute(
+        select(EvaluationDataset.status).where(EvaluationDataset.id == target.dataset_id)
+    ).scalar_one_or_none()
+    if status == "frozen":
+        raise FrozenEvaluationDatasetError("frozen_evaluation_dataset_immutable")
+
+
+event.listen(EvaluationDataset, "before_update", _frozen_evaluation_dataset_before_update)
+event.listen(EvaluationDataset, "before_delete", _frozen_evaluation_dataset_before_delete)
+event.listen(EvaluationQuestion, "before_insert", _frozen_evaluation_question_guard)
+event.listen(EvaluationQuestion, "before_update", _frozen_evaluation_question_guard)
+event.listen(EvaluationQuestion, "before_delete", _frozen_evaluation_question_guard)
 
 
 class BenchmarkDataset(Base):

@@ -38,6 +38,14 @@ from forecastlab_api.contracts import (
 )
 from forecastlab_api.db import SessionLocal, get_db
 from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indicator
+from forecastlab_api.evaluation_datasets import (
+    EvaluationDatasetValidationError,
+    freeze_evaluation_dataset,
+    import_evaluation_dataset,
+    parse_evaluation_dataset_file,
+    review_evaluation_dataset,
+    serialize_evaluation_dataset,
+)
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
@@ -64,6 +72,7 @@ from forecastlab_api.models import (
     BenchmarkExperiment,
     BenchmarkQuestion,
     BenchmarkResult,
+    EvaluationDataset,
     EvidenceClaimRow,
     EvidenceItem,
     ForecastContractRow,
@@ -979,6 +988,117 @@ def benchmark_template() -> PlainTextResponse:
 def list_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
     rows = db.scalars(select(BenchmarkDataset).order_by(BenchmarkDataset.created_at.desc())).all()
     return {"datasets": [serialize_dataset(item) for item in rows]}
+
+
+@app.get("/api/evaluation/datasets")
+def list_evaluation_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
+    rows = db.scalars(
+        select(EvaluationDataset).order_by(
+            EvaluationDataset.name,
+            EvaluationDataset.version,
+            EvaluationDataset.created_at,
+        )
+    ).all()
+    return {
+        "datasets": [serialize_evaluation_dataset(item) for item in rows],
+        "execution_supported": False,
+    }
+
+
+@app.get("/api/evaluation/datasets/template.csv")
+def evaluation_dataset_template() -> PlainTextResponse:
+    path = Path(__file__).resolve().parents[3] / "fixtures" / "benchmarks" / "evaluation_template.csv"
+    return PlainTextResponse(path.read_text(encoding="utf-8"), media_type="text/csv")
+
+
+@app.post("/api/evaluation/datasets/import", status_code=201)
+async def import_evaluation_dataset_file(
+    file: UploadFile = File(...),
+    name: str | None = Form(default=None),
+    version: str = Form(default="1"),
+    description: str = Form(default=""),
+    provenance: str = Form(default=""),
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        raw = (await file.read()).decode("utf-8-sig")
+        rows = parse_evaluation_dataset_file(raw, file.filename or "evaluation.csv")
+    except (UnicodeDecodeError, json.JSONDecodeError, EvaluationDatasetValidationError) as exc:
+        reasons = (
+            exc.reasons
+            if isinstance(exc, EvaluationDatasetValidationError)
+            else ["invalid_dataset_file"]
+        )
+        raise HTTPException(
+            400,
+            detail={"message": "Could not parse evaluation dataset", "reasons": reasons},
+        ) from exc
+    dataset_name = (name or (file.filename or "evaluation_dataset")).rsplit(".", 1)[0]
+    try:
+        dataset = import_evaluation_dataset(
+            db,
+            name=dataset_name,
+            version=version,
+            description=description,
+            provenance=provenance,
+            rows=rows,
+        )
+    except EvaluationDatasetValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(dataset)
+    return serialize_evaluation_dataset(dataset, include_questions=True)
+
+
+@app.post("/api/evaluation/datasets/{dataset_id}/review")
+def review_evaluation_dataset_endpoint(
+    dataset_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    dataset = db.get(EvaluationDataset, dataset_id)
+    if dataset is None:
+        raise HTTPException(404, "Evaluation dataset not found")
+    try:
+        review_evaluation_dataset(db, dataset)
+    except EvaluationDatasetValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(dataset)
+    return serialize_evaluation_dataset(dataset, include_questions=True)
+
+
+@app.post("/api/evaluation/datasets/{dataset_id}/freeze")
+def freeze_evaluation_dataset_endpoint(
+    dataset_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    dataset = db.get(EvaluationDataset, dataset_id)
+    if dataset is None:
+        raise HTTPException(404, "Evaluation dataset not found")
+    try:
+        freeze_evaluation_dataset(db, dataset)
+    except EvaluationDatasetValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(dataset)
+    return serialize_evaluation_dataset(dataset, include_questions=True)
+
+
+@app.get("/api/evaluation/datasets/{dataset_id}")
+def get_evaluation_dataset(dataset_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    dataset = db.get(EvaluationDataset, dataset_id)
+    if dataset is None:
+        raise HTTPException(404, "Evaluation dataset not found")
+    return serialize_evaluation_dataset(dataset, include_questions=True)
 
 
 @app.post("/api/benchmarks/import")
