@@ -89,6 +89,8 @@ All configurations must receive the same frozen question and resolution contract
 
 The dedicated ten-question software-verification workflow enforces these controls for its two selected profiles: paired tasks use equivalent question and resolution-contract content, the same per-question forecast cutoff, the same provider and evidence-policy snapshots, and equal total ceilings. Profiles may consume different amounts within those ceilings; cost, latency, and completion remain measured outcomes.
 
+The real-dataset controlled runner applies the same paired controls to a frozen `EvaluationDataset`. Its `EvaluationExperiment.configuration_hash` covers the exact dataset version and question hashes, both profile snapshots, public provider/model/search metadata, full versioned prompt bundle, common ceilings, pricing catalog, per-question evidence cutoffs, and code/dependency identity. Workers execute from that stored snapshot and fail closed if the configuration hash, question hash, or execution environment no longer matches. Credential values are never stored in the snapshot.
+
 The model-only baseline has no search or fetch access by definition. Its lower resource use must be reported, not artificially spent. Equal ceilings do not imply equal actual cost, latency, or completion; those are measured outcomes.
 
 No baseline may be deliberately weakened through inferior prompts, missing contract fields, stale models, or reduced output validation. If one configuration cannot run under the common environment, that is a failure result rather than permission to substitute another provider.

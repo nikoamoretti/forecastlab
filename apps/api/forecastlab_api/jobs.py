@@ -64,9 +64,12 @@ def recover_stale_jobs(session: Session) -> int:
             job.error = "stale_worker_max_attempts"
             job.error_category = "stale_worker_max_attempts"
             job.finished_at = now
-            from forecastlab_api.experiments import fail_job_relatives
-
-            fail_job_relatives(session, job, error="stale_worker_max_attempts", category="stale_worker_max_attempts")
+            _fail_job_relatives(
+                session,
+                job,
+                error="stale_worker_max_attempts",
+                category="stale_worker_max_attempts",
+            )
         else:
             job.status = "pending"
             job.error = "recovered_after_stale_heartbeat"
@@ -193,13 +196,28 @@ def _reset_task_for_retry(session: Session, job: Job) -> None:
     except json.JSONDecodeError:
         return
     task_id = payload.get("task_id")
-    if not task_id:
-        return
-    from forecastlab_api.models import BenchmarkTask
+    evaluation_run_id = payload.get("evaluation_run_id")
+    from forecastlab_api.models import BenchmarkTask, EvaluationRun
 
-    task = session.get(BenchmarkTask, task_id)
-    if task is not None and task.status == "running":
-        task.status = "pending"
+    if task_id:
+        task = session.get(BenchmarkTask, task_id)
+        if task is not None and task.status == "running":
+            task.status = "pending"
+    if evaluation_run_id:
+        evaluation_run = session.get(EvaluationRun, evaluation_run_id)
+        if evaluation_run is not None and evaluation_run.status == "running":
+            evaluation_run.status = "pending"
+
+
+def _fail_job_relatives(session: Session, job: Job, *, error: str, category: str) -> None:
+    if job.job_type == "evaluation_run":
+        from forecastlab_api.evaluation_experiments import fail_evaluation_job
+
+        if fail_evaluation_job(session, job, error=error, category=category):
+            return
+    from forecastlab_api.experiments import fail_job_relatives
+
+    fail_job_relatives(session, job, error=error, category=category)
 
 
 def error_category(exc: Exception) -> str:

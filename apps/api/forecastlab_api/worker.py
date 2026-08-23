@@ -8,6 +8,7 @@ from sqlalchemy import select
 
 from forecastlab.logging import setup_logging
 from forecastlab.timeutil import as_utc, utcnow
+from forecastlab_api.evaluation_experiments import execute_evaluation_run, fail_evaluation_job
 from forecastlab_api.experiments import execute_benchmark_task, fail_job_relatives
 from forecastlab_api.jobs import (
     claim_next_job,
@@ -19,7 +20,7 @@ from forecastlab_api.jobs import (
     touch_worker,
 )
 from forecastlab_api.migrate import apply_schema
-from forecastlab_api.models import BenchmarkTask, ForecastRun, Job, Watch
+from forecastlab_api.models import BenchmarkTask, EvaluationRun, ForecastRun, Job, Watch
 from forecastlab_api.pipeline import execute_run
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.watches import check_watch
@@ -58,6 +59,11 @@ def process_once() -> bool:
                 if task is None:
                     raise RuntimeError("benchmark_task_not_found")
                 execute_benchmark_task(session, task, job=job)
+            elif job.job_type == "evaluation_run":
+                evaluation_run = session.get(EvaluationRun, payload["evaluation_run_id"])
+                if evaluation_run is None:
+                    raise RuntimeError("evaluation_run_not_found")
+                execute_evaluation_run(session, evaluation_run, job=job)
             elif job.job_type == "watch_check":
                 watch = session.get(Watch, payload["watch_id"])
                 if watch:
@@ -79,10 +85,22 @@ def process_once() -> bool:
                     if is_transient(exc):
                         outcome = retry_job(retry_session, failed, error=message, category=category)
                         if outcome == "exhausted":
-                            fail_job_relatives(retry_session, failed, error=message, category=category)
+                            if not fail_evaluation_job(
+                                retry_session,
+                                failed,
+                                error=message,
+                                category=category,
+                            ):
+                                fail_job_relatives(retry_session, failed, error=message, category=category)
                     else:
                         finish_job(retry_session, failed, ok=False, error=message, category=category)
-                        fail_job_relatives(retry_session, failed, error=message, category=category)
+                        if not fail_evaluation_job(
+                            retry_session,
+                            failed,
+                            error=message,
+                            category=category,
+                        ):
+                            fail_job_relatives(retry_session, failed, error=message, category=category)
                     retry_session.commit()
             return True
 

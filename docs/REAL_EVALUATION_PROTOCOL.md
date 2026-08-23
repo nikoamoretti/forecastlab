@@ -4,7 +4,7 @@
 
 Synthetic fixtures test software behavior. They do not measure forecasting quality. A quality evaluation must use resolved historical binary questions whose wording, resolution rules, forecast cutoff, authoritative source, and final outcome can be audited independently.
 
-This framework stores and freezes those questions. It does not execute experiments yet, and importing a dataset does not support a claim that either ForecastLab profile is superior, calibrated, or production-ready.
+This framework stores and freezes those questions. The controlled comparison runner can execute a frozen release through the existing `three_track_forecaster` and `graph_forecaster_v1` profiles, but importing or running a dataset does not support a claim that either profile is superior, calibrated, or production-ready.
 
 ## Dataset structure
 
@@ -66,5 +66,8 @@ Before import, a reviewer must confirm that the resolution source is authoritati
 - `GET /api/evaluation/datasets` lists frozen real-evaluation releases.
 - `POST /api/evaluation/datasets/import` validates and freezes one CSV or JSON release.
 - `GET /api/evaluation/datasets/{id}` returns metadata, contracts, dates, outcomes, sources, and labels.
+- `POST /api/evaluation/experiments` freezes the selected release, required profile pair, provider/model/search metadata, prompts, common budgets, pricing, evidence cutoffs, and code/dependency identity, then queues the paired runs.
+- `GET /api/evaluation/experiments/{id}` returns durable question/profile progress and the public configuration freeze.
+- `GET /api/evaluation/experiments/{id}/report` returns persisted Brier score, log loss, cost, latency, evidence coverage, and completion metrics for each profile.
 
-These tables are intentionally separate from the existing synthetic `BenchmarkDataset` and experiment tables. No evaluation experiment can select or execute an `EvaluationDataset` in this implementation.
+These tables remain separate from the existing synthetic `BenchmarkDataset` and experiment tables. A controlled experiment requires exactly the two declared profiles and an already frozen `EvaluationDataset`. Each question/profile cell invokes the existing forecast engine without changing its logic. A failed run retains its error, cost, and latency without inventing a probability. Test fixture execution is available only when local fixtures are explicitly enabled and is labeled in the frozen configuration.

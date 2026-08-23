@@ -107,7 +107,8 @@ def test_valid_real_dataset_csv_import_and_read_apis(client) -> None:
 
     listed = client.get("/api/evaluation/datasets")
     assert listed.status_code == 200
-    assert listed.json()["execution_supported"] is False
+    assert listed.json()["execution_supported"] is True
+    assert listed.json()["comparison_profiles"] == ["three_track_forecaster", "graph_forecaster_v1"]
     assert listed.json()["datasets"] == [{key: value for key, value in payload.items() if key != "questions"}]
 
     detail = client.get(f"/api/evaluation/datasets/{payload['id']}")

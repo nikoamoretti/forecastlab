@@ -6,6 +6,7 @@ import { api, pct } from "@/lib/api";
 const SYNTHETIC_NOTICE = "Software-verification fixtures only. Not evidence of real-world forecasting quality.";
 
 export default function LabPage() {
+  const controlledProfilesAvailable = ["three_track_forecaster", "graph_forecaster_v1"];
   const [datasets, setDatasets] = useState<any[]>([]);
   const [datasetId, setDatasetId] = useState("");
   const [profiles, setProfiles] = useState<any[]>([]);
@@ -17,6 +18,12 @@ export default function LabPage() {
   const [experimentId, setExperimentId] = useState<string | null>(null);
   const [progress, setProgress] = useState<any>(null);
   const [summary, setSummary] = useState<any>(null);
+  const [evaluationDatasets, setEvaluationDatasets] = useState<any[]>([]);
+  const [evaluationDatasetId, setEvaluationDatasetId] = useState("");
+  const [controlledProfiles, setControlledProfiles] = useState<string[]>(controlledProfilesAvailable);
+  const [controlledExperimentId, setControlledExperimentId] = useState<string | null>(null);
+  const [controlledProgress, setControlledProgress] = useState<any>(null);
+  const [controlledReport, setControlledReport] = useState<any>(null);
   const [message, setMessage] = useState("");
 
   async function loadMeta() {
@@ -27,6 +34,9 @@ export default function LabPage() {
     setProfiles(plist);
     const workflow = await api<any>("/api/evaluations/v1");
     setV1Workflow(workflow);
+    const real = await api<{ datasets: any[] }>("/api/evaluation/datasets");
+    setEvaluationDatasets(real.datasets || []);
+    if (!evaluationDatasetId && real.datasets?.[0]) setEvaluationDatasetId(real.datasets[0].id);
   }
 
   useEffect(() => {
@@ -57,6 +67,30 @@ export default function LabPage() {
     };
   }, [experimentId]);
 
+  useEffect(() => {
+    if (!controlledExperimentId) return;
+    let cancelled = false;
+    const terminal = new Set(["completed", "completed_with_failures", "failed"]);
+    const timer = setInterval(async () => {
+      try {
+        const next = await api<any>(`/api/evaluation/experiments/${controlledExperimentId}`);
+        if (cancelled) return;
+        setControlledProgress(next);
+        if (terminal.has(next.status)) {
+          const report = await api<any>(`/api/evaluation/experiments/${controlledExperimentId}/report`);
+          if (!cancelled) setControlledReport(report);
+          clearInterval(timer);
+        }
+      } catch {
+        /* keep polling until the worker records a terminal state */
+      }
+    }, 1200);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [controlledExperimentId]);
+
   async function create() {
     setMessage("Creating experiment…");
     const created = await api<{ id: string }>("/api/experiments", {
@@ -75,6 +109,24 @@ export default function LabPage() {
     setSummary(null);
     if (created.workflow?.dataset?.id) setDatasetId(created.workflow.dataset.id);
     setMessage("V1 experiment queued. Polling 20 profile-question tasks.");
+  }
+
+  async function createControlledComparison() {
+    setMessage("Freezing and queuing the controlled comparison…");
+    try {
+      const created = await api<{ id: string }>("/api/evaluation/experiments", {
+        method: "POST",
+        body: JSON.stringify({
+          dataset_id: evaluationDatasetId,
+          profile_ids: controlledProfiles
+        })
+      });
+      setControlledExperimentId(created.id);
+      setControlledReport(null);
+      setMessage("Controlled comparison queued. Both profiles will use the same frozen inputs.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not create the controlled comparison.");
+    }
   }
 
   async function onImport(event: React.ChangeEvent<HTMLInputElement>) {
@@ -103,6 +155,97 @@ export default function LabPage() {
         Create an asynchronous experiment against one dataset. Real tasks use backtest mode. Results stay inside that
         experiment.
       </p>
+      <section className="border border-ink bg-white/70 p-5">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">Controlled real-dataset comparison</p>
+        <h3 className="mt-2 font-serif text-2xl">Frozen profile experiment</h3>
+        <p className="mt-2 max-w-3xl text-sm text-ink/80">
+          Runs every resolved question through the existing three-track baseline and graph forecaster with the same
+          contract, evidence cutoff, provider settings, prompts, budget ceiling, and code identity. Results are
+          descriptive and do not establish superiority.
+        </p>
+        <label className="mt-4 block max-w-xl">
+          <span className="text-sm">Frozen evaluation dataset</span>
+          <select
+            className="mt-2 w-full border border-rule bg-white p-3"
+            value={evaluationDatasetId}
+            onChange={(event) => setEvaluationDatasetId(event.target.value)}
+          >
+            {evaluationDatasets.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name} v{item.version} · {item.question_count} questions
+              </option>
+            ))}
+          </select>
+        </label>
+        <fieldset className="mt-4">
+          <legend className="text-sm">Profiles</legend>
+          <div className="mt-2 flex flex-wrap gap-4">
+            {controlledProfilesAvailable.map((profileId) => (
+              <label key={profileId} className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={controlledProfiles.includes(profileId)}
+                  onChange={(event) => {
+                    setControlledProfiles((current) =>
+                      event.target.checked
+                        ? [...current, profileId]
+                        : current.filter((item) => item !== profileId)
+                    );
+                  }}
+                />
+                {profileId}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <button
+          className="mt-4 border border-ink bg-ink px-4 py-2 text-paper disabled:opacity-50"
+          onClick={createControlledComparison}
+          disabled={!evaluationDatasetId || controlledProfiles.length !== controlledProfilesAvailable.length}
+        >
+          Start controlled comparison
+        </button>
+        {controlledProgress ? (
+          <div className="mt-4 border-t border-rule pt-4 text-sm">
+            <p>
+              {controlledProgress.status} · {controlledProgress.completed_runs}/{controlledProgress.total_runs} complete
+              · {controlledProgress.partial_runs} partial · {controlledProgress.failed_runs} failed · {controlledProgress.percent}%
+            </p>
+          </div>
+        ) : null}
+        {controlledReport ? (
+          <div className="mt-4 overflow-x-auto border-t border-rule pt-4">
+            <h4 className="font-serif text-xl">Comparison report</h4>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Profile</th>
+                  <th>Brier</th>
+                  <th>Log loss</th>
+                  <th>Cost</th>
+                  <th>Latency</th>
+                  <th>Completion</th>
+                  <th>Evidence coverage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(controlledReport.profiles || []).map((profile: any) => (
+                  <tr key={`controlled-${profile.profile_id}`} className="border-b border-rule/70">
+                    <td className="py-2">{profile.profile_id}</td>
+                    <td>{profile.brier_score?.toFixed?.(4) ?? "—"}</td>
+                    <td>{profile.log_loss?.toFixed?.(4) ?? "—"}</td>
+                    <td>${Number(profile.total_cost || 0).toFixed(4)}</td>
+                    <td>{Math.round(profile.mean_latency || 0)} ms</td>
+                    <td>{pct(profile.completion_rate)}</td>
+                    <td>{pct(profile.evidence_coverage)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-3 text-sm text-ink/70">{controlledReport.notice}</p>
+          </div>
+        ) : null}
+      </section>
       <section className="border border-copper bg-white/60 p-5">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">First V1 experiment</p>
         <h3 className="mt-2 font-serif text-2xl">10-question profile comparison</h3>

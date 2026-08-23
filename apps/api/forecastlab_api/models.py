@@ -438,6 +438,10 @@ class FrozenEvaluationDatasetError(ValueError):
     """Raised when code attempts to alter a frozen real evaluation dataset."""
 
 
+class FrozenEvaluationExperimentError(ValueError):
+    """Raised when code attempts to alter a controlled experiment's frozen inputs."""
+
+
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
     __table_args__ = (
@@ -501,6 +505,100 @@ class EvaluationQuestion(Base):
     dataset: Mapped[EvaluationDataset] = relationship(back_populates="questions")
 
 
+class EvaluationExperiment(Base):
+    """A controlled, immutable comparison over one frozen evaluation dataset."""
+
+    __tablename__ = "evaluation_experiments"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('pending', 'running', 'completed', 'completed_with_failures', 'failed')",
+            name="ck_evaluation_experiment_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    profiles: Mapped[str] = mapped_column(Text)
+    configuration_hash: Mapped[str] = mapped_column(String(64))
+    configuration_json: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class EvaluationRun(Base):
+    """One question/profile cell in a controlled evaluation experiment."""
+
+    __tablename__ = "evaluation_runs"
+    __table_args__ = (
+        UniqueConstraint(
+            "experiment_id",
+            "question_id",
+            "profile_id",
+            name="uq_evaluation_run_question_profile",
+        ),
+        UniqueConstraint("forecast_run_id", name="uq_evaluation_run_forecast_run"),
+        CheckConstraint(
+            "status IN ('pending', 'running', 'completed', 'partial', 'failed')",
+            name="ck_evaluation_run_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("evaluation_experiments.id"))
+    question_id: Mapped[str] = mapped_column(ForeignKey("evaluation_questions.id"))
+    profile_id: Mapped[str] = mapped_column(String(64))
+    forecast_run_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_runs.id"), nullable=True)
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class EvaluationResult(Base):
+    """Persisted forecast and metric outcome for one evaluation run."""
+
+    __tablename__ = "evaluation_results"
+    __table_args__ = (
+        UniqueConstraint("run_id", name="uq_evaluation_result_run"),
+        CheckConstraint(
+            "probability IS NULL OR (probability >= 0 AND probability <= 1)",
+            name="ck_evaluation_result_probability",
+        ),
+        CheckConstraint("outcome IN (0, 1)", name="ck_evaluation_result_binary_outcome"),
+        CheckConstraint(
+            "completion_status IN ('completed', 'partial', 'failed')",
+            name="ck_evaluation_result_completion_status",
+        ),
+        CheckConstraint("cost >= 0", name="ck_evaluation_result_cost"),
+        CheckConstraint("latency >= 0", name="ck_evaluation_result_latency"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    run_id: Mapped[str] = mapped_column(ForeignKey("evaluation_runs.id"))
+    probability: Mapped[float | None] = mapped_column(Float, nullable=True)
+    outcome: Mapped[int] = mapped_column(Integer)
+    brier_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    log_loss: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cost: Mapped[float] = mapped_column(Float, default=0.0)
+    latency: Mapped[float] = mapped_column(Float, default=0.0)
+    evidence_coverage: Mapped[float | None] = mapped_column(Float, nullable=True)
+    completion_status: Mapped[str] = mapped_column(String(32))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+def _frozen_experiment_configuration_guard(
+    _mapper: object,
+    _connection: Connection,
+    target: EvaluationExperiment,
+) -> None:
+    state = inspect(target)
+    frozen_fields = ("dataset_id", "profiles", "configuration_hash", "configuration_json", "created_at")
+    if any(state.attrs[field].history.has_changes() for field in frozen_fields):
+        raise FrozenEvaluationExperimentError("evaluation_experiment_configuration_immutable")
+
+
 def _frozen_dataset_before_update(
     _mapper: object,
     _connection: Connection,
@@ -538,6 +636,7 @@ event.listen(EvaluationDataset, "before_delete", _frozen_dataset_before_delete)
 event.listen(EvaluationQuestion, "before_insert", _frozen_question_guard)
 event.listen(EvaluationQuestion, "before_update", _frozen_question_guard)
 event.listen(EvaluationQuestion, "before_delete", _frozen_question_guard)
+event.listen(EvaluationExperiment, "before_update", _frozen_experiment_configuration_guard)
 
 
 class BenchmarkDataset(Base):

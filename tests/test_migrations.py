@@ -28,11 +28,14 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "graph_execution_failures" in tables
     assert "evaluation_datasets" in tables
     assert "evaluation_questions" in tables
+    assert "evaluation_experiments" in tables
+    assert "evaluation_runs" in tables
+    assert "evaluation_results" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -102,6 +105,41 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "category",
             "domain",
         } <= evaluation_question_cols
+        experiment_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_experiments")
+        }
+        assert {
+            "dataset_id",
+            "status",
+            "profiles",
+            "configuration_hash",
+            "configuration_json",
+            "created_at",
+            "completed_at",
+        } <= experiment_cols
+        run_cols = {column["name"] for column in inspect(engine).get_columns("evaluation_runs")}
+        assert {
+            "experiment_id",
+            "question_id",
+            "profile_id",
+            "forecast_run_id",
+            "status",
+            "error",
+        } <= run_cols
+        evaluation_result_cols = {
+            column["name"] for column in inspect(engine).get_columns("evaluation_results")
+        }
+        assert {
+            "run_id",
+            "probability",
+            "outcome",
+            "brier_score",
+            "log_loss",
+            "cost",
+            "latency",
+            "evidence_coverage",
+            "completion_status",
+        } <= evaluation_result_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -113,7 +151,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0016"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:

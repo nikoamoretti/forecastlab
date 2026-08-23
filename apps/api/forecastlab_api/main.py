@@ -44,6 +44,12 @@ from forecastlab_api.evaluation_datasets import (
     parse_evaluation_dataset_file,
     serialize_evaluation_dataset,
 )
+from forecastlab_api.evaluation_experiments import (
+    CONTROLLED_COMPARISON_PROFILES,
+    create_controlled_experiment,
+    evaluation_comparison_report,
+    evaluation_experiment_progress,
+)
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
@@ -71,6 +77,7 @@ from forecastlab_api.models import (
     BenchmarkQuestion,
     BenchmarkResult,
     EvaluationDataset,
+    EvaluationExperiment,
     EvidenceClaimRow,
     EvidenceItem,
     ForecastContractRow,
@@ -186,6 +193,12 @@ class SimulateIn(BaseModel):
 class ExperimentIn(BaseModel):
     dataset_id: str
     profile_ids: list[str] = Field(default_factory=lambda: list(DEFAULT_EXPERIMENT_PROFILES))
+
+
+class EvaluationExperimentIn(BaseModel):
+    dataset_id: str
+    profile_ids: list[str] = Field(default_factory=lambda: list(CONTROLLED_COMPARISON_PROFILES))
+    synthetic_test: bool = False
 
 
 @app.exception_handler(ConfigurationError)
@@ -997,7 +1010,8 @@ def list_evaluation_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
     ).all()
     return {
         "datasets": [serialize_evaluation_dataset(item) for item in rows],
-        "execution_supported": False,
+        "execution_supported": True,
+        "comparison_profiles": list(CONTROLLED_COMPARISON_PROFILES),
     }
 
 
@@ -1045,6 +1059,46 @@ def get_evaluation_dataset(dataset_id: str, db: Session = Depends(get_db)) -> di
     if dataset is None:
         raise HTTPException(404, "Evaluation dataset not found")
     return serialize_evaluation_dataset(dataset, include_questions=True)
+
+
+@app.post("/api/evaluation/experiments", status_code=201)
+def post_evaluation_experiment(
+    body: EvaluationExperimentIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        experiment = create_controlled_experiment(
+            db,
+            dataset_id=body.dataset_id,
+            profile_ids=body.profile_ids,
+            synthetic_test=body.synthetic_test,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    db.commit()
+    return evaluation_experiment_progress(db, experiment)
+
+
+@app.get("/api/evaluation/experiments/{experiment_id}")
+def get_evaluation_experiment(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(EvaluationExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Evaluation experiment not found")
+    return evaluation_experiment_progress(db, experiment)
+
+
+@app.get("/api/evaluation/experiments/{experiment_id}/report")
+def get_evaluation_experiment_report(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(EvaluationExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Evaluation experiment not found")
+    return evaluation_comparison_report(db, experiment).model_dump(mode="json")
 
 
 @app.post("/api/benchmarks/import")
