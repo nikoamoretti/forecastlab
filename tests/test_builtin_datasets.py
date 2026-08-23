@@ -107,3 +107,6 @@ def test_lab_summary_labels_exist() -> None:
     assert "All-valid metrics" in text
     assert "Full-run-only metrics" in text
     assert "Outcome mix" in text
+    assert "Run V1 10-question comparison" in text
+    assert "Evidence coverage" in text
+    assert "without claiming either profile is superior" in text

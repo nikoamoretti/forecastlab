@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from forecastlab.contracts import ForecastContractError
 from forecastlab.graph_execution import GraphEngineResult
 from forecastlab.graphs import GraphGenerator
+from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import EvidenceClaim, ForecastContract, ForecastGraph, ForecastNodeRun
 from forecastlab.timeutil import parse_datetime, utcnow
@@ -52,6 +53,7 @@ def ensure_execution_graph(
     *,
     question: Question,
     model: ModelProvider,
+    prompt_bundle: PromptBundle | None = None,
 ) -> tuple[ForecastContract, ForecastGraph]:
     """Resolve the approved contract and persist its graph before node research starts."""
 
@@ -70,7 +72,10 @@ def ensure_execution_graph(
         latest_version = session.scalar(
             select(func.max(ForecastGraphRow.version)).where(ForecastGraphRow.contract_id == contract.id)
         )
-        graph = GraphGenerator(model).generate(contract, version=int(latest_version or 0) + 1)
+        graph = GraphGenerator(model, prompt_bundle=prompt_bundle).generate(
+            contract,
+            version=int(latest_version or 0) + 1,
+        )
         graph_row = store_forecast_graph(session, graph)
         session.commit()
     return contract, forecast_graph_from_row(graph_row)

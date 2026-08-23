@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
 from io import BytesIO
+from types import SimpleNamespace
 
 
 def test_health(client) -> None:
@@ -279,3 +281,16 @@ def test_json_benchmark_import(client) -> None:
     assert template.status_code == 200
     assert "question,forecast_date" in template.text
     assert "exact_yes,exact_no,resolution_deadline" in template.text
+
+
+def test_report_run_order_normalizes_mixed_sqlite_timestamps() -> None:
+    from forecastlab_api.main import _run_order_time
+
+    runs = [
+        SimpleNamespace(started_at=datetime(2026, 8, 22, 10, 0), finished_at=None),
+        SimpleNamespace(started_at=datetime(2026, 8, 22, 11, 0, tzinfo=UTC), finished_at=None),
+    ]
+
+    ordered = sorted(runs, key=_run_order_time, reverse=True)
+
+    assert ordered[0].started_at.hour == 11

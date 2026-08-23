@@ -8,7 +8,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from forecastlab.prompts import load_prompt
+from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import EvidenceClaim, EvidenceStance, FetchedDocument
 from forecastlab.timeutil import as_utc
@@ -109,8 +109,9 @@ def eligible_claims_for_forecasting(
 class EvidenceExtractor:
     """Extract node-linked, provenance-preserving claims from one fetched document."""
 
-    def __init__(self, model: ModelProvider) -> None:
+    def __init__(self, model: ModelProvider, *, prompt_bundle: PromptBundle | None = None) -> None:
         self.model = model
+        self.prompt_bundle = prompt_bundle
 
     def extract(
         self,
@@ -138,7 +139,11 @@ class EvidenceExtractor:
             if self.model.name == "mock":
                 payload: dict[str, Any] = _mock_claims(document)
             else:
-                system, _prompt_version = load_prompt("evidence_claims")
+                system, _prompt_version = (
+                    self.prompt_bundle.get("evidence_claims")
+                    if self.prompt_bundle is not None
+                    else load_prompt("evidence_claims")
+                )
                 result = self.model.complete_json(
                     system=system,
                     user=json.dumps(

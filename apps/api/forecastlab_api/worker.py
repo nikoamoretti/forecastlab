@@ -21,7 +21,7 @@ from forecastlab_api.jobs import (
 from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import BenchmarkTask, ForecastRun, Job, Watch
 from forecastlab_api.pipeline import execute_run
-from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
+from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.watches import check_watch
 
 
@@ -104,6 +104,7 @@ def main() -> None:
     with SessionLocal() as session:
         seed_sample_question(session)
         seed_synthetic_benchmarks(session)
+        seed_v1_evaluation_benchmarks(session)
         session.commit()
     while True:
         worked = process_once()

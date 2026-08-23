@@ -167,6 +167,11 @@ def paired_profile_comparison(
     cost_right = [right[key]["cost_usd"] for key in common]
     lat_left = [left[key]["latency_ms"] for key in common]
     lat_right = [right[key]["latency_ms"] for key in common]
+    coverage_pairs = [
+        (left[key]["evidence_coverage"], right[key]["evidence_coverage"])
+        for key in common
+        if "evidence_coverage" in left[key] and "evidence_coverage" in right[key]
+    ]
     brier_diffs = [a - b for a, b in zip(brier_left, brier_right, strict=True)]
     wins = sum(1 for diff in brier_diffs if diff < 0)
     losses = sum(1 for diff in brier_diffs if diff > 0)
@@ -185,5 +190,7 @@ def paired_profile_comparison(
         "mean_log_loss_difference": mean([a - b for a, b in zip(log_left, log_right, strict=True)]),
         "mean_cost_difference": mean([a - b for a, b in zip(cost_left, cost_right, strict=True)]),
         "mean_latency_difference": mean([a - b for a, b in zip(lat_left, lat_right, strict=True)]),
+        "mean_evidence_coverage_difference": mean([a - b for a, b in coverage_pairs]),
+        "evidence_coverage_pair_count": len(coverage_pairs),
         "paired_brier_bootstrap": interval,
     }

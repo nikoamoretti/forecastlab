@@ -6,6 +6,7 @@ from typing import Any
 import pytest
 
 from forecastlab.graphs import ForecastGraphError, GraphGenerator, graph_approval_errors
+from forecastlab.prompts import PromptBundle, PromptRecord
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode, ModelUsage
 
@@ -17,9 +18,11 @@ class StubGraphModel:
     def __init__(self, payload: dict[str, Any]) -> None:
         self.payload = payload
         self.calls = 0
+        self.last_request: dict[str, Any] | None = None
 
-    def complete_json(self, **_kwargs: Any) -> ChatResult:
+    def complete_json(self, **kwargs: Any) -> ChatResult:
         self.calls += 1
+        self.last_request = kwargs
         return ChatResult(
             content="{}",
             parsed=self.payload,
@@ -126,6 +129,25 @@ def test_graph_generation_from_approved_contract() -> None:
     assert all(node.graph_id == graph.id for node in graph.nodes)
     assert all(node.status == "pending" for node in graph.nodes)
     assert graph_approval_errors(graph) == []
+
+
+def test_graph_generation_uses_frozen_experiment_prompt_bundle() -> None:
+    model = StubGraphModel(valid_graph_payload())
+    bundle = PromptBundle(
+        prompts={
+            "forecast_graph": PromptRecord(
+                name="forecast_graph",
+                text="FROZEN FORECAST GRAPH PROMPT",
+                version="test-frozen",
+                sha256="a" * 64,
+            )
+        }
+    )
+
+    GraphGenerator(model, prompt_bundle=bundle).generate(approved_contract())
+
+    assert model.last_request is not None
+    assert model.last_request["system"] == "FROZEN FORECAST GRAPH PROMPT"
 
 
 def test_graph_approval_rejects_too_few_nodes() -> None:

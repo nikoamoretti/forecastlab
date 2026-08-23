@@ -9,6 +9,8 @@
 - Auto-rerun is disabled. Watches only mark a forecast stale. Reruns require user action.
 - Reliability diagrams are withheld below 20 resolved rows. That threshold is not a calibration claim.
 - Synthetic benchmarks cannot support product-level forecasting-quality claims.
+- The first V1 comparison has only ten synthetic questions. Its Brier, log-loss, cost, latency, completion, and evidence-coverage outputs verify the experiment framework and cannot establish profile superiority.
+- Evidence coverage counts provenance-backed planned units, not whether each claim is substantively correct or decision-relevant.
 - Startup applies Alembic to head and stops if a revision fails. Isolated unit tests may still use `create_all`. Back up `data/forecastlab.db` before upgrading an existing local file.
 - Tracks run sequentially to stay SQLite-safe; they remain informationally independent.
 - Benchmark retries reuse the same task, question, and run. They do not create replacement identities. Exhausted transient errors fail the job, run, task, and experiment.

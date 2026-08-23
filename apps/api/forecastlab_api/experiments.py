@@ -31,8 +31,9 @@ from forecastlab.hashing import canonical_json, import_hash, redact_secrets, sha
 from forecastlab.pricing import load_pricing, pricing_hash
 from forecastlab.profiles import effective_profile, list_profiles, load_profile, profile_hash
 from forecastlab.prompts import PromptBundle, load_prompt_bundle
-from forecastlab.schemas import ForecastProfile, ResolutionContract
+from forecastlab.schemas import ForecastContract, ForecastProfile, ResolutionContract
 from forecastlab.timeutil import as_utc, parse_datetime, utcnow
+from forecastlab_api.contracts import store_forecast_contract
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
     BenchmarkDataset,
@@ -41,6 +42,12 @@ from forecastlab_api.models import (
     BenchmarkQuestion,
     BenchmarkResult,
     BenchmarkTask,
+    EvidenceClaimRow,
+    EvidenceItem,
+    ForecastContractRow,
+    ForecastGraphRow,
+    ForecastNodeRow,
+    ForecastNodeRunRow,
     ForecastRun,
     ForecastVersion,
     Job,
@@ -61,6 +68,21 @@ SYNTHETIC_DATASET_NAME = "synthetic_fixtures_v1"
 CURRENT_BUILTIN_KEY = "forecastlab.synthetic.binary"
 CURRENT_BUILTIN_VERSION = "2"
 DEFAULT_EXPERIMENT_PROFILES = ("single_agent_equal_budget_v1", "three_track_equal_budget_v1")
+V1_EVALUATION_DATASET_KEY = "forecastlab.v1.evaluation.synthetic"
+V1_EVALUATION_DATASET_VERSION = "1"
+V1_EVALUATION_PROFILES = ("three_track_forecaster", "graph_forecaster_v1")
+V1_EVALUATION_QUESTION_COUNT = 10
+V1_EVALUATION_METRICS = (
+    "brier_score",
+    "log_loss",
+    "cost_usd",
+    "latency_ms",
+    "completion_rate",
+    "evidence_coverage",
+)
+V1_EVALUATION_NOTICE = (
+    "This is an experiment framework. Results are descriptive diagnostics and do not establish profile superiority."
+)
 TERMINAL_TASK_STATUSES = frozenset({"completed", "failed"})
 TERMINAL_EXPERIMENT_STATUSES = frozenset({"completed", "completed_with_failures", "failed"})
 CRASH_HOOKS: dict[str, Callable[[str], None]] = {}
@@ -541,6 +563,7 @@ def ensure_task_question(
             if question.contract is None:
                 save_contract(session, question, contract_from_benchmark(item))
                 session.flush()
+            ensure_benchmark_forecast_contract(session, question, item)
             return question
     notes = _task_question_notes(task.id)
     question = session.scalar(select(Question).where(Question.notes == notes))
@@ -560,8 +583,66 @@ def ensure_task_question(
     if question.contract is None:
         save_contract(session, question, contract_from_benchmark(item))
         session.flush()
+    ensure_benchmark_forecast_contract(session, question, item)
     task.question_id = question.id
     return question
+
+
+def ensure_benchmark_forecast_contract(
+    session: Session,
+    question: Question,
+    item: BenchmarkQuestion,
+) -> ForecastContractRow:
+    """Create the approved first-class contract required by graph benchmark runs."""
+
+    existing = session.scalar(
+        select(ForecastContractRow)
+        .where(
+            ForecastContractRow.question_id == question.id,
+            ForecastContractRow.status == "approved",
+        )
+        .order_by(ForecastContractRow.version.desc())
+        .limit(1)
+    )
+    if existing is not None:
+        return existing
+    deadline = as_utc(item.resolution_deadline) or as_utc(item.resolution_date)
+    if deadline is None:
+        raise ValueError("resolution_deadline_required")
+    contract = ForecastContract(
+        id=str(uuid.uuid4()),
+        question_id=question.id,
+        version=1,
+        created_at=as_utc(item.forecast_date),
+        created_by="benchmark_import",
+        original_question=item.question,
+        normalized_question=item.question.strip(),
+        yes_condition=item.exact_yes,
+        no_condition=item.exact_no,
+        resolution_date=deadline,
+        authoritative_source=item.authoritative_source or item.resolution_source,
+        fallback_sources=json.loads(item.fallback_sources_json or "[]"),
+        resolution_method=(
+            "Resolve the binary outcome against the authoritative source at the stated deadline; "
+            "use fallback sources only if the authoritative source is unavailable."
+        ),
+        ambiguity_notes=item.ambiguity_notes or "",
+        cancellation_conditions=item.cancellation_conditions or "",
+        resolver_risk_notes=item.resolver_risk_notes or "",
+        geography=item.geography,
+        units=item.units,
+        domain=item.category,
+        initial_reference_class=f"Previously resolved {item.category or 'binary'} questions with comparable conditions.",
+        suggested_drivers=["historical base rate", "current trend", "resolution mechanics"],
+        known_dependencies=[],
+        status="approved",
+    )
+    errors = contract.approval_errors()
+    if errors:
+        raise ValueError(f"benchmark_forecast_contract_invalid:{','.join(errors)}")
+    question.normalized_text = contract.normalized_question
+    question.forecast_deadline = contract.resolution_date
+    return store_forecast_contract(session, contract)
 
 
 def ensure_task_run(
@@ -594,9 +675,122 @@ def ensure_task_run(
     return run
 
 
+def _graph_for_run(session: Session, run: ForecastRun) -> ForecastGraphRow | None:
+    node_run = session.scalar(
+        select(ForecastNodeRunRow)
+        .where(ForecastNodeRunRow.forecast_run_id == run.id)
+        .order_by(ForecastNodeRunRow.created_at, ForecastNodeRunRow.id)
+        .limit(1)
+    )
+    if node_run is not None:
+        node = session.get(ForecastNodeRow, node_run.node_id)
+        return session.get(ForecastGraphRow, node.graph_id) if node is not None else None
+    return session.scalar(
+        select(ForecastGraphRow)
+        .join(ForecastContractRow, ForecastGraphRow.contract_id == ForecastContractRow.id)
+        .where(
+            ForecastContractRow.question_id == run.question_id,
+            ForecastContractRow.status == "approved",
+            ForecastGraphRow.status == "approved",
+        )
+        .order_by(ForecastContractRow.version.desc(), ForecastGraphRow.version.desc())
+        .limit(1)
+    )
+
+
+def _run_execution_strategy(session: Session, run: ForecastRun) -> str:
+    if run.benchmark_task_id:
+        task = session.get(BenchmarkTask, run.benchmark_task_id)
+        if task is not None:
+            snapshot = session.scalar(
+                select(BenchmarkProfileSnapshot).where(
+                    BenchmarkProfileSnapshot.experiment_id == task.experiment_id,
+                    BenchmarkProfileSnapshot.profile_id == task.profile_id,
+                )
+            )
+            if snapshot is not None:
+                try:
+                    frozen_profile = json.loads(snapshot.effective_profile_json or "{}")
+                except json.JSONDecodeError:
+                    frozen_profile = {}
+                strategy = str(frozen_profile.get("execution_strategy") or "").strip()
+                if strategy:
+                    return strategy
+    try:
+        return load_profile(run.profile_id).execution_strategy
+    except FileNotFoundError:
+        return "legacy_tracks"
+
+
+def evidence_coverage_for_run(session: Session, run: ForecastRun) -> tuple[float | None, int, int]:
+    """Measure provenance-backed research-unit coverage for either execution strategy."""
+
+    graph_execution = _run_execution_strategy(session, run) == "graph_nodes"
+    if not graph_execution:
+        graph_execution = bool(
+            session.scalar(
+                select(ForecastNodeRunRow.id).where(ForecastNodeRunRow.forecast_run_id == run.id).limit(1)
+            )
+        )
+    if graph_execution:
+        graph = _graph_for_run(session, run)
+        if graph is None:
+            return None, 0, 0
+        nodes = session.scalars(select(ForecastNodeRow).where(ForecastNodeRow.graph_id == graph.id)).all()
+        node_ids = {node.id for node in nodes}
+        node_runs = session.scalars(
+            select(ForecastNodeRunRow).where(ForecastNodeRunRow.forecast_run_id == run.id)
+        ).all()
+        claims = session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == run.id, EvidenceClaimRow.forecast_node_id.in_(node_ids or {""}))
+        ).all()
+        claim_nodes = {claim.id: claim.forecast_node_id for claim in claims}
+        covered: set[str] = set()
+        for node_run in node_runs:
+            selected = [
+                *json.loads(node_run.supporting_claim_ids_json or "[]"),
+                *json.loads(node_run.opposing_claim_ids_json or "[]"),
+            ]
+            if any(claim_nodes.get(str(claim_id)) == node_run.node_id for claim_id in selected):
+                covered.add(node_run.node_id)
+        total = len(nodes)
+        return (len(covered) / total if total else None), len(covered), total
+
+    tracks = session.scalars(select(ResearchTrack).where(ResearchTrack.run_id == run.id)).all()
+    track_ids = {track.id for track in tracks}
+    accepted = session.scalars(
+        select(EvidenceItem).where(
+            EvidenceItem.run_id == run.id,
+            EvidenceItem.track_id.in_(track_ids or {""}),
+            EvidenceItem.rejected.is_(False),
+            EvidenceItem.as_of_eligible.is_(True),
+        )
+    ).all()
+    covered_tracks = {item.track_id for item in accepted if item.track_id in track_ids}
+    total = len(tracks)
+    return (len(covered_tracks) / total if total else None), len(covered_tracks), total
+
+
 def _result_is_partial(session: Session, run: ForecastRun, *, failed: bool) -> bool:
     if failed:
         return False
+    graph = _graph_for_run(session, run)
+    if graph is not None and _run_execution_strategy(session, run) == "graph_nodes":
+        total = int(
+            session.scalar(select(func.count()).select_from(ForecastNodeRow).where(ForecastNodeRow.graph_id == graph.id))
+            or 0
+        )
+        completed = int(
+            session.scalar(
+                select(func.count())
+                .select_from(ForecastNodeRunRow)
+                .where(ForecastNodeRunRow.forecast_run_id == run.id)
+            )
+            or 0
+        )
+        return completed < total
     tracks = session.scalars(select(ResearchTrack).where(ResearchTrack.run_id == run.id)).all()
     return any(track.status == "failed" or track.error_message for track in tracks)
 
@@ -617,6 +811,9 @@ def finalize_benchmark_task(
     existing = session.scalar(select(BenchmarkResult).where(BenchmarkResult.benchmark_task_id == task.id))
     if existing is None:
         failed = status == "failed"
+        coverage, covered_units, total_units = (
+            evidence_coverage_for_run(session, run) if run is not None else (None, 0, 0)
+        )
         existing = BenchmarkResult(
             id=str(uuid.uuid4()),
             experiment_id=experiment.id,
@@ -629,6 +826,9 @@ def finalize_benchmark_task(
             log_loss_value=None if failed or probability is None else log_loss(probability, item.outcome),
             cost_usd=(run.total_cost_usd or run.cost_usd) if run is not None else 0.0,
             latency_ms=run.latency_ms if run is not None else 0,
+            evidence_coverage=coverage,
+            evidence_covered_units=covered_units,
+            evidence_total_units=total_units,
             failed=failed,
             partial=partial,
         )
@@ -856,6 +1056,7 @@ def _metric_set(items: list[BenchmarkResult]) -> dict[str, Any]:
     losses = [item.log_loss_value for item in items if item.log_loss_value is not None]
     costs = [item.cost_usd for item in items]
     lats = [float(item.latency_ms) for item in items]
+    coverage = [item.evidence_coverage for item in items if item.evidence_coverage is not None]
     mean_brier = mean(briers)
     mean_cost = mean(costs)
     return {
@@ -865,6 +1066,8 @@ def _metric_set(items: list[BenchmarkResult]) -> dict[str, Any]:
         "mean_cost_usd": mean_cost,
         "median_cost_usd": median(costs),
         "mean_latency_ms": mean(lats),
+        "mean_evidence_coverage": mean(coverage),
+        "evidence_coverage_n": len(coverage),
         "brier_per_dollar": None if not mean_cost or mean_brier is None else mean_brier / mean_cost,
     }
 
@@ -881,6 +1084,8 @@ def _paired_map(items: list[BenchmarkResult], questions: dict[str, BenchmarkQues
             "cost_usd": item.cost_usd,
             "latency_ms": float(item.latency_ms),
         }
+        if item.evidence_coverage is not None:
+            payload[item.benchmark_question_id]["evidence_coverage"] = item.evidence_coverage
     return payload
 
 
@@ -969,6 +1174,7 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
                 "mean_cost_usd": all_valid["mean_cost_usd"],
                 "median_cost_usd": all_valid["median_cost_usd"],
                 "mean_latency_ms": all_valid["mean_latency_ms"],
+                "mean_evidence_coverage": all_valid["mean_evidence_coverage"],
                 "brier_per_dollar": all_valid["brier_per_dollar"],
             }
         )
@@ -1005,6 +1211,9 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
                 "log_loss_value": item.log_loss_value,
                 "cost_usd": item.cost_usd,
                 "latency_ms": item.latency_ms,
+                "evidence_coverage": item.evidence_coverage,
+                "evidence_covered_units": item.evidence_covered_units,
+                "evidence_total_units": item.evidence_total_units,
                 "failed": item.failed,
                 "partial": item.partial,
                 "status": status,
@@ -1036,6 +1245,18 @@ def experiment_summary(session: Session, experiment: BenchmarkExperiment) -> dic
             if experiment.is_synthetic
             else "Real imported dataset. Scores are research diagnostics, not a calibration claim."
         ),
+        "comparison_interpretation": V1_EVALUATION_NOTICE,
+        "metric_definitions": {
+            "brier_score": "Mean squared error between the forecast probability and binary outcome; lower is better.",
+            "log_loss": "Mean logarithmic penalty for the probability assigned to the resolved outcome; lower is better.",
+            "cost_usd": "Recorded total provider cost, including search and failed-attempt charges.",
+            "latency_ms": "Recorded end-to-end forecast run latency in milliseconds.",
+            "completion_rate": "Fraction of scheduled tasks that produced a full, non-partial forecast.",
+            "evidence_coverage": (
+                "Graph profile: fraction of planned graph nodes citing a persisted Evidence Claim. "
+                "Legacy profile: fraction of research tracks with accepted, as-of-eligible evidence."
+            ),
+        },
         "profiles": profiles_out,
         "reliability_by_profile": reliability_by_profile,
         "paired_comparisons": comparisons,
@@ -1081,6 +1302,61 @@ def current_builtin_dataset(session: Session) -> BenchmarkDataset | None:
             BenchmarkDataset.archived_at.is_(None),
         )
     )
+
+
+def current_v1_evaluation_dataset(session: Session) -> BenchmarkDataset | None:
+    return session.scalar(
+        select(BenchmarkDataset).where(
+            BenchmarkDataset.builtin_key == V1_EVALUATION_DATASET_KEY,
+            BenchmarkDataset.builtin_version == V1_EVALUATION_DATASET_VERSION,
+            BenchmarkDataset.is_builtin.is_(True),
+            BenchmarkDataset.archived_at.is_(None),
+        )
+    )
+
+
+def v1_evaluation_workflow(session: Session) -> dict[str, Any]:
+    dataset = current_v1_evaluation_dataset(session)
+    if dataset is None:
+        raise ValueError("v1_evaluation_dataset_not_found")
+    questions = session.scalars(
+        select(BenchmarkQuestion)
+        .where(BenchmarkQuestion.dataset_id == dataset.id)
+        .order_by(BenchmarkQuestion.forecast_date, BenchmarkQuestion.question)
+    ).all()
+    if len(questions) != V1_EVALUATION_QUESTION_COUNT:
+        raise ValueError(
+            f"v1_evaluation_requires_{V1_EVALUATION_QUESTION_COUNT}_questions:found_{len(questions)}"
+        )
+    return {
+        "dataset": serialize_dataset(dataset),
+        "profiles": list(V1_EVALUATION_PROFILES),
+        "question_count": len(questions),
+        "task_count": len(questions) * len(V1_EVALUATION_PROFILES),
+        "metrics": list(V1_EVALUATION_METRICS),
+        "questions": [
+            {
+                "id": item.id,
+                "question": item.question,
+                "forecast_date": _iso(item.forecast_date),
+                "resolution_date": _iso(item.resolution_date),
+                "category": item.category,
+                "outcome": item.outcome,
+            }
+            for item in questions
+        ],
+        "notice": V1_EVALUATION_NOTICE,
+    }
+
+
+def create_v1_evaluation(session: Session) -> tuple[BenchmarkExperiment, dict[str, Any]]:
+    workflow = v1_evaluation_workflow(session)
+    experiment = create_experiment(
+        session,
+        dataset_id=workflow["dataset"]["id"],
+        profile_ids=list(V1_EVALUATION_PROFILES),
+    )
+    return experiment, workflow
 
 
 def serialize_dataset(dataset: BenchmarkDataset) -> dict:

@@ -7,7 +7,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from forecastlab.prompts import load_prompt
+from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode, ForecastNodeType
 from forecastlab.timeutil import utcnow
@@ -215,8 +215,15 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
 class GraphGenerator:
     """Create and validate a question-specific research graph from an approved contract."""
 
-    def __init__(self, model: ModelProvider, *, generation_model: str | None = None) -> None:
+    def __init__(
+        self,
+        model: ModelProvider,
+        *,
+        generation_model: str | None = None,
+        prompt_bundle: PromptBundle | None = None,
+    ) -> None:
         self.model = model
+        self.prompt_bundle = prompt_bundle
         model_name = str(getattr(model, "model", "unspecified"))
         self.generation_model = generation_model or f"{model.name}:{model_name}"
 
@@ -237,7 +244,11 @@ class GraphGenerator:
             if self.model.name == "mock":
                 payload: dict[str, Any] = {"nodes": _mock_nodes(contract)}
             else:
-                system, _prompt_version = load_prompt("forecast_graph")
+                system, _prompt_version = (
+                    self.prompt_bundle.get("forecast_graph")
+                    if self.prompt_bundle is not None
+                    else load_prompt("forecast_graph")
+                )
                 result = self.model.complete_json(
                     system=system,
                     user=contract.model_dump_json(),

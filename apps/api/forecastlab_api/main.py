@@ -40,12 +40,15 @@ from forecastlab_api.demo import demo_payload_hash, get_indicator, simulate_indi
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
+    V1_EVALUATION_NOTICE,
     create_experiment,
+    create_v1_evaluation,
     current_builtin_dataset,
     ensure_dataset,
     experiment_progress,
     experiment_summary,
     serialize_dataset,
+    v1_evaluation_workflow,
 )
 from forecastlab_api.graphs import (
     build_graph_generator,
@@ -79,8 +82,9 @@ from forecastlab_api.models import (
 from forecastlab_api.persist import save_contract
 from forecastlab_api.pipeline import create_run, execute_run, operationalize_question, provider_settings_from_secrets
 from forecastlab_api.probes import test_model_connection, test_search_connection
+from forecastlab_api.reports import build_v1_report, v1_report_markdown
 from forecastlab_api.secrets import public_settings, update_settings
-from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
+from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.v1_execution import approved_contract_for_question, node_runs_for_run
 from forecastlab_api.watches import attach_demo_watch, check_watch, validate_user_watch
 
@@ -214,6 +218,11 @@ def _contract_out(contract: Any) -> dict[str, Any] | None:
     return payload
 
 
+def _run_order_time(run: ForecastRun) -> datetime:
+    value = run.started_at or run.finished_at
+    return as_utc(value) if value is not None else utcnow()
+
+
 def _question_out(session: Session, question: Question) -> dict[str, Any]:
     versions = session.scalars(
         select(ForecastVersion)
@@ -222,7 +231,7 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
     ).all()
     latest = versions[0] if versions else None
     runs = session.scalars(select(ForecastRun).where(ForecastRun.question_id == question.id)).all()
-    runs = sorted(runs, key=lambda item: item.started_at or item.finished_at or utcnow(), reverse=True)
+    runs = sorted(runs, key=_run_order_time, reverse=True)
     watches = session.scalars(select(Watch).where(Watch.question_id == question.id)).all()
     forecast_contract = session.scalar(
         select(ForecastContractRow)
@@ -268,6 +277,7 @@ def startup() -> None:
         recover_stale_jobs(session)
         seed_sample_question(session)
         seed_synthetic_benchmarks(session)
+        seed_v1_evaluation_benchmarks(session)
         session.commit()
 
 
@@ -700,6 +710,9 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     payload["failed_attempt_cost_usd"] = run.failed_attempt_cost_usd
     payload["total_cost_usd"] = run.total_cost_usd or run.cost_usd
     payload["cost_usd"] = run.total_cost_usd or run.cost_usd
+    v1_report = build_v1_report(payload)
+    if v1_report is not None:
+        payload["v1_report"] = v1_report
     return payload
 
 
@@ -712,6 +725,7 @@ def report(question_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     latest_run = payload["runs"][0] if payload["runs"] else None
     if latest_run:
         payload["latest_run"] = get_run(latest_run["id"], db)
+        payload["v1_report"] = payload["latest_run"].get("v1_report")
     return payload
 
 
@@ -743,6 +757,9 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
         lines.append(f"### {track.get('track_type')}")
         lines.append(f"Probability: {track.get('probability')}")
         lines.append(track.get("reasoning_summary") or "")
+        lines.append("")
+    if latest.get("v1_report"):
+        lines.extend(v1_report_markdown(latest["v1_report"]))
         lines.append("")
     if latest.get("node_runs"):
         lines.append("## Forecast Graph node runs")
@@ -924,6 +941,33 @@ def post_experiment(body: ExperimentIn, db: Session = Depends(get_db)) -> dict[s
     }
 
 
+@app.get("/api/evaluations/v1")
+def get_v1_evaluation_workflow(db: Session = Depends(get_db)) -> dict[str, Any]:
+    try:
+        return v1_evaluation_workflow(db)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+
+
+@app.post("/api/evaluations/v1")
+def post_v1_evaluation(db: Session = Depends(get_db)) -> dict[str, Any]:
+    try:
+        experiment, workflow = create_v1_evaluation(db)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    db.commit()
+    return {
+        "id": experiment.id,
+        "status": experiment.status,
+        "total_tasks": experiment.total_tasks,
+        "is_synthetic": experiment.is_synthetic,
+        "experiment_hash": experiment.experiment_hash,
+        "workflow": workflow,
+        "notice": V1_EVALUATION_NOTICE,
+        "progress": experiment_progress(db, experiment),
+    }
+
+
 @app.get("/api/experiments")
 def list_experiments(db: Session = Depends(get_db)) -> dict[str, Any]:
     rows = db.scalars(select(BenchmarkExperiment).order_by(BenchmarkExperiment.created_at.desc())).all()
@@ -980,6 +1024,9 @@ def export_experiment_csv(experiment_id: str, db: Session = Depends(get_db)) -> 
             "log_loss_value",
             "cost_usd",
             "latency_ms",
+            "evidence_coverage",
+            "evidence_covered_units",
+            "evidence_total_units",
             "failed",
             "partial",
         ],

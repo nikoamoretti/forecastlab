@@ -2,7 +2,7 @@
 
 ## Datasets
 
-A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash over the question, the full resolution contract, dates, outcome, category, provenance, and synthetic flag. Rows are canonicalized and sorted before hashing, so file order does not change identity. Uniqueness is `UNIQUE(dataset_id, import_hash)`, so the same question may appear in separately versioned datasets. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. Real imports require nonempty `exact_yes` and `exact_no`. The bundled `synthetic_fixtures_v1` dataset is the current built-in fixture: `builtin_key=forecastlab.synthetic.binary`, `builtin_version=2`. Seeding looks up that exact identity. Content changes archive the previous version instead of silently duplicating the current one. The compatibility `/api/benchmarks/run` endpoint selects that exact current built-in dataset, not the first synthetic row. It is not a public leaderboard.
+A `BenchmarkDataset` is an immutable named collection of questions. Importing CSV or JSON creates a dataset with a content hash over the question, the full resolution contract, dates, outcome, category, provenance, and synthetic flag. Rows are canonicalized and sorted before hashing, so file order does not change identity. Uniqueness is `UNIQUE(dataset_id, import_hash)`, so the same question may appear in separately versioned datasets. Every row in one dataset must agree on synthetic vs real. Mixed files are rejected. Real imports require nonempty `exact_yes` and `exact_no`. The bundled `synthetic_fixtures_v1` dataset is the current compatibility fixture: `builtin_key=forecastlab.synthetic.binary`, `builtin_version=2`. The dedicated first V1 workflow uses a separate ten-question fixture: `builtin_key=forecastlab.v1.evaluation.synthetic`, `builtin_version=1`. Seeding looks up exact identities. The compatibility `/api/benchmarks/run` endpoint continues to select the compatibility dataset. Neither dataset is a public leaderboard.
 
 ## Experiments
 
@@ -18,7 +18,7 @@ The HTTP handler does not call `execute_run()`. Execution later uses only the st
 
 ## Tasks
 
-Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Tasks load the stored effective `ForecastProfile` and `PromptBundle`; they do not call `load_profile()` or `load_prompt()` against mutable files. Every profile forecasting one benchmark question receives the identical stored resolution contract from the dataset. Each task still owns its own benchmark-only `Question` and `ForecastRun`. Retries reuse those rows. Benchmark tasks do not operationalize the question through a model. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
+Each real task runs with `mode=backtest` and `as_of=benchmark_question.forecast_date`. Tasks load the stored effective `ForecastProfile` and `PromptBundle`; graph generation, claim extraction, and node forecasting use that same frozen bundle rather than mutable prompt files. Every profile forecasting one benchmark question receives an approved first-class Forecast Contract projected deterministically from the dataset contract. Each task still owns its own benchmark-only `Question` and `ForecastRun`. Retries reuse those rows. Benchmark tasks do not operationalize the question through a model. Synthetic experiments may use mock providers but remain labeled synthetic. Benchmark-only questions have `is_benchmark=true` and are filtered from the board.
 
 ## Identity and terminal states
 
@@ -50,15 +50,22 @@ Those two share configured search, fetch, token, cost, and wall-clock ceilings a
 
 Equal ceilings do not guarantee identical spend. Actual calls, tokens, cost, and latency are reported.
 
+First V1 framework comparison:
+
+- `three_track_forecaster` is a frozen experiment alias for the existing `three_track_ensemble` execution path.
+- `graph_forecaster_v1` executes approved contracts, graph nodes, Evidence Claims, deterministic node probabilities, and graph aggregation.
+
+`GET /api/evaluations/v1` returns the fixed ten-question workflow and its metrics. `POST /api/evaluations/v1` creates exactly twenty tasks: ten questions × the two profiles above. The Lab exposes the same workflow as **Run V1 10-question comparison**. It is synthetic software verification and cannot establish profile superiority.
+
 ## Scoring
 
-Summaries are scoped to one experiment. Each profile reports total, full, partial, and failed counts plus completion, partial, and failure rates. Two metric sets are computed: **all-valid** (full and partial probabilities) and **full-run-only** (successful non-partial runs). Both include Brier, log loss, mean/median total cost, mean latency, and Brier per dollar. Brier-per-dollar uses total `ForecastRun` cost, including failed attempts and search charges. Experiment spend also reports total experiment cost, total successful/full cost, total partial cost, total failed-task cost, mean cost per started task, model cost, search cost, and failed-attempt cost. Failed tasks stay in commercial totals. The Lab UI shows those values. Paired comparisons are computed twice: all-valid and full-only. Question-level tables and CSV export include status `full` | `partial` | `failed`. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
+Summaries are scoped to one experiment. Each profile reports total, full, partial, and failed counts plus completion, partial, and failure rates. Two metric sets are computed: **all-valid** (full and partial probabilities) and **full-run-only** (successful non-partial runs). Both include Brier, log loss, mean/median total cost, mean latency, mean evidence coverage, and Brier per dollar. Evidence coverage is the fraction of graph nodes whose node forecast cites a persisted Evidence Claim for `graph_forecaster_v1`; for legacy execution it is the fraction of research tracks with accepted, as-of-eligible evidence. It measures research-unit coverage, not citation correctness or forecast quality. Brier-per-dollar uses total `ForecastRun` cost, including failed attempts and search charges. Experiment spend also reports total experiment cost, total successful/full cost, total partial cost, total failed-task cost, mean cost per started task, model cost, search cost, and failed-attempt cost. Failed tasks stay in commercial totals. Paired comparisons are computed twice: all-valid and full-only. Question-level tables and CSV export include status, evidence coverage numerator and denominator, and all requested metrics. Reliability is computed separately per profile. The 20-row reliability display threshold is not a calibration claim.
 
 `live_smoke_v1` is a tightly capped one-track profile for one explicitly opted-in live smoke forecast. It is not a scientific comparison profile.
 
 ## Paired comparisons
 
-Profiles that answered the same questions are compared: n, mean Brier, paired Brier difference, win/tie/loss, log-loss difference, cost difference, latency difference.
+Profiles that answered the same questions are compared: n, mean Brier, paired Brier difference, win/tie/loss, log-loss difference, cost difference, latency difference, and evidence-coverage difference. Differences are descriptive until the full evaluation protocol and decision rules are satisfied.
 
 ## Bootstrap intervals
 

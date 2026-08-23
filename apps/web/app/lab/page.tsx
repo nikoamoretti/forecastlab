@@ -13,6 +13,7 @@ export default function LabPage() {
     "single_agent_equal_budget_v1",
     "three_track_equal_budget_v1",
   ]);
+  const [v1Workflow, setV1Workflow] = useState<any>(null);
   const [experimentId, setExperimentId] = useState<string | null>(null);
   const [progress, setProgress] = useState<any>(null);
   const [summary, setSummary] = useState<any>(null);
@@ -24,6 +25,8 @@ export default function LabPage() {
     if (!datasetId && ds.datasets?.[0]) setDatasetId(ds.datasets[0].id);
     const plist = await api<any[]>("/api/profiles");
     setProfiles(plist);
+    const workflow = await api<any>("/api/evaluations/v1");
+    setV1Workflow(workflow);
   }
 
   useEffect(() => {
@@ -65,6 +68,15 @@ export default function LabPage() {
     setMessage("Experiment queued. Polling progress.");
   }
 
+  async function createV1() {
+    setMessage("Creating the V1 10-question comparison…");
+    const created = await api<{ id: string; workflow: any }>("/api/evaluations/v1", { method: "POST" });
+    setExperimentId(created.id);
+    setSummary(null);
+    if (created.workflow?.dataset?.id) setDatasetId(created.workflow.dataset.id);
+    setMessage("V1 experiment queued. Polling 20 profile-question tasks.");
+  }
+
   async function onImport(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -91,6 +103,26 @@ export default function LabPage() {
         Create an asynchronous experiment against one dataset. Real tasks use backtest mode. Results stay inside that
         experiment.
       </p>
+      <section className="border border-copper bg-white/60 p-5">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper">First V1 experiment</p>
+        <h3 className="mt-2 font-serif text-2xl">10-question profile comparison</h3>
+        <p className="mt-2 text-sm text-ink/80">
+          {v1Workflow
+            ? `${v1Workflow.profiles.join(" vs ")} · ${v1Workflow.question_count} synthetic questions · ${v1Workflow.task_count} tasks`
+            : "Loading the fixed V1 workflow…"}
+        </p>
+        <p className="mt-2 text-sm text-ink/70">
+          Measures Brier score, log loss, cost, latency, completion rate, and evidence coverage. This framework reports
+          differences without claiming either profile is superior.
+        </p>
+        <button
+          className="mt-4 border border-ink bg-ink px-4 py-2 text-paper disabled:opacity-50"
+          onClick={createV1}
+          disabled={!v1Workflow}
+        >
+          Run V1 10-question comparison
+        </button>
+      </section>
       <section className="grid gap-4 md:grid-cols-2">
         <label className="block">
           <span className="text-sm">Dataset</span>
@@ -154,6 +186,9 @@ export default function LabPage() {
       {summary?.is_synthetic || summary?.synthetic ? <p className="border border-copper px-4 py-3">{SYNTHETIC_NOTICE}</p> : null}
       {summary ? (
         <>
+          <p className="border border-rule px-4 py-3 text-sm">
+            {summary.comparison_interpretation || "Experiment results are descriptive and do not establish superiority."}
+          </p>
           <section>
             <h3 className="font-serif text-2xl">Experiment spend</h3>
             <p className="mt-2 text-sm text-ink/70">
@@ -235,6 +270,7 @@ export default function LabPage() {
                   <th>Mean total cost</th>
                   <th>Median total cost</th>
                   <th>Mean latency</th>
+                  <th>Evidence coverage</th>
                   <th>Brier per dollar</th>
                 </tr>
               </thead>
@@ -250,6 +286,7 @@ export default function LabPage() {
                       <td>${Number(block.mean_cost_usd || 0).toFixed(4)}</td>
                       <td>${Number(block.median_cost_usd || 0).toFixed(4)}</td>
                       <td>{Math.round(block.mean_latency_ms || 0)} ms</td>
+                      <td>{pct(block.mean_evidence_coverage)} (n={block.evidence_coverage_n ?? 0})</td>
                       <td>{block.brier_per_dollar?.toFixed?.(4) ?? "—"}</td>
                     </tr>
                   );
@@ -270,6 +307,7 @@ export default function LabPage() {
                   <th>Mean total cost</th>
                   <th>Median total cost</th>
                   <th>Mean latency</th>
+                  <th>Evidence coverage</th>
                   <th>Brier per dollar</th>
                 </tr>
               </thead>
@@ -285,6 +323,7 @@ export default function LabPage() {
                       <td>${Number(block.mean_cost_usd || 0).toFixed(4)}</td>
                       <td>${Number(block.median_cost_usd || 0).toFixed(4)}</td>
                       <td>{Math.round(block.mean_latency_ms || 0)} ms</td>
+                      <td>{pct(block.mean_evidence_coverage)} (n={block.evidence_coverage_n ?? 0})</td>
                       <td>{block.brier_per_dollar?.toFixed?.(4) ?? "—"}</td>
                     </tr>
                   );
@@ -300,6 +339,10 @@ export default function LabPage() {
                   <th className="py-2">Pair</th>
                   <th>n</th>
                   <th>Δ Brier</th>
+                  <th>Δ log loss</th>
+                  <th>Δ cost</th>
+                  <th>Δ latency</th>
+                  <th>Δ evidence coverage</th>
                   <th>Wins/ties/losses</th>
                   <th>95% interval</th>
                 </tr>
@@ -312,6 +355,12 @@ export default function LabPage() {
                     </td>
                     <td>{row.n}</td>
                     <td>{row.mean_paired_brier_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.mean_log_loss_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>${row.mean_cost_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.mean_latency_difference?.toFixed?.(1) ?? "—"} ms</td>
+                    <td>
+                      {pct(row.mean_evidence_coverage_difference)} (n={row.evidence_coverage_pair_count ?? 0})
+                    </td>
                     <td>
                       {row.wins_left}/{row.ties}/{row.losses_left}
                     </td>
@@ -333,6 +382,10 @@ export default function LabPage() {
                   <th className="py-2">Pair</th>
                   <th>n</th>
                   <th>Δ Brier</th>
+                  <th>Δ log loss</th>
+                  <th>Δ cost</th>
+                  <th>Δ latency</th>
+                  <th>Δ evidence coverage</th>
                   <th>Wins/ties/losses</th>
                   <th>95% interval</th>
                 </tr>
@@ -345,6 +398,12 @@ export default function LabPage() {
                     </td>
                     <td>{row.n}</td>
                     <td>{row.mean_paired_brier_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.mean_log_loss_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>${row.mean_cost_difference?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.mean_latency_difference?.toFixed?.(1) ?? "—"} ms</td>
+                    <td>
+                      {pct(row.mean_evidence_coverage_difference)} (n={row.evidence_coverage_pair_count ?? 0})
+                    </td>
                     <td>
                       {row.wins_left}/{row.ties}/{row.losses_left}
                     </td>
@@ -386,6 +445,10 @@ export default function LabPage() {
                   <th>p</th>
                   <th>y</th>
                   <th>Brier</th>
+                  <th>Log loss</th>
+                  <th>Cost</th>
+                  <th>Latency</th>
+                  <th>Evidence coverage</th>
                   <th>Status</th>
                   <th>Failed</th>
                 </tr>
@@ -398,6 +461,12 @@ export default function LabPage() {
                     <td>{pct(row.probability)}</td>
                     <td>{row.outcome}</td>
                     <td>{row.brier?.toFixed?.(4) ?? "—"}</td>
+                    <td>{row.log_loss_value?.toFixed?.(4) ?? "—"}</td>
+                    <td>${Number(row.cost_usd || 0).toFixed(4)}</td>
+                    <td>{row.latency_ms || 0} ms</td>
+                    <td>
+                      {pct(row.evidence_coverage)} ({row.evidence_covered_units || 0}/{row.evidence_total_units || 0})
+                    </td>
                     <td>{row.status || (row.failed ? "failed" : row.partial ? "partial" : "full")}</td>
                     <td>{row.failed ? "yes" : "no"}</td>
                   </tr>

@@ -279,6 +279,7 @@ def execute_run(
                 session,
                 question=question,
                 model=model,
+                prompt_bundle=prompt_bundle,
             )
             result = run_graph_forecast_engine(
                 contract=forecast_contract,

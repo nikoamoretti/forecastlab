@@ -202,6 +202,14 @@ This dependency discount is a transparent V1 double-counting safeguard, not a le
 
 `POST /api/forecasts/{id}/execute-v1` starts this opt-in path, and `GET /api/forecasts/{id}/node-runs` returns node outputs from the latest V1 run. `POST /api/questions/{id}/runs` remains available; selecting `graph_forecaster_v1` there applies the same approved-contract gate. No benchmark profile is changed by this integration.
 
+### V1 report and first experiment lifecycle
+
+1. **Assemble the report:** a completed graph run joins its approved Forecast Contract, frozen Forecast Graph, `ForecastNodeRun` rows, persisted Evidence Claims, and aggregation JSON. Node sections show the node question, probability, confidence, reasoning, raw and normalized weights, dependency factor, contribution, and supporting and opposing cited claims with excerpts and source links. Unselected node-linked claims remain visible but are not presented as calculation inputs.
+2. **Expose one calculation:** JSON, Markdown, and the report screen use the same structured V1 report payload. The calculation trace shows the weight policy, every node contribution, the sum, and final clipping. It is an audit record, not a natural-language reconstruction.
+3. **Freeze the first comparison:** the dedicated workflow fixes ten synthetic binary questions and exactly two profiles, `three_track_forecaster` and `graph_forecaster_v1`, creating twenty ordinary asynchronous benchmark tasks. The legacy identifier is an experiment alias for the existing three-track execution path.
+4. **Measure without selecting a winner:** profile and paired outputs include Brier score, log loss, total cost, latency, full completion rate, and evidence coverage. Graph evidence coverage is the fraction of planned nodes whose node forecast cites at least one persisted Evidence Claim. Legacy coverage is the fraction of research tracks with accepted cutoff-eligible evidence.
+5. **Retain the claim boundary:** this ten-question dataset is synthetic. It verifies execution, persistence, metric calculation, export, and UI behavior. It does not satisfy the real-data splits, baseline set, sample size, annotation audit, or prospective requirements in `EVALUATION_PROTOCOL_V1.md`, and no superiority claim may be drawn from it.
+
 ## Independent tracks
 
 The conceptual role names map to the current persisted track identifiers as follows: base-rate researcher to `base_rate`, evidence researcher to `current_evidence`, and skeptic researcher to `skeptic`.

@@ -79,9 +79,9 @@ Their required roles are:
 | `model_only` | Measures structured forecasting from the frozen contract without retrieval. | Implemented profile: `model_only_v1`. |
 | `single_agent_equal_budget` | Measures one research forecaster under the shared research ceiling. | Implemented profile: `single_agent_equal_budget_v1`. |
 | `three_track_equal_budget` | Measures independent base-rate, current-evidence, and skeptic tracks under the same total ceiling as the single-agent comparison. | Implemented profile: `three_track_equal_budget_v1`. |
-| `hierarchical_forecaster` | Measures the V1 subforecast-graph and scenario method under a pre-registered total ceiling. | Required V1 configuration; not established by the current MVP. |
+| `hierarchical_forecaster` | Measures the V1 subforecast-graph and scenario method under a pre-registered total ceiling. | Experimental framework profile: `graph_forecaster_v1`; not validated as the required final configuration. |
 
-The current two-profile synthetic comparison is a software-verification experiment, not a V1-complete comparison.
+The current `three_track_forecaster` versus `graph_forecaster_v1` comparison uses ten synthetic questions and is a software-verification experiment, not a V1-complete comparison.
 
 ### Fairness controls
 
@@ -113,8 +113,11 @@ Quality metrics must be shown for all valid probabilities and separately for ful
 - failure rate;
 - end-to-end latency;
 - total cost.
+- evidence coverage, defined as provenance-backed planned research units divided by total planned research units.
 
 Operational denominators include every assigned question. Total cost includes successful requests, failed attempts, searches, partial runs, and failed tasks. Report median and mean cost and latency because tails matter.
+
+Evidence coverage is a pipeline-completeness diagnostic. The graph profile counts nodes whose forecast cites a persisted claim; the legacy profile counts tracks with accepted cutoff-eligible evidence. It does not replace citation precision, unsupported-claim auditing, or forecast-quality scoring.
 
 ### Evidence
 

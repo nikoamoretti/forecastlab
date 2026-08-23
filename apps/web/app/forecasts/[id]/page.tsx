@@ -76,7 +76,6 @@ export default function ForecastPage() {
   if (!data) return <p>Loading forecast…</p>;
   const run = data.latest_run || {};
   const tracks = run.tracks || [];
-  const nodeRuns = run.node_runs || [];
   const evidence = run.evidence || [];
   const aggregation = run.aggregation || {};
   const versions = data.versions || [];
@@ -91,6 +90,9 @@ export default function ForecastPage() {
   const missingNodes = (aggregation.missing_node_ids || []).length > 0;
   const graphAggregation = aggregation.method === "dependency_discounted_weighted_mean_v1";
   const rejectedEvidence = evidence.filter((item: any) => item.rejected);
+  const v1Report = data.v1_report || run.v1_report || null;
+  const reportNodes = v1Report?.nodes || [];
+  const calculationTrace = v1Report?.calculation?.trace || [];
 
   return (
     <article className="space-y-10">
@@ -300,25 +302,29 @@ export default function ForecastPage() {
         </a>
       </section>
 
-      <section>
-        <h3 className="font-serif text-2xl">Key drivers</h3>
-        <ul className="mt-3 list-disc space-y-2 pl-5">
-          {tracks.flatMap((track: any) => track.key_drivers || []).map((driver: any, index: number) => (
-            <li key={`${driver.factor}-${index}`}>
-              {driver.factor} ({driver.direction}, {driver.importance})
-            </li>
-          ))}
-        </ul>
-      </section>
+      {tracks.length ? (
+        <>
+          <section>
+            <h3 className="font-serif text-2xl">Key drivers</h3>
+            <ul className="mt-3 list-disc space-y-2 pl-5">
+              {tracks.flatMap((track: any) => track.key_drivers || []).map((driver: any, index: number) => (
+                <li key={`${driver.factor}-${index}`}>
+                  {driver.factor} ({driver.direction}, {driver.importance})
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      <section>
-        <h3 className="font-serif text-2xl">Main counterarguments</h3>
-        <ul className="mt-3 list-disc space-y-2 pl-5">
-          {tracks.flatMap((track: any) => track.counterarguments || []).map((item: string, index: number) => (
-            <li key={`${item}-${index}`}>{item}</li>
-          ))}
-        </ul>
-      </section>
+          <section>
+            <h3 className="font-serif text-2xl">Main counterarguments</h3>
+            <ul className="mt-3 list-disc space-y-2 pl-5">
+              {tracks.flatMap((track: any) => track.counterarguments || []).map((item: string, index: number) => (
+                <li key={`${item}-${index}`}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        </>
+      ) : null}
 
       {run.disagreement_summary ? (
         <section>
@@ -327,66 +333,159 @@ export default function ForecastPage() {
         </section>
       ) : null}
 
-      {nodeRuns.length && graphAggregation ? (
-        <section>
-          <h3 className="font-serif text-2xl">Forecast Graph node contributions</h3>
+      {v1Report && graphAggregation ? (
+        <section className="space-y-5" aria-label="V1 Forecast Graph report">
+          <div>
+            <h3 className="font-serif text-2xl">Forecast Graph report</h3>
+            <p className="mt-2 text-sm text-ink/70">
+              {v1Report.graph?.node_count || reportNodes.length} research nodes · evidence coverage {" "}
+              {v1Report.evidence_coverage?.covered_units || 0}/{v1Report.evidence_coverage?.total_units || 0} · final {" "}
+              {pct(v1Report.final_probability)}
+            </p>
+          </div>
           <p className="mt-2 text-sm text-ink/70">
             Final calculation: {aggregation.formula || "Weighted node contributions are summed deterministically."}
           </p>
-          <table className="mt-3 w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-rule">
-                <th className="py-2">Node</th>
-                <th>Probability</th>
-                <th>Confidence</th>
-                <th>Raw weight</th>
-                <th>Dependency factor</th>
-                <th>Normalized weight</th>
-                <th>Contribution</th>
-              </tr>
-            </thead>
-            <tbody>
-              {nodeRuns.map((nodeRun: any) => (
-                <tr key={nodeRun.id} className="border-b border-rule/70">
-                  <td className="py-2 font-mono text-xs">{nodeRun.node_id}</td>
-                  <td>{Number(nodeRun.probability).toFixed(4)}</td>
-                  <td>{Number(nodeRun.confidence).toFixed(4)}</td>
-                  <td>{Number(nodeRun.raw_importance_weight).toFixed(4)}</td>
-                  <td>{Number(nodeRun.dependency_factor).toFixed(4)}</td>
-                  <td>{Number(nodeRun.normalized_weight).toFixed(4)}</td>
-                  <td>{Number(nodeRun.probability_contribution).toFixed(4)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="grid gap-4">
+            {reportNodes.map((node: any) => (
+              <article key={node.id} className="border border-rule bg-white/60 p-5">
+                <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-[0.16em] text-copper">
+                      {String(node.node_type || "node").replace("_", " ")}
+                    </p>
+                    <h4 className="mt-2 font-serif text-xl">{node.question}</h4>
+                    <p className="mt-3 text-sm leading-relaxed">{node.reasoning || "No node reasoning was produced."}</p>
+                  </div>
+                  <dl className="grid min-w-52 grid-cols-2 gap-x-5 gap-y-2 text-sm">
+                    <div>
+                      <dt className="text-ink/60">Probability</dt>
+                      <dd className="font-serif text-2xl">{pct(node.probability)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-ink/60">Confidence</dt>
+                      <dd>{pct(node.confidence)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-ink/60">Weight</dt>
+                      <dd>{Number(node.normalized_weight || 0).toFixed(4)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-ink/60">Contribution</dt>
+                      <dd>{Number(node.probability_contribution || 0).toFixed(4)}</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div className="mt-5 grid gap-5 md:grid-cols-2">
+                  {[
+                    ["Supporting evidence", node.supporting_evidence || []],
+                    ["Opposing evidence", node.opposing_evidence || []]
+                  ].map(([label, claims]: any) => (
+                    <div key={label}>
+                      <h5 className="font-medium">{label}</h5>
+                      {claims.length ? (
+                        <ul className="mt-2 space-y-3 text-sm">
+                          {claims.map((claim: any) => (
+                            <li key={claim.id} className="border-l-2 border-copper pl-3">
+                              <p>{claim.claim}</p>
+                              <p className="mt-1 text-xs text-ink/60">Excerpt: “{claim.excerpt}”</p>
+                              <a
+                                className="mt-1 inline-block text-xs underline decoration-copper"
+                                href={claim.source_url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {claim.source_title || claim.publisher || claim.source_url}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="mt-2 text-sm text-ink/60">No {String(label).toLowerCase()} cited.</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {node.uncited_evidence?.length ? (
+                  <details className="mt-4 text-sm">
+                    <summary className="cursor-pointer">
+                      {node.uncited_evidence.length} additional provenance-backed claim
+                      {node.uncited_evidence.length === 1 ? "" : "s"} not selected by this node forecast
+                    </summary>
+                    <ul className="mt-2 list-disc space-y-1 pl-5">
+                      {node.uncited_evidence.map((claim: any) => <li key={claim.id}>{claim.claim}</li>)}
+                    </ul>
+                  </details>
+                ) : null}
+              </article>
+            ))}
+          </div>
           <p className="mt-3 text-sm">
             Sum of contributions {Number(aggregation.unbounded_probability).toFixed(6)} → final probability{" "}
             {Number(aggregation.final_probability).toFixed(6)}
           </p>
+          <div>
+            <h4 className="font-serif text-xl">Calculation trace</h4>
+            <table className="mt-3 w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="py-2">Step</th>
+                  <th>Node</th>
+                  <th>Normalized weight</th>
+                  <th>Probability</th>
+                  <th>Contribution / result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {calculationTrace.map((trace: any, index: number) => {
+                  const traceNode = reportNodes.find((node: any) => node.id === trace.node_id);
+                  return (
+                    <tr key={`${trace.step}-${trace.node_id || index}`} className="border-b border-rule/70">
+                      <td className="py-2">{String(trace.step || "").replace("_", " ")}</td>
+                      <td>{traceNode?.question || trace.node_id || "—"}</td>
+                      <td>{trace.normalized_weight == null ? "—" : Number(trace.normalized_weight).toFixed(4)}</td>
+                      <td>{trace.probability == null ? "—" : Number(trace.probability).toFixed(4)}</td>
+                      <td>
+                        {trace.contribution == null
+                          ? trace.final_probability == null
+                            ? trace.normalization_denominator == null
+                              ? "—"
+                              : `denominator ${Number(trace.normalization_denominator).toFixed(4)}`
+                            : `final ${Number(trace.final_probability).toFixed(4)}`
+                          : Number(trace.contribution).toFixed(4)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </section>
       ) : null}
 
-      <section>
-        <h3 className="font-serif text-2xl">Independent tracks</h3>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {tracks.map((track: any) => (
-            <button
-              key={track.id}
-              className="border border-rule p-4 text-left"
-              onClick={() => setOpenTrack(openTrack === track.id ? null : track.id)}
-            >
-              <p className="font-mono text-xs uppercase tracking-[0.2em]">{track.track_type}</p>
-              <p className="mt-2 font-serif text-4xl">{pct(track.probability)}</p>
-              <p className="mt-3 text-sm leading-relaxed">{track.reasoning_summary}</p>
-              {openTrack === track.id ? (
-                <p className="mt-3 text-xs text-ink/70">
-                  Resolver risk {track.resolver_risk} · quality {track.evidence_quality}
-                </p>
-              ) : null}
-            </button>
-          ))}
-        </div>
-      </section>
+      {tracks.length ? (
+        <section>
+          <h3 className="font-serif text-2xl">Independent tracks</h3>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {tracks.map((track: any) => (
+              <button
+                key={track.id}
+                className="border border-rule p-4 text-left"
+                onClick={() => setOpenTrack(openTrack === track.id ? null : track.id)}
+              >
+                <p className="font-mono text-xs uppercase tracking-[0.2em]">{track.track_type}</p>
+                <p className="mt-2 font-serif text-4xl">{pct(track.probability)}</p>
+                <p className="mt-3 text-sm leading-relaxed">{track.reasoning_summary}</p>
+                {openTrack === track.id ? (
+                  <p className="mt-3 text-xs text-ink/70">
+                    Resolver risk {track.resolver_risk} · quality {track.evidence_quality}
+                  </p>
+                ) : null}
+              </button>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <details className="border border-rule p-4">
         <summary className="cursor-pointer font-serif text-2xl">How this was calculated</summary>

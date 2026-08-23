@@ -1,0 +1,196 @@
+from __future__ import annotations
+
+from typing import Any
+
+
+def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": claim.get("id"),
+        "claim": claim.get("claim"),
+        "excerpt": claim.get("excerpt"),
+        "supports_or_refutes": claim.get("supports_or_refutes"),
+        "confidence": claim.get("confidence"),
+        "source_quality": claim.get("source_quality"),
+        "primary_source": bool(claim.get("primary_source")),
+        "source_url": claim.get("source_url"),
+        "source_title": claim.get("source_title"),
+        "publisher": claim.get("publisher"),
+        "publication_date": claim.get("publication_date"),
+        "retrieval_date": claim.get("retrieval_date"),
+        "as_of_eligible": bool(claim.get("as_of_eligible")),
+        "cutoff_verified": bool(claim.get("cutoff_verified")),
+    }
+
+
+def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
+    """Build the auditable Contract -> Graph -> Claims -> Probability report payload."""
+
+    graph = run.get("forecast_graph") or {}
+    graph_nodes = graph.get("nodes") or []
+    node_runs = run.get("node_runs") or []
+    if not graph_nodes and not node_runs:
+        return None
+
+    claims = run.get("evidence_claims") or []
+    claims_by_id = {str(claim.get("id")): claim for claim in claims if claim.get("id")}
+    claims_by_node: dict[str, list[dict[str, Any]]] = {}
+    for claim in claims:
+        node_id = str(claim.get("forecast_node_id") or "")
+        if node_id:
+            claims_by_node.setdefault(node_id, []).append(claim)
+    node_runs_by_id = {str(item.get("node_id")): item for item in node_runs if item.get("node_id")}
+
+    report_nodes: list[dict[str, Any]] = []
+    covered_node_ids: list[str] = []
+    cited_claim_ids: set[str] = set()
+    for node in graph_nodes:
+        node_id = str(node.get("id") or "")
+        node_run = node_runs_by_id.get(node_id) or {}
+        supporting_ids = [str(item) for item in node_run.get("supporting_claim_ids") or []]
+        opposing_ids = [str(item) for item in node_run.get("opposing_claim_ids") or []]
+        selected_ids = set(supporting_ids) | set(opposing_ids)
+        supporting = [
+            _claim_summary(claims_by_id[claim_id])
+            for claim_id in supporting_ids
+            if claim_id in claims_by_id and claims_by_id[claim_id].get("forecast_node_id") == node_id
+        ]
+        opposing = [
+            _claim_summary(claims_by_id[claim_id])
+            for claim_id in opposing_ids
+            if claim_id in claims_by_id and claims_by_id[claim_id].get("forecast_node_id") == node_id
+        ]
+        uncited = [
+            _claim_summary(claim)
+            for claim in claims_by_node.get(node_id, [])
+            if str(claim.get("id")) not in selected_ids
+        ]
+        valid_selected_ids = {str(claim["id"]) for claim in [*supporting, *opposing] if claim.get("id")}
+        if valid_selected_ids:
+            covered_node_ids.append(node_id)
+            cited_claim_ids.update(valid_selected_ids)
+        report_nodes.append(
+            {
+                "id": node_id,
+                "question": node.get("question"),
+                "node_type": node.get("node_type"),
+                "parent_node_id": node.get("parent_node_id"),
+                "dependencies": node.get("dependencies") or [],
+                "preferred_sources": node.get("preferred_sources") or [],
+                "required_output_type": node.get("required_output_type"),
+                "importance_weight": node.get("importance_weight"),
+                "status": node.get("status"),
+                "forecast_status": "completed" if node_run else "missing",
+                "probability": node_run.get("probability"),
+                "confidence": node_run.get("confidence"),
+                "uncertainty": node_run.get("uncertainty"),
+                "reasoning": node_run.get("reasoning"),
+                "raw_importance_weight": node_run.get("raw_importance_weight"),
+                "dependency_factor": node_run.get("dependency_factor"),
+                "normalized_weight": node_run.get("normalized_weight"),
+                "probability_contribution": node_run.get("probability_contribution"),
+                "supporting_evidence": supporting,
+                "opposing_evidence": opposing,
+                "uncited_evidence": uncited,
+                "evidence_claim_count": len(claims_by_node.get(node_id, [])),
+                "cited_claim_count": len(valid_selected_ids),
+            }
+        )
+
+    aggregation = run.get("aggregation") or {}
+    total_nodes = len(graph_nodes)
+    covered_nodes = len(covered_node_ids)
+    return {
+        "profile_id": run.get("profile_id"),
+        "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
+        "forecast_contract": run.get("forecast_contract"),
+        "graph": {
+            "id": graph.get("id"),
+            "version": graph.get("version"),
+            "status": graph.get("status"),
+            "created_at": graph.get("created_at"),
+            "generation_model": graph.get("generation_model"),
+            "root_question": graph.get("root_question"),
+            "node_count": total_nodes,
+        },
+        "nodes": report_nodes,
+        "evidence_claims": [_claim_summary(claim) for claim in claims],
+        "evidence_coverage": {
+            "definition": "Fraction of graph nodes whose node forecast cites at least one persisted Evidence Claim.",
+            "covered_units": covered_nodes,
+            "total_units": total_nodes,
+            "rate": round(covered_nodes / total_nodes, 12) if total_nodes else None,
+            "covered_node_ids": covered_node_ids,
+            "cited_claim_count": len(cited_claim_ids),
+            "persisted_claim_count": len(claims),
+        },
+        "calculation": {
+            "method": aggregation.get("method"),
+            "formula": aggregation.get("formula"),
+            "normalization_denominator": aggregation.get("normalization_denominator"),
+            "unbounded_probability": aggregation.get("unbounded_probability"),
+            "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
+            "trace": aggregation.get("calculation_trace") or [],
+        },
+    }
+
+
+def v1_report_markdown(report: dict[str, Any]) -> list[str]:
+    """Render the structured V1 report without losing its provenance groupings."""
+
+    coverage = report.get("evidence_coverage") or {}
+    calculation = report.get("calculation") or {}
+    lines = [
+        "## V1 Forecast Graph report",
+        "",
+        f"**Final probability:** {report.get('final_probability')}",
+        (
+            "**Evidence coverage:** "
+            f"{coverage.get('covered_units', 0)}/{coverage.get('total_units', 0)} graph nodes "
+            f"({coverage.get('rate')})"
+        ),
+        "",
+        "### Graph nodes and node forecasts",
+    ]
+    for node in report.get("nodes") or []:
+        lines.extend(
+            [
+                "",
+                f"#### {node.get('node_type')}: {node.get('question')}",
+                f"Probability: {node.get('probability')}",
+                f"Confidence: {node.get('confidence')}",
+                f"Normalized weight: {node.get('normalized_weight')}",
+                f"Probability contribution: {node.get('probability_contribution')}",
+                node.get("reasoning") or "No node reasoning was produced.",
+                "",
+                "Supporting evidence:",
+            ]
+        )
+        supporting = node.get("supporting_evidence") or []
+        if supporting:
+            for claim in supporting:
+                lines.append(f"- {claim.get('claim')}")
+                lines.append(f"  - Excerpt: {claim.get('excerpt')}")
+                lines.append(f"  - Source: {claim.get('source_url')}")
+        else:
+            lines.append("- None cited.")
+        lines.append("Opposing evidence:")
+        opposing = node.get("opposing_evidence") or []
+        if opposing:
+            for claim in opposing:
+                lines.append(f"- {claim.get('claim')}")
+                lines.append(f"  - Excerpt: {claim.get('excerpt')}")
+                lines.append(f"  - Source: {claim.get('source_url')}")
+        else:
+            lines.append("- None cited.")
+    lines.extend(
+        [
+            "",
+            "### Calculation trace",
+            f"Method: {calculation.get('method')}",
+            calculation.get("formula") or "",
+            "",
+        ]
+    )
+    for step in calculation.get("trace") or []:
+        lines.append(f"- {step}")
+    return lines

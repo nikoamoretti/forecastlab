@@ -7,6 +7,7 @@ import pytest
 from sqlalchemy import func, select
 
 from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
+from forecastlab.prompts import PromptBundle, PromptRecord
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import EvidenceClaim, FetchedDocument, ModelUsage
 from forecastlab.timeutil import as_utc
@@ -90,6 +91,29 @@ def test_evidence_extraction_preserves_provenance_and_node_linkage() -> None:
     assert claim.excerpt in document.text
     assert claim.as_of_eligible is True
     assert claim.cutoff_verified is True
+
+
+def test_evidence_extraction_uses_frozen_experiment_prompt_bundle() -> None:
+    model = StubEvidenceModel(extraction_payload())
+    bundle = PromptBundle(
+        prompts={
+            "evidence_claims": PromptRecord(
+                name="evidence_claims",
+                text="FROZEN EVIDENCE CLAIMS PROMPT",
+                version="test-frozen",
+                sha256="b" * 64,
+            )
+        }
+    )
+
+    EvidenceExtractor(model, prompt_bundle=bundle).extract(
+        fetched_document(),
+        evidence_item_id="evidence-frozen",
+        forecast_node_id="node-frozen",
+    )
+
+    assert model.last_request is not None
+    assert model.last_request["system"] == "FROZEN EVIDENCE CLAIMS PROMPT"
 
 
 def test_extractor_rejects_missing_excerpt() -> None:

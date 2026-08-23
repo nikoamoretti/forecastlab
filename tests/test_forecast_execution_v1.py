@@ -240,10 +240,19 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert latest["forecast_graph"]["status"] == "approved"
     assert latest["aggregation"]["method"] == "dependency_discounted_weighted_mean_v1"
     assert latest["aggregation"]["calculation_trace"][-1]["step"] == "final"
+    v1_report = report["v1_report"]
+    assert v1_report["final_probability"] == report["latest_probability"]
+    assert len(v1_report["nodes"]) == 7
+    assert all(node["question"] for node in v1_report["nodes"])
+    assert all(node["supporting_evidence"] for node in v1_report["nodes"])
+    assert v1_report["evidence_coverage"]["rate"] == 1.0
+    assert v1_report["calculation"]["trace"][-1]["step"] == "final"
 
     markdown = client.get(f"/api/questions/{draft['question_id']}/export.md").text
     assert "Normalized weight:" in markdown
     assert "Probability contribution:" in markdown
+    assert "Supporting evidence:" in markdown
+    assert "Calculation trace" in markdown
 
 
 def test_legacy_forecast_execution_remains_available(client) -> None:

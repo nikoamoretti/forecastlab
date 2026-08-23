@@ -47,3 +47,21 @@ test("mock happy path", async ({ page }) => {
   await page.getByRole("button", { name: "Rerun" }).click();
   await expect(page.getByText(/2 versions/i)).toBeVisible({ timeout: 120000 });
 });
+
+test("V1 graph report shows node evidence and calculation trace", async ({ page }) => {
+  test.setTimeout(180000);
+  await page.goto("/new");
+  await page.getByLabel("Forecast profile").selectOption("graph_forecaster_v1");
+  await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the contract/i })).toBeVisible({ timeout: 30000 });
+  await page.getByRole("button", { name: /Approve and generate Research Graph/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the research plan/i })).toBeVisible({ timeout: 30000 });
+  await page.getByRole("button", { name: /Launch mock run/i }).click();
+
+  await expect(page.getByRole("heading", { name: "Forecast Graph report" })).toBeVisible({ timeout: 120000 });
+  const report = page.getByRole("region", { name: "V1 Forecast Graph report" });
+  await expect(report.getByText(/7\/7/)).toBeVisible();
+  await expect(page.getByText("Supporting evidence", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Opposing evidence", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Calculation trace" })).toBeVisible();
+});

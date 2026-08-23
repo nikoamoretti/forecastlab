@@ -13,6 +13,8 @@ from forecastlab_api.experiments import (
     CURRENT_BUILTIN_KEY,
     CURRENT_BUILTIN_VERSION,
     SYNTHETIC_DATASET_NAME,
+    V1_EVALUATION_DATASET_KEY,
+    V1_EVALUATION_DATASET_VERSION,
     current_builtin_dataset,
     dataset_hash_for_rows,
     ensure_dataset,
@@ -42,6 +44,12 @@ def seed_sample_question(session: Session) -> Question:
 
 def _fixture_rows() -> list[dict]:
     path = ROOT / "fixtures" / "benchmarks" / "synthetic_binary.csv"
+    with path.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def _v1_evaluation_rows() -> list[dict]:
+    path = ROOT / "fixtures" / "benchmarks" / "v1_evaluation_binary.csv"
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
 
@@ -84,4 +92,34 @@ def seed_synthetic_benchmarks(session: Session) -> BenchmarkDataset:
         builtin_version=CURRENT_BUILTIN_VERSION,
         is_builtin=True,
     )
+    return dataset
+
+
+def seed_v1_evaluation_benchmarks(session: Session) -> BenchmarkDataset:
+    rows = _v1_evaluation_rows()
+    digest = dataset_hash_for_rows(rows, is_synthetic=True, name=V1_EVALUATION_DATASET_KEY)
+    current = session.scalar(
+        select(BenchmarkDataset).where(
+            BenchmarkDataset.builtin_key == V1_EVALUATION_DATASET_KEY,
+            BenchmarkDataset.builtin_version == V1_EVALUATION_DATASET_VERSION,
+            BenchmarkDataset.is_builtin.is_(True),
+        )
+    )
+    if current is not None:
+        if current.dataset_hash != digest:
+            raise RuntimeError("V1 evaluation fixture changed without a built-in version bump")
+        return current
+    dataset, _, _, _ = ensure_dataset(
+        session,
+        name="forecastlab_v1_evaluation_10q",
+        description="Ten synthetic binary questions for the first V1 profile comparison workflow.",
+        rows=rows,
+        provenance="ForecastLab V1 evaluation fixture",
+        is_synthetic=True,
+        builtin_key=V1_EVALUATION_DATASET_KEY,
+        builtin_version=V1_EVALUATION_DATASET_VERSION,
+        is_builtin=True,
+    )
+    if dataset.question_count != 10:
+        raise RuntimeError(f"V1 evaluation dataset must contain exactly 10 questions, found {dataset.question_count}")
     return dataset

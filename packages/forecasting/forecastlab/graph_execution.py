@@ -17,6 +17,7 @@ from forecastlab.graph_aggregation import GraphAggregationBreakdown, aggregate_g
 from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.node_forecasting import calculate_node_forecast
 from forecastlab.profiles import load_profile
+from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
 from forecastlab.ranking import rank_hits
 from forecastlab.run_cache import RunCache
@@ -229,6 +230,7 @@ def _research_node(
     mode: str,
     as_of: datetime | None,
     allow_local_fixtures: bool,
+    prompt_bundle: PromptBundle | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim], list[str]]:
     evidence: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
@@ -287,7 +289,8 @@ def _research_node(
         evidence.append(record)
 
         extractor = EvidenceExtractor(
-            _BudgetedEvidenceModel(model, budget, stage=f"extract_claims:{node.id}")
+            _BudgetedEvidenceModel(model, budget, stage=f"extract_claims:{node.id}"),
+            prompt_bundle=prompt_bundle,
         )
         try:
             extracted = extractor.extract(
@@ -341,7 +344,7 @@ def _forecast_node(
     model: ModelProvider,
     budget: Budget,
     prompt_versions: dict[str, str],
-    prompt_bundle=None,
+    prompt_bundle: PromptBundle | None = None,
 ) -> ForecastNodeOutput:
     if model.name == "mock":
         return _mock_node_output(node, claims)
@@ -378,7 +381,7 @@ def run_graph_forecast_engine(
     progress: ProgressFn | None = None,
     profile: ForecastProfile | None = None,
     execution: ExecutionContext | None = None,
-    prompt_bundle=None,
+    prompt_bundle: PromptBundle | None = None,
     cache: RunCache | None = None,
     ledger: UsageLedger | None = None,
     pricing_catalog: dict[str, Any] | None = None,
@@ -447,6 +450,7 @@ def run_graph_forecast_engine(
                 mode=mode,
                 as_of=as_of,
                 allow_local_fixtures=allow_local_fixtures,
+                prompt_bundle=prompt_bundle,
             )
             if persist_research is not None:
                 persist_research(node, evidence, rejected, claims)
