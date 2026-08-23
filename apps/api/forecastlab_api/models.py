@@ -136,6 +136,7 @@ class ForecastNodeRow(Base):
 
     graph: Mapped[ForecastGraphRow] = relationship(back_populates="nodes")
     evidence_claims: Mapped[list[EvidenceClaimRow]] = relationship(back_populates="forecast_node")
+    runs: Mapped[list[ForecastNodeRunRow]] = relationship(back_populates="node")
 
 
 class ForecastRun(Base):
@@ -185,6 +186,7 @@ class ForecastRun(Base):
     question: Mapped[Question] = relationship(back_populates="runs")
     tracks: Mapped[list[ResearchTrack]] = relationship(back_populates="run")
     evidence: Mapped[list[EvidenceItem]] = relationship(back_populates="run")
+    node_runs: Mapped[list[ForecastNodeRunRow]] = relationship(back_populates="forecast_run")
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="run")
 
 
@@ -287,6 +289,24 @@ class EvidenceClaimRow(Base):
 
     evidence_item: Mapped[EvidenceItem] = relationship(back_populates="claims")
     forecast_node: Mapped[ForecastNodeRow] = relationship(back_populates="evidence_claims")
+
+
+class ForecastNodeRunRow(Base):
+    __tablename__ = "forecast_node_runs"
+    __table_args__ = (UniqueConstraint("forecast_run_id", "node_id", name="uq_forecast_node_run"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    node_id: Mapped[str] = mapped_column(ForeignKey("forecast_nodes.id"))
+    probability: Mapped[float] = mapped_column(Float)
+    reasoning: Mapped[str] = mapped_column(Text)
+    supporting_claim_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    opposing_claim_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    uncertainty: Mapped[float] = mapped_column(Float)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    forecast_run: Mapped[ForecastRun] = relationship(back_populates="node_runs")
+    node: Mapped[ForecastNodeRow] = relationship(back_populates="runs")
 
 
 class ForecastVersion(Base):

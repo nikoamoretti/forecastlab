@@ -21,7 +21,7 @@ from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.graphs import ForecastGraphError
 from forecastlab.logging import configure_logging
-from forecastlab.profiles import list_profiles, profile_hash
+from forecastlab.profiles import list_profiles, load_profile, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
 from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
 from forecastlab.ssrf import UnsafeURLError
@@ -65,6 +65,7 @@ from forecastlab_api.models import (
     ForecastContractRow,
     ForecastGraphRow,
     ForecastNodeRow,
+    ForecastNodeRunRow,
     ForecastRun,
     ForecastRunAttempt,
     ForecastVersion,
@@ -80,6 +81,7 @@ from forecastlab_api.pipeline import create_run, execute_run, operationalize_que
 from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.secrets import public_settings, update_settings
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks
+from forecastlab_api.v1_execution import approved_contract_for_question, node_runs_for_run
 from forecastlab_api.watches import attach_demo_watch, check_watch, validate_user_watch
 
 configure_logging(settings.log_level)
@@ -151,6 +153,11 @@ class RunIn(BaseModel):
     as_of: datetime | None = None
 
 
+class ExecuteV1In(BaseModel):
+    mode: str = "demo"
+    as_of: datetime | None = None
+
+
 class WatchIn(BaseModel):
     endpoint_url: str
     endpoint_type: str = "json"
@@ -217,6 +224,12 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
     runs = session.scalars(select(ForecastRun).where(ForecastRun.question_id == question.id)).all()
     runs = sorted(runs, key=lambda item: item.started_at or item.finished_at or utcnow(), reverse=True)
     watches = session.scalars(select(Watch).where(Watch.question_id == question.id)).all()
+    forecast_contract = session.scalar(
+        select(ForecastContractRow)
+        .where(ForecastContractRow.question_id == question.id)
+        .order_by(ForecastContractRow.version.desc())
+        .limit(1)
+    )
     return {
         "id": question.id,
         "original_text": question.original_text,
@@ -234,6 +247,11 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
         "previous_probability": versions[1].ensemble_probability if len(versions) > 1 else None,
         "version_count": len(versions),
         "contract": _contract_out(question.contract),
+        "forecast_contract": (
+            forecast_contract_from_row(forecast_contract).model_dump(mode="json")
+            if forecast_contract is not None
+            else None
+        ),
         "runs": [_row(run) for run in runs],
         "versions": [_row(version) for version in versions],
         "watches": [_row(watch) for watch in watches],
@@ -532,7 +550,10 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
-    if question.forecast_contracts:
+    requested_profile = load_profile(body.profile_id)
+    if requested_profile.execution_strategy == "graph_nodes":
+        approved_contract_for_question(db, question.id)
+    elif question.forecast_contracts:
         approved_contracts = [contract for contract in question.forecast_contracts if contract.status == "approved"]
         if not approved_contracts:
             raise ForecastContractError(
@@ -559,6 +580,67 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     return _row(run)
 
 
+@app.post("/api/forecasts/{forecast_id}/execute-v1")
+def execute_forecast_v1(
+    forecast_id: str,
+    body: ExecuteV1In | None = None,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    question = db.get(Question, forecast_id)
+    if question is None:
+        raise HTTPException(404, "Forecast not found")
+    body = body or ExecuteV1In()
+    if body.mode not in {"demo", "live", "backtest"}:
+        raise HTTPException(422, "Unknown mode")
+    approved_contract_for_question(db, question.id)
+    question.requested_mode = body.mode
+    question.requested_profile_id = "graph_forecaster_v1"
+    question.requested_as_of = body.as_of
+    run = create_run(
+        db,
+        question=question,
+        profile_id="graph_forecaster_v1",
+        mode=body.mode,
+        as_of=body.as_of,
+    )
+    if settings.embedded_worker:
+        execute_run(db, run)
+        db.refresh(run)
+    db.commit()
+    return _row(run)
+
+
+@app.get("/api/forecasts/{forecast_id}/node-runs")
+def get_forecast_node_runs(forecast_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+    question = db.get(Question, forecast_id)
+    if question is None:
+        raise HTTPException(404, "Forecast not found")
+    run = db.scalar(
+        select(ForecastRun)
+        .where(
+            ForecastRun.question_id == forecast_id,
+            ForecastRun.profile_id == "graph_forecaster_v1",
+        )
+        .order_by(ForecastRun.started_at.desc(), ForecastRun.id.desc())
+        .limit(1)
+    )
+    if run is None:
+        return {
+            "forecast_id": forecast_id,
+            "run_id": None,
+            "profile_id": "graph_forecaster_v1",
+            "status": "not_started",
+            "node_runs": [],
+        }
+    return {
+        "forecast_id": forecast_id,
+        "run_id": run.id,
+        "profile_id": run.profile_id,
+        "status": run.status,
+        "node_runs": [item.model_dump(mode="json") for item in node_runs_for_run(db, run.id)],
+    }
+
+
 @app.get("/api/runs/{run_id}")
 def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     run = db.get(ForecastRun, run_id)
@@ -566,9 +648,27 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         raise HTTPException(404, "Run not found")
     tracks = db.scalars(select(ResearchTrack).where(ResearchTrack.run_id == run.id)).all()
     evidence = db.scalars(select(EvidenceItem).where(EvidenceItem.run_id == run.id)).all()
+    claims = db.scalars(
+        select(EvidenceClaimRow)
+        .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+        .where(EvidenceItem.run_id == run.id)
+        .order_by(EvidenceClaimRow.publication_date.desc(), EvidenceClaimRow.id)
+    ).all()
+    node_runs = db.scalars(
+        select(ForecastNodeRunRow)
+        .where(ForecastNodeRunRow.forecast_run_id == run.id)
+        .order_by(ForecastNodeRunRow.created_at, ForecastNodeRunRow.id)
+    ).all()
     payload = _row(run)
     payload["tracks"] = [_row(track) for track in tracks]
     payload["evidence"] = [_row(item) for item in evidence]
+    payload["evidence_claims"] = [evidence_claim_from_row(item).model_dump(mode="json") for item in claims]
+    payload["node_runs"] = [item.model_dump(mode="json") for item in node_runs_for_run(db, run.id)]
+    if node_runs:
+        graph_row = node_runs[0].node.graph
+        contract_row = graph_row.contract
+        payload["forecast_contract"] = forecast_contract_from_row(contract_row).model_dump(mode="json")
+        payload["forecast_graph"] = forecast_graph_from_row(graph_row).model_dump(mode="json")
     for track in payload["tracks"]:
         for key in ("plan_json", "key_drivers_json", "counterarguments_json", "unresolved_json"):
             if track.get(key):
@@ -644,10 +744,22 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
         lines.append(f"Probability: {track.get('probability')}")
         lines.append(track.get("reasoning_summary") or "")
         lines.append("")
+    if latest.get("node_runs"):
+        lines.append("## Forecast Graph node runs")
+        for node_run in latest["node_runs"]:
+            lines.append(f"### Node {node_run.get('node_id')}")
+            lines.append(f"Probability: {node_run.get('probability')}")
+            lines.append(node_run.get("reasoning") or "")
+            lines.append("")
     lines.append("## Evidence")
     for item in latest.get("evidence") or []:
         flag = "rejected" if item.get("rejected") else "accepted"
         lines.append(f"- [{flag}] {item.get('title')} — {item.get('url')}")
+    if latest.get("evidence_claims"):
+        lines.append("")
+        lines.append("## Evidence Claims")
+        for claim in latest["evidence_claims"]:
+            lines.append(f"- [{claim.get('id')}] {claim.get('claim')} — {claim.get('source_url')}")
     return PlainTextResponse("\n".join(lines), media_type="text/markdown")
 
 

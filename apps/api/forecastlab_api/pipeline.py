@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from forecastlab.engine import operationalize_only, run_forecast_engine
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import ExecutionContext, resolve_execution_context
+from forecastlab.graph_execution import run_graph_forecast_engine
 from forecastlab.pricing import load_pricing
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
@@ -266,28 +267,71 @@ def execute_run(
     if run.started_at:
         prior_elapsed = max(0.0, (utcnow() - as_utc(run.started_at)).total_seconds())
     try:
-        result = run_forecast_engine(
-            question=question.original_text,
-            contract=contract,
-            profile_id=context.profile_id,
-            mode=context.effective_mode,
-            as_of=as_utc(run.as_of) if run.as_of else None,
-            model=model,
-            search=search,
-            allow_local_fixtures=context.fixture_evidence_allowed and settings.allow_local_fixtures,
-            progress=progress,
-            profile=profile,
-            execution=context,
-            prompt_bundle=prompt_bundle,
-            run_id=run.id,
-            ledger=ledger,
-            pricing_catalog=catalog,
-            prior_elapsed_seconds=prior_elapsed,
-        )
-        persist_engine_result(session, run, result)
+        if profile.execution_strategy == "graph_nodes":
+            from forecastlab_api.v1_execution import (
+                ensure_execution_graph,
+                persist_graph_engine_result,
+                persist_node_research,
+            )
+
+            progress("graph", "Resolving the approved Forecast Contract and Forecast Graph", 0.08)
+            forecast_contract, forecast_graph = ensure_execution_graph(
+                session,
+                question=question,
+                model=model,
+            )
+            result = run_graph_forecast_engine(
+                contract=forecast_contract,
+                graph=forecast_graph,
+                profile_id=context.profile_id,
+                mode=context.effective_mode,
+                as_of=as_utc(run.as_of) if run.as_of else None,
+                model=model,
+                search=search,
+                allow_local_fixtures=context.fixture_evidence_allowed and settings.allow_local_fixtures,
+                progress=progress,
+                profile=profile,
+                execution=context,
+                prompt_bundle=prompt_bundle,
+                run_id=run.id,
+                ledger=ledger,
+                pricing_catalog=catalog,
+                prior_elapsed_seconds=prior_elapsed,
+                persist_research=lambda _node, evidence, rejected, claims: persist_node_research(
+                    session,
+                    run=run,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                ),
+            )
+            persist_graph_engine_result(session, run, result)
+        else:
+            result = run_forecast_engine(
+                question=question.original_text,
+                contract=contract,
+                profile_id=context.profile_id,
+                mode=context.effective_mode,
+                as_of=as_utc(run.as_of) if run.as_of else None,
+                model=model,
+                search=search,
+                allow_local_fixtures=context.fixture_evidence_allowed and settings.allow_local_fixtures,
+                progress=progress,
+                profile=profile,
+                execution=context,
+                prompt_bundle=prompt_bundle,
+                run_id=run.id,
+                ledger=ledger,
+                pricing_catalog=catalog,
+                prior_elapsed_seconds=prior_elapsed,
+            )
+            persist_engine_result(session, run, result)
         apply_totals_to_run(run, ledger.totals(run.id))
         snapshot = context.model_dump(mode="json")
         snapshot["fixture_evidence_used"] = bool(result.fixture_evidence_used)
+        if profile.execution_strategy == "graph_nodes":
+            snapshot["forecast_contract_id"] = result.contract.id
+            snapshot["forecast_graph_id"] = result.graph.id
         run.execution_context_json = json.dumps(snapshot)
         run.fixture_evidence_used = bool(result.fixture_evidence_used)
         if run.started_at:

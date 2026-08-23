@@ -97,6 +97,15 @@ def configuration_hash(payload: dict[str, Any]) -> str:
 
 
 def estimate_workload(profile: ForecastProfile) -> dict[str, int]:
+    if profile.execution_strategy == "graph_nodes":
+        return {
+            "tracks": 0,
+            "subquestions": 0,
+            "planned_model_calls": profile.max_model_calls,
+            "planned_search_calls": profile.max_search_calls,
+            "planned_fetches": profile.max_fetched_documents,
+            "planned_max_tokens": profile.max_tokens,
+        }
     tracks = max(1, len(profile.tracks))
     subq = tracks * profile.subquestions_per_track
     searches = 0 if profile.max_search_calls == 0 else subq

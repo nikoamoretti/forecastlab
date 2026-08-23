@@ -10,6 +10,7 @@ from forecastlab.timeutil import as_utc
 QuestionType = Literal["binary"]
 RunMode = Literal["live", "backtest", "demo"]
 TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
+ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes"]
 JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
 WatchKind = Literal["html", "json"]
@@ -265,11 +266,32 @@ class EvidenceClaim(BaseModel):
         return errors
 
 
+class ForecastNodeOutput(BaseModel):
+    probability: float = Field(ge=0.01, le=0.99)
+    reasoning: str
+    supporting_claim_ids: list[str] = Field(default_factory=list)
+    opposing_claim_ids: list[str] = Field(default_factory=list)
+    uncertainty: float = Field(ge=0.0, le=1.0)
+
+
+class ForecastNodeRun(BaseModel):
+    id: str
+    forecast_run_id: str
+    node_id: str
+    probability: float = Field(ge=0.01, le=0.99)
+    reasoning: str
+    supporting_claim_ids: list[str] = Field(default_factory=list)
+    opposing_claim_ids: list[str] = Field(default_factory=list)
+    uncertainty: float = Field(ge=0.0, le=1.0)
+    created_at: datetime
+
+
 class ForecastProfile(BaseModel):
     id: str
     version: int = 1
     label: str
     description: str
+    execution_strategy: ForecastExecutionStrategy = "legacy_tracks"
     tracks: list[TrackType]
     subquestions_per_track: int = 4
     search_results_per_subquestion: int = 3

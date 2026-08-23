@@ -2,7 +2,7 @@
 
 Status: intended V1 forecasting architecture. This is a conceptual specification, not an implementation claim.
 
-This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, the Forecast Contract and Forecast Graph planning foundations, a node-linked Evidence Claims foundation, independent research tracks, evidence provenance, and deterministic aggregation. Graph-driven evidence execution, scenario synthesis, and the `hierarchical_forecaster` comparison remain V1 requirements that are not yet implemented or proven.
+This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, Forecast Contracts, Forecast Graphs, node-linked Evidence Claims, an opt-in graph execution path, independent legacy research tracks, evidence provenance, and deterministic aggregation. Scenario synthesis, dependency-aware aggregation, and the `hierarchical_forecaster` comparison remain V1 requirements that are not yet implemented or proven.
 
 The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Evaluation and adoption are governed by [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md) and [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
 
@@ -25,7 +25,7 @@ Document retrieval and cutoff validation
 ↓
 Evidence Claim extraction and node linkage
 ↓
-Independent research tracks
+Node-level forecasts or independent legacy research tracks
 ↓
 Scenario synthesis
 ↓
@@ -146,7 +146,7 @@ The graph is frozen before final evidence synthesis for an evaluation run. Devel
 6. **Gate:** a question created through the first-class Forecast Contract flow cannot start forecasting until its current approved contract has an approved graph. Legacy questions without first-class contracts remain a compatibility boundary.
 7. **Supersede:** the data model reserves `superseded` for a future versioning workflow. This foundation does not expose graph regeneration or mutation after approval.
 
-This foundation stores and displays the research plan only. The existing evidence collectors and independent track engine do not yet execute graph nodes, and probability aggregation does not consume graph weights or edges. Those integrations require separate evidence and aggregation work and must not be inferred from graph approval.
+The opt-in `graph_forecaster_v1` profile executes the approved graph. The legacy profiles still use independent tracks. Graph importance weights and dependency edges remain research-plan metadata and are deliberately not consumed by the current aggregation baseline.
 
 ## Evidence model
 
@@ -184,7 +184,20 @@ An inference may combine multiple evidence items, but it must link to them and b
 6. **Review:** `GET /api/nodes/{id}/evidence` presents Node → Claims → Sources, while `GET /api/evidence/{id}` returns a full individual claim. The minimal UI exposes this chain without adding an evidence editor.
 7. **Context gate:** only claims with verified cutoff eligibility and all mandatory provenance fields are eligible for a future forecasting context. Rejected evidence and invalid claims are excluded by the claim-context selector.
 
-This layer is a stored and reviewable foundation only. It is not yet invoked by the live research-track execution flow, and neither the current forecast prompts nor probability aggregation consume Evidence Claims. Semantic entailment beyond exact-excerpt grounding remains an extractor-model assessment that future evaluation must measure.
+The opt-in graph execution path invokes this layer for each researched node. Legacy track prompts continue to receive their existing evidence packet and are unchanged. Semantic entailment beyond exact-excerpt grounding remains an extractor-model assessment that future evaluation must measure.
+
+### Graph forecaster V1 execution lifecycle
+
+1. **Opt in:** `graph_forecaster_v1` selects the graph-node execution strategy. All existing profiles default to the unchanged legacy-track strategy.
+2. **Require contract:** execution fails before research unless the question has an `approved` first-class Forecast Contract. A legacy `ResolutionContractRow` alone does not satisfy this gate.
+3. **Ensure graph:** the worker loads the latest approved graph for that approved contract. If none exists, it generates, validates, stores, and commits the graph before starting node research.
+4. **Research nodes:** nodes are processed in dependency-safe order. Search and retrieval use the existing providers, cache, cutoff rules, and run budget. Retrieved documents may be given to `EvidenceExtractor`, but they are never included directly in a node-forecast prompt.
+5. **Build forecasting context:** the node forecaster receives exactly the approved Forecast Contract, the current Forecast Node, and eligible Evidence Claims linked to that node. Unknown claim identifiers and support/refutation stance mismatches fail structured-output validation.
+6. **Persist node output:** each successful node produces a `ForecastNodeRun` containing probability, reasoning, supporting and opposing claim identifiers, uncertainty, run identity, node identity, and creation time.
+7. **Aggregate without a method change:** successful node probabilities are passed to the existing equal-weight logit-shrinkage function. The base-rate node supplies the existing anchor role. Importance weights, graph edges, and dependency metadata do not alter the calculation in this pass.
+8. **Report:** the normal forecast version and report surfaces include the final probability, aggregation trace, approved contract and graph, node runs, Evidence Claims, evidence items, execution identity, and cost data. A missing node caused by a budget stop is exposed as partial rather than imputed.
+
+`POST /api/forecasts/{id}/execute-v1` starts this opt-in path, and `GET /api/forecasts/{id}/node-runs` returns node outputs from the latest V1 run. `POST /api/questions/{id}/runs` remains available; selecting `graph_forecaster_v1` there applies the same approved-contract gate. No benchmark profile is changed by this integration.
 
 ## Independent tracks
 

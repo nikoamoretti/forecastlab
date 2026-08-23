@@ -1,0 +1,554 @@
+from __future__ import annotations
+
+import json
+import uuid
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Any
+
+from forecastlab.aggregation import AggregationBreakdown, aggregate_track_probabilities
+from forecastlab.budget import Budget, estimate_prompt_tokens
+from forecastlab.engine import ProgressFn, _ask_model
+from forecastlab.errors import BudgetExceeded, StructuredOutputError
+from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
+from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
+from forecastlab.ledger import RunUsageTotals, UsageLedger
+from forecastlab.profiles import load_profile
+from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
+from forecastlab.ranking import rank_hits
+from forecastlab.run_cache import RunCache
+from forecastlab.schemas import (
+    EvidenceClaim,
+    FetchedDocument,
+    ForecastContract,
+    ForecastGraph,
+    ForecastNode,
+    ForecastNodeOutput,
+    ForecastNodeRun,
+    ForecastProfile,
+)
+from forecastlab.timeutil import as_utc, utcnow
+from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
+
+ResearchPersistFn = Callable[
+    [ForecastNode, list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim]],
+    None,
+]
+
+
+@dataclass
+class ForecastNodeExecution:
+    node: ForecastNode
+    node_run: ForecastNodeRun | None
+    evidence: list[dict[str, Any]] = field(default_factory=list)
+    rejected: list[dict[str, Any]] = field(default_factory=list)
+    claims: list[EvidenceClaim] = field(default_factory=list)
+    claim_extraction_errors: list[str] = field(default_factory=list)
+    error: str | None = None
+
+
+@dataclass
+class GraphEngineResult:
+    contract: ForecastContract
+    graph: ForecastGraph
+    nodes: list[ForecastNodeExecution]
+    aggregation: AggregationBreakdown
+    prompt_versions: dict[str, str]
+    budget: dict[str, Any]
+    stopped_early: bool
+    stop_reason: str | None
+    stop_stage: str | None
+    fixture_evidence_used: bool = False
+    partial: bool = False
+
+
+class _BudgetedEvidenceModel:
+    """Apply the run budget to EvidenceExtractor's existing provider seam."""
+
+    def __init__(self, delegate: ModelProvider, budget: Budget, *, stage: str) -> None:
+        self.delegate = delegate
+        self.budget = budget
+        self.stage = stage
+        self.name = delegate.name
+        self.model = str(getattr(delegate, "model", delegate.name))
+
+    def complete_json(
+        self,
+        *,
+        system: str,
+        user: str,
+        schema_name: str,
+        temperature: float = 0.2,
+        timeout: float | None = None,
+        max_output_tokens: int | None = None,
+        estimated_input_tokens: int | None = None,
+    ) -> ChatResult:
+        estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
+        allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
+        if max_output_tokens is not None:
+            allowed_output = min(allowed_output, max_output_tokens)
+        reservation = self.budget.reserve_model_call(
+            self.stage,
+            estimated_input_tokens=estimated_input,
+            max_output_tokens=allowed_output,
+        )
+        try:
+            result = self.delegate.complete_json(
+                system=system,
+                user=user,
+                schema_name=schema_name,
+                temperature=temperature,
+                timeout=timeout,
+                max_output_tokens=allowed_output,
+                estimated_input_tokens=estimated_input,
+            )
+        except Exception:
+            self.budget.release_reservation(reservation)
+            raise
+        self.budget.reconcile_model_call(reservation, result.usage)
+        return result
+
+
+def _emit(
+    progress: ProgressFn | None,
+    stage: str,
+    message: str,
+    pct: float,
+    extra: dict[str, Any] | None = None,
+) -> None:
+    if progress:
+        progress(stage, message, pct, extra)
+
+
+def _document_record(
+    document: FetchedDocument,
+    *,
+    node: ForecastNode,
+    evidence_item_id: str,
+    source_class: str,
+) -> dict[str, Any]:
+    return {
+        "id": evidence_item_id,
+        "forecast_node_id": node.id,
+        "subquestion": node.question,
+        "url": document.url,
+        "title": document.title,
+        "publisher": document.publisher,
+        "published_at": document.published_at.isoformat() if document.published_at else None,
+        "retrieved_at": document.retrieved_at.isoformat(),
+        "excerpt": (document.text or "")[:800],
+        "content_hash": document.content_hash,
+        "source_class": source_class,
+        "as_of_eligible": document.as_of_eligible,
+        "rejected": document.rejected,
+        "rejection_reason": document.rejection_reason,
+        "snapshot_url": document.snapshot_url,
+        "snapshot_at": document.snapshot_at.isoformat() if document.snapshot_at else None,
+        "requested_snapshot_url": document.requested_snapshot_url,
+        "requested_snapshot_at": (
+            document.requested_snapshot_at.isoformat() if document.requested_snapshot_at else None
+        ),
+        "final_snapshot_url": document.final_snapshot_url,
+        "final_snapshot_at": document.final_snapshot_at.isoformat() if document.final_snapshot_at else None,
+        "archived_original_url": document.archived_original_url,
+        "snapshot_verification_status": document.snapshot_verification_status,
+        "status_code": document.status_code,
+        "published_at_unknown": document.published_at_unknown,
+    }
+
+
+def _stable_id(kind: str, *parts: str) -> str:
+    identity = ":".join(("forecastlab", "graph_forecaster_v1", kind, *parts))
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, identity))
+
+
+def _no_snapshot_record(
+    node: ForecastNode,
+    *,
+    run_id: str,
+    url: str,
+    title: str,
+    source_class: str,
+) -> dict[str, Any]:
+    return {
+        "id": _stable_id("evidence", run_id, node.id, url),
+        "forecast_node_id": node.id,
+        "subquestion": node.question,
+        "url": url,
+        "title": title,
+        "publisher": None,
+        "published_at": None,
+        "retrieved_at": utcnow().isoformat(),
+        "excerpt": "",
+        "content_hash": "",
+        "source_class": source_class,
+        "as_of_eligible": False,
+        "rejected": True,
+        "rejection_reason": "no_eligible_historical_snapshot",
+        "snapshot_url": None,
+        "snapshot_at": None,
+        "status_code": 0,
+        "published_at_unknown": True,
+    }
+
+
+def _topological_nodes(graph: ForecastGraph) -> list[ForecastNode]:
+    by_id = {node.id: node for node in graph.nodes}
+    dependencies = {
+        node.id: set(node.dependencies) | ({node.parent_node_id} if node.parent_node_id else set())
+        for node in graph.nodes
+    }
+    ordered: list[ForecastNode] = []
+    ready = [node.id for node in graph.nodes if not dependencies[node.id]]
+    while ready:
+        node_id = ready.pop(0)
+        ordered.append(by_id[node_id])
+        for candidate in graph.nodes:
+            if node_id in dependencies[candidate.id]:
+                dependencies[candidate.id].remove(node_id)
+                if not dependencies[candidate.id] and candidate.id not in {item.id for item in ordered}:
+                    if candidate.id not in ready:
+                        ready.append(candidate.id)
+    if len(ordered) != len(graph.nodes):
+        raise StructuredOutputError("forecast_graph_dependency_cycle")
+    return ordered
+
+
+def _research_node(
+    *,
+    node: ForecastNode,
+    run_id: str,
+    profile: ForecastProfile,
+    model: ModelProvider,
+    search: SearchProvider,
+    budget: Budget,
+    cache: RunCache,
+    mode: str,
+    as_of: datetime | None,
+    allow_local_fixtures: bool,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim], list[str]]:
+    evidence: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
+    claims: list[EvidenceClaim] = []
+    extraction_errors: list[str] = []
+    if profile.max_search_calls <= 0 or profile.max_fetched_documents <= 0:
+        return evidence, rejected, claims, extraction_errors
+
+    source_hint = " ".join(node.preferred_sources[:2])
+    query = " ".join(part for part in (node.question, source_hint) if part).strip()
+    budget.add_search(f"search_node:{node.id}")
+    hits = rank_hits(cache.search(search, query, profile.search_results_per_subquestion))
+    for hit in hits[: profile.fetches_per_subquestion]:
+        snapshot_url = None
+        snapshot_at = None
+        if mode == "backtest" and as_of is not None:
+            snapshots = (
+                mock_snapshots(hit.url)
+                if allow_local_fixtures
+                else discover_snapshots(hit.url, as_of=as_of)
+            )
+            nearest = nearest_eligible_snapshot(snapshots, as_of)
+            if nearest is None:
+                rejected.append(
+                    _no_snapshot_record(
+                        node,
+                        run_id=run_id,
+                        url=hit.url,
+                        title=hit.title,
+                        source_class=hit.source_class,
+                    )
+                )
+                continue
+            snapshot_url = nearest.snapshot_url
+            snapshot_at = nearest.timestamp
+
+        budget.add_fetch(f"fetch_node:{node.id}")
+        document = cache.fetch(
+            hit.url,
+            as_of=as_of if mode == "backtest" else None,
+            allow_local_fixtures=allow_local_fixtures,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
+            mode=mode,
+        )
+        evidence_item_id = _stable_id("evidence", run_id, node.id, hit.url)
+        record = _document_record(
+            document,
+            node=node,
+            evidence_item_id=evidence_item_id,
+            source_class=hit.source_class,
+        )
+        if document.rejected or not document.as_of_eligible:
+            rejected.append(record)
+            continue
+        evidence.append(record)
+
+        extractor = EvidenceExtractor(
+            _BudgetedEvidenceModel(model, budget, stage=f"extract_claims:{node.id}")
+        )
+        try:
+            extracted = extractor.extract(
+                document,
+                evidence_item_id=evidence_item_id,
+                forecast_node_id=node.id,
+                forecast_node_question=node.question,
+                as_of=as_of if mode == "backtest" else None,
+            )
+        except EvidenceClaimError as exc:
+            extraction_errors.extend(exc.reasons)
+            continue
+        claims.extend(
+            claim.model_copy(
+                update={
+                    "id": _stable_id(
+                        "claim",
+                        run_id,
+                        node.id,
+                        evidence_item_id,
+                        claim.supports_or_refutes,
+                        claim.claim,
+                        claim.excerpt,
+                    )
+                }
+            )
+            for claim in extracted
+        )
+    return evidence, rejected, eligible_claims_for_forecasting(claims, cutoff=as_of), extraction_errors
+
+
+def _mock_node_output(node: ForecastNode, claims: list[EvidenceClaim]) -> ForecastNodeOutput:
+    probabilities = {
+        "base_rate": 0.42,
+        "trend": 0.34,
+        "driver": 0.40,
+        "dependency": 0.39,
+        "scenario": 0.44,
+        "adversarial": 0.38,
+        "resolver": 0.41,
+    }
+    supporting = [claim.id for claim in claims if claim.supports_or_refutes == "supports"]
+    opposing = [claim.id for claim in claims if claim.supports_or_refutes == "refutes"]
+    return ForecastNodeOutput(
+        probability=probabilities[node.node_type],
+        reasoning=(
+            f"Node estimate uses {len(claims)} eligible, provenance-linked Evidence Claim(s); "
+            "uncertainty remains explicit because this is the deterministic demo path."
+        ),
+        supporting_claim_ids=supporting,
+        opposing_claim_ids=opposing,
+        uncertainty=0.35 if claims else 0.8,
+    )
+
+
+def _validate_node_output(output: ForecastNodeOutput, claims: list[EvidenceClaim]) -> ForecastNodeOutput:
+    by_id = {claim.id: claim for claim in claims}
+    supplied = [*output.supporting_claim_ids, *output.opposing_claim_ids]
+    if any(claim_id not in by_id for claim_id in supplied):
+        raise StructuredOutputError("node_forecast_unknown_claim_id")
+    if any(by_id[claim_id].supports_or_refutes != "supports" for claim_id in output.supporting_claim_ids):
+        raise StructuredOutputError("node_forecast_supporting_stance_mismatch")
+    if any(by_id[claim_id].supports_or_refutes != "refutes" for claim_id in output.opposing_claim_ids):
+        raise StructuredOutputError("node_forecast_opposing_stance_mismatch")
+    return output.model_copy(
+        update={
+            "supporting_claim_ids": list(dict.fromkeys(output.supporting_claim_ids)),
+            "opposing_claim_ids": list(dict.fromkeys(output.opposing_claim_ids)),
+        }
+    )
+
+
+def _forecast_node(
+    *,
+    contract: ForecastContract,
+    node: ForecastNode,
+    claims: list[EvidenceClaim],
+    model: ModelProvider,
+    budget: Budget,
+    prompt_versions: dict[str, str],
+    prompt_bundle=None,
+) -> ForecastNodeOutput:
+    if model.name == "mock":
+        return _mock_node_output(node, claims)
+    context = {
+        "forecast_contract": contract.model_dump(mode="json"),
+        "forecast_node": node.model_dump(mode="json"),
+        "evidence_claims": [claim.model_dump(mode="json") for claim in claims],
+    }
+    output = _ask_model(
+        model,
+        budget,
+        f"forecast_node:{node.id}",
+        "forecast_node",
+        json.dumps(context),
+        "forecast_node",
+        prompt_versions,
+        ForecastNodeOutput,
+        prompt_bundle,
+    )
+    return _validate_node_output(output, claims)
+
+
+def run_graph_forecast_engine(
+    *,
+    contract: ForecastContract,
+    graph: ForecastGraph,
+    profile_id: str,
+    mode: str,
+    as_of: datetime | None,
+    model: ModelProvider,
+    search: SearchProvider,
+    run_id: str,
+    allow_local_fixtures: bool = True,
+    progress: ProgressFn | None = None,
+    profile: ForecastProfile | None = None,
+    execution: ExecutionContext | None = None,
+    prompt_bundle=None,
+    cache: RunCache | None = None,
+    ledger: UsageLedger | None = None,
+    pricing_catalog: dict[str, Any] | None = None,
+    prior_elapsed_seconds: float = 0.0,
+    persist_research: ResearchPersistFn | None = None,
+) -> GraphEngineResult:
+    """Run the opt-in Contract -> Graph -> Claims -> Node forecast pipeline."""
+
+    profile = profile or load_profile(profile_id)
+    if profile.execution_strategy != "graph_nodes":
+        raise ValueError("graph_execution_strategy_required")
+    if contract.status != "approved":
+        raise ValueError("approved_forecast_contract_required")
+    if graph.status != "approved" or graph.contract_id != contract.id:
+        raise ValueError("approved_forecast_graph_required")
+    if as_of is not None:
+        as_of = as_utc(as_of)
+    if execution is not None:
+        allow_local_fixtures = execution.fixture_evidence_allowed
+        mode = execution.effective_mode
+
+    model_provider = execution.model_provider if execution is not None else model.name
+    search_provider = execution.search_provider if execution is not None else search.name
+    configuration_hash = execution.configuration_hash if execution is not None else "none"
+    cache = cache or RunCache.create(
+        run_id=run_id,
+        model_provider=model_provider,
+        search_provider=search_provider,
+        mode=mode,
+        as_of=as_of,
+        configuration_hash=configuration_hash,
+    )
+    totals = ledger.totals(run_id) if ledger is not None else RunUsageTotals()
+    budget = Budget.from_persisted(
+        profile,
+        totals,
+        provider=model_provider,
+        model=(
+            execution.model_name
+            if execution is not None
+            else str(getattr(model, "model", getattr(model, "name", "mock")))
+        ),
+        search_provider=search_provider,
+        pricing_catalog=pricing_catalog,
+        prior_elapsed_seconds=prior_elapsed_seconds,
+    )
+    prompt_versions = dict(profile.prompt_versions)
+    ordered_nodes = _topological_nodes(graph)
+    results: list[ForecastNodeExecution] = []
+    stopped = False
+
+    for index, node in enumerate(ordered_nodes):
+        pct = 0.15 + 0.65 * (index / max(1, len(ordered_nodes)))
+        _emit(progress, "node_research", f"Researching graph node {index + 1} of {len(ordered_nodes)}", pct)
+        try:
+            evidence, rejected, claims, extraction_errors = _research_node(
+                node=node,
+                run_id=run_id,
+                profile=profile,
+                model=model,
+                search=search,
+                budget=budget,
+                cache=cache,
+                mode=mode,
+                as_of=as_of,
+                allow_local_fixtures=allow_local_fixtures,
+            )
+            if persist_research is not None:
+                persist_research(node, evidence, rejected, claims)
+            _emit(progress, "node_forecast", f"Forecasting graph node {index + 1} of {len(ordered_nodes)}", pct + 0.05)
+            output = _forecast_node(
+                contract=contract,
+                node=node,
+                claims=claims,
+                model=model,
+                budget=budget,
+                prompt_versions=prompt_versions,
+                prompt_bundle=prompt_bundle,
+            )
+            node_run = ForecastNodeRun(
+                id=str(uuid.uuid4()),
+                forecast_run_id=run_id,
+                node_id=node.id,
+                probability=output.probability,
+                reasoning=output.reasoning,
+                supporting_claim_ids=output.supporting_claim_ids,
+                opposing_claim_ids=output.opposing_claim_ids,
+                uncertainty=output.uncertainty,
+                created_at=utcnow(),
+            )
+            results.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=node_run,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                )
+            )
+        except BudgetExceeded as exc:
+            results.append(ForecastNodeExecution(node=node, node_run=None, error=str(exc)))
+            stopped = True
+            _emit(progress, "budget", f"Stopped early: {exc.reason}", 0.82, {"stage": exc.stage})
+            break
+
+    completed_ids = {item.node.id for item in results}
+    for node in ordered_nodes:
+        if node.id not in completed_ids:
+            results.append(ForecastNodeExecution(node=node, node_run=None, error="not_run_after_budget_stop"))
+
+    probabilities = {
+        item.node.id: item.node_run.probability if item.node_run is not None else None
+        for item in results
+    }
+    failures = {item.node.id: item.error or "node_failed" for item in results if item.node_run is None}
+    base_rate = next((item.node.id for item in results if item.node.node_type == "base_rate"), "base_rate")
+    _emit(progress, "aggregate", "Aggregating node probabilities with the existing method", 0.86)
+    aggregation = aggregate_track_probabilities(
+        probabilities,
+        shrinkage=profile.shrinkage,
+        anchor_track=base_rate,
+        failed_tracks=failures,
+    )
+
+    _emit(progress, "report", "Preparing the graph forecast report", 0.96)
+    all_urls = [
+        item.get("url") or ""
+        for result in results
+        for item in result.evidence + result.rejected
+    ]
+    fixture_used = any("fixtures.forecastlab.local" in url for url in all_urls if url)
+    if execution is not None and execution.effective_mode == "live":
+        assert_no_fixture_evidence(all_urls, live=True)
+
+    return GraphEngineResult(
+        contract=contract,
+        graph=graph,
+        nodes=results,
+        aggregation=aggregation,
+        prompt_versions=prompt_versions,
+        budget=budget.snapshot(),
+        stopped_early=stopped or budget.state.stopped,
+        stop_reason=budget.state.stop_reason,
+        stop_stage=budget.state.stop_stage,
+        fixture_evidence_used=fixture_used,
+        partial=bool(failures) and aggregation.ensemble_probability is not None,
+    )
