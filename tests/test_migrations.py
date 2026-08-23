@@ -24,11 +24,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "forecast_nodes" in tables
     assert "evidence_claims" in tables
     assert "forecast_node_runs" in tables
+    assert "forecast_aggregations" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0013"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0014"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -47,6 +48,17 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
         } <= node_run_cols
         result_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_results")}
         assert {"evidence_coverage", "evidence_covered_units", "evidence_total_units"} <= result_cols
+        aggregation_cols = {
+            column["name"] for column in inspect(engine).get_columns("forecast_aggregations")
+        }
+        assert {
+            "forecast_run_id",
+            "method",
+            "final_probability",
+            "calculation_trace_json",
+            "node_contributions_json",
+            "created_at",
+        } <= aggregation_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -58,7 +70,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260822_0013"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0014"
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:

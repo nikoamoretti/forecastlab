@@ -1,13 +1,35 @@
 from __future__ import annotations
 
 import math
+import uuid
+from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any
 
 from forecastlab.aggregation import clip_aggregated_probability, clip_track_probability
-from forecastlab.schemas import ForecastGraph
+from forecastlab.schemas import (
+    ForecastAggregation,
+    ForecastGraph,
+    ForecastNodeContribution,
+    ForecastNodeRun,
+)
+from forecastlab.timeutil import utcnow
 
 METHOD = "dependency_discounted_weighted_mean_v1"
+LOG_ODDS_METHOD = "importance_weighted_log_odds_v1"
+LOG_ODDS_FORMULA = (
+    "Normalize graph importance weights, convert each node probability to log odds, "
+    "sum normalized_weight × log_odds, then apply the logistic function."
+)
+
+
+class ForecastAggregationError(ValueError):
+    """Raised when a graph and its node runs cannot form a complete aggregation."""
+
+    def __init__(self, reasons: list[str]) -> None:
+        self.reasons = list(dict.fromkeys(reasons))
+        super().__init__(f"Forecast aggregation failed: {', '.join(self.reasons)}")
 
 
 @dataclass(frozen=True)
@@ -45,6 +67,163 @@ class GraphAggregationBreakdown:
         "(1 + distinct_dependency_and_parent_relationship_count). Normalize adjusted weights, "
         "multiply each by its clipped node probability, sum contributions, and clip final output to [0.02, 0.98]."
     )
+
+
+class GraphAggregator:
+    """Build a standalone, deterministic weighted-log-odds aggregation audit record.
+
+    This service intentionally has no execution-engine call site yet. Graph execution keeps
+    using its existing aggregation policy until a later integration task explicitly replaces it.
+    """
+
+    def __init__(
+        self,
+        *,
+        id_factory: Callable[[], str] | None = None,
+        clock: Callable[[], datetime] | None = None,
+    ) -> None:
+        self._id_factory = id_factory or (lambda: str(uuid.uuid4()))
+        self._clock = clock or utcnow
+
+    @staticmethod
+    def _validate(
+        graph: ForecastGraph,
+        node_runs: list[ForecastNodeRun],
+    ) -> tuple[str, dict[str, ForecastNodeRun], dict[str, float]]:
+        reasons: list[str] = []
+        graph_node_ids = [node.id for node in graph.nodes]
+        known_node_ids = set(graph_node_ids)
+        if not graph_node_ids:
+            reasons.append("graph_nodes_required")
+        if len(known_node_ids) != len(graph_node_ids):
+            reasons.append("duplicate_graph_node_id")
+
+        runs_by_node: dict[str, ForecastNodeRun] = {}
+        for node_run in node_runs:
+            if node_run.node_id in runs_by_node:
+                reasons.append(f"duplicate_node_forecast:{node_run.node_id}")
+            runs_by_node[node_run.node_id] = node_run
+        unknown_node_ids = sorted(set(runs_by_node) - known_node_ids)
+        if unknown_node_ids:
+            reasons.append(f"node_forecasts_not_in_graph:{','.join(unknown_node_ids)}")
+        missing_node_ids = sorted(known_node_ids - set(runs_by_node))
+        if missing_node_ids:
+            reasons.append(f"missing_node_forecasts:{','.join(missing_node_ids)}")
+
+        run_ids = {node_run.run_id for node_run in node_runs if node_run.run_id}
+        if not node_runs or any(not node_run.run_id for node_run in node_runs):
+            reasons.append("forecast_run_id_required")
+        elif len(run_ids) > 1:
+            reasons.append("node_forecasts_must_share_run_id")
+
+        weights: dict[str, float] = {}
+        for node in graph.nodes:
+            weight = getattr(node, "importance_weight", None)
+            if weight is None:
+                reasons.append(f"missing_node_weight:{node.id}")
+            elif isinstance(weight, bool) or not isinstance(weight, (int, float)) or not math.isfinite(weight):
+                reasons.append(f"invalid_node_weight:{node.id}")
+            elif weight < 0:
+                reasons.append(f"invalid_node_weight:{node.id}")
+            else:
+                weights[node.id] = float(weight)
+
+        for node_id, node_run in runs_by_node.items():
+            probability = getattr(node_run, "probability", None)
+            if (
+                isinstance(probability, bool)
+                or not isinstance(probability, (int, float))
+                or not math.isfinite(probability)
+                or not 0.0 < probability < 1.0
+            ):
+                reasons.append(f"invalid_node_probability:{node_id}")
+
+        if len(weights) == len(graph.nodes) and math.fsum(weights.values()) <= 0.0:
+            reasons.append("zero_total_importance_weight")
+        if reasons:
+            raise ForecastAggregationError(reasons)
+        return next(iter(run_ids)), runs_by_node, weights
+
+    def aggregate(
+        self,
+        graph: ForecastGraph,
+        node_runs: list[ForecastNodeRun],
+        *,
+        aggregation_id: str | None = None,
+        created_at: datetime | None = None,
+    ) -> ForecastAggregation:
+        forecast_run_id, runs_by_node, weights = self._validate(graph, node_runs)
+        total_weight = math.fsum(weights.values())
+        contributions: list[ForecastNodeContribution] = []
+
+        for node in sorted(graph.nodes, key=lambda item: item.id):
+            probability = float(runs_by_node[node.id].probability)
+            normalized_weight = round(weights[node.id] / total_weight, 12)
+            log_odds = round(math.log(probability / (1.0 - probability)), 12)
+            contribution = round(normalized_weight * log_odds, 12)
+            contributions.append(
+                ForecastNodeContribution(
+                    node_id=node.id,
+                    node_question=node.question,
+                    input_probability=probability,
+                    raw_importance_weight=weights[node.id],
+                    normalized_weight=normalized_weight,
+                    log_odds=log_odds,
+                    weighted_log_odds_contribution=contribution,
+                )
+            )
+
+        combined_log_odds = round(
+            math.fsum(item.weighted_log_odds_contribution for item in contributions),
+            12,
+        )
+        if combined_log_odds >= 0:
+            final_probability = 1.0 / (1.0 + math.exp(-combined_log_odds))
+        else:
+            exponential = math.exp(combined_log_odds)
+            final_probability = exponential / (1.0 + exponential)
+        final_probability = round(final_probability, 12)
+
+        trace: list[dict[str, Any]] = [
+            {
+                "step": "weight_normalization",
+                "method": LOG_ODDS_METHOD,
+                "total_importance_weight": round(total_weight, 12),
+                "normalized_weight_sum": round(
+                    math.fsum(item.normalized_weight for item in contributions),
+                    12,
+                ),
+            }
+        ]
+        trace.extend(
+            {
+                "step": "node_contribution",
+                "node_id": item.node_id,
+                "node": item.node_question,
+                "input_probability": item.input_probability,
+                "raw_importance_weight": item.raw_importance_weight,
+                "normalized_weight": item.normalized_weight,
+                "log_odds": item.log_odds,
+                "contribution": item.weighted_log_odds_contribution,
+            }
+            for item in contributions
+        )
+        trace.append(
+            {
+                "step": "final",
+                "combined_log_odds": combined_log_odds,
+                "final_probability": final_probability,
+            }
+        )
+        return ForecastAggregation(
+            id=aggregation_id or self._id_factory(),
+            forecast_run_id=forecast_run_id,
+            method=LOG_ODDS_METHOD,
+            final_probability=final_probability,
+            calculation_trace=trace,
+            node_contributions=contributions,
+            created_at=created_at or self._clock(),
+        )
 
 
 def _spread(probabilities: list[float]) -> float | None:

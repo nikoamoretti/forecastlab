@@ -202,6 +202,22 @@ This dependency discount is a transparent V1 double-counting safeguard, not a le
 
 `POST /api/forecasts/{id}/execute-v1` and `POST /api/forecasts/{id}/node-runs` start this opt-in path, while `GET /api/forecasts/{id}/node-runs` returns node outputs from the latest V1 run. `POST /api/questions/{id}/runs` remains available; selecting `graph_forecaster_v1` there applies the same approved-contract gate. No legacy profile is changed by this integration.
 
+### Standalone weighted-log-odds aggregation foundation
+
+`GraphAggregator` defines the next deterministic aggregation policy without activating it in forecast execution. It accepts one frozen Forecast Graph and a complete set of `ForecastNodeRun` records from exactly one forecast run. It rejects missing or duplicate node forecasts, forecasts for nodes outside the graph, mixed run identifiers, missing or invalid importance weights, zero total weight, and node probabilities outside the open interval `(0, 1)`. The open interval is required because exact zero and one have infinite log odds.
+
+For each node `i`, code calculates:
+
+1. `normalized_weight_i = importance_weight_i / sum(importance_weights)`;
+2. `log_odds_i = ln(probability_i / (1 - probability_i))`;
+3. `contribution_i = normalized_weight_i × log_odds_i`;
+4. `combined_log_odds = sum(contribution_i)`;
+5. `final_probability = 1 / (1 + exp(-combined_log_odds))`.
+
+Nodes are processed by stable node identifier, so input ordering cannot change the contribution list or calculation trace. `ForecastAggregation` stores the method, final probability, full node contributions, calculation trace, run identity, and creation time. The database permits one immutable first-class aggregation per forecast run; an identical repeat is idempotent and a conflicting replacement is rejected.
+
+This foundation deliberately does not call `GraphAggregator` from `run_graph_forecast_engine`. The live opt-in graph workflow continues to use `dependency_discounted_weighted_mean_v1` until a later integration task explicitly changes that policy. Reports can render a stored first-class aggregation when one is supplied, while retaining compatibility with the existing aggregation JSON.
+
 ### V1 report and first experiment lifecycle
 
 1. **Assemble the report:** a completed graph run joins its approved Forecast Contract, frozen Forecast Graph, `ForecastNodeRun` rows, persisted Evidence Claims, and aggregation JSON. Node sections show the node question, probability, confidence, reasoning, raw and normalized weights, dependency factor, contribution, and supporting and opposing cited claims with excerpts and source links. Unselected node-linked claims remain visible but are not presented as calculation inputs.

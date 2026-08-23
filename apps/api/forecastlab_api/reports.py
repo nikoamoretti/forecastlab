@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from forecastlab.graph_aggregation import LOG_ODDS_FORMULA, LOG_ODDS_METHOD
+
 
 def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -31,6 +33,12 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     if not graph_nodes and not node_runs:
         return None
 
+    aggregation = run.get("forecast_aggregation") or run.get("aggregation") or {}
+    contributions_by_node = {
+        str(item.get("node_id")): item
+        for item in aggregation.get("node_contributions") or []
+        if isinstance(item, dict) and item.get("node_id")
+    }
     claims = run.get("evidence_claims") or []
     claims_by_id = {str(claim.get("id")): claim for claim in claims if claim.get("id")}
     claims_by_node: dict[str, list[dict[str, Any]]] = {}
@@ -46,6 +54,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     for node in graph_nodes:
         node_id = str(node.get("id") or "")
         node_run = node_runs_by_id.get(node_id) or {}
+        node_contribution = contributions_by_node.get(node_id) or {}
         supporting_ids = [str(item) for item in node_run.get("supporting_claim_ids") or []]
         opposing_ids = [str(item) for item in node_run.get("opposing_claim_ids") or []]
         selected_ids = set(supporting_ids) | set(opposing_ids)
@@ -80,16 +89,26 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "importance_weight": node.get("importance_weight"),
                 "status": node.get("status"),
                 "forecast_status": "completed" if node_run else "missing",
-                "probability": node_run.get("probability"),
+                "probability": node_contribution.get("input_probability", node_run.get("probability")),
                 "confidence": node_run.get("confidence"),
                 "uncertainty": node_run.get("uncertainty"),
                 "uncertainty_notes": node_run.get("uncertainty_notes") or [],
                 "model_used": node_run.get("model_used"),
                 "reasoning": node_run.get("reasoning"),
-                "raw_importance_weight": node_run.get("raw_importance_weight"),
+                "raw_importance_weight": node_contribution.get(
+                    "raw_importance_weight",
+                    node_run.get("raw_importance_weight"),
+                ),
                 "dependency_factor": node_run.get("dependency_factor"),
-                "normalized_weight": node_run.get("normalized_weight"),
+                "normalized_weight": node_contribution.get(
+                    "normalized_weight",
+                    node_run.get("normalized_weight"),
+                ),
                 "probability_contribution": node_run.get("probability_contribution"),
+                "log_odds": node_contribution.get("log_odds"),
+                "weighted_log_odds_contribution": node_contribution.get(
+                    "weighted_log_odds_contribution"
+                ),
                 "supporting_evidence": supporting,
                 "opposing_evidence": opposing,
                 "uncited_evidence": uncited,
@@ -98,7 +117,6 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             }
         )
 
-    aggregation = run.get("aggregation") or {}
     total_nodes = len(graph_nodes)
     covered_nodes = len(covered_node_ids)
     return {
@@ -127,10 +145,12 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         },
         "calculation": {
             "method": aggregation.get("method"),
-            "formula": aggregation.get("formula"),
+            "formula": aggregation.get("formula")
+            or (LOG_ODDS_FORMULA if aggregation.get("method") == LOG_ODDS_METHOD else None),
             "normalization_denominator": aggregation.get("normalization_denominator"),
             "unbounded_probability": aggregation.get("unbounded_probability"),
             "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
+            "node_contributions": aggregation.get("node_contributions") or [],
             "trace": aggregation.get("calculation_trace") or [],
         },
     }
@@ -162,7 +182,19 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 f"Confidence: {node.get('confidence')}",
                 f"Model used: {node.get('model_used')}",
                 f"Normalized weight: {node.get('normalized_weight')}",
-                f"Probability contribution: {node.get('probability_contribution')}",
+            ]
+        )
+        if node.get("weighted_log_odds_contribution") is not None:
+            lines.extend(
+                [
+                    f"Log odds: {node.get('log_odds')}",
+                    f"Weighted log-odds contribution: {node.get('weighted_log_odds_contribution')}",
+                ]
+            )
+        else:
+            lines.append(f"Probability contribution: {node.get('probability_contribution')}")
+        lines.extend(
+            [
                 node.get("reasoning") or "No node reasoning was produced.",
                 "Uncertainty:",
             ]
@@ -190,6 +222,18 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 lines.append(f"  - Source: {claim.get('source_url')}")
         else:
             lines.append("- None cited.")
+    node_contributions = calculation.get("node_contributions") or []
+    if node_contributions:
+        lines.extend(["", "### Node contributions"])
+        for contribution in node_contributions:
+            lines.append(
+                "- "
+                f"{contribution.get('node_question') or contribution.get('node_id')}: "
+                f"p={contribution.get('input_probability')}, "
+                f"weight={contribution.get('normalized_weight')}, "
+                f"log_odds={contribution.get('log_odds')}, "
+                f"contribution={contribution.get('weighted_log_odds_contribution')}"
+            )
     lines.extend(
         [
             "",

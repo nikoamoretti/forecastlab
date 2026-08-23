@@ -88,11 +88,18 @@ export default function ForecastPage() {
   const modeLabel = String(context.effective_mode || run.mode || "demo").toUpperCase();
   const missingTracks = (aggregation.missing_track_types || []).length > 0;
   const missingNodes = (aggregation.missing_node_ids || []).length > 0;
-  const graphAggregation = aggregation.method === "dependency_discounted_weighted_mean_v1";
   const rejectedEvidence = evidence.filter((item: any) => item.rejected);
   const v1Report = data.v1_report || run.v1_report || null;
   const reportNodes = v1Report?.nodes || [];
+  const reportCalculation = v1Report?.calculation || {};
   const calculationTrace = v1Report?.calculation?.trace || [];
+  const aggregationMethod = reportCalculation.method || aggregation.method;
+  const graphAggregation = [
+    "dependency_discounted_weighted_mean_v1",
+    "importance_weighted_log_odds_v1"
+  ].includes(aggregationMethod);
+  const logOddsAggregation = aggregationMethod === "importance_weighted_log_odds_v1";
+  const finalCalculationStep = [...calculationTrace].reverse().find((item: any) => item.step === "final") || {};
 
   return (
     <article className="space-y-10">
@@ -112,16 +119,22 @@ export default function ForecastPage() {
         </div>
         <div className="border border-rule bg-white/60 p-5">
           <p className="font-mono text-xs uppercase tracking-[0.2em]">Ensemble estimate</p>
-          <p className="font-serif text-6xl leading-none">{pct(data.latest_probability)}</p>
+          <p className="font-serif text-6xl leading-none">
+            {pct(v1Report?.final_probability ?? data.latest_probability)}
+          </p>
           <p className="mt-3 text-sm">
-            {graphAggregation
+            {logOddsAggregation
+              ? "Deterministic importance-weighted log odds. Not a calibrated probability."
+              : graphAggregation
               ? "Deterministic dependency-aware weighted mean. Not a calibrated probability."
               : "Coded logit mean with shrinkage. Not a calibrated probability."}
           </p>
-          <p className="mt-2 text-sm">
-            {graphAggregation ? "Node spread" : "Track spread"}:{" "}
-            {aggregation.track_spread == null ? "—" : Number(aggregation.track_spread).toFixed(3)}
-          </p>
+          {!logOddsAggregation ? (
+            <p className="mt-2 text-sm">
+              {graphAggregation ? "Node spread" : "Track spread"}:{" "}
+              {aggregation.track_spread == null ? "—" : Number(aggregation.track_spread).toFixed(3)}
+            </p>
+          ) : null}
         </div>
       </header>
 
@@ -382,8 +395,14 @@ export default function ForecastPage() {
                       <dd>{Number(node.normalized_weight || 0).toFixed(4)}</dd>
                     </div>
                     <div>
-                      <dt className="text-ink/60">Contribution</dt>
-                      <dd>{Number(node.probability_contribution || 0).toFixed(4)}</dd>
+                      <dt className="text-ink/60">
+                        {logOddsAggregation ? "Log-odds contribution" : "Contribution"}
+                      </dt>
+                      <dd>
+                        {Number(
+                          node.weighted_log_odds_contribution ?? node.probability_contribution ?? 0
+                        ).toFixed(4)}
+                      </dd>
                     </div>
                   </dl>
                 </div>
@@ -432,8 +451,17 @@ export default function ForecastPage() {
             ))}
           </div>
           <p className="mt-3 text-sm">
-            Sum of contributions {Number(aggregation.unbounded_probability).toFixed(6)} → final probability{" "}
-            {Number(aggregation.final_probability).toFixed(6)}
+            {logOddsAggregation ? (
+              <>
+                Combined log odds {Number(finalCalculationStep.combined_log_odds).toFixed(6)} → final probability{" "}
+                {Number(v1Report.final_probability).toFixed(6)}
+              </>
+            ) : (
+              <>
+                Sum of contributions {Number(aggregation.unbounded_probability).toFixed(6)} → final probability{" "}
+                {Number(aggregation.final_probability).toFixed(6)}
+              </>
+            )}
           </p>
           <div>
             <h4 className="font-serif text-xl">Calculation trace</h4>
@@ -455,13 +483,19 @@ export default function ForecastPage() {
                       <td className="py-2">{String(trace.step || "").replace("_", " ")}</td>
                       <td>{traceNode?.question || trace.node_id || "—"}</td>
                       <td>{trace.normalized_weight == null ? "—" : Number(trace.normalized_weight).toFixed(4)}</td>
-                      <td>{trace.probability == null ? "—" : Number(trace.probability).toFixed(4)}</td>
+                      <td>
+                        {trace.input_probability == null && trace.probability == null
+                          ? "—"
+                          : Number(trace.input_probability ?? trace.probability).toFixed(4)}
+                      </td>
                       <td>
                         {trace.contribution == null
                           ? trace.final_probability == null
-                            ? trace.normalization_denominator == null
+                            ? trace.normalization_denominator == null && trace.total_importance_weight == null
                               ? "—"
-                              : `denominator ${Number(trace.normalization_denominator).toFixed(4)}`
+                              : `total weight ${Number(
+                                  trace.total_importance_weight ?? trace.normalization_denominator
+                                ).toFixed(4)}`
                             : `final ${Number(trace.final_probability).toFixed(4)}`
                           : Number(trace.contribution).toFixed(4)}
                       </td>

@@ -27,6 +27,7 @@ from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpda
 from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.version import __version__
+from forecastlab_api.aggregations import forecast_aggregation_from_row
 from forecastlab_api.config import settings
 from forecastlab_api.contracts import (
     apply_forecast_contract_review,
@@ -718,6 +719,10 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
             track["unresolved_uncertainties"] = track["unresolved"]
     if run.aggregation_json:
         payload["aggregation"] = json.loads(run.aggregation_json)
+    if run.aggregation is not None:
+        payload["forecast_aggregation"] = forecast_aggregation_from_row(run.aggregation).model_dump(
+            mode="json"
+        )
     if run.budget_json:
         payload["budget"] = json.loads(run.budget_json)
     if run.prompt_versions_json:

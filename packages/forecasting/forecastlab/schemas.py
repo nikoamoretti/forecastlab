@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -315,6 +315,30 @@ class ForecastNodeRun(NodeForecast):
     dependency_factor: float = Field(default=1.0, ge=0.0, le=1.0)
     normalized_weight: float = Field(default=0.0, ge=0.0, le=1.0)
     probability_contribution: float = Field(default=0.0, ge=0.0, le=1.0)
+    created_at: datetime
+
+
+class ForecastNodeContribution(BaseModel):
+    """One deterministic weighted-log-odds term in a graph aggregation."""
+
+    node_id: str = Field(min_length=1)
+    node_question: str = Field(min_length=1)
+    input_probability: float = Field(gt=0.0, lt=1.0)
+    raw_importance_weight: float = Field(ge=0.0)
+    normalized_weight: float = Field(ge=0.0, le=1.0)
+    log_odds: float
+    weighted_log_odds_contribution: float
+
+
+class ForecastAggregation(BaseModel):
+    """Persistable audit record produced by deterministic graph aggregation."""
+
+    id: str = Field(min_length=1)
+    forecast_run_id: str = Field(min_length=1)
+    method: str = Field(min_length=1)
+    final_probability: float = Field(ge=0.0, le=1.0)
+    calculation_trace: list[dict[str, Any]] = Field(default_factory=list)
+    node_contributions: list[ForecastNodeContribution] = Field(default_factory=list)
     created_at: datetime
 
 

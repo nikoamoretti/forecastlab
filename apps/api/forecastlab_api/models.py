@@ -187,6 +187,10 @@ class ForecastRun(Base):
     tracks: Mapped[list[ResearchTrack]] = relationship(back_populates="run")
     evidence: Mapped[list[EvidenceItem]] = relationship(back_populates="run")
     node_runs: Mapped[list[ForecastNodeRunRow]] = relationship(back_populates="forecast_run")
+    aggregation: Mapped[ForecastAggregationRow | None] = relationship(
+        back_populates="forecast_run",
+        uselist=False,
+    )
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="run")
 
 
@@ -318,6 +322,21 @@ class ForecastNodeRunRow(Base):
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="node_runs")
     node: Mapped[ForecastNodeRow] = relationship(back_populates="runs")
+
+
+class ForecastAggregationRow(Base):
+    __tablename__ = "forecast_aggregations"
+    __table_args__ = (UniqueConstraint("forecast_run_id", name="uq_forecast_aggregation_run"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    method: Mapped[str] = mapped_column(String(128))
+    final_probability: Mapped[float] = mapped_column(Float)
+    calculation_trace_json: Mapped[str] = mapped_column(Text, default="[]")
+    node_contributions_json: Mapped[str] = mapped_column(Text, default="[]")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    forecast_run: Mapped[ForecastRun] = relationship(back_populates="aggregation")
 
 
 class ForecastVersion(Base):

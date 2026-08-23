@@ -137,3 +137,62 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
 
 def test_v1_report_is_absent_for_legacy_track_run() -> None:
     assert build_v1_report({"tracks": [{"track_type": "base_rate"}]}) is None
+
+
+def test_v1_report_renders_first_class_log_odds_aggregation() -> None:
+    contribution = {
+        "node_id": "node-a",
+        "node_question": "What is the historical base rate?",
+        "input_probability": 0.35,
+        "raw_importance_weight": 0.3,
+        "normalized_weight": 1.0,
+        "log_odds": -0.619039208406,
+        "weighted_log_odds_contribution": -0.619039208406,
+    }
+    run = {
+        "profile_id": "graph_forecaster_v1",
+        "forecast_graph": {
+            "id": "graph-1",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What is the historical base rate?",
+                    "node_type": "base_rate",
+                    "importance_weight": 0.3,
+                }
+            ],
+        },
+        "node_runs": [
+            {
+                "node_id": "node-a",
+                "probability": 0.35,
+                "reasoning": "Historical outcomes favor no.",
+            }
+        ],
+        "forecast_aggregation": {
+            "id": "aggregation-1",
+            "forecast_run_id": "run-1",
+            "method": "importance_weighted_log_odds_v1",
+            "final_probability": 0.35,
+            "node_contributions": [contribution],
+            "calculation_trace": [
+                {"step": "node_contribution", **contribution, "contribution": contribution["weighted_log_odds_contribution"]},
+                {"step": "final", "combined_log_odds": -0.619039208406, "final_probability": 0.35},
+            ],
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    assert report["final_probability"] == 0.35
+    assert report["nodes"][0]["normalized_weight"] == 1.0
+    assert report["nodes"][0]["log_odds"] == -0.619039208406
+    assert report["nodes"][0]["weighted_log_odds_contribution"] == -0.619039208406
+    assert report["calculation"]["node_contributions"] == [contribution]
+    assert "convert each node probability to log odds" in report["calculation"]["formula"]
+
+    markdown = "\n".join(v1_report_markdown(report))
+    assert "### Node contributions" in markdown
+    assert "Weighted log-odds contribution: -0.619039208406" in markdown
+    assert "What is the historical base rate?: p=0.35, weight=1.0" in markdown
