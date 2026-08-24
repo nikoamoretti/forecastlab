@@ -7,10 +7,22 @@ from forecastlab.providers.base import ChatResult, ModelProvider
 class BudgetedModelProvider:
     """Apply one shared run budget to a structured model-provider seam."""
 
-    def __init__(self, delegate: ModelProvider, budget: Budget, *, stage: str) -> None:
+    def __init__(
+        self,
+        delegate: ModelProvider,
+        budget: Budget,
+        *,
+        stage: str,
+        max_output_tokens_cap: int | None = None,
+    ) -> None:
         self.delegate = delegate
         self.budget = budget
         self.stage = stage
+        self.max_output_tokens_cap = (
+            max(1, max_output_tokens_cap)
+            if max_output_tokens_cap is not None
+            else None
+        )
         self.name = delegate.name
         self.model = str(getattr(delegate, "model", delegate.name))
 
@@ -27,6 +39,8 @@ class BudgetedModelProvider:
     ) -> ChatResult:
         estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
         allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
+        if self.max_output_tokens_cap is not None:
+            allowed_output = min(allowed_output, self.max_output_tokens_cap)
         if max_output_tokens is not None:
             allowed_output = min(allowed_output, max_output_tokens)
         reservation = self.budget.reserve_model_call(

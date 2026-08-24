@@ -43,6 +43,7 @@ _CUTOFF_REASONS = {
     "snapshot_after_as_of",
     "unverifiable_as_of",
 }
+_SMALL_EXTRACTION_CHUNK_CHARS = 4000
 
 _EVIDENCE_TYPES_BY_NODE = {
     "base_rate": ["historical frequency", "quantitative reference class"],
@@ -241,6 +242,11 @@ class GraphResearchExecutor:
         allow_local_fixtures: bool,
         max_queries_per_node: int | None = None,
         max_fetches_per_node: int | None = None,
+        max_evidence_claims: int = 20,
+        max_extraction_chars: int = 8000,
+        research_plan_output_tokens: int = 1024,
+        evidence_extraction_output_tokens: int = 1536,
+        enable_extraction_fallbacks: bool = True,
         prompt_bundle: PromptBundle | None = None,
         prompt_versions: dict[str, str] | None = None,
     ) -> None:
@@ -271,6 +277,14 @@ class GraphResearchExecutor:
                 else profile.max_fetched_documents,
             ),
         )
+        self.max_evidence_claims = max(1, max_evidence_claims)
+        self.max_extraction_chars = max(512, max_extraction_chars)
+        self.research_plan_output_tokens = max(1, research_plan_output_tokens)
+        self.evidence_extraction_output_tokens = max(
+            1,
+            evidence_extraction_output_tokens,
+        )
+        self.enable_extraction_fallbacks = enable_extraction_fallbacks
         self.prompt_bundle = prompt_bundle
         self.prompt_versions = prompt_versions if prompt_versions is not None else {}
 
@@ -303,6 +317,7 @@ class GraphResearchExecutor:
                     }
                 ),
                 schema_name="graph_research_plan",
+                max_output_tokens=self.research_plan_output_tokens,
             )
             payload = result.parsed if result.parsed is not None else json.loads(result.content)
             generated = NodeResearchPlan.model_validate(payload)
@@ -343,6 +358,75 @@ class GraphResearchExecutor:
             ),
             [],
         )
+
+    def _extract_with_fallbacks(
+        self,
+        *,
+        extractor: EvidenceExtractor,
+        document: FetchedDocument,
+        evidence_item_id: str,
+        node: ForecastNode,
+    ) -> tuple[list[EvidenceClaim], list[str], str]:
+        errors: list[str] = []
+
+        def attempt(candidate: FetchedDocument, label: str) -> list[EvidenceClaim]:
+            try:
+                return extractor.extract(
+                    candidate,
+                    evidence_item_id=evidence_item_id,
+                    forecast_node_id=node.id,
+                    forecast_node_question=node.question,
+                    as_of=self.as_of if self.mode == "backtest" else None,
+                )
+            except BudgetExceeded:
+                raise
+            except (
+                EvidenceClaimError,
+                PermanentProviderError,
+                TransientProviderError,
+            ) as exc:
+                reasons = (
+                    exc.reasons
+                    if isinstance(exc, EvidenceClaimError)
+                    else [f"provider:{exc.__class__.__name__}:{exc}"]
+                )
+                errors.extend(f"{label}:{reason}" for reason in reasons)
+                return []
+
+        extracted = attempt(document, "full_document")
+        if extracted or not self.enable_extraction_fallbacks:
+            return extracted, errors, (
+                "claims_created" if extracted else "extraction_failure"
+            )
+
+        source_text = document.text.strip()
+        chunk_size = min(
+            _SMALL_EXTRACTION_CHUNK_CHARS,
+            max(512, len(source_text) // 2),
+        )
+        smaller_text = source_text[:chunk_size]
+        if smaller_text and smaller_text != source_text:
+            extracted = attempt(
+                document.model_copy(update={"text": smaller_text}),
+                "smaller_chunk",
+            )
+            if extracted:
+                return extracted, errors, "claims_created_smaller_chunk"
+
+        try:
+            fallback = extractor.document_fallback_claim(
+                document,
+                evidence_item_id=evidence_item_id,
+                forecast_node_id=node.id,
+                as_of=self.as_of if self.mode == "backtest" else None,
+            )
+        except EvidenceClaimError as exc:
+            errors.extend(
+                f"document_fallback:{reason}"
+                for reason in exc.reasons
+            )
+            return [], errors, "extraction_failure"
+        return [fallback], errors, "claims_created_document_fallback"
 
     def execute(self, node: ForecastNode) -> GraphResearchResult:
         plan, planning_warnings = self._generate_plan(node)
@@ -479,6 +563,13 @@ class GraphResearchExecutor:
                 continue
 
             evidence.append(record)
+            extraction_document = document.model_copy(
+                update={"text": document.text[: self.max_extraction_chars]}
+            )
+            source_audit.update(
+                document_chars=len(document.text),
+                extraction_input_chars=len(extraction_document.text),
+            )
             extractor = EvidenceExtractor(
                 BudgetedModelProvider(
                     self.model,
@@ -486,31 +577,29 @@ class GraphResearchExecutor:
                     stage=f"extract_claims:{node.id}",
                 ),
                 prompt_bundle=self.prompt_bundle,
+                max_output_tokens=self.evidence_extraction_output_tokens,
             )
-            try:
-                extracted = extractor.extract(
-                    document,
+            extracted, attempt_errors, extraction_outcome = (
+                self._extract_with_fallbacks(
+                    extractor=extractor,
+                    document=extraction_document,
                     evidence_item_id=evidence_item_id,
-                    forecast_node_id=node.id,
-                    forecast_node_question=node.question,
-                    as_of=self.as_of if self.mode == "backtest" else None,
+                    node=node,
                 )
-            except BudgetExceeded:
-                raise
-            except (EvidenceClaimError, PermanentProviderError, TransientProviderError) as exc:
-                reasons = (
-                    exc.reasons
-                    if isinstance(exc, EvidenceClaimError)
-                    else [f"provider:{exc.__class__.__name__}:{exc}"]
-                )
-                extraction_errors.extend(reasons)
+            )
+            extraction_errors.extend(attempt_errors)
+            if not extracted:
                 source_audit.update(
                     outcome="extraction_failure",
-                    reason=",".join(reasons),
+                    reason=",".join(attempt_errors),
                 )
                 sources_checked.append(source_audit)
                 continue
-            eligible = eligible_claims_for_forecasting(extracted, cutoff=self.as_of)
+            remaining_claims = self.max_evidence_claims - len(claims)
+            eligible = eligible_claims_for_forecasting(
+                extracted,
+                cutoff=self.as_of,
+            )[:remaining_claims]
             if not eligible:
                 extraction_errors.append("no_eligible_claims_extracted")
                 source_audit.update(
@@ -536,9 +625,19 @@ class GraphResearchExecutor:
                 for claim in eligible
             )
             successful_documents += 1
-            source_audit.update(outcome="claims_created", reason=None)
+            source_audit.update(
+                outcome=extraction_outcome,
+                reason=(
+                    ",".join(attempt_errors)
+                    if extraction_outcome != "claims_created"
+                    else None
+                ),
+            )
             sources_checked.append(source_audit)
-            if successful_documents >= target_documents:
+            if (
+                successful_documents >= target_documents
+                or len(claims) >= self.max_evidence_claims
+            ):
                 break
 
         claims = eligible_claims_for_forecasting(claims, cutoff=self.as_of)

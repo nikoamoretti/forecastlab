@@ -26,6 +26,7 @@ from forecastlab_api.models import (
     ForecastVersion,
     GraphExecutionFailureRow,
     Question,
+    ResearchPlanRow,
 )
 from forecastlab_api.pipeline import apply_execution_limits, create_run_record, resolve_for_question
 from forecastlab_api.v1_execution import approved_contract_for_question
@@ -153,6 +154,8 @@ def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
     assert run["profile_id"] == "graph_forecaster_v1"
     stored_run = client.get(f"/api/runs/{run['id']}").json()
     assert stored_run["prompt_versions"]["graph_research"] == "v1"
+    assert stored_run["research_plan"]["forecast_run_id"] == run["id"]
+    assert len(stored_run["research_plan"]["selected_nodes"]) == 7
 
     report_response = client.get(f"/api/forecasts/{draft['question_id']}/graph-report")
     assert report_response.status_code == 200
@@ -184,6 +187,11 @@ def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
                 GraphExecutionFailureRow.forecast_run_id == run["id"]
             )
         ) == 0
+        assert session.scalar(
+            select(func.count()).select_from(ResearchPlanRow).where(
+                ResearchPlanRow.forecast_run_id == run["id"]
+            )
+        ) == 1
 
 
 def test_execute_graph_requires_an_approved_contract(client) -> None:

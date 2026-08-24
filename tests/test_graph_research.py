@@ -10,7 +10,13 @@ from forecastlab.graph_research import GraphResearchExecutor
 from forecastlab.providers.base import ChatResult
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
 from forecastlab.run_cache import RunCache
-from forecastlab.schemas import ForecastNode, ForecastProfile, ModelUsage
+from forecastlab.schemas import (
+    FetchedDocument,
+    ForecastNode,
+    ForecastProfile,
+    ModelUsage,
+    SearchHit,
+)
 
 
 def _profile() -> ForecastProfile:
@@ -48,6 +54,9 @@ def _executor(
     model=None,
     mode: str = "demo",
     as_of: datetime | None = None,
+    enable_extraction_fallbacks: bool = True,
+    cache=None,
+    max_extraction_chars: int = 8000,
 ) -> GraphResearchExecutor:
     profile = _profile()
     return GraphResearchExecutor(
@@ -55,7 +64,8 @@ def _executor(
         search=search or MockSearchProvider(),
         profile=profile,
         budget=Budget(profile),
-        cache=RunCache.create(
+        cache=cache
+        or RunCache.create(
             run_id="run-research-1",
             model_provider="mock",
             search_provider="mock",
@@ -67,6 +77,8 @@ def _executor(
         mode=mode,
         as_of=as_of,
         allow_local_fixtures=True,
+        enable_extraction_fallbacks=enable_extraction_fallbacks,
+        max_extraction_chars=max_extraction_chars,
         prompt_versions={},
     )
 
@@ -131,6 +143,66 @@ class FailingExtractionModel(EmptyClaimModel):
         return super().complete_json(**kwargs)
 
 
+class ChunkRecoveryModel(EmptyClaimModel):
+    model = "stub-chunk-recovery"
+
+    def __init__(self) -> None:
+        self.extraction_lengths: list[int] = []
+
+    def complete_json(self, **kwargs: Any) -> ChatResult:
+        if kwargs["schema_name"] != "evidence_claims":
+            return super().complete_json(**kwargs)
+        document = json.loads(kwargs["user"])["document"]
+        text = document["text"]
+        self.extraction_lengths.append(len(text))
+        if len(text) > 1200:
+            raise PermanentProviderError("full_document_too_large")
+        excerpt = text[:160]
+        payload = {
+            "claims": [
+                {
+                    "claim": excerpt,
+                    "excerpt": excerpt,
+                    "supports_or_refutes": "supports",
+                    "confidence": 0.7,
+                    "source_quality": 0.8,
+                    "primary_source": True,
+                }
+            ]
+        }
+        return ChatResult(
+            content=json.dumps(payload),
+            parsed=payload,
+            usage=ModelUsage(model=self.model, provider=self.name),
+        )
+
+
+class LongDocumentCache:
+    def search(self, _provider, _query: str, _max_results: int) -> list[SearchHit]:
+        return [
+            SearchHit(
+                title="Official long-form statistical release",
+                url="https://example.test/official-release",
+                snippet="Dated official evidence.",
+                published_at=datetime(2024, 1, 15, tzinfo=UTC),
+                score=1.0,
+                source_class="primary",
+            )
+        ]
+
+    def fetch(self, url: str, **_kwargs: Any) -> FetchedDocument:
+        text = "Official statistical evidence reports a dated measurement. " * 200
+        return FetchedDocument(
+            url=url,
+            title="Official long-form statistical release",
+            publisher="National Statistical Agency",
+            published_at=datetime(2024, 1, 15, tzinfo=UTC),
+            retrieved_at=datetime(2024, 2, 1, tzinfo=UTC),
+            text=text,
+            content_hash="long-document-hash",
+        )
+
+
 def test_node_generates_specific_research_queries() -> None:
     search = CapturingSearch()
 
@@ -192,8 +264,14 @@ def test_no_pre_cutoff_document_produces_structured_cutoff_failure() -> None:
 def test_missing_or_unusable_sources_produce_specific_structured_failures() -> None:
     no_match = _executor(search=EmptySearch()).execute(_node())
     retrieval = _executor(search=FailingSearch()).execute(_node())
-    extraction = _executor(model=EmptyClaimModel()).execute(_node())
-    provider_extraction = _executor(model=FailingExtractionModel()).execute(_node())
+    extraction = _executor(
+        model=EmptyClaimModel(),
+        enable_extraction_fallbacks=False,
+    ).execute(_node())
+    provider_extraction = _executor(
+        model=FailingExtractionModel(),
+        enable_extraction_fallbacks=False,
+    ).execute(_node())
 
     assert no_match.failure is not None
     assert no_match.failure.code == "no_matching_source"
@@ -208,3 +286,36 @@ def test_missing_or_unusable_sources_produce_specific_structured_failures() -> N
     assert provider_extraction.failure is not None
     assert provider_extraction.failure.code == "extraction_failure"
     assert "forced_extraction_failure" in provider_extraction.failure.reason
+
+
+def test_extraction_failure_uses_provenance_preserving_document_fallback() -> None:
+    result = _executor(model=FailingExtractionModel()).execute(_node())
+
+    assert result.failure is None
+    assert len(result.claims) == 1
+    assert result.claims[0].claim == result.claims[0].excerpt
+    assert result.claims[0].confidence == 0.35
+    assert result.claims[0].source_url
+    assert result.claims[0].publication_date
+    assert any(
+        source["outcome"] == "claims_created_document_fallback"
+        for source in result.sources_checked
+    )
+    assert any(error.startswith("full_document:provider:") for error in result.extraction_errors)
+
+
+def test_extraction_retries_a_smaller_planned_chunk_before_document_fallback() -> None:
+    model = ChunkRecoveryModel()
+
+    result = _executor(
+        model=model,
+        cache=LongDocumentCache(),
+        max_extraction_chars=2000,
+    ).execute(_node())
+
+    assert result.failure is None
+    assert model.extraction_lengths == [2000, 1000]
+    assert result.claims
+    assert result.sources_checked[0]["document_chars"] > 2000
+    assert result.sources_checked[0]["extraction_input_chars"] == 2000
+    assert result.sources_checked[0]["outcome"] == "claims_created_smaller_chunk"

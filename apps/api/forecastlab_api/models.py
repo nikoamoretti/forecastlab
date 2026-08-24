@@ -210,6 +210,10 @@ class ForecastRun(Base):
     graph_execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(
         back_populates="forecast_run"
     )
+    research_plan: Mapped[ResearchPlanRow | None] = relationship(
+        back_populates="forecast_run",
+        uselist=False,
+    )
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="run")
 
 
@@ -382,6 +386,25 @@ class GraphExecutionFailureRow(Base):
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="graph_execution_failures")
     node: Mapped[ForecastNodeRow | None] = relationship(back_populates="execution_failures")
+
+
+class ResearchPlanRow(Base):
+    """The immutable graph-node selection and budget allocation for one forecast run."""
+
+    __tablename__ = "research_plans"
+    __table_args__ = (
+        UniqueConstraint("forecast_run_id", name="uq_research_plan_forecast_run"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    selected_nodes_json: Mapped[str] = mapped_column(Text, default="[]")
+    skipped_nodes_json: Mapped[str] = mapped_column(Text, default="[]")
+    priority_scores_json: Mapped[str] = mapped_column(Text, default="{}")
+    budget_allocation_json: Mapped[str] = mapped_column(Text, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    forecast_run: Mapped[ForecastRun] = relationship(back_populates="research_plan")
 
 
 class ForecastVersion(Base):

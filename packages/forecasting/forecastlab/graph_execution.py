@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
@@ -13,12 +14,21 @@ from forecastlab.errors import BudgetExceeded, PermanentProviderError, Structure
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.graph_aggregation import METHOD as GRAPH_AGGREGATION_METHOD
 from forecastlab.graph_aggregation import GraphAggregationBreakdown, aggregate_graph_probabilities
-from forecastlab.graph_research import GraphResearchExecutor, NodeResearchPlan
+from forecastlab.graph_research import (
+    GraphResearchExecutor,
+    GraphResearchResult,
+    NodeResearchPlan,
+)
 from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.research_planning import (
+    PARALLEL_RESEARCH_WORKERS,
+    ResearchPlan,
+    ResearchPlanner,
+)
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
     EvidenceClaim,
@@ -35,6 +45,7 @@ ResearchPersistFn = Callable[
     [ForecastNode, list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim]],
     None,
 ]
+ResearchPlanPersistFn = Callable[[ResearchPlan], None]
 
 
 @dataclass
@@ -52,6 +63,8 @@ class ForecastNodeExecution:
     error: str | None = None
     error_detail: str | None = None
     error_stage: str | None = None
+    research_selected: bool = True
+    skip_reason: str | None = None
 
 
 @dataclass
@@ -67,6 +80,7 @@ class GraphEngineResult:
     stop_stage: str | None
     fixture_evidence_used: bool = False
     partial: bool = False
+    research_plan: ResearchPlan | None = None
 
 
 @dataclass
@@ -82,6 +96,14 @@ class GraphNodeForecastResult:
     stop_reason: str | None
     stop_stage: str | None
     fixture_evidence_used: bool = False
+    research_plan: ResearchPlan | None = None
+
+
+@dataclass
+class ParallelResearchResult:
+    node: ForecastNode
+    result: GraphResearchResult | None = None
+    error: Exception | None = None
 
 
 def _emit(
@@ -117,6 +139,34 @@ def _topological_nodes(graph: ForecastGraph) -> list[ForecastNode]:
     return ordered
 
 
+def _selected_graph(
+    graph: ForecastGraph,
+    selected_node_ids: set[str],
+) -> ForecastGraph:
+    return graph.model_copy(
+        update={
+            "nodes": [
+                node.model_copy(
+                    update={
+                        "parent_node_id": (
+                            node.parent_node_id
+                            if node.parent_node_id in selected_node_ids
+                            else None
+                        ),
+                        "dependencies": [
+                            dependency
+                            for dependency in node.dependencies
+                            if dependency in selected_node_ids
+                        ],
+                    }
+                )
+                for node in graph.nodes
+                if node.id in selected_node_ids
+            ]
+        }
+    )
+
+
 def _forecast_node(
     *,
     contract: ForecastContract,
@@ -126,13 +176,42 @@ def _forecast_node(
     budget: Budget,
     prompt_versions: dict[str, str],
     prompt_bundle: PromptBundle | None = None,
+    max_output_tokens: int | None = None,
 ) -> NodeForecast:
     forecaster = NodeForecaster(
-        BudgetedModelProvider(model, budget, stage=f"forecast_node:{node.id}"),
+        BudgetedModelProvider(
+            model,
+            budget,
+            stage=f"forecast_node:{node.id}",
+            max_output_tokens_cap=max_output_tokens,
+        ),
         prompt_bundle=prompt_bundle,
         prompt_versions=prompt_versions,
     )
     return forecaster.forecast(contract=contract, node=node, claims=claims)
+
+
+def execute_parallel_research(
+    nodes: list[ForecastNode],
+    worker: Callable[[ForecastNode], GraphResearchResult],
+    *,
+    max_workers: int = PARALLEL_RESEARCH_WORKERS,
+) -> list[ParallelResearchResult]:
+    """Execute independent research concurrently and return graph order deterministically."""
+
+    def protected(node: ForecastNode) -> ParallelResearchResult:
+        try:
+            return ParallelResearchResult(node=node, result=worker(node))
+        except Exception as exc:  # retained as a node-level audit result
+            return ParallelResearchResult(node=node, error=exc)
+
+    workers = max(1, min(max_workers, len(nodes)))
+    with ThreadPoolExecutor(
+        max_workers=workers,
+        thread_name_prefix="forecastlab-graph-research",
+    ) as executor:
+        futures = {node.id: executor.submit(protected, node) for node in nodes}
+        return [futures[node.id].result() for node in nodes]
 
 
 def run_graph_node_forecasts(
@@ -155,7 +234,9 @@ def run_graph_node_forecasts(
     pricing_catalog: dict[str, Any] | None = None,
     prior_elapsed_seconds: float = 0.0,
     persist_research: ResearchPersistFn | None = None,
+    persist_research_plan: ResearchPlanPersistFn | None = None,
     capture_node_failures: bool = False,
+    research_planner: ResearchPlanner | None = None,
 ) -> GraphNodeForecastResult:
     """Run Contract -> Graph -> Claims -> Node forecasts without aggregating them."""
 
@@ -198,34 +279,87 @@ def run_graph_node_forecasts(
         prior_elapsed_seconds=prior_elapsed_seconds,
     )
     prompt_versions = dict(profile.prompt_versions)
-    ordered_nodes = _topological_nodes(graph)
-    results: list[ForecastNodeExecution] = []
-    stopped = False
-    research_executor = GraphResearchExecutor(
-        model=model,
-        search=search,
-        profile=profile,
+    all_nodes = _topological_nodes(graph)
+    planner = research_planner or ResearchPlanner()
+    plan = planner.plan(
+        graph,
+        forecast_run_id=run_id,
         budget=budget,
-        cache=cache,
-        run_id=run_id,
-        mode=mode,
-        as_of=as_of,
-        allow_local_fixtures=allow_local_fixtures,
-        max_queries_per_node=max(
-            1,
-            profile.max_search_calls // max(1, len(ordered_nodes)),
+    )
+    if persist_research_plan is not None:
+        persist_research_plan(plan)
+    selected_ids = set(plan.selected_nodes)
+    ordered_nodes = [node for node in all_nodes if node.id in selected_ids]
+    allocation_by_node = plan.budget_allocation.get("per_node") or {}
+    _emit(
+        progress,
+        "research_planning",
+        (
+            f"Selected {len(ordered_nodes)} of {len(all_nodes)} graph nodes "
+            "within the frozen research budget"
         ),
-        max_fetches_per_node=max(
-            1,
-            profile.max_fetched_documents // max(1, len(ordered_nodes)),
-        ),
-        prompt_bundle=prompt_bundle,
-        prompt_versions=prompt_versions,
+        0.15,
+        {
+            "research_plan_id": plan.id,
+            "selected_nodes": plan.selected_nodes,
+            "skipped_nodes": plan.skipped_nodes,
+        },
     )
 
+    def research_worker(node: ForecastNode) -> GraphResearchResult:
+        allocation = allocation_by_node[node.id]
+        worker_cache = RunCache.create(
+            run_id=cache.identity.run_id,
+            model_provider=cache.identity.model_provider,
+            search_provider=cache.identity.search_provider,
+            mode=cache.identity.mode,
+            as_of=as_of,
+            configuration_hash=cache.identity.configuration_hash,
+        )
+        return GraphResearchExecutor(
+            model=model,
+            search=search,
+            profile=profile,
+            budget=budget,
+            cache=worker_cache,
+            run_id=run_id,
+            mode=mode,
+            as_of=as_of,
+            allow_local_fixtures=allow_local_fixtures,
+            max_queries_per_node=int(allocation["searches"]),
+            max_fetches_per_node=int(allocation["fetches"]),
+            max_evidence_claims=int(allocation["max_evidence_claims"]),
+            max_extraction_chars=int(allocation["evidence_document_max_chars"]),
+            research_plan_output_tokens=int(
+                allocation["research_plan_output_tokens"]
+            ),
+            evidence_extraction_output_tokens=int(
+                allocation["evidence_extraction_output_tokens"]
+            ),
+            prompt_bundle=prompt_bundle,
+            prompt_versions=prompt_versions,
+        ).execute(node)
+
+    _emit(
+        progress,
+        "node_research",
+        f"Researching {len(ordered_nodes)} selected graph nodes concurrently",
+        0.2,
+    )
+    parallel_results = execute_parallel_research(
+        ordered_nodes,
+        research_worker,
+        max_workers=int(
+            plan.budget_allocation.get("parallel_research_workers")
+            or PARALLEL_RESEARCH_WORKERS
+        ),
+    )
+    research_by_node = {item.node.id: item for item in parallel_results}
+    executions_by_node: dict[str, ForecastNodeExecution] = {}
+    stopped = False
+
     for index, node in enumerate(ordered_nodes):
-        pct = 0.15 + 0.65 * (index / max(1, len(ordered_nodes)))
-        _emit(progress, "node_research", f"Researching graph node {index + 1} of {len(ordered_nodes)}", pct)
+        pct = 0.45 + 0.35 * (index / max(1, len(ordered_nodes)))
         evidence: list[dict[str, Any]] = []
         rejected: list[dict[str, Any]] = []
         claims: list[EvidenceClaim] = []
@@ -236,7 +370,11 @@ def run_graph_node_forecasts(
         research_warnings: list[str] = []
         stage = "node_research"
         try:
-            research = research_executor.execute(node)
+            parallel = research_by_node[node.id]
+            if parallel.error is not None:
+                raise parallel.error
+            research = parallel.result
+            assert research is not None
             evidence = research.evidence
             rejected = research.rejected
             claims = research.claims
@@ -250,22 +388,20 @@ def run_graph_node_forecasts(
             if research.failure is not None:
                 if not capture_node_failures:
                     raise StructuredOutputError(research.failure.code)
-                results.append(
-                    ForecastNodeExecution(
-                        node=node,
-                        node_run=None,
-                        evidence=evidence,
-                        rejected=rejected,
-                        claims=claims,
-                        claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
-                        research_plan=research_plan,
-                        queries_attempted=queries_attempted,
-                        sources_checked=sources_checked,
-                        research_warnings=research_warnings,
-                        error=research.failure.code,
-                        error_detail=research.failure.reason,
-                        error_stage="node_research",
-                    )
+                executions_by_node[node.id] = ForecastNodeExecution(
+                    node=node,
+                    node_run=None,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    research_plan=research_plan,
+                    queries_attempted=queries_attempted,
+                    sources_checked=sources_checked,
+                    research_warnings=research_warnings,
+                    error=research.failure.code,
+                    error_detail=research.failure.reason,
+                    error_stage="node_research",
                 )
                 _emit(
                     progress,
@@ -280,7 +416,13 @@ def run_graph_node_forecasts(
                 )
                 continue
             stage = "node_forecast"
-            _emit(progress, "node_forecast", f"Forecasting graph node {index + 1} of {len(ordered_nodes)}", pct + 0.05)
+            _emit(
+                progress,
+                "node_forecast",
+                f"Forecasting selected graph node {index + 1} of {len(ordered_nodes)}",
+                pct,
+            )
+            allocation = allocation_by_node[node.id]
             node_forecast = _forecast_node(
                 contract=contract,
                 node=node,
@@ -289,6 +431,7 @@ def run_graph_node_forecasts(
                 budget=budget,
                 prompt_versions=prompt_versions,
                 prompt_bundle=prompt_bundle,
+                max_output_tokens=int(allocation["node_forecast_output_tokens"]),
             )
             node_run = ForecastNodeRun(
                 id=str(uuid.uuid4()),
@@ -304,60 +447,59 @@ def run_graph_node_forecasts(
                 uncertainty=node_forecast.uncertainty,
                 created_at=utcnow(),
             )
-            results.append(
-                ForecastNodeExecution(
-                    node=node,
-                    node_run=node_run,
-                    evidence=evidence,
-                    rejected=rejected,
-                    claims=claims,
-                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
-                    research_plan=research_plan,
-                    queries_attempted=queries_attempted,
-                    sources_checked=sources_checked,
-                    research_warnings=research_warnings,
-                )
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=node_run,
+                evidence=evidence,
+                rejected=rejected,
+                claims=claims,
+                claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                research_plan=research_plan,
+                queries_attempted=queries_attempted,
+                sources_checked=sources_checked,
+                research_warnings=research_warnings,
             )
         except BudgetExceeded as exc:
-            results.append(
-                ForecastNodeExecution(
-                    node=node,
-                    node_run=None,
-                    evidence=evidence,
-                    rejected=rejected,
-                    claims=claims,
-                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
-                    research_plan=research_plan,
-                    queries_attempted=queries_attempted,
-                    sources_checked=sources_checked,
-                    research_warnings=research_warnings,
-                    error=str(exc),
-                    error_detail=str(exc),
-                    error_stage=exc.stage,
-                )
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=None,
+                evidence=evidence,
+                rejected=rejected,
+                claims=claims,
+                claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                research_plan=research_plan,
+                queries_attempted=queries_attempted,
+                sources_checked=sources_checked,
+                research_warnings=research_warnings,
+                error=str(exc),
+                error_detail=str(exc),
+                error_stage=exc.stage,
             )
             stopped = True
-            _emit(progress, "budget", f"Stopped early: {exc.reason}", 0.82, {"stage": exc.stage})
-            break
+            _emit(
+                progress,
+                "budget",
+                f"Selected node stopped early: {exc.reason}",
+                0.82,
+                {"node_id": node.id, "stage": exc.stage},
+            )
         except StructuredOutputError as exc:
             if not capture_node_failures or stage != "node_forecast":
                 raise
-            results.append(
-                ForecastNodeExecution(
-                    node=node,
-                    node_run=None,
-                    evidence=evidence,
-                    rejected=rejected,
-                    claims=claims,
-                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
-                    research_plan=research_plan,
-                    queries_attempted=queries_attempted,
-                    sources_checked=sources_checked,
-                    research_warnings=research_warnings,
-                    error=str(exc),
-                    error_detail=str(exc),
-                    error_stage=stage,
-                )
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=None,
+                evidence=evidence,
+                rejected=rejected,
+                claims=claims,
+                claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                research_plan=research_plan,
+                queries_attempted=queries_attempted,
+                sources_checked=sources_checked,
+                research_warnings=research_warnings,
+                error=str(exc),
+                error_detail=str(exc),
+                error_stage=stage,
             )
             _emit(
                 progress,
@@ -369,22 +511,20 @@ def run_graph_node_forecasts(
         except PermanentProviderError as exc:
             if not capture_node_failures:
                 raise
-            results.append(
-                ForecastNodeExecution(
-                    node=node,
-                    node_run=None,
-                    evidence=evidence,
-                    rejected=rejected,
-                    claims=claims,
-                    claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
-                    research_plan=research_plan,
-                    queries_attempted=queries_attempted,
-                    sources_checked=sources_checked,
-                    research_warnings=research_warnings,
-                    error=str(exc),
-                    error_detail=str(exc),
-                    error_stage=stage,
-                )
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=None,
+                evidence=evidence,
+                rejected=rejected,
+                claims=claims,
+                claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                research_plan=research_plan,
+                queries_attempted=queries_attempted,
+                sources_checked=sources_checked,
+                research_warnings=research_warnings,
+                error=str(exc),
+                error_detail=str(exc),
+                error_stage=stage,
             )
             _emit(
                 progress,
@@ -394,17 +534,38 @@ def run_graph_node_forecasts(
                 {"node_id": node.id, "stage": stage, "error": str(exc)},
             )
 
-    completed_ids = {item.node.id for item in results}
-    for node in ordered_nodes:
-        if node.id not in completed_ids:
-            results.append(
-                ForecastNodeExecution(
-                    node=node,
-                    node_run=None,
-                    error="not_run_after_budget_stop",
-                    error_stage="budget",
-                )
+        except Exception as exc:
+            if not capture_node_failures:
+                raise
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=None,
+                evidence=evidence,
+                rejected=rejected,
+                claims=claims,
+                claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                research_plan=research_plan,
+                queries_attempted=queries_attempted,
+                sources_checked=sources_checked,
+                research_warnings=research_warnings,
+                error="research_execution_failure",
+                error_detail=f"{exc.__class__.__name__}:{exc}",
+                error_stage=stage,
             )
+
+    skipped_reasons = plan.budget_allocation.get("skipped_reasons") or {}
+    for node in all_nodes:
+        if node.id not in selected_ids:
+            executions_by_node[node.id] = ForecastNodeExecution(
+                node=node,
+                node_run=None,
+                research_selected=False,
+                skip_reason=str(
+                    skipped_reasons.get(node.id)
+                    or "lower_priority_or_budget_limited"
+                ),
+            )
+    results = [executions_by_node[node.id] for node in all_nodes]
     all_urls = [
         item.get("url") or ""
         for result in results
@@ -424,6 +585,7 @@ def run_graph_node_forecasts(
         stop_reason=budget.state.stop_reason,
         stop_stage=budget.state.stop_stage,
         fixture_evidence_used=fixture_used,
+        research_plan=plan,
     )
 
 
@@ -447,6 +609,7 @@ def run_graph_forecast_engine(
     pricing_catalog: dict[str, Any] | None = None,
     prior_elapsed_seconds: float = 0.0,
     persist_research: ResearchPersistFn | None = None,
+    persist_research_plan: ResearchPlanPersistFn | None = None,
 ) -> GraphEngineResult:
     """Run the original opt-in graph path with its existing aggregation policy."""
 
@@ -472,19 +635,29 @@ def run_graph_forecast_engine(
         pricing_catalog=pricing_catalog,
         prior_elapsed_seconds=prior_elapsed_seconds,
         persist_research=persist_research,
+        persist_research_plan=persist_research_plan,
     )
 
+    selected_node_ids = {
+        item.node.id for item in node_result.nodes if item.research_selected
+    }
+    aggregation_graph = _selected_graph(node_result.graph, selected_node_ids)
     probabilities = {
         item.node.id: item.node_run.probability if item.node_run is not None else None
         for item in node_result.nodes
+        if item.research_selected
     }
     failures = {
         item.node.id: item.error or "node_failed"
         for item in node_result.nodes
-        if item.node_run is None
+        if item.research_selected and item.node_run is None
     }
     _emit(progress, "aggregate", "Aggregating node probabilities with graph weights", 0.86)
-    aggregation = aggregate_graph_probabilities(graph, probabilities, failed_nodes=failures)
+    aggregation = aggregate_graph_probabilities(
+        aggregation_graph,
+        probabilities,
+        failed_nodes=failures,
+    )
     contribution_by_node = {item.node_id: item for item in aggregation.contributions}
     for item in node_result.nodes:
         if item.node_run is None:
@@ -512,4 +685,5 @@ def run_graph_forecast_engine(
         stop_stage=node_result.stop_stage,
         fixture_evidence_used=node_result.fixture_evidence_used,
         partial=bool(failures) and aggregation.ensemble_probability is not None,
+        research_plan=node_result.research_plan,
     )

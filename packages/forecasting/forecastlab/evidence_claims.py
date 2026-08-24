@@ -55,6 +55,18 @@ def _normalized_text(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip().casefold()
 
 
+def _fallback_excerpt(text: str, *, max_chars: int = 500) -> str:
+    cleaned = text.strip()
+    if not cleaned:
+        return ""
+    sentences = re.split(r"(?<=[.!?])\s+", cleaned)
+    candidate = next(
+        (sentence.strip() for sentence in sentences if len(sentence.strip()) >= 40),
+        cleaned,
+    )
+    return candidate[:max_chars].strip()
+
+
 def _document_errors(document: FetchedDocument, *, cutoff: datetime) -> list[str]:
     errors: list[str] = []
     if document.rejected:
@@ -109,9 +121,16 @@ def eligible_claims_for_forecasting(
 class EvidenceExtractor:
     """Extract node-linked, provenance-preserving claims from one fetched document."""
 
-    def __init__(self, model: ModelProvider, *, prompt_bundle: PromptBundle | None = None) -> None:
+    def __init__(
+        self,
+        model: ModelProvider,
+        *,
+        prompt_bundle: PromptBundle | None = None,
+        max_output_tokens: int = 4096,
+    ) -> None:
         self.model = model
         self.prompt_bundle = prompt_bundle
+        self.max_output_tokens = max(1, max_output_tokens)
 
     def extract(
         self,
@@ -161,7 +180,7 @@ class EvidenceExtractor:
                         }
                     ),
                     schema_name="evidence_claims",
-                    max_output_tokens=4096,
+                    max_output_tokens=self.max_output_tokens,
                 )
                 payload = result.parsed if result.parsed is not None else json.loads(result.content)
             extracted = _ExtractedClaims.model_validate(payload)
@@ -208,3 +227,69 @@ class EvidenceExtractor:
         if context_errors:
             raise EvidenceClaimError(context_errors, "Extracted claims are not eligible for forecasting context")
         return claims
+
+    def document_fallback_claim(
+        self,
+        document: FetchedDocument,
+        *,
+        evidence_item_id: str,
+        forecast_node_id: str,
+        as_of: datetime | None = None,
+    ) -> EvidenceClaim:
+        """Create one low-confidence, verbatim claim when structured extraction fails."""
+
+        cutoff = as_utc(as_of) if as_of is not None else as_utc(document.retrieved_at)
+        errors = _document_errors(document, cutoff=cutoff)
+        if not evidence_item_id.strip():
+            errors.append("evidence_item_id_required")
+        if not forecast_node_id.strip():
+            errors.append("forecast_node_id_required")
+        excerpt = _fallback_excerpt(document.text)
+        if not excerpt:
+            errors.append("document_fallback_excerpt_required")
+        if errors:
+            raise EvidenceClaimError(
+                errors,
+                "Document-level fallback claim could not preserve provenance",
+            )
+
+        publication_date = document.published_at
+        assert publication_date is not None
+        publisher = document.publisher or ""
+        primary = any(
+            token in publisher.casefold()
+            for token in (
+                "bureau",
+                "department",
+                "agency",
+                "commission",
+                "official",
+                "fixture",
+            )
+        )
+        claim = EvidenceClaim(
+            id=str(uuid.uuid4()),
+            evidence_item_id=evidence_item_id,
+            forecast_node_id=forecast_node_id,
+            # The claim is the exact source passage, not a generated summary.
+            claim=excerpt,
+            excerpt=excerpt,
+            source_url=document.url,
+            source_title=document.title,
+            publisher=publisher,
+            publication_date=publication_date,
+            retrieval_date=document.retrieved_at,
+            supports_or_refutes="supports",
+            confidence=0.35,
+            source_quality=0.7 if primary else 0.5,
+            primary_source=primary,
+            as_of_eligible=document.as_of_eligible,
+            cutoff_verified=True,
+        )
+        claim_errors = claim.forecasting_errors(cutoff=cutoff)
+        if claim_errors:
+            raise EvidenceClaimError(
+                claim_errors,
+                "Document-level fallback claim is not eligible for forecasting",
+            )
+        return claim

@@ -29,6 +29,7 @@ from forecastlab.graphs import ForecastGraphError
 from forecastlab.ledger import UsageLedger
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.research_planning import ResearchPlan, ResearchPlanningError
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
     ForecastAggregation,
@@ -45,6 +46,7 @@ from forecastlab_api.models import (
     GraphExecutionFailureRow,
 )
 from forecastlab_api.persist import jsonable
+from forecastlab_api.research_plans import store_research_plan
 from forecastlab_api.v1_execution import ensure_execution_graph, persist_node_research
 
 GraphResolver = Callable[..., tuple[Any, Any]]
@@ -135,6 +137,11 @@ class GraphForecastExecutor:
             )
 
         self._emit("graph", "Executing the approved Forecast Graph", 0.12)
+
+        def persist_plan(plan: ResearchPlan) -> None:
+            store_research_plan(self.session, plan)
+            self.session.commit()
+
         try:
             node_result = self.node_runner(
                 contract=contract,
@@ -161,7 +168,14 @@ class GraphForecastExecutor:
                     rejected=rejected,
                     claims=claims,
                 ),
+                persist_research_plan=persist_plan,
                 capture_node_failures=True,
+            )
+        except ResearchPlanningError as exc:
+            self._fail(
+                stage="research_planning",
+                reasons=exc.reasons,
+                message=str(exc),
             )
         except StructuredOutputError as exc:
             self._fail(stage="node_research", reasons=[str(exc)], message=str(exc))
@@ -264,6 +278,8 @@ class GraphForecastExecutor:
     def _node_failures(self, result: GraphNodeForecastResult) -> list[dict[str, Any]]:
         failures: list[dict[str, Any]] = []
         for execution in result.nodes:
+            if not execution.research_selected:
+                continue
             if execution.node_run is None:
                 raw_error = execution.error or "node_forecast_missing"
                 if raw_error == "node_forecast_evidence_required":
@@ -359,6 +375,21 @@ class GraphForecastExecutor:
             "critical_node_ids": sorted(critical_node_ids),
             "failed_node_ids": sorted(failed_node_ids),
             "included_node_ids": sorted(successful_node_ids),
+            "research_plan_id": (
+                result.research_plan.id
+                if result.research_plan is not None
+                else None
+            ),
+            "planned_selected_node_ids": (
+                result.research_plan.selected_nodes
+                if result.research_plan is not None
+                else [node.id for node in result.graph.nodes]
+            ),
+            "planned_skipped_node_ids": (
+                result.research_plan.skipped_nodes
+                if result.research_plan is not None
+                else []
+            ),
             "critical_failure_ids": critical_failures,
             "research_coverage_factor": round(coverage_factor, 12),
             "impact": "forecast_failed" if fatal else (
@@ -663,6 +694,8 @@ class GraphForecastExecutor:
             snapshot = {}
         snapshot["forecast_contract_id"] = result.contract.id
         snapshot["forecast_graph_id"] = result.graph.id
+        if result.research_plan is not None:
+            snapshot["research_plan_id"] = result.research_plan.id
         if reliability is not None:
             snapshot["graph_research_reliability"] = reliability
         self.run.execution_context_json = json.dumps(snapshot)

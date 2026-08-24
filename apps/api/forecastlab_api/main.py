@@ -100,6 +100,7 @@ from forecastlab_api.models import (
     GraphExecutionFailureRow,
     ProviderCallLedger,
     Question,
+    ResearchPlanRow,
     ResearchTrack,
     Watch,
     WatchEvent,
@@ -109,6 +110,7 @@ from forecastlab_api.persist import save_contract
 from forecastlab_api.pipeline import create_run, execute_run, operationalize_question, provider_settings_from_secrets
 from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.reports import build_v1_report, v1_report_markdown
+from forecastlab_api.research_plans import research_plan_from_row
 from forecastlab_api.secrets import public_settings, update_settings
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.v1_execution import approved_contract_for_question, node_runs_for_run
@@ -777,6 +779,9 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         .where(GraphExecutionFailureRow.forecast_run_id == run.id)
         .order_by(GraphExecutionFailureRow.created_at, GraphExecutionFailureRow.id)
     ).all()
+    research_plan = db.scalar(
+        select(ResearchPlanRow).where(ResearchPlanRow.forecast_run_id == run.id)
+    )
     payload = _row(run)
     payload["tracks"] = [_row(track) for track in tracks]
     payload["evidence"] = [_row(item) for item in evidence]
@@ -785,6 +790,11 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     payload["graph_execution_failures"] = [
         _graph_failure_out(item) for item in graph_failures
     ]
+    payload["research_plan"] = (
+        research_plan_from_row(research_plan).model_dump(mode="json")
+        if research_plan is not None
+        else None
+    )
     graph_row = node_runs[0].node.graph if node_runs else None
     if graph_row is None and run.execution_context_json:
         try:

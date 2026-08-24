@@ -30,6 +30,13 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     graph = run.get("forecast_graph") or {}
     graph_nodes = graph.get("nodes") or []
     node_runs = run.get("node_runs") or []
+    research_plan = run.get("research_plan") or {}
+    planned_selected = set(research_plan.get("selected_nodes") or [])
+    planned_skipped = set(research_plan.get("skipped_nodes") or [])
+    skipped_reasons = (
+        (research_plan.get("budget_allocation") or {}).get("skipped_reasons")
+        or {}
+    )
     if not graph_nodes and not node_runs:
         return None
 
@@ -95,8 +102,20 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "importance_weight": node.get("importance_weight"),
                 "status": node.get("status"),
                 "forecast_status": (
-                    "failed" if failures_by_node.get(node_id) else "completed" if node_run else "missing"
+                    "skipped"
+                    if node_id in planned_skipped
+                    else "failed"
+                    if failures_by_node.get(node_id)
+                    else "completed"
+                    if node_run
+                    else "missing"
                 ),
+                "research_selected": (
+                    node_id in planned_selected
+                    if research_plan
+                    else None
+                ),
+                "research_skip_reason": skipped_reasons.get(node_id),
                 "failures": failures_by_node.get(node_id) or [],
                 "research_plan": (
                     (failures_by_node.get(node_id) or [{}])[0].get("research_plan")
@@ -174,6 +193,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "root_question": graph.get("root_question"),
             "node_count": total_nodes,
         },
+        "research_plan": research_plan or None,
         "nodes": report_nodes,
         "evidence_claims": [_claim_summary(claim) for claim in claims],
         "evidence_coverage": {

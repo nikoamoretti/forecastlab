@@ -294,6 +294,7 @@ def execute_run(
                 forecast_contract_id = stored_context.get("forecast_contract_id")
                 forecast_graph_id = stored_context.get("forecast_graph_id")
             else:
+                from forecastlab_api.research_plans import store_research_plan
                 from forecastlab_api.v1_execution import (
                     ensure_execution_graph,
                     persist_graph_engine_result,
@@ -330,6 +331,10 @@ def execute_run(
                         evidence=evidence,
                         rejected=rejected,
                         claims=claims,
+                    ),
+                    persist_research_plan=lambda plan: store_research_plan(
+                        session,
+                        plan,
                     ),
                 )
                 persist_graph_engine_result(session, run, result)
