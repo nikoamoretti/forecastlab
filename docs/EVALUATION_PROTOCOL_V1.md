@@ -4,7 +4,7 @@ Status: required protocol for V1 forecasting-quality claims. No existing synthet
 
 This protocol defines how ForecastLab proves whether a method works. It applies to architecture selection, aggregation changes, evidence-policy changes, prompt changes, and any other change presented as a forecasting improvement. Operational bug fixes may be tested separately, but they do not become forecasting-quality evidence by passing software tests.
 
-The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Adoption decisions follow [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md). The current experiment implementation is described in [Benchmark Experiments](BENCHMARK_EXPERIMENTS.md).
+The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Adoption decisions follow [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md). The current experiment implementation is described in [Benchmark Experiments](BENCHMARK_EXPERIMENTS.md), and the integrated operator flow is documented in [V1 Evaluation Workflow](V1_EVALUATION_WORKFLOW.md).
 
 ## Claim boundary
 
