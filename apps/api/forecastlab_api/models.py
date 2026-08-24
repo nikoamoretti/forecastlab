@@ -13,6 +13,7 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
     event,
+    false,
     inspect,
     select,
 )
@@ -358,7 +359,7 @@ class ForecastAggregationRow(Base):
 
 
 class GraphExecutionFailureRow(Base):
-    """A durable stage or node failure that prevented a graph forecast probability."""
+    """A durable graph-stage failure and its effect on forecast completion."""
 
     __tablename__ = "graph_execution_failures"
 
@@ -368,6 +369,15 @@ class GraphExecutionFailureRow(Base):
     stage: Mapped[str] = mapped_column(String(64))
     error_code: Mapped[str] = mapped_column(String(128))
     error_message: Mapped[str] = mapped_column(Text)
+    research_plan_json: Mapped[str] = mapped_column(Text, default="{}", server_default="{}")
+    queries_attempted_json: Mapped[str] = mapped_column(Text, default="[]", server_default="[]")
+    sources_checked_json: Mapped[str] = mapped_column(Text, default="[]", server_default="[]")
+    critical_node: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+    impact: Mapped[str] = mapped_column(
+        String(64),
+        default="forecast_failed",
+        server_default="forecast_failed",
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="graph_execution_failures")

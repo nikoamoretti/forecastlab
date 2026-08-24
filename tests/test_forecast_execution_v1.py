@@ -38,7 +38,16 @@ class ContextCapturingModel:
     def complete_json(self, **kwargs: Any) -> ChatResult:
         schema_name = kwargs["schema_name"]
         payload = json.loads(kwargs["user"])
-        if schema_name == "evidence_claims":
+        if schema_name == "graph_research_plan":
+            self.events.append("plan")
+            node = payload["node"]
+            result = {
+                "primary_research_question": node["question"],
+                "supporting_search_queries": [node["question"]],
+                "preferred_sources": node["preferred_sources"],
+                "required_evidence_types": ["historical rate"],
+            }
+        elif schema_name == "evidence_claims":
             self.events.append("extract")
             excerpt = payload["document"]["text"][:120]
             result = {
@@ -160,7 +169,7 @@ def test_forecasting_model_receives_contract_node_and_claims_not_raw_webpages() 
         persist_research=lambda _node, _evidence, _rejected, _claims: events.append("persist"),
     )
 
-    assert events == ["extract", "persist", "forecast"]
+    assert events == ["plan", "extract", "persist", "forecast"]
     assert len(model.forecast_contexts) == 1
     context = model.forecast_contexts[0]
     assert set(context) == {"forecast_contract", "node_question", "evidence_claims"}

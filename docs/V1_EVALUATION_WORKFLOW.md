@@ -6,7 +6,7 @@ This workflow provides one reproducible environment for comparing ForecastLab's 
 
 - `single_model_forecaster_v1` version 1;
 - `three_track_forecaster` version 1;
-- `graph_forecaster_v1` version 4.
+- `graph_forecaster_v1` version 5.
 
 It changes neither their forecasting behavior nor their probability calculations. Its job is to freeze shared inputs, execute the same resolved questions through every profile, preserve results and failures, and produce measurement and uncertainty reports.
 

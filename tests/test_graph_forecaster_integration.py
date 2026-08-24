@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import uuid
 
 import pytest
@@ -11,6 +12,7 @@ from forecastlab.graph_execution import (
     ForecastNodeExecution,
     GraphNodeForecastResult,
 )
+from forecastlab.graph_research import NodeResearchPlan
 from forecastlab.graphs import ForecastGraphError
 from forecastlab.profiles import load_profile
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
@@ -87,7 +89,22 @@ def _node_result(**kwargs) -> GraphNodeForecastResult:
                 ForecastNodeExecution(
                     node=node,
                     node_run=None,
-                    error="node_forecast_evidence_required",
+                    error="no_matching_source",
+                    error_detail="No eligible evidence was returned by the stubbed research path.",
+                    error_stage="node_research",
+                    research_plan=NodeResearchPlan(
+                        primary_research_question=node.question,
+                        supporting_search_queries=[node.question],
+                        preferred_sources=node.preferred_sources,
+                        required_evidence_types=[node.required_output_type],
+                    ),
+                    queries_attempted=[node.question],
+                    sources_checked=[
+                        {
+                            "url": "https://fixtures.forecastlab.local/missing",
+                            "outcome": "no_matching_source",
+                        }
+                    ],
                 )
             )
             continue
@@ -134,6 +151,8 @@ def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
     run = response.json()
     assert run["status"] == "completed"
     assert run["profile_id"] == "graph_forecaster_v1"
+    stored_run = client.get(f"/api/runs/{run['id']}").json()
+    assert stored_run["prompt_versions"]["graph_research"] == "v1"
 
     report_response = client.get(f"/api/forecasts/{draft['question_id']}/graph-report")
     assert report_response.status_code == 200
@@ -248,7 +267,7 @@ def test_no_eligible_evidence_records_every_node_failure_without_aggregation(cli
     with main_mod.SessionLocal() as session:
         executor, run_id = _executor(session, draft["question_id"], node_runner=no_evidence_for_all)
 
-        with pytest.raises(GraphForecastExecutionError, match="one or more nodes"):
+        with pytest.raises(GraphForecastExecutionError, match="critical node failed"):
             executor.execute()
 
         assert session.scalar(
@@ -263,7 +282,7 @@ def test_no_eligible_evidence_records_every_node_failure_without_aggregation(cli
         assert session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id)) is None
 
 
-def test_partial_node_failure_preserves_successes_but_never_aggregates(client) -> None:
+def test_critical_node_failure_preserves_successes_but_never_aggregates(client) -> None:
     draft = _approved_forecast(client)
     from forecastlab_api import main as main_mod
 
@@ -289,6 +308,76 @@ def test_partial_node_failure_preserves_successes_but_never_aggregates(client) -
         assert session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id)) is None
 
 
+def test_noncritical_node_failure_is_excluded_and_graph_still_aggregates(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    def one_noncritical_missing(**kwargs):
+        noncritical = next(
+            node
+            for node in kwargs["graph"].nodes
+            if node.node_type == "scenario" and node.importance_weight < 0.8
+        )
+        return _node_result(**kwargs, missing_node_id=noncritical.id)
+
+    with main_mod.SessionLocal() as session:
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            node_runner=one_noncritical_missing,
+        )
+
+        version = executor.execute()
+
+        assert version.ensemble_probability is not None
+        assert session.scalar(
+            select(func.count()).select_from(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run_id
+            )
+        ) == 6
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        )
+        assert aggregation is not None
+        contributions = json.loads(aggregation.node_contributions_json)
+        assert len(contributions) == 6
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id
+            )
+        )
+        assert failure is not None
+        assert failure.error_code == "no_matching_source"
+        assert failure.critical_node is False
+        assert failure.impact == "excluded_reduced_confidence"
+        assert json.loads(failure.queries_attempted_json)
+        assert json.loads(failure.sources_checked_json)[0]["outcome"] == "no_matching_source"
+        stored_run = version.run
+        reliability = json.loads(stored_run.execution_context_json)[
+            "graph_research_reliability"
+        ]
+        assert reliability["impact"] == "reduced_confidence"
+        assert len(reliability["failed_node_ids"]) == 1
+        trace = json.loads(aggregation.calculation_trace_json)
+        assert trace[0]["step"] == "node_failure_tolerance"
+
+    report = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()["report"]
+    assert report["research_reliability"] == {
+        "status": "reduced_confidence",
+        "failed_node_count": 1,
+        "excluded_node_count": 1,
+        "critical_failure_count": 0,
+    }
+    failed_node = next(node for node in report["nodes"] if node["forecast_status"] == "failed")
+    assert failed_node["failure_impact"] == "excluded_reduced_confidence"
+    assert failed_node["queries_attempted"]
+    assert failed_node["sources_checked"]
+
+
 def test_invalid_node_probability_is_recorded_before_aggregation(client) -> None:
     draft = _approved_forecast(client)
     from forecastlab_api import main as main_mod
@@ -303,7 +392,7 @@ def test_invalid_node_probability_is_recorded_before_aggregation(client) -> None
             node_runner=invalid_probability,
         )
 
-        with pytest.raises(GraphForecastExecutionError, match="one or more nodes"):
+        with pytest.raises(GraphForecastExecutionError, match="critical node failed"):
             executor.execute()
 
         failure = session.scalar(

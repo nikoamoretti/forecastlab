@@ -98,6 +98,29 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                     "failed" if failures_by_node.get(node_id) else "completed" if node_run else "missing"
                 ),
                 "failures": failures_by_node.get(node_id) or [],
+                "research_plan": (
+                    (failures_by_node.get(node_id) or [{}])[0].get("research_plan")
+                    or None
+                ),
+                "queries_attempted": list(
+                    dict.fromkeys(
+                        query
+                        for failure in failures_by_node.get(node_id) or []
+                        for query in failure.get("queries_attempted") or []
+                    )
+                ),
+                "sources_checked": [
+                    source
+                    for failure in failures_by_node.get(node_id) or []
+                    for source in failure.get("sources_checked") or []
+                ],
+                "failure_impact": (
+                    (failures_by_node.get(node_id) or [{}])[0].get("impact")
+                ),
+                "critical_node": any(
+                    bool(failure.get("critical_node"))
+                    for failure in failures_by_node.get(node_id) or []
+                ),
                 "probability": node_contribution.get("input_probability", node_run.get("probability")),
                 "confidence": node_run.get("confidence"),
                 "uncertainty": node_run.get("uncertainty"),
@@ -129,6 +152,14 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     total_nodes = len(graph_nodes)
     covered_nodes = len(covered_node_ids)
     final_probability = aggregation.get("final_probability", aggregation.get("ensemble_probability"))
+    reduced_failures = [
+        failure
+        for failure in failures
+        if failure.get("impact") == "excluded_reduced_confidence"
+    ]
+    critical_failures = [
+        failure for failure in failures if bool(failure.get("critical_node"))
+    ]
     return {
         "profile_id": run.get("profile_id"),
         "execution_status": run.get("status"),
@@ -165,11 +196,36 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "trace": aggregation.get("calculation_trace") or [],
         },
         "failures": failures,
+        "research_reliability": {
+            "status": (
+                "failed"
+                if final_probability is None and failures
+                else "reduced_confidence"
+                if reduced_failures
+                else "complete"
+            ),
+            "failed_node_count": len(
+                {failure.get("node_id") for failure in failures if failure.get("node_id")}
+            ),
+            "excluded_node_count": len(
+                {
+                    failure.get("node_id")
+                    for failure in reduced_failures
+                    if failure.get("node_id")
+                }
+            ),
+            "critical_failure_count": len(critical_failures),
+        },
         "final_answer": {
             "status": "completed" if final_probability is not None else "failed",
             "probability": final_probability,
             "statement": (
-                f"The graph_forecaster_v1 probability is {final_probability}."
+                (
+                    f"The graph_forecaster_v1 probability is {final_probability} with "
+                    "reduced research confidence."
+                    if reduced_failures
+                    else f"The graph_forecaster_v1 probability is {final_probability}."
+                )
                 if final_probability is not None
                 else "No final probability was produced because graph execution was incomplete."
             ),
@@ -214,6 +270,13 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
             )
         else:
             lines.append(f"Probability contribution: {node.get('probability_contribution')}")
+        if node.get("failures"):
+            lines.append(f"Failure impact: {node.get('failure_impact')}")
+            lines.append(f"Critical node: {node.get('critical_node')}")
+            queries = node.get("queries_attempted") or []
+            if queries:
+                lines.append("Queries attempted:")
+                lines.extend(f"- {query}" for query in queries)
         lines.extend(
             [
                 node.get("reasoning") or "No node reasoning was produced.",

@@ -113,6 +113,8 @@ class MockModelProvider:
     def _payload(self, prompt_id: str, user: str, schema_name: str) -> dict[str, Any]:
         if "operationalize" in prompt_id or schema_name == "resolution_contract":
             return dict(UNEMPLOYMENT_CONTRACT)
+        if schema_name == "graph_research_plan":
+            return self._graph_research_plan(user)
         if "plan" in prompt_id or schema_name == "research_plan":
             return self._plan(user)
         if "extract" in prompt_id or schema_name == "evidence_extract":
@@ -223,6 +225,35 @@ class MockModelProvider:
             "objective": f"Independent {track} investigation of whether U-3 exceeds 5% before mid-2027.",
             "approach": "Generate targeted subquestions, prefer primary statistical agencies, then estimate.",
             "subquestions": subquestions,
+        }
+
+    def _graph_research_plan(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            node = payload.get("node") or {}
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            node = {}
+        question = str(node.get("question") or "What evidence bears on this forecast node?")
+        preferred_sources = [
+            str(value)
+            for value in node.get("preferred_sources") or []
+            if str(value).strip()
+        ]
+        source_queries = [f"{question} {source}" for source in preferred_sources[:2]]
+        return {
+            "primary_research_question": question,
+            "supporting_search_queries": [
+                question,
+                *source_queries,
+                f"{question} official dated evidence",
+            ][:4],
+            "preferred_sources": preferred_sources or ["official primary sources"],
+            "required_evidence_types": [
+                str(node.get("required_output_type") or "dated factual finding").replace(
+                    "_", " "
+                ),
+                "dated primary-source excerpt",
+            ],
         }
 
     def _extract(self, user: str) -> dict[str, Any]:

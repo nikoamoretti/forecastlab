@@ -14,7 +14,7 @@ from forecastlab_api.models import ForecastExperiment
 EXPECTED_PROFILE_VERSIONS = {
     "single_model_forecaster_v1": 1,
     "three_track_forecaster": 1,
-    "graph_forecaster_v1": 4,
+    "graph_forecaster_v1": 5,
 }
 EXPECTED_EXECUTION_STRATEGIES = {
     "single_model_forecaster_v1": "single_model",

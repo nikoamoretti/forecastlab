@@ -30,7 +30,12 @@ from forecastlab.ledger import UsageLedger
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
 from forecastlab.run_cache import RunCache
-from forecastlab.schemas import ForecastAggregation, ForecastNodeRun, ForecastProfile
+from forecastlab.schemas import (
+    ForecastAggregation,
+    ForecastGraph,
+    ForecastNodeRun,
+    ForecastProfile,
+)
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.aggregations import store_forecast_aggregation
 from forecastlab_api.models import (
@@ -44,6 +49,8 @@ from forecastlab_api.v1_execution import ensure_execution_graph, persist_node_re
 
 GraphResolver = Callable[..., tuple[Any, Any]]
 NodeRunner = Callable[..., GraphNodeForecastResult]
+CRITICAL_IMPORTANCE_THRESHOLD = 0.8
+MINIMUM_SUCCESSFUL_NODES = 3
 
 
 class GraphForecastExecutor:
@@ -160,35 +167,80 @@ class GraphForecastExecutor:
             self._fail(stage="node_research", reasons=[str(exc)], message=str(exc))
 
         failures = self._node_failures(node_result)
-        if failures:
-            self._persist_partial_result(node_result, failures)
+        fatal, failed_node_ids, reliability = self._apply_failure_policy(
+            node_result,
+            failures,
+        )
+        if fatal:
+            self._persist_partial_result(node_result, failures, reliability=reliability)
             reasons = [failure["error_code"] for failure in failures]
             self._raise_failure(
-                stage="node_forecast",
+                stage=str(failures[0]["stage"]),
                 reasons=reasons,
-                message="Graph execution stopped because one or more nodes did not produce an eligible forecast",
+                message=(
+                    "Graph execution stopped because a critical node failed or too few "
+                    "eligible node forecasts remained"
+                ),
             )
 
         node_runs = [
             execution.node_run
             for execution in node_result.nodes
             if execution.node_run is not None
+            and execution.node.id not in failed_node_ids
         ]
-        self._emit("aggregate", "Aggregating complete node forecasts", 0.88)
+        aggregation_graph = self._aggregation_graph(
+            node_result.graph,
+            included_node_ids={node_run.node_id for node_run in node_runs},
+        )
+        if failures:
+            self._persist_failures(failures)
+            self._emit(
+                "aggregate",
+                "Aggregating eligible node forecasts with reduced research coverage",
+                0.88,
+            )
+        else:
+            self._emit("aggregate", "Aggregating complete node forecasts", 0.88)
         try:
-            aggregation = self.aggregator.aggregate(node_result.graph, node_runs)
+            aggregation = self.aggregator.aggregate(aggregation_graph, node_runs)
         except ForecastAggregationError as exc:
             failure = {
                 "node_id": None,
                 "stage": "aggregation",
                 "error_code": "aggregation_failed",
                 "error_message": str(exc),
+                "critical_node": True,
+                "impact": "forecast_failed",
             }
-            self._persist_partial_result(node_result, [failure])
+            self._persist_partial_result(
+                node_result,
+                [failure],
+                reliability=reliability,
+            )
             self._raise_failure(stage="aggregation", reasons=exc.reasons, message=str(exc))
 
+        if failures:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "node_failure_tolerance",
+                            **reliability,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+
         weighted_runs = self._apply_aggregation_weights(node_runs, aggregation)
-        version = self._persist_success(node_result, weighted_runs, aggregation)
+        version = self._persist_success(
+            node_result,
+            weighted_runs,
+            aggregation,
+            failures=failures,
+            reliability=reliability,
+        )
         self.session.commit()
         return version
 
@@ -225,7 +277,14 @@ class GraphForecastExecutor:
                         "node_id": execution.node.id,
                         "stage": execution.error_stage or "node_forecast",
                         "error_code": error_code,
-                        "error_message": raw_error,
+                        "error_message": execution.error_detail or raw_error,
+                        "research_plan": (
+                            execution.research_plan.model_dump(mode="json")
+                            if execution.research_plan is not None
+                            else {}
+                        ),
+                        "queries_attempted": execution.queries_attempted,
+                        "sources_checked": execution.sources_checked,
                     }
                 )
                 continue
@@ -240,9 +299,99 @@ class GraphForecastExecutor:
                             f"Node probability must be strictly between 0 and 1 for log-odds aggregation: "
                             f"{probability}"
                         ),
+                        "research_plan": (
+                            execution.research_plan.model_dump(mode="json")
+                            if execution.research_plan is not None
+                            else {}
+                        ),
+                        "queries_attempted": execution.queries_attempted,
+                        "sources_checked": execution.sources_checked,
                     }
                 )
         return failures
+
+    @staticmethod
+    def _critical_node(node: Any) -> bool:
+        return float(node.importance_weight) >= CRITICAL_IMPORTANCE_THRESHOLD
+
+    def _apply_failure_policy(
+        self,
+        result: GraphNodeForecastResult,
+        failures: list[dict[str, Any]],
+    ) -> tuple[bool, set[str], dict[str, Any]]:
+        nodes_by_id = {node.id: node for node in result.graph.nodes}
+        failed_node_ids = {
+            str(failure["node_id"])
+            for failure in failures
+            if failure.get("node_id") is not None
+        }
+        critical_node_ids = {
+            node.id for node in result.graph.nodes if self._critical_node(node)
+        }
+        successful_node_ids = {
+            execution.node.id
+            for execution in result.nodes
+            if execution.node_run is not None
+            and execution.node.id not in failed_node_ids
+        }
+        minimum_required = min(MINIMUM_SUCCESSFUL_NODES, len(result.graph.nodes))
+        critical_failures = sorted(failed_node_ids & critical_node_ids)
+        fatal = bool(critical_failures) or len(successful_node_ids) < minimum_required
+
+        for failure in failures:
+            node_id = failure.get("node_id")
+            critical = node_id is None or str(node_id) in critical_node_ids
+            failure["critical_node"] = critical
+            failure["impact"] = (
+                "forecast_failed" if fatal else "excluded_reduced_confidence"
+            )
+
+        total_weight = sum(float(node.importance_weight) for node in result.graph.nodes)
+        included_weight = sum(
+            float(nodes_by_id[node_id].importance_weight)
+            for node_id in successful_node_ids
+        )
+        coverage_factor = included_weight / total_weight if total_weight > 0 else 0.0
+        reliability = {
+            "policy": "critical_node_gate_v1",
+            "critical_importance_threshold": CRITICAL_IMPORTANCE_THRESHOLD,
+            "minimum_successful_nodes": minimum_required,
+            "critical_node_ids": sorted(critical_node_ids),
+            "failed_node_ids": sorted(failed_node_ids),
+            "included_node_ids": sorted(successful_node_ids),
+            "critical_failure_ids": critical_failures,
+            "research_coverage_factor": round(coverage_factor, 12),
+            "impact": "forecast_failed" if fatal else (
+                "reduced_confidence" if failures else "none"
+            ),
+        }
+        return fatal, failed_node_ids, reliability
+
+    @staticmethod
+    def _aggregation_graph(
+        graph: ForecastGraph,
+        *,
+        included_node_ids: set[str],
+    ) -> ForecastGraph:
+        nodes = [
+            node.model_copy(
+                update={
+                    "parent_node_id": (
+                        node.parent_node_id
+                        if node.parent_node_id in included_node_ids
+                        else None
+                    ),
+                    "dependencies": [
+                        dependency
+                        for dependency in node.dependencies
+                        if dependency in included_node_ids
+                    ],
+                }
+            )
+            for node in graph.nodes
+            if node.id in included_node_ids
+        ]
+        return graph.model_copy(update={"nodes": nodes})
 
     @staticmethod
     def _apply_aggregation_weights(
@@ -327,6 +476,17 @@ class GraphForecastExecutor:
                     GraphExecutionFailureRow.error_code == error_code,
                 )
             )
+            research_plan_json = json.dumps(
+                failure.get("research_plan") or {},
+                sort_keys=True,
+            )
+            queries_attempted_json = json.dumps(
+                failure.get("queries_attempted") or [],
+            )
+            sources_checked_json = json.dumps(
+                failure.get("sources_checked") or [],
+                sort_keys=True,
+            )
             if existing is None:
                 self.session.add(
                     GraphExecutionFailureRow(
@@ -336,20 +496,34 @@ class GraphForecastExecutor:
                         stage=stage,
                         error_code=error_code[:128],
                         error_message=str(failure["error_message"]),
+                        research_plan_json=research_plan_json,
+                        queries_attempted_json=queries_attempted_json,
+                        sources_checked_json=sources_checked_json,
+                        critical_node=bool(failure.get("critical_node")),
+                        impact=str(failure.get("impact") or "forecast_failed"),
                     )
                 )
+            else:
+                existing.error_message = str(failure["error_message"])
+                existing.research_plan_json = research_plan_json
+                existing.queries_attempted_json = queries_attempted_json
+                existing.sources_checked_json = sources_checked_json
+                existing.critical_node = bool(failure.get("critical_node"))
+                existing.impact = str(failure.get("impact") or "forecast_failed")
 
     def _persist_partial_result(
         self,
         result: GraphNodeForecastResult,
         failures: list[dict[str, Any]],
+        *,
+        reliability: dict[str, Any] | None = None,
     ) -> None:
         self._persist_node_runs(
             [execution.node_run for execution in result.nodes if execution.node_run is not None]
         )
         self._persist_failures(failures)
         self._apply_result_metadata(result)
-        self._store_artifact_ids(result)
+        self._store_artifact_ids(result, reliability=reliability)
         self.run.status = "failed"
         self.run.error_stage = str(failures[0]["stage"])
         self.run.error_message = "; ".join(str(item["error_code"]) for item in failures)
@@ -365,18 +539,26 @@ class GraphForecastExecutor:
         result: GraphNodeForecastResult,
         node_runs: list[ForecastNodeRun],
         aggregation: ForecastAggregation,
+        *,
+        failures: list[dict[str, Any]],
+        reliability: dict[str, Any],
     ) -> ForecastVersion:
         self._persist_node_runs(node_runs)
+        self._persist_failures(failures)
         store_forecast_aggregation(self.session, aggregation)
         self._apply_result_metadata(result)
-        self._store_artifact_ids(result)
+        self._store_artifact_ids(result, reliability=reliability)
         self.run.aggregation_json = json.dumps(jsonable(aggregation))
         self.run.status = "completed"
         self.run.error_stage = None
         self.run.error_message = None
         self.run.progress_pct = 100
         self.run.progress_stage = "report"
-        self.run.progress_message = "Forecast ready"
+        self.run.progress_message = (
+            "Forecast ready with reduced research coverage"
+            if failures
+            else "Forecast ready"
+        )
         self.run.finished_at = utcnow()
 
         question = self.run.question
@@ -391,6 +573,7 @@ class GraphForecastExecutor:
             .limit(1)
         )
         probabilities = {node_run.node_id: node_run.probability for node_run in node_runs}
+        included_node_ids = {node_run.node_id for node_run in node_runs}
         drivers = [
             {
                 "factor": execution.node.question,
@@ -401,23 +584,27 @@ class GraphForecastExecutor:
                         *execution.node_run.supporting_claim_ids,
                         *execution.node_run.opposing_claim_ids,
                     ]
-                    if execution.node_run
+                    if execution.node_run is not None
                     else []
                 ),
                 "inference": False,
             }
             for execution in result.nodes
+            if execution.node_run is not None
+            and execution.node.id in included_node_ids
         ]
         counterarguments = [
             execution.node_run.reasoning
             for execution in result.nodes
             if execution.node_run is not None
+            and execution.node.id in included_node_ids
             and (execution.node.node_type == "adversarial" or execution.node_run.opposing_claim_ids)
         ]
         claim_ids = list(
             dict.fromkeys(
                 claim.id
                 for execution in result.nodes
+                if execution.node.id in included_node_ids
                 for claim in execution.claims
             )
         )
@@ -464,13 +651,20 @@ class GraphForecastExecutor:
         self.run.disagreement_summary = None
         self.run.fixture_evidence_used = bool(result.fixture_evidence_used)
 
-    def _store_artifact_ids(self, result: GraphNodeForecastResult) -> None:
+    def _store_artifact_ids(
+        self,
+        result: GraphNodeForecastResult,
+        *,
+        reliability: dict[str, Any] | None = None,
+    ) -> None:
         try:
             snapshot = json.loads(self.run.execution_context_json or "{}")
         except json.JSONDecodeError:
             snapshot = {}
         snapshot["forecast_contract_id"] = result.contract.id
         snapshot["forecast_graph_id"] = result.graph.id
+        if reliability is not None:
+            snapshot["graph_research_reliability"] = reliability
         self.run.execution_context_json = json.dumps(snapshot)
 
     def _fail(self, *, stage: str, reasons: list[str], message: str) -> NoReturn:
@@ -480,6 +674,8 @@ class GraphForecastExecutor:
                 "stage": stage,
                 "error_code": reason,
                 "error_message": message,
+                "critical_node": True,
+                "impact": "forecast_failed",
             }
             for reason in reasons
         ]

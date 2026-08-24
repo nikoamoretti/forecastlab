@@ -1,5 +1,5 @@
 id: graph_forecaster_v1
-version: 4
+version: 5
 label: Graph forecaster V1
 description: Opt-in Forecast Contract, Forecast Graph, Evidence Claims, node forecasting, and deterministic graph aggregation path.
 execution_strategy: graph_nodes
@@ -23,5 +23,6 @@ max_estimated_cost_usd: 5.0
 max_wall_clock_seconds: 180
 prompt_versions:
   forecast_graph: v1
+  graph_research: v1
   evidence_claims: v1
   forecast_node: v3

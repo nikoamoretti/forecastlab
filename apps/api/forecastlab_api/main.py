@@ -256,6 +256,20 @@ def _row(model: Any) -> dict[str, Any]:
     return data
 
 
+def _graph_failure_out(row: GraphExecutionFailureRow) -> dict[str, Any]:
+    payload = _row(row)
+    for source_key, output_key, fallback in (
+        ("research_plan_json", "research_plan", {}),
+        ("queries_attempted_json", "queries_attempted", []),
+        ("sources_checked_json", "sources_checked", []),
+    ):
+        try:
+            payload[output_key] = json.loads(payload.get(source_key) or json.dumps(fallback))
+        except json.JSONDecodeError:
+            payload[output_key] = fallback
+    return payload
+
+
 def _contract_out(contract: Any) -> dict[str, Any] | None:
     if contract is None:
         return None
@@ -768,7 +782,9 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     payload["evidence"] = [_row(item) for item in evidence]
     payload["evidence_claims"] = [evidence_claim_from_row(item).model_dump(mode="json") for item in claims]
     payload["node_runs"] = [item.model_dump(mode="json") for item in node_runs_for_run(db, run.id)]
-    payload["graph_execution_failures"] = [_row(item) for item in graph_failures]
+    payload["graph_execution_failures"] = [
+        _graph_failure_out(item) for item in graph_failures
+    ]
     graph_row = node_runs[0].node.graph if node_runs else None
     if graph_row is None and run.execution_context_json:
         try:

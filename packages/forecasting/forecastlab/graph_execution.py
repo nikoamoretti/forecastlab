@@ -6,23 +6,22 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
-from forecastlab.budget import Budget, estimate_prompt_tokens
+from forecastlab.budget import Budget
+from forecastlab.budgeted_provider import BudgetedModelProvider
 from forecastlab.engine import ProgressFn
 from forecastlab.errors import BudgetExceeded, PermanentProviderError, StructuredOutputError
-from forecastlab.evidence_claims import EvidenceClaimError, EvidenceExtractor, eligible_claims_for_forecasting
 from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.graph_aggregation import METHOD as GRAPH_AGGREGATION_METHOD
 from forecastlab.graph_aggregation import GraphAggregationBreakdown, aggregate_graph_probabilities
+from forecastlab.graph_research import GraphResearchExecutor, NodeResearchPlan
 from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
-from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
-from forecastlab.ranking import rank_hits
+from forecastlab.providers.base import ModelProvider, SearchProvider
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
     EvidenceClaim,
-    FetchedDocument,
     ForecastContract,
     ForecastGraph,
     ForecastNode,
@@ -31,7 +30,6 @@ from forecastlab.schemas import (
     NodeForecast,
 )
 from forecastlab.timeutil import as_utc, utcnow
-from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
 
 ResearchPersistFn = Callable[
     [ForecastNode, list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim]],
@@ -47,7 +45,12 @@ class ForecastNodeExecution:
     rejected: list[dict[str, Any]] = field(default_factory=list)
     claims: list[EvidenceClaim] = field(default_factory=list)
     claim_extraction_errors: list[str] = field(default_factory=list)
+    research_plan: NodeResearchPlan | None = None
+    queries_attempted: list[str] = field(default_factory=list)
+    sources_checked: list[dict[str, Any]] = field(default_factory=list)
+    research_warnings: list[str] = field(default_factory=list)
     error: str | None = None
+    error_detail: str | None = None
     error_stage: str | None = None
 
 
@@ -81,53 +84,6 @@ class GraphNodeForecastResult:
     fixture_evidence_used: bool = False
 
 
-class _BudgetedModel:
-    """Apply the run budget to a structured model service's provider seam."""
-
-    def __init__(self, delegate: ModelProvider, budget: Budget, *, stage: str) -> None:
-        self.delegate = delegate
-        self.budget = budget
-        self.stage = stage
-        self.name = delegate.name
-        self.model = str(getattr(delegate, "model", delegate.name))
-
-    def complete_json(
-        self,
-        *,
-        system: str,
-        user: str,
-        schema_name: str,
-        temperature: float = 0.2,
-        timeout: float | None = None,
-        max_output_tokens: int | None = None,
-        estimated_input_tokens: int | None = None,
-    ) -> ChatResult:
-        estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
-        allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
-        if max_output_tokens is not None:
-            allowed_output = min(allowed_output, max_output_tokens)
-        reservation = self.budget.reserve_model_call(
-            self.stage,
-            estimated_input_tokens=estimated_input,
-            max_output_tokens=allowed_output,
-        )
-        try:
-            result = self.delegate.complete_json(
-                system=system,
-                user=user,
-                schema_name=schema_name,
-                temperature=temperature,
-                timeout=timeout,
-                max_output_tokens=allowed_output,
-                estimated_input_tokens=estimated_input,
-            )
-        except Exception:
-            self.budget.release_reservation(reservation)
-            raise
-        self.budget.reconcile_model_call(reservation, result.usage)
-        return result
-
-
 def _emit(
     progress: ProgressFn | None,
     stage: str,
@@ -137,78 +93,6 @@ def _emit(
 ) -> None:
     if progress:
         progress(stage, message, pct, extra)
-
-
-def _document_record(
-    document: FetchedDocument,
-    *,
-    node: ForecastNode,
-    evidence_item_id: str,
-    source_class: str,
-) -> dict[str, Any]:
-    return {
-        "id": evidence_item_id,
-        "forecast_node_id": node.id,
-        "subquestion": node.question,
-        "url": document.url,
-        "title": document.title,
-        "publisher": document.publisher,
-        "published_at": document.published_at.isoformat() if document.published_at else None,
-        "retrieved_at": document.retrieved_at.isoformat(),
-        "excerpt": (document.text or "")[:800],
-        "content_hash": document.content_hash,
-        "source_class": source_class,
-        "as_of_eligible": document.as_of_eligible,
-        "rejected": document.rejected,
-        "rejection_reason": document.rejection_reason,
-        "snapshot_url": document.snapshot_url,
-        "snapshot_at": document.snapshot_at.isoformat() if document.snapshot_at else None,
-        "requested_snapshot_url": document.requested_snapshot_url,
-        "requested_snapshot_at": (
-            document.requested_snapshot_at.isoformat() if document.requested_snapshot_at else None
-        ),
-        "final_snapshot_url": document.final_snapshot_url,
-        "final_snapshot_at": document.final_snapshot_at.isoformat() if document.final_snapshot_at else None,
-        "archived_original_url": document.archived_original_url,
-        "snapshot_verification_status": document.snapshot_verification_status,
-        "status_code": document.status_code,
-        "published_at_unknown": document.published_at_unknown,
-    }
-
-
-def _stable_id(kind: str, *parts: str) -> str:
-    identity = ":".join(("forecastlab", "graph_forecaster_v1", kind, *parts))
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, identity))
-
-
-def _no_snapshot_record(
-    node: ForecastNode,
-    *,
-    run_id: str,
-    url: str,
-    title: str,
-    source_class: str,
-) -> dict[str, Any]:
-    return {
-        "id": _stable_id("evidence", run_id, node.id, url),
-        "forecast_node_id": node.id,
-        "subquestion": node.question,
-        "url": url,
-        "title": title,
-        "publisher": None,
-        "published_at": None,
-        "retrieved_at": utcnow().isoformat(),
-        "excerpt": "",
-        "content_hash": "",
-        "source_class": source_class,
-        "as_of_eligible": False,
-        "rejected": True,
-        "rejection_reason": "no_eligible_historical_snapshot",
-        "snapshot_url": None,
-        "snapshot_at": None,
-        "status_code": 0,
-        "published_at_unknown": True,
-    }
 
 
 def _topological_nodes(graph: ForecastGraph) -> list[ForecastNode]:
@@ -233,110 +117,6 @@ def _topological_nodes(graph: ForecastGraph) -> list[ForecastNode]:
     return ordered
 
 
-def _research_node(
-    *,
-    node: ForecastNode,
-    run_id: str,
-    profile: ForecastProfile,
-    model: ModelProvider,
-    search: SearchProvider,
-    budget: Budget,
-    cache: RunCache,
-    mode: str,
-    as_of: datetime | None,
-    allow_local_fixtures: bool,
-    prompt_bundle: PromptBundle | None = None,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[EvidenceClaim], list[str]]:
-    evidence: list[dict[str, Any]] = []
-    rejected: list[dict[str, Any]] = []
-    claims: list[EvidenceClaim] = []
-    extraction_errors: list[str] = []
-    if profile.max_search_calls <= 0 or profile.max_fetched_documents <= 0:
-        return evidence, rejected, claims, extraction_errors
-
-    source_hint = " ".join(node.preferred_sources[:2])
-    query = " ".join(part for part in (node.question, source_hint) if part).strip()
-    budget.add_search(f"search_node:{node.id}")
-    hits = rank_hits(cache.search(search, query, profile.search_results_per_subquestion))
-    for hit in hits[: profile.fetches_per_subquestion]:
-        snapshot_url = None
-        snapshot_at = None
-        if mode == "backtest" and as_of is not None:
-            snapshots = (
-                mock_snapshots(hit.url)
-                if allow_local_fixtures
-                else discover_snapshots(hit.url, as_of=as_of)
-            )
-            nearest = nearest_eligible_snapshot(snapshots, as_of)
-            if nearest is None:
-                rejected.append(
-                    _no_snapshot_record(
-                        node,
-                        run_id=run_id,
-                        url=hit.url,
-                        title=hit.title,
-                        source_class=hit.source_class,
-                    )
-                )
-                continue
-            snapshot_url = nearest.snapshot_url
-            snapshot_at = nearest.timestamp
-
-        budget.add_fetch(f"fetch_node:{node.id}")
-        document = cache.fetch(
-            hit.url,
-            as_of=as_of if mode == "backtest" else None,
-            allow_local_fixtures=allow_local_fixtures,
-            snapshot_url=snapshot_url,
-            snapshot_at=snapshot_at,
-            mode=mode,
-        )
-        evidence_item_id = _stable_id("evidence", run_id, node.id, hit.url)
-        record = _document_record(
-            document,
-            node=node,
-            evidence_item_id=evidence_item_id,
-            source_class=hit.source_class,
-        )
-        if document.rejected or not document.as_of_eligible:
-            rejected.append(record)
-            continue
-        evidence.append(record)
-
-        extractor = EvidenceExtractor(
-            _BudgetedModel(model, budget, stage=f"extract_claims:{node.id}"),
-            prompt_bundle=prompt_bundle,
-        )
-        try:
-            extracted = extractor.extract(
-                document,
-                evidence_item_id=evidence_item_id,
-                forecast_node_id=node.id,
-                forecast_node_question=node.question,
-                as_of=as_of if mode == "backtest" else None,
-            )
-        except EvidenceClaimError as exc:
-            extraction_errors.extend(exc.reasons)
-            continue
-        claims.extend(
-            claim.model_copy(
-                update={
-                    "id": _stable_id(
-                        "claim",
-                        run_id,
-                        node.id,
-                        evidence_item_id,
-                        claim.supports_or_refutes,
-                        claim.claim,
-                        claim.excerpt,
-                    )
-                }
-            )
-            for claim in extracted
-        )
-    return evidence, rejected, eligible_claims_for_forecasting(claims, cutoff=as_of), extraction_errors
-
-
 def _forecast_node(
     *,
     contract: ForecastContract,
@@ -348,7 +128,7 @@ def _forecast_node(
     prompt_bundle: PromptBundle | None = None,
 ) -> NodeForecast:
     forecaster = NodeForecaster(
-        _BudgetedModel(model, budget, stage=f"forecast_node:{node.id}"),
+        BudgetedModelProvider(model, budget, stage=f"forecast_node:{node.id}"),
         prompt_bundle=prompt_bundle,
         prompt_versions=prompt_versions,
     )
@@ -421,6 +201,27 @@ def run_graph_node_forecasts(
     ordered_nodes = _topological_nodes(graph)
     results: list[ForecastNodeExecution] = []
     stopped = False
+    research_executor = GraphResearchExecutor(
+        model=model,
+        search=search,
+        profile=profile,
+        budget=budget,
+        cache=cache,
+        run_id=run_id,
+        mode=mode,
+        as_of=as_of,
+        allow_local_fixtures=allow_local_fixtures,
+        max_queries_per_node=max(
+            1,
+            profile.max_search_calls // max(1, len(ordered_nodes)),
+        ),
+        max_fetches_per_node=max(
+            1,
+            profile.max_fetched_documents // max(1, len(ordered_nodes)),
+        ),
+        prompt_bundle=prompt_bundle,
+        prompt_versions=prompt_versions,
+    )
 
     for index, node in enumerate(ordered_nodes):
         pct = 0.15 + 0.65 * (index / max(1, len(ordered_nodes)))
@@ -429,23 +230,55 @@ def run_graph_node_forecasts(
         rejected: list[dict[str, Any]] = []
         claims: list[EvidenceClaim] = []
         extraction_errors: list[str] = []
+        research_plan: NodeResearchPlan | None = None
+        queries_attempted: list[str] = []
+        sources_checked: list[dict[str, Any]] = []
+        research_warnings: list[str] = []
         stage = "node_research"
         try:
-            evidence, rejected, claims, extraction_errors = _research_node(
-                node=node,
-                run_id=run_id,
-                profile=profile,
-                model=model,
-                search=search,
-                budget=budget,
-                cache=cache,
-                mode=mode,
-                as_of=as_of,
-                allow_local_fixtures=allow_local_fixtures,
-                prompt_bundle=prompt_bundle,
-            )
+            research = research_executor.execute(node)
+            evidence = research.evidence
+            rejected = research.rejected
+            claims = research.claims
+            extraction_errors = research.extraction_errors
+            research_plan = research.plan
+            queries_attempted = research.queries_attempted
+            sources_checked = research.sources_checked
+            research_warnings = research.planning_warnings
             if persist_research is not None:
                 persist_research(node, evidence, rejected, claims)
+            if research.failure is not None:
+                if not capture_node_failures:
+                    raise StructuredOutputError(research.failure.code)
+                results.append(
+                    ForecastNodeExecution(
+                        node=node,
+                        node_run=None,
+                        evidence=evidence,
+                        rejected=rejected,
+                        claims=claims,
+                        claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                        research_plan=research_plan,
+                        queries_attempted=queries_attempted,
+                        sources_checked=sources_checked,
+                        research_warnings=research_warnings,
+                        error=research.failure.code,
+                        error_detail=research.failure.reason,
+                        error_stage="node_research",
+                    )
+                )
+                _emit(
+                    progress,
+                    "node_failed",
+                    f"Graph node {index + 1} produced no eligible evidence",
+                    pct + 0.05,
+                    {
+                        "node_id": node.id,
+                        "error": research.failure.code,
+                        "reason": research.failure.reason,
+                    },
+                )
+                continue
             stage = "node_forecast"
             _emit(progress, "node_forecast", f"Forecasting graph node {index + 1} of {len(ordered_nodes)}", pct + 0.05)
             node_forecast = _forecast_node(
@@ -479,6 +312,10 @@ def run_graph_node_forecasts(
                     rejected=rejected,
                     claims=claims,
                     claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    research_plan=research_plan,
+                    queries_attempted=queries_attempted,
+                    sources_checked=sources_checked,
+                    research_warnings=research_warnings,
                 )
             )
         except BudgetExceeded as exc:
@@ -490,7 +327,12 @@ def run_graph_node_forecasts(
                     rejected=rejected,
                     claims=claims,
                     claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    research_plan=research_plan,
+                    queries_attempted=queries_attempted,
+                    sources_checked=sources_checked,
+                    research_warnings=research_warnings,
                     error=str(exc),
+                    error_detail=str(exc),
                     error_stage=exc.stage,
                 )
             )
@@ -508,7 +350,12 @@ def run_graph_node_forecasts(
                     rejected=rejected,
                     claims=claims,
                     claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    research_plan=research_plan,
+                    queries_attempted=queries_attempted,
+                    sources_checked=sources_checked,
+                    research_warnings=research_warnings,
                     error=str(exc),
+                    error_detail=str(exc),
                     error_stage=stage,
                 )
             )
@@ -530,7 +377,12 @@ def run_graph_node_forecasts(
                     rejected=rejected,
                     claims=claims,
                     claim_extraction_errors=list(dict.fromkeys(extraction_errors)),
+                    research_plan=research_plan,
+                    queries_attempted=queries_attempted,
+                    sources_checked=sources_checked,
+                    research_warnings=research_warnings,
                     error=str(exc),
+                    error_detail=str(exc),
                     error_stage=stage,
                 )
             )
