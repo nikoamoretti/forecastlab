@@ -89,6 +89,8 @@ All configurations must receive the same frozen question and resolution contract
 
 The dedicated ten-question software-verification workflow enforces these controls for its three selected profiles: paired tasks use equivalent question and resolution-contract content, the same per-question forecast cutoff, the same provider and evidence-policy snapshots, and equal total ceilings. Profiles may consume different amounts within those ceilings; cost, latency, and completion remain measured outcomes.
 
+The separate controlled real-dataset runner accepts only frozen `EvaluationDataset` releases. It creates the complete question × profile matrix for `single_model_forecaster_v1`, `three_track_forecaster`, and `graph_forecaster_v1`. One immutable configuration hash binds the canonical question snapshots, cutoffs, profile definitions, model/provider metadata, common ceiling, prompt bundle, pricing catalog, code commit, tracked source, and dependency identity. Execution uses those stored snapshots and refuses dataset or environment drift. Its comparison report contains Brier score, log loss, cost, latency, completion, failure, and evidence-coverage measurements without ranking profiles or asserting superiority. This three-profile diagnostic comparison does not replace the four required V1 configurations above.
+
 The model-only baseline has no search or fetch access by definition. Its lower resource use must be reported, not artificially spent. Equal ceilings do not imply equal actual cost, latency, or completion; those are measured outcomes.
 
 No baseline may be deliberately weakened through inferior prompts, missing contract fields, stale models, or reduced output validation. If one configuration cannot run under the common environment, that is a failure result rather than permission to substitute another provider.
@@ -198,6 +200,8 @@ Thirty to fifty prospective questions are an initial validation set, not definit
 6. Compute the frozen analyses and uncertainty intervals.
 7. Apply [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
 8. Publish an immutable internal decision record, including negative and inconclusive results.
+
+ForecastLab's controlled runner implements the frozen assignment and measurement substrate for steps 2 through 4. It does not yet implement bootstrap uncertainty, pre-registration enforcement, automatic split manifests, or a decision rule.
 
 ## Required report contents
 

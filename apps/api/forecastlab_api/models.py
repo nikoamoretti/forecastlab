@@ -438,6 +438,10 @@ class FrozenEvaluationDatasetError(ValueError):
     """Raised when application code attempts to alter a frozen evaluation release."""
 
 
+class FrozenForecastExperimentError(ValueError):
+    """Raised when application code attempts to alter frozen experiment inputs."""
+
+
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
     __table_args__ = (
@@ -502,6 +506,127 @@ class EvaluationQuestion(Base):
     dataset: Mapped[EvaluationDataset] = relationship(back_populates="questions")
 
 
+class ForecastExperiment(Base):
+    """A controlled comparison over one frozen real-evaluation dataset."""
+
+    __tablename__ = "forecast_experiments"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('pending', 'running', 'completed', 'completed_with_failures', 'failed')",
+            name="ck_forecast_experiment_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    profiles_json: Mapped[str] = mapped_column(Text)
+    configuration_hash: Mapped[str] = mapped_column(String(64))
+    configuration_json: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    runs: Mapped[list[ForecastExperimentRun]] = relationship(back_populates="experiment")
+
+
+class ForecastExperimentRun(Base):
+    """One immutable question/profile assignment in a controlled experiment."""
+
+    __tablename__ = "forecast_experiment_runs"
+    __table_args__ = (
+        UniqueConstraint(
+            "experiment_id",
+            "evaluation_question_id",
+            "profile_id",
+            name="uq_forecast_experiment_run_cell",
+        ),
+        UniqueConstraint("forecast_run_id", name="uq_forecast_experiment_run_forecast_run"),
+        CheckConstraint(
+            "status IN ('pending', 'running', 'completed', 'partial', 'failed')",
+            name="ck_forecast_experiment_run_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("forecast_experiments.id"))
+    evaluation_question_id: Mapped[str] = mapped_column(ForeignKey("evaluation_questions.id"))
+    profile_id: Mapped[str] = mapped_column(String(64))
+    forecast_run_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_runs.id"), nullable=True)
+    status: Mapped[str] = mapped_column(String(32), default="pending")
+    error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    error_category: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    experiment: Mapped[ForecastExperiment] = relationship(back_populates="runs")
+    result: Mapped[ForecastExperimentResult | None] = relationship(
+        back_populates="experiment_run",
+        uselist=False,
+    )
+
+
+class ForecastExperimentResult(Base):
+    """Persisted probability and measurements for one experiment cell."""
+
+    __tablename__ = "forecast_experiment_results"
+    __table_args__ = (
+        UniqueConstraint("experiment_run_id", name="uq_forecast_experiment_result_run"),
+        CheckConstraint(
+            "probability IS NULL OR (probability >= 0 AND probability <= 1)",
+            name="ck_forecast_experiment_result_probability",
+        ),
+        CheckConstraint("outcome IN (0, 1)", name="ck_forecast_experiment_result_outcome"),
+        CheckConstraint(
+            "completion_status IN ('completed', 'partial', 'failed')",
+            name="ck_forecast_experiment_result_completion_status",
+        ),
+        CheckConstraint("cost_usd >= 0", name="ck_forecast_experiment_result_cost"),
+        CheckConstraint("latency_ms >= 0", name="ck_forecast_experiment_result_latency"),
+        CheckConstraint(
+            "evidence_coverage IS NULL OR (evidence_coverage >= 0 AND evidence_coverage <= 1)",
+            name="ck_forecast_experiment_result_evidence_coverage",
+        ),
+        CheckConstraint(
+            "evidence_covered_units >= 0 AND evidence_total_units >= 0",
+            name="ck_forecast_experiment_result_evidence_units",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_experiment_runs.id"))
+    probability: Mapped[float | None] = mapped_column(Float, nullable=True)
+    outcome: Mapped[int] = mapped_column(Integer)
+    brier_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    log_loss: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cost_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    latency_ms: Mapped[int] = mapped_column(Integer, default=0)
+    evidence_coverage: Mapped[float | None] = mapped_column(Float, nullable=True)
+    evidence_covered_units: Mapped[int] = mapped_column(Integer, default=0)
+    evidence_total_units: Mapped[int] = mapped_column(Integer, default=0)
+    completion_status: Mapped[str] = mapped_column(String(32))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    experiment_run: Mapped[ForecastExperimentRun] = relationship(back_populates="result")
+
+
+def _frozen_forecast_experiment_configuration_guard(
+    _mapper: object,
+    _connection: Connection,
+    target: ForecastExperiment,
+) -> None:
+    state = inspect(target)
+    frozen_fields = (
+        "dataset_id",
+        "profiles_json",
+        "configuration_hash",
+        "configuration_json",
+        "created_at",
+    )
+    if any(state.attrs[field].history.has_changes() for field in frozen_fields):
+        raise FrozenForecastExperimentError("forecast_experiment_configuration_immutable")
+
+
 def _frozen_evaluation_dataset_before_update(
     _mapper: object,
     _connection: Connection,
@@ -539,6 +664,11 @@ event.listen(EvaluationDataset, "before_delete", _frozen_evaluation_dataset_befo
 event.listen(EvaluationQuestion, "before_insert", _frozen_evaluation_question_guard)
 event.listen(EvaluationQuestion, "before_update", _frozen_evaluation_question_guard)
 event.listen(EvaluationQuestion, "before_delete", _frozen_evaluation_question_guard)
+event.listen(
+    ForecastExperiment,
+    "before_update",
+    _frozen_forecast_experiment_configuration_guard,
+)
 
 
 class BenchmarkDataset(Base):

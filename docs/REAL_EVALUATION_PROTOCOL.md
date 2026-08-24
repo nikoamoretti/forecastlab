@@ -1,6 +1,6 @@
 # ForecastLab real evaluation dataset protocol
 
-Status: infrastructure protocol for assembling resolved historical datasets. It does not authorize experiment execution or support a forecasting-quality claim.
+Status: infrastructure protocol for assembling resolved historical datasets and running controlled measurements. Creating or running an experiment does not, by itself, support a forecasting-quality claim.
 
 This document complements [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md). Synthetic fixtures remain useful for software verification, but they cannot establish forecasting accuracy, calibration, or profile superiority. Real evaluation requires independently auditable questions with outcomes that were unknown at the recorded forecast date and are known at import time.
 
@@ -91,13 +91,33 @@ Related questions, event families, revisions, and outcome-revealing sources must
 
 ## API
 
-- `GET /api/evaluation/datasets` lists all lifecycle states and reports that execution is not supported.
+- `GET /api/evaluation/datasets` lists all lifecycle states and the controlled comparison profiles.
 - `POST /api/evaluation/datasets/import` validates and creates a draft CSV or JSON release.
 - `POST /api/evaluation/datasets/{id}/review` performs the review transition.
 - `POST /api/evaluation/datasets/{id}/freeze` verifies and freezes a reviewed release.
 - `GET /api/evaluation/datasets/{id}` returns metadata, questions, contracts, dates, outcomes, and sources.
 - `GET /api/evaluation/datasets/template.csv` returns the blank import template.
 
+## Controlled experiment runner
+
+`POST /api/forecast-experiments` accepts only a frozen `EvaluationDataset` and creates one `ForecastExperimentRun` for every question/profile pair. The controlled profile set is fixed to:
+
+- `single_model_forecaster_v1`
+- `three_track_forecaster`
+- `graph_forecaster_v1`
+
+Before any run is queued, `ForecastExperiment` stores one canonical, hash-protected configuration containing the dataset release and question snapshots, profile source and effective definitions, common budget ceiling, provider and model metadata, prompt bundle and hashes, pricing catalog, evidence cutoffs, and code/dependency identity. Secret values are never included. These input fields are immutable after creation. Execution reconstructs profiles, prompts, and execution contexts from the frozen record rather than mutable source files or later Settings changes.
+
+Every assigned cell persists its status in `ForecastExperimentRun`. A successful or partial cell stores its probability, resolved outcome, Brier score, log loss, cost, latency, evidence coverage, and completion state in `ForecastExperimentResult`. A failure retains its error and operational measurements but receives no invented probability or forecast score. Job retries retain the same cell and forecast-run identities.
+
+Read APIs are:
+
+- `GET /api/forecast-experiments` for experiment progress;
+- `GET /api/forecast-experiments/{id}` for assignments and frozen execution metadata;
+- `GET /api/forecast-experiments/{id}/report` for the profile comparison table and question-level measurements.
+
+The report presents measurements only. It performs no ranking, hypothesis test, or superiority claim.
+
 ## Claim boundary and limitations
 
-These tables are intentionally separate from the synthetic `BenchmarkDataset` and experiment-runner tables. This implementation does not select, execute, or score real datasets. It does not populate real questions, and a frozen import alone is not evidence that the questions are representative, leakage-free, licensed, or correctly adjudicated. Those properties require the documented human review, external manifests, and the controlled experiment protocol.
+These tables and the controlled runner are intentionally separate from the synthetic `BenchmarkDataset` workflow. The implementation does not populate real questions, certify a dataset, calculate uncertainty intervals, or decide which profile is better. A frozen import and a completed comparison are not evidence that the questions are representative, leakage-free, licensed, or correctly adjudicated. Those properties require the documented human review, external manifests, pre-registration, and the full evaluation protocol.

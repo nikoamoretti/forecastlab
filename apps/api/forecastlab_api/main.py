@@ -59,6 +59,12 @@ from forecastlab_api.experiments import (
     serialize_dataset,
     v1_evaluation_workflow,
 )
+from forecastlab_api.forecast_experiments import (
+    CONTROLLED_FORECAST_PROFILES,
+    create_forecast_experiment,
+    forecast_experiment_progress,
+    forecast_experiment_report,
+)
 from forecastlab_api.graphs import (
     build_graph_generator,
     forecast_graph_from_row,
@@ -76,6 +82,7 @@ from forecastlab_api.models import (
     EvidenceClaimRow,
     EvidenceItem,
     ForecastContractRow,
+    ForecastExperiment,
     ForecastGraphRow,
     ForecastNodeRow,
     ForecastNodeRunRow,
@@ -188,6 +195,14 @@ class SimulateIn(BaseModel):
 class ExperimentIn(BaseModel):
     dataset_id: str
     profile_ids: list[str] = Field(default_factory=lambda: list(DEFAULT_EXPERIMENT_PROFILES))
+
+
+class ForecastExperimentIn(BaseModel):
+    dataset_id: str
+    profile_ids: list[str] = Field(
+        default_factory=lambda: list(CONTROLLED_FORECAST_PROFILES)
+    )
+    synthetic_test: bool = False
 
 
 @app.exception_handler(ConfigurationError)
@@ -1001,7 +1016,8 @@ def list_evaluation_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
     ).all()
     return {
         "datasets": [serialize_evaluation_dataset(item) for item in rows],
-        "execution_supported": False,
+        "execution_supported": True,
+        "comparison_profiles": list(CONTROLLED_FORECAST_PROFILES),
     }
 
 
@@ -1099,6 +1115,57 @@ def get_evaluation_dataset(dataset_id: str, db: Session = Depends(get_db)) -> di
     if dataset is None:
         raise HTTPException(404, "Evaluation dataset not found")
     return serialize_evaluation_dataset(dataset, include_questions=True)
+
+
+@app.post("/api/forecast-experiments", status_code=201)
+def post_forecast_experiment(
+    body: ForecastExperimentIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        experiment = create_forecast_experiment(
+            db,
+            dataset_id=body.dataset_id,
+            profile_ids=body.profile_ids,
+            synthetic_test=body.synthetic_test,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    db.commit()
+    return forecast_experiment_progress(db, experiment)
+
+
+@app.get("/api/forecast-experiments")
+def list_forecast_experiments(db: Session = Depends(get_db)) -> dict[str, Any]:
+    rows = db.scalars(
+        select(ForecastExperiment).order_by(ForecastExperiment.created_at.desc())
+    ).all()
+    return {
+        "experiments": [forecast_experiment_progress(db, item) for item in rows],
+        "comparison_profiles": list(CONTROLLED_FORECAST_PROFILES),
+    }
+
+
+@app.get("/api/forecast-experiments/{experiment_id}")
+def get_forecast_experiment(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(ForecastExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Forecast experiment not found")
+    return forecast_experiment_progress(db, experiment)
+
+
+@app.get("/api/forecast-experiments/{experiment_id}/report")
+def get_forecast_experiment_report(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(ForecastExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Forecast experiment not found")
+    return forecast_experiment_report(db, experiment).model_dump(mode="json")
 
 
 @app.post("/api/benchmarks/import")

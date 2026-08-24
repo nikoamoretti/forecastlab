@@ -118,7 +118,12 @@ def test_valid_csv_import_creates_auditable_draft_and_read_apis(client) -> None:
 
     listed = client.get("/api/evaluation/datasets")
     assert listed.status_code == 200
-    assert listed.json()["execution_supported"] is False
+    assert listed.json()["execution_supported"] is True
+    assert listed.json()["comparison_profiles"] == [
+        "single_model_forecaster_v1",
+        "three_track_forecaster",
+        "graph_forecaster_v1",
+    ]
     assert listed.json()["datasets"] == [
         {key: value for key, value in payload.items() if key != "questions"}
     ]

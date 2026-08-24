@@ -9,6 +9,10 @@ from sqlalchemy import select
 from forecastlab.logging import setup_logging
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.experiments import execute_benchmark_task, fail_job_relatives
+from forecastlab_api.forecast_experiments import (
+    execute_forecast_experiment_run,
+    fail_forecast_experiment_job,
+)
 from forecastlab_api.jobs import (
     claim_next_job,
     error_category,
@@ -19,7 +23,13 @@ from forecastlab_api.jobs import (
     touch_worker,
 )
 from forecastlab_api.migrate import apply_schema
-from forecastlab_api.models import BenchmarkTask, ForecastRun, Job, Watch
+from forecastlab_api.models import (
+    BenchmarkTask,
+    ForecastExperimentRun,
+    ForecastRun,
+    Job,
+    Watch,
+)
 from forecastlab_api.pipeline import execute_run
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.watches import check_watch
@@ -58,6 +68,14 @@ def process_once() -> bool:
                 if task is None:
                     raise RuntimeError("benchmark_task_not_found")
                 execute_benchmark_task(session, task, job=job)
+            elif job.job_type == "forecast_experiment_run":
+                experiment_run = session.get(
+                    ForecastExperimentRun,
+                    payload["forecast_experiment_run_id"],
+                )
+                if experiment_run is None:
+                    raise RuntimeError("forecast_experiment_run_not_found")
+                execute_forecast_experiment_run(session, experiment_run, job=job)
             elif job.job_type == "watch_check":
                 watch = session.get(Watch, payload["watch_id"])
                 if watch:
@@ -79,10 +97,34 @@ def process_once() -> bool:
                     if is_transient(exc):
                         outcome = retry_job(retry_session, failed, error=message, category=category)
                         if outcome == "exhausted":
-                            fail_job_relatives(retry_session, failed, error=message, category=category)
+                            handled = fail_forecast_experiment_job(
+                                retry_session,
+                                failed,
+                                error=message,
+                                category=category,
+                            )
+                            if not handled:
+                                fail_job_relatives(
+                                    retry_session,
+                                    failed,
+                                    error=message,
+                                    category=category,
+                                )
                     else:
                         finish_job(retry_session, failed, ok=False, error=message, category=category)
-                        fail_job_relatives(retry_session, failed, error=message, category=category)
+                        handled = fail_forecast_experiment_job(
+                            retry_session,
+                            failed,
+                            error=message,
+                            category=category,
+                        )
+                        if not handled:
+                            fail_job_relatives(
+                                retry_session,
+                                failed,
+                                error=message,
+                                category=category,
+                            )
                     retry_session.commit()
             return True
 

@@ -64,9 +64,12 @@ def recover_stale_jobs(session: Session) -> int:
             job.error = "stale_worker_max_attempts"
             job.error_category = "stale_worker_max_attempts"
             job.finished_at = now
-            from forecastlab_api.experiments import fail_job_relatives
-
-            fail_job_relatives(session, job, error="stale_worker_max_attempts", category="stale_worker_max_attempts")
+            _fail_job_relatives(
+                session,
+                job,
+                error="stale_worker_max_attempts",
+                category="stale_worker_max_attempts",
+            )
         else:
             job.status = "pending"
             job.error = "recovered_after_stale_heartbeat"
@@ -192,6 +195,14 @@ def _reset_task_for_retry(session: Session, job: Job) -> None:
         payload = json.loads(job.payload_json or "{}")
     except json.JSONDecodeError:
         return
+    forecast_experiment_run_id = payload.get("forecast_experiment_run_id")
+    if forecast_experiment_run_id:
+        from forecastlab_api.models import ForecastExperimentRun
+
+        experiment_run = session.get(ForecastExperimentRun, forecast_experiment_run_id)
+        if experiment_run is not None and experiment_run.status == "running":
+            experiment_run.status = "pending"
+        return
     task_id = payload.get("task_id")
     if not task_id:
         return
@@ -200,6 +211,28 @@ def _reset_task_for_retry(session: Session, job: Job) -> None:
     task = session.get(BenchmarkTask, task_id)
     if task is not None and task.status == "running":
         task.status = "pending"
+
+
+def _fail_job_relatives(
+    session: Session,
+    job: Job,
+    *,
+    error: str,
+    category: str,
+) -> None:
+    if job.job_type == "forecast_experiment_run":
+        from forecastlab_api.forecast_experiments import fail_forecast_experiment_job
+
+        if fail_forecast_experiment_job(
+            session,
+            job,
+            error=error,
+            category=category,
+        ):
+            return
+    from forecastlab_api.experiments import fail_job_relatives
+
+    fail_job_relatives(session, job, error=error, category=category)
 
 
 def error_category(exc: Exception) -> str:
