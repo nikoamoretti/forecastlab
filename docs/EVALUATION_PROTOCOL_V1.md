@@ -196,14 +196,14 @@ Thirty to fifty prospective questions are an initial validation set, not definit
 2. Freeze dataset split, configurations, identities, budgets, evidence policy, metrics, and analysis code.
 3. Run software-integrity checks and confirm no paid or real experiment is accidentally using mock evidence.
 4. Execute every configuration on the paired question set.
-5. Audit failures, evidence, cutoff compliance, and exclusions before interpreting winners.
+5. Audit failures, evidence, cutoff compliance, and exclusions before interpreting observed differences.
 6. Compute the frozen analyses and uncertainty intervals.
 7. Apply [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
 8. Publish an immutable internal decision record, including negative and inconclusive results.
 
-ForecastLab's controlled runner implements the frozen assignment and measurement substrate for steps 2 through 4. It does not yet implement bootstrap uncertainty, pre-registration enforcement, automatic split manifests, or a decision rule.
+ForecastLab's controlled runner implements the frozen assignment and measurement substrate for steps 2 through 4. The read-only analysis endpoint now implements deterministic paired percentile-bootstrap intervals for the three controlled profile pairs, using 2,000 samples, seed `20260823`, a 95% interval, and a 20-pair minimum reporting gate. It does not yet implement pre-registration enforcement, automatic split manifests, clustered resampling, multiplicity adjustment, or a decision rule.
 
-The first research-analysis layer reads those immutable measurements and reports per-profile Brier score, log loss, gated reliability buckets, operations, and evidence diagnostics. Human reviewers may add internal failure classifications without altering forecast records. This descriptive layer does not satisfy the paired uncertainty, decision-rule, or quality-claim requirements by itself; see [Forecast Research Analysis](FORECAST_RESEARCH_ANALYSIS.md).
+The research-analysis layer reads those immutable measurements and reports per-profile Brier score, log loss, five fixed calibration buckets, operations, evidence diagnostics, cost ratios, and paired uncertainty intervals. Human reviewers may add internal failure classifications without altering forecast records. The intervals quantify sampling uncertainty for the observed paired questions; they do not establish representativeness, causal attribution, calibration, or an adoption decision. See [Forecast Research Analysis](FORECAST_RESEARCH_ANALYSIS.md).
 
 ## Required report contents
 
@@ -213,4 +213,4 @@ Results must be labeled development, validation, test, or prospective. Synthetic
 
 ## Current limitations
 
-ForecastLab has not yet assembled the required real split corpus or validated the experimental graph configuration as the required hierarchical method. The current aggregator is a simple importance-weighted log-odds rule; it displays dependencies but does not model them probabilistically or synthesize scenarios. Existing reliability displays use a minimum sample gate, but that gate is not evidence of calibration. Evidence-cutoff backtests cannot eliminate knowledge embedded in model weights. Until the full protocol is completed, methodology claims remain hypotheses.
+ForecastLab has not yet assembled the required real split corpus or validated the experimental graph configuration as the required hierarchical method. The current aggregator is a simple importance-weighted log-odds rule; it displays dependencies but does not model them probabilistically or synthesize scenarios. Existing calibration displays use a minimum sample gate, but that gate is not evidence of calibration. The paired bootstrap treats questions as independent and needs a pre-registered clustered variant when questions share an event family. Its six unadjusted intervals require joint interpretation. Evidence-cutoff backtests cannot eliminate knowledge embedded in model weights. Until the full protocol is completed, methodology claims remain hypotheses.

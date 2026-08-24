@@ -57,7 +57,7 @@ def test_research_analysis_reports_performance_operations_and_research_without_m
     assert analysis["status"] == "completed"
     assert analysis["configuration_hash"] == created["configuration_hash"]
     assert list(profiles) == list(CONTROLLED_FORECAST_PROFILES)
-    assert analysis["notice"].startswith("Descriptive internal research measurements only")
+    assert analysis["notice"].startswith("Internal research measurements only")
     assert analysis["failure_taxonomy"] == [
         {"category": category, "label": label}
         for category, label in FAILURE_CATEGORIES.items()
