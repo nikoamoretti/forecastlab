@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import json
+import re
+from collections import Counter
 from datetime import UTC, datetime
+from pathlib import Path
 
 from forecastlab_api.graph_validation import (
     PILOT_V1_DATASET_HASH,
@@ -12,6 +16,18 @@ from forecastlab_api.graph_validation import (
     selected_pilot_questions,
     summarize_graph_validation,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
+ARTIFACT_PATH = (
+    ROOT / "artifacts" / "graph_execution_validation" / "validation_results.json"
+)
+REPORT_PATH = ROOT / "docs" / "GRAPH_EXECUTION_VALIDATION_REPORT.md"
+VALIDATION_ID = "4a5c23e0-0cf6-463b-a608-a1ce65c88e63"
+EXECUTION_COMMIT = "99a3a9beebb8c285f079adb5964da30f84941b89"
+
+
+def _artifact() -> dict:
+    return json.loads(ARTIFACT_PATH.read_text(encoding="utf-8"))
 
 
 def _provider_settings() -> dict:
@@ -148,3 +164,94 @@ def test_validation_report_compares_execution_reliability_without_accuracy_claim
     assert "Brier" not in report
     assert "log loss" not in report.casefold()
     assert "full 20-question pilot benchmark was not executed" in report
+
+
+def test_execution_artifact_has_frozen_identity_and_requested_selection() -> None:
+    artifact = _artifact()
+    frozen = artifact["freeze"]
+
+    assert artifact["validation_id"] == VALIDATION_ID
+    assert artifact["artifact_schema_version"] == 1
+    assert frozen["dataset"]["hash"] == PILOT_V1_DATASET_HASH
+    assert frozen["dataset"]["selected_question_count"] == 5
+    assert frozen["profile"]["id"] == VALIDATION_PROFILE_ID
+    assert frozen["profile"]["version"] == VALIDATION_PROFILE_VERSION
+    assert frozen["code"]["git_commit"] == EXECUTION_COMMIT
+    assert frozen["code"]["working_tree_dirty"] is False
+    assert Counter(row["domain"] for row in artifact["rows"]) == Counter(
+        VALIDATION_DOMAIN_COUNTS
+    )
+    assert len(artifact["rows"]) == 5
+
+
+def test_execution_artifact_reconciles_fail_closed_result_and_cost() -> None:
+    artifact = _artifact()
+    rows = artifact["rows"]
+    summary = artifact["summary"]
+
+    assert summary == summarize_graph_validation(rows)
+    assert summary["completed_questions"] == 0
+    assert summary["failed_questions"] == 5
+    assert summary["completion_rate"] == 0.0
+    assert summary["successful_nodes"] == 0
+    assert summary["failed_nodes"] == summary["total_nodes"] == 36
+    assert summary["evidence_claims_created"] == 0
+    assert summary["node_forecasts_created"] == 0
+    assert summary["final_aggregations_created"] == 0
+    assert summary["forecast_versions_created"] == 0
+    assert summary["failure_categories"] == {
+        "budget_exceeded": 5,
+        "extraction_failure": 6,
+        "not_run_after_budget_stop": 25,
+    }
+    assert summary["total_cost_usd"] == 1.02979
+    assert summary["total_cost_usd"] <= artifact["freeze"]["budget"][
+        "hard_validation_cost_ceiling_usd"
+    ]
+    assert all(row["whole_run_attempts"] == 1 for row in rows)
+    assert all(row["whole_run_retries"] == 0 for row in rows)
+    assert summary["physical_provider_retries"] == 0
+    assert summary["failed_provider_attempts"] == 0
+
+
+def test_execution_artifact_is_provider_safe_and_contains_no_accuracy_results() -> None:
+    artifact = _artifact()
+    provider = artifact["freeze"]["provider"]
+
+    assert provider == {
+        "evidence_policy": "strict_historical_snapshot",
+        "model": "gpt-5-mini-2025-08-07",
+        "model_api_key_set": True,
+        "model_base_url": "https://api.openai.com/v1",
+        "model_provider": "openai",
+        "model_timeout_seconds": 60.0,
+        "search_api_key_set": True,
+        "search_provider": "tavily",
+    }
+    forbidden_result_fields = {
+        "outcome",
+        "probability",
+        "brier_score",
+        "log_loss",
+    }
+    assert all(not forbidden_result_fields.intersection(row) for row in artifact["rows"])
+    assert artifact["freeze"]["execution_policy"]["accuracy_metrics"] == (
+        "not_computed"
+    )
+
+
+def test_execution_report_matches_artifact_and_records_no_full_rerun() -> None:
+    artifact = _artifact()
+    report = REPORT_PATH.read_text(encoding="utf-8")
+
+    assert report == render_graph_validation_report(artifact)
+    assert VALIDATION_ID in report
+    assert PILOT_V1_DATASET_HASH in report
+    assert "Completion rate | 50.0% | 0.0%" in report
+    assert "Evidence Claims created: 0" in report
+    assert "Final aggregations created: 0" in report
+    assert "Total measured cost: $1.029790" in report
+    assert "Whole-run retries: 0" in report
+    assert "full 20-question pilot benchmark was not executed" in report
+    assert "does not compare forecast accuracy" in report
+    assert not re.search(r"\b(?:winner|best|superior)\b", report, re.IGNORECASE)

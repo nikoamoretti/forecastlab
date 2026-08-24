@@ -1,0 +1,464 @@
+{
+  "artifact_schema_version": 1,
+  "claim_boundary": "Execution reliability only. No forecast-accuracy metric or superiority claim is computed from this five-question validation.",
+  "completed_at": "2026-08-24T07:02:25.408281+00:00",
+  "created_at": "2026-08-24T06:43:20.623909+00:00",
+  "freeze": {
+    "budget": {
+      "estimate_over_ceiling_acknowledged": true,
+      "estimated_upper_bound_per_question_usd": 1.6,
+      "hard_per_question_cost_ceiling_usd": 0.25,
+      "hard_validation_cost_ceiling_usd": 1.25,
+      "max_fetched_documents": 24,
+      "max_model_calls": 40,
+      "max_search_calls": 36,
+      "max_tokens": 200000,
+      "max_wall_clock_seconds": 180
+    },
+    "code": {
+      "application_version": "0.3.1",
+      "container_image_digest": null,
+      "dependency_hash": "bfe11402c6919e0b854fabf86e09087e052953593b98ff40475a694006756524",
+      "git_commit": "99a3a9beebb8c285f079adb5964da30f84941b89",
+      "package_lock_hash": "d81668674a3cab7f4e46f578eedf3ba3828bf899f236666ebc9824fee8804626",
+      "pricing_hash": "87c8a6fd8066c1274986d78ffadbfe43f26d4cb5d7b410e56c9991297a9c157f",
+      "profile_hashes": {
+        "graph_forecaster_v1": "da02b8b9d7f03b29db170c08198663e661fe5b7259e6774e03717448d6cd24f4"
+      },
+      "prompt_bundle_hash": "19e38fe04fca8397a3a18619ef3c49277dad1f640fa088e7b82e182cf2449208",
+      "pyproject_hash": "e59878de8afab1b301aec88120f3a0df5b7fa73bc3d1c6c52010948a93a25552",
+      "tracked_source_hash": "d6fad69ebd263742503edc11f4ea6d557ba7170f1f4824ea72c16e1981bf83a3",
+      "working_tree_dirty": false
+    },
+    "configuration_hash": "27be0a301d79220b53b6ca0debf8c47d39caa9ab61f8cee6fe57228ce732f568",
+    "contexts": {
+      "055be860e87d48b5535aa1bc699423329ec964a240ec17b604cf8b46dc43b134": {
+        "configuration_hash": "3e917d5d53c6060d420d0b852ddd526def7b59798dbf230fb059ee520f77d0c6",
+        "evidence_cutoff": "2024-02-02T00:00:00+00:00"
+      },
+      "5a67ed2ad06d47cc4512030b6cc156b5165bb73dc01b8921fc18ddcc4d646436": {
+        "configuration_hash": "3e917d5d53c6060d420d0b852ddd526def7b59798dbf230fb059ee520f77d0c6",
+        "evidence_cutoff": "2024-04-05T00:00:00+00:00"
+      },
+      "7fed57c605c9c0844062871cf1976d1925bf910034fc2f899e7ef0c32ef00475": {
+        "configuration_hash": "3e917d5d53c6060d420d0b852ddd526def7b59798dbf230fb059ee520f77d0c6",
+        "evidence_cutoff": "2024-03-15T00:00:00+00:00"
+      },
+      "ac9fec2d3a84cecf18c74c24ce6e541369607a0dddc6084b3fb8161cfaa02ee9": {
+        "configuration_hash": "3e917d5d53c6060d420d0b852ddd526def7b59798dbf230fb059ee520f77d0c6",
+        "evidence_cutoff": "2024-07-10T00:00:00+00:00"
+      },
+      "f90f4cff669931ce53694ce5e521444ae1fab760cb05c38feb83e0e016d6db17": {
+        "configuration_hash": "3e917d5d53c6060d420d0b852ddd526def7b59798dbf230fb059ee520f77d0c6",
+        "evidence_cutoff": "2024-01-05T00:00:00+00:00"
+      }
+    },
+    "created_at": "2026-08-24T06:43:20.623909+00:00",
+    "dataset": {
+      "hash": "c9cd748c1114eff5d16321ecf7d78b18be4a0b65b49ff7719aa5276e302f7888",
+      "name": "ForecastLab Pilot Benchmark",
+      "questions": [
+        {
+          "category": "labor_market",
+          "domain": "economics",
+          "evidence_cutoff": "2024-04-05T00:00:00+00:00",
+          "forecast_date": "2024-04-05T00:00:00+00:00",
+          "question": "Will the U.S. seasonally adjusted U-3 unemployment rate for June 2024 be at least 4.1%?",
+          "question_hash": "5a67ed2ad06d47cc4512030b6cc156b5165bb73dc01b8921fc18ddcc4d646436",
+          "resolution_date": "2024-07-05T00:00:00+00:00",
+          "resolution_source": "https://www.bls.gov/news.release/archives/empsit_07052024.htm"
+        },
+        {
+          "category": "inflation",
+          "domain": "economics",
+          "evidence_cutoff": "2024-07-10T00:00:00+00:00",
+          "forecast_date": "2024-07-10T00:00:00+00:00",
+          "question": "Will the 12-month U.S. CPI-U all-items inflation rate for September 2024 be below 2.5%?",
+          "question_hash": "ac9fec2d3a84cecf18c74c24ce6e541369607a0dddc6084b3fb8161cfaa02ee9",
+          "resolution_date": "2024-10-10T00:00:00+00:00",
+          "resolution_source": "https://www.bls.gov/news.release/archives/cpi_10102024.htm"
+        },
+        {
+          "category": "earnings",
+          "domain": "business",
+          "evidence_cutoff": "2024-02-02T00:00:00+00:00",
+          "forecast_date": "2024-02-02T00:00:00+00:00",
+          "question": "Will Apple report more than $90 billion in total net sales for fiscal Q2 2024?",
+          "question_hash": "055be860e87d48b5535aa1bc699423329ec964a240ec17b604cf8b46dc43b134",
+          "resolution_date": "2024-05-02T00:00:00+00:00",
+          "resolution_source": "https://www.apple.com/newsroom/2024/05/apple-reports-second-quarter-results/"
+        },
+        {
+          "category": "product_announcement",
+          "domain": "technology",
+          "evidence_cutoff": "2024-03-15T00:00:00+00:00",
+          "forecast_date": "2024-03-15T00:00:00+00:00",
+          "question": "Will Apple publicly introduce a product or service named Apple Intelligence by June 15, 2024?",
+          "question_hash": "7fed57c605c9c0844062871cf1976d1925bf910034fc2f899e7ef0c32ef00475",
+          "resolution_date": "2024-06-15T00:00:00+00:00",
+          "resolution_source": "https://www.apple.com/newsroom/2024/06/introducing-apple-intelligence-for-iphone-ipad-and-mac/"
+        },
+        {
+          "category": "securities_regulation",
+          "domain": "regulation",
+          "evidence_cutoff": "2024-01-05T00:00:00+00:00",
+          "forecast_date": "2024-01-05T00:00:00+00:00",
+          "question": "Will the SEC's final climate-disclosure rules adopted on March 6, 2024 require registrants to disclose Scope 3 greenhouse-gas emissions?",
+          "question_hash": "f90f4cff669931ce53694ce5e521444ae1fab760cb05c38feb83e0e016d6db17",
+          "resolution_date": "2024-03-06T00:00:00+00:00",
+          "resolution_source": "https://www.sec.gov/newsroom/speeches-statements/gensler-statement-mandatory-climate-risk-disclosures-030624"
+        }
+      ],
+      "selected_question_count": 5,
+      "selected_question_hash": "bf58053be25c4afe6c47d1c65c249564d210725df9f1e88adba9b7b1531f7630",
+      "selection_rule": "first_rows_by_domain_in_pilot_manifest_v1",
+      "version": "1"
+    },
+    "execution_policy": {
+      "accuracy_metrics": "not_computed",
+      "automatic_whole_run_retry": false,
+      "provider_transient_retry_policy": "existing_provider_policy_max_3_physical_attempts",
+      "whole_run_attempts_per_question": 1
+    },
+    "pricing_hash": "87c8a6fd8066c1274986d78ffadbfe43f26d4cb5d7b410e56c9991297a9c157f",
+    "profile": {
+      "hash": "da02b8b9d7f03b29db170c08198663e661fe5b7259e6774e03717448d6cd24f4",
+      "id": "graph_forecaster_v1",
+      "snapshot": {
+        "aggregation_method": "importance_weighted_log_odds_v1",
+        "description": "Opt-in Forecast Contract, Forecast Graph, Evidence Claims, node forecasting, and deterministic graph aggregation path.",
+        "evidence_claims_enabled": true,
+        "execution_strategy": "graph_nodes",
+        "fetches_per_subquestion": 1,
+        "graph_aggregation_enabled": true,
+        "graph_generation_enabled": true,
+        "id": "graph_forecaster_v1",
+        "label": "Graph forecaster V1",
+        "max_estimated_cost_usd": 5.0,
+        "max_fetched_documents": 24,
+        "max_model_calls": 40,
+        "max_output_tokens_per_call": 4096,
+        "max_search_calls": 36,
+        "max_tokens": 200000,
+        "max_wall_clock_seconds": 180,
+        "node_forecasting_enabled": true,
+        "prompt_versions": {
+          "evidence_claims": "v1",
+          "forecast_graph": "v1",
+          "forecast_node": "v3",
+          "graph_research": "v1"
+        },
+        "search_results_per_subquestion": 2,
+        "shrinkage": 0.0,
+        "subquestions_per_track": 1,
+        "tracks": [
+          "single_agent"
+        ],
+        "version": 5
+      },
+      "version": 5
+    },
+    "prompts": {
+      "bundle_hash": "19e38fe04fca8397a3a18619ef3c49277dad1f640fa088e7b82e182cf2449208",
+      "hashes": {
+        "disagreement": "dba34d84faee7af771c60c0d301817bcfb0121c438c649551a8906a8204651e2",
+        "evidence_claims": "b110537e5f666ce52c508262b2d2d553b76675c8e0d0d8c937fea16b53ecc88f",
+        "extract": "974486e06b3e1a92bdf03491f6fb7e75733a4f4125de6a1db386a7009b85f692",
+        "forecast_base_rate": "08af6d6fc8730a6f0bf5c648d7d21c4744b17e01c055095ee1bffbeac639ae4c",
+        "forecast_contract": "9f752cf1210cd31117441d888aaa221c9ba07fabe6346bfc8adcb412245aeb03",
+        "forecast_current_evidence": "091dd8b0720fe0b3af16d8a7d046cca696e08535f0f726f4533088754d51ae3d",
+        "forecast_graph": "04ebce2f33492cb142c545651953e13886119e50719f91efe38d686d858bab24",
+        "forecast_node": "61b126341bf8899239b5fe8ea4608e08390f4277c5cdb4785488366b724f981b",
+        "forecast_single_agent": "26d5b63f662d686b88d00db3f4c7e3e5b32cd5e0bb1cdddd0c44d2d984799063",
+        "forecast_single_model": "c82e115185a1d6e718eeb23e2aa6b9ca4fba3b018a602911f6b316a84b67297a",
+        "forecast_skeptic": "583b7e24cada9c698fc694c9e2afe72893149e910fea71348b233c0119207b2b",
+        "graph_research": "a8145ea234fa9599aa50dfb497c6f8ba344ed085fa4a19867711cdb9333a9324",
+        "operationalize": "38c40d9b816f5a83b2a92d81fd28dd744d2f1134f444cc9d5c51f92f919872a4",
+        "plan_base_rate": "120757b6be187cf34d79b89194ffd176baa5dfb291213f49c2455f7494174b94",
+        "plan_current_evidence": "32bf1ef506115518cc80915a1e01554d69a5d7dd7fe8bc0ad9b9be07e1e87786",
+        "plan_single_agent": "f9b7d6ae067a6a46f6936c2428081d43d0f06cc5c4e2967fb0150c5fafc2749c",
+        "plan_skeptic": "d4bd702bcc2760b037b98735242a4ecde911b9ddd489049ca8b7fb383ba756e5"
+      },
+      "versions": {
+        "disagreement": "v1",
+        "evidence_claims": "v1",
+        "extract": "v1",
+        "forecast_base_rate": "v1",
+        "forecast_contract": "v1",
+        "forecast_current_evidence": "v1",
+        "forecast_graph": "v1",
+        "forecast_node": "v3",
+        "forecast_single_agent": "v1",
+        "forecast_single_model": "v1",
+        "forecast_skeptic": "v1",
+        "graph_research": "v1",
+        "operationalize": "v1",
+        "plan_base_rate": "v1",
+        "plan_current_evidence": "v1",
+        "plan_single_agent": "v1",
+        "plan_skeptic": "v1"
+      }
+    },
+    "provider": {
+      "evidence_policy": "strict_historical_snapshot",
+      "model": "gpt-5-mini-2025-08-07",
+      "model_api_key_set": true,
+      "model_base_url": "https://api.openai.com/v1",
+      "model_provider": "openai",
+      "model_timeout_seconds": 60.0,
+      "search_api_key_set": true,
+      "search_provider": "tavily"
+    },
+    "schema_version": 1,
+    "validation_id": "4a5c23e0-0cf6-463b-a608-a1ce65c88e63",
+    "validation_name": "Graph Execution Validation"
+  },
+  "previous_state": {
+    "assigned_questions": 20,
+    "completed_questions": 10,
+    "completion_rate": 0.5,
+    "failed_questions": 10,
+    "failure_summary": "All ten failed runs were classified as evidence failures.",
+    "profile_version": 4
+  },
+  "rows": [
+    {
+      "category": "labor_market",
+      "cost_source": "estimated",
+      "cost_usd": 0.22502000000000003,
+      "domain": "economics",
+      "evidence_claims_created": 0,
+      "evidence_success_rate": 0.0,
+      "execution_error": "GraphForecastExecutionError:Graph execution stopped because a critical node failed or too few eligible node forecasts remained",
+      "failed_node_ids": [
+        "291efd48-d813-406b-bcae-8e62dbf2e2ef",
+        "9e3e433f-318f-448f-bfc5-15fe4e881ec4",
+        "b6cb4cb5-3293-4ad0-9321-e30e01e48046",
+        "b931a952-b93c-4011-8270-a0dfd3c095f5",
+        "dba10cae-8e00-45c9-a025-42425b5138ac",
+        "e7850b73-3c22-4d6b-a86a-65a8f7806405",
+        "fb1215b9-f64c-4c7e-b2c7-1f160a668570"
+      ],
+      "failed_nodes": 7,
+      "failed_provider_attempts": 0,
+      "failure_categories": {
+        "budget_exceeded": 1,
+        "extraction_failure": 1,
+        "not_run_after_budget_stop": 5
+      },
+      "final_aggregation_created": false,
+      "forecast_date": "2024-04-05T00:00:00+00:00",
+      "forecast_run_id": "28e4a349-6299-427d-8d9e-80d566314586",
+      "forecast_version_created": false,
+      "latency_ms": 228811,
+      "node_forecasts_created": 0,
+      "nodes_with_evidence_claims": 0,
+      "physical_provider_retries": 0,
+      "provider_requests": 11,
+      "question": "Will the U.S. seasonally adjusted U-3 unemployment rate for June 2024 be at least 4.1%?",
+      "question_hash": "5a67ed2ad06d47cc4512030b6cc156b5165bb73dc01b8921fc18ddcc4d646436",
+      "resolution_date": "2024-07-05T00:00:00+00:00",
+      "status": "failed",
+      "successful_nodes": 0,
+      "total_nodes": 7,
+      "whole_run_attempts": 1,
+      "whole_run_retries": 0
+    },
+    {
+      "category": "inflation",
+      "cost_source": "estimated",
+      "cost_usd": 0.20185500000000003,
+      "domain": "economics",
+      "evidence_claims_created": 0,
+      "evidence_success_rate": 0.0,
+      "execution_error": "GraphForecastExecutionError:Graph execution stopped because a critical node failed or too few eligible node forecasts remained",
+      "failed_node_ids": [
+        "21ead4b0-2ffa-4b5d-a58f-317df4caca0a",
+        "31978f6a-6ff9-40d8-89ad-c31db1c5e929",
+        "31b4edaa-39be-48ca-9848-ca38b2e846eb",
+        "43f846da-c007-4139-897b-54f0b3dc097e",
+        "537d0bac-33de-467f-b496-214bf85bb525",
+        "537d0f8a-198c-4f7c-94be-58927ea4d493",
+        "607d9895-fd56-4c1a-958e-5bce83e07143"
+      ],
+      "failed_nodes": 7,
+      "failed_provider_attempts": 0,
+      "failure_categories": {
+        "budget_exceeded": 1,
+        "extraction_failure": 1,
+        "not_run_after_budget_stop": 5
+      },
+      "final_aggregation_created": false,
+      "forecast_date": "2024-07-10T00:00:00+00:00",
+      "forecast_run_id": "bc248f80-066b-4d13-814b-f6ef7b268437",
+      "forecast_version_created": false,
+      "latency_ms": 166309,
+      "node_forecasts_created": 0,
+      "nodes_with_evidence_claims": 0,
+      "physical_provider_retries": 0,
+      "provider_requests": 11,
+      "question": "Will the 12-month U.S. CPI-U all-items inflation rate for September 2024 be below 2.5%?",
+      "question_hash": "ac9fec2d3a84cecf18c74c24ce6e541369607a0dddc6084b3fb8161cfaa02ee9",
+      "resolution_date": "2024-10-10T00:00:00+00:00",
+      "status": "failed",
+      "successful_nodes": 0,
+      "total_nodes": 7,
+      "whole_run_attempts": 1,
+      "whole_run_retries": 0
+    },
+    {
+      "category": "earnings",
+      "cost_source": "estimated",
+      "cost_usd": 0.202965,
+      "domain": "business",
+      "evidence_claims_created": 0,
+      "evidence_success_rate": 0.0,
+      "execution_error": "GraphForecastExecutionError:Graph execution stopped because a critical node failed or too few eligible node forecasts remained",
+      "failed_node_ids": [
+        "14105254-4937-463c-8fbb-3d6d37b1b2f0",
+        "1afd1515-0770-4e40-8004-a819941abd4c",
+        "33012984-850c-4ecc-b0c4-f699339e0345",
+        "9ed0b281-84f7-409c-8ba8-a51c577b2ddb",
+        "aaf893a1-5f77-42fd-a7af-a6be394c5f5f",
+        "ac6f6cbe-2988-4528-bee6-0dcf428f1710",
+        "fc51c00d-e4b9-482b-9c36-4b84a52bfc6b"
+      ],
+      "failed_nodes": 7,
+      "failed_provider_attempts": 0,
+      "failure_categories": {
+        "budget_exceeded": 1,
+        "extraction_failure": 1,
+        "not_run_after_budget_stop": 5
+      },
+      "final_aggregation_created": false,
+      "forecast_date": "2024-02-02T00:00:00+00:00",
+      "forecast_run_id": "38b4687c-4975-4fcf-8a32-b949e77fdb4d",
+      "forecast_version_created": false,
+      "latency_ms": 249830,
+      "node_forecasts_created": 0,
+      "nodes_with_evidence_claims": 0,
+      "physical_provider_retries": 0,
+      "provider_requests": 11,
+      "question": "Will Apple report more than $90 billion in total net sales for fiscal Q2 2024?",
+      "question_hash": "055be860e87d48b5535aa1bc699423329ec964a240ec17b604cf8b46dc43b134",
+      "resolution_date": "2024-05-02T00:00:00+00:00",
+      "status": "failed",
+      "successful_nodes": 0,
+      "total_nodes": 7,
+      "whole_run_attempts": 1,
+      "whole_run_retries": 0
+    },
+    {
+      "category": "product_announcement",
+      "cost_source": "estimated",
+      "cost_usd": 0.17169,
+      "domain": "technology",
+      "evidence_claims_created": 0,
+      "evidence_success_rate": 0.0,
+      "execution_error": "GraphForecastExecutionError:Graph execution stopped because a critical node failed or too few eligible node forecasts remained",
+      "failed_node_ids": [
+        "189bd727-20ed-41a2-9b6f-6bd10da7d214",
+        "337ef050-6346-4fee-a156-17b0642c0530",
+        "5d92a6c1-bac3-484e-862e-3197ec4c305a",
+        "617a4c27-bbff-41c6-9c82-179f52a4b6f8",
+        "979d905b-807e-441a-93d8-16fe1234712c",
+        "e9c907e1-875a-4987-aeb8-80dcdda4790c",
+        "ef7bbf39-f824-4aad-85fa-dbcdda17e084",
+        "f9e73eb7-e59d-4879-a478-9d7395e967b0"
+      ],
+      "failed_nodes": 8,
+      "failed_provider_attempts": 0,
+      "failure_categories": {
+        "budget_exceeded": 1,
+        "extraction_failure": 1,
+        "not_run_after_budget_stop": 6
+      },
+      "final_aggregation_created": false,
+      "forecast_date": "2024-03-15T00:00:00+00:00",
+      "forecast_run_id": "1e434fad-138c-44fd-869f-35f39abde065",
+      "forecast_version_created": false,
+      "latency_ms": 214430,
+      "node_forecasts_created": 0,
+      "nodes_with_evidence_claims": 0,
+      "physical_provider_retries": 0,
+      "provider_requests": 7,
+      "question": "Will Apple publicly introduce a product or service named Apple Intelligence by June 15, 2024?",
+      "question_hash": "7fed57c605c9c0844062871cf1976d1925bf910034fc2f899e7ef0c32ef00475",
+      "resolution_date": "2024-06-15T00:00:00+00:00",
+      "status": "failed",
+      "successful_nodes": 0,
+      "total_nodes": 8,
+      "whole_run_attempts": 1,
+      "whole_run_retries": 0
+    },
+    {
+      "category": "securities_regulation",
+      "cost_source": "estimated",
+      "cost_usd": 0.22826000000000005,
+      "domain": "regulation",
+      "evidence_claims_created": 0,
+      "evidence_success_rate": 0.0,
+      "execution_error": "GraphForecastExecutionError:Graph execution stopped because a critical node failed or too few eligible node forecasts remained",
+      "failed_node_ids": [
+        "606d6071-e222-4ec4-9a2a-efcb72b1c4c7",
+        "7fbc85fa-09f4-47fc-b511-cd09cce10403",
+        "9885187f-fd05-471a-b1b0-c50c7d89c4b5",
+        "9e17c8ff-11f2-4f25-9e49-aaf7074940b6",
+        "d0d57f33-e564-4149-bab5-6eff02969ee7",
+        "d42b9589-5356-485d-89c8-2c09e1a82f8a",
+        "ecb762fe-fd7d-4173-80c9-79f429a8cdfc"
+      ],
+      "failed_nodes": 7,
+      "failed_provider_attempts": 0,
+      "failure_categories": {
+        "budget_exceeded": 1,
+        "extraction_failure": 2,
+        "not_run_after_budget_stop": 4
+      },
+      "final_aggregation_created": false,
+      "forecast_date": "2024-01-05T00:00:00+00:00",
+      "forecast_run_id": "82eb45b9-3ff9-4700-99ae-fcfc5f9426e4",
+      "forecast_version_created": false,
+      "latency_ms": 285044,
+      "node_forecasts_created": 0,
+      "nodes_with_evidence_claims": 0,
+      "physical_provider_retries": 0,
+      "provider_requests": 12,
+      "question": "Will the SEC's final climate-disclosure rules adopted on March 6, 2024 require registrants to disclose Scope 3 greenhouse-gas emissions?",
+      "question_hash": "f90f4cff669931ce53694ce5e521444ae1fab760cb05c38feb83e0e016d6db17",
+      "resolution_date": "2024-03-06T00:00:00+00:00",
+      "status": "failed",
+      "successful_nodes": 0,
+      "total_nodes": 7,
+      "whole_run_attempts": 1,
+      "whole_run_retries": 0
+    }
+  ],
+  "summary": {
+    "assigned_questions": 5,
+    "completed_questions": 0,
+    "completion_rate": 0.0,
+    "evidence_claims_created": 0,
+    "evidence_success_rate": 0.0,
+    "failed_nodes": 36,
+    "failed_provider_attempts": 0,
+    "failed_questions": 5,
+    "failure_categories": {
+      "budget_exceeded": 5,
+      "extraction_failure": 6,
+      "not_run_after_budget_stop": 25
+    },
+    "final_aggregations_created": 0,
+    "forecast_versions_created": 0,
+    "mean_latency_ms": 228884.8,
+    "node_forecasts_created": 0,
+    "physical_provider_retries": 0,
+    "successful_nodes": 0,
+    "total_cost_usd": 1.02979,
+    "total_latency_ms": 1144424,
+    "total_nodes": 36,
+    "whole_run_retries": 0
+  },
+  "validation_id": "4a5c23e0-0cf6-463b-a608-a1ce65c88e63",
+  "validation_name": "Graph Execution Validation"
+}
