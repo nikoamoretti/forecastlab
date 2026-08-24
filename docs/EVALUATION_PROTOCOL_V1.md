@@ -203,6 +203,8 @@ Thirty to fifty prospective questions are an initial validation set, not definit
 
 ForecastLab's controlled runner implements the frozen assignment and measurement substrate for steps 2 through 4. It does not yet implement bootstrap uncertainty, pre-registration enforcement, automatic split manifests, or a decision rule.
 
+The first research-analysis layer reads those immutable measurements and reports per-profile Brier score, log loss, gated reliability buckets, operations, and evidence diagnostics. Human reviewers may add internal failure classifications without altering forecast records. This descriptive layer does not satisfy the paired uncertainty, decision-rule, or quality-claim requirements by itself; see [Forecast Research Analysis](FORECAST_RESEARCH_ANALYSIS.md).
+
 ## Required report contents
 
 An evaluation report must include dataset and split hashes, sample sizes, question coverage, system identities, profile and prompt hashes, provider and model identity, budgets, pricing snapshot, evidence policy, code and dependency identity, primary and secondary metrics, confidence intervals, exclusions, full/partial/failed counts, total cost, limitations, and the final decision.

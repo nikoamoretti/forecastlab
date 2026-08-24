@@ -127,5 +127,5 @@ def test_fresh_and_upgraded_schema_parity(tmp_path: Path, monkeypatch) -> None:
             orphans = connection.execute(text("PRAGMA foreign_key_check")).fetchall()
             assert orphans == [], orphans
             head = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            assert head == "20260823_0017"
+            assert head == "20260823_0018"
     assert DOCUMENTED_SQLITE_DIFFS

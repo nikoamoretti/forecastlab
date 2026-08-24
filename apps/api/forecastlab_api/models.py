@@ -527,6 +527,7 @@ class ForecastExperiment(Base):
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     runs: Mapped[list[ForecastExperimentRun]] = relationship(back_populates="experiment")
+    failures: Mapped[list[ForecastFailure]] = relationship(back_populates="experiment")
 
 
 class ForecastExperimentRun(Base):
@@ -564,6 +565,7 @@ class ForecastExperimentRun(Base):
         back_populates="experiment_run",
         uselist=False,
     )
+    failures: Mapped[list[ForecastFailure]] = relationship(back_populates="experiment_run")
 
 
 class ForecastExperimentResult(Base):
@@ -608,6 +610,40 @@ class ForecastExperimentResult(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     experiment_run: Mapped[ForecastExperimentRun] = relationship(back_populates="result")
+
+
+class ForecastFailure(Base):
+    """Internal classification explaining a controlled forecast run's failure mode."""
+
+    __tablename__ = "forecast_failures"
+    __table_args__ = (
+        UniqueConstraint(
+            "forecast_experiment_run_id",
+            "category",
+            name="uq_forecast_failure_run_category",
+        ),
+        CheckConstraint(
+            "category IN ("
+            "'bad_contract', 'bad_evidence', 'bad_decomposition', "
+            "'bad_node_forecast', 'bad_aggregation', 'operational_failure'"
+            ")",
+            name="ck_forecast_failure_category",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    experiment_id: Mapped[str] = mapped_column(ForeignKey("forecast_experiments.id"))
+    forecast_experiment_run_id: Mapped[str] = mapped_column(
+        ForeignKey("forecast_experiment_runs.id")
+    )
+    category: Mapped[str] = mapped_column(String(64))
+    annotation: Mapped[str] = mapped_column(Text)
+    created_by: Mapped[str] = mapped_column(String(128), default="internal_reviewer")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    experiment: Mapped[ForecastExperiment] = relationship(back_populates="failures")
+    experiment_run: Mapped[ForecastExperimentRun] = relationship(back_populates="failures")
 
 
 def _frozen_forecast_experiment_configuration_guard(

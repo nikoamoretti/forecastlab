@@ -59,6 +59,13 @@ from forecastlab_api.experiments import (
     serialize_dataset,
     v1_evaluation_workflow,
 )
+from forecastlab_api.forecast_analysis import (
+    build_forecast_research_analysis,
+    classify_forecast_failure,
+    failures_for_forecast_experiment_run,
+    serialize_forecast_failure,
+    update_forecast_failure_annotation,
+)
 from forecastlab_api.forecast_experiments import (
     CONTROLLED_FORECAST_PROFILES,
     create_forecast_experiment,
@@ -83,6 +90,7 @@ from forecastlab_api.models import (
     EvidenceItem,
     ForecastContractRow,
     ForecastExperiment,
+    ForecastExperimentRun,
     ForecastGraphRow,
     ForecastNodeRow,
     ForecastNodeRunRow,
@@ -203,6 +211,16 @@ class ForecastExperimentIn(BaseModel):
         default_factory=lambda: list(CONTROLLED_FORECAST_PROFILES)
     )
     synthetic_test: bool = False
+
+
+class ForecastFailureIn(BaseModel):
+    category: str
+    annotation: str
+    created_by: str = "internal_reviewer"
+
+
+class ForecastFailureAnnotationIn(BaseModel):
+    annotation: str
 
 
 @app.exception_handler(ConfigurationError)
@@ -1166,6 +1184,76 @@ def get_forecast_experiment_report(
     if experiment is None:
         raise HTTPException(404, "Forecast experiment not found")
     return forecast_experiment_report(db, experiment).model_dump(mode="json")
+
+
+@app.get("/api/forecast-experiments/{experiment_id}/analysis")
+def get_forecast_experiment_analysis(
+    experiment_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment = db.get(ForecastExperiment, experiment_id)
+    if experiment is None:
+        raise HTTPException(404, "Forecast experiment not found")
+    return build_forecast_research_analysis(db, experiment).model_dump(mode="json")
+
+
+@app.get("/api/forecast-experiment-runs/{run_id}/failures")
+def get_forecast_experiment_run_failures(
+    run_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    experiment_run = db.get(ForecastExperimentRun, run_id)
+    if experiment_run is None:
+        raise HTTPException(404, "Forecast experiment run not found")
+    return {
+        "forecast_experiment_run_id": run_id,
+        "failures": [
+            serialize_forecast_failure(item)
+            for item in failures_for_forecast_experiment_run(db, run_id)
+        ],
+    }
+
+
+@app.post("/api/forecast-experiment-runs/{run_id}/failures", status_code=201)
+def post_forecast_experiment_run_failure(
+    run_id: str,
+    body: ForecastFailureIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    if db.get(ForecastExperimentRun, run_id) is None:
+        raise HTTPException(404, "Forecast experiment run not found")
+    try:
+        row = classify_forecast_failure(
+            db,
+            forecast_experiment_run_id=run_id,
+            category=body.category,
+            annotation=body.annotation,
+            created_by=body.created_by,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    db.commit()
+    return serialize_forecast_failure(row)
+
+
+@app.patch("/api/forecast-failures/{failure_id}")
+def patch_forecast_failure(
+    failure_id: str,
+    body: ForecastFailureAnnotationIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        row = update_forecast_failure_annotation(
+            db,
+            failure_id=failure_id,
+            annotation=body.annotation,
+        )
+    except ValueError as exc:
+        if str(exc) == "forecast_failure_not_found":
+            raise HTTPException(404, "Forecast failure not found") from exc
+        raise HTTPException(400, str(exc)) from exc
+    db.commit()
+    return serialize_forecast_failure(row)
 
 
 @app.post("/api/benchmarks/import")

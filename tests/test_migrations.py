@@ -31,11 +31,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "forecast_experiments" in tables
     assert "forecast_experiment_runs" in tables
     assert "forecast_experiment_results" in tables
+    assert "forecast_failures" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -155,6 +156,19 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "completion_status",
             "created_at",
         } == forecast_experiment_result_cols
+        forecast_failure_cols = {
+            column["name"] for column in inspect(engine).get_columns("forecast_failures")
+        }
+        assert {
+            "id",
+            "experiment_id",
+            "forecast_experiment_run_id",
+            "category",
+            "annotation",
+            "created_by",
+            "created_at",
+            "updated_at",
+        } == forecast_failure_cols
 
 
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
@@ -166,7 +180,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0017"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -199,7 +213,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260823_0017"
+            == "20260823_0018"
         )
 
 
@@ -226,6 +240,72 @@ def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> Non
             text("SELECT name FROM evaluation_datasets WHERE id = 'dataset-1'")
         ).scalar_one() == "Resolved release"
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
+
+
+def test_forecast_analysis_migration_preserves_experiment_results(tmp_path) -> None:
+    db_url = f"sqlite:///{tmp_path}/forecast-analysis.db"
+    command.upgrade(alembic_config(db_url), "20260823_0017")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_datasets "
+                "(id, name, version, hash, description, provenance, status, created_at, "
+                "frozen_at, question_count) VALUES "
+                "('dataset-1', 'Resolved release', '1', :hash, 'description', 'source', "
+                "'frozen', '2026-08-23 00:00:00', '2026-08-23 00:00:00', 1)"
+            ),
+            {"hash": "b" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_questions "
+                "(id, dataset_id, question, resolution_contract, forecast_date, resolution_date, "
+                "outcome, resolution_source, domain, question_hash) VALUES "
+                "('evaluation-question-1', 'dataset-1', 'Did it happen?', '{}', "
+                "'2025-01-01 00:00:00', '2025-12-31 00:00:00', 1, 'resolver', "
+                "'test', :hash)"
+            ),
+            {"hash": "c" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_experiments "
+                "(id, dataset_id, status, profiles_json, configuration_hash, configuration_json, "
+                "created_at, completed_at) VALUES "
+                "('experiment-1', 'dataset-1', 'completed', '[]', :hash, '{}', "
+                "'2026-08-23 00:00:00', '2026-08-23 00:01:00')"
+            ),
+            {"hash": "d" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_experiment_runs "
+                "(id, experiment_id, evaluation_question_id, profile_id, forecast_run_id, status, "
+                "error, error_category, created_at, started_at, completed_at) VALUES "
+                "('experiment-run-1', 'experiment-1', 'evaluation-question-1', "
+                "'single_model_forecaster_v1', NULL, 'completed', NULL, NULL, "
+                "'2026-08-23 00:00:00', '2026-08-23 00:00:00', '2026-08-23 00:01:00')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_experiment_results "
+                "(id, experiment_run_id, probability, outcome, brier_score, log_loss, cost_usd, "
+                "latency_ms, evidence_coverage, evidence_covered_units, evidence_total_units, "
+                "completion_status, created_at) VALUES "
+                "('result-1', 'experiment-run-1', 0.4, 1, 0.36, 0.916, 0.0, 12, 1.0, "
+                "1, 1, 'completed', '2026-08-23 00:01:00')"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT probability FROM forecast_experiment_results WHERE id = 'result-1'")
+        ).scalar_one() == 0.4
+        assert connection.execute(text("SELECT COUNT(*) FROM forecast_failures")).scalar_one() == 0
 
 
 def test_node_forecasting_migration_backfills_existing_node_run(tmp_path) -> None:
