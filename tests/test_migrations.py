@@ -36,7 +36,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0019"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -105,6 +105,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "outcome",
             "resolution_source",
             "domain",
+            "category",
             "question_hash",
         } == evaluation_question_cols
         forecast_experiment_cols = {
@@ -180,7 +181,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0018"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0019"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -213,8 +214,48 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260823_0018"
+            == "20260823_0019"
         )
+
+
+def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_path) -> None:
+    db_url = f"sqlite:///{tmp_path}/pilot-category.db"
+    command.upgrade(alembic_config(db_url), "20260823_0018")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_datasets "
+                "(id, name, version, hash, description, provenance, status, created_at, "
+                "frozen_at, question_count) VALUES "
+                "('dataset-1', 'Historical release', '1', :dataset_hash, 'description', "
+                "'source', 'frozen', '2026-08-23 00:00:00', '2026-08-23 00:00:00', 1)"
+            ),
+            {"dataset_hash": "a" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_questions "
+                "(id, dataset_id, question, resolution_contract, forecast_date, resolution_date, "
+                "outcome, resolution_source, domain, question_hash) VALUES "
+                "('question-1', 'dataset-1', 'Did the recorded event occur?', '{}', "
+                "'2024-01-01 00:00:00', '2024-04-01 00:00:00', 1, 'resolver', "
+                "'test', :question_hash)"
+            ),
+            {"question_hash": "b" * 64},
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with engine.connect() as connection:
+        row = connection.execute(
+            text(
+                "SELECT q.question_hash, q.category, d.hash "
+                "FROM evaluation_questions q JOIN evaluation_datasets d ON d.id = q.dataset_id"
+            )
+        ).one()
+        assert tuple(row) == ("b" * 64, None, "a" * 64)
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260823_0019"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

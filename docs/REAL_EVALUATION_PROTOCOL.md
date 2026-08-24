@@ -31,6 +31,7 @@ An `EvaluationQuestion` stores:
 - `outcome`
 - `resolution_source`
 - `domain`
+- optional `category` taxonomy
 
 The resolution contract contains distinct `yes_condition` and `no_condition` values, the authoritative resolver, the resolution source and date, and the binary forecast type. The final outcome must be exactly `0` or `1`.
 

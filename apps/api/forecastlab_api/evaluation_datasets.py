@@ -167,6 +167,9 @@ def canonical_evaluation_question(
         "resolution_source": resolution_source,
         "domain": _normalize_text(row.get("domain")) or "general",
     }
+    category = _normalize_text(row.get("category"))
+    if category:
+        canonical["category"] = category
     canonical["question_hash"] = sha256_text(canonical_json(canonical))
     return canonical
 
@@ -315,6 +318,7 @@ def import_evaluation_dataset(
                 outcome=int(item["outcome"]),
                 resolution_source=str(item["resolution_source"]),
                 domain=str(item["domain"]),
+                category=str(item["category"]) if item.get("category") else None,
                 question_hash=str(item["question_hash"]),
             )
         )
@@ -333,20 +337,20 @@ def _canonical_stored_question(
         raise EvaluationDatasetValidationError(["resolution_contract_invalid"]) from exc
     if not isinstance(contract, dict):
         raise EvaluationDatasetValidationError(["resolution_contract_invalid"])
-    canonical = canonical_evaluation_question(
-        {
-            "question": question.question,
-            "yes_condition": contract.get("yes_condition"),
-            "no_condition": contract.get("no_condition"),
-            "authoritative_resolver": contract.get("authoritative_resolver"),
-            "forecast_date": question.forecast_date,
-            "resolution_date": question.resolution_date,
-            "outcome": question.outcome,
-            "resolution_source": question.resolution_source,
-            "domain": question.domain,
-        },
-        now=now,
-    )
+    row = {
+        "question": question.question,
+        "yes_condition": contract.get("yes_condition"),
+        "no_condition": contract.get("no_condition"),
+        "authoritative_resolver": contract.get("authoritative_resolver"),
+        "forecast_date": question.forecast_date,
+        "resolution_date": question.resolution_date,
+        "outcome": question.outcome,
+        "resolution_source": question.resolution_source,
+        "domain": question.domain,
+    }
+    if question.category:
+        row["category"] = question.category
+    canonical = canonical_evaluation_question(row, now=now)
     if canonical_json(contract) != canonical_json(canonical["resolution_contract"]):
         raise EvaluationDatasetValidationError(["resolution_contract_not_canonical"])
     return canonical
@@ -447,7 +451,7 @@ def freeze_evaluation_dataset(
 
 
 def serialize_evaluation_question(question: EvaluationQuestion) -> dict[str, Any]:
-    return {
+    payload = {
         "id": question.id,
         "dataset_id": question.dataset_id,
         "question": question.question,
@@ -458,6 +462,9 @@ def serialize_evaluation_question(question: EvaluationQuestion) -> dict[str, Any
         "resolution_source": question.resolution_source,
         "domain": question.domain,
     }
+    if question.category:
+        payload["category"] = question.category
+    return payload
 
 
 def serialize_evaluation_dataset(

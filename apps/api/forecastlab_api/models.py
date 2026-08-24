@@ -501,6 +501,7 @@ class EvaluationQuestion(Base):
     outcome: Mapped[int] = mapped_column(Integer)
     resolution_source: Mapped[str] = mapped_column(Text)
     domain: Mapped[str] = mapped_column(String(128))
+    category: Mapped[str | None] = mapped_column(String(128), nullable=True)
     question_hash: Mapped[str] = mapped_column(String(64))
 
     dataset: Mapped[EvaluationDataset] = relationship(back_populates="questions")
