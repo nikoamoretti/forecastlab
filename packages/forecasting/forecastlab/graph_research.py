@@ -4,7 +4,7 @@ import json
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Literal
+from typing import Any, Literal, Protocol, runtime_checkable
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
@@ -26,7 +26,12 @@ from forecastlab.ranking import rank_hits
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import EvidenceClaim, FetchedDocument, ForecastNode, ForecastProfile, SearchHit
 from forecastlab.timeutil import as_utc, utcnow
-from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
+from forecastlab.wayback import (
+    WaybackSnapshot,
+    discover_snapshots,
+    mock_snapshots,
+    nearest_eligible_snapshot,
+)
 
 GraphResearchFailureCode = Literal[
     "retrieval_failure",
@@ -34,6 +39,31 @@ GraphResearchFailureCode = Literal[
     "cutoff_rejection",
     "extraction_failure",
 ]
+
+
+@runtime_checkable
+class SyntheticHistoricalEvidenceAdapter(Protocol):
+    """Optional fail-closed fixture boundary used only by explicit synthetic backtests."""
+
+    synthetic_workflow_only: bool
+
+    def discover_fixture_snapshots(
+        self,
+        url: str,
+        *,
+        as_of: datetime,
+    ) -> list[WaybackSnapshot]: ...
+
+    def fetch_fixture_document(
+        self,
+        url: str,
+        *,
+        as_of: datetime | None,
+        allow_local_fixtures: bool,
+        snapshot_url: str | None,
+        snapshot_at: datetime | None,
+        mode: str,
+    ) -> FetchedDocument: ...
 
 _CUTOFF_REASONS = {
     "claim_after_cutoff",
@@ -429,6 +459,13 @@ class GraphResearchExecutor:
         return [fallback], errors, "claims_created_document_fallback"
 
     def execute(self, node: ForecastNode) -> GraphResearchResult:
+        fixture_adapter = (
+            self.search
+            if self.allow_local_fixtures
+            and isinstance(self.search, SyntheticHistoricalEvidenceAdapter)
+            and self.search.synthetic_workflow_only
+            else None
+        )
         plan, planning_warnings = self._generate_plan(node)
         queries = _deduplicate_text(
             [
@@ -490,11 +527,17 @@ class GraphResearchExecutor:
             }
             if self.mode == "backtest" and self.as_of is not None:
                 try:
-                    snapshots = (
-                        mock_snapshots(hit.url)
-                        if self.allow_local_fixtures
-                        else discover_snapshots(hit.url, as_of=self.as_of)
-                    )
+                    if fixture_adapter is not None:
+                        snapshots = fixture_adapter.discover_fixture_snapshots(
+                            hit.url,
+                            as_of=self.as_of,
+                        )
+                    else:
+                        snapshots = (
+                            mock_snapshots(hit.url)
+                            if self.allow_local_fixtures
+                            else discover_snapshots(hit.url, as_of=self.as_of)
+                        )
                 except Exception as exc:
                     source_audit.update(
                         outcome="retrieval_failure",
@@ -521,14 +564,24 @@ class GraphResearchExecutor:
             self.budget.add_fetch(f"fetch_node:{node.id}")
             fetch_attempts += 1
             try:
-                document = self.cache.fetch(
-                    hit.url,
-                    as_of=self.as_of if self.mode == "backtest" else None,
-                    allow_local_fixtures=self.allow_local_fixtures,
-                    snapshot_url=snapshot_url,
-                    snapshot_at=snapshot_at,
-                    mode=self.mode,
-                )
+                if fixture_adapter is not None:
+                    document = fixture_adapter.fetch_fixture_document(
+                        hit.url,
+                        as_of=self.as_of if self.mode == "backtest" else None,
+                        allow_local_fixtures=self.allow_local_fixtures,
+                        snapshot_url=snapshot_url,
+                        snapshot_at=snapshot_at,
+                        mode=self.mode,
+                    )
+                else:
+                    document = self.cache.fetch(
+                        hit.url,
+                        as_of=self.as_of if self.mode == "backtest" else None,
+                        allow_local_fixtures=self.allow_local_fixtures,
+                        snapshot_url=snapshot_url,
+                        snapshot_at=snapshot_at,
+                        mode=self.mode,
+                    )
             except BudgetExceeded:
                 raise
             except Exception as exc:
