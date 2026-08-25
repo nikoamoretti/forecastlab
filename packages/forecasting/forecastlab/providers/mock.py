@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 import uuid
-from typing import Any
+from typing import Any, Literal
 
 from forecastlab.ledger import UsageLedger
 from forecastlab.providers.base import ChatResult
@@ -87,6 +87,8 @@ class MockModelProvider:
         timeout: float | None = None,
         max_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
+        json_schema: dict[str, Any] | None = None,
+        reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
     ) -> ChatResult:
         prompt_id = _prompt_id(system)
         payload = self._payload(prompt_id, user, schema_name)

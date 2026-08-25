@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from forecastlab.execution import resolve_execution_context
 from forecastlab.graphs import GraphGenerator, ensure_graph_approvable
+from forecastlab.profiles import load_profile
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.schemas import ForecastGraph, ForecastNode
 from forecastlab.timeutil import as_utc
@@ -42,6 +43,7 @@ def build_graph_generator(question: Question) -> GraphGenerator:
     )
     return GraphGenerator(
         model,
+        max_output_tokens=load_profile(context.profile_id).max_output_tokens_per_call,
         generation_model=f"{context.model_provider}:{context.model_name}",
     )
 

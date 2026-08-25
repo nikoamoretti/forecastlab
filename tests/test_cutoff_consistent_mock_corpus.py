@@ -379,7 +379,7 @@ def test_shadow_pricing_uses_existing_planner_without_charging_mock_execution() 
         known_dependencies=["monetary policy"],
         status="approved",
     )
-    graph = GraphGenerator(MockModelProvider()).generate(contract)
+    graph = GraphGenerator(MockModelProvider(), max_output_tokens=1536).generate(contract)
     profile = effective_profile(
         load_profile("graph_forecaster_v1"),
         user_max_cost_usd=SHADOW_COST_CEILING_USD,

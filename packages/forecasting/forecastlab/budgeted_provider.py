@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any, Literal
+
 from forecastlab.budget import Budget, estimate_prompt_tokens
 from forecastlab.providers.base import ChatResult, ModelProvider
 
@@ -38,6 +40,8 @@ class BudgetedModelProvider:
         timeout: float | None = None,
         max_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
+        json_schema: dict[str, Any] | None = None,
+        reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
     ) -> ChatResult:
         estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
         allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
@@ -60,6 +64,8 @@ class BudgetedModelProvider:
                 timeout=timeout,
                 max_output_tokens=allowed_output,
                 estimated_input_tokens=estimated_input,
+                json_schema=json_schema,
+                reasoning_effort=reasoning_effort,
             )
         except Exception:
             self.budget.release_reservation(reservation)

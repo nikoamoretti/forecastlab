@@ -108,12 +108,18 @@ class GraphForecastExecutor:
                 self.session,
                 question=self.run.question,
                 model=self.model,
+                max_output_tokens=self.profile.max_output_tokens_per_call,
                 prompt_bundle=self.prompt_bundle,
             )
         except ForecastContractError as exc:
             self._fail(stage="contract", reasons=exc.reasons, message=str(exc))
         except ForecastGraphError as exc:
-            self._fail(stage="graph", reasons=exc.reasons, message=str(exc))
+            self._fail(
+                stage="graph",
+                reasons=exc.reasons,
+                message=str(exc),
+                audit=exc.audit,
+            )
         except StructuredOutputError as exc:
             self._fail(stage="graph", reasons=[str(exc)], message=str(exc))
         except PermanentProviderError as exc:
@@ -561,7 +567,7 @@ class GraphForecastExecutor:
         self.run.error_message = "; ".join(str(item["error_code"]) for item in failures)
         self.run.progress_stage = "failed"
         self.run.progress_message = "Graph forecast stopped before aggregation"
-        self.run.finished_at = utcnow()
+        self._finish_failed_run()
         if not self.run.question.is_benchmark:
             self.run.question.status = "failed"
         self.session.commit()
@@ -727,11 +733,20 @@ class GraphForecastExecutor:
         self.run.error_message = "; ".join(reasons)
         self.run.progress_stage = "failed"
         self.run.progress_message = message
-        self.run.finished_at = utcnow()
+        self._finish_failed_run()
         if not self.run.question.is_benchmark:
             self.run.question.status = "failed"
         self.session.commit()
         self._raise_failure(stage=stage, reasons=reasons, message=message)
+
+    def _finish_failed_run(self) -> None:
+        finished_at = utcnow()
+        self.run.finished_at = finished_at
+        if self.run.started_at is not None:
+            elapsed_ms = int(
+                (finished_at - as_utc(self.run.started_at)).total_seconds() * 1000
+            )
+            self.run.latency_ms = max(1, elapsed_ms)
 
     @staticmethod
     def _raise_failure(*, stage: str, reasons: list[str], message: str) -> NoReturn:

@@ -53,6 +53,7 @@ def ensure_execution_graph(
     *,
     question: Question,
     model: ModelProvider,
+    max_output_tokens: int,
     prompt_bundle: PromptBundle | None = None,
 ) -> tuple[ForecastContract, ForecastGraph]:
     """Resolve the approved contract and persist its graph before node research starts."""
@@ -72,7 +73,11 @@ def ensure_execution_graph(
         latest_version = session.scalar(
             select(func.max(ForecastGraphRow.version)).where(ForecastGraphRow.contract_id == contract.id)
         )
-        graph = GraphGenerator(model, prompt_bundle=prompt_bundle).generate(
+        graph = GraphGenerator(
+            model,
+            max_output_tokens=max_output_tokens,
+            prompt_bundle=prompt_bundle,
+        ).generate(
             contract,
             version=int(latest_version or 0) + 1,
         )

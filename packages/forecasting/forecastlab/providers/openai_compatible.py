@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import uuid
 from typing import Any, Literal
 
@@ -11,13 +12,23 @@ from forecastlab.hashing import redact_secrets
 from forecastlab.ledger import UsageLedger
 from forecastlab.physical import run_physical_attempts
 from forecastlab.pricing import estimate_call_cost, lookup_rate
-from forecastlab.providers.base import ChatResult
+from forecastlab.providers.base import ChatResult, StructuredOutputDiagnostics
 from forecastlab.schemas import ModelUsage
+from forecastlab.structured_outputs import validate_structured_output
 
 DEFAULT_XAI_BASE = "https://api.x.ai/v1"
 DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
 _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES = ("gpt-5", "o1", "o3", "o4")
 _OPENAI_NO_TEMPERATURE_PREFIXES = _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES
+_OPENAI_STRICT_SCHEMA_PREFIXES = (
+    "gpt-5",
+    "gpt-4.1",
+    "gpt-4o",
+    "o1",
+    "o3",
+    "o4",
+)
+_KNOWN_FINISH_REASONS = {"stop", "length", "content_filter", "tool_calls", "function_call"}
 
 
 class ProviderError(PermanentProviderError):
@@ -41,6 +52,32 @@ def _supports_temperature(provider_id: str, model: str) -> bool:
     return not _is_openai_model_family(provider_id, model, _OPENAI_NO_TEMPERATURE_PREFIXES)
 
 
+def _supports_strict_json_schema(provider_id: str, model: str) -> bool:
+    return _is_openai_model_family(provider_id, model, _OPENAI_STRICT_SCHEMA_PREFIXES)
+
+
+def _supports_minimal_reasoning(provider_id: str, model: str) -> bool:
+    return _is_openai_model_family(provider_id, model, ("gpt-5",))
+
+
+def _sanitized_finish_reason(value: Any) -> str | None:
+    if value is None:
+        return None
+    normalized = str(value).strip().lower()
+    return normalized if normalized in _KNOWN_FINISH_REASONS else "other"
+
+
+def _sanitized_request_id(value: Any) -> str | None:
+    if value is None:
+        return None
+    request_id = str(value).strip()
+    if not request_id or len(request_id) > 128:
+        return "redacted"
+    if re.fullmatch(r"[A-Za-z0-9_.:-]+", request_id) is None:
+        return "redacted"
+    return request_id
+
+
 def _usage_from_response(
     data: dict[str, Any],
     *,
@@ -55,9 +92,9 @@ def _usage_from_response(
     completion = int(usage.get("completion_tokens") or 0)
     rate = lookup_rate(provider, model, catalog=catalog)
     if rate:
-        cost = (prompt / 1_000_000) * float(rate.get("input_per_million") or 0) + (
-            completion / 1_000_000
-        ) * float(rate.get("output_per_million") or 0)
+        cost = (prompt / 1_000_000) * float(rate.get("input_per_million") or 0) + (completion / 1_000_000) * float(
+            rate.get("output_per_million") or 0
+        )
         source = "estimated"
     else:
         cost = 0.0
@@ -113,20 +150,45 @@ class OpenAICompatibleProvider:
         timeout: float | None = None,
         max_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
+        json_schema: dict[str, Any] | None = None,
+        reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
     ) -> ChatResult:
         url = f"{self.base_url}/chat/completions"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
         }
+        strict_schema = bool(
+            json_schema is not None
+            and schema_name == "forecast_graph"
+            and _supports_strict_json_schema(self.provider_id, self.model)
+        )
+        response_format: dict[str, Any]
+        if strict_schema:
+            response_format = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": schema_name,
+                    "strict": True,
+                    "schema": json_schema,
+                },
+            }
+        else:
+            response_format = {"type": "json_object"}
         body: dict[str, Any] = {
             "model": self.model,
-            "response_format": {"type": "json_object"},
+            "response_format": response_format,
             "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
         }
+        if (
+            schema_name == "forecast_graph"
+            and reasoning_effort is not None
+            and _supports_minimal_reasoning(self.provider_id, self.model)
+        ):
+            body["reasoning_effort"] = reasoning_effort
         if _supports_temperature(self.provider_id, self.model):
             body["temperature"] = temperature
         if max_output_tokens is not None:
@@ -154,12 +216,23 @@ class OpenAICompatibleProvider:
                 error_cls = classify_http_status(response.status_code)
                 raise error_cls(f"Model provider HTTP {response.status_code}: {redact_secrets(response.text[:400])}")
             data = response.json()
-            content = data["choices"][0]["message"]["content"]
+            choices = data.get("choices") or []
+            choice = choices[0] if choices and isinstance(choices[0], dict) else {}
+            message = choice.get("message") if isinstance(choice, dict) else {}
+            if not isinstance(message, dict):
+                message = {}
+            raw_content = message.get("content")
+            content = raw_content if isinstance(raw_content, str) else ""
+            parsed: dict[str, Any] | None
+            json_parsing_succeeded = False
             try:
-                parsed = json.loads(content)
+                decoded = json.loads(content)
             except json.JSONDecodeError:
                 parsed = None
-            request_id = response.headers.get("x-request-id") or data.get("id")
+            else:
+                json_parsing_succeeded = True
+                parsed = decoded if isinstance(decoded, dict) else None
+            request_id = _sanitized_request_id(response.headers.get("x-request-id") or data.get("id"))
             usage = _usage_from_response(
                 data,
                 model=self.model,
@@ -168,7 +241,46 @@ class OpenAICompatibleProvider:
                 catalog=self.pricing_catalog,
                 request_id=str(request_id) if request_id else None,
             )
-            return ChatResult(content=content, parsed=parsed, usage=usage), usage
+            usage_payload = data.get("usage") or {}
+            completion_details = usage_payload.get("completion_tokens_details") or {}
+            reasoning_tokens_raw = completion_details.get("reasoning_tokens")
+            reasoning_tokens = int(reasoning_tokens_raw) if reasoning_tokens_raw is not None else None
+            visible_tokens = (
+                max(0, usage.completion_tokens - int(reasoning_tokens or 0))
+                if usage_payload.get("completion_tokens") is not None
+                else None
+            )
+            schema_valid: bool | None = None
+            schema_errors: list[dict[str, str]] = []
+            if strict_schema and json_parsing_succeeded:
+                validated, schema_errors = validate_structured_output(schema_name, decoded)
+                schema_valid = validated is not None
+                if validated is not None:
+                    parsed = validated
+            elif strict_schema:
+                schema_valid = False
+            refusal_present = bool(message.get("refusal"))
+            diagnostics = StructuredOutputDiagnostics(
+                schema_name=schema_name,
+                provider_request_id=str(request_id) if request_id else None,
+                finish_reason=_sanitized_finish_reason(choice.get("finish_reason")),
+                refusal_present=refusal_present,
+                refusal_category="provider_refusal" if refusal_present else None,
+                requested_max_output_tokens=max_output_tokens,
+                completion_tokens=usage.completion_tokens,
+                reasoning_tokens=reasoning_tokens,
+                visible_output_tokens=visible_tokens,
+                content_character_count=len(content),
+                json_parsing_succeeded=json_parsing_succeeded,
+                strict_schema_validation_succeeded=schema_valid,
+                schema_validation_errors=schema_errors,
+            )
+            return ChatResult(
+                content=content,
+                parsed=parsed,
+                usage=usage,
+                diagnostics=diagnostics,
+            ), usage
 
         return run_physical_attempts(
             ledger=self.ledger,

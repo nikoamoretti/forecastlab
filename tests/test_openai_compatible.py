@@ -7,6 +7,7 @@ import pytest
 
 from forecastlab.errors import PermanentProviderError
 from forecastlab.providers.openai_compatible import OpenAICompatibleProvider
+from forecastlab.structured_outputs import forecast_graph_json_schema
 
 
 def _stub_client(monkeypatch: pytest.MonkeyPatch, *, status_code: int = 200) -> list[dict[str, Any]]:
@@ -53,6 +54,23 @@ def _complete(provider_id: str, model: str) -> Any:
         schema_name="forecast",
         temperature=0.2,
         max_output_tokens=128,
+    )
+
+
+def _complete_graph(provider_id: str, model: str) -> Any:
+    provider = OpenAICompatibleProvider(
+        api_key="test-api-key",
+        base_url="https://provider.example.test/v1",
+        model=model,
+        provider_id=provider_id,
+    )
+    return provider.complete_json(
+        system="Return a Forecast Graph as JSON.",
+        user="Create the graph.",
+        schema_name="forecast_graph",
+        max_output_tokens=1536,
+        json_schema=forecast_graph_json_schema(),
+        reasoning_effort="minimal",
     )
 
 
@@ -118,6 +136,48 @@ def test_openai_gpt5_structured_json_parsing_succeeds(monkeypatch: pytest.Monkey
 
     assert requests[0]["json"]["response_format"] == {"type": "json_object"}
     assert result.parsed == {"probability": 0.61}
+
+
+def test_openai_gpt5_forecast_graph_uses_strict_schema_and_minimal_reasoning(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    result = _complete_graph("openai", "gpt-5-mini-2025-08-07")
+
+    body = requests[0]["json"]
+    assert body["max_completion_tokens"] == 1536
+    assert body["reasoning_effort"] == "minimal"
+    assert body["response_format"]["type"] == "json_schema"
+    schema_config = body["response_format"]["json_schema"]
+    assert schema_config["name"] == "forecast_graph"
+    assert schema_config["strict"] is True
+    assert schema_config["schema"] == forecast_graph_json_schema()
+    assert result.diagnostics is not None
+    assert result.diagnostics.provider_request_id == "rid-test"
+    assert result.diagnostics.requested_max_output_tokens == 1536
+    assert result.diagnostics.json_parsing_succeeded is True
+    assert result.diagnostics.strict_schema_validation_succeeded is False
+
+
+@pytest.mark.parametrize(
+    ("provider_id", "model"),
+    [("xai", "grok-4"), ("openai_compatible", "gpt-5-mini-2025-08-07")],
+)
+def test_compatible_vendors_do_not_receive_openai_strict_schema_or_reasoning(
+    monkeypatch: pytest.MonkeyPatch,
+    provider_id: str,
+    model: str,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    _complete_graph(provider_id, model)
+
+    body = requests[0]["json"]
+    assert body["response_format"] == {"type": "json_object"}
+    assert "reasoning_effort" not in body
+    assert body["max_tokens"] == 1536
+    assert "max_completion_tokens" not in body
 
 
 def test_http_400_is_permanent_and_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:

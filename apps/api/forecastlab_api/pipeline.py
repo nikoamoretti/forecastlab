@@ -306,6 +306,7 @@ def execute_run(
                     session,
                     question=question,
                     model=model,
+                    max_output_tokens=profile.max_output_tokens_per_call,
                     prompt_bundle=prompt_bundle,
                 )
                 result = run_graph_forecast_engine(
@@ -418,6 +419,16 @@ def execute_run(
         )
         apply_totals_to_run(run, ledger.totals(run.id))
         if isinstance(exc, GraphForecastExecutionError):
+            if run.finished_at is None:
+                run.finished_at = utcnow()
+            if run.started_at is not None:
+                run.latency_ms = max(
+                    1,
+                    int(
+                        (as_utc(run.finished_at) - as_utc(run.started_at)).total_seconds()
+                        * 1000
+                    ),
+                )
             session.commit()
         raise
     finally:

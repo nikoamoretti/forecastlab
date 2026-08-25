@@ -56,30 +56,36 @@ def valid_graph_payload() -> dict[str, Any]:
         "nodes": [
             {
                 "id": "base",
+                "parent_node_id": None,
                 "question": "What is the historical frequency of crossing 5% from comparable starting points?",
                 "node_type": "base_rate",
                 "importance_weight": 0.9,
                 "dependencies": [],
                 "preferred_sources": ["BLS historical series"],
                 "required_output_type": "probability",
+                "status": "pending",
             },
             {
                 "id": "trend",
+                "parent_node_id": None,
                 "question": "What direction do current labor-market indicators show?",
                 "node_type": "trend",
                 "importance_weight": 0.8,
                 "dependencies": [],
                 "preferred_sources": ["BLS", "DOL"],
                 "required_output_type": "directional_update",
+                "status": "pending",
             },
             {
                 "id": "driver",
+                "parent_node_id": None,
                 "question": "How would labor demand move U-3 through the threshold?",
                 "node_type": "driver",
                 "importance_weight": 0.85,
                 "dependencies": ["trend"],
                 "preferred_sources": ["JOLTS"],
                 "required_output_type": "directional_update",
+                "status": "pending",
             },
             {
                 "id": "scenario",
@@ -90,24 +96,29 @@ def valid_graph_payload() -> dict[str, Any]:
                 "dependencies": ["trend"],
                 "preferred_sources": ["NBER chronology"],
                 "required_output_type": "scenario_weight",
+                "status": "pending",
             },
             {
                 "id": "adversarial",
+                "parent_node_id": None,
                 "question": "Which evidence most strongly contradicts the leading labor-market view?",
                 "node_type": "adversarial",
                 "importance_weight": 0.75,
                 "dependencies": ["scenario"],
                 "preferred_sources": ["contradictory primary indicators"],
                 "required_output_type": "directional_update",
+                "status": "pending",
             },
             {
                 "id": "resolver",
+                "parent_node_id": None,
                 "question": "Which BLS revision or release-date rule could change resolution?",
                 "node_type": "resolver",
                 "importance_weight": 0.6,
                 "dependencies": [],
                 "preferred_sources": ["BLS methodology"],
                 "required_output_type": "structured_categorical",
+                "status": "pending",
             },
         ]
     }
@@ -115,7 +126,7 @@ def valid_graph_payload() -> dict[str, Any]:
 
 def test_graph_generation_from_approved_contract() -> None:
     model = StubGraphModel(valid_graph_payload())
-    graph = GraphGenerator(model).generate(approved_contract())
+    graph = GraphGenerator(model, max_output_tokens=1536).generate(approved_contract())
 
     assert model.calls == 1
     assert graph.status == "approved"
@@ -123,9 +134,7 @@ def test_graph_generation_from_approved_contract() -> None:
     assert graph.generation_model == "stub:stub-graph-v1"
     assert graph.root_question == approved_contract().normalized_question
     assert len(graph.nodes) == 6
-    assert {"base_rate", "driver", "adversarial", "resolver"} <= {
-        node.node_type for node in graph.nodes
-    }
+    assert {"base_rate", "driver", "adversarial", "resolver"} <= {node.node_type for node in graph.nodes}
     assert all(node.graph_id == graph.id for node in graph.nodes)
     assert all(node.status == "pending" for node in graph.nodes)
     assert graph_approval_errors(graph) == []
@@ -144,7 +153,11 @@ def test_graph_generation_uses_frozen_experiment_prompt_bundle() -> None:
         }
     )
 
-    GraphGenerator(model, prompt_bundle=bundle).generate(approved_contract())
+    GraphGenerator(
+        model,
+        max_output_tokens=1536,
+        prompt_bundle=bundle,
+    ).generate(approved_contract())
 
     assert model.last_request is not None
     assert model.last_request["system"] == "FROZEN FORECAST GRAPH PROMPT"
@@ -226,9 +239,10 @@ def test_generator_rejects_invalid_graph() -> None:
     model = StubGraphModel(payload)
 
     with pytest.raises(ForecastGraphError) as exc_info:
-        GraphGenerator(model).generate(approved_contract())
+        GraphGenerator(model, max_output_tokens=1536).generate(approved_contract())
 
-    assert "adversarial_node_required" in exc_info.value.reasons
+    assert exc_info.value.reasons == ["graph_domain_validation_failed"]
+    assert "adversarial_node_required" in exc_info.value.audit["domain_validation_errors"]
 
 
 def test_contract_without_graph_cannot_start_forecasting(client) -> None:
@@ -262,9 +276,7 @@ def test_graph_api_generate_get_and_start_existing_forecast_flow(client) -> None
     assert graph["contract_id"] == draft["id"]
     assert graph["root_question"] == draft["normalized_question"]
     assert 5 <= len(graph["nodes"]) <= 10
-    assert {"base_rate", "driver", "adversarial", "resolver"} <= {
-        node["node_type"] for node in graph["nodes"]
-    }
+    assert {"base_rate", "driver", "adversarial", "resolver"} <= {node["node_type"] for node in graph["nodes"]}
 
     fetched = client.get(f"/api/graphs/{graph['id']}")
     assert fetched.status_code == 200

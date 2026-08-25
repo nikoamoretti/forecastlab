@@ -5,48 +5,28 @@ import re
 import uuid
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
-
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
-from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode, ForecastNodeType
+from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode
+from forecastlab.structured_outputs import (
+    ForecastGraphOutput,
+    forecast_graph_json_schema,
+    validate_structured_output,
+)
 from forecastlab.timeutil import utcnow
 
 
 class ForecastGraphError(ValueError):
-    def __init__(self, reasons: list[str], message: str = "Forecast Graph could not be generated") -> None:
+    def __init__(
+        self,
+        reasons: list[str],
+        message: str = "Forecast Graph could not be generated",
+        *,
+        audit: dict[str, Any] | None = None,
+    ) -> None:
         self.reasons = reasons
+        self.audit = audit or {}
         super().__init__(message)
-
-
-class _GeneratedNode(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
-    id: str
-    parent_node_id: str | None = None
-    question: str
-    node_type: ForecastNodeType
-    importance_weight: float = Field(ge=0.0, le=1.0)
-    dependencies: list[str] = Field(default_factory=list)
-    preferred_sources: list[str] = Field(default_factory=list)
-    required_output_type: str
-    status: str = "pending"
-
-    @field_validator("dependencies", "preferred_sources", mode="before")
-    @classmethod
-    def normalize_lists(cls, value: Any) -> Any:
-        if value is None:
-            return []
-        if isinstance(value, str):
-            stripped = value.strip()
-            return [stripped] if stripped else []
-        return value
-
-
-class _GeneratedGraph(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
-    nodes: list[_GeneratedNode]
 
 
 def _normalized_node_question(question: str) -> str:
@@ -114,9 +94,7 @@ def graph_approval_errors(graph: ForecastGraph) -> list[str]:
     )
     if dangling_parent:
         errors.append("unknown_parent_node")
-    dangling_dependency = any(
-        dependency not in known_ids for node in graph.nodes for dependency in node.dependencies
-    )
+    dangling_dependency = any(dependency not in known_ids for node in graph.nodes for dependency in node.dependencies)
     if dangling_dependency:
         errors.append("unknown_dependency_node")
     if any(node.parent_node_id == node.id or node.id in node.dependencies for node in graph.nodes):
@@ -148,6 +126,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": [],
             "preferred_sources": ["official historical series", "peer-reviewed reference-class studies"],
             "required_output_type": "probability",
+            "status": "pending",
         },
         {
             "id": "current-trend",
@@ -158,6 +137,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": [],
             "preferred_sources": ["current official statistics", "primary institutional releases"],
             "required_output_type": "directional_update",
+            "status": "pending",
         },
         {
             "id": "primary-driver",
@@ -168,6 +148,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": ["current-trend"],
             "preferred_sources": ["primary records", "domain-specific empirical research"],
             "required_output_type": "directional_update",
+            "status": "pending",
         },
         {
             "id": "known-dependency",
@@ -178,6 +159,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": ["current-trend"],
             "preferred_sources": ["official methodology", "primary dependency indicators"],
             "required_output_type": "structured_categorical",
+            "status": "pending",
         },
         {
             "id": "alternative-scenario",
@@ -188,6 +170,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": ["known-dependency"],
             "preferred_sources": ["scenario analyses", "leading indicators"],
             "required_output_type": "scenario_weight",
+            "status": "pending",
         },
         {
             "id": "adversarial-case",
@@ -198,6 +181,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": ["current-trend", "alternative-scenario"],
             "preferred_sources": ["contradictory primary evidence", "methodological critiques"],
             "required_output_type": "directional_update",
+            "status": "pending",
         },
         {
             "id": "resolution-mechanics",
@@ -208,6 +192,7 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
             "dependencies": [],
             "preferred_sources": [source, *contract.fallback_sources],
             "required_output_type": "structured_categorical",
+            "status": "pending",
         },
     ]
 
@@ -219,10 +204,14 @@ class GraphGenerator:
         self,
         model: ModelProvider,
         *,
+        max_output_tokens: int,
         generation_model: str | None = None,
         prompt_bundle: PromptBundle | None = None,
     ) -> None:
+        if max_output_tokens <= 0:
+            raise ValueError("Graph generation max_output_tokens must be positive")
         self.model = model
+        self.max_output_tokens = int(max_output_tokens)
         self.prompt_bundle = prompt_bundle
         model_name = str(getattr(model, "model", "unspecified"))
         self.generation_model = generation_model or f"{model.name}:{model_name}"
@@ -240,28 +229,77 @@ class GraphGenerator:
                 "Approve the Forecast Contract before generating a Forecast Graph",
             )
 
-        try:
-            if self.model.name == "mock":
-                payload: dict[str, Any] = {"nodes": _mock_nodes(contract)}
+        audit: dict[str, Any] = {
+            "schema_name": "forecast_graph",
+            "requested_max_output_tokens": self.max_output_tokens,
+        }
+        if self.model.name == "mock":
+            payload: Any = {"nodes": _mock_nodes(contract)}
+        else:
+            system, _prompt_version = (
+                self.prompt_bundle.get("forecast_graph")
+                if self.prompt_bundle is not None
+                else load_prompt("forecast_graph")
+            )
+            result = self.model.complete_json(
+                system=system,
+                user=contract.model_dump_json(),
+                schema_name="forecast_graph",
+                max_output_tokens=self.max_output_tokens,
+                json_schema=forecast_graph_json_schema(),
+                reasoning_effort="minimal",
+            )
+            if result.diagnostics is not None:
+                audit["structured_output"] = result.diagnostics.audit_payload()
+                if result.diagnostics.refusal_present:
+                    raise ForecastGraphError(
+                        ["structured_output_refused"],
+                        "Forecast Graph structured output was refused",
+                        audit=audit,
+                    )
+                if result.diagnostics.finish_reason == "length":
+                    raise ForecastGraphError(
+                        ["structured_output_truncated"],
+                        "Forecast Graph structured output reached its output limit",
+                        audit=audit,
+                    )
+            if result.parsed is not None:
+                payload = result.parsed
+            elif not result.content.strip():
+                raise ForecastGraphError(
+                    ["structured_output_empty"],
+                    "Forecast Graph structured output was empty",
+                    audit=audit,
+                )
             else:
-                system, _prompt_version = (
-                    self.prompt_bundle.get("forecast_graph")
-                    if self.prompt_bundle is not None
-                    else load_prompt("forecast_graph")
-                )
-                result = self.model.complete_json(
-                    system=system,
-                    user=contract.model_dump_json(),
-                    schema_name="forecast_graph",
-                    max_output_tokens=4096,
-                )
-                payload = result.parsed if result.parsed is not None else json.loads(result.content)
-            generated = _GeneratedGraph.model_validate(payload)
-        except (json.JSONDecodeError, TypeError, ValidationError, KeyError) as exc:
-            raise ForecastGraphError(["invalid_structured_output"]) from exc
+                try:
+                    payload = json.loads(result.content)
+                except (json.JSONDecodeError, TypeError) as exc:
+                    raise ForecastGraphError(
+                        ["structured_output_invalid_json"],
+                        "Forecast Graph structured output was not valid JSON",
+                        audit=audit,
+                    ) from exc
+
+        validated_payload, validation_errors = validate_structured_output(
+            "forecast_graph",
+            payload,
+        )
+        if validated_payload is None:
+            audit["schema_validation_errors"] = validation_errors
+            raise ForecastGraphError(
+                ["structured_output_schema_invalid"],
+                "Forecast Graph JSON did not match the required schema",
+                audit=audit,
+            )
+        generated = ForecastGraphOutput.model_validate(validated_payload)
 
         if not 5 <= len(generated.nodes) <= 10:
-            raise ForecastGraphError(["graph_node_count_must_be_between_5_and_10"])
+            raise ForecastGraphError(
+                ["graph_domain_validation_failed"],
+                "Forecast Graph failed domain validation",
+                audit={**audit, "domain_validation_errors": ["graph_node_count_must_be_between_5_and_10"]},
+            )
         generated_types = {node.node_type for node in generated.nodes}
         missing_types = [
             reason
@@ -274,11 +312,22 @@ class GraphGenerator:
             if node_type not in generated_types
         ]
         if missing_types:
-            raise ForecastGraphError(missing_types)
+            raise ForecastGraphError(
+                ["graph_domain_validation_failed"],
+                "Forecast Graph failed domain validation",
+                audit={**audit, "domain_validation_errors": missing_types},
+            )
 
         source_ids = [node.id.strip() for node in generated.nodes]
         if any(not node_id for node_id in source_ids) or len(set(source_ids)) != len(source_ids):
-            raise ForecastGraphError(["duplicate_or_missing_generated_node_id"])
+            raise ForecastGraphError(
+                ["graph_domain_validation_failed"],
+                "Forecast Graph failed domain validation",
+                audit={
+                    **audit,
+                    "domain_validation_errors": ["duplicate_or_missing_generated_node_id"],
+                },
+            )
         id_map = {node_id: str(uuid.uuid4()) for node_id in source_ids}
 
         unknown_references: set[str] = set()
@@ -304,15 +353,17 @@ class GraphGenerator:
                     node_type=generated_node.node_type,
                     importance_weight=generated_node.importance_weight,
                     dependencies=list(dict.fromkeys(dependency_ids)),
-                    preferred_sources=[
-                        source.strip() for source in generated_node.preferred_sources if source.strip()
-                    ],
+                    preferred_sources=[source.strip() for source in generated_node.preferred_sources if source.strip()],
                     required_output_type=generated_node.required_output_type.strip(),
                     status="pending",
                 )
             )
         if unknown_references:
-            raise ForecastGraphError(["unknown_generated_node_reference"])
+            raise ForecastGraphError(
+                ["graph_domain_validation_failed"],
+                "Forecast Graph failed domain validation",
+                audit={**audit, "domain_validation_errors": ["unknown_generated_node_reference"]},
+            )
 
         graph = ForecastGraph(
             id=final_graph_id,
@@ -324,5 +375,12 @@ class GraphGenerator:
             root_question=contract.normalized_question,
             nodes=nodes,
         )
-        ensure_graph_approvable(graph)
+        try:
+            ensure_graph_approvable(graph)
+        except ForecastGraphError as exc:
+            raise ForecastGraphError(
+                ["graph_domain_validation_failed"],
+                "Forecast Graph failed domain validation",
+                audit={**audit, "domain_validation_errors": exc.reasons},
+            ) from exc
         return graph
