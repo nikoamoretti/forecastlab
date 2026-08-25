@@ -14,6 +14,7 @@ class BudgetedModelProvider:
         *,
         stage: str,
         max_output_tokens_cap: int | None = None,
+        call_kind: str | None = None,
     ) -> None:
         self.delegate = delegate
         self.budget = budget
@@ -23,6 +24,7 @@ class BudgetedModelProvider:
             if max_output_tokens_cap is not None
             else None
         )
+        self.call_kind = call_kind
         self.name = delegate.name
         self.model = str(getattr(delegate, "model", delegate.name))
 
@@ -47,6 +49,7 @@ class BudgetedModelProvider:
             self.stage,
             estimated_input_tokens=estimated_input,
             max_output_tokens=allowed_output,
+            call_kind=self.call_kind,
         )
         try:
             result = self.delegate.complete_json(

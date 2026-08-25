@@ -302,6 +302,9 @@ class GraphResearchExecutor:
         research_plan_output_tokens: int = 1024,
         evidence_extraction_output_tokens: int = 1536,
         enable_extraction_fallbacks: bool = True,
+        max_research_plan_model_calls: int = 1,
+        max_primary_extraction_calls: int | None = None,
+        max_extraction_retry_calls: int | None = None,
         prompt_bundle: PromptBundle | None = None,
         prompt_versions: dict[str, str] | None = None,
     ) -> None:
@@ -340,8 +343,38 @@ class GraphResearchExecutor:
             evidence_extraction_output_tokens,
         )
         self.enable_extraction_fallbacks = enable_extraction_fallbacks
+        self._planned_model_calls = {
+            "research_plan": max(0, max_research_plan_model_calls),
+            "primary_extraction": max(
+                0,
+                self.max_fetches_per_node
+                if max_primary_extraction_calls is None
+                else max_primary_extraction_calls,
+            ),
+            "extraction_retry": max(
+                0,
+                (
+                    self.max_fetches_per_node
+                    if enable_extraction_fallbacks
+                    else 0
+                )
+                if max_extraction_retry_calls is None
+                else max_extraction_retry_calls,
+            ),
+        }
+        self._used_model_calls = {
+            kind: 0 for kind in self._planned_model_calls
+        }
         self.prompt_bundle = prompt_bundle
         self.prompt_versions = prompt_versions if prompt_versions is not None else {}
+
+    def _take_planned_model_call(self, *, call_kind: str, stage: str) -> bool:
+        planned = self._planned_model_calls[call_kind]
+        used = self._used_model_calls[call_kind]
+        if used >= planned:
+            return False
+        self._used_model_calls[call_kind] = used + 1
+        return True
 
     def _prompt(self) -> tuple[str, str]:
         if self.prompt_bundle is not None:
@@ -351,12 +384,19 @@ class GraphResearchExecutor:
     def _generate_plan(self, node: ForecastNode) -> tuple[NodeResearchPlan, list[str]]:
         fallback = _default_plan(node)
         try:
+            stage = f"plan_node_research:{node.id}"
+            if not self._take_planned_model_call(
+                call_kind="research_plan",
+                stage=stage,
+            ):
+                raise BudgetExceeded(stage, "unplanned_research_plan_call")
             system, version = self._prompt()
             self.prompt_versions["graph_research"] = version
             result = BudgetedModelProvider(
                 self.model,
                 self.budget,
-                stage=f"plan_node_research:{node.id}",
+                stage=stage,
+                call_kind="research_plan",
             ).complete_json(
                 system=system,
                 user=json.dumps(
@@ -417,14 +457,34 @@ class GraphResearchExecutor:
     def _extract_with_fallbacks(
         self,
         *,
-        extractor: EvidenceExtractor,
         document: FetchedDocument,
         evidence_item_id: str,
         node: ForecastNode,
     ) -> tuple[list[EvidenceClaim], list[str], str]:
         errors: list[str] = []
 
-        def attempt(candidate: FetchedDocument, label: str) -> list[EvidenceClaim]:
+        def attempt(
+            candidate: FetchedDocument,
+            *,
+            label: str,
+            call_kind: str,
+        ) -> list[EvidenceClaim]:
+            stage = f"extract_claims:{node.id}:{label}"
+            if not self._take_planned_model_call(
+                call_kind=call_kind,
+                stage=stage,
+            ):
+                raise BudgetExceeded(stage, f"unplanned_{call_kind}_call")
+            extractor = EvidenceExtractor(
+                BudgetedModelProvider(
+                    self.model,
+                    self.budget,
+                    stage=stage,
+                    call_kind=call_kind,
+                ),
+                prompt_bundle=self.prompt_bundle,
+                max_output_tokens=self.evidence_extraction_output_tokens,
+            )
             try:
                 return extractor.extract(
                     candidate,
@@ -449,7 +509,11 @@ class GraphResearchExecutor:
                 errors.extend(f"{label}:{reason}" for reason in reasons)
                 return []
 
-        extracted = attempt(document, "full_document")
+        extracted = attempt(
+            document,
+            label="full_document",
+            call_kind="primary_extraction",
+        )
         if extracted or not self.enable_extraction_fallbacks:
             return extracted, errors, (
                 "claims_created" if extracted else "extraction_failure"
@@ -462,15 +526,26 @@ class GraphResearchExecutor:
         )
         smaller_text = source_text[:chunk_size]
         if smaller_text and smaller_text != source_text:
-            extracted = attempt(
-                document.model_copy(update={"text": smaller_text}),
-                "smaller_chunk",
-            )
-            if extracted:
-                return extracted, errors, "claims_created_smaller_chunk"
+            if (
+                self._used_model_calls["extraction_retry"]
+                < self._planned_model_calls["extraction_retry"]
+            ):
+                extracted = attempt(
+                    document.model_copy(update={"text": smaller_text}),
+                    label="smaller_chunk",
+                    call_kind="extraction_retry",
+                )
+                if extracted:
+                    return extracted, errors, "claims_created_smaller_chunk"
+            else:
+                errors.append("smaller_chunk:retry_not_planned")
 
         try:
-            fallback = extractor.document_fallback_claim(
+            fallback = EvidenceExtractor(
+                self.model,
+                prompt_bundle=self.prompt_bundle,
+                max_output_tokens=self.evidence_extraction_output_tokens,
+            ).document_fallback_claim(
                 document,
                 evidence_item_id=evidence_item_id,
                 forecast_node_id=node.id,
@@ -541,7 +616,13 @@ class GraphResearchExecutor:
         extraction_errors: list[str] = []
         successful_documents = 0
         fetch_attempts = 0
-        target_documents = max(1, self.profile.fetches_per_subquestion)
+        target_documents = max(
+            1,
+            min(
+                self.profile.fetches_per_subquestion,
+                self.max_fetches_per_node,
+            ),
+        )
 
         for hit in rank_hits(list(hits_by_url.values())):
             snapshot_url = None
@@ -664,18 +745,8 @@ class GraphResearchExecutor:
                 document_chars=len(document.text),
                 extraction_input_chars=len(extraction_document.text),
             )
-            extractor = EvidenceExtractor(
-                BudgetedModelProvider(
-                    self.model,
-                    self.budget,
-                    stage=f"extract_claims:{node.id}",
-                ),
-                prompt_bundle=self.prompt_bundle,
-                max_output_tokens=self.evidence_extraction_output_tokens,
-            )
             extracted, attempt_errors, extraction_outcome = (
                 self._extract_with_fallbacks(
-                    extractor=extractor,
                     document=extraction_document,
                     evidence_item_id=evidence_item_id,
                     node=node,

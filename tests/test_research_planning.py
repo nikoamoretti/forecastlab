@@ -173,7 +173,7 @@ def test_duplicate_noncritical_research_questions_are_skipped_and_audited() -> N
 
 
 def test_planner_reduces_nodes_to_fit_real_provider_cost_ceiling() -> None:
-    profile = _profile(max_cost_usd=0.05)
+    profile = _profile(max_cost_usd=0.06)
     budget = Budget(
         profile,
         provider="openai",
@@ -200,7 +200,7 @@ def test_planner_reduces_nodes_to_fit_real_provider_cost_ceiling() -> None:
     )
 
     assert len(plan.selected_nodes) == 3
-    assert plan.budget_allocation["estimated_total_cost_usd"] <= 0.05
+    assert plan.budget_allocation["estimated_total_cost_usd"] <= 0.06
     assert all(
         allocation["searches"] == 1
         for allocation in plan.budget_allocation["per_node"].values()
@@ -208,7 +208,7 @@ def test_planner_reduces_nodes_to_fit_real_provider_cost_ceiling() -> None:
 
 
 def test_planner_accounts_for_graph_generation_spend_before_research() -> None:
-    profile = _profile(max_cost_usd=0.25)
+    profile = _profile(max_cost_usd=0.40)
     budget = Budget(
         profile,
         provider="openai",
@@ -227,7 +227,7 @@ def test_planner_accounts_for_graph_generation_spend_before_research() -> None:
         created_at=NOW,
     )
 
-    assert len(plan.selected_nodes) == 3
+    assert len(plan.selected_nodes) == 4
     assert (
         plan.budget_allocation["estimated_total_cost_usd"]
         + budget.state.cost_usd

@@ -176,6 +176,7 @@ class GraphForecastExecutor:
                 stage="research_planning",
                 reasons=exc.reasons,
                 message=str(exc),
+                audit=exc.audit,
             )
         except StructuredOutputError as exc:
             self._fail(stage="node_research", reasons=[str(exc)], message=str(exc))
@@ -700,7 +701,14 @@ class GraphForecastExecutor:
             snapshot["graph_research_reliability"] = reliability
         self.run.execution_context_json = json.dumps(snapshot)
 
-    def _fail(self, *, stage: str, reasons: list[str], message: str) -> NoReturn:
+    def _fail(
+        self,
+        *,
+        stage: str,
+        reasons: list[str],
+        message: str,
+        audit: dict[str, Any] | None = None,
+    ) -> NoReturn:
         failures = [
             {
                 "node_id": None,
@@ -709,6 +717,7 @@ class GraphForecastExecutor:
                 "error_message": message,
                 "critical_node": True,
                 "impact": "forecast_failed",
+                "research_plan": audit or {},
             }
             for reason in reasons
         ]

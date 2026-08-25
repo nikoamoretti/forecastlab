@@ -18,8 +18,9 @@ MAX_SEARCHES_PER_NODE = 5
 MAX_EVIDENCE_CLAIMS = 20
 MINIMUM_RESEARCH_NODES = 3
 CRITICAL_IMPORTANCE_THRESHOLD = 0.8
-MODEL_CALLS_PER_NODE = 3
-FETCHES_PER_NODE = 1
+PLANNER_VERSION = "graph_research_planner_v2"
+RESEARCH_PLAN_CALLS_PER_NODE = 1
+NODE_FORECAST_CALLS_PER_NODE = 1
 PARALLEL_RESEARCH_WORKERS = 4
 
 _UNCERTAINTY_BY_NODE_TYPE = {
@@ -53,8 +54,15 @@ _RESOURCE_TIERS = (
 
 
 class ResearchPlanningError(ValueError):
-    def __init__(self, reasons: list[str], message: str) -> None:
+    def __init__(
+        self,
+        reasons: list[str],
+        message: str,
+        *,
+        audit: dict[str, Any] | None = None,
+    ) -> None:
         self.reasons = list(dict.fromkeys(reasons))
+        self.audit = audit or {}
         super().__init__(message)
 
 
@@ -142,11 +150,13 @@ class ResearchPlanner:
         max_searches_per_node: int = MAX_SEARCHES_PER_NODE,
         max_evidence_claims: int = MAX_EVIDENCE_CLAIMS,
         minimum_research_nodes: int = MINIMUM_RESEARCH_NODES,
+        extraction_retries_enabled: bool = True,
     ) -> None:
         self.max_researched_nodes = max(1, max_researched_nodes)
         self.max_searches_per_node = max(1, max_searches_per_node)
         self.max_evidence_claims = max(1, max_evidence_claims)
         self.minimum_research_nodes = max(1, minimum_research_nodes)
+        self.extraction_retries_enabled = bool(extraction_retries_enabled)
 
     @staticmethod
     def _priority_components(graph: ForecastGraph) -> dict[str, dict[str, float]]:
@@ -215,37 +225,84 @@ class ResearchPlanner:
         *,
         tier: _ResourceTier,
         searches_per_node: int,
-    ) -> dict[str, int | float | str]:
-        calls = (
-            (
+        fetches_per_node: int,
+        extraction_retries_enabled: bool,
+    ) -> dict[str, Any]:
+        research_plan_calls = RESEARCH_PLAN_CALLS_PER_NODE
+        primary_extraction_calls = fetches_per_node
+        extraction_retry_calls = (
+            fetches_per_node if extraction_retries_enabled else 0
+        )
+        node_forecast_calls = NODE_FORECAST_CALLS_PER_NODE
+        total_model_calls = (
+            research_plan_calls
+            + primary_extraction_calls
+            + extraction_retry_calls
+            + node_forecast_calls
+        )
+        call_specs = {
+            "research_plan": (
+                research_plan_calls,
                 tier.research_plan_input_tokens,
                 tier.research_plan_output_tokens,
             ),
-            (
+            "primary_extraction": (
+                primary_extraction_calls,
                 tier.evidence_extraction_input_tokens,
                 tier.evidence_extraction_output_tokens,
             ),
-            (
+            # Use the primary extraction estimate for each bounded retry. The
+            # smaller chunk is expected to be cheaper, so this remains a
+            # conservative frozen upper bound without inventing provider use.
+            "extraction_retry": (
+                extraction_retry_calls,
+                tier.evidence_extraction_input_tokens,
+                tier.evidence_extraction_output_tokens,
+            ),
+            "node_forecast": (
+                node_forecast_calls,
                 tier.node_forecast_input_tokens,
                 tier.node_forecast_output_tokens,
             ),
-        )
-        model_cost = math.fsum(
-            budget.estimate_model_cost(input_tokens, output_tokens)
-            for input_tokens, output_tokens in calls
-        )
+        }
+        estimated_tokens_by_phase = {
+            phase: count * (input_tokens + output_tokens)
+            for phase, (count, input_tokens, output_tokens) in call_specs.items()
+        }
+        estimated_cost_by_phase = {
+            phase: round(
+                count
+                * budget.estimate_model_cost(input_tokens, output_tokens),
+                12,
+            )
+            for phase, (count, input_tokens, output_tokens) in call_specs.items()
+        }
+        model_cost = math.fsum(estimated_cost_by_phase.values())
         search_cost, search_cost_label = budget.estimate_search_charge()
-        tokens = sum(input_tokens + output_tokens for input_tokens, output_tokens in calls)
+        estimated_search_cost = round(search_cost * searches_per_node, 12)
+        tokens = sum(estimated_tokens_by_phase.values())
         return {
             "resource_tier": tier.name,
-            "model_calls": MODEL_CALLS_PER_NODE,
+            # model_calls is retained for existing report compatibility.
+            "model_calls": total_model_calls,
+            "research_plan_calls": research_plan_calls,
+            "primary_extraction_calls": primary_extraction_calls,
+            "extraction_retry_calls": extraction_retry_calls,
+            "node_forecast_calls": node_forecast_calls,
+            "total_model_calls": total_model_calls,
             "searches": searches_per_node,
-            "fetches": FETCHES_PER_NODE,
+            "fetches": fetches_per_node,
+            "extraction_fallbacks_enabled": extraction_retries_enabled,
             "estimated_tokens": tokens,
+            "estimated_tokens_by_phase": estimated_tokens_by_phase,
             "estimated_model_cost_usd": round(model_cost, 12),
-            "estimated_search_cost_usd": round(search_cost * searches_per_node, 12),
+            "estimated_search_cost_usd": estimated_search_cost,
+            "estimated_cost_by_phase_usd": {
+                **estimated_cost_by_phase,
+                "search": estimated_search_cost,
+            },
             "estimated_cost_usd": round(
-                model_cost + search_cost * searches_per_node,
+                model_cost + estimated_search_cost,
                 12,
             ),
             "search_cost_label": search_cost_label,
@@ -288,13 +345,14 @@ class ResearchPlanner:
     def _fits(
         *,
         node_count: int,
-        per_node: dict[str, int | float | str],
+        per_node: dict[str, Any],
         remaining: dict[str, int | float],
     ) -> bool:
         parallel_batches = math.ceil(node_count / PARALLEL_RESEARCH_WORKERS)
         estimated_seconds = parallel_batches * 30 + node_count * 12
         return bool(
-            node_count * int(per_node["model_calls"]) <= remaining["model_calls"]
+            node_count * int(per_node["total_model_calls"])
+            <= remaining["model_calls"]
             and node_count * int(per_node["searches"])
             <= remaining["search_calls"]
             and node_count * int(per_node["fetches"]) <= remaining["fetches"]
@@ -311,25 +369,36 @@ class ResearchPlanner:
         required_count: int,
         budget: Budget,
         remaining: dict[str, int | float],
-    ) -> tuple[int, dict[str, int | float | str]] | None:
+    ) -> tuple[int, dict[str, Any]] | None:
         max_searches = min(
             self.max_searches_per_node,
             budget.profile.max_search_calls,
         )
+        max_fetches = min(
+            budget.profile.fetches_per_subquestion,
+            budget.profile.max_fetched_documents,
+        )
+        if max_searches < 1 or max_fetches < 1:
+            return None
         for count in range(candidate_count, required_count - 1, -1):
             for searches in range(max_searches, 0, -1):
-                for tier in _RESOURCE_TIERS:
-                    per_node = self._estimated_per_node(
-                        budget,
-                        tier=tier,
-                        searches_per_node=searches,
-                    )
-                    if self._fits(
-                        node_count=count,
-                        per_node=per_node,
-                        remaining=remaining,
-                    ):
-                        return count, per_node
+                for fetches in range(max_fetches, 0, -1):
+                    for tier in _RESOURCE_TIERS:
+                        per_node = self._estimated_per_node(
+                            budget,
+                            tier=tier,
+                            searches_per_node=searches,
+                            fetches_per_node=fetches,
+                            extraction_retries_enabled=(
+                                self.extraction_retries_enabled
+                            ),
+                        )
+                        if self._fits(
+                            node_count=count,
+                            per_node=per_node,
+                            remaining=remaining,
+                        ):
+                            return count, per_node
         return None
 
     def plan(
@@ -401,6 +470,47 @@ class ResearchPlanner:
             remaining=remaining,
         )
         if allocation is None:
+            minimum_per_node = self._estimated_per_node(
+                budget,
+                tier=_RESOURCE_TIERS[-1],
+                searches_per_node=1,
+                fetches_per_node=1,
+                extraction_retries_enabled=self.extraction_retries_enabled,
+            )
+            minimum_model_calls = (
+                required_count * int(minimum_per_node["total_model_calls"])
+            )
+            critical_model_calls = (
+                len(critical) * int(minimum_per_node["total_model_calls"])
+            )
+            call_envelope_audit = {
+                "planner_version": PLANNER_VERSION,
+                "required_node_count": required_count,
+                "critical_node_count": len(critical),
+                "model_calls_available_before_research": int(
+                    remaining["model_calls"]
+                ),
+                "minimum_required_model_calls": minimum_model_calls,
+                "critical_required_model_calls": critical_model_calls,
+                "minimum_per_node_call_envelope": {
+                    "research_plan_calls": minimum_per_node[
+                        "research_plan_calls"
+                    ],
+                    "primary_extraction_calls": minimum_per_node[
+                        "primary_extraction_calls"
+                    ],
+                    "extraction_retry_calls": minimum_per_node[
+                        "extraction_retry_calls"
+                    ],
+                    "node_forecast_calls": minimum_per_node[
+                        "node_forecast_calls"
+                    ],
+                    "total_model_calls": minimum_per_node[
+                        "total_model_calls"
+                    ],
+                },
+                "available_before_research": remaining,
+            }
             critical_allocation = self._select_allocation(
                 candidate_count=len(critical),
                 required_count=len(critical),
@@ -410,10 +520,20 @@ class ResearchPlanner:
             if critical and critical_allocation is None:
                 reasons = ["critical_nodes_exceed_budget"]
                 message = "Critical graph nodes cannot be completed within the remaining run budget"
+            elif minimum_model_calls > int(remaining["model_calls"]):
+                reasons = ["minimum_graph_execution_exceeds_model_call_budget"]
+                message = (
+                    "The minimum executable graph exceeds the remaining logical "
+                    "model-call budget"
+                )
             else:
                 reasons = ["minimum_research_nodes_exceed_budget"]
                 message = "The minimum research set cannot be completed within the remaining run budget"
-            raise ResearchPlanningError(reasons, message)
+            raise ResearchPlanningError(
+                reasons,
+                message,
+                audit=call_envelope_audit,
+            )
 
         selected_count, per_node = allocation
         selected_ids: list[str] = [node.id for node in critical]
@@ -436,7 +556,7 @@ class ResearchPlanner:
         ]
 
         claims_remaining = self.max_evidence_claims
-        per_node_allocations: dict[str, dict[str, int | float | str]] = {}
+        per_node_allocations: dict[str, dict[str, Any]] = {}
         for index, node_id in enumerate(selected_ids):
             nodes_left = len(selected_ids) - index
             claims = max(1, claims_remaining // nodes_left)
@@ -451,6 +571,34 @@ class ResearchPlanner:
             selected_count * float(per_node["estimated_cost_usd"]),
             12,
         )
+        planned_calls_by_kind = {
+            "research_plan": selected_count
+            * int(per_node["research_plan_calls"]),
+            "primary_extraction": selected_count
+            * int(per_node["primary_extraction_calls"]),
+            "extraction_retry": selected_count
+            * int(per_node["extraction_retry_calls"]),
+            "node_forecast": selected_count
+            * int(per_node["node_forecast_calls"]),
+        }
+        planned_research_phase_model_calls = sum(
+            count
+            for phase, count in planned_calls_by_kind.items()
+            if phase != "node_forecast"
+        )
+        planned_total_model_calls = sum(planned_calls_by_kind.values())
+        estimated_tokens_by_phase = {
+            phase: selected_count * int(tokens)
+            for phase, tokens in dict(
+                per_node["estimated_tokens_by_phase"]
+            ).items()
+        }
+        estimated_cost_by_phase = {
+            phase: round(selected_count * float(cost), 12)
+            for phase, cost in dict(
+                per_node["estimated_cost_by_phase_usd"]
+            ).items()
+        }
         return ResearchPlan(
             id=str(uuid.uuid4()),
             forecast_run_id=forecast_run_id,
@@ -458,6 +606,44 @@ class ResearchPlanner:
             skipped_nodes=skipped_ids,
             priority_scores=scores,
             budget_allocation={
+                "planner_version": PLANNER_VERSION,
+                "research_plan_calls_per_node": int(
+                    per_node["research_plan_calls"]
+                ),
+                "primary_extraction_calls_per_node": int(
+                    per_node["primary_extraction_calls"]
+                ),
+                "extraction_retry_calls_per_node": int(
+                    per_node["extraction_retry_calls"]
+                ),
+                "node_forecast_calls_per_node": int(
+                    per_node["node_forecast_calls"]
+                ),
+                "total_model_calls_per_node": int(
+                    per_node["total_model_calls"]
+                ),
+                "selected_node_count": selected_count,
+                "planned_calls_by_kind": planned_calls_by_kind,
+                "planned_research_phase_model_calls": (
+                    planned_research_phase_model_calls
+                ),
+                "reserved_node_forecast_calls": planned_calls_by_kind[
+                    "node_forecast"
+                ],
+                "planned_total_model_calls": planned_total_model_calls,
+                "model_calls_available_before_research": int(
+                    remaining["model_calls"]
+                ),
+                "model_call_headroom_after_plan": int(
+                    remaining["model_calls"]
+                ) - planned_total_model_calls,
+                "extraction_fallbacks_enabled": bool(
+                    per_node["extraction_fallbacks_enabled"]
+                ),
+                "allocated_fetches_per_node": int(per_node["fetches"]),
+                "allocated_searches_per_node": int(per_node["searches"]),
+                "estimated_tokens_by_phase": estimated_tokens_by_phase,
+                "estimated_cost_by_phase": estimated_cost_by_phase,
                 "limits": {
                     "maximum_researched_nodes": self.max_researched_nodes,
                     "maximum_searches_per_node": self.max_searches_per_node,
@@ -466,7 +652,6 @@ class ResearchPlanner:
                     "critical_importance_threshold": CRITICAL_IMPORTANCE_THRESHOLD,
                 },
                 "available_before_research": remaining,
-                "selected_node_count": selected_count,
                 "skipped_node_count": len(skipped_ids),
                 "critical_node_ids": [node.id for node in critical],
                 "priority_components": components,

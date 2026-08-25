@@ -32,6 +32,7 @@ from forecastlab_api.models import (
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
 GRAPH_PROFILE_SHA256 = "acdbb378b6c5afbd5c82e9085c7be92043b9057f3a7f5842d73a1cdd80f0f6d7"
+SMOKE_PROFILE_SHA256 = "228da3e7273f03765fe7a3b6139eef371d9acf14bee70e656d05f9f8fc1c81dd"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
     "model_name": "gpt-5-mini-2025-08-07",
@@ -99,6 +100,13 @@ def test_graph_forecaster_profile_is_byte_for_byte_unchanged() -> None:
         (PROFILES_DIR / "graph_forecaster_v1.yaml").read_bytes()
     ).hexdigest()
     assert digest == GRAPH_PROFILE_SHA256
+
+
+def test_graph_live_smoke_profile_is_byte_for_byte_unchanged() -> None:
+    digest = hashlib.sha256(
+        (PROFILES_DIR / "graph_live_smoke_v1.yaml").read_bytes()
+    ).hexdigest()
+    assert digest == SMOKE_PROFILE_SHA256
 
 
 def test_smoke_profile_is_not_a_default_scientific_evaluation_profile() -> None:
@@ -308,7 +316,7 @@ def test_stubbed_graph_smoke_reaches_complete_auditable_pipeline(client) -> None
     assert context["estimated_upper_bound_cost_usd"] == pytest.approx(0.0)
 
 
-def test_stubbed_live_graph_smoke_accepts_four_external_undated_documents(
+def test_stubbed_live_graph_smoke_accepts_three_external_undated_documents(
     client,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -433,11 +441,11 @@ def test_stubbed_live_graph_smoke_accepts_four_external_undated_documents(
 
         assert stored_run.status == "completed"
         assert research_plan is not None
-        assert len(items) == 4
+        assert len(items) == 3
         assert all(item.url.startswith("https://evidence.example.org/") for item in items)
         assert all(item.published_at is None for item in items)
-        assert len(claims) >= 2
-        assert len(node_runs) >= 2
+        assert len(claims) >= 3
+        assert len(node_runs) == 3
         assert aggregation is not None
         assert version.id
         assert all(claim.publication_date is None for claim in claims)

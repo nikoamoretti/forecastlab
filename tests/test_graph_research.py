@@ -57,6 +57,7 @@ def _executor(
     enable_extraction_fallbacks: bool = True,
     cache=None,
     max_extraction_chars: int = 8000,
+    max_extraction_retry_calls: int | None = None,
 ) -> GraphResearchExecutor:
     profile = _profile()
     return GraphResearchExecutor(
@@ -78,6 +79,7 @@ def _executor(
         as_of=as_of,
         allow_local_fixtures=True,
         enable_extraction_fallbacks=enable_extraction_fallbacks,
+        max_extraction_retry_calls=max_extraction_retry_calls,
         max_extraction_chars=max_extraction_chars,
         prompt_versions={},
     )
@@ -137,8 +139,12 @@ class EmptyClaimModel:
 class FailingExtractionModel(EmptyClaimModel):
     model = "stub-failing-extraction"
 
+    def __init__(self) -> None:
+        self.evidence_calls = 0
+
     def complete_json(self, **kwargs: Any) -> ChatResult:
         if kwargs["schema_name"] == "evidence_claims":
+            self.evidence_calls += 1
             raise PermanentProviderError("forced_extraction_failure")
         return super().complete_json(**kwargs)
 
@@ -378,3 +384,22 @@ def test_extraction_retries_a_smaller_planned_chunk_before_document_fallback() -
     assert result.sources_checked[0]["document_chars"] > 2000
     assert result.sources_checked[0]["extraction_input_chars"] == 2000
     assert result.sources_checked[0]["outcome"] == "claims_created_smaller_chunk"
+
+
+def test_unplanned_extraction_retry_is_skipped_before_provider_call() -> None:
+    model = FailingExtractionModel()
+
+    result = _executor(
+        model=model,
+        cache=LongDocumentCache(),
+        max_extraction_chars=2000,
+        max_extraction_retry_calls=0,
+    ).execute(_node())
+
+    assert result.failure is None
+    assert len(result.claims) == 1
+    assert model.evidence_calls == 1
+    assert "smaller_chunk:retry_not_planned" in result.extraction_errors
+    assert result.sources_checked[0]["outcome"] == (
+        "claims_created_document_fallback"
+    )

@@ -26,8 +26,10 @@ from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
 from forecastlab.research_planning import (
     PARALLEL_RESEARCH_WORKERS,
+    PLANNER_VERSION,
     ResearchPlan,
     ResearchPlanner,
+    ResearchPlanningError,
 )
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
@@ -177,13 +179,18 @@ def _forecast_node(
     prompt_versions: dict[str, str],
     prompt_bundle: PromptBundle | None = None,
     max_output_tokens: int | None = None,
+    maximum_node_forecast_calls: int = 1,
 ) -> NodeForecast:
+    stage = f"forecast_node:{node.id}"
+    if maximum_node_forecast_calls < 1:
+        raise BudgetExceeded(stage, "unplanned_node_forecast_call")
     forecaster = NodeForecaster(
         BudgetedModelProvider(
             model,
             budget,
-            stage=f"forecast_node:{node.id}",
+            stage=stage,
             max_output_tokens_cap=max_output_tokens,
+            call_kind="node_forecast",
         ),
         prompt_bundle=prompt_bundle,
         prompt_versions=prompt_versions,
@@ -286,6 +293,30 @@ def run_graph_node_forecasts(
         forecast_run_id=run_id,
         budget=budget,
     )
+    allocation = plan.budget_allocation
+    try:
+        budget.freeze_model_call_envelope(
+            planner_version=str(
+                allocation.get("planner_version") or PLANNER_VERSION
+            ),
+            planned_calls_by_kind={
+                str(kind): int(count)
+                for kind, count in dict(
+                    allocation.get("planned_calls_by_kind") or {}
+                ).items()
+            },
+        )
+    except (BudgetExceeded, ValueError) as exc:
+        raise ResearchPlanningError(
+            ["minimum_graph_execution_exceeds_model_call_budget"],
+            "The frozen graph call envelope cannot fit before research begins",
+            audit={
+                "planner_version": allocation.get("planner_version"),
+                "budget_allocation": allocation,
+                "budget_snapshot": budget.snapshot(),
+                "freeze_error": str(exc),
+            },
+        ) from exc
     if persist_research_plan is not None:
         persist_research_plan(plan)
     selected_ids = set(plan.selected_nodes)
@@ -335,6 +366,18 @@ def run_graph_node_forecasts(
             ),
             evidence_extraction_output_tokens=int(
                 allocation["evidence_extraction_output_tokens"]
+            ),
+            enable_extraction_fallbacks=bool(
+                allocation["extraction_fallbacks_enabled"]
+            ),
+            max_research_plan_model_calls=int(
+                allocation["research_plan_calls"]
+            ),
+            max_primary_extraction_calls=int(
+                allocation["primary_extraction_calls"]
+            ),
+            max_extraction_retry_calls=int(
+                allocation["extraction_retry_calls"]
             ),
             prompt_bundle=prompt_bundle,
             prompt_versions=prompt_versions,
@@ -432,6 +475,9 @@ def run_graph_node_forecasts(
                 prompt_versions=prompt_versions,
                 prompt_bundle=prompt_bundle,
                 max_output_tokens=int(allocation["node_forecast_output_tokens"]),
+                maximum_node_forecast_calls=int(
+                    allocation["node_forecast_calls"]
+                ),
             )
             node_run = ForecastNodeRun(
                 id=str(uuid.uuid4()),

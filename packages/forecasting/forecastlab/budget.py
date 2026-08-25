@@ -31,6 +31,7 @@ class Reservation:
     reserved_tokens: int
     estimated_cost_usd: float
     wall_clock_seconds: float
+    call_kind: str | None = None
     actual_prompt_tokens: int | None = None
     actual_completion_tokens: int | None = None
     actual_tokens: int | None = None
@@ -51,6 +52,7 @@ class Reservation:
             "reserved_tokens": self.reserved_tokens,
             "estimated_cost_usd": self.estimated_cost_usd,
             "wall_clock_seconds": self.wall_clock_seconds,
+            "call_kind": self.call_kind,
             "actual_prompt_tokens": self.actual_prompt_tokens,
             "actual_completion_tokens": self.actual_completion_tokens,
             "actual_tokens": self.actual_tokens,
@@ -60,6 +62,46 @@ class Reservation:
             "cost_source": self.cost_source,
             "reconciled": self.reconciled,
             "released": self.released,
+        }
+
+
+@dataclass
+class ModelCallEnvelope:
+    """Frozen logical-call quotas that protect graph node forecasts."""
+
+    planner_version: str
+    baseline_model_calls: int
+    max_model_calls: int
+    planned_calls_by_kind: dict[str, int]
+    used_calls_by_kind: dict[str, int]
+
+    def as_dict(self) -> dict[str, Any]:
+        planned_total = sum(self.planned_calls_by_kind.values())
+        used_total = sum(self.used_calls_by_kind.values())
+        remaining = {
+            kind: max(0, planned - self.used_calls_by_kind.get(kind, 0))
+            for kind, planned in self.planned_calls_by_kind.items()
+        }
+        return {
+            "planner_version": self.planner_version,
+            "baseline_model_calls": self.baseline_model_calls,
+            "max_model_calls": self.max_model_calls,
+            "planned_calls_by_kind": dict(self.planned_calls_by_kind),
+            "used_calls_by_kind": dict(self.used_calls_by_kind),
+            "remaining_calls_by_kind": remaining,
+            "planned_total_model_calls": planned_total,
+            "used_total_model_calls": used_total,
+            "reserved_node_forecast_calls": self.planned_calls_by_kind.get(
+                "node_forecast",
+                0,
+            ),
+            "remaining_node_forecast_calls": remaining.get("node_forecast", 0),
+            "model_call_headroom_after_plan": max(
+                0,
+                self.max_model_calls
+                - self.baseline_model_calls
+                - planned_total,
+            ),
         }
 
 
@@ -82,6 +124,7 @@ class Budget:
         self.prior_elapsed_seconds = max(0.0, prior_elapsed_seconds)
         self.state = BudgetState(started_monotonic=time.monotonic())
         self.reservations: list[Reservation] = []
+        self.model_call_envelope: ModelCallEnvelope | None = None
         self._lock = threading.RLock()
 
     @classmethod
@@ -213,6 +256,86 @@ class Budget:
         cost, label = estimate_search_cost(self.search_provider, catalog=self.pricing_catalog)
         return (0.0 if cost is None else cost, label)
 
+    def freeze_model_call_envelope(
+        self,
+        *,
+        planner_version: str,
+        planned_calls_by_kind: dict[str, int],
+        stage: str = "research_planning",
+    ) -> ModelCallEnvelope:
+        """Freeze graph logical-call quotas without creating provider usage."""
+
+        with self._lock:
+            self.check(stage)
+            normalized = {
+                str(kind): int(count)
+                for kind, count in planned_calls_by_kind.items()
+            }
+            if not normalized or any(count < 0 for count in normalized.values()):
+                raise ValueError("invalid_model_call_envelope")
+            planned_total = sum(normalized.values())
+            available = max(
+                0,
+                self.profile.max_model_calls - self.state.model_calls,
+            )
+            if planned_total > available:
+                self._stop(stage, "planned_model_calls_exceed_budget")
+            candidate = ModelCallEnvelope(
+                planner_version=planner_version,
+                baseline_model_calls=self.state.model_calls,
+                max_model_calls=self.profile.max_model_calls,
+                planned_calls_by_kind=normalized,
+                used_calls_by_kind={kind: 0 for kind in normalized},
+            )
+            if self.model_call_envelope is not None:
+                existing = self.model_call_envelope
+                if (
+                    existing.planner_version != candidate.planner_version
+                    or existing.baseline_model_calls
+                    != candidate.baseline_model_calls
+                    or existing.max_model_calls != candidate.max_model_calls
+                    or existing.planned_calls_by_kind
+                    != candidate.planned_calls_by_kind
+                ):
+                    raise ValueError("conflicting_model_call_envelope")
+                return existing
+            self.model_call_envelope = candidate
+            return candidate
+
+    def _check_model_call_envelope(
+        self,
+        *,
+        stage: str,
+        call_kind: str | None,
+    ) -> None:
+        envelope = self.model_call_envelope
+        if envelope is None:
+            return
+        if call_kind is None or call_kind not in envelope.planned_calls_by_kind:
+            raise BudgetExceeded(stage, "unplanned_model_call")
+        assert call_kind is not None
+        planned = envelope.planned_calls_by_kind[call_kind]
+        used = envelope.used_calls_by_kind[call_kind]
+        if used >= planned:
+            raise BudgetExceeded(stage, f"unplanned_{call_kind}_call")
+        if call_kind != "node_forecast":
+            remaining_forecasts = max(
+                0,
+                envelope.planned_calls_by_kind.get("node_forecast", 0)
+                - envelope.used_calls_by_kind.get("node_forecast", 0),
+            )
+            if (
+                self.state.model_calls + 1
+                > self.profile.max_model_calls - remaining_forecasts
+            ):
+                raise BudgetExceeded(stage, "reserved_node_forecast_calls")
+
+    def _consume_model_call_envelope(self, call_kind: str | None) -> None:
+        if self.model_call_envelope is None:
+            return
+        assert call_kind is not None
+        self.model_call_envelope.used_calls_by_kind[call_kind] += 1
+
     def reserve_model_call(
         self,
         stage: str,
@@ -221,9 +344,11 @@ class Budget:
         max_output_tokens: int,
         estimated_cost_usd: float | None = None,
         wall_clock_seconds: float = DEFAULT_CALL_WALL_CLOCK_SECONDS,
+        call_kind: str | None = None,
     ) -> Reservation:
         with self._lock:
             self.check(stage)
+            self._check_model_call_envelope(stage=stage, call_kind=call_kind)
             reserved_tokens = max(0, estimated_input_tokens) + max(
                 0,
                 max_output_tokens,
@@ -254,6 +379,7 @@ class Budget:
                 reserved_tokens=reserved_tokens,
                 estimated_cost_usd=cost,
                 wall_clock_seconds=wall_clock_seconds,
+                call_kind=call_kind,
             )
             self.state.model_calls += 1
             self.state.tokens += reserved_tokens
@@ -263,12 +389,16 @@ class Budget:
             self.state.reserved_cost_usd += cost
             self.state.provider_request_count += 1
             self.reservations.append(reservation)
+            self._consume_model_call_envelope(call_kind)
             return reservation
 
     def release_reservation(self, reservation: Reservation) -> None:
         with self._lock:
             if reservation.released or reservation.reconciled:
                 return
+            # A provider exception releases the existing token/cost reservation,
+            # but it does not return the frozen logical-call slot. The external
+            # call was admitted and another phase may not reuse that attempt.
             self.state.tokens = max(
                 0,
                 self.state.tokens - reservation.reserved_tokens,
@@ -413,6 +543,11 @@ class Budget:
                 "now": utcnow().isoformat(),
                 "estimate": self.estimate_workload(),
                 "reservations": [item.as_dict() for item in self.reservations],
+                "model_call_envelope": (
+                    self.model_call_envelope.as_dict()
+                    if self.model_call_envelope is not None
+                    else None
+                ),
                 "cost_is_estimated": self.state.cost_is_estimated,
                 "cost_label": self.state.cost_label,
                 "provider": self.provider,
