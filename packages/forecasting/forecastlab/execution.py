@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from forecastlab.errors import ConfigurationError
 from forecastlab.gitinfo import current_git_commit
 from forecastlab.hashing import canonical_json, sha256_text
-from forecastlab.pricing import estimate_cost
+from forecastlab.pricing import combine_cost_labels, estimate_cost, estimate_search_cost
 from forecastlab.profiles import effective_profile, load_profile, profile_hash
 from forecastlab.prompts import prompt_hashes
 from forecastlab.schemas import ForecastProfile, RunMode
@@ -68,7 +68,13 @@ class ExecutionContext(BaseModel):
     planned_search_calls: int = 0
     planned_fetches: int = 0
     planned_max_tokens: int = 0
+    estimated_model_upper_bound_cost_usd: float | None = None
+    estimated_search_upper_bound_cost_usd: float | None = None
     estimated_upper_bound_cost_usd: float | None = None
+    model_cost_estimate_label: str = "unavailable"
+    search_cost_estimate_label: str = "unavailable"
+    cost_estimate_label: str = "unavailable"
+    cost_estimate_unavailable_reasons: list[str] = Field(default_factory=list)
     cost_is_estimated: bool = True
     estimate_exceeds_ceiling: bool = False
 
@@ -94,6 +100,53 @@ def _settings_from_mapping(data: dict[str, Any] | ProviderSettings) -> ProviderS
 
 def configuration_hash(payload: dict[str, Any]) -> str:
     return sha256_text(canonical_json(payload))
+
+
+def preflight_cost_breakdown(context: ExecutionContext) -> dict[str, Any]:
+    """Return the public, deterministic cost inputs used by launch preflight."""
+
+    return {
+        "profile_id": context.profile_id,
+        "estimated_model_upper_bound_cost_usd": (
+            context.estimated_model_upper_bound_cost_usd
+        ),
+        "estimated_search_upper_bound_cost_usd": (
+            context.estimated_search_upper_bound_cost_usd
+        ),
+        "estimated_upper_bound_cost_usd": context.estimated_upper_bound_cost_usd,
+        "effective_max_cost_usd": context.effective_max_cost_usd,
+        "model_cost_estimate_label": context.model_cost_estimate_label,
+        "search_cost_estimate_label": context.search_cost_estimate_label,
+        "cost_estimate_label": context.cost_estimate_label,
+        "cost_estimate_unavailable_reasons": list(
+            context.cost_estimate_unavailable_reasons
+        ),
+        "estimate_exceeds_ceiling": context.estimate_exceeds_ceiling,
+    }
+
+
+def _display_cost(value: float | None) -> str:
+    return "unavailable" if value is None else f"${value:.6f}"
+
+
+def _preflight_error_message(context: ExecutionContext, *, unavailable: bool) -> str:
+    prefix = (
+        "Upper-bound workload cost is unavailable"
+        if unavailable
+        else "Upper-bound workload exceeds the effective cost ceiling"
+    )
+    suffix = (
+        "Live execution fails closed until pricing is available."
+        if unavailable
+        else "Choose a lower-workload profile or raise the existing Settings ceiling explicitly."
+    )
+    return (
+        f"{prefix} for profile '{context.profile_id}': "
+        f"model={_display_cost(context.estimated_model_upper_bound_cost_usd)}, "
+        f"search={_display_cost(context.estimated_search_upper_bound_cost_usd)}, "
+        f"total={_display_cost(context.estimated_upper_bound_cost_usd)}, "
+        f"ceiling=${context.effective_max_cost_usd:.6f}. {suffix}"
+    )
 
 
 def estimate_workload(profile: ForecastProfile) -> dict[str, int]:
@@ -264,10 +317,17 @@ def resolve_execution_context(
         evidence_policy=evidence_policy,
         fixture_allowed=False,
     )
+    if context.cost_estimate_unavailable_reasons:
+        raise ConfigurationError(
+            context.cost_estimate_unavailable_reasons,
+            _preflight_error_message(context, unavailable=True),
+            details=preflight_cost_breakdown(context),
+        )
     if context.estimate_exceeds_ceiling and not allow_estimate_over_ceiling:
         raise ConfigurationError(
             ["estimate_exceeds_cost_ceiling"],
-            "Upper-bound workload exceeds the Settings cost ceiling. Choose a lower-workload profile.",
+            _preflight_error_message(context, unavailable=False),
+            details=preflight_cost_breakdown(context),
         )
     return context
 
@@ -293,8 +353,40 @@ def _build_context(
 ) -> ExecutionContext:
     workload = estimate_workload(profile)
     pricing = estimate_cost(model_provider, model_name, profile.max_tokens)
-    estimated = pricing.get("estimated_cost_usd")
-    exceeds = bool(estimated is not None and estimated > profile.max_estimated_cost_usd)
+    raw_model_estimate = pricing.get("estimated_cost_usd")
+    model_estimate = (
+        float(raw_model_estimate) if raw_model_estimate is not None else None
+    )
+    model_label = str(pricing.get("label") or "unavailable")
+    search_unit_cost, search_label = estimate_search_cost(search_provider)
+    if workload["planned_search_calls"] == 0:
+        search_estimate = 0.0
+        search_label = "estimated"
+    elif search_unit_cost is None:
+        search_estimate = None
+    else:
+        search_estimate = round(
+            workload["planned_search_calls"] * search_unit_cost,
+            6,
+        )
+    unavailable_reasons: list[str] = []
+    if model_estimate is None:
+        unavailable_reasons.append("model_pricing_unavailable")
+    if search_estimate is None:
+        unavailable_reasons.append("search_pricing_unavailable")
+    estimated = (
+        round(model_estimate + search_estimate, 6)
+        if model_estimate is not None and search_estimate is not None
+        else None
+    )
+    combined_label = (
+        "unavailable"
+        if unavailable_reasons
+        else combine_cost_labels([model_label, search_label])
+    )
+    exceeds = bool(
+        estimated is not None and estimated > profile.max_estimated_cost_usd
+    )
     payload = {
         "effective_mode": effective_mode,
         "model_provider": model_provider,
@@ -343,8 +435,14 @@ def _build_context(
         planned_search_calls=workload["planned_search_calls"],
         planned_fetches=workload["planned_fetches"],
         planned_max_tokens=workload["planned_max_tokens"],
+        estimated_model_upper_bound_cost_usd=model_estimate,
+        estimated_search_upper_bound_cost_usd=search_estimate,
         estimated_upper_bound_cost_usd=estimated,
-        cost_is_estimated=True,
+        model_cost_estimate_label=model_label,
+        search_cost_estimate_label=search_label,
+        cost_estimate_label=combined_label,
+        cost_estimate_unavailable_reasons=unavailable_reasons,
+        cost_is_estimated=combined_label != "provider_reported",
         estimate_exceeds_ceiling=exceeds,
         code_commit=current_git_commit(),
         configuration_hash=configuration_hash(payload),

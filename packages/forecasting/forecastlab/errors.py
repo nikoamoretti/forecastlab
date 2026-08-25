@@ -2,8 +2,15 @@ from __future__ import annotations
 
 
 class ConfigurationError(ValueError):
-    def __init__(self, reasons: list[str], message: str | None = None) -> None:
+    def __init__(
+        self,
+        reasons: list[str],
+        message: str | None = None,
+        *,
+        details: dict[str, object] | None = None,
+    ) -> None:
         self.reasons = reasons
+        self.details = details
         super().__init__(message or "; ".join(reasons))
 
 

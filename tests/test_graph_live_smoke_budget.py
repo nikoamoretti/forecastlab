@@ -1,0 +1,307 @@
+from __future__ import annotations
+
+import hashlib
+
+import pytest
+
+from forecastlab.errors import ConfigurationError
+from forecastlab.execution import resolve_execution_context
+from forecastlab.profiles import PROFILES_DIR, load_profile
+from forecastlab_api.experiments import (
+    DEFAULT_EXPERIMENT_PROFILES,
+    V1_EVALUATION_PROFILES,
+)
+from forecastlab_api.forecast_experiments import CONTROLLED_FORECAST_PROFILES
+
+SMOKE_PROFILE_ID = "graph_live_smoke_v1"
+GRAPH_PROFILE_SHA256 = "acdbb378b6c5afbd5c82e9085c7be92043b9057f3a7f5842d73a1cdd80f0f6d7"
+LIVE_PROVIDER_METADATA = {
+    "model_provider": "openai",
+    "model_name": "gpt-5-mini-2025-08-07",
+    "model_api_key": "test-key-never-sent",
+    "search_provider": "tavily",
+    "search_api_key": "test-key-never-sent",
+}
+
+
+def _live_settings(*, ceiling: float) -> dict[str, object]:
+    return {**LIVE_PROVIDER_METADATA, "max_cost_usd": ceiling}
+
+
+def _approved_contract(client) -> dict[str, object]:
+    draft_response = client.post(
+        "/api/contracts/generate",
+        json={
+            "question": (
+                "Will the US unemployment rate exceed 5% before 30 June 2027?"
+            ),
+            "mode": "demo",
+        },
+    )
+    draft_response.raise_for_status()
+    draft = draft_response.json()
+    approved = client.post(f"/api/contracts/{draft['id']}/approve")
+    approved.raise_for_status()
+    return draft
+
+
+def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
+    smoke = load_profile(SMOKE_PROFILE_ID)
+    graph = load_profile("graph_forecaster_v1")
+
+    assert smoke.id == SMOKE_PROFILE_ID
+    assert smoke.version == 1
+    assert smoke.execution_strategy == "graph_nodes"
+    assert smoke.graph_generation_enabled is True
+    assert smoke.evidence_claims_enabled is True
+    assert smoke.node_forecasting_enabled is True
+    assert smoke.graph_aggregation_enabled is True
+    assert smoke.aggregation_method == graph.aggregation_method
+    assert smoke.prompt_versions == graph.prompt_versions
+    assert {
+        "max_model_calls": smoke.max_model_calls,
+        "max_search_calls": smoke.max_search_calls,
+        "max_fetched_documents": smoke.max_fetched_documents,
+        "max_tokens": smoke.max_tokens,
+        "max_output_tokens_per_call": smoke.max_output_tokens_per_call,
+        "max_estimated_cost_usd": smoke.max_estimated_cost_usd,
+        "max_wall_clock_seconds": smoke.max_wall_clock_seconds,
+    } == {
+        "max_model_calls": 14,
+        "max_search_calls": 4,
+        "max_fetched_documents": 8,
+        "max_tokens": 50_000,
+        "max_output_tokens_per_call": 1_536,
+        "max_estimated_cost_usd": 0.50,
+        "max_wall_clock_seconds": 300,
+    }
+
+
+def test_graph_forecaster_profile_is_byte_for_byte_unchanged() -> None:
+    digest = hashlib.sha256(
+        (PROFILES_DIR / "graph_forecaster_v1.yaml").read_bytes()
+    ).hexdigest()
+    assert digest == GRAPH_PROFILE_SHA256
+
+
+def test_smoke_profile_is_not_a_default_scientific_evaluation_profile() -> None:
+    assert SMOKE_PROFILE_ID not in CONTROLLED_FORECAST_PROFILES
+    assert SMOKE_PROFILE_ID not in V1_EVALUATION_PROFILES
+    assert SMOKE_PROFILE_ID not in DEFAULT_EXPERIMENT_PROFILES
+
+
+def test_live_smoke_preflight_includes_model_and_search_cost_and_passes_at_fifty_cents() -> None:
+    context = resolve_execution_context(
+        requested_mode="live",
+        profile_id=SMOKE_PROFILE_ID,
+        settings=_live_settings(ceiling=0.50),
+    )
+
+    assert context.estimated_model_upper_bound_cost_usd == pytest.approx(0.400)
+    assert context.estimated_search_upper_bound_cost_usd == pytest.approx(0.032)
+    assert context.estimated_upper_bound_cost_usd == pytest.approx(0.432)
+    assert context.effective_max_cost_usd == pytest.approx(0.50)
+    assert context.estimate_exceeds_ceiling is False
+    assert context.cost_estimate_unavailable_reasons == []
+    assert context.model_is_mock is False
+    assert context.search_is_mock is False
+    assert context.fixture_evidence_allowed is False
+    assert context.synthetic_fixture_run is False
+
+
+def test_execution_preview_exposes_the_cost_breakdown(client) -> None:
+    saved = client.put(
+        "/api/settings",
+        json={**LIVE_PROVIDER_METADATA, "max_cost_usd": 0.50},
+    )
+    assert saved.status_code == 200
+
+    response = client.get(
+        "/api/execution/preview",
+        params={"profile_id": SMOKE_PROFILE_ID, "mode": "live"},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["ready"] is True
+    context = payload["context"]
+    assert context["estimated_model_upper_bound_cost_usd"] == pytest.approx(0.400)
+    assert context["estimated_search_upper_bound_cost_usd"] == pytest.approx(0.032)
+    assert context["estimated_upper_bound_cost_usd"] == pytest.approx(0.432)
+
+
+def test_smoke_fails_closed_at_twenty_five_cents_before_forecast_run(
+    client,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    draft = _approved_contract(client)
+    saved = client.put(
+        "/api/settings",
+        json={**LIVE_PROVIDER_METADATA, "max_cost_usd": 0.25},
+    )
+    assert saved.status_code == 200
+
+    def provider_call_forbidden(*_args, **_kwargs):
+        raise AssertionError("provider construction must not occur after failed preflight")
+
+    monkeypatch.setattr(
+        "forecastlab_api.pipeline.build_model_provider",
+        provider_call_forbidden,
+    )
+    monkeypatch.setattr(
+        "forecastlab_api.pipeline.build_search_provider",
+        provider_call_forbidden,
+    )
+
+    response = client.post(
+        f"/api/questions/{draft['question_id']}/runs",
+        json={"profile_id": SMOKE_PROFILE_ID, "mode": "live"},
+    )
+
+    assert response.status_code == 422
+    payload = response.json()
+    assert payload["reasons"] == ["estimate_exceeds_cost_ceiling"]
+    assert SMOKE_PROFILE_ID in payload["detail"]
+    assert "model=$0.400000" in payload["detail"]
+    assert "search=$0.032000" in payload["detail"]
+    assert "total=$0.432000" in payload["detail"]
+    assert "ceiling=$0.250000" in payload["detail"]
+    assert payload["preflight"]["estimated_upper_bound_cost_usd"] == pytest.approx(
+        0.432
+    )
+    question = client.get(f"/api/questions/{draft['question_id']}").json()
+    assert question["runs"] == []
+
+
+def test_graph_forecaster_still_fails_closed_at_fifty_cents() -> None:
+    with pytest.raises(ConfigurationError) as exc_info:
+        resolve_execution_context(
+            requested_mode="live",
+            profile_id="graph_forecaster_v1",
+            settings=_live_settings(ceiling=0.50),
+        )
+
+    error = exc_info.value
+    assert error.reasons == ["estimate_exceeds_cost_ceiling"]
+    assert error.details is not None
+    assert error.details["estimated_model_upper_bound_cost_usd"] == pytest.approx(
+        1.600
+    )
+    assert error.details["estimated_search_upper_bound_cost_usd"] == pytest.approx(
+        0.288
+    )
+    assert error.details["estimated_upper_bound_cost_usd"] == pytest.approx(1.888)
+
+
+def test_unavailable_search_pricing_is_explicit_and_fails_closed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "forecastlab.execution.estimate_search_cost",
+        lambda _provider: (None, "unavailable"),
+    )
+
+    with pytest.raises(ConfigurationError) as exc_info:
+        resolve_execution_context(
+            requested_mode="live",
+            profile_id=SMOKE_PROFILE_ID,
+            settings=_live_settings(ceiling=0.50),
+        )
+
+    error = exc_info.value
+    assert error.reasons == ["search_pricing_unavailable"]
+    assert error.details is not None
+    assert error.details["estimated_search_upper_bound_cost_usd"] is None
+    assert error.details["estimated_upper_bound_cost_usd"] is None
+    assert error.details["cost_estimate_label"] == "unavailable"
+    assert "search=unavailable" in str(error)
+    assert "total=unavailable" in str(error)
+
+
+def test_live_smoke_mode_cannot_select_fixture_or_synthetic_adapters() -> None:
+    with pytest.raises(ConfigurationError) as exc_info:
+        resolve_execution_context(
+            requested_mode="live",
+            profile_id=SMOKE_PROFILE_ID,
+            settings={
+                "model_provider": "mock",
+                "model_name": "mock-forecast-v1",
+                "model_api_key": "test-key-never-sent",
+                "search_provider": "mock",
+                "search_api_key": "test-key-never-sent",
+                "max_cost_usd": 0.50,
+            },
+            synthetic_fixture_run=True,
+        )
+
+    assert "model_provider_is_mock" in exc_info.value.reasons
+    assert "search_provider_is_mock" in exc_info.value.reasons
+
+    context = resolve_execution_context(
+        requested_mode="live",
+        profile_id=SMOKE_PROFILE_ID,
+        settings=_live_settings(ceiling=0.50),
+        synthetic_fixture_run=True,
+    )
+    assert context.synthetic_fixture_run is False
+    assert context.fixture_evidence_allowed is False
+    assert context.model_is_mock is False
+    assert context.search_is_mock is False
+
+
+def test_stubbed_graph_smoke_reaches_complete_auditable_pipeline(client) -> None:
+    draft = _approved_contract(client)
+
+    response = client.post(
+        f"/api/questions/{draft['question_id']}/runs",
+        json={"profile_id": SMOKE_PROFILE_ID, "mode": "demo"},
+    )
+
+    assert response.status_code == 200
+    run = response.json()
+    assert run["status"] == "completed"
+    assert run["profile_id"] == SMOKE_PROFILE_ID
+
+    stored = client.get(f"/api/runs/{run['id']}").json()
+    assert stored["forecast_graph"] is not None
+    assert stored["research_plan"] is not None
+    assert 2 <= len(stored["research_plan"]["selected_nodes"]) <= 4
+    assert len(stored["evidence_claims"]) >= 2
+    assert len(stored["node_runs"]) >= 2
+    assert stored["forecast_aggregation"] is not None
+    assert stored["forecast_aggregation"]["final_probability"] is not None
+    assert client.get(f"/api/questions/{draft['question_id']}/report").json()[
+        "version_count"
+    ] == 1
+
+    budget = stored["budget"]
+    assert budget["model_calls"] <= 14
+    assert budget["search_calls"] <= 4
+    assert budget["fetches"] <= 8
+    assert budget["tokens"] <= 50_000
+    assert budget["total_cost_usd"] <= 0.50
+    context = stored["execution_context"]
+    assert context["effective_max_model_calls"] == 14
+    assert context["effective_max_search_calls"] == 4
+    assert context["effective_max_fetched_documents"] == 8
+    assert context["effective_max_tokens"] == 50_000
+    assert context["effective_max_cost_usd"] == pytest.approx(0.50)
+    assert context["estimated_model_upper_bound_cost_usd"] == pytest.approx(0.0)
+    assert context["estimated_search_upper_bound_cost_usd"] == pytest.approx(0.0)
+    assert context["estimated_upper_bound_cost_usd"] == pytest.approx(0.0)
+
+
+@pytest.mark.parametrize(
+    "profile_id",
+    [
+        "three_track_ensemble",
+        "live_smoke_v1",
+        "graph_forecaster_v1",
+        "single_model_forecaster_v1",
+        "three_track_forecaster",
+        "single_agent_equal_budget_v1",
+        "three_track_equal_budget_v1",
+    ],
+)
+def test_existing_profiles_remain_loadable(profile_id: str) -> None:
+    assert load_profile(profile_id).id == profile_id

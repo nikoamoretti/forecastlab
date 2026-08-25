@@ -205,6 +205,18 @@ The initial aggregation is deliberately simple. Declared graph dependencies rema
 
 `POST /api/forecasts/{id}/execute-graph` starts the complete path and `GET /api/forecasts/{id}/graph-report` returns its joined audit report. The existing `POST /api/forecasts/{id}/execute-v1`, `POST /api/forecasts/{id}/node-runs`, and `GET /api/forecasts/{id}/node-runs` endpoints remain available. `POST /api/questions/{id}/runs` also dispatches the complete path when `graph_forecaster_v1` is selected. No legacy profile or endpoint is removed.
 
+### Graph live smoke profile and cost preflight
+
+`graph_forecaster_v1` is the versioned production/evaluation architecture profile. `graph_live_smoke_v1` is a separate operational smoke profile that enters the same `GraphForecastExecutor`, uses the same Research Planner, aggregation method, and prompt versions, and enables graph generation, Evidence Claims, node forecasting, and graph aggregation. Its version 1 limits are 14 model calls, 4 searches, 8 fetched documents, 50,000 tokens, 1,536 output tokens per call, $0.50 estimated lifetime cost, and 300 seconds. The four-search ceiling also limits a normal planned smoke to no more than four search-backed selected nodes. The profile is intentionally excluded from default scientific experiment profile sets.
+
+For live and non-synthetic backtest launch preflight, code calculates three values from the effective provider identities and committed conservative pricing catalog:
+
+1. the model upper bound using the profile token limit and the existing token split;
+2. the search upper bound using planned search calls times `estimate_search_cost()` for the effective search provider;
+3. the total upper bound as their sum.
+
+The total is compared with the effective Settings/profile ceiling before a Forecast Run is created. If either required catalog estimate is unavailable, the missing component and total remain explicitly unavailable and execution fails closed. These values are stored in the JSON `ExecutionContext` and exposed by execution preview and rejected-launch preflight responses. They are conservative planning estimates, not provider invoices or a vendor-enforced cap. A successful `graph_live_smoke_v1` run establishes only that the bounded operational path completed; it does not establish forecasting accuracy, calibration, reliability at production scale, or superiority over another profile.
+
 ### Single-model evaluation baseline
 
 `single_model_forecaster_v1` is an isolated direct baseline. It requires the same approved Forecast Contract as graph execution, derives one deterministic research query, and builds one evidence packet through the existing search, fetch, cutoff, cache, budget, and provider-ledger seams. One structured model call receives only the contract and that packet and returns one probability, reasoning, uncertainty, and selected evidence IDs. Code validates the response and persists the direct result as a normal Forecast Version. The profile does not generate Forecast Graph nodes, extract Evidence Claims, create node forecasts, or invoke probability aggregation. Its `direct_model_probability_v1` calculation record is persistence and report metadata, not a mathematical combination.

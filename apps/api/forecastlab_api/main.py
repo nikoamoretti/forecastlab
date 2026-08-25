@@ -227,7 +227,10 @@ class ForecastFailureAnnotationIn(BaseModel):
 
 @app.exception_handler(ConfigurationError)
 def configuration_error_handler(_request, exc: ConfigurationError) -> JSONResponse:
-    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+    content: dict[str, Any] = {"detail": str(exc), "reasons": exc.reasons}
+    if exc.details is not None:
+        content["preflight"] = exc.details
+    return JSONResponse(status_code=422, content=content)
 
 
 @app.exception_handler(ForecastContractError)
@@ -553,6 +556,8 @@ def execution_preview(profile_id: str = "three_track_ensemble", mode: str = "dem
         payload["ready"] = False
         payload["reasons"] = exc.reasons
         payload["detail"] = str(exc)
+        if exc.details is not None:
+            payload["preflight"] = exc.details
         payload["context"] = None
     return payload
 
