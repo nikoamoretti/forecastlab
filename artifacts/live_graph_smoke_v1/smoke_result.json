@@ -1,0 +1,282 @@
+{
+  "artifact_schema_version": 1,
+  "smoke_name": "ForecastLab live graph_forecaster_v1 smoke",
+  "required_notice": "Single live-provider execution test. This result validates operational execution only and is not evidence of forecasting quality.",
+  "created_at": "2026-08-24T23:58:57Z",
+  "passed": false,
+  "outcome": "preflight_rejected",
+  "failure": {
+    "stage": "execution_context",
+    "category": "ConfigurationError",
+    "code": "estimate_exceeds_cost_ceiling",
+    "message": "Upper-bound workload exceeds the Settings cost ceiling. Choose a lower-workload profile.",
+    "preserved_without_retry": true
+  },
+  "source": {
+    "branch": "grok/live-graph-smoke-v1",
+    "starting_commit": "056f34c8ae315eb5799a860db44094730fd30158",
+    "tracked_worktree_clean_before_invocation": true,
+    "uv_lock_present": true,
+    "locked_environment_sync_passed": true,
+    "application_version": "0.3.1"
+  },
+  "feature_preflight": {
+    "graph_forecaster_v1_complete_path_present": true,
+    "forecast_contract_enabled": true,
+    "forecast_graph_enabled": true,
+    "research_planner_enabled": true,
+    "live_evidence_retrieval_enabled": true,
+    "evidence_claims_enabled": true,
+    "node_forecasting_enabled": true,
+    "graph_aggregation_enabled": true,
+    "maximum_selected_nodes": 8,
+    "maximum_searches_per_node": 5,
+    "maximum_evidence_claims": 20,
+    "openai_gpt5_uses_max_completion_tokens": true,
+    "openai_gpt5_omits_max_tokens": true,
+    "openai_gpt5_omits_temperature": true,
+    "xai_and_generic_request_behavior_preserved": true,
+    "validation_adapter_blocked_from_live_mode": true,
+    "validation_adapter_blocked_from_ordinary_backtests": true,
+    "validation_adapter_blocked_from_user_provider_selection": true,
+    "run_lifetime_ledger_enabled": true,
+    "run_lifetime_cost_ceiling_enabled": true,
+    "targeted_offline_tests": {
+      "passed": 51,
+      "failed": 0,
+      "warnings": 1
+    }
+  },
+  "service_health": {
+    "api": "ok",
+    "database": "ok",
+    "worker_was_fresh_before_invocation": true,
+    "worker_status": "idle",
+    "web_application_required": false
+  },
+  "provider_readiness": {
+    "endpoint_calls": 1,
+    "mode": "live",
+    "model_provider": "openai",
+    "model_name": "gpt-5-mini-2025-08-07",
+    "model_api_key_set": true,
+    "search_provider": "tavily",
+    "search_api_key_set": true,
+    "live_readiness": true,
+    "readiness_reasons": [],
+    "separate_provider_connection_probes": 0
+  },
+  "budget_preflight": {
+    "settings_cost_ceiling_usd": 0.25,
+    "source_graph_profile_cost_ceiling_usd": 5.0,
+    "effective_cost_ceiling_usd": 0.25,
+    "estimated_upper_bound_cost_usd": 1.6,
+    "estimate_exceeds_ceiling": true,
+    "effective_max_model_calls": 40,
+    "effective_max_search_calls": 36,
+    "effective_max_fetched_documents": 24,
+    "effective_max_tokens": 200000,
+    "effective_max_wall_clock_seconds": 180
+  },
+  "database_backup": {
+    "pre_run_timestamp": "2026-08-24T23:53:41Z",
+    "path": "/Users/nico-yardlogix/forecastlab-backups/forecastlab-before-live-graph-smoke-20260824-235341.db",
+    "stored_outside_repository": true
+  },
+  "database_baseline": {
+    "maximum_question_created_at": "2026-08-24T05:27:47.302235Z",
+    "question_count": 214,
+    "forecast_run_count": 219,
+    "provider_ledger_count": 1296
+  },
+  "question": {
+    "id": "ebe815cf-0fe6-491c-b094-4e5ecf777b24",
+    "text": "Will the US civilian unemployment rate (U-3, seasonally adjusted) be at or above 5.0 percent for any month whose official BLS release date is on or before 30 June 2027?",
+    "created_at": "2026-08-24T23:54:39.270616Z",
+    "status_after_invocation": "contract_ready",
+    "requested_profile_id": "graph_forecaster_v1",
+    "requested_mode": "live",
+    "requested_as_of": null
+  },
+  "contract": {
+    "id": "1681fea3-5e04-4d0c-983d-3010801e4b65",
+    "version": 1,
+    "status": "approved",
+    "yes_condition": "The US Bureau of Labor Statistics U-3 unemployment rate, seasonally adjusted, is reported at or above 5.0% for any month whose official release date is on or before 30 June 2027.",
+    "no_condition": "No BLS U-3 seasonally adjusted monthly reading at or above 5.0% is published with a release date on or before 30 June 2027.",
+    "resolution_date": "2027-07-15T00:00:00Z",
+    "authoritative_source": "https://www.bls.gov/news.release/empsit.toc.htm",
+    "fallback_sources": [
+      "https://fred.stlouisfed.org/series/UNRATE"
+    ],
+    "geography": "United States",
+    "units": "Percent, seasonally adjusted U-3",
+    "ambiguity_notes": "The first official monthly BLS release binds unless BLS restates that first-release figure before the resolution deadline.",
+    "cancellation_conditions": "Invalidate if BLS discontinues U-3 without a directly comparable replacement.",
+    "resolver_risk_notes": "Do not substitute U-6 or a three-month average."
+  },
+  "invocation": {
+    "service_path": "forecastlab_api.pipeline.start_run -> forecastlab_api.pipeline.execute_run",
+    "authorized_service_invocations": 1,
+    "automatic_whole_run_retry": false,
+    "whole_run_retries": 0,
+    "committed_physical_request_retries_available": true,
+    "physical_requests_attempted": 0,
+    "started_at": "2026-08-24T23:57:23Z",
+    "completed_at": "2026-08-24T23:57:24Z",
+    "wall_latency_ms": 1213,
+    "log_path": "/Users/nico-yardlogix/forecastlab-backups/live-graph-smoke-20260824-235341.log",
+    "log_sha256": "ac001b81e7e3fd07555ab78b4789a7b73389f6abc5d0bba90e7949ae0e656454",
+    "forecast_run_created": false,
+    "run_id": null,
+    "forecast_run_latency_ms": null,
+    "execution_context_persisted": false,
+    "profile_id": null,
+    "profile_version": null,
+    "mode": null,
+    "status": "not_created",
+    "reduced_confidence": null
+  },
+  "post_invocation_database_audit": {
+    "question_count": 215,
+    "new_question_count": 1,
+    "forecast_run_count": 219,
+    "new_forecast_run_count": 0,
+    "question_forecast_run_count": 0,
+    "new_run_attempt_count": 0,
+    "provider_ledger_count": 1296,
+    "new_provider_ledger_count": 0,
+    "forecast_graph_count": 0,
+    "forecast_node_count": 0,
+    "research_plan_count": 0,
+    "evidence_item_count": 0,
+    "evidence_claim_count": 0,
+    "node_forecast_run_count": 0,
+    "graph_execution_failure_count": 0,
+    "forecast_aggregation_count": 0,
+    "forecast_version_count": 0
+  },
+  "research_plan": {
+    "persisted": false,
+    "graph_node_count": 0,
+    "selected_node_count": 0,
+    "skipped_node_count": 0,
+    "critical_selected_nodes": [],
+    "priority_scores": {},
+    "estimated_model_cost_usd": null,
+    "estimated_search_cost_usd": null,
+    "estimated_total_cost_usd": null,
+    "worker_concurrency": 0
+  },
+  "research_execution": {
+    "query_count": 0,
+    "successful_tavily_requests": 0,
+    "failed_tavily_requests": 0,
+    "search_result_count": 0,
+    "document_fetch_count": 0,
+    "accepted_document_count": 0,
+    "rejected_document_count": 0,
+    "accepted_evidence_urls": [],
+    "evidence_claim_count": 0,
+    "extraction_retry_count": 0,
+    "document_fallback_count": 0,
+    "extraction_failure_count": 0
+  },
+  "node_forecasting": {
+    "node_forecast_run_count": 0,
+    "node_forecasts": [],
+    "failed_critical_nodes": [],
+    "failed_noncritical_nodes": []
+  },
+  "aggregation": {
+    "persisted": false,
+    "method": null,
+    "input_nodes": [],
+    "normalized_weights": {},
+    "log_odds_contributions": {},
+    "final_probability": null,
+    "calculation_trace": []
+  },
+  "provider_ledger": [],
+  "costs": {
+    "model_cost_usd": 0.0,
+    "search_cost_usd": 0.0,
+    "failed_attempt_cost_usd": 0.0,
+    "total_cost_usd": 0.0,
+    "effective_ceiling_usd": 0.25,
+    "remaining_budget_usd": 0.25,
+    "cost_source": "no_provider_requests"
+  },
+  "gate_results": [
+    {"condition": 1, "description": "Exactly one new Question was created", "passed": true, "evidence": "1"},
+    {"condition": 2, "description": "Exactly one new graph ForecastRun was created for that Question", "passed": false, "evidence": "0; start_run rejected the context before persistence"},
+    {"condition": 3, "description": "The run uses graph_forecaster_v1", "passed": false, "evidence": "No ForecastRun was created"},
+    {"condition": 4, "description": "The run mode is live", "passed": false, "evidence": "No ForecastRun was created"},
+    {"condition": 5, "description": "model_is_mock is false", "passed": false, "evidence": "No execution context was persisted"},
+    {"condition": 6, "description": "search_is_mock is false", "passed": false, "evidence": "No execution context was persisted"},
+    {"condition": 7, "description": "fixture_evidence_used is false", "passed": false, "evidence": "No ForecastRun was created"},
+    {"condition": 8, "description": "The cutoff-consistent validation adapter was not selected", "passed": true, "evidence": "No adapter or provider was instantiated"},
+    {"condition": 9, "description": "A ResearchPlan was persisted", "passed": false, "evidence": "0"},
+    {"condition": 10, "description": "At least one graph node was selected", "passed": false, "evidence": "0"},
+    {"condition": 11, "description": "At least one real Tavily search request succeeded", "passed": false, "evidence": "0"},
+    {"condition": 12, "description": "At least one external HTTP or HTTPS document was accepted", "passed": false, "evidence": "0"},
+    {"condition": 13, "description": "At least one EvidenceClaim was persisted", "passed": false, "evidence": "0"},
+    {"condition": 14, "description": "At least two NodeForecastRuns were persisted", "passed": false, "evidence": "0"},
+    {"condition": 15, "description": "No selected critical node failed", "passed": true, "evidence": "0 selected critical nodes and 0 critical failures; node execution was not reached"},
+    {"condition": 16, "description": "A ForecastAggregation was persisted", "passed": false, "evidence": "0"},
+    {"condition": 17, "description": "A ForecastVersion was persisted", "passed": false, "evidence": "0"},
+    {"condition": 18, "description": "The final probability is finite and between 0.01 and 0.99", "passed": false, "evidence": "No probability was produced"},
+    {"condition": 19, "description": "At least one OpenAI request succeeded", "passed": false, "evidence": "0"},
+    {"condition": 20, "description": "Every provider-ledger row is terminal", "passed": true, "evidence": "0 new rows and therefore 0 nonterminal rows; provider execution was not reached"},
+    {"condition": 21, "description": "Provider identities are openai and tavily", "passed": false, "evidence": "Readiness configuration matched, but no run or provider-ledger identity was persisted"},
+    {"condition": 22, "description": "No API key, bearer token, or authorization header appears in output, ledger, or stored errors", "passed": true, "evidence": "Sanitized log, artifact, report, and post-baseline database error scan passed with zero secret-value matches"},
+    {"condition": 23, "description": "The run-lifetime total cost is no more than the committed graph profile ceiling", "passed": true, "evidence": "$0.000000 actual cost <= $0.250000 effective ceiling; no ForecastRun was created"},
+    {"condition": 24, "description": "The tracked Git worktree remains clean", "passed": true, "evidence": "No source or tracked configuration changed; only the authorized report and artifact were added after the invocation"}
+  ],
+  "secret_scan": {
+    "status": "passed",
+    "matches": 0,
+    "surfaces": [
+      "sanitized report",
+      "sanitized artifact",
+      "external invocation log",
+      "post-baseline provider-ledger stored errors"
+    ]
+  },
+  "verification": {
+    "status": "passed",
+    "pytest": {
+      "passed": 378,
+      "failed": 0,
+      "warnings": 1,
+      "duration_seconds": 66.93
+    },
+    "ruff": "passed",
+    "mypy": {
+      "status": "passed",
+      "source_files": 76
+    },
+    "frontend_checks_required": false
+  },
+  "integrity_confirmations": {
+    "source_code_changed": false,
+    "prompts_changed": false,
+    "profiles_changed": false,
+    "contracts_changed_after_approval": false,
+    "graph_generation_changed": false,
+    "research_planner_changed": false,
+    "evidence_extraction_changed": false,
+    "node_forecasting_changed": false,
+    "aggregation_changed": false,
+    "budgets_changed": false,
+    "provider_settings_changed": false,
+    "credentials_created_or_rotated": false,
+    "mock_or_synthetic_provider_used": false,
+    "validation_fixture_corpus_used": false,
+    "live_openai_requests": 0,
+    "live_tavily_requests": 0,
+    "full_pilot_executed": false,
+    "merge_or_deploy_performed": false,
+    "accuracy_evaluated": false
+  }
+}
