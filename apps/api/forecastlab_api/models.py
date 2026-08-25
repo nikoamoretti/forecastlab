@@ -130,6 +130,7 @@ class ForecastGraphRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     generation_model: Mapped[str] = mapped_column(String(256))
     root_question: Mapped[str] = mapped_column(Text)
+    generation_audit_json: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     contract: Mapped[ForecastContractRow] = relationship(back_populates="forecast_graphs")
     nodes: Mapped[list[ForecastNodeRow]] = relationship(back_populates="graph")

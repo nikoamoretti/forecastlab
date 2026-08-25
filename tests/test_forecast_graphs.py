@@ -126,7 +126,8 @@ def valid_graph_payload() -> dict[str, Any]:
 
 def test_graph_generation_from_approved_contract() -> None:
     model = StubGraphModel(valid_graph_payload())
-    graph = GraphGenerator(model, max_output_tokens=1536).generate(approved_contract())
+    result = GraphGenerator(model, max_output_tokens=1536).generate(approved_contract())
+    graph = result.graph
 
     assert model.calls == 1
     assert graph.status == "approved"
@@ -138,6 +139,8 @@ def test_graph_generation_from_approved_contract() -> None:
     assert all(node.graph_id == graph.id for node in graph.nodes)
     assert all(node.status == "pending" for node in graph.nodes)
     assert graph_approval_errors(graph) == []
+    assert graph.generation_audit == result.generation_audit
+    assert result.generation_audit.prompt_version == "v1"
 
 
 def test_graph_generation_uses_frozen_experiment_prompt_bundle() -> None:

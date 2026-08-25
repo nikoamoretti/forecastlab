@@ -122,6 +122,34 @@ class ForecastNode(BaseModel):
     status: ForecastNodeStatus = "pending"
 
 
+class ForecastGraphGenerationAudit(BaseModel):
+    """Sanitized graph-generation diagnostics safe for durable audit storage."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    model: str
+    schema_name: str = "forecast_graph"
+    provider_request_id: str | None = None
+    requested_max_output_tokens: int = Field(gt=0)
+    finish_reason: str | None = None
+    refusal_present: bool = False
+    refusal_category: str | None = None
+    completion_tokens: int | None = Field(default=None, ge=0)
+    reasoning_tokens: int | None = Field(default=None, ge=0)
+    visible_output_tokens: int | None = Field(default=None, ge=0)
+    content_character_count: int = Field(default=0, ge=0)
+    json_parsing_succeeded: bool
+    schema_validation_succeeded: bool
+    strict_schema_validation_succeeded: bool | None = None
+    schema_validation_errors: list[dict[str, str]] = Field(default_factory=list)
+    domain_validation_succeeded: bool
+    domain_validation_errors: list[str] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+    prompt_version: str
+    generated_at: datetime
+
+
 class ForecastGraph(BaseModel):
     id: str
     contract_id: str
@@ -131,6 +159,12 @@ class ForecastGraph(BaseModel):
     generation_model: str
     root_question: str
     nodes: list[ForecastNode] = Field(default_factory=list)
+    generation_audit: ForecastGraphGenerationAudit | None = None
+
+
+class ForecastGraphGenerationResult(BaseModel):
+    graph: ForecastGraph
+    generation_audit: ForecastGraphGenerationAudit
 
 
 class SubquestionPlan(BaseModel):

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import uuid
+from dataclasses import dataclass
 from datetime import datetime
+from typing import Literal
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -12,7 +14,13 @@ from forecastlab.graph_execution import GraphEngineResult
 from forecastlab.graphs import GraphGenerator
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider
-from forecastlab.schemas import EvidenceClaim, ForecastContract, ForecastGraph, ForecastNodeRun
+from forecastlab.schemas import (
+    EvidenceClaim,
+    ForecastContract,
+    ForecastGraph,
+    ForecastGraphGenerationAudit,
+    ForecastNodeRun,
+)
 from forecastlab.timeutil import parse_datetime, utcnow
 from forecastlab_api.contracts import forecast_contract_from_row
 from forecastlab_api.evidence_claims import store_evidence_claims
@@ -48,6 +56,48 @@ def approved_contract_for_question(session: Session, question_id: str) -> Foreca
     return row
 
 
+@dataclass(frozen=True)
+class ExecutionGraphResolution:
+    contract: ForecastContract
+    graph: ForecastGraph
+    status: Literal["generated", "reused"]
+    model_request_issued: bool
+    generation_audit: ForecastGraphGenerationAudit | None
+
+    def context_payload(self) -> dict[str, object]:
+        return {
+            "graph_id": self.graph.id,
+            "graph_version": self.graph.version,
+            "status": self.status,
+            "model_request_issued": self.model_request_issued,
+            "audit_source": (
+                "persisted_generation_audit"
+                if self.generation_audit is not None
+                else "unavailable_legacy"
+            ),
+            "generation_audit": (
+                self.generation_audit.model_dump(mode="json")
+                if self.generation_audit is not None
+                else None
+            ),
+        }
+
+
+def record_execution_graph_resolution(
+    run: ForecastRun,
+    resolution: ExecutionGraphResolution,
+) -> None:
+    try:
+        snapshot = json.loads(run.execution_context_json or "{}")
+    except json.JSONDecodeError:
+        snapshot = {}
+    snapshot["forecast_contract_id"] = resolution.contract.id
+    snapshot["forecast_graph_id"] = resolution.graph.id
+    snapshot["forecast_graph_version"] = resolution.graph.version
+    snapshot["forecast_graph_resolution"] = resolution.context_payload()
+    run.execution_context_json = json.dumps(snapshot, sort_keys=True)
+
+
 def ensure_execution_graph(
     session: Session,
     *,
@@ -55,7 +105,7 @@ def ensure_execution_graph(
     model: ModelProvider,
     max_output_tokens: int,
     prompt_bundle: PromptBundle | None = None,
-) -> tuple[ForecastContract, ForecastGraph]:
+) -> ExecutionGraphResolution:
     """Resolve the approved contract and persist its graph before node research starts."""
 
     contract_row = approved_contract_for_question(session, question.id)
@@ -69,11 +119,13 @@ def ensure_execution_graph(
         .order_by(ForecastGraphRow.version.desc())
         .limit(1)
     )
+    status: Literal["generated", "reused"] = "reused"
+    model_request_issued = False
     if graph_row is None:
         latest_version = session.scalar(
             select(func.max(ForecastGraphRow.version)).where(ForecastGraphRow.contract_id == contract.id)
         )
-        graph = GraphGenerator(
+        generated = GraphGenerator(
             model,
             max_output_tokens=max_output_tokens,
             prompt_bundle=prompt_bundle,
@@ -81,9 +133,18 @@ def ensure_execution_graph(
             contract,
             version=int(latest_version or 0) + 1,
         )
-        graph_row = store_forecast_graph(session, graph)
+        graph_row = store_forecast_graph(session, generated.graph)
         session.commit()
-    return contract, forecast_graph_from_row(graph_row)
+        status = "generated"
+        model_request_issued = model.name != "mock"
+    graph = forecast_graph_from_row(graph_row)
+    return ExecutionGraphResolution(
+        contract=contract,
+        graph=graph,
+        status=status,
+        model_request_issued=model_request_issued,
+        generation_audit=graph.generation_audit,
+    )
 
 
 def forecast_node_run_from_row(row: ForecastNodeRunRow) -> ForecastNodeRun:
@@ -313,7 +374,7 @@ def persist_graph_engine_result(
         key_drivers_json=json.dumps(driver_acc),
         counterarguments_json=json.dumps(counter_acc),
         evidence_ids_json=json.dumps(list(dict.fromkeys(claim_ids))),
-        trigger_event="graph_forecaster_v1",
+        trigger_event="run",
         previous_version_id=previous.id if previous else None,
     )
     session.add(version)

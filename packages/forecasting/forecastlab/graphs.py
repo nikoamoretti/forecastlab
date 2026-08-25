@@ -7,7 +7,13 @@ from typing import Any
 
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
-from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode
+from forecastlab.schemas import (
+    ForecastContract,
+    ForecastGraph,
+    ForecastGraphGenerationAudit,
+    ForecastGraphGenerationResult,
+    ForecastNode,
+)
 from forecastlab.structured_outputs import (
     ForecastGraphOutput,
     forecast_graph_json_schema,
@@ -222,25 +228,30 @@ class GraphGenerator:
         *,
         version: int = 1,
         graph_id: str | None = None,
-    ) -> ForecastGraph:
+    ) -> ForecastGraphGenerationResult:
         if contract.status != "approved":
             raise ForecastGraphError(
                 ["approved_forecast_contract_required"],
                 "Approve the Forecast Contract before generating a Forecast Graph",
             )
 
+        generated_at = utcnow()
+        if self.prompt_bundle is not None:
+            system, prompt_version = self.prompt_bundle.get("forecast_graph")
+        else:
+            system, prompt_version = load_prompt("forecast_graph")
         audit: dict[str, Any] = {
+            "provider": self.model.name,
+            "model": str(getattr(self.model, "model", "unspecified")),
             "schema_name": "forecast_graph",
             "requested_max_output_tokens": self.max_output_tokens,
+            "prompt_version": prompt_version,
+            "generated_at": generated_at.isoformat(),
         }
+        diagnostics_payload: dict[str, Any] = {}
         if self.model.name == "mock":
             payload: Any = {"nodes": _mock_nodes(contract)}
         else:
-            system, _prompt_version = (
-                self.prompt_bundle.get("forecast_graph")
-                if self.prompt_bundle is not None
-                else load_prompt("forecast_graph")
-            )
             result = self.model.complete_json(
                 system=system,
                 user=contract.model_dump_json(),
@@ -249,8 +260,11 @@ class GraphGenerator:
                 json_schema=forecast_graph_json_schema(),
                 reasoning_effort="minimal",
             )
+            audit["provider"] = result.usage.provider or audit["provider"]
+            audit["model"] = result.usage.model or audit["model"]
             if result.diagnostics is not None:
-                audit["structured_output"] = result.diagnostics.audit_payload()
+                diagnostics_payload = result.diagnostics.audit_payload()
+                audit["structured_output"] = diagnostics_payload
                 if result.diagnostics.refusal_present:
                     raise ForecastGraphError(
                         ["structured_output_refused"],
@@ -263,6 +277,22 @@ class GraphGenerator:
                         "Forecast Graph structured output reached its output limit",
                         audit=audit,
                     )
+            else:
+                diagnostics_payload = {
+                    "schema_name": "forecast_graph",
+                    "provider_request_id": result.usage.request_id,
+                    "finish_reason": None,
+                    "refusal_present": False,
+                    "refusal_category": None,
+                    "requested_max_output_tokens": self.max_output_tokens,
+                    "completion_tokens": result.usage.completion_tokens,
+                    "reasoning_tokens": None,
+                    "visible_output_tokens": result.usage.completion_tokens,
+                    "content_character_count": len(result.content),
+                    "json_parsing_succeeded": result.parsed is not None,
+                    "strict_schema_validation_succeeded": None,
+                    "schema_validation_errors": [],
+                }
             if result.parsed is not None:
                 payload = result.parsed
             elif not result.content.strip():
@@ -274,6 +304,7 @@ class GraphGenerator:
             else:
                 try:
                     payload = json.loads(result.content)
+                    diagnostics_payload["json_parsing_succeeded"] = True
                 except (json.JSONDecodeError, TypeError) as exc:
                     raise ForecastGraphError(
                         ["structured_output_invalid_json"],
@@ -383,4 +414,45 @@ class GraphGenerator:
                 "Forecast Graph failed domain validation",
                 audit={**audit, "domain_validation_errors": exc.reasons},
             ) from exc
-        return graph
+        generation_audit = ForecastGraphGenerationAudit(
+            provider=str(audit["provider"]),
+            model=str(audit["model"]),
+            schema_name="forecast_graph",
+            provider_request_id=diagnostics_payload.get("provider_request_id"),
+            requested_max_output_tokens=self.max_output_tokens,
+            finish_reason=diagnostics_payload.get("finish_reason"),
+            refusal_present=bool(diagnostics_payload.get("refusal_present")),
+            refusal_category=diagnostics_payload.get("refusal_category"),
+            completion_tokens=(
+                int(diagnostics_payload["completion_tokens"])
+                if diagnostics_payload.get("completion_tokens") is not None
+                else None
+            ),
+            reasoning_tokens=diagnostics_payload.get("reasoning_tokens"),
+            visible_output_tokens=diagnostics_payload.get("visible_output_tokens"),
+            content_character_count=int(diagnostics_payload.get("content_character_count") or 0),
+            json_parsing_succeeded=(
+                bool(diagnostics_payload.get("json_parsing_succeeded"))
+                if diagnostics_payload
+                else True
+            ),
+            schema_validation_succeeded=True,
+            strict_schema_validation_succeeded=(
+                diagnostics_payload.get("strict_schema_validation_succeeded")
+                if diagnostics_payload
+                else None
+            ),
+            schema_validation_errors=list(
+                diagnostics_payload.get("schema_validation_errors") or []
+            ),
+            domain_validation_succeeded=True,
+            domain_validation_errors=[],
+            errors=[],
+            prompt_version=prompt_version,
+            generated_at=generated_at,
+        )
+        graph = graph.model_copy(update={"generation_audit": generation_audit})
+        return ForecastGraphGenerationResult(
+            graph=graph,
+            generation_audit=generation_audit,
+        )

@@ -21,6 +21,7 @@ from forecastlab.schemas import ForecastContract, ModelUsage
 from forecastlab.structured_outputs import forecast_graph_json_schema
 from forecastlab.timeutil import utcnow
 from forecastlab_api.graph_executor import GraphForecastExecutor
+from forecastlab_api.graphs import forecast_graph_from_row
 from forecastlab_api.models import (
     ForecastGraphRow,
     ForecastRun,
@@ -32,6 +33,10 @@ from forecastlab_api.pipeline import (
     apply_execution_limits,
     create_run_record,
     resolve_for_question,
+)
+from forecastlab_api.v1_execution import (
+    ensure_execution_graph,
+    record_execution_graph_resolution,
 )
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
@@ -484,10 +489,11 @@ def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v2(
         stage="forecast_graph",
     )
 
-    graph = GraphGenerator(
+    generation_result = GraphGenerator(
         provider,
         max_output_tokens=SMOKE_OUTPUT_CAP,
     ).generate(_approved_contract())
+    graph = generation_result.graph
 
     assert graph.status == "approved"
     assert 5 <= len(graph.nodes) <= 10
@@ -502,6 +508,22 @@ def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v2(
     assert provider.last_result.diagnostics is not None
     assert provider.last_result.diagnostics.strict_schema_validation_succeeded is True
     assert provider.last_result.diagnostics.json_parsing_succeeded is True
+    assert generation_result.generation_audit.provider == "openai"
+    assert generation_result.generation_audit.model == MODEL
+    assert generation_result.generation_audit.schema_name == "forecast_graph"
+    assert generation_result.generation_audit.provider_request_id == "rid-structured-output-test"
+    assert generation_result.generation_audit.requested_max_output_tokens == SMOKE_OUTPUT_CAP
+    assert generation_result.generation_audit.finish_reason == "stop"
+    assert generation_result.generation_audit.refusal_present is False
+    assert generation_result.generation_audit.completion_tokens == 700
+    assert generation_result.generation_audit.reasoning_tokens == 120
+    assert generation_result.generation_audit.visible_output_tokens == 580
+    assert generation_result.generation_audit.json_parsing_succeeded is True
+    assert generation_result.generation_audit.schema_validation_succeeded is True
+    assert generation_result.generation_audit.strict_schema_validation_succeeded is True
+    assert generation_result.generation_audit.domain_validation_succeeded is True
+    assert generation_result.generation_audit.errors == []
+    assert graph.generation_audit == generation_result.generation_audit
 
     profile = effective_profile(load_profile(SMOKE_PROFILE_ID), user_max_cost_usd=0.50)
     budget = Budget(
@@ -534,6 +556,121 @@ def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v2(
     assert plan.budget_allocation["planner_version"] == PLANNER_VERSION
     assert len(plan.selected_nodes) >= 3
     assert len(requests) == 1
+
+
+def test_success_audit_persists_and_approved_graph_reuse_is_request_free(
+    client: Any,
+) -> None:
+    raw_sentinel = "RAW_SUCCESS_PROVIDER_CONTENT_MUST_NOT_PERSIST"
+    payload = _valid_graph_payload()
+    model = _ResultModel(
+        ChatResult(
+            content=f"{json.dumps(payload)} {raw_sentinel}",
+            parsed=payload,
+            raw_error=raw_sentinel,
+            usage=ModelUsage(
+                prompt_tokens=854,
+                completion_tokens=700,
+                model=MODEL,
+                provider="openai",
+                request_id="rid-fl-r005-shaped-success",
+            ),
+            diagnostics=_diagnostics(
+                provider_request_id="rid-fl-r005-shaped-success",
+                finish_reason="stop",
+                completion_tokens=700,
+                reasoning_tokens=120,
+                visible_output_tokens=580,
+                content_character_count=2048,
+            ),
+        )
+    )
+    draft = client.post(
+        "/api/contracts/generate",
+        json={"question": "Will US unemployment exceed 5% before 30 June 2027?"},
+    ).json()
+    client.post(f"/api/contracts/{draft['id']}/approve").raise_for_status()
+
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        question = session.get(Question, draft["question_id"])
+        assert question is not None
+        first = ensure_execution_graph(
+            session,
+            question=question,
+            model=model,
+            max_output_tokens=SMOKE_OUTPUT_CAP,
+        )
+        first_run = ForecastRun(
+            id="run-fl-r005-shaped-generated",
+            question_id=question.id,
+            profile_id=SMOKE_PROFILE_ID,
+            mode="live",
+            execution_context_json="{}",
+        )
+        session.add(first_run)
+        record_execution_graph_resolution(first_run, first)
+        session.commit()
+
+        assert first.status == "generated"
+        assert first.model_request_issued is True
+        assert first.generation_audit is not None
+        assert len(model.calls) == 1
+        graph_row = session.get(ForecastGraphRow, first.graph.id)
+        assert graph_row is not None
+        assert graph_row.generation_audit_json is not None
+        persisted_audit = json.loads(graph_row.generation_audit_json)
+        assert persisted_audit == first.generation_audit.model_dump(mode="json")
+        assert persisted_audit["provider_request_id"] == "rid-fl-r005-shaped-success"
+        assert persisted_audit["finish_reason"] == "stop"
+        assert persisted_audit["requested_max_output_tokens"] == SMOKE_OUTPUT_CAP
+        assert persisted_audit["json_parsing_succeeded"] is True
+        assert persisted_audit["schema_validation_succeeded"] is True
+        assert persisted_audit["strict_schema_validation_succeeded"] is True
+        assert persisted_audit["domain_validation_succeeded"] is True
+        assert raw_sentinel not in graph_row.generation_audit_json
+
+        second = ensure_execution_graph(
+            session,
+            question=question,
+            model=model,
+            max_output_tokens=SMOKE_OUTPUT_CAP,
+        )
+        second_run = ForecastRun(
+            id="run-fl-r005-shaped-reused",
+            question_id=question.id,
+            profile_id=SMOKE_PROFILE_ID,
+            mode="live",
+            execution_context_json="{}",
+        )
+        session.add(second_run)
+        record_execution_graph_resolution(second_run, second)
+        session.commit()
+
+        assert second.status == "reused"
+        assert second.model_request_issued is False
+        assert second.graph.id == first.graph.id
+        assert second.generation_audit == first.generation_audit
+        assert len(model.calls) == 1
+        context = json.loads(second_run.execution_context_json)
+        graph_context = context["forecast_graph_resolution"]
+        assert graph_context["status"] == "reused"
+        assert graph_context["model_request_issued"] is False
+        assert graph_context["generation_audit"] == persisted_audit
+        assert raw_sentinel not in second_run.execution_context_json
+        assert forecast_graph_from_row(graph_row).generation_audit == first.generation_audit
+
+    graph_payload = client.get(f"/api/graphs/{first.graph.id}").json()
+    assert graph_payload["generation_audit"] == persisted_audit
+    assert raw_sentinel not in json.dumps(graph_payload)
+    report_payload = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()
+    assert report_payload["profile_id"] == SMOKE_PROFILE_ID
+    assert report_payload["report"]["profile_id"] == SMOKE_PROFILE_ID
+    assert report_payload["report"]["graph"]["generation_audit"] == persisted_audit
+    assert raw_sentinel not in json.dumps(report_payload)
 
 
 def test_unrelated_task_does_not_receive_graph_reasoning_or_schema_mode(

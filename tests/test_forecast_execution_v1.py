@@ -236,7 +236,8 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
         version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id))
         assert version is not None
         assert version.ensemble_probability is not None
-        assert version.trigger_event == "graph_forecaster_v1"
+        assert version.trigger_event == "run"
+        assert version.run.profile_id == "graph_forecaster_v1"
         aggregation = session.scalar(
             select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run_id)
         )
@@ -255,8 +256,21 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert sum(item["normalized_weight"] for item in node_payload["node_runs"]) == pytest.approx(1.0)
     assert all(item["confidence"] > 0 for item in node_payload["node_runs"])
 
+    audited_run = client.get(f"/api/runs/{run_id}").json()
+    graph_resolution = audited_run["execution_context"]["forecast_graph_resolution"]
+    assert graph_resolution["status"] == "generated"
+    assert graph_resolution["model_request_issued"] is False
+    assert graph_resolution["graph_id"] == audited_run["forecast_graph"]["id"]
+    assert graph_resolution["graph_version"] == audited_run["forecast_graph"]["version"]
+    assert graph_resolution["generation_audit"] == audited_run["forecast_graph"]["generation_audit"]
+    assert audited_run["forecast_graph"]["generation_audit"]["provider"] == "mock"
+    assert audited_run["v1_report"]["profile_id"] == "graph_forecaster_v1"
+    assert audited_run["v1_report"]["graph"]["generation_audit"] == graph_resolution["generation_audit"]
+
     report = client.get(f"/api/questions/{draft['question_id']}/report").json()
     latest = report["latest_run"]
+    assert report["versions"][0]["profile_id"] == "graph_forecaster_v1"
+    assert report["versions"][0]["trigger_event"] == "run"
     assert len(latest["node_runs"]) == 7
     assert len(latest["evidence_claims"]) == 7
     assert latest["forecast_contract"]["status"] == "approved"

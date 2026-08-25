@@ -47,7 +47,12 @@ from forecastlab_api.models import (
 )
 from forecastlab_api.persist import jsonable
 from forecastlab_api.research_plans import store_research_plan
-from forecastlab_api.v1_execution import ensure_execution_graph, persist_node_research
+from forecastlab_api.v1_execution import (
+    ExecutionGraphResolution,
+    ensure_execution_graph,
+    persist_node_research,
+    record_execution_graph_resolution,
+)
 
 GraphResolver = Callable[..., tuple[Any, Any]]
 NodeRunner = Callable[..., GraphNodeForecastResult]
@@ -104,7 +109,7 @@ class GraphForecastExecutor:
 
         self._validate_profile()
         try:
-            contract, graph = self.graph_resolver(
+            resolved_graph = self.graph_resolver(
                 self.session,
                 question=self.run.question,
                 model=self.model,
@@ -129,6 +134,15 @@ class GraphForecastExecutor:
                 message=str(exc),
             )
 
+        resolution: ExecutionGraphResolution | None
+        if isinstance(resolved_graph, ExecutionGraphResolution):
+            resolution = resolved_graph
+            contract = resolution.contract
+            graph = resolution.graph
+        else:
+            contract, graph = resolved_graph
+            resolution = None
+
         if contract is None:
             self._fail(
                 stage="contract",
@@ -141,6 +155,17 @@ class GraphForecastExecutor:
                 reasons=["approved_forecast_graph_required"],
                 message="An approved Forecast Graph could not be loaded or generated",
             )
+
+        if resolution is None:
+            resolution = ExecutionGraphResolution(
+                contract=contract,
+                graph=graph,
+                status="reused",
+                model_request_issued=False,
+                generation_audit=graph.generation_audit,
+            )
+        record_execution_graph_resolution(self.run, resolution)
+        self.session.commit()
 
         self._emit("graph", "Executing the approved Forecast Graph", 0.12)
 
@@ -280,7 +305,11 @@ class GraphForecastExecutor:
         if self.profile.aggregation_method != LOG_ODDS_METHOD:
             reasons.append("graph_log_odds_aggregation_required")
         if reasons:
-            self._fail(stage="profile", reasons=reasons, message="Invalid graph_forecaster_v1 profile")
+            self._fail(
+                stage="profile",
+                reasons=reasons,
+                message=f"Invalid graph profile: {self.profile.id}",
+            )
 
     def _node_failures(self, result: GraphNodeForecastResult) -> list[dict[str, Any]]:
         failures: list[dict[str, Any]] = []
@@ -663,7 +692,7 @@ class GraphForecastExecutor:
             key_drivers_json=json.dumps(drivers),
             counterarguments_json=json.dumps(counterarguments),
             evidence_ids_json=json.dumps(claim_ids),
-            trigger_event="graph_forecaster_v1",
+            trigger_event="run",
             previous_version_id=prior.id if prior else None,
         )
         self.session.add(version)

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from forecastlab_api.evidence_claims import evidence_claim_from_row
 from forecastlab_api.migrate import alembic_config, apply_migrations, apply_schema
-from forecastlab_api.models import EvidenceClaimRow
+from forecastlab_api.models import EvidenceClaimRow, ForecastGraphRow
 
 
 def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
@@ -42,7 +42,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -89,6 +89,8 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             if column["name"] == "publication_date"
         )
         assert publication_column["nullable"] is True
+        graph_cols = {column["name"] for column in inspect(engine).get_columns("forecast_graphs")}
+        assert "generation_audit_json" in graph_cols
         result_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_results")}
         assert {"evidence_coverage", "evidence_covered_units", "evidence_total_units"} <= result_cols
         aggregation_cols = {
@@ -234,7 +236,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
 
 
 def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
@@ -326,6 +328,52 @@ def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_pa
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
+def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabricating_history(
+    tmp_path,
+) -> None:
+    db_url = f"sqlite:///{tmp_path}/graph-audit.db"
+    command.upgrade(alembic_config(db_url), "20260825_0022")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO questions "
+                "(id, original_text, question_type, created_at, status, stale, requested_mode, "
+                "requested_profile_id, is_benchmark) VALUES "
+                "('question-graph-audit', 'Will the outcome occur?', 'binary', "
+                "'2026-08-25 00:00:00', 'complete', 0, 'live', 'graph_live_smoke_v1', 0)"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_contracts "
+                "(id, question_id, original_question, normalized_question, status) VALUES "
+                "('contract-graph-audit', 'question-graph-audit', 'Will the outcome occur?', "
+                "'Will the defined outcome occur?', 'approved')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_graphs "
+                "(id, contract_id, version, status, generation_model, root_question) VALUES "
+                "('graph-audit-existing', 'contract-graph-audit', 4, 'approved', "
+                "'openai:gpt-5-mini-2025-08-07', 'Will the defined outcome occur?')"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with Session(engine) as session:
+        graph = session.get(ForecastGraphRow, "graph-audit-existing")
+        assert graph is not None
+        assert graph.version == 4
+        assert graph.generation_model == "openai:gpt-5-mini-2025-08-07"
+        assert graph.generation_audit_json is None
+    with engine.connect() as connection:
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
+
+
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
     db_url = f"sqlite:///{tmp_path}/real-evaluation.db"
     command.upgrade(alembic_config(db_url), "20260823_0015")
@@ -356,7 +404,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260825_0022"
+            == "20260825_0023"
         )
 
 
@@ -397,7 +445,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

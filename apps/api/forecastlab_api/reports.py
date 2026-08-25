@@ -46,6 +46,9 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     """Build the auditable Contract -> Graph -> Claims -> Probability report payload."""
 
     graph = run.get("forecast_graph") or {}
+    profile_id = str(run.get("profile_id") or "unknown_profile")
+    execution_context = run.get("execution_context") or {}
+    graph_resolution = execution_context.get("forecast_graph_resolution")
     graph_nodes = graph.get("nodes") or []
     node_runs = run.get("node_runs") or []
     research_plan = run.get("research_plan") or {}
@@ -198,7 +201,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         failure for failure in failures if bool(failure.get("critical_node"))
     ]
     return {
-        "profile_id": run.get("profile_id"),
+        "profile_id": profile_id,
         "execution_status": run.get("status"),
         "final_probability": final_probability,
         "forecast_contract": run.get("forecast_contract"),
@@ -210,7 +213,9 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "generation_model": graph.get("generation_model"),
             "root_question": graph.get("root_question"),
             "node_count": total_nodes,
+            "generation_audit": graph.get("generation_audit"),
         },
+        "graph_resolution": graph_resolution,
         "research_plan": research_plan or None,
         "nodes": report_nodes,
         "evidence_claims": [_claim_summary(claim) for claim in claims],
@@ -259,10 +264,10 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "probability": final_probability,
             "statement": (
                 (
-                    f"The graph_forecaster_v1 probability is {final_probability} with "
+                    f"The {profile_id} probability is {final_probability} with "
                     "reduced research confidence."
                     if reduced_failures
-                    else f"The graph_forecaster_v1 probability is {final_probability}."
+                    else f"The {profile_id} probability is {final_probability}."
                 )
                 if final_probability is not None
                 else "No final probability was produced because graph execution was incomplete."
@@ -279,6 +284,7 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
     lines = [
         "## V1 Forecast Graph report",
         "",
+        f"**Profile:** {report.get('profile_id')}",
         f"**Final probability:** {report.get('final_probability')}",
         (
             "**Evidence coverage:** "
@@ -286,8 +292,39 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
             f"({coverage.get('rate')})"
         ),
         "",
-        "### Graph nodes and node forecasts",
     ]
+    graph = report.get("graph") or {}
+    graph_resolution = report.get("graph_resolution") or {}
+    generation_audit = graph.get("generation_audit") or {}
+    if graph_resolution or generation_audit:
+        lines.extend([
+            "### Graph generation audit",
+            f"Graph: {graph.get('id')} version {graph.get('version')}",
+            f"Resolution: {graph_resolution.get('status') or 'unavailable'}",
+            f"Model request issued for this run: {graph_resolution.get('model_request_issued')}",
+            f"Provider/model: {generation_audit.get('provider')} / {generation_audit.get('model')}",
+            f"Schema: {generation_audit.get('schema_name')}",
+            f"Request ID: {generation_audit.get('provider_request_id') or 'unavailable'}",
+            f"Output cap: {generation_audit.get('requested_max_output_tokens')}",
+            f"Finish reason: {generation_audit.get('finish_reason') or 'unavailable'}",
+            f"Refusal: {generation_audit.get('refusal_present')} "
+            f"({generation_audit.get('refusal_category') or 'none'})",
+            f"Completion/reasoning/visible tokens: {generation_audit.get('completion_tokens')} / "
+            f"{generation_audit.get('reasoning_tokens')} / "
+            f"{generation_audit.get('visible_output_tokens')}",
+            f"Content characters: {generation_audit.get('content_character_count')}",
+            f"JSON/schema/strict-schema/domain valid: {generation_audit.get('json_parsing_succeeded')} / "
+            f"{generation_audit.get('schema_validation_succeeded')} / "
+            f"{generation_audit.get('strict_schema_validation_succeeded')} / "
+            f"{generation_audit.get('domain_validation_succeeded')}",
+            f"Errors: {generation_audit.get('errors') or []}",
+            f"Schema errors: {generation_audit.get('schema_validation_errors') or []}",
+            f"Domain errors: {generation_audit.get('domain_validation_errors') or []}",
+            f"Prompt version: {generation_audit.get('prompt_version')}",
+            f"Generated at: {generation_audit.get('generated_at')}",
+            "",
+        ])
+    lines.append("### Graph nodes and node forecasts")
     for node in report.get("nodes") or []:
         lines.extend(
             [

@@ -291,6 +291,13 @@ def _run_order_time(run: ForecastRun) -> datetime:
     return as_utc(value) if value is not None else utcnow()
 
 
+def _is_graph_profile(profile_id: str) -> bool:
+    try:
+        return load_profile(profile_id).execution_strategy == "graph_nodes"
+    except (FileNotFoundError, ValueError):
+        return False
+
+
 def _question_out(session: Session, question: Question) -> dict[str, Any]:
     versions = session.scalars(
         select(ForecastVersion)
@@ -307,6 +314,11 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
         .order_by(ForecastContractRow.version.desc())
         .limit(1)
     )
+    version_payloads: list[dict[str, Any]] = []
+    for version in versions:
+        version_payload = _row(version)
+        version_payload["profile_id"] = version.run.profile_id
+        version_payloads.append(version_payload)
     return {
         "id": question.id,
         "original_text": question.original_text,
@@ -330,7 +342,7 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
             else None
         ),
         "runs": [_row(run) for run in runs],
-        "versions": [_row(version) for version in versions],
+        "versions": version_payloads,
         "watches": [_row(watch) for watch in watches],
         "watcher_policy": "Changes mark the forecast stale. Reruns require user action.",
     }
@@ -497,11 +509,11 @@ def generate_graph(contract_id: str, db: Session = Depends(get_db)) -> dict[str,
         select(func.max(ForecastGraphRow.version)).where(ForecastGraphRow.contract_id == contract_id)
     )
     generator = build_graph_generator(contract_row.question)
-    graph = generator.generate(
+    generation_result = generator.generate(
         forecast_contract_from_row(contract_row),
         version=int(latest_version or 0) + 1,
     )
-    row = store_forecast_graph(db, graph)
+    row = store_forecast_graph(db, generation_result.graph)
     db.commit()
     return forecast_graph_from_row(row).model_dump(mode="json")
 
@@ -735,14 +747,18 @@ def get_forecast_node_runs(forecast_id: str, db: Session = Depends(get_db)) -> d
     question = db.get(Question, forecast_id)
     if question is None:
         raise HTTPException(404, "Forecast not found")
-    run = db.scalar(
+    candidate_runs = db.scalars(
         select(ForecastRun)
-        .where(
-            ForecastRun.question_id == forecast_id,
-            ForecastRun.profile_id == "graph_forecaster_v1",
-        )
+        .where(ForecastRun.question_id == forecast_id)
         .order_by(ForecastRun.started_at.desc(), ForecastRun.id.desc())
-        .limit(1)
+    ).all()
+    run = next(
+        (
+            candidate
+            for candidate in candidate_runs
+            if _is_graph_profile(candidate.profile_id)
+        ),
+        None,
     )
     if run is None:
         return {
@@ -858,14 +874,14 @@ def graph_forecast_report(forecast_id: str, db: Session = Depends(get_db)) -> di
     question = db.get(Question, forecast_id)
     if question is None:
         raise HTTPException(404, "Forecast not found")
-    run = db.scalar(
+    candidate_runs = db.scalars(
         select(ForecastRun)
-        .where(
-            ForecastRun.question_id == forecast_id,
-            ForecastRun.profile_id == "graph_forecaster_v1",
-        )
+        .where(ForecastRun.question_id == forecast_id)
         .order_by(ForecastRun.started_at.desc(), ForecastRun.id.desc())
-        .limit(1)
+    ).all()
+    run = next(
+        (candidate for candidate in candidate_runs if _is_graph_profile(candidate.profile_id)),
+        None,
     )
     if run is None:
         raise HTTPException(404, "Graph forecast has not been executed")

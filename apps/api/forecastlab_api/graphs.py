@@ -8,7 +8,7 @@ from forecastlab.execution import resolve_execution_context
 from forecastlab.graphs import GraphGenerator, ensure_graph_approvable
 from forecastlab.profiles import load_profile
 from forecastlab.providers.factory import build_model_provider
-from forecastlab.schemas import ForecastGraph, ForecastNode
+from forecastlab.schemas import ForecastGraph, ForecastGraphGenerationAudit, ForecastNode
 from forecastlab.timeutil import as_utc
 from forecastlab_api.models import ForecastGraphRow, ForecastNodeRow, Question
 from forecastlab_api.pipeline import provider_settings_from_secrets
@@ -23,6 +23,21 @@ def _json_list(raw: str) -> list[str]:
     if not isinstance(payload, list):
         return []
     return [str(item) for item in payload]
+
+
+def _generation_audit(raw: str | None) -> ForecastGraphGenerationAudit | None:
+    if not raw:
+        return None
+    try:
+        payload = json.loads(raw)
+    except (json.JSONDecodeError, TypeError) as exc:
+        raise ValueError("invalid_forecast_graph_generation_audit_json") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("invalid_forecast_graph_generation_audit_type")
+    try:
+        return ForecastGraphGenerationAudit.model_validate(payload)
+    except ValueError as exc:
+        raise ValueError("invalid_forecast_graph_generation_audit_schema") from exc
 
 
 def build_graph_generator(question: Question) -> GraphGenerator:
@@ -59,6 +74,7 @@ def forecast_graph_from_row(row: ForecastGraphRow) -> ForecastGraph:
         generation_model=row.generation_model,
         root_question=row.root_question,
         nodes=nodes,
+        generation_audit=_generation_audit(row.generation_audit_json),
     )
 
 
@@ -88,6 +104,11 @@ def store_forecast_graph(session: Session, graph: ForecastGraph) -> ForecastGrap
         created_at=graph.created_at,
         generation_model=graph.generation_model,
         root_question=graph.root_question,
+        generation_audit_json=(
+            json.dumps(graph.generation_audit.model_dump(mode="json"), sort_keys=True)
+            if graph.generation_audit is not None
+            else None
+        ),
     )
     session.add(row)
     session.flush()

@@ -299,16 +299,21 @@ def execute_run(
                     ensure_execution_graph,
                     persist_graph_engine_result,
                     persist_node_research,
+                    record_execution_graph_resolution,
                 )
 
                 progress("graph", "Resolving the approved Forecast Contract and Forecast Graph", 0.08)
-                forecast_contract, forecast_graph = ensure_execution_graph(
+                graph_resolution = ensure_execution_graph(
                     session,
                     question=question,
                     model=model,
                     max_output_tokens=profile.max_output_tokens_per_call,
                     prompt_bundle=prompt_bundle,
                 )
+                forecast_contract = graph_resolution.contract
+                forecast_graph = graph_resolution.graph
+                record_execution_graph_resolution(run, graph_resolution)
+                session.commit()
                 result = run_graph_forecast_engine(
                     contract=forecast_contract,
                     graph=forecast_graph,
@@ -398,13 +403,18 @@ def execute_run(
             forecast_graph_id = None
         apply_totals_to_run(run, ledger.totals(run.id))
         snapshot = context.model_dump(mode="json")
+        try:
+            persisted_snapshot = json.loads(run.execution_context_json or "{}")
+        except json.JSONDecodeError:
+            persisted_snapshot = {}
+        snapshot.update(persisted_snapshot)
         snapshot["fixture_evidence_used"] = fixture_evidence_used
         if profile.execution_strategy == "graph_nodes":
             snapshot["forecast_contract_id"] = forecast_contract_id
             snapshot["forecast_graph_id"] = forecast_graph_id
         elif profile.execution_strategy == "single_model":
             snapshot["forecast_contract_id"] = forecast_contract_id
-        run.execution_context_json = json.dumps(snapshot)
+        run.execution_context_json = json.dumps(snapshot, sort_keys=True)
         run.fixture_evidence_used = fixture_evidence_used
         if run.started_at:
             run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)

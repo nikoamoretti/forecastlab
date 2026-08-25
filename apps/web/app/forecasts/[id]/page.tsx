@@ -362,11 +362,54 @@ export default function ForecastPage() {
           <div>
             <h3 className="font-serif text-2xl">Forecast Graph report</h3>
             <p className="mt-2 text-sm text-ink/70">
+              profile {v1Report.profile_id || run.profile_id || "unknown"} · {" "}
               {v1Report.graph?.node_count || reportNodes.length} research nodes · evidence coverage {" "}
               {v1Report.evidence_coverage?.covered_units || 0}/{v1Report.evidence_coverage?.total_units || 0} · final {" "}
               {pct(v1Report.final_probability)}
             </p>
           </div>
+          {v1Report.graph?.generation_audit || v1Report.graph_resolution ? (
+            <div className="border border-rule bg-white/60 p-4 text-sm" aria-label="Graph generation audit">
+              <h4 className="font-serif text-xl">Graph generation audit</h4>
+              <p className="mt-2 text-ink/70">
+                {v1Report.graph_resolution?.status || "legacy graph"} · model request for this run {" "}
+                {v1Report.graph_resolution?.model_request_issued ? "yes" : "no"} · {" "}
+                {v1Report.graph?.generation_audit?.provider || "provider unavailable"} / {" "}
+                {v1Report.graph?.generation_audit?.model || "model unavailable"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                schema {v1Report.graph?.generation_audit?.schema_name || "unavailable"} · output cap {" "}
+                {v1Report.graph?.generation_audit?.requested_max_output_tokens ?? "unavailable"} · finish {" "}
+                {v1Report.graph?.generation_audit?.finish_reason || "unavailable"} · request {" "}
+                {v1Report.graph?.generation_audit?.provider_request_id || "unavailable"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                refusal {String(v1Report.graph?.generation_audit?.refusal_present ?? false)} · tokens completion/reasoning/visible {" "}
+                {v1Report.graph?.generation_audit?.completion_tokens ?? "unavailable"} / {" "}
+                {v1Report.graph?.generation_audit?.reasoning_tokens ?? "unavailable"} / {" "}
+                {v1Report.graph?.generation_audit?.visible_output_tokens ?? "unavailable"} · characters {" "}
+                {v1Report.graph?.generation_audit?.content_character_count ?? "unavailable"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                parsed/schema/domain {String(v1Report.graph?.generation_audit?.json_parsing_succeeded)} / {" "}
+                {String(v1Report.graph?.generation_audit?.schema_validation_succeeded)} / {" "}
+                {String(v1Report.graph?.generation_audit?.domain_validation_succeeded)} · prompt {" "}
+                {v1Report.graph?.generation_audit?.prompt_version || "unavailable"} · generated {" "}
+                {v1Report.graph?.generation_audit?.generated_at || "unavailable"}
+              </p>
+              {v1Report.graph?.generation_audit?.errors?.length ||
+              v1Report.graph?.generation_audit?.schema_validation_errors?.length ||
+              v1Report.graph?.generation_audit?.domain_validation_errors?.length ? (
+                <pre className="mt-2 overflow-x-auto text-xs">
+{JSON.stringify({
+  errors: v1Report.graph?.generation_audit?.errors || [],
+  schema_errors: v1Report.graph?.generation_audit?.schema_validation_errors || [],
+  domain_errors: v1Report.graph?.generation_audit?.domain_validation_errors || []
+}, null, 2)}
+                </pre>
+              ) : null}
+            </div>
+          ) : null}
           <p className="mt-2 text-sm text-ink/70">
             {graphExecutionFailed
               ? "Final calculation unavailable because the graph run was incomplete."
@@ -634,7 +677,8 @@ export default function ForecastPage() {
         <ol className="mt-3 space-y-2">
           {versions.map((version: any, index: number) => (
             <li key={version.id} className="border-b border-rule py-2 text-sm">
-              Version {versions.length - index}: {pct(version.ensemble_probability)} · {version.trigger_event} ·{" "}
+              Version {versions.length - index}: {pct(version.ensemble_probability)} · {version.profile_id || "unknown profile"} ·{" "}
+              {version.trigger_event} ·{" "}
               {version.created_at}
             </li>
           ))}

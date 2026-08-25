@@ -194,6 +194,94 @@ def test_v1_report_labels_live_retrieval_basis_evidence_without_a_publication_da
     )
 
 
+def test_fl_r005_shaped_report_preserves_profile_audit_and_three_of_eight_coverage() -> None:
+    node_ids = [f"node-{index}" for index in range(8)]
+    claims = [_claim(f"claim-{index}", node_id, "supports") for index, node_id in enumerate(node_ids[:3])]
+    audit = {
+        "provider": "openai",
+        "model": "gpt-5-mini-2025-08-07",
+        "schema_name": "forecast_graph",
+        "provider_request_id": "rid-fl-r005",
+        "requested_max_output_tokens": 1536,
+        "finish_reason": "stop",
+        "refusal_present": False,
+        "refusal_category": None,
+        "completion_tokens": 700,
+        "reasoning_tokens": 120,
+        "visible_output_tokens": 580,
+        "content_character_count": 2048,
+        "json_parsing_succeeded": True,
+        "schema_validation_succeeded": True,
+        "strict_schema_validation_succeeded": True,
+        "schema_validation_errors": [],
+        "domain_validation_succeeded": True,
+        "domain_validation_errors": [],
+        "errors": [],
+        "prompt_version": "v1",
+        "generated_at": "2026-08-25T12:00:00Z",
+    }
+    run = {
+        "profile_id": "graph_live_smoke_v1",
+        "status": "completed",
+        "execution_context": {
+            "forecast_graph_resolution": {
+                "graph_id": "graph-fl-r005",
+                "graph_version": 1,
+                "status": "generated",
+                "model_request_issued": True,
+                "audit_source": "persisted_generation_audit",
+                "generation_audit": audit,
+            }
+        },
+        "forecast_graph": {
+            "id": "graph-fl-r005",
+            "version": 1,
+            "status": "approved",
+            "generation_model": "openai:gpt-5-mini-2025-08-07",
+            "generation_audit": audit,
+            "nodes": [
+                {
+                    "id": node_id,
+                    "question": f"Research node {index}",
+                    "node_type": "driver",
+                    "importance_weight": 0.5,
+                }
+                for index, node_id in enumerate(node_ids)
+            ],
+        },
+        "node_runs": [
+            {
+                "node_id": node_id,
+                "probability": 0.4,
+                "reasoning": "Auditable node forecast.",
+                "supporting_claim_ids": [f"claim-{index}"],
+                "opposing_claim_ids": [],
+            }
+            for index, node_id in enumerate(node_ids[:3])
+        ],
+        "evidence_claims": claims,
+        "forecast_aggregation": {
+            "method": "importance_weighted_log_odds_v1",
+            "final_probability": 0.4,
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    assert report["profile_id"] == "graph_live_smoke_v1"
+    assert report["graph"]["generation_audit"] == audit
+    assert report["graph_resolution"]["status"] == "generated"
+    assert report["evidence_coverage"]["covered_units"] == 3
+    assert report["evidence_coverage"]["total_units"] == 8
+    assert report["evidence_coverage"]["rate"] == 0.375
+    assert report["final_answer"]["statement"] == "The graph_live_smoke_v1 probability is 0.4."
+    markdown = "\n".join(v1_report_markdown(report))
+    assert "**Profile:** graph_live_smoke_v1" in markdown
+    assert "### Graph generation audit" in markdown
+    assert "Evidence coverage:** 3/8 graph nodes (0.375)" in markdown
+
+
 def test_v1_report_is_absent_for_legacy_track_run() -> None:
     assert build_v1_report({"tracks": [{"track_type": "base_rate"}]}) is None
 
