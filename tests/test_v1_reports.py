@@ -14,7 +14,11 @@ def _claim(claim_id: str, node_id: str, stance: str) -> dict:
         "source_title": f"Source {claim_id}",
         "publisher": "Example publisher",
         "publication_date": "2024-01-01T00:00:00Z",
+        "publication_date_source": "html_meta:article:published_time",
+        "publication_date_verified": True,
         "retrieval_date": "2024-01-02T00:00:00Z",
+        "source_available_at": "2024-01-01T00:00:00Z",
+        "temporal_basis": "publication_date",
         "supports_or_refutes": stance,
         "confidence": 0.8,
         "source_quality": 0.9,
@@ -123,16 +127,71 @@ def test_v1_report_groups_node_forecasts_evidence_and_calculation_trace() -> Non
     assert report["evidence_coverage"]["total_units"] == 2
     assert report["evidence_coverage"]["rate"] == 0.5
     assert report["calculation"]["trace"][-1]["step"] == "final"
+    assert report["evidence_claims"][0]["temporal_quality_label"] == "Published date verified"
 
     markdown = "\n".join(v1_report_markdown(report))
     assert "Supporting evidence:" in markdown
     assert "Opposing evidence:" in markdown
     assert "Claim support-a" in markdown
     assert "Excerpt: Excerpt support-a" in markdown
+    assert "Temporal provenance: Published date verified" in markdown
     assert "Uncertainty:" in markdown
     assert "The base-rate source covers a narrow reference class." in markdown
     assert "Model used: stub:node-v1" in markdown
     assert "Final probability:** 0.54" in markdown
+
+
+def test_v1_report_labels_live_retrieval_basis_evidence_without_a_publication_date() -> None:
+    claim = _claim("live-undated", "node-a", "supports")
+    claim.update(
+        {
+            "publication_date": None,
+            "publication_date_source": None,
+            "publication_date_verified": False,
+            "source_available_at": "2026-08-24T12:00:00Z",
+            "retrieval_date": "2026-08-24T12:00:00Z",
+            "temporal_basis": "retrieval_date",
+        }
+    )
+    run = {
+        "profile_id": "graph_live_smoke_v1",
+        "forecast_graph": {
+            "id": "graph-1",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What does the current source show?",
+                    "node_type": "driver",
+                    "importance_weight": 1.0,
+                }
+            ],
+        },
+        "node_runs": [
+            {
+                "node_id": "node-a",
+                "probability": 0.5,
+                "reasoning": "Current evidence is mixed.",
+                "supporting_claim_ids": ["live-undated"],
+            }
+        ],
+        "evidence_claims": [claim],
+        "forecast_aggregation": {
+            "method": "importance_weighted_log_odds_v1",
+            "final_probability": 0.5,
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    summary = report["evidence_claims"][0]
+    assert summary["publication_date"] is None
+    assert summary["publication_date_verified"] is False
+    assert summary["source_available_at"] == "2026-08-24T12:00:00Z"
+    assert summary["temporal_basis"] == "retrieval_date"
+    assert summary["temporal_quality_label"] == (
+        "Publication date unavailable; page observed during live run"
+    )
 
 
 def test_v1_report_is_absent_for_legacy_track_run() -> None:

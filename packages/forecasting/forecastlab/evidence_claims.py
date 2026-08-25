@@ -10,8 +10,8 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
-from forecastlab.schemas import EvidenceClaim, EvidenceStance, FetchedDocument
-from forecastlab.timeutil import as_utc
+from forecastlab.schemas import EvidenceClaim, EvidenceStance, FetchedDocument, RunMode
+from forecastlab.timeutil import as_utc, utcnow
 
 
 class EvidenceClaimError(ValueError):
@@ -67,7 +67,28 @@ def _fallback_excerpt(text: str, *, max_chars: int = 500) -> str:
     return candidate[:max_chars].strip()
 
 
-def _document_errors(document: FetchedDocument, *, cutoff: datetime) -> list[str]:
+_VERIFIED_HISTORICAL_SNAPSHOT_STATUSES = {
+    "verified",
+    "fixture",
+    "cutoff_consistent_mock_manifest_verified",
+}
+_VERIFIED_IMMUTABLE_TIMESTAMP_STATUSES = {
+    "fixture",
+    "immutable_historical_timestamp_verified",
+}
+
+
+def _effective_mode(mode: RunMode | None, as_of: datetime | None) -> RunMode:
+    return mode or ("backtest" if as_of is not None else "live")
+
+
+def _document_errors(
+    document: FetchedDocument,
+    *,
+    mode: RunMode,
+    cutoff: datetime | None,
+    run_completion_time: datetime | None,
+) -> list[str]:
     errors: list[str] = []
     if document.rejected:
         errors.append("document_rejected")
@@ -79,14 +100,46 @@ def _document_errors(document: FetchedDocument, *, cutoff: datetime) -> list[str
         errors.append("source_title_required")
     if not (document.publisher or "").strip():
         errors.append("publisher_required")
-    if document.published_at_unknown:
-        errors.append("publication_date_unverified")
-    if document.published_at is None:
-        errors.append("publication_date_required")
-    elif as_utc(document.published_at) > as_utc(cutoff):
-        errors.append("claim_after_cutoff")
     if not document.text.strip():
         errors.append("document_text_required")
+    if document.published_at is None and document.publication_date_verified:
+        errors.append("verified_publication_date_required")
+    if document.published_at is not None:
+        if as_utc(document.published_at) > as_utc(document.retrieved_at):
+            errors.append("publication_after_retrieval")
+        if cutoff is not None and as_utc(document.published_at) > as_utc(cutoff):
+            errors.append("claim_after_cutoff")
+    if document.temporal_basis == "publication_date":
+        if document.published_at is None:
+            errors.append("publication_basis_date_required")
+        elif as_utc(document.source_available_at) != as_utc(document.published_at):
+            errors.append("publication_basis_timestamp_mismatch")
+    if document.temporal_basis == "retrieval_date" and as_utc(document.source_available_at) != as_utc(
+        document.retrieved_at
+    ):
+        errors.append("retrieval_basis_timestamp_mismatch")
+
+    if mode == "backtest":
+        if cutoff is None:
+            errors.append("historical_cutoff_required")
+        elif as_utc(document.source_available_at) > as_utc(cutoff):
+            errors.append("claim_after_cutoff")
+        if document.temporal_basis == "retrieval_date":
+            errors.append("historical_retrieval_basis_forbidden")
+        elif document.temporal_basis == "snapshot_date":
+            if document.snapshot_verification_status not in _VERIFIED_HISTORICAL_SNAPSHOT_STATUSES:
+                errors.append("historical_snapshot_not_verified")
+            if document.final_snapshot_at is None and document.snapshot_at is None:
+                errors.append("historical_snapshot_timestamp_required")
+        elif document.temporal_basis == "publication_date":
+            if not document.publication_date_verified:
+                errors.append("historical_publication_date_not_verified")
+            if document.snapshot_verification_status not in _VERIFIED_IMMUTABLE_TIMESTAMP_STATUSES:
+                errors.append("historical_immutable_timestamp_adapter_required")
+    else:
+        completion = as_utc(run_completion_time or utcnow())
+        if as_utc(document.source_available_at) > completion:
+            errors.append("source_available_after_run_completion")
     return errors
 
 
@@ -111,11 +164,21 @@ def _mock_claims(document: FetchedDocument) -> dict[str, Any]:
 def eligible_claims_for_forecasting(
     claims: list[EvidenceClaim],
     *,
+    mode: RunMode | None = None,
     cutoff: datetime | None = None,
+    run_completion_time: datetime | None = None,
 ) -> list[EvidenceClaim]:
     """Return only fully validated claims for a future forecasting context."""
 
-    return [claim for claim in claims if not claim.forecasting_errors(cutoff=cutoff)]
+    return [
+        claim
+        for claim in claims
+        if not claim.forecasting_errors(
+            mode=mode,
+            cutoff=cutoff,
+            run_completion_time=run_completion_time,
+        )
+    ]
 
 
 class EvidenceExtractor:
@@ -140,19 +203,25 @@ class EvidenceExtractor:
         forecast_node_id: str,
         forecast_node_question: str | None = None,
         as_of: datetime | None = None,
+        mode: RunMode | None = None,
+        run_completion_time: datetime | None = None,
     ) -> list[EvidenceClaim]:
         identity_errors: list[str] = []
         if not evidence_item_id.strip():
             identity_errors.append("evidence_item_id_required")
         if not forecast_node_id.strip():
             identity_errors.append("forecast_node_id_required")
-        cutoff = as_utc(as_of) if as_of is not None else as_utc(document.retrieved_at)
-        preflight_errors = identity_errors + _document_errors(document, cutoff=cutoff)
+        effective_mode = _effective_mode(mode, as_of)
+        cutoff = as_utc(as_of) if as_of is not None else None
+        completion = as_utc(run_completion_time or utcnow())
+        preflight_errors = identity_errors + _document_errors(
+            document,
+            mode=effective_mode,
+            cutoff=cutoff,
+            run_completion_time=completion,
+        )
         if preflight_errors:
             raise EvidenceClaimError(preflight_errors, "Fetched document is not eligible for claim extraction")
-
-        publication_date = document.published_at
-        assert publication_date is not None
 
         try:
             if self.model.name == "mock":
@@ -173,8 +242,15 @@ class EvidenceExtractor:
                                 "source_url": document.url,
                                 "source_title": document.title,
                                 "publisher": document.publisher,
-                                "publication_date": publication_date.isoformat(),
+                                "publication_date": (
+                                    document.published_at.isoformat()
+                                    if document.published_at is not None
+                                    else None
+                                ),
+                                "publication_date_verified": document.publication_date_verified,
                                 "retrieval_date": document.retrieved_at.isoformat(),
+                                "source_available_at": document.source_available_at.isoformat(),
+                                "temporal_basis": document.temporal_basis,
                                 "text": document.text,
                             },
                         }
@@ -211,8 +287,12 @@ class EvidenceExtractor:
                     source_url=document.url,
                     source_title=document.title,
                     publisher=document.publisher or "",
-                    publication_date=publication_date,
+                    publication_date=document.published_at,
+                    publication_date_source=document.publication_date_source,
+                    publication_date_verified=document.publication_date_verified,
                     retrieval_date=document.retrieved_at,
+                    source_available_at=document.source_available_at,
+                    temporal_basis=document.temporal_basis,
                     supports_or_refutes=item.supports_or_refutes,
                     confidence=item.confidence,
                     source_quality=item.source_quality,
@@ -223,7 +303,15 @@ class EvidenceExtractor:
             )
         if output_errors:
             raise EvidenceClaimError(output_errors, "Structured claims failed provenance validation")
-        context_errors = [error for claim in claims for error in claim.forecasting_errors(cutoff=cutoff)]
+        context_errors = [
+            error
+            for claim in claims
+            for error in claim.forecasting_errors(
+                mode=effective_mode,
+                cutoff=cutoff,
+                run_completion_time=completion,
+            )
+        ]
         if context_errors:
             raise EvidenceClaimError(context_errors, "Extracted claims are not eligible for forecasting context")
         return claims
@@ -235,11 +323,20 @@ class EvidenceExtractor:
         evidence_item_id: str,
         forecast_node_id: str,
         as_of: datetime | None = None,
+        mode: RunMode | None = None,
+        run_completion_time: datetime | None = None,
     ) -> EvidenceClaim:
         """Create one low-confidence, verbatim claim when structured extraction fails."""
 
-        cutoff = as_utc(as_of) if as_of is not None else as_utc(document.retrieved_at)
-        errors = _document_errors(document, cutoff=cutoff)
+        effective_mode = _effective_mode(mode, as_of)
+        cutoff = as_utc(as_of) if as_of is not None else None
+        completion = as_utc(run_completion_time or utcnow())
+        errors = _document_errors(
+            document,
+            mode=effective_mode,
+            cutoff=cutoff,
+            run_completion_time=completion,
+        )
         if not evidence_item_id.strip():
             errors.append("evidence_item_id_required")
         if not forecast_node_id.strip():
@@ -253,8 +350,6 @@ class EvidenceExtractor:
                 "Document-level fallback claim could not preserve provenance",
             )
 
-        publication_date = document.published_at
-        assert publication_date is not None
         publisher = document.publisher or ""
         primary = any(
             token in publisher.casefold()
@@ -277,8 +372,12 @@ class EvidenceExtractor:
             source_url=document.url,
             source_title=document.title,
             publisher=publisher,
-            publication_date=publication_date,
+            publication_date=document.published_at,
+            publication_date_source=document.publication_date_source,
+            publication_date_verified=document.publication_date_verified,
             retrieval_date=document.retrieved_at,
+            source_available_at=document.source_available_at,
+            temporal_basis=document.temporal_basis,
             supports_or_refutes="supports",
             confidence=0.35,
             source_quality=0.7 if primary else 0.5,
@@ -286,7 +385,11 @@ class EvidenceExtractor:
             as_of_eligible=document.as_of_eligible,
             cutoff_verified=True,
         )
-        claim_errors = claim.forecasting_errors(cutoff=cutoff)
+        claim_errors = claim.forecasting_errors(
+            mode=effective_mode,
+            cutoff=cutoff,
+            run_completion_time=completion,
+        )
         if claim_errors:
             raise EvidenceClaimError(
                 claim_errors,

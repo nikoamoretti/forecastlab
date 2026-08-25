@@ -1,7 +1,12 @@
+from datetime import UTC, datetime
+
 from alembic import command
 from sqlalchemy import create_engine, inspect, text
+from sqlalchemy.orm import Session
 
+from forecastlab_api.evidence_claims import evidence_claim_from_row
 from forecastlab_api.migrate import alembic_config, apply_migrations, apply_schema
+from forecastlab_api.models import EvidenceClaimRow
 
 
 def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
@@ -37,7 +42,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260824_0021"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -54,6 +59,36 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "uncertainty_notes_json",
             "model_used",
         } <= node_run_cols
+        evidence_item_cols = {
+            column["name"] for column in inspect(engine).get_columns("evidence_items")
+        }
+        assert {
+            "source_available_at",
+            "temporal_basis",
+            "publication_date_source",
+            "publication_date_verified",
+            "publication_date_hint",
+            "publication_date_hint_source",
+            "modified_at",
+            "modified_date_source",
+        } <= evidence_item_cols
+        evidence_claim_cols = {
+            column["name"] for column in inspect(engine).get_columns("evidence_claims")
+        }
+        assert {
+            "publication_date",
+            "publication_date_source",
+            "publication_date_verified",
+            "retrieval_date",
+            "source_available_at",
+            "temporal_basis",
+        } <= evidence_claim_cols
+        publication_column = next(
+            column
+            for column in inspect(engine).get_columns("evidence_claims")
+            if column["name"] == "publication_date"
+        )
+        assert publication_column["nullable"] is True
         result_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_results")}
         assert {"evidence_coverage", "evidence_covered_units", "evidence_total_units"} <= result_cols
         aggregation_cols = {
@@ -199,7 +234,96 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260824_0021"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
+
+
+def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
+    db_url = f"sqlite:///{tmp_path}/evidence-temporal.db"
+    command.upgrade(alembic_config(db_url), "20260824_0021")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO questions "
+                "(id, original_text, question_type, created_at, status, stale, requested_mode, "
+                "requested_profile_id, is_benchmark) VALUES "
+                "('question-temporal', 'Will the outcome occur?', 'binary', "
+                "'2026-08-24 00:00:00', 'complete', 0, 'live', 'graph_forecaster_v1', 0)"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_contracts "
+                "(id, question_id, original_question, normalized_question, status) VALUES "
+                "('contract-temporal', 'question-temporal', 'Will the outcome occur?', "
+                "'Will the defined outcome occur?', 'approved')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_graphs "
+                "(id, contract_id, status, generation_model, root_question) VALUES "
+                "('graph-temporal', 'contract-temporal', 'approved', 'fixture', "
+                "'Will the defined outcome occur?')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_nodes "
+                "(id, graph_id, question, node_type, importance_weight, required_output_type) VALUES "
+                "('node-temporal', 'graph-temporal', 'What evidence bears on the outcome?', "
+                "'driver', 1.0, 'probability')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_runs "
+                "(id, question_id, profile_id, mode, started_at, finished_at, status, cost_usd, tokens, "
+                "latency_ms, provider_json, prompt_versions_json, budget_json, aggregation_json, "
+                "progress_pct, progress_stage, progress_message) VALUES "
+                "('run-temporal', 'question-temporal', 'graph_forecaster_v1', 'live', "
+                "'2026-08-24 00:00:00', '2026-08-24 00:02:00', 'completed', 0, 0, 0, "
+                "'{}', '{}', '{}', '{}', 100, 'report', 'Forecast ready')"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO evidence_items "
+                "(id, run_id, url, title, publisher, published_at, retrieved_at, excerpt, content_hash, "
+                "source_class, as_of_eligible, rejected, status_code, published_at_unknown) VALUES "
+                "('item-temporal', 'run-temporal', 'https://example.org/source', 'Source', 'Publisher', "
+                "'2026-08-23 12:00:00', '2026-08-24 00:01:00', 'Exact excerpt', :hash, "
+                "'secondary', 1, 0, 200, 0)"
+            ),
+            {"hash": "a" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO evidence_claims "
+                "(id, evidence_item_id, forecast_node_id, claim, excerpt, source_url, source_title, "
+                "publisher, publication_date, retrieval_date, supports_or_refutes, confidence, "
+                "source_quality, primary_source, as_of_eligible, cutoff_verified) VALUES "
+                "('claim-temporal', 'item-temporal', 'node-temporal', 'Exact claim', 'Exact excerpt', "
+                "'https://example.org/source', 'Source', 'Publisher', '2026-08-23 12:00:00', "
+                "'2026-08-24 00:01:00', 'supports', 0.8, 0.7, 0, 1, 1)"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+
+    with Session(engine) as session:
+        row = session.get(EvidenceClaimRow, "claim-temporal")
+        assert row is not None
+        claim = evidence_claim_from_row(row)
+        assert claim.publication_date == datetime(2026, 8, 23, 12, 0, tzinfo=UTC)
+        assert claim.retrieval_date == datetime(2026, 8, 24, 0, 1, tzinfo=UTC)
+        assert claim.source_available_at == claim.retrieval_date
+        assert claim.temporal_basis == "retrieval_date"
+        assert claim.publication_date_verified is False
+        assert claim.publication_date_source == "legacy_unverified_published_at"
+        assert claim.forecasting_errors(mode="live", run_completion_time=claim.retrieval_date) == []
+    with engine.connect() as connection:
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -232,7 +356,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260824_0021"
+            == "20260825_0022"
         )
 
 
@@ -273,7 +397,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260824_0021"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0022"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

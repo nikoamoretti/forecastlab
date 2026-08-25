@@ -62,7 +62,19 @@ def _document_record(
         "title": document.title,
         "publisher": document.publisher,
         "published_at": document.published_at.isoformat() if document.published_at else None,
+        "publication_date_source": document.publication_date_source,
+        "publication_date_verified": document.publication_date_verified,
+        "publication_date_hint": (
+            document.publication_date_hint.isoformat()
+            if document.publication_date_hint
+            else None
+        ),
+        "publication_date_hint_source": document.publication_date_hint_source,
+        "modified_at": document.modified_at.isoformat() if document.modified_at else None,
+        "modified_date_source": document.modified_date_source,
         "retrieved_at": document.retrieved_at.isoformat(),
+        "source_available_at": document.source_available_at.isoformat(),
+        "temporal_basis": document.temporal_basis,
         "excerpt": (document.text or "")[:800],
         "content_hash": document.content_hash,
         "source_class": source_class,
@@ -94,6 +106,7 @@ def _no_snapshot_record(
     title: str,
     source_class: str,
 ) -> dict[str, Any]:
+    observed_at = utcnow().isoformat()
     return {
         "id": _stable_id("evidence", run_id, url),
         "track_type": "single_agent",
@@ -102,7 +115,15 @@ def _no_snapshot_record(
         "title": title,
         "publisher": None,
         "published_at": None,
-        "retrieved_at": utcnow().isoformat(),
+        "publication_date_source": None,
+        "publication_date_verified": False,
+        "publication_date_hint": None,
+        "publication_date_hint_source": None,
+        "modified_at": None,
+        "modified_date_source": None,
+        "retrieved_at": observed_at,
+        "source_available_at": observed_at,
+        "temporal_basis": "retrieval_date",
         "excerpt": "",
         "content_hash": "",
         "source_class": source_class,
@@ -182,6 +203,12 @@ def _collect_evidence(
             snapshot_url=snapshot_url,
             snapshot_at=snapshot_at,
             mode=mode,
+            publication_date_hint=hit.published_at,
+            publication_date_hint_source=(
+                hit.published_at_source or "search_provider_hint"
+                if hit.published_at
+                else None
+            ),
         )
         record = _document_record(
             document,
@@ -220,7 +247,10 @@ def _forecast_once(
                     "title": item["title"],
                     "publisher": item["publisher"],
                     "publication_date": item["published_at"],
+                    "publication_date_verified": item["publication_date_verified"],
                     "retrieval_date": item["retrieved_at"],
+                    "source_available_at": item["source_available_at"],
+                    "temporal_basis": item["temporal_basis"],
                     "excerpt": item["excerpt"],
                     "source_class": item["source_class"],
                 }

@@ -125,6 +125,18 @@ def _persist_evidence_item(session: Session, run: ForecastRun, item: dict) -> No
             publisher=item.get("publisher"),
             published_at=parse_datetime(item.get("published_at")),
             retrieved_at=parse_datetime(item.get("retrieved_at")) or utcnow(),
+            source_available_at=(
+                parse_datetime(item.get("source_available_at"))
+                or parse_datetime(item.get("retrieved_at"))
+                or utcnow()
+            ),
+            temporal_basis=str(item.get("temporal_basis") or "retrieval_date"),
+            publication_date_source=item.get("publication_date_source"),
+            publication_date_verified=bool(item.get("publication_date_verified")),
+            publication_date_hint=parse_datetime(item.get("publication_date_hint")),
+            publication_date_hint_source=item.get("publication_date_hint_source"),
+            modified_at=parse_datetime(item.get("modified_at")),
+            modified_date_source=item.get("modified_date_source"),
             excerpt=item.get("excerpt") or "",
             content_hash=item.get("content_hash") or "",
             source_class=item.get("source_class") or "secondary",

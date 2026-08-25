@@ -772,7 +772,7 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         select(EvidenceClaimRow)
         .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
         .where(EvidenceItem.run_id == run.id)
-        .order_by(EvidenceClaimRow.publication_date.desc(), EvidenceClaimRow.id)
+        .order_by(EvidenceClaimRow.source_available_at.desc(), EvidenceClaimRow.id)
     ).all()
     node_runs = db.scalars(
         select(ForecastNodeRunRow)
@@ -950,6 +950,19 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
         lines.append("## Evidence Claims")
         for claim in latest["evidence_claims"]:
             lines.append(f"- [{claim.get('id')}] {claim.get('claim')} — {claim.get('source_url')}")
+            lines.append(
+                "  - Publication date: "
+                f"{claim.get('publication_date') or 'unavailable'} "
+                f"(verified={bool(claim.get('publication_date_verified'))})"
+            )
+            lines.append(
+                f"  - Source available at: {claim.get('source_available_at')} "
+                f"via {claim.get('temporal_basis')}"
+            )
+            lines.append(
+                f"  - Retrieved at: {claim.get('retrieval_date')} · "
+                f"cutoff verified={bool(claim.get('cutoff_verified'))}"
+            )
     return PlainTextResponse("\n".join(lines), media_type="text/markdown")
 
 

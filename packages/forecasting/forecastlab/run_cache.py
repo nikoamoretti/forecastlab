@@ -29,7 +29,7 @@ class RunCacheIdentity:
 class RunCache:
     identity: RunCacheIdentity
     _search: dict[tuple[str, int], list[SearchHit]] = field(default_factory=dict)
-    _fetch: dict[tuple[str, str, str, str], FetchedDocument] = field(default_factory=dict)
+    _fetch: dict[tuple[str, str, str, str, str, str], FetchedDocument] = field(default_factory=dict)
 
     @classmethod
     def create(
@@ -86,6 +86,8 @@ class RunCache:
             kwargs.get("snapshot_url") or "",
             _as_of_key(as_of) if as_of is not None else "",
             str(kwargs.get("mode") or "live"),
+            _as_of_key(kwargs.get("publication_date_hint")),
+            str(kwargs.get("publication_date_hint_source") or ""),
         )
         if key not in self._fetch:
             self._fetch[key] = fetch_document(url, **kwargs)

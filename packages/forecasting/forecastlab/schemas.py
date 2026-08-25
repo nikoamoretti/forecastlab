@@ -27,6 +27,7 @@ ForecastNodeType = Literal[
 ]
 ForecastNodeStatus = Literal["pending", "completed", "failed"]
 EvidenceStance = Literal["supports", "refutes"]
+TemporalBasis = Literal["publication_date", "snapshot_date", "retrieval_date"]
 
 
 class ResolutionContract(BaseModel):
@@ -219,6 +220,7 @@ class SearchHit(BaseModel):
     url: str
     snippet: str
     published_at: datetime | None = None
+    published_at_source: str | None = None
     score: float = 0.0
     source_class: SourceClass = "secondary"
 
@@ -229,6 +231,14 @@ class FetchedDocument(BaseModel):
     publisher: str | None = None
     published_at: datetime | None = None
     retrieved_at: datetime
+    source_available_at: datetime
+    temporal_basis: TemporalBasis
+    publication_date_source: str | None = None
+    publication_date_verified: bool = False
+    publication_date_hint: datetime | None = None
+    publication_date_hint_source: str | None = None
+    modified_at: datetime | None = None
+    modified_date_source: str | None = None
     text: str
     content_hash: str
     snapshot_url: str | None = None
@@ -257,8 +267,12 @@ class EvidenceClaim(BaseModel):
     source_url: str
     source_title: str
     publisher: str
-    publication_date: datetime
+    publication_date: datetime | None = None
+    publication_date_source: str | None = None
+    publication_date_verified: bool = False
     retrieval_date: datetime
+    source_available_at: datetime
+    temporal_basis: TemporalBasis
 
     supports_or_refutes: EvidenceStance
     confidence: float = Field(ge=0.0, le=1.0)
@@ -268,7 +282,13 @@ class EvidenceClaim(BaseModel):
     as_of_eligible: bool
     cutoff_verified: bool
 
-    def forecasting_errors(self, *, cutoff: datetime | None = None) -> list[str]:
+    def forecasting_errors(
+        self,
+        *,
+        mode: RunMode | None = None,
+        cutoff: datetime | None = None,
+        run_completion_time: datetime | None = None,
+    ) -> list[str]:
         errors: list[str] = []
         required_text = {
             "id_required": self.id,
@@ -285,11 +305,36 @@ class EvidenceClaim(BaseModel):
             errors.append("claim_not_as_of_eligible")
         if not self.cutoff_verified:
             errors.append("claim_cutoff_not_verified")
-        if as_utc(self.publication_date) > as_utc(self.retrieval_date):
-            errors.append("publication_after_retrieval")
-        if cutoff is not None:
-            if as_utc(self.publication_date) > as_utc(cutoff):
+        if self.publication_date is None and self.publication_date_verified:
+            errors.append("verified_publication_date_required")
+        if self.publication_date is not None:
+            if as_utc(self.publication_date) > as_utc(self.retrieval_date):
+                errors.append("publication_after_retrieval")
+            if cutoff is not None and as_utc(self.publication_date) > as_utc(cutoff):
                 errors.append("claim_after_cutoff")
+        if self.temporal_basis == "publication_date":
+            if self.publication_date is None:
+                errors.append("publication_basis_date_required")
+            elif as_utc(self.source_available_at) != as_utc(self.publication_date):
+                errors.append("publication_basis_timestamp_mismatch")
+        if self.temporal_basis == "retrieval_date" and as_utc(self.source_available_at) != as_utc(
+            self.retrieval_date
+        ):
+            errors.append("retrieval_basis_timestamp_mismatch")
+
+        effective_mode = mode or ("backtest" if cutoff is not None else "live")
+        if effective_mode == "backtest":
+            if cutoff is None:
+                errors.append("historical_cutoff_required")
+            else:
+                if as_utc(self.source_available_at) > as_utc(cutoff):
+                    errors.append("claim_after_cutoff")
+            if self.temporal_basis == "retrieval_date":
+                errors.append("historical_retrieval_basis_forbidden")
+        else:
+            completion = as_utc(run_completion_time or self.retrieval_date)
+            if as_utc(self.source_available_at) > completion:
+                errors.append("source_available_after_run_completion")
         return errors
 
 

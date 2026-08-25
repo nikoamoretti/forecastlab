@@ -19,8 +19,12 @@ type EvidenceClaim = {
   source_url: string;
   source_title: string;
   publisher: string;
-  publication_date: string;
+  publication_date: string | null;
+  publication_date_source: string | null;
+  publication_date_verified: boolean;
   retrieval_date: string;
+  source_available_at: string;
+  temporal_basis: "publication_date" | "snapshot_date" | "retrieval_date";
   supports_or_refutes: "supports" | "refutes";
   confidence: number;
   source_quality: number;
@@ -34,12 +38,26 @@ type NodeEvidence = {
   claims: EvidenceClaim[];
 };
 
-function dateLabel(value: string) {
+function dateLabel(value: string | null) {
+  if (!value) return "unavailable";
   return new Date(value).toLocaleDateString(undefined, {
     year: "numeric",
     month: "short",
     day: "numeric"
   });
+}
+
+function temporalLabel(claim: EvidenceClaim) {
+  if (claim.temporal_basis === "snapshot_date" && claim.cutoff_verified) {
+    return "Historical snapshot verified";
+  }
+  if (claim.publication_date && claim.publication_date_verified) {
+    return "Published date verified";
+  }
+  if (claim.temporal_basis === "retrieval_date" && !claim.publication_date) {
+    return "Publication date unavailable; page observed during live run";
+  }
+  return "Publication date available but not independently verified";
 }
 
 export default function NodeEvidencePage() {
@@ -103,12 +121,14 @@ export default function NodeEvidencePage() {
                     {claim.source_title}
                   </a>
                   <p className="mt-1 text-ink/60">
-                    {claim.publisher} · Published {dateLabel(claim.publication_date)} · Retrieved{" "}
-                    {dateLabel(claim.retrieval_date)}
+                    {claim.publisher} · Published {dateLabel(claim.publication_date)} · Available{" "}
+                    {dateLabel(claim.source_available_at)} · Retrieved {dateLabel(claim.retrieval_date)}
                   </p>
+                  <p className="mt-1 text-xs font-medium text-ink/70">{temporalLabel(claim)}</p>
                   <p className="mt-1 text-xs text-ink/60">
                     {claim.primary_source ? "Primary source" : "Secondary source"} ·{" "}
-                    {claim.cutoff_verified && claim.as_of_eligible ? "Cutoff verified" : "Not eligible for cutoff"}
+                    {claim.cutoff_verified && claim.as_of_eligible ? "Cutoff verified" : "Not eligible for cutoff"} ·{" "}
+                    Basis {claim.temporal_basis.replaceAll("_", " ")}
                   </p>
                 </div>
               </article>
@@ -116,8 +136,7 @@ export default function NodeEvidencePage() {
           </div>
         ) : (
           <div className="mt-4 border border-rule bg-white/70 p-5 text-sm text-ink/70">
-            No Evidence Claims have been extracted for this node. This foundation does not yet run extraction in the
-            live forecasting workflow.
+            No Evidence Claims have been extracted for this node.
           </div>
         )}
       </section>

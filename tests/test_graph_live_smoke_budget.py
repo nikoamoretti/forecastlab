@@ -1,17 +1,34 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import uuid
 
 import pytest
+from sqlalchemy import select
 
 from forecastlab.errors import ConfigurationError
 from forecastlab.execution import resolve_execution_context
+from forecastlab.hashing import content_hash
 from forecastlab.profiles import PROFILES_DIR, load_profile
+from forecastlab.providers.mock import MockModelProvider
+from forecastlab.schemas import FetchedDocument, SearchHit
+from forecastlab.timeutil import utcnow
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
     V1_EVALUATION_PROFILES,
 )
 from forecastlab_api.forecast_experiments import CONTROLLED_FORECAST_PROFILES
+from forecastlab_api.graph_executor import GraphForecastExecutor
+from forecastlab_api.models import (
+    EvidenceClaimRow,
+    EvidenceItem,
+    ForecastAggregationRow,
+    ForecastNodeRunRow,
+    ForecastRun,
+    Question,
+    ResearchPlanRow,
+)
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
 GRAPH_PROFILE_SHA256 = "acdbb378b6c5afbd5c82e9085c7be92043b9057f3a7f5842d73a1cdd80f0f6d7"
@@ -289,6 +306,146 @@ def test_stubbed_graph_smoke_reaches_complete_auditable_pipeline(client) -> None
     assert context["estimated_model_upper_bound_cost_usd"] == pytest.approx(0.0)
     assert context["estimated_search_upper_bound_cost_usd"] == pytest.approx(0.0)
     assert context["estimated_upper_bound_cost_usd"] == pytest.approx(0.0)
+
+
+def test_stubbed_live_graph_smoke_accepts_four_external_undated_documents(
+    client,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    draft = _approved_contract(client)
+    provider_http_calls = {"count": 0}
+
+    class ForbiddenProviderClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            provider_http_calls["count"] += 1
+            raise AssertionError("live_provider_http_call_forbidden")
+
+    class StubExternalSearch:
+        name = "tavily"
+
+        def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]:
+            suffix = hashlib.sha256(query.encode("utf-8")).hexdigest()[:16]
+            return [
+                SearchHit(
+                    title=f"External undated source {suffix}",
+                    url=f"https://evidence.example.org/{suffix}",
+                    snippet="Current external source with no publication metadata.",
+                    score=1.0,
+                    source_class="primary",
+                )
+            ][:max_results]
+
+    def stub_external_fetch(url: str, **_kwargs) -> FetchedDocument:
+        observed_at = utcnow()
+        text = (
+            "The external source reports a current, directly observed indicator relevant "
+            "to this forecast node."
+        )
+        return FetchedDocument(
+            url=url,
+            title="External undated source",
+            publisher="External Official Agency",
+            published_at=None,
+            publication_date_source=None,
+            publication_date_verified=False,
+            published_at_unknown=True,
+            retrieved_at=observed_at,
+            source_available_at=observed_at,
+            temporal_basis="retrieval_date",
+            text=text,
+            content_hash=content_hash(text),
+            snapshot_verification_status="live",
+            rejected=False,
+            as_of_eligible=True,
+        )
+
+    monkeypatch.setattr(
+        "forecastlab.providers.openai_compatible.httpx.Client",
+        ForbiddenProviderClient,
+    )
+    monkeypatch.setattr(
+        "forecastlab.providers.search.httpx.Client",
+        ForbiddenProviderClient,
+    )
+    monkeypatch.setattr("forecastlab.run_cache.fetch_document", stub_external_fetch)
+
+    execution = resolve_execution_context(
+        requested_mode="live",
+        profile_id=SMOKE_PROFILE_ID,
+        settings=_live_settings(ceiling=0.50),
+    )
+    profile = load_profile(SMOKE_PROFILE_ID)
+
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        question = session.get(Question, str(draft["question_id"]))
+        assert question is not None
+        run = ForecastRun(
+            id=str(uuid.uuid4()),
+            question_id=question.id,
+            profile_id=SMOKE_PROFILE_ID,
+            mode="live",
+            status="running",
+            started_at=utcnow(),
+            execution_context_json=json.dumps(execution.model_dump(mode="json")),
+            configuration_hash=execution.configuration_hash,
+            evidence_policy=execution.evidence_policy,
+            provider_json=json.dumps(
+                {
+                    "model_provider": "openai",
+                    "search_provider": "tavily",
+                }
+            ),
+        )
+        session.add(run)
+        session.commit()
+
+        version = GraphForecastExecutor(
+            session,
+            run=run,
+            profile=profile,
+            execution=execution,
+            model=MockModelProvider(),
+            search=StubExternalSearch(),
+            allow_local_fixtures=False,
+        ).execute()
+
+        stored_run = session.get(ForecastRun, run.id)
+        assert stored_run is not None
+        claims = session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == run.id)
+        ).all()
+        items = session.scalars(
+            select(EvidenceItem).where(EvidenceItem.run_id == run.id)
+        ).all()
+        node_runs = session.scalars(
+            select(ForecastNodeRunRow).where(ForecastNodeRunRow.forecast_run_id == run.id)
+        ).all()
+        research_plan = session.scalar(
+            select(ResearchPlanRow).where(ResearchPlanRow.forecast_run_id == run.id)
+        )
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run.id)
+        )
+
+        assert stored_run.status == "completed"
+        assert research_plan is not None
+        assert len(items) == 4
+        assert all(item.url.startswith("https://evidence.example.org/") for item in items)
+        assert all(item.published_at is None for item in items)
+        assert len(claims) >= 2
+        assert len(node_runs) >= 2
+        assert aggregation is not None
+        assert version.id
+        assert all(claim.publication_date is None for claim in claims)
+        assert all(claim.publication_date_verified is False for claim in claims)
+        assert all(claim.temporal_basis == "retrieval_date" for claim in claims)
+        assert all(claim.source_available_at == claim.retrieval_date for claim in claims)
+        assert all(claim.cutoff_verified for claim in claims)
+        assert provider_http_calls["count"] == 0
 
 
 @pytest.mark.parametrize(

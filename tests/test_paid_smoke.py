@@ -138,12 +138,17 @@ def _live_secrets_env(monkeypatch) -> None:
 
 def _live_document(url: str, **_kwargs) -> FetchedDocument:
     text = "The seasonally adjusted U-3 unemployment rate was 4.1 percent."
+    retrieved_at = utcnow()
     return FetchedDocument(
         url=url,
         title="Employment Situation",
         publisher="www.bls.gov",
         published_at=datetime(2026, 1, 10, tzinfo=UTC),
-        retrieved_at=utcnow(),
+        retrieved_at=retrieved_at,
+        source_available_at=retrieved_at,
+        temporal_basis="retrieval_date",
+        publication_date_source="test_fixture_metadata",
+        publication_date_verified=True,
         text=text,
         content_hash=content_hash(text),
         snapshot_verification_status="live",

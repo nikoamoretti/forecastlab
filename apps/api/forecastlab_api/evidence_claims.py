@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.schemas import EvidenceClaim
-from forecastlab.timeutil import as_utc
+from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.models import EvidenceClaimRow, EvidenceItem, ForecastNodeRow
 
 
@@ -21,8 +21,14 @@ def evidence_claim_from_row(row: EvidenceClaimRow) -> EvidenceClaim:
         source_url=row.source_url,
         source_title=row.source_title,
         publisher=row.publisher,
-        publication_date=as_utc(row.publication_date),
+        publication_date=(
+            as_utc(row.publication_date) if row.publication_date is not None else None
+        ),
+        publication_date_source=row.publication_date_source,
+        publication_date_verified=row.publication_date_verified,
         retrieval_date=as_utc(row.retrieval_date),
+        source_available_at=as_utc(row.source_available_at),
+        temporal_basis=row.temporal_basis,  # type: ignore[arg-type]
         supports_or_refutes=row.supports_or_refutes,  # type: ignore[arg-type]
         confidence=row.confidence,
         source_quality=row.source_quality,
@@ -38,18 +44,48 @@ def _provenance_errors(claim: EvidenceClaim, item: EvidenceItem) -> list[str]:
         errors.append("evidence_item_rejected")
     if not item.as_of_eligible:
         errors.append("evidence_item_not_as_of_eligible")
-    if item.published_at_unknown or item.published_at is None:
-        errors.append("evidence_item_publication_date_unverified")
     if claim.source_url != item.url:
         errors.append("source_url_mismatch")
     if claim.source_title != item.title:
         errors.append("source_title_mismatch")
     if claim.publisher != (item.publisher or ""):
         errors.append("publisher_mismatch")
-    if item.published_at is not None and as_utc(claim.publication_date) != as_utc(item.published_at):
+    if (claim.publication_date is None) != (item.published_at is None):
         errors.append("publication_date_mismatch")
+    elif claim.publication_date is not None and item.published_at is not None:
+        if as_utc(claim.publication_date) != as_utc(item.published_at):
+            errors.append("publication_date_mismatch")
+    if claim.publication_date_source != item.publication_date_source:
+        errors.append("publication_date_source_mismatch")
+    if claim.publication_date_verified != item.publication_date_verified:
+        errors.append("publication_date_verification_mismatch")
     if as_utc(claim.retrieval_date) != as_utc(item.retrieved_at):
         errors.append("retrieval_date_mismatch")
+    if as_utc(claim.source_available_at) != as_utc(item.source_available_at):
+        errors.append("source_available_at_mismatch")
+    if claim.temporal_basis != item.temporal_basis:
+        errors.append("temporal_basis_mismatch")
+    if item.run.mode == "backtest":
+        if item.temporal_basis == "retrieval_date":
+            errors.append("historical_retrieval_basis_forbidden")
+        if item.temporal_basis == "snapshot_date":
+            if item.snapshot_verification_status not in {
+                "verified",
+                "fixture",
+                "cutoff_consistent_mock_manifest_verified",
+            }:
+                errors.append("historical_snapshot_not_verified")
+            snapshot_at = item.final_snapshot_at or item.snapshot_at
+            if snapshot_at is None:
+                errors.append("historical_snapshot_timestamp_required")
+            elif as_utc(snapshot_at) != as_utc(item.source_available_at):
+                errors.append("historical_snapshot_availability_mismatch")
+        if item.temporal_basis == "publication_date" and (
+            not item.publication_date_verified
+            or item.snapshot_verification_status
+            not in {"fixture", "immutable_historical_timestamp_verified"}
+        ):
+            errors.append("historical_immutable_timestamp_adapter_required")
     return errors
 
 
@@ -65,7 +101,6 @@ def store_evidence_claims(
     seen_ids: set[str] = set()
     resolved: list[tuple[EvidenceClaim, EvidenceItem, ForecastNodeRow]] = []
     for claim in claims:
-        errors.extend(claim.forecasting_errors(cutoff=cutoff))
         if claim.id in seen_ids or session.get(EvidenceClaimRow, claim.id) is not None:
             errors.append("evidence_claim_id_not_unique")
         seen_ids.add(claim.id)
@@ -78,6 +113,14 @@ def store_evidence_claims(
             errors.append("forecast_node_not_found")
         if item is None or node is None:
             continue
+        effective_cutoff = cutoff or item.run.as_of
+        errors.extend(
+            claim.forecasting_errors(
+                mode=item.run.mode,  # type: ignore[arg-type]
+                cutoff=effective_cutoff,
+                run_completion_time=item.run.finished_at or utcnow(),
+            )
+        )
         errors.extend(_provenance_errors(claim, item))
         if item.run.question_id != node.graph.contract.question_id:
             errors.append("evidence_and_node_question_mismatch")
@@ -99,6 +142,6 @@ def evidence_for_node(session: Session, node_id: str) -> list[EvidenceClaim]:
     rows = session.scalars(
         select(EvidenceClaimRow)
         .where(EvidenceClaimRow.forecast_node_id == node_id)
-        .order_by(EvidenceClaimRow.publication_date.desc(), EvidenceClaimRow.id)
+        .order_by(EvidenceClaimRow.source_available_at.desc(), EvidenceClaimRow.id)
     ).all()
     return [evidence_claim_from_row(row) for row in rows]

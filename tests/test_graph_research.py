@@ -192,14 +192,58 @@ class LongDocumentCache:
 
     def fetch(self, url: str, **_kwargs: Any) -> FetchedDocument:
         text = "Official statistical evidence reports a dated measurement. " * 200
+        published_at = datetime(2024, 1, 15, tzinfo=UTC)
         return FetchedDocument(
             url=url,
             title="Official long-form statistical release",
             publisher="National Statistical Agency",
-            published_at=datetime(2024, 1, 15, tzinfo=UTC),
+            published_at=published_at,
             retrieved_at=datetime(2024, 2, 1, tzinfo=UTC),
+            source_available_at=published_at,
+            temporal_basis="publication_date",
+            publication_date_source="test_fixture_metadata",
+            publication_date_verified=True,
             text=text,
             content_hash="long-document-hash",
+        )
+
+
+class TavilyHintCache:
+    def __init__(self) -> None:
+        self.fetch_kwargs: dict[str, Any] = {}
+
+    def search(self, _provider, _query: str, _max_results: int) -> list[SearchHit]:
+        return [
+            SearchHit(
+                title="Search-dated source",
+                url="https://example.test/search-dated-source",
+                snippet="Provider date hint.",
+                published_at=datetime(2024, 1, 15, tzinfo=UTC),
+                published_at_source="tavily_search_hit",
+                score=1.0,
+                source_class="primary",
+            )
+        ]
+
+    def fetch(self, url: str, **kwargs: Any) -> FetchedDocument:
+        self.fetch_kwargs = kwargs
+        retrieved_at = datetime(2024, 2, 1, tzinfo=UTC)
+        hint = kwargs["publication_date_hint"]
+        return FetchedDocument(
+            url=url,
+            title="Search-dated source",
+            publisher="Official Agency",
+            published_at=hint,
+            publication_date_source=kwargs["publication_date_hint_source"],
+            publication_date_verified=False,
+            publication_date_hint=hint,
+            publication_date_hint_source=kwargs["publication_date_hint_source"],
+            published_at_unknown=False,
+            retrieved_at=retrieved_at,
+            source_available_at=retrieved_at,
+            temporal_basis="retrieval_date",
+            text="Official evidence reports a measured outcome for this research node.",
+            content_hash="search-date-hint-hash",
         )
 
 
@@ -215,6 +259,21 @@ def test_node_generates_specific_research_queries() -> None:
     assert 2 <= len(result.queries_attempted) <= 4
     assert search.queries == result.queries_attempted
     assert any("BLS" in query for query in result.queries_attempted)
+
+
+def test_search_hit_publication_hint_reaches_fetch_and_is_retained_as_unverified_provenance() -> None:
+    cache = TavilyHintCache()
+
+    result = _executor(cache=cache).execute(_node())
+
+    assert result.failure is None
+    assert cache.fetch_kwargs["publication_date_hint"] == datetime(2024, 1, 15, tzinfo=UTC)
+    assert cache.fetch_kwargs["publication_date_hint_source"] == "tavily_search_hit"
+    assert result.evidence[0]["publication_date_hint"] == "2024-01-15T00:00:00+00:00"
+    assert result.evidence[0]["publication_date_source"] == "tavily_search_hit"
+    assert result.evidence[0]["publication_date_verified"] is False
+    assert result.claims[0].publication_date_source == "tavily_search_hit"
+    assert result.claims[0].publication_date_verified is False
 
 
 def test_retrieval_creates_node_linked_evidence_claims() -> None:

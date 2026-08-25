@@ -35,17 +35,30 @@ class StubEvidenceModel:
 
 
 def fetched_document(**updates: Any) -> FetchedDocument:
+    published_at = updates.get(
+        "published_at",
+        datetime(2026, 7, 3, 12, 30, tzinfo=UTC),
+    )
+    retrieved_at = updates.get(
+        "retrieved_at",
+        datetime(2026, 7, 3, 13, 0, tzinfo=UTC),
+    )
     values: dict[str, Any] = {
         "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
         "title": "The Employment Situation",
         "publisher": "Bureau of Labor Statistics",
-        "published_at": datetime(2026, 7, 3, 12, 30, tzinfo=UTC),
-        "retrieved_at": datetime(2026, 7, 3, 13, 0, tzinfo=UTC),
+        "published_at": published_at,
+        "publication_date_source": "test_fixture_metadata" if published_at else None,
+        "publication_date_verified": published_at is not None,
+        "retrieved_at": retrieved_at,
+        "source_available_at": published_at or retrieved_at,
+        "temporal_basis": "publication_date" if published_at else "retrieval_date",
         "text": "The unemployment rate was 4.7 percent in June. Payroll employment changed little.",
         "content_hash": "a" * 64,
         "as_of_eligible": True,
         "rejected": False,
-        "published_at_unknown": False,
+        "published_at_unknown": published_at is None,
+        "snapshot_verification_status": "fixture",
     }
     values.update(updates)
     return FetchedDocument.model_validate(values)
@@ -87,7 +100,11 @@ def test_evidence_extraction_preserves_provenance_and_node_linkage() -> None:
     assert claim.source_title == document.title
     assert claim.publisher == document.publisher
     assert claim.publication_date == document.published_at
+    assert claim.publication_date_source == document.publication_date_source
+    assert claim.publication_date_verified is True
     assert claim.retrieval_date == document.retrieved_at
+    assert claim.source_available_at == document.source_available_at
+    assert claim.temporal_basis == document.temporal_basis
     assert claim.excerpt in document.text
     assert claim.as_of_eligible is True
     assert claim.cutoff_verified is True
@@ -161,8 +178,6 @@ def test_extractor_rejects_after_cutoff_before_model_call() -> None:
     ("document", "reason"),
     [
         (fetched_document(publisher=None), "publisher_required"),
-        (fetched_document(published_at=None), "publication_date_required"),
-        (fetched_document(published_at_unknown=True), "publication_date_unverified"),
         (fetched_document(rejected=True, rejection_reason="blocked"), "document_rejected"),
     ],
 )
@@ -181,6 +196,153 @@ def test_extractor_rejects_missing_or_ineligible_provenance_before_model_call(
 
     assert reason in exc_info.value.reasons
     assert model.calls == 0
+
+
+def test_live_undated_document_creates_retrieval_basis_claim_without_faking_publication() -> None:
+    retrieved_at = datetime(2026, 7, 3, 13, 0, tzinfo=UTC)
+    document = fetched_document(
+        published_at=None,
+        publication_date_source=None,
+        publication_date_verified=False,
+        published_at_unknown=True,
+        retrieved_at=retrieved_at,
+        source_available_at=retrieved_at,
+        temporal_basis="retrieval_date",
+        snapshot_verification_status="live",
+    )
+
+    claims = EvidenceExtractor(StubEvidenceModel(extraction_payload())).extract(
+        document,
+        evidence_item_id="evidence-live-undated",
+        forecast_node_id="node-live-undated",
+        mode="live",
+        run_completion_time=datetime(2026, 7, 3, 13, 1, tzinfo=UTC),
+    )
+
+    assert len(claims) == 1
+    claim = claims[0]
+    assert claim.publication_date is None
+    assert claim.publication_date_verified is False
+    assert claim.temporal_basis == "retrieval_date"
+    assert claim.source_available_at == retrieved_at
+    assert claim.retrieval_date == retrieved_at
+    assert claim.cutoff_verified is True
+
+
+def test_current_undated_document_is_rejected_for_backtest() -> None:
+    document = fetched_document(
+        published_at=None,
+        publication_date_source=None,
+        publication_date_verified=False,
+        published_at_unknown=True,
+        source_available_at=datetime(2026, 7, 3, 13, 0, tzinfo=UTC),
+        temporal_basis="retrieval_date",
+        snapshot_verification_status="live",
+    )
+    model = StubEvidenceModel(extraction_payload())
+
+    with pytest.raises(EvidenceClaimError) as exc_info:
+        EvidenceExtractor(model).extract(
+            document,
+            evidence_item_id="evidence-current-undated",
+            forecast_node_id="node-current-undated",
+            mode="backtest",
+            as_of=datetime(2026, 7, 4, tzinfo=UTC),
+        )
+
+    assert "historical_retrieval_basis_forbidden" in exc_info.value.reasons
+    assert model.calls == 0
+
+
+def test_verified_wayback_snapshot_allows_unknown_publication_date_before_cutoff() -> None:
+    snapshot_at = datetime(2026, 7, 1, tzinfo=UTC)
+    document = fetched_document(
+        published_at=None,
+        publication_date_source=None,
+        publication_date_verified=False,
+        published_at_unknown=True,
+        source_available_at=snapshot_at,
+        temporal_basis="snapshot_date",
+        snapshot_at=snapshot_at,
+        final_snapshot_at=snapshot_at,
+        snapshot_verification_status="verified",
+    )
+
+    claims = EvidenceExtractor(StubEvidenceModel(extraction_payload())).extract(
+        document,
+        evidence_item_id="evidence-wayback-undated",
+        forecast_node_id="node-wayback-undated",
+        mode="backtest",
+        as_of=datetime(2026, 7, 2, tzinfo=UTC),
+    )
+
+    assert claims[0].publication_date is None
+    assert claims[0].temporal_basis == "snapshot_date"
+    assert claims[0].source_available_at == snapshot_at
+    assert claims[0].cutoff_verified is True
+
+
+def test_snapshot_after_cutoff_is_rejected_before_model_call() -> None:
+    snapshot_at = datetime(2026, 7, 5, tzinfo=UTC)
+    document = fetched_document(
+        published_at=None,
+        publication_date_source=None,
+        publication_date_verified=False,
+        published_at_unknown=True,
+        source_available_at=snapshot_at,
+        temporal_basis="snapshot_date",
+        snapshot_at=snapshot_at,
+        final_snapshot_at=snapshot_at,
+        snapshot_verification_status="verified",
+    )
+    model = StubEvidenceModel(extraction_payload())
+
+    with pytest.raises(EvidenceClaimError) as exc_info:
+        EvidenceExtractor(model).extract(
+            document,
+            evidence_item_id="evidence-late-snapshot",
+            forecast_node_id="node-late-snapshot",
+            mode="backtest",
+            as_of=datetime(2026, 7, 4, tzinfo=UTC),
+        )
+
+    assert "claim_after_cutoff" in exc_info.value.reasons
+    assert model.calls == 0
+
+
+def test_document_fallback_claim_uses_same_live_and_historical_temporal_rules() -> None:
+    retrieved_at = datetime(2026, 7, 3, 13, 0, tzinfo=UTC)
+    document = fetched_document(
+        published_at=None,
+        publication_date_source=None,
+        publication_date_verified=False,
+        published_at_unknown=True,
+        retrieved_at=retrieved_at,
+        source_available_at=retrieved_at,
+        temporal_basis="retrieval_date",
+        snapshot_verification_status="live",
+    )
+    extractor = EvidenceExtractor(StubEvidenceModel(extraction_payload()))
+
+    claim = extractor.document_fallback_claim(
+        document,
+        evidence_item_id="fallback-live",
+        forecast_node_id="node-fallback-live",
+        mode="live",
+        run_completion_time=datetime(2026, 7, 3, 13, 1, tzinfo=UTC),
+    )
+    assert claim.publication_date is None
+    assert claim.temporal_basis == "retrieval_date"
+
+    with pytest.raises(EvidenceClaimError) as exc_info:
+        extractor.document_fallback_claim(
+            document,
+            evidence_item_id="fallback-backtest",
+            forecast_node_id="node-fallback-backtest",
+            mode="backtest",
+            as_of=datetime(2026, 7, 4, tzinfo=UTC),
+        )
+    assert "historical_retrieval_basis_forbidden" in exc_info.value.reasons
 
 
 def test_extractor_requires_forecast_node_linkage() -> None:
@@ -208,7 +370,11 @@ def test_rejected_claim_cannot_enter_forecasting_context() -> None:
         source_title="The Employment Situation",
         publisher="Bureau of Labor Statistics",
         publication_date=datetime(2026, 7, 3, tzinfo=UTC),
+        publication_date_source="test_fixture_metadata",
+        publication_date_verified=True,
         retrieval_date=datetime(2026, 7, 3, 13, 0, tzinfo=UTC),
+        source_available_at=datetime(2026, 7, 3, 13, 0, tzinfo=UTC),
+        temporal_basis="retrieval_date",
         supports_or_refutes="supports",
         confidence=0.96,
         source_quality=0.98,
@@ -225,6 +391,15 @@ def test_rejected_claim_cannot_enter_forecasting_context() -> None:
     )
 
     assert eligible_claims_for_forecasting([valid, rejected]) == [valid]
+    assert eligible_claims_for_forecasting([valid], mode="live") == [valid]
+    assert (
+        eligible_claims_for_forecasting(
+            [valid],
+            mode="backtest",
+            cutoff=datetime(2026, 7, 4, tzinfo=UTC),
+        )
+        == []
+    )
 
 
 def test_evidence_claim_persistence_and_read_apis(client) -> None:
@@ -254,6 +429,10 @@ def test_evidence_claim_persistence_and_read_apis(client) -> None:
             publisher="Bureau of Labor Statistics",
             published_at=published_at,
             retrieved_at=retrieved_at,
+            source_available_at=published_at,
+            temporal_basis="publication_date",
+            publication_date_source="test_fixture_metadata",
+            publication_date_verified=True,
             excerpt="The unemployment rate was 4.7 percent in June.",
             content_hash="b" * 64,
             source_class="primary",
@@ -273,7 +452,11 @@ def test_evidence_claim_persistence_and_read_apis(client) -> None:
             source_title=item.title,
             publisher=item.publisher or "",
             publication_date=published_at,
+            publication_date_source="test_fixture_metadata",
+            publication_date_verified=True,
             retrieval_date=retrieved_at,
+            source_available_at=published_at,
+            temporal_basis="publication_date",
             supports_or_refutes="supports",
             confidence=0.96,
             source_quality=0.98,
@@ -324,6 +507,10 @@ def test_rejected_evidence_item_cannot_be_persisted_as_a_claim(client) -> None:
             publisher="Example Publisher",
             published_at=published_at,
             retrieved_at=retrieved_at,
+            source_available_at=published_at,
+            temporal_basis="publication_date",
+            publication_date_source="test_fixture_metadata",
+            publication_date_verified=True,
             excerpt="This evidence was rejected.",
             content_hash="c" * 64,
             as_of_eligible=False,
@@ -343,7 +530,11 @@ def test_rejected_evidence_item_cannot_be_persisted_as_a_claim(client) -> None:
             source_title=item.title,
             publisher=item.publisher or "",
             publication_date=published_at,
+            publication_date_source="test_fixture_metadata",
+            publication_date_verified=True,
             retrieval_date=retrieved_at,
+            source_available_at=published_at,
+            temporal_basis="publication_date",
             supports_or_refutes="supports",
             confidence=0.5,
             source_quality=0.5,

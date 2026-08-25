@@ -5,6 +5,19 @@ from typing import Any
 from forecastlab.graph_aggregation import LOG_ODDS_FORMULA, LOG_ODDS_METHOD
 
 
+def _temporal_quality_label(claim: dict[str, Any]) -> str:
+    basis = claim.get("temporal_basis")
+    if basis == "snapshot_date" and claim.get("cutoff_verified"):
+        return "Historical snapshot verified"
+    if claim.get("publication_date") and claim.get("publication_date_verified"):
+        return "Published date verified"
+    if basis == "retrieval_date" and not claim.get("publication_date"):
+        return "Publication date unavailable; page observed during live run"
+    if claim.get("publication_date"):
+        return "Publication date available but not independently verified"
+    return "Temporal provenance unavailable"
+
+
 def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
     return {
         "id": claim.get("id"),
@@ -18,7 +31,12 @@ def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
         "source_title": claim.get("source_title"),
         "publisher": claim.get("publisher"),
         "publication_date": claim.get("publication_date"),
+        "publication_date_source": claim.get("publication_date_source"),
+        "publication_date_verified": bool(claim.get("publication_date_verified")),
         "retrieval_date": claim.get("retrieval_date"),
+        "source_available_at": claim.get("source_available_at"),
+        "temporal_basis": claim.get("temporal_basis"),
+        "temporal_quality_label": _temporal_quality_label(claim),
         "as_of_eligible": bool(claim.get("as_of_eligible")),
         "cutoff_verified": bool(claim.get("cutoff_verified")),
     }
@@ -315,6 +333,17 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 lines.append(f"- {claim.get('claim')}")
                 lines.append(f"  - Excerpt: {claim.get('excerpt')}")
                 lines.append(f"  - Source: {claim.get('source_url')}")
+                lines.append(f"  - Temporal provenance: {claim.get('temporal_quality_label')}")
+                lines.append(
+                    f"  - Publication date: {claim.get('publication_date') or 'unavailable'} "
+                    f"(verified={bool(claim.get('publication_date_verified'))})"
+                )
+                lines.append(f"  - Source available at: {claim.get('source_available_at')}")
+                lines.append(f"  - Retrieved at: {claim.get('retrieval_date')}")
+                lines.append(
+                    f"  - Temporal basis: {claim.get('temporal_basis')} · "
+                    f"cutoff verified={bool(claim.get('cutoff_verified'))}"
+                )
         else:
             lines.append("- None cited.")
         lines.append("Opposing evidence:")
@@ -324,6 +353,17 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 lines.append(f"- {claim.get('claim')}")
                 lines.append(f"  - Excerpt: {claim.get('excerpt')}")
                 lines.append(f"  - Source: {claim.get('source_url')}")
+                lines.append(f"  - Temporal provenance: {claim.get('temporal_quality_label')}")
+                lines.append(
+                    f"  - Publication date: {claim.get('publication_date') or 'unavailable'} "
+                    f"(verified={bool(claim.get('publication_date_verified'))})"
+                )
+                lines.append(f"  - Source available at: {claim.get('source_available_at')}")
+                lines.append(f"  - Retrieved at: {claim.get('retrieval_date')}")
+                lines.append(
+                    f"  - Temporal basis: {claim.get('temporal_basis')} · "
+                    f"cutoff verified={bool(claim.get('cutoff_verified'))}"
+                )
         else:
             lines.append("- None cited.")
     node_contributions = calculation.get("node_contributions") or []

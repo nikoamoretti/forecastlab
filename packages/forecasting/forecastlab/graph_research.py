@@ -173,7 +173,19 @@ def _document_record(
         "title": document.title,
         "publisher": document.publisher,
         "published_at": document.published_at.isoformat() if document.published_at else None,
+        "publication_date_source": document.publication_date_source,
+        "publication_date_verified": document.publication_date_verified,
+        "publication_date_hint": (
+            document.publication_date_hint.isoformat()
+            if document.publication_date_hint
+            else None
+        ),
+        "publication_date_hint_source": document.publication_date_hint_source,
+        "modified_at": document.modified_at.isoformat() if document.modified_at else None,
+        "modified_date_source": document.modified_date_source,
         "retrieved_at": document.retrieved_at.isoformat(),
+        "source_available_at": document.source_available_at.isoformat(),
+        "temporal_basis": document.temporal_basis,
         "excerpt": (document.text or "")[:800],
         "content_hash": document.content_hash,
         "source_class": source_class,
@@ -205,6 +217,7 @@ def _no_snapshot_record(
     run_id: str,
     hit: SearchHit,
 ) -> dict[str, Any]:
+    observed_at = utcnow().isoformat()
     return {
         "id": _stable_id("evidence", run_id, node.id, hit.url),
         "forecast_node_id": node.id,
@@ -213,7 +226,19 @@ def _no_snapshot_record(
         "title": hit.title,
         "publisher": None,
         "published_at": None,
-        "retrieved_at": utcnow().isoformat(),
+        "publication_date_source": None,
+        "publication_date_verified": False,
+        "publication_date_hint": hit.published_at.isoformat() if hit.published_at else None,
+        "publication_date_hint_source": (
+            hit.published_at_source or "search_provider_hint"
+            if hit.published_at
+            else None
+        ),
+        "modified_at": None,
+        "modified_date_source": None,
+        "retrieved_at": observed_at,
+        "source_available_at": observed_at,
+        "temporal_basis": "retrieval_date",
         "excerpt": "",
         "content_hash": "",
         "source_class": hit.source_class,
@@ -407,6 +432,7 @@ class GraphResearchExecutor:
                     forecast_node_id=node.id,
                     forecast_node_question=node.question,
                     as_of=self.as_of if self.mode == "backtest" else None,
+                    mode=self.mode,  # type: ignore[arg-type]
                 )
             except BudgetExceeded:
                 raise
@@ -449,6 +475,7 @@ class GraphResearchExecutor:
                 evidence_item_id=evidence_item_id,
                 forecast_node_id=node.id,
                 as_of=self.as_of if self.mode == "backtest" else None,
+                mode=self.mode,  # type: ignore[arg-type]
             )
         except EvidenceClaimError as exc:
             errors.extend(
@@ -524,6 +551,14 @@ class GraphResearchExecutor:
                 "title": hit.title,
                 "queries": _deduplicate_text(queries_by_url.get(hit.url, [])),
                 "source_class": hit.source_class,
+                "publication_date_hint": (
+                    hit.published_at.isoformat() if hit.published_at else None
+                ),
+                "publication_date_hint_source": (
+                    hit.published_at_source or f"{self.search.name}_search_hit"
+                    if hit.published_at
+                    else None
+                ),
             }
             if self.mode == "backtest" and self.as_of is not None:
                 try:
@@ -581,6 +616,12 @@ class GraphResearchExecutor:
                         snapshot_url=snapshot_url,
                         snapshot_at=snapshot_at,
                         mode=self.mode,
+                        publication_date_hint=hit.published_at,
+                        publication_date_hint_source=(
+                            hit.published_at_source or f"{self.search.name}_search_hit"
+                            if hit.published_at
+                            else None
+                        ),
                     )
             except BudgetExceeded:
                 raise
@@ -651,6 +692,7 @@ class GraphResearchExecutor:
             remaining_claims = self.max_evidence_claims - len(claims)
             eligible = eligible_claims_for_forecasting(
                 extracted,
+                mode=self.mode,  # type: ignore[arg-type]
                 cutoff=self.as_of,
             )[:remaining_claims]
             if not eligible:
@@ -693,7 +735,11 @@ class GraphResearchExecutor:
             ):
                 break
 
-        claims = eligible_claims_for_forecasting(claims, cutoff=self.as_of)
+        claims = eligible_claims_for_forecasting(
+            claims,
+            mode=self.mode,  # type: ignore[arg-type]
+            cutoff=self.as_of,
+        )
         failure: GraphResearchFailure | None = None
         if not claims:
             outcomes = {str(item.get("outcome")) for item in sources_checked}

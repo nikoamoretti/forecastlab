@@ -68,12 +68,16 @@ class TavilySearchProvider:
             data = response.json()
             hits: list[SearchHit] = []
             for item in data.get("results") or []:
+                published_at = parse_datetime(item.get("published_date"))
                 hits.append(
                     SearchHit(
                         title=item.get("title") or item.get("url") or "Untitled",
                         url=item.get("url"),
                         snippet=item.get("content") or "",
-                        published_at=parse_datetime(item.get("published_date")),
+                        published_at=published_at,
+                        published_at_source=(
+                            "tavily_search_hit" if published_at is not None else None
+                        ),
                         score=float(item.get("score") or 0.0),
                     )
                 )

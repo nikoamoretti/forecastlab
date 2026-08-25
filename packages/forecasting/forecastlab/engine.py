@@ -31,7 +31,7 @@ from forecastlab.schemas import (
     ResolutionContract,
     TrackForecastOutput,
 )
-from forecastlab.timeutil import as_utc
+from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
 
 ProgressFn = Callable[[str, str, float, dict[str, Any] | None], None]
@@ -148,7 +148,17 @@ def _record(doc, *, track: str, subquestion: str, evidence_id: str) -> dict[str,
         "title": doc.title,
         "publisher": doc.publisher,
         "published_at": doc.published_at.isoformat() if doc.published_at else None,
+        "publication_date_source": doc.publication_date_source,
+        "publication_date_verified": doc.publication_date_verified,
+        "publication_date_hint": (
+            doc.publication_date_hint.isoformat() if doc.publication_date_hint else None
+        ),
+        "publication_date_hint_source": doc.publication_date_hint_source,
+        "modified_at": doc.modified_at.isoformat() if doc.modified_at else None,
+        "modified_date_source": doc.modified_date_source,
         "retrieved_at": doc.retrieved_at.isoformat(),
+        "source_available_at": doc.source_available_at.isoformat(),
+        "temporal_basis": doc.temporal_basis,
         "excerpt": (doc.text or "")[:800],
         "content_hash": doc.content_hash,
         "source_class": "secondary",
@@ -225,6 +235,7 @@ def _run_track(
                         )
                         nearest = nearest_eligible_snapshot(snaps, as_of)
                         if nearest is None:
+                            observed_at = utcnow().isoformat()
                             rejected.append(
                                 {
                                     "id": f"ev-{uuid.uuid4().hex[:10]}",
@@ -234,7 +245,21 @@ def _run_track(
                                     "title": hit.title,
                                     "publisher": None,
                                     "published_at": None,
-                                    "retrieved_at": None,
+                                    "publication_date_source": None,
+                                    "publication_date_verified": False,
+                                    "publication_date_hint": (
+                                        hit.published_at.isoformat() if hit.published_at else None
+                                    ),
+                                    "publication_date_hint_source": (
+                                        hit.published_at_source or "search_provider_hint"
+                                        if hit.published_at
+                                        else None
+                                    ),
+                                    "modified_at": None,
+                                    "modified_date_source": None,
+                                    "retrieved_at": observed_at,
+                                    "source_available_at": observed_at,
+                                    "temporal_basis": "retrieval_date",
                                     "excerpt": "",
                                     "content_hash": "",
                                     "source_class": hit.source_class,
@@ -258,6 +283,12 @@ def _run_track(
                         snapshot_url=snapshot_url,
                         snapshot_at=snapshot_at,
                         mode=mode,
+                        publication_date_hint=hit.published_at,
+                        publication_date_hint_source=(
+                            hit.published_at_source or "search_provider_hint"
+                            if hit.published_at
+                            else None
+                        ),
                     )
                     record = _record(doc, track=track, subquestion=sub.text, evidence_id=f"ev-{uuid.uuid4().hex[:10]}")
                     record["source_class"] = hit.source_class

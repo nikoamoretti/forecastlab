@@ -445,6 +445,17 @@ export default function ForecastPage() {
                             <li key={claim.id} className="border-l-2 border-copper pl-3">
                               <p>{claim.claim}</p>
                               <p className="mt-1 text-xs text-ink/60">Excerpt: “{claim.excerpt}”</p>
+                              <p className="mt-1 text-xs font-medium text-ink/70">
+                                {claim.temporal_quality_label || "Temporal provenance unavailable"}
+                              </p>
+                              <p className="mt-1 text-xs text-ink/60">
+                                Published {claim.publication_date ? new Date(claim.publication_date).toLocaleDateString() : "unavailable"}
+                                {" · "}Available {claim.source_available_at ? new Date(claim.source_available_at).toLocaleDateString() : "unavailable"}
+                                {" · "}Retrieved {claim.retrieval_date ? new Date(claim.retrieval_date).toLocaleDateString() : "unavailable"}
+                                {" · "}Basis {String(claim.temporal_basis || "unavailable").replaceAll("_", " ")}
+                                {" · "}Publication verified {claim.publication_date_verified ? "yes" : "no"}
+                                {" · "}Cutoff verified {claim.cutoff_verified ? "yes" : "no"}
+                              </p>
                               <a
                                 className="mt-1 inline-block text-xs underline decoration-copper"
                                 href={claim.source_url}
