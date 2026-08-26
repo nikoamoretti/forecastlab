@@ -177,6 +177,92 @@ test("private V1 material-node failure is explicit and has no probability", asyn
   await expect(page.getByRole("region", { name: "V1 Forecast Graph report" })).toContainText("final —");
 });
 
+test("private V1 relationship aggregation exposes conserved and neutral mass", async ({ page }) => {
+  await page.route("**/api/questions/relationship-aggregation-fixture/report", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        original_text: "Will the relationship-aware outcome occur?",
+        status: "completed",
+        stale: false,
+        version_count: 1,
+        latest_probability: 0.55,
+        versions: [],
+        watches: [],
+        contract: { resolution_deadline: null },
+        latest_run: {
+          status: "completed",
+          mode: "demo",
+          cost_usd: 0,
+          latency_ms: 1,
+          progress_stage: "completed",
+          execution_context: { effective_mode: "demo" },
+          budget: { cost_is_estimated: true },
+          aggregation: {},
+          tracks: [],
+          evidence: [],
+          v1_report: {
+            profile_id: "graph_forecaster_v1",
+            execution_status: "completed",
+            final_probability: 0.55,
+            graph: { node_count: 5 },
+            nodes: [],
+            calculation: {
+              method: "relationship_mass_conserving_log_odds_v1",
+              trace: [],
+              relationship_aggregation: {
+                heuristic_notice:
+                  "Relationship-aware weight deconfliction is a deterministic aggregation heuristic. It is not a Bayesian network, causal model, calibration result, or forecasting-quality claim.",
+                neutral_residual_notice:
+                  "Unrepresented graph mass contributes neutral log odds at probability 0.5 and is not redistributed among surviving node forecasts.",
+                graph_mass: {
+                  total_graph_raw_weight: "1",
+                  effective_included_weight: "0.7",
+                  neutral_residual_weight: "0.3",
+                  neutral_residual_fraction: "0.3",
+                  conservation_check: true,
+                  allocation_hash: "b".repeat(64)
+                },
+                source_allocations: [
+                  {
+                    source_node_id: "node-a",
+                    recipient_ids: ["node-a", "node-d"],
+                    equal_share: "0.15"
+                  }
+                ],
+                excluded_nodes: [
+                  {
+                    node_id: "node-d",
+                    raw_importance_weight: "0.15",
+                    exclusion_origin: "research_plan"
+                  }
+                ]
+              }
+            },
+            final_answer: {
+              status: "completed",
+              probability: 0.55,
+              statement: "graph_forecaster_v1 probability is 55.0%."
+            }
+          }
+        }
+      })
+    });
+  });
+
+  await page.goto("/forecasts/relationship-aggregation-fixture");
+
+  const relationship = page.getByLabel("Relationship-aware aggregation");
+  await expect(relationship.getByRole("heading", { name: "Relationship-aware aggregation" })).toBeVisible();
+  await expect(relationship).toContainText("not a Bayesian network");
+  await expect(relationship).toContainText("probability 0.5");
+  await expect(relationship).toContainText("0.7");
+  await expect(relationship).toContainText("0.3");
+  await expect(relationship).toContainText("true");
+  await relationship.getByText("Direct allocations and excluded mass").click();
+  await expect(relationship).toContainText("node-d");
+});
+
 test("single-model baseline skips graph construction and aggregation", async ({ page }) => {
   test.setTimeout(180000);
   await page.goto("/new");

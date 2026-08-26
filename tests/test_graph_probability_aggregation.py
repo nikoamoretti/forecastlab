@@ -183,6 +183,8 @@ def test_forecast_aggregation_persists_and_round_trips() -> None:
         loaded = forecast_aggregation_from_row(stored)
 
         assert loaded == aggregation
+        assert loaded.node_contributions[0].effective_importance_weight is None
+        assert loaded.node_contributions[0].relationship_source_node_ids is None
         assert store_forecast_aggregation(session, aggregation).id == "aggregation-1"
 
 

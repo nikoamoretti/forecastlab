@@ -24,8 +24,10 @@ from forecastlab.evidence_sufficiency import (
 from forecastlab.execution import ExecutionContext
 from forecastlab.graph_aggregation import (
     LOG_ODDS_METHOD,
+    RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
     ForecastAggregationError,
     GraphAggregator,
+    RelationshipMassConservingLogOddsAggregator,
 )
 from forecastlab.graph_execution import (
     GraphNodeForecastResult,
@@ -113,6 +115,9 @@ class GraphForecastExecutor:
         graph_resolver: GraphResolver = ensure_execution_graph,
         node_runner: NodeRunner = run_graph_node_forecasts,
         aggregator: GraphAggregator | None = None,
+        relationship_aggregator: (
+            RelationshipMassConservingLogOddsAggregator | None
+        ) = None,
     ) -> None:
         self.session = session
         self.run = run
@@ -130,6 +135,10 @@ class GraphForecastExecutor:
         self.graph_resolver = graph_resolver
         self.node_runner = node_runner
         self.aggregator = aggregator or GraphAggregator()
+        self.relationship_aggregator = (
+            relationship_aggregator
+            or RelationshipMassConservingLogOddsAggregator()
+        )
 
     def execute(self) -> ForecastVersion:
         existing = self.session.scalar(
@@ -372,10 +381,7 @@ class GraphForecastExecutor:
                     for failure in deterministic_gate_failures
                 ),
             )
-        aggregation_graph = self._aggregation_graph(
-            node_result.graph,
-            included_node_ids={node_run.node_id for node_run in node_runs},
-        )
+        included_node_ids = {node_run.node_id for node_run in node_runs}
         if failures:
             self._persist_failures(failures)
             self._emit(
@@ -386,12 +392,43 @@ class GraphForecastExecutor:
         else:
             self._emit("aggregate", "Aggregating complete node forecasts", 0.88)
         try:
-            aggregation = self.aggregator.aggregate(aggregation_graph, node_runs)
+            if self.profile.aggregation_method == LOG_ODDS_METHOD:
+                aggregation_graph = self._aggregation_graph(
+                    node_result.graph,
+                    included_node_ids=included_node_ids,
+                )
+                aggregation = self.aggregator.aggregate(
+                    aggregation_graph,
+                    node_runs,
+                )
+            elif (
+                self.profile.aggregation_method
+                == RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+            ):
+                aggregation = self.relationship_aggregator.aggregate(
+                    node_result.graph,
+                    node_runs,
+                    exclusion_origins=self._aggregation_exclusion_origins(
+                        node_result,
+                        included_node_ids=included_node_ids,
+                        failures=failures,
+                    ),
+                )
+            else:  # Defensive fail-closed guard after profile validation.
+                raise ForecastAggregationError(
+                    ["unsupported_graph_aggregation_method"]
+                )
         except ForecastAggregationError as exc:
+            error_code = (
+                "relationship_aggregation_failed"
+                if self.profile.aggregation_method
+                == RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+                else "aggregation_failed"
+            )
             failure = {
                 "node_id": None,
                 "stage": "aggregation",
-                "error_code": "aggregation_failed",
+                "error_code": error_code,
                 "error_message": str(exc),
                 "critical_node": True,
                 "impact": "forecast_failed",
@@ -477,8 +514,11 @@ class GraphForecastExecutor:
         ):
             if not enabled:
                 reasons.append(reason)
-        if self.profile.aggregation_method != LOG_ODDS_METHOD:
-            reasons.append("graph_log_odds_aggregation_required")
+        if self.profile.aggregation_method not in {
+            LOG_ODDS_METHOD,
+            RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
+        }:
+            reasons.append("unsupported_graph_aggregation_method")
         graph_completion = (
             self.profile.graph_generation_max_completion_tokens
             or self.profile.max_output_tokens_per_call
@@ -818,6 +858,44 @@ class GraphForecastExecutor:
             if node.id in included_node_ids
         ]
         return graph.model_copy(update={"nodes": nodes})
+
+    @staticmethod
+    def _aggregation_exclusion_origins(
+        result: GraphNodeForecastResult,
+        *,
+        included_node_ids: set[str],
+        failures: list[dict[str, Any]],
+    ) -> dict[str, str]:
+        selected_node_ids = set(
+            result.research_plan.selected_nodes
+            if result.research_plan is not None
+            else []
+        )
+        skipped_node_ids = set(
+            result.research_plan.skipped_nodes
+            if result.research_plan is not None
+            else []
+        )
+        failure_by_node = {
+            str(failure["node_id"]): str(
+                failure.get("stage") or "node_execution_failure"
+            )
+            for failure in failures
+            if failure.get("node_id")
+        }
+        origins: dict[str, str] = {}
+        for node in sorted(result.graph.nodes, key=lambda item: item.id):
+            if node.id in included_node_ids:
+                continue
+            if node.id in skipped_node_ids:
+                origins[node.id] = "research_plan"
+            elif node.id in failure_by_node:
+                origins[node.id] = failure_by_node[node.id]
+            elif node.id in selected_node_ids:
+                origins[node.id] = "missing_node_forecast"
+            else:
+                origins[node.id] = "not_selected"
+        return origins
 
     @staticmethod
     def _apply_aggregation_weights(

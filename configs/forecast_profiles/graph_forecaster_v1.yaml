@@ -1,5 +1,5 @@
 id: graph_forecaster_v1
-version: 7
+version: 8
 label: Graph forecaster V1
 description: Opt-in Forecast Contract, Forecast Graph, Evidence Claims, node forecasting, and deterministic graph aggregation path.
 execution_strategy: graph_nodes
@@ -14,7 +14,7 @@ tracks:
 subquestions_per_track: 1
 search_results_per_subquestion: 2
 fetches_per_subquestion: 1
-aggregation_method: importance_weighted_log_odds_v1
+aggregation_method: relationship_mass_conserving_log_odds_v1
 shrinkage: 0.0
 max_model_calls: 40
 max_search_calls: 36

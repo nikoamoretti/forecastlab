@@ -51,12 +51,12 @@ Repeating an identical assessment returns the existing record. A different input
 
 ## Relationship warnings
 
-For every included node, ForecastLab records whether its declared parent or dependency is excluded. These findings are warnings only in version 1. They do not block execution, discount a node, modify probability, or create hierarchical aggregation.
+For every included node, ForecastLab records whether its declared parent or dependency is excluded. These findings are warnings only for this gate. They do not block execution, modify the included set, change a probability, or change the materiality result.
 
-Dependency-aware and hierarchical aggregation remain future method work.
+The separate `relationship_mass_conserving_log_odds_v1` aggregator consumes direct relationships after this gate passes and sends unrepresented shares to neutral residual mass. That deterministic deconfliction does not change the gate and is not hierarchical or conditional-probability inference.
 
 ## Profile separation
 
-`graph_forecaster_v1` version 7 selects this policy and retains `private_v1_evidence_gate_v1`. `graph_live_smoke_v1` version 3 remains byte-for-byte unchanged, resolves `material_node_policy` to `none`, and preserves its prior operational-smoke behavior. Existing frozen run and experiment profile snapshots are not rewritten.
+`graph_forecaster_v1` version 8 selects this policy, retains `private_v1_evidence_gate_v1`, and selects the separate relationship-aware aggregation method. `graph_live_smoke_v1` version 3 remains byte-for-byte unchanged, resolves `material_node_policy` to `none`, retains the importance-only aggregation method, and preserves its prior operational-smoke behavior. Existing frozen run and experiment profile snapshots are not rewritten.
 
 Passing this policy means only that the strict materiality frontier was respected. It does not establish that graph weights are correct, evidence is factually true, the forecast is calibrated, dependencies were modeled, or forecasting quality improved.

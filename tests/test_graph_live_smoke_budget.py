@@ -32,7 +32,7 @@ from forecastlab_api.models import (
 )
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
-GRAPH_PROFILE_SHA256 = "3ea215cb3f4e729610f794ef813a69b1dc50e5e940a020f91fec43e5535c96ca"
+GRAPH_PROFILE_SHA256 = "0826c6ea41483a8510529e9c6b38a1fe5b8772fc1be252f4684b426846b0332e"
 SMOKE_PROFILE_SHA256 = "2b80f85a213c981bd74b3f8891cae27d619957c1e011abf044956aa10ae6467b"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
@@ -75,7 +75,8 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert smoke.evidence_claims_enabled is True
     assert smoke.node_forecasting_enabled is True
     assert smoke.graph_aggregation_enabled is True
-    assert smoke.aggregation_method == graph.aggregation_method
+    assert smoke.aggregation_method == "importance_weighted_log_odds_v1"
+    assert graph.aggregation_method == "relationship_mass_conserving_log_odds_v1"
     assert smoke.prompt_versions == graph.prompt_versions
     assert graph.graph_generation_max_completion_tokens is None
     assert graph.graph_generation_max_visible_output_tokens is None
@@ -85,7 +86,7 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert graph.max_candidate_fetch_attempts_per_node is None
     assert graph.search_candidate_pool_per_node is None
     assert graph.prefer_distinct_candidate_hosts is False
-    assert graph.version == 7
+    assert graph.version == 8
     assert graph.evidence_sufficiency_policy == "private_v1_evidence_gate_v1"
     assert graph.material_node_policy == "private_v1_material_node_gate_v1"
     assert smoke.evidence_sufficiency_policy is None
@@ -157,7 +158,7 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     }
 
 
-def test_graph_forecaster_profile_matches_intentional_v7_bytes() -> None:
+def test_graph_forecaster_profile_matches_intentional_v8_bytes() -> None:
     digest = hashlib.sha256(
         (PROFILES_DIR / "graph_forecaster_v1.yaml").read_bytes()
     ).hexdigest()

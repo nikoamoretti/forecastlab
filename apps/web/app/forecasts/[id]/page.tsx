@@ -97,9 +97,15 @@ export default function ForecastPage() {
   const directModelProbability = aggregationMethod === "direct_model_probability_v1";
   const graphAggregation = [
     "dependency_discounted_weighted_mean_v1",
-    "importance_weighted_log_odds_v1"
+    "importance_weighted_log_odds_v1",
+    "relationship_mass_conserving_log_odds_v1"
   ].includes(aggregationMethod);
-  const logOddsAggregation = aggregationMethod === "importance_weighted_log_odds_v1";
+  const relationshipAggregation = aggregationMethod === "relationship_mass_conserving_log_odds_v1";
+  const logOddsAggregation = [
+    "importance_weighted_log_odds_v1",
+    "relationship_mass_conserving_log_odds_v1"
+  ].includes(aggregationMethod);
+  const relationshipAudit = reportCalculation.relationship_aggregation || null;
   const graphExecutionFailed = v1Report?.execution_status === "failed";
   const evidenceSufficiency = v1Report?.evidence_sufficiency || null;
   const materialCompleteness = v1Report?.material_node_completeness || null;
@@ -513,6 +519,47 @@ export default function ForecastPage() {
                   "Weighted node contributions are summed deterministically."
                 }`}
           </p>
+          {relationshipAggregation && relationshipAudit ? (
+            <div className="border border-rule bg-white/60 p-4 text-sm" aria-label="Relationship-aware aggregation">
+              <h4 className="font-serif text-xl">Relationship-aware aggregation</h4>
+              <p className="mt-2 text-ink/70">{relationshipAudit.heuristic_notice}</p>
+              <p className="mt-2 text-ink/70">{relationshipAudit.neutral_residual_notice}</p>
+              <dl className="mt-3 grid gap-2 md:grid-cols-3">
+                <div>
+                  <dt className="text-ink/60">Total raw graph weight</dt>
+                  <dd>{relationshipAudit.graph_mass?.total_graph_raw_weight ?? "unavailable"}</dd>
+                </div>
+                <div>
+                  <dt className="text-ink/60">Effective included weight</dt>
+                  <dd>{relationshipAudit.graph_mass?.effective_included_weight ?? "unavailable"}</dd>
+                </div>
+                <div>
+                  <dt className="text-ink/60">Neutral residual weight / fraction</dt>
+                  <dd>
+                    {relationshipAudit.graph_mass?.neutral_residual_weight ?? "unavailable"} / {" "}
+                    {relationshipAudit.graph_mass?.neutral_residual_fraction ?? "unavailable"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-ink/60">Mass conserved</dt>
+                  <dd>{String(relationshipAudit.graph_mass?.conservation_check ?? false)}</dd>
+                </div>
+                <div>
+                  <dt className="text-ink/60">Allocation hash</dt>
+                  <dd className="break-all font-mono text-xs">{relationshipAudit.graph_mass?.allocation_hash || "unavailable"}</dd>
+                </div>
+              </dl>
+              <details className="mt-3">
+                <summary className="cursor-pointer">Direct allocations and excluded mass</summary>
+                <pre className="mt-2 overflow-x-auto text-xs">
+{JSON.stringify({
+  source_allocations: relationshipAudit.source_allocations || [],
+  excluded_nodes: relationshipAudit.excluded_nodes || []
+}, null, 2)}
+                </pre>
+              </details>
+            </div>
+          ) : null}
           <div className="grid gap-4">
             {reportNodes.map((node: any) => (
               <article key={node.id} className="border border-rule bg-white/60 p-5">
@@ -539,6 +586,14 @@ export default function ForecastPage() {
                       {" · "}{node.material_included ? "included" : `excluded (${node.material_exclusion_origin || "unknown"})`}
                       {" · "}{String(node.material_frontier_position || "frontier unavailable").replaceAll("_", " ")}
                     </p>
+                    {relationshipAggregation && node.material_included ? (
+                      <p className="mt-1 font-mono text-xs text-ink/60">
+                        effective/self/received {node.effective_importance_weight ?? "unavailable"} / {" "}
+                        {node.self_allocated_weight ?? "unavailable"} / {" "}
+                        {node.relationship_received_weight ?? "unavailable"} · sources {" "}
+                        {(node.relationship_source_node_ids || []).join(", ") || "none"}
+                      </p>
+                    ) : null}
                     {node.missing_parent_relationships?.length || node.missing_dependency_relationships?.length ? (
                       <p className="mt-1 text-xs text-amber-800">
                         Relationship warning: excluded parents {node.missing_parent_relationships?.length || 0}; excluded dependencies {node.missing_dependency_relationships?.length || 0}
@@ -672,22 +727,32 @@ export default function ForecastPage() {
                     <tr key={`${trace.step}-${trace.node_id || index}`} className="border-b border-rule/70">
                       <td className="py-2">{String(trace.step || "").replace("_", " ")}</td>
                       <td>{traceNode?.question || trace.node_id || "—"}</td>
-                      <td>{trace.normalized_weight == null ? "—" : Number(trace.normalized_weight).toFixed(4)}</td>
+                      <td>
+                        {trace.normalized_effective_weight == null && trace.normalized_weight == null
+                          ? "—"
+                          : Number(trace.normalized_effective_weight ?? trace.normalized_weight).toFixed(4)}
+                      </td>
                       <td>
                         {trace.input_probability == null && trace.probability == null
                           ? "—"
                           : Number(trace.input_probability ?? trace.probability).toFixed(4)}
                       </td>
                       <td>
-                        {trace.contribution == null
+                        {trace.weighted_log_odds_contribution == null && trace.contribution == null
                           ? trace.final_probability == null
-                            ? trace.normalization_denominator == null && trace.total_importance_weight == null
+                            ? trace.normalization_denominator == null &&
+                              trace.total_importance_weight == null &&
+                              trace.total_graph_raw_weight == null
                               ? "—"
                               : `total weight ${Number(
-                                  trace.total_importance_weight ?? trace.normalization_denominator
+                                  trace.total_graph_raw_weight ??
+                                  trace.total_importance_weight ??
+                                  trace.normalization_denominator
                                 ).toFixed(4)}`
                             : `final ${Number(trace.final_probability).toFixed(4)}`
-                          : Number(trace.contribution).toFixed(4)}
+                          : Number(
+                              trace.weighted_log_odds_contribution ?? trace.contribution
+                            ).toFixed(4)}
                       </td>
                     </tr>
                   );

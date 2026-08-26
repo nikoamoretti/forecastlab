@@ -664,7 +664,7 @@ def test_aggregation_failure_is_recorded_without_forecast_version(client) -> Non
             session,
             draft["question_id"],
             node_runner=_node_result,
-            aggregator=FailingAggregator(),
+            relationship_aggregator=FailingAggregator(),
         )
 
         with pytest.raises(GraphForecastExecutionError, match="forced_aggregation_failure"):
@@ -677,10 +677,57 @@ def test_aggregation_failure_is_recorded_without_forecast_version(client) -> Non
             )
         )
         assert failure is not None
+        assert failure.error_code == "relationship_aggregation_failed"
         assert session.scalar(
             select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run_id)
         ) is None
         assert session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id)) is None
+
+
+def test_unknown_graph_aggregation_method_fails_before_execution(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    model = _NoCallModel()
+    search = _NoCallSearch()
+    with main_mod.SessionLocal() as session:
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            model=model,
+            search=search,
+        )
+        executor.profile = executor.profile.model_copy(
+            update={"aggregation_method": "unregistered_graph_method"}
+        )
+
+        with pytest.raises(
+            GraphForecastExecutionError,
+            match="Invalid graph profile",
+        ) as raised:
+            executor.execute()
+        assert "unsupported_graph_aggregation_method" in raised.value.reasons
+
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id,
+                GraphExecutionFailureRow.error_code
+                == "unsupported_graph_aggregation_method",
+            )
+        )
+        assert failure is not None
+        assert failure.stage == "profile"
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None
+
+    assert model.calls == 0
+    assert search.calls == 0
 
 
 def test_private_v1_evidence_gate_passes_before_unchanged_aggregation(client) -> None:
@@ -942,6 +989,26 @@ def test_private_v1_material_execution_gate_passes_before_unchanged_aggregation(
             contract.id,
             weights=[0.30, 0.25, 0.20, 0.15, 0.10],
         )
+        # Preserve the full approved DAG for the relationship-aware aggregator:
+        # one included parent, one included dependency, and one lower-weight
+        # excluded dependency whose allocation remains neutral.
+        graph = graph.model_copy(
+            update={
+                "nodes": [
+                    graph.nodes[0].model_copy(
+                        update={"dependencies": [graph.nodes[3].id]}
+                    ),
+                    graph.nodes[1].model_copy(
+                        update={"parent_node_id": graph.nodes[0].id}
+                    ),
+                    graph.nodes[2].model_copy(
+                        update={"dependencies": [graph.nodes[1].id]}
+                    ),
+                    graph.nodes[3],
+                    graph.nodes[4],
+                ]
+            }
+        )
         store_forecast_graph(session, graph)
         session.commit()
         executor, run_id = _executor(
@@ -979,12 +1046,29 @@ def test_private_v1_material_execution_gate_passes_before_unchanged_aggregation(
         assert material.included_frontier_weight == "0.2"
         assert material.maximum_excluded_weight == "0.15"
         assert aggregation is not None
+        assert (
+            aggregation.method
+            == "relationship_mass_conserving_log_odds_v1"
+        )
         trace = json.loads(aggregation.calculation_trace_json)
         material_trace = next(
             item for item in trace if item["step"] == "material_node_coverage_gate"
         )
         assert material_trace["assessment_id"] == material.id
         assert any(item["step"] == "evidence_sufficiency_gate" for item in trace)
+        mass_trace = next(item for item in trace if item["step"] == "graph_mass")
+        assert mass_trace["conservation_check"] is True
+        assert float(mass_trace["neutral_residual_weight"]) > 0
+        assert any(
+            item["step"] == "source_node_allocation"
+            and item["excluded_recipient_ids"]
+            for item in trace
+        )
+        assert {
+            item["node_id"]
+            for item in trace
+            if item["step"] == "excluded_node_mass"
+        } == {graph.nodes[3].id, graph.nodes[4].id}
         context = json.loads(version.run.execution_context_json)
         assert context["material_node_coverage_assessment_id"] == material.id
         assert context["material_node_coverage_assessment_input_hash"] == (
@@ -1013,6 +1097,14 @@ def test_private_v1_material_execution_gate_passes_before_unchanged_aggregation(
     ).json()["report"]
     assert report["material_node_completeness"]["plan_audit"]["status"] == "passed"
     assert report["material_node_completeness"]["execution_assessment"]["status"] == "passed"
+    assert report["calculation"]["method"] == (
+        "relationship_mass_conserving_log_odds_v1"
+    )
+    relationship = report["calculation"]["relationship_aggregation"]
+    assert relationship["graph_mass"]["conservation_check"] is True
+    assert float(relationship["graph_mass"]["neutral_residual_weight"]) > 0
+    assert relationship["source_allocations"]
+    assert relationship["excluded_nodes"]
     assert report["final_probability"] is not None
 
 

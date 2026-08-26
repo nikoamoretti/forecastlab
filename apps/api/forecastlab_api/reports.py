@@ -3,7 +3,12 @@ from __future__ import annotations
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
-from forecastlab.graph_aggregation import LOG_ODDS_FORMULA, LOG_ODDS_METHOD
+from forecastlab.graph_aggregation import (
+    LOG_ODDS_FORMULA,
+    LOG_ODDS_METHOD,
+    RELATIONSHIP_MASS_CONSERVING_FORMULA,
+    RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
+)
 
 
 def _temporal_quality_label(claim: dict[str, Any]) -> str:
@@ -88,6 +93,35 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         return None
 
     aggregation = run.get("forecast_aggregation") or run.get("aggregation") or {}
+    aggregation_trace = aggregation.get("calculation_trace") or []
+    relationship_policy = next(
+        (
+            item
+            for item in aggregation_trace
+            if isinstance(item, dict)
+            and item.get("step") == "relationship_aggregation_policy"
+        ),
+        None,
+    )
+    relationship_mass = next(
+        (
+            item
+            for item in aggregation_trace
+            if isinstance(item, dict) and item.get("step") == "graph_mass"
+        ),
+        None,
+    )
+    relationship_source_allocations = [
+        item
+        for item in aggregation_trace
+        if isinstance(item, dict)
+        and item.get("step") == "source_node_allocation"
+    ]
+    relationship_excluded_nodes = [
+        item
+        for item in aggregation_trace
+        if isinstance(item, dict) and item.get("step") == "excluded_node_mass"
+    ]
     contributions_by_node = {
         str(item.get("node_id")): item
         for item in aggregation.get("node_contributions") or []
@@ -274,6 +308,24 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "weighted_log_odds_contribution": node_contribution.get(
                     "weighted_log_odds_contribution"
                 ),
+                "effective_importance_weight": node_contribution.get(
+                    "effective_importance_weight"
+                ),
+                "self_allocated_weight": node_contribution.get(
+                    "self_allocated_weight"
+                ),
+                "relationship_received_weight": node_contribution.get(
+                    "relationship_received_weight"
+                ),
+                "relationship_source_node_ids": node_contribution.get(
+                    "relationship_source_node_ids"
+                ),
+                "aggregation_direct_parent_id": node_contribution.get(
+                    "direct_parent_id"
+                ),
+                "aggregation_direct_dependency_ids": node_contribution.get(
+                    "direct_dependency_ids"
+                ),
                 "supporting_evidence": supporting,
                 "opposing_evidence": opposing,
                 "uncited_evidence": uncited,
@@ -330,12 +382,37 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         "calculation": {
             "method": aggregation.get("method"),
             "formula": aggregation.get("formula")
-            or (LOG_ODDS_FORMULA if aggregation.get("method") == LOG_ODDS_METHOD else None),
+            or (
+                LOG_ODDS_FORMULA
+                if aggregation.get("method") == LOG_ODDS_METHOD
+                else RELATIONSHIP_MASS_CONSERVING_FORMULA
+                if aggregation.get("method")
+                == RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+                else None
+            ),
             "normalization_denominator": aggregation.get("normalization_denominator"),
             "unbounded_probability": aggregation.get("unbounded_probability"),
             "final_probability": aggregation.get("final_probability", aggregation.get("ensemble_probability")),
             "node_contributions": aggregation.get("node_contributions") or [],
-            "trace": aggregation.get("calculation_trace") or [],
+            "trace": aggregation_trace,
+            "relationship_aggregation": {
+                "policy": relationship_policy,
+                "graph_mass": relationship_mass,
+                "source_allocations": relationship_source_allocations,
+                "excluded_nodes": relationship_excluded_nodes,
+                "heuristic_notice": (
+                    "Relationship-aware weight deconfliction is a deterministic "
+                    "aggregation heuristic. It is not a Bayesian network, causal "
+                    "model, calibration result, or forecasting-quality claim."
+                ),
+                "neutral_residual_notice": (
+                    "Unrepresented graph mass contributes neutral log odds at "
+                    "probability 0.5 and is not redistributed among surviving node "
+                    "forecasts."
+                ),
+            }
+            if relationship_policy is not None
+            else None,
         },
         "failures": failures,
         "research_reliability": {
@@ -395,6 +472,7 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
 
     coverage = report.get("evidence_coverage") or {}
     calculation = report.get("calculation") or {}
+    relationship = calculation.get("relationship_aggregation") or {}
     lines = [
         "## V1 Forecast Graph report",
         "",
@@ -526,6 +604,43 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 "",
             ]
         )
+    if relationship:
+        relationship_mass = relationship.get("graph_mass") or {}
+        lines.extend(
+            [
+                "### Relationship-aware aggregation",
+                relationship.get("heuristic_notice") or "",
+                relationship.get("neutral_residual_notice") or "",
+                f"- Total raw graph weight: "
+                f"{relationship_mass.get('total_graph_raw_weight')}",
+                f"- Effective included weight: "
+                f"{relationship_mass.get('effective_included_weight')}",
+                f"- Neutral residual weight / fraction: "
+                f"{relationship_mass.get('neutral_residual_weight')} / "
+                f"{relationship_mass.get('neutral_residual_fraction')}",
+                f"- Normalized effective-weight sum: "
+                f"{relationship_mass.get('normalized_effective_weight_sum')}",
+                f"- Mass conserved: {relationship_mass.get('conservation_check')}",
+                f"- Allocation hash: {relationship_mass.get('allocation_hash')}",
+                "Direct source-node allocations:",
+                *[
+                    f"- {item.get('source_node_id')}: raw="
+                    f"{item.get('source_raw_importance_weight')}; recipients="
+                    f"{item.get('recipient_ids') or []}; share={item.get('equal_share')}; "
+                    f"included={item.get('mass_allocated_to_included_recipients')}; "
+                    f"neutral={item.get('mass_sent_to_neutral_residual')}"
+                    for item in relationship.get("source_allocations") or []
+                ],
+                "Excluded graph-node mass:",
+                *[
+                    f"- {item.get('node_id')}: raw={item.get('raw_importance_weight')}; "
+                    f"origin={item.get('exclusion_origin')}; neutral="
+                    f"{item.get('mass_sent_to_neutral_residual')}"
+                    for item in relationship.get("excluded_nodes") or []
+                ],
+                "",
+            ]
+        )
     lines.append("### Graph nodes and node forecasts")
     for node in report.get("nodes") or []:
         lines.extend(
@@ -545,6 +660,12 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 f"parents={node.get('missing_parent_relationships') or []}; "
                 f"dependencies={node.get('missing_dependency_relationships') or []}",
                 f"Normalized weight: {node.get('normalized_weight')}",
+                f"Effective / self / relationship-received weight: "
+                f"{node.get('effective_importance_weight')} / "
+                f"{node.get('self_allocated_weight')} / "
+                f"{node.get('relationship_received_weight')}",
+                f"Relationship source nodes: "
+                f"{node.get('relationship_source_node_ids') or []}",
             ]
         )
         if node.get("weighted_log_odds_contribution") is not None:
@@ -632,7 +753,9 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 "- "
                 f"{contribution.get('node_question') or contribution.get('node_id')}: "
                 f"p={contribution.get('input_probability')}, "
-                f"weight={contribution.get('normalized_weight')}, "
+                f"raw={contribution.get('raw_importance_weight')}, "
+                f"effective={contribution.get('effective_importance_weight')}, "
+                f"normalized={contribution.get('normalized_weight')}, "
                 f"log_odds={contribution.get('log_odds')}, "
                 f"contribution={contribution.get('weighted_log_odds_contribution')}"
             )

@@ -342,7 +342,132 @@ def test_v1_report_renders_first_class_log_odds_aggregation() -> None:
     markdown = "\n".join(v1_report_markdown(report))
     assert "### Node contributions" in markdown
     assert "Weighted log-odds contribution: -0.619039208406" in markdown
-    assert "What is the historical base rate?: p=0.35, weight=1.0" in markdown
+    assert (
+        "What is the historical base rate?: p=0.35, raw=0.3, "
+        "effective=None, normalized=1.0"
+    ) in markdown
+
+
+def test_v1_report_renders_relationship_mass_and_neutral_residual() -> None:
+    contribution = {
+        "node_id": "node-a",
+        "node_question": "What is the historical base rate?",
+        "input_probability": 0.35,
+        "raw_importance_weight": 0.6,
+        "normalized_weight": 0.3,
+        "log_odds": -0.619039208406,
+        "weighted_log_odds_contribution": -0.185711762522,
+        "effective_importance_weight": 0.3,
+        "self_allocated_weight": 0.3,
+        "relationship_received_weight": 0.0,
+        "relationship_source_node_ids": [],
+        "direct_parent_id": None,
+        "direct_dependency_ids": ["node-x"],
+    }
+    policy = {
+        "step": "relationship_aggregation_policy",
+        "method": "relationship_mass_conserving_log_odds_v1",
+        "policy_version": "relationship_mass_conserving_log_odds_v1",
+        "direct_relationships_only": True,
+        "neutral_probability": 0.5,
+        "no_imputation": True,
+        "allocation_hash": "a" * 64,
+    }
+    mass = {
+        "step": "graph_mass",
+        "total_graph_raw_weight": "1",
+        "effective_included_weight": "0.3",
+        "neutral_residual_weight": "0.7",
+        "normalized_effective_weight_sum": "0.3",
+        "neutral_residual_fraction": "0.7",
+        "conservation_check": True,
+        "allocation_hash": "a" * 64,
+    }
+    source = {
+        "step": "source_node_allocation",
+        "source_node_id": "node-a",
+        "source_raw_importance_weight": "0.6",
+        "recipient_ids": ["node-a", "node-x"],
+        "equal_share": "0.3",
+        "mass_allocated_to_included_recipients": "0.3",
+        "mass_sent_to_neutral_residual": "0.3",
+    }
+    excluded = {
+        "step": "excluded_node_mass",
+        "node_id": "node-x",
+        "raw_importance_weight": "0.4",
+        "exclusion_origin": "research_plan",
+        "mass_sent_to_neutral_residual": "0.4",
+    }
+    run = {
+        "profile_id": "graph_forecaster_v1",
+        "forecast_graph": {
+            "id": "graph-1",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What is the historical base rate?",
+                    "node_type": "base_rate",
+                    "importance_weight": 0.6,
+                    "dependencies": ["node-x"],
+                },
+                {
+                    "id": "node-x",
+                    "question": "What excluded driver remains?",
+                    "node_type": "driver",
+                    "importance_weight": 0.4,
+                    "dependencies": [],
+                },
+            ],
+        },
+        "node_runs": [
+            {
+                "node_id": "node-a",
+                "probability": 0.35,
+                "reasoning": "Historical outcomes favor no.",
+            }
+        ],
+        "forecast_aggregation": {
+            "id": "aggregation-1",
+            "forecast_run_id": "run-1",
+            "method": "relationship_mass_conserving_log_odds_v1",
+            "final_probability": 0.453649,
+            "node_contributions": [contribution],
+            "calculation_trace": [
+                policy,
+                mass,
+                source,
+                excluded,
+                {"step": "node_contribution", **contribution},
+                {
+                    "step": "final",
+                    "combined_log_odds": -0.185711762522,
+                    "neutral_residual_contribution": 0.0,
+                    "final_probability": 0.453649,
+                },
+            ],
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    relationship = report["calculation"]["relationship_aggregation"]
+    assert relationship["graph_mass"]["neutral_residual_fraction"] == "0.7"
+    assert relationship["graph_mass"]["conservation_check"] is True
+    assert relationship["source_allocations"] == [source]
+    assert relationship["excluded_nodes"] == [excluded]
+    assert report["nodes"][0]["effective_importance_weight"] == 0.3
+    assert report["nodes"][0]["aggregation_direct_dependency_ids"] == [
+        "node-x"
+    ]
+    assert "not a Bayesian network" in relationship["heuristic_notice"]
+
+    markdown = "\n".join(v1_report_markdown(report))
+    assert "### Relationship-aware aggregation" in markdown
+    assert "Neutral residual weight / fraction: 0.7 / 0.7" in markdown
+    assert "Mass conserved: True" in markdown
+    assert "node-x: raw=0.4; origin=research_plan; neutral=0.4" in markdown
 
 
 def test_v1_report_exposes_incomplete_graph_execution_without_probability() -> None:

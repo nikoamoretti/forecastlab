@@ -454,6 +454,15 @@ class ForecastNodeContribution(BaseModel):
     normalized_weight: float = Field(ge=0.0, le=1.0)
     log_odds: float
     weighted_log_odds_contribution: float
+    # Relationship-aware fields are optional so historical importance-only
+    # aggregation JSON remains readable without fabricating values that were
+    # never recorded.
+    effective_importance_weight: float | None = Field(default=None, ge=0.0)
+    self_allocated_weight: float | None = Field(default=None, ge=0.0)
+    relationship_received_weight: float | None = Field(default=None, ge=0.0)
+    relationship_source_node_ids: list[str] | None = None
+    direct_parent_id: str | None = None
+    direct_dependency_ids: list[str] | None = None
 
 
 class ForecastAggregation(BaseModel):
