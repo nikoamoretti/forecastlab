@@ -16,7 +16,10 @@ from forecastlab.schemas import (
     ForecastNode,
 )
 from forecastlab.structured_outputs import (
+    COMPACT_FORECAST_GRAPH_SCHEMA_NAME,
+    CompactForecastGraphOutput,
     ForecastGraphOutput,
+    compact_forecast_graph_json_schema,
     forecast_graph_json_schema,
     validate_structured_output,
 )
@@ -204,6 +207,186 @@ def _mock_nodes(contract: ForecastContract) -> list[dict[str, Any]]:
     ]
 
 
+def _mock_compact_nodes() -> list[dict[str, Any]]:
+    """Compact deterministic graph used only by the non-provider mock path."""
+
+    return [
+        {"q": "What historical base rate applies?", "t": "base_rate", "w": 0.9, "p": None, "d": [], "s": ["official historical data"], "o": "probability"},
+        {"q": "What is the current trend?", "t": "trend", "w": 0.85, "p": None, "d": [], "s": ["official current data"], "o": "directional_update"},
+        {"q": "What primary driver changes the outcome?", "t": "driver", "w": 0.8, "p": None, "d": [1], "s": ["primary records"], "o": "directional_update"},
+        {"q": "What dependency constrains the driver?", "t": "dependency", "w": 0.65, "p": 2, "d": [1], "s": ["official methodology"], "o": "structured_categorical"},
+        {"q": "What alternative scenario matters most?", "t": "scenario", "w": 0.7, "p": 2, "d": [3], "s": ["scenario analysis"], "o": "scenario_weight"},
+        {"q": "What could overturn the leading view?", "t": "adversarial", "w": 0.75, "p": None, "d": [1, 4], "s": ["contradictory evidence"], "o": "directional_update"},
+        {"q": "What resolution mechanics could change scoring?", "t": "resolver", "w": 0.6, "p": None, "d": [], "s": ["authoritative resolver"], "o": "structured_categorical"},
+    ]
+
+
+def _compact_transport_prompt(system: str) -> str:
+    """Replace only the wire-format section while preserving graph semantics."""
+
+    prefix, marker, remainder = system.partition("Required JSON shape:")
+    if not marker:
+        prefix = system
+        rules = ""
+    else:
+        _canonical_shape, rules_marker, rules = remainder.partition("Rules:")
+        if not rules_marker:
+            rules = ""
+    replacements = {
+        "- Use parent_node_id for hierarchy; null means the node is directly beneath the contract outcome.": (
+            "- Use p for hierarchy; null means the node is directly beneath the contract outcome."
+        ),
+        "- Dependencies and parent_node_id must reference node ids in this response.": (
+            "- Dependencies in d and the parent in p must reference zero-based indexes in n."
+        ),
+    }
+    semantic_rules = "\n".join(
+        replacements.get(line.strip(), line.strip())
+        for line in rules.splitlines()
+        if line.strip()
+    )
+    compact_shape = """Required JSON shape:
+{"n":[{"q":"question","t":"node_type","w":0.0,"p":null,"d":[0],"s":["source guidance"],"o":"required_output_type"}]}
+
+Transport rules:
+- Array indexes are zero-based.
+- Do not emit ids, UUIDs, status, or canonical property names.
+- ForecastLab deterministically restores local ids and pending status after strict validation."""
+    return f"{prefix.rstrip()}\n\n{compact_shape}\n\nRules:\n{semantic_rules}".strip()
+
+
+def _transport_validation_error(
+    field_path: str,
+    error_type: str,
+    message: str,
+) -> dict[str, str]:
+    return {
+        "field_path": field_path,
+        "error_type": error_type,
+        "message": message,
+    }
+
+
+def _canonicalize_compact_graph(
+    payload: dict[str, Any],
+    *,
+    max_characters: int,
+    question_max_characters: int,
+    local_id_max_characters: int,
+    max_dependencies_per_node: int,
+    max_preferred_sources_per_node: int,
+    preferred_source_max_characters: int,
+) -> tuple[dict[str, Any] | None, int, list[dict[str, str]]]:
+    """Validate compact transport bounds and restore the canonical graph shape."""
+
+    try:
+        compact = CompactForecastGraphOutput.model_validate(payload)
+    except ValueError as exc:
+        # The provider boundary already sanitizes normal Pydantic failures. This
+        # fallback remains content-free for direct and mock callers.
+        return None, 0, [
+            _transport_validation_error(
+                "$",
+                "compact_transport_validation_error",
+                str(exc).splitlines()[0][:240],
+            )
+        ]
+    serialized = json.dumps(
+        compact.model_dump(mode="json"),
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    character_count = len(serialized)
+    errors: list[dict[str, str]] = []
+    if character_count > max_characters:
+        errors.append(
+            _transport_validation_error(
+                "$",
+                "compact_transport_too_large",
+                "Compact Forecast Graph exceeds its character budget",
+            )
+        )
+
+    node_count = len(compact.n)
+    local_ids = [f"n{index}" for index in range(node_count)]
+    if any(len(local_id) > local_id_max_characters for local_id in local_ids):
+        errors.append(
+            _transport_validation_error(
+                "n",
+                "compact_local_id_too_long",
+                "Generated local node id exceeds the configured limit",
+            )
+        )
+
+    for index, node in enumerate(compact.n):
+        if len(node.q) > question_max_characters:
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}.q",
+                    "string_too_long",
+                    "Compact graph question exceeds the configured limit",
+                )
+            )
+        if len(node.d) > max_dependencies_per_node:
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}.d",
+                    "too_many_dependencies",
+                    "Compact graph node has too many dependencies",
+                )
+            )
+        if len(node.s) > max_preferred_sources_per_node:
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}.s",
+                    "too_many_preferred_sources",
+                    "Compact graph node has too many preferred sources",
+                )
+            )
+        if any(
+            len(source) > preferred_source_max_characters
+            for source in node.s
+        ):
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}.s",
+                    "preferred_source_too_long",
+                    "Compact preferred source exceeds the configured limit",
+                )
+            )
+        references = ([node.p] if node.p is not None else []) + list(node.d)
+        if any(reference < 0 or reference >= node_count for reference in references):
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}",
+                    "invalid_node_index",
+                    "Compact graph relationship index is outside the node array",
+                )
+            )
+    if errors:
+        return None, character_count, errors
+
+    nodes: list[dict[str, Any]] = []
+    for index, node in enumerate(compact.n):
+        nodes.append(
+            {
+                "id": local_ids[index],
+                "parent_node_id": (
+                    local_ids[node.p] if node.p is not None else None
+                ),
+                "question": node.q,
+                "node_type": node.t,
+                "importance_weight": node.w,
+                "dependencies": [local_ids[item] for item in node.d],
+                "preferred_sources": list(node.s),
+                "required_output_type": node.o,
+                "status": "pending",
+            }
+        )
+    return {"nodes": nodes}, character_count, []
+
+
 class GraphGenerator:
     """Create and validate a question-specific research graph from an approved contract."""
 
@@ -222,6 +405,13 @@ class GraphGenerator:
             "high",
         ] | None = "minimal",
         verbosity: Literal["low", "medium", "high"] | None = None,
+        transport: Literal["compact_indexed_v1"] | None = None,
+        transport_max_characters: int | None = None,
+        node_question_max_characters: int | None = None,
+        local_id_max_characters: int | None = None,
+        max_dependencies_per_node: int | None = None,
+        max_preferred_sources_per_node: int | None = None,
+        preferred_source_max_characters: int | None = None,
         run_token_ceiling: int | None = None,
         reserved_follow_on_tokens: int = 0,
         generation_model: str | None = None,
@@ -251,6 +441,25 @@ class GraphGenerator:
             )
         self.reasoning_effort = reasoning_effort
         self.verbosity = verbosity
+        self.transport = transport
+        self.transport_max_characters = transport_max_characters
+        self.node_question_max_characters = node_question_max_characters
+        self.local_id_max_characters = local_id_max_characters
+        self.max_dependencies_per_node = max_dependencies_per_node
+        self.max_preferred_sources_per_node = max_preferred_sources_per_node
+        self.preferred_source_max_characters = preferred_source_max_characters
+        if self.transport is not None and any(
+            value is None
+            for value in (
+                self.transport_max_characters,
+                self.node_question_max_characters,
+                self.local_id_max_characters,
+                self.max_dependencies_per_node,
+                self.max_preferred_sources_per_node,
+                self.preferred_source_max_characters,
+            )
+        ):
+            raise ValueError("Compact graph transport requires explicit limits")
         self.run_token_ceiling = run_token_ceiling
         self.reserved_follow_on_tokens = max(0, int(reserved_follow_on_tokens))
         self.prompt_bundle = prompt_bundle
@@ -275,10 +484,33 @@ class GraphGenerator:
             system, prompt_version = self.prompt_bundle.get("forecast_graph")
         else:
             system, prompt_version = load_prompt("forecast_graph")
+        schema_name = (
+            COMPACT_FORECAST_GRAPH_SCHEMA_NAME
+            if self.transport == "compact_indexed_v1"
+            else "forecast_graph"
+        )
+        json_schema = (
+            compact_forecast_graph_json_schema(
+                question_max_characters=int(self.node_question_max_characters),
+                max_dependencies_per_node=int(self.max_dependencies_per_node),
+                max_preferred_sources_per_node=int(
+                    self.max_preferred_sources_per_node
+                ),
+                preferred_source_max_characters=int(
+                    self.preferred_source_max_characters
+                ),
+            )
+            if self.transport == "compact_indexed_v1"
+            else forecast_graph_json_schema()
+        )
+        if self.transport == "compact_indexed_v1":
+            system = _compact_transport_prompt(system)
         audit: dict[str, Any] = {
             "provider": self.model.name,
             "model": str(getattr(self.model, "model", "unspecified")),
-            "schema_name": "forecast_graph",
+            "schema_name": schema_name,
+            "transport": self.transport or "canonical_v1",
+            "transport_max_characters": self.transport_max_characters,
             "requested_max_output_tokens": self.max_output_tokens,
             "requested_max_completion_tokens": self.max_completion_tokens,
             "requested_max_visible_output_tokens": self.max_visible_output_tokens,
@@ -289,7 +521,11 @@ class GraphGenerator:
         }
         diagnostics_payload: dict[str, Any] = {}
         if self.model.name == "mock":
-            payload: Any = {"nodes": _mock_nodes(contract)}
+            payload: Any = (
+                {"n": _mock_compact_nodes()}
+                if self.transport == "compact_indexed_v1"
+                else {"nodes": _mock_nodes(contract)}
+            )
         else:
             user_payload = contract.model_dump_json()
             estimated_input_tokens = estimate_prompt_tokens(system, user_payload)
@@ -313,12 +549,12 @@ class GraphGenerator:
             result = self.model.complete_json(
                 system=system,
                 user=user_payload,
-                schema_name="forecast_graph",
+                schema_name=schema_name,
                 max_output_tokens=self.max_output_tokens,
                 max_completion_tokens=self.max_completion_tokens,
                 max_visible_output_tokens=self.max_visible_output_tokens,
                 estimated_input_tokens=estimated_input_tokens,
-                json_schema=forecast_graph_json_schema(),
+                json_schema=json_schema,
                 reasoning_effort=self.reasoning_effort,
                 verbosity=self.verbosity,
             )
@@ -343,6 +579,16 @@ class GraphGenerator:
                         "Forecast Graph visible output exceeded its configured budget",
                         audit=audit,
                     )
+                if (
+                    self.transport == "compact_indexed_v1"
+                    and self.transport_max_characters is not None
+                    and len(result.content) > self.transport_max_characters
+                ):
+                    raise ForecastGraphError(
+                        ["structured_output_transport_character_budget_exceeded"],
+                        "Forecast Graph compact output exceeded its character budget",
+                        audit=audit,
+                    )
                 if result.diagnostics.finish_reason == "length":
                     raise ForecastGraphError(
                         ["structured_output_truncated"],
@@ -351,7 +597,7 @@ class GraphGenerator:
                     )
             else:
                 diagnostics_payload = {
-                    "schema_name": "forecast_graph",
+                    "schema_name": schema_name,
                     "provider_request_id": result.usage.request_id,
                     "finish_reason": None,
                     "refusal_present": False,
@@ -392,9 +638,49 @@ class GraphGenerator:
                         audit=audit,
                     ) from exc
 
+        if self.transport == "compact_indexed_v1":
+            compact_payload, compact_validation_errors = validate_structured_output(
+                schema_name,
+                payload,
+            )
+            if compact_payload is None:
+                audit["schema_validation_errors"] = compact_validation_errors
+                raise ForecastGraphError(
+                    ["structured_output_schema_invalid"],
+                    "Forecast Graph JSON did not match the compact transport schema",
+                    audit=audit,
+                )
+            canonical_payload, transport_character_count, transport_errors = (
+                _canonicalize_compact_graph(
+                    compact_payload,
+                    max_characters=int(self.transport_max_characters),
+                    question_max_characters=int(
+                        self.node_question_max_characters
+                    ),
+                    local_id_max_characters=int(self.local_id_max_characters),
+                    max_dependencies_per_node=int(
+                        self.max_dependencies_per_node
+                    ),
+                    max_preferred_sources_per_node=int(
+                        self.max_preferred_sources_per_node
+                    ),
+                    preferred_source_max_characters=int(
+                        self.preferred_source_max_characters
+                    ),
+                )
+            )
+            audit["transport_character_count"] = transport_character_count
+            if canonical_payload is None:
+                audit["schema_validation_errors"] = transport_errors
+                raise ForecastGraphError(
+                    ["structured_output_schema_invalid"],
+                    "Forecast Graph compact transport failed validation",
+                    audit=audit,
+                )
+            payload = canonical_payload
+
         validated_payload, validation_errors = validate_structured_output(
-            "forecast_graph",
-            payload,
+            "forecast_graph", payload
         )
         if validated_payload is None:
             audit["schema_validation_errors"] = validation_errors
@@ -497,7 +783,10 @@ class GraphGenerator:
         generation_audit = ForecastGraphGenerationAudit(
             provider=str(audit["provider"]),
             model=str(audit["model"]),
-            schema_name="forecast_graph",
+            schema_name=schema_name,
+            transport=self.transport or "canonical_v1",
+            transport_character_count=audit.get("transport_character_count"),
+            transport_max_characters=self.transport_max_characters,
             provider_request_id=diagnostics_payload.get("provider_request_id"),
             requested_max_output_tokens=self.max_output_tokens,
             requested_max_completion_tokens=self.max_completion_tokens,

@@ -161,7 +161,7 @@ class Budget:
         budget.state.provider_request_count = totals.provider_request_count
         return budget
 
-    def estimate_workload(self) -> dict[str, int | float]:
+    def estimate_workload(self) -> dict[str, Any]:
         if self.profile.execution_strategy == "graph_nodes":
             return {
                 "tracks": 0,
@@ -184,9 +184,22 @@ class Budget:
                     self.profile.graph_generation_max_visible_output_tokens
                     or self.profile.max_output_tokens_per_call
                 ),
+                "graph_generation_transport": (
+                    self.profile.graph_generation_transport
+                ),
+                "graph_generation_transport_max_characters": (
+                    self.profile.graph_generation_transport_max_characters
+                ),
                 "max_candidate_fetch_attempts_per_node": (
                     self.profile.max_candidate_fetch_attempts_per_node
                     or self.profile.fetches_per_subquestion
+                ),
+                "search_candidate_pool_per_node": (
+                    self.profile.search_candidate_pool_per_node
+                    or self.profile.search_results_per_subquestion
+                ),
+                "prefer_distinct_candidate_hosts": (
+                    self.profile.prefer_distinct_candidate_hosts
                 ),
             }
         if self.profile.execution_strategy == "single_model":

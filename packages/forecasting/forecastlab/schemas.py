@@ -130,6 +130,9 @@ class ForecastGraphGenerationAudit(BaseModel):
     provider: str
     model: str
     schema_name: str = "forecast_graph"
+    transport: str = "canonical_v1"
+    transport_character_count: int | None = Field(default=None, ge=0)
+    transport_max_characters: int | None = Field(default=None, gt=0)
     provider_request_id: str | None = None
     requested_max_output_tokens: int = Field(gt=0)
     requested_max_completion_tokens: int | None = Field(default=None, gt=0)
@@ -491,10 +494,37 @@ class ForecastProfile(BaseModel):
         "high",
     ] | None = None
     graph_generation_verbosity: Literal["low", "medium", "high"] | None = None
+    graph_generation_transport: Literal["compact_indexed_v1"] | None = None
+    graph_generation_transport_max_characters: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_node_question_max_characters: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_local_id_max_characters: int | None = Field(
+        default=None,
+        ge=2,
+    )
+    graph_generation_max_dependencies_per_node: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_max_preferred_sources_per_node: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_preferred_source_max_characters: int | None = Field(
+        default=None,
+        ge=1,
+    )
     max_candidate_fetch_attempts_per_node: int | None = Field(
         default=None,
         ge=1,
     )
+    search_candidate_pool_per_node: int | None = Field(default=None, ge=1)
+    prefer_distinct_candidate_hosts: bool = False
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)
@@ -512,6 +542,41 @@ class ForecastProfile(BaseModel):
             raise ValueError(
                 "candidate_fetch_attempts_below_successful_document_target"
             )
+        pool = self.search_candidate_pool_per_node
+        effective_attempts = attempts or self.fetches_per_subquestion
+        if pool is not None and pool < effective_attempts:
+            raise ValueError("candidate_pool_below_fetch_attempt_ceiling")
+        transport_fields = {
+            "graph_generation_transport_max_characters": (
+                self.graph_generation_transport_max_characters
+            ),
+            "graph_generation_node_question_max_characters": (
+                self.graph_generation_node_question_max_characters
+            ),
+            "graph_generation_local_id_max_characters": (
+                self.graph_generation_local_id_max_characters
+            ),
+            "graph_generation_max_dependencies_per_node": (
+                self.graph_generation_max_dependencies_per_node
+            ),
+            "graph_generation_max_preferred_sources_per_node": (
+                self.graph_generation_max_preferred_sources_per_node
+            ),
+            "graph_generation_preferred_source_max_characters": (
+                self.graph_generation_preferred_source_max_characters
+            ),
+        }
+        if self.graph_generation_transport is not None:
+            missing = [name for name, value in transport_fields.items() if value is None]
+            if missing:
+                raise ValueError(
+                    "compact_graph_transport_limits_required:"
+                    + ",".join(sorted(missing))
+                )
+        elif any(value is not None for value in transport_fields.values()):
+            raise ValueError("graph_transport_required_for_transport_limits")
+        if self.prefer_distinct_candidate_hosts and pool is None:
+            raise ValueError("candidate_pool_required_for_host_diversity")
         return self
 
 

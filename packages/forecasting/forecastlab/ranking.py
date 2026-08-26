@@ -136,3 +136,37 @@ def rank_hits(
     for hit in ordered:
         hit.source_class = classify_source(hit.url)  # type: ignore[assignment]
     return ordered
+
+
+def normalized_candidate_host(url: str) -> str:
+    """Return the deterministic per-node host identity used for failover."""
+
+    host = (urlparse(url).hostname or "").casefold().rstrip(".")
+    return host[4:] if host.startswith("www.") else host
+
+
+def schedule_ranked_hits(
+    ranked_hits: list[SearchHit],
+    *,
+    prefer_distinct_hosts: bool,
+) -> list[SearchHit]:
+    """Preserve the top hit, then prefer the best not-yet-used host."""
+
+    if not prefer_distinct_hosts or len(ranked_hits) < 2:
+        return list(ranked_hits)
+    remaining = list(ranked_hits)
+    scheduled = [remaining.pop(0)]
+    seen_hosts = {normalized_candidate_host(scheduled[0].url)}
+    while remaining:
+        next_index = next(
+            (
+                index
+                for index, hit in enumerate(remaining)
+                if normalized_candidate_host(hit.url) not in seen_hosts
+            ),
+            0,
+        )
+        candidate = remaining.pop(next_index)
+        scheduled.append(candidate)
+        seen_hosts.add(normalized_candidate_host(candidate.url))
+    return scheduled

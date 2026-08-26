@@ -630,6 +630,13 @@ class ResearchPlanner:
             per_node_allocations[node_id] = {
                 **per_node,
                 "max_evidence_claims": claims,
+                "search_candidate_pool": int(
+                    budget.profile.search_candidate_pool_per_node
+                    or budget.profile.search_results_per_subquestion
+                ),
+                "prefer_distinct_candidate_hosts": bool(
+                    budget.profile.prefer_distinct_candidate_hosts
+                ),
             }
 
         estimated_cost = round(
@@ -720,6 +727,13 @@ class ResearchPlanner:
                     selected_count * int(per_node["candidate_fetch_attempts"])
                 ),
                 "allocated_searches_per_node": int(per_node["searches"]),
+                "search_candidate_pool_per_node": int(
+                    budget.profile.search_candidate_pool_per_node
+                    or budget.profile.search_results_per_subquestion
+                ),
+                "prefer_distinct_candidate_hosts": bool(
+                    budget.profile.prefer_distinct_candidate_hosts
+                ),
                 "graph_generation_max_completion_tokens": (
                     budget.profile.graph_generation_max_completion_tokens
                     or budget.profile.max_output_tokens_per_call
@@ -734,6 +748,12 @@ class ResearchPlanner:
                 ),
                 "graph_generation_verbosity": (
                     budget.profile.graph_generation_verbosity
+                ),
+                "graph_generation_transport": (
+                    budget.profile.graph_generation_transport
+                ),
+                "graph_generation_transport_max_characters": (
+                    budget.profile.graph_generation_transport_max_characters
                 ),
                 "estimated_tokens_by_phase": estimated_tokens_by_phase,
                 "estimated_cost_by_phase": estimated_cost_by_phase,

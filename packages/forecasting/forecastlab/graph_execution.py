@@ -365,6 +365,12 @@ def run_graph_node_forecasts(
             max_candidate_fetch_attempts_per_node=int(
                 allocation["candidate_fetch_attempts"]
             ),
+            search_candidate_pool_per_node=int(
+                allocation["search_candidate_pool"]
+            ),
+            prefer_distinct_candidate_hosts=bool(
+                allocation["prefer_distinct_candidate_hosts"]
+            ),
             max_evidence_claims=int(allocation["max_evidence_claims"]),
             max_extraction_chars=int(allocation["evidence_document_max_chars"]),
             research_plan_output_tokens=int(

@@ -547,31 +547,29 @@ class _ReasoningHeavyCombinedModel(_FallbackPathModel):
         self.graph_requests: list[dict[str, Any]] = []
 
     def complete_json(self, **kwargs: Any) -> ChatResult:
-        if kwargs["schema_name"] != "forecast_graph":
+        if kwargs["schema_name"] != "forecast_graph_compact_indexed_v1":
             return super().complete_json(**kwargs)
         with self._lock:
-            self.calls["forecast_graph"] += 1
+            self.calls["forecast_graph_compact_indexed_v1"] += 1
         self.graph_requests.append(dict(kwargs))
         graph = _fl_r001_graph("output-contract-placeholder")
-        id_map = {node.id: f"node-{index}" for index, node in enumerate(graph.nodes)}
+        index_by_id = {node.id: index for index, node in enumerate(graph.nodes)}
         payload = {
-            "nodes": [
+            "n": [
                 {
-                    "id": id_map[node.id],
-                    "parent_node_id": (
-                        id_map[node.parent_node_id]
+                    "q": f"Research {node.node_type} factor {index} for this forecast?",
+                    "t": node.node_type,
+                    "w": node.importance_weight,
+                    "p": (
+                        index_by_id[node.parent_node_id]
                         if node.parent_node_id is not None
                         else None
                     ),
-                    "question": node.question,
-                    "node_type": node.node_type,
-                    "importance_weight": node.importance_weight,
-                    "dependencies": [id_map[item] for item in node.dependencies],
-                    "preferred_sources": node.preferred_sources,
-                    "required_output_type": node.required_output_type,
-                    "status": "pending",
+                    "d": [index_by_id[item] for item in node.dependencies],
+                    "s": node.preferred_sources,
+                    "o": node.required_output_type,
                 }
-                for node in graph.nodes
+                for index, node in enumerate(graph.nodes)
             ]
         }
         entry = self.ledger.reserve(
@@ -602,7 +600,7 @@ class _ReasoningHeavyCombinedModel(_FallbackPathModel):
             parsed=payload,
             usage=usage,
             diagnostics=StructuredOutputDiagnostics(
-                schema_name="forecast_graph",
+                schema_name="forecast_graph_compact_indexed_v1",
                 provider_request_id="rid-combined-offline",
                 finish_reason="stop",
                 requested_max_output_tokens=int(kwargs["max_output_tokens"]),

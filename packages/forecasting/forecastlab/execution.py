@@ -67,7 +67,16 @@ class ExecutionContext(BaseModel):
     graph_generation_max_visible_output_tokens: int | None = None
     graph_generation_reasoning_effort: str | None = None
     graph_generation_verbosity: str | None = None
+    graph_generation_transport: str | None = None
+    graph_generation_transport_max_characters: int | None = None
+    graph_generation_node_question_max_characters: int | None = None
+    graph_generation_local_id_max_characters: int | None = None
+    graph_generation_max_dependencies_per_node: int | None = None
+    graph_generation_max_preferred_sources_per_node: int | None = None
+    graph_generation_preferred_source_max_characters: int | None = None
     max_candidate_fetch_attempts_per_node: int | None = None
+    search_candidate_pool_per_node: int | None = None
+    prefer_distinct_candidate_hosts: bool = False
 
     planned_model_calls: int = 0
     planned_search_calls: int = 0
@@ -136,10 +145,35 @@ def preflight_cost_breakdown(context: ExecutionContext) -> dict[str, Any]:
             ),
             "reasoning_effort": context.graph_generation_reasoning_effort,
             "verbosity": context.graph_generation_verbosity,
+            "transport": context.graph_generation_transport,
+            "transport_max_characters": (
+                context.graph_generation_transport_max_characters
+            ),
+            "node_question_max_characters": (
+                context.graph_generation_node_question_max_characters
+            ),
+            "local_id_max_characters": (
+                context.graph_generation_local_id_max_characters
+            ),
+            "max_dependencies_per_node": (
+                context.graph_generation_max_dependencies_per_node
+            ),
+            "max_preferred_sources_per_node": (
+                context.graph_generation_max_preferred_sources_per_node
+            ),
+            "preferred_source_max_characters": (
+                context.graph_generation_preferred_source_max_characters
+            ),
         },
         "research": {
             "max_candidate_fetch_attempts_per_node": (
                 context.max_candidate_fetch_attempts_per_node
+            ),
+            "search_candidate_pool_per_node": (
+                context.search_candidate_pool_per_node
+            ),
+            "prefer_distinct_candidate_hosts": (
+                context.prefer_distinct_candidate_hosts
             ),
         },
     }
@@ -436,10 +470,34 @@ def _build_context(
             profile.graph_generation_reasoning_effort or "minimal"
         ),
         "graph_generation_verbosity": profile.graph_generation_verbosity,
+        "graph_generation_transport": profile.graph_generation_transport,
+        "graph_generation_transport_max_characters": (
+            profile.graph_generation_transport_max_characters
+        ),
+        "graph_generation_node_question_max_characters": (
+            profile.graph_generation_node_question_max_characters
+        ),
+        "graph_generation_local_id_max_characters": (
+            profile.graph_generation_local_id_max_characters
+        ),
+        "graph_generation_max_dependencies_per_node": (
+            profile.graph_generation_max_dependencies_per_node
+        ),
+        "graph_generation_max_preferred_sources_per_node": (
+            profile.graph_generation_max_preferred_sources_per_node
+        ),
+        "graph_generation_preferred_source_max_characters": (
+            profile.graph_generation_preferred_source_max_characters
+        ),
         "max_candidate_fetch_attempts_per_node": (
             profile.max_candidate_fetch_attempts_per_node
             or profile.fetches_per_subquestion
         ),
+        "search_candidate_pool_per_node": (
+            profile.search_candidate_pool_per_node
+            or profile.search_results_per_subquestion
+        ),
+        "prefer_distinct_candidate_hosts": profile.prefer_distinct_candidate_hosts,
         "synthetic_fixture_run": synthetic,
     }
     return ExecutionContext(
@@ -479,10 +537,34 @@ def _build_context(
             profile.graph_generation_reasoning_effort or "minimal"
         ),
         graph_generation_verbosity=profile.graph_generation_verbosity,
+        graph_generation_transport=profile.graph_generation_transport,
+        graph_generation_transport_max_characters=(
+            profile.graph_generation_transport_max_characters
+        ),
+        graph_generation_node_question_max_characters=(
+            profile.graph_generation_node_question_max_characters
+        ),
+        graph_generation_local_id_max_characters=(
+            profile.graph_generation_local_id_max_characters
+        ),
+        graph_generation_max_dependencies_per_node=(
+            profile.graph_generation_max_dependencies_per_node
+        ),
+        graph_generation_max_preferred_sources_per_node=(
+            profile.graph_generation_max_preferred_sources_per_node
+        ),
+        graph_generation_preferred_source_max_characters=(
+            profile.graph_generation_preferred_source_max_characters
+        ),
         max_candidate_fetch_attempts_per_node=(
             profile.max_candidate_fetch_attempts_per_node
             or profile.fetches_per_subquestion
         ),
+        search_candidate_pool_per_node=(
+            profile.search_candidate_pool_per_node
+            or profile.search_results_per_subquestion
+        ),
+        prefer_distinct_candidate_hosts=profile.prefer_distinct_candidate_hosts,
         planned_model_calls=workload["planned_model_calls"],
         planned_search_calls=workload["planned_search_calls"],
         planned_fetches=workload["planned_fetches"],

@@ -434,8 +434,14 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         assert body["reasoning_effort"] == "minimal"
         assert body["verbosity"] == "low"
         assert body["response_format"]["type"] == "json_schema"
-        assert body["response_format"]["json_schema"]["name"] == "forecast_graph"
+        assert (
+            body["response_format"]["json_schema"]["name"]
+            == "forecast_graph_compact_indexed_v1"
+        )
         assert body["response_format"]["json_schema"]["strict"] is True
+        assert set(
+            body["response_format"]["json_schema"]["schema"]["properties"]
+        ) == {"n"}
 
         entries = ledger.entries(run.id)
         assert len(entries) == 1

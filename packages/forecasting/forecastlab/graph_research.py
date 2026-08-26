@@ -23,7 +23,11 @@ from forecastlab.evidence_claims import (
 )
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider, SearchProvider
-from forecastlab.ranking import rank_hits
+from forecastlab.ranking import (
+    normalized_candidate_host,
+    rank_hits,
+    schedule_ranked_hits,
+)
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import EvidenceClaim, FetchedDocument, ForecastNode, ForecastProfile, SearchHit
 from forecastlab.timeutil import as_utc, utcnow
@@ -301,6 +305,8 @@ class GraphResearchExecutor:
         max_fetches_per_node: int | None = None,
         target_successful_documents_per_node: int | None = None,
         max_candidate_fetch_attempts_per_node: int | None = None,
+        search_candidate_pool_per_node: int | None = None,
+        prefer_distinct_candidate_hosts: bool | None = None,
         max_evidence_claims: int = 20,
         max_extraction_chars: int = 8000,
         research_plan_output_tokens: int = 1024,
@@ -360,6 +366,18 @@ class GraphResearchExecutor:
         # Compatibility alias for existing audits and direct helpers. It now
         # means the candidate URL attempt ceiling, not extraction documents.
         self.max_fetches_per_node = self.max_candidate_fetch_attempts_per_node
+        self.search_candidate_pool_per_node = max(
+            self.max_candidate_fetch_attempts_per_node,
+            search_candidate_pool_per_node
+            if search_candidate_pool_per_node is not None
+            else profile.search_candidate_pool_per_node
+            or profile.search_results_per_subquestion,
+        )
+        self.prefer_distinct_candidate_hosts = (
+            prefer_distinct_candidate_hosts
+            if prefer_distinct_candidate_hosts is not None
+            else profile.prefer_distinct_candidate_hosts
+        )
         self.max_evidence_claims = max(1, max_evidence_claims)
         self.max_extraction_chars = max(512, max_extraction_chars)
         self.research_plan_output_tokens = max(1, research_plan_output_tokens)
@@ -632,7 +650,7 @@ class GraphResearchExecutor:
                 hits = self.cache.search(
                     self.search,
                     query,
-                    self.profile.search_results_per_subquestion,
+                    self.search_candidate_pool_per_node,
                 )
             except (PermanentProviderError, TransientProviderError) as exc:
                 retrieval_errors.append(f"search:{exc.__class__.__name__}:{exc}")
@@ -683,15 +701,41 @@ class GraphResearchExecutor:
                 else None
             ),
         )
-        for candidate_rank, hit in enumerate(ranked_hits, start=1):
+        scheduled_hits = schedule_ranked_hits(
+            ranked_hits,
+            prefer_distinct_hosts=self.prefer_distinct_candidate_hosts,
+        )
+        returned_positions = {
+            canonical_url: position
+            for position, canonical_url in enumerate(hits_by_url, start=1)
+        }
+        ranked_positions = {
+            canonicalize_url(hit.url): position
+            for position, hit in enumerate(ranked_hits, start=1)
+        }
+        scheduled_positions = {
+            canonicalize_url(hit.url): position
+            for position, hit in enumerate(scheduled_hits, start=1)
+        }
+        blocked_hosts: set[str] = set()
+        skipped_blocked_urls: set[str] = set()
+        attempted_urls: set[str] = set()
+
+        def source_audit_for(hit: SearchHit) -> dict[str, Any]:
             canonical_url = canonicalize_url(hit.url)
-            snapshot_url = None
-            snapshot_at = None
-            source_audit: dict[str, Any] = {
+            ranked_position = ranked_positions[canonical_url]
+            scheduled_position = scheduled_positions[canonical_url]
+            return {
                 "url": hit.url,
                 "canonical_url": canonical_url,
+                "normalized_host": normalized_candidate_host(hit.url),
                 "title": hit.title,
-                "candidate_rank": candidate_rank,
+                "returned_position": returned_positions[canonical_url],
+                "candidate_rank": ranked_position,
+                "ranked_position": ranked_position,
+                "scheduled_position": scheduled_position,
+                "diversity_reordered": scheduled_position != ranked_position,
+                "candidate_pool_size": len(scheduled_hits),
                 "queries": _deduplicate_text(
                     queries_by_url.get(canonical_url, [])
                 ),
@@ -700,7 +744,11 @@ class GraphResearchExecutor:
                     None,
                 ),
                 "source_class": hit.source_class,
-                "backup_used": False,
+                "backup_used": scheduled_position > 1,
+                "actual_fetch_attempt": False,
+                "http_status": None,
+                "access_blocked_host": False,
+                "skipped_access_blocked_host": False,
                 "extraction_entered": False,
                 "claim_created": False,
                 "fetch_elapsed_ms": None,
@@ -713,12 +761,58 @@ class GraphResearchExecutor:
                     else None
                 ),
             }
+
+        def audit_blocked_host_alternates(
+            *,
+            blocked_host: str,
+            after_position: int,
+        ) -> None:
+            for alternate in scheduled_hits:
+                alternate_url = canonicalize_url(alternate.url)
+                if (
+                    scheduled_positions[alternate_url] <= after_position
+                    or alternate_url in attempted_urls
+                    or alternate_url in skipped_blocked_urls
+                    or normalized_candidate_host(alternate.url) != blocked_host
+                ):
+                    continue
+                skipped_audit = source_audit_for(alternate)
+                skipped_audit.update(
+                    outcome="skipped_access_blocked_host",
+                    failure_category="skipped_access_blocked_host",
+                    reason="skipped_access_blocked_host",
+                    access_blocked_host=True,
+                    skipped_access_blocked_host=True,
+                )
+                sources_checked.append(skipped_audit)
+                skipped_blocked_urls.add(alternate_url)
+
+        for hit in scheduled_hits:
+            canonical_url = canonicalize_url(hit.url)
+            if canonical_url in skipped_blocked_urls:
+                continue
+            snapshot_url = None
+            snapshot_at = None
+            source_audit = source_audit_for(hit)
+            candidate_host = str(source_audit["normalized_host"])
+            if candidate_host in blocked_hosts:
+                source_audit.update(
+                    outcome="skipped_access_blocked_host",
+                    failure_category="skipped_access_blocked_host",
+                    reason="skipped_access_blocked_host",
+                    access_blocked_host=True,
+                    skipped_access_blocked_host=True,
+                )
+                sources_checked.append(source_audit)
+                skipped_blocked_urls.add(canonical_url)
+                continue
             if fetch_attempts >= self.max_fetches_per_node:
                 break
-            source_audit["backup_used"] = candidate_rank > 1
             fetch_started = time.monotonic()
             self.budget.add_fetch(f"fetch_node:{node.id}")
             fetch_attempts += 1
+            attempted_urls.add(canonical_url)
+            source_audit["actual_fetch_attempt"] = True
             if self.mode == "backtest" and self.as_of is not None:
                 try:
                     if fixture_adapter is not None:
@@ -810,6 +904,7 @@ class GraphResearchExecutor:
                 (time.monotonic() - fetch_started) * 1000,
                 3,
             )
+            source_audit["http_status"] = document.status_code
 
             evidence_item_id = _stable_id("evidence", self.run_id, node.id, hit.url)
             record = _document_record(
@@ -833,6 +928,13 @@ class GraphResearchExecutor:
                     reason=document.rejection_reason or "document_not_as_of_eligible",
                 )
                 sources_checked.append(source_audit)
+                if document.status_code in {401, 403, 451}:
+                    source_audit["access_blocked_host"] = True
+                    blocked_hosts.add(candidate_host)
+                    audit_blocked_host_alternates(
+                        blocked_host=candidate_host,
+                        after_position=int(source_audit["scheduled_position"]),
+                    )
                 if source_audit["outcome"] == "retrieval_failure":
                     retrieval_errors.append(str(source_audit["reason"]))
                 continue

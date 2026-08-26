@@ -1,5 +1,5 @@
 id: graph_live_smoke_v1
-version: 2
+version: 3
 label: Graph live smoke V1
 description: Tightly bounded live execution profile that exercises the complete graph forecasting path. It is not an evaluation or production-quality profile.
 execution_strategy: graph_nodes
@@ -23,7 +23,16 @@ graph_generation_max_completion_tokens: 8192
 graph_generation_max_visible_output_tokens: 1536
 graph_generation_reasoning_effort: minimal
 graph_generation_verbosity: low
+graph_generation_transport: compact_indexed_v1
+graph_generation_transport_max_characters: 4200
+graph_generation_node_question_max_characters: 140
+graph_generation_local_id_max_characters: 16
+graph_generation_max_dependencies_per_node: 3
+graph_generation_max_preferred_sources_per_node: 2
+graph_generation_preferred_source_max_characters: 48
 max_candidate_fetch_attempts_per_node: 2
+search_candidate_pool_per_node: 5
+prefer_distinct_candidate_hosts: true
 max_estimated_cost_usd: 0.50
 max_wall_clock_seconds: 300
 prompt_versions:

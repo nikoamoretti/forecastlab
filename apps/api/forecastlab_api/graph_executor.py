@@ -133,6 +133,25 @@ class GraphForecastExecutor:
                     or "minimal"
                 ),
                 verbosity=self.profile.graph_generation_verbosity,
+                transport=self.profile.graph_generation_transport,
+                transport_max_characters=(
+                    self.profile.graph_generation_transport_max_characters
+                ),
+                node_question_max_characters=(
+                    self.profile.graph_generation_node_question_max_characters
+                ),
+                local_id_max_characters=(
+                    self.profile.graph_generation_local_id_max_characters
+                ),
+                max_dependencies_per_node=(
+                    self.profile.graph_generation_max_dependencies_per_node
+                ),
+                max_preferred_sources_per_node=(
+                    self.profile.graph_generation_max_preferred_sources_per_node
+                ),
+                preferred_source_max_characters=(
+                    self.profile.graph_generation_preferred_source_max_characters
+                ),
                 run_token_ceiling=self.profile.max_tokens,
                 reserved_follow_on_tokens=(
                     MINIMUM_SUCCESSFUL_NODES
@@ -347,6 +366,7 @@ class GraphForecastExecutor:
                 self.profile.graph_generation_max_visible_output_tokens,
                 self.profile.graph_generation_reasoning_effort,
                 self.profile.graph_generation_verbosity,
+                self.profile.graph_generation_transport,
             )
         )
         supports_explicit_graph_controls = bool(
