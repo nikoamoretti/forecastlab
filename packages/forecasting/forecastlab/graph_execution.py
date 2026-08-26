@@ -358,7 +358,13 @@ def run_graph_node_forecasts(
             as_of=as_of,
             allow_local_fixtures=allow_local_fixtures,
             max_queries_per_node=int(allocation["searches"]),
-            max_fetches_per_node=int(allocation["fetches"]),
+            max_fetches_per_node=int(allocation["candidate_fetch_attempts"]),
+            target_successful_documents_per_node=int(
+                allocation["target_successful_documents"]
+            ),
+            max_candidate_fetch_attempts_per_node=int(
+                allocation["candidate_fetch_attempts"]
+            ),
             max_evidence_claims=int(allocation["max_evidence_claims"]),
             max_extraction_chars=int(allocation["evidence_document_max_chars"]),
             research_plan_output_tokens=int(

@@ -176,6 +176,18 @@ class Budget:
                 "max_estimated_cost_usd": self.profile.max_estimated_cost_usd,
                 "max_wall_clock_seconds": self.profile.max_wall_clock_seconds,
                 "max_output_tokens_per_call": self.profile.max_output_tokens_per_call,
+                "graph_generation_max_completion_tokens": (
+                    self.profile.graph_generation_max_completion_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                "graph_generation_max_visible_output_tokens": (
+                    self.profile.graph_generation_max_visible_output_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                "max_candidate_fetch_attempts_per_node": (
+                    self.profile.max_candidate_fetch_attempts_per_node
+                    or self.profile.fetches_per_subquestion
+                ),
             }
         if self.profile.execution_strategy == "single_model":
             searches = 1 if self.profile.max_search_calls > 0 else 0

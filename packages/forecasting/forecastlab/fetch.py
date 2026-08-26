@@ -25,6 +25,21 @@ FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "sources"
 MAX_BYTES = 2_000_000
 FETCH_TIMEOUT = 20.0
 
+_ACCESS_WALL_TITLE_MARKERS = {
+    "access denied",
+    "attention required",
+    "just a moment",
+    "request access",
+    "verify you are human",
+}
+_ACCESS_WALL_BODY_MARKERS = (
+    "captcha",
+    "complete the security check",
+    "enable javascript and cookies to continue",
+    "press and hold to confirm you are a human",
+    "verify you are human",
+)
+
 FIXTURE_PAGES: dict[str, str] = {
     "https://fixtures.forecastlab.local/bls-employment-situation": "bls-employment-situation.html",
     "https://fixtures.forecastlab.local/fred-unrate": "fred-unrate.html",
@@ -48,6 +63,26 @@ class DocumentDateMetadata:
     publication_date_verified: bool = False
     modified_at: datetime | None = None
     modified_date_source: str | None = None
+
+
+def _access_wall_reason(text: str, title: str | None) -> str | None:
+    normalized_title = " ".join((title or "").casefold().split())
+    normalized_body = " ".join(text[:6000].casefold().split())
+    if normalized_title in _ACCESS_WALL_TITLE_MARKERS:
+        return "access_wall_or_challenge"
+    if any(marker in normalized_body for marker in _ACCESS_WALL_BODY_MARKERS):
+        return "access_wall_or_challenge"
+    if (
+        len(normalized_body) < 2500
+        and "request access" in normalized_body
+        and (
+            "access to this page" in normalized_body
+            or "automated access" in normalized_body
+            or "temporarily unavailable" in normalized_body
+        )
+    ):
+        return "access_wall_or_challenge"
+    return None
 
 
 class _DateMetadataParser(HTMLParser):
@@ -516,6 +551,23 @@ def fetch_document(
         raw = data.decode("utf-8", errors="replace")
         text, title = _extract_html(raw, url)
         metadata = _date_metadata_from_html(raw)
+
+    access_wall_reason = _access_wall_reason(text, title)
+    if access_wall_reason is not None:
+        return _rejected(
+            url,
+            access_wall_reason,
+            now=now,
+            snapshot_url=snapshot_url,
+            snapshot_at=snapshot_at,
+            requested_snapshot_url=snapshot_url,
+            requested_snapshot_at=snapshot_at,
+            final_snapshot_url=final_url,
+            final_snapshot_at=final_at,
+            archived_original_url=archived_original,
+            snapshot_verification_status=verification_status,
+            status_code=response.status_code,
+        )
 
     metadata, retained_hint, default_hint_source = _with_search_hint(
         metadata,

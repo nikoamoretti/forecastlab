@@ -63,6 +63,11 @@ class ExecutionContext(BaseModel):
     effective_max_search_calls: int
     effective_max_fetched_documents: int
     effective_max_wall_clock_seconds: int
+    graph_generation_max_completion_tokens: int | None = None
+    graph_generation_max_visible_output_tokens: int | None = None
+    graph_generation_reasoning_effort: str | None = None
+    graph_generation_verbosity: str | None = None
+    max_candidate_fetch_attempts_per_node: int | None = None
 
     planned_model_calls: int = 0
     planned_search_calls: int = 0
@@ -122,6 +127,21 @@ def preflight_cost_breakdown(context: ExecutionContext) -> dict[str, Any]:
             context.cost_estimate_unavailable_reasons
         ),
         "estimate_exceeds_ceiling": context.estimate_exceeds_ceiling,
+        "graph_generation": {
+            "max_completion_tokens": (
+                context.graph_generation_max_completion_tokens
+            ),
+            "max_visible_output_tokens": (
+                context.graph_generation_max_visible_output_tokens
+            ),
+            "reasoning_effort": context.graph_generation_reasoning_effort,
+            "verbosity": context.graph_generation_verbosity,
+        },
+        "research": {
+            "max_candidate_fetch_attempts_per_node": (
+                context.max_candidate_fetch_attempts_per_node
+            ),
+        },
     }
 
 
@@ -404,6 +424,22 @@ def _build_context(
         "effective_max_model_calls": profile.max_model_calls,
         "effective_max_search_calls": profile.max_search_calls,
         "effective_max_fetched_documents": profile.max_fetched_documents,
+        "graph_generation_max_completion_tokens": (
+            profile.graph_generation_max_completion_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        "graph_generation_max_visible_output_tokens": (
+            profile.graph_generation_max_visible_output_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        "graph_generation_reasoning_effort": (
+            profile.graph_generation_reasoning_effort or "minimal"
+        ),
+        "graph_generation_verbosity": profile.graph_generation_verbosity,
+        "max_candidate_fetch_attempts_per_node": (
+            profile.max_candidate_fetch_attempts_per_node
+            or profile.fetches_per_subquestion
+        ),
         "synthetic_fixture_run": synthetic,
     }
     return ExecutionContext(
@@ -431,6 +467,22 @@ def _build_context(
         effective_max_search_calls=profile.max_search_calls,
         effective_max_fetched_documents=profile.max_fetched_documents,
         effective_max_wall_clock_seconds=profile.max_wall_clock_seconds,
+        graph_generation_max_completion_tokens=(
+            profile.graph_generation_max_completion_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        graph_generation_max_visible_output_tokens=(
+            profile.graph_generation_max_visible_output_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        graph_generation_reasoning_effort=(
+            profile.graph_generation_reasoning_effort or "minimal"
+        ),
+        graph_generation_verbosity=profile.graph_generation_verbosity,
+        max_candidate_fetch_attempts_per_node=(
+            profile.max_candidate_fetch_attempts_per_node
+            or profile.fetches_per_subquestion
+        ),
         planned_model_calls=workload["planned_model_calls"],
         planned_search_calls=workload["planned_search_calls"],
         planned_fetches=workload["planned_fetches"],

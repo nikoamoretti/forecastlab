@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -28,6 +29,7 @@ from forecastlab.schemas import EvidenceClaim, FetchedDocument, ForecastNode, Fo
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import (
     WaybackSnapshot,
+    canonicalize_url,
     discover_snapshots,
     mock_snapshots,
     nearest_eligible_snapshot,
@@ -297,6 +299,8 @@ class GraphResearchExecutor:
         allow_local_fixtures: bool,
         max_queries_per_node: int | None = None,
         max_fetches_per_node: int | None = None,
+        target_successful_documents_per_node: int | None = None,
+        max_candidate_fetch_attempts_per_node: int | None = None,
         max_evidence_claims: int = 20,
         max_extraction_chars: int = 8000,
         research_plan_output_tokens: int = 1024,
@@ -326,7 +330,7 @@ class GraphResearchExecutor:
                 else profile.max_search_calls,
             ),
         )
-        self.max_fetches_per_node = max(
+        legacy_fetch_limit = max(
             1,
             min(
                 profile.max_fetched_documents,
@@ -335,6 +339,27 @@ class GraphResearchExecutor:
                 else profile.max_fetched_documents,
             ),
         )
+        self.target_successful_documents_per_node = max(
+            1,
+            min(
+                profile.fetches_per_subquestion,
+                target_successful_documents_per_node
+                if target_successful_documents_per_node is not None
+                else legacy_fetch_limit,
+            ),
+        )
+        self.max_candidate_fetch_attempts_per_node = max(
+            self.target_successful_documents_per_node,
+            min(
+                profile.max_fetched_documents,
+                max_candidate_fetch_attempts_per_node
+                if max_candidate_fetch_attempts_per_node is not None
+                else legacy_fetch_limit,
+            ),
+        )
+        # Compatibility alias for existing audits and direct helpers. It now
+        # means the candidate URL attempt ceiling, not extraction documents.
+        self.max_fetches_per_node = self.max_candidate_fetch_attempts_per_node
         self.max_evidence_claims = max(1, max_evidence_claims)
         self.max_extraction_chars = max(512, max_extraction_chars)
         self.research_plan_output_tokens = max(1, research_plan_output_tokens)
@@ -343,18 +368,24 @@ class GraphResearchExecutor:
             evidence_extraction_output_tokens,
         )
         self.enable_extraction_fallbacks = enable_extraction_fallbacks
+        default_extraction_documents = (
+            self.target_successful_documents_per_node
+            if target_successful_documents_per_node is not None
+            or profile.max_candidate_fetch_attempts_per_node is not None
+            else self.max_candidate_fetch_attempts_per_node
+        )
         self._planned_model_calls = {
             "research_plan": max(0, max_research_plan_model_calls),
             "primary_extraction": max(
                 0,
-                self.max_fetches_per_node
+                default_extraction_documents
                 if max_primary_extraction_calls is None
                 else max_primary_extraction_calls,
             ),
             "extraction_retry": max(
                 0,
                 (
-                    self.max_fetches_per_node
+                    default_extraction_documents
                     if enable_extraction_fallbacks
                     else 0
                 )
@@ -569,10 +600,24 @@ class GraphResearchExecutor:
             else None
         )
         plan, planning_warnings = self._generate_plan(node)
+        preferred_source = plan.preferred_sources[0] if plan.preferred_sources else ""
+        qualified_primary_query = plan.primary_research_question
+        if (
+            self.profile.max_candidate_fetch_attempts_per_node is not None
+            and preferred_source
+            and preferred_source.casefold()
+            not in qualified_primary_query.casefold()
+        ):
+            qualified_primary_query = (
+                f"{qualified_primary_query} {preferred_source}"
+            )
         queries = _deduplicate_text(
             [
                 _cutoff_query(query, mode=self.mode, as_of=self.as_of)
-                for query in plan.supporting_search_queries
+                for query in [
+                    qualified_primary_query,
+                    *plan.supporting_search_queries,
+                ]
             ],
             limit=self.max_queries_per_node,
         )
@@ -593,8 +638,9 @@ class GraphResearchExecutor:
                 retrieval_errors.append(f"search:{exc.__class__.__name__}:{exc}")
                 continue
             for hit in hits:
-                hits_by_url.setdefault(hit.url, hit)
-                queries_by_url.setdefault(hit.url, []).append(query)
+                canonical_url = canonicalize_url(hit.url)
+                hits_by_url.setdefault(canonical_url, hit)
+                queries_by_url.setdefault(canonical_url, []).append(query)
 
         if not hits_by_url:
             code: GraphResearchFailureCode = (
@@ -616,22 +662,48 @@ class GraphResearchExecutor:
         extraction_errors: list[str] = []
         successful_documents = 0
         fetch_attempts = 0
-        target_documents = max(
-            1,
-            min(
-                self.profile.fetches_per_subquestion,
-                self.max_fetches_per_node,
-            ),
+        target_documents = self.target_successful_documents_per_node
+        single_extraction_document_path = bool(
+            self.profile.max_candidate_fetch_attempts_per_node is not None
+            and target_documents == 1
         )
 
-        for hit in rank_hits(list(hits_by_url.values())):
+        ranked_hits = rank_hits(
+            list(hits_by_url.values()),
+            preferred_sources=(
+                plan.preferred_sources
+                if self.profile.max_candidate_fetch_attempts_per_node
+                is not None
+                else None
+            ),
+            node_question=(
+                node.question
+                if self.profile.max_candidate_fetch_attempts_per_node
+                is not None
+                else None
+            ),
+        )
+        for candidate_rank, hit in enumerate(ranked_hits, start=1):
+            canonical_url = canonicalize_url(hit.url)
             snapshot_url = None
             snapshot_at = None
             source_audit: dict[str, Any] = {
                 "url": hit.url,
+                "canonical_url": canonical_url,
                 "title": hit.title,
-                "queries": _deduplicate_text(queries_by_url.get(hit.url, [])),
+                "candidate_rank": candidate_rank,
+                "queries": _deduplicate_text(
+                    queries_by_url.get(canonical_url, [])
+                ),
+                "selected_query": next(
+                    iter(queries_by_url.get(canonical_url, [])),
+                    None,
+                ),
                 "source_class": hit.source_class,
+                "backup_used": False,
+                "extraction_entered": False,
+                "claim_created": False,
+                "fetch_elapsed_ms": None,
                 "publication_date_hint": (
                     hit.published_at.isoformat() if hit.published_at else None
                 ),
@@ -641,6 +713,12 @@ class GraphResearchExecutor:
                     else None
                 ),
             }
+            if fetch_attempts >= self.max_fetches_per_node:
+                break
+            source_audit["backup_used"] = candidate_rank > 1
+            fetch_started = time.monotonic()
+            self.budget.add_fetch(f"fetch_node:{node.id}")
+            fetch_attempts += 1
             if self.mode == "backtest" and self.as_of is not None:
                 try:
                     if fixture_adapter is not None:
@@ -655,8 +733,15 @@ class GraphResearchExecutor:
                             else discover_snapshots(hit.url, as_of=self.as_of)
                         )
                 except Exception as exc:
+                    source_audit["fetch_elapsed_ms"] = round(
+                        (time.monotonic() - fetch_started) * 1000,
+                        3,
+                    )
                     source_audit.update(
                         outcome="retrieval_failure",
+                        failure_category=(
+                            f"snapshot_discovery:{exc.__class__.__name__}"
+                        ),
                         reason=f"snapshot_discovery:{exc.__class__.__name__}",
                     )
                     sources_checked.append(source_audit)
@@ -668,17 +753,18 @@ class GraphResearchExecutor:
                     rejected.append(record)
                     source_audit.update(
                         outcome="cutoff_rejection",
+                        failure_category="no_eligible_historical_snapshot",
                         reason="no_eligible_historical_snapshot",
+                        fetch_elapsed_ms=round(
+                            (time.monotonic() - fetch_started) * 1000,
+                            3,
+                        ),
                     )
                     sources_checked.append(source_audit)
                     continue
                 snapshot_url = nearest.snapshot_url
                 snapshot_at = nearest.timestamp
 
-            if fetch_attempts >= self.max_fetches_per_node:
-                break
-            self.budget.add_fetch(f"fetch_node:{node.id}")
-            fetch_attempts += 1
             try:
                 if fixture_adapter is not None:
                     document = fixture_adapter.fetch_fixture_document(
@@ -707,13 +793,23 @@ class GraphResearchExecutor:
             except BudgetExceeded:
                 raise
             except Exception as exc:
+                source_audit["fetch_elapsed_ms"] = round(
+                    (time.monotonic() - fetch_started) * 1000,
+                    3,
+                )
                 source_audit.update(
                     outcome="retrieval_failure",
+                    failure_category=f"fetch:{exc.__class__.__name__}",
                     reason=f"fetch:{exc.__class__.__name__}",
                 )
                 sources_checked.append(source_audit)
                 retrieval_errors.append(str(source_audit["reason"]))
                 continue
+
+            source_audit["fetch_elapsed_ms"] = round(
+                (time.monotonic() - fetch_started) * 1000,
+                3,
+            )
 
             evidence_item_id = _stable_id("evidence", self.run_id, node.id, hit.url)
             record = _document_record(
@@ -730,6 +826,10 @@ class GraphResearchExecutor:
                         if _is_cutoff_reason(document.rejection_reason)
                         else "retrieval_failure"
                     ),
+                    failure_category=(
+                        document.rejection_reason
+                        or "document_not_as_of_eligible"
+                    ),
                     reason=document.rejection_reason or "document_not_as_of_eligible",
                 )
                 sources_checked.append(source_audit)
@@ -738,6 +838,7 @@ class GraphResearchExecutor:
                 continue
 
             evidence.append(record)
+            source_audit["extraction_entered"] = True
             extraction_document = document.model_copy(
                 update={"text": document.text[: self.max_extraction_chars]}
             )
@@ -756,9 +857,12 @@ class GraphResearchExecutor:
             if not extracted:
                 source_audit.update(
                     outcome="extraction_failure",
+                    failure_category="extraction_failure",
                     reason=",".join(attempt_errors),
                 )
                 sources_checked.append(source_audit)
+                if single_extraction_document_path:
+                    break
                 continue
             remaining_claims = self.max_evidence_claims - len(claims)
             eligible = eligible_claims_for_forecasting(
@@ -770,9 +874,12 @@ class GraphResearchExecutor:
                 extraction_errors.append("no_eligible_claims_extracted")
                 source_audit.update(
                     outcome="extraction_failure",
+                    failure_category="no_eligible_claims_extracted",
                     reason="no_eligible_claims_extracted",
                 )
                 sources_checked.append(source_audit)
+                if single_extraction_document_path:
+                    break
                 continue
             claims.extend(
                 claim.model_copy(
@@ -793,6 +900,7 @@ class GraphResearchExecutor:
             successful_documents += 1
             source_audit.update(
                 outcome=extraction_outcome,
+                claim_created=True,
                 reason=(
                     ",".join(attempt_errors)
                     if extraction_outcome != "claims_created"

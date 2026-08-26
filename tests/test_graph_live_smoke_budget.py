@@ -32,7 +32,7 @@ from forecastlab_api.models import (
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
 GRAPH_PROFILE_SHA256 = "acdbb378b6c5afbd5c82e9085c7be92043b9057f3a7f5842d73a1cdd80f0f6d7"
-SMOKE_PROFILE_SHA256 = "228da3e7273f03765fe7a3b6139eef371d9acf14bee70e656d05f9f8fc1c81dd"
+SMOKE_PROFILE_SHA256 = "adfc0b3173e5e1617debc2dfb3412324b366d871a8f258ef02826c1364acd2e2"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
     "model_name": "gpt-5-mini-2025-08-07",
@@ -68,7 +68,7 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     graph = load_profile("graph_forecaster_v1")
 
     assert smoke.id == SMOKE_PROFILE_ID
-    assert smoke.version == 1
+    assert smoke.version == 2
     assert smoke.execution_strategy == "graph_nodes"
     assert smoke.graph_generation_enabled is True
     assert smoke.evidence_claims_enabled is True
@@ -76,12 +76,30 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert smoke.graph_aggregation_enabled is True
     assert smoke.aggregation_method == graph.aggregation_method
     assert smoke.prompt_versions == graph.prompt_versions
+    assert graph.graph_generation_max_completion_tokens is None
+    assert graph.graph_generation_max_visible_output_tokens is None
+    assert graph.graph_generation_reasoning_effort is None
+    assert graph.graph_generation_verbosity is None
+    assert graph.max_candidate_fetch_attempts_per_node is None
     assert {
         "max_model_calls": smoke.max_model_calls,
         "max_search_calls": smoke.max_search_calls,
         "max_fetched_documents": smoke.max_fetched_documents,
         "max_tokens": smoke.max_tokens,
         "max_output_tokens_per_call": smoke.max_output_tokens_per_call,
+        "graph_generation_max_completion_tokens": (
+            smoke.graph_generation_max_completion_tokens
+        ),
+        "graph_generation_max_visible_output_tokens": (
+            smoke.graph_generation_max_visible_output_tokens
+        ),
+        "graph_generation_reasoning_effort": (
+            smoke.graph_generation_reasoning_effort
+        ),
+        "graph_generation_verbosity": smoke.graph_generation_verbosity,
+        "max_candidate_fetch_attempts_per_node": (
+            smoke.max_candidate_fetch_attempts_per_node
+        ),
         "max_estimated_cost_usd": smoke.max_estimated_cost_usd,
         "max_wall_clock_seconds": smoke.max_wall_clock_seconds,
     } == {
@@ -90,6 +108,11 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
         "max_fetched_documents": 8,
         "max_tokens": 50_000,
         "max_output_tokens_per_call": 1_536,
+        "graph_generation_max_completion_tokens": 8_192,
+        "graph_generation_max_visible_output_tokens": 1_536,
+        "graph_generation_reasoning_effort": "minimal",
+        "graph_generation_verbosity": "low",
+        "max_candidate_fetch_attempts_per_node": 2,
         "max_estimated_cost_usd": 0.50,
         "max_wall_clock_seconds": 300,
     }
@@ -102,7 +125,7 @@ def test_graph_forecaster_profile_is_byte_for_byte_unchanged() -> None:
     assert digest == GRAPH_PROFILE_SHA256
 
 
-def test_graph_live_smoke_profile_is_byte_for_byte_unchanged() -> None:
+def test_graph_live_smoke_profile_matches_intentional_v2_bytes() -> None:
     digest = hashlib.sha256(
         (PROFILES_DIR / "graph_live_smoke_v1.yaml").read_bytes()
     ).hexdigest()
@@ -132,6 +155,11 @@ def test_live_smoke_preflight_includes_model_and_search_cost_and_passes_at_fifty
     assert context.search_is_mock is False
     assert context.fixture_evidence_allowed is False
     assert context.synthetic_fixture_run is False
+    assert context.graph_generation_max_completion_tokens == 8_192
+    assert context.graph_generation_max_visible_output_tokens == 1_536
+    assert context.graph_generation_reasoning_effort == "minimal"
+    assert context.graph_generation_verbosity == "low"
+    assert context.max_candidate_fetch_attempts_per_node == 2
 
 
 def test_execution_preview_exposes_the_cost_breakdown(client) -> None:

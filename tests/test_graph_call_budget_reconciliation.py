@@ -13,12 +13,12 @@ import pytest
 from sqlalchemy import select
 
 from forecastlab.budget import Budget
-from forecastlab.errors import BudgetExceeded
+from forecastlab.errors import BudgetExceeded, GraphForecastExecutionError
 from forecastlab.execution import resolve_execution_context
 from forecastlab.hashing import content_hash
 from forecastlab.ledger import InMemoryUsageLedger
 from forecastlab.profiles import load_profile
-from forecastlab.providers.base import ChatResult
+from forecastlab.providers.base import ChatResult, StructuredOutputDiagnostics
 from forecastlab.research_planning import (
     PLANNER_VERSION,
     ResearchPlanner,
@@ -41,6 +41,7 @@ from forecastlab_api.models import (
     EvidenceItem,
     ForecastAggregationRow,
     ForecastContractRow,
+    ForecastGraphRow,
     ForecastNodeRunRow,
     ForecastRun,
     ForecastVersion,
@@ -196,7 +197,7 @@ def _plan_after_fl_r001_graph_generation(
     )
 
 
-def test_planner_v2_call_envelope_includes_one_bounded_retry() -> None:
+def test_planner_v3_separates_candidate_attempts_from_extraction_targets() -> None:
     plan = _plan_after_fl_r001_graph_generation()
     allocation = plan.budget_allocation
 
@@ -206,6 +207,13 @@ def test_planner_v2_call_envelope_includes_one_bounded_retry() -> None:
     assert allocation["extraction_retry_calls_per_node"] == 1
     assert allocation["node_forecast_calls_per_node"] == 1
     assert allocation["total_model_calls_per_node"] == 4
+    assert allocation["target_successful_documents_per_node"] == 1
+    assert allocation["max_candidate_fetch_attempts_per_node"] == 2
+    assert allocation["planned_target_successful_documents"] == 3
+    assert allocation["planned_candidate_fetch_attempts"] == 6
+    assert allocation["allocated_searches_per_node"] == 1
+    assert allocation["graph_generation_max_completion_tokens"] == 8192
+    assert allocation["graph_generation_max_visible_output_tokens"] == 1536
 
 
 def test_planner_call_envelope_is_three_when_retries_are_disabled() -> None:
@@ -512,15 +520,110 @@ class _ExternalStubSearch:
         with self._lock:
             self.calls += 1
         suffix = hashlib.sha256(query.encode("utf-8")).hexdigest()[:16]
+        primary_kind = "timeout-primary" if "adversarial" in query.casefold() else "primary"
         return [
             SearchHit(
                 title=f"External undated source {suffix}",
-                url=f"https://evidence.example.org/{suffix}",
+                url=f"https://evidence.example.org/{suffix}/{primary_kind}",
                 snippet="Current external source with no publication metadata.",
+                score=2.0,
+                source_class="primary",
+            ),
+            SearchHit(
+                title=f"External backup source {suffix}",
+                url=f"https://evidence.example.org/{suffix}/backup",
+                snippet="Backup current external source.",
                 score=1.0,
                 source_class="primary",
-            )
+            ),
         ][:max_results]
+
+
+class _ReasoningHeavyCombinedModel(_FallbackPathModel):
+    def __init__(self, ledger: InMemoryUsageLedger, run_id: str) -> None:
+        super().__init__()
+        self.ledger = ledger
+        self.run_id = run_id
+        self.graph_requests: list[dict[str, Any]] = []
+
+    def complete_json(self, **kwargs: Any) -> ChatResult:
+        if kwargs["schema_name"] != "forecast_graph":
+            return super().complete_json(**kwargs)
+        with self._lock:
+            self.calls["forecast_graph"] += 1
+        self.graph_requests.append(dict(kwargs))
+        graph = _fl_r001_graph("output-contract-placeholder")
+        id_map = {node.id: f"node-{index}" for index, node in enumerate(graph.nodes)}
+        payload = {
+            "nodes": [
+                {
+                    "id": id_map[node.id],
+                    "parent_node_id": (
+                        id_map[node.parent_node_id]
+                        if node.parent_node_id is not None
+                        else None
+                    ),
+                    "question": node.question,
+                    "node_type": node.node_type,
+                    "importance_weight": node.importance_weight,
+                    "dependencies": [id_map[item] for item in node.dependencies],
+                    "preferred_sources": node.preferred_sources,
+                    "required_output_type": node.required_output_type,
+                    "status": "pending",
+                }
+                for node in graph.nodes
+            ]
+        }
+        entry = self.ledger.reserve(
+            run_id=self.run_id,
+            run_attempt_id=None,
+            logical_call_id="reasoning-heavy-graph-generation",
+            physical_attempt_number=1,
+            stage="forecast_graph",
+            provider_type="model",
+            provider="openai",
+            model=self.model,
+            reserved_input_tokens=int(kwargs["estimated_input_tokens"]),
+            reserved_output_tokens=int(kwargs["max_completion_tokens"]),
+            reserved_cost_usd=0.08,
+        )
+        usage = ModelUsage(
+            prompt_tokens=854,
+            completion_tokens=2_300,
+            cost_usd=0.04,
+            model=self.model,
+            provider=self.name,
+            cost_source="provider_reported",
+        )
+        self.ledger.reconcile(entry.id, usage)
+        content = json.dumps(payload)
+        return ChatResult(
+            content=content,
+            parsed=payload,
+            usage=usage,
+            diagnostics=StructuredOutputDiagnostics(
+                schema_name="forecast_graph",
+                provider_request_id="rid-combined-offline",
+                finish_reason="stop",
+                requested_max_output_tokens=int(kwargs["max_output_tokens"]),
+                requested_max_completion_tokens=int(
+                    kwargs["max_completion_tokens"]
+                ),
+                requested_max_visible_output_tokens=int(
+                    kwargs["max_visible_output_tokens"]
+                ),
+                reasoning_effort=str(kwargs["reasoning_effort"]),
+                verbosity=str(kwargs["verbosity"]),
+                completion_tokens=2_300,
+                reasoning_tokens=1_700,
+                visible_output_tokens=600,
+                token_split_available=True,
+                token_split_interpretation="provider_reported_reasoning_split",
+                content_character_count=len(content),
+                json_parsing_succeeded=True,
+                strict_schema_validation_succeeded=True,
+            ),
+        )
 
 
 def _approved_contract(client) -> dict[str, Any]:
@@ -554,6 +657,24 @@ def test_fl_r001_full_fallback_regression_reaches_forecast_version(
     def stub_external_fetch(url: str, **_kwargs: Any) -> FetchedDocument:
         fetch_calls["count"] += 1
         observed_at = utcnow()
+        if url.endswith("/timeout-primary"):
+            return FetchedDocument(
+                url=url,
+                title="Timed out external source",
+                publisher="evidence.example.org",
+                published_at=None,
+                publication_date_verified=False,
+                published_at_unknown=True,
+                retrieved_at=observed_at,
+                source_available_at=observed_at,
+                temporal_basis="retrieval_date",
+                text="",
+                content_hash="",
+                snapshot_verification_status="live",
+                rejected=True,
+                rejection_reason="fetch_error:ReadTimeout",
+                as_of_eligible=False,
+            )
         text = (
             "The official external source reports a directly observed labor-market "
             "indicator relevant to this forecast node. "
@@ -681,6 +802,9 @@ def test_fl_r001_full_fallback_regression_reaches_forecast_version(
             .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
             .where(EvidenceItem.run_id == run.id)
         ).all()
+        evidence_items = session.scalars(
+            select(EvidenceItem).where(EvidenceItem.run_id == run.id)
+        ).all()
         node_runs = session.scalars(
             select(ForecastNodeRunRow).where(
                 ForecastNodeRunRow.forecast_run_id == run.id
@@ -704,6 +828,17 @@ def test_fl_r001_full_fallback_regression_reaches_forecast_version(
         assert plan.budget_allocation["planned_total_model_calls"] == 12
         assert plan.budget_allocation["reserved_node_forecast_calls"] == 3
         assert len(claims) == 3
+        timed_out_items = [
+            item
+            for item in evidence_items
+            if item.rejection_reason == "fetch_error:ReadTimeout"
+        ]
+        assert len(timed_out_items) == 1
+        assert timed_out_items[0].rejected is True
+        assert all(
+            claim.evidence_item_id != timed_out_items[0].id
+            for claim in claims
+        )
         assert len(node_runs) == 3
         assert aggregation is not None
         assert stored_version is not None
@@ -713,7 +848,7 @@ def test_fl_r001_full_fallback_regression_reaches_forecast_version(
         envelope = budget["model_call_envelope"]
         assert budget["model_calls"] == 13
         assert budget["search_calls"] == 3
-        assert budget["fetches"] == 3
+        assert budget["fetches"] == 4
         assert envelope["baseline_model_calls"] == 1
         assert envelope["used_calls_by_kind"] == {
             "research_plan": 3,
@@ -732,5 +867,323 @@ def test_fl_r001_full_fallback_regression_reaches_forecast_version(
         )
         assert sum(model.calls.values()) + 1 == 13
         assert search.calls == 3
-        assert fetch_calls["count"] == 3
+        assert fetch_calls["count"] == 4
+        context_snapshot = json.loads(stored_run.execution_context_json)
+        research_audit = context_snapshot["graph_research_audit"]
+        checked = [
+            source
+            for node_audit in research_audit
+            for source in node_audit["sources_checked"]
+        ]
+        timeout = next(
+            source
+            for source in checked
+            if source.get("failure_category") == "fetch_error:ReadTimeout"
+        )
+        backup = next(
+            source
+            for source in checked
+            if source.get("backup_used") and source.get("claim_created")
+        )
+        assert timeout["extraction_entered"] is False
+        assert timeout["claim_created"] is False
+        assert backup["candidate_rank"] == 2
+        assert backup["extraction_entered"] is True
+        assert all(source.get("canonical_url") for source in checked)
         assert provider_http_calls["count"] == 0
+
+
+def test_two_failed_candidates_leave_two_node_forecasts_and_no_probability(
+    client,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    draft = _approved_contract(client)
+    profile = load_profile(SMOKE_PROFILE_ID)
+    execution = resolve_execution_context(
+        requested_mode="live",
+        profile_id=SMOKE_PROFILE_ID,
+        settings={
+            "model_provider": "openai",
+            "model_name": MODEL_NAME,
+            "model_api_key": "test-key-never-sent",
+            "search_provider": "tavily",
+            "search_api_key": "test-key-never-sent",
+            "max_cost_usd": 0.50,
+        },
+    )
+
+    class TwoCandidateSearch(_ExternalStubSearch):
+        def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]:
+            with self._lock:
+                self.calls += 1
+            suffix = hashlib.sha256(query.encode("utf-8")).hexdigest()[:16]
+            failure_node = "first-released" in query.casefold()
+            return [
+                SearchHit(
+                    title=f"Candidate {index} {suffix}",
+                    url=(
+                        f"https://evidence.example.org/{suffix}/fail-{index}"
+                        if failure_node
+                        else f"https://evidence.example.org/{suffix}/ok-{index}"
+                    ),
+                    snippet="Sanitized candidate source.",
+                    score=2.0 - index * 0.1,
+                    source_class="primary",
+                )
+                for index in (1, 2)
+            ][:max_results]
+
+    fetch_calls: list[str] = []
+
+    def stub_external_fetch(url: str, **_kwargs: Any) -> FetchedDocument:
+        fetch_calls.append(url)
+        observed_at = utcnow()
+        failed = "/fail-" in url
+        text = (
+            "The official source reports a directly observed indicator relevant "
+            "to this selected forecast node. "
+        ) * 160
+        return FetchedDocument(
+            url=url,
+            title="Candidate external source",
+            publisher="External Official Agency",
+            published_at=None,
+            publication_date_source=None,
+            publication_date_verified=False,
+            published_at_unknown=True,
+            retrieved_at=observed_at,
+            source_available_at=observed_at,
+            temporal_basis="retrieval_date",
+            text="" if failed else text,
+            content_hash="" if failed else content_hash(text),
+            snapshot_verification_status="live",
+            rejected=failed,
+            rejection_reason="fetch_error:ReadTimeout" if failed else None,
+            as_of_eligible=not failed,
+        )
+
+    monkeypatch.setattr("forecastlab.run_cache.fetch_document", stub_external_fetch)
+    model = _FallbackPathModel()
+    search = TwoCandidateSearch()
+
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        question = session.get(Question, str(draft["question_id"]))
+        contract_row = session.get(ForecastContractRow, str(draft["id"]))
+        assert question is not None
+        assert contract_row is not None
+        contract = forecast_contract_from_row(contract_row)
+        graph = _fl_r001_graph(contract.id)
+        store_forecast_graph(session, graph)
+        run = ForecastRun(
+            id=str(uuid.uuid4()),
+            question_id=question.id,
+            profile_id=SMOKE_PROFILE_ID,
+            mode="live",
+            status="running",
+            started_at=utcnow(),
+            execution_context_json=json.dumps(execution.model_dump(mode="json")),
+            configuration_hash=execution.configuration_hash,
+            evidence_policy=execution.evidence_policy,
+            provider_json=json.dumps(
+                {"model_provider": "openai", "search_provider": "tavily"}
+            ),
+        )
+        session.add(run)
+        session.commit()
+
+        with pytest.raises(GraphForecastExecutionError):
+            GraphForecastExecutor(
+                session,
+                run=run,
+                profile=profile,
+                execution=execution,
+                model=model,
+                search=search,
+                allow_local_fixtures=False,
+                graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            ).execute()
+
+        stored_run = session.get(ForecastRun, run.id)
+        node_runs = session.scalars(
+            select(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run.id
+            )
+        ).all()
+        assert stored_run is not None
+        assert stored_run.status == "failed"
+        assert len(node_runs) == 2
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run.id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run.id)
+        ) is None
+        assert search.calls == 3
+        assert len(fetch_calls) == 4
+        assert len({url for url in fetch_calls}) == 4
+        assert sum("/fail-" in url for url in fetch_calls) == 2
+
+
+def test_reasoning_heavy_graph_and_backup_fetch_complete_within_smoke_limits(
+    client,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    draft = _approved_contract(client)
+    execution = resolve_execution_context(
+        requested_mode="live",
+        profile_id=SMOKE_PROFILE_ID,
+        settings={
+            "model_provider": "openai",
+            "model_name": MODEL_NAME,
+            "model_api_key": "test-key-never-sent",
+            "search_provider": "tavily",
+            "search_api_key": "test-key-never-sent",
+            "max_cost_usd": 0.50,
+        },
+    )
+    profile = load_profile(SMOKE_PROFILE_ID)
+    fetch_calls: list[str] = []
+
+    def stub_external_fetch(url: str, **_kwargs: Any) -> FetchedDocument:
+        fetch_calls.append(url)
+        observed_at = utcnow()
+        if url.endswith("/timeout-primary"):
+            return FetchedDocument(
+                url=url,
+                title="Timed out source",
+                publisher="evidence.example.org",
+                published_at=None,
+                publication_date_verified=False,
+                published_at_unknown=True,
+                retrieved_at=observed_at,
+                source_available_at=observed_at,
+                temporal_basis="retrieval_date",
+                text="",
+                content_hash="",
+                snapshot_verification_status="live",
+                rejected=True,
+                rejection_reason="fetch_error:ReadTimeout",
+                as_of_eligible=False,
+            )
+        text = (
+            "The official external source records a current indicator that bears "
+            "directly on this selected graph node. "
+        ) * 160
+        return FetchedDocument(
+            url=url,
+            title="External undated official source",
+            publisher="External Official Agency",
+            published_at=None,
+            publication_date_source=None,
+            publication_date_verified=False,
+            published_at_unknown=True,
+            retrieved_at=observed_at,
+            source_available_at=observed_at,
+            temporal_basis="retrieval_date",
+            text=text,
+            content_hash=content_hash(text),
+            snapshot_verification_status="live",
+            rejected=False,
+            as_of_eligible=True,
+        )
+
+    monkeypatch.setattr("forecastlab.run_cache.fetch_document", stub_external_fetch)
+    search = _ExternalStubSearch()
+    ledger = InMemoryUsageLedger()
+
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        question = session.get(Question, str(draft["question_id"]))
+        assert question is not None
+        run = ForecastRun(
+            id=str(uuid.uuid4()),
+            question_id=question.id,
+            profile_id=SMOKE_PROFILE_ID,
+            mode="live",
+            status="running",
+            started_at=utcnow(),
+            execution_context_json=json.dumps(execution.model_dump(mode="json")),
+            configuration_hash=execution.configuration_hash,
+            evidence_policy=execution.evidence_policy,
+            provider_json=json.dumps(
+                {"model_provider": "openai", "search_provider": "tavily"}
+            ),
+        )
+        session.add(run)
+        session.commit()
+        model = _ReasoningHeavyCombinedModel(ledger, run.id)
+
+        version = GraphForecastExecutor(
+            session,
+            run=run,
+            profile=profile,
+            execution=execution,
+            model=model,
+            search=search,
+            allow_local_fixtures=False,
+            ledger=ledger,
+        ).execute()
+
+        stored_run = session.get(ForecastRun, run.id)
+        graph_row = session.scalar(
+            select(ForecastGraphRow).where(
+                ForecastGraphRow.contract_id == str(draft["id"])
+            )
+        )
+        plan_row = session.scalar(
+            select(ResearchPlanRow).where(
+                ResearchPlanRow.forecast_run_id == run.id
+            )
+        )
+        claims = session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == run.id)
+        ).all()
+        node_runs = session.scalars(
+            select(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run.id
+            )
+        ).all()
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run.id
+            )
+        )
+
+        assert stored_run is not None
+        assert stored_run.status == "completed"
+        assert graph_row is not None
+        assert graph_row.generation_audit_json is not None
+        graph_audit = json.loads(graph_row.generation_audit_json)
+        assert graph_audit["requested_max_completion_tokens"] == 8_192
+        assert graph_audit["requested_max_visible_output_tokens"] == 1_536
+        assert graph_audit["reasoning_tokens"] == 1_700
+        assert graph_audit["visible_output_tokens"] == 600
+        assert plan_row is not None
+        plan = research_plan_from_row(plan_row)
+        assert plan.budget_allocation["planner_version"] == PLANNER_VERSION
+        assert len(plan.selected_nodes) == 3
+        assert len(claims) == 3
+        assert len(node_runs) == 3
+        assert aggregation is not None
+        assert version.ensemble_probability == aggregation.final_probability
+        assert search.calls == 3
+        assert len(fetch_calls) == 4
+        assert len(model.graph_requests) == 1
+        graph_request = model.graph_requests[0]
+        assert graph_request["max_completion_tokens"] == 8_192
+        assert graph_request["max_visible_output_tokens"] == 1_536
+        assert graph_request["reasoning_effort"] == "minimal"
+        assert graph_request["verbosity"] == "low"
+        budget = json.loads(stored_run.budget_json)
+        assert budget["model_calls"] <= 14
+        assert budget["search_calls"] <= 4
+        assert budget["fetches"] <= 8
+        assert budget["tokens"] <= 50_000
+        assert budget["total_cost_usd"] <= 0.50

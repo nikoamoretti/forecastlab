@@ -18,7 +18,7 @@ MAX_SEARCHES_PER_NODE = 5
 MAX_EVIDENCE_CLAIMS = 20
 MINIMUM_RESEARCH_NODES = 3
 CRITICAL_IMPORTANCE_THRESHOLD = 0.8
-PLANNER_VERSION = "graph_research_planner_v2"
+PLANNER_VERSION = "graph_research_planner_v3"
 RESEARCH_PLAN_CALLS_PER_NODE = 1
 NODE_FORECAST_CALLS_PER_NODE = 1
 PARALLEL_RESEARCH_WORKERS = 4
@@ -50,6 +50,24 @@ _RESOURCE_TIERS = (
     _ResourceTier("standard", 8000, 1024, 1536, 1536, 1200, 3000, 2800),
     _ResourceTier("compact", 6000, 768, 1024, 1024, 1000, 2200, 2400),
     _ResourceTier("constrained", 4000, 512, 768, 768, 800, 1600, 2200),
+)
+
+MINIMUM_PLANNED_MODEL_CALLS_PER_NODE = (
+    RESEARCH_PLAN_CALLS_PER_NODE + 1 + 1 + NODE_FORECAST_CALLS_PER_NODE
+)
+MINIMUM_PLANNED_TOKENS_PER_NODE = (
+    _RESOURCE_TIERS[-1].research_plan_input_tokens
+    + _RESOURCE_TIERS[-1].research_plan_output_tokens
+    + _RESOURCE_TIERS[-1].evidence_extraction_input_tokens
+    + _RESOURCE_TIERS[-1].evidence_extraction_output_tokens
+    + _RESOURCE_TIERS[-1].evidence_extraction_input_tokens
+    + _RESOURCE_TIERS[-1].evidence_extraction_output_tokens
+    + _RESOURCE_TIERS[-1].node_forecast_input_tokens
+    + _RESOURCE_TIERS[-1].node_forecast_output_tokens
+)
+MINIMUM_PLANNED_WALL_CLOCK_SECONDS = (
+    math.ceil(MINIMUM_RESEARCH_NODES / PARALLEL_RESEARCH_WORKERS) * 30
+    + MINIMUM_RESEARCH_NODES * 12
 )
 
 
@@ -225,13 +243,32 @@ class ResearchPlanner:
         *,
         tier: _ResourceTier,
         searches_per_node: int,
-        fetches_per_node: int,
+        target_successful_documents_per_node: int | None = None,
+        max_candidate_fetch_attempts_per_node: int | None = None,
+        fetches_per_node: int | None = None,
         extraction_retries_enabled: bool,
     ) -> dict[str, Any]:
+        # ``fetches_per_node`` is retained as a legacy test/helper alias. New
+        # planning distinguishes successful documents that can enter model
+        # extraction from already-ranked candidate URLs that may be attempted.
+        target_documents = int(
+            target_successful_documents_per_node
+            if target_successful_documents_per_node is not None
+            else fetches_per_node or 1
+        )
+        candidate_attempts = int(
+            max_candidate_fetch_attempts_per_node
+            if max_candidate_fetch_attempts_per_node is not None
+            else fetches_per_node or target_documents
+        )
+        if candidate_attempts < target_documents:
+            raise ValueError(
+                "candidate_fetch_attempts_below_successful_document_target"
+            )
         research_plan_calls = RESEARCH_PLAN_CALLS_PER_NODE
-        primary_extraction_calls = fetches_per_node
+        primary_extraction_calls = target_documents
         extraction_retry_calls = (
-            fetches_per_node if extraction_retries_enabled else 0
+            target_documents if extraction_retries_enabled else 0
         )
         node_forecast_calls = NODE_FORECAST_CALLS_PER_NODE
         total_model_calls = (
@@ -291,7 +328,11 @@ class ResearchPlanner:
             "node_forecast_calls": node_forecast_calls,
             "total_model_calls": total_model_calls,
             "searches": searches_per_node,
-            "fetches": fetches_per_node,
+            # fetches remains the physical candidate-attempt budget for report
+            # compatibility; extraction calls are based only on target docs.
+            "fetches": candidate_attempts,
+            "target_successful_documents": target_documents,
+            "candidate_fetch_attempts": candidate_attempts,
             "extraction_fallbacks_enabled": extraction_retries_enabled,
             "estimated_tokens": tokens,
             "estimated_tokens_by_phase": estimated_tokens_by_phase,
@@ -355,7 +396,8 @@ class ResearchPlanner:
             <= remaining["model_calls"]
             and node_count * int(per_node["searches"])
             <= remaining["search_calls"]
-            and node_count * int(per_node["fetches"]) <= remaining["fetches"]
+            and node_count * int(per_node["candidate_fetch_attempts"])
+            <= remaining["fetches"]
             and node_count * int(per_node["estimated_tokens"]) <= remaining["tokens"]
             and node_count * float(per_node["estimated_cost_usd"])
             <= float(remaining["cost_usd"]) + 1e-12
@@ -371,24 +413,44 @@ class ResearchPlanner:
         remaining: dict[str, int | float],
     ) -> tuple[int, dict[str, Any]] | None:
         max_searches = min(
-            self.max_searches_per_node,
+            (
+                1
+                if budget.profile.max_candidate_fetch_attempts_per_node
+                is not None
+                else self.max_searches_per_node
+            ),
             budget.profile.max_search_calls,
         )
-        max_fetches = min(
+        max_target_documents = min(
             budget.profile.fetches_per_subquestion,
             budget.profile.max_fetched_documents,
         )
-        if max_searches < 1 or max_fetches < 1:
+        if max_searches < 1 or max_target_documents < 1:
             return None
         for count in range(candidate_count, required_count - 1, -1):
             for searches in range(max_searches, 0, -1):
-                for fetches in range(max_fetches, 0, -1):
+                for target_documents in range(
+                    max_target_documents,
+                    0,
+                    -1,
+                ):
+                    candidate_attempts = int(
+                        budget.profile.max_candidate_fetch_attempts_per_node
+                        or target_documents
+                    )
+                    if candidate_attempts < target_documents:
+                        continue
                     for tier in _RESOURCE_TIERS:
                         per_node = self._estimated_per_node(
                             budget,
                             tier=tier,
                             searches_per_node=searches,
-                            fetches_per_node=fetches,
+                            target_successful_documents_per_node=(
+                                target_documents
+                            ),
+                            max_candidate_fetch_attempts_per_node=(
+                                candidate_attempts
+                            ),
                             extraction_retries_enabled=(
                                 self.extraction_retries_enabled
                             ),
@@ -474,7 +536,10 @@ class ResearchPlanner:
                 budget,
                 tier=_RESOURCE_TIERS[-1],
                 searches_per_node=1,
-                fetches_per_node=1,
+                target_successful_documents_per_node=1,
+                max_candidate_fetch_attempts_per_node=(
+                    budget.profile.max_candidate_fetch_attempts_per_node or 1
+                ),
                 extraction_retries_enabled=self.extraction_retries_enabled,
             )
             minimum_model_calls = (
@@ -641,7 +706,35 @@ class ResearchPlanner:
                     per_node["extraction_fallbacks_enabled"]
                 ),
                 "allocated_fetches_per_node": int(per_node["fetches"]),
+                "target_successful_documents_per_node": int(
+                    per_node["target_successful_documents"]
+                ),
+                "max_candidate_fetch_attempts_per_node": int(
+                    per_node["candidate_fetch_attempts"]
+                ),
+                "planned_target_successful_documents": (
+                    selected_count
+                    * int(per_node["target_successful_documents"])
+                ),
+                "planned_candidate_fetch_attempts": (
+                    selected_count * int(per_node["candidate_fetch_attempts"])
+                ),
                 "allocated_searches_per_node": int(per_node["searches"]),
+                "graph_generation_max_completion_tokens": (
+                    budget.profile.graph_generation_max_completion_tokens
+                    or budget.profile.max_output_tokens_per_call
+                ),
+                "graph_generation_max_visible_output_tokens": (
+                    budget.profile.graph_generation_max_visible_output_tokens
+                    or budget.profile.max_output_tokens_per_call
+                ),
+                "graph_generation_reasoning_effort": (
+                    budget.profile.graph_generation_reasoning_effort
+                    or "minimal"
+                ),
+                "graph_generation_verbosity": (
+                    budget.profile.graph_generation_verbosity
+                ),
                 "estimated_tokens_by_phase": estimated_tokens_by_phase,
                 "estimated_cost_by_phase": estimated_cost_by_phase,
                 "limits": {

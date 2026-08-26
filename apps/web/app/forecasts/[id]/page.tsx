@@ -378,8 +378,9 @@ export default function ForecastPage() {
                 {v1Report.graph?.generation_audit?.model || "model unavailable"}
               </p>
               <p className="mt-1 font-mono text-xs text-ink/60">
-                schema {v1Report.graph?.generation_audit?.schema_name || "unavailable"} · output cap {" "}
-                {v1Report.graph?.generation_audit?.requested_max_output_tokens ?? "unavailable"} · finish {" "}
+                schema {v1Report.graph?.generation_audit?.schema_name || "unavailable"} · completion/visible caps {" "}
+                {v1Report.graph?.generation_audit?.requested_max_completion_tokens ?? v1Report.graph?.generation_audit?.requested_max_output_tokens ?? "unavailable"} / {" "}
+                {v1Report.graph?.generation_audit?.requested_max_visible_output_tokens ?? v1Report.graph?.generation_audit?.requested_max_output_tokens ?? "unavailable"} · finish {" "}
                 {v1Report.graph?.generation_audit?.finish_reason || "unavailable"} · request {" "}
                 {v1Report.graph?.generation_audit?.provider_request_id || "unavailable"}
               </p>
@@ -389,6 +390,12 @@ export default function ForecastPage() {
                 {v1Report.graph?.generation_audit?.reasoning_tokens ?? "unavailable"} / {" "}
                 {v1Report.graph?.generation_audit?.visible_output_tokens ?? "unavailable"} · characters {" "}
                 {v1Report.graph?.generation_audit?.content_character_count ?? "unavailable"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                reasoning/verbosity {v1Report.graph?.generation_audit?.reasoning_effort || "unavailable"} / {" "}
+                {v1Report.graph?.generation_audit?.verbosity || "unavailable"} · token split {" "}
+                {String(v1Report.graph?.generation_audit?.token_split_available ?? false)} ({" "}
+                {v1Report.graph?.generation_audit?.token_split_interpretation || "unavailable"})
               </p>
               <p className="mt-1 font-mono text-xs text-ink/60">
                 parsed/schema/domain {String(v1Report.graph?.generation_audit?.json_parsing_succeeded)} / {" "}

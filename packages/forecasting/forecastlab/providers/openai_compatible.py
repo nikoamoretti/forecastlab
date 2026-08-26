@@ -60,6 +60,10 @@ def _supports_minimal_reasoning(provider_id: str, model: str) -> bool:
     return _is_openai_model_family(provider_id, model, ("gpt-5",))
 
 
+def _supports_verbosity(provider_id: str, model: str) -> bool:
+    return _is_openai_model_family(provider_id, model, ("gpt-5",))
+
+
 def _sanitized_finish_reason(value: Any) -> str | None:
     if value is None:
         return None
@@ -149,9 +153,12 @@ class OpenAICompatibleProvider:
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
         json_schema: dict[str, Any] | None = None,
         reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
+        verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult:
         url = f"{self.base_url}/chat/completions"
         headers = {
@@ -189,12 +196,22 @@ class OpenAICompatibleProvider:
             and _supports_minimal_reasoning(self.provider_id, self.model)
         ):
             body["reasoning_effort"] = reasoning_effort
+        if (
+            schema_name == "forecast_graph"
+            and verbosity is not None
+            and _supports_verbosity(self.provider_id, self.model)
+        ):
+            body["verbosity"] = verbosity
         if _supports_temperature(self.provider_id, self.model):
             body["temperature"] = temperature
-        if max_output_tokens is not None:
-            body[_completion_limit_field(self.provider_id, self.model)] = max_output_tokens
+        limit_field = _completion_limit_field(self.provider_id, self.model)
+        request_output_limit = max_output_tokens
+        if limit_field == "max_completion_tokens" and max_completion_tokens is not None:
+            request_output_limit = max_completion_tokens
+        if request_output_limit is not None:
+            body[limit_field] = request_output_limit
         reserved_in = max(0, int(estimated_input_tokens or 0))
-        reserved_out = max(0, int(max_output_tokens or 0))
+        reserved_out = max(0, int(request_output_limit or 0))
         reserved_cost = estimate_call_cost(
             self.name,
             self.model,
@@ -245,11 +262,22 @@ class OpenAICompatibleProvider:
             completion_details = usage_payload.get("completion_tokens_details") or {}
             reasoning_tokens_raw = completion_details.get("reasoning_tokens")
             reasoning_tokens = int(reasoning_tokens_raw) if reasoning_tokens_raw is not None else None
-            visible_tokens = (
-                max(0, usage.completion_tokens - int(reasoning_tokens or 0))
-                if usage_payload.get("completion_tokens") is not None
-                else None
-            )
+            completion_reported = usage_payload.get("completion_tokens") is not None
+            token_split_available = completion_reported and reasoning_tokens is not None
+            if token_split_available:
+                visible_tokens = max(0, usage.completion_tokens - int(reasoning_tokens))
+                token_split_interpretation = "provider_reported_reasoning_split"
+            elif completion_reported:
+                # Without a reported reasoning split, the total completion is
+                # the only safe upper bound for visible output. This never
+                # understates visible use and is explicitly identified below.
+                visible_tokens = usage.completion_tokens
+                token_split_interpretation = (
+                    "completion_tokens_used_as_visible_upper_bound"
+                )
+            else:
+                visible_tokens = None
+                token_split_interpretation = "completion_token_usage_unavailable"
             schema_valid: bool | None = None
             schema_errors: list[dict[str, str]] = []
             if strict_schema and json_parsing_succeeded:
@@ -267,9 +295,21 @@ class OpenAICompatibleProvider:
                 refusal_present=refusal_present,
                 refusal_category="provider_refusal" if refusal_present else None,
                 requested_max_output_tokens=max_output_tokens,
+                requested_max_completion_tokens=(
+                    max_completion_tokens
+                    if limit_field == "max_completion_tokens"
+                    else None
+                ),
+                requested_max_visible_output_tokens=max_visible_output_tokens,
+                reasoning_effort=(
+                    reasoning_effort if "reasoning_effort" in body else None
+                ),
+                verbosity=verbosity if "verbosity" in body else None,
                 completion_tokens=usage.completion_tokens,
                 reasoning_tokens=reasoning_tokens,
                 visible_output_tokens=visible_tokens,
+                token_split_available=token_split_available,
+                token_split_interpretation=token_split_interpretation,
                 content_character_count=len(content),
                 json_parsing_succeeded=json_parsing_succeeded,
                 strict_schema_validation_succeeded=schema_valid,

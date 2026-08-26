@@ -70,6 +70,8 @@ test("V1 graph report shows node evidence and calculation trace", async ({ page 
   await expect(page.getByRole("heading", { name: "Final answer" })).toBeVisible();
   await expect(report.getByText(/graph_forecaster_v1 probability is/i)).toBeVisible();
   await expect(report.getByRole("heading", { name: "Graph generation audit" })).toBeVisible();
+  await expect(report).toContainText("completion/visible caps 4096 / 4096");
+  await expect(report).toContainText("reasoning/verbosity minimal / unavailable");
 });
 
 test("single-model baseline skips graph construction and aggregation", async ({ page }) => {

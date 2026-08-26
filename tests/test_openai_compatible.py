@@ -74,6 +74,26 @@ def _complete_graph(provider_id: str, model: str) -> Any:
     )
 
 
+def _complete_graph_with_split_envelope(provider_id: str, model: str) -> Any:
+    provider = OpenAICompatibleProvider(
+        api_key="test-api-key",
+        base_url="https://provider.example.test/v1",
+        model=model,
+        provider_id=provider_id,
+    )
+    return provider.complete_json(
+        system="Return a Forecast Graph as JSON.",
+        user="Create the graph.",
+        schema_name="forecast_graph",
+        max_output_tokens=1536,
+        max_completion_tokens=8192,
+        max_visible_output_tokens=1536,
+        json_schema=forecast_graph_json_schema(),
+        reasoning_effort="minimal",
+        verbosity="low",
+    )
+
+
 @pytest.mark.parametrize("model", ["gpt-5-mini-2025-08-07", "gpt-5-nano-2025-08-07"])
 def test_openai_gpt5_request_uses_max_completion_tokens_and_omits_temperature(
     monkeypatch: pytest.MonkeyPatch,
@@ -160,6 +180,35 @@ def test_openai_gpt5_forecast_graph_uses_strict_schema_and_minimal_reasoning(
     assert result.diagnostics.strict_schema_validation_succeeded is False
 
 
+def test_openai_gpt5_graph_supports_distinct_completion_and_visible_envelopes(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    result = _complete_graph_with_split_envelope(
+        "openai",
+        "gpt-5-mini-2025-08-07",
+    )
+
+    body = requests[0]["json"]
+    assert body["max_completion_tokens"] == 8192
+    assert body["reasoning_effort"] == "minimal"
+    assert body["verbosity"] == "low"
+    assert "max_tokens" not in body
+    assert "temperature" not in body
+    assert result.diagnostics is not None
+    assert result.diagnostics.requested_max_output_tokens == 1536
+    assert result.diagnostics.requested_max_completion_tokens == 8192
+    assert result.diagnostics.requested_max_visible_output_tokens == 1536
+    assert result.diagnostics.reasoning_effort == "minimal"
+    assert result.diagnostics.verbosity == "low"
+    assert result.diagnostics.token_split_available is False
+    assert (
+        result.diagnostics.token_split_interpretation
+        == "completion_tokens_used_as_visible_upper_bound"
+    )
+
+
 @pytest.mark.parametrize(
     ("provider_id", "model"),
     [("xai", "grok-4"), ("openai_compatible", "gpt-5-mini-2025-08-07")],
@@ -178,6 +227,26 @@ def test_compatible_vendors_do_not_receive_openai_strict_schema_or_reasoning(
     assert "reasoning_effort" not in body
     assert body["max_tokens"] == 1536
     assert "max_completion_tokens" not in body
+
+
+@pytest.mark.parametrize(
+    ("provider_id", "model"),
+    [("xai", "grok-4"), ("openai_compatible", "gpt-5-mini-2025-08-07")],
+)
+def test_compatible_vendors_ignore_openai_only_split_envelope_fields(
+    monkeypatch: pytest.MonkeyPatch,
+    provider_id: str,
+    model: str,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    _complete_graph_with_split_envelope(provider_id, model)
+
+    body = requests[0]["json"]
+    assert body["max_tokens"] == 1536
+    assert "max_completion_tokens" not in body
+    assert "reasoning_effort" not in body
+    assert "verbosity" not in body
 
 
 def test_http_400_is_permanent_and_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:

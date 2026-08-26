@@ -8,6 +8,10 @@ from forecastlab.execution import resolve_execution_context
 from forecastlab.graphs import GraphGenerator, ensure_graph_approvable
 from forecastlab.profiles import load_profile
 from forecastlab.providers.factory import build_model_provider
+from forecastlab.research_planning import (
+    MINIMUM_PLANNED_TOKENS_PER_NODE,
+    MINIMUM_RESEARCH_NODES,
+)
 from forecastlab.schemas import ForecastGraph, ForecastGraphGenerationAudit, ForecastNode
 from forecastlab.timeutil import as_utc
 from forecastlab_api.models import ForecastGraphRow, ForecastNodeRow, Question
@@ -56,9 +60,26 @@ def build_graph_generator(question: Question) -> GraphGenerator:
         timeout=float(context.model_timeout_seconds or 60),
         execution=context,
     )
+    profile = load_profile(context.profile_id)
     return GraphGenerator(
         model,
-        max_output_tokens=load_profile(context.profile_id).max_output_tokens_per_call,
+        max_output_tokens=profile.max_output_tokens_per_call,
+        max_completion_tokens=(
+            profile.graph_generation_max_completion_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        max_visible_output_tokens=(
+            profile.graph_generation_max_visible_output_tokens
+            or profile.max_output_tokens_per_call
+        ),
+        reasoning_effort=(
+            profile.graph_generation_reasoning_effort or "minimal"
+        ),
+        verbosity=profile.graph_generation_verbosity,
+        run_token_ceiling=profile.max_tokens,
+        reserved_follow_on_tokens=(
+            MINIMUM_RESEARCH_NODES * MINIMUM_PLANNED_TOKENS_PER_NODE
+        ),
         generation_model=f"{context.model_provider}:{context.model_name}",
     )
 

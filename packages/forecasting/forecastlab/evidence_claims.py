@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
+from forecastlab.ranking import classify_source
 from forecastlab.schemas import EvidenceClaim, EvidenceStance, FetchedDocument, RunMode
 from forecastlab.timeutil import as_utc, utcnow
 
@@ -351,7 +352,7 @@ class EvidenceExtractor:
             )
 
         publisher = document.publisher or ""
-        primary = any(
+        primary = classify_source(document.url) == "primary" or any(
             token in publisher.casefold()
             for token in (
                 "bureau",

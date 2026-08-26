@@ -29,7 +29,13 @@ from forecastlab.graphs import ForecastGraphError
 from forecastlab.ledger import UsageLedger
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
-from forecastlab.research_planning import ResearchPlan, ResearchPlanningError
+from forecastlab.research_planning import (
+    MINIMUM_PLANNED_MODEL_CALLS_PER_NODE,
+    MINIMUM_PLANNED_TOKENS_PER_NODE,
+    MINIMUM_PLANNED_WALL_CLOCK_SECONDS,
+    ResearchPlan,
+    ResearchPlanningError,
+)
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
     ForecastAggregation,
@@ -114,6 +120,24 @@ class GraphForecastExecutor:
                 question=self.run.question,
                 model=self.model,
                 max_output_tokens=self.profile.max_output_tokens_per_call,
+                max_completion_tokens=(
+                    self.profile.graph_generation_max_completion_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                max_visible_output_tokens=(
+                    self.profile.graph_generation_max_visible_output_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                reasoning_effort=(
+                    self.profile.graph_generation_reasoning_effort
+                    or "minimal"
+                ),
+                verbosity=self.profile.graph_generation_verbosity,
+                run_token_ceiling=self.profile.max_tokens,
+                reserved_follow_on_tokens=(
+                    MINIMUM_SUCCESSFUL_NODES
+                    * MINIMUM_PLANNED_TOKENS_PER_NODE
+                ),
                 prompt_bundle=self.prompt_bundle,
             )
         except ForecastContractError as exc:
@@ -304,6 +328,63 @@ class GraphForecastExecutor:
                 reasons.append(reason)
         if self.profile.aggregation_method != LOG_ODDS_METHOD:
             reasons.append("graph_log_odds_aggregation_required")
+        graph_completion = (
+            self.profile.graph_generation_max_completion_tokens
+            or self.profile.max_output_tokens_per_call
+        )
+        graph_visible = (
+            self.profile.graph_generation_max_visible_output_tokens
+            or self.profile.max_output_tokens_per_call
+        )
+        if graph_visible > graph_completion:
+            reasons.append("graph_visible_output_exceeds_completion_envelope")
+        if graph_completion > self.profile.max_tokens:
+            reasons.append("graph_completion_envelope_exceeds_run_token_budget")
+        uses_explicit_graph_controls = any(
+            value is not None
+            for value in (
+                self.profile.graph_generation_max_completion_tokens,
+                self.profile.graph_generation_max_visible_output_tokens,
+                self.profile.graph_generation_reasoning_effort,
+                self.profile.graph_generation_verbosity,
+            )
+        )
+        supports_explicit_graph_controls = bool(
+            self.execution.model_is_mock
+            or (
+                self.execution.model_provider == "openai"
+                and self.execution.model_name.casefold().startswith("gpt-5")
+            )
+        )
+        if uses_explicit_graph_controls and not supports_explicit_graph_controls:
+            reasons.append("graph_generation_capability_not_supported")
+        if uses_explicit_graph_controls and (
+            1
+            + MINIMUM_SUCCESSFUL_NODES
+            * MINIMUM_PLANNED_MODEL_CALLS_PER_NODE
+            > self.profile.max_model_calls
+        ):
+            reasons.append("minimum_graph_execution_exceeds_model_call_budget")
+        if uses_explicit_graph_controls and (
+            graph_completion
+            + MINIMUM_SUCCESSFUL_NODES * MINIMUM_PLANNED_TOKENS_PER_NODE
+            > self.profile.max_tokens
+        ):
+            reasons.append("minimum_graph_execution_exceeds_run_token_budget")
+        if uses_explicit_graph_controls and (
+            self.execution.model_timeout_seconds
+            + MINIMUM_PLANNED_WALL_CLOCK_SECONDS
+            > self.profile.max_wall_clock_seconds
+        ):
+            reasons.append("minimum_graph_execution_exceeds_wall_clock_budget")
+        candidate_attempts = (
+            self.profile.max_candidate_fetch_attempts_per_node
+            or self.profile.fetches_per_subquestion
+        )
+        if candidate_attempts * MINIMUM_SUCCESSFUL_NODES > self.profile.max_fetched_documents:
+            reasons.append("minimum_graph_execution_exceeds_fetch_budget")
+        if self.profile.max_search_calls < MINIMUM_SUCCESSFUL_NODES:
+            reasons.append("minimum_graph_execution_exceeds_search_budget")
         if reasons:
             self._fail(
                 stage="profile",
@@ -732,6 +813,18 @@ class GraphForecastExecutor:
         snapshot["forecast_graph_id"] = result.graph.id
         if result.research_plan is not None:
             snapshot["research_plan_id"] = result.research_plan.id
+        snapshot["graph_research_audit"] = [
+            {
+                "node_id": execution.node.id,
+                "research_selected": execution.research_selected,
+                "queries_attempted": list(execution.queries_attempted),
+                "sources_checked": list(execution.sources_checked),
+                "planning_warnings": list(execution.research_warnings),
+                "error": execution.error,
+                "error_stage": execution.error_stage,
+            }
+            for execution in result.nodes
+        ]
         if reliability is not None:
             snapshot["graph_research_reliability"] = reliability
         self.run.execution_context_json = json.dumps(snapshot)

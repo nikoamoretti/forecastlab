@@ -3,8 +3,9 @@ from __future__ import annotations
 import json
 import re
 import uuid
-from typing import Any
+from typing import Any, Literal
 
+from forecastlab.budget import estimate_prompt_tokens
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import (
@@ -211,6 +212,18 @@ class GraphGenerator:
         model: ModelProvider,
         *,
         max_output_tokens: int,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
+        reasoning_effort: Literal[
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+        ] | None = "minimal",
+        verbosity: Literal["low", "medium", "high"] | None = None,
+        run_token_ceiling: int | None = None,
+        reserved_follow_on_tokens: int = 0,
         generation_model: str | None = None,
         prompt_bundle: PromptBundle | None = None,
     ) -> None:
@@ -218,6 +231,28 @@ class GraphGenerator:
             raise ValueError("Graph generation max_output_tokens must be positive")
         self.model = model
         self.max_output_tokens = int(max_output_tokens)
+        self.max_completion_tokens = int(
+            max_completion_tokens or max_output_tokens
+        )
+        self.max_visible_output_tokens = int(
+            max_visible_output_tokens or max_output_tokens
+        )
+        if self.max_completion_tokens <= 0:
+            raise ValueError(
+                "Graph generation max_completion_tokens must be positive"
+            )
+        if self.max_visible_output_tokens <= 0:
+            raise ValueError(
+                "Graph generation max_visible_output_tokens must be positive"
+            )
+        if self.max_visible_output_tokens > self.max_completion_tokens:
+            raise ValueError(
+                "Graph generation visible output exceeds completion envelope"
+            )
+        self.reasoning_effort = reasoning_effort
+        self.verbosity = verbosity
+        self.run_token_ceiling = run_token_ceiling
+        self.reserved_follow_on_tokens = max(0, int(reserved_follow_on_tokens))
         self.prompt_bundle = prompt_bundle
         model_name = str(getattr(model, "model", "unspecified"))
         self.generation_model = generation_model or f"{model.name}:{model_name}"
@@ -245,6 +280,10 @@ class GraphGenerator:
             "model": str(getattr(self.model, "model", "unspecified")),
             "schema_name": "forecast_graph",
             "requested_max_output_tokens": self.max_output_tokens,
+            "requested_max_completion_tokens": self.max_completion_tokens,
+            "requested_max_visible_output_tokens": self.max_visible_output_tokens,
+            "reasoning_effort": self.reasoning_effort,
+            "verbosity": self.verbosity,
             "prompt_version": prompt_version,
             "generated_at": generated_at.isoformat(),
         }
@@ -252,13 +291,36 @@ class GraphGenerator:
         if self.model.name == "mock":
             payload: Any = {"nodes": _mock_nodes(contract)}
         else:
+            user_payload = contract.model_dump_json()
+            estimated_input_tokens = estimate_prompt_tokens(system, user_payload)
+            if (
+                self.run_token_ceiling is not None
+                and estimated_input_tokens
+                + self.max_completion_tokens
+                + self.reserved_follow_on_tokens
+                > self.run_token_ceiling
+            ):
+                raise ForecastGraphError(
+                    ["graph_generation_workload_exceeds_run_token_budget"],
+                    "Forecast Graph and minimum follow-on workload exceed the run token budget",
+                    audit={
+                        **audit,
+                        "estimated_graph_input_tokens": estimated_input_tokens,
+                        "reserved_follow_on_tokens": self.reserved_follow_on_tokens,
+                        "run_token_ceiling": self.run_token_ceiling,
+                    },
+                )
             result = self.model.complete_json(
                 system=system,
-                user=contract.model_dump_json(),
+                user=user_payload,
                 schema_name="forecast_graph",
                 max_output_tokens=self.max_output_tokens,
+                max_completion_tokens=self.max_completion_tokens,
+                max_visible_output_tokens=self.max_visible_output_tokens,
+                estimated_input_tokens=estimated_input_tokens,
                 json_schema=forecast_graph_json_schema(),
-                reasoning_effort="minimal",
+                reasoning_effort=self.reasoning_effort,
+                verbosity=self.verbosity,
             )
             audit["provider"] = result.usage.provider or audit["provider"]
             audit["model"] = result.usage.model or audit["model"]
@@ -269,6 +331,16 @@ class GraphGenerator:
                     raise ForecastGraphError(
                         ["structured_output_refused"],
                         "Forecast Graph structured output was refused",
+                        audit=audit,
+                    )
+                visible_tokens = result.diagnostics.visible_output_tokens
+                if (
+                    visible_tokens is not None
+                    and visible_tokens > self.max_visible_output_tokens
+                ):
+                    raise ForecastGraphError(
+                        ["structured_output_visible_budget_exceeded"],
+                        "Forecast Graph visible output exceeded its configured budget",
                         audit=audit,
                     )
                 if result.diagnostics.finish_reason == "length":
@@ -285,9 +357,17 @@ class GraphGenerator:
                     "refusal_present": False,
                     "refusal_category": None,
                     "requested_max_output_tokens": self.max_output_tokens,
+                    "requested_max_completion_tokens": self.max_completion_tokens,
+                    "requested_max_visible_output_tokens": self.max_visible_output_tokens,
+                    "reasoning_effort": self.reasoning_effort,
+                    "verbosity": self.verbosity,
                     "completion_tokens": result.usage.completion_tokens,
                     "reasoning_tokens": None,
                     "visible_output_tokens": result.usage.completion_tokens,
+                    "token_split_available": False,
+                    "token_split_interpretation": (
+                        "completion_tokens_used_as_visible_upper_bound"
+                    ),
                     "content_character_count": len(result.content),
                     "json_parsing_succeeded": result.parsed is not None,
                     "strict_schema_validation_succeeded": None,
@@ -420,6 +500,10 @@ class GraphGenerator:
             schema_name="forecast_graph",
             provider_request_id=diagnostics_payload.get("provider_request_id"),
             requested_max_output_tokens=self.max_output_tokens,
+            requested_max_completion_tokens=self.max_completion_tokens,
+            requested_max_visible_output_tokens=self.max_visible_output_tokens,
+            reasoning_effort=self.reasoning_effort,
+            verbosity=self.verbosity,
             finish_reason=diagnostics_payload.get("finish_reason"),
             refusal_present=bool(diagnostics_payload.get("refusal_present")),
             refusal_category=diagnostics_payload.get("refusal_category"),
@@ -430,6 +514,12 @@ class GraphGenerator:
             ),
             reasoning_tokens=diagnostics_payload.get("reasoning_tokens"),
             visible_output_tokens=diagnostics_payload.get("visible_output_tokens"),
+            token_split_available=diagnostics_payload.get(
+                "token_split_available"
+            ),
+            token_split_interpretation=diagnostics_payload.get(
+                "token_split_interpretation"
+            ),
             content_character_count=int(diagnostics_payload.get("content_character_count") or 0),
             json_parsing_succeeded=(
                 bool(diagnostics_payload.get("json_parsing_succeeded"))

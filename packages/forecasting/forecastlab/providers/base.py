@@ -26,9 +26,15 @@ class StructuredOutputDiagnostics:
     refusal_present: bool = False
     refusal_category: str | None = None
     requested_max_output_tokens: int | None = None
+    requested_max_completion_tokens: int | None = None
+    requested_max_visible_output_tokens: int | None = None
+    reasoning_effort: str | None = None
+    verbosity: str | None = None
     completion_tokens: int = 0
     reasoning_tokens: int | None = None
     visible_output_tokens: int | None = None
+    token_split_available: bool | None = None
+    token_split_interpretation: str | None = None
     content_character_count: int = 0
     json_parsing_succeeded: bool = False
     strict_schema_validation_succeeded: bool | None = None
@@ -42,9 +48,15 @@ class StructuredOutputDiagnostics:
             "refusal_present": self.refusal_present,
             "refusal_category": self.refusal_category,
             "requested_max_output_tokens": self.requested_max_output_tokens,
+            "requested_max_completion_tokens": self.requested_max_completion_tokens,
+            "requested_max_visible_output_tokens": self.requested_max_visible_output_tokens,
+            "reasoning_effort": self.reasoning_effort,
+            "verbosity": self.verbosity,
             "completion_tokens": self.completion_tokens,
             "reasoning_tokens": self.reasoning_tokens,
             "visible_output_tokens": self.visible_output_tokens,
+            "token_split_available": self.token_split_available,
+            "token_split_interpretation": self.token_split_interpretation,
             "content_character_count": self.content_character_count,
             "json_parsing_succeeded": self.json_parsing_succeeded,
             "strict_schema_validation_succeeded": self.strict_schema_validation_succeeded,
@@ -73,9 +85,12 @@ class ModelProvider(Protocol):
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
         json_schema: dict[str, Any] | None = None,
         reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
+        verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult: ...
 
 

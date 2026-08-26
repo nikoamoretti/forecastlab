@@ -42,6 +42,7 @@ from forecastlab_api.v1_execution import (
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
 MODEL = "gpt-5-mini-2025-08-07"
 SMOKE_OUTPUT_CAP = 1536
+SMOKE_COMPLETION_ENVELOPE = 8192
 
 
 def _approved_contract() -> ForecastContract:
@@ -358,8 +359,8 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         _openai_response(
             malformed,
             finish_reason="length",
-            completion_tokens=SMOKE_OUTPUT_CAP,
-            reasoning_tokens=1000,
+            completion_tokens=SMOKE_COMPLETION_ENVELOPE,
+            reasoning_tokens=SMOKE_COMPLETION_ENVELOPE,
         ),
     )
     draft = client.post(
@@ -427,10 +428,11 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         assert search.calls == 0
         assert len(requests) == 1
         body = requests[0]["json"]
-        assert body["max_completion_tokens"] == SMOKE_OUTPUT_CAP
+        assert body["max_completion_tokens"] == SMOKE_COMPLETION_ENVELOPE
         assert "max_tokens" not in body
         assert "temperature" not in body
         assert body["reasoning_effort"] == "minimal"
+        assert body["verbosity"] == "low"
         assert body["response_format"]["type"] == "json_schema"
         assert body["response_format"]["json_schema"]["name"] == "forecast_graph"
         assert body["response_format"]["json_schema"]["strict"] is True
@@ -438,8 +440,8 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         entries = ledger.entries(run.id)
         assert len(entries) == 1
         assert entries[0].status == "succeeded"
-        assert entries[0].reserved_output_tokens == SMOKE_OUTPUT_CAP
-        assert entries[0].actual_completion_tokens == SMOKE_OUTPUT_CAP
+        assert entries[0].reserved_output_tokens == SMOKE_COMPLETION_ENVELOPE
+        assert entries[0].actual_completion_tokens == SMOKE_COMPLETION_ENVELOPE
         failure = session.scalar(
             select(GraphExecutionFailureRow).where(GraphExecutionFailureRow.forecast_run_id == run.id)
         )
@@ -451,10 +453,12 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         diagnostics = audit["structured_output"]
         assert diagnostics["provider_request_id"] == "rid-structured-output-test"
         assert diagnostics["finish_reason"] == "length"
-        assert diagnostics["completion_tokens"] == SMOKE_OUTPUT_CAP
-        assert diagnostics["reasoning_tokens"] == 1000
-        assert diagnostics["visible_output_tokens"] == 536
+        assert diagnostics["completion_tokens"] == SMOKE_COMPLETION_ENVELOPE
+        assert diagnostics["reasoning_tokens"] == SMOKE_COMPLETION_ENVELOPE
+        assert diagnostics["visible_output_tokens"] == 0
         assert diagnostics["requested_max_output_tokens"] == SMOKE_OUTPUT_CAP
+        assert diagnostics["requested_max_completion_tokens"] == SMOKE_COMPLETION_ENVELOPE
+        assert diagnostics["requested_max_visible_output_tokens"] == SMOKE_OUTPUT_CAP
         assert diagnostics["json_parsing_succeeded"] is False
         assert diagnostics["strict_schema_validation_succeeded"] is False
         assert "RAW_MALFORMED_SENTINEL" not in failure.error_message
@@ -470,7 +474,7 @@ def test_fl_r003_regression_is_one_strict_capped_http_success_and_audited_failur
         assert session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id)) is None
 
 
-def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v2(
+def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v3(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = _valid_graph_payload()
@@ -556,6 +560,118 @@ def test_valid_strict_graph_uses_one_request_and_continues_into_planner_v2(
     assert plan.budget_allocation["planner_version"] == PLANNER_VERSION
     assert len(plan.selected_nodes) >= 3
     assert len(requests) == 1
+
+
+def test_reasoning_heavy_graph_uses_split_envelope_and_reaches_planner_v3(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _valid_graph_payload()
+    requests = _install_http_response(
+        monkeypatch,
+        _openai_response(
+            json.dumps(payload),
+            completion_tokens=2_300,
+            reasoning_tokens=1_700,
+        ),
+    )
+    ledger = InMemoryUsageLedger()
+    provider = _RecordingOpenAIProvider(
+        api_key="stub-key-never-sent",
+        base_url="https://stubbed-openai.invalid/v1",
+        model=MODEL,
+        provider_id="openai",
+        ledger=ledger,
+        run_id="reasoning-heavy-graph-run",
+        stage="forecast_graph",
+    )
+
+    generated = GraphGenerator(
+        provider,
+        max_output_tokens=SMOKE_OUTPUT_CAP,
+        max_completion_tokens=SMOKE_COMPLETION_ENVELOPE,
+        max_visible_output_tokens=SMOKE_OUTPUT_CAP,
+        reasoning_effort="minimal",
+        verbosity="low",
+    ).generate(_approved_contract())
+
+    assert len(requests) == 1
+    body = requests[0]["json"]
+    assert body["max_completion_tokens"] == SMOKE_COMPLETION_ENVELOPE
+    assert body["reasoning_effort"] == "minimal"
+    assert body["verbosity"] == "low"
+    assert "max_tokens" not in body
+    assert "temperature" not in body
+    entry = ledger.entries("reasoning-heavy-graph-run")[0]
+    assert entry.reserved_output_tokens == SMOKE_COMPLETION_ENVELOPE
+    audit = generated.generation_audit
+    assert audit.requested_max_completion_tokens == SMOKE_COMPLETION_ENVELOPE
+    assert audit.requested_max_visible_output_tokens == SMOKE_OUTPUT_CAP
+    assert audit.completion_tokens == 2_300
+    assert audit.reasoning_tokens == 1_700
+    assert audit.visible_output_tokens == 600
+    assert audit.token_split_available is True
+
+    profile = effective_profile(
+        load_profile(SMOKE_PROFILE_ID),
+        user_max_cost_usd=0.50,
+    )
+    budget = Budget(
+        profile,
+        provider="openai",
+        model=MODEL,
+        search_provider="tavily",
+    )
+    budget.state.model_calls = 1
+    budget.state.tokens = 3_154
+    budget.state.prompt_tokens = 854
+    budget.state.completion_tokens = 2_300
+    budget.state.cost_usd = 0.04
+    budget.state.model_cost_usd = 0.04
+    plan = ResearchPlanner().plan(
+        generated.graph,
+        forecast_run_id="reasoning-heavy-graph-run",
+        budget=budget,
+    )
+    assert plan.budget_allocation["planner_version"] == PLANNER_VERSION
+    assert len(plan.selected_nodes) == 3
+
+
+def test_visible_graph_budget_excess_fails_without_retry(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _valid_graph_payload()
+    requests = _install_http_response(
+        monkeypatch,
+        _openai_response(
+            json.dumps(payload),
+            completion_tokens=1_700,
+            reasoning_tokens=100,
+        ),
+    )
+    provider = _RecordingOpenAIProvider(
+        api_key="stub-key-never-sent",
+        base_url="https://stubbed-openai.invalid/v1",
+        model=MODEL,
+        provider_id="openai",
+    )
+
+    with pytest.raises(ForecastGraphError) as exc_info:
+        GraphGenerator(
+            provider,
+            max_output_tokens=SMOKE_OUTPUT_CAP,
+            max_completion_tokens=SMOKE_COMPLETION_ENVELOPE,
+            max_visible_output_tokens=SMOKE_OUTPUT_CAP,
+            reasoning_effort="minimal",
+            verbosity="low",
+        ).generate(_approved_contract())
+
+    assert exc_info.value.reasons == [
+        "structured_output_visible_budget_exceeded"
+    ]
+    assert len(requests) == 1
+    diagnostics = exc_info.value.audit["structured_output"]
+    assert diagnostics["visible_output_tokens"] == 1_600
+    assert diagnostics["requested_max_visible_output_tokens"] == 1_536
 
 
 def test_success_audit_persists_and_approved_graph_reuse_is_request_free(

@@ -104,6 +104,18 @@ def ensure_execution_graph(
     question: Question,
     model: ModelProvider,
     max_output_tokens: int,
+    max_completion_tokens: int | None = None,
+    max_visible_output_tokens: int | None = None,
+    reasoning_effort: Literal[
+        "none",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+    ] | None = "minimal",
+    verbosity: Literal["low", "medium", "high"] | None = None,
+    run_token_ceiling: int | None = None,
+    reserved_follow_on_tokens: int = 0,
     prompt_bundle: PromptBundle | None = None,
 ) -> ExecutionGraphResolution:
     """Resolve the approved contract and persist its graph before node research starts."""
@@ -128,6 +140,12 @@ def ensure_execution_graph(
         generated = GraphGenerator(
             model,
             max_output_tokens=max_output_tokens,
+            max_completion_tokens=max_completion_tokens,
+            max_visible_output_tokens=max_visible_output_tokens,
+            reasoning_effort=reasoning_effort,
+            verbosity=verbosity,
+            run_token_ceiling=run_token_ceiling,
+            reserved_follow_on_tokens=reserved_follow_on_tokens,
             prompt_bundle=prompt_bundle,
         ).generate(
             contract,

@@ -14,6 +14,7 @@ from forecastlab.fetch import (
     _with_search_hint,
     fetch_document,
 )
+from forecastlab.http_client import SafeResponse
 
 
 def test_trafilatura_metadata_date_is_discovered(monkeypatch) -> None:
@@ -61,6 +62,38 @@ def test_time_datetime_is_discovered() -> None:
 
     assert metadata.published_at == datetime(2025, 12, 31, 23, 0, tzinfo=UTC)
     assert metadata.publication_date_source == "html_time:datetime"
+
+
+def test_request_access_page_is_rejected_before_evidence_extraction(
+    monkeypatch,
+) -> None:
+    html = b"""
+    <html><head><title>Request Access</title></head>
+    <body>Automated access to this page is temporarily unavailable.</body></html>
+    """
+    monkeypatch.setattr(
+        fetch_mod,
+        "safe_get",
+        lambda url, **_kwargs: SafeResponse(
+            url=url,
+            final_url=url,
+            status_code=200,
+            content=html,
+            content_type="text/html",
+            bytes_read=len(html),
+        ),
+    )
+
+    document = fetch_document(
+        "https://www.ecfr.gov/current/title-1",
+        mode="live",
+        allow_local_fixtures=False,
+    )
+
+    assert document.rejected is True
+    assert document.as_of_eligible is False
+    assert document.rejection_reason == "access_wall_or_challenge"
+    assert document.text == ""
 
 
 def test_pdf_creation_metadata_is_retained_as_unverified_publication_hint() -> None:

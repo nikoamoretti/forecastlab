@@ -86,10 +86,14 @@ class MockModelProvider:
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
         json_schema: dict[str, Any] | None = None,
         reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
+        verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult:
+        del max_completion_tokens, max_visible_output_tokens, verbosity
         prompt_id = _prompt_id(system)
         payload = self._payload(prompt_id, user, schema_name)
         content = json.dumps(payload)

@@ -49,6 +49,11 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     profile_id = str(run.get("profile_id") or "unknown_profile")
     execution_context = run.get("execution_context") or {}
     graph_resolution = execution_context.get("forecast_graph_resolution")
+    research_audit_by_node = {
+        str(item.get("node_id")): item
+        for item in execution_context.get("graph_research_audit") or []
+        if isinstance(item, dict) and item.get("node_id")
+    }
     graph_nodes = graph.get("nodes") or []
     node_runs = run.get("node_runs") or []
     research_plan = run.get("research_plan") or {}
@@ -89,6 +94,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         node_id = str(node.get("id") or "")
         node_run = node_runs_by_id.get(node_id) or {}
         node_contribution = contributions_by_node.get(node_id) or {}
+        research_audit = research_audit_by_node.get(node_id) or {}
         supporting_ids = [str(item) for item in node_run.get("supporting_claim_ids") or []]
         opposing_ids = [str(item) for item in node_run.get("opposing_claim_ids") or []]
         selected_ids = set(supporting_ids) | set(opposing_ids)
@@ -143,17 +149,21 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                     or None
                 ),
                 "queries_attempted": list(
-                    dict.fromkeys(
+                    research_audit.get("queries_attempted")
+                    or dict.fromkeys(
                         query
                         for failure in failures_by_node.get(node_id) or []
                         for query in failure.get("queries_attempted") or []
                     )
                 ),
-                "sources_checked": [
-                    source
-                    for failure in failures_by_node.get(node_id) or []
-                    for source in failure.get("sources_checked") or []
-                ],
+                "sources_checked": list(
+                    research_audit.get("sources_checked")
+                    or [
+                        source
+                        for failure in failures_by_node.get(node_id) or []
+                        for source in failure.get("sources_checked") or []
+                    ]
+                ),
                 "failure_impact": (
                     (failures_by_node.get(node_id) or [{}])[0].get("impact")
                 ),
@@ -305,13 +315,19 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
             f"Provider/model: {generation_audit.get('provider')} / {generation_audit.get('model')}",
             f"Schema: {generation_audit.get('schema_name')}",
             f"Request ID: {generation_audit.get('provider_request_id') or 'unavailable'}",
-            f"Output cap: {generation_audit.get('requested_max_output_tokens')}",
+            f"Legacy output cap: {generation_audit.get('requested_max_output_tokens')}",
+            f"Completion envelope: {generation_audit.get('requested_max_completion_tokens') or generation_audit.get('requested_max_output_tokens')}",
+            f"Visible JSON cap: {generation_audit.get('requested_max_visible_output_tokens') or generation_audit.get('requested_max_output_tokens')}",
+            f"Reasoning/verbosity: {generation_audit.get('reasoning_effort') or 'unavailable'} / "
+            f"{generation_audit.get('verbosity') or 'unavailable'}",
             f"Finish reason: {generation_audit.get('finish_reason') or 'unavailable'}",
             f"Refusal: {generation_audit.get('refusal_present')} "
             f"({generation_audit.get('refusal_category') or 'none'})",
             f"Completion/reasoning/visible tokens: {generation_audit.get('completion_tokens')} / "
             f"{generation_audit.get('reasoning_tokens')} / "
             f"{generation_audit.get('visible_output_tokens')}",
+            f"Token split: {generation_audit.get('token_split_available')} "
+            f"({generation_audit.get('token_split_interpretation') or 'unavailable'})",
             f"Content characters: {generation_audit.get('content_character_count')}",
             f"JSON/schema/strict-schema/domain valid: {generation_audit.get('json_parsing_succeeded')} / "
             f"{generation_audit.get('schema_validation_succeeded')} / "

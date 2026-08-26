@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from forecastlab.timeutil import as_utc
 
@@ -132,12 +132,18 @@ class ForecastGraphGenerationAudit(BaseModel):
     schema_name: str = "forecast_graph"
     provider_request_id: str | None = None
     requested_max_output_tokens: int = Field(gt=0)
+    requested_max_completion_tokens: int | None = Field(default=None, gt=0)
+    requested_max_visible_output_tokens: int | None = Field(default=None, gt=0)
+    reasoning_effort: str | None = None
+    verbosity: str | None = None
     finish_reason: str | None = None
     refusal_present: bool = False
     refusal_category: str | None = None
     completion_tokens: int | None = Field(default=None, ge=0)
     reasoning_tokens: int | None = Field(default=None, ge=0)
     visible_output_tokens: int | None = Field(default=None, ge=0)
+    token_split_available: bool | None = None
+    token_split_interpretation: str | None = None
     content_character_count: int = Field(default=0, ge=0)
     json_parsing_succeeded: bool
     schema_validation_succeeded: bool
@@ -469,9 +475,44 @@ class ForecastProfile(BaseModel):
     max_fetched_documents: int = 24
     max_tokens: int = 200_000
     max_output_tokens_per_call: int = 4096
+    graph_generation_max_completion_tokens: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_max_visible_output_tokens: int | None = Field(
+        default=None,
+        ge=1,
+    )
+    graph_generation_reasoning_effort: Literal[
+        "none",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+    ] | None = None
+    graph_generation_verbosity: Literal["low", "medium", "high"] | None = None
+    max_candidate_fetch_attempts_per_node: int | None = Field(
+        default=None,
+        ge=1,
+    )
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_graph_execution_limits(self) -> ForecastProfile:
+        completion = self.graph_generation_max_completion_tokens
+        visible = self.graph_generation_max_visible_output_tokens
+        if completion is not None and visible is not None and visible > completion:
+            raise ValueError(
+                "graph_generation_visible_output_exceeds_completion_envelope"
+            )
+        attempts = self.max_candidate_fetch_attempts_per_node
+        if attempts is not None and attempts < self.fetches_per_subquestion:
+            raise ValueError(
+                "candidate_fetch_attempts_below_successful_document_target"
+            )
+        return self
 
 
 class BudgetState(BaseModel):

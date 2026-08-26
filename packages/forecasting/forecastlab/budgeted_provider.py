@@ -39,9 +39,12 @@ class BudgetedModelProvider:
         temperature: float = 0.2,
         timeout: float | None = None,
         max_output_tokens: int | None = None,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
         estimated_input_tokens: int | None = None,
         json_schema: dict[str, Any] | None = None,
         reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
+        verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult:
         estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
         allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
@@ -63,9 +66,20 @@ class BudgetedModelProvider:
                 temperature=temperature,
                 timeout=timeout,
                 max_output_tokens=allowed_output,
+                max_completion_tokens=(
+                    min(max_completion_tokens, allowed_output)
+                    if max_completion_tokens is not None
+                    else None
+                ),
+                max_visible_output_tokens=(
+                    min(max_visible_output_tokens, allowed_output)
+                    if max_visible_output_tokens is not None
+                    else None
+                ),
                 estimated_input_tokens=estimated_input,
                 json_schema=json_schema,
                 reasoning_effort=reasoning_effort,
+                verbosity=verbosity,
             )
         except Exception:
             self.budget.release_reservation(reservation)
