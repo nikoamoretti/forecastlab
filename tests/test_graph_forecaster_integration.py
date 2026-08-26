@@ -1398,6 +1398,11 @@ def test_private_v1_scenario_synthesis_precedes_unchanged_aggregation(client) ->
         expected = RelationshipMassConservingLogOddsAggregator().aggregate(
             graph,
             domain_runs,
+            exclusion_origins={
+                node.id: "research_plan"
+                for node in graph.nodes
+                if node.id not in {run.node_id for run in domain_runs}
+            },
         )
         assert version.ensemble_probability == expected.final_probability
         aggregation = session.scalar(
@@ -1412,6 +1417,11 @@ def test_private_v1_scenario_synthesis_precedes_unchanged_aggregation(client) ->
         )
         assert scenario_step["scenario_synthesis_id"] == scenario.id
         assert scenario_step["numerical_effect"] == "none"
+        assert trace[3:] == expected.calculation_trace
+        assert json.loads(aggregation.node_contributions_json) == [
+            contribution.model_dump(mode="json")
+            for contribution in expected.node_contributions
+        ]
 
     report = client.get(
         f"/api/forecasts/{draft['question_id']}/graph-report"
