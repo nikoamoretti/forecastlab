@@ -17,6 +17,11 @@ from sqlalchemy.orm import Session
 
 from forecastlab.contracts import ForecastContractError
 from forecastlab.errors import ConfigurationError, StructuredOutputError
+from forecastlab.evaluation_releases import (
+    EvaluationProviderIdentity,
+    EvaluationReleaseQuestionInput,
+    EvaluationSplit,
+)
 from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.graphs import ForecastGraphError
@@ -45,6 +50,15 @@ from forecastlab_api.evaluation_datasets import (
     parse_evaluation_dataset_file,
     review_evaluation_dataset,
     serialize_evaluation_dataset,
+)
+from forecastlab_api.evaluation_releases import (
+    EvaluationReleaseValidationError,
+    create_evaluation_release,
+    freeze_evaluation_release,
+    get_blinded_execution_manifest,
+    release_audit,
+    review_evaluation_release,
+    serialize_evaluation_release,
 )
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.evidence_sufficiency import evidence_sufficiency_from_row
@@ -88,6 +102,7 @@ from forecastlab_api.models import (
     BenchmarkQuestion,
     BenchmarkResult,
     EvaluationDataset,
+    EvaluationRelease,
     EvidenceClaimRow,
     EvidenceItem,
     ForecastContractRow,
@@ -211,11 +226,25 @@ class ExperimentIn(BaseModel):
 
 
 class ForecastExperimentIn(BaseModel):
-    dataset_id: str
+    dataset_id: str | None = None
+    evaluation_release_id: str | None = None
+    evaluation_split: EvaluationSplit | None = None
     profile_ids: list[str] = Field(
         default_factory=lambda: list(CONTROLLED_FORECAST_PROFILES)
     )
     synthetic_test: bool = False
+
+
+class EvaluationReleaseIn(BaseModel):
+    name: str
+    version: str
+    development_dataset_id: str
+    validation_dataset_id: str
+    test_dataset_id: str
+    questions: list[EvaluationReleaseQuestionInput]
+    provider_identity: EvaluationProviderIdentity
+    correction_of_release_id: str | None = None
+    correction_summary: str | None = None
 
 
 class ForecastFailureIn(BaseModel):
@@ -1217,6 +1246,119 @@ def get_evaluation_dataset(dataset_id: str, db: Session = Depends(get_db)) -> di
     return serialize_evaluation_dataset(dataset, include_questions=True)
 
 
+@app.get("/api/evaluation/releases")
+def list_evaluation_releases(db: Session = Depends(get_db)) -> dict[str, Any]:
+    rows = db.scalars(
+        select(EvaluationRelease).order_by(
+            EvaluationRelease.name,
+            EvaluationRelease.version,
+            EvaluationRelease.created_at,
+        )
+    ).all()
+    return {
+        "releases": [serialize_evaluation_release(item) for item in rows],
+        "policy_version": "private_v1_real_evaluation_release_v1",
+        "real_corpus_populated": False,
+    }
+
+
+@app.post("/api/evaluation/releases", status_code=201)
+def post_evaluation_release(
+    body: EvaluationReleaseIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        release = create_evaluation_release(
+            db,
+            name=body.name,
+            version=body.version,
+            development_dataset_id=body.development_dataset_id,
+            validation_dataset_id=body.validation_dataset_id,
+            test_dataset_id=body.test_dataset_id,
+            questions=body.questions,
+            provider_identity=body.provider_identity,
+            correction_of_release_id=body.correction_of_release_id,
+            correction_summary=body.correction_summary,
+        )
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return release_audit(db, release)
+
+
+@app.post("/api/evaluation/releases/{release_id}/review")
+def review_evaluation_release_endpoint(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    try:
+        review_evaluation_release(db, release)
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return release_audit(db, release)
+
+
+@app.post("/api/evaluation/releases/{release_id}/freeze")
+def freeze_evaluation_release_endpoint(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    try:
+        freeze_evaluation_release(db, release)
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return release_audit(db, release)
+
+
+@app.get("/api/evaluation/releases/{release_id}/execution-manifest")
+def get_evaluation_release_execution_manifest(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    try:
+        manifest = get_blinded_execution_manifest(release)
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    return manifest.model_dump(mode="json")
+
+
+@app.get("/api/evaluation/releases/{release_id}")
+def get_evaluation_release(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    return release_audit(db, release)
+
+
 @app.post("/api/forecast-experiments", status_code=201)
 def post_forecast_experiment(
     body: ForecastExperimentIn,
@@ -1228,6 +1370,8 @@ def post_forecast_experiment(
             dataset_id=body.dataset_id,
             profile_ids=body.profile_ids,
             synthetic_test=body.synthetic_test,
+            evaluation_release_id=body.evaluation_release_id,
+            evaluation_split=body.evaluation_split,
         )
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc

@@ -677,6 +677,10 @@ class FrozenForecastExperimentError(ValueError):
     """Raised when application code attempts to alter frozen experiment inputs."""
 
 
+class FrozenEvaluationReleaseError(ValueError):
+    """Raised when application code attempts to alter a frozen evaluation release."""
+
+
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
     __table_args__ = (
@@ -742,6 +746,111 @@ class EvaluationQuestion(Base):
     dataset: Mapped[EvaluationDataset] = relationship(back_populates="questions")
 
 
+class EvaluationRelease(Base):
+    """Immutable aggregate binding three frozen datasets to one preregistration."""
+
+    __tablename__ = "evaluation_releases"
+    __table_args__ = (
+        UniqueConstraint("name", "version", name="uq_evaluation_release_name_version"),
+        CheckConstraint(
+            "status IN ('draft', 'reviewed', 'frozen')",
+            name="ck_evaluation_release_status",
+        ),
+        CheckConstraint(
+            "status != 'frozen' OR frozen_at IS NOT NULL",
+            name="ck_evaluation_release_frozen_at",
+        ),
+        CheckConstraint(
+            "development_dataset_id != validation_dataset_id "
+            "AND development_dataset_id != test_dataset_id "
+            "AND validation_dataset_id != test_dataset_id",
+            name="ck_evaluation_release_distinct_datasets",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    version: Mapped[str] = mapped_column(String(64))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    development_dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    validation_dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    test_dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    frozen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    correction_of_release_id: Mapped[str | None] = mapped_column(
+        ForeignKey("evaluation_releases.id"), nullable=True
+    )
+    correction_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    execution_manifest_json: Mapped[str] = mapped_column(Text)
+    execution_manifest_hash: Mapped[str] = mapped_column(String(64))
+    scoring_manifest_json: Mapped[str] = mapped_column(Text)
+    scoring_manifest_hash: Mapped[str] = mapped_column(String(64))
+    preregistration_json: Mapped[str] = mapped_column(Text)
+    preregistration_hash: Mapped[str] = mapped_column(String(64))
+    release_hash: Mapped[str] = mapped_column(String(64), unique=True)
+
+    questions: Mapped[list[EvaluationReleaseQuestion]] = relationship(
+        back_populates="release",
+        order_by="EvaluationReleaseQuestion.id",
+        cascade="all, delete-orphan",
+    )
+
+
+class EvaluationReleaseQuestion(Base):
+    """Auditable split, review, licensing, exclusion, and adjudication metadata."""
+
+    __tablename__ = "evaluation_release_questions"
+    __table_args__ = (
+        UniqueConstraint(
+            "release_id",
+            "evaluation_question_id",
+            name="uq_evaluation_release_question",
+        ),
+        CheckConstraint(
+            "split IN ('development', 'validation', 'test')",
+            name="ck_evaluation_release_question_split",
+        ),
+        CheckConstraint(
+            "inclusion_status IN ('included', 'excluded')",
+            name="ck_evaluation_release_question_inclusion",
+        ),
+        CheckConstraint(
+            "source_license_status IN "
+            "('public_domain', 'licensed', 'metadata_use_permitted', 'unknown')",
+            name="ck_evaluation_release_question_license",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    release_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_releases.id", ondelete="CASCADE")
+    )
+    evaluation_question_id: Mapped[str] = mapped_column(ForeignKey("evaluation_questions.id"))
+    split: Mapped[str] = mapped_column(String(32))
+    event_family_id: Mapped[str] = mapped_column(String(128))
+    leakage_group_id: Mapped[str] = mapped_column(String(128))
+    inclusion_status: Mapped[str] = mapped_column(String(32))
+    exclusion_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    question_author_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    question_reviewer_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    outcome_adjudicator_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    review_completed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    outcome_known_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    source_license_status: Mapped[str] = mapped_column(String(32), default="unknown")
+    source_use_basis: Mapped[str | None] = mapped_column(Text, nullable=True)
+    redistribution_allowed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    adjudication_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    adjudication_record_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
+    release: Mapped[EvaluationRelease] = relationship(back_populates="questions")
+
+
 class ForecastExperiment(Base):
     """A controlled comparison over one frozen real-evaluation dataset."""
 
@@ -755,6 +864,10 @@ class ForecastExperiment(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
+    evaluation_release_id: Mapped[str | None] = mapped_column(
+        ForeignKey("evaluation_releases.id"), nullable=True
+    )
+    evaluation_split: Mapped[str | None] = mapped_column(String(32), nullable=True)
     status: Mapped[str] = mapped_column(String(32), default="pending")
     profiles_json: Mapped[str] = mapped_column(Text)
     configuration_hash: Mapped[str] = mapped_column(String(64))
@@ -890,6 +1003,8 @@ def _frozen_forecast_experiment_configuration_guard(
     state = inspect(target)
     frozen_fields = (
         "dataset_id",
+        "evaluation_release_id",
+        "evaluation_split",
         "profiles_json",
         "configuration_hash",
         "configuration_json",
@@ -931,11 +1046,60 @@ def _frozen_evaluation_question_guard(
         raise FrozenEvaluationDatasetError("frozen_evaluation_dataset_immutable")
 
 
+def _frozen_evaluation_release_before_update(
+    _mapper: object,
+    _connection: Connection,
+    target: EvaluationRelease,
+) -> None:
+    status_history = inspect(target).attrs.status.history
+    prior_status = status_history.deleted[0] if status_history.deleted else target.status
+    if prior_status == "frozen":
+        raise FrozenEvaluationReleaseError("frozen_evaluation_release_immutable")
+
+
+def _frozen_evaluation_release_before_delete(
+    _mapper: object,
+    _connection: Connection,
+    target: EvaluationRelease,
+) -> None:
+    if target.status == "frozen":
+        raise FrozenEvaluationReleaseError("frozen_evaluation_release_immutable")
+
+
+def _frozen_evaluation_release_question_guard(
+    _mapper: object,
+    connection: Connection,
+    target: EvaluationReleaseQuestion,
+) -> None:
+    status = connection.execute(
+        select(EvaluationRelease.status).where(EvaluationRelease.id == target.release_id)
+    ).scalar_one_or_none()
+    if status == "frozen":
+        raise FrozenEvaluationReleaseError("frozen_evaluation_release_immutable")
+
+
 event.listen(EvaluationDataset, "before_update", _frozen_evaluation_dataset_before_update)
 event.listen(EvaluationDataset, "before_delete", _frozen_evaluation_dataset_before_delete)
 event.listen(EvaluationQuestion, "before_insert", _frozen_evaluation_question_guard)
 event.listen(EvaluationQuestion, "before_update", _frozen_evaluation_question_guard)
 event.listen(EvaluationQuestion, "before_delete", _frozen_evaluation_question_guard)
+event.listen(EvaluationRelease, "before_update", _frozen_evaluation_release_before_update)
+event.listen(EvaluationRelease, "before_delete", _frozen_evaluation_release_before_delete)
+event.listen(
+    EvaluationReleaseQuestion,
+    "before_insert",
+    _frozen_evaluation_release_question_guard,
+)
+event.listen(
+    EvaluationReleaseQuestion,
+    "before_update",
+    _frozen_evaluation_release_question_guard,
+)
+event.listen(
+    EvaluationReleaseQuestion,
+    "before_delete",
+    _frozen_evaluation_release_question_guard,
+)
 event.listen(
     ForecastExperiment,
     "before_update",

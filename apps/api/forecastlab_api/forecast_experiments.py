@@ -16,6 +16,11 @@ from forecastlab.environment import (
 )
 from forecastlab.errors import ExperimentEnvironmentMismatch
 from forecastlab.evaluation import brier_score, log_loss, mean, median
+from forecastlab.evaluation_releases import (
+    BlindedEvaluationQuestion,
+    EvaluationPreregistration,
+    EvaluationSplit,
+)
 from forecastlab.execution import ExecutionContext, configuration_hash, resolve_execution_context
 from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.pricing import load_pricing, pricing_hash
@@ -25,11 +30,18 @@ from forecastlab.schemas import ForecastContract, ForecastProfile, ResolutionCon
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.contracts import store_forecast_contract
+from forecastlab_api.evaluation_releases import (
+    REAL_EVALUATION_CONTROLLED_PROFILES,
+    assert_release_environment,
+    get_blinded_execution_manifest,
+    get_sealed_scoring_manifest,
+)
 from forecastlab_api.experiments import evidence_coverage_for_run
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
     EvaluationDataset,
     EvaluationQuestion,
+    EvaluationRelease,
     ForecastContractRow,
     ForecastExperiment,
     ForecastExperimentResult,
@@ -50,11 +62,7 @@ from forecastlab_api.pipeline import (
 from forecastlab_api.secrets import load_secrets
 from forecastlab_api.usage_ledger import apply_totals_to_run, default_ledger
 
-CONTROLLED_FORECAST_PROFILES = (
-    "single_model_forecaster_v1",
-    "three_track_forecaster",
-    "graph_forecaster_v1",
-)
+CONTROLLED_FORECAST_PROFILES = REAL_EVALUATION_CONTROLLED_PROFILES
 CONFIGURATION_SCHEMA_VERSION = 1
 TERMINAL_RUN_STATUSES = frozenset({"completed", "partial", "failed"})
 TERMINAL_EXPERIMENT_STATUSES = frozenset(
@@ -125,6 +133,10 @@ def _question_snapshot(item: EvaluationQuestion) -> dict[str, Any]:
     }
 
 
+def _blinded_question_snapshot(item: BlindedEvaluationQuestion) -> dict[str, Any]:
+    return item.model_dump(mode="json")
+
+
 def _budget_snapshot(profile: ForecastProfile) -> dict[str, int | float]:
     return {field: getattr(profile, field) for field in BUDGET_FIELDS}
 
@@ -143,6 +155,8 @@ def _freeze_configuration(
     questions: list[EvaluationQuestion],
     profile_ids: list[str],
     synthetic_test: bool,
+    blinded_questions: list[BlindedEvaluationQuestion] | None = None,
+    evaluation_release: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     settings_data = provider_settings_from_secrets(load_secrets())
     prompt_bundle = load_prompt_bundle()
@@ -213,7 +227,11 @@ def _freeze_configuration(
             "frozen_at": as_utc(dataset.frozen_at).isoformat() if dataset.frozen_at else None,
             "provenance": dataset.provenance,
         },
-        "questions": [_question_snapshot(item) for item in questions],
+        "questions": (
+            [_blinded_question_snapshot(item) for item in blinded_questions]
+            if blinded_questions is not None
+            else [_question_snapshot(item) for item in questions]
+        ),
         "profiles": profile_snapshots,
         "profile_ids": profile_ids,
         "provider": provider_snapshot or {},
@@ -227,28 +245,92 @@ def _freeze_configuration(
         "pricing": {"catalog": pricing_catalog, "hash": pricing_digest},
         "code": identity,
         "synthetic_test": synthetic_test,
+        "evaluation_release": evaluation_release,
     }
 
 
 def create_forecast_experiment(
     session: Session,
     *,
-    dataset_id: str,
+    dataset_id: str | None,
     profile_ids: list[str],
     synthetic_test: bool = False,
+    evaluation_release_id: str | None = None,
+    evaluation_split: EvaluationSplit | None = None,
 ) -> ForecastExperiment:
     """Freeze one comparison and enqueue every question/profile cell exactly once."""
 
+    release: EvaluationRelease | None = None
+    blinded_questions: list[BlindedEvaluationQuestion] | None = None
+    release_snapshot: dict[str, Any] | None = None
+    if evaluation_release_id is not None:
+        if synthetic_test:
+            raise ValueError("evaluation_release_requires_production_mode")
+        if evaluation_split is None:
+            raise ValueError("evaluation_release_split_required")
+        release = session.get(EvaluationRelease, evaluation_release_id)
+        if release is None:
+            raise ValueError("evaluation_release_not_found")
+        if release.status != "frozen" or release.frozen_at is None:
+            raise ValueError("evaluation_release_must_be_frozen")
+        assert_release_environment(release)
+        manifest = get_blinded_execution_manifest(release)
+        blinded_questions = [
+            item for item in manifest.questions if item.split == evaluation_split
+        ]
+        if not blinded_questions:
+            raise ValueError("evaluation_release_split_empty")
+        release_dataset_id = {
+            "development": release.development_dataset_id,
+            "validation": release.validation_dataset_id,
+            "test": release.test_dataset_id,
+        }[evaluation_split]
+        if dataset_id is not None and dataset_id != release_dataset_id:
+            raise ValueError("evaluation_release_dataset_mismatch")
+        dataset_id = release_dataset_id
+        release_snapshot = {
+            "id": release.id,
+            "name": release.name,
+            "version": release.version,
+            "policy_version": release.policy_version,
+            "release_hash": release.release_hash,
+            "execution_manifest_hash": release.execution_manifest_hash,
+            "scoring_manifest_hash": release.scoring_manifest_hash,
+            "preregistration_hash": release.preregistration_hash,
+            "split": evaluation_split,
+        }
+    elif not synthetic_test:
+        raise ValueError("production_evaluation_release_required")
+    if dataset_id is None:
+        raise ValueError("evaluation_dataset_required")
     dataset = session.get(EvaluationDataset, dataset_id)
     if dataset is None:
         raise ValueError("evaluation_dataset_not_found")
     if dataset.status != "frozen" or dataset.frozen_at is None:
         raise ValueError("evaluation_dataset_must_be_frozen")
-    questions = session.scalars(
-        select(EvaluationQuestion)
-        .where(EvaluationQuestion.dataset_id == dataset.id)
-        .order_by(EvaluationQuestion.question_hash)
-    ).all()
+    if blinded_questions is not None:
+        question_order = {
+            item.evaluation_question_id: index
+            for index, item in enumerate(blinded_questions)
+        }
+        questions = list(
+            session.scalars(
+                select(EvaluationQuestion).where(
+                    EvaluationQuestion.id.in_(list(question_order))
+                )
+            ).all()
+        )
+        questions.sort(key=lambda item: question_order[item.id])
+        if [item.id for item in questions] != list(question_order):
+            raise ValueError("evaluation_release_question_missing")
+    else:
+        questions = list(
+            session.scalars(
+                select(EvaluationQuestion)
+                .where(EvaluationQuestion.dataset_id == dataset.id)
+                .order_by(EvaluationQuestion.question_hash)
+            ).all()
+        )
     if not questions:
         raise ValueError("evaluation_dataset_empty")
     profiles = _validate_profiles(profile_ids)
@@ -264,11 +346,27 @@ def create_forecast_experiment(
         questions=list(questions),
         profile_ids=profiles,
         synthetic_test=synthetic_test,
+        blinded_questions=blinded_questions,
+        evaluation_release=release_snapshot,
     )
+    if release is not None:
+        preregistration = EvaluationPreregistration.model_validate_json(
+            release.preregistration_json
+        )
+        provider = frozen.get("provider") or {}
+        expected_provider = preregistration.provider_identity
+        if (
+            provider.get("model_provider") != expected_provider.model_provider
+            or provider.get("model") != expected_provider.model
+            or provider.get("search_provider") != expected_provider.search_provider
+        ):
+            raise ValueError("evaluation_preregistration_provider_mismatch")
     digest = configuration_hash(frozen)
     experiment = ForecastExperiment(
         id=str(uuid.uuid4()),
         dataset_id=dataset.id,
+        evaluation_release_id=release.id if release is not None else None,
+        evaluation_split=evaluation_split,
         status="pending",
         profiles_json=canonical_json(profiles),
         configuration_hash=digest,
@@ -353,13 +451,20 @@ def _runtime_question_notes(experiment_run_id: str) -> str:
     return f"forecast-experiment-run:{experiment_run_id}"
 
 
-def _resolution_contract(item: EvaluationQuestion) -> ResolutionContract:
-    payload = json.loads(item.resolution_contract)
+def _resolution_contract(
+    item: EvaluationQuestion | BlindedEvaluationQuestion,
+) -> ResolutionContract:
+    if isinstance(item, BlindedEvaluationQuestion):
+        payload = item.resolution_contract.model_dump(mode="json")
+        authoritative_source = item.authoritative_resolver
+    else:
+        payload = json.loads(item.resolution_contract)
+        authoritative_source = item.resolution_source
     return ResolutionContract(
         exact_yes=str(payload["yes_condition"]),
         exact_no=str(payload["no_condition"]),
         resolution_deadline=as_utc(item.resolution_date),
-        authoritative_source=item.resolution_source,
+        authoritative_source=authoritative_source,
         fallback_sources=list(payload.get("fallback_sources") or []),
         ambiguity_notes=str(payload.get("ambiguity_notes") or ""),
         cancellation_conditions=str(payload.get("cancellation_conditions") or ""),
@@ -370,7 +475,7 @@ def _resolution_contract(item: EvaluationQuestion) -> ResolutionContract:
 def _ensure_forecast_contract(
     session: Session,
     question: Question,
-    item: EvaluationQuestion,
+    item: EvaluationQuestion | BlindedEvaluationQuestion,
 ) -> ForecastContractRow:
     existing = session.scalar(
         select(ForecastContractRow)
@@ -383,7 +488,12 @@ def _ensure_forecast_contract(
     )
     if existing is not None:
         return existing
-    payload = json.loads(item.resolution_contract)
+    if isinstance(item, BlindedEvaluationQuestion):
+        payload = item.resolution_contract.model_dump(mode="json")
+        authoritative_source = item.authoritative_resolver
+    else:
+        payload = json.loads(item.resolution_contract)
+        authoritative_source = item.resolution_source
     resolver = str(payload.get("authoritative_resolver") or "")
     contract = ForecastContract(
         id=str(uuid.uuid4()),
@@ -396,7 +506,7 @@ def _ensure_forecast_contract(
         yes_condition=str(payload["yes_condition"]),
         no_condition=str(payload["no_condition"]),
         resolution_date=as_utc(item.resolution_date),
-        authoritative_source=item.resolution_source,
+        authoritative_source=authoritative_source,
         fallback_sources=list(payload.get("fallback_sources") or []),
         resolution_method=(
             "Resolve the binary outcome against the authoritative source at the stated resolution date; "
@@ -427,7 +537,7 @@ def _ensure_forecast_contract(
 def _ensure_runtime_question(
     session: Session,
     experiment_run: ForecastExperimentRun,
-    item: EvaluationQuestion,
+    item: EvaluationQuestion | BlindedEvaluationQuestion,
 ) -> Question:
     notes = _runtime_question_notes(experiment_run.id)
     question = session.scalar(select(Question).where(Question.notes == notes))
@@ -458,7 +568,7 @@ def _ensure_forecast_run(
     experiment_run: ForecastExperimentRun,
     question: Question,
     context: ExecutionContext,
-    item: EvaluationQuestion,
+    item: EvaluationQuestion | BlindedEvaluationQuestion,
 ) -> ForecastRun:
     if experiment_run.forecast_run_id:
         existing = session.get(ForecastRun, experiment_run.forecast_run_id)
@@ -490,7 +600,7 @@ def _persist_result(
     session: Session,
     *,
     experiment_run: ForecastExperimentRun,
-    item: EvaluationQuestion,
+    outcome: int,
     forecast_run: ForecastRun | None,
     probability: float | None,
     completion_status: Literal["completed", "partial", "failed"],
@@ -517,11 +627,11 @@ def _persist_result(
         id=str(uuid.uuid4()),
         experiment_run_id=experiment_run.id,
         probability=None if failed else probability,
-        outcome=item.outcome,
+        outcome=outcome,
         brier_score=(
-            None if failed or probability is None else brier_score(probability, item.outcome)
+            None if failed or probability is None else brier_score(probability, outcome)
         ),
-        log_loss=None if failed or probability is None else log_loss(probability, item.outcome),
+        log_loss=None if failed or probability is None else log_loss(probability, outcome),
         cost_usd=cost,
         latency_ms=latency,
         evidence_coverage=coverage,
@@ -535,6 +645,39 @@ def _persist_result(
     experiment_run.error_category = error_category
     experiment_run.completed_at = utcnow()
     return result
+
+
+def _sealed_outcome_for_terminal_run(
+    session: Session,
+    *,
+    experiment: ForecastExperiment,
+    experiment_run: ForecastExperimentRun,
+    forecast_run: ForecastRun | None,
+) -> int:
+    """Join the sealed outcome only after forecast persistence is terminal."""
+
+    if experiment.evaluation_release_id is None:
+        raise RuntimeError("evaluation_release_identity_missing")
+    if forecast_run is not None and forecast_run.status not in {"completed", "failed"}:
+        raise RuntimeError("forecast_must_be_terminal_before_scoring")
+    if forecast_run is None and experiment_run.status not in TERMINAL_RUN_STATUSES:
+        raise RuntimeError("experiment_run_must_be_terminal_before_scoring")
+    release = session.get(EvaluationRelease, experiment.evaluation_release_id)
+    if release is None or release.status != "frozen":
+        raise RuntimeError("evaluation_release_not_frozen_for_scoring")
+    manifest = get_sealed_scoring_manifest(release)
+    match = next(
+        (
+            item
+            for item in manifest.questions
+            if item.evaluation_question_id == experiment_run.evaluation_question_id
+            and item.split == experiment.evaluation_split
+        ),
+        None,
+    )
+    if match is None:
+        raise RuntimeError("sealed_scoring_question_not_found")
+    return int(match.outcome)
 
 
 def _refresh_experiment(session: Session, experiment: ForecastExperiment) -> None:
@@ -588,20 +731,68 @@ def execute_forecast_experiment_run(
         raise ExperimentEnvironmentMismatch(
             "Evaluation dataset does not match the frozen forecast experiment"
         )
-    frozen_question = next(
-        (
-            question
-            for question in frozen.get("questions") or []
-            if question.get("id") == item.id
-        ),
-        None,
-    )
-    if frozen_question is None or canonical_json(frozen_question) != canonical_json(
-        _question_snapshot(item)
-    ):
-        raise ExperimentEnvironmentMismatch(
-            "Evaluation question does not match the frozen forecast experiment"
+    runtime_item: EvaluationQuestion | BlindedEvaluationQuestion
+    if experiment.evaluation_release_id is not None:
+        release = session.get(EvaluationRelease, experiment.evaluation_release_id)
+        release_snapshot = frozen.get("evaluation_release") or {}
+        if (
+            release is None
+            or release.status != "frozen"
+            or release.release_hash != release_snapshot.get("release_hash")
+            or release.execution_manifest_hash
+            != release_snapshot.get("execution_manifest_hash")
+            or release.preregistration_hash != release_snapshot.get("preregistration_hash")
+            or experiment.evaluation_split != release_snapshot.get("split")
+        ):
+            raise ExperimentEnvironmentMismatch(
+                "Evaluation release does not match the frozen forecast experiment"
+            )
+        assert_release_environment(release)
+        manifest = get_blinded_execution_manifest(release)
+        blinded = next(
+            (
+                question
+                for question in manifest.questions
+                if question.evaluation_question_id == item.id
+                and question.split == experiment.evaluation_split
+            ),
+            None,
         )
+        if blinded is None:
+            raise ExperimentEnvironmentMismatch(
+                "Blinded evaluation question is absent from the frozen release"
+            )
+        frozen_question = next(
+            (
+                question
+                for question in frozen.get("questions") or []
+                if question.get("evaluation_question_id") == item.id
+            ),
+            None,
+        )
+        if frozen_question is None or canonical_json(frozen_question) != canonical_json(
+            _blinded_question_snapshot(blinded)
+        ):
+            raise ExperimentEnvironmentMismatch(
+                "Blinded evaluation question does not match the frozen experiment"
+            )
+        runtime_item = blinded
+    else:
+        frozen_question = next(
+            (
+                question
+                for question in frozen.get("questions") or []
+                if question.get("id") == item.id
+            ),
+            None,
+        )
+        if frozen_question is None or canonical_json(frozen_question) != canonical_json(
+            _question_snapshot(item)
+        ):
+            raise ExperimentEnvironmentMismatch(
+                "Evaluation question does not match the frozen forecast experiment"
+            )
+        runtime_item = item
     profile, bundle, context, pricing_catalog, timeout = _frozen_profile_and_context(
         frozen,
         experiment_run.profile_id,
@@ -610,8 +801,10 @@ def execute_forecast_experiment_run(
     experiment_run.status = "running"
     experiment_run.started_at = experiment_run.started_at or utcnow()
     session.commit()
-    question = _ensure_runtime_question(session, experiment_run, item)
-    forecast_run = _ensure_forecast_run(session, experiment_run, question, context, item)
+    question = _ensure_runtime_question(session, experiment_run, runtime_item)
+    forecast_run = _ensure_forecast_run(
+        session, experiment_run, question, context, runtime_item
+    )
     session.commit()
     version = session.scalar(
         select(ForecastVersion).where(ForecastVersion.run_id == forecast_run.id)
@@ -635,10 +828,20 @@ def execute_forecast_experiment_run(
     completion_status: Literal["completed", "partial", "failed"] = (
         "partial" if _is_partial(session, forecast_run, profile) else "completed"
     )
+    outcome = (
+        _sealed_outcome_for_terminal_run(
+            session,
+            experiment=experiment,
+            experiment_run=experiment_run,
+            forecast_run=forecast_run,
+        )
+        if experiment.evaluation_release_id is not None
+        else item.outcome
+    )
     _persist_result(
         session,
         experiment_run=experiment_run,
-        item=item,
+        outcome=outcome,
         forecast_run=forecast_run,
         probability=version.ensemble_probability,
         completion_status=completion_status,
@@ -678,22 +881,31 @@ def fail_forecast_experiment_job(
         forecast_run.finished_at = utcnow()
         forecast_run.progress_stage = "failed"
         forecast_run.progress_message = error
-    if item is not None:
+    experiment_run.status = "failed"
+    experiment_run.error = error
+    experiment_run.error_category = category
+    experiment_run.completed_at = utcnow()
+    if item is not None and experiment is not None:
+        outcome = (
+            _sealed_outcome_for_terminal_run(
+                session,
+                experiment=experiment,
+                experiment_run=experiment_run,
+                forecast_run=forecast_run,
+            )
+            if experiment.evaluation_release_id is not None
+            else item.outcome
+        )
         _persist_result(
             session,
             experiment_run=experiment_run,
-            item=item,
+            outcome=outcome,
             forecast_run=forecast_run,
             probability=None,
             completion_status="failed",
             error=error,
             error_category=category,
         )
-    else:
-        experiment_run.status = "failed"
-        experiment_run.error = error
-        experiment_run.error_category = category
-        experiment_run.completed_at = utcnow()
     if experiment is not None:
         _refresh_experiment(session, experiment)
     return True
@@ -732,6 +944,8 @@ def forecast_experiment_progress(
         "id": experiment.id,
         "experiment_id": experiment.id,
         "dataset_id": experiment.dataset_id,
+        "evaluation_release_id": experiment.evaluation_release_id,
+        "evaluation_split": experiment.evaluation_split,
         "status": experiment.status,
         "profiles": json.loads(experiment.profiles_json),
         "configuration_hash": experiment.configuration_hash,
@@ -752,6 +966,7 @@ def forecast_experiment_progress(
             "prompt_hashes": (frozen.get("prompts") or {}).get("hashes"),
             "code": frozen.get("code"),
             "synthetic_test": bool(frozen.get("synthetic_test")),
+            "evaluation_release": frozen.get("evaluation_release"),
         },
         "runs": [
             {
@@ -893,6 +1108,7 @@ def forecast_experiment_report(
                 item.get("evidence_cutoff") for item in frozen.get("questions") or []
             ],
             "synthetic_test": bool(frozen.get("synthetic_test")),
+            "evaluation_release": frozen.get("evaluation_release"),
         },
         profiles=[
             _profile_metrics(profile_groups[profile_id], results)

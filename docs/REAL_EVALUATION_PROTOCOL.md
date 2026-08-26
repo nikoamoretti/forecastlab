@@ -76,11 +76,11 @@ Before marking a dataset `reviewed`, a reviewer must independently confirm:
 5. The final outcome follows the source and rule without looking at system performance.
 6. The provenance describes where questions came from and how outcomes were verified.
 
-This first schema does not store reviewer identity, licensing terms, event-family grouping, exclusions, split membership, or a correction log. Those must remain in a versioned external manifest until first-class fields are added.
+Dataset rows remain the resolved-question source of truth. The separate `EvaluationRelease` layer now stores opaque reviewer and adjudicator identities, licensing metadata, event-family and leakage-group membership, exclusions, split membership, and versioned corrections without rewriting the underlying frozen datasets.
 
 ## Required V1 splits
 
-The initial real evaluation corpus uses separately frozen releases or deterministic manifests:
+The initial real evaluation corpus uses three separately frozen datasets bound by one `EvaluationRelease`:
 
 | Split | Questions | Permitted use |
 | --- | ---: | --- |
@@ -90,6 +90,25 @@ The initial real evaluation corpus uses separately frozen releases or determinis
 
 Related questions, event families, revisions, and outcome-revealing sources must not cross splits. Split construction must preserve the temporal and leakage controls in [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md). Synthetic questions do not count toward these totals.
 
+`private_v1_real_evaluation_release_v1` requires exactly 60 included development questions, 40 included validation questions, and 100 included test questions. A question ID, normalized question hash, or resolution-contract hash may appear only once. Event-family and leakage-group identifiers may occur multiple times within one split but never across splits. Excluded rows remain in the release audit with a reason and grouping metadata, but they are absent from both execution and scoring manifests.
+
+## Release and preregistration lifecycle
+
+An `EvaluationRelease` follows `draft` → `reviewed` → `frozen` and binds the three frozen datasets to:
+
+- one immutable release policy snapshot;
+- release-question split, review, licensing, exclusion, and adjudication metadata;
+- a blinded execution manifest;
+- a separately typed sealed scoring manifest;
+- a complete preregistration;
+- independent manifest hashes and one aggregate release hash.
+
+Every included question requires an opaque reviewer ID, a different opaque outcome-adjudicator ID, a completed review time, a known source-license classification, a source-use basis, an explicit redistribution flag, and an adjudication-record hash. `forecast_date` must precede both `resolution_date` and `outcome_known_at`, and `resolution_date` cannot follow `outcome_known_at`.
+
+Frozen releases and their membership rows are immutable. Repeating review or freeze against identical content is idempotent. A correction requires a new release version, a link to the prior frozen release, and a nonempty correction summary. ForecastLab provides structural blinding through separate DTOs and service boundaries; it does not claim cryptographic secrecy in the local application.
+
+The preregistration freezes dataset, profile, prompt, source-code, dependency-lock, provider/model, budget, evidence-cutoff, metric, paired-comparison, bootstrap, calibration-reporting, exclusion, split-use, no-tuning, and one-shot-test identities before any run is assigned. See [Real Evaluation Preregistration V1](REAL_EVALUATION_PREREGISTRATION_V1.md).
+
 ## API
 
 - `GET /api/evaluation/datasets` lists all lifecycle states and the controlled comparison profiles.
@@ -98,18 +117,26 @@ Related questions, event families, revisions, and outcome-revealing sources must
 - `POST /api/evaluation/datasets/{id}/freeze` verifies and freezes a reviewed release.
 - `GET /api/evaluation/datasets/{id}` returns metadata, questions, contracts, dates, outcomes, and sources.
 - `GET /api/evaluation/datasets/template.csv` returns the blank import template.
+- `GET /api/evaluation/releases` lists release lifecycle and audit identities.
+- `POST /api/evaluation/releases` creates a draft release over three frozen datasets.
+- `POST /api/evaluation/releases/{id}/review` runs deterministic policy validation.
+- `POST /api/evaluation/releases/{id}/freeze` freezes the reviewed release and manifests.
+- `GET /api/evaluation/releases/{id}` returns the release audit, including exclusions and hashes.
+- `GET /api/evaluation/releases/{id}/execution-manifest` returns only the blinded worker DTO.
+
+There is deliberately no general forecast-execution endpoint for the sealed scoring manifest.
 
 ## Controlled experiment runner
 
-`POST /api/forecast-experiments` accepts only a frozen `EvaluationDataset` and creates one `ForecastExperimentRun` for every question/profile pair. The controlled profile set is fixed to:
+For production real evaluation, `POST /api/forecast-experiments` requires a frozen `EvaluationRelease` and an explicitly permitted split. Direct dataset-only creation remains available only for the existing synthetic software-verification path. The runner creates one `ForecastExperimentRun` for every included blinded question/profile pair. The controlled profile set is fixed to:
 
 - `single_model_forecaster_v1`
 - `three_track_forecaster`
 - `graph_forecaster_v1`
 
-Before any run is queued, `ForecastExperiment` stores one canonical, hash-protected configuration containing the dataset release and question snapshots, profile source and effective definitions, common budget ceiling, provider and model metadata, prompt bundle and hashes, pricing catalog, evidence cutoffs, and code/dependency identity. Secret values are never included. These input fields are immutable after creation. Execution reconstructs profiles, prompts, and execution contexts from the frozen record rather than mutable source files or later Settings changes.
+Before any run is queued, `ForecastExperiment` stores one canonical, hash-protected configuration containing the release and preregistration identities, blinded question snapshots, profile source and effective definitions, common budget ceiling, provider and model metadata, prompt bundle and hashes, pricing catalog, evidence cutoffs, and code/dependency identity. Secret values and outcomes are never included. These input fields are immutable after creation. Execution reconstructs profiles, prompts, and execution contexts from the frozen record rather than mutable source files or later Settings changes.
 
-Every assigned cell persists its status in `ForecastExperimentRun`. A successful or partial cell stores its probability, resolved outcome, Brier score, log loss, cost, latency, evidence coverage, and completion state in `ForecastExperimentResult`. A failure retains its error and operational measurements but receives no invented probability or forecast score. Job retries retain the same cell and forecast-run identities.
+The forecasting executor receives a `BlindedEvaluationQuestion`, a type that cannot represent outcome or scoring fields. Only after the forecast is terminal does the scoring service join the outcome by evaluation-question identity from the sealed scoring manifest. Every assigned cell persists its status in `ForecastExperimentRun`. A successful or partial cell stores its probability, resolved outcome, Brier score, log loss, cost, latency, evidence coverage, and completion state in `ForecastExperimentResult`. A failure retains its error and operational measurements but receives no invented probability or forecast score. Job retries retain the same cell and forecast-run identities.
 
 Read APIs are:
 
@@ -121,4 +148,4 @@ The report presents measurements only. It performs no ranking, hypothesis test, 
 
 ## Claim boundary and limitations
 
-These tables and the controlled runner are intentionally separate from the synthetic `BenchmarkDataset` workflow. The implementation does not populate real questions, certify a dataset, calculate uncertainty intervals, or decide which profile is better. A frozen import and a completed comparison are not evidence that the questions are representative, leakage-free, licensed, or correctly adjudicated. Those properties require the documented human review, external manifests, pre-registration, and the full evaluation protocol.
+These tables and the controlled runner are intentionally separate from the synthetic `BenchmarkDataset` workflow. This repository contains templates and generated test factories only; it does not contain or certify a 200-question real corpus, freeze a production release, execute a real experiment, calculate a quality result, or establish calibration. Release validation proves that required metadata and structural leakage controls are present and hash-consistent. It cannot prove that human grouping, licensing assertions, adjudication, representativeness, or historical evidence collection are substantively correct.

@@ -62,6 +62,8 @@ REQUIRED_TABLES = {
     "forecast_experiment_runs",
     "forecast_experiment_results",
     "forecast_failures",
+    "evaluation_releases",
+    "evaluation_release_questions",
     "research_plans",
     "evidence_sufficiency_assessments",
     "material_node_coverage_assessments",
@@ -140,16 +142,20 @@ def _assert_integrity_schema(engine: Engine) -> None:
     evidence_cols = {column["name"] for column in inspector.get_columns("evidence_items")}
     job_cols = {column["name"] for column in inspector.get_columns("jobs")}
     result_cols = {column["name"] for column in inspector.get_columns("benchmark_results")}
+    experiment_cols = {
+        column["name"] for column in inspector.get_columns("forecast_experiments")
+    }
     assert REQUIRED_QUESTION_COLUMNS <= question_cols
     assert REQUIRED_RUN_COLUMNS <= run_cols
     assert "published_at_unknown" in evidence_cols
     assert {"lease_owner", "lease_expires_at", "available_at", "error_category", "error_history_json"} <= job_cols
     assert {"experiment_id", "benchmark_task_id"} <= result_cols
+    assert {"evaluation_release_id", "evaluation_split"} <= experiment_cols
     version = inspect(engine).get_table_names()
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260826_0026"
+        assert current == "20260826_0027"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

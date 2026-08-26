@@ -41,11 +41,13 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "evidence_sufficiency_assessments" in tables
     assert "material_node_coverage_assessments" in tables
     assert "scenario_syntheses" in tables
+    assert "evaluation_releases" in tables
+    assert "evaluation_release_questions" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0026"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -163,6 +165,8 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
         assert {
             "id",
             "dataset_id",
+            "evaluation_release_id",
+            "evaluation_split",
             "status",
             "profiles_json",
             "configuration_hash",
@@ -281,6 +285,56 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "material_node_coverage_assessment_id",
             "material_node_coverage_assessment_hash",
         } == scenario_cols
+        release_cols = {
+            column["name"]
+            for column in inspect(engine).get_columns("evaluation_releases")
+        }
+        assert {
+            "id",
+            "name",
+            "version",
+            "policy_version",
+            "status",
+            "development_dataset_id",
+            "validation_dataset_id",
+            "test_dataset_id",
+            "created_at",
+            "reviewed_at",
+            "frozen_at",
+            "correction_of_release_id",
+            "correction_summary",
+            "execution_manifest_json",
+            "execution_manifest_hash",
+            "scoring_manifest_json",
+            "scoring_manifest_hash",
+            "preregistration_json",
+            "preregistration_hash",
+            "release_hash",
+        } == release_cols
+        release_question_cols = {
+            column["name"]
+            for column in inspect(engine).get_columns("evaluation_release_questions")
+        }
+        assert {
+            "id",
+            "release_id",
+            "evaluation_question_id",
+            "split",
+            "event_family_id",
+            "leakage_group_id",
+            "inclusion_status",
+            "exclusion_reason",
+            "question_author_id",
+            "question_reviewer_id",
+            "outcome_adjudicator_id",
+            "review_completed_at",
+            "outcome_known_at",
+            "source_license_status",
+            "source_use_basis",
+            "redistribution_allowed",
+            "adjudication_notes",
+            "adjudication_record_hash",
+        } == release_question_cols
 
 
 def test_material_node_coverage_migration_does_not_backfill_historical_runs(
@@ -379,6 +433,44 @@ def test_scenario_synthesis_migration_is_empty_and_reversible(tmp_path) -> None:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
+def test_real_evaluation_release_migration_is_empty_reversible_and_foreign_key_clean(
+    tmp_path,
+) -> None:
+    db_url = f"sqlite:///{tmp_path}/evaluation-release.db"
+    command.upgrade(alembic_config(db_url), "20260826_0026")
+    engine = create_engine(db_url)
+
+    command.upgrade(alembic_config(db_url), "head")
+    assert "evaluation_releases" in inspect(engine).get_table_names()
+    assert "evaluation_release_questions" in inspect(engine).get_table_names()
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM evaluation_releases")
+        ).scalar_one() == 0
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM evaluation_release_questions")
+        ).scalar_one() == 0
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.downgrade(alembic_config(db_url), "20260826_0026")
+    tables = inspect(engine).get_table_names()
+    assert "evaluation_releases" not in tables
+    assert "evaluation_release_questions" not in tables
+    experiment_columns = {
+        column["name"]
+        for column in inspect(engine).get_columns("forecast_experiments")
+    }
+    assert "evaluation_release_id" not in experiment_columns
+    assert "evaluation_split" not in experiment_columns
+
+    command.upgrade(alembic_config(db_url), "head")
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM evaluation_releases")
+        ).scalar_one() == 0
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+
 def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     db_url = f"sqlite:///{tmp_path}/schema.db"
     from forecastlab_api.config import settings
@@ -388,7 +480,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0026"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
 
 
 def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
@@ -526,7 +618,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0026"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -559,7 +651,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260826_0026"
+            == "20260826_0027"
         )
 
 
@@ -600,7 +692,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0026"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:
