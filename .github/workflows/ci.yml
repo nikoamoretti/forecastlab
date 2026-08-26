@@ -25,9 +25,11 @@ jobs:
       - name: Python tests
         run: uv run python -m pytest -q
       - name: Ruff
-        run: uv run python -m ruff check packages apps/api tests
+        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py
       - name: Mypy
-        run: uv run python -m mypy
+        run: |
+          uv run python -m mypy
+          uv run python -m mypy scripts/verify_private_v1_release.py
       - name: Frontend
         working-directory: apps/web
         run: |
