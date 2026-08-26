@@ -98,9 +98,10 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
     assert drain_jobs(max_steps=40) == 30
 
     progress = client.get(f"/api/experiments/{created['id']}").json()
-    assert progress["status"] == "completed"
-    assert progress["completed_tasks"] == 30
-    assert progress["failed_tasks"] == 0
+    assert progress["status"] == "completed_with_failures"
+    assert progress["completed_tasks"] == 20
+    assert progress["failed_tasks"] == 10
+    assert progress["per_profile"]["graph_forecaster_v1"]["failed"] == 10
 
     summary = client.get(f"/api/experiments/{created['id']}/summary").json()
     assert summary["sample_size"] == 30
@@ -111,23 +112,46 @@ def test_v1_evaluation_workflow_runs_ten_question_mock_comparison(client) -> Non
     assert set(summary["metric_definitions"]) == set(V1_EVALUATION_METRICS)
     assert len(summary["paired_comparisons_all_valid"]) == 3
     for comparison in summary["paired_comparisons_all_valid"]:
-        assert comparison["n"] == 10
-        assert comparison["mean_paired_brier_difference"] is not None
-        assert comparison["mean_log_loss_difference"] is not None
-        assert comparison["mean_cost_difference"] is not None
-        assert comparison["mean_latency_difference"] is not None
-        assert comparison["mean_evidence_coverage_difference"] is not None
-        assert comparison["evidence_coverage_pair_count"] == 10
+        graph_comparison = "graph_forecaster_v1" in {
+            comparison["left_profile_id"],
+            comparison["right_profile_id"],
+        }
+        expected_count = 0 if graph_comparison else 10
+        assert comparison["n"] == expected_count
+        if graph_comparison:
+            assert comparison["mean_paired_brier_difference"] is None
+            assert comparison["mean_log_loss_difference"] is None
+            assert comparison["mean_cost_difference"] is None
+            assert comparison["mean_latency_difference"] is None
+            assert comparison["mean_evidence_coverage_difference"] is None
+            assert comparison["evidence_coverage_pair_count"] == 0
+        else:
+            assert comparison["mean_paired_brier_difference"] is not None
+            assert comparison["mean_log_loss_difference"] is not None
+            assert comparison["mean_cost_difference"] is not None
+            assert comparison["mean_latency_difference"] is not None
+            assert comparison["mean_evidence_coverage_difference"] is not None
+            assert comparison["evidence_coverage_pair_count"] == 10
     for profile in summary["profiles"]:
         assert profile["total_count"] == 10
-        assert profile["completion_rate"] == 1.0
-        assert profile["all_valid"]["n"] == 10
-        assert profile["all_valid"]["brier"] is not None
-        assert profile["all_valid"]["log_loss"] is not None
-        assert profile["all_valid"]["mean_cost_usd"] == 0.0
-        assert profile["all_valid"]["mean_latency_ms"] >= 0
-        assert profile["all_valid"]["mean_evidence_coverage"] == 1.0
-        assert profile["all_valid"]["evidence_coverage_n"] == 10
+        graph_profile = profile["profile_id"] == "graph_forecaster_v1"
+        assert profile["completion_rate"] == (0.0 if graph_profile else 1.0)
+        assert profile["failed_count"] == (10 if graph_profile else 0)
+        assert profile["all_valid"]["n"] == (0 if graph_profile else 10)
+        if graph_profile:
+            assert profile["all_valid"]["brier"] is None
+            assert profile["all_valid"]["log_loss"] is None
+            assert profile["all_valid"]["mean_cost_usd"] is None
+            assert profile["all_valid"]["mean_latency_ms"] is None
+            assert profile["all_valid"]["mean_evidence_coverage"] is None
+            assert profile["all_valid"]["evidence_coverage_n"] == 0
+        else:
+            assert profile["all_valid"]["brier"] is not None
+            assert profile["all_valid"]["log_loss"] is not None
+            assert profile["all_valid"]["mean_cost_usd"] == 0.0
+            assert profile["all_valid"]["mean_latency_ms"] >= 0
+            assert profile["all_valid"]["mean_evidence_coverage"] == 1.0
+            assert profile["all_valid"]["evidence_coverage_n"] == 10
     assert all(row["evidence_coverage"] == 1.0 for row in summary["rows"])
     assert {row["evidence_total_units"] for row in summary["rows"]} == {1, 3, 7}
 

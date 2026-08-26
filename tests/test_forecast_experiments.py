@@ -193,29 +193,37 @@ def test_all_profiles_execute_from_frozen_configuration_and_report_metrics(
     assert report_response.status_code == 200
     report = report_response.json()
 
-    assert report["status"] == "completed"
+    assert report["status"] == "completed_with_failures"
     assert report["notice"].startswith("Measurements only")
     assert [row["profile_id"] for row in report["profiles"]] == list(
         CONTROLLED_FORECAST_PROFILES
     )
     assert len(report["rows"]) == 3
     for row in report["rows"]:
-        assert row["completion_status"] == "completed"
-        assert row["probability"] is not None
-        assert row["brier_score"] == pytest.approx(
-            brier_score(row["probability"], row["outcome"])
-        )
-        assert row["log_loss"] == pytest.approx(
-            log_loss(row["probability"], row["outcome"])
-        )
+        if row["profile_id"] == "graph_forecaster_v1":
+            assert row["completion_status"] == "failed"
+            assert row["probability"] is None
+            assert row["brier_score"] is None
+            assert row["log_loss"] is None
+            assert row["error"] == "two_distinct_source_hosts_required"
+        else:
+            assert row["completion_status"] == "completed"
+            assert row["probability"] is not None
+            assert row["brier_score"] == pytest.approx(
+                brier_score(row["probability"], row["outcome"])
+            )
+            assert row["log_loss"] == pytest.approx(
+                log_loss(row["probability"], row["outcome"])
+            )
         assert row["cost_usd"] == 0.0
         assert row["latency_ms"] >= 0
         assert row["evidence_coverage"] is not None
     for profile in report["profiles"]:
         assert profile["assigned_questions"] == 1
-        assert profile["scored_questions"] == 1
-        assert profile["completion_rate"] == 1.0
-        assert profile["failure_rate"] == 0.0
+        graph_profile = profile["profile_id"] == "graph_forecaster_v1"
+        assert profile["scored_questions"] == (0 if graph_profile else 1)
+        assert profile["completion_rate"] == (0.0 if graph_profile else 1.0)
+        assert profile["failure_rate"] == (1.0 if graph_profile else 0.0)
         assert profile["total_cost_usd"] == 0.0
 
     from forecastlab_api import main as main_mod

@@ -29,7 +29,15 @@ from forecastlab.ranking import (
     schedule_ranked_hits,
 )
 from forecastlab.run_cache import RunCache
-from forecastlab.schemas import EvidenceClaim, FetchedDocument, ForecastNode, ForecastProfile, SearchHit
+from forecastlab.schemas import (
+    EvidenceClaim,
+    EvidenceExtractionMethod,
+    FetchedDocument,
+    ForecastNode,
+    ForecastProfile,
+    SearchHit,
+    SourceClass,
+)
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import (
     WaybackSnapshot,
@@ -509,6 +517,7 @@ class GraphResearchExecutor:
         document: FetchedDocument,
         evidence_item_id: str,
         node: ForecastNode,
+        source_class: SourceClass,
     ) -> tuple[list[EvidenceClaim], list[str], str]:
         errors: list[str] = []
 
@@ -517,6 +526,7 @@ class GraphResearchExecutor:
             *,
             label: str,
             call_kind: str,
+            extraction_method: EvidenceExtractionMethod,
         ) -> list[EvidenceClaim]:
             stage = f"extract_claims:{node.id}:{label}"
             if not self._take_planned_model_call(
@@ -542,6 +552,8 @@ class GraphResearchExecutor:
                     forecast_node_question=node.question,
                     as_of=self.as_of if self.mode == "backtest" else None,
                     mode=self.mode,  # type: ignore[arg-type]
+                    source_class=source_class,
+                    extraction_method=extraction_method,
                 )
             except BudgetExceeded:
                 raise
@@ -562,6 +574,11 @@ class GraphResearchExecutor:
             document,
             label="full_document",
             call_kind="primary_extraction",
+            extraction_method=(
+                "mock_structured"
+                if self.model.name == "mock"
+                else "structured_full_document"
+            ),
         )
         if extracted or not self.enable_extraction_fallbacks:
             return extracted, errors, (
@@ -583,6 +600,11 @@ class GraphResearchExecutor:
                     document.model_copy(update={"text": smaller_text}),
                     label="smaller_chunk",
                     call_kind="extraction_retry",
+                    extraction_method=(
+                        "mock_structured"
+                        if self.model.name == "mock"
+                        else "structured_smaller_chunk"
+                    ),
                 )
                 if extracted:
                     return extracted, errors, "claims_created_smaller_chunk"
@@ -600,6 +622,7 @@ class GraphResearchExecutor:
                 forecast_node_id=node.id,
                 as_of=self.as_of if self.mode == "backtest" else None,
                 mode=self.mode,  # type: ignore[arg-type]
+                source_class=source_class,
             )
         except EvidenceClaimError as exc:
             errors.extend(
@@ -953,6 +976,7 @@ class GraphResearchExecutor:
                     document=extraction_document,
                     evidence_item_id=evidence_item_id,
                     node=node,
+                    source_class=hit.source_class,
                 )
             )
             extraction_errors.extend(attempt_errors)

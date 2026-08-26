@@ -101,6 +101,7 @@ export default function ForecastPage() {
   ].includes(aggregationMethod);
   const logOddsAggregation = aggregationMethod === "importance_weighted_log_odds_v1";
   const graphExecutionFailed = v1Report?.execution_status === "failed";
+  const evidenceSufficiency = v1Report?.evidence_sufficiency || null;
   const displayedProbability = graphExecutionFailed
     ? null
     : v1Report?.final_probability ?? data.latest_probability;
@@ -131,7 +132,9 @@ export default function ForecastPage() {
           </p>
           <p className="mt-3 text-sm">
             {graphExecutionFailed
-              ? "No probability was produced because graph execution was incomplete."
+              ? evidenceSufficiency?.status === "failed"
+                ? "No private-V1 probability was produced because deterministic evidence sufficiency was not met."
+                : "No probability was produced because graph execution was incomplete."
               : directModelProbability
               ? "Direct structured model probability. No probability aggregation."
               : logOddsAggregation
@@ -145,6 +148,41 @@ export default function ForecastPage() {
               {graphAggregation ? "Node spread" : "Track spread"}:{" "}
               {aggregation.track_spread == null ? "—" : Number(aggregation.track_spread).toFixed(3)}
             </p>
+          ) : null}
+          {evidenceSufficiency ? (
+            <div className="border border-rule bg-white/60 p-4 text-sm" aria-label="Evidence Sufficiency">
+              <h4 className="font-serif text-xl">Evidence Sufficiency</h4>
+              <p className="mt-2">
+                {evidenceSufficiency.status} · policy {evidenceSufficiency.policy_version} · assessment {evidenceSufficiency.id}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                selected {evidenceSufficiency.selected_coverage_numerator}/{evidenceSufficiency.selected_coverage_denominator}
+                {" · "}graph {evidenceSufficiency.graph_coverage_numerator}/{evidenceSufficiency.graph_coverage_denominator}
+                {" · "}weight {Number(evidenceSufficiency.graph_weight_coverage || 0).toFixed(3)}
+                {" · "}hosts {evidenceSufficiency.distinct_host_count}
+                {" · "}primary nodes {evidenceSufficiency.primary_node_count}
+                {" · "}structured/fallback {evidenceSufficiency.structured_claim_count}/{evidenceSufficiency.fallback_claim_count}
+              </p>
+              <p className="mt-1 break-all font-mono text-xs text-ink/60">
+                input {evidenceSufficiency.assessment_input_hash}
+              </p>
+              {evidenceSufficiency.reasons?.length ? (
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-red-800">
+                  {evidenceSufficiency.reasons.map((reason: string) => <li key={reason}>{reason}</li>)}
+                </ul>
+              ) : null}
+              <div className="mt-3 grid gap-2 md:grid-cols-2">
+                {(evidenceSufficiency.per_node || []).map((item: any) => (
+                  <div key={item.node_id} className="border border-rule/70 p-2">
+                    <p className="font-medium">{item.node_id}: {String(item.grade).replaceAll("_", " ")}</p>
+                    <p className="text-xs text-ink/60">
+                      {item.critical ? "critical" : "noncritical"} · {item.passed ? "passed" : "failed"}
+                      {item.reasons?.length ? ` · ${item.reasons.join(", ")}` : ""}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : null}
         </div>
       </header>
@@ -505,6 +543,9 @@ export default function ForecastPage() {
                                 {" · "}Basis {String(claim.temporal_basis || "unavailable").replaceAll("_", " ")}
                                 {" · "}Publication verified {claim.publication_date_verified ? "yes" : "no"}
                                 {" · "}Cutoff verified {claim.cutoff_verified ? "yes" : "no"}
+                                {" · "}Source class {claim.source_class || "unknown legacy"}
+                                {" · "}Extraction {String(claim.extraction_method || "unknown_legacy").replaceAll("_", " ")}
+                                {" · "}Host {claim.source_host || "unavailable"}
                               </p>
                               <a
                                 className="mt-1 inline-block text-xs underline decoration-copper"

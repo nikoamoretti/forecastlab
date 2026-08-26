@@ -54,7 +54,7 @@ def test_research_analysis_reports_performance_operations_and_research_without_m
     profiles = _profile_map(analysis)
     comparison_profiles = _profile_map(comparison)
 
-    assert analysis["status"] == "completed"
+    assert analysis["status"] == "completed_with_failures"
     assert analysis["configuration_hash"] == created["configuration_hash"]
     assert list(profiles) == list(CONTROLLED_FORECAST_PROFILES)
     assert analysis["notice"].startswith("Internal research measurements only")
@@ -70,12 +70,19 @@ def test_research_analysis_reports_performance_operations_and_research_without_m
             "log_loss"
         ]
         assert profile["performance"]["calibration_buckets"]["available"] is False
-        assert profile["performance"]["calibration_buckets"]["sample_count"] == 1
+        graph_profile = profile_id == "graph_forecaster_v1"
+        assert profile["performance"]["calibration_buckets"]["sample_count"] == (
+            0 if graph_profile else 1
+        )
         assert profile["operations"]["assigned_questions"] == 1
-        assert profile["operations"]["completed"] == 1
-        assert profile["operations"]["failed"] == 0
-        assert profile["operations"]["completion_rate"] == 1.0
-        assert profile["operations"]["failure_rate"] == 0.0
+        assert profile["operations"]["completed"] == (0 if graph_profile else 1)
+        assert profile["operations"]["failed"] == (1 if graph_profile else 0)
+        assert profile["operations"]["completion_rate"] == (
+            0.0 if graph_profile else 1.0
+        )
+        assert profile["operations"]["failure_rate"] == (
+            1.0 if graph_profile else 0.0
+        )
         assert profile["operations"]["total_cost_usd"] == 0.0
         assert profile["operations"]["mean_latency_ms"] >= 0
         assert profile["research"]["evidence_coverage"] is not None

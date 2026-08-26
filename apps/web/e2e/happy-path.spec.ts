@@ -48,7 +48,33 @@ test("mock happy path", async ({ page }) => {
   await expect(page.getByText(/2 versions/i)).toBeVisible({ timeout: 120000 });
 });
 
-test("V1 graph report shows node evidence and calculation trace", async ({ page }) => {
+test("operational graph smoke report shows node evidence and calculation trace", async ({ page }) => {
+  test.setTimeout(180000);
+  await page.goto("/new");
+  await page.getByLabel("Forecast profile").selectOption("graph_live_smoke_v1");
+  await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the contract/i })).toBeVisible({ timeout: 30000 });
+  await page.getByRole("button", { name: /Approve and generate Research Graph/i }).click();
+  await expect(page.getByRole("heading", { name: /Review the research plan/i })).toBeVisible({ timeout: 30000 });
+  await page.getByRole("button", { name: /Launch mock run/i }).click();
+
+  await expect(page.getByRole("heading", { name: "Forecast Graph report" })).toBeVisible({ timeout: 120000 });
+  const report = page.getByRole("region", { name: "V1 Forecast Graph report" });
+  await expect(report.getByText(/3\/7/)).toBeVisible();
+  await expect(page.getByText("Supporting evidence", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Opposing evidence", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Uncertainty", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(/Model: mock:mock-forecast-v1/).first()).toBeVisible();
+  await expect(report.getByText("Published date verified").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Calculation trace" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Final answer" })).toBeVisible();
+  await expect(report.getByText(/graph_live_smoke_v1 probability is/i)).toBeVisible();
+  await expect(report.getByRole("heading", { name: "Graph generation audit" })).toBeVisible();
+  await expect(report).toContainText("completion/visible caps 8192 / 1536");
+  await expect(report).toContainText("reasoning/verbosity minimal / low");
+});
+
+test("private V1 report fails closed when deterministic evidence is insufficient", async ({ page }) => {
   test.setTimeout(180000);
   await page.goto("/new");
   await page.getByLabel("Forecast profile").selectOption("graph_forecaster_v1");
@@ -58,20 +84,13 @@ test("V1 graph report shows node evidence and calculation trace", async ({ page 
   await expect(page.getByRole("heading", { name: /Review the research plan/i })).toBeVisible({ timeout: 30000 });
   await page.getByRole("button", { name: /Launch mock run/i }).click();
 
-  await expect(page.getByRole("heading", { name: "Forecast Graph report" })).toBeVisible({ timeout: 120000 });
+  await expect(page.getByText(/No private-V1 probability was produced because deterministic evidence sufficiency was not met/i).first()).toBeVisible({ timeout: 120000 });
+  await expect(page.getByRole("heading", { name: "Evidence Sufficiency" })).toBeVisible();
+  await expect(page.getByText(/failed · policy private_v1_evidence_gate_v1/i)).toBeVisible();
+  await expect(page.getByText("two_distinct_source_hosts_required", { exact: true })).toBeVisible();
   const report = page.getByRole("region", { name: "V1 Forecast Graph report" });
-  await expect(report.getByText(/7\/7/)).toBeVisible();
-  await expect(page.getByText("Supporting evidence", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Opposing evidence", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Uncertainty", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText(/Model: mock:mock-forecast-v1/).first()).toBeVisible();
-  await expect(report.getByText("Published date verified").first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Calculation trace" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Final answer" })).toBeVisible();
-  await expect(report.getByText(/graph_forecaster_v1 probability is/i)).toBeVisible();
-  await expect(report.getByRole("heading", { name: "Graph generation audit" })).toBeVisible();
-  await expect(report).toContainText("completion/visible caps 4096 / 4096");
-  await expect(report).toContainText("reasoning/verbosity minimal / unavailable");
+  await expect(report).toContainText("final —");
+  await expect(report.getByText(/No private-V1 probability was produced because deterministic evidence sufficiency was not met/i)).toBeVisible();
 });
 
 test("single-model baseline skips graph construction and aggregation", async ({ page }) => {

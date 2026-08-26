@@ -56,7 +56,10 @@ from forecastlab_api.pipeline import (
 from forecastlab_api.secrets import load_secrets
 
 VALIDATION_PROFILE_ID = "graph_forecaster_v1"
+# The preserved validation artifact was executed under profile v5. New validation
+# freezes use the current private-V1 profile without rewriting that history.
 VALIDATION_PROFILE_VERSION = 5
+ACTIVE_VALIDATION_PROFILE_VERSION = 6
 VALIDATION_SCHEMA_VERSION = 1
 VALIDATION_SELECTION_RULE = "first_rows_by_domain_in_pilot_manifest_v1"
 VALIDATION_DOMAIN_COUNTS = {
@@ -129,7 +132,7 @@ def freeze_graph_validation(
     selected = selected_pilot_questions()
     provider_settings = settings_data or provider_settings_from_secrets(load_secrets())
     profile = load_profile(VALIDATION_PROFILE_ID)
-    if profile.version != VALIDATION_PROFILE_VERSION:
+    if profile.version != ACTIVE_VALIDATION_PROFILE_VERSION:
         raise GraphValidationError("graph_validation_profile_version_mismatch")
     bundle = load_prompt_bundle()
     catalog = load_pricing()
@@ -449,7 +452,7 @@ def execute_graph_validation(
         raise GraphValidationError("graph_validation_configuration_hash_mismatch")
     if working_tree_dirty():
         raise GraphValidationError("graph_validation_requires_clean_worktree")
-    if frozen.get("profile", {}).get("version") != VALIDATION_PROFILE_VERSION:
+    if frozen.get("profile", {}).get("version") != ACTIVE_VALIDATION_PROFILE_VERSION:
         raise GraphValidationError("graph_validation_profile_version_mismatch")
 
     with session_factory() as session:
@@ -564,7 +567,8 @@ def render_graph_validation_report(artifact: dict[str, Any]) -> str:
         "",
         (
             "This is a five-question execution-reliability validation of "
-            "`graph_forecaster_v1` version 5. It does not compare forecast accuracy."
+            f"`graph_forecaster_v1` version {frozen['profile']['version']}. "
+            "It does not compare forecast accuracy."
         ),
         "",
         f"- Validation ID: `{artifact['validation_id']}`",
@@ -592,7 +596,8 @@ def render_graph_validation_report(artifact: dict[str, Any]) -> str:
         "",
         (
             "The previous benchmark's ten failures were evidence failures. The current "
-            "sample is smaller and uses profile version 5, so this is a descriptive "
+            f"sample is smaller and uses profile version {frozen['profile']['version']}, "
+            "so this is a descriptive "
             "execution comparison only."
         ),
         "",

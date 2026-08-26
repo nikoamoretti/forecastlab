@@ -15,6 +15,12 @@ from forecastlab.errors import (
     PermanentProviderError,
     StructuredOutputError,
 )
+from forecastlab.evidence_sufficiency import (
+    PRIVATE_V1_EVIDENCE_GATE_V1,
+    EvidenceSufficiencyAssessment,
+    EvidenceSufficiencyItem,
+    assess_evidence_sufficiency,
+)
 from forecastlab.execution import ExecutionContext
 from forecastlab.graph_aggregation import (
     LOG_ODDS_METHOD,
@@ -45,7 +51,15 @@ from forecastlab.schemas import (
 )
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.aggregations import store_forecast_aggregation
+from forecastlab_api.evidence_claims import evidence_claim_from_row
+from forecastlab_api.evidence_sufficiency import (
+    EvidenceSufficiencyStoreError,
+    evidence_sufficiency_from_row,
+    store_evidence_sufficiency_assessment,
+)
 from forecastlab_api.models import (
+    EvidenceClaimRow,
+    EvidenceItem,
     ForecastNodeRunRow,
     ForecastRun,
     ForecastVersion,
@@ -278,6 +292,37 @@ class GraphForecastExecutor:
             if execution.node_run is not None
             and execution.node.id not in failed_node_ids
         ]
+        evidence_assessment = self._assess_evidence_sufficiency(
+            node_result,
+            node_runs,
+        )
+        if evidence_assessment is not None and evidence_assessment.status == "failed":
+            failure = {
+                "node_id": None,
+                "stage": "evidence_sufficiency",
+                "error_code": "evidence_sufficiency_gate_failed",
+                "error_message": "; ".join(evidence_assessment.reasons),
+                "critical_node": True,
+                "impact": "forecast_failed",
+                "research_plan": {
+                    "assessment_id": evidence_assessment.id,
+                    "policy_version": evidence_assessment.policy_version,
+                    "assessment_input_hash": evidence_assessment.assessment_input_hash,
+                    "reasons": evidence_assessment.reasons,
+                    "warnings": evidence_assessment.warnings,
+                },
+            }
+            self._persist_partial_result(
+                node_result,
+                [failure, *failures],
+                reliability=reliability,
+                evidence_assessment=evidence_assessment,
+            )
+            self._raise_failure(
+                stage="evidence_sufficiency",
+                reasons=["evidence_sufficiency_gate_failed"],
+                message="; ".join(evidence_assessment.reasons),
+            )
         aggregation_graph = self._aggregation_graph(
             node_result.graph,
             included_node_ids={node_run.node_id for node_run in node_runs},
@@ -306,9 +351,27 @@ class GraphForecastExecutor:
                 node_result,
                 [failure],
                 reliability=reliability,
+                evidence_assessment=evidence_assessment,
             )
             self._raise_failure(stage="aggregation", reasons=exc.reasons, message=str(exc))
 
+        if evidence_assessment is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "evidence_sufficiency_gate",
+                            "assessment_id": evidence_assessment.id,
+                            "policy_version": evidence_assessment.policy_version,
+                            "assessment_input_hash": (
+                                evidence_assessment.assessment_input_hash
+                            ),
+                            "status": evidence_assessment.status,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
         if failures:
             aggregation = aggregation.model_copy(
                 update={
@@ -329,6 +392,7 @@ class GraphForecastExecutor:
             aggregation,
             failures=failures,
             reliability=reliability,
+            evidence_assessment=evidence_assessment,
         )
         self.session.commit()
         return version
@@ -535,6 +599,64 @@ class GraphForecastExecutor:
         }
         return fatal, failed_node_ids, reliability
 
+    def _assess_evidence_sufficiency(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+    ) -> EvidenceSufficiencyAssessment | None:
+        policy_id = self.profile.evidence_sufficiency_policy
+        if policy_id is None:
+            return None
+        if policy_id != PRIVATE_V1_EVIDENCE_GATE_V1.version:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_evidence_sufficiency_policy"],
+                message=f"Unsupported evidence sufficiency policy: {policy_id}",
+            )
+        if result.research_plan is None:
+            self._fail(
+                stage="evidence_sufficiency",
+                reasons=["research_plan_required_for_evidence_sufficiency"],
+                message="A frozen ResearchPlan is required for evidence sufficiency",
+            )
+
+        claim_rows = self.session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceClaimRow.id)
+        ).all()
+        item_rows = self.session.scalars(
+            select(EvidenceItem)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceItem.id)
+        ).all()
+        assessment = assess_evidence_sufficiency(
+            forecast_run_id=self.run.id,
+            graph=result.graph,
+            plan=result.research_plan,
+            node_runs=node_runs,
+            claims=[evidence_claim_from_row(row) for row in claim_rows],
+            items=[
+                EvidenceSufficiencyItem(
+                    id=row.id,
+                    source_url=row.url,
+                    rejected=row.rejected,
+                    as_of_eligible=row.as_of_eligible,
+                )
+                for row in item_rows
+            ],
+        )
+        try:
+            stored = store_evidence_sufficiency_assessment(self.session, assessment)
+        except EvidenceSufficiencyStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable evidence sufficiency assessment conflict",
+            )
+        return evidence_sufficiency_from_row(stored)
+
     @staticmethod
     def _aggregation_graph(
         graph: ForecastGraph,
@@ -685,16 +807,25 @@ class GraphForecastExecutor:
         failures: list[dict[str, Any]],
         *,
         reliability: dict[str, Any] | None = None,
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
     ) -> None:
         self._persist_node_runs(
             [execution.node_run for execution in result.nodes if execution.node_run is not None]
         )
         self._persist_failures(failures)
         self._apply_result_metadata(result)
-        self._store_artifact_ids(result, reliability=reliability)
+        self._store_artifact_ids(
+            result,
+            reliability=reliability,
+            evidence_assessment=evidence_assessment,
+        )
         self.run.status = "failed"
         self.run.error_stage = str(failures[0]["stage"])
-        self.run.error_message = "; ".join(str(item["error_code"]) for item in failures)
+        self.run.error_message = (
+            f"evidence_sufficiency_gate_failed: {failures[0]['error_message']}"
+            if failures[0]["stage"] == "evidence_sufficiency"
+            else "; ".join(str(item["error_code"]) for item in failures)
+        )
         self.run.progress_stage = "failed"
         self.run.progress_message = "Graph forecast stopped before aggregation"
         self._finish_failed_run()
@@ -710,12 +841,17 @@ class GraphForecastExecutor:
         *,
         failures: list[dict[str, Any]],
         reliability: dict[str, Any],
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
     ) -> ForecastVersion:
         self._persist_node_runs(node_runs)
         self._persist_failures(failures)
         store_forecast_aggregation(self.session, aggregation)
         self._apply_result_metadata(result)
-        self._store_artifact_ids(result, reliability=reliability)
+        self._store_artifact_ids(
+            result,
+            reliability=reliability,
+            evidence_assessment=evidence_assessment,
+        )
         self.run.aggregation_json = json.dumps(jsonable(aggregation))
         self.run.status = "completed"
         self.run.error_stage = None
@@ -824,6 +960,7 @@ class GraphForecastExecutor:
         result: GraphNodeForecastResult,
         *,
         reliability: dict[str, Any] | None = None,
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
     ) -> None:
         try:
             snapshot = json.loads(self.run.execution_context_json or "{}")
@@ -847,6 +984,14 @@ class GraphForecastExecutor:
         ]
         if reliability is not None:
             snapshot["graph_research_reliability"] = reliability
+        if evidence_assessment is not None:
+            snapshot["evidence_sufficiency_assessment_id"] = evidence_assessment.id
+            snapshot["evidence_sufficiency_policy_version"] = (
+                evidence_assessment.policy_version
+            )
+            snapshot["evidence_sufficiency_assessment_input_hash"] = (
+                evidence_assessment.assessment_input_hash
+            )
         self.run.execution_context_json = json.dumps(snapshot)
 
     def _fail(

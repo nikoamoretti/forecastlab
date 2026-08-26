@@ -6,7 +6,7 @@ This workflow provides one reproducible environment for comparing ForecastLab's 
 
 - `single_model_forecaster_v1` version 1;
 - `three_track_forecaster` version 1;
-- `graph_forecaster_v1` version 5.
+- `graph_forecaster_v1` version 6, including `private_v1_evidence_gate_v1`.
 
 It changes neither their forecasting behavior nor their probability calculations. Its job is to freeze shared inputs, execute the same resolved questions through every profile, preserve results and failures, and produce measurement and uncertainty reports.
 
@@ -91,7 +91,7 @@ The worker executes each `ForecastExperimentRun` through its existing strategy:
 - three track: the existing independent base-rate, current-evidence, and skeptic path;
 - graph: Contract → Graph → Evidence Claims → Node Forecasts → Graph Aggregation.
 
-The experiment runner does not alter those paths. Every run uses the dataset question's forecast date as its historical evidence cutoff and persists its terminal state. Failed cells retain their error and recorded cost but receive no invented probability.
+The experiment runner does not alter those paths. Every run uses the dataset question's forecast date as its historical evidence cutoff and persists its terminal state. The graph profile's deterministic evidence-sufficiency policy applies unchanged; a fixture or real cell that does not meet it remains failed and unscored rather than receiving an evaluation-only bypass or invented probability.
 
 Use `GET /api/forecast-experiments/{id}` to inspect progress. Its response includes the experiment creation time, configuration hash, frozen dataset/provider/budget/prompt/code summary, per-profile counts, and every assigned cell.
 

@@ -16,11 +16,14 @@ from forecastlab.graph_research import NodeResearchPlan
 from forecastlab.graphs import ForecastGraphError
 from forecastlab.profiles import load_profile
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
-from forecastlab.schemas import ForecastNodeRun
+from forecastlab.research_planning import ResearchPlan
+from forecastlab.schemas import EvidenceClaim, ForecastGraph, ForecastNode, ForecastNodeRun
 from forecastlab.timeutil import utcnow
 from forecastlab_api.contracts import forecast_contract_from_row
 from forecastlab_api.graph_executor import GraphForecastExecutor
+from forecastlab_api.graphs import store_forecast_graph
 from forecastlab_api.models import (
+    EvidenceSufficiencyAssessmentRow,
     ForecastAggregationRow,
     ForecastNodeRunRow,
     ForecastVersion,
@@ -42,6 +45,7 @@ def _approved_forecast(client) -> dict:
 
 
 def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExecutor, str]:
+    enforce_evidence_gate = bool(overrides.pop("enforce_evidence_gate", False))
     question = session.get(Question, question_id)
     assert question is not None
     context = resolve_for_question(
@@ -65,9 +69,12 @@ def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExec
     run.started_at = utcnow()
     run.status = "running"
     session.commit()
+    profile = apply_execution_limits(load_profile("graph_forecaster_v1"), context)
+    if not enforce_evidence_gate:
+        profile = profile.model_copy(update={"evidence_sufficiency_policy": None})
     kwargs = {
         "run": run,
-        "profile": apply_execution_limits(load_profile("graph_forecaster_v1"), context),
+        "profile": profile,
         "execution": context,
         "model": MockModelProvider(),
         "search": MockSearchProvider(),
@@ -140,22 +147,183 @@ def _node_result(**kwargs) -> GraphNodeForecastResult:
     )
 
 
-def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
-    draft = _approved_forecast(client)
-
-    response = client.post(
-        f"/api/forecasts/{draft['question_id']}/execute-graph",
-        json={"mode": "demo"},
+def _gate_graph(contract_id: str) -> ForecastGraph:
+    graph_id = str(uuid.uuid4())
+    node_types = ["base_rate", "driver", "adversarial", "resolver", "trend"]
+    weights = [0.8, 0.1, 0.1, 0.0, 0.0]
+    return ForecastGraph(
+        id=graph_id,
+        contract_id=contract_id,
+        version=1,
+        status="approved",
+        created_at=utcnow(),
+        generation_model="stub:gate-graph-v1",
+        root_question="Will the exact outcome occur?",
+        nodes=[
+            ForecastNode(
+                id=str(uuid.uuid4()),
+                graph_id=graph_id,
+                question=f"Gate node {index + 1}?",
+                node_type=node_type,  # type: ignore[arg-type]
+                importance_weight=weight,
+                required_output_type="probability",
+            )
+            for index, (node_type, weight) in enumerate(
+                zip(node_types, weights, strict=True)
+            )
+        ],
     )
 
-    assert response.status_code == 200
+
+def _gate_node_result(*, fallback_node_index: int | None = None):
+    def run(**kwargs) -> GraphNodeForecastResult:
+        graph = kwargs["graph"]
+        run_id = kwargs["run_id"]
+        selected = graph.nodes[:3]
+        plan = ResearchPlan(
+            id=str(uuid.uuid4()),
+            forecast_run_id=run_id,
+            selected_nodes=[node.id for node in selected],
+            skipped_nodes=[node.id for node in graph.nodes[3:]],
+            priority_scores={
+                node.id: float(len(graph.nodes) - index)
+                for index, node in enumerate(graph.nodes)
+            },
+            budget_allocation={"critical_node_ids": [selected[0].id]},
+            created_at=utcnow(),
+        )
+        kwargs["persist_research_plan"](plan)
+        hosts = ["bls.gov", "reuters.com", "sec.gov"]
+        source_classes = ["primary", "secondary", "secondary"]
+        executions: list[ForecastNodeExecution] = []
+        for index, node in enumerate(graph.nodes):
+            if index >= 3:
+                executions.append(
+                    ForecastNodeExecution(
+                        node=node,
+                        node_run=None,
+                        research_selected=False,
+                        skip_reason="not_selected_by_frozen_plan",
+                    )
+                )
+                continue
+            host = hosts[index]
+            item_id = f"item-{node.id}"
+            claim_id = f"claim-{node.id}"
+            url = f"https://{host}/source/{node.id}"
+            observed_at = utcnow()
+            extraction_method = (
+                "document_fallback"
+                if fallback_node_index == index
+                else "mock_structured"
+            )
+            record = {
+                "id": item_id,
+                "forecast_node_id": node.id,
+                "subquestion": node.question,
+                "url": url,
+                "title": f"Source for {node.question}",
+                "publisher": host,
+                "published_at": observed_at.isoformat(),
+                "retrieved_at": observed_at.isoformat(),
+                "source_available_at": observed_at.isoformat(),
+                "temporal_basis": "publication_date",
+                "publication_date_source": "test_fixture",
+                "publication_date_verified": True,
+                "excerpt": "Exact test excerpt.",
+                "content_hash": "a" * 64,
+                "source_class": source_classes[index],
+                "as_of_eligible": True,
+                "rejected": False,
+                "status_code": 200,
+                "published_at_unknown": False,
+                "snapshot_verification_status": "fixture",
+            }
+            claim = EvidenceClaim(
+                id=claim_id,
+                evidence_item_id=item_id,
+                forecast_node_id=node.id,
+                claim="Exact test claim.",
+                excerpt="Exact test excerpt.",
+                source_url=url,
+                source_title=record["title"],
+                publisher=host,
+                publication_date=observed_at,
+                publication_date_source="test_fixture",
+                publication_date_verified=True,
+                retrieval_date=observed_at,
+                source_available_at=observed_at,
+                temporal_basis="publication_date",
+                supports_or_refutes="supports",
+                confidence=0.1,
+                source_quality=0.0,
+                primary_source=False,
+                as_of_eligible=True,
+                cutoff_verified=True,
+                source_class=source_classes[index],  # type: ignore[arg-type]
+                extraction_method=extraction_method,  # type: ignore[arg-type]
+                source_host=host,
+            )
+            kwargs["persist_research"](node, [record], [], [claim])
+            executions.append(
+                ForecastNodeExecution(
+                    node=node,
+                    node_run=ForecastNodeRun(
+                        id=str(uuid.uuid4()),
+                        run_id=run_id,
+                        node_id=node.id,
+                        probability=0.45 + index * 0.05,
+                        confidence=0.5,
+                        reasoning="Gate integration stub.",
+                        supporting_claim_ids=[claim_id],
+                        opposing_claim_ids=[],
+                        uncertainty_notes=[],
+                        model_used="stub:node-v1",
+                        uncertainty=0.5,
+                        created_at=utcnow(),
+                    ),
+                    evidence=[record],
+                    claims=[claim],
+                )
+            )
+        return GraphNodeForecastResult(
+            contract=kwargs["contract"],
+            graph=graph,
+            nodes=executions,
+            prompt_versions={"forecast_node": "v3"},
+            budget={},
+            stopped_early=False,
+            stop_reason=None,
+            stop_stage=None,
+            research_plan=plan,
+        )
+
+    return run
+
+
+def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        question = session.get(Question, draft["question_id"])
+        assert question is not None
+        question.requested_profile_id = "graph_live_smoke_v1"
+        session.commit()
+
+    response = client.post(
+        f"/api/questions/{draft['question_id']}/runs",
+        json={"mode": "demo", "profile_id": "graph_live_smoke_v1"},
+    )
+
+    assert response.status_code == 200, response.text
     run = response.json()
     assert run["status"] == "completed"
-    assert run["profile_id"] == "graph_forecaster_v1"
+    assert run["profile_id"] == "graph_live_smoke_v1"
     stored_run = client.get(f"/api/runs/{run['id']}").json()
     assert stored_run["prompt_versions"]["graph_research"] == "v1"
     assert stored_run["research_plan"]["forecast_run_id"] == run["id"]
-    assert len(stored_run["research_plan"]["selected_nodes"]) == 7
+    assert len(stored_run["research_plan"]["selected_nodes"]) == 3
 
     report_response = client.get(f"/api/forecasts/{draft['question_id']}/graph-report")
     assert report_response.status_code == 200
@@ -169,7 +337,10 @@ def test_execute_graph_api_creates_complete_auditable_report(client) -> None:
     assert report["forecast_contract"]["authoritative_source"]
     assert len(report["nodes"]) == 7
     assert all(node["dependencies"] is not None for node in report["nodes"])
-    assert all(node["supporting_evidence"] for node in report["nodes"])
+    selected_nodes = [node for node in report["nodes"] if node["research_selected"]]
+    assert len(selected_nodes) == 3
+    assert all(node["supporting_evidence"] for node in selected_nodes)
+    assert report["evidence_sufficiency"] is None
     assert report["calculation"]["method"] == "importance_weighted_log_odds_v1"
     assert report["calculation"]["trace"][-1]["step"] == "final"
     assert report["final_answer"]["status"] == "completed"
@@ -443,3 +614,121 @@ def test_aggregation_failure_is_recorded_without_forecast_version(client) -> Non
             select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run_id)
         ) is None
         assert session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id)) is None
+
+
+def test_private_v1_evidence_gate_passes_before_unchanged_aggregation(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(contract.id)
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(),
+        )
+
+        version = executor.execute()
+
+        assessment = session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        assert assessment is not None
+        assert assessment.status == "passed"
+        assert assessment.policy_version == "private_v1_evidence_gate_v1"
+        assert assessment.included_node_count == 3
+        assert assessment.graph_weight_coverage == pytest.approx(1.0)
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        )
+        assert aggregation is not None
+        trace = json.loads(aggregation.calculation_trace_json)
+        assert trace[0] == {
+            "assessment_id": assessment.id,
+            "assessment_input_hash": assessment.assessment_input_hash,
+            "policy_version": "private_v1_evidence_gate_v1",
+            "status": "passed",
+            "step": "evidence_sufficiency_gate",
+        }
+        context = json.loads(version.run.execution_context_json)
+        assert context["evidence_sufficiency_assessment_id"] == assessment.id
+        assert context["evidence_sufficiency_assessment_input_hash"] == assessment.assessment_input_hash
+        assert version.ensemble_probability is not None
+
+    report = client.get(f"/api/forecasts/{draft['question_id']}/graph-report").json()["report"]
+    assert report["evidence_sufficiency"]["status"] == "passed"
+    assert report["final_probability"] is not None
+
+
+def test_private_v1_evidence_gate_fails_closed_and_preserves_node_artifacts(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(contract.id)
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(fallback_node_index=1),
+        )
+
+        with pytest.raises(
+            GraphForecastExecutionError,
+            match="included_node_evidence_insufficient",
+        ):
+            executor.execute()
+
+        assessment = session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        assert assessment is not None
+        assert assessment.status == "failed"
+        assert session.scalar(
+            select(func.count()).select_from(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run_id
+            )
+        ) == 3
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id,
+                GraphExecutionFailureRow.stage == "evidence_sufficiency",
+            )
+        )
+        assert failure is not None
+        assert failure.error_code == "evidence_sufficiency_gate_failed"
+
+    report = client.get(f"/api/forecasts/{draft['question_id']}/graph-report").json()["report"]
+    assert report["final_probability"] is None
+    assert report["evidence_sufficiency"]["status"] == "failed"
+    assert report["final_answer"]["statement"] == (
+        "No private-V1 probability was produced because deterministic evidence "
+        "sufficiency was not met."
+    )

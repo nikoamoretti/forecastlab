@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from forecastlab_api.graph_validation import (
+    ACTIVE_VALIDATION_PROFILE_VERSION,
     PILOT_V1_DATASET_HASH,
     VALIDATION_DOMAIN_COUNTS,
     VALIDATION_PROFILE_ID,
@@ -98,7 +99,7 @@ def test_validation_selection_uses_five_manifest_order_questions() -> None:
     )
 
 
-def test_validation_freeze_is_profile_v5_reproducible_and_secret_free() -> None:
+def test_validation_freeze_uses_current_profile_and_is_secret_free() -> None:
     frozen = freeze_graph_validation(
         settings_data=_provider_settings(),
         created_at=datetime(2026, 8, 23, tzinfo=UTC),
@@ -107,7 +108,7 @@ def test_validation_freeze_is_profile_v5_reproducible_and_secret_free() -> None:
     assert frozen["dataset"]["hash"] == PILOT_V1_DATASET_HASH
     assert frozen["dataset"]["selected_question_count"] == 5
     assert frozen["profile"]["id"] == VALIDATION_PROFILE_ID
-    assert frozen["profile"]["version"] == VALIDATION_PROFILE_VERSION
+    assert frozen["profile"]["version"] == ACTIVE_VALIDATION_PROFILE_VERSION
     assert frozen["provider"]["model_api_key_set"] is True
     assert frozen["provider"]["search_api_key_set"] is True
     assert "test-model-key" not in str(frozen)

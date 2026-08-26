@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from forecastlab.evidence_claims import EvidenceClaimError
+from forecastlab.evidence_claims import EvidenceClaimError, normalize_source_host
 from forecastlab.schemas import EvidenceClaim
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.models import EvidenceClaimRow, EvidenceItem, ForecastNodeRow
@@ -35,6 +35,9 @@ def evidence_claim_from_row(row: EvidenceClaimRow) -> EvidenceClaim:
         primary_source=row.primary_source,
         as_of_eligible=row.as_of_eligible,
         cutoff_verified=row.cutoff_verified,
+        source_class=row.source_class,  # type: ignore[arg-type]
+        extraction_method=row.extraction_method,  # type: ignore[arg-type]
+        source_host=row.source_host,
     )
 
 
@@ -65,6 +68,10 @@ def _provenance_errors(claim: EvidenceClaim, item: EvidenceItem) -> list[str]:
         errors.append("source_available_at_mismatch")
     if claim.temporal_basis != item.temporal_basis:
         errors.append("temporal_basis_mismatch")
+    if claim.source_class != "unknown_legacy" and claim.source_class != item.source_class:
+        errors.append("source_class_mismatch")
+    if claim.source_host and claim.source_host != normalize_source_host(item.url):
+        errors.append("source_host_mismatch")
     if item.run.mode == "backtest":
         if item.temporal_basis == "retrieval_date":
             errors.append("historical_retrieval_basis_forbidden")

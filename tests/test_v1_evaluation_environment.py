@@ -14,7 +14,7 @@ from forecastlab_api.models import ForecastExperiment
 EXPECTED_PROFILE_VERSIONS = {
     "single_model_forecaster_v1": 1,
     "three_track_forecaster": 1,
-    "graph_forecaster_v1": 5,
+    "graph_forecaster_v1": 6,
 }
 EXPECTED_EXECUTION_STRATEGIES = {
     "single_model_forecaster_v1": "single_model",
@@ -103,7 +103,7 @@ def test_v1_evaluation_environment_runs_and_reports_from_one_frozen_manifest(
     report_response = client.get(f"/api/forecast-experiments/{created['id']}/report")
     assert report_response.status_code == 200
     report = report_response.json()
-    assert report["status"] == "completed"
+    assert report["status"] == "completed_with_failures"
     assert report["dataset"]["id"] == dataset["id"]
     assert report["dataset"]["version"] == dataset["version"]
     assert report["configuration_hash"] == created["configuration_hash"]
@@ -112,9 +112,18 @@ def test_v1_evaluation_environment_runs_and_reports_from_one_frozen_manifest(
     assert {row["profile_id"] for row in report["rows"]} == set(
         CONTROLLED_FORECAST_PROFILES
     )
-    assert all(row["completion_status"] == "completed" for row in report["rows"])
+    assert {
+        row["profile_id"]: row["completion_status"] for row in report["rows"]
+    } == {
+        "single_model_forecaster_v1": "completed",
+        "three_track_forecaster": "completed",
+        "graph_forecaster_v1": "failed",
+    }
     assert all(row["forecast_run_id"] for row in report["rows"])
-    assert all(row["probability"] is not None for row in report["rows"])
+    assert all(
+        (row["probability"] is None) == (row["profile_id"] == "graph_forecaster_v1")
+        for row in report["rows"]
+    )
 
     analysis_response = client.get(
         f"/api/forecast-experiments/{created['id']}/analysis"
@@ -129,7 +138,7 @@ def test_v1_evaluation_environment_runs_and_reports_from_one_frozen_manifest(
     assert [
         (item["profile_a"], item["profile_b"]) for item in analysis["comparisons"]
     ] == list(PAIRED_PROFILE_COMPARISONS)
-    assert all(item["question_count"] == 1 for item in analysis["comparisons"])
+    assert [item["question_count"] for item in analysis["comparisons"]] == [1, 0, 0]
     assert all(
         item["evidence_status"] == "insufficient evidence"
         for item in analysis["comparisons"]

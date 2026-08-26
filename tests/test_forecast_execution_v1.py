@@ -214,16 +214,15 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
         assert session.scalar(select(func.count()).select_from(ForecastGraphRow)) == 0
 
     response = client.post(
-        f"/api/forecasts/{draft['question_id']}/node-runs",
-        json={"mode": "demo"},
+        f"/api/questions/{draft['question_id']}/runs",
+        json={"mode": "demo", "profile_id": "graph_live_smoke_v1"},
     )
 
     assert response.status_code == 200
     run = response.json()
-    assert run["profile_id"] == "graph_forecaster_v1"
+    assert run["profile_id"] == "graph_live_smoke_v1"
     assert run["status"] == "completed"
-    assert len(run["node_runs"]) == 7
-    run_id = run["run_id"]
+    run_id = run["id"]
 
     with main_mod.SessionLocal() as session:
         assert session.scalar(select(func.count()).select_from(ForecastGraphRow)) == 1
@@ -231,13 +230,13 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
             select(func.count()).select_from(ForecastNodeRunRow).where(
                 ForecastNodeRunRow.forecast_run_id == run_id
             )
-        ) == 7
-        assert session.scalar(select(func.count()).select_from(EvidenceClaimRow)) == 7
+        ) == 3
+        assert session.scalar(select(func.count()).select_from(EvidenceClaimRow)) == 3
         version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run_id))
         assert version is not None
         assert version.ensemble_probability is not None
         assert version.trigger_event == "run"
-        assert version.run.profile_id == "graph_forecaster_v1"
+        assert version.run.profile_id == "graph_live_smoke_v1"
         aggregation = session.scalar(
             select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run_id)
         )
@@ -248,7 +247,7 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert node_runs.status_code == 200
     node_payload = node_runs.json()
     assert node_payload["run_id"] == run_id
-    assert len(node_payload["node_runs"]) == 7
+    assert len(node_payload["node_runs"]) == 3
     assert all(item["supporting_claim_ids"] for item in node_payload["node_runs"])
     assert all(item["run_id"] == run_id for item in node_payload["node_runs"])
     assert all(item["uncertainty_notes"] for item in node_payload["node_runs"])
@@ -264,15 +263,16 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert graph_resolution["graph_version"] == audited_run["forecast_graph"]["version"]
     assert graph_resolution["generation_audit"] == audited_run["forecast_graph"]["generation_audit"]
     assert audited_run["forecast_graph"]["generation_audit"]["provider"] == "mock"
-    assert audited_run["v1_report"]["profile_id"] == "graph_forecaster_v1"
+    assert audited_run["v1_report"]["profile_id"] == "graph_live_smoke_v1"
+    assert audited_run.get("evidence_sufficiency_assessment") is None
     assert audited_run["v1_report"]["graph"]["generation_audit"] == graph_resolution["generation_audit"]
 
     report = client.get(f"/api/questions/{draft['question_id']}/report").json()
     latest = report["latest_run"]
-    assert report["versions"][0]["profile_id"] == "graph_forecaster_v1"
+    assert report["versions"][0]["profile_id"] == "graph_live_smoke_v1"
     assert report["versions"][0]["trigger_event"] == "run"
-    assert len(latest["node_runs"]) == 7
-    assert len(latest["evidence_claims"]) == 7
+    assert len(latest["node_runs"]) == 3
+    assert len(latest["evidence_claims"]) == 3
     assert latest["forecast_contract"]["status"] == "approved"
     assert latest["forecast_graph"]["status"] == "approved"
     assert latest["aggregation"]["method"] == "importance_weighted_log_odds_v1"
@@ -282,10 +282,12 @@ def test_v1_execution_generates_graph_persists_claims_node_runs_and_final_foreca
     assert v1_report["final_probability"] == report["latest_probability"]
     assert len(v1_report["nodes"]) == 7
     assert all(node["question"] for node in v1_report["nodes"])
-    assert all(node["supporting_evidence"] for node in v1_report["nodes"])
-    assert all(node["uncertainty_notes"] for node in v1_report["nodes"])
-    assert all(node["model_used"] == "mock:mock-forecast-v1" for node in v1_report["nodes"])
-    assert v1_report["evidence_coverage"]["rate"] == 1.0
+    selected_nodes = [node for node in v1_report["nodes"] if node["research_selected"]]
+    assert len(selected_nodes) == 3
+    assert all(node["supporting_evidence"] for node in selected_nodes)
+    assert all(node["uncertainty_notes"] for node in selected_nodes)
+    assert all(node["model_used"] == "mock:mock-forecast-v1" for node in selected_nodes)
+    assert v1_report["evidence_coverage"]["rate"] == pytest.approx(3 / 7)
     assert v1_report["calculation"]["trace"][-1]["step"] == "final"
 
     markdown = client.get(f"/api/questions/{draft['question_id']}/export.md").text

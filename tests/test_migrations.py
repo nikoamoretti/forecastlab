@@ -38,11 +38,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "forecast_experiment_results" in tables
     assert "forecast_failures" in tables
     assert "research_plans" in tables
+    assert "evidence_sufficiency_assessments" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0024"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -82,6 +83,9 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "retrieval_date",
             "source_available_at",
             "temporal_basis",
+            "source_class",
+            "extraction_method",
+            "source_host",
         } <= evidence_claim_cols
         publication_column = next(
             column
@@ -236,7 +240,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0024"
 
 
 def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
@@ -323,6 +327,9 @@ def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_pa
         assert claim.temporal_basis == "retrieval_date"
         assert claim.publication_date_verified is False
         assert claim.publication_date_source == "legacy_unverified_published_at"
+        assert claim.source_class == "secondary"
+        assert claim.extraction_method == "unknown_legacy"
+        assert claim.source_host == "example.org"
         assert claim.forecasting_errors(mode="live", run_completion_time=claim.retrieval_date) == []
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
@@ -371,7 +378,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0024"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -404,7 +411,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260825_0023"
+            == "20260826_0024"
         )
 
 
@@ -445,7 +452,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260825_0023"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0024"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

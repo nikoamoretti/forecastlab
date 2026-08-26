@@ -5,13 +5,21 @@ import re
 import uuid
 from datetime import datetime
 from typing import Any
+from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.ranking import classify_source
-from forecastlab.schemas import EvidenceClaim, EvidenceStance, FetchedDocument, RunMode
+from forecastlab.schemas import (
+    EvidenceClaim,
+    EvidenceClaimSourceClass,
+    EvidenceExtractionMethod,
+    EvidenceStance,
+    FetchedDocument,
+    RunMode,
+)
 from forecastlab.timeutil import as_utc, utcnow
 
 
@@ -66,6 +74,16 @@ def _fallback_excerpt(text: str, *, max_chars: int = 500) -> str:
         cleaned,
     )
     return candidate[:max_chars].strip()
+
+
+def normalize_source_host(url: str) -> str:
+    """Return the deterministic host identity used by evidence sufficiency policy."""
+
+    try:
+        host = (urlsplit(url).hostname or "").casefold().rstrip(".")
+    except ValueError:
+        return ""
+    return host[4:] if host.startswith("www.") else host
 
 
 _VERIFIED_HISTORICAL_SNAPSHOT_STATUSES = {
@@ -206,6 +224,8 @@ class EvidenceExtractor:
         as_of: datetime | None = None,
         mode: RunMode | None = None,
         run_completion_time: datetime | None = None,
+        source_class: EvidenceClaimSourceClass | None = None,
+        extraction_method: EvidenceExtractionMethod | None = None,
     ) -> list[EvidenceClaim]:
         identity_errors: list[str] = []
         if not evidence_item_id.strip():
@@ -264,6 +284,13 @@ class EvidenceExtractor:
         except (json.JSONDecodeError, TypeError, ValidationError, KeyError) as exc:
             raise EvidenceClaimError(["invalid_structured_output"]) from exc
 
+        deterministic_source_class: EvidenceClaimSourceClass = (
+            source_class or classify_source(document.url)
+        )
+        deterministic_extraction_method: EvidenceExtractionMethod = (
+            extraction_method
+            or ("mock_structured" if self.model.name == "mock" else "structured_full_document")
+        )
         claims: list[EvidenceClaim] = []
         seen: set[tuple[str, str]] = set()
         output_errors: list[str] = []
@@ -300,6 +327,9 @@ class EvidenceExtractor:
                     primary_source=item.primary_source,
                     as_of_eligible=document.as_of_eligible,
                     cutoff_verified=True,
+                    source_class=deterministic_source_class,
+                    extraction_method=deterministic_extraction_method,
+                    source_host=normalize_source_host(document.url),
                 )
             )
         if output_errors:
@@ -326,6 +356,7 @@ class EvidenceExtractor:
         as_of: datetime | None = None,
         mode: RunMode | None = None,
         run_completion_time: datetime | None = None,
+        source_class: EvidenceClaimSourceClass | None = None,
     ) -> EvidenceClaim:
         """Create one low-confidence, verbatim claim when structured extraction fails."""
 
@@ -385,6 +416,9 @@ class EvidenceExtractor:
             primary_source=primary,
             as_of_eligible=document.as_of_eligible,
             cutoff_verified=True,
+            source_class=source_class or classify_source(document.url),
+            extraction_method="document_fallback",
+            source_host=normalize_source_host(document.url),
         )
         claim_errors = claim.forecasting_errors(
             mode=effective_mode,

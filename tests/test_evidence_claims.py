@@ -108,6 +108,9 @@ def test_evidence_extraction_preserves_provenance_and_node_linkage() -> None:
     assert claim.excerpt in document.text
     assert claim.as_of_eligible is True
     assert claim.cutoff_verified is True
+    assert claim.source_class == "primary"
+    assert claim.extraction_method == "structured_full_document"
+    assert claim.source_host == "bls.gov"
 
 
 def test_evidence_extraction_uses_frozen_experiment_prompt_bundle() -> None:

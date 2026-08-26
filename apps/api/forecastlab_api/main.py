@@ -47,6 +47,7 @@ from forecastlab_api.evaluation_datasets import (
     serialize_evaluation_dataset,
 )
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
+from forecastlab_api.evidence_sufficiency import evidence_sufficiency_from_row
 from forecastlab_api.experiments import (
     DEFAULT_EXPERIMENT_PROFILES,
     V1_EVALUATION_NOTICE,
@@ -840,6 +841,10 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         payload["forecast_aggregation"] = forecast_aggregation_from_row(run.aggregation).model_dump(
             mode="json"
         )
+    if run.evidence_sufficiency_assessment is not None:
+        payload["evidence_sufficiency_assessment"] = evidence_sufficiency_from_row(
+            run.evidence_sufficiency_assessment
+        ).model_dump(mode="json")
     if run.budget_json:
         payload["budget"] = json.loads(run.budget_json)
     if run.prompt_versions_json:
@@ -978,6 +983,11 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
             lines.append(
                 f"  - Retrieved at: {claim.get('retrieval_date')} · "
                 f"cutoff verified={bool(claim.get('cutoff_verified'))}"
+            )
+            lines.append(
+                "  - Deterministic provenance: "
+                f"{claim.get('source_class')} / {claim.get('extraction_method')} / "
+                f"{claim.get('source_host') or 'host unavailable'}"
             )
     return PlainTextResponse("\n".join(lines), media_type="text/markdown")
 

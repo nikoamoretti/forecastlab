@@ -31,7 +31,7 @@ from forecastlab_api.models import (
 )
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
-GRAPH_PROFILE_SHA256 = "acdbb378b6c5afbd5c82e9085c7be92043b9057f3a7f5842d73a1cdd80f0f6d7"
+GRAPH_PROFILE_SHA256 = "ff91d5c85eb4d70da5afb319329b4a33d506904a775914b8f787015be36df4b3"
 SMOKE_PROFILE_SHA256 = "2b80f85a213c981bd74b3f8891cae27d619957c1e011abf044956aa10ae6467b"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
@@ -84,6 +84,9 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert graph.max_candidate_fetch_attempts_per_node is None
     assert graph.search_candidate_pool_per_node is None
     assert graph.prefer_distinct_candidate_hosts is False
+    assert graph.version == 6
+    assert graph.evidence_sufficiency_policy == "private_v1_evidence_gate_v1"
+    assert smoke.evidence_sufficiency_policy is None
     assert {
         "max_model_calls": smoke.max_model_calls,
         "max_search_calls": smoke.max_search_calls,
@@ -151,7 +154,7 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     }
 
 
-def test_graph_forecaster_profile_is_byte_for_byte_unchanged() -> None:
+def test_graph_forecaster_profile_matches_intentional_v6_bytes() -> None:
     digest = hashlib.sha256(
         (PROFILES_DIR / "graph_forecaster_v1.yaml").read_bytes()
     ).hexdigest()

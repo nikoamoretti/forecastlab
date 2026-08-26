@@ -208,6 +208,10 @@ class ForecastRun(Base):
         back_populates="forecast_run",
         uselist=False,
     )
+    evidence_sufficiency_assessment: Mapped[EvidenceSufficiencyAssessmentRow | None] = relationship(
+        back_populates="forecast_run",
+        uselist=False,
+    )
     graph_execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(
         back_populates="forecast_run"
     )
@@ -326,6 +330,13 @@ class EvidenceClaimRow(Base):
 
     as_of_eligible: Mapped[bool] = mapped_column(Boolean, default=False)
     cutoff_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    source_class: Mapped[str] = mapped_column(
+        String(32), default="unknown_legacy", server_default="unknown_legacy"
+    )
+    extraction_method: Mapped[str] = mapped_column(
+        String(48), default="unknown_legacy", server_default="unknown_legacy"
+    )
+    source_host: Mapped[str] = mapped_column(String(255), default="", server_default="")
 
     evidence_item: Mapped[EvidenceItem] = relationship(back_populates="claims")
     forecast_node: Mapped[ForecastNodeRow] = relationship(back_populates="evidence_claims")
@@ -373,6 +384,56 @@ class ForecastAggregationRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="aggregation")
+
+
+class EvidenceSufficiencyAssessmentRow(Base):
+    """One immutable deterministic private-V1 evidence assessment per run."""
+
+    __tablename__ = "evidence_sufficiency_assessments"
+    __table_args__ = (
+        UniqueConstraint("forecast_run_id", name="uq_evidence_sufficiency_assessment_run"),
+        CheckConstraint(
+            "status IN ('passed', 'failed')",
+            name="ck_evidence_sufficiency_assessment_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    policy_snapshot_json: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(16))
+    reasons_json: Mapped[str] = mapped_column(Text, default="[]")
+    warnings_json: Mapped[str] = mapped_column(Text, default="[]")
+    selected_node_count: Mapped[int] = mapped_column(Integer)
+    included_node_count: Mapped[int] = mapped_column(Integer)
+    critical_node_count: Mapped[int] = mapped_column(Integer)
+    selected_coverage_numerator: Mapped[int] = mapped_column(Integer)
+    selected_coverage_denominator: Mapped[int] = mapped_column(Integer)
+    selected_node_coverage: Mapped[float] = mapped_column(Float)
+    graph_coverage_numerator: Mapped[int] = mapped_column(Integer)
+    graph_coverage_denominator: Mapped[int] = mapped_column(Integer)
+    graph_node_coverage: Mapped[float] = mapped_column(Float)
+    included_graph_weight: Mapped[float] = mapped_column(Float)
+    total_graph_weight: Mapped[float] = mapped_column(Float)
+    graph_weight_coverage: Mapped[float] = mapped_column(Float)
+    cited_claim_count: Mapped[int] = mapped_column(Integer)
+    cited_item_count: Mapped[int] = mapped_column(Integer)
+    cited_source_count: Mapped[int] = mapped_column(Integer)
+    distinct_host_count: Mapped[int] = mapped_column(Integer)
+    distinct_hosts_json: Mapped[str] = mapped_column(Text, default="[]")
+    primary_claim_count: Mapped[int] = mapped_column(Integer)
+    primary_node_count: Mapped[int] = mapped_column(Integer)
+    structured_claim_count: Mapped[int] = mapped_column(Integer)
+    fallback_claim_count: Mapped[int] = mapped_column(Integer)
+    included_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    excluded_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    insufficient_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    per_node_json: Mapped[str] = mapped_column(Text, default="[]")
+    assessment_input_hash: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    forecast_run: Mapped[ForecastRun] = relationship(back_populates="evidence_sufficiency_assessment")
 
 
 class GraphExecutionFailureRow(Base):

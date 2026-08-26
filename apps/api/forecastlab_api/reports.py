@@ -39,6 +39,9 @@ def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
         "temporal_quality_label": _temporal_quality_label(claim),
         "as_of_eligible": bool(claim.get("as_of_eligible")),
         "cutoff_verified": bool(claim.get("cutoff_verified")),
+        "source_class": claim.get("source_class"),
+        "extraction_method": claim.get("extraction_method"),
+        "source_host": claim.get("source_host"),
     }
 
 
@@ -81,6 +84,12 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             claims_by_node.setdefault(node_id, []).append(claim)
     node_runs_by_id = {str(item.get("node_id")): item for item in node_runs if item.get("node_id")}
     failures = run.get("graph_execution_failures") or []
+    sufficiency = run.get("evidence_sufficiency_assessment") or None
+    sufficiency_by_node = {
+        str(item.get("node_id")): item
+        for item in (sufficiency or {}).get("per_node") or []
+        if isinstance(item, dict) and item.get("node_id")
+    }
     failures_by_node: dict[str, list[dict[str, Any]]] = {}
     for failure in failures:
         node_id = str(failure.get("node_id") or "")
@@ -196,6 +205,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "uncited_evidence": uncited,
                 "evidence_claim_count": len(claims_by_node.get(node_id, [])),
                 "cited_claim_count": len(valid_selected_ids),
+                "evidence_sufficiency": sufficiency_by_node.get(node_id),
             }
         )
 
@@ -229,6 +239,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         "research_plan": research_plan or None,
         "nodes": report_nodes,
         "evidence_claims": [_claim_summary(claim) for claim in claims],
+        "evidence_sufficiency": sufficiency,
         "evidence_coverage": {
             "definition": "Fraction of graph nodes whose node forecast cites at least one persisted Evidence Claim.",
             "covered_units": covered_nodes,
@@ -280,7 +291,12 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                     else f"The {profile_id} probability is {final_probability}."
                 )
                 if final_probability is not None
-                else "No final probability was produced because graph execution was incomplete."
+                else (
+                    "No private-V1 probability was produced because deterministic evidence "
+                    "sufficiency was not met."
+                    if sufficiency and sufficiency.get("status") == "failed"
+                    else "No final probability was produced because graph execution was incomplete."
+                )
             ),
         },
     }
@@ -304,6 +320,7 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
         "",
     ]
     graph = report.get("graph") or {}
+    sufficiency = report.get("evidence_sufficiency") or {}
     graph_resolution = report.get("graph_resolution") or {}
     generation_audit = graph.get("generation_audit") or {}
     if graph_resolution or generation_audit:
@@ -340,6 +357,45 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
             f"Generated at: {generation_audit.get('generated_at')}",
             "",
         ])
+    if sufficiency:
+        lines.extend(
+            [
+                "### Evidence Sufficiency",
+                f"Status: {sufficiency.get('status')}",
+                f"Policy: {sufficiency.get('policy_version')}",
+                f"Assessment: {sufficiency.get('id')}",
+                f"Input hash: {sufficiency.get('assessment_input_hash')}",
+                (
+                    "Selected-node coverage: "
+                    f"{sufficiency.get('selected_coverage_numerator')}/"
+                    f"{sufficiency.get('selected_coverage_denominator')} "
+                    f"({sufficiency.get('selected_node_coverage')})"
+                ),
+                (
+                    "Graph-node / weight coverage: "
+                    f"{sufficiency.get('graph_coverage_numerator')}/"
+                    f"{sufficiency.get('graph_coverage_denominator')} "
+                    f"({sufficiency.get('graph_node_coverage')}) / "
+                    f"{sufficiency.get('graph_weight_coverage')}"
+                ),
+                (
+                    "Distinct hosts / primary nodes / structured claims / fallback claims: "
+                    f"{sufficiency.get('distinct_host_count')} / "
+                    f"{sufficiency.get('primary_node_count')} / "
+                    f"{sufficiency.get('structured_claim_count')} / "
+                    f"{sufficiency.get('fallback_claim_count')}"
+                ),
+                f"Hard failures: {sufficiency.get('reasons') or []}",
+                f"Warnings: {sufficiency.get('warnings') or []}",
+                "Per-node grades:",
+                *[
+                    f"- {item.get('node_id')}: {item.get('grade')} "
+                    f"(passed={item.get('passed')}; reasons={item.get('reasons') or []})"
+                    for item in sufficiency.get("per_node") or []
+                ],
+                "",
+            ]
+        )
     lines.append("### Graph nodes and node forecasts")
     for node in report.get("nodes") or []:
         lines.extend(
@@ -386,6 +442,11 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 lines.append(f"- {claim.get('claim')}")
                 lines.append(f"  - Excerpt: {claim.get('excerpt')}")
                 lines.append(f"  - Source: {claim.get('source_url')}")
+                lines.append(
+                    "  - Deterministic provenance: "
+                    f"{claim.get('source_class')} / {claim.get('extraction_method')} / "
+                    f"{claim.get('source_host') or 'host unavailable'}"
+                )
                 lines.append(f"  - Temporal provenance: {claim.get('temporal_quality_label')}")
                 lines.append(
                     f"  - Publication date: {claim.get('publication_date') or 'unavailable'} "
@@ -406,6 +467,11 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 lines.append(f"- {claim.get('claim')}")
                 lines.append(f"  - Excerpt: {claim.get('excerpt')}")
                 lines.append(f"  - Source: {claim.get('source_url')}")
+                lines.append(
+                    "  - Deterministic provenance: "
+                    f"{claim.get('source_class')} / {claim.get('extraction_method')} / "
+                    f"{claim.get('source_host') or 'host unavailable'}"
+                )
                 lines.append(f"  - Temporal provenance: {claim.get('temporal_quality_label')}")
                 lines.append(
                     f"  - Publication date: {claim.get('publication_date') or 'unavailable'} "

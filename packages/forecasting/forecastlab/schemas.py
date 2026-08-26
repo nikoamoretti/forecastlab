@@ -13,6 +13,14 @@ TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
 ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes", "single_model"]
 JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
+EvidenceClaimSourceClass = Literal["primary", "secondary", "unknown_legacy"]
+EvidenceExtractionMethod = Literal[
+    "structured_full_document",
+    "structured_smaller_chunk",
+    "document_fallback",
+    "mock_structured",
+    "unknown_legacy",
+]
 WatchKind = Literal["html", "json"]
 ForecastContractStatus = Literal["draft", "approved", "superseded"]
 ForecastGraphStatus = Literal["draft", "approved", "superseded"]
@@ -324,6 +332,9 @@ class EvidenceClaim(BaseModel):
 
     as_of_eligible: bool
     cutoff_verified: bool
+    source_class: EvidenceClaimSourceClass = "unknown_legacy"
+    extraction_method: EvidenceExtractionMethod = "unknown_legacy"
+    source_host: str = ""
 
     def forecasting_errors(
         self,
@@ -525,6 +536,7 @@ class ForecastProfile(BaseModel):
     )
     search_candidate_pool_per_node: int | None = Field(default=None, ge=1)
     prefer_distinct_candidate_hosts: bool = False
+    evidence_sufficiency_policy: Literal["private_v1_evidence_gate_v1"] | None = None
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)
