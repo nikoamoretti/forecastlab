@@ -275,7 +275,7 @@
       "temporary paths",
       "ports"
     ],
-    "normalized_result_sha256": "39180da5739471936a820bbd400df8f9a331967a36039c08d2bacb5466b51de8",
+    "normalized_result_sha256": "2e0471cf76ee6e8ebe3a7b165cfcf737fad7605dc62f54c06235f0d670331b5f",
     "separate_home_database_cache_ports_and_stack": true,
     "substantive_difference_count": 0,
     "true_local_clones": true
@@ -304,14 +304,14 @@
     "raw_provider_response_count": 0,
     "suspected_secret_count": 0,
     "suspected_secret_locations": [],
-    "tracked_text_file_count": 328
+    "tracked_text_file_count": 330
   },
   "source": {
     "application_version": "0.3.1",
-    "commit_sha": "9e6a6baae29781cb58bdec75fe533e3ec075866f",
-    "commit_timestamp": "2026-08-26T11:04:53-07:00",
-    "tracked_source_sha256": "6a2e05fc69722730cc639761ad31496444753aa623baa39994b8b9bdd24f755d",
-    "tree_sha": "c9bddf8ddcaf8e67d0dbf51a1e9e0982962fbea7"
+    "commit_sha": "a265580333e0b98828778817650fbded2ee51521",
+    "commit_timestamp": "2026-08-26T11:10:09-07:00",
+    "tracked_source_sha256": "741e031e20819c564b435763c6976ba498e2dcec4ceda088aa740ebd32c814d2",
+    "tree_sha": "ec279e25e34d017489272f5b340009e6fe7188d2"
   },
   "verification_scope": "offline_private_v1_release_candidate"
 }

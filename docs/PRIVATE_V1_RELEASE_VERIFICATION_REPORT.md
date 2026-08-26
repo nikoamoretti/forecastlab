@@ -11,12 +11,12 @@ The latest live operational acceptance remains a hard **3-of-5 FAIL**. No tag, m
 ## Attested candidate
 
 - Candidate label: `private-v1-verification-v1`
-- Candidate commit: `9e6a6baae29781cb58bdec75fe533e3ec075866f`
-- Candidate tree: `c9bddf8ddcaf8e67d0dbf51a1e9e0982962fbea7`
+- Candidate commit: `a265580333e0b98828778817650fbded2ee51521`
+- Candidate tree: `ec279e25e34d017489272f5b340009e6fe7188d2`
 - Application version: `0.3.1`
-- Tracked-source SHA-256: `6a2e05fc69722730cc639761ad31496444753aa623baa39994b8b9bdd24f755d`
-- Normalized two-checkout result SHA-256: `39180da5739471936a820bbd400df8f9a331967a36039c08d2bacb5466b51de8`
-- Sanitized manifest SHA-256 before tracking: `0edb49b8e6246e26b845d866c49aaff05e57782e9a5a8cba5195acb907809946`
+- Tracked-source SHA-256: `741e031e20819c564b435763c6976ba498e2dcec4ceda088aa740ebd32c814d2`
+- Normalized two-checkout result SHA-256: `2e0471cf76ee6e8ebe3a7b165cfcf737fad7605dc62f54c06235f0d670331b5f`
+- Sanitized manifest SHA-256 before tracking: `6b1e0d069e9bc16d19b797677c11f9984f5b1fc9eec497062545e3ccae6d0b6a`
 
 The complete individual lock, profile, prompt, and migration hashes are recorded in [`artifacts/private_v1_release_verification/manifest.json`](../artifacts/private_v1_release_verification/manifest.json). The manifest attests the candidate commit above. This report and manifest are added by an evidence-only follow-up commit, avoiding a circular self-hash claim.
 
