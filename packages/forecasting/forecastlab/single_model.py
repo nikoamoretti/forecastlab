@@ -15,7 +15,12 @@ from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle, load_prompt
-from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.providers.base import (
+    FrozenHistoricalEvidenceSearchProvider,
+    ModelProvider,
+    SearchProvider,
+    effective_search_provider_identity,
+)
 from forecastlab.ranking import rank_hits
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
@@ -171,15 +176,27 @@ def _collect_evidence(
     budget.add_search("single_model_evidence_search")
     hits = rank_hits(cache.search(search, query, profile.search_results_per_subquestion))
     fetch_limit = min(profile.fetches_per_subquestion, profile.max_fetched_documents)
+    frozen_adapter = (
+        search
+        if isinstance(search, FrozenHistoricalEvidenceSearchProvider)
+        and search.offline_frozen_evidence
+        else None
+    )
     for hit in hits[:fetch_limit]:
         snapshot_url = None
         snapshot_at = None
         if mode == "backtest" and as_of is not None:
-            snapshots = (
-                mock_snapshots(hit.url)
-                if allow_local_fixtures
-                else discover_snapshots(hit.url, as_of=as_of)
-            )
+            if frozen_adapter is not None:
+                snapshots = frozen_adapter.discover_frozen_snapshots(
+                    hit.url,
+                    as_of=as_of,
+                )
+            else:
+                snapshots = (
+                    mock_snapshots(hit.url)
+                    if allow_local_fixtures
+                    else discover_snapshots(hit.url, as_of=as_of)
+                )
             nearest = nearest_eligible_snapshot(snapshots, as_of)
             if nearest is None:
                 rejected.append(
@@ -352,7 +369,12 @@ def run_single_model_forecast(
         mode = execution.effective_mode
 
     model_provider = execution.model_provider if execution is not None else model.name
-    search_provider = execution.search_provider if execution is not None else search.name
+    search_provider = effective_search_provider_identity(
+        search,
+        configured_provider=(
+            execution.search_provider if execution is not None else None
+        ),
+    )
     configuration_hash = execution.configuration_hash if execution is not None else "none"
     cache = cache or RunCache.create(
         run_id=run_id,

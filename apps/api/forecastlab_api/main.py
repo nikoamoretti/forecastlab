@@ -25,6 +25,10 @@ from forecastlab.evaluation_releases import (
 from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
 from forecastlab.graphs import ForecastGraphError
+from forecastlab.historical_evidence_releases import (
+    HistoricalEvidenceDocumentInput,
+    HistoricalEvidencePacketInput,
+)
 from forecastlab.logging import configure_logging
 from forecastlab.profiles import list_profiles, load_profile, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
@@ -93,6 +97,15 @@ from forecastlab_api.graphs import (
     forecast_node_from_row,
     store_forecast_graph,
 )
+from forecastlab_api.historical_evidence_releases import (
+    HistoricalEvidenceReleaseValidationError,
+    create_historical_evidence_release,
+    freeze_historical_evidence_release,
+    get_historical_evidence_execution_manifest,
+    review_historical_evidence_release,
+    serialize_historical_evidence_release,
+    verify_release_bundle,
+)
 from forecastlab_api.jobs import recover_stale_jobs
 from forecastlab_api.material_node_coverage import material_node_coverage_from_row
 from forecastlab_api.migrate import apply_schema
@@ -115,6 +128,7 @@ from forecastlab_api.models import (
     ForecastRunAttempt,
     ForecastVersion,
     GraphExecutionFailureRow,
+    HistoricalEvidenceRelease,
     ProviderCallLedger,
     Question,
     ResearchPlanRow,
@@ -228,6 +242,7 @@ class ExperimentIn(BaseModel):
 class ForecastExperimentIn(BaseModel):
     dataset_id: str | None = None
     evaluation_release_id: str | None = None
+    historical_evidence_release_id: str | None = None
     evaluation_split: EvaluationSplit | None = None
     profile_ids: list[str] = Field(
         default_factory=lambda: list(CONTROLLED_FORECAST_PROFILES)
@@ -245,6 +260,20 @@ class EvaluationReleaseIn(BaseModel):
     provider_identity: EvaluationProviderIdentity
     correction_of_release_id: str | None = None
     correction_summary: str | None = None
+
+
+class HistoricalEvidenceReleaseIn(BaseModel):
+    evaluation_release_id: str
+    name: str
+    version: str
+    documents: list[HistoricalEvidenceDocumentInput]
+    packets: list[HistoricalEvidencePacketInput]
+    correction_of_release_id: str | None = None
+    correction_summary: str | None = None
+
+
+class HistoricalEvidenceBundleRootIn(BaseModel):
+    bundle_root: str
 
 
 class ForecastFailureIn(BaseModel):
@@ -1359,6 +1388,144 @@ def get_evaluation_release(
     return release_audit(db, release)
 
 
+@app.get("/api/evaluation/evidence-releases")
+def list_historical_evidence_releases(
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    rows = db.scalars(
+        select(HistoricalEvidenceRelease).order_by(
+            HistoricalEvidenceRelease.name,
+            HistoricalEvidenceRelease.version,
+            HistoricalEvidenceRelease.created_at,
+        )
+    ).all()
+    return {
+        "releases": [serialize_historical_evidence_release(item) for item in rows],
+        "policy_version": "private_v1_historical_evidence_release_v1",
+        "repository_bundles_certified_real_corpus": False,
+    }
+
+
+@app.post("/api/evaluation/evidence-releases", status_code=201)
+def post_historical_evidence_release(
+    body: HistoricalEvidenceReleaseIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    try:
+        release = create_historical_evidence_release(
+            db,
+            evaluation_release_id=body.evaluation_release_id,
+            name=body.name,
+            version=body.version,
+            documents=body.documents,
+            packets=body.packets,
+            correction_of_release_id=body.correction_of_release_id,
+            correction_summary=body.correction_summary,
+        )
+    except HistoricalEvidenceReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return serialize_historical_evidence_release(release, include_audit=True)
+
+
+@app.post("/api/evaluation/evidence-releases/{release_id}/review")
+def review_historical_evidence_release_endpoint(
+    release_id: str,
+    body: HistoricalEvidenceBundleRootIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(HistoricalEvidenceRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Historical evidence release not found")
+    try:
+        review_historical_evidence_release(
+            db, release, bundle_root=Path(body.bundle_root)
+        )
+    except HistoricalEvidenceReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return serialize_historical_evidence_release(release, include_audit=True)
+
+
+@app.post("/api/evaluation/evidence-releases/{release_id}/freeze")
+def freeze_historical_evidence_release_endpoint(
+    release_id: str,
+    body: HistoricalEvidenceBundleRootIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(HistoricalEvidenceRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Historical evidence release not found")
+    try:
+        freeze_historical_evidence_release(
+            db, release, bundle_root=Path(body.bundle_root)
+        )
+    except HistoricalEvidenceReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(release)
+    return serialize_historical_evidence_release(release, include_audit=True)
+
+
+@app.post("/api/evaluation/evidence-releases/{release_id}/verify")
+def verify_historical_evidence_release_endpoint(
+    release_id: str,
+    body: HistoricalEvidenceBundleRootIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(HistoricalEvidenceRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Historical evidence release not found")
+    try:
+        result = verify_release_bundle(release, Path(body.bundle_root))
+    except HistoricalEvidenceReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    return result.model_dump(mode="json")
+
+
+@app.get("/api/evaluation/evidence-releases/{release_id}/execution-manifest")
+def get_historical_evidence_execution_manifest_endpoint(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(HistoricalEvidenceRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Historical evidence release not found")
+    try:
+        manifest = get_historical_evidence_execution_manifest(release)
+    except HistoricalEvidenceReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    return manifest.model_dump(mode="json")
+
+
+@app.get("/api/evaluation/evidence-releases/{release_id}")
+def get_historical_evidence_release_endpoint(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(HistoricalEvidenceRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Historical evidence release not found")
+    return serialize_historical_evidence_release(release, include_audit=True)
+
+
 @app.post("/api/forecast-experiments", status_code=201)
 def post_forecast_experiment(
     body: ForecastExperimentIn,
@@ -1372,6 +1539,7 @@ def post_forecast_experiment(
             synthetic_test=body.synthetic_test,
             evaluation_release_id=body.evaluation_release_id,
             evaluation_split=body.evaluation_split,
+            historical_evidence_release_id=body.historical_evidence_release_id,
         )
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc

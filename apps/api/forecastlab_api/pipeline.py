@@ -15,8 +15,10 @@ from forecastlab.graph_execution import run_graph_forecast_engine
 from forecastlab.pricing import load_pricing
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
+from forecastlab.providers.base import SearchProvider
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.providers.search import build_search_provider
+from forecastlab.run_cache import DocumentStore, RunCache
 from forecastlab.schemas import ForecastProfile, ResolutionContract
 from forecastlab.single_model import run_single_model_forecast
 from forecastlab.timeutil import as_utc, utcnow
@@ -161,6 +163,8 @@ def execute_run(
     prompt_bundle: PromptBundle | None = None,
     model_timeout: float | None = None,
     pricing_catalog: dict | None = None,
+    search_provider_override: SearchProvider | None = None,
+    document_store: DocumentStore | None = None,
 ) -> None:
     secrets = load_secrets()
     question = run.question
@@ -236,7 +240,7 @@ def execute_run(
         run_attempt_id=attempt.id,
         pricing_catalog=catalog,
     )
-    search = build_search_provider(
+    search = search_provider_override or build_search_provider(
         context.search_provider,
         secrets.get("search_api_key"),
         execution=context,
@@ -244,6 +248,19 @@ def execute_run(
         run_id=run.id,
         run_attempt_id=attempt.id,
         pricing_catalog=catalog,
+    )
+    frozen_cache = (
+        RunCache.create(
+            run_id=run.id,
+            model_provider=context.model_provider,
+            search_provider=search.name,
+            mode=context.effective_mode,
+            as_of=as_utc(run.as_of) if run.as_of else None,
+            configuration_hash=context.configuration_hash,
+            document_store=document_store,
+        )
+        if document_store is not None
+        else None
     )
     stop_heartbeat = threading.Event()
 
@@ -288,6 +305,7 @@ def execute_run(
                     ledger=ledger,
                     pricing_catalog=catalog,
                     prior_elapsed_seconds=prior_elapsed,
+                    cache=frozen_cache,
                 ).execute()
                 fixture_evidence_used = run.fixture_evidence_used
                 stored_context = json.loads(run.execution_context_json or "{}")
@@ -327,6 +345,7 @@ def execute_run(
                     profile=profile,
                     execution=context,
                     prompt_bundle=prompt_bundle,
+                    cache=frozen_cache,
                     run_id=run.id,
                     ledger=ledger,
                     pricing_catalog=catalog,
@@ -369,6 +388,7 @@ def execute_run(
                 profile=profile,
                 execution=context,
                 prompt_bundle=prompt_bundle,
+                cache=frozen_cache,
                 run_id=run.id,
                 ledger=ledger,
                 pricing_catalog=catalog,
@@ -392,6 +412,7 @@ def execute_run(
                 profile=profile,
                 execution=context,
                 prompt_bundle=prompt_bundle,
+                cache=frozen_cache,
                 run_id=run.id,
                 ledger=ledger,
                 pricing_catalog=catalog,

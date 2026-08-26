@@ -22,7 +22,13 @@ from forecastlab.execution import ExecutionContext, assert_no_fixture_evidence
 from forecastlab.ledger import RunUsageTotals, UsageLedger
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle, load_prompt
-from forecastlab.providers.base import ChatResult, ModelProvider, SearchProvider
+from forecastlab.providers.base import (
+    ChatResult,
+    FrozenHistoricalEvidenceSearchProvider,
+    ModelProvider,
+    SearchProvider,
+    effective_search_provider_identity,
+)
 from forecastlab.ranking import rank_hits
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
@@ -197,6 +203,12 @@ def _run_track(
     evidence: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
     plan: ResearchPlan | None = None
+    frozen_adapter = (
+        search
+        if isinstance(search, FrozenHistoricalEvidenceSearchProvider)
+        and search.offline_frozen_evidence
+        else None
+    )
     try:
         plan = _ask_model(
             model,
@@ -228,11 +240,17 @@ def _run_track(
                     snapshot_url = None
                     snapshot_at = None
                     if mode == "backtest" and as_of:
-                        snaps = (
-                            mock_snapshots(hit.url)
-                            if allow_local_fixtures
-                            else discover_snapshots(hit.url, as_of=as_of)
-                        )
+                        if frozen_adapter is not None:
+                            snaps = frozen_adapter.discover_frozen_snapshots(
+                                hit.url,
+                                as_of=as_of,
+                            )
+                        else:
+                            snaps = (
+                                mock_snapshots(hit.url)
+                                if allow_local_fixtures
+                                else discover_snapshots(hit.url, as_of=as_of)
+                            )
                         nearest = nearest_eligible_snapshot(snaps, as_of)
                         if nearest is None:
                             observed_at = utcnow().isoformat()
@@ -374,7 +392,12 @@ def run_forecast_engine(
         allow_local_fixtures = execution.fixture_evidence_allowed
         mode = execution.effective_mode
     model_provider = execution.model_provider if execution is not None else getattr(model, "name", "mock")
-    search_provider = execution.search_provider if execution is not None else getattr(search, "name", "mock")
+    search_provider = effective_search_provider_identity(
+        search,
+        configured_provider=(
+            execution.search_provider if execution is not None else None
+        ),
+    )
     configuration_hash = execution.configuration_hash if execution is not None else "none"
     cache = cache or RunCache.create(
         run_id=run_id,

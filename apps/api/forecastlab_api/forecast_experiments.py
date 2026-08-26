@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import uuid
+from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
@@ -37,6 +38,11 @@ from forecastlab_api.evaluation_releases import (
     get_sealed_scoring_manifest,
 )
 from forecastlab_api.experiments import evidence_coverage_for_run
+from forecastlab_api.historical_evidence_releases import (
+    build_frozen_evidence_runtime,
+    get_historical_evidence_execution_manifest,
+    verify_release_bundle,
+)
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
     EvaluationDataset,
@@ -48,6 +54,7 @@ from forecastlab_api.models import (
     ForecastExperimentRun,
     ForecastRun,
     ForecastVersion,
+    HistoricalEvidenceRelease,
     Job,
     Question,
     ResearchTrack,
@@ -157,6 +164,7 @@ def _freeze_configuration(
     synthetic_test: bool,
     blinded_questions: list[BlindedEvaluationQuestion] | None = None,
     evaluation_release: dict[str, Any] | None = None,
+    historical_evidence_release: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     settings_data = provider_settings_from_secrets(load_secrets())
     prompt_bundle = load_prompt_bundle()
@@ -246,6 +254,7 @@ def _freeze_configuration(
         "code": identity,
         "synthetic_test": synthetic_test,
         "evaluation_release": evaluation_release,
+        "historical_evidence_release": historical_evidence_release,
     }
 
 
@@ -257,12 +266,15 @@ def create_forecast_experiment(
     synthetic_test: bool = False,
     evaluation_release_id: str | None = None,
     evaluation_split: EvaluationSplit | None = None,
+    historical_evidence_release_id: str | None = None,
 ) -> ForecastExperiment:
     """Freeze one comparison and enqueue every question/profile cell exactly once."""
 
     release: EvaluationRelease | None = None
     blinded_questions: list[BlindedEvaluationQuestion] | None = None
     release_snapshot: dict[str, Any] | None = None
+    evidence_release: HistoricalEvidenceRelease | None = None
+    evidence_release_snapshot: dict[str, Any] | None = None
     if evaluation_release_id is not None:
         if synthetic_test:
             raise ValueError("evaluation_release_requires_production_mode")
@@ -299,8 +311,62 @@ def create_forecast_experiment(
             "preregistration_hash": release.preregistration_hash,
             "split": evaluation_split,
         }
+        if historical_evidence_release_id is None:
+            raise ValueError("historical_evidence_release_required")
+        evidence_release = session.get(
+            HistoricalEvidenceRelease, historical_evidence_release_id
+        )
+        if evidence_release is None:
+            raise ValueError("historical_evidence_release_not_found")
+        if evidence_release.status != "frozen" or evidence_release.frozen_at is None:
+            raise ValueError("historical_evidence_release_must_be_frozen")
+        if evidence_release.evaluation_release_id != release.id:
+            raise ValueError("historical_evidence_evaluation_release_mismatch")
+        if (
+            evidence_release.evaluation_execution_manifest_hash
+            != release.execution_manifest_hash
+        ):
+            raise ValueError("historical_evidence_execution_identity_mismatch")
+        bundle_root = settings.historical_evidence_bundle_root
+        if bundle_root is None:
+            raise ValueError("historical_evidence_bundle_root_required")
+        verification = verify_release_bundle(evidence_release, Path(bundle_root))
+        if not verification.passed:
+            raise ValueError(
+                "historical_evidence_bundle_invalid:" + ",".join(verification.reasons)
+            )
+        evidence_manifest = get_historical_evidence_execution_manifest(
+            evidence_release
+        )
+        evidence_questions = {
+            item.evaluation_question_id
+            for item in evidence_manifest.packets
+            if item.split == evaluation_split
+        }
+        if evidence_questions != {
+            item.evaluation_question_id for item in blinded_questions
+        }:
+            raise ValueError("historical_evidence_split_coverage_mismatch")
+        evidence_release_snapshot = {
+            "id": evidence_release.id,
+            "name": evidence_release.name,
+            "version": evidence_release.version,
+            "policy_version": evidence_release.policy_version,
+            "release_hash": evidence_release.release_hash,
+            "execution_manifest_hash": evidence_release.execution_manifest_hash,
+            "bundle_manifest_hash": evidence_release.bundle_manifest_hash,
+            "evaluation_release_id": evidence_release.evaluation_release_id,
+            "evaluation_execution_manifest_hash": (
+                evidence_release.evaluation_execution_manifest_hash
+            ),
+            "split": evaluation_split,
+            "provider": "frozen_evidence",
+            "network_access": False,
+        }
     elif not synthetic_test:
         raise ValueError("production_evaluation_release_required")
+    elif historical_evidence_release_id is not None:
+        raise ValueError("synthetic_experiment_cannot_use_historical_evidence_release")
     if dataset_id is None:
         raise ValueError("evaluation_dataset_required")
     dataset = session.get(EvaluationDataset, dataset_id)
@@ -348,6 +414,7 @@ def create_forecast_experiment(
         synthetic_test=synthetic_test,
         blinded_questions=blinded_questions,
         evaluation_release=release_snapshot,
+        historical_evidence_release=evidence_release_snapshot,
     )
     if release is not None:
         preregistration = EvaluationPreregistration.model_validate_json(
@@ -366,6 +433,12 @@ def create_forecast_experiment(
         id=str(uuid.uuid4()),
         dataset_id=dataset.id,
         evaluation_release_id=release.id if release is not None else None,
+        historical_evidence_release_id=(
+            evidence_release.id if evidence_release is not None else None
+        ),
+        historical_evidence_release_hash=(
+            evidence_release.release_hash if evidence_release is not None else None
+        ),
         evaluation_split=evaluation_split,
         status="pending",
         profiles_json=canonical_json(profiles),
@@ -732,6 +805,8 @@ def execute_forecast_experiment_run(
             "Evaluation dataset does not match the frozen forecast experiment"
         )
     runtime_item: EvaluationQuestion | BlindedEvaluationQuestion
+    frozen_search = None
+    frozen_document_store = None
     if experiment.evaluation_release_id is not None:
         release = session.get(EvaluationRelease, experiment.evaluation_release_id)
         release_snapshot = frozen.get("evaluation_release") or {}
@@ -777,6 +852,50 @@ def execute_forecast_experiment_run(
                 "Blinded evaluation question does not match the frozen experiment"
             )
         runtime_item = blinded
+        evidence_snapshot = frozen.get("historical_evidence_release") or {}
+        evidence_release = (
+            session.get(
+                HistoricalEvidenceRelease,
+                experiment.historical_evidence_release_id,
+            )
+            if experiment.historical_evidence_release_id
+            else None
+        )
+        if (
+            evidence_release is None
+            or evidence_release.status != "frozen"
+            or evidence_release.evaluation_release_id != release.id
+            or evidence_release.release_hash
+            != experiment.historical_evidence_release_hash
+            or evidence_release.release_hash != evidence_snapshot.get("release_hash")
+            or evidence_release.execution_manifest_hash
+            != evidence_snapshot.get("execution_manifest_hash")
+            or evidence_release.bundle_manifest_hash
+            != evidence_snapshot.get("bundle_manifest_hash")
+            or evidence_snapshot.get("provider") != "frozen_evidence"
+            or evidence_snapshot.get("network_access") is not False
+        ):
+            raise ExperimentEnvironmentMismatch(
+                "Historical evidence release does not match the frozen experiment"
+            )
+        bundle_root = settings.historical_evidence_bundle_root
+        if bundle_root is None:
+            raise ExperimentEnvironmentMismatch(
+                "Historical evidence bundle root is unavailable"
+            )
+        verification = verify_release_bundle(evidence_release, Path(bundle_root))
+        if not verification.passed:
+            raise ExperimentEnvironmentMismatch(
+                "Historical evidence bundle integrity failed: "
+                + ", ".join(verification.reasons)
+            )
+        frozen_search, frozen_document_store = build_frozen_evidence_runtime(
+            evidence_release,
+            bundle_root=Path(bundle_root),
+            split=str(experiment.evaluation_split),
+            evaluation_question_id=blinded.evaluation_question_id,
+            evidence_cutoff=blinded.evidence_cutoff,
+        )
     else:
         frozen_question = next(
             (
@@ -818,6 +937,8 @@ def execute_forecast_experiment_run(
             prompt_bundle=bundle,
             model_timeout=timeout,
             pricing_catalog=pricing_catalog,
+            search_provider_override=frozen_search,
+            document_store=frozen_document_store,
         )
         session.refresh(forecast_run)
         version = session.scalar(
@@ -945,6 +1066,8 @@ def forecast_experiment_progress(
         "experiment_id": experiment.id,
         "dataset_id": experiment.dataset_id,
         "evaluation_release_id": experiment.evaluation_release_id,
+        "historical_evidence_release_id": experiment.historical_evidence_release_id,
+        "historical_evidence_release_hash": experiment.historical_evidence_release_hash,
         "evaluation_split": experiment.evaluation_split,
         "status": experiment.status,
         "profiles": json.loads(experiment.profiles_json),
@@ -967,6 +1090,9 @@ def forecast_experiment_progress(
             "code": frozen.get("code"),
             "synthetic_test": bool(frozen.get("synthetic_test")),
             "evaluation_release": frozen.get("evaluation_release"),
+            "historical_evidence_release": frozen.get(
+                "historical_evidence_release"
+            ),
         },
         "runs": [
             {

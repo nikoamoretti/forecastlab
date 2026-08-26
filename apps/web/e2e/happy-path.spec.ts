@@ -356,3 +356,49 @@ test("single-model baseline skips graph construction and aggregation", async ({ 
   await expect(page.getByText("single_model_forecast", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Forecast Graph report" })).toHaveCount(0);
 });
+
+test("node evidence labels a verified immutable historical source", async ({ page }) => {
+  await page.route("**/api/nodes/immutable-evidence-node/evidence", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        node: {
+          id: "immutable-evidence-node",
+          question: "Did the frozen official indicator exceed its threshold?",
+          node_type: "base_rate",
+          importance_weight: 0.4,
+          preferred_sources: ["Official Registry"]
+        },
+        claims: [
+          {
+            id: "immutable-claim",
+            claim: "The frozen record reports the official indicator.",
+            excerpt: "Frozen official indicator record.",
+            source_url: "https://records.example/indicator?vintage=2018-12",
+            source_title: "Official frozen indicator record",
+            publisher: "Official Registry",
+            publication_date: null,
+            publication_date_source: null,
+            publication_date_verified: false,
+            retrieval_date: "2026-08-26T12:00:00Z",
+            source_available_at: "2018-12-01T00:00:00Z",
+            temporal_basis: "immutable_version",
+            supports_or_refutes: "supports",
+            confidence: 0.9,
+            source_quality: 0.9,
+            primary_source: true,
+            as_of_eligible: true,
+            cutoff_verified: true
+          }
+        ]
+      })
+    });
+  });
+
+  await page.goto("/nodes/immutable-evidence-node");
+  await expect(
+    page.getByText("Immutable historical source version verified", { exact: true })
+  ).toBeVisible();
+  await expect(page.getByText(/Basis immutable version/i)).toBeVisible();
+});

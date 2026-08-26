@@ -286,6 +286,8 @@ class Budget:
         )
 
     def estimate_search_charge(self) -> tuple[float, str]:
+        if self.search_provider == "frozen_evidence":
+            return 0.0, "provider_reported"
         cost, label = estimate_search_cost(self.search_provider, catalog=self.pricing_catalog)
         return (0.0 if cost is None else cost, label)
 
@@ -552,7 +554,8 @@ class Budget:
             self.state.search_calls += 1
             self.state.cost_usd += cost
             self.state.search_cost_usd += cost
-            self.state.provider_request_count += 1
+            if self.search_provider != "frozen_evidence":
+                self.state.provider_request_count += 1
             if label == "estimated":
                 self.state.cost_is_estimated = True
             self.reservations.append(reservation)

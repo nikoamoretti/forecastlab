@@ -27,7 +27,11 @@ from forecastlab.material_node_coverage import (
 from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
-from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.providers.base import (
+    ModelProvider,
+    SearchProvider,
+    effective_search_provider_identity,
+)
 from forecastlab.research_planning import (
     PARALLEL_RESEARCH_WORKERS,
     PLANNER_VERSION,
@@ -251,6 +255,7 @@ def run_graph_node_forecasts(
     persist_research_plan: ResearchPlanPersistFn | None = None,
     capture_node_failures: bool = False,
     research_planner: ResearchPlanner | None = None,
+    document_store: Any | None = None,
 ) -> GraphNodeForecastResult:
     """Run Contract -> Graph -> Claims -> Node forecasts without aggregating them."""
 
@@ -268,7 +273,12 @@ def run_graph_node_forecasts(
         mode = execution.effective_mode
 
     model_provider = execution.model_provider if execution is not None else model.name
-    search_provider = execution.search_provider if execution is not None else search.name
+    search_provider = effective_search_provider_identity(
+        search,
+        configured_provider=(
+            execution.search_provider if execution is not None else None
+        ),
+    )
     configuration_hash = execution.configuration_hash if execution is not None else "none"
     cache = cache or RunCache.create(
         run_id=run_id,
@@ -277,6 +287,7 @@ def run_graph_node_forecasts(
         mode=mode,
         as_of=as_of,
         configuration_hash=configuration_hash,
+        document_store=document_store,
     )
     totals = ledger.totals(run_id) if ledger is not None else RunUsageTotals()
     budget = Budget.from_persisted(
@@ -380,6 +391,7 @@ def run_graph_node_forecasts(
             mode=cache.identity.mode,
             as_of=as_of,
             configuration_hash=cache.identity.configuration_hash,
+            document_store=cache.document_store,
         )
         return GraphResearchExecutor(
             model=model,

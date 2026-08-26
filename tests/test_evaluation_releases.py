@@ -16,6 +16,10 @@ from forecastlab.evaluation_releases import (
     EvaluationReleaseQuestionInput,
 )
 from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.historical_evidence_releases import (
+    HistoricalEvidenceCandidateInput,
+    HistoricalEvidencePacketInput,
+)
 from forecastlab.prompts import PromptBundle
 from forecastlab_api.evaluation_datasets import (
     freeze_evaluation_dataset,
@@ -36,6 +40,11 @@ from forecastlab_api.evaluation_releases import (
 from forecastlab_api.forecast_experiments import (
     _sealed_outcome_for_terminal_run,
     create_forecast_experiment,
+)
+from forecastlab_api.historical_evidence_releases import (
+    create_historical_evidence_release,
+    freeze_historical_evidence_release,
+    review_historical_evidence_release,
 )
 from forecastlab_api.models import (
     EvaluationDataset,
@@ -525,9 +534,11 @@ def test_worker_dto_cannot_deserialize_outcome_or_scoring_fields(client) -> None
 def test_release_experiment_assigns_blinded_questions_and_scores_only_terminal_run(
     client,
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     from forecastlab_api import forecast_experiments as module
     from forecastlab_api import main as main_mod
+    from forecastlab_api.config import settings
 
     with main_mod.SessionLocal() as session:
         release, _datasets = _draft_release(session)
@@ -558,10 +569,60 @@ def test_release_experiment_assigns_blinded_questions_and_scores_only_terminal_r
                 "code": {},
                 "synthetic_test": False,
                 "evaluation_release": kwargs["evaluation_release"],
+                "historical_evidence_release": kwargs[
+                    "historical_evidence_release"
+                ],
             }
 
         monkeypatch.setattr(module, "_freeze_configuration", frozen_configuration)
         monkeypatch.setattr(module, "working_tree_dirty", lambda: False)
+        monkeypatch.setattr(settings, "historical_evidence_bundle_root", tmp_path)
+        blinded = get_blinded_execution_manifest(release)
+        evidence_release = create_historical_evidence_release(
+            session,
+            evaluation_release_id=release.id,
+            name="Generated no-evidence corpus",
+            version="1",
+            documents=[],
+            packets=[
+                HistoricalEvidencePacketInput(
+                    evaluation_question_id=item.evaluation_question_id,
+                    split=item.split,
+                    evidence_cutoff=item.evidence_cutoff,
+                    status="no_eligible_evidence",
+                    collector_id=f"collector:{item.split}",
+                    reviewer_id=f"reviewer:{item.split}",
+                    reviewed_at=NOW,
+                    searches=[{"query": f"archive search {item.split}"}],
+                    archive_checks=[{"status": "no_capture_before_cutoff"}],
+                    rejection_reasons=["no_verified_pre_cutoff_capture"],
+                    candidates=[
+                        HistoricalEvidenceCandidateInput(
+                            canonical_url=(
+                                f"https://archive.example/{item.evaluation_question_id}"
+                            ),
+                            source_url=(
+                                f"https://archive.example/{item.evaluation_question_id}"
+                            ),
+                            rank=1,
+                            search_query=f"archive search {item.split}",
+                            search_provider="offline_fixture",
+                            status="rejected",
+                            rejection_reason="no_verified_pre_cutoff_capture",
+                            archive_check_status="no_capture_before_cutoff",
+                        )
+                    ],
+                )
+                for item in blinded.questions
+            ],
+            now=NOW,
+        )
+        review_historical_evidence_release(
+            session, evidence_release, bundle_root=tmp_path, now=NOW
+        )
+        freeze_historical_evidence_release(
+            session, evidence_release, bundle_root=tmp_path, now=NOW
+        )
         experiment = create_forecast_experiment(
             session,
             dataset_id=None,
@@ -569,6 +630,7 @@ def test_release_experiment_assigns_blinded_questions_and_scores_only_terminal_r
             synthetic_test=False,
             evaluation_release_id=release.id,
             evaluation_split="development",
+            historical_evidence_release_id=evidence_release.id,
         )
         session.flush()
         configuration = json.loads(experiment.configuration_json)

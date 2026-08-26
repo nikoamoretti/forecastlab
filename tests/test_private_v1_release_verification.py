@@ -192,7 +192,7 @@ def test_release_database_gate_migrates_fresh_and_legacy_with_parity(
         == 21
     )
     assert result["schema_parity"]["differences"] == []
-    assert result["fresh"]["alembic_revision"] == "20260826_0027"
+    assert result["fresh"]["alembic_revision"] == "20260826_0028"
 
 
 def test_release_positive_and_negative_journeys_cover_all_private_v1_artifacts(

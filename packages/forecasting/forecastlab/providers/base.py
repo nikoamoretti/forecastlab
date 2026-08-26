@@ -1,18 +1,22 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Literal, Protocol
+from datetime import datetime
+from typing import Any, Literal, Protocol, runtime_checkable
 
 from forecastlab.errors import BudgetExceeded
 from forecastlab.schemas import ModelUsage, SearchHit
+from forecastlab.wayback import WaybackSnapshot
 
 __all__ = [
     "BudgetExceeded",
     "ChatResult",
+    "FrozenHistoricalEvidenceSearchProvider",
     "ModelProvider",
     "NullUsage",
     "SearchProvider",
     "StructuredOutputDiagnostics",
+    "effective_search_provider_identity",
 ]
 
 
@@ -98,6 +102,36 @@ class SearchProvider(Protocol):
     name: str
 
     def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]: ...
+
+
+@runtime_checkable
+class FrozenHistoricalEvidenceSearchProvider(Protocol):
+    """Capability-gated offline snapshot discovery for a verified release."""
+
+    name: str
+    offline_frozen_evidence: bool
+
+    def discover_frozen_snapshots(
+        self,
+        url: str,
+        *,
+        as_of: datetime,
+    ) -> list[WaybackSnapshot]: ...
+
+
+def effective_search_provider_identity(
+    search: SearchProvider,
+    *,
+    configured_provider: str | None = None,
+) -> str:
+    """Use the frozen provider identity when execution cannot reach live search."""
+
+    if (
+        isinstance(search, FrozenHistoricalEvidenceSearchProvider)
+        and search.offline_frozen_evidence
+    ):
+        return search.name
+    return configured_provider or search.name
 
 
 @dataclass

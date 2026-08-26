@@ -22,7 +22,11 @@ from forecastlab.evidence_claims import (
     eligible_claims_for_forecasting,
 )
 from forecastlab.prompts import PromptBundle, load_prompt
-from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.providers.base import (
+    FrozenHistoricalEvidenceSearchProvider,
+    ModelProvider,
+    SearchProvider,
+)
 from forecastlab.ranking import (
     normalized_candidate_host,
     rank_hits,
@@ -78,6 +82,7 @@ class SyntheticHistoricalEvidenceAdapter(Protocol):
         snapshot_at: datetime | None,
         mode: str,
     ) -> FetchedDocument: ...
+
 
 _CUTOFF_REASONS = {
     "claim_after_cutoff",
@@ -640,6 +645,12 @@ class GraphResearchExecutor:
             and self.search.synthetic_workflow_only
             else None
         )
+        frozen_adapter = (
+            self.search
+            if isinstance(self.search, FrozenHistoricalEvidenceSearchProvider)
+            and self.search.offline_frozen_evidence
+            else None
+        )
         plan, planning_warnings = self._generate_plan(node)
         preferred_source = plan.preferred_sources[0] if plan.preferred_sources else ""
         qualified_primary_query = plan.primary_research_question
@@ -838,7 +849,12 @@ class GraphResearchExecutor:
             source_audit["actual_fetch_attempt"] = True
             if self.mode == "backtest" and self.as_of is not None:
                 try:
-                    if fixture_adapter is not None:
+                    if frozen_adapter is not None:
+                        snapshots = frozen_adapter.discover_frozen_snapshots(
+                            hit.url,
+                            as_of=self.as_of,
+                        )
+                    elif fixture_adapter is not None:
                         snapshots = fixture_adapter.discover_fixture_snapshots(
                             hit.url,
                             as_of=self.as_of,

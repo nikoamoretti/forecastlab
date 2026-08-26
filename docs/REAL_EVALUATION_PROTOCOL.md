@@ -109,6 +109,14 @@ Frozen releases and their membership rows are immutable. Repeating review or fre
 
 The preregistration freezes dataset, profile, prompt, source-code, dependency-lock, provider/model, budget, evidence-cutoff, metric, paired-comparison, bootstrap, calibration-reporting, exclusion, split-use, no-tuning, and one-shot-test identities before any run is assigned. See [Real Evaluation Preregistration V1](REAL_EVALUATION_PREREGISTRATION_V1.md).
 
+## Frozen historical-evidence release
+
+Every production release must be paired with one frozen `HistoricalEvidenceRelease` governed by `private_v1_historical_evidence_release_v1`. It covers every included release question exactly once at that question's forecast-date cutoff. A packet is either `ready`, with verified pre-cutoff content-addressed documents, or `no_eligible_evidence`, with a reviewed missingness audit. Missing evidence never removes a question from the denominator or authorizes an imputed probability.
+
+Accepted web evidence requires a verified final Wayback capture at or before cutoff with a matching archived original. The alternative path is an explicitly registered immutable-version adapter with independent pre-cutoff availability proof. Retrieval dates, current-page fallbacks, search snippets, post-cutoff captures/publications, archive mismatches, and unregistered adapters are rejected.
+
+The evidence execution manifest is structurally blinded from outcomes and scoring data. The separate audit manifest retains collection/review, licensing, rejected-candidate, missingness, correction, and redistribution metadata. Exact bytes and extracted text live in an external content-addressed bundle and are verified before any task is queued. See [Historical Evidence Release V1](HISTORICAL_EVIDENCE_RELEASE_V1.md).
+
 ## API
 
 - `GET /api/evaluation/datasets` lists all lifecycle states and the controlled comparison profiles.
@@ -123,18 +131,24 @@ The preregistration freezes dataset, profile, prompt, source-code, dependency-lo
 - `POST /api/evaluation/releases/{id}/freeze` freezes the reviewed release and manifests.
 - `GET /api/evaluation/releases/{id}` returns the release audit, including exclusions and hashes.
 - `GET /api/evaluation/releases/{id}/execution-manifest` returns only the blinded worker DTO.
+- `GET /api/evaluation/evidence-releases` lists historical-evidence release lifecycle and hashes.
+- `POST /api/evaluation/evidence-releases` imports a typed draft release and packet/document audit.
+- `POST /api/evaluation/evidence-releases/{id}/review` verifies policy, manifests, and external bundle.
+- `POST /api/evaluation/evidence-releases/{id}/freeze` freezes a reviewed release after revalidation.
+- `POST /api/evaluation/evidence-releases/{id}/verify` runs the offline bundle verifier.
+- `GET /api/evaluation/evidence-releases/{id}/execution-manifest` returns only accepted worker-safe evidence identities.
 
 There is deliberately no general forecast-execution endpoint for the sealed scoring manifest.
 
 ## Controlled experiment runner
 
-For production real evaluation, `POST /api/forecast-experiments` requires a frozen `EvaluationRelease` and an explicitly permitted split. Direct dataset-only creation remains available only for the existing synthetic software-verification path. The runner creates one `ForecastExperimentRun` for every included blinded question/profile pair. The controlled profile set is fixed to:
+For production real evaluation, `POST /api/forecast-experiments` requires a frozen `EvaluationRelease`, a matching frozen `HistoricalEvidenceRelease`, a verified external bundle, and an explicitly permitted split. A missing, mismatched, changed, or incomplete evidence release creates zero tasks. Direct dataset-only creation remains available only for the existing synthetic software-verification path. The runner creates one `ForecastExperimentRun` for every included blinded question/profile pair. The controlled profile set is fixed to:
 
 - `single_model_forecaster_v1`
 - `three_track_forecaster`
 - `graph_forecaster_v1`
 
-Before any run is queued, `ForecastExperiment` stores one canonical, hash-protected configuration containing the release and preregistration identities, blinded question snapshots, profile source and effective definitions, common budget ceiling, provider and model metadata, prompt bundle and hashes, pricing catalog, evidence cutoffs, and code/dependency identity. Secret values and outcomes are never included. These input fields are immutable after creation. Execution reconstructs profiles, prompts, and execution contexts from the frozen record rather than mutable source files or later Settings changes.
+Before any run is queued, `ForecastExperiment` stores one canonical, hash-protected configuration containing the evaluation release, historical-evidence release, bundle and preregistration identities, blinded question/evidence snapshots, profile source and effective definitions, common budget ceiling, provider and model metadata, prompt bundle and hashes, pricing catalog, evidence cutoffs, and code/dependency identity. Secret values and outcomes are never included. These input fields are immutable after creation. Execution reconstructs profiles, prompts, execution contexts, and the question-scoped offline evidence provider from the frozen record rather than mutable source files, network retrieval, or later Settings changes.
 
 The forecasting executor receives a `BlindedEvaluationQuestion`, a type that cannot represent outcome or scoring fields. Only after the forecast is terminal does the scoring service join the outcome by evaluation-question identity from the sealed scoring manifest. Every assigned cell persists its status in `ForecastExperimentRun`. A successful or partial cell stores its probability, resolved outcome, Brier score, log loss, cost, latency, evidence coverage, and completion state in `ForecastExperimentResult`. A failure retains its error and operational measurements but receives no invented probability or forecast score. Job retries retain the same cell and forecast-run identities.
 
@@ -148,4 +162,4 @@ The report presents measurements only. It performs no ranking, hypothesis test, 
 
 ## Claim boundary and limitations
 
-These tables and the controlled runner are intentionally separate from the synthetic `BenchmarkDataset` workflow. This repository contains templates and generated test factories only; it does not contain or certify a 200-question real corpus, freeze a production release, execute a real experiment, calculate a quality result, or establish calibration. Release validation proves that required metadata and structural leakage controls are present and hash-consistent. It cannot prove that human grouping, licensing assertions, adjudication, representativeness, or historical evidence collection are substantively correct.
+These tables and the controlled runner are intentionally separate from the synthetic `BenchmarkDataset` workflow. This repository contains templates and generated test factories only; it does not contain or certify a 200-question real corpus or real historical-evidence bundle, freeze a production release pair, execute a real experiment, calculate a quality result, or establish calibration. Release validation proves that required metadata, structural leakage controls, temporal proof, and bundle hashes are present and internally consistent. It cannot prove that human grouping, licensing assertions, adjudication, representativeness, missingness review, or evidence relevance are substantively correct.

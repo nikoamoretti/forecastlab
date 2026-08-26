@@ -24,7 +24,7 @@ type EvidenceClaim = {
   publication_date_verified: boolean;
   retrieval_date: string;
   source_available_at: string;
-  temporal_basis: "publication_date" | "snapshot_date" | "retrieval_date";
+  temporal_basis: "publication_date" | "snapshot_date" | "retrieval_date" | "immutable_version";
   supports_or_refutes: "supports" | "refutes";
   confidence: number;
   source_quality: number;
@@ -50,6 +50,9 @@ function dateLabel(value: string | null) {
 function temporalLabel(claim: EvidenceClaim) {
   if (claim.temporal_basis === "snapshot_date" && claim.cutoff_verified) {
     return "Historical snapshot verified";
+  }
+  if (claim.temporal_basis === "immutable_version" && claim.cutoff_verified) {
+    return "Immutable historical source version verified";
   }
   if (claim.publication_date && claim.publication_date_verified) {
     return "Published date verified";

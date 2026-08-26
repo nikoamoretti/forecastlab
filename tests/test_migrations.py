@@ -43,11 +43,16 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "scenario_syntheses" in tables
     assert "evaluation_releases" in tables
     assert "evaluation_release_questions" in tables
+    assert "historical_evidence_releases" in tables
+    assert "historical_evidence_packets" in tables
+    assert "historical_evidence_candidates" in tables
+    assert "historical_evidence_documents" in tables
+    assert "historical_evidence_packet_documents" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -167,6 +172,8 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "dataset_id",
             "evaluation_release_id",
             "evaluation_split",
+            "historical_evidence_release_id",
+            "historical_evidence_release_hash",
             "status",
             "profiles_json",
             "configuration_hash",
@@ -456,6 +463,11 @@ def test_real_evaluation_release_migration_is_empty_reversible_and_foreign_key_c
     tables = inspect(engine).get_table_names()
     assert "evaluation_releases" not in tables
     assert "evaluation_release_questions" not in tables
+    assert "historical_evidence_releases" not in tables
+    assert "historical_evidence_packets" not in tables
+    assert "historical_evidence_candidates" not in tables
+    assert "historical_evidence_documents" not in tables
+    assert "historical_evidence_packet_documents" not in tables
     experiment_columns = {
         column["name"]
         for column in inspect(engine).get_columns("forecast_experiments")
@@ -480,7 +492,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
 
 
 def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
@@ -618,7 +630,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -651,8 +663,78 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260826_0027"
+            == "20260826_0028"
         )
+
+
+def test_historical_evidence_migration_preserves_existing_experiments_without_fabricating_corpus(
+    tmp_path,
+) -> None:
+    db_url = f"sqlite:///{tmp_path}/historical-evidence-release.db"
+    command.upgrade(alembic_config(db_url), "20260826_0027")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_datasets "
+                "(id, name, version, hash, description, provenance, status, created_at, "
+                "frozen_at, question_count) VALUES "
+                "('dataset-before-evidence', 'Existing frozen dataset', '1', :hash, "
+                "'description', 'source', 'frozen', '2026-08-26 00:00:00', "
+                "'2026-08-26 00:00:00', 0)"
+            ),
+            {"hash": "a" * 64},
+        )
+        connection.execute(
+            text(
+                "INSERT INTO forecast_experiments "
+                "(id, dataset_id, evaluation_release_id, evaluation_split, status, "
+                "profiles_json, configuration_hash, configuration_json, created_at, completed_at) "
+                "VALUES ('experiment-before-evidence', 'dataset-before-evidence', NULL, NULL, "
+                "'completed', '[]', :hash, '{}', '2026-08-26 00:00:00', "
+                "'2026-08-26 00:01:00')"
+            ),
+            {"hash": "b" * 64},
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+    with engine.connect() as connection:
+        assert connection.execute(
+            text(
+                "SELECT historical_evidence_release_id, "
+                "historical_evidence_release_hash FROM forecast_experiments "
+                "WHERE id = 'experiment-before-evidence'"
+            )
+        ).one() == (None, None)
+        for table in (
+            "historical_evidence_releases",
+            "historical_evidence_packets",
+            "historical_evidence_candidates",
+            "historical_evidence_documents",
+            "historical_evidence_packet_documents",
+        ):
+            assert connection.execute(
+                text(f"SELECT COUNT(*) FROM {table}")
+            ).scalar_one() == 0
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.downgrade(alembic_config(db_url), "20260826_0027")
+    assert "historical_evidence_releases" not in inspect(engine).get_table_names()
+    with engine.connect() as connection:
+        assert connection.execute(
+            text(
+                "SELECT status FROM forecast_experiments "
+                "WHERE id = 'experiment-before-evidence'"
+            )
+        ).scalar_one() == "completed"
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.upgrade(alembic_config(db_url), "head")
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT version_num FROM alembic_version")
+        ).scalar_one() == "20260826_0028"
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
 def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_path) -> None:
@@ -692,7 +774,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0027"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

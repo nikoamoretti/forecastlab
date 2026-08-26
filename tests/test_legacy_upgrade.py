@@ -68,6 +68,11 @@ REQUIRED_TABLES = {
     "evidence_sufficiency_assessments",
     "material_node_coverage_assessments",
     "scenario_syntheses",
+    "historical_evidence_releases",
+    "historical_evidence_packets",
+    "historical_evidence_candidates",
+    "historical_evidence_documents",
+    "historical_evidence_packet_documents",
 }
 
 
@@ -150,12 +155,17 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "published_at_unknown" in evidence_cols
     assert {"lease_owner", "lease_expires_at", "available_at", "error_category", "error_history_json"} <= job_cols
     assert {"experiment_id", "benchmark_task_id"} <= result_cols
-    assert {"evaluation_release_id", "evaluation_split"} <= experiment_cols
+    assert {
+        "evaluation_release_id",
+        "evaluation_split",
+        "historical_evidence_release_id",
+        "historical_evidence_release_hash",
+    } <= experiment_cols
     version = inspect(engine).get_table_names()
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260826_0027"
+        assert current == "20260826_0028"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

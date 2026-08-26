@@ -2,11 +2,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Any, Protocol
 
 from forecastlab.fetch import fetch_document
 from forecastlab.providers.base import SearchProvider
 from forecastlab.schemas import FetchedDocument, SearchHit
 from forecastlab.timeutil import as_utc
+
+
+class DocumentStore(Protocol):
+    def fetch(self, url: str, **kwargs: Any) -> FetchedDocument: ...
 
 
 def _as_of_key(value: datetime | None) -> str:
@@ -28,6 +33,7 @@ class RunCacheIdentity:
 @dataclass
 class RunCache:
     identity: RunCacheIdentity
+    document_store: DocumentStore | None = None
     _search: dict[tuple[str, int], list[SearchHit]] = field(default_factory=dict)
     _fetch: dict[tuple[str, str, str, str, str, str], FetchedDocument] = field(default_factory=dict)
 
@@ -41,6 +47,7 @@ class RunCache:
         mode: str,
         as_of: datetime | None,
         configuration_hash: str,
+        document_store: DocumentStore | None = None,
     ) -> RunCache:
         return cls(
             identity=RunCacheIdentity(
@@ -50,7 +57,8 @@ class RunCache:
                 mode=mode,
                 as_of=_as_of_key(as_of),
                 configuration_hash=configuration_hash or "none",
-            )
+            ),
+            document_store=document_store,
         )
 
     def matches(
@@ -90,5 +98,9 @@ class RunCache:
             str(kwargs.get("publication_date_hint_source") or ""),
         )
         if key not in self._fetch:
-            self._fetch[key] = fetch_document(url, **kwargs)
+            self._fetch[key] = (
+                self.document_store.fetch(url, **kwargs)
+                if self.document_store is not None
+                else fetch_document(url, **kwargs)
+            )
         return self._fetch[key]

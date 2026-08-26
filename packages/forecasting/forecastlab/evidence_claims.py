@@ -88,6 +88,7 @@ def normalize_source_host(url: str) -> str:
 
 _VERIFIED_HISTORICAL_SNAPSHOT_STATUSES = {
     "verified",
+    "verified_frozen_final_capture",
     "fixture",
     "cutoff_consistent_mock_manifest_verified",
 }
@@ -153,6 +154,9 @@ def _document_errors(
         elif document.temporal_basis == "publication_date":
             if not document.publication_date_verified:
                 errors.append("historical_publication_date_not_verified")
+            if document.snapshot_verification_status not in _VERIFIED_IMMUTABLE_TIMESTAMP_STATUSES:
+                errors.append("historical_immutable_timestamp_adapter_required")
+        elif document.temporal_basis == "immutable_version":
             if document.snapshot_verification_status not in _VERIFIED_IMMUTABLE_TIMESTAMP_STATUSES:
                 errors.append("historical_immutable_timestamp_adapter_required")
     else:

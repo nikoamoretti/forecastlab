@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     max_cost_usd: float = 5.0
     search_provider: str = "mock"
     search_api_key: str | None = None
+    historical_evidence_bundle_root: Path | None = None
 
 
 settings = Settings()

@@ -681,6 +681,10 @@ class FrozenEvaluationReleaseError(ValueError):
     """Raised when application code attempts to alter a frozen evaluation release."""
 
 
+class FrozenHistoricalEvidenceReleaseError(ValueError):
+    """Raised when application code alters a frozen historical-evidence release."""
+
+
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
     __table_args__ = (
@@ -851,6 +855,245 @@ class EvaluationReleaseQuestion(Base):
     release: Mapped[EvaluationRelease] = relationship(back_populates="questions")
 
 
+class HistoricalEvidenceRelease(Base):
+    """Immutable cutoff-safe evidence corpus bound to one evaluation release."""
+
+    __tablename__ = "historical_evidence_releases"
+    __table_args__ = (
+        UniqueConstraint(
+            "name", "version", name="uq_historical_evidence_release_name_version"
+        ),
+        CheckConstraint(
+            "status IN ('draft', 'reviewed', 'frozen')",
+            name="ck_historical_evidence_release_status",
+        ),
+        CheckConstraint(
+            "status != 'frozen' OR frozen_at IS NOT NULL",
+            name="ck_historical_evidence_release_frozen_at",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    evaluation_release_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_releases.id")
+    )
+    evaluation_execution_manifest_hash: Mapped[str] = mapped_column(String(64))
+    name: Mapped[str] = mapped_column(String(255))
+    version: Mapped[str] = mapped_column(String(64))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    reviewed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    frozen_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    correction_of_release_id: Mapped[str | None] = mapped_column(
+        ForeignKey("historical_evidence_releases.id"), nullable=True
+    )
+    correction_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    creation_request_hash: Mapped[str] = mapped_column(String(64))
+    execution_manifest_json: Mapped[str] = mapped_column(Text)
+    execution_manifest_hash: Mapped[str] = mapped_column(String(64))
+    audit_manifest_json: Mapped[str] = mapped_column(Text)
+    audit_manifest_hash: Mapped[str] = mapped_column(String(64))
+    bundle_manifest_json: Mapped[str] = mapped_column(Text)
+    bundle_manifest_hash: Mapped[str] = mapped_column(String(64))
+    release_hash: Mapped[str] = mapped_column(String(64), unique=True)
+
+    packets: Mapped[list[HistoricalEvidencePacket]] = relationship(
+        back_populates="release",
+        order_by="HistoricalEvidencePacket.id",
+        cascade="all, delete-orphan",
+    )
+    documents: Mapped[list[HistoricalEvidenceDocument]] = relationship(
+        back_populates="release",
+        order_by="HistoricalEvidenceDocument.id",
+        cascade="all, delete-orphan",
+    )
+
+
+class HistoricalEvidencePacket(Base):
+    __tablename__ = "historical_evidence_packets"
+    __table_args__ = (
+        UniqueConstraint(
+            "historical_evidence_release_id",
+            "evaluation_release_question_id",
+            name="uq_historical_evidence_packet_release_question",
+        ),
+        CheckConstraint(
+            "split IN ('development', 'validation', 'test')",
+            name="ck_historical_evidence_packet_split",
+        ),
+        CheckConstraint(
+            "status IN ('ready', 'no_eligible_evidence')",
+            name="ck_historical_evidence_packet_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    historical_evidence_release_id: Mapped[str] = mapped_column(
+        ForeignKey("historical_evidence_releases.id", ondelete="CASCADE")
+    )
+    evaluation_release_question_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_release_questions.id")
+    )
+    evaluation_question_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_questions.id")
+    )
+    split: Mapped[str] = mapped_column(String(32))
+    evidence_cutoff: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    status: Mapped[str] = mapped_column(String(32))
+    collector_id: Mapped[str] = mapped_column(String(128))
+    reviewer_id: Mapped[str] = mapped_column(String(128))
+    reviewed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    searches_json: Mapped[str] = mapped_column(Text, default="[]")
+    archive_checks_json: Mapped[str] = mapped_column(Text, default="[]")
+    rejection_reasons_json: Mapped[str] = mapped_column(Text, default="[]")
+    packet_hash: Mapped[str] = mapped_column(String(64))
+
+    release: Mapped[HistoricalEvidenceRelease] = relationship(back_populates="packets")
+    candidates: Mapped[list[HistoricalEvidenceCandidate]] = relationship(
+        back_populates="packet",
+        order_by="HistoricalEvidenceCandidate.rank",
+        cascade="all, delete-orphan",
+    )
+    document_links: Mapped[list[HistoricalEvidencePacketDocument]] = relationship(
+        back_populates="packet",
+        order_by="HistoricalEvidencePacketDocument.id",
+        cascade="all, delete-orphan",
+    )
+
+
+class HistoricalEvidenceDocument(Base):
+    __tablename__ = "historical_evidence_documents"
+    __table_args__ = (
+        UniqueConstraint(
+            "historical_evidence_release_id",
+            "document_hash",
+            name="uq_historical_evidence_release_document_hash",
+        ),
+        CheckConstraint(
+            "source_class IN ('primary', 'secondary')",
+            name="ck_historical_evidence_document_source_class",
+        ),
+        CheckConstraint(
+            "source_kind IN ('wayback_final_capture', 'immutable_version')",
+            name="ck_historical_evidence_document_source_kind",
+        ),
+        CheckConstraint(
+            "temporal_basis IN ('snapshot_date', 'immutable_version')",
+            name="ck_historical_evidence_document_temporal_basis",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    historical_evidence_release_id: Mapped[str] = mapped_column(
+        ForeignKey("historical_evidence_releases.id", ondelete="CASCADE")
+    )
+    canonical_url: Mapped[str] = mapped_column(Text)
+    source_url: Mapped[str] = mapped_column(Text)
+    title: Mapped[str] = mapped_column(Text)
+    publisher: Mapped[str] = mapped_column(Text)
+    source_class: Mapped[str] = mapped_column(String(32))
+    source_kind: Mapped[str] = mapped_column(String(32))
+    temporal_basis: Mapped[str] = mapped_column(String(32))
+    published_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    source_available_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    final_capture_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    final_capture_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    archived_original_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    final_capture_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    immutable_adapter_id: Mapped[str | None] = mapped_column(
+        String(128), nullable=True
+    )
+    immutable_version_id: Mapped[str | None] = mapped_column(
+        String(255), nullable=True
+    )
+    immutable_availability_verified: Mapped[bool] = mapped_column(
+        Boolean, default=False
+    )
+    mime_type: Mapped[str] = mapped_column(String(128))
+    content_sha256: Mapped[str] = mapped_column(String(64))
+    extracted_text_sha256: Mapped[str] = mapped_column(String(64))
+    byte_length: Mapped[int] = mapped_column(Integer)
+    text_length: Mapped[int] = mapped_column(Integer)
+    blob_locator: Mapped[str] = mapped_column(Text)
+    text_locator: Mapped[str] = mapped_column(Text)
+    source_license_status: Mapped[str] = mapped_column(String(32))
+    source_use_basis: Mapped[str] = mapped_column(Text)
+    redistribution_allowed: Mapped[bool] = mapped_column(Boolean)
+    metadata_json: Mapped[str] = mapped_column(Text, default="{}")
+    document_hash: Mapped[str] = mapped_column(String(64))
+
+    release: Mapped[HistoricalEvidenceRelease] = relationship(back_populates="documents")
+    packet_links: Mapped[list[HistoricalEvidencePacketDocument]] = relationship(
+        back_populates="document",
+        cascade="all, delete-orphan",
+    )
+
+
+class HistoricalEvidenceCandidate(Base):
+    __tablename__ = "historical_evidence_candidates"
+    __table_args__ = (
+        UniqueConstraint(
+            "packet_id", "rank", name="uq_historical_evidence_candidate_rank"
+        ),
+        CheckConstraint(
+            "status IN ('accepted', 'rejected')",
+            name="ck_historical_evidence_candidate_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    packet_id: Mapped[str] = mapped_column(
+        ForeignKey("historical_evidence_packets.id", ondelete="CASCADE")
+    )
+    document_id: Mapped[str | None] = mapped_column(
+        ForeignKey("historical_evidence_documents.id"), nullable=True
+    )
+    canonical_url: Mapped[str] = mapped_column(Text)
+    source_url: Mapped[str] = mapped_column(Text)
+    rank: Mapped[int] = mapped_column(Integer)
+    search_query: Mapped[str] = mapped_column(Text)
+    search_provider: Mapped[str] = mapped_column(String(128))
+    status: Mapped[str] = mapped_column(String(32))
+    rejection_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    archive_check_status: Mapped[str] = mapped_column(String(128))
+    candidate_hash: Mapped[str] = mapped_column(String(64))
+
+    packet: Mapped[HistoricalEvidencePacket] = relationship(back_populates="candidates")
+
+
+class HistoricalEvidencePacketDocument(Base):
+    __tablename__ = "historical_evidence_packet_documents"
+    __table_args__ = (
+        UniqueConstraint(
+            "packet_id", "document_id", name="uq_historical_evidence_packet_document"
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    packet_id: Mapped[str] = mapped_column(
+        ForeignKey("historical_evidence_packets.id", ondelete="CASCADE")
+    )
+    document_id: Mapped[str] = mapped_column(
+        ForeignKey("historical_evidence_documents.id", ondelete="CASCADE")
+    )
+
+    packet: Mapped[HistoricalEvidencePacket] = relationship(
+        back_populates="document_links"
+    )
+    document: Mapped[HistoricalEvidenceDocument] = relationship(
+        back_populates="packet_links"
+    )
+
+
 class ForecastExperiment(Base):
     """A controlled comparison over one frozen real-evaluation dataset."""
 
@@ -866,6 +1109,12 @@ class ForecastExperiment(Base):
     dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"))
     evaluation_release_id: Mapped[str | None] = mapped_column(
         ForeignKey("evaluation_releases.id"), nullable=True
+    )
+    historical_evidence_release_id: Mapped[str | None] = mapped_column(
+        ForeignKey("historical_evidence_releases.id"), nullable=True
+    )
+    historical_evidence_release_hash: Mapped[str | None] = mapped_column(
+        String(64), nullable=True
     )
     evaluation_split: Mapped[str | None] = mapped_column(String(32), nullable=True)
     status: Mapped[str] = mapped_column(String(32), default="pending")
@@ -1004,6 +1253,8 @@ def _frozen_forecast_experiment_configuration_guard(
     frozen_fields = (
         "dataset_id",
         "evaluation_release_id",
+        "historical_evidence_release_id",
+        "historical_evidence_release_hash",
         "evaluation_split",
         "profiles_json",
         "configuration_hash",
@@ -1078,6 +1329,66 @@ def _frozen_evaluation_release_question_guard(
         raise FrozenEvaluationReleaseError("frozen_evaluation_release_immutable")
 
 
+def _frozen_historical_evidence_release_before_update(
+    _mapper: object,
+    _connection: Connection,
+    target: HistoricalEvidenceRelease,
+) -> None:
+    history = inspect(target).attrs.status.history
+    prior_status = history.deleted[0] if history.deleted else target.status
+    if prior_status == "frozen":
+        raise FrozenHistoricalEvidenceReleaseError(
+            "frozen_historical_evidence_release_immutable"
+        )
+
+
+def _frozen_historical_evidence_release_before_delete(
+    _mapper: object,
+    _connection: Connection,
+    target: HistoricalEvidenceRelease,
+) -> None:
+    if target.status == "frozen":
+        raise FrozenHistoricalEvidenceReleaseError(
+            "frozen_historical_evidence_release_immutable"
+        )
+
+
+def _historical_evidence_release_id_for_child(
+    connection: Connection,
+    target: object,
+) -> str | None:
+    release_id = getattr(target, "historical_evidence_release_id", None)
+    if release_id is not None:
+        return str(release_id)
+    packet_id = getattr(target, "packet_id", None)
+    if packet_id is None:
+        return None
+    return connection.execute(
+        select(HistoricalEvidencePacket.historical_evidence_release_id).where(
+            HistoricalEvidencePacket.id == packet_id
+        )
+    ).scalar_one_or_none()
+
+
+def _frozen_historical_evidence_child_guard(
+    _mapper: object,
+    connection: Connection,
+    target: object,
+) -> None:
+    release_id = _historical_evidence_release_id_for_child(connection, target)
+    if release_id is None:
+        return
+    status = connection.execute(
+        select(HistoricalEvidenceRelease.status).where(
+            HistoricalEvidenceRelease.id == release_id
+        )
+    ).scalar_one_or_none()
+    if status == "frozen":
+        raise FrozenHistoricalEvidenceReleaseError(
+            "frozen_historical_evidence_release_immutable"
+        )
+
+
 event.listen(EvaluationDataset, "before_update", _frozen_evaluation_dataset_before_update)
 event.listen(EvaluationDataset, "before_delete", _frozen_evaluation_dataset_before_delete)
 event.listen(EvaluationQuestion, "before_insert", _frozen_evaluation_question_guard)
@@ -1100,6 +1411,37 @@ event.listen(
     "before_delete",
     _frozen_evaluation_release_question_guard,
 )
+event.listen(
+    HistoricalEvidenceRelease,
+    "before_update",
+    _frozen_historical_evidence_release_before_update,
+)
+event.listen(
+    HistoricalEvidenceRelease,
+    "before_delete",
+    _frozen_historical_evidence_release_before_delete,
+)
+for _historical_evidence_child in (
+    HistoricalEvidencePacket,
+    HistoricalEvidenceDocument,
+    HistoricalEvidenceCandidate,
+    HistoricalEvidencePacketDocument,
+):
+    event.listen(
+        _historical_evidence_child,
+        "before_insert",
+        _frozen_historical_evidence_child_guard,
+    )
+    event.listen(
+        _historical_evidence_child,
+        "before_update",
+        _frozen_historical_evidence_child_guard,
+    )
+    event.listen(
+        _historical_evidence_child,
+        "before_delete",
+        _frozen_historical_evidence_child_guard,
+    )
 event.listen(
     ForecastExperiment,
     "before_update",

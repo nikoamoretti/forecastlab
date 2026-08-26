@@ -35,7 +35,12 @@ ForecastNodeType = Literal[
 ]
 ForecastNodeStatus = Literal["pending", "completed", "failed"]
 EvidenceStance = Literal["supports", "refutes"]
-TemporalBasis = Literal["publication_date", "snapshot_date", "retrieval_date"]
+TemporalBasis = Literal[
+    "publication_date",
+    "snapshot_date",
+    "retrieval_date",
+    "immutable_version",
+]
 
 
 class ResolutionContract(BaseModel):

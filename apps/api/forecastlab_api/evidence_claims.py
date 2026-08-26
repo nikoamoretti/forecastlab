@@ -78,6 +78,7 @@ def _provenance_errors(claim: EvidenceClaim, item: EvidenceItem) -> list[str]:
         if item.temporal_basis == "snapshot_date":
             if item.snapshot_verification_status not in {
                 "verified",
+                "verified_frozen_final_capture",
                 "fixture",
                 "cutoff_consistent_mock_manifest_verified",
             }:
@@ -90,6 +91,12 @@ def _provenance_errors(claim: EvidenceClaim, item: EvidenceItem) -> list[str]:
         if item.temporal_basis == "publication_date" and (
             not item.publication_date_verified
             or item.snapshot_verification_status
+            not in {"fixture", "immutable_historical_timestamp_verified"}
+        ):
+            errors.append("historical_immutable_timestamp_adapter_required")
+        if (
+            item.temporal_basis == "immutable_version"
+            and item.snapshot_verification_status
             not in {"fixture", "immutable_historical_timestamp_verified"}
         ):
             errors.append("historical_immutable_timestamp_adapter_required")
