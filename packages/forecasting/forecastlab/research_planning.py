@@ -10,6 +10,13 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from forecastlab.budget import Budget
+from forecastlab.scenario_synthesis import (
+    SCENARIO_SYNTHESIS_CALL_KIND,
+    SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS,
+    SCENARIO_SYNTHESIS_POLICY_VERSION,
+    SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+    SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS,
+)
 from forecastlab.schemas import ForecastGraph, ForecastNode
 from forecastlab.timeutil import utcnow
 
@@ -509,6 +516,60 @@ class ResearchPlanner:
             len(candidates),
         )
         remaining = self._remaining_budget(budget)
+        available_before_research = dict(remaining)
+        scenario_enabled = (
+            budget.profile.scenario_synthesis_policy
+            == SCENARIO_SYNTHESIS_POLICY_VERSION
+        )
+        scenario_reserved_tokens = (
+            SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+            + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+            if scenario_enabled
+            else 0
+        )
+        scenario_estimated_cost = (
+            budget.estimate_model_cost(
+                SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+                SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS,
+            )
+            if scenario_enabled
+            else 0.0
+        )
+        if scenario_enabled:
+            reservation_requirements = {
+                "model_calls": 1,
+                "tokens": scenario_reserved_tokens,
+                "cost_usd": scenario_estimated_cost,
+                "wall_clock_seconds": SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS,
+            }
+            exceeded = [
+                dimension
+                for dimension, required in reservation_requirements.items()
+                if float(required) > float(remaining[dimension]) + 1e-12
+            ]
+            if exceeded:
+                raise ResearchPlanningError(
+                    ["scenario_synthesis_reservation_exceeds_run_budget"],
+                    "The required private-V1 scenario stage cannot fit before research begins",
+                    audit={
+                        "planner_version": PLANNER_VERSION,
+                        "scenario_synthesis_policy": (
+                            SCENARIO_SYNTHESIS_POLICY_VERSION
+                        ),
+                        "reservation_requirements": reservation_requirements,
+                        "available_before_research": available_before_research,
+                        "exceeded_dimensions": exceeded,
+                    },
+                )
+            remaining = {
+                **remaining,
+                "model_calls": int(remaining["model_calls"]) - 1,
+                "tokens": int(remaining["tokens"]) - scenario_reserved_tokens,
+                "cost_usd": float(remaining["cost_usd"])
+                - scenario_estimated_cost,
+                "wall_clock_seconds": float(remaining["wall_clock_seconds"])
+                - SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS,
+            }
 
         if (
             budget.provider != "mock"
@@ -653,10 +714,12 @@ class ResearchPlanner:
             "node_forecast": selected_count
             * int(per_node["node_forecast_calls"]),
         }
+        if scenario_enabled:
+            planned_calls_by_kind[SCENARIO_SYNTHESIS_CALL_KIND] = 1
         planned_research_phase_model_calls = sum(
             count
             for phase, count in planned_calls_by_kind.items()
-            if phase != "node_forecast"
+            if phase not in {"node_forecast", SCENARIO_SYNTHESIS_CALL_KIND}
         )
         planned_total_model_calls = sum(planned_calls_by_kind.values())
         estimated_tokens_by_phase = {
@@ -665,12 +728,69 @@ class ResearchPlanner:
                 per_node["estimated_tokens_by_phase"]
             ).items()
         }
+        if scenario_enabled:
+            estimated_tokens_by_phase[SCENARIO_SYNTHESIS_CALL_KIND] = (
+                scenario_reserved_tokens
+            )
         estimated_cost_by_phase = {
             phase: round(selected_count * float(cost), 12)
             for phase, cost in dict(
                 per_node["estimated_cost_by_phase_usd"]
             ).items()
         }
+        if scenario_enabled:
+            estimated_cost_by_phase[SCENARIO_SYNTHESIS_CALL_KIND] = round(
+                scenario_estimated_cost,
+                12,
+            )
+        scenario_budget_allocation: dict[str, Any] = {}
+        if scenario_enabled:
+            scenario_budget_allocation = {
+                "scenario_synthesis_policy": (
+                    SCENARIO_SYNTHESIS_POLICY_VERSION
+                ),
+                "reserved_scenario_synthesis_calls": 1,
+                "scenario_synthesis_reserved_input_tokens": (
+                    SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+                ),
+                "scenario_synthesis_max_output_tokens": (
+                    SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+                ),
+                "scenario_synthesis_reserved_tokens": (
+                    scenario_reserved_tokens
+                ),
+                "scenario_synthesis_estimated_cost_usd": round(
+                    scenario_estimated_cost,
+                    12,
+                ),
+                "scenario_synthesis_reserved_wall_clock_seconds": (
+                    SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS
+                ),
+                "scenario_synthesis_post_stage_headroom": {
+                    "model_calls": int(remaining["model_calls"])
+                    - selected_count * int(per_node["total_model_calls"]),
+                    "tokens": int(remaining["tokens"])
+                    - selected_count * int(per_node["estimated_tokens"]),
+                    "cost_usd": round(
+                        float(remaining["cost_usd"])
+                        - selected_count
+                        * float(per_node["estimated_cost_usd"]),
+                        12,
+                    ),
+                    "wall_clock_seconds": round(
+                        float(remaining["wall_clock_seconds"])
+                        - (
+                            math.ceil(
+                                selected_count / PARALLEL_RESEARCH_WORKERS
+                            )
+                            * 30
+                            + selected_count * 12
+                        ),
+                        12,
+                    ),
+                },
+                "available_after_scenario_reservation": remaining,
+            }
         return ResearchPlan(
             id=str(uuid.uuid4()),
             forecast_run_id=forecast_run_id,
@@ -702,12 +822,13 @@ class ResearchPlanner:
                 "reserved_node_forecast_calls": planned_calls_by_kind[
                     "node_forecast"
                 ],
+                **scenario_budget_allocation,
                 "planned_total_model_calls": planned_total_model_calls,
                 "model_calls_available_before_research": int(
-                    remaining["model_calls"]
+                    available_before_research["model_calls"]
                 ),
                 "model_call_headroom_after_plan": int(
-                    remaining["model_calls"]
+                    available_before_research["model_calls"]
                 ) - planned_total_model_calls,
                 "extraction_fallbacks_enabled": bool(
                     per_node["extraction_fallbacks_enabled"]
@@ -764,13 +885,16 @@ class ResearchPlanner:
                     "minimum_research_nodes": self.minimum_research_nodes,
                     "critical_importance_threshold": CRITICAL_IMPORTANCE_THRESHOLD,
                 },
-                "available_before_research": remaining,
+                "available_before_research": available_before_research,
                 "skipped_node_count": len(skipped_ids),
                 "critical_node_ids": [node.id for node in critical],
                 "priority_components": components,
                 "skipped_reasons": skipped_reasons,
                 "per_node": per_node_allocations,
-                "estimated_total_cost_usd": estimated_cost,
+                "estimated_total_cost_usd": round(
+                    estimated_cost + scenario_estimated_cost,
+                    12,
+                ),
                 "estimated_search_cost_per_call_usd": search_cost,
                 "estimated_search_cost_label": search_label,
                 "parallel_research_workers": min(

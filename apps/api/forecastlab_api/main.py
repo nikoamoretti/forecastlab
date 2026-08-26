@@ -113,6 +113,7 @@ from forecastlab_api.pipeline import create_run, execute_run, operationalize_que
 from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.reports import build_v1_report, v1_report_markdown
 from forecastlab_api.research_plans import research_plan_from_row
+from forecastlab_api.scenario_synthesis import scenario_synthesis_from_row
 from forecastlab_api.secrets import public_settings, update_settings
 from forecastlab_api.seed import seed_sample_question, seed_synthetic_benchmarks, seed_v1_evaluation_benchmarks
 from forecastlab_api.v1_execution import approved_contract_for_question, node_runs_for_run
@@ -852,6 +853,10 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
                 run.material_node_coverage_assessment
             ).model_dump(mode="json")
         )
+    if run.scenario_synthesis is not None:
+        payload["scenario_synthesis"] = scenario_synthesis_from_row(
+            run.scenario_synthesis
+        ).model_dump(mode="json")
     if run.budget_json:
         payload["budget"] = json.loads(run.budget_json)
     if run.prompt_versions_json:

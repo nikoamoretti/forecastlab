@@ -127,6 +127,8 @@ class MockModelProvider:
             return self._extract(user)
         if schema_name == "forecast_node":
             return self._forecast_node(user)
+        if schema_name == "scenario_synthesis":
+            return self._scenario_synthesis(user)
         if schema_name == "single_model_forecast":
             return self._single_model_forecast(user)
         if "forecast" in prompt_id or schema_name == "track_forecast":
@@ -141,6 +143,60 @@ class MockModelProvider:
                 )
             }
         return {"note": "mock_unrecognized_prompt", "prompt_id": prompt_id}
+
+    @staticmethod
+    def _scenario_synthesis(user: str) -> dict[str, Any]:
+        packet = json.loads(user)
+        nodes = list((packet.get("graph") or {}).get("nodes") or [])
+        claims = list(packet.get("cited_evidence_claims") or [])
+        node_ids = [str(node["id"]) for node in nodes]
+        if len(node_ids) < 3:
+            return {"scenarios": []}
+        claim_by_node: dict[str, str] = {}
+        for claim in claims:
+            claim_by_node.setdefault(
+                str(claim.get("forecast_node_id")),
+                str(claim.get("id")),
+            )
+
+        def first_claim(references: list[str]) -> str:
+            return next(
+                claim_by_node[node_id]
+                for node_id in references
+                if node_id in claim_by_node
+            )
+
+        base_nodes = list(node_ids)
+        yes_nodes = list(node_ids[:-1])
+        no_nodes = list(node_ids[1:])
+        pathways = []
+        for kind, title, references in (
+            ("base_case", "Base pathway", base_nodes),
+            ("yes_case", "Yes-condition pathway", yes_nodes),
+            ("no_case", "No-condition pathway", no_nodes),
+        ):
+            pathways.append(
+                {
+                    "local_id": kind,
+                    "kind": kind,
+                    "title": title,
+                    "summary": (
+                        "The cited node evidence and direct graph relationships "
+                        "describe this grounded explanatory pathway."
+                    ),
+                    "node_ids": references,
+                    "claim_ids": [first_claim(references)],
+                    "mechanisms": [
+                        "The referenced drivers interact through the recorded graph relationships."
+                    ],
+                    "triggers": ["A cited leading indicator changes materially."],
+                    "invalidators": ["The cited mechanism fails to appear."],
+                    "unresolved_uncertainties": [
+                        "The timing and magnitude of the interaction remain uncertain."
+                    ],
+                }
+            )
+        return {"scenarios": pathways}
 
     def _plan(self, user: str) -> dict[str, Any]:
         if "base_rate" in user:

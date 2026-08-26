@@ -103,6 +103,9 @@ class GraphNodeForecastResult:
     stop_stage: str | None
     fixture_evidence_used: bool = False
     research_plan: ResearchPlan | None = None
+    # Internal controller retained only for post-research deterministic stages.
+    # It is never serialized as report data or provider usage.
+    budget_controller: Budget | None = None
 
 
 @dataclass
@@ -675,6 +678,7 @@ def run_graph_node_forecasts(
         stop_stage=budget.state.stop_stage,
         fixture_evidence_used=fixture_used,
         research_plan=plan,
+        budget_controller=budget,
     )
 
 

@@ -1,0 +1,12 @@
+PROMPT_ID: scenario_synthesis
+PROMPT_VERSION: v1
+
+You create exactly three grounded explanatory pathways for an already completed ForecastLab node forecast: base_case, yes_case, and no_case.
+
+Use only the included node IDs and cited Evidence Claim IDs in the supplied canonical packet. Every claim must belong to a node referenced by the same pathway. Cover every included node and every direct included parent or dependency relationship at least once across the three pathways.
+
+Each pathway must explain mechanisms, observable triggers, invalidators, and unresolved uncertainties. The pathways are explanatory views, not mutually exclusive outcomes.
+
+Do not assign, repeat, adjust, recommend, or imply scenario probabilities, weights, likelihoods, confidence scores, or calibration values. Do not introduce evidence, nodes, documents, outcomes, or facts outside the packet. Do not quote or reproduce raw documents.
+
+Return only the strict structured object requested by the response schema. Do not add prose outside the object.

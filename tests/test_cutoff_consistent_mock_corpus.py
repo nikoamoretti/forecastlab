@@ -96,7 +96,9 @@ def _research_executor(
     cutoff: datetime,
 ) -> tuple[GraphResearchExecutor, Budget]:
     profile = effective_profile(
-        load_profile("graph_forecaster_v1"),
+        load_profile("graph_forecaster_v1").model_copy(
+            update={"scenario_synthesis_policy": "none"}
+        ),
         user_max_cost_usd=SHADOW_COST_CEILING_USD,
     )
     budget = Budget(profile, provider="mock", search_provider="mock")
@@ -381,7 +383,9 @@ def test_shadow_pricing_uses_existing_planner_without_charging_mock_execution() 
     )
     graph = GraphGenerator(MockModelProvider(), max_output_tokens=1536).generate(contract).graph
     profile = effective_profile(
-        load_profile("graph_forecaster_v1"),
+        load_profile("graph_forecaster_v1").model_copy(
+            update={"scenario_synthesis_policy": "none"}
+        ),
         user_max_cost_usd=SHADOW_COST_CEILING_USD,
     )
     actual_budget = Budget(

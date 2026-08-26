@@ -29,9 +29,10 @@ _OPENAI_STRICT_SCHEMA_PREFIXES = (
     "o4",
 )
 _KNOWN_FINISH_REASONS = {"stop", "length", "content_filter", "tool_calls", "function_call"}
-_FORECAST_GRAPH_SCHEMA_NAMES = {
+_STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "forecast_graph",
     "forecast_graph_compact_indexed_v1",
+    "scenario_synthesis",
 }
 
 
@@ -68,8 +69,8 @@ def _supports_verbosity(provider_id: str, model: str) -> bool:
     return _is_openai_model_family(provider_id, model, ("gpt-5",))
 
 
-def _is_forecast_graph_schema(schema_name: str) -> bool:
-    return schema_name in _FORECAST_GRAPH_SCHEMA_NAMES
+def _is_strict_structured_task_schema(schema_name: str) -> bool:
+    return schema_name in _STRICT_STRUCTURED_TASK_SCHEMA_NAMES
 
 
 def _sanitized_finish_reason(value: Any) -> str | None:
@@ -175,7 +176,7 @@ class OpenAICompatibleProvider:
         }
         strict_schema = bool(
             json_schema is not None
-            and _is_forecast_graph_schema(schema_name)
+            and _is_strict_structured_task_schema(schema_name)
             and _supports_strict_json_schema(self.provider_id, self.model)
         )
         response_format: dict[str, Any]
@@ -199,13 +200,13 @@ class OpenAICompatibleProvider:
             ],
         }
         if (
-            _is_forecast_graph_schema(schema_name)
+            _is_strict_structured_task_schema(schema_name)
             and reasoning_effort is not None
             and _supports_minimal_reasoning(self.provider_id, self.model)
         ):
             body["reasoning_effort"] = reasoning_effort
         if (
-            _is_forecast_graph_schema(schema_name)
+            _is_strict_structured_task_schema(schema_name)
             and verbosity is not None
             and _supports_verbosity(self.provider_id, self.model)
         ):

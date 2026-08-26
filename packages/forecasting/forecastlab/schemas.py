@@ -550,6 +550,10 @@ class ForecastProfile(BaseModel):
         "none",
         "private_v1_material_node_gate_v1",
     ] = "none"
+    scenario_synthesis_policy: Literal[
+        "none",
+        "private_v1_scenario_synthesis_v1",
+    ] = "none"
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)

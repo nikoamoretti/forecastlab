@@ -6,8 +6,12 @@ import uuid
 import pytest
 from sqlalchemy import func, select
 
+from forecastlab.budget import Budget
 from forecastlab.errors import GraphForecastExecutionError
-from forecastlab.graph_aggregation import ForecastAggregationError
+from forecastlab.graph_aggregation import (
+    ForecastAggregationError,
+    RelationshipMassConservingLogOddsAggregator,
+)
 from forecastlab.graph_execution import (
     ForecastNodeExecution,
     GraphNodeForecastResult,
@@ -19,6 +23,7 @@ from forecastlab.material_node_coverage import assess_material_node_plan
 from forecastlab.profiles import load_profile
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
 from forecastlab.research_planning import ResearchPlan
+from forecastlab.scenario_synthesis import SCENARIO_SYNTHESIS_CALL_KIND
 from forecastlab.schemas import EvidenceClaim, ForecastGraph, ForecastNode, ForecastNodeRun
 from forecastlab.timeutil import utcnow
 from forecastlab_api.contracts import forecast_contract_from_row
@@ -40,9 +45,29 @@ from forecastlab_api.models import (
     MaterialNodeCoverageAssessmentRow,
     Question,
     ResearchPlanRow,
+    ScenarioSynthesisRow,
 )
 from forecastlab_api.pipeline import apply_execution_limits, create_run_record, resolve_for_question
+from forecastlab_api.scenario_synthesis import (
+    ScenarioSynthesisStoreError,
+    scenario_synthesis_from_row,
+    store_scenario_synthesis,
+)
 from forecastlab_api.v1_execution import approved_contract_for_question
+
+
+class CountingScenarioModel(MockModelProvider):
+    def __init__(self, *, invalid_scenario: bool = False) -> None:
+        super().__init__()
+        self.invalid_scenario = invalid_scenario
+        self.scenario_calls = 0
+
+    def _payload(self, prompt_id: str, user: str, schema_name: str) -> dict:
+        if schema_name == "scenario_synthesis":
+            self.scenario_calls += 1
+            if self.invalid_scenario:
+                return {"scenarios": []}
+        return super()._payload(prompt_id, user, schema_name)
 
 
 def _approved_forecast(client) -> dict:
@@ -57,6 +82,9 @@ def _approved_forecast(client) -> dict:
 def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExecutor, str]:
     enforce_evidence_gate = bool(overrides.pop("enforce_evidence_gate", False))
     enforce_material_gate = bool(overrides.pop("enforce_material_gate", False))
+    enforce_scenario_synthesis = bool(
+        overrides.pop("enforce_scenario_synthesis", False)
+    )
     question = session.get(Question, question_id)
     assert question is not None
     context = resolve_for_question(
@@ -85,6 +113,8 @@ def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExec
         profile = profile.model_copy(update={"evidence_sufficiency_policy": None})
     if not enforce_material_gate:
         profile = profile.model_copy(update={"material_node_policy": "none"})
+    if not enforce_scenario_synthesis:
+        profile = profile.model_copy(update={"scenario_synthesis_policy": "none"})
     kwargs = {
         "run": run,
         "profile": profile,
@@ -200,6 +230,8 @@ def _gate_node_result(
     primary_node_index: int = 0,
     critical_node_indices: list[int] | None = None,
     include_material_plan_audit: bool = False,
+    include_scenario_budget: bool = False,
+    node_reasoning_characters: int | None = None,
 ):
     def run(**kwargs) -> GraphNodeForecastResult:
         graph = kwargs["graph"]
@@ -341,7 +373,11 @@ def _gate_node_result(
                         node_id=node.id,
                         probability=0.45 + index * 0.05,
                         confidence=0.5,
-                        reasoning="Gate integration stub.",
+                        reasoning=(
+                            "x" * node_reasoning_characters
+                            if node_reasoning_characters is not None
+                            else "Gate integration stub."
+                        ),
                         supporting_claim_ids=[claim_id],
                         opposing_claim_ids=[],
                         uncertainty_notes=[],
@@ -353,16 +389,31 @@ def _gate_node_result(
                     claims=[claim],
                 )
             )
+        budget_controller = None
+        budget_snapshot: dict = {}
+        if include_scenario_budget:
+            budget_controller = Budget(
+                kwargs["profile"],
+                provider="mock",
+                model="mock-forecast-v1",
+                search_provider="mock",
+            )
+            budget_controller.freeze_model_call_envelope(
+                planner_version="scenario-test-envelope-v1",
+                planned_calls_by_kind={SCENARIO_SYNTHESIS_CALL_KIND: 1},
+            )
+            budget_snapshot = budget_controller.snapshot()
         return GraphNodeForecastResult(
             contract=kwargs["contract"],
             graph=graph,
             nodes=executions,
             prompt_versions={"forecast_node": "v3"},
-            budget={},
+            budget=budget_snapshot,
             stopped_early=False,
             stop_reason=None,
             stop_stage=None,
             research_plan=plan,
+            budget_controller=budget_controller,
         )
 
     return run
@@ -1261,3 +1312,301 @@ def test_private_v1_preserves_evidence_and_material_failures_together(client) ->
         assert session.scalar(
             select(ForecastVersion).where(ForecastVersion.run_id == run_id)
         ) is None
+
+
+def test_private_v1_scenario_synthesis_precedes_unchanged_aggregation(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            enforce_scenario_synthesis=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                selected_count=3,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+                include_scenario_budget=True,
+            ),
+        )
+
+        version = executor.execute()
+        scenario = session.scalar(
+            select(ScenarioSynthesisRow).where(
+                ScenarioSynthesisRow.forecast_run_id == run_id
+            )
+        )
+        assert scenario is not None
+        assert scenario.status == "passed"
+        assert len(json.loads(scenario.scenarios_json)) == 3
+        assert json.loads(scenario.coverage_audit_json)["errors"] == []
+        domain_scenario = scenario_synthesis_from_row(scenario)
+        assert store_scenario_synthesis(session, domain_scenario).id == scenario.id
+        with pytest.raises(
+            ScenarioSynthesisStoreError,
+            match="conflicting_immutable_scenario_synthesis",
+        ):
+            store_scenario_synthesis(
+                session,
+                domain_scenario.model_copy(update={"input_hash": "f" * 64}),
+            )
+        session.expire(scenario)
+        assert scenario.input_hash == domain_scenario.input_hash
+
+        stored_node_runs = [
+            item
+            for item in session.scalars(
+                select(ForecastNodeRunRow).where(
+                    ForecastNodeRunRow.forecast_run_id == run_id
+                )
+            ).all()
+        ]
+        domain_runs = [
+            ForecastNodeRun(
+                id=item.id,
+                run_id=item.forecast_run_id,
+                node_id=item.node_id,
+                probability=item.probability,
+                confidence=item.confidence,
+                reasoning=item.reasoning,
+                supporting_claim_ids=json.loads(item.supporting_claim_ids_json),
+                opposing_claim_ids=json.loads(item.opposing_claim_ids_json),
+                uncertainty_notes=json.loads(item.uncertainty_notes_json),
+                model_used=item.model_used,
+                uncertainty=item.uncertainty,
+                raw_importance_weight=item.raw_importance_weight,
+                dependency_factor=item.dependency_factor,
+                normalized_weight=item.normalized_weight,
+                probability_contribution=item.probability_contribution,
+                created_at=item.created_at,
+            )
+            for item in stored_node_runs
+        ]
+        expected = RelationshipMassConservingLogOddsAggregator().aggregate(
+            graph,
+            domain_runs,
+        )
+        assert version.ensemble_probability == expected.final_probability
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        )
+        assert aggregation is not None
+        trace = json.loads(aggregation.calculation_trace_json)
+        scenario_step = next(
+            item for item in trace if item.get("step") == "scenario_synthesis"
+        )
+        assert scenario_step["scenario_synthesis_id"] == scenario.id
+        assert scenario_step["numerical_effect"] == "none"
+
+    report = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()["report"]
+    assert report["scenario_synthesis"]["status"] == "passed"
+    assert len(report["scenario_synthesis"]["scenarios"]) == 3
+    assert report["final_probability"] == version.ensemble_probability
+
+
+def test_failed_scenario_synthesis_preserves_prior_artifacts_and_no_probability(
+    client,
+) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    model = CountingScenarioModel(invalid_scenario=True)
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            enforce_scenario_synthesis=True,
+            model=model,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                selected_count=3,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+                include_scenario_budget=True,
+            ),
+        )
+
+        with pytest.raises(GraphForecastExecutionError) as exc_info:
+            executor.execute()
+
+        assert exc_info.value.stage == "scenario_synthesis"
+        assert exc_info.value.reasons == ["scenario_synthesis_failed"]
+        scenario = session.scalar(
+            select(ScenarioSynthesisRow).where(
+                ScenarioSynthesisRow.forecast_run_id == run_id
+            )
+        )
+        assert scenario is not None and scenario.status == "failed"
+        assert json.loads(scenario.failure_reasons_json) == [
+            "structured_output_schema_invalid"
+        ]
+        assert session.scalar(
+            select(func.count(ForecastNodeRunRow.id)).where(
+                ForecastNodeRunRow.forecast_run_id == run_id
+            )
+        ) == 3
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id,
+                GraphExecutionFailureRow.stage == "scenario_synthesis",
+            )
+        )
+        assert failure is not None
+        assert failure.error_code == "scenario_synthesis_failed"
+    assert model.scenario_calls == 1
+
+    report = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()["report"]
+    assert report["scenario_synthesis"]["status"] == "failed"
+    assert report["final_probability"] is None
+
+
+def test_oversize_scenario_packet_fails_and_persists_before_model_call(
+    client,
+) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    model = CountingScenarioModel()
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            enforce_scenario_synthesis=True,
+            model=model,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                selected_count=3,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+                include_scenario_budget=True,
+                node_reasoning_characters=11_000,
+            ),
+        )
+
+        with pytest.raises(GraphForecastExecutionError):
+            executor.execute()
+
+        scenario = session.scalar(
+            select(ScenarioSynthesisRow).where(
+                ScenarioSynthesisRow.forecast_run_id == run_id
+            )
+        )
+        assert scenario is not None and scenario.status == "failed"
+        assert json.loads(scenario.failure_reasons_json) == [
+            "scenario_synthesis_input_character_limit_exceeded"
+        ]
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None
+    assert model.scenario_calls == 0
+
+
+@pytest.mark.parametrize(
+    ("fallback_node_index", "missing_node_index", "selected_count"),
+    [
+        (1, None, 3),
+        (None, 0, 4),
+    ],
+)
+def test_prior_private_v1_gates_prevent_scenario_call(
+    client,
+    fallback_node_index: int | None,
+    missing_node_index: int | None,
+    selected_count: int,
+) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    model = CountingScenarioModel()
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            enforce_scenario_synthesis=True,
+            model=model,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                fallback_node_index=fallback_node_index,
+                selected_count=selected_count,
+                missing_node_index=missing_node_index,
+                primary_node_index=1 if missing_node_index == 0 else 0,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+                include_scenario_budget=True,
+            ),
+        )
+
+        with pytest.raises(GraphForecastExecutionError):
+            executor.execute()
+
+        assert session.scalar(
+            select(ScenarioSynthesisRow).where(
+                ScenarioSynthesisRow.forecast_run_id == run_id
+            )
+        ) is None
+    assert model.scenario_calls == 0

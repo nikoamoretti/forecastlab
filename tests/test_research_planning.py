@@ -11,6 +11,12 @@ from forecastlab.graph_execution import execute_parallel_research, run_graph_for
 from forecastlab.graph_research import GraphResearchResult, NodeResearchPlan
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
 from forecastlab.research_planning import ResearchPlanner, ResearchPlanningError
+from forecastlab.scenario_synthesis import (
+    SCENARIO_SYNTHESIS_CALL_KIND,
+    SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS,
+    SCENARIO_SYNTHESIS_POLICY_VERSION,
+    SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+)
 from forecastlab.schemas import ForecastContract, ForecastGraph, ForecastNode, ForecastProfile
 
 NOW = datetime(2026, 8, 24, 12, 0, tzinfo=UTC)
@@ -265,6 +271,83 @@ def test_critical_nodes_that_cannot_fit_budget_fail_before_execution() -> None:
     assert exc_info.value.reasons == ["critical_nodes_exceed_budget"]
     assert budget.state.model_calls == 0
     assert budget.state.search_calls == 0
+
+
+def test_private_v1_planner_reserves_scenario_capacity_before_research() -> None:
+    profile = _profile().model_copy(
+        update={"scenario_synthesis_policy": SCENARIO_SYNTHESIS_POLICY_VERSION}
+    )
+    budget = Budget(profile, provider="mock", search_provider="mock")
+
+    plan = ResearchPlanner().plan(
+        _graph(8, critical_count=0),
+        forecast_run_id="run-scenario-reservation",
+        budget=budget,
+        created_at=NOW,
+    )
+
+    allocation = plan.budget_allocation
+    assert allocation["scenario_synthesis_policy"] == (
+        SCENARIO_SYNTHESIS_POLICY_VERSION
+    )
+    assert allocation["planned_calls_by_kind"][SCENARIO_SYNTHESIS_CALL_KIND] == 1
+    assert allocation["reserved_scenario_synthesis_calls"] == 1
+    assert allocation["scenario_synthesis_reserved_input_tokens"] == (
+        SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+    )
+    assert allocation["scenario_synthesis_max_output_tokens"] == (
+        SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+    )
+    assert allocation["scenario_synthesis_reserved_tokens"] == (
+        SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+        + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+    )
+    assert allocation["scenario_synthesis_post_stage_headroom"]["model_calls"] >= 0
+    assert budget.state.model_calls == 0
+    assert budget.state.tokens == 0
+    assert budget.reservations == []
+
+
+def test_none_policy_preserves_planner_allocation_without_scenario_fields() -> None:
+    budget = Budget(_profile(), provider="mock", search_provider="mock")
+
+    plan = ResearchPlanner().plan(
+        _graph(8, critical_count=0),
+        forecast_run_id="run-no-scenario-reservation",
+        budget=budget,
+        created_at=NOW,
+    )
+
+    allocation = plan.budget_allocation
+    assert SCENARIO_SYNTHESIS_CALL_KIND not in allocation["planned_calls_by_kind"]
+    assert not any(key.startswith("scenario_synthesis") for key in allocation)
+    assert "available_after_scenario_reservation" not in allocation
+
+
+def test_infeasible_scenario_reservation_fails_before_any_provider_activity() -> None:
+    profile = _profile().model_copy(
+        update={
+            "scenario_synthesis_policy": SCENARIO_SYNTHESIS_POLICY_VERSION,
+            "max_tokens": SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+        }
+    )
+    budget = Budget(profile, provider="mock", search_provider="mock")
+
+    with pytest.raises(ResearchPlanningError) as exc_info:
+        ResearchPlanner().plan(
+            _graph(8, critical_count=0),
+            forecast_run_id="run-infeasible-scenario-reservation",
+            budget=budget,
+            created_at=NOW,
+        )
+
+    assert exc_info.value.reasons == [
+        "scenario_synthesis_reservation_exceeds_run_budget"
+    ]
+    assert budget.state.model_calls == 0
+    assert budget.state.search_calls == 0
+    assert budget.state.fetches == 0
+    assert budget.reservations == []
 
 
 def test_parallel_research_returns_deterministic_graph_order() -> None:

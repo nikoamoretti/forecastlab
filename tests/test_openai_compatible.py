@@ -11,6 +11,7 @@ from forecastlab.structured_outputs import (
     COMPACT_FORECAST_GRAPH_SCHEMA_NAME,
     compact_forecast_graph_json_schema,
     forecast_graph_json_schema,
+    scenario_synthesis_json_schema,
 )
 
 
@@ -116,6 +117,29 @@ def _complete_compact_graph(provider_id: str, model: str) -> Any:
         reasoning_effort="minimal",
         verbosity="low",
     )
+
+
+def _complete_scenario_synthesis(provider_id: str, model: str) -> Any:
+    provider = OpenAICompatibleProvider(
+        api_key="test-api-key",
+        base_url="https://provider.example.test/v1",
+        model=model,
+        provider_id=provider_id,
+    )
+    return provider.complete_json(
+        system="Return grounded scenario pathways as JSON.",
+        user="Create the pathways.",
+        schema_name="scenario_synthesis",
+        max_output_tokens=2048,
+        max_completion_tokens=2048,
+        max_visible_output_tokens=2048,
+        estimated_input_tokens=10_000,
+        json_schema=scenario_synthesis_json_schema(),
+        reasoning_effort="minimal",
+        verbosity="low",
+    )
+
+
 @pytest.mark.parametrize("model", ["gpt-5-mini-2025-08-07", "gpt-5-nano-2025-08-07"])
 def test_openai_gpt5_request_uses_max_completion_tokens_and_omits_temperature(
     monkeypatch: pytest.MonkeyPatch,
@@ -246,6 +270,53 @@ def test_openai_gpt5_compact_graph_uses_strict_schema_and_split_envelope(
     assert schema["name"] == COMPACT_FORECAST_GRAPH_SCHEMA_NAME
     assert schema["strict"] is True
     assert schema["schema"] == compact_forecast_graph_json_schema()
+
+
+def test_openai_gpt5_scenario_synthesis_uses_strict_bounded_request(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    result = _complete_scenario_synthesis(
+        "openai",
+        "gpt-5-mini-2025-08-07",
+    )
+
+    body = requests[0]["json"]
+    assert body["max_completion_tokens"] == 2048
+    assert body["reasoning_effort"] == "minimal"
+    assert body["verbosity"] == "low"
+    assert "max_tokens" not in body
+    assert "temperature" not in body
+    schema = body["response_format"]["json_schema"]
+    assert schema["name"] == "scenario_synthesis"
+    assert schema["strict"] is True
+    assert schema["schema"] == scenario_synthesis_json_schema()
+    assert result.diagnostics is not None
+    assert result.diagnostics.requested_max_output_tokens == 2048
+    assert result.diagnostics.requested_max_completion_tokens == 2048
+    assert result.diagnostics.requested_max_visible_output_tokens == 2048
+
+
+@pytest.mark.parametrize(
+    ("provider_id", "model"),
+    [("xai", "grok-4"), ("openai_compatible", "gpt-5-mini-2025-08-07")],
+)
+def test_compatible_vendors_do_not_receive_scenario_openai_only_controls(
+    monkeypatch: pytest.MonkeyPatch,
+    provider_id: str,
+    model: str,
+) -> None:
+    requests = _stub_client(monkeypatch)
+
+    _complete_scenario_synthesis(provider_id, model)
+
+    body = requests[0]["json"]
+    assert body["response_format"] == {"type": "json_object"}
+    assert body["max_tokens"] == 2048
+    assert "max_completion_tokens" not in body
+    assert "reasoning_effort" not in body
+    assert "verbosity" not in body
 
 
 @pytest.mark.parametrize(

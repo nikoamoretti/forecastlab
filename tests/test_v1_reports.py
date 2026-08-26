@@ -470,6 +470,152 @@ def test_v1_report_renders_relationship_mass_and_neutral_residual() -> None:
     assert "node-x: raw=0.4; origin=research_plan; neutral=0.4" in markdown
 
 
+def test_v1_report_renders_grounded_scenarios_before_probability_calculation() -> None:
+    pathways = [
+        {
+            "id": f"scenario-{kind}",
+            "local_id": kind,
+            "kind": kind,
+            "title": f"{kind} pathway",
+            "summary": "A grounded explanatory pathway.",
+            "node_ids": ["node-a", "node-b"],
+            "claim_ids": ["claim-a"],
+            "mechanisms": ["The cited mechanisms interact."],
+            "triggers": ["The cited trigger occurs."],
+            "invalidators": ["The mechanism does not occur."],
+            "unresolved_uncertainties": ["Timing remains unresolved."],
+        }
+        for kind in ("base_case", "yes_case", "no_case")
+    ]
+    synthesis = {
+        "id": "scenario-artifact",
+        "policy_version": "private_v1_scenario_synthesis_v1",
+        "status": "passed",
+        "prompt_version": "v1",
+        "provider": "mock",
+        "model": "mock-forecast-v1",
+        "input_hash": "a" * 64,
+        "output_hash": "b" * 64,
+        "scenarios": pathways,
+        "coverage_audit": {
+            "covered_node_ids": ["node-a", "node-b"],
+            "uncovered_node_ids": [],
+            "covered_relationships": [
+                {
+                    "source_node_id": "node-b",
+                    "target_node_id": "node-a",
+                    "kind": "dependency",
+                }
+            ],
+            "uncovered_relationships": [],
+            "errors": [],
+        },
+        "failure_reasons": [],
+        "diagnostics": {"schema_name": "scenario_synthesis"},
+    }
+    run = {
+        "profile_id": "graph_forecaster_v1",
+        "status": "completed",
+        "forecast_graph": {
+            "id": "graph-1",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What is the base rate?",
+                    "node_type": "base_rate",
+                    "importance_weight": 0.6,
+                    "dependencies": [],
+                },
+                {
+                    "id": "node-b",
+                    "question": "What driver matters?",
+                    "node_type": "driver",
+                    "importance_weight": 0.4,
+                    "dependencies": ["node-a"],
+                },
+            ],
+        },
+        "node_runs": [],
+        "evidence_claims": [],
+        "scenario_synthesis": synthesis,
+        "forecast_aggregation": {
+            "method": "relationship_mass_conserving_log_odds_v1",
+            "final_probability": 0.55,
+            "calculation_trace": [
+                {"step": "scenario_synthesis", "numerical_effect": "none"},
+                {
+                    "step": "relationship_aggregation_policy",
+                    "method": "relationship_mass_conserving_log_odds_v1",
+                    "policy_version": "relationship_mass_conserving_log_odds_v1",
+                },
+                {
+                    "step": "graph_mass",
+                    "total_graph_raw_weight": "1",
+                    "effective_included_weight": "1",
+                    "neutral_residual_weight": "0",
+                    "neutral_residual_fraction": "0",
+                    "conservation_check": True,
+                },
+                {"step": "final", "final_probability": 0.55},
+            ],
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    assert report["scenario_synthesis"] == synthesis
+    assert report["final_probability"] == 0.55
+    markdown = "\n".join(v1_report_markdown(report))
+    assert markdown.index("### Scenario Synthesis") < markdown.index(
+        "### Relationship-aware aggregation"
+    )
+    assert "no assigned probabilities" in markdown
+    assert "base_case: base_case pathway" in markdown
+
+
+def test_failed_scenario_report_has_no_private_v1_probability() -> None:
+    run = {
+        "profile_id": "graph_forecaster_v1",
+        "status": "failed",
+        "forecast_graph": {
+            "id": "graph-1",
+            "nodes": [
+                {
+                    "id": "node-a",
+                    "question": "What is the base rate?",
+                    "node_type": "base_rate",
+                    "importance_weight": 1.0,
+                }
+            ],
+        },
+        "node_runs": [],
+        "evidence_claims": [],
+        "scenario_synthesis": {
+            "id": "scenario-failure",
+            "policy_version": "private_v1_scenario_synthesis_v1",
+            "status": "failed",
+            "input_hash": "a" * 64,
+            "output_hash": None,
+            "scenarios": [],
+            "coverage_audit": {"errors": ["scenario_unknown_claim"]},
+            "failure_reasons": [
+                "scenario_synthesis_domain_validation_failed"
+            ],
+            "diagnostics": {},
+        },
+    }
+
+    report = build_v1_report(run)
+
+    assert report is not None
+    assert report["final_probability"] is None
+    assert report["final_answer"]["statement"] == (
+        "No private-V1 probability was produced because grounded scenario "
+        "synthesis did not pass deterministic validation."
+    )
+
+
 def test_v1_report_exposes_incomplete_graph_execution_without_probability() -> None:
     run = {
         "profile_id": "graph_forecaster_v1",

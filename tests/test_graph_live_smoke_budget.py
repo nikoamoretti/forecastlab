@@ -29,10 +29,11 @@ from forecastlab_api.models import (
     MaterialNodeCoverageAssessmentRow,
     Question,
     ResearchPlanRow,
+    ScenarioSynthesisRow,
 )
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
-GRAPH_PROFILE_SHA256 = "0826c6ea41483a8510529e9c6b38a1fe5b8772fc1be252f4684b426846b0332e"
+GRAPH_PROFILE_SHA256 = "bad8ed974a2fcac8e2e6d41166e2a6e111897027f890ff6486ee9f69dd8f5e3a"
 SMOKE_PROFILE_SHA256 = "2b80f85a213c981bd74b3f8891cae27d619957c1e011abf044956aa10ae6467b"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
@@ -77,7 +78,11 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert smoke.graph_aggregation_enabled is True
     assert smoke.aggregation_method == "importance_weighted_log_odds_v1"
     assert graph.aggregation_method == "relationship_mass_conserving_log_odds_v1"
-    assert smoke.prompt_versions == graph.prompt_versions
+    assert {
+        name: graph.prompt_versions[name]
+        for name in smoke.prompt_versions
+    } == smoke.prompt_versions
+    assert graph.prompt_versions["scenario_synthesis"] == "v1"
     assert graph.graph_generation_max_completion_tokens is None
     assert graph.graph_generation_max_visible_output_tokens is None
     assert graph.graph_generation_reasoning_effort is None
@@ -86,11 +91,16 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert graph.max_candidate_fetch_attempts_per_node is None
     assert graph.search_candidate_pool_per_node is None
     assert graph.prefer_distinct_candidate_hosts is False
-    assert graph.version == 8
+    assert graph.version == 9
     assert graph.evidence_sufficiency_policy == "private_v1_evidence_gate_v1"
     assert graph.material_node_policy == "private_v1_material_node_gate_v1"
+    assert (
+        graph.scenario_synthesis_policy
+        == "private_v1_scenario_synthesis_v1"
+    )
     assert smoke.evidence_sufficiency_policy is None
     assert smoke.material_node_policy == "none"
+    assert smoke.scenario_synthesis_policy == "none"
     assert {
         "max_model_calls": smoke.max_model_calls,
         "max_search_calls": smoke.max_search_calls,
@@ -515,6 +525,11 @@ def test_stubbed_live_graph_smoke_accepts_three_external_undated_documents(
                 MaterialNodeCoverageAssessmentRow.forecast_run_id == run.id
             )
         )
+        scenario_synthesis = session.scalar(
+            select(ScenarioSynthesisRow).where(
+                ScenarioSynthesisRow.forecast_run_id == run.id
+            )
+        )
 
         assert stored_run.status == "completed"
         assert research_plan is not None
@@ -525,6 +540,7 @@ def test_stubbed_live_graph_smoke_accepts_three_external_undated_documents(
         assert len(node_runs) == 3
         assert aggregation is not None
         assert material_assessment is None
+        assert scenario_synthesis is None
         assert version.id
         assert all(claim.publication_date is None for claim in claims)
         assert all(claim.publication_date_verified is False for claim in claims)

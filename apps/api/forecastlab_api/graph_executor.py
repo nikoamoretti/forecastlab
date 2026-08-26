@@ -34,6 +34,7 @@ from forecastlab.graph_execution import (
     run_graph_node_forecasts,
 )
 from forecastlab.graphs import ForecastGraphError
+from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.ledger import UsageLedger
 from forecastlab.material_node_coverage import (
     PRIVATE_V1_MATERIAL_NODE_GATE_V1,
@@ -51,6 +52,17 @@ from forecastlab.research_planning import (
     ResearchPlanningError,
 )
 from forecastlab.run_cache import RunCache
+from forecastlab.scenario_synthesis import (
+    PRIVATE_V1_SCENARIO_SYNTHESIS_V1,
+    SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS,
+    SCENARIO_SYNTHESIS_POLICY_VERSION,
+    SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+    SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS,
+    ScenarioCoverageAudit,
+    ScenarioSynthesis,
+    ScenarioSynthesizer,
+    prepare_scenario_synthesis,
+)
 from forecastlab.schemas import (
     ForecastAggregation,
     ForecastGraph,
@@ -80,6 +92,12 @@ from forecastlab_api.models import (
 )
 from forecastlab_api.persist import jsonable
 from forecastlab_api.research_plans import store_research_plan
+from forecastlab_api.scenario_synthesis import (
+    ScenarioSynthesisStoreError,
+    scenario_synthesis_for_run,
+    scenario_synthesis_from_row,
+    store_scenario_synthesis,
+)
 from forecastlab_api.v1_execution import (
     ExecutionGraphResolution,
     ensure_execution_graph,
@@ -190,6 +208,13 @@ class GraphForecastExecutor:
                 reserved_follow_on_tokens=(
                     MINIMUM_SUCCESSFUL_NODES
                     * MINIMUM_PLANNED_TOKENS_PER_NODE
+                    + (
+                        SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+                        + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+                        if self.profile.scenario_synthesis_policy
+                        == SCENARIO_SYNTHESIS_POLICY_VERSION
+                        else 0
+                    )
                 ),
                 prompt_bundle=self.prompt_bundle,
             )
@@ -381,6 +406,43 @@ class GraphForecastExecutor:
                     for failure in deterministic_gate_failures
                 ),
             )
+        scenario_synthesis = self._synthesize_scenarios(
+            node_result,
+            node_runs,
+            evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
+        )
+        if scenario_synthesis is not None and scenario_synthesis.status == "failed":
+            scenario_failure = {
+                "node_id": None,
+                "stage": "scenario_synthesis",
+                "error_code": "scenario_synthesis_failed",
+                "error_message": "; ".join(
+                    scenario_synthesis.failure_reasons
+                ),
+                "critical_node": True,
+                "impact": "forecast_failed",
+                "research_plan": {
+                    "scenario_synthesis_id": scenario_synthesis.id,
+                    "policy_version": scenario_synthesis.policy_version,
+                    "input_hash": scenario_synthesis.input_hash,
+                    "failure_reasons": scenario_synthesis.failure_reasons,
+                    "diagnostics": scenario_synthesis.diagnostics,
+                },
+            }
+            self._persist_partial_result(
+                node_result,
+                [scenario_failure, *failures],
+                reliability=reliability,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+                scenario_synthesis=scenario_synthesis,
+            )
+            self._raise_failure(
+                stage="scenario_synthesis",
+                reasons=["scenario_synthesis_failed"],
+                message=scenario_failure["error_message"],
+            )
         included_node_ids = {node_run.node_id for node_run in node_runs}
         if failures:
             self._persist_failures(failures)
@@ -476,6 +538,23 @@ class GraphForecastExecutor:
                     ]
                 }
             )
+        if scenario_synthesis is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "scenario_synthesis",
+                            "scenario_synthesis_id": scenario_synthesis.id,
+                            "policy_version": scenario_synthesis.policy_version,
+                            "input_hash": scenario_synthesis.input_hash,
+                            "output_hash": scenario_synthesis.output_hash,
+                            "status": scenario_synthesis.status,
+                            "numerical_effect": "none",
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
         if failures:
             aggregation = aggregation.model_copy(
                 update={
@@ -498,6 +577,7 @@ class GraphForecastExecutor:
             reliability=reliability,
             evidence_assessment=evidence_assessment,
             material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
         )
         self.session.commit()
         return version
@@ -519,6 +599,20 @@ class GraphForecastExecutor:
             RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
         }:
             reasons.append("unsupported_graph_aggregation_method")
+        scenario_enabled = (
+            self.profile.scenario_synthesis_policy
+            == SCENARIO_SYNTHESIS_POLICY_VERSION
+        )
+        if scenario_enabled and (
+            self.profile.evidence_sufficiency_policy is None
+            or self.profile.material_node_policy == "none"
+        ):
+            reasons.append("scenario_synthesis_requires_deterministic_gates")
+        if scenario_enabled and (
+            self.profile.aggregation_method
+            != RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+        ):
+            reasons.append("scenario_synthesis_requires_private_v1_aggregation")
         graph_completion = (
             self.profile.graph_generation_max_completion_tokens
             or self.profile.max_output_tokens_per_call
@@ -554,18 +648,26 @@ class GraphForecastExecutor:
             1
             + MINIMUM_SUCCESSFUL_NODES
             * MINIMUM_PLANNED_MODEL_CALLS_PER_NODE
+            + (1 if scenario_enabled else 0)
             > self.profile.max_model_calls
         ):
             reasons.append("minimum_graph_execution_exceeds_model_call_budget")
         if uses_explicit_graph_controls and (
             graph_completion
             + MINIMUM_SUCCESSFUL_NODES * MINIMUM_PLANNED_TOKENS_PER_NODE
+            + (
+                SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+                + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+                if scenario_enabled
+                else 0
+            )
             > self.profile.max_tokens
         ):
             reasons.append("minimum_graph_execution_exceeds_run_token_budget")
         if uses_explicit_graph_controls and (
             self.execution.model_timeout_seconds
             + MINIMUM_PLANNED_WALL_CLOCK_SECONDS
+            + (SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS if scenario_enabled else 0)
             > self.profile.max_wall_clock_seconds
         ):
             reasons.append("minimum_graph_execution_exceeds_wall_clock_budget")
@@ -833,6 +935,200 @@ class GraphForecastExecutor:
             )
         return material_node_coverage_from_row(stored)
 
+    def _failed_scenario_artifact(
+        self,
+        *,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        evidence_assessment: EvidenceSufficiencyAssessment,
+        material_assessment: MaterialNodeCoverageAssessment,
+        reason: str,
+    ) -> ScenarioSynthesis:
+        created_at = utcnow()
+        input_payload = {
+            "policy_version": SCENARIO_SYNTHESIS_POLICY_VERSION,
+            "forecast_run_id": self.run.id,
+            "contract_id": result.contract.id,
+            "graph_id": result.graph.id,
+            "graph_version": result.graph.version,
+            "included_node_run_ids": sorted(run.id for run in node_runs),
+            "evidence_sufficiency_assessment_id": evidence_assessment.id,
+            "evidence_sufficiency_assessment_hash": (
+                evidence_assessment.assessment_input_hash
+            ),
+            "material_node_coverage_assessment_id": material_assessment.id,
+            "material_node_coverage_assessment_hash": (
+                material_assessment.assessment_input_hash
+            ),
+            "preparation_failure": reason,
+        }
+        input_hash = sha256_text(canonical_json(input_payload))
+        return ScenarioSynthesis(
+            id=str(
+                uuid.uuid5(
+                    uuid.NAMESPACE_URL,
+                    f"forecastlab:scenario-synthesis:{self.run.id}:{input_hash}",
+                )
+            ),
+            forecast_run_id=self.run.id,
+            policy_version=SCENARIO_SYNTHESIS_POLICY_VERSION,
+            policy_snapshot=PRIVATE_V1_SCENARIO_SYNTHESIS_V1.model_dump(
+                mode="json"
+            ),
+            status="failed",
+            created_at=created_at,
+            completed_at=created_at,
+            prompt_version=str(
+                self.profile.prompt_versions.get("scenario_synthesis") or "unknown"
+            ),
+            provider=str(getattr(self.model, "name", "unknown")),
+            model=str(
+                getattr(
+                    self.model,
+                    "model",
+                    getattr(self.model, "name", "unknown"),
+                )
+            ),
+            input_hash=input_hash,
+            scenarios=[],
+            coverage_audit=ScenarioCoverageAudit(
+                included_node_ids=sorted(run.node_id for run in node_runs),
+                covered_node_ids=[],
+                uncovered_node_ids=sorted(run.node_id for run in node_runs),
+                required_relationships=[],
+                covered_relationships=[],
+                uncovered_relationships=[],
+                cited_claim_ids=sorted(
+                    {
+                        claim_id
+                        for run in node_runs
+                        for claim_id in [
+                            *run.supporting_claim_ids,
+                            *run.opposing_claim_ids,
+                        ]
+                    }
+                ),
+                referenced_claim_ids=[],
+                errors=[reason],
+            ),
+            failure_reasons=[reason],
+            diagnostics={"pre_provider_failure": True},
+            evidence_sufficiency_assessment_id=evidence_assessment.id,
+            evidence_sufficiency_assessment_hash=(
+                evidence_assessment.assessment_input_hash
+            ),
+            material_node_coverage_assessment_id=material_assessment.id,
+            material_node_coverage_assessment_hash=(
+                material_assessment.assessment_input_hash
+            ),
+        )
+
+    def _synthesize_scenarios(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        *,
+        evidence_assessment: EvidenceSufficiencyAssessment | None,
+        material_assessment: MaterialNodeCoverageAssessment | None,
+    ) -> ScenarioSynthesis | None:
+        policy_id = self.profile.scenario_synthesis_policy
+        if policy_id == "none":
+            return None
+        if policy_id != SCENARIO_SYNTHESIS_POLICY_VERSION:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_scenario_synthesis_policy"],
+                message=f"Unsupported scenario synthesis policy: {policy_id}",
+            )
+        if evidence_assessment is None or material_assessment is None:
+            self._fail(
+                stage="scenario_synthesis",
+                reasons=["scenario_synthesis_assessments_required"],
+                message="Evidence and material assessments must precede scenario synthesis",
+            )
+
+        claim_rows = self.session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceClaimRow.id)
+        ).all()
+        claims = [evidence_claim_from_row(row) for row in claim_rows]
+        try:
+            prepared = prepare_scenario_synthesis(
+                contract=result.contract,
+                graph=result.graph,
+                node_runs=node_runs,
+                claims=claims,
+                evidence_sufficiency_assessment_id=evidence_assessment.id,
+                evidence_sufficiency_assessment_hash=(
+                    evidence_assessment.assessment_input_hash
+                ),
+                material_node_coverage_assessment_id=material_assessment.id,
+                material_node_coverage_assessment_hash=(
+                    material_assessment.assessment_input_hash
+                ),
+            )
+        except ValueError as exc:
+            synthesis = self._failed_scenario_artifact(
+                result=result,
+                node_runs=node_runs,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+                reason=str(exc),
+            )
+        else:
+            existing = scenario_synthesis_for_run(self.session, self.run.id)
+            if existing is not None:
+                if existing.input_hash != prepared.input_hash:
+                    self._fail(
+                        stage="persistence",
+                        reasons=["conflicting_immutable_scenario_synthesis"],
+                        message="Immutable scenario synthesis input changed",
+                    )
+                return scenario_synthesis_from_row(existing)
+            if result.budget_controller is None:
+                synthesis = self._failed_scenario_artifact(
+                    result=result,
+                    node_runs=node_runs,
+                    evidence_assessment=evidence_assessment,
+                    material_assessment=material_assessment,
+                    reason="scenario_synthesis_budget_controller_required",
+                )
+            else:
+                synthesis = ScenarioSynthesizer(
+                    self.model,
+                    result.budget_controller,
+                    prompt_bundle=self.prompt_bundle,
+                ).synthesize(
+                    forecast_run_id=self.run.id,
+                    prepared=prepared,
+                    graph=result.graph,
+                    node_runs=node_runs,
+                    claims=claims,
+                    evidence_sufficiency_assessment_id=evidence_assessment.id,
+                    evidence_sufficiency_assessment_hash=(
+                        evidence_assessment.assessment_input_hash
+                    ),
+                    material_node_coverage_assessment_id=material_assessment.id,
+                    material_node_coverage_assessment_hash=(
+                        material_assessment.assessment_input_hash
+                    ),
+                )
+                result.budget = result.budget_controller.snapshot()
+                result.prompt_versions["scenario_synthesis"] = (
+                    synthesis.prompt_version
+                )
+        try:
+            stored = store_scenario_synthesis(self.session, synthesis)
+        except ScenarioSynthesisStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable scenario synthesis conflict",
+            )
+        return scenario_synthesis_from_row(stored)
+
     @staticmethod
     def _aggregation_graph(
         graph: ForecastGraph,
@@ -1023,6 +1319,7 @@ class GraphForecastExecutor:
         reliability: dict[str, Any] | None = None,
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
         material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
     ) -> None:
         self._persist_node_runs(
             [execution.node_run for execution in result.nodes if execution.node_run is not None]
@@ -1034,13 +1331,18 @@ class GraphForecastExecutor:
             reliability=reliability,
             evidence_assessment=evidence_assessment,
             material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
         )
         self.run.status = "failed"
         self.run.error_stage = str(failures[0]["stage"])
         self.run.error_message = (
             f"{failures[0]['error_code']}: {failures[0]['error_message']}"
             if failures[0]["stage"]
-            in {"evidence_sufficiency", "material_node_coverage"}
+            in {
+                "evidence_sufficiency",
+                "material_node_coverage",
+                "scenario_synthesis",
+            }
             else "; ".join(str(item["error_code"]) for item in failures)
         )
         self.run.progress_stage = "failed"
@@ -1060,6 +1362,7 @@ class GraphForecastExecutor:
         reliability: dict[str, Any],
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
         material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
     ) -> ForecastVersion:
         self._persist_node_runs(node_runs)
         self._persist_failures(failures)
@@ -1070,6 +1373,7 @@ class GraphForecastExecutor:
             reliability=reliability,
             evidence_assessment=evidence_assessment,
             material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
         )
         self.run.aggregation_json = json.dumps(jsonable(aggregation))
         self.run.status = "completed"
@@ -1181,6 +1485,7 @@ class GraphForecastExecutor:
         reliability: dict[str, Any] | None = None,
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
         material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
     ) -> None:
         try:
             snapshot = json.loads(self.run.execution_context_json or "{}")
@@ -1222,6 +1527,18 @@ class GraphForecastExecutor:
             snapshot["material_node_coverage_assessment_input_hash"] = (
                 material_assessment.assessment_input_hash
             )
+        if scenario_synthesis is not None:
+            snapshot["scenario_synthesis_id"] = scenario_synthesis.id
+            snapshot["scenario_synthesis_policy_version"] = (
+                scenario_synthesis.policy_version
+            )
+            snapshot["scenario_synthesis_input_hash"] = (
+                scenario_synthesis.input_hash
+            )
+            snapshot["scenario_synthesis_output_hash"] = (
+                scenario_synthesis.output_hash
+            )
+            snapshot["scenario_synthesis_status"] = scenario_synthesis.status
         self.run.execution_context_json = json.dumps(snapshot)
 
     def _fail(

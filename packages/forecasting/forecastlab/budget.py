@@ -96,6 +96,14 @@ class ModelCallEnvelope:
                 0,
             ),
             "remaining_node_forecast_calls": remaining.get("node_forecast", 0),
+            "reserved_scenario_synthesis_calls": self.planned_calls_by_kind.get(
+                "scenario_synthesis",
+                0,
+            ),
+            "remaining_scenario_synthesis_calls": remaining.get(
+                "scenario_synthesis",
+                0,
+            ),
             "model_call_headroom_after_plan": max(
                 0,
                 self.max_model_calls
@@ -343,17 +351,26 @@ class Budget:
         used = envelope.used_calls_by_kind[call_kind]
         if used >= planned:
             raise BudgetExceeded(stage, f"unplanned_{call_kind}_call")
-        if call_kind != "node_forecast":
-            remaining_forecasts = max(
+        protected_call_kinds = ("node_forecast", "scenario_synthesis")
+        remaining_protected: dict[str, int] = {}
+        for protected_kind in protected_call_kinds:
+            remaining_for_kind = max(
                 0,
-                envelope.planned_calls_by_kind.get("node_forecast", 0)
-                - envelope.used_calls_by_kind.get("node_forecast", 0),
+                envelope.planned_calls_by_kind.get(protected_kind, 0)
+                - envelope.used_calls_by_kind.get(protected_kind, 0)
+                - (1 if call_kind == protected_kind else 0),
             )
-            if (
-                self.state.model_calls + 1
-                > self.profile.max_model_calls - remaining_forecasts
-            ):
-                raise BudgetExceeded(stage, "reserved_node_forecast_calls")
+            remaining_protected[protected_kind] = remaining_for_kind
+        if (
+            self.state.model_calls + 1
+            > self.profile.max_model_calls - sum(remaining_protected.values())
+        ):
+            reason = (
+                "reserved_scenario_synthesis_call"
+                if remaining_protected["scenario_synthesis"] > 0
+                else "reserved_node_forecast_calls"
+            )
+            raise BudgetExceeded(stage, reason)
 
     def _consume_model_call_envelope(self, call_kind: str | None) -> None:
         if self.model_call_envelope is None:

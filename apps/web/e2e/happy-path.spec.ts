@@ -207,6 +207,66 @@ test("private V1 relationship aggregation exposes conserved and neutral mass", a
             final_probability: 0.55,
             graph: { node_count: 5 },
             nodes: [],
+            scenario_synthesis: {
+              id: "scenario-synthesis-fixture",
+              status: "passed",
+              policy_version: "private_v1_scenario_synthesis_v1",
+              prompt_version: "v1",
+              provider: "mock",
+              model: "mock-forecast-v1",
+              input_hash: "c".repeat(64),
+              output_hash: "d".repeat(64),
+              coverage_audit: {
+                covered_node_ids: ["node-a", "node-b", "node-c"],
+                uncovered_node_ids: [],
+                covered_relationships: [],
+                uncovered_relationships: [],
+                errors: []
+              },
+              failure_reasons: [],
+              diagnostics: { schema_name: "scenario_synthesis" },
+              scenarios: [
+                {
+                  id: "scenario-base",
+                  local_id: "base",
+                  kind: "base_case",
+                  title: "Base pathway",
+                  summary: "The included nodes and cited evidence describe the base pathway.",
+                  node_ids: ["node-a", "node-b"],
+                  claim_ids: ["claim-a"],
+                  mechanisms: ["The primary driver updates the reference class."],
+                  triggers: ["The leading indicator changes."],
+                  invalidators: ["The mechanism does not appear."],
+                  unresolved_uncertainties: ["Timing remains uncertain."]
+                },
+                {
+                  id: "scenario-yes",
+                  local_id: "yes",
+                  kind: "yes_case",
+                  title: "Yes pathway",
+                  summary: "The included nodes describe the yes-condition mechanism.",
+                  node_ids: ["node-a", "node-c"],
+                  claim_ids: ["claim-c"],
+                  mechanisms: ["The favorable mechanism compounds."],
+                  triggers: ["The favorable signal strengthens."],
+                  invalidators: ["The favorable signal reverses."],
+                  unresolved_uncertainties: ["Magnitude remains uncertain."]
+                },
+                {
+                  id: "scenario-no",
+                  local_id: "no",
+                  kind: "no_case",
+                  title: "No pathway",
+                  summary: "The included nodes describe the no-condition mechanism.",
+                  node_ids: ["node-b", "node-c"],
+                  claim_ids: ["claim-b"],
+                  mechanisms: ["Counterevidence interrupts the primary mechanism."],
+                  triggers: ["The contrary signal strengthens."],
+                  invalidators: ["The contrary signal disappears."],
+                  unresolved_uncertainties: ["Measurement remains uncertain."]
+                }
+              ]
+            },
             calculation: {
               method: "relationship_mass_conserving_log_odds_v1",
               trace: [],
@@ -252,6 +312,12 @@ test("private V1 relationship aggregation exposes conserved and neutral mass", a
 
   await page.goto("/forecasts/relationship-aggregation-fixture");
 
+  const scenarios = page.getByLabel("Scenario Synthesis");
+  await expect(scenarios.getByRole("heading", { name: "Scenario Synthesis" })).toBeVisible();
+  await expect(scenarios).toContainText("no assigned probabilities");
+  await expect(scenarios).toContainText("Base pathway");
+  await expect(scenarios).toContainText("Yes pathway");
+  await expect(scenarios).toContainText("No pathway");
   const relationship = page.getByLabel("Relationship-aware aggregation");
   await expect(relationship.getByRole("heading", { name: "Relationship-aware aggregation" })).toBeVisible();
   await expect(relationship).toContainText("not a Bayesian network");

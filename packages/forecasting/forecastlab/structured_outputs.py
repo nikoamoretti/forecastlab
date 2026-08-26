@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import (
     BaseModel,
@@ -119,6 +119,48 @@ class CompactForecastGraphOutput(BaseModel):
     n: list[CompactForecastGraphNodeOutput] = Field(min_length=5, max_length=10)
 
 
+class ScenarioPathwayTransport(BaseModel):
+    """Strict provider transport for one grounded scenario pathway."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    local_id: str = Field(min_length=1, max_length=32)
+    kind: Literal["base_case", "yes_case", "no_case"]
+    title: str = Field(min_length=1, max_length=96)
+    summary: str = Field(min_length=1, max_length=600)
+    node_ids: list[Annotated[str, Field(min_length=1)]] = Field(
+        min_length=2,
+        max_length=8,
+    )
+    claim_ids: list[Annotated[str, Field(min_length=1)]] = Field(
+        min_length=1,
+        max_length=16,
+    )
+    mechanisms: list[Annotated[str, Field(min_length=1, max_length=240)]] = Field(
+        min_length=1,
+        max_length=4,
+    )
+    triggers: list[Annotated[str, Field(min_length=1, max_length=200)]] = Field(
+        min_length=1,
+        max_length=4,
+    )
+    invalidators: list[Annotated[str, Field(min_length=1, max_length=200)]] = Field(
+        min_length=1,
+        max_length=4,
+    )
+    unresolved_uncertainties: list[
+        Annotated[str, Field(min_length=1, max_length=200)]
+    ] = Field(min_length=1, max_length=4)
+
+
+class ScenarioSynthesisTransport(BaseModel):
+    """Exactly three pathways; domain grounding remains a separate boundary."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    scenarios: list[ScenarioPathwayTransport] = Field(min_length=3, max_length=3)
+
+
 def forecast_graph_json_schema() -> dict[str, Any]:
     return ForecastGraphOutput.model_json_schema()
 
@@ -176,11 +218,17 @@ def compact_forecast_graph_json_schema(
     }
 
 
+def scenario_synthesis_json_schema() -> dict[str, Any]:
+    return ScenarioSynthesisTransport.model_json_schema()
+
+
 def structured_output_json_schema(schema_name: str) -> dict[str, Any] | None:
     if schema_name == "forecast_graph":
         return forecast_graph_json_schema()
     if schema_name == COMPACT_FORECAST_GRAPH_SCHEMA_NAME:
         return compact_forecast_graph_json_schema()
+    if schema_name == "scenario_synthesis":
+        return scenario_synthesis_json_schema()
     return None
 
 
@@ -211,6 +259,12 @@ def validate_structured_output(
         except ValidationError as exc:
             return None, sanitize_validation_errors(exc)
         return compact.model_dump(mode="json"), []
+    if schema_name == "scenario_synthesis":
+        try:
+            scenario = ScenarioSynthesisTransport.model_validate(payload)
+        except ValidationError as exc:
+            return None, sanitize_validation_errors(exc)
+        return scenario.model_dump(mode="json"), []
     if schema_name != "forecast_graph":
         return payload if isinstance(payload, dict) else None, []
     try:

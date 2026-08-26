@@ -112,6 +112,7 @@ export default function ForecastPage() {
   const materialPlanAudit = materialCompleteness?.plan_audit || null;
   const materialAssessment = materialCompleteness?.execution_assessment || null;
   const materialGateFailed = materialPlanAudit?.status === "failed" || materialAssessment?.status === "failed";
+  const scenarioSynthesis = v1Report?.scenario_synthesis || null;
   const displayedProbability = graphExecutionFailed
     ? null
     : v1Report?.final_probability ?? data.latest_probability;
@@ -146,6 +147,8 @@ export default function ForecastPage() {
                 ? "No private-V1 probability was produced because a higher-importance graph uncertainty was omitted while lower-importance nodes were retained."
                 : evidenceSufficiency?.status === "failed"
                 ? "No private-V1 probability was produced because deterministic evidence sufficiency was not met."
+                : scenarioSynthesis?.status === "failed"
+                ? "No private-V1 probability was produced because grounded scenario synthesis did not pass deterministic validation."
                 : "No probability was produced because graph execution was incomplete."
               : directModelProbability
               ? "Direct structured model probability. No probability aggregation."
@@ -519,6 +522,58 @@ export default function ForecastPage() {
                   "Weighted node contributions are summed deterministically."
                 }`}
           </p>
+          {scenarioSynthesis ? (
+            <div className="border border-rule bg-white/60 p-4 text-sm" aria-label="Scenario Synthesis">
+              <h4 className="font-serif text-xl">Scenario Synthesis</h4>
+              <p className="mt-2 text-ink/70">
+                Grounded explanatory pathways have no assigned probabilities and do not alter the deterministic calculation.
+              </p>
+              <p className="mt-2 font-mono text-xs text-ink/60">
+                {scenarioSynthesis.status} · {scenarioSynthesis.policy_version} · artifact {scenarioSynthesis.id}
+              </p>
+              <p className="mt-1 break-all font-mono text-xs text-ink/60">
+                input {scenarioSynthesis.input_hash} · output {scenarioSynthesis.output_hash || "unavailable"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-ink/60">
+                provider/model/prompt {scenarioSynthesis.provider} / {scenarioSynthesis.model} / {scenarioSynthesis.prompt_version}
+              </p>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {(scenarioSynthesis.scenarios || []).map((pathway: any) => (
+                  <article key={pathway.id || pathway.local_id} className="border border-rule p-3">
+                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-copper">
+                      {String(pathway.kind || "pathway").replaceAll("_", " ")}
+                    </p>
+                    <h5 className="mt-1 font-serif text-lg">{pathway.title}</h5>
+                    <p className="mt-2 leading-relaxed">{pathway.summary}</p>
+                    <p className="mt-2 font-mono text-xs text-ink/60">
+                      nodes {(pathway.node_ids || []).join(", ")} · claims {(pathway.claim_ids || []).join(", ")}
+                    </p>
+                    <details className="mt-2">
+                      <summary className="cursor-pointer">Mechanisms and uncertainties</summary>
+                      <pre className="mt-2 overflow-x-auto text-xs">
+{JSON.stringify({
+  mechanisms: pathway.mechanisms || [],
+  triggers: pathway.triggers || [],
+  invalidators: pathway.invalidators || [],
+  unresolved_uncertainties: pathway.unresolved_uncertainties || []
+}, null, 2)}
+                      </pre>
+                    </details>
+                  </article>
+                ))}
+              </div>
+              <details className="mt-3">
+                <summary className="cursor-pointer">Grounding and sanitized diagnostics</summary>
+                <pre className="mt-2 overflow-x-auto text-xs">
+{JSON.stringify({
+  coverage_audit: scenarioSynthesis.coverage_audit || {},
+  failure_reasons: scenarioSynthesis.failure_reasons || [],
+  diagnostics: scenarioSynthesis.diagnostics || {}
+}, null, 2)}
+                </pre>
+              </details>
+            </div>
+          ) : null}
           {relationshipAggregation && relationshipAudit ? (
             <div className="border border-rule bg-white/60 p-4 text-sm" aria-label="Relationship-aware aggregation">
               <h4 className="font-serif text-xl">Relationship-aware aggregation</h4>

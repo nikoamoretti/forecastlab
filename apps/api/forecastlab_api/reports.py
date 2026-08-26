@@ -138,6 +138,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     failures = run.get("graph_execution_failures") or []
     sufficiency = run.get("evidence_sufficiency_assessment") or None
     material_assessment = run.get("material_node_coverage_assessment") or None
+    scenario_synthesis = run.get("scenario_synthesis") or None
     material_included = set((material_assessment or {}).get("included_node_ids") or [])
     material_excluded = set((material_assessment or {}).get("excluded_node_ids") or [])
     material_frontier = (material_assessment or {}).get("included_frontier_weight")
@@ -370,6 +371,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
             "plan_audit": material_plan_audit,
             "execution_assessment": material_assessment,
         },
+        "scenario_synthesis": scenario_synthesis,
         "evidence_coverage": {
             "definition": "Fraction of graph nodes whose node forecast cites at least one persisted Evidence Claim.",
             "covered_units": covered_nodes,
@@ -460,6 +462,10 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                     else "No private-V1 probability was produced because deterministic evidence "
                     "sufficiency was not met."
                     if sufficiency and sufficiency.get("status") == "failed"
+                    else "No private-V1 probability was produced because grounded scenario "
+                    "synthesis did not pass deterministic validation."
+                    if scenario_synthesis
+                    and scenario_synthesis.get("status") == "failed"
                     else "No final probability was produced because graph execution was incomplete."
                 )
             ),
@@ -490,6 +496,7 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
     material = report.get("material_node_completeness") or {}
     material_plan = material.get("plan_audit") or {}
     material_execution = material.get("execution_assessment") or {}
+    scenario_synthesis = report.get("scenario_synthesis") or {}
     graph_resolution = report.get("graph_resolution") or {}
     generation_audit = graph.get("generation_audit") or {}
     if graph_resolution or generation_audit:
@@ -601,6 +608,47 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 f"{material_execution.get('missing_dependency_relationships') or []}",
                 f"- Reasons / warnings: {material_execution.get('reasons') or []} / "
                 f"{material_execution.get('warnings') or []}",
+                "",
+            ]
+        )
+    if scenario_synthesis:
+        coverage_audit = scenario_synthesis.get("coverage_audit") or {}
+        lines.extend(
+            [
+                "### Scenario Synthesis",
+                (
+                    "These are grounded explanatory pathways with no assigned "
+                    "probabilities. They do not alter the deterministic probability calculation."
+                ),
+                f"Status / policy: {scenario_synthesis.get('status')} / "
+                f"{scenario_synthesis.get('policy_version')}",
+                f"Artifact: {scenario_synthesis.get('id')}",
+                f"Input / output hash: {scenario_synthesis.get('input_hash')} / "
+                f"{scenario_synthesis.get('output_hash')}",
+                f"Provider / model / prompt: {scenario_synthesis.get('provider')} / "
+                f"{scenario_synthesis.get('model')} / "
+                f"{scenario_synthesis.get('prompt_version')}",
+                f"Node coverage: {coverage_audit.get('covered_node_ids') or []}; "
+                f"uncovered={coverage_audit.get('uncovered_node_ids') or []}",
+                f"Relationship coverage: {coverage_audit.get('covered_relationships') or []}; "
+                f"uncovered={coverage_audit.get('uncovered_relationships') or []}",
+                f"Validation errors: {coverage_audit.get('errors') or []}",
+                f"Failure reasons: {scenario_synthesis.get('failure_reasons') or []}",
+                "Pathways:",
+                *[
+                    (
+                        f"- {pathway.get('kind')}: {pathway.get('title')} — "
+                        f"{pathway.get('summary')} "
+                        f"(nodes={pathway.get('node_ids') or []}; "
+                        f"claims={pathway.get('claim_ids') or []}; "
+                        f"mechanisms={pathway.get('mechanisms') or []}; "
+                        f"triggers={pathway.get('triggers') or []}; "
+                        f"invalidators={pathway.get('invalidators') or []}; "
+                        f"uncertainties={pathway.get('unresolved_uncertainties') or []})"
+                    )
+                    for pathway in scenario_synthesis.get("scenarios") or []
+                ],
+                f"Sanitized diagnostics: {scenario_synthesis.get('diagnostics') or {}}",
                 "",
             ]
         )

@@ -216,6 +216,10 @@ class ForecastRun(Base):
         back_populates="forecast_run",
         uselist=False,
     )
+    scenario_synthesis: Mapped[ScenarioSynthesisRow | None] = relationship(
+        back_populates="forecast_run",
+        uselist=False,
+    )
     graph_execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(
         back_populates="forecast_run"
     )
@@ -512,6 +516,51 @@ class MaterialNodeCoverageAssessmentRow(Base):
 
     forecast_run: Mapped[ForecastRun] = relationship(
         back_populates="material_node_coverage_assessment"
+    )
+
+
+class ScenarioSynthesisRow(Base):
+    """One immutable grounded scenario-synthesis artifact per forecast run."""
+
+    __tablename__ = "scenario_syntheses"
+    __table_args__ = (
+        UniqueConstraint(
+            "forecast_run_id",
+            name="uq_scenario_synthesis_forecast_run",
+        ),
+        CheckConstraint(
+            "status IN ('passed', 'failed')",
+            name="ck_scenario_synthesis_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    policy_snapshot_json: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    prompt_version: Mapped[str] = mapped_column(String(64))
+    provider: Mapped[str] = mapped_column(String(64))
+    model: Mapped[str] = mapped_column(String(256))
+    input_hash: Mapped[str] = mapped_column(String(64))
+    output_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    scenarios_json: Mapped[str] = mapped_column(Text, default="[]")
+    coverage_audit_json: Mapped[str] = mapped_column(Text, default="{}")
+    failure_reasons_json: Mapped[str] = mapped_column(Text, default="[]")
+    diagnostics_json: Mapped[str] = mapped_column(Text, default="{}")
+    evidence_sufficiency_assessment_id: Mapped[str] = mapped_column(
+        ForeignKey("evidence_sufficiency_assessments.id")
+    )
+    evidence_sufficiency_assessment_hash: Mapped[str] = mapped_column(String(64))
+    material_node_coverage_assessment_id: Mapped[str] = mapped_column(
+        ForeignKey("material_node_coverage_assessments.id")
+    )
+    material_node_coverage_assessment_hash: Mapped[str] = mapped_column(String(64))
+
+    forecast_run: Mapped[ForecastRun] = relationship(
+        back_populates="scenario_synthesis"
     )
 
 
