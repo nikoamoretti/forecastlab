@@ -80,6 +80,7 @@ from forecastlab_api.graphs import (
     store_forecast_graph,
 )
 from forecastlab_api.jobs import recover_stale_jobs
+from forecastlab_api.material_node_coverage import material_node_coverage_from_row
 from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import (
     BenchmarkDataset,
@@ -845,6 +846,12 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
         payload["evidence_sufficiency_assessment"] = evidence_sufficiency_from_row(
             run.evidence_sufficiency_assessment
         ).model_dump(mode="json")
+    if run.material_node_coverage_assessment is not None:
+        payload["material_node_coverage_assessment"] = (
+            material_node_coverage_from_row(
+                run.material_node_coverage_assessment
+            ).model_dump(mode="json")
+        )
     if run.budget_json:
         payload["budget"] = json.loads(run.budget_json)
     if run.prompt_versions_json:

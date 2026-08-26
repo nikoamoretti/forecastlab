@@ -88,9 +88,93 @@ test("private V1 report fails closed when deterministic evidence is insufficient
   await expect(page.getByRole("heading", { name: "Evidence Sufficiency" })).toBeVisible();
   await expect(page.getByText(/failed · policy private_v1_evidence_gate_v1/i)).toBeVisible();
   await expect(page.getByText("two_distinct_source_hosts_required", { exact: true })).toBeVisible();
+  const material = page.getByLabel("Material Node Completeness");
+  await expect(material.getByRole("heading", { name: "Material Node Completeness" })).toBeVisible();
+  await expect(material.getByText(/Plan passed · policy private_v1_material_node_gate_v1/i)).toBeVisible();
+  await expect(material.getByText(/Execution passed · assessment/i)).toBeVisible();
   const report = page.getByRole("region", { name: "V1 Forecast Graph report" });
   await expect(report).toContainText("final —");
   await expect(report.getByText(/No private-V1 probability was produced because deterministic evidence sufficiency was not met/i)).toBeVisible();
+});
+
+test("private V1 material-node failure is explicit and has no probability", async ({ page }) => {
+  await page.route("**/api/questions/material-gate-fixture/report", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        original_text: "Will the material outcome occur?",
+        status: "failed",
+        stale: false,
+        version_count: 0,
+        latest_probability: null,
+        versions: [],
+        watches: [],
+        contract: { resolution_deadline: null },
+        latest_run: {
+          status: "failed",
+          mode: "demo",
+          cost_usd: 0,
+          latency_ms: 1,
+          progress_stage: "failed",
+          execution_context: { effective_mode: "demo" },
+          budget: { cost_is_estimated: true },
+          aggregation: {},
+          tracks: [],
+          evidence: [],
+          v1_report: {
+            profile_id: "graph_forecaster_v1",
+            execution_status: "failed",
+            final_probability: null,
+            graph: { node_count: 5 },
+            nodes: [],
+            calculation: { trace: [] },
+            material_node_completeness: {
+              plan_audit: {
+                status: "passed",
+                policy_version: "private_v1_material_node_gate_v1",
+                selected_frontier_weight: "0.2",
+                maximum_skipped_weight: "0.1",
+                higher_importance_skipped_node_ids: [],
+                frontier_tie_skipped_node_ids: [],
+                reasons: []
+              },
+              execution_assessment: {
+                id: "material-assessment-fixture",
+                status: "failed",
+                included_frontier_weight: "0.15",
+                maximum_excluded_weight: "0.3",
+                included_graph_weight: "0.6",
+                excluded_graph_weight: "0.4",
+                higher_importance_excluded_node_ids: ["node-a"],
+                reasons: ["higher_importance_graph_node_excluded"],
+                warnings: [],
+                assessment_input_hash: "a".repeat(64)
+              }
+            },
+            final_answer: {
+              status: "failed",
+              probability: null,
+              statement:
+                "No private-V1 probability was produced because a higher-importance graph uncertainty was omitted while lower-importance nodes were retained."
+            }
+          }
+        }
+      })
+    });
+  });
+
+  await page.goto("/forecasts/material-gate-fixture");
+
+  await expect(
+    page.getByText(
+      /No private-V1 probability was produced because a higher-importance graph uncertainty was omitted/i
+    ).first()
+  ).toBeVisible();
+  const material = page.getByLabel("Material Node Completeness");
+  await expect(material.getByText(/Plan passed/i)).toBeVisible();
+  await expect(material.getByText(/Execution failed/i)).toBeVisible();
+  await expect(material.getByText("higher_importance_graph_node_excluded", { exact: true })).toBeVisible();
+  await expect(page.getByRole("region", { name: "V1 Forecast Graph report" })).toContainText("final —");
 });
 
 test("single-model baseline skips graph construction and aggregation", async ({ page }) => {

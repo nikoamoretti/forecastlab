@@ -102,6 +102,10 @@ export default function ForecastPage() {
   const logOddsAggregation = aggregationMethod === "importance_weighted_log_odds_v1";
   const graphExecutionFailed = v1Report?.execution_status === "failed";
   const evidenceSufficiency = v1Report?.evidence_sufficiency || null;
+  const materialCompleteness = v1Report?.material_node_completeness || null;
+  const materialPlanAudit = materialCompleteness?.plan_audit || null;
+  const materialAssessment = materialCompleteness?.execution_assessment || null;
+  const materialGateFailed = materialPlanAudit?.status === "failed" || materialAssessment?.status === "failed";
   const displayedProbability = graphExecutionFailed
     ? null
     : v1Report?.final_probability ?? data.latest_probability;
@@ -132,7 +136,9 @@ export default function ForecastPage() {
           </p>
           <p className="mt-3 text-sm">
             {graphExecutionFailed
-              ? evidenceSufficiency?.status === "failed"
+              ? materialGateFailed
+                ? "No private-V1 probability was produced because a higher-importance graph uncertainty was omitted while lower-importance nodes were retained."
+                : evidenceSufficiency?.status === "failed"
                 ? "No private-V1 probability was produced because deterministic evidence sufficiency was not met."
                 : "No probability was produced because graph execution was incomplete."
               : directModelProbability
@@ -182,6 +188,49 @@ export default function ForecastPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          ) : null}
+          {materialPlanAudit || materialAssessment ? (
+            <div className="mt-4 border border-rule bg-white/60 p-4 text-sm" aria-label="Material Node Completeness">
+              <h4 className="font-serif text-xl">Material Node Completeness</h4>
+              {materialPlanAudit ? (
+                <div className="mt-2">
+                  <p>
+                    Plan {materialPlanAudit.status} · policy {materialPlanAudit.policy_version}
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-ink/60">
+                    selected frontier {materialPlanAudit.selected_frontier_weight ?? "—"}
+                    {" · "}maximum skipped {materialPlanAudit.maximum_skipped_weight ?? "—"}
+                    {" · "}higher skipped {(materialPlanAudit.higher_importance_skipped_node_ids || []).join(", ") || "none"}
+                    {" · "}frontier ties {(materialPlanAudit.frontier_tie_skipped_node_ids || []).join(", ") || "none"}
+                  </p>
+                  {materialPlanAudit.reasons?.length ? (
+                    <p className="mt-1 text-red-800">{materialPlanAudit.reasons.join(", ")}</p>
+                  ) : null}
+                </div>
+              ) : null}
+              {materialAssessment ? (
+                <div className="mt-3 border-t border-rule pt-3">
+                  <p>
+                    Execution {materialAssessment.status} · assessment {materialAssessment.id}
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-ink/60">
+                    included frontier {materialAssessment.included_frontier_weight ?? "—"}
+                    {" · "}maximum excluded {materialAssessment.maximum_excluded_weight ?? "—"}
+                    {" · "}included/excluded weight {materialAssessment.included_graph_weight}/{materialAssessment.excluded_graph_weight}
+                    {" · "}higher excluded {(materialAssessment.higher_importance_excluded_node_ids || []).join(", ") || "none"}
+                  </p>
+                  <p className="mt-1 break-all font-mono text-xs text-ink/60">
+                    input {materialAssessment.assessment_input_hash}
+                  </p>
+                  {materialAssessment.reasons?.length ? (
+                    <p className="mt-1 text-red-800">{materialAssessment.reasons.join(", ")}</p>
+                  ) : null}
+                  {materialAssessment.warnings?.length ? (
+                    <p className="mt-1 text-amber-800">{materialAssessment.warnings.join(", ")}</p>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
@@ -484,6 +533,17 @@ export default function ForecastPage() {
                     ) : null}
                     <p className="mt-3 text-sm leading-relaxed">{node.reasoning || "No node reasoning was produced."}</p>
                     <p className="mt-2 font-mono text-xs text-ink/60">Model: {node.model_used || "not recorded"}</p>
+                    <p className="mt-1 font-mono text-xs text-ink/60">
+                      importance {node.canonical_importance_weight ?? node.importance_weight}
+                      {" · "}{node.material_selected ? "selected" : "skipped"}
+                      {" · "}{node.material_included ? "included" : `excluded (${node.material_exclusion_origin || "unknown"})`}
+                      {" · "}{String(node.material_frontier_position || "frontier unavailable").replaceAll("_", " ")}
+                    </p>
+                    {node.missing_parent_relationships?.length || node.missing_dependency_relationships?.length ? (
+                      <p className="mt-1 text-xs text-amber-800">
+                        Relationship warning: excluded parents {node.missing_parent_relationships?.length || 0}; excluded dependencies {node.missing_dependency_relationships?.length || 0}
+                      </p>
+                    ) : null}
                     <div className="mt-3 text-sm">
                       <p className="font-medium">Uncertainty</p>
                       {node.uncertainty_notes?.length ? (

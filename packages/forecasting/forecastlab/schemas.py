@@ -537,6 +537,10 @@ class ForecastProfile(BaseModel):
     search_candidate_pool_per_node: int | None = Field(default=None, ge=1)
     prefer_distinct_candidate_hosts: bool = False
     evidence_sufficiency_policy: Literal["private_v1_evidence_gate_v1"] | None = None
+    material_node_policy: Literal[
+        "none",
+        "private_v1_material_node_gate_v1",
+    ] = "none"
     max_estimated_cost_usd: float = 5.0
     max_wall_clock_seconds: int = 300
     prompt_versions: dict[str, str] = Field(default_factory=dict)

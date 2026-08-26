@@ -26,12 +26,13 @@ from forecastlab_api.models import (
     ForecastAggregationRow,
     ForecastNodeRunRow,
     ForecastRun,
+    MaterialNodeCoverageAssessmentRow,
     Question,
     ResearchPlanRow,
 )
 
 SMOKE_PROFILE_ID = "graph_live_smoke_v1"
-GRAPH_PROFILE_SHA256 = "ff91d5c85eb4d70da5afb319329b4a33d506904a775914b8f787015be36df4b3"
+GRAPH_PROFILE_SHA256 = "3ea215cb3f4e729610f794ef813a69b1dc50e5e940a020f91fec43e5535c96ca"
 SMOKE_PROFILE_SHA256 = "2b80f85a213c981bd74b3f8891cae27d619957c1e011abf044956aa10ae6467b"
 LIVE_PROVIDER_METADATA = {
     "model_provider": "openai",
@@ -84,9 +85,11 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     assert graph.max_candidate_fetch_attempts_per_node is None
     assert graph.search_candidate_pool_per_node is None
     assert graph.prefer_distinct_candidate_hosts is False
-    assert graph.version == 6
+    assert graph.version == 7
     assert graph.evidence_sufficiency_policy == "private_v1_evidence_gate_v1"
+    assert graph.material_node_policy == "private_v1_material_node_gate_v1"
     assert smoke.evidence_sufficiency_policy is None
+    assert smoke.material_node_policy == "none"
     assert {
         "max_model_calls": smoke.max_model_calls,
         "max_search_calls": smoke.max_search_calls,
@@ -154,7 +157,7 @@ def test_graph_live_smoke_profile_loads_with_exact_graph_limits() -> None:
     }
 
 
-def test_graph_forecaster_profile_matches_intentional_v6_bytes() -> None:
+def test_graph_forecaster_profile_matches_intentional_v7_bytes() -> None:
     digest = hashlib.sha256(
         (PROFILES_DIR / "graph_forecaster_v1.yaml").read_bytes()
     ).hexdigest()
@@ -506,6 +509,11 @@ def test_stubbed_live_graph_smoke_accepts_three_external_undated_documents(
         aggregation = session.scalar(
             select(ForecastAggregationRow).where(ForecastAggregationRow.forecast_run_id == run.id)
         )
+        material_assessment = session.scalar(
+            select(MaterialNodeCoverageAssessmentRow).where(
+                MaterialNodeCoverageAssessmentRow.forecast_run_id == run.id
+            )
+        )
 
         assert stored_run.status == "completed"
         assert research_plan is not None
@@ -515,6 +523,7 @@ def test_stubbed_live_graph_smoke_accepts_three_external_undated_documents(
         assert len(claims) >= 3
         assert len(node_runs) == 3
         assert aggregation is not None
+        assert material_assessment is None
         assert version.id
         assert all(claim.publication_date is None for claim in claims)
         assert all(claim.publication_date_verified is False for claim in claims)

@@ -1,5 +1,5 @@
 id: graph_forecaster_v1
-version: 6
+version: 7
 label: Graph forecaster V1
 description: Opt-in Forecast Contract, Forecast Graph, Evidence Claims, node forecasting, and deterministic graph aggregation path.
 execution_strategy: graph_nodes
@@ -8,6 +8,7 @@ evidence_claims_enabled: true
 node_forecasting_enabled: true
 graph_aggregation_enabled: true
 evidence_sufficiency_policy: private_v1_evidence_gate_v1
+material_node_policy: private_v1_material_node_gate_v1
 tracks:
   - single_agent
 subquestions_per_track: 1

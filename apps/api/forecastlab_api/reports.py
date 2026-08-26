@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from forecastlab.graph_aggregation import LOG_ODDS_FORMULA, LOG_ODDS_METHOD
@@ -45,6 +46,21 @@ def _claim_summary(claim: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _frontier_position(value: Any, frontier: Any) -> str | None:
+    if value is None or frontier is None:
+        return None
+    try:
+        weight = Decimal(str(value))
+        boundary = Decimal(str(frontier))
+    except (InvalidOperation, ValueError):
+        return None
+    if weight > boundary:
+        return "above_frontier"
+    if weight == boundary:
+        return "at_frontier"
+    return "below_frontier"
+
+
 def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     """Build the auditable Contract -> Graph -> Claims -> Probability report payload."""
 
@@ -60,6 +76,8 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     graph_nodes = graph.get("nodes") or []
     node_runs = run.get("node_runs") or []
     research_plan = run.get("research_plan") or {}
+    research_allocation = research_plan.get("budget_allocation") or {}
+    material_plan_audit = research_allocation.get("material_node_plan_audit") or None
     planned_selected = set(research_plan.get("selected_nodes") or [])
     planned_skipped = set(research_plan.get("skipped_nodes") or [])
     skipped_reasons = (
@@ -85,6 +103,28 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
     node_runs_by_id = {str(item.get("node_id")): item for item in node_runs if item.get("node_id")}
     failures = run.get("graph_execution_failures") or []
     sufficiency = run.get("evidence_sufficiency_assessment") or None
+    material_assessment = run.get("material_node_coverage_assessment") or None
+    material_included = set((material_assessment or {}).get("included_node_ids") or [])
+    material_excluded = set((material_assessment or {}).get("excluded_node_ids") or [])
+    material_frontier = (material_assessment or {}).get("included_frontier_weight")
+    if material_frontier is None:
+        material_frontier = (material_plan_audit or {}).get(
+            "selected_frontier_weight"
+        )
+    missing_parent_by_node: dict[str, list[dict[str, Any]]] = {}
+    for relationship in (material_assessment or {}).get(
+        "missing_parent_relationships"
+    ) or []:
+        missing_parent_by_node.setdefault(str(relationship.get("node_id")), []).append(
+            relationship
+        )
+    missing_dependency_by_node: dict[str, list[dict[str, Any]]] = {}
+    for relationship in (material_assessment or {}).get(
+        "missing_dependency_relationships"
+    ) or []:
+        missing_dependency_by_node.setdefault(
+            str(relationship.get("node_id")), []
+        ).append(relationship)
     sufficiency_by_node = {
         str(item.get("node_id")): item
         for item in (sufficiency or {}).get("per_node") or []
@@ -126,6 +166,24 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         if valid_selected_ids:
             covered_node_ids.append(node_id)
             cited_claim_ids.update(valid_selected_ids)
+        material_included_for_node = (
+            node_id in material_included
+            if material_assessment
+            else bool(node_run)
+        )
+        if material_included_for_node:
+            exclusion_origin = None
+        elif node_id in planned_skipped:
+            exclusion_origin = "research_plan"
+        elif failures_by_node.get(node_id):
+            exclusion_origin = str(
+                (failures_by_node[node_id][0]).get("stage")
+                or "node_execution_failure"
+            )
+        elif node_id in material_excluded or node_id in planned_selected:
+            exclusion_origin = "missing_node_forecast"
+        else:
+            exclusion_origin = "not_selected"
         report_nodes.append(
             {
                 "id": node_id,
@@ -136,6 +194,7 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 "preferred_sources": node.get("preferred_sources") or [],
                 "required_output_type": node.get("required_output_type"),
                 "importance_weight": node.get("importance_weight"),
+                "canonical_importance_weight": str(node.get("importance_weight")),
                 "status": node.get("status"),
                 "forecast_status": (
                     "skipped"
@@ -152,6 +211,21 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                     else None
                 ),
                 "research_skip_reason": skipped_reasons.get(node_id),
+                "material_selected": node_id in planned_selected,
+                "material_included": material_included_for_node,
+                "material_excluded": not material_included_for_node,
+                "material_exclusion_origin": exclusion_origin,
+                "material_frontier_position": _frontier_position(
+                    node.get("importance_weight"),
+                    material_frontier,
+                ),
+                "missing_parent_relationships": missing_parent_by_node.get(
+                    node_id,
+                    [],
+                ),
+                "missing_dependency_relationships": (
+                    missing_dependency_by_node.get(node_id, [])
+                ),
                 "failures": failures_by_node.get(node_id) or [],
                 "research_plan": (
                     (failures_by_node.get(node_id) or [{}])[0].get("research_plan")
@@ -240,6 +314,10 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
         "nodes": report_nodes,
         "evidence_claims": [_claim_summary(claim) for claim in claims],
         "evidence_sufficiency": sufficiency,
+        "material_node_completeness": {
+            "plan_audit": material_plan_audit,
+            "execution_assessment": material_assessment,
+        },
         "evidence_coverage": {
             "definition": "Fraction of graph nodes whose node forecast cites at least one persisted Evidence Claim.",
             "covered_units": covered_nodes,
@@ -292,7 +370,17 @@ def build_v1_report(run: dict[str, Any]) -> dict[str, Any] | None:
                 )
                 if final_probability is not None
                 else (
-                    "No private-V1 probability was produced because deterministic evidence "
+                    "No private-V1 probability was produced because a higher-importance "
+                    "graph uncertainty was omitted while lower-importance nodes were retained."
+                    if (
+                        material_assessment
+                        and material_assessment.get("status") == "failed"
+                    )
+                    or (
+                        material_plan_audit
+                        and material_plan_audit.get("status") == "failed"
+                    )
+                    else "No private-V1 probability was produced because deterministic evidence "
                     "sufficiency was not met."
                     if sufficiency and sufficiency.get("status") == "failed"
                     else "No final probability was produced because graph execution was incomplete."
@@ -321,6 +409,9 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
     ]
     graph = report.get("graph") or {}
     sufficiency = report.get("evidence_sufficiency") or {}
+    material = report.get("material_node_completeness") or {}
+    material_plan = material.get("plan_audit") or {}
+    material_execution = material.get("execution_assessment") or {}
     graph_resolution = report.get("graph_resolution") or {}
     generation_audit = graph.get("generation_audit") or {}
     if graph_resolution or generation_audit:
@@ -396,6 +487,45 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 "",
             ]
         )
+    if material_plan or material_execution:
+        lines.extend(
+            [
+                "### Material Node Completeness",
+                "Plan audit:",
+                f"- Status / policy: {material_plan.get('status')} / "
+                f"{material_plan.get('policy_version')}",
+                f"- Selected frontier / maximum skipped: "
+                f"{material_plan.get('selected_frontier_weight')} / "
+                f"{material_plan.get('maximum_skipped_weight')}",
+                f"- Higher-weight skipped nodes: "
+                f"{material_plan.get('higher_importance_skipped_node_ids') or []}",
+                f"- Equal-weight frontier warnings: "
+                f"{material_plan.get('frontier_tie_skipped_node_ids') or []}",
+                f"- Reasons / warnings: {material_plan.get('reasons') or []} / "
+                f"{material_plan.get('warnings') or []}",
+                "Execution assessment:",
+                f"- Status / policy: {material_execution.get('status')} / "
+                f"{material_execution.get('policy_version')}",
+                f"- Assessment / input hash: {material_execution.get('id')} / "
+                f"{material_execution.get('assessment_input_hash')}",
+                f"- Included frontier / maximum excluded: "
+                f"{material_execution.get('included_frontier_weight')} / "
+                f"{material_execution.get('maximum_excluded_weight')}",
+                f"- Included / excluded graph weight: "
+                f"{material_execution.get('included_graph_weight')} / "
+                f"{material_execution.get('excluded_graph_weight')}",
+                f"- Higher-weight excluded nodes: "
+                f"{material_execution.get('higher_importance_excluded_node_ids') or []}",
+                f"- Equal-weight frontier warnings: "
+                f"{material_execution.get('frontier_tie_excluded_node_ids') or []}",
+                f"- Missing parents / dependencies: "
+                f"{material_execution.get('missing_parent_relationships') or []} / "
+                f"{material_execution.get('missing_dependency_relationships') or []}",
+                f"- Reasons / warnings: {material_execution.get('reasons') or []} / "
+                f"{material_execution.get('warnings') or []}",
+                "",
+            ]
+        )
     lines.append("### Graph nodes and node forecasts")
     for node in report.get("nodes") or []:
         lines.extend(
@@ -405,6 +535,15 @@ def v1_report_markdown(report: dict[str, Any]) -> list[str]:
                 f"Probability: {node.get('probability')}",
                 f"Confidence: {node.get('confidence')}",
                 f"Model used: {node.get('model_used')}",
+                f"Canonical importance weight: {node.get('canonical_importance_weight')}",
+                f"Material selection / inclusion: {node.get('material_selected')} / "
+                f"{node.get('material_included')}",
+                f"Material exclusion origin / frontier: "
+                f"{node.get('material_exclusion_origin')} / "
+                f"{node.get('material_frontier_position')}",
+                f"Missing material relationships: "
+                f"parents={node.get('missing_parent_relationships') or []}; "
+                f"dependencies={node.get('missing_dependency_relationships') or []}",
                 f"Normalized weight: {node.get('normalized_weight')}",
             ]
         )

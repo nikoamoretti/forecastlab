@@ -11,9 +11,11 @@ from forecastlab.graph_aggregation import ForecastAggregationError
 from forecastlab.graph_execution import (
     ForecastNodeExecution,
     GraphNodeForecastResult,
+    run_graph_node_forecasts,
 )
 from forecastlab.graph_research import NodeResearchPlan
 from forecastlab.graphs import ForecastGraphError
+from forecastlab.material_node_coverage import assess_material_node_plan
 from forecastlab.profiles import load_profile
 from forecastlab.providers.mock import MockModelProvider, MockSearchProvider
 from forecastlab.research_planning import ResearchPlan
@@ -22,12 +24,20 @@ from forecastlab.timeutil import utcnow
 from forecastlab_api.contracts import forecast_contract_from_row
 from forecastlab_api.graph_executor import GraphForecastExecutor
 from forecastlab_api.graphs import store_forecast_graph
+from forecastlab_api.material_node_coverage import (
+    MaterialNodeCoverageStoreError,
+    material_node_coverage_from_row,
+    store_material_node_coverage_assessment,
+)
 from forecastlab_api.models import (
+    EvidenceClaimRow,
+    EvidenceItem,
     EvidenceSufficiencyAssessmentRow,
     ForecastAggregationRow,
     ForecastNodeRunRow,
     ForecastVersion,
     GraphExecutionFailureRow,
+    MaterialNodeCoverageAssessmentRow,
     Question,
     ResearchPlanRow,
 )
@@ -46,6 +56,7 @@ def _approved_forecast(client) -> dict:
 
 def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExecutor, str]:
     enforce_evidence_gate = bool(overrides.pop("enforce_evidence_gate", False))
+    enforce_material_gate = bool(overrides.pop("enforce_material_gate", False))
     question = session.get(Question, question_id)
     assert question is not None
     context = resolve_for_question(
@@ -72,6 +83,8 @@ def _executor(session, question_id: str, **overrides) -> tuple[GraphForecastExec
     profile = apply_execution_limits(load_profile("graph_forecaster_v1"), context)
     if not enforce_evidence_gate:
         profile = profile.model_copy(update={"evidence_sufficiency_policy": None})
+    if not enforce_material_gate:
+        profile = profile.model_copy(update={"material_node_policy": "none"})
     kwargs = {
         "run": run,
         "profile": profile,
@@ -147,10 +160,14 @@ def _node_result(**kwargs) -> GraphNodeForecastResult:
     )
 
 
-def _gate_graph(contract_id: str) -> ForecastGraph:
+def _gate_graph(
+    contract_id: str,
+    *,
+    weights: list[float] | None = None,
+) -> ForecastGraph:
     graph_id = str(uuid.uuid4())
     node_types = ["base_rate", "driver", "adversarial", "resolver", "trend"]
-    weights = [0.8, 0.1, 0.1, 0.0, 0.0]
+    weight_values = weights or [0.8, 0.1, 0.1, 0.0, 0.0]
     return ForecastGraph(
         id=graph_id,
         contract_id=contract_id,
@@ -169,35 +186,68 @@ def _gate_graph(contract_id: str) -> ForecastGraph:
                 required_output_type="probability",
             )
             for index, (node_type, weight) in enumerate(
-                zip(node_types, weights, strict=True)
+                zip(node_types, weight_values, strict=True)
             )
         ],
     )
 
 
-def _gate_node_result(*, fallback_node_index: int | None = None):
+def _gate_node_result(
+    *,
+    fallback_node_index: int | None = None,
+    selected_count: int = 3,
+    missing_node_index: int | None = None,
+    primary_node_index: int = 0,
+    critical_node_indices: list[int] | None = None,
+    include_material_plan_audit: bool = False,
+):
     def run(**kwargs) -> GraphNodeForecastResult:
         graph = kwargs["graph"]
         run_id = kwargs["run_id"]
-        selected = graph.nodes[:3]
+        selected = graph.nodes[:selected_count]
+        critical_indices = (
+            critical_node_indices
+            if critical_node_indices is not None
+            else [0]
+        )
         plan = ResearchPlan(
             id=str(uuid.uuid4()),
             forecast_run_id=run_id,
             selected_nodes=[node.id for node in selected],
-            skipped_nodes=[node.id for node in graph.nodes[3:]],
+            skipped_nodes=[node.id for node in graph.nodes[selected_count:]],
             priority_scores={
                 node.id: float(len(graph.nodes) - index)
                 for index, node in enumerate(graph.nodes)
             },
-            budget_allocation={"critical_node_ids": [selected[0].id]},
+            budget_allocation={
+                "critical_node_ids": [
+                    selected[index].id
+                    for index in critical_indices
+                    if index < len(selected)
+                ]
+            },
             created_at=utcnow(),
         )
+        if include_material_plan_audit:
+            material_plan_audit = assess_material_node_plan(
+                graph=graph,
+                plan=plan,
+            )
+            plan = plan.model_copy(
+                update={
+                    "budget_allocation": {
+                        **plan.budget_allocation,
+                        "material_node_plan_audit": (
+                            material_plan_audit.model_dump(mode="json")
+                        ),
+                    }
+                }
+            )
         kwargs["persist_research_plan"](plan)
-        hosts = ["bls.gov", "reuters.com", "sec.gov"]
-        source_classes = ["primary", "secondary", "secondary"]
+        hosts = ["bls.gov", "reuters.com", "sec.gov", "census.gov", "bea.gov"]
         executions: list[ForecastNodeExecution] = []
         for index, node in enumerate(graph.nodes):
-            if index >= 3:
+            if index >= selected_count:
                 executions.append(
                     ForecastNodeExecution(
                         node=node,
@@ -207,7 +257,24 @@ def _gate_node_result(*, fallback_node_index: int | None = None):
                     )
                 )
                 continue
+            if index == missing_node_index:
+                executions.append(
+                    ForecastNodeExecution(
+                        node=node,
+                        node_run=None,
+                        error="no_matching_source",
+                        error_detail="No eligible evidence for the material-node fixture.",
+                        error_stage="node_research",
+                        research_selected=True,
+                        queries_attempted=[node.question],
+                        sources_checked=[],
+                    )
+                )
+                continue
             host = hosts[index]
+            source_class = (
+                "primary" if index == primary_node_index else "secondary"
+            )
             item_id = f"item-{node.id}"
             claim_id = f"claim-{node.id}"
             url = f"https://{host}/source/{node.id}"
@@ -232,7 +299,7 @@ def _gate_node_result(*, fallback_node_index: int | None = None):
                 "publication_date_verified": True,
                 "excerpt": "Exact test excerpt.",
                 "content_hash": "a" * 64,
-                "source_class": source_classes[index],
+                "source_class": source_class,
                 "as_of_eligible": True,
                 "rejected": False,
                 "status_code": 200,
@@ -260,7 +327,7 @@ def _gate_node_result(*, fallback_node_index: int | None = None):
                 primary_source=False,
                 as_of_eligible=True,
                 cutoff_verified=True,
-                source_class=source_classes[index],  # type: ignore[arg-type]
+                source_class=source_class,  # type: ignore[arg-type]
                 extraction_method=extraction_method,  # type: ignore[arg-type]
                 source_host=host,
             )
@@ -732,3 +799,373 @@ def test_private_v1_evidence_gate_fails_closed_and_preserves_node_artifacts(clie
         "No private-V1 probability was produced because deterministic evidence "
         "sufficiency was not met."
     )
+
+
+class _NoCallModel(MockModelProvider):
+    def __init__(self) -> None:
+        super().__init__()
+        self.calls = 0
+
+    def complete_json(self, *args, **kwargs):
+        self.calls += 1
+        raise AssertionError("material plan failure reached a model provider")
+
+
+class _NoCallSearch(MockSearchProvider):
+    def __init__(self) -> None:
+        super().__init__()
+        self.calls = 0
+
+    def search(self, *args, **kwargs):
+        self.calls += 1
+        raise AssertionError("material plan failure reached a search provider")
+
+
+class _HigherWeightOmittingPlanner:
+    def plan(self, graph, *, forecast_run_id, budget):
+        del budget
+        selected = graph.nodes[1:4]
+        skipped = [graph.nodes[0], graph.nodes[4]]
+        return ResearchPlan(
+            id=str(uuid.uuid4()),
+            forecast_run_id=forecast_run_id,
+            selected_nodes=[node.id for node in selected],
+            skipped_nodes=[node.id for node in skipped],
+            priority_scores={node.id: 1.0 for node in graph.nodes},
+            budget_allocation={
+                "planner_version": "graph_research_planner_v3",
+                "planned_calls_by_kind": {},
+                "per_node": {},
+            },
+            created_at=utcnow(),
+        )
+
+
+def test_private_v1_plan_materiality_fails_before_all_research_activity(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    model = _NoCallModel()
+    search = _NoCallSearch()
+
+    def node_runner(**kwargs):
+        return run_graph_node_forecasts(
+            **kwargs,
+            research_planner=_HigherWeightOmittingPlanner(),
+        )
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=node_runner,
+            model=model,
+            search=search,
+        )
+
+        with pytest.raises(GraphForecastExecutionError) as raised:
+            executor.execute()
+        assert "private_v1_plan_omits_higher_importance_node" in raised.value.reasons
+
+        plan_row = session.scalar(
+            select(ResearchPlanRow).where(
+                ResearchPlanRow.forecast_run_id == run_id
+            )
+        )
+        assert plan_row is not None
+        audit = json.loads(plan_row.budget_allocation_json)[
+            "material_node_plan_audit"
+        ]
+        assert audit["status"] == "failed"
+        assert audit["higher_importance_skipped_node_ids"] == [graph.nodes[0].id]
+        assert session.scalar(
+            select(func.count()).select_from(EvidenceItem).where(
+                EvidenceItem.run_id == run_id
+            )
+        ) == 0
+        assert session.scalar(
+            select(func.count()).select_from(EvidenceClaimRow).join(
+                EvidenceItem,
+                EvidenceClaimRow.evidence_item_id == EvidenceItem.id,
+            ).where(EvidenceItem.run_id == run_id)
+        ) == 0
+        assert session.scalar(
+            select(func.count()).select_from(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run_id
+            )
+        ) == 0
+        assert session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(MaterialNodeCoverageAssessmentRow).where(
+                MaterialNodeCoverageAssessmentRow.forecast_run_id == run_id
+            )
+        ) is None
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id,
+                GraphExecutionFailureRow.error_code
+                == "private_v1_plan_omits_higher_importance_node",
+            )
+        )
+        assert failure is not None
+        assert failure.stage == "research_planning"
+
+    assert model.calls == 0
+    assert search.calls == 0
+
+
+def test_private_v1_material_execution_gate_passes_before_unchanged_aggregation(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                selected_count=4,
+                missing_node_index=3,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+            ),
+        )
+
+        version = executor.execute()
+        evidence = session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        material = session.scalar(
+            select(MaterialNodeCoverageAssessmentRow).where(
+                MaterialNodeCoverageAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        aggregation = session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        )
+        assert evidence is not None and evidence.status == "passed"
+        assert material is not None and material.status == "passed"
+        assert material.included_frontier_weight == "0.2"
+        assert material.maximum_excluded_weight == "0.15"
+        assert aggregation is not None
+        trace = json.loads(aggregation.calculation_trace_json)
+        material_trace = next(
+            item for item in trace if item["step"] == "material_node_coverage_gate"
+        )
+        assert material_trace["assessment_id"] == material.id
+        assert any(item["step"] == "evidence_sufficiency_gate" for item in trace)
+        context = json.loads(version.run.execution_context_json)
+        assert context["material_node_coverage_assessment_id"] == material.id
+        assert context["material_node_coverage_assessment_input_hash"] == (
+            material.assessment_input_hash
+        )
+        assert version.ensemble_probability is not None
+
+        domain_assessment = material_node_coverage_from_row(material)
+        assert store_material_node_coverage_assessment(
+            session,
+            domain_assessment,
+        ).id == material.id
+        with pytest.raises(
+            MaterialNodeCoverageStoreError,
+            match="conflicting_immutable_material_node_coverage_assessment",
+        ):
+            store_material_node_coverage_assessment(
+                session,
+                domain_assessment.model_copy(
+                    update={"assessment_input_hash": "f" * 64}
+                ),
+            )
+
+    report = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()["report"]
+    assert report["material_node_completeness"]["plan_audit"]["status"] == "passed"
+    assert report["material_node_completeness"]["execution_assessment"]["status"] == "passed"
+    assert report["final_probability"] is not None
+
+
+def test_private_v1_material_execution_gate_fails_closed_and_preserves_artifacts(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                selected_count=4,
+                missing_node_index=0,
+                primary_node_index=1,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+            ),
+        )
+
+        with pytest.raises(GraphForecastExecutionError) as raised:
+            executor.execute()
+        assert "material_node_coverage_gate_failed" in raised.value.reasons
+
+        evidence = session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        material = session.scalar(
+            select(MaterialNodeCoverageAssessmentRow).where(
+                MaterialNodeCoverageAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        assert evidence is not None and evidence.status == "passed"
+        assert material is not None and material.status == "failed"
+        assert json.loads(material.higher_importance_excluded_node_ids_json) == [
+            graph.nodes[0].id
+        ]
+        assert session.scalar(
+            select(func.count()).select_from(ForecastNodeRunRow).where(
+                ForecastNodeRunRow.forecast_run_id == run_id
+            )
+        ) == 3
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None
+        failure = session.scalar(
+            select(GraphExecutionFailureRow).where(
+                GraphExecutionFailureRow.forecast_run_id == run_id,
+                GraphExecutionFailureRow.stage == "material_node_coverage",
+            )
+        )
+        assert failure is not None
+        assert failure.error_code == "material_node_coverage_gate_failed"
+
+    report = client.get(
+        f"/api/forecasts/{draft['question_id']}/graph-report"
+    ).json()["report"]
+    assert report["final_probability"] is None
+    assert report["material_node_completeness"]["execution_assessment"]["status"] == "failed"
+    assert report["final_answer"]["statement"] == (
+        "No private-V1 probability was produced because a higher-importance "
+        "graph uncertainty was omitted while lower-importance nodes were retained."
+    )
+
+
+def test_private_v1_preserves_evidence_and_material_failures_together(client) -> None:
+    draft = _approved_forecast(client)
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        contract = forecast_contract_from_row(
+            approved_contract_for_question(session, draft["question_id"])
+        )
+        graph = _gate_graph(
+            contract.id,
+            weights=[0.30, 0.25, 0.20, 0.15, 0.10],
+        )
+        store_forecast_graph(session, graph)
+        session.commit()
+        executor, run_id = _executor(
+            session,
+            draft["question_id"],
+            enforce_evidence_gate=True,
+            enforce_material_gate=True,
+            graph_resolver=lambda *_args, **_kwargs: (contract, graph),
+            node_runner=_gate_node_result(
+                fallback_node_index=1,
+                selected_count=4,
+                missing_node_index=0,
+                primary_node_index=1,
+                critical_node_indices=[],
+                include_material_plan_audit=True,
+            ),
+        )
+
+        with pytest.raises(GraphForecastExecutionError) as raised:
+            executor.execute()
+        assert "evidence_sufficiency_gate_failed" in raised.value.reasons
+        assert "material_node_coverage_gate_failed" in raised.value.reasons
+
+        evidence = session.scalar(
+            select(EvidenceSufficiencyAssessmentRow).where(
+                EvidenceSufficiencyAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        material = session.scalar(
+            select(MaterialNodeCoverageAssessmentRow).where(
+                MaterialNodeCoverageAssessmentRow.forecast_run_id == run_id
+            )
+        )
+        assert evidence is not None and evidence.status == "failed"
+        assert material is not None and material.status == "failed"
+        failure_codes = set(
+            session.scalars(
+                select(GraphExecutionFailureRow.error_code).where(
+                    GraphExecutionFailureRow.forecast_run_id == run_id,
+                    GraphExecutionFailureRow.error_code.in_(
+                        [
+                            "evidence_sufficiency_gate_failed",
+                            "material_node_coverage_gate_failed",
+                        ]
+                    ),
+                )
+            ).all()
+        )
+        assert failure_codes == {
+            "evidence_sufficiency_gate_failed",
+            "material_node_coverage_gate_failed",
+        }
+        assert session.scalar(
+            select(ForecastAggregationRow).where(
+                ForecastAggregationRow.forecast_run_id == run_id
+            )
+        ) is None
+        assert session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == run_id)
+        ) is None

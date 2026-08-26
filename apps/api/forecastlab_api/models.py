@@ -212,6 +212,10 @@ class ForecastRun(Base):
         back_populates="forecast_run",
         uselist=False,
     )
+    material_node_coverage_assessment: Mapped[MaterialNodeCoverageAssessmentRow | None] = relationship(
+        back_populates="forecast_run",
+        uselist=False,
+    )
     graph_execution_failures: Mapped[list[GraphExecutionFailureRow]] = relationship(
         back_populates="forecast_run"
     )
@@ -434,6 +438,81 @@ class EvidenceSufficiencyAssessmentRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     forecast_run: Mapped[ForecastRun] = relationship(back_populates="evidence_sufficiency_assessment")
+
+
+class MaterialNodeCoverageAssessmentRow(Base):
+    """One immutable deterministic material-node assessment per forecast run."""
+
+    __tablename__ = "material_node_coverage_assessments"
+    __table_args__ = (
+        UniqueConstraint(
+            "forecast_run_id",
+            name="uq_material_node_coverage_assessment_run",
+        ),
+        CheckConstraint(
+            "status IN ('passed', 'failed')",
+            name="ck_material_node_coverage_assessment_status",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    forecast_run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    graph_id: Mapped[str] = mapped_column(ForeignKey("forecast_graphs.id"))
+    graph_version: Mapped[int] = mapped_column(Integer)
+    research_plan_id: Mapped[str] = mapped_column(ForeignKey("research_plans.id"))
+    evidence_sufficiency_assessment_id: Mapped[str | None] = mapped_column(
+        ForeignKey("evidence_sufficiency_assessments.id"),
+        nullable=True,
+    )
+    evidence_sufficiency_assessment_hash: Mapped[str | None] = mapped_column(
+        String(64),
+        nullable=True,
+    )
+    graph_node_count: Mapped[int] = mapped_column(Integer)
+    selected_node_count: Mapped[int] = mapped_column(Integer)
+    included_node_count: Mapped[int] = mapped_column(Integer)
+    excluded_node_count: Mapped[int] = mapped_column(Integer)
+    total_graph_weight: Mapped[str] = mapped_column(String(64))
+    included_graph_weight: Mapped[str] = mapped_column(String(64))
+    excluded_graph_weight: Mapped[str] = mapped_column(String(64))
+    included_frontier_weight: Mapped[str | None] = mapped_column(
+        String(64),
+        nullable=True,
+    )
+    maximum_excluded_weight: Mapped[str | None] = mapped_column(
+        String(64),
+        nullable=True,
+    )
+    selected_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    included_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    excluded_node_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    higher_importance_excluded_node_ids_json: Mapped[str] = mapped_column(
+        Text,
+        default="[]",
+    )
+    frontier_tie_excluded_node_ids_json: Mapped[str] = mapped_column(
+        Text,
+        default="[]",
+    )
+    missing_parent_relationships_json: Mapped[str] = mapped_column(
+        Text,
+        default="[]",
+    )
+    missing_dependency_relationships_json: Mapped[str] = mapped_column(
+        Text,
+        default="[]",
+    )
+    reasons_json: Mapped[str] = mapped_column(Text, default="[]")
+    warnings_json: Mapped[str] = mapped_column(Text, default="[]")
+    policy_snapshot_json: Mapped[str] = mapped_column(Text)
+    assessment_input_hash: Mapped[str] = mapped_column(String(64))
+
+    forecast_run: Mapped[ForecastRun] = relationship(
+        back_populates="material_node_coverage_assessment"
+    )
 
 
 class GraphExecutionFailureRow(Base):

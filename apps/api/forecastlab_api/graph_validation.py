@@ -59,7 +59,7 @@ VALIDATION_PROFILE_ID = "graph_forecaster_v1"
 # The preserved validation artifact was executed under profile v5. New validation
 # freezes use the current private-V1 profile without rewriting that history.
 VALIDATION_PROFILE_VERSION = 5
-ACTIVE_VALIDATION_PROFILE_VERSION = 6
+ACTIVE_VALIDATION_PROFILE_VERSION = 7
 VALIDATION_SCHEMA_VERSION = 1
 VALIDATION_SELECTION_RULE = "first_rows_by_domain_in_pilot_manifest_v1"
 VALIDATION_DOMAIN_COUNTS = {

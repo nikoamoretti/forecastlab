@@ -20,6 +20,10 @@ from forecastlab.graph_research import (
     NodeResearchPlan,
 )
 from forecastlab.ledger import RunUsageTotals, UsageLedger
+from forecastlab.material_node_coverage import (
+    PRIVATE_V1_MATERIAL_NODE_GATE_V1,
+    assess_material_node_plan,
+)
 from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.profiles import load_profile
 from forecastlab.prompts import PromptBundle
@@ -293,6 +297,33 @@ def run_graph_node_forecasts(
         forecast_run_id=run_id,
         budget=budget,
     )
+    if profile.material_node_policy == PRIVATE_V1_MATERIAL_NODE_GATE_V1.version:
+        material_plan_audit = assess_material_node_plan(graph=graph, plan=plan)
+        plan = plan.model_copy(
+            update={
+                "budget_allocation": {
+                    **plan.budget_allocation,
+                    "material_node_plan_audit": material_plan_audit.model_dump(
+                        mode="json"
+                    ),
+                }
+            }
+        )
+        if material_plan_audit.status == "failed":
+            if persist_research_plan is not None:
+                persist_research_plan(plan)
+            raise ResearchPlanningError(
+                material_plan_audit.reasons,
+                (
+                    "The frozen private-V1 ResearchPlan omits a strictly "
+                    "higher-importance graph node"
+                ),
+                audit={
+                    "material_node_plan_audit": material_plan_audit.model_dump(
+                        mode="json"
+                    )
+                },
+            )
     allocation = plan.budget_allocation
     try:
         budget.freeze_model_call_envelope(

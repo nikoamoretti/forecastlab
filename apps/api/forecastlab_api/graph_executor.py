@@ -33,6 +33,12 @@ from forecastlab.graph_execution import (
 )
 from forecastlab.graphs import ForecastGraphError
 from forecastlab.ledger import UsageLedger
+from forecastlab.material_node_coverage import (
+    PRIVATE_V1_MATERIAL_NODE_GATE_V1,
+    MaterialNodeCoverageAssessment,
+    MaterialNodeFailureIdentity,
+    assess_material_node_coverage,
+)
 from forecastlab.prompts import PromptBundle
 from forecastlab.providers.base import ModelProvider, SearchProvider
 from forecastlab.research_planning import (
@@ -56,6 +62,11 @@ from forecastlab_api.evidence_sufficiency import (
     EvidenceSufficiencyStoreError,
     evidence_sufficiency_from_row,
     store_evidence_sufficiency_assessment,
+)
+from forecastlab_api.material_node_coverage import (
+    MaterialNodeCoverageStoreError,
+    material_node_coverage_from_row,
+    store_material_node_coverage_assessment,
 )
 from forecastlab_api.models import (
     EvidenceClaimRow,
@@ -292,12 +303,41 @@ class GraphForecastExecutor:
             if execution.node_run is not None
             and execution.node.id not in failed_node_ids
         ]
+        if failures:
+            self._persist_failures(failures)
+            self.session.flush()
         evidence_assessment = self._assess_evidence_sufficiency(
             node_result,
             node_runs,
         )
+        material_assessment = self._assess_material_node_coverage(
+            node_result,
+            node_runs,
+            evidence_assessment=evidence_assessment,
+        )
+        deterministic_gate_failures: list[dict[str, Any]] = []
+        if material_assessment is not None and material_assessment.status == "failed":
+            deterministic_gate_failures.append(
+                {
+                    "node_id": None,
+                    "stage": "material_node_coverage",
+                    "error_code": "material_node_coverage_gate_failed",
+                    "error_message": "; ".join(material_assessment.reasons),
+                    "critical_node": True,
+                    "impact": "forecast_failed",
+                    "research_plan": {
+                        "assessment_id": material_assessment.id,
+                        "policy_version": material_assessment.policy_version,
+                        "assessment_input_hash": (
+                            material_assessment.assessment_input_hash
+                        ),
+                        "reasons": material_assessment.reasons,
+                        "warnings": material_assessment.warnings,
+                    },
+                }
+            )
         if evidence_assessment is not None and evidence_assessment.status == "failed":
-            failure = {
+            deterministic_gate_failures.append({
                 "node_id": None,
                 "stage": "evidence_sufficiency",
                 "error_code": "evidence_sufficiency_gate_failed",
@@ -311,17 +351,26 @@ class GraphForecastExecutor:
                     "reasons": evidence_assessment.reasons,
                     "warnings": evidence_assessment.warnings,
                 },
-            }
+            })
+        if deterministic_gate_failures:
             self._persist_partial_result(
                 node_result,
-                [failure, *failures],
+                [*deterministic_gate_failures, *failures],
                 reliability=reliability,
                 evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
             )
+            primary_failure = deterministic_gate_failures[0]
             self._raise_failure(
-                stage="evidence_sufficiency",
-                reasons=["evidence_sufficiency_gate_failed"],
-                message="; ".join(evidence_assessment.reasons),
+                stage=str(primary_failure["stage"]),
+                reasons=[
+                    str(failure["error_code"])
+                    for failure in deterministic_gate_failures
+                ],
+                message="; ".join(
+                    str(failure["error_message"])
+                    for failure in deterministic_gate_failures
+                ),
             )
         aggregation_graph = self._aggregation_graph(
             node_result.graph,
@@ -352,6 +401,7 @@ class GraphForecastExecutor:
                 [failure],
                 reliability=reliability,
                 evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
             )
             self._raise_failure(stage="aggregation", reasons=exc.reasons, message=str(exc))
 
@@ -367,6 +417,23 @@ class GraphForecastExecutor:
                                 evidence_assessment.assessment_input_hash
                             ),
                             "status": evidence_assessment.status,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+        if material_assessment is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "material_node_coverage_gate",
+                            "assessment_id": material_assessment.id,
+                            "policy_version": material_assessment.policy_version,
+                            "assessment_input_hash": (
+                                material_assessment.assessment_input_hash
+                            ),
+                            "status": material_assessment.status,
                         },
                         *aggregation.calculation_trace,
                     ]
@@ -393,6 +460,7 @@ class GraphForecastExecutor:
             failures=failures,
             reliability=reliability,
             evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
         )
         self.session.commit()
         return version
@@ -657,6 +725,74 @@ class GraphForecastExecutor:
             )
         return evidence_sufficiency_from_row(stored)
 
+    def _assess_material_node_coverage(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        *,
+        evidence_assessment: EvidenceSufficiencyAssessment | None,
+    ) -> MaterialNodeCoverageAssessment | None:
+        policy_id = self.profile.material_node_policy
+        if policy_id == "none":
+            return None
+        if policy_id != PRIVATE_V1_MATERIAL_NODE_GATE_V1.version:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_material_node_policy"],
+                message=f"Unsupported material node policy: {policy_id}",
+            )
+        if result.research_plan is None:
+            self._fail(
+                stage="material_node_coverage",
+                reasons=["research_plan_required_for_material_node_coverage"],
+                message="A frozen ResearchPlan is required for material-node coverage",
+            )
+
+        failure_rows = self.session.scalars(
+            select(GraphExecutionFailureRow)
+            .where(
+                GraphExecutionFailureRow.forecast_run_id == self.run.id,
+                GraphExecutionFailureRow.node_id.is_not(None),
+            )
+            .order_by(GraphExecutionFailureRow.id)
+        ).all()
+        assessment = assess_material_node_coverage(
+            forecast_run_id=self.run.id,
+            graph=result.graph,
+            plan=result.research_plan,
+            node_runs=node_runs,
+            evidence_sufficiency_assessment_id=(
+                evidence_assessment.id if evidence_assessment is not None else None
+            ),
+            evidence_sufficiency_assessment_hash=(
+                evidence_assessment.assessment_input_hash
+                if evidence_assessment is not None
+                else None
+            ),
+            node_failures=[
+                MaterialNodeFailureIdentity(
+                    id=row.id,
+                    node_id=row.node_id,
+                    stage=row.stage,
+                    error_code=row.error_code,
+                    impact=row.impact,
+                )
+                for row in failure_rows
+            ],
+        )
+        try:
+            stored = store_material_node_coverage_assessment(
+                self.session,
+                assessment,
+            )
+        except MaterialNodeCoverageStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable material-node coverage assessment conflict",
+            )
+        return material_node_coverage_from_row(stored)
+
     @staticmethod
     def _aggregation_graph(
         graph: ForecastGraph,
@@ -808,6 +944,7 @@ class GraphForecastExecutor:
         *,
         reliability: dict[str, Any] | None = None,
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
     ) -> None:
         self._persist_node_runs(
             [execution.node_run for execution in result.nodes if execution.node_run is not None]
@@ -818,12 +955,14 @@ class GraphForecastExecutor:
             result,
             reliability=reliability,
             evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
         )
         self.run.status = "failed"
         self.run.error_stage = str(failures[0]["stage"])
         self.run.error_message = (
-            f"evidence_sufficiency_gate_failed: {failures[0]['error_message']}"
-            if failures[0]["stage"] == "evidence_sufficiency"
+            f"{failures[0]['error_code']}: {failures[0]['error_message']}"
+            if failures[0]["stage"]
+            in {"evidence_sufficiency", "material_node_coverage"}
             else "; ".join(str(item["error_code"]) for item in failures)
         )
         self.run.progress_stage = "failed"
@@ -842,6 +981,7 @@ class GraphForecastExecutor:
         failures: list[dict[str, Any]],
         reliability: dict[str, Any],
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
     ) -> ForecastVersion:
         self._persist_node_runs(node_runs)
         self._persist_failures(failures)
@@ -851,6 +991,7 @@ class GraphForecastExecutor:
             result,
             reliability=reliability,
             evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
         )
         self.run.aggregation_json = json.dumps(jsonable(aggregation))
         self.run.status = "completed"
@@ -961,6 +1102,7 @@ class GraphForecastExecutor:
         *,
         reliability: dict[str, Any] | None = None,
         evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
     ) -> None:
         try:
             snapshot = json.loads(self.run.execution_context_json or "{}")
@@ -991,6 +1133,16 @@ class GraphForecastExecutor:
             )
             snapshot["evidence_sufficiency_assessment_input_hash"] = (
                 evidence_assessment.assessment_input_hash
+            )
+        if material_assessment is not None:
+            snapshot["material_node_coverage_assessment_id"] = (
+                material_assessment.id
+            )
+            snapshot["material_node_policy_version"] = (
+                material_assessment.policy_version
+            )
+            snapshot["material_node_coverage_assessment_input_hash"] = (
+                material_assessment.assessment_input_hash
             )
         self.run.execution_context_json = json.dumps(snapshot)
 
