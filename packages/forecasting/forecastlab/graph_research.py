@@ -28,12 +28,14 @@ from forecastlab.providers.base import (
     SearchProvider,
 )
 from forecastlab.ranking import (
+    classify_source,
     normalized_candidate_host,
     rank_hits,
     schedule_ranked_hits,
 )
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
+    AttachedEvidenceDocument,
     EvidenceClaim,
     EvidenceExtractionMethod,
     FetchedDocument,
@@ -328,6 +330,7 @@ class GraphResearchExecutor:
         max_research_plan_model_calls: int = 1,
         max_primary_extraction_calls: int | None = None,
         max_extraction_retry_calls: int | None = None,
+        attached_documents: list[AttachedEvidenceDocument] | None = None,
         prompt_bundle: PromptBundle | None = None,
         prompt_versions: dict[str, str] | None = None,
     ) -> None:
@@ -427,6 +430,13 @@ class GraphResearchExecutor:
         self._used_model_calls = {
             kind: 0 for kind in self._planned_model_calls
         }
+        self.attached_documents = sorted(
+            attached_documents or [],
+            key=lambda item: (
+                item.target_node_id is None,
+                item.attachment_id,
+            ),
+        )
         self.prompt_bundle = prompt_bundle
         self.prompt_versions = prompt_versions if prompt_versions is not None else {}
 
@@ -652,6 +662,124 @@ class GraphResearchExecutor:
             else None
         )
         plan, planning_warnings = self._generate_plan(node)
+        applicable_attachments = [
+            item
+            for item in self.attached_documents
+            if item.target_node_id is None or item.target_node_id == node.id
+        ]
+        if applicable_attachments:
+            # User-supplied documents use the node's already-planned extraction
+            # envelope. No search/fetch is charged, and adding the URL itself
+            # never creates a claim.
+            attached = applicable_attachments[0]
+            document = attached.document
+            source_class = classify_source(document.url)
+            record = _document_record(
+                document,
+                node=node,
+                evidence_item_id=attached.evidence_item_id,
+                source_class=source_class,
+            )
+            record["manual_evidence_attachment_id"] = attached.attachment_id
+            audit = {
+                "url": document.url,
+                "canonical_url": canonicalize_url(document.url),
+                "normalized_host": normalized_candidate_host(document.url),
+                "title": document.title,
+                "source_class": source_class,
+                "source_origin": "manual_evidence_url",
+                "manual_evidence_attachment_id": attached.attachment_id,
+                "actual_fetch_attempt": False,
+                "search_performed": False,
+                "extraction_entered": False,
+                "claim_created": False,
+                "backup_used": False,
+            }
+            if document.rejected or not document.as_of_eligible:
+                audit.update(
+                    outcome="cutoff_rejection",
+                    failure_category=document.rejection_reason
+                    or "document_not_as_of_eligible",
+                    reason=document.rejection_reason
+                    or "document_not_as_of_eligible",
+                )
+                return GraphResearchResult(
+                    node_id=node.id,
+                    plan=plan,
+                    queries_attempted=[],
+                    sources_checked=[audit],
+                    rejected=[record],
+                    planning_warnings=planning_warnings,
+                    failure=GraphResearchFailure(
+                        code="cutoff_rejection",
+                        reason=str(audit["reason"]),
+                    ),
+                )
+            audit["extraction_entered"] = True
+            extraction_document = document.model_copy(
+                update={"text": document.text[: self.max_extraction_chars]}
+            )
+            extracted, errors, outcome = self._extract_with_fallbacks(
+                document=extraction_document,
+                evidence_item_id=attached.evidence_item_id,
+                node=node,
+                source_class=source_class,  # type: ignore[arg-type]
+            )
+            eligible = eligible_claims_for_forecasting(
+                extracted,
+                mode=self.mode,  # type: ignore[arg-type]
+                cutoff=self.as_of,
+            )[: self.max_evidence_claims]
+            if not eligible:
+                audit.update(
+                    outcome="extraction_failure",
+                    failure_category="no_eligible_claims_extracted",
+                    reason=",".join(errors) or "no_eligible_claims_extracted",
+                )
+                return GraphResearchResult(
+                    node_id=node.id,
+                    plan=plan,
+                    queries_attempted=[],
+                    sources_checked=[audit],
+                    evidence=[record],
+                    extraction_errors=errors or ["no_eligible_claims_extracted"],
+                    planning_warnings=planning_warnings,
+                    failure=GraphResearchFailure(
+                        code="extraction_failure",
+                        reason=str(audit["reason"]),
+                    ),
+                )
+            attached_claims = [
+                claim.model_copy(
+                    update={
+                        "id": _stable_id(
+                            "claim",
+                            self.run_id,
+                            node.id,
+                            attached.evidence_item_id,
+                            claim.supports_or_refutes,
+                            claim.claim,
+                            claim.excerpt,
+                        )
+                    }
+                )
+                for claim in eligible
+            ]
+            audit.update(
+                outcome=outcome,
+                claim_created=True,
+                reason=",".join(errors) if errors else None,
+            )
+            return GraphResearchResult(
+                node_id=node.id,
+                plan=plan,
+                queries_attempted=[],
+                sources_checked=[audit],
+                evidence=[record],
+                claims=attached_claims,
+                extraction_errors=errors,
+                planning_warnings=planning_warnings,
+            )
         preferred_source = plan.preferred_sources[0] if plan.preferred_sources else ""
         qualified_primary_query = plan.primary_research_question
         if (

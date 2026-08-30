@@ -128,6 +128,9 @@ def test_watcher_and_second_version(client) -> None:
     assert second.json()["material"] is True
     stale = client.get(f"/api/questions/{qid}").json()
     assert stale["stale"] is True
+    before_explicit_rerun = client.get(f"/api/questions/{qid}/report").json()
+    assert before_explicit_rerun["version_count"] == 1
+    assert before_explicit_rerun["latest_run"]["id"] == report["latest_run"]["id"]
     client.post(f"/api/questions/{qid}/runs", json={"profile_id": "three_track_ensemble", "mode": "demo"})
     again = client.get(f"/api/questions/{qid}/report").json()
     assert again["version_count"] == 2

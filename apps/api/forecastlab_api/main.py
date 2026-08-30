@@ -107,6 +107,11 @@ from forecastlab_api.historical_evidence_releases import (
     verify_release_bundle,
 )
 from forecastlab_api.jobs import recover_stale_jobs
+from forecastlab_api.manual_evidence import (
+    ManualEvidenceError,
+    intake_manual_evidence,
+    manual_evidence_out,
+)
 from forecastlab_api.material_node_coverage import material_node_coverage_from_row
 from forecastlab_api.migrate import apply_schema
 from forecastlab_api.models import (
@@ -129,6 +134,7 @@ from forecastlab_api.models import (
     ForecastVersion,
     GraphExecutionFailureRow,
     HistoricalEvidenceRelease,
+    ManualEvidenceAttachment,
     ProviderCallLedger,
     Question,
     ResearchPlanRow,
@@ -228,6 +234,15 @@ class WatchIn(BaseModel):
     json_path: str | None = "$.value"
     poll_seconds: int = 300
     auto_rerun: bool | None = None
+
+
+class ManualEvidenceURLIn(BaseModel):
+    url: str = Field(min_length=1, max_length=4096)
+    note: str | None = Field(default=None, max_length=2000)
+    intended_use: str = "general_question_evidence"
+    forecast_node_id: str | None = None
+    mode: str = "live"
+    as_of: datetime | None = None
 
 
 class SimulateIn(BaseModel):
@@ -369,6 +384,11 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
     runs = session.scalars(select(ForecastRun).where(ForecastRun.question_id == question.id)).all()
     runs = sorted(runs, key=_run_order_time, reverse=True)
     watches = session.scalars(select(Watch).where(Watch.question_id == question.id)).all()
+    manual_evidence = session.scalars(
+        select(ManualEvidenceAttachment)
+        .where(ManualEvidenceAttachment.question_id == question.id)
+        .order_by(ManualEvidenceAttachment.created_at.desc(), ManualEvidenceAttachment.id)
+    ).all()
     forecast_contract = session.scalar(
         select(ForecastContractRow)
         .where(ForecastContractRow.question_id == question.id)
@@ -405,6 +425,10 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
         "runs": [_row(run) for run in runs],
         "versions": version_payloads,
         "watches": [_row(watch) for watch in watches],
+        "manual_evidence_urls": [
+            manual_evidence_out(session, attachment)
+            for attachment in manual_evidence
+        ],
         "watcher_policy": "Changes mark the forecast stale. Reruns require user action.",
     }
 
@@ -735,6 +759,69 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     return _row(run)
 
 
+@app.get("/api/questions/{question_id}/evidence-urls")
+def get_manual_evidence_urls(
+    question_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    question = db.get(Question, question_id)
+    if question is None:
+        raise HTTPException(404, "Question not found")
+    rows = db.scalars(
+        select(ManualEvidenceAttachment)
+        .where(ManualEvidenceAttachment.question_id == question_id)
+        .order_by(ManualEvidenceAttachment.created_at.desc(), ManualEvidenceAttachment.id)
+    ).all()
+    return {
+        "question_id": question_id,
+        "attachments": [manual_evidence_out(db, row) for row in rows],
+        "policy": (
+            "Adding a URL never creates a claim or starts a forecast. Accepted documents "
+            "enter forecasting context only through an explicit rerun and ordinary claim validation."
+        ),
+    }
+
+
+@app.post("/api/questions/{question_id}/evidence-urls")
+def post_manual_evidence_url(
+    question_id: str,
+    body: ManualEvidenceURLIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    question = db.get(Question, question_id)
+    if question is None:
+        raise HTTPException(404, "Question not found")
+    if body.mode not in {"live", "backtest"}:
+        raise HTTPException(422, "mode_must_be_live_or_backtest")
+    if body.intended_use not in {
+        "general_question_evidence",
+        "forecast_node",
+    }:
+        raise HTTPException(422, "unknown_manual_evidence_intended_use")
+    try:
+        attachment, created = intake_manual_evidence(
+            db,
+            question=question,
+            url=body.url,
+            note=body.note,
+            intended_use=body.intended_use,  # type: ignore[arg-type]
+            target_node_id=body.forecast_node_id,
+            mode=body.mode,  # type: ignore[arg-type]
+            as_of=body.as_of,
+        )
+    except ManualEvidenceError as exc:
+        raise HTTPException(422, exc.reason) from exc
+    db.commit()
+    return {
+        **manual_evidence_out(db, attachment),
+        "created": created,
+        "policy": (
+            "No EvidenceClaim or ForecastRun was created. Use an explicit rerun to apply "
+            "accepted evidence through the normal extraction and validation path."
+        ),
+    }
+
+
 def _start_v1_run(
     forecast_id: str,
     body: ExecuteV1In,
@@ -1059,6 +1146,29 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
                 f"{claim.get('source_class')} / {claim.get('extraction_method')} / "
                 f"{claim.get('source_host') or 'host unavailable'}"
             )
+    lines.append("")
+    lines.append("## Manual evidence URL intake")
+    lines.append(
+        "Adding a URL creates no claim and no run. Accepted documents require a fresh "
+        "explicit rerun and ordinary claim validation."
+    )
+    for item in payload.get("manual_evidence_urls") or []:
+        lines.append(
+            f"- [{item.get('status')}] {item.get('title') or item.get('canonical_url')} "
+            f"— {item.get('canonical_url')}"
+        )
+        lines.append(
+            "  - Temporal basis: "
+            f"{item.get('temporal_basis')} · available {item.get('source_available_at')} · "
+            f"retrieved {item.get('retrieval_date')}"
+        )
+        lines.append(
+            "  - Content hashes: "
+            f"{item.get('content_hash') or 'unavailable'} / "
+            f"{item.get('extracted_text_hash') or 'unavailable'}"
+        )
+        if item.get("rejection_reason"):
+            lines.append(f"  - Rejection: {item.get('rejection_reason')}")
     return PlainTextResponse("\n".join(lines), media_type="text/markdown")
 
 
@@ -1072,6 +1182,8 @@ def add_watch(question_id: str, body: WatchIn, db: Session = Depends(get_db)) ->
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
+    if body.auto_rerun:
+        raise HTTPException(422, "watcher_auto_rerun_disabled")
     try:
         validate_user_watch(endpoint_url=body.endpoint_url, endpoint_type=body.endpoint_type)
     except UnsafeURLError as exc:

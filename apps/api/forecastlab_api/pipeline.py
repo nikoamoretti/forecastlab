@@ -121,6 +121,12 @@ def create_run_record(
     apply_execution_context(run, context)
     session.add(run)
     session.flush()
+    if not question.is_benchmark:
+        # Manual evidence is attached to a specific new run without creating a
+        # claim. Graph research may later submit it to the ordinary extractor.
+        from forecastlab_api.manual_evidence import attach_manual_evidence_to_run
+
+        attach_manual_evidence_to_run(session, run=run)
     if enqueue:
         job = enqueue_job(
             session,

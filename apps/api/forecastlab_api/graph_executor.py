@@ -77,6 +77,7 @@ from forecastlab_api.evidence_sufficiency import (
     evidence_sufficiency_from_row,
     store_evidence_sufficiency_assessment,
 )
+from forecastlab_api.manual_evidence import manual_evidence_documents_for_run
 from forecastlab_api.material_node_coverage import (
     MaterialNodeCoverageStoreError,
     material_node_coverage_from_row,
@@ -276,6 +277,10 @@ class GraphForecastExecutor:
             self.session.commit()
 
         try:
+            attached_evidence_documents = manual_evidence_documents_for_run(
+                self.session,
+                run=self.run,
+            )
             node_result = self.node_runner(
                 contract=contract,
                 graph=graph,
@@ -303,6 +308,7 @@ class GraphForecastExecutor:
                 ),
                 persist_research_plan=persist_plan,
                 capture_node_failures=True,
+                attached_evidence_documents=attached_evidence_documents,
             )
         except ResearchPlanningError as exc:
             self._fail(

@@ -41,6 +41,7 @@ from forecastlab.research_planning import (
 )
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
+    AttachedEvidenceDocument,
     EvidenceClaim,
     ForecastContract,
     ForecastGraph,
@@ -256,6 +257,7 @@ def run_graph_node_forecasts(
     capture_node_failures: bool = False,
     research_planner: ResearchPlanner | None = None,
     document_store: Any | None = None,
+    attached_evidence_documents: list[AttachedEvidenceDocument] | None = None,
 ) -> GraphNodeForecastResult:
     """Run Contract -> Graph -> Claims -> Node forecasts without aggregating them."""
 
@@ -437,6 +439,11 @@ def run_graph_node_forecasts(
             max_extraction_retry_calls=int(
                 allocation["extraction_retry_calls"]
             ),
+            attached_documents=[
+                item
+                for item in (attached_evidence_documents or [])
+                if item.target_node_id is None or item.target_node_id == node.id
+            ],
             prompt_bundle=prompt_bundle,
             prompt_versions=prompt_versions,
         ).execute(node)

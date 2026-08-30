@@ -14,7 +14,7 @@ import trafilatura
 from pypdf import PdfReader
 
 from forecastlab.errors import EvidenceIntegrityError
-from forecastlab.hashing import content_hash
+from forecastlab.hashing import content_hash, sha256_bytes
 from forecastlab.http_client import SafeResponse, safe_get
 from forecastlab.schemas import FetchedDocument
 from forecastlab.ssrf import UnsafeURLError, validate_url
@@ -334,6 +334,7 @@ def _rejected(
     )
     return FetchedDocument(
         url=url,
+        final_url=final_snapshot_url,
         title="",
         publisher=None,
         published_at=published,
@@ -344,6 +345,10 @@ def _rejected(
         publication_date_verified=published is not None,
         text="",
         content_hash=content_hash(""),
+        raw_content_hash=sha256_bytes(b""),
+        extracted_text_hash=content_hash(""),
+        content_type=None,
+        byte_length=0,
         snapshot_url=snapshot_url,
         snapshot_at=snapshot_at,
         requested_snapshot_url=requested_snapshot_url,
@@ -387,6 +392,7 @@ def fetch_document(
     if url in FIXTURE_PAGES and allow_local_fixtures:
         path = FIXTURES_DIR / FIXTURE_PAGES[url]
         raw = path.read_text(encoding="utf-8")
+        raw_bytes = raw.encode("utf-8")
         text, title = _extract_html(raw, url)
         metadata, retained_hint, default_hint_source = _with_search_hint(
             _date_metadata_from_html(raw),
@@ -422,6 +428,7 @@ def fetch_document(
             temporal_basis = "retrieval_date"
         return FetchedDocument(
             url=url,
+            final_url=snapshot_url or url,
             title=title or path.stem.replace("-", " ").title(),
             publisher="ForecastLab fixtures",
             published_at=published,
@@ -440,6 +447,10 @@ def fetch_document(
             modified_date_source=metadata.modified_date_source,
             text=text[:20_000],
             content_hash=content_hash(text),
+            raw_content_hash=sha256_bytes(raw_bytes),
+            extracted_text_hash=content_hash(text[:20_000]),
+            content_type="text/html",
+            byte_length=len(raw_bytes),
             snapshot_url=snapshot_url or url,
             snapshot_at=snapshot_at or published,
             requested_snapshot_url=snapshot_url,
@@ -591,6 +602,7 @@ def fetch_document(
     temporal_basis = "snapshot_date" if historical and final_at is not None else "retrieval_date"
     return FetchedDocument(
         url=url,
+        final_url=final_url,
         title=title or url,
         publisher=urlparse(url).hostname,
         published_at=published,
@@ -609,6 +621,10 @@ def fetch_document(
         modified_date_source=metadata.modified_date_source,
         text=text[:20_000],
         content_hash=content_hash(text),
+        raw_content_hash=sha256_bytes(data),
+        extracted_text_hash=content_hash(text[:20_000]),
+        content_type=content_type,
+        byte_length=len(data),
         snapshot_url=final_url or snapshot_url,
         snapshot_at=final_at or snapshot_at,
         requested_snapshot_url=snapshot_url,

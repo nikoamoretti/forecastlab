@@ -53,6 +53,9 @@ class Question(Base):
     runs: Mapped[list[ForecastRun]] = relationship(back_populates="question")
     versions: Mapped[list[ForecastVersion]] = relationship(back_populates="question")
     watches: Mapped[list[Watch]] = relationship(back_populates="question")
+    manual_evidence_attachments: Mapped[list[ManualEvidenceAttachment]] = relationship(
+        back_populates="question"
+    )
 
 
 class ResolutionContractRow(Base):
@@ -270,11 +273,104 @@ class Subquestion(Base):
     track: Mapped[ResearchTrack] = relationship(back_populates="subquestions")
 
 
+class ManualEvidenceAttachment(Base):
+    """A fetched user-supplied document, kept separate from factual claims."""
+
+    __tablename__ = "manual_evidence_attachments"
+    __table_args__ = (
+        UniqueConstraint("intake_key", name="uq_manual_evidence_intake_key"),
+        CheckConstraint(
+            "intended_use IN ('general_question_evidence', 'forecast_node')",
+            name="ck_manual_evidence_intended_use",
+        ),
+        CheckConstraint(
+            "mode IN ('live', 'backtest')",
+            name="ck_manual_evidence_mode",
+        ),
+        CheckConstraint(
+            "status IN ('accepted', 'rejected')",
+            name="ck_manual_evidence_status",
+        ),
+        CheckConstraint(
+            "temporal_basis IN ('publication_date', 'snapshot_date', 'retrieval_date')",
+            name="ck_manual_evidence_temporal_basis",
+        ),
+        CheckConstraint(
+            "(intended_use = 'forecast_node' AND target_node_id IS NOT NULL) OR "
+            "(intended_use = 'general_question_evidence' AND target_node_id IS NULL)",
+            name="ck_manual_evidence_target",
+        ),
+        CheckConstraint(
+            "(mode = 'backtest' AND as_of IS NOT NULL) OR "
+            "(mode = 'live' AND as_of IS NULL)",
+            name="ck_manual_evidence_as_of",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    intake_key: Mapped[str] = mapped_column(String(64), nullable=False)
+    question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"), nullable=False)
+    target_node_id: Mapped[str | None] = mapped_column(
+        ForeignKey("forecast_nodes.id"), nullable=True
+    )
+    intended_use: Mapped[str] = mapped_column(String(32), nullable=False)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    mode: Mapped[str] = mapped_column(String(16), nullable=False)
+    as_of: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    submitted_url: Mapped[str] = mapped_column(Text, nullable=False)
+    canonical_url: Mapped[str] = mapped_column(Text, nullable=False)
+    final_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    status: Mapped[str] = mapped_column(String(16), nullable=False)
+    rejection_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    title: Mapped[str] = mapped_column(Text, default="")
+    publisher: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    retrieved_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    source_available_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    temporal_basis: Mapped[str] = mapped_column(String(32), nullable=False)
+    publication_date_source: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    publication_date_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    publication_date_hint: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    publication_date_hint_source: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    modified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    modified_date_source: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    published_at_unknown: Mapped[bool] = mapped_column(Boolean, default=False)
+    source_class: Mapped[str] = mapped_column(String(32), default="secondary")
+    raw_content_hash: Mapped[str] = mapped_column(String(64), default="")
+    extracted_text_hash: Mapped[str] = mapped_column(String(64), default="")
+    extracted_text: Mapped[str] = mapped_column(Text, default="")
+    content_type: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    byte_length: Mapped[int] = mapped_column(Integer, default=0)
+    status_code: Mapped[int] = mapped_column(Integer, default=0)
+    as_of_eligible: Mapped[bool] = mapped_column(Boolean, default=False)
+    requested_snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    requested_snapshot_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    final_snapshot_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    final_snapshot_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    archived_original_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    snapshot_verification_status: Mapped[str | None] = mapped_column(
+        String(64), nullable=True
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    question: Mapped[Question] = relationship(back_populates="manual_evidence_attachments")
+    evidence_items: Mapped[list[EvidenceItem]] = relationship(
+        back_populates="manual_evidence_attachment"
+    )
+
+
 class EvidenceItem(Base):
     __tablename__ = "evidence_items"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"))
+    manual_evidence_attachment_id: Mapped[str | None] = mapped_column(
+        ForeignKey("manual_evidence_attachments.id"), nullable=True
+    )
     track_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     subquestion: Mapped[str | None] = mapped_column(Text, nullable=True)
     url: Mapped[str] = mapped_column(Text)
@@ -308,6 +404,9 @@ class EvidenceItem(Base):
     published_at_unknown: Mapped[bool] = mapped_column(Boolean, default=False)
 
     run: Mapped[ForecastRun] = relationship(back_populates="evidence")
+    manual_evidence_attachment: Mapped[ManualEvidenceAttachment | None] = relationship(
+        back_populates="evidence_items"
+    )
     claims: Mapped[list[EvidenceClaimRow]] = relationship(back_populates="evidence_item")
 
 
@@ -1644,6 +1743,19 @@ class WatchEvent(Base):
     fetch_status: Mapped[str] = mapped_column(String(32), default="ok")
 
     watch: Mapped[Watch] = relationship(back_populates="events")
+
+
+def _watch_auto_rerun_guard(
+    _mapper: object,
+    _connection: Connection,
+    target: Watch,
+) -> None:
+    if target.auto_rerun:
+        raise ValueError("watcher_auto_rerun_disabled")
+
+
+event.listen(Watch, "before_insert", _watch_auto_rerun_guard)
+event.listen(Watch, "before_update", _watch_auto_rerun_guard)
 
 
 class WorkerHeartbeat(Base):

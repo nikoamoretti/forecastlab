@@ -48,11 +48,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "historical_evidence_candidates" in tables
     assert "historical_evidence_documents" in tables
     assert "historical_evidence_packet_documents" in tables
+    assert "manual_evidence_attachments" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -81,6 +82,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "publication_date_hint_source",
             "modified_at",
             "modified_date_source",
+            "manual_evidence_attachment_id",
         } <= evidence_item_cols
         evidence_claim_cols = {
             column["name"] for column in inspect(engine).get_columns("evidence_claims")
@@ -492,7 +494,60 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
+
+
+def test_manual_evidence_migration_is_empty_reversible_and_disables_legacy_auto_rerun(
+    tmp_path,
+) -> None:
+    db_url = f"sqlite:///{tmp_path}/manual-evidence.db"
+    command.upgrade(alembic_config(db_url), "20260826_0028")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "INSERT INTO questions "
+                "(id, original_text, question_type, created_at, status, stale, "
+                "requested_mode, requested_profile_id, is_benchmark) VALUES "
+                "('manual-question', 'Will it occur?', 'binary', "
+                "'2026-08-29 00:00:00', 'complete', 0, 'demo', "
+                "'three_track_ensemble', 0)"
+            )
+        )
+        connection.execute(
+            text(
+                "INSERT INTO watches "
+                "(id, question_id, endpoint_url, endpoint_type, json_path, poll_seconds, "
+                "status, auto_rerun) VALUES "
+                "('legacy-auto-watch', 'manual-question', 'https://example.org/status', "
+                "'json', '$.value', 300, 'active', 1)"
+            )
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+    inspector = inspect(engine)
+    assert "manual_evidence_attachments" in inspector.get_table_names()
+    evidence_columns = {
+        column["name"] for column in inspector.get_columns("evidence_items")
+    }
+    assert "manual_evidence_attachment_id" in evidence_columns
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT auto_rerun FROM watches WHERE id = 'legacy-auto-watch'")
+        ).scalar_one() == 0
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM manual_evidence_attachments")
+        ).scalar_one() == 0
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.downgrade(alembic_config(db_url), "20260826_0028")
+    inspector = inspect(engine)
+    assert "manual_evidence_attachments" not in inspector.get_table_names()
+    assert "manual_evidence_attachment_id" not in {
+        column["name"] for column in inspector.get_columns("evidence_items")
+    }
+    with engine.connect() as connection:
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
 def test_mode_aware_temporal_migration_preserves_existing_evidence_claims(tmp_path) -> None:
@@ -630,7 +685,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -663,7 +718,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260826_0028"
+            == "20260829_0029"
         )
 
 
@@ -733,7 +788,7 @@ def test_historical_evidence_migration_preserves_existing_experiments_without_fa
     with engine.connect() as connection:
         assert connection.execute(
             text("SELECT version_num FROM alembic_version")
-        ).scalar_one() == "20260826_0028"
+        ).scalar_one() == "20260829_0029"
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
@@ -774,7 +829,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260826_0028"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

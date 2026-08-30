@@ -73,6 +73,7 @@ REQUIRED_TABLES = {
     "historical_evidence_candidates",
     "historical_evidence_documents",
     "historical_evidence_packet_documents",
+    "manual_evidence_attachments",
 }
 
 
@@ -152,7 +153,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     }
     assert REQUIRED_QUESTION_COLUMNS <= question_cols
     assert REQUIRED_RUN_COLUMNS <= run_cols
-    assert "published_at_unknown" in evidence_cols
+    assert {"published_at_unknown", "manual_evidence_attachment_id"} <= evidence_cols
     assert {"lease_owner", "lease_expires_at", "available_at", "error_category", "error_history_json"} <= job_cols
     assert {"experiment_id", "benchmark_task_id"} <= result_cols
     assert {
@@ -165,7 +166,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260826_0028"
+        assert current == "20260829_0029"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

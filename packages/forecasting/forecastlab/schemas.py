@@ -283,6 +283,7 @@ class SearchHit(BaseModel):
 
 class FetchedDocument(BaseModel):
     url: str
+    final_url: str | None = None
     title: str
     publisher: str | None = None
     published_at: datetime | None = None
@@ -297,6 +298,10 @@ class FetchedDocument(BaseModel):
     modified_date_source: str | None = None
     text: str
     content_hash: str
+    raw_content_hash: str | None = None
+    extracted_text_hash: str | None = None
+    content_type: str | None = None
+    byte_length: int = Field(default=0, ge=0)
     snapshot_url: str | None = None
     snapshot_at: datetime | None = None
     requested_snapshot_url: str | None = None
@@ -310,6 +315,20 @@ class FetchedDocument(BaseModel):
     rejection_reason: str | None = None
     as_of_eligible: bool = True
     published_at_unknown: bool = False
+
+
+class AttachedEvidenceDocument(BaseModel):
+    """A user-supplied document explicitly attached to a forecast run.
+
+    The attachment is not a claim. It can only become forecasting context after
+    the ordinary node-specific EvidenceExtractor validates a claim during an
+    explicit run.
+    """
+
+    attachment_id: str = Field(min_length=1)
+    evidence_item_id: str = Field(min_length=1)
+    target_node_id: str | None = None
+    document: FetchedDocument
 
 
 class EvidenceClaim(BaseModel):

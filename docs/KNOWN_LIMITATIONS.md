@@ -8,6 +8,7 @@
 - Wayback coverage is incomplete; missing snapshots mean missing evidence, not proof of absence.
 - Model pretraining can leak post-cutoff facts into backtests.
 - Auto-rerun is disabled. Watches only mark a forecast stale. Reruns require user action.
+- Manual evidence URL intake audits the fetched document and can make it available to the existing extractor on a later explicit run. Intake does not itself establish factual correctness, relevance, independence, or claim grounding, and it never creates an Evidence Claim. Backtest intake remains dependent on archive or supported immutable-source coverage.
 - Reliability diagrams are withheld below 20 resolved rows. That threshold is not a calibration claim.
 - Synthetic benchmarks cannot support product-level forecasting-quality claims.
 - The first V1 comparison has only ten synthetic questions. Its Brier, log-loss, cost, latency, completion, and evidence-coverage outputs verify the experiment framework and cannot establish profile superiority.
@@ -40,4 +41,5 @@
 - Partial forecasts are scored separately from full forecasts. Mixing them into a single headline success rate is a defect.
 - Built-in synthetic datasets are versioned. Older fixture versions remain as archived history when content changes.
 - Search and fetch caches are per run. They do not survive a rerun after a watch change.
+- FL-QF001 is cancelled. ForecastLab intentionally retains a question-first workflow; it has no Question Feed, practice league, market/community probability display, automatic scheduler, or automatic rerun service.
 - The frozen frontend dependency lock retains three known high-severity advisories involving `next`, nested `postcss`, and `sharp`. The available remediation is a breaking Next upgrade and remains outside this task; critical advisories were zero in the preserved fresh-checkout verification.

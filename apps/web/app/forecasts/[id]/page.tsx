@@ -20,6 +20,11 @@ export default function ForecastPage() {
   const [error, setError] = useState<string | null>(null);
   const [openTrack, setOpenTrack] = useState<string | null>(null);
   const [watchUrl, setWatchUrl] = useState("https://example.com/status.json");
+  const [evidenceUrl, setEvidenceUrl] = useState("");
+  const [evidenceNote, setEvidenceNote] = useState("");
+  const [evidenceNodeId, setEvidenceNodeId] = useState("");
+  const [evidenceMessage, setEvidenceMessage] = useState<string | null>(null);
+  const [evidenceSubmitting, setEvidenceSubmitting] = useState(false);
 
   async function load() {
     const payload = await api<any>(`/api/questions/${id}/report`);
@@ -72,6 +77,42 @@ export default function ForecastPage() {
     await load();
   }
 
+  async function addEvidenceUrl(event: React.FormEvent) {
+    event.preventDefault();
+    setEvidenceSubmitting(true);
+    setEvidenceMessage(null);
+    try {
+      const requestedMode = data?.requested_mode || data?.latest_run?.mode || "live";
+      if (requestedMode !== "live" && requestedMode !== "backtest") {
+        throw new Error("Manual external evidence is available for live and backtest questions; demo runs remain fixture-only.");
+      }
+      const mode = requestedMode;
+      const result = await api<any>(`/api/questions/${id}/evidence-urls`, {
+        method: "POST",
+        body: JSON.stringify({
+          url: evidenceUrl,
+          note: evidenceNote || undefined,
+          intended_use: evidenceNodeId ? "forecast_node" : "general_question_evidence",
+          forecast_node_id: evidenceNodeId || undefined,
+          mode,
+          as_of: mode === "backtest" ? data?.requested_as_of || data?.latest_run?.as_of : undefined
+        })
+      });
+      setEvidenceMessage(
+        result.accepted
+          ? "Evidence accepted. A fresh explicit rerun is required before ordinary claim extraction can use it."
+          : `Evidence rejected: ${result.rejection_reason || "document rejected"}`
+      );
+      setEvidenceUrl("");
+      setEvidenceNote("");
+      await load();
+    } catch (err) {
+      setEvidenceMessage(err instanceof Error ? err.message : "Evidence intake failed");
+    } finally {
+      setEvidenceSubmitting(false);
+    }
+  }
+
   if (error) return <p>{error}</p>;
   if (!data) return <p>Loading forecast…</p>;
   const run = data.latest_run || {};
@@ -113,6 +154,9 @@ export default function ForecastPage() {
   const materialAssessment = materialCompleteness?.execution_assessment || null;
   const materialGateFailed = materialPlanAudit?.status === "failed" || materialAssessment?.status === "failed";
   const scenarioSynthesis = v1Report?.scenario_synthesis || null;
+  const manualEvidence = data.manual_evidence_urls || [];
+  const manualEvidenceMode = data?.requested_mode || run.mode || "demo";
+  const manualEvidenceModeSupported = manualEvidenceMode === "live" || manualEvidenceMode === "backtest";
   const displayedProbability = graphExecutionFailed
     ? null
     : v1Report?.final_probability ?? data.latest_probability;
@@ -891,6 +935,105 @@ export default function ForecastPage() {
             ))}
           </tbody>
         </table>
+      </section>
+
+      <section className="border border-rule bg-white/70 p-4" aria-label="Manual evidence URL intake">
+        <h3 className="font-serif text-2xl">Add evidence URL</h3>
+        <p className="mt-2 text-sm text-ink/70">
+          Adding a URL fetches and audits the document. It creates no claim and never starts a forecast.
+          Accepted evidence can enter the normal extraction path only on a fresh explicit rerun with matching mode and cutoff.
+        </p>
+        {!manualEvidenceModeSupported ? (
+          <p className="mt-2 text-sm text-amber-800">
+            Manual external evidence is available for live and backtest questions. Demo runs remain fixture-only.
+          </p>
+        ) : null}
+        <form onSubmit={addEvidenceUrl} className="mt-4 grid gap-3 md:grid-cols-2">
+          <label className="text-sm md:col-span-2">
+            Evidence URL
+            <input
+              className="mt-1 w-full border border-rule p-2"
+              type="url"
+              required
+              value={evidenceUrl}
+              onChange={(event) => setEvidenceUrl(event.target.value)}
+              placeholder="https://www.example.org/source"
+            />
+          </label>
+          <label className="text-sm">
+            Intended use
+            <select
+              className="mt-1 w-full border border-rule p-2"
+              value={evidenceNodeId}
+              onChange={(event) => setEvidenceNodeId(event.target.value)}
+            >
+              <option value="">General question evidence</option>
+              {reportNodes.map((node: any) => (
+                <option key={node.id} value={node.id}>{node.question}</option>
+              ))}
+            </select>
+          </label>
+          <label className="text-sm">
+            Optional note
+            <input
+              className="mt-1 w-full border border-rule p-2"
+              value={evidenceNote}
+              onChange={(event) => setEvidenceNote(event.target.value)}
+              placeholder="Why this source matters"
+            />
+          </label>
+          <button
+            className="border border-ink px-4 py-2 md:col-span-2 md:w-fit"
+            type="submit"
+            disabled={evidenceSubmitting || !manualEvidenceModeSupported}
+          >
+            {evidenceSubmitting ? "Checking evidence…" : "Add evidence URL"}
+          </button>
+        </form>
+        {evidenceMessage ? <p className="mt-3 text-sm" role="status">{evidenceMessage}</p> : null}
+        {manualEvidence.length ? (
+          <div className="mt-5 space-y-3">
+            {manualEvidence.map((item: any) => (
+              <article key={item.id} className="border border-rule p-3 text-sm">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    {item.accepted ? (
+                      <a className="font-medium underline decoration-copper" href={item.canonical_url} target="_blank" rel="noreferrer">
+                        {item.title || item.canonical_url}
+                      </a>
+                    ) : (
+                      <p className="font-medium">{item.title || item.canonical_url}</p>
+                    )}
+                    <p className="text-xs text-ink/60">{item.publisher || "Publisher unavailable"}</p>
+                  </div>
+                  <p className={item.accepted ? "text-emerald-800" : "text-red-800"}>
+                    {item.accepted ? "accepted" : "rejected"}
+                  </p>
+                </div>
+                <p className="mt-2 break-all font-mono text-xs text-ink/60">
+                  submitted {item.submitted_url}
+                  {item.final_url && item.final_url !== item.canonical_url ? ` · final ${item.final_url}` : ""}
+                </p>
+                <p className="mt-2 font-mono text-xs text-ink/60">
+                  Published {item.publication_date || "unavailable"} · retrieved {item.retrieval_date} · available {item.source_available_at}
+                  {" · "}basis {String(item.temporal_basis || "unavailable").replaceAll("_", " ")}
+                  {" · "}publication verified {item.publication_date_verified ? "yes" : "no"}
+                </p>
+                <p className="mt-1 break-all font-mono text-xs text-ink/60">
+                  content {item.content_hash || "unavailable"} · extracted text {item.extracted_text_hash || "unavailable"}
+                  {" · "}{item.content_type || "content type unavailable"} · {item.byte_length ?? 0} bytes
+                </p>
+                <p className="mt-1 text-xs text-ink/70">
+                  Target {item.forecast_node_id || "general question"}
+                  {item.rejection_reason ? ` · ${item.rejection_reason}` : ""}
+                  {item.fresh_explicit_rerun_required ? " · fresh explicit rerun required" : ""}
+                </p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-4 text-sm text-ink/60">No manual evidence URLs have been submitted.</p>
+        )}
       </section>
 
       <section>

@@ -12,6 +12,8 @@ Double-click `Start ForecastLab.command`, or:
 
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Stop with `Stop ForecastLab.command` or `./scripts/dev_down.sh`.
 
+The launcher installs from the frozen locks, waits for API/web/worker readiness, and shuts down by recorded service PID. See [Mac-local startup](docs/MAC_LOCAL_STARTUP.md).
+
 Developer commands:
 
 ```bash
@@ -40,7 +42,8 @@ FORECASTLAB_RUN_PAID_SMOKE=1 uv run python scripts/paid_smoke.py
 3. Searches, fetches, and stores evidence with hashes, timestamps, and rejection reasons.
 4. Aggregates track probabilities in code: clip, logit mean, shrink toward the base-rate track.
 5. Versions the result. A watch can mark a question stale. Reruns require user action.
-6. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode. Creating an experiment freezes profiles, prompts, provider settings, the resolution contract, pricing, and the code/dependency identity. Later edits to those files or to Settings do not change that experiment. A benchmark task fails closed if the executing code or dependency identity differs from the freeze.
+6. Lets the user audit and attach a source URL to a question or graph node. Intake creates no claim or run; accepted evidence enters only a fresh explicit run through the existing extractor.
+7. Evaluation Lab runs asynchronous benchmark experiments. Real tasks use backtest mode. Creating an experiment freezes profiles, prompts, provider settings, the resolution contract, pricing, and the code/dependency identity. Later edits to those files or to Settings do not change that experiment. A benchmark task fails closed if the executing code or dependency identity differs from the freeze.
 
 ## Settings
 
