@@ -88,4 +88,17 @@ The second acquisition command is a deterministic resume. Verification performs 
 
 ## Phase result
 
-The sanitized phase receipt is written only after the public acquisition run to `artifacts/real_corpus_acquisition_phase1/summary.json`. Raw records and provisional outcomes remain external. Any target shortfall is a preserved result, not a reason to relax screening.
+The completed Phase 1 acquisition produced 260 real, resolved binary candidates. All 260 passed machine completeness only and remain pending human question review, independent outcome adjudication, licensing review, event-family review, and leakage-group review. The outcome-independent provisional allocation contains 60 development, 40 validation, and 100 test candidates, with 60 reserves and no detected cross-split event-family or leakage-group assignment.
+
+Historical evidence coverage is a material limitation:
+
+- 30 candidates have a ready evidence packet and 230 have an explicit `no_eligible_evidence` packet;
+- 35 documents were accepted, representing 26 distinct content blobs and 21 primary-source documents;
+- zero candidates have three eligible documents;
+- zero candidates have eligible documents from two hosts;
+- all 35 accepted documents use verified pre-cutoff snapshot time rather than retrieval time;
+- the corpus is concentrated in 2026, with 138 `other` and 60 `sports` candidates, and therefore is not representative evidence for evaluation quality.
+
+The canonical external workspace manifest hash is `e224766217bf50c3cf2187738dfd55734e33de9b0bc35e529b0be502eef892ed`; the canonical summary hash is `cb77a1e347357f893fc1c2302b1ecf3f86a488845d735ad38febd44e045c9267`. Verification-only mode confirmed 260 records, content-address integrity, queue hashes, blinded/sealed separation, zero suspected secrets, zero network requests, and zero provider calls.
+
+The sanitized aggregate receipt is tracked at `artifacts/real_corpus_acquisition_phase1/summary.json`. Raw records, provisional outcomes, downloaded bytes, extracted text, and private logs remain external. No reviewer or adjudicator was appointed, no release was reviewed or frozen, and no forecast, experiment, score, calibration calculation, OpenAI call, Tavily call, or paid-provider call occurred. Any evidence, representativeness, licensing, or independent-review shortfall is preserved rather than relaxed.

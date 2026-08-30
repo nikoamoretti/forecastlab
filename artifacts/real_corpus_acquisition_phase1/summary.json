@@ -1,0 +1,128 @@
+{
+  "artifact_version": "real_corpus_acquisition_phase1_summary_v1",
+  "policy_version": "private_v1_candidate_acquisition_v1",
+  "source": {
+    "adapter": "manifold_public_api_v0",
+    "authenticated": false,
+    "terms_review_status": "pending_human_review"
+  },
+  "executable_source": {
+    "commit": "2dd69fc1d62fa4c77f44280b1c2ba668e3db513c",
+    "tree": "defd63da1dea1db3d1b181ff30090ff038f85b38"
+  },
+  "canonical_receipts": {
+    "manifest_hash": "e224766217bf50c3cf2187738dfd55734e33de9b0bc35e529b0be502eef892ed",
+    "summary_hash": "cb77a1e347357f893fc1c2302b1ecf3f86a488845d735ad38febd44e045c9267",
+    "workspace_manifest_hash": "356322a948125c54a0e70011bee282c98cdb2262e5194dc2fd160a34f9795804"
+  },
+  "counts": {
+    "acquired_candidates": 260,
+    "machine_complete": 260,
+    "machine_follow_up": 0,
+    "rejected_before_acquisition": 1445,
+    "archive_attempts": 406,
+    "rejected_document_attempts": 371,
+    "accepted_documents": 35,
+    "distinct_document_blobs": 26,
+    "evidence_ready_packets": 30,
+    "no_eligible_evidence_packets": 230,
+    "provisional_assignments": 200,
+    "reserves": 60
+  },
+  "provisional_split": {
+    "status": "provisional_pending_human_review",
+    "outcome_used": false,
+    "development": 60,
+    "validation": 40,
+    "test": 100,
+    "reserves": 60,
+    "cross_split_event_families": 0,
+    "cross_split_leakage_groups": 0
+  },
+  "evidence_coverage": {
+    "candidates_with_one_or_more_documents": 30,
+    "candidates_with_three_or_more_documents": 0,
+    "candidates_with_two_or_more_hosts": 0,
+    "primary_document_count": 21,
+    "cutoff_verified_snapshot_documents": 35
+  },
+  "domain_distribution": {
+    "business": 9,
+    "economics": 20,
+    "other": 138,
+    "politics": 10,
+    "regulation": 3,
+    "science": 9,
+    "sports": 60,
+    "technology": 11
+  },
+  "date_distribution": {
+    "forecast_date_min": "2026-05-17T03:23:33.011000+00:00",
+    "forecast_date_max": "2026-08-12T17:16:44.334000+00:00",
+    "resolution_date_min": "2026-05-29T16:00:00+00:00",
+    "resolution_date_max": "2026-08-24T16:27:18.505000+00:00",
+    "resolution_year_counts": {
+      "2026": 260
+    },
+    "resolution_month_counts": {
+      "2026-05": 2,
+      "2026-06": 110,
+      "2026-07": 101,
+      "2026-08": 47
+    }
+  },
+  "screening_audit": {
+    "distinct_event_families": 246,
+    "distinct_leakage_groups": 212,
+    "near_duplicate_candidates_queued": 8,
+    "licensing_pending_human_review": 260
+  },
+  "queue_receipts": {
+    "question_review": {
+      "count": 260,
+      "sha256": "61454adfad535460fc1d6057e3c699fc80a978cf77d4a53f8badb6ae7c1be370"
+    },
+    "independent_outcome_adjudication": {
+      "count": 260,
+      "sha256": "9cd11300afba867f712ae8a859c50a0cd7329aedb73707677056592d856b1b63"
+    },
+    "licensing": {
+      "count": 260,
+      "sha256": "4c1ddefc23c5aa06fcf648bcd55b7d66c7e93d2ff1722a251eb4a66befe8f578"
+    },
+    "event_family": {
+      "count": 260,
+      "sha256": "01fd9b8f7d0105d9437b265019d1c0bc89b3f02a31bf9ee96fa30be082ac26f0"
+    },
+    "leakage": {
+      "count": 260,
+      "sha256": "a25fa1bb1c2415ced6dbaa72e7086396bdaadaef6715c0f9d32905a5e31c62f8"
+    }
+  },
+  "human_review": {
+    "reviewer_assigned": false,
+    "independent_adjudicator_assigned": false,
+    "release_reviewed": false,
+    "release_frozen": false
+  },
+  "execution": {
+    "forecast_runs": 0,
+    "experiments": 0,
+    "scores": 0,
+    "calibration": null,
+    "openai_calls": 0,
+    "tavily_calls": 0,
+    "paid_provider_calls": 0,
+    "provider_spend_usd": 0.0
+  },
+  "protected_files_aggregate_sha256": "029d951c4063d8979b8aff4e2d7155493e2643245710a38ace5aad63ddfeebcd",
+  "limitations": [
+    "All candidates remain pending independent human review and adjudication.",
+    "Only 30 of 260 candidates have eligible historical evidence.",
+    "No candidate meets the target of three documents or two source hosts.",
+    "Licensing remains pending human review for all candidates.",
+    "The candidates are concentrated in a narrow 2026 date range and in other and sports domains.",
+    "The latest live operational acceptance remains a hard 3-of-5 failure.",
+    "Forecasting quality and calibration remain unestablished."
+  ]
+}

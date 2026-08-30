@@ -1311,8 +1311,13 @@ def acquire(
             source_market_ids.add(source_market_id)
             normalized_hashes.add(blinded["normalized_question_hash"])
         page += 1
-        valid_times = [item.get("createdTime") for item in listings if isinstance(item, dict)]
-        valid_times = [int(item) for item in valid_times if isinstance(item, (int, float))]
+        valid_times: list[int] = []
+        for item in listings:
+            if not isinstance(item, dict):
+                continue
+            created_time = item.get("createdTime")
+            if isinstance(created_time, (int, float)):
+                valid_times.append(int(created_time))
         if not valid_times:
             break
         next_before = min(valid_times)
