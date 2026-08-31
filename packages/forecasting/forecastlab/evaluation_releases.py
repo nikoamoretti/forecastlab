@@ -6,6 +6,15 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.procedural_ai_review import (
+    OUTCOME_ADJUDICATION_RUBRIC_HASH,
+    OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+    PROCEDURAL_AI_RELEASE_LABEL,
+    PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+    QUESTION_REVIEW_RUBRIC_HASH,
+    QUESTION_REVIEW_RUBRIC_VERSION,
+    RESERVE_ORDER_POLICY_VERSION,
+)
 
 POLICY_VERSION = "private_v1_real_evaluation_release_v1"
 
@@ -44,6 +53,19 @@ class EvaluationReleasePolicy(BaseModel):
     known_source_license_required: bool = True
     evidence_cutoff_rule: Literal["forecast_date"] = "forecast_date"
     structural_blinding_only: bool = True
+    procedural_review_policy_version: Literal[
+        "private_v1_procedural_ai_review_v1"
+    ] = "private_v1_procedural_ai_review_v1"
+    required_question_review_artifacts_per_included_question: Literal[1] = 1
+    required_outcome_adjudication_artifacts_per_included_question: Literal[1] = 1
+    role_separated_codex_runs_required: Literal[True] = True
+    deterministic_reserve_order_required: Literal[True] = True
+    test_split_one_shot_required: Literal[True] = True
+    release_label: Literal[
+        "Procedurally AI-reviewed private-V1 evaluation release"
+    ] = "Procedurally AI-reviewed private-V1 evaluation release"
+    human_review_claim_allowed: Literal[False] = False
+    independent_validation_claim_allowed: Literal[False] = False
 
 
 PRIVATE_V1_REAL_EVALUATION_RELEASE_V1 = EvaluationReleasePolicy()
@@ -144,7 +166,7 @@ class EvaluationProviderIdentity(BaseModel):
 
 
 class EvaluationReleaseQuestionInput(BaseModel):
-    """Human review and provenance metadata attached to one dataset question."""
+    """Release metadata; procedural artifacts, not these IDs, prove review."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -186,6 +208,16 @@ class EvaluationPreregistration(BaseModel):
     dependency_lock_hash: str
     package_lock_hash: str
     provider_identity: EvaluationProviderIdentity
+    procedural_review_policy_version: str = PROCEDURAL_AI_REVIEW_POLICY_VERSION
+    procedural_review_release_label: str = PROCEDURAL_AI_RELEASE_LABEL
+    question_review_rubric_version: str = QUESTION_REVIEW_RUBRIC_VERSION
+    question_review_rubric_hash: str = QUESTION_REVIEW_RUBRIC_HASH
+    outcome_adjudication_rubric_version: str = (
+        OUTCOME_ADJUDICATION_RUBRIC_VERSION
+    )
+    outcome_adjudication_rubric_hash: str = OUTCOME_ADJUDICATION_RUBRIC_HASH
+    reserve_order_policy_version: str = RESERVE_ORDER_POLICY_VERSION
+    reserve_order_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
     evidence_cutoff_rule: Literal["forecast_date"] = "forecast_date"
     primary_metric: Literal["brier_score"] = "brier_score"
     secondary_metrics: tuple[Literal["log_loss"], ...] = ("log_loss",)

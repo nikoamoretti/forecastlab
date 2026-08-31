@@ -25,6 +25,7 @@ from forecastlab.evaluation_releases import (
 from forecastlab.execution import ExecutionContext, configuration_hash, resolve_execution_context
 from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.pricing import load_pricing, pricing_hash
+from forecastlab.procedural_ai_review import PROCEDURAL_AI_REVIEW_POLICY_VERSION
 from forecastlab.profiles import effective_profile, load_profile, profile_hash
 from forecastlab.prompts import PromptBundle, load_prompt_bundle
 from forecastlab.schemas import ForecastContract, ForecastProfile, ResolutionContract
@@ -48,6 +49,7 @@ from forecastlab_api.models import (
     EvaluationDataset,
     EvaluationQuestion,
     EvaluationRelease,
+    EvaluationTestSplitExecution,
     ForecastContractRow,
     ForecastExperiment,
     ForecastExperimentResult,
@@ -97,6 +99,36 @@ class ForecastExperimentComparisonReport(BaseModel):
     profiles: list[dict[str, Any]] = Field(default_factory=list)
     rows: list[dict[str, Any]] = Field(default_factory=list)
     notice: str = COMPARISON_NOTICE
+
+
+def claim_evaluation_test_split_once(
+    session: Session,
+    *,
+    release: EvaluationRelease,
+    experiment: ForecastExperiment,
+) -> EvaluationTestSplitExecution:
+    """Consume the preregistered test split exactly once, before tasks exist."""
+
+    existing = session.scalar(
+        select(EvaluationTestSplitExecution).where(
+            EvaluationTestSplitExecution.evaluation_release_id == release.id
+        )
+    )
+    if existing is not None:
+        if existing.forecast_experiment_id == experiment.id:
+            return existing
+        raise ValueError("evaluation_test_split_one_shot_already_claimed")
+    claim = EvaluationTestSplitExecution(
+        id=str(uuid.uuid4()),
+        evaluation_release_id=release.id,
+        forecast_experiment_id=experiment.id,
+        execution_manifest_hash=release.execution_manifest_hash,
+        preregistration_hash=release.preregistration_hash,
+        claimed_at=utcnow(),
+    )
+    session.add(claim)
+    session.flush()
+    return claim
 
 
 def _safe_json(payload: Any) -> str:
@@ -285,6 +317,21 @@ def create_forecast_experiment(
             raise ValueError("evaluation_release_not_found")
         if release.status != "frozen" or release.frozen_at is None:
             raise ValueError("evaluation_release_must_be_frozen")
+        if (
+            release.procedural_review_policy_version
+            != PROCEDURAL_AI_REVIEW_POLICY_VERSION
+            or not release.review_manifest_hash
+            or not release.reserve_order_hash
+        ):
+            raise ValueError("procedural_ai_review_gate_required")
+        if evaluation_split == "test":
+            existing_test_claim = session.scalar(
+                select(EvaluationTestSplitExecution.id).where(
+                    EvaluationTestSplitExecution.evaluation_release_id == release.id
+                )
+            )
+            if existing_test_claim is not None:
+                raise ValueError("evaluation_test_split_one_shot_already_claimed")
         assert_release_environment(release)
         manifest = get_blinded_execution_manifest(release)
         blinded_questions = [
@@ -309,6 +356,11 @@ def create_forecast_experiment(
             "execution_manifest_hash": release.execution_manifest_hash,
             "scoring_manifest_hash": release.scoring_manifest_hash,
             "preregistration_hash": release.preregistration_hash,
+            "procedural_review_policy_version": (
+                release.procedural_review_policy_version
+            ),
+            "review_manifest_hash": release.review_manifest_hash,
+            "reserve_order_hash": release.reserve_order_hash,
             "split": evaluation_split,
         }
         if historical_evidence_release_id is None:
@@ -447,6 +499,12 @@ def create_forecast_experiment(
     )
     session.add(experiment)
     session.flush()
+    if release is not None and evaluation_split == "test":
+        claim_evaluation_test_split_once(
+            session,
+            release=release,
+            experiment=experiment,
+        )
     for item in questions:
         for profile_id in profiles:
             experiment_run = ForecastExperimentRun(
@@ -817,6 +875,12 @@ def execute_forecast_experiment_run(
             or release.execution_manifest_hash
             != release_snapshot.get("execution_manifest_hash")
             or release.preregistration_hash != release_snapshot.get("preregistration_hash")
+            or release.procedural_review_policy_version
+            != release_snapshot.get("procedural_review_policy_version")
+            or release.review_manifest_hash
+            != release_snapshot.get("review_manifest_hash")
+            or release.reserve_order_hash
+            != release_snapshot.get("reserve_order_hash")
             or experiment.evaluation_split != release_snapshot.get("split")
         ):
             raise ExperimentEnvironmentMismatch(

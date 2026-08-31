@@ -166,7 +166,7 @@ def _assert_integrity_schema(engine: Engine) -> None:
     assert "alembic_version" in version
     with engine.connect() as connection:
         current = connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert current == "20260829_0029"
+        assert current == "20260831_0030"
 
 
 def _assert_uniqueness(engine: Engine) -> None:

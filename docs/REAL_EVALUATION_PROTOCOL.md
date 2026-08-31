@@ -2,7 +2,7 @@
 
 Status: infrastructure protocol for assembling resolved historical datasets and running controlled measurements. Creating or running an experiment does not, by itself, support a forecasting-quality claim.
 
-This document complements [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md). Synthetic fixtures remain useful for software verification, but they cannot establish forecasting accuracy, calibration, or profile superiority. Real evaluation requires independently auditable questions with outcomes that were unknown at the recorded forecast date and are known at import time.
+This document complements [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md). Synthetic fixtures remain useful for software verification, but they cannot establish forecasting accuracy, calibration, or profile superiority. Real evaluation requires auditable questions with outcomes that were unknown at the recorded forecast date and are known at import time.
 
 ## Dataset unit and identity
 
@@ -65,9 +65,9 @@ Dataset name, version, description, and provenance are supplied as import metada
 
 The importer rejects the entire artifact if any row has a missing field, a non-binary outcome, a generic or duplicate resolution rule, a vague non-binary question, a forecast date at or after resolution, a future resolution date, or a duplicate question. It never persists a partial dataset.
 
-## Review standard
+## Dataset structural review standard
 
-Before marking a dataset `reviewed`, a reviewer must independently confirm:
+Before marking a dataset `reviewed`, the dataset review process must confirm:
 
 1. The question was forecastable as of `forecast_date` and its outcome was not yet known.
 2. The yes and no conditions are exhaustive enough to score consistently.
@@ -76,7 +76,7 @@ Before marking a dataset `reviewed`, a reviewer must independently confirm:
 5. The final outcome follows the source and rule without looking at system performance.
 6. The provenance describes where questions came from and how outcomes were verified.
 
-Dataset rows remain the resolved-question source of truth. The separate `EvaluationRelease` layer now stores opaque reviewer and adjudicator identities, licensing metadata, event-family and leakage-group membership, exclusions, split membership, and versioned corrections without rewriting the underlying frozen datasets.
+Dataset rows remain the resolved-question source of truth. The separate `EvaluationRelease` layer stores licensing metadata, event-family and leakage-group membership, exclusions, split membership, versioned corrections, and immutable role-separated procedural AI review receipts without rewriting the underlying frozen datasets. Legacy opaque reviewer/adjudicator columns remain compatibility metadata and do not satisfy the production review gate.
 
 ## Required V1 splits
 
@@ -101,9 +101,10 @@ An `EvaluationRelease` follows `draft` → `reviewed` → `frozen` and binds the
 - a blinded execution manifest;
 - a separately typed sealed scoring manifest;
 - a complete preregistration;
-- independent manifest hashes and one aggregate release hash.
+- independently computed manifest hashes and one aggregate release hash;
+- one passed `QuestionReviewArtifact` and one passed `OutcomeAdjudicationArtifact` per included question.
 
-Every included question requires an opaque reviewer ID, a different opaque outcome-adjudicator ID, a completed review time, a known source-license classification, a source-use basis, an explicit redistribution flag, and an adjudication-record hash. `forecast_date` must precede both `resolution_date` and `outcome_known_at`, and `resolution_date` cannot follow `outcome_known_at`.
+Every included question requires two fresh, role-separated Codex receipts with disjoint typed inputs, distinct run IDs, frozen rubric and model/tool identities, source-only citations, immutable input/output hashes, and passed deterministic validation. A known source-license classification, source-use basis, explicit redistribution flag, and valid temporal ordering remain mandatory. The sealed scoring manifest derives its outcome only from the passed adjudication receipt. See [Procedural AI Review Gate V1](PROCEDURAL_AI_REVIEW_GATE_V1.md).
 
 Frozen releases and their membership rows are immutable. Repeating review or freeze against identical content is idempotent. A correction requires a new release version, a link to the prior frozen release, and a nonempty correction summary. ForecastLab provides structural blinding through separate DTOs and service boundaries; it does not claim cryptographic secrecy in the local application.
 
@@ -131,6 +132,9 @@ The evidence execution manifest is structurally blinded from outcomes and scorin
 - `POST /api/evaluation/releases/{id}/freeze` freezes the reviewed release and manifests.
 - `GET /api/evaluation/releases/{id}` returns the release audit, including exclusions and hashes.
 - `GET /api/evaluation/releases/{id}/execution-manifest` returns only the blinded worker DTO.
+- `POST /api/evaluation/releases/{id}/question-review-artifacts` records one externally produced, outcome-blind Codex receipt.
+- `POST /api/evaluation/releases/{id}/outcome-adjudication-artifacts` records one externally produced, question-review-blind Codex receipt after reserve ordering is frozen.
+- `GET /api/evaluation/releases/{id}/review-artifacts` returns the immutable procedural audit.
 - `GET /api/evaluation/evidence-releases` lists historical-evidence release lifecycle and hashes.
 - `POST /api/evaluation/evidence-releases` imports a typed draft release and packet/document audit.
 - `POST /api/evaluation/evidence-releases/{id}/review` verifies policy, manifests, and external bundle.

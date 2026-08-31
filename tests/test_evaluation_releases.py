@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import copy
 import json
-from datetime import UTC, datetime
+import uuid
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -20,6 +22,17 @@ from forecastlab.historical_evidence_releases import (
     HistoricalEvidenceCandidateInput,
     HistoricalEvidencePacketInput,
 )
+from forecastlab.procedural_ai_review import (
+    OUTCOME_ADJUDICATION_RUBRIC,
+    OUTCOME_ADJUDICATION_RUBRIC_HASH,
+    OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+    PROCEDURAL_AI_RELEASE_LABEL,
+    PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+    QUESTION_REVIEW_RUBRIC,
+    QUESTION_REVIEW_RUBRIC_HASH,
+    QUESTION_REVIEW_RUBRIC_VERSION,
+    review_artifact_payload_errors,
+)
 from forecastlab.prompts import PromptBundle
 from forecastlab_api.evaluation_datasets import (
     freeze_evaluation_dataset,
@@ -28,17 +41,21 @@ from forecastlab_api.evaluation_datasets import (
 )
 from forecastlab_api.evaluation_releases import (
     EvaluationReleaseValidationError,
+    _reserve_order_payload,
     assert_release_environment,
     create_evaluation_release,
     evaluation_release_artifact_hashes,
     freeze_evaluation_release,
     get_blinded_execution_manifest,
     get_sealed_scoring_manifest,
+    procedural_ai_review_gate_reasons,
+    record_procedural_ai_review_artifact,
     review_evaluation_release,
     validate_evaluation_release,
 )
 from forecastlab_api.forecast_experiments import (
     _sealed_outcome_for_terminal_run,
+    claim_evaluation_test_split_once,
     create_forecast_experiment,
 )
 from forecastlab_api.historical_evidence_releases import (
@@ -50,13 +67,19 @@ from forecastlab_api.models import (
     EvaluationDataset,
     EvaluationQuestion,
     EvaluationRelease,
+    ForecastExperiment,
     ForecastExperimentRun,
     ForecastRun,
     FrozenEvaluationReleaseError,
+    ImmutableProceduralAIReviewError,
+    ProceduralAIReviewArtifactRecord,
     ProviderCallLedger,
 )
 
 NOW = datetime(2026, 8, 26, tzinfo=UTC)
+REVIEW_STARTED_AT = NOW + timedelta(minutes=1)
+REVIEW_COMPLETED_AT = NOW + timedelta(minutes=2)
+REVIEW_RECORDED_AT = NOW + timedelta(minutes=3)
 PROVIDER = EvaluationProviderIdentity(
     model_provider="mock",
     model="mock-forecast-v1",
@@ -148,20 +171,202 @@ def _release_inputs(
                     inclusion_status="excluded" if excluded else "included",
                     exclusion_reason="Predeclared source eligibility exclusion" if excluded else None,
                     question_author_id=f"author_{split}_{index}",
-                    question_reviewer_id=f"reviewer_{split}_{index}",
-                    outcome_adjudicator_id=f"adjudicator_{split}_{index}",
-                    review_completed_at=datetime(2020, 6, 2, tzinfo=UTC),
+                    question_reviewer_id=None,
+                    outcome_adjudicator_id=None,
+                    review_completed_at=None,
                     outcome_known_at=datetime(2020, 6, 2, tzinfo=UTC),
                     source_license_status="public_domain",
                     source_use_basis="Official public metadata and resolution record.",
                     redistribution_allowed=False,
-                    adjudication_notes="Outcome independently checked against the resolver.",
-                    adjudication_record_hash=sha256_text(
-                        f"adjudication:{split}:{index}"
-                    ),
+                    adjudication_notes=None,
+                    adjudication_record_hash=None,
                 )
             )
     return result
+
+
+def _artifact_payload(
+    release: EvaluationRelease,
+    release_question,
+    question: EvaluationQuestion,
+    *,
+    artifact_type: str,
+) -> dict[str, object]:
+    contract = json.loads(question.resolution_contract)
+    contract_hash = sha256_text(canonical_json(contract))
+    source_id = f"source:{artifact_type}:{question.id}"
+    if artifact_type == "question_review":
+        manifest: dict[str, object] = {
+            "schema_version": 1,
+            "manifest_type": "question_review_manifest",
+            "evaluation_release_id": release.id,
+            "evaluation_release_question_id": release_question.id,
+            "evaluation_question_id": question.id,
+            "normalized_question_hash": sha256_text(
+                " ".join(question.question.split()).strip().casefold()
+            ),
+            "contract_hash": contract_hash,
+            "question": question.question,
+            "yes_condition": contract["yes_condition"],
+            "no_condition": contract["no_condition"],
+            "forecast_date": question.forecast_date.isoformat(),
+            "resolution_date": question.resolution_date.isoformat(),
+            "authoritative_resolver": contract["authoritative_resolver"],
+            "event_family_id": release_question.event_family_id,
+            "leakage_group_id": release_question.leakage_group_id,
+            "inclusion_status": "included",
+            "declared_source_license_status": release_question.source_license_status,
+            "declared_source_use_basis": release_question.source_use_basis,
+            "declared_redistribution_allowed": release_question.redistribution_allowed,
+            "sources": [
+                {
+                    "source_id": source_id,
+                    "url": f"https://origin.example/{question.id}",
+                    "title": "Timestamped pre-outcome question record",
+                    "source_role": "pre_outcome_origin",
+                    "source_available_at": "2018-12-01T00:00:00Z",
+                    "temporal_basis": "snapshot_date",
+                    "content_sha256": sha256_text(f"origin:{question.id}"),
+                    "source_license_status": release_question.source_license_status,
+                    "source_use_basis": release_question.source_use_basis,
+                    "redistribution_allowed": release_question.redistribution_allowed,
+                }
+            ],
+            "rubric_version": QUESTION_REVIEW_RUBRIC_VERSION,
+            "rubric_hash": QUESTION_REVIEW_RUBRIC_HASH,
+        }
+        output: dict[str, object] = {
+            "schema_version": 1,
+            "output_type": "question_review_output",
+            "decision": "accepted",
+            "findings": [
+                {
+                    "code": code,
+                    "status": "pass",
+                    "conclusion": f"Fixture-grounded procedural check: {code}.",
+                    "source_ids": [source_id],
+                }
+                for code in QUESTION_REVIEW_RUBRIC.required_finding_codes
+            ],
+            "uncertainties": [],
+            "conflicts": [],
+        }
+        role = "question_review"
+        rubric_version = QUESTION_REVIEW_RUBRIC_VERSION
+        rubric_digest = QUESTION_REVIEW_RUBRIC_HASH
+    else:
+        manifest = {
+            "schema_version": 1,
+            "manifest_type": "outcome_adjudication_manifest",
+            "evaluation_release_id": release.id,
+            "evaluation_release_question_id": release_question.id,
+            "evaluation_question_id": question.id,
+            "contract_hash": contract_hash,
+            "yes_condition": contract["yes_condition"],
+            "no_condition": contract["no_condition"],
+            "resolution_date": question.resolution_date.isoformat(),
+            "candidate_outcome": question.outcome,
+            "outcome_known_at": release_question.outcome_known_at.isoformat(),
+            "sources": [
+                {
+                    "source_id": source_id,
+                    "url": question.resolution_source,
+                    "title": "Authoritative resolution record",
+                    "source_role": "authoritative_resolution",
+                    "source_available_at": release_question.outcome_known_at.isoformat(),
+                    "temporal_basis": "publication_date",
+                    "content_sha256": sha256_text(f"resolution:{question.id}"),
+                }
+            ],
+            "rubric_version": OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+            "rubric_hash": OUTCOME_ADJUDICATION_RUBRIC_HASH,
+        }
+        output = {
+            "schema_version": 1,
+            "output_type": "outcome_adjudication_output",
+            "decision": "confirmed",
+            "adjudicated_outcome": question.outcome,
+            "findings": [
+                {
+                    "code": code,
+                    "status": "pass",
+                    "conclusion": f"Fixture-grounded procedural check: {code}.",
+                    "source_ids": [source_id],
+                }
+                for code in OUTCOME_ADJUDICATION_RUBRIC.required_finding_codes
+            ],
+            "uncertainties": [],
+            "conflicts": [],
+        }
+        role = "outcome_adjudication"
+        rubric_version = OUTCOME_ADJUDICATION_RUBRIC_VERSION
+        rubric_digest = OUTCOME_ADJUDICATION_RUBRIC_HASH
+    return {
+        "schema_version": 1,
+        "artifact_type": artifact_type,
+        "policy_version": PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+        "rubric_version": rubric_version,
+        "rubric_hash": rubric_digest,
+        "run_identity": {
+            "role": role,
+            "model_provider": "openai",
+            "model_id": "codex-test-model",
+            "model_version": "fixture-v1",
+            "tool_name": "codex",
+            "tool_version": "fixture-v1",
+            "run_id": f"codex:{artifact_type}:{question.id}",
+        },
+        "started_at": REVIEW_STARTED_AT.isoformat(),
+        "completed_at": REVIEW_COMPLETED_AT.isoformat(),
+        "input_manifest": manifest,
+        "input_manifest_hash": sha256_text(canonical_json(manifest)),
+        "output": output,
+        "output_hash": sha256_text(canonical_json(output)),
+    }
+
+
+def _rehash_artifact(payload: dict[str, object]) -> dict[str, object]:
+    payload["input_manifest_hash"] = sha256_text(
+        canonical_json(payload["input_manifest"])
+    )
+    payload["output_hash"] = sha256_text(canonical_json(payload["output"]))
+    return payload
+
+
+def _record_release_artifacts(
+    session,
+    release: EvaluationRelease,
+    *,
+    policy: EvaluationReleasePolicy = SMALL_POLICY,
+) -> None:
+    questions = {
+        item.id: item
+        for item in session.scalars(
+            select(EvaluationQuestion).where(
+                EvaluationQuestion.id.in_(
+                    [row.evaluation_question_id for row in release.questions]
+                )
+            )
+        ).all()
+    }
+    for release_question in release.questions:
+        if release_question.inclusion_status != "included":
+            continue
+        question = questions[release_question.evaluation_question_id]
+        for artifact_type in ("question_review", "outcome_adjudication"):
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type=artifact_type,
+                payload=_artifact_payload(
+                    release,
+                    release_question,
+                    question,
+                    artifact_type=artifact_type,
+                ),
+                now=REVIEW_RECORDED_AT,
+                policy=policy,
+            )
 
 
 def _draft_release(
@@ -213,9 +418,537 @@ def _draft_release(
 
 
 def _review_and_freeze(session, release: EvaluationRelease, policy=SMALL_POLICY) -> None:
-    review_evaluation_release(session, release, now=NOW, policy=policy)
-    freeze_evaluation_release(session, release, now=NOW, policy=policy)
+    if not release.procedural_review_artifacts:
+        _record_release_artifacts(session, release, policy=policy)
+    review_evaluation_release(session, release, now=REVIEW_RECORDED_AT, policy=policy)
+    freeze_evaluation_release(session, release, now=REVIEW_RECORDED_AT, policy=policy)
     session.flush()
+
+
+def test_procedural_review_requires_two_role_separated_artifacts_per_question(
+    client,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        first = release.questions[0]
+        question = session.get(EvaluationQuestion, first.evaluation_question_id)
+        assert question is not None
+        question_review = _artifact_payload(
+            release,
+            first,
+            question,
+            artifact_type="question_review",
+        )
+        stored = record_procedural_ai_review_artifact(
+            session,
+            release,
+            artifact_type="question_review",
+            payload=question_review,
+            now=REVIEW_RECORDED_AT,
+            policy=SMALL_POLICY,
+        )
+        assert stored.gate_status == "passed"
+        reasons = procedural_ai_review_gate_reasons(session, release)
+        assert (
+            f"procedural_review_artifact_missing:{question.id}:outcome_adjudication"
+            in reasons
+        )
+        with pytest.raises(EvaluationReleaseValidationError):
+            review_evaluation_release(
+                session,
+                release,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+
+
+def test_procedural_review_manifests_are_blind_disjoint_and_source_grounded(
+    client,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        _record_release_artifacts(session, release)
+        rows = session.scalars(
+            select(ProceduralAIReviewArtifactRecord).where(
+                ProceduralAIReviewArtifactRecord.evaluation_release_id == release.id
+            )
+        ).all()
+        assert len(rows) == 6
+        assert len({row.run_id for row in rows}) == 6
+        for row in rows:
+            manifest = json.loads(row.input_manifest_json)
+            output = json.loads(row.output_json)
+            cited = {
+                source_id
+                for finding in output["findings"]
+                for source_id in finding["source_ids"]
+            }
+            assert cited == {item["source_id"] for item in manifest["sources"]}
+            if row.artifact_type == "question_review":
+                for forbidden in (
+                    "outcome",
+                    "candidate_outcome",
+                    "outcome_known_at",
+                    "resolution_source",
+                    "adjudication_notes",
+                ):
+                    assert forbidden not in manifest
+            else:
+                for forbidden in (
+                    "question",
+                    "normalized_question_hash",
+                    "event_family_id",
+                    "leakage_group_id",
+                    "split",
+                    "reserve_order",
+                    "question_review_output",
+                ):
+                    assert forbidden not in manifest
+        _review_and_freeze(session, release)
+        assert release.status == "frozen"
+        audit = json.loads(release.review_manifest_json or "{}")
+        assert audit["label"] == PROCEDURAL_AI_RELEASE_LABEL
+        assert audit["human_review_claimed"] is False
+        assert audit["independent_validation_claimed"] is False
+        assert audit["publication_grade_claimed"] is False
+
+
+@pytest.mark.parametrize(
+    ("artifact_type", "mutation", "expected"),
+    [
+        (
+            "question_review",
+            lambda payload: payload["input_manifest"].update({"outcome": 1}),
+            "disallowed_data:input_manifest.outcome",
+        ),
+        (
+            "outcome_adjudication",
+            lambda payload: payload["input_manifest"].update(
+                {"event_family_id": "leaked-family"}
+            ),
+            "disallowed_data:input_manifest.event_family_id",
+        ),
+        (
+            "question_review",
+            lambda payload: payload["input_manifest"].pop("contract_hash"),
+            "required_or_schema_invalid:input_manifest.contract_hash:missing",
+        ),
+    ],
+)
+def test_role_manifest_validator_rejects_disallowed_or_missing_data(
+    client,
+    artifact_type: str,
+    mutation,
+    expected: str,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        release_question = release.questions[0]
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type=artifact_type,
+        )
+        mutation(payload)
+        _rehash_artifact(payload)
+        errors = review_artifact_payload_errors(
+            payload,
+            artifact_type=artifact_type,  # type: ignore[arg-type]
+        )
+        assert expected in errors
+        with pytest.raises(EvaluationReleaseValidationError) as exc_info:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type=artifact_type,  # type: ignore[arg-type]
+                payload=payload,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert expected in exc_info.value.reasons
+        assert session.scalars(select(ProceduralAIReviewArtifactRecord)).all() == []
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected"),
+    [
+        (
+            lambda payload: payload["output"].update(
+                {"uncertainties": ["Source interpretation remains uncertain."]}
+            ),
+            "artifact_uncertainty_present",
+        ),
+        (
+            lambda payload: payload["output"].update(
+                {"conflicts": ["Two source records disagree."]}
+            ),
+            "artifact_conflict_present",
+        ),
+        (
+            lambda payload: payload["output"]["findings"][0].update(
+                {"status": "uncertain"}
+            ),
+            "required_finding_not_passed",
+        ),
+    ],
+)
+def test_uncertainty_conflict_and_rubric_failure_are_preserved_and_fail_closed(
+    client,
+    mutation,
+    expected: str,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        release_question = release.questions[0]
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        mutation(payload)
+        _rehash_artifact(payload)
+        row = record_procedural_ai_review_artifact(
+            session,
+            release,
+            artifact_type="question_review",
+            payload=payload,
+            now=REVIEW_RECORDED_AT,
+            policy=SMALL_POLICY,
+        )
+        assert row.gate_status == "failed"
+        assert any(
+            reason.startswith(expected)
+            for reason in json.loads(row.gate_reasons_json)
+        )
+        with pytest.raises(EvaluationReleaseValidationError):
+            review_evaluation_release(
+                session,
+                release,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+
+
+def test_unknown_citation_and_rubric_hash_mismatch_are_rejected_before_storage(
+    client,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        release_question = release.questions[0]
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        payload["output"]["findings"][0]["source_ids"] = ["not-in-manifest"]
+        _rehash_artifact(payload)
+        with pytest.raises(EvaluationReleaseValidationError) as citation_error:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type="question_review",
+                payload=payload,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert any(
+            reason.startswith("citation_not_in_input_manifest")
+            for reason in citation_error.value.reasons
+        )
+
+        rubric_payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        rubric_payload["rubric_hash"] = "0" * 64
+        with pytest.raises(EvaluationReleaseValidationError) as rubric_error:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type="question_review",
+                payload=rubric_payload,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert "rubric_hash_mismatch" in rubric_error.value.reasons
+
+        license_payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        license_payload["input_manifest"]["declared_source_license_status"] = (
+            "licensed"
+        )
+        _rehash_artifact(license_payload)
+        with pytest.raises(EvaluationReleaseValidationError) as license_error:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type="question_review",
+                payload=license_payload,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert "question_review_license_mismatch" in license_error.value.reasons
+
+
+def test_codex_run_id_cannot_be_reused_across_review_roles(client) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        release_question = release.questions[0]
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        question_payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        record_procedural_ai_review_artifact(
+            session,
+            release,
+            artifact_type="question_review",
+            payload=question_payload,
+            now=REVIEW_RECORDED_AT,
+            policy=SMALL_POLICY,
+        )
+        outcome_payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="outcome_adjudication",
+        )
+        outcome_payload["run_identity"]["run_id"] = question_payload["run_identity"][
+            "run_id"
+        ]
+        with pytest.raises(EvaluationReleaseValidationError) as exc_info:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type="outcome_adjudication",
+                payload=outcome_payload,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert exc_info.value.reasons == ["procedural_ai_review_run_id_reused"]
+
+
+def test_artifacts_are_idempotent_immutable_and_conflicts_require_new_release(
+    client,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        release_question = release.questions[0]
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        payload = _artifact_payload(
+            release,
+            release_question,
+            question,
+            artifact_type="question_review",
+        )
+        first = record_procedural_ai_review_artifact(
+            session,
+            release,
+            artifact_type="question_review",
+            payload=payload,
+            now=REVIEW_RECORDED_AT,
+            policy=SMALL_POLICY,
+        )
+        repeated = record_procedural_ai_review_artifact(
+            session,
+            release,
+            artifact_type="question_review",
+            payload=copy.deepcopy(payload),
+            now=REVIEW_RECORDED_AT,
+            policy=SMALL_POLICY,
+        )
+        assert repeated.id == first.id
+        conflicting = copy.deepcopy(payload)
+        conflicting["output"]["findings"][0]["conclusion"] = "Changed conclusion."
+        _rehash_artifact(conflicting)
+        with pytest.raises(EvaluationReleaseValidationError) as conflict_error:
+            record_procedural_ai_review_artifact(
+                session,
+                release,
+                artifact_type="question_review",
+                payload=conflicting,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert conflict_error.value.reasons == [
+            "procedural_ai_review_artifact_conflict_requires_new_release"
+        ]
+        first.decision = "rejected"
+        with pytest.raises(
+            ImmutableProceduralAIReviewError,
+            match="procedural_ai_review_artifact_immutable",
+        ):
+            session.flush()
+        session.rollback()
+
+
+def test_reserve_order_is_outcome_blind_deterministic_and_precedes_adjudication(
+    client,
+) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        development = _frozen_dataset(session, split="development", count=2)
+        validation = _frozen_dataset(session, split="validation", count=1)
+        test = _frozen_dataset(session, split="test", count=1)
+        datasets = {
+            "development": development,
+            "validation": validation,
+            "test": test,
+        }
+        excluded_id = development.questions[-1].id
+        release = create_evaluation_release(
+            session,
+            name="Reserve-order procedural release",
+            version="1",
+            development_dataset_id=development.id,
+            validation_dataset_id=validation.id,
+            test_dataset_id=test.id,
+            questions=_release_inputs(datasets, excluded_ids={excluded_id}),
+            provider_identity=PROVIDER,
+            now=NOW,
+            policy=SMALL_POLICY,
+        )
+        frozen = json.loads(release.reserve_order_json or "{}")
+        assert frozen["outcome_fields_used"] is False
+        assert [entry["reserve_rank"] for entry in frozen["entries"]] == [1]
+        assert all("outcome" not in canonical_json(entry) for entry in frozen["entries"])
+        initial_hash = release.reserve_order_hash
+        session.execute(
+            text(
+                "UPDATE evaluation_questions SET outcome = CASE outcome WHEN 1 THEN 0 ELSE 1 END"
+            )
+        )
+        session.expire_all()
+        refreshed = session.get(EvaluationRelease, release.id)
+        assert refreshed is not None
+        assert _reserve_order_payload(session, refreshed) == frozen
+        assert refreshed.reserve_order_hash == initial_hash
+
+        release_question = next(
+            item for item in refreshed.questions if item.inclusion_status == "included"
+        )
+        question = session.get(
+            EvaluationQuestion, release_question.evaluation_question_id
+        )
+        assert question is not None
+        premature = _artifact_payload(
+            refreshed,
+            release_question,
+            question,
+            artifact_type="outcome_adjudication",
+        )
+        premature["started_at"] = (NOW - timedelta(seconds=1)).isoformat()
+        premature["completed_at"] = NOW.isoformat()
+        with pytest.raises(EvaluationReleaseValidationError) as exc_info:
+            record_procedural_ai_review_artifact(
+                session,
+                refreshed,
+                artifact_type="outcome_adjudication",
+                payload=premature,
+                now=REVIEW_RECORDED_AT,
+                policy=SMALL_POLICY,
+            )
+        assert "outcome_adjudication_precedes_reserve_order" in exc_info.value.reasons
+        session.rollback()
+
+
+def test_test_split_claim_is_database_enforced_one_shot_and_immutable(client) -> None:
+    from forecastlab_api import main as main_mod
+
+    with main_mod.SessionLocal() as session:
+        release, _datasets = _draft_release(session)
+        _review_and_freeze(session, release)
+
+        def experiment() -> ForecastExperiment:
+            row = ForecastExperiment(
+                id=str(uuid.uuid4()),
+                dataset_id=release.test_dataset_id,
+                evaluation_release_id=release.id,
+                historical_evidence_release_id=None,
+                historical_evidence_release_hash=None,
+                evaluation_split="test",
+                status="pending",
+                profiles_json="[]",
+                configuration_hash=sha256_text(str(uuid.uuid4())),
+                configuration_json="{}",
+            )
+            session.add(row)
+            session.flush()
+            return row
+
+        first_experiment = experiment()
+        claim = claim_evaluation_test_split_once(
+            session,
+            release=release,
+            experiment=first_experiment,
+        )
+        repeated = claim_evaluation_test_split_once(
+            session,
+            release=release,
+            experiment=first_experiment,
+        )
+        assert repeated.id == claim.id
+        second_experiment = experiment()
+        with pytest.raises(
+            ValueError,
+            match="evaluation_test_split_one_shot_already_claimed",
+        ):
+            claim_evaluation_test_split_once(
+                session,
+                release=release,
+                experiment=second_experiment,
+            )
+        claim.execution_manifest_hash = "0" * 64
+        with pytest.raises(
+            ImmutableProceduralAIReviewError,
+            match="procedural_ai_review_artifact_immutable",
+        ):
+            session.flush()
+        session.rollback()
 
 
 def test_valid_generated_60_40_100_release_reviews_freezes_and_api_is_blinded(client) -> None:
@@ -238,6 +971,9 @@ def test_valid_generated_60_40_100_release_reviews_freezes_and_api_is_blinded(cl
     assert detail.status_code == 200
     payload = detail.json()
     assert payload["status"] == "frozen"
+    assert payload["release_label"] == PROCEDURAL_AI_RELEASE_LABEL
+    assert payload["human_reviewed"] is False
+    assert payload["independently_validated"] is False
     assert payload["release_hash"] == expected_hash
     assert payload["counts"] == {
         "development": {"included": 60, "excluded": 0},
@@ -279,20 +1015,6 @@ def test_valid_generated_60_40_100_release_reviews_freezes_and_api_is_blinded(cl
             "cross_split_leakage_group:",
         ),
         (
-            lambda rows, _datasets: setattr(rows[0], "question_reviewer_id", None),
-            "question_reviewer_id_required_or_not_opaque:",
-        ),
-        (
-            lambda rows, _datasets: setattr(rows[0], "outcome_adjudicator_id", None),
-            "outcome_adjudicator_id_required_or_not_opaque:",
-        ),
-        (
-            lambda rows, _datasets: setattr(
-                rows[0], "outcome_adjudicator_id", rows[0].question_reviewer_id
-            ),
-            "reviewer_adjudicator_must_differ:",
-        ),
-        (
             lambda rows, _datasets: setattr(rows[0], "source_license_status", "unknown"),
             "known_source_license_required:",
         ),
@@ -304,7 +1026,7 @@ def test_valid_generated_60_40_100_release_reviews_freezes_and_api_is_blinded(cl
         ),
     ],
 )
-def test_review_rejects_leakage_review_licensing_and_temporal_defects(
+def test_review_rejects_leakage_licensing_and_temporal_defects(
     client,
     mutator,
     expected: str,
@@ -452,7 +1174,7 @@ def test_excluded_rows_remain_audited_but_are_not_executed_or_scored(client) -> 
         assert excluded.exclusion_reason
 
 
-def test_outcome_changes_only_scoring_and_release_hashes(client) -> None:
+def test_outcome_change_conflicts_with_immutable_adjudication(client) -> None:
     from forecastlab_api import main as main_mod
 
     with main_mod.SessionLocal() as session:
@@ -476,8 +1198,13 @@ def test_outcome_changes_only_scoring_and_release_hashes(client) -> None:
             session, changed_release, policy=SMALL_POLICY
         )
         assert changed["execution_manifest_hash"] == original["execution_manifest_hash"]
-        assert changed["scoring_manifest_hash"] != original["scoring_manifest_hash"]
-        assert changed["release_hash"] != original["release_hash"]
+        assert changed["scoring_manifest_hash"] == original["scoring_manifest_hash"]
+        assert changed["release_hash"] == original["release_hash"]
+        reasons = procedural_ai_review_gate_reasons(session, changed_release)
+        assert any(
+            reason.startswith("outcome_adjudication_candidate_outcome_mismatch")
+            for reason in reasons
+        )
         session.rollback()
 
 

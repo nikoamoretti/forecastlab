@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import json
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -27,10 +28,25 @@ from forecastlab.historical_evidence_releases import (
     HistoricalEvidencePacketInput,
     verify_historical_evidence_bundle,
 )
+from forecastlab.procedural_ai_review import (
+    OUTCOME_ADJUDICATION_RUBRIC,
+    OUTCOME_ADJUDICATION_RUBRIC_HASH,
+    OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+    PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+    QUESTION_REVIEW_RUBRIC,
+    QUESTION_REVIEW_RUBRIC_HASH,
+    QUESTION_REVIEW_RUBRIC_VERSION,
+    OutcomeAdjudicationManifest,
+    OutcomeAdjudicationOutput,
+    QuestionReviewManifest,
+    QuestionReviewOutput,
+)
 from forecastlab.providers.mock import MockModelProvider
 from forecastlab_api.evaluation_releases import (
+    EvaluationReleaseValidationError,
     create_evaluation_release,
     freeze_evaluation_release,
+    record_procedural_ai_review_artifact,
     review_evaluation_release,
 )
 from forecastlab_api.historical_evidence_releases import (
@@ -70,6 +86,203 @@ PROVIDER = EvaluationProviderIdentity(
     model="mock-forecast-v1",
     search_provider="mock",
 )
+
+
+def _procedural_review_payload(
+    release: EvaluationRelease,
+    release_question,
+    question: EvaluationQuestion,
+    *,
+    artifact_type: str,
+) -> dict[str, object]:
+    contract_payload = json.loads(question.resolution_contract)
+    contract = canonical_json(contract_payload)
+    contract_hash = sha256_text(contract)
+    source_id = f"fixture:{artifact_type}:{question.id}"
+    if artifact_type == "question_review":
+        manifest: dict[str, object] = {
+            "schema_version": 1,
+            "manifest_type": "question_review_manifest",
+            "evaluation_release_id": release.id,
+            "evaluation_release_question_id": release_question.id,
+            "evaluation_question_id": question.id,
+            "normalized_question_hash": sha256_text(
+                " ".join(question.question.split()).strip().casefold()
+            ),
+            "contract_hash": contract_hash,
+            "question": question.question,
+            "yes_condition": contract_payload["yes_condition"],
+            "no_condition": contract_payload["no_condition"],
+            "forecast_date": question.forecast_date.isoformat(),
+            "resolution_date": question.resolution_date.isoformat(),
+            "authoritative_resolver": contract_payload["authoritative_resolver"],
+            "event_family_id": release_question.event_family_id,
+            "leakage_group_id": release_question.leakage_group_id,
+            "inclusion_status": "included",
+            "declared_source_license_status": release_question.source_license_status,
+            "declared_source_use_basis": release_question.source_use_basis,
+            "declared_redistribution_allowed": release_question.redistribution_allowed,
+            "sources": [
+                {
+                    "source_id": source_id,
+                    "url": f"https://origin.example/{question.id}",
+                    "title": "Synthetic test-only pre-outcome source",
+                    "source_role": "pre_outcome_origin",
+                    "source_available_at": "2018-12-01T00:00:00Z",
+                    "temporal_basis": "snapshot_date",
+                    "content_sha256": sha256_text(f"origin:{question.id}"),
+                    "source_license_status": release_question.source_license_status,
+                    "source_use_basis": release_question.source_use_basis,
+                    "redistribution_allowed": release_question.redistribution_allowed,
+                }
+            ],
+            "rubric_version": QUESTION_REVIEW_RUBRIC_VERSION,
+            "rubric_hash": QUESTION_REVIEW_RUBRIC_HASH,
+        }
+        output: dict[str, object] = {
+            "schema_version": 1,
+            "output_type": "question_review_output",
+            "decision": "accepted",
+            "findings": [
+                {
+                    "code": code,
+                    "status": "pass",
+                    "conclusion": f"Synthetic fixture check for {code}.",
+                    "source_ids": [source_id],
+                }
+                for code in QUESTION_REVIEW_RUBRIC.required_finding_codes
+            ],
+            "uncertainties": [],
+            "conflicts": [],
+        }
+        role = "question_review"
+        rubric_version = QUESTION_REVIEW_RUBRIC_VERSION
+        rubric_hash = QUESTION_REVIEW_RUBRIC_HASH
+    else:
+        manifest = {
+            "schema_version": 1,
+            "manifest_type": "outcome_adjudication_manifest",
+            "evaluation_release_id": release.id,
+            "evaluation_release_question_id": release_question.id,
+            "evaluation_question_id": question.id,
+            "contract_hash": contract_hash,
+            "yes_condition": contract_payload["yes_condition"],
+            "no_condition": contract_payload["no_condition"],
+            "resolution_date": question.resolution_date.isoformat(),
+            "candidate_outcome": question.outcome,
+            "outcome_known_at": release_question.outcome_known_at.isoformat(),
+            "sources": [
+                {
+                    "source_id": source_id,
+                    "url": question.resolution_source,
+                    "title": "Synthetic test-only resolution source",
+                    "source_role": "authoritative_resolution",
+                    "source_available_at": release_question.outcome_known_at.isoformat(),
+                    "temporal_basis": "publication_date",
+                    "content_sha256": sha256_text(f"resolution:{question.id}"),
+                }
+            ],
+            "rubric_version": OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+            "rubric_hash": OUTCOME_ADJUDICATION_RUBRIC_HASH,
+        }
+        output = {
+            "schema_version": 1,
+            "output_type": "outcome_adjudication_output",
+            "decision": "confirmed",
+            "adjudicated_outcome": question.outcome,
+            "findings": [
+                {
+                    "code": code,
+                    "status": "pass",
+                    "conclusion": f"Synthetic fixture check for {code}.",
+                    "source_ids": [source_id],
+                }
+                for code in OUTCOME_ADJUDICATION_RUBRIC.required_finding_codes
+            ],
+            "uncertainties": [],
+            "conflicts": [],
+        }
+        role = "outcome_adjudication"
+        rubric_version = OUTCOME_ADJUDICATION_RUBRIC_VERSION
+        rubric_hash = OUTCOME_ADJUDICATION_RUBRIC_HASH
+    if artifact_type == "question_review":
+        normalized_manifest = QuestionReviewManifest.model_validate(manifest).model_dump(
+            mode="json"
+        )
+        normalized_output = QuestionReviewOutput.model_validate(output).model_dump(
+            mode="json"
+        )
+    else:
+        normalized_manifest = OutcomeAdjudicationManifest.model_validate(
+            manifest
+        ).model_dump(mode="json")
+        normalized_output = OutcomeAdjudicationOutput.model_validate(output).model_dump(
+            mode="json"
+        )
+    return {
+        "schema_version": 1,
+        "artifact_type": artifact_type,
+        "policy_version": PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+        "rubric_version": rubric_version,
+        "rubric_hash": rubric_hash,
+        "run_identity": {
+            "role": role,
+            "model_provider": "fixture",
+            "model_id": "synthetic-review-fixture",
+            "model_version": "v1",
+            "tool_name": "codex",
+            "tool_version": "fixture-v1",
+            "run_id": f"fixture:{artifact_type}:{question.id}",
+        },
+        "started_at": (NOW + timedelta(seconds=1)).isoformat(),
+        "completed_at": (NOW + timedelta(seconds=2)).isoformat(),
+        "input_manifest": manifest,
+        "input_manifest_hash": sha256_text(canonical_json(normalized_manifest)),
+        "output": output,
+        "output_hash": sha256_text(canonical_json(normalized_output)),
+    }
+
+
+def _record_procedural_review_fixtures(
+    session,
+    release: EvaluationRelease,
+    *,
+    policy,
+) -> None:
+    questions = {
+        row.id: row
+        for row in session.scalars(
+            select(EvaluationQuestion).where(
+                EvaluationQuestion.id.in_(
+                    [item.evaluation_question_id for item in release.questions]
+                )
+            )
+        ).all()
+    }
+    for release_question in release.questions:
+        if release_question.inclusion_status != "included":
+            continue
+        question = questions[release_question.evaluation_question_id]
+        for artifact_type in ("question_review", "outcome_adjudication"):
+            try:
+                record_procedural_ai_review_artifact(
+                    session,
+                    release,
+                    artifact_type=artifact_type,  # type: ignore[arg-type]
+                    payload=_procedural_review_payload(
+                        release,
+                        release_question,
+                        question,
+                        artifact_type=artifact_type,
+                    ),
+                    now=NOW + timedelta(seconds=3),
+                    policy=policy,
+                )
+            except EvaluationReleaseValidationError as exc:
+                raise AssertionError(
+                    "synthetic procedural-review fixture invalid: "
+                    + ",".join(exc.reasons)
+                ) from exc
 
 
 def _evaluation_release(
@@ -162,8 +375,10 @@ def _evaluation_release(
         now=NOW,
         policy=policy,
     )
-    review_evaluation_release(session, release, now=NOW, policy=policy)
-    freeze_evaluation_release(session, release, now=NOW, policy=policy)
+    _record_procedural_review_fixtures(session, release, policy=policy)
+    review_time = NOW + timedelta(seconds=4)
+    review_evaluation_release(session, release, now=review_time, policy=policy)
+    freeze_evaluation_release(session, release, now=review_time, policy=policy)
     session.flush()
     return release
 

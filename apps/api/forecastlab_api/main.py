@@ -30,6 +30,7 @@ from forecastlab.historical_evidence_releases import (
     HistoricalEvidencePacketInput,
 )
 from forecastlab.logging import configure_logging
+from forecastlab.procedural_ai_review import PROCEDURAL_AI_RELEASE_LABEL
 from forecastlab.profiles import list_profiles, load_profile, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
 from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
@@ -60,9 +61,11 @@ from forecastlab_api.evaluation_releases import (
     create_evaluation_release,
     freeze_evaluation_release,
     get_blinded_execution_manifest,
+    record_procedural_ai_review_artifact,
     release_audit,
     review_evaluation_release,
     serialize_evaluation_release,
+    serialize_procedural_ai_review_artifact,
 )
 from forecastlab_api.evidence_claims import evidence_claim_from_row, evidence_for_node
 from forecastlab_api.evidence_sufficiency import evidence_sufficiency_from_row
@@ -275,6 +278,10 @@ class EvaluationReleaseIn(BaseModel):
     provider_identity: EvaluationProviderIdentity
     correction_of_release_id: str | None = None
     correction_summary: str | None = None
+
+
+class ProceduralAIReviewArtifactIn(BaseModel):
+    artifact: dict[str, Any]
 
 
 class HistoricalEvidenceReleaseIn(BaseModel):
@@ -1449,6 +1456,92 @@ def review_evaluation_release_endpoint(
     db.commit()
     db.refresh(release)
     return release_audit(db, release)
+
+
+@app.post(
+    "/api/evaluation/releases/{release_id}/question-review-artifacts",
+    status_code=201,
+)
+def post_question_review_artifact(
+    release_id: str,
+    body: ProceduralAIReviewArtifactIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    try:
+        artifact = record_procedural_ai_review_artifact(
+            db,
+            release,
+            artifact_type="question_review",
+            payload=body.artifact,
+        )
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(artifact)
+    return serialize_procedural_ai_review_artifact(artifact)
+
+
+@app.post(
+    "/api/evaluation/releases/{release_id}/outcome-adjudication-artifacts",
+    status_code=201,
+)
+def post_outcome_adjudication_artifact(
+    release_id: str,
+    body: ProceduralAIReviewArtifactIn,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    try:
+        artifact = record_procedural_ai_review_artifact(
+            db,
+            release,
+            artifact_type="outcome_adjudication",
+            payload=body.artifact,
+        )
+    except EvaluationReleaseValidationError as exc:
+        raise HTTPException(
+            400,
+            detail={"message": str(exc), "reasons": exc.reasons},
+        ) from exc
+    db.commit()
+    db.refresh(artifact)
+    return serialize_procedural_ai_review_artifact(artifact)
+
+
+@app.get("/api/evaluation/releases/{release_id}/review-artifacts")
+def get_procedural_ai_review_artifacts(
+    release_id: str,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    release = db.get(EvaluationRelease, release_id)
+    if release is None:
+        raise HTTPException(404, "Evaluation release not found")
+    return {
+        "release_id": release.id,
+        "release_label": PROCEDURAL_AI_RELEASE_LABEL,
+        "review_manifest_hash": release.review_manifest_hash,
+        "reserve_order_hash": release.reserve_order_hash,
+        "artifacts": [
+            serialize_procedural_ai_review_artifact(item)
+            for item in sorted(
+                release.procedural_review_artifacts,
+                key=lambda row: (
+                    row.evaluation_release_question_id,
+                    row.artifact_type,
+                ),
+            )
+        ],
+        "human_reviewed": False,
+        "independently_validated": False,
+    }
 
 
 @app.post("/api/evaluation/releases/{release_id}/freeze")

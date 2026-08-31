@@ -784,6 +784,10 @@ class FrozenHistoricalEvidenceReleaseError(ValueError):
     """Raised when application code alters a frozen historical-evidence release."""
 
 
+class ImmutableProceduralAIReviewError(ValueError):
+    """Raised when an immutable review receipt or test claim is altered."""
+
+
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
     __table_args__ = (
@@ -892,6 +896,16 @@ class EvaluationRelease(Base):
     scoring_manifest_hash: Mapped[str] = mapped_column(String(64))
     preregistration_json: Mapped[str] = mapped_column(Text)
     preregistration_hash: Mapped[str] = mapped_column(String(64))
+    procedural_review_policy_version: Mapped[str | None] = mapped_column(
+        String(64), nullable=True
+    )
+    reserve_order_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reserve_order_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    reserve_order_frozen_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    review_manifest_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    review_manifest_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     release_hash: Mapped[str] = mapped_column(String(64), unique=True)
 
     questions: Mapped[list[EvaluationReleaseQuestion]] = relationship(
@@ -899,10 +913,17 @@ class EvaluationRelease(Base):
         order_by="EvaluationReleaseQuestion.id",
         cascade="all, delete-orphan",
     )
+    procedural_review_artifacts: Mapped[list[ProceduralAIReviewArtifactRecord]] = (
+        relationship(
+            back_populates="release",
+            order_by="ProceduralAIReviewArtifactRecord.id",
+            cascade="all, delete-orphan",
+        )
+    )
 
 
 class EvaluationReleaseQuestion(Base):
-    """Auditable split, review, licensing, exclusion, and adjudication metadata."""
+    """Auditable split, licensing, exclusion, and legacy declaration metadata."""
 
     __tablename__ = "evaluation_release_questions"
     __table_args__ = (
@@ -952,6 +973,83 @@ class EvaluationReleaseQuestion(Base):
     adjudication_record_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
     release: Mapped[EvaluationRelease] = relationship(back_populates="questions")
+    procedural_review_artifacts: Mapped[list[ProceduralAIReviewArtifactRecord]] = (
+        relationship(
+            back_populates="release_question",
+            order_by="ProceduralAIReviewArtifactRecord.artifact_type",
+            cascade="all, delete-orphan",
+        )
+    )
+
+
+class ProceduralAIReviewArtifactRecord(Base):
+    """Immutable receipt from one role-separated, externally run Codex review."""
+
+    __tablename__ = "procedural_ai_review_artifacts"
+    __table_args__ = (
+        UniqueConstraint(
+            "evaluation_release_question_id",
+            "artifact_type",
+            name="uq_procedural_ai_review_artifact_role",
+        ),
+        UniqueConstraint("run_id", name="uq_procedural_ai_review_run_id"),
+        CheckConstraint(
+            "artifact_type IN ('question_review', 'outcome_adjudication')",
+            name="ck_procedural_ai_review_artifact_type",
+        ),
+        CheckConstraint(
+            "role IN ('question_review', 'outcome_adjudication')",
+            name="ck_procedural_ai_review_role",
+        ),
+        CheckConstraint(
+            "gate_status IN ('passed', 'failed')",
+            name="ck_procedural_ai_review_gate_status",
+        ),
+        CheckConstraint(
+            "tool_name = 'codex'",
+            name="ck_procedural_ai_review_tool",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    evaluation_release_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_releases.id", ondelete="CASCADE")
+    )
+    evaluation_release_question_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_release_questions.id", ondelete="CASCADE")
+    )
+    evaluation_question_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_questions.id")
+    )
+    artifact_type: Mapped[str] = mapped_column(String(32))
+    policy_version: Mapped[str] = mapped_column(String(64))
+    rubric_version: Mapped[str] = mapped_column(String(64))
+    rubric_hash: Mapped[str] = mapped_column(String(64))
+    role: Mapped[str] = mapped_column(String(32))
+    model_provider: Mapped[str] = mapped_column(String(128))
+    model_id: Mapped[str] = mapped_column(String(255))
+    model_version: Mapped[str] = mapped_column(String(128))
+    tool_name: Mapped[str] = mapped_column(String(32))
+    tool_version: Mapped[str] = mapped_column(String(128))
+    run_id: Mapped[str] = mapped_column(String(255))
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    input_manifest_json: Mapped[str] = mapped_column(Text)
+    input_manifest_hash: Mapped[str] = mapped_column(String(64))
+    output_json: Mapped[str] = mapped_column(Text)
+    output_hash: Mapped[str] = mapped_column(String(64))
+    decision: Mapped[str] = mapped_column(String(32))
+    gate_status: Mapped[str] = mapped_column(String(16))
+    gate_reasons_json: Mapped[str] = mapped_column(Text, default="[]")
+    source_citation_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+
+    release: Mapped[EvaluationRelease] = relationship(
+        back_populates="procedural_review_artifacts"
+    )
+    release_question: Mapped[EvaluationReleaseQuestion] = relationship(
+        back_populates="procedural_review_artifacts"
+    )
 
 
 class HistoricalEvidenceRelease(Base):
@@ -1227,6 +1325,31 @@ class ForecastExperiment(Base):
     failures: Mapped[list[ForecastFailure]] = relationship(back_populates="experiment")
 
 
+class EvaluationTestSplitExecution(Base):
+    """Database-enforced one-shot claim for a frozen release's test split."""
+
+    __tablename__ = "evaluation_test_split_executions"
+    __table_args__ = (
+        UniqueConstraint(
+            "evaluation_release_id", name="uq_evaluation_test_split_release"
+        ),
+        UniqueConstraint(
+            "forecast_experiment_id", name="uq_evaluation_test_split_experiment"
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    evaluation_release_id: Mapped[str] = mapped_column(
+        ForeignKey("evaluation_releases.id")
+    )
+    forecast_experiment_id: Mapped[str] = mapped_column(
+        ForeignKey("forecast_experiments.id")
+    )
+    execution_manifest_hash: Mapped[str] = mapped_column(String(64))
+    preregistration_hash: Mapped[str] = mapped_column(String(64))
+    claimed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
 class ForecastExperimentRun(Base):
     """One immutable question/profile assignment in a controlled experiment."""
 
@@ -1401,6 +1524,18 @@ def _frozen_evaluation_release_before_update(
     _connection: Connection,
     target: EvaluationRelease,
 ) -> None:
+    state = inspect(target)
+    for field in (
+        "procedural_review_policy_version",
+        "reserve_order_json",
+        "reserve_order_hash",
+        "reserve_order_frozen_at",
+    ):
+        history = state.attrs[field].history
+        if history.has_changes() and history.deleted and history.deleted[0] is not None:
+            raise ImmutableProceduralAIReviewError(
+                "evaluation_release_reserve_order_immutable"
+            )
     status_history = inspect(target).attrs.status.history
     prior_status = status_history.deleted[0] if status_history.deleted else target.status
     if prior_status == "frozen":
@@ -1426,6 +1561,30 @@ def _frozen_evaluation_release_question_guard(
     ).scalar_one_or_none()
     if status == "frozen":
         raise FrozenEvaluationReleaseError("frozen_evaluation_release_immutable")
+
+
+def _procedural_ai_review_before_insert(
+    _mapper: object,
+    connection: Connection,
+    target: ProceduralAIReviewArtifactRecord,
+) -> None:
+    status = connection.execute(
+        select(EvaluationRelease.status).where(
+            EvaluationRelease.id == target.evaluation_release_id
+        )
+    ).scalar_one_or_none()
+    if status != "draft":
+        raise ImmutableProceduralAIReviewError(
+            "procedural_ai_review_requires_draft_release"
+        )
+
+
+def _immutable_procedural_ai_review_guard(
+    _mapper: object,
+    _connection: Connection,
+    _target: object,
+) -> None:
+    raise ImmutableProceduralAIReviewError("procedural_ai_review_artifact_immutable")
 
 
 def _frozen_historical_evidence_release_before_update(
@@ -1509,6 +1668,31 @@ event.listen(
     EvaluationReleaseQuestion,
     "before_delete",
     _frozen_evaluation_release_question_guard,
+)
+event.listen(
+    ProceduralAIReviewArtifactRecord,
+    "before_insert",
+    _procedural_ai_review_before_insert,
+)
+event.listen(
+    ProceduralAIReviewArtifactRecord,
+    "before_update",
+    _immutable_procedural_ai_review_guard,
+)
+event.listen(
+    ProceduralAIReviewArtifactRecord,
+    "before_delete",
+    _immutable_procedural_ai_review_guard,
+)
+event.listen(
+    EvaluationTestSplitExecution,
+    "before_update",
+    _immutable_procedural_ai_review_guard,
+)
+event.listen(
+    EvaluationTestSplitExecution,
+    "before_delete",
+    _immutable_procedural_ai_review_guard,
 )
 event.listen(
     HistoricalEvidenceRelease,

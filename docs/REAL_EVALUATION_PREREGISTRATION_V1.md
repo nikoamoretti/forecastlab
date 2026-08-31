@@ -4,7 +4,7 @@ Status: offline evaluation-integrity infrastructure. No real corpus has been cer
 
 ## Purpose and claim boundary
 
-`private_v1_real_evaluation_release_v1` freezes the identities, leakage controls, review metadata, licensing metadata, execution payload, scoring payload, and analysis plan required before ForecastLab may assign a real evaluation question. It does not collect questions, validate the truth of human annotations, construct historical evidence, execute forecasts, or establish forecasting quality.
+`private_v1_real_evaluation_release_v1` freezes the identities, leakage controls, procedural review receipts, licensing metadata, execution payload, scoring payload, and analysis plan required before ForecastLab may assign a real evaluation question. It does not collect questions, perform the Codex review runs, claim human review, construct historical evidence, execute forecasts, or establish forecasting quality.
 
 The latest bounded live operational acceptance remains a hard 3-of-5 failure. This release boundary neither reinterprets nor repairs that result.
 
@@ -39,7 +39,7 @@ For included questions, the release rejects:
 
 Event-family grouping must keep revisions, repeated releases, related thresholds, company-period events, and materially coupled outcomes in one split. `leakage_group_id` supplies an additional conservative grouping boundary when different event families can reveal one another.
 
-Every included question requires a nonempty event family and leakage group, an opaque reviewer ID, a different opaque outcome-adjudicator ID, a completed review time, and an adjudication-record SHA-256. Reviewer identifiers are internal opaque labels, not names or email addresses.
+Every included question requires a nonempty event family and leakage group plus two fresh, role-separated Codex artifacts: an outcome-blind question review and a question-review-blind outcome adjudication. The receipts have distinct run IDs, frozen rubrics, model/tool identities, source-only citations, immutable input/output hashes, and timestamps. Any uncertainty, conflict, licensing ambiguity, citation error, or rubric/hash mismatch fails closed. Legacy reviewer/adjudicator identifiers do not satisfy this gate and are not presented as human review.
 
 Every included row also requires a source-license status other than `unknown`, a source-use basis, and an explicit redistribution flag. Storing source metadata when redistribution is false does not grant permission to redistribute source content.
 
@@ -87,6 +87,7 @@ Before assignments exist, `EvaluationPreregistration` freezes:
 - no invented probability and no score for failed runs;
 - frozen exclusions and split-permitted uses;
 - a one-shot test rule and no-tuning rule;
+- the procedural AI policy, exact permitted release label, both rubric versions/hashes, and deterministic outcome-blind reserve-order hash;
 - permitted claim language such as “observed difference” and prohibited unsupported language such as “winner,” “best,” “superior,” or “calibrated.”
 
 Profile, prompt, source, tracked-tree, project, or lock drift fails release review/freeze or experiment recreation. Credentials are never part of the preregistration.
@@ -100,7 +101,7 @@ ForecastLab hashes canonical representations independently:
 3. preregistration;
 4. aggregate release payload.
 
-The aggregate release hash covers the policy snapshot, three dataset identities and hashes, every release-question audit row, and the three hashes above. Changing an outcome leaves the execution-manifest hash unchanged but changes the scoring-manifest and release hashes. Changing question or contract content changes execution and release hashes.
+The aggregate release hash covers the policy snapshot, three dataset identities and hashes, every release-question audit row, procedural review manifest, deterministic reserve order, and the hashes above. A sealed outcome cannot affect the execution-manifest or reserve-order hashes. Correcting an adjudicated outcome requires a new immutable release version and changes the adjudication/scoring/release identities. Changing question or contract content changes execution and release hashes.
 
 Frozen release fields, manifests, membership rows, and experiment configuration cannot be updated through the persistence layer. Conflicting content under an existing name/version fails closed rather than overwriting history.
 
@@ -112,4 +113,4 @@ The experiment snapshots evaluation release, historical-evidence release, bundle
 
 ## Remaining work
 
-ForecastLab now has the offline historical-evidence release, bundle-verification, and worker-isolation boundary, but it still needs independently curated and reviewed 60/40/100 real datasets, a legally reviewed pre-cutoff historical evidence corpus, human-verified event/leakage grouping, missingness, and licensing, one genuinely frozen production release pair, and the preregistered evaluation itself. No real corpus was populated or frozen by this infrastructure task. Until those steps are complete, there is no real forecasting-quality result and no calibration claim.
+ForecastLab now has the offline historical-evidence release, bundle-verification, worker-isolation, and procedural AI receipt boundary. It still needs the actual source-grounded role-separated review runs, unresolved licensing and grouping decisions, a frozen 60/40/100 release, a legally reviewed pre-cutoff historical evidence corpus, and the preregistered evaluation itself. No corpus was reviewed or frozen by this infrastructure task. The exact label is “Procedurally AI-reviewed private-V1 evaluation release”; it does not claim human review, independent validation, publication-grade evidence, forecasting quality, or calibration.

@@ -49,11 +49,13 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     assert "historical_evidence_documents" in tables
     assert "historical_evidence_packet_documents" in tables
     assert "manual_evidence_attachments" in tables
+    assert "procedural_ai_review_artifacts" in tables
+    assert "evaluation_test_split_executions" in tables
     assert "alembic_version" in tables
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260831_0030"
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
         assert "exact_yes" in question_cols
@@ -106,6 +108,18 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
         assert publication_column["nullable"] is True
         graph_cols = {column["name"] for column in inspect(engine).get_columns("forecast_graphs")}
         assert "generation_audit_json" in graph_cols
+        evaluation_release_cols = {
+            column["name"]
+            for column in inspect(engine).get_columns("evaluation_releases")
+        }
+        assert {
+            "procedural_review_policy_version",
+            "reserve_order_json",
+            "reserve_order_hash",
+            "reserve_order_frozen_at",
+            "review_manifest_json",
+            "review_manifest_hash",
+        } <= evaluation_release_cols
         result_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_results")}
         assert {"evidence_coverage", "evidence_covered_units", "evidence_total_units"} <= result_cols
         aggregation_cols = {
@@ -318,6 +332,12 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "scoring_manifest_hash",
             "preregistration_json",
             "preregistration_hash",
+            "procedural_review_policy_version",
+            "reserve_order_json",
+            "reserve_order_hash",
+            "reserve_order_frozen_at",
+            "review_manifest_json",
+            "review_manifest_hash",
             "release_hash",
         } == release_cols
         release_question_cols = {
@@ -344,6 +364,30 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
             "adjudication_notes",
             "adjudication_record_hash",
         } == release_question_cols
+        procedural_artifact_cols = {
+            column["name"]
+            for column in inspect(engine).get_columns(
+                "procedural_ai_review_artifacts"
+            )
+        }
+        assert {
+            "evaluation_release_id",
+            "evaluation_release_question_id",
+            "evaluation_question_id",
+            "artifact_type",
+            "rubric_version",
+            "rubric_hash",
+            "model_provider",
+            "model_id",
+            "model_version",
+            "tool_name",
+            "tool_version",
+            "run_id",
+            "input_manifest_hash",
+            "output_hash",
+            "gate_status",
+            "source_citation_ids_json",
+        } <= procedural_artifact_cols
 
 
 def test_material_node_coverage_migration_does_not_backfill_historical_runs(
@@ -494,7 +538,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260831_0030"
 
 
 def test_manual_evidence_migration_is_empty_reversible_and_disables_legacy_auto_rerun(
@@ -685,7 +729,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260831_0030"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -718,7 +762,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260829_0029"
+            == "20260831_0030"
         )
 
 
@@ -788,7 +832,7 @@ def test_historical_evidence_migration_preserves_existing_experiments_without_fa
     with engine.connect() as connection:
         assert connection.execute(
             text("SELECT version_num FROM alembic_version")
-        ).scalar_one() == "20260829_0029"
+        ).scalar_one() == "20260831_0030"
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
@@ -829,7 +873,77 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260829_0029"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260831_0030"
+
+
+def test_procedural_review_migration_preserves_existing_release_without_fabrication(
+    tmp_path,
+) -> None:
+    db_url = f"sqlite:///{tmp_path}/procedural-review-upgrade.db"
+    command.upgrade(alembic_config(db_url), "20260829_0029")
+    engine = create_engine(db_url)
+    with engine.begin() as connection:
+        for index, split in enumerate(("development", "validation", "test"), start=1):
+            connection.execute(
+                text(
+                    "INSERT INTO evaluation_datasets "
+                    "(id, name, version, hash, description, provenance, status, "
+                    "created_at, frozen_at, question_count) VALUES "
+                    "(:id, :name, '1', :hash, 'description', 'source', 'frozen', "
+                    "'2026-08-31 00:00:00', '2026-08-31 00:00:00', 0)"
+                ),
+                {
+                    "id": f"dataset-{index}",
+                    "name": f"{split} dataset",
+                    "hash": str(index) * 64,
+                },
+            )
+        connection.execute(
+            text(
+                "INSERT INTO evaluation_releases "
+                "(id, name, version, policy_version, status, development_dataset_id, "
+                "validation_dataset_id, test_dataset_id, created_at, reviewed_at, frozen_at, "
+                "correction_of_release_id, correction_summary, execution_manifest_json, "
+                "execution_manifest_hash, scoring_manifest_json, scoring_manifest_hash, "
+                "preregistration_json, preregistration_hash, release_hash) VALUES "
+                "('legacy-release', 'Legacy release', '1', 'legacy-policy', 'draft', "
+                "'dataset-1', 'dataset-2', 'dataset-3', '2026-08-31 00:00:00', NULL, NULL, "
+                "NULL, NULL, '{}', :a, '{}', :b, '{}', :c, :d)"
+            ),
+            {"a": "a" * 64, "b": "b" * 64, "c": "c" * 64, "d": "d" * 64},
+        )
+
+    command.upgrade(alembic_config(db_url), "head")
+    with engine.connect() as connection:
+        row = connection.execute(
+            text(
+                "SELECT name, procedural_review_policy_version, reserve_order_json, "
+                "reserve_order_hash, review_manifest_json, review_manifest_hash "
+                "FROM evaluation_releases WHERE id = 'legacy-release'"
+            )
+        ).one()
+        assert tuple(row) == ("Legacy release", None, None, None, None, None)
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM procedural_ai_review_artifacts")
+        ).scalar_one() == 0
+        assert connection.execute(
+            text("SELECT COUNT(*) FROM evaluation_test_split_executions")
+        ).scalar_one() == 0
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.downgrade(alembic_config(db_url), "20260829_0029")
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT name FROM evaluation_releases WHERE id = 'legacy-release'")
+        ).scalar_one() == "Legacy release"
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
+
+    command.upgrade(alembic_config(db_url), "head")
+    with engine.connect() as connection:
+        assert connection.execute(
+            text("SELECT version_num FROM alembic_version")
+        ).scalar_one() == "20260831_0030"
+        assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
 def test_forecast_experiment_migration_preserves_frozen_dataset(tmp_path) -> None:

@@ -5,7 +5,7 @@ import re
 import uuid
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Any, cast
+from typing import Any, Literal, cast
 
 from pydantic import ValidationError
 from sqlalchemy import select
@@ -30,6 +30,23 @@ from forecastlab.evaluation_releases import (
 )
 from forecastlab.gitinfo import current_git_commit
 from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.procedural_ai_review import (
+    OUTCOME_ADJUDICATION_RUBRIC_HASH,
+    OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+    PROCEDURAL_AI_RELEASE_LABEL,
+    PROCEDURAL_AI_REVIEW_POLICY_VERSION,
+    QUESTION_REVIEW_RUBRIC_HASH,
+    QUESTION_REVIEW_RUBRIC_VERSION,
+    RESERVE_ORDER_POLICY_VERSION,
+    RESERVE_ORDER_SEED,
+    OutcomeAdjudicationArtifact,
+    ProceduralAIArtifactIdentity,
+    ProceduralAIReviewArtifact,
+    ProceduralAIReviewGateManifest,
+    QuestionReviewArtifact,
+    artifact_integrity_reasons,
+    parse_review_artifact,
+)
 from forecastlab.profiles import load_profile, profile_hash
 from forecastlab.prompts import load_prompt_bundle
 from forecastlab.timeutil import as_utc, utcnow
@@ -38,6 +55,7 @@ from forecastlab_api.models import (
     EvaluationQuestion,
     EvaluationRelease,
     EvaluationReleaseQuestion,
+    ProceduralAIReviewArtifactRecord,
 )
 
 REAL_EVALUATION_CONTROLLED_PROFILES = (
@@ -56,8 +74,6 @@ BUDGET_FIELDS = (
     "max_wall_clock_seconds",
 )
 _VERSION_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
-_OPAQUE_REVIEWER_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{2,127}$")
-_SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _NON_REAL_MARKERS = ("synthetic", "fixture", "demo", "mock-provider", "mock provider")
 _EXECUTION_FORBIDDEN_KEYS = {
     "outcome",
@@ -226,11 +242,137 @@ def _question_input_metadata(item: EvaluationReleaseQuestionInput) -> dict[str, 
     return payload
 
 
+def _reserve_order_payload(
+    session: Session,
+    release: EvaluationRelease,
+) -> dict[str, Any]:
+    """Derive reserve order from non-outcome metadata only."""
+
+    questions = _question_by_id(session, release)
+    entries: list[dict[str, Any]] = []
+    for item in release.questions:
+        if item.inclusion_status != "excluded":
+            continue
+        question = questions.get(item.evaluation_question_id)
+        if question is None:
+            raise EvaluationReleaseValidationError(
+                [f"evaluation_question_not_found:{item.evaluation_question_id}"]
+            )
+        question_digest = normalized_question_hash(question.question)
+        contract_digest = resolution_contract_hash(question)
+        sort_key = sha256_text(
+            canonical_json(
+                {
+                    "seed": RESERVE_ORDER_SEED,
+                    "evaluation_question_id": question.id,
+                    "normalized_question_hash": question_digest,
+                    "contract_hash": contract_digest,
+                    "event_family_id": item.event_family_id,
+                    "leakage_group_id": item.leakage_group_id,
+                    "split": item.split,
+                }
+            )
+        )
+        entries.append(
+            {
+                "evaluation_question_id": question.id,
+                "split": item.split,
+                "normalized_question_hash": question_digest,
+                "contract_hash": contract_digest,
+                "sort_key_hash": sort_key,
+            }
+        )
+    entries.sort(key=lambda value: (value["sort_key_hash"], value["evaluation_question_id"]))
+    for rank, entry in enumerate(entries, start=1):
+        entry["reserve_rank"] = rank
+    return {
+        "schema_version": 1,
+        "policy_version": RESERVE_ORDER_POLICY_VERSION,
+        "seed": RESERVE_ORDER_SEED,
+        "outcome_fields_used": False,
+        "entries": entries,
+    }
+
+
+def _artifact_identity(
+    row: ProceduralAIReviewArtifactRecord,
+) -> ProceduralAIArtifactIdentity:
+    return ProceduralAIArtifactIdentity(
+        artifact_id=row.id,
+        evaluation_release_question_id=row.evaluation_release_question_id,
+        evaluation_question_id=row.evaluation_question_id,
+        artifact_type=cast(Any, row.artifact_type),
+        run_id=row.run_id,
+        rubric_version=row.rubric_version,
+        rubric_hash=row.rubric_hash,
+        input_manifest_hash=row.input_manifest_hash,
+        output_hash=row.output_hash,
+        gate_status=cast(Any, row.gate_status),
+        completed_at=as_utc(row.completed_at),
+    )
+
+
+def _build_review_gate_manifest(
+    release: EvaluationRelease,
+) -> ProceduralAIReviewGateManifest:
+    if not release.reserve_order_hash:
+        raise EvaluationReleaseValidationError(["procedural_review_reserve_order_missing"])
+    artifacts = sorted(
+        [_artifact_identity(item) for item in release.procedural_review_artifacts],
+        key=lambda item: (
+            item.evaluation_release_question_id,
+            item.artifact_type,
+            item.artifact_id,
+        ),
+    )
+    return ProceduralAIReviewGateManifest(
+        reserve_order_hash=release.reserve_order_hash,
+        artifacts=artifacts,
+    )
+
+
+def _artifact_rows_by_release_question(
+    release: EvaluationRelease,
+) -> dict[str, dict[str, ProceduralAIReviewArtifactRecord]]:
+    result: dict[str, dict[str, ProceduralAIReviewArtifactRecord]] = defaultdict(dict)
+    for row in release.procedural_review_artifacts:
+        result[row.evaluation_release_question_id][row.artifact_type] = row
+    return result
+
+
+def _artifact_payload_from_row(
+    row: ProceduralAIReviewArtifactRecord,
+) -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "artifact_type": row.artifact_type,
+        "policy_version": row.policy_version,
+        "rubric_version": row.rubric_version,
+        "rubric_hash": row.rubric_hash,
+        "run_identity": {
+            "role": row.role,
+            "model_provider": row.model_provider,
+            "model_id": row.model_id,
+            "model_version": row.model_version,
+            "tool_name": row.tool_name,
+            "tool_version": row.tool_version,
+            "run_id": row.run_id,
+        },
+        "started_at": as_utc(row.started_at).isoformat(),
+        "completed_at": as_utc(row.completed_at).isoformat(),
+        "input_manifest": json.loads(row.input_manifest_json),
+        "input_manifest_hash": row.input_manifest_hash,
+        "output": json.loads(row.output_json),
+        "output_hash": row.output_hash,
+    }
+
+
 def build_evaluation_preregistration(
     *,
     release_policy: EvaluationReleasePolicy,
     datasets: dict[EvaluationSplit, EvaluationDataset],
     provider_identity: EvaluationProviderIdentity,
+    reserve_order_hash: str,
     registered_at: datetime,
 ) -> EvaluationPreregistration:
     """Snapshot profiles, prompts, source, and locks without loading credentials."""
@@ -280,6 +422,7 @@ def build_evaluation_preregistration(
         dependency_lock_hash=str(required_identity["dependency_hash"]),
         package_lock_hash=str(required_identity["package_lock_hash"]),
         provider_identity=provider_identity,
+        reserve_order_hash=reserve_order_hash,
     )
 
 
@@ -352,6 +495,7 @@ def _build_manifests(
     prereg_hash = manifest_hash(preregistration)
     blinded: list[BlindedEvaluationQuestion] = []
     scoring: list[SealedScoringQuestion] = []
+    artifacts_by_question = _artifact_rows_by_release_question(release)
     for item in included:
         question = questions.get(item.evaluation_question_id)
         if question is None:
@@ -377,18 +521,36 @@ def _build_manifests(
                 preregistration_hash=prereg_hash,
             )
         )
-        if item.outcome_known_at is None or item.adjudication_record_hash is None:
-            raise EvaluationReleaseValidationError(
-                [f"scoring_metadata_missing:{question.id}"]
+        outcome_row = artifacts_by_question.get(item.id, {}).get(
+            "outcome_adjudication"
+        )
+        if outcome_row is None or outcome_row.gate_status != "passed":
+            continue
+        try:
+            outcome_artifact = parse_review_artifact(
+                _artifact_payload_from_row(outcome_row),
+                artifact_type="outcome_adjudication",
             )
+        except (ValueError, json.JSONDecodeError) as exc:
+            raise EvaluationReleaseValidationError(
+                [f"outcome_adjudication_artifact_invalid:{question.id}"]
+            ) from exc
+        if not isinstance(outcome_artifact, OutcomeAdjudicationArtifact):
+            raise EvaluationReleaseValidationError(
+                [f"outcome_adjudication_artifact_role_mismatch:{question.id}"]
+            )
+        if outcome_artifact.output.adjudicated_outcome is None:
+            continue
         scoring.append(
             SealedScoringQuestion(
                 evaluation_question_id=question.id,
                 split=item.split,  # type: ignore[arg-type]
-                outcome=question.outcome,  # type: ignore[arg-type]
+                outcome=outcome_artifact.output.adjudicated_outcome,
                 post_resolution_source=question.resolution_source,
-                outcome_known_at=as_utc(item.outcome_known_at),
-                adjudication_record_hash=item.adjudication_record_hash,
+                outcome_known_at=as_utc(
+                    outcome_artifact.input_manifest.outcome_known_at
+                ),
+                adjudication_record_hash=outcome_row.output_hash,
                 scoring_contract_hash=sha256_text(
                     canonical_json(
                         {
@@ -422,6 +584,8 @@ def _release_hash_payload(
     execution_manifest_hash: str,
     scoring_manifest_hash: str,
     preregistration_hash: str,
+    review_manifest_hash: str,
+    reserve_order_hash: str,
     policy: EvaluationReleasePolicy,
 ) -> dict[str, Any]:
     return {
@@ -454,6 +618,12 @@ def _release_hash_payload(
         "execution_manifest_hash": execution_manifest_hash,
         "scoring_manifest_hash": scoring_manifest_hash,
         "preregistration_hash": preregistration_hash,
+        "procedural_review": {
+            "label": PROCEDURAL_AI_RELEASE_LABEL,
+            "policy_version": release.procedural_review_policy_version,
+            "review_manifest_hash": review_manifest_hash,
+            "reserve_order_hash": reserve_order_hash,
+        },
     }
 
 
@@ -477,6 +647,11 @@ def _refresh_artifacts(
     execution_hash = manifest_hash(execution)
     scoring_hash = manifest_hash(scoring)
     prereg_hash = manifest_hash(preregistration)
+    review_manifest = _build_review_gate_manifest(release)
+    review_manifest_json = canonical_json(review_manifest.model_dump(mode="json"))
+    review_manifest_hash = manifest_hash(review_manifest)
+    if not release.reserve_order_hash:
+        raise EvaluationReleaseValidationError(["procedural_review_reserve_order_missing"])
     datasets = _dataset_rows(session, release)
     if set(datasets) != set(SPLITS):
         raise EvaluationReleaseValidationError(["evaluation_release_dataset_missing"])
@@ -488,6 +663,8 @@ def _refresh_artifacts(
                 execution_manifest_hash=execution_hash,
                 scoring_manifest_hash=scoring_hash,
                 preregistration_hash=prereg_hash,
+                review_manifest_hash=review_manifest_hash,
+                reserve_order_hash=release.reserve_order_hash,
                 policy=policy,
             )
         )
@@ -498,6 +675,8 @@ def _refresh_artifacts(
         "scoring_manifest_json": canonical_json(scoring.model_dump(mode="json")),
         "scoring_manifest_hash": scoring_hash,
         "preregistration_hash": prereg_hash,
+        "review_manifest_json": review_manifest_json,
+        "review_manifest_hash": review_manifest_hash,
         "release_hash": release_hash,
     }
 
@@ -511,6 +690,377 @@ def evaluation_release_artifact_hashes(
     """Recompute immutable artifact identities without mutating the release."""
 
     return _refresh_artifacts(session, release, policy=policy)
+
+
+def _artifact_release_binding_reasons(
+    session: Session,
+    release: EvaluationRelease,
+    release_question: EvaluationReleaseQuestion,
+    artifact: ProceduralAIReviewArtifact,
+    *,
+    recorded_at: datetime,
+) -> list[str]:
+    reasons: list[str] = []
+    common_manifest = artifact.input_manifest
+    question = session.get(EvaluationQuestion, release_question.evaluation_question_id)
+    if question is None:
+        return [f"evaluation_question_not_found:{release_question.evaluation_question_id}"]
+    if common_manifest.evaluation_release_id != release.id:
+        reasons.append("artifact_evaluation_release_id_mismatch")
+    if common_manifest.evaluation_release_question_id != release_question.id:
+        reasons.append("artifact_release_question_id_mismatch")
+    if common_manifest.evaluation_question_id != question.id:
+        reasons.append("artifact_evaluation_question_id_mismatch")
+    if artifact.started_at < as_utc(release.created_at):
+        reasons.append("artifact_not_fresh_for_release")
+    if artifact.completed_at > as_utc(recorded_at):
+        reasons.append("artifact_completion_in_future")
+    contract = _blind_contract(question)
+    contract_digest = resolution_contract_hash(question)
+
+    if isinstance(artifact, QuestionReviewArtifact):
+        manifest = artifact.input_manifest
+        if manifest.normalized_question_hash != normalized_question_hash(question.question):
+            reasons.append("question_review_normalized_question_hash_mismatch")
+        if manifest.contract_hash != contract_digest:
+            reasons.append("question_review_contract_hash_mismatch")
+        if manifest.question != question.question:
+            reasons.append("question_review_question_mismatch")
+        if manifest.yes_condition != contract.yes_condition:
+            reasons.append("question_review_yes_condition_mismatch")
+        if manifest.no_condition != contract.no_condition:
+            reasons.append("question_review_no_condition_mismatch")
+        if as_utc(manifest.forecast_date) != as_utc(question.forecast_date):
+            reasons.append("question_review_forecast_date_mismatch")
+        if as_utc(manifest.resolution_date) != as_utc(question.resolution_date):
+            reasons.append("question_review_resolution_date_mismatch")
+        if manifest.authoritative_resolver != contract.authoritative_resolver:
+            reasons.append("question_review_resolver_mismatch")
+        if manifest.event_family_id != release_question.event_family_id:
+            reasons.append("question_review_event_family_mismatch")
+        if manifest.leakage_group_id != release_question.leakage_group_id:
+            reasons.append("question_review_leakage_group_mismatch")
+        if (
+            manifest.declared_source_license_status
+            != release_question.source_license_status
+        ):
+            reasons.append("question_review_license_mismatch")
+        if _normalized_text(manifest.declared_source_use_basis) != _normalized_text(
+            release_question.source_use_basis
+        ):
+            reasons.append("question_review_source_use_basis_mismatch")
+        if (
+            manifest.declared_redistribution_allowed
+            != release_question.redistribution_allowed
+        ):
+            reasons.append("question_review_redistribution_mismatch")
+        if not any(source.source_role == "pre_outcome_origin" for source in manifest.sources):
+            reasons.append("question_review_pre_outcome_origin_source_required")
+        for source in manifest.sources:
+            if as_utc(source.source_available_at) > as_utc(question.forecast_date):
+                reasons.append(
+                    f"question_review_source_after_forecast_cutoff:{source.source_id}"
+                )
+            if source.source_license_status == "unknown":
+                reasons.append(f"question_review_source_license_unknown:{source.source_id}")
+    else:
+        manifest = artifact.input_manifest
+        if manifest.contract_hash != contract_digest:
+            reasons.append("outcome_adjudication_contract_hash_mismatch")
+        if manifest.yes_condition != contract.yes_condition:
+            reasons.append("outcome_adjudication_yes_condition_mismatch")
+        if manifest.no_condition != contract.no_condition:
+            reasons.append("outcome_adjudication_no_condition_mismatch")
+        if as_utc(manifest.resolution_date) != as_utc(question.resolution_date):
+            reasons.append("outcome_adjudication_resolution_date_mismatch")
+        if manifest.candidate_outcome != question.outcome:
+            reasons.append("outcome_adjudication_candidate_outcome_mismatch")
+        if release_question.outcome_known_at is None:
+            reasons.append("outcome_known_at_required")
+        elif as_utc(manifest.outcome_known_at) != as_utc(
+            release_question.outcome_known_at
+        ):
+            reasons.append("outcome_adjudication_known_at_mismatch")
+        if release.reserve_order_frozen_at is None:
+            reasons.append("reserve_order_not_frozen")
+        elif as_utc(artifact.started_at) < as_utc(release.reserve_order_frozen_at):
+            reasons.append("outcome_adjudication_precedes_reserve_order")
+        expected_resolution_url = question.resolution_source.rstrip("/")
+        authoritative_urls = {
+            str(source.url).rstrip("/")
+            for source in manifest.sources
+            if source.source_role == "authoritative_resolution"
+        }
+        if expected_resolution_url not in authoritative_urls:
+            reasons.append("authoritative_resolution_source_missing")
+        for source in manifest.sources:
+            available_at = as_utc(source.source_available_at)
+            if available_at < as_utc(question.resolution_date):
+                reasons.append(
+                    f"outcome_source_before_resolution:{source.source_id}"
+                )
+            if available_at > as_utc(manifest.outcome_known_at):
+                reasons.append(
+                    f"outcome_source_after_outcome_known:{source.source_id}"
+                )
+    return list(dict.fromkeys(reasons))
+
+
+def _semantic_artifact_reasons(
+    artifact: ProceduralAIReviewArtifact,
+) -> tuple[list[str], list[str]]:
+    all_reasons = artifact_integrity_reasons(artifact)
+    hard_prefixes = (
+        "rubric_",
+        "input_manifest_rubric_",
+        "input_manifest_hash_",
+        "output_hash_",
+        "artifact_completion_",
+        "citation_not_in_input_manifest:",
+    )
+    hard = [
+        reason for reason in all_reasons if reason.startswith(hard_prefixes)
+    ]
+    semantic = [reason for reason in all_reasons if reason not in hard]
+    return hard, semantic
+
+
+def record_procedural_ai_review_artifact(
+    session: Session,
+    release: EvaluationRelease,
+    *,
+    artifact_type: Literal["question_review", "outcome_adjudication"],
+    payload: dict[str, Any],
+    now: datetime | None = None,
+    policy: EvaluationReleasePolicy = PRIVATE_V1_REAL_EVALUATION_RELEASE_V1,
+) -> ProceduralAIReviewArtifactRecord:
+    """Validate and retain one externally produced Codex receipt without a model call."""
+
+    if release.status != "draft":
+        raise EvaluationReleaseValidationError(
+            ["procedural_ai_review_requires_draft_release"]
+        )
+    if release.procedural_review_policy_version != PROCEDURAL_AI_REVIEW_POLICY_VERSION:
+        raise EvaluationReleaseValidationError(["procedural_review_policy_mismatch"])
+    try:
+        artifact = parse_review_artifact(payload, artifact_type=artifact_type)
+    except ValueError as exc:
+        raise EvaluationReleaseValidationError(str(exc).split(";")) from exc
+    release_question = session.scalar(
+        select(EvaluationReleaseQuestion).where(
+            EvaluationReleaseQuestion.id
+            == artifact.input_manifest.evaluation_release_question_id,
+            EvaluationReleaseQuestion.release_id == release.id,
+        )
+    )
+    if release_question is None:
+        raise EvaluationReleaseValidationError(["artifact_release_question_not_found"])
+    if release_question.inclusion_status != "included":
+        raise EvaluationReleaseValidationError(["artifact_for_excluded_question"])
+    existing = session.scalar(
+        select(ProceduralAIReviewArtifactRecord).where(
+            ProceduralAIReviewArtifactRecord.evaluation_release_question_id
+            == release_question.id,
+            ProceduralAIReviewArtifactRecord.artifact_type == artifact_type,
+        )
+    )
+    if existing is not None:
+        if (
+            existing.run_id == artifact.run_identity.run_id
+            and existing.input_manifest_hash == artifact.input_manifest_hash
+            and existing.output_hash == artifact.output_hash
+        ):
+            return existing
+        raise EvaluationReleaseValidationError(
+            ["procedural_ai_review_artifact_conflict_requires_new_release"]
+        )
+    reused_run = session.scalar(
+        select(ProceduralAIReviewArtifactRecord.id).where(
+            ProceduralAIReviewArtifactRecord.run_id == artifact.run_identity.run_id
+        )
+    )
+    if reused_run is not None:
+        raise EvaluationReleaseValidationError(["procedural_ai_review_run_id_reused"])
+    hard_reasons, semantic_reasons = _semantic_artifact_reasons(artifact)
+    binding_reasons = _artifact_release_binding_reasons(
+        session,
+        release,
+        release_question,
+        artifact,
+        recorded_at=as_utc(now or utcnow()),
+    )
+    if hard_reasons or binding_reasons:
+        raise EvaluationReleaseValidationError(hard_reasons + binding_reasons)
+    citation_ids = sorted(
+        {
+            source_id
+            for finding in artifact.output.findings
+            for source_id in finding.source_ids
+        }
+    )
+    row = ProceduralAIReviewArtifactRecord(
+        id=str(uuid.uuid4()),
+        evaluation_release_id=release.id,
+        evaluation_release_question_id=release_question.id,
+        evaluation_question_id=release_question.evaluation_question_id,
+        artifact_type=artifact_type,
+        policy_version=artifact.policy_version,
+        rubric_version=artifact.rubric_version,
+        rubric_hash=artifact.rubric_hash,
+        role=artifact.run_identity.role,
+        model_provider=artifact.run_identity.model_provider,
+        model_id=artifact.run_identity.model_id,
+        model_version=artifact.run_identity.model_version,
+        tool_name=artifact.run_identity.tool_name,
+        tool_version=artifact.run_identity.tool_version,
+        run_id=artifact.run_identity.run_id,
+        started_at=as_utc(artifact.started_at),
+        completed_at=as_utc(artifact.completed_at),
+        created_at=as_utc(now or utcnow()),
+        input_manifest_json=canonical_json(
+            artifact.input_manifest.model_dump(mode="json")
+        ),
+        input_manifest_hash=artifact.input_manifest_hash,
+        output_json=canonical_json(artifact.output.model_dump(mode="json")),
+        output_hash=artifact.output_hash,
+        decision=artifact.output.decision,
+        gate_status="passed" if not semantic_reasons else "failed",
+        gate_reasons_json=canonical_json(semantic_reasons),
+        source_citation_ids_json=canonical_json(citation_ids),
+    )
+    release.procedural_review_artifacts.append(row)
+    session.flush()
+    artifacts = _refresh_artifacts(session, release, policy=policy)
+    for field, value in artifacts.items():
+        setattr(release, field, value)
+    session.flush()
+    return row
+
+
+def serialize_procedural_ai_review_artifact(
+    row: ProceduralAIReviewArtifactRecord,
+) -> dict[str, Any]:
+    return {
+        "id": row.id,
+        "evaluation_release_id": row.evaluation_release_id,
+        "evaluation_release_question_id": row.evaluation_release_question_id,
+        "evaluation_question_id": row.evaluation_question_id,
+        "artifact_type": row.artifact_type,
+        "policy_version": row.policy_version,
+        "rubric_version": row.rubric_version,
+        "rubric_hash": row.rubric_hash,
+        "role": row.role,
+        "model_identity": {
+            "provider": row.model_provider,
+            "model_id": row.model_id,
+            "model_version": row.model_version,
+        },
+        "tool_identity": {
+            "tool_name": row.tool_name,
+            "tool_version": row.tool_version,
+        },
+        "run_id": row.run_id,
+        "started_at": as_utc(row.started_at).isoformat(),
+        "completed_at": as_utc(row.completed_at).isoformat(),
+        "created_at": as_utc(row.created_at).isoformat(),
+        "input_manifest_hash": row.input_manifest_hash,
+        "output_hash": row.output_hash,
+        "decision": row.decision,
+        "gate_status": row.gate_status,
+        "gate_reasons": json.loads(row.gate_reasons_json),
+        "source_citation_ids": json.loads(row.source_citation_ids_json),
+        "input_manifest": json.loads(row.input_manifest_json),
+        "output": json.loads(row.output_json),
+    }
+
+
+def procedural_ai_review_gate_reasons(
+    session: Session,
+    release: EvaluationRelease,
+) -> list[str]:
+    reasons: list[str] = []
+    if release.procedural_review_policy_version != PROCEDURAL_AI_REVIEW_POLICY_VERSION:
+        reasons.append("procedural_review_policy_mismatch")
+    if (
+        not release.reserve_order_json
+        or not release.reserve_order_hash
+        or release.reserve_order_frozen_at is None
+    ):
+        reasons.append("procedural_review_reserve_order_missing")
+    else:
+        try:
+            stored_reserve = json.loads(release.reserve_order_json)
+        except json.JSONDecodeError:
+            reasons.append("reserve_order_invalid_json")
+        else:
+            expected_reserve = _reserve_order_payload(session, release)
+            if stored_reserve != expected_reserve:
+                reasons.append("reserve_order_content_mismatch")
+            if sha256_text(canonical_json(stored_reserve)) != release.reserve_order_hash:
+                reasons.append("reserve_order_hash_mismatch")
+
+    rows_by_question = _artifact_rows_by_release_question(release)
+    included = [item for item in release.questions if item.inclusion_status == "included"]
+    all_run_ids: list[str] = []
+    for item in included:
+        rows = rows_by_question.get(item.id, {})
+        for artifact_type in ("question_review", "outcome_adjudication"):
+            row = rows.get(artifact_type)
+            if row is None:
+                reasons.append(
+                    f"procedural_review_artifact_missing:{item.evaluation_question_id}:{artifact_type}"
+                )
+                continue
+            all_run_ids.append(row.run_id)
+            if row.gate_status != "passed":
+                reasons.append(
+                    f"procedural_review_artifact_failed:{item.evaluation_question_id}:{artifact_type}"
+                )
+            try:
+                artifact = parse_review_artifact(
+                    _artifact_payload_from_row(row),
+                    artifact_type=cast(Any, artifact_type),
+                )
+            except (ValueError, json.JSONDecodeError):
+                reasons.append(
+                    f"procedural_review_artifact_invalid:{item.evaluation_question_id}:{artifact_type}"
+                )
+                continue
+            reasons.extend(
+                f"{reason}:{item.evaluation_question_id}:{artifact_type}"
+                for reason in artifact_integrity_reasons(artifact)
+            )
+            reasons.extend(
+                f"{reason}:{item.evaluation_question_id}:{artifact_type}"
+                for reason in _artifact_release_binding_reasons(
+                    session,
+                    release,
+                    item,
+                    artifact,
+                    recorded_at=as_utc(row.created_at),
+                )
+            )
+    if len(all_run_ids) != len(set(all_run_ids)):
+        reasons.append("procedural_review_run_ids_not_role_separated")
+    for row in release.procedural_review_artifacts:
+        release_question = next(
+            (item for item in release.questions if item.id == row.evaluation_release_question_id),
+            None,
+        )
+        if release_question is None or release_question.inclusion_status != "included":
+            reasons.append(f"procedural_review_artifact_not_for_included_question:{row.id}")
+    try:
+        expected_manifest = _build_review_gate_manifest(release)
+    except EvaluationReleaseValidationError as exc:
+        reasons.extend(exc.reasons)
+    else:
+        expected_json = canonical_json(expected_manifest.model_dump(mode="json"))
+        expected_hash = manifest_hash(expected_manifest)
+        if release.review_manifest_json != expected_json:
+            reasons.append("procedural_review_manifest_content_mismatch")
+        if release.review_manifest_hash != expected_hash:
+            reasons.append("procedural_review_manifest_hash_mismatch")
+    return list(dict.fromkeys(reasons))
 
 
 def _forbidden_manifest_paths(value: Any, path: str = "") -> list[str]:
@@ -532,10 +1082,6 @@ def _is_non_real_dataset(dataset: EvaluationDataset) -> bool:
         (dataset.name, dataset.description, dataset.provenance)
     ).casefold()
     return any(marker in text for marker in _NON_REAL_MARKERS)
-
-
-def _opaque_identifier_valid(value: str | None) -> bool:
-    return bool(value and _OPAQUE_REVIEWER_PATTERN.fullmatch(value) and "@" not in value)
 
 
 def validate_evaluation_release(
@@ -625,17 +1171,6 @@ def validate_evaluation_release(
             reasons.append(f"leakage_group_id_required:{question.id}")
         else:
             leakage_splits[item.leakage_group_id].add(item.split)
-        if not _opaque_identifier_valid(item.question_reviewer_id):
-            reasons.append(f"question_reviewer_id_required_or_not_opaque:{question.id}")
-        if not _opaque_identifier_valid(item.outcome_adjudicator_id):
-            reasons.append(f"outcome_adjudicator_id_required_or_not_opaque:{question.id}")
-        if (
-            item.question_reviewer_id
-            and item.question_reviewer_id == item.outcome_adjudicator_id
-        ):
-            reasons.append(f"reviewer_adjudicator_must_differ:{question.id}")
-        if item.review_completed_at is None:
-            reasons.append(f"review_completed_at_required:{question.id}")
         if item.outcome_known_at is None:
             reasons.append(f"outcome_known_at_required:{question.id}")
         else:
@@ -650,10 +1185,6 @@ def validate_evaluation_release(
             reasons.append(f"source_use_basis_required:{question.id}")
         if item.redistribution_allowed is None:
             reasons.append(f"redistribution_allowed_required:{question.id}")
-        if not item.adjudication_record_hash or not _SHA256_PATTERN.fullmatch(
-            item.adjudication_record_hash
-        ):
-            reasons.append(f"adjudication_record_hash_required:{question.id}")
 
     if len(normalized_hashes) != len(set(normalized_hashes)):
         reasons.append("duplicate_normalized_question_hash")
@@ -665,6 +1196,8 @@ def validate_evaluation_release(
     for group, splits in sorted(leakage_splits.items()):
         if len(splits) > 1:
             reasons.append(f"cross_split_leakage_group:{group}")
+
+    reasons.extend(procedural_ai_review_gate_reasons(session, release))
 
     try:
         preregistration = EvaluationPreregistration.model_validate_json(
@@ -681,6 +1214,33 @@ def validate_evaluation_release(
             reasons.append("preregistration_dataset_ids_mismatch")
         if preregistration.split_sizes != policy.required_included_counts:
             reasons.append("preregistration_split_sizes_mismatch")
+        if (
+            preregistration.procedural_review_policy_version
+            != PROCEDURAL_AI_REVIEW_POLICY_VERSION
+        ):
+            reasons.append("preregistration_procedural_review_policy_mismatch")
+        if preregistration.procedural_review_release_label != PROCEDURAL_AI_RELEASE_LABEL:
+            reasons.append("preregistration_procedural_review_label_mismatch")
+        if (
+            preregistration.question_review_rubric_version
+            != QUESTION_REVIEW_RUBRIC_VERSION
+            or preregistration.question_review_rubric_hash
+            != QUESTION_REVIEW_RUBRIC_HASH
+        ):
+            reasons.append("preregistration_question_review_rubric_mismatch")
+        if (
+            preregistration.outcome_adjudication_rubric_version
+            != OUTCOME_ADJUDICATION_RUBRIC_VERSION
+            or preregistration.outcome_adjudication_rubric_hash
+            != OUTCOME_ADJUDICATION_RUBRIC_HASH
+        ):
+            reasons.append("preregistration_outcome_adjudication_rubric_mismatch")
+        if (
+            preregistration.reserve_order_policy_version
+            != RESERVE_ORDER_POLICY_VERSION
+            or preregistration.reserve_order_hash != release.reserve_order_hash
+        ):
+            reasons.append("preregistration_reserve_order_mismatch")
         if validate_environment:
             reasons.extend(preregistration_environment_reasons(preregistration))
 
@@ -883,6 +1443,12 @@ def create_evaluation_release(
             )
         )
     session.flush()
+    reserve_order = _reserve_order_payload(session, release)
+    release.procedural_review_policy_version = PROCEDURAL_AI_REVIEW_POLICY_VERSION
+    release.reserve_order_json = canonical_json(reserve_order)
+    release.reserve_order_hash = sha256_text(release.reserve_order_json)
+    release.reserve_order_frozen_at = timestamp
+    session.flush()
     datasets = {
         "development": datasets_by_id[development_dataset_id],
         "validation": datasets_by_id[validation_dataset_id],
@@ -892,6 +1458,7 @@ def create_evaluation_release(
         release_policy=policy,
         datasets=datasets,
         provider_identity=provider_identity,
+        reserve_order_hash=release.reserve_order_hash,
         registered_at=timestamp,
     )
     release.preregistration_json = canonical_json(
@@ -1022,6 +1589,22 @@ def serialize_evaluation_release(
         "execution_manifest_hash": release.execution_manifest_hash,
         "scoring_manifest_hash": release.scoring_manifest_hash,
         "preregistration_hash": release.preregistration_hash,
+        "release_label": PROCEDURAL_AI_RELEASE_LABEL,
+        "procedural_review_policy_version": (
+            release.procedural_review_policy_version
+        ),
+        "reserve_order_hash": release.reserve_order_hash,
+        "reserve_order_frozen_at": (
+            as_utc(release.reserve_order_frozen_at).isoformat()
+            if release.reserve_order_frozen_at
+            else None
+        ),
+        "review_manifest_hash": release.review_manifest_hash,
+        "human_reviewed": False,
+        "independently_validated": False,
+        "publication_grade": False,
+        "forecasting_quality_established": False,
+        "calibration_established": False,
         "release_hash": release.release_hash,
         "structural_blinding_only": True,
     }
@@ -1053,6 +1636,19 @@ def release_audit(
     }
     payload = serialize_evaluation_release(release, include_questions=True)
     payload["counts"] = counts
+    payload["reserve_order"] = (
+        json.loads(release.reserve_order_json) if release.reserve_order_json else None
+    )
+    payload["procedural_ai_review_artifacts"] = [
+        serialize_procedural_ai_review_artifact(item)
+        for item in sorted(
+            release.procedural_review_artifacts,
+            key=lambda row: (
+                row.evaluation_release_question_id,
+                row.artifact_type,
+            ),
+        )
+    ]
     payload["validation_reasons"] = validate_evaluation_release(
         session,
         release,
