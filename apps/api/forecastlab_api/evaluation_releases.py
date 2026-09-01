@@ -26,17 +26,13 @@ from forecastlab.evaluation_releases import (
     PreregisteredProfile,
     SealedScoringManifest,
     SealedScoringQuestion,
+    licensing_audit_metadata_required,
     manifest_hash,
 )
 from forecastlab.gitinfo import current_git_commit
 from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.procedural_ai_review import (
-    OUTCOME_ADJUDICATION_RUBRIC_HASH,
-    OUTCOME_ADJUDICATION_RUBRIC_VERSION,
     PROCEDURAL_AI_RELEASE_LABEL,
-    PROCEDURAL_AI_REVIEW_POLICY_VERSION,
-    QUESTION_REVIEW_RUBRIC_HASH,
-    QUESTION_REVIEW_RUBRIC_VERSION,
     RESERVE_ORDER_POLICY_VERSION,
     RESERVE_ORDER_SEED,
     OutcomeAdjudicationArtifact,
@@ -45,7 +41,9 @@ from forecastlab.procedural_ai_review import (
     ProceduralAIReviewGateManifest,
     QuestionReviewArtifact,
     artifact_integrity_reasons,
+    input_manifest_payload,
     parse_review_artifact,
+    rubric_identity_for,
 )
 from forecastlab.profiles import load_profile, profile_hash
 from forecastlab.prompts import load_prompt_bundle
@@ -325,7 +323,16 @@ def _build_review_gate_manifest(
             item.artifact_id,
         ),
     )
+    policy_version = release.procedural_review_policy_version
+    if not policy_version:
+        raise EvaluationReleaseValidationError(["procedural_review_policy_missing"])
+    try:
+        rubric_identity = rubric_identity_for(policy_version)
+    except ValueError as exc:
+        raise EvaluationReleaseValidationError([str(exc)]) from exc
     return ProceduralAIReviewGateManifest(
+        policy_version=policy_version,
+        **rubric_identity,
         reserve_order_hash=release.reserve_order_hash,
         artifacts=artifacts,
     )
@@ -398,6 +405,12 @@ def build_evaluation_preregistration(
         raise EvaluationReleaseValidationError(
             [f"preregistration_identity_missing:{key}" for key in missing]
         )
+    try:
+        rubric_identity = rubric_identity_for(
+            release_policy.procedural_review_policy_version
+        )
+    except ValueError as exc:
+        raise EvaluationReleaseValidationError([str(exc)]) from exc
     return EvaluationPreregistration(
         release_policy_version=release_policy.version,
         registered_at=as_utc(registered_at),
@@ -422,6 +435,10 @@ def build_evaluation_preregistration(
         dependency_lock_hash=str(required_identity["dependency_hash"]),
         package_lock_hash=str(required_identity["package_lock_hash"]),
         provider_identity=provider_identity,
+        procedural_review_policy_version=(
+            release_policy.procedural_review_policy_version
+        ),
+        **rubric_identity,
         reserve_order_hash=reserve_order_hash,
     )
 
@@ -699,6 +716,7 @@ def _artifact_release_binding_reasons(
     artifact: ProceduralAIReviewArtifact,
     *,
     recorded_at: datetime,
+    policy: EvaluationReleasePolicy,
 ) -> list[str]:
     reasons: list[str] = []
     common_manifest = artifact.input_manifest
@@ -740,16 +758,17 @@ def _artifact_release_binding_reasons(
             reasons.append("question_review_event_family_mismatch")
         if manifest.leakage_group_id != release_question.leakage_group_id:
             reasons.append("question_review_leakage_group_mismatch")
-        if (
+        if policy.known_source_license_required and (
             manifest.declared_source_license_status
             != release_question.source_license_status
         ):
             reasons.append("question_review_license_mismatch")
-        if _normalized_text(manifest.declared_source_use_basis) != _normalized_text(
-            release_question.source_use_basis
+        if licensing_audit_metadata_required(policy) and (
+            _normalized_text(manifest.declared_source_use_basis)
+            != _normalized_text(release_question.source_use_basis)
         ):
             reasons.append("question_review_source_use_basis_mismatch")
-        if (
+        if licensing_audit_metadata_required(policy) and (
             manifest.declared_redistribution_allowed
             != release_question.redistribution_allowed
         ):
@@ -761,7 +780,10 @@ def _artifact_release_binding_reasons(
                 reasons.append(
                     f"question_review_source_after_forecast_cutoff:{source.source_id}"
                 )
-            if source.source_license_status == "unknown":
+            if (
+                policy.known_source_license_required
+                and source.source_license_status == "unknown"
+            ):
                 reasons.append(f"question_review_source_license_unknown:{source.source_id}")
     else:
         manifest = artifact.input_manifest
@@ -811,12 +833,14 @@ def _semantic_artifact_reasons(
 ) -> tuple[list[str], list[str]]:
     all_reasons = artifact_integrity_reasons(artifact)
     hard_prefixes = (
+        "procedural_review_policy_",
         "rubric_",
         "input_manifest_rubric_",
         "input_manifest_hash_",
         "output_hash_",
         "artifact_completion_",
         "citation_not_in_input_manifest:",
+        "v2_source_",
     )
     hard = [
         reason for reason in all_reasons if reason.startswith(hard_prefixes)
@@ -840,7 +864,10 @@ def record_procedural_ai_review_artifact(
         raise EvaluationReleaseValidationError(
             ["procedural_ai_review_requires_draft_release"]
         )
-    if release.procedural_review_policy_version != PROCEDURAL_AI_REVIEW_POLICY_VERSION:
+    if (
+        release.procedural_review_policy_version
+        != policy.procedural_review_policy_version
+    ):
         raise EvaluationReleaseValidationError(["procedural_review_policy_mismatch"])
     try:
         artifact = parse_review_artifact(payload, artifact_type=artifact_type)
@@ -888,6 +915,7 @@ def record_procedural_ai_review_artifact(
         release_question,
         artifact,
         recorded_at=as_utc(now or utcnow()),
+        policy=policy,
     )
     if hard_reasons or binding_reasons:
         raise EvaluationReleaseValidationError(hard_reasons + binding_reasons)
@@ -918,7 +946,7 @@ def record_procedural_ai_review_artifact(
         completed_at=as_utc(artifact.completed_at),
         created_at=as_utc(now or utcnow()),
         input_manifest_json=canonical_json(
-            artifact.input_manifest.model_dump(mode="json")
+            input_manifest_payload(artifact)
         ),
         input_manifest_hash=artifact.input_manifest_hash,
         output_json=canonical_json(artifact.output.model_dump(mode="json")),
@@ -977,9 +1005,14 @@ def serialize_procedural_ai_review_artifact(
 def procedural_ai_review_gate_reasons(
     session: Session,
     release: EvaluationRelease,
+    *,
+    policy: EvaluationReleasePolicy = PRIVATE_V1_REAL_EVALUATION_RELEASE_V1,
 ) -> list[str]:
     reasons: list[str] = []
-    if release.procedural_review_policy_version != PROCEDURAL_AI_REVIEW_POLICY_VERSION:
+    if (
+        release.procedural_review_policy_version
+        != policy.procedural_review_policy_version
+    ):
         reasons.append("procedural_review_policy_mismatch")
     if (
         not release.reserve_order_json
@@ -1026,6 +1059,10 @@ def procedural_ai_review_gate_reasons(
                     f"procedural_review_artifact_invalid:{item.evaluation_question_id}:{artifact_type}"
                 )
                 continue
+            if artifact.policy_version != policy.procedural_review_policy_version:
+                reasons.append(
+                    f"procedural_review_artifact_policy_mismatch:{item.evaluation_question_id}:{artifact_type}"
+                )
             reasons.extend(
                 f"{reason}:{item.evaluation_question_id}:{artifact_type}"
                 for reason in artifact_integrity_reasons(artifact)
@@ -1038,6 +1075,7 @@ def procedural_ai_review_gate_reasons(
                     item,
                     artifact,
                     recorded_at=as_utc(row.created_at),
+                    policy=policy,
                 )
             )
     if len(all_run_ids) != len(set(all_run_ids)):
@@ -1179,11 +1217,14 @@ def validate_evaluation_release(
                 reasons.append(f"forecast_date_not_before_outcome_known:{question.id}")
             if as_utc(question.resolution_date) > outcome_known:
                 reasons.append(f"resolution_date_after_outcome_known:{question.id}")
-        if item.source_license_status == "unknown":
+        if policy.known_source_license_required and item.source_license_status == "unknown":
             reasons.append(f"known_source_license_required:{question.id}")
-        if not _normalized_text(item.source_use_basis):
+        if licensing_audit_metadata_required(policy) and not _normalized_text(item.source_use_basis):
             reasons.append(f"source_use_basis_required:{question.id}")
-        if item.redistribution_allowed is None:
+        if (
+            licensing_audit_metadata_required(policy)
+            and item.redistribution_allowed is None
+        ):
             reasons.append(f"redistribution_allowed_required:{question.id}")
 
     if len(normalized_hashes) != len(set(normalized_hashes)):
@@ -1197,7 +1238,9 @@ def validate_evaluation_release(
         if len(splits) > 1:
             reasons.append(f"cross_split_leakage_group:{group}")
 
-    reasons.extend(procedural_ai_review_gate_reasons(session, release))
+    reasons.extend(
+        procedural_ai_review_gate_reasons(session, release, policy=policy)
+    )
 
     try:
         preregistration = EvaluationPreregistration.model_validate_json(
@@ -1216,25 +1259,33 @@ def validate_evaluation_release(
             reasons.append("preregistration_split_sizes_mismatch")
         if (
             preregistration.procedural_review_policy_version
-            != PROCEDURAL_AI_REVIEW_POLICY_VERSION
+            != policy.procedural_review_policy_version
         ):
             reasons.append("preregistration_procedural_review_policy_mismatch")
         if preregistration.procedural_review_release_label != PROCEDURAL_AI_RELEASE_LABEL:
             reasons.append("preregistration_procedural_review_label_mismatch")
-        if (
-            preregistration.question_review_rubric_version
-            != QUESTION_REVIEW_RUBRIC_VERSION
-            or preregistration.question_review_rubric_hash
-            != QUESTION_REVIEW_RUBRIC_HASH
-        ):
-            reasons.append("preregistration_question_review_rubric_mismatch")
-        if (
-            preregistration.outcome_adjudication_rubric_version
-            != OUTCOME_ADJUDICATION_RUBRIC_VERSION
-            or preregistration.outcome_adjudication_rubric_hash
-            != OUTCOME_ADJUDICATION_RUBRIC_HASH
-        ):
-            reasons.append("preregistration_outcome_adjudication_rubric_mismatch")
+        try:
+            rubric_identity = rubric_identity_for(
+                policy.procedural_review_policy_version
+            )
+        except ValueError:
+            reasons.append("preregistration_procedural_review_policy_unsupported")
+            rubric_identity = None
+        if rubric_identity is not None:
+            if (
+                preregistration.question_review_rubric_version
+                != rubric_identity["question_review_rubric_version"]
+                or preregistration.question_review_rubric_hash
+                != rubric_identity["question_review_rubric_hash"]
+            ):
+                reasons.append("preregistration_question_review_rubric_mismatch")
+            if (
+                preregistration.outcome_adjudication_rubric_version
+                != rubric_identity["outcome_adjudication_rubric_version"]
+                or preregistration.outcome_adjudication_rubric_hash
+                != rubric_identity["outcome_adjudication_rubric_hash"]
+            ):
+                reasons.append("preregistration_outcome_adjudication_rubric_mismatch")
         if (
             preregistration.reserve_order_policy_version
             != RESERVE_ORDER_POLICY_VERSION
@@ -1444,7 +1495,7 @@ def create_evaluation_release(
         )
     session.flush()
     reserve_order = _reserve_order_payload(session, release)
-    release.procedural_review_policy_version = PROCEDURAL_AI_REVIEW_POLICY_VERSION
+    release.procedural_review_policy_version = policy.procedural_review_policy_version
     release.reserve_order_json = canonical_json(reserve_order)
     release.reserve_order_hash = sha256_text(release.reserve_order_json)
     release.reserve_order_frozen_at = timestamp
@@ -1619,6 +1670,8 @@ def serialize_evaluation_release(
 def release_audit(
     session: Session,
     release: EvaluationRelease,
+    *,
+    policy: EvaluationReleasePolicy = PRIVATE_V1_REAL_EVALUATION_RELEASE_V1,
 ) -> dict[str, Any]:
     rows = release.questions
     counts = {
@@ -1652,6 +1705,7 @@ def release_audit(
     payload["validation_reasons"] = validate_evaluation_release(
         session,
         release,
+        policy=policy,
         validate_environment=False,
     )
     return payload

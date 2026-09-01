@@ -2,6 +2,12 @@
 
 Status: offline evaluation-integrity infrastructure. No corpus review, outcome adjudication, release freeze, experiment, score, or provider call was performed while adding this gate.
 
+This document specifies the immutable V1 behavior. The later private-internal
+V2 policy deliberately makes licensing/source-use/redistribution fields
+audit-only while strengthening mandatory source provenance and temporal fields;
+it does not alter V1 artifacts or frozen releases. See
+`docs/PRIVATE_INTERNAL_EVALUATION_GATE_V2.md`.
+
 ## Claim boundary
 
 The only permitted release label is:

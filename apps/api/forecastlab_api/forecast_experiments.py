@@ -25,7 +25,10 @@ from forecastlab.evaluation_releases import (
 from forecastlab.execution import ExecutionContext, configuration_hash, resolve_execution_context
 from forecastlab.hashing import canonical_json, sha256_text
 from forecastlab.pricing import load_pricing, pricing_hash
-from forecastlab.procedural_ai_review import PROCEDURAL_AI_REVIEW_POLICY_VERSION
+from forecastlab.procedural_ai_review import (
+    PROCEDURAL_AI_REVIEW_POLICY_V1,
+    PROCEDURAL_AI_REVIEW_POLICY_V2,
+)
 from forecastlab.profiles import effective_profile, load_profile, profile_hash
 from forecastlab.prompts import PromptBundle, load_prompt_bundle
 from forecastlab.schemas import ForecastContract, ForecastProfile, ResolutionContract
@@ -319,7 +322,10 @@ def create_forecast_experiment(
             raise ValueError("evaluation_release_must_be_frozen")
         if (
             release.procedural_review_policy_version
-            != PROCEDURAL_AI_REVIEW_POLICY_VERSION
+            not in {
+                PROCEDURAL_AI_REVIEW_POLICY_V1,
+                PROCEDURAL_AI_REVIEW_POLICY_V2,
+            }
             or not release.review_manifest_hash
             or not release.reserve_order_hash
         ):

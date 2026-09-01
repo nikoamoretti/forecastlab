@@ -10,13 +10,18 @@ from forecastlab.procedural_ai_review import (
     OUTCOME_ADJUDICATION_RUBRIC_HASH,
     OUTCOME_ADJUDICATION_RUBRIC_VERSION,
     PROCEDURAL_AI_RELEASE_LABEL,
+    PROCEDURAL_AI_REVIEW_POLICY_V1,
+    PROCEDURAL_AI_REVIEW_POLICY_V2,
     PROCEDURAL_AI_REVIEW_POLICY_VERSION,
     QUESTION_REVIEW_RUBRIC_HASH,
     QUESTION_REVIEW_RUBRIC_VERSION,
     RESERVE_ORDER_POLICY_VERSION,
 )
 
-POLICY_VERSION = "private_v1_real_evaluation_release_v1"
+POLICY_VERSION_V1 = "private_v1_real_evaluation_release_v1"
+POLICY_VERSION_V2 = "private_v1_real_evaluation_release_v2"
+# Preserve the public V1 constant for existing snapshots and callers.
+POLICY_VERSION = POLICY_VERSION_V1
 
 EvaluationSplit = Literal["development", "validation", "test"]
 InclusionStatus = Literal["included", "excluded"]
@@ -33,7 +38,10 @@ class EvaluationReleasePolicy(BaseModel):
 
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    version: Literal["private_v1_real_evaluation_release_v1"] = POLICY_VERSION
+    version: Literal[
+        "private_v1_real_evaluation_release_v1",
+        "private_v1_real_evaluation_release_v2",
+    ] = POLICY_VERSION_V1
     required_included_counts: dict[EvaluationSplit, int] = Field(
         default_factory=lambda: {
             "development": 60,
@@ -54,8 +62,9 @@ class EvaluationReleasePolicy(BaseModel):
     evidence_cutoff_rule: Literal["forecast_date"] = "forecast_date"
     structural_blinding_only: bool = True
     procedural_review_policy_version: Literal[
-        "private_v1_procedural_ai_review_v1"
-    ] = "private_v1_procedural_ai_review_v1"
+        "private_v1_procedural_ai_review_v1",
+        "private_v1_procedural_ai_review_v2",
+    ] = PROCEDURAL_AI_REVIEW_POLICY_V1
     required_question_review_artifacts_per_included_question: Literal[1] = 1
     required_outcome_adjudication_artifacts_per_included_question: Literal[1] = 1
     role_separated_codex_runs_required: Literal[True] = True
@@ -69,6 +78,30 @@ class EvaluationReleasePolicy(BaseModel):
 
 
 PRIVATE_V1_REAL_EVALUATION_RELEASE_V1 = EvaluationReleasePolicy()
+PRIVATE_V1_REAL_EVALUATION_RELEASE_V2 = EvaluationReleasePolicy(
+    version=POLICY_VERSION_V2,
+    known_source_license_required=False,
+    procedural_review_policy_version=PROCEDURAL_AI_REVIEW_POLICY_V2,
+)
+
+
+def evaluation_release_policy_for_version(version: str) -> EvaluationReleasePolicy:
+    """Resolve only a registered immutable real-evaluation release policy."""
+
+    policies = {
+        POLICY_VERSION_V1: PRIVATE_V1_REAL_EVALUATION_RELEASE_V1,
+        POLICY_VERSION_V2: PRIVATE_V1_REAL_EVALUATION_RELEASE_V2,
+    }
+    try:
+        return policies[version]
+    except KeyError as exc:
+        raise ValueError("unsupported_evaluation_release_policy") from exc
+
+
+def licensing_audit_metadata_required(policy: EvaluationReleasePolicy) -> bool:
+    """Keep V1's licensing gates while leaving V2 metadata audit-only."""
+
+    return policy.version == POLICY_VERSION_V1
 
 
 class BlindedResolutionContract(BaseModel):

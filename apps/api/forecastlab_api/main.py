@@ -18,9 +18,11 @@ from sqlalchemy.orm import Session
 from forecastlab.contracts import ForecastContractError
 from forecastlab.errors import ConfigurationError, StructuredOutputError
 from forecastlab.evaluation_releases import (
+    POLICY_VERSION,
     EvaluationProviderIdentity,
     EvaluationReleaseQuestionInput,
     EvaluationSplit,
+    evaluation_release_policy_for_version,
 )
 from forecastlab.evidence_claims import EvidenceClaimError
 from forecastlab.execution import readiness, resolve_execution_context
@@ -276,6 +278,7 @@ class EvaluationReleaseIn(BaseModel):
     test_dataset_id: str
     questions: list[EvaluationReleaseQuestionInput]
     provider_identity: EvaluationProviderIdentity
+    policy_version: str = POLICY_VERSION
     correction_of_release_id: str | None = None
     correction_summary: str | None = None
 
@@ -1405,7 +1408,7 @@ def list_evaluation_releases(db: Session = Depends(get_db)) -> dict[str, Any]:
     ).all()
     return {
         "releases": [serialize_evaluation_release(item) for item in rows],
-        "policy_version": "private_v1_real_evaluation_release_v1",
+        "policy_version": POLICY_VERSION,
         "real_corpus_populated": False,
     }
 
@@ -1416,6 +1419,7 @@ def post_evaluation_release(
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     try:
+        policy = evaluation_release_policy_for_version(body.policy_version)
         release = create_evaluation_release(
             db,
             name=body.name,
@@ -1427,15 +1431,21 @@ def post_evaluation_release(
             provider_identity=body.provider_identity,
             correction_of_release_id=body.correction_of_release_id,
             correction_summary=body.correction_summary,
+            policy=policy,
         )
-    except EvaluationReleaseValidationError as exc:
+    except (EvaluationReleaseValidationError, ValueError) as exc:
+        reasons = (
+            exc.reasons
+            if isinstance(exc, EvaluationReleaseValidationError)
+            else [str(exc)]
+        )
         raise HTTPException(
             400,
-            detail={"message": str(exc), "reasons": exc.reasons},
+            detail={"message": str(exc), "reasons": reasons},
         ) from exc
     db.commit()
     db.refresh(release)
-    return release_audit(db, release)
+    return release_audit(db, release, policy=policy)
 
 
 @app.post("/api/evaluation/releases/{release_id}/review")
@@ -1447,15 +1457,17 @@ def review_evaluation_release_endpoint(
     if release is None:
         raise HTTPException(404, "Evaluation release not found")
     try:
-        review_evaluation_release(db, release)
-    except EvaluationReleaseValidationError as exc:
+        policy = evaluation_release_policy_for_version(release.policy_version)
+        review_evaluation_release(db, release, policy=policy)
+    except (EvaluationReleaseValidationError, ValueError) as exc:
+        reasons = exc.reasons if isinstance(exc, EvaluationReleaseValidationError) else [str(exc)]
         raise HTTPException(
             400,
-            detail={"message": str(exc), "reasons": exc.reasons},
+            detail={"message": str(exc), "reasons": reasons},
         ) from exc
     db.commit()
     db.refresh(release)
-    return release_audit(db, release)
+    return release_audit(db, release, policy=policy)
 
 
 @app.post(
@@ -1471,16 +1483,19 @@ def post_question_review_artifact(
     if release is None:
         raise HTTPException(404, "Evaluation release not found")
     try:
+        policy = evaluation_release_policy_for_version(release.policy_version)
         artifact = record_procedural_ai_review_artifact(
             db,
             release,
             artifact_type="question_review",
             payload=body.artifact,
+            policy=policy,
         )
-    except EvaluationReleaseValidationError as exc:
+    except (EvaluationReleaseValidationError, ValueError) as exc:
+        reasons = exc.reasons if isinstance(exc, EvaluationReleaseValidationError) else [str(exc)]
         raise HTTPException(
             400,
-            detail={"message": str(exc), "reasons": exc.reasons},
+            detail={"message": str(exc), "reasons": reasons},
         ) from exc
     db.commit()
     db.refresh(artifact)
@@ -1500,16 +1515,19 @@ def post_outcome_adjudication_artifact(
     if release is None:
         raise HTTPException(404, "Evaluation release not found")
     try:
+        policy = evaluation_release_policy_for_version(release.policy_version)
         artifact = record_procedural_ai_review_artifact(
             db,
             release,
             artifact_type="outcome_adjudication",
             payload=body.artifact,
+            policy=policy,
         )
-    except EvaluationReleaseValidationError as exc:
+    except (EvaluationReleaseValidationError, ValueError) as exc:
+        reasons = exc.reasons if isinstance(exc, EvaluationReleaseValidationError) else [str(exc)]
         raise HTTPException(
             400,
-            detail={"message": str(exc), "reasons": exc.reasons},
+            detail={"message": str(exc), "reasons": reasons},
         ) from exc
     db.commit()
     db.refresh(artifact)
@@ -1553,15 +1571,17 @@ def freeze_evaluation_release_endpoint(
     if release is None:
         raise HTTPException(404, "Evaluation release not found")
     try:
-        freeze_evaluation_release(db, release)
-    except EvaluationReleaseValidationError as exc:
+        policy = evaluation_release_policy_for_version(release.policy_version)
+        freeze_evaluation_release(db, release, policy=policy)
+    except (EvaluationReleaseValidationError, ValueError) as exc:
+        reasons = exc.reasons if isinstance(exc, EvaluationReleaseValidationError) else [str(exc)]
         raise HTTPException(
             400,
-            detail={"message": str(exc), "reasons": exc.reasons},
+            detail={"message": str(exc), "reasons": reasons},
         ) from exc
     db.commit()
     db.refresh(release)
-    return release_audit(db, release)
+    return release_audit(db, release, policy=policy)
 
 
 @app.get("/api/evaluation/releases/{release_id}/execution-manifest")
@@ -1590,7 +1610,11 @@ def get_evaluation_release(
     release = db.get(EvaluationRelease, release_id)
     if release is None:
         raise HTTPException(404, "Evaluation release not found")
-    return release_audit(db, release)
+    try:
+        policy = evaluation_release_policy_for_version(release.policy_version)
+    except ValueError as exc:
+        raise HTTPException(400, detail={"message": str(exc), "reasons": [str(exc)]}) from exc
+    return release_audit(db, release, policy=policy)
 
 
 @app.get("/api/evaluation/evidence-releases")

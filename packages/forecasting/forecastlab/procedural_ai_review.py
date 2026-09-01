@@ -7,11 +7,16 @@ from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, ValidationError, 
 
 from forecastlab.hashing import canonical_json, sha256_text
 
-PROCEDURAL_AI_REVIEW_POLICY_VERSION = "private_v1_procedural_ai_review_v1"
-QUESTION_REVIEW_RUBRIC_VERSION = "private_v1_question_review_rubric_v1"
-OUTCOME_ADJUDICATION_RUBRIC_VERSION = (
-    "private_v1_outcome_adjudication_rubric_v1"
-)
+PROCEDURAL_AI_REVIEW_POLICY_V1 = "private_v1_procedural_ai_review_v1"
+PROCEDURAL_AI_REVIEW_POLICY_V2 = "private_v1_procedural_ai_review_v2"
+# Keep this legacy alias stable for persisted V1 artifacts and existing callers.
+PROCEDURAL_AI_REVIEW_POLICY_VERSION = PROCEDURAL_AI_REVIEW_POLICY_V1
+QUESTION_REVIEW_RUBRIC_V1 = "private_v1_question_review_rubric_v1"
+QUESTION_REVIEW_RUBRIC_V2_VERSION = "private_v1_question_review_rubric_v2"
+QUESTION_REVIEW_RUBRIC_VERSION = QUESTION_REVIEW_RUBRIC_V1
+OUTCOME_ADJUDICATION_RUBRIC_V1 = "private_v1_outcome_adjudication_rubric_v1"
+OUTCOME_ADJUDICATION_RUBRIC_V2_VERSION = "private_v1_outcome_adjudication_rubric_v2"
+OUTCOME_ADJUDICATION_RUBRIC_VERSION = OUTCOME_ADJUDICATION_RUBRIC_V1
 RESERVE_ORDER_POLICY_VERSION = "private_v1_deterministic_reserve_order_v1"
 RESERVE_ORDER_SEED = 20_260_831
 PROCEDURAL_AI_RELEASE_LABEL = (
@@ -31,14 +36,14 @@ class ProceduralAIReviewRubric(BaseModel):
     source_only_citations: Literal[True] = True
     uncertainty_fails_closed: Literal[True] = True
     conflicts_fail_closed: Literal[True] = True
-    licensing_mismatch_fails_closed: Literal[True] = True
+    licensing_mismatch_fails_closed: bool = True
     rubric_mismatch_fails_closed: Literal[True] = True
     hidden_reasoning_forbidden: Literal[True] = True
     external_knowledge_citations_forbidden: Literal[True] = True
 
 
 QUESTION_REVIEW_RUBRIC = ProceduralAIReviewRubric(
-    version=QUESTION_REVIEW_RUBRIC_VERSION,
+    version=QUESTION_REVIEW_RUBRIC_V1,
     role="question_review",
     required_finding_codes=(
         "binary_contract",
@@ -51,7 +56,7 @@ QUESTION_REVIEW_RUBRIC = ProceduralAIReviewRubric(
     ),
 )
 OUTCOME_ADJUDICATION_RUBRIC = ProceduralAIReviewRubric(
-    version=OUTCOME_ADJUDICATION_RUBRIC_VERSION,
+    version=OUTCOME_ADJUDICATION_RUBRIC_V1,
     role="outcome_adjudication",
     required_finding_codes=(
         "resolver_authority",
@@ -61,6 +66,35 @@ OUTCOME_ADJUDICATION_RUBRIC = ProceduralAIReviewRubric(
     ),
 )
 
+QUESTION_REVIEW_RUBRIC_V2 = ProceduralAIReviewRubric(
+    version=QUESTION_REVIEW_RUBRIC_V2_VERSION,
+    role="question_review",
+    required_finding_codes=(
+        "binary_contract",
+        "resolution_objectivity",
+        "pre_outcome_origin",
+        "authoritative_resolver",
+        "event_family",
+        "leakage_group",
+        "provenance_complete",
+        "temporal_proof",
+    ),
+    licensing_mismatch_fails_closed=False,
+)
+OUTCOME_ADJUDICATION_RUBRIC_V2 = ProceduralAIReviewRubric(
+    version=OUTCOME_ADJUDICATION_RUBRIC_V2_VERSION,
+    role="outcome_adjudication",
+    required_finding_codes=(
+        "resolver_authority",
+        "outcome_matches_contract",
+        "temporal_order",
+        "source_consistency",
+        "provenance_complete",
+        "temporal_proof",
+    ),
+    licensing_mismatch_fails_closed=False,
+)
+
 
 def rubric_hash(rubric: ProceduralAIReviewRubric) -> str:
     return sha256_text(canonical_json(rubric.model_dump(mode="json")))
@@ -68,6 +102,39 @@ def rubric_hash(rubric: ProceduralAIReviewRubric) -> str:
 
 QUESTION_REVIEW_RUBRIC_HASH = rubric_hash(QUESTION_REVIEW_RUBRIC)
 OUTCOME_ADJUDICATION_RUBRIC_HASH = rubric_hash(OUTCOME_ADJUDICATION_RUBRIC)
+QUESTION_REVIEW_RUBRIC_V2_HASH = rubric_hash(QUESTION_REVIEW_RUBRIC_V2)
+OUTCOME_ADJUDICATION_RUBRIC_V2_HASH = rubric_hash(OUTCOME_ADJUDICATION_RUBRIC_V2)
+
+
+def rubric_for(
+    policy_version: str,
+    artifact_type: Literal["question_review", "outcome_adjudication"],
+) -> ProceduralAIReviewRubric:
+    """Return the frozen rubric selected by the stored policy and role."""
+
+    rubrics = {
+        (PROCEDURAL_AI_REVIEW_POLICY_V1, "question_review"): QUESTION_REVIEW_RUBRIC,
+        (PROCEDURAL_AI_REVIEW_POLICY_V1, "outcome_adjudication"): OUTCOME_ADJUDICATION_RUBRIC,
+        (PROCEDURAL_AI_REVIEW_POLICY_V2, "question_review"): QUESTION_REVIEW_RUBRIC_V2,
+        (PROCEDURAL_AI_REVIEW_POLICY_V2, "outcome_adjudication"): OUTCOME_ADJUDICATION_RUBRIC_V2,
+    }
+    try:
+        return rubrics[(policy_version, artifact_type)]
+    except KeyError as exc:
+        raise ValueError("unsupported_procedural_ai_review_policy") from exc
+
+
+def rubric_identity_for(policy_version: str) -> dict[str, str]:
+    """Return the frozen, role-specific rubric identities for one review policy."""
+
+    question = rubric_for(policy_version, "question_review")
+    outcome = rubric_for(policy_version, "outcome_adjudication")
+    return {
+        "question_review_rubric_version": question.version,
+        "question_review_rubric_hash": rubric_hash(question),
+        "outcome_adjudication_rubric_version": outcome.version,
+        "outcome_adjudication_rubric_hash": rubric_hash(outcome),
+    }
 
 
 class CodexReviewRunIdentity(BaseModel):
@@ -90,6 +157,7 @@ class QuestionReviewSource(BaseModel):
     source_id: str = Field(min_length=1, max_length=128)
     url: AnyHttpUrl
     title: str = Field(min_length=1, max_length=512)
+    publisher: str | None = Field(default=None, max_length=512)
     source_role: Literal[
         "pre_outcome_origin",
         "contract_terms",
@@ -97,13 +165,18 @@ class QuestionReviewSource(BaseModel):
         "licensing_metadata",
     ]
     source_available_at: datetime
+    retrieved_at: datetime | None = None
+    published_at: datetime | None = None
+    published_at_unknown: bool = False
     temporal_basis: Literal["snapshot_date", "immutable_version"]
     content_sha256: str = Field(pattern=SHA256_PATTERN)
+    extracted_text_sha256: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    evidence_note: str | None = Field(default=None, max_length=500)
     source_license_status: Literal[
         "public_domain", "licensed", "metadata_use_permitted", "unknown"
-    ]
-    source_use_basis: str = Field(min_length=1, max_length=1000)
-    redistribution_allowed: bool
+    ] = "unknown"
+    source_use_basis: str | None = Field(default=None, max_length=1000)
+    redistribution_allowed: bool | None = None
 
 
 class OutcomeAdjudicationSource(BaseModel):
@@ -114,12 +187,18 @@ class OutcomeAdjudicationSource(BaseModel):
     source_id: str = Field(min_length=1, max_length=128)
     url: AnyHttpUrl
     title: str = Field(min_length=1, max_length=512)
+    publisher: str | None = Field(default=None, max_length=512)
     source_role: Literal["authoritative_resolution", "supporting_resolution"]
     source_available_at: datetime
+    retrieved_at: datetime | None = None
+    published_at: datetime | None = None
+    published_at_unknown: bool = False
     temporal_basis: Literal[
         "publication_date", "snapshot_date", "immutable_version"
     ]
     content_sha256: str = Field(pattern=SHA256_PATTERN)
+    extracted_text_sha256: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    evidence_note: str | None = Field(default=None, max_length=500)
 
 
 class QuestionReviewManifest(BaseModel):
@@ -145,13 +224,11 @@ class QuestionReviewManifest(BaseModel):
     inclusion_status: Literal["included"] = "included"
     declared_source_license_status: Literal[
         "public_domain", "licensed", "metadata_use_permitted", "unknown"
-    ]
-    declared_source_use_basis: str = Field(min_length=1)
-    declared_redistribution_allowed: bool
+    ] = "unknown"
+    declared_source_use_basis: str | None = None
+    declared_redistribution_allowed: bool | None = None
     sources: list[QuestionReviewSource] = Field(min_length=1)
-    rubric_version: Literal["private_v1_question_review_rubric_v1"] = (
-        QUESTION_REVIEW_RUBRIC_VERSION
-    )
+    rubric_version: str
     rubric_hash: str = Field(pattern=SHA256_PATTERN)
 
     @model_validator(mode="after")
@@ -181,9 +258,7 @@ class OutcomeAdjudicationManifest(BaseModel):
     candidate_outcome: Literal[0, 1]
     outcome_known_at: datetime
     sources: list[OutcomeAdjudicationSource] = Field(min_length=1)
-    rubric_version: Literal["private_v1_outcome_adjudication_rubric_v1"] = (
-        OUTCOME_ADJUDICATION_RUBRIC_VERSION
-    )
+    rubric_version: str
     rubric_hash: str = Field(pattern=SHA256_PATTERN)
 
     @model_validator(mode="after")
@@ -239,12 +314,8 @@ class QuestionReviewArtifact(BaseModel):
 
     schema_version: Literal[1] = 1
     artifact_type: Literal["question_review"] = "question_review"
-    policy_version: Literal["private_v1_procedural_ai_review_v1"] = (
-        PROCEDURAL_AI_REVIEW_POLICY_VERSION
-    )
-    rubric_version: Literal["private_v1_question_review_rubric_v1"] = (
-        QUESTION_REVIEW_RUBRIC_VERSION
-    )
+    policy_version: str
+    rubric_version: str
     rubric_hash: str = Field(pattern=SHA256_PATTERN)
     run_identity: CodexReviewRunIdentity
     started_at: datetime
@@ -266,12 +337,8 @@ class OutcomeAdjudicationArtifact(BaseModel):
 
     schema_version: Literal[1] = 1
     artifact_type: Literal["outcome_adjudication"] = "outcome_adjudication"
-    policy_version: Literal["private_v1_procedural_ai_review_v1"] = (
-        PROCEDURAL_AI_REVIEW_POLICY_VERSION
-    )
-    rubric_version: Literal["private_v1_outcome_adjudication_rubric_v1"] = (
-        OUTCOME_ADJUDICATION_RUBRIC_VERSION
-    )
+    policy_version: str
+    rubric_version: str
     rubric_hash: str = Field(pattern=SHA256_PATTERN)
     run_identity: CodexReviewRunIdentity
     started_at: datetime
@@ -314,13 +381,11 @@ class ProceduralAIReviewGateManifest(BaseModel):
     label: Literal[
         "Procedurally AI-reviewed private-V1 evaluation release"
     ] = PROCEDURAL_AI_RELEASE_LABEL
-    policy_version: Literal["private_v1_procedural_ai_review_v1"] = (
-        PROCEDURAL_AI_REVIEW_POLICY_VERSION
-    )
-    question_review_rubric_version: str = QUESTION_REVIEW_RUBRIC_VERSION
-    question_review_rubric_hash: str = QUESTION_REVIEW_RUBRIC_HASH
-    outcome_adjudication_rubric_version: str = OUTCOME_ADJUDICATION_RUBRIC_VERSION
-    outcome_adjudication_rubric_hash: str = OUTCOME_ADJUDICATION_RUBRIC_HASH
+    policy_version: str
+    question_review_rubric_version: str
+    question_review_rubric_hash: str = Field(pattern=SHA256_PATTERN)
+    outcome_adjudication_rubric_version: str
+    outcome_adjudication_rubric_hash: str = Field(pattern=SHA256_PATTERN)
     reserve_order_policy_version: str = RESERVE_ORDER_POLICY_VERSION
     reserve_order_hash: str = Field(pattern=SHA256_PATTERN)
     artifacts: list[ProceduralAIArtifactIdentity]
@@ -427,13 +492,90 @@ def parse_review_artifact(
     return OutcomeAdjudicationArtifact.model_validate(payload)
 
 
+def _v2_source_provenance_reasons(
+    source: QuestionReviewSource | OutcomeAdjudicationSource,
+) -> list[str]:
+    """Require the V2 provenance fields without interpreting source licensing."""
+
+    reasons: list[str] = []
+    if not source.publisher or not source.publisher.strip():
+        reasons.append(f"v2_source_publisher_required:{source.source_id}")
+    if source.retrieved_at is None:
+        reasons.append(f"v2_source_retrieval_time_required:{source.source_id}")
+    if source.published_at is None and not source.published_at_unknown:
+        reasons.append(f"v2_source_date_or_unknown_state_required:{source.source_id}")
+    if source.published_at is not None and source.published_at_unknown:
+        reasons.append(f"v2_source_date_state_conflict:{source.source_id}")
+    if source.extracted_text_sha256 is None:
+        reasons.append(f"v2_source_extracted_text_hash_required:{source.source_id}")
+    if not source.evidence_note or not source.evidence_note.strip():
+        reasons.append(f"v2_source_evidence_note_required:{source.source_id}")
+    return reasons
+
+
+def canonical_input_manifest_payload(
+    manifest: QuestionReviewManifest | OutcomeAdjudicationManifest,
+    *,
+    policy_version: str,
+) -> dict[str, Any]:
+    """Return the version-specific canonical wire payload for an artifact hash.
+
+    V1 receipts predate V2 source-provenance fields. Their original canonical
+    serialization must remain stable, so this intentionally removes only those
+    fields from a V1 source projection. V2 receipts include every field and are
+    then required to supply the V2 provenance values below.
+    """
+
+    payload = manifest.model_dump(mode="json")
+    if policy_version == PROCEDURAL_AI_REVIEW_POLICY_V1:
+        v2_only_source_fields = {
+            "publisher",
+            "retrieved_at",
+            "published_at",
+            "published_at_unknown",
+            "extracted_text_sha256",
+            "evidence_note",
+        }
+        for source in payload["sources"]:
+            for field in v2_only_source_fields:
+                source.pop(field, None)
+    return payload
+
+
+def input_manifest_hash_candidates(artifact: ProceduralAIReviewArtifact) -> set[str]:
+    """Return accepted canonical hashes without rewriting a persisted V1 receipt."""
+
+    full_payload = artifact.input_manifest.model_dump(mode="json")
+    candidates = {sha256_text(canonical_json(full_payload))}
+    if artifact.policy_version == PROCEDURAL_AI_REVIEW_POLICY_V1:
+        candidates.add(
+            sha256_text(
+                canonical_json(
+                    canonical_input_manifest_payload(
+                        artifact.input_manifest,
+                        policy_version=artifact.policy_version,
+                    )
+                )
+            )
+        )
+    return candidates
+
+
+def input_manifest_payload(artifact: ProceduralAIReviewArtifact) -> dict[str, Any]:
+    full_payload = artifact.input_manifest.model_dump(mode="json")
+    if sha256_text(canonical_json(full_payload)) == artifact.input_manifest_hash:
+        return full_payload
+    return canonical_input_manifest_payload(
+        artifact.input_manifest, policy_version=artifact.policy_version
+    )
+
+
 def artifact_integrity_reasons(artifact: ProceduralAIReviewArtifact) -> list[str]:
     reasons: list[str] = []
-    expected_rubric = (
-        QUESTION_REVIEW_RUBRIC
-        if artifact.artifact_type == "question_review"
-        else OUTCOME_ADJUDICATION_RUBRIC
-    )
+    try:
+        expected_rubric = rubric_for(artifact.policy_version, artifact.artifact_type)
+    except ValueError:
+        return ["procedural_review_policy_unsupported"]
     expected_rubric_hash = rubric_hash(expected_rubric)
     if artifact.rubric_version != expected_rubric.version:
         reasons.append("rubric_version_mismatch")
@@ -443,13 +585,11 @@ def artifact_integrity_reasons(artifact: ProceduralAIReviewArtifact) -> list[str
         reasons.append("input_manifest_rubric_version_mismatch")
     if artifact.input_manifest.rubric_hash != expected_rubric_hash:
         reasons.append("input_manifest_rubric_hash_mismatch")
-    expected_input_hash = sha256_text(
-        canonical_json(artifact.input_manifest.model_dump(mode="json"))
-    )
+    expected_input_hashes = input_manifest_hash_candidates(artifact)
     expected_output_hash = sha256_text(
         canonical_json(artifact.output.model_dump(mode="json"))
     )
-    if artifact.input_manifest_hash != expected_input_hash:
+    if artifact.input_manifest_hash not in expected_input_hashes:
         reasons.append("input_manifest_hash_mismatch")
     if artifact.output_hash != expected_output_hash:
         reasons.append("output_hash_mismatch")
@@ -479,7 +619,10 @@ def artifact_integrity_reasons(artifact: ProceduralAIReviewArtifact) -> list[str
     if isinstance(artifact, QuestionReviewArtifact):
         if artifact.output.decision != "accepted":
             reasons.append(f"question_review_not_accepted:{artifact.output.decision}")
-        if artifact.input_manifest.declared_source_license_status == "unknown":
+        if (
+            expected_rubric.licensing_mismatch_fails_closed
+            and artifact.input_manifest.declared_source_license_status == "unknown"
+        ):
             reasons.append("question_review_license_unknown")
     else:
         if artifact.output.decision != "confirmed":
@@ -490,11 +633,14 @@ def artifact_integrity_reasons(artifact: ProceduralAIReviewArtifact) -> list[str
             reasons.append("adjudicated_outcome_missing")
         elif artifact.output.adjudicated_outcome != artifact.input_manifest.candidate_outcome:
             reasons.append("adjudicated_outcome_conflicts_with_manifest")
+    if artifact.policy_version == PROCEDURAL_AI_REVIEW_POLICY_V2:
+        for source in artifact.input_manifest.sources:
+            reasons.extend(_v2_source_provenance_reasons(source))
     return list(dict.fromkeys(reasons))
 
 
 def artifact_input_hash(artifact: ProceduralAIReviewArtifact) -> str:
-    return sha256_text(canonical_json(artifact.input_manifest.model_dump(mode="json")))
+    return sha256_text(canonical_json(input_manifest_payload(artifact)))
 
 
 def artifact_output_hash(artifact: ProceduralAIReviewArtifact) -> str:

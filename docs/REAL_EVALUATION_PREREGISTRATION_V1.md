@@ -6,6 +6,14 @@ Status: offline evaluation-integrity infrastructure. No real corpus has been cer
 
 `private_v1_real_evaluation_release_v1` freezes the identities, leakage controls, procedural review receipts, licensing metadata, execution payload, scoring payload, and analysis plan required before ForecastLab may assign a real evaluation question. It does not collect questions, perform the Codex review runs, claim human review, construct historical evidence, execute forecasts, or establish forecasting quality.
 
+The versioned `private_v1_real_evaluation_release_v2` policy is restricted to
+private internal evaluation. It retains the same split, temporal, leakage,
+blinding, role-separation, and immutable-receipt controls, but records licensing,
+source-use basis, and redistribution permission as audit metadata rather than
+private pass/fail gates. It requires complete source provenance and temporal
+fields. Neither policy authorizes public claims or a real evaluation without the
+separate frozen historical-evidence release.
+
 The latest bounded live operational acceptance remains a hard 3-of-5 failure. This release boundary neither reinterprets nor repairs that result.
 
 ## Release lifecycle
