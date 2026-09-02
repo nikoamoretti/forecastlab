@@ -1,0 +1,26 @@
+{
+  "artifact_label": "cursor-transport-trust-validation-v1",
+  "source_sha": "d1cbd2931b59d10f828f5858888cb9b1ac4775da",
+  "source_ci_run_id": 33594317112,
+  "cursor_cli": "agent",
+  "requested_model": "gpt-5.3-codex-low-fast",
+  "arguments": {
+    "mode": "ask",
+    "output_format": "text",
+    "sandbox": "enabled",
+    "trust": true,
+    "yolo": false,
+    "force": false
+  },
+  "workspace_scope": "fresh external empty workspace; no corpus, question, outcome, manifest, or review artifact data",
+  "exit_code": 0,
+  "expected_output_validated": true,
+  "output_sha256": "44e2ea89d7bfeb2f2aee57a28254eebbaefa51a52b1b5b8118eee53a943340e5",
+  "review_artifacts_created": 0,
+  "forecastlab_openai_calls": 0,
+  "forecastlab_tavily_calls": 0,
+  "forecastlab_provider_spend_usd": "0.00",
+  "cursor_usage_or_cost_observable": false,
+  "prior_canary_receipts_unchanged": true,
+  "note": "This validates only the Cursor CLI workspace-trust transport repair. It is not a review-canary replay and does not make the prior failed canary successful."
+}

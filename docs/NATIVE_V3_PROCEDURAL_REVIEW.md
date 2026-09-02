@@ -73,3 +73,19 @@ Cursor transport usage and cost were not reported by the CLI. ForecastLab made
 zero OpenAI or Tavily calls and incurred `$0.00` of ForecastLab provider spend.
 This is a preserved external-transport blocker, not a result to reinterpret or
 work around by silently restarting the campaign.
+
+## Transport-only trust validation
+
+The controller now passes `--trust` only for its freshly created,
+manifest-only per-role Cursor workspaces. It continues to use Cursor sandboxing
+and does not use `--yolo`, `-f`, or a broader workspace. The source commit
+`d1cbd2931b59d10f828f5858888cb9b1ac4775da` passed exact CI run `33594317112`.
+
+One separately authorized empty-workspace transport check exited `0` and
+returned the required fixed JSON response. It contained no corpus, question,
+outcome, manifest, or review-artifact data; created no review artifact; and did
+not replay the failed canary. Its sanitized receipt is tracked at
+[`artifacts/native_v3_procedural_review/transport_trust_validation.json`](../artifacts/native_v3_procedural_review/transport_trust_validation.json).
+
+This transport repair does not alter the prior canary receipt or authorize a
+full review restart. A new review campaign requires separate authorization.
