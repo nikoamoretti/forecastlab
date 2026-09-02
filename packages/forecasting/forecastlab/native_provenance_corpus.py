@@ -371,6 +371,112 @@ def attach_split(
     return result
 
 
+def native_review_manifests(
+    *,
+    candidate: Mapping[str, Any],
+    sealed_outcome: Mapping[str, Any],
+) -> tuple[QuestionReviewManifest, OutcomeAdjudicationManifest]:
+    """Create the two disjoint typed V2 review inputs for one native record.
+
+    This is a pure projection. It does not persist a review artifact, access a
+    provider, or merge the two role payloads.
+    """
+
+    question_source = candidate.get("question_source")
+    resolution_source = sealed_outcome.get("resolution_source")
+    if not isinstance(question_source, Mapping) or not isinstance(resolution_source, Mapping):
+        raise NativeCorpusError("native_source_projection_missing")
+    candidate_id = str(candidate["candidate_id"])
+    question_manifest = QuestionReviewManifest(
+        evaluation_release_id="native-v3-not-a-release",
+        evaluation_release_question_id=candidate_id,
+        evaluation_question_id=candidate_id,
+        normalized_question_hash=candidate["normalized_question_hash"],
+        contract_hash=candidate["contract_hash"],
+        question=candidate["original_question"],
+        yes_condition=candidate["yes_condition"],
+        no_condition=candidate["no_condition"],
+        forecast_date=parse_timestamp(candidate["forecast_date"], field="forecast_date"),
+        resolution_date=parse_timestamp(
+            candidate["resolution_date"], field="resolution_date"
+        ),
+        authoritative_resolver=candidate["authoritative_resolver"],
+        event_family_id=candidate["event_family_id"],
+        leakage_group_id=candidate["leakage_group_id"],
+        sources=[
+            QuestionReviewSource(
+                **{
+                    key: question_source[key]
+                    for key in (
+                        "source_id",
+                        "url",
+                        "title",
+                        "publisher",
+                        "source_role",
+                        "source_available_at",
+                        "retrieved_at",
+                        "published_at",
+                        "published_at_unknown",
+                        "content_sha256",
+                        "extracted_text_sha256",
+                        "source_license_status",
+                        "source_use_basis",
+                        "redistribution_allowed",
+                    )
+                },
+                temporal_basis=NATIVE_RECORD_MANIFEST_BASIS,
+                evidence_note=(
+                    "Native record timestamped before outcome; retrieval time is audit-only."
+                ),
+            )
+        ],
+        rubric_version=QUESTION_REVIEW_RUBRIC_V2.version,
+        rubric_hash=rubric_hash(QUESTION_REVIEW_RUBRIC_V2),
+    )
+    outcome_manifest = OutcomeAdjudicationManifest(
+        evaluation_release_id="native-v3-not-a-release",
+        evaluation_release_question_id=candidate_id,
+        evaluation_question_id=candidate_id,
+        contract_hash=candidate["contract_hash"],
+        yes_condition=candidate["yes_condition"],
+        no_condition=candidate["no_condition"],
+        resolution_date=parse_timestamp(
+            candidate["resolution_date"], field="resolution_date"
+        ),
+        candidate_outcome=sealed_outcome["provisional_observed_outcome"],
+        outcome_known_at=parse_timestamp(
+            sealed_outcome["outcome_known_at"], field="outcome_known_at"
+        ),
+        sources=[
+            OutcomeAdjudicationSource(
+                **{
+                    key: resolution_source[key]
+                    for key in (
+                        "source_id",
+                        "url",
+                        "title",
+                        "publisher",
+                        "source_role",
+                        "source_available_at",
+                        "retrieved_at",
+                        "published_at",
+                        "published_at_unknown",
+                        "content_sha256",
+                        "extracted_text_sha256",
+                    )
+                },
+                temporal_basis=NATIVE_RECORD_MANIFEST_BASIS,
+                evidence_note=(
+                    "Native final settlement timestamp; retrieval time is audit-only."
+                ),
+            )
+        ],
+        rubric_version=OUTCOME_ADJUDICATION_RUBRIC_V2.version,
+        rubric_hash=rubric_hash(OUTCOME_ADJUDICATION_RUBRIC_V2),
+    )
+    return question_manifest, outcome_manifest
+
+
 def validate_native_v2_readiness(
     *,
     candidates: Sequence[Mapping[str, Any]],
@@ -403,72 +509,9 @@ def validate_native_v2_readiness(
         if document.get("source_available_at") != candidate.get("origin_timestamp"):
             errors.append(f"native_cutoff_timestamp_mismatch:{candidate_id}")
             continue
-        question_source = candidate.get("question_source")
-        resolution_source = sealed.get("resolution_source")
-        if not isinstance(question_source, Mapping) or not isinstance(resolution_source, Mapping):
-            errors.append(f"native_source_projection_missing:{candidate_id}")
-            continue
         try:
-            QuestionReviewManifest(
-                evaluation_release_id="native-v3-not-a-release",
-                evaluation_release_question_id=candidate_id,
-                evaluation_question_id=candidate_id,
-                normalized_question_hash=candidate["normalized_question_hash"],
-                contract_hash=candidate["contract_hash"],
-                question=candidate["original_question"],
-                yes_condition=candidate["yes_condition"],
-                no_condition=candidate["no_condition"],
-                forecast_date=parse_timestamp(candidate["forecast_date"], field="forecast_date"),
-                resolution_date=parse_timestamp(candidate["resolution_date"], field="resolution_date"),
-                authoritative_resolver=candidate["authoritative_resolver"],
-                event_family_id=candidate["event_family_id"],
-                leakage_group_id=candidate["leakage_group_id"],
-                sources=[
-                    QuestionReviewSource(
-                        **{
-                            key: question_source[key]
-                            for key in (
-                                "source_id", "url", "title", "publisher", "source_role",
-                                "source_available_at", "retrieved_at", "published_at",
-                                "published_at_unknown", "content_sha256", "extracted_text_sha256",
-                                "source_license_status", "source_use_basis", "redistribution_allowed",
-                            )
-                        },
-                        temporal_basis=NATIVE_RECORD_MANIFEST_BASIS,
-                        evidence_note="Native record timestamped before outcome; retrieval time is audit-only.",
-                    )
-                ],
-                rubric_version=QUESTION_REVIEW_RUBRIC_V2.version,
-                rubric_hash=rubric_hash(QUESTION_REVIEW_RUBRIC_V2),
-            )
+            native_review_manifests(candidate=candidate, sealed_outcome=sealed)
             question_manifest_count += 1
-            OutcomeAdjudicationManifest(
-                evaluation_release_id="native-v3-not-a-release",
-                evaluation_release_question_id=candidate_id,
-                evaluation_question_id=candidate_id,
-                contract_hash=candidate["contract_hash"],
-                yes_condition=candidate["yes_condition"],
-                no_condition=candidate["no_condition"],
-                resolution_date=parse_timestamp(candidate["resolution_date"], field="resolution_date"),
-                candidate_outcome=sealed["provisional_observed_outcome"],
-                outcome_known_at=parse_timestamp(sealed["outcome_known_at"], field="outcome_known_at"),
-                sources=[
-                    OutcomeAdjudicationSource(
-                        **{
-                            key: resolution_source[key]
-                            for key in (
-                                "source_id", "url", "title", "publisher", "source_role",
-                                "source_available_at", "retrieved_at", "published_at",
-                                "published_at_unknown", "content_sha256", "extracted_text_sha256",
-                            )
-                        },
-                        temporal_basis=NATIVE_RECORD_MANIFEST_BASIS,
-                        evidence_note="Native final settlement timestamp; retrieval time is audit-only.",
-                    )
-                ],
-                rubric_version=OUTCOME_ADJUDICATION_RUBRIC_V2.version,
-                rubric_hash=rubric_hash(OUTCOME_ADJUDICATION_RUBRIC_V2),
-            )
             outcome_manifest_count += 1
         except Exception as exc:  # pydantic details stay out of persisted public summaries
             errors.append(f"sealed_manifest_invalid:{candidate_id}:{type(exc).__name__}")
