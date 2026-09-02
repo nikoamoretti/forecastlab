@@ -549,7 +549,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.verify_only:
             result = verify_workspace(source=source, source_sha=args.source_sha, workspace_path=args.workspace)
         else:
-            result = acquire(source=source, source_sha=args.source_sha, workspace_path=args.workspace, target=args.target, max_series_pages=args.max_series_pages, max_series_requests=args.max_series_requests, client=PublicHttpClient(timeout=args.http_timeout, delay=args.request_delay))
+            result = acquire(
+                source=source,
+                source_sha=args.source_sha,
+                workspace_path=args.workspace,
+                target=args.target,
+                max_series_pages=0,
+                max_series_requests=args.max_series_requests,
+                client=PublicHttpClient(timeout=args.http_timeout, delay=args.request_delay),
+            )
     except NativeAcquisitionError as exc:
         print(canonical_json({"status": "failed", "error": str(exc).split(":", 1)[0]}))
         return 2
