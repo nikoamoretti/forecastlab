@@ -45,3 +45,9 @@
 - Search and fetch caches are per run. They do not survive a rerun after a watch change.
 - FL-QF001 is cancelled. ForecastLab intentionally retains a question-first workflow; it has no Question Feed, practice league, market/community probability display, automatic scheduler, or automatic rerun service.
 - The frozen frontend dependency lock retains three known high-severity advisories involving `next`, nested `postcss`, and `sharp`. The available remediation is a breaking Next upgrade and remains outside this task; critical advisories were zero in the preserved fresh-checkout verification.
+- Native-provenance corpus V3 can collect timestamped native historical records
+  into a private, outcome-blinded candidate corpus, but those records still
+  require independent human review, outcome adjudication, licensing review, and
+  leakage review before they can enter a frozen evaluation release. It does not
+  change the preserved 3/5 live operational acceptance failure and it supplies
+  no forecasting-quality or calibration result.

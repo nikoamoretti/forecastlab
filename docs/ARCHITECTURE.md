@@ -11,6 +11,17 @@ ForecastLab is a local-first process, not a hosted agent mesh.
 - `prompts`: versioned prompt files.
 - `fixtures`: local HTML sources and synthetic benchmarks.
 
+## Native-provenance corpus acquisition V3
+
+The offline V3 acquisition tool builds a private, content-addressed candidate
+corpus from timestamped durable source records without using forecasting
+providers. It keeps blinded candidate records, sealed provisional outcomes, raw
+source payloads, native evidence packets, and normalized rejection records
+separate. Native source timestamps establish pre-outcome origin; retrieval time
+remains an audit observation only. The output is machine-screened and pending
+human review, not a frozen evaluation release. See
+[Native-Provenance Evaluation Corpus V3](NATIVE_PROVENANCE_EVALUATION_CORPUS_V3.md).
+
 Real-evaluation release review uses two disjoint typed receipt boundaries. `QuestionReviewArtifact` is outcome blind; `OutcomeAdjudicationArtifact` cannot receive question-review output, split, event-family, leakage-group, or reserve-order data. Both freeze Codex model/tool/run identity, rubric identity, source-only citations, timestamps, and canonical input/output hashes. A deterministic reserve order is frozen before outcome adjudication, failed or uncertain receipts remain immutable, and one database claim permits the frozen test split to be assigned once. The only release label is “Procedurally AI-reviewed private-V1 evaluation release”; the architecture does not claim human or independent validation. See [Procedural AI Review Gate V1](PROCEDURAL_AI_REVIEW_GATE_V1.md).
 
 ## Request path
