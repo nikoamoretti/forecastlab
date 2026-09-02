@@ -81,6 +81,17 @@ content-addressed paths, candidate IDs are stable, and a completed workspace can
 be verified with `--verify-only` without network access. It will not lower the
 minimum 200 native-provenance-ready threshold.
 
+## First acquisition receipt
+
+The first V3 public-source pass produced 260 machine-complete candidates from
+the active native historical-market adapter: 60 provisional development, 40
+validation, 100 test, and 60 reserve candidates. The read-only native sealed
+input preflight passed. The ordinary V2 release preflight remains non-ready by
+design because there are no review or adjudication artifacts. The sanitized
+receipt is tracked at
+[`artifacts/native_provenance_corpus_v3/summary.json`](../artifacts/native_provenance_corpus_v3/summary.json);
+raw source responses and sealed provisional outcomes remain outside Git.
+
 ## Known limits
 
 The corpus is still awaiting independent human question review, outcome
