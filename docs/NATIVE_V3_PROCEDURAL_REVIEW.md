@@ -50,3 +50,26 @@ The tracked sanitized result, if one exists, contains aggregate counts and
 hashes only. The external review workspace retains the immutable typed receipts.
 The latest live operational acceptance remains **3/5 FAIL**. No certified
 evaluation corpus, forecasting-quality result, or calibration result is implied.
+
+## Authorized canary result
+
+The first authorized canary used source commit `2871ba9bf03976b47eef2f5e4dcc6d08bb5a1b82`
+after its exact CI run `33592695052` succeeded. It used the immutable V3 corpus
+manifest `13b2e7ec2c926c1136854e002cc19b7e4dfcbc1c569d27f29210f7948365852a`
+and its external campaign record `310a37401df2a79c892640be5699cc946b5fa2eb78693c53faca955e6f20a858`.
+
+One fresh context for each role requested `gpt-5.3-codex-low-fast`. Both exited
+with the sanitized terminal code `cursor_transport_exit_1` before emitting any
+model output. The controller persisted neither raw output nor stderr; it retains
+only the corresponding receipt hashes and stderr hashes in the private external
+workspace. Therefore the canary has **zero** validated artifacts and **zero**
+procedurally reviewed candidates. The remaining 259 candidates were not
+launched. No escalation occurred because the failure was a transport exit before
+schema or substantive review validation.
+
+The result is tracked in
+[`artifacts/native_v3_procedural_review/summary.json`](../artifacts/native_v3_procedural_review/summary.json).
+Cursor transport usage and cost were not reported by the CLI. ForecastLab made
+zero OpenAI or Tavily calls and incurred `$0.00` of ForecastLab provider spend.
+This is a preserved external-transport blocker, not a result to reinterpret or
+work around by silently restarting the campaign.
