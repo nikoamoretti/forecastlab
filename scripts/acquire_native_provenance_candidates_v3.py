@@ -97,6 +97,7 @@ SENSITIVE_ENV_KEYS = (
 LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible"}
 MAX_BYTES = 4_000_000
 MARKET_PAGE_LIMIT = 200
+MAX_PUBLIC_HTTP_ATTEMPTS = 3
 
 
 class NativeAcquisitionError(RuntimeError):
@@ -121,26 +122,38 @@ class PublicHttpClient:
             },
             method="GET",
         )
-        try:
-            with urlopen(request, timeout=self.timeout) as response:  # noqa: S310 - guarded URL
-                content = response.read(MAX_BYTES + 1)
-                if len(content) > MAX_BYTES:
-                    raise NativeAcquisitionError("native_public_response_oversized")
-                if not str(response.headers.get("Content-Type", "")).casefold().startswith(
-                    "application/json"
-                ):
-                    raise NativeAcquisitionError("native_public_response_not_json")
-                final_url = response.geturl()
-        except HTTPError as exc:
-            raise NativeAcquisitionError(f"native_public_http_{exc.code}") from exc
-        except (TimeoutError, URLError) as exc:
-            raise NativeAcquisitionError(
-                f"native_public_transport_failure:{type(exc).__name__}"
-            ) from exc
-        finally:
-            self.request_count += 1
-            if self.delay:
-                time.sleep(self.delay)
+        for attempt in range(MAX_PUBLIC_HTTP_ATTEMPTS):
+            try:
+                with urlopen(request, timeout=self.timeout) as response:  # noqa: S310 - guarded URL
+                    content = response.read(MAX_BYTES + 1)
+                    if len(content) > MAX_BYTES:
+                        raise NativeAcquisitionError("native_public_response_oversized")
+                    if not str(response.headers.get("Content-Type", "")).casefold().startswith(
+                        "application/json"
+                    ):
+                        raise NativeAcquisitionError("native_public_response_not_json")
+                    final_url = response.geturl()
+            except HTTPError as exc:
+                self.request_count += 1
+                if exc.code == 429 and attempt + 1 < MAX_PUBLIC_HTTP_ATTEMPTS:
+                    retry_after = exc.headers.get("Retry-After")
+                    try:
+                        pause = min(5.0, max(self.delay, float(retry_after or 0)))
+                    except ValueError:
+                        pause = max(self.delay, 1.0)
+                    time.sleep(pause)
+                    continue
+                raise NativeAcquisitionError(f"native_public_http_{exc.code}") from exc
+            except (TimeoutError, URLError) as exc:
+                self.request_count += 1
+                raise NativeAcquisitionError(
+                    f"native_public_transport_failure:{type(exc).__name__}"
+                ) from exc
+            else:
+                self.request_count += 1
+                if self.delay:
+                    time.sleep(self.delay)
+                break
         try:
             result = json.loads(content.decode("utf-8"))
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -603,7 +616,7 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-sha", required=True)
     parser.add_argument("--workspace", required=True, type=Path)
     parser.add_argument("--target", type=int, default=260)
-    parser.add_argument("--max-series-pages", type=int, default=80)
+    parser.add_argument("--max-series-pages", type=int, default=12)
     parser.add_argument("--max-series-requests", type=int, default=600)
     parser.add_argument("--http-timeout", type=float, default=20.0)
     parser.add_argument("--request-delay", type=float, default=0.03)
