@@ -86,6 +86,8 @@ SENSITIVE_ENV_KEYS = (
 )
 LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible"}
 MAX_BYTES = 4_000_000
+SERIES_PAGE_LIMIT = 200
+MARKET_PAGE_LIMIT = 200
 
 
 class NativeAcquisitionError(RuntimeError):
@@ -307,7 +309,7 @@ def _series_pages(
     cursor: str | None = None
     result: list[dict[str, Any]] = []
     for page in range(max_pages):
-        params: dict[str, str] = {"limit": "1000"}
+        params: dict[str, str] = {"limit": str(SERIES_PAGE_LIMIT)}
         if cursor:
             params["cursor"] = cursor
         value, receipt = _get_json(
@@ -352,7 +354,10 @@ def _market_rows(
     value, receipt = _get_json(
         client=client,
         workspace=workspace,
-        url=f"{KALSHI_API}/historical/markets?{urlencode({'limit': '1000', 'series_ticker': ticker})}",
+        url=(
+            f"{KALSHI_API}/historical/markets?"
+            f"{urlencode({'limit': str(MARKET_PAGE_LIMIT), 'series_ticker': ticker})}"
+        ),
         folder="sealed/raw_market_lists",
     )
     markets = value.get("markets")
@@ -578,7 +583,7 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-sha", required=True)
     parser.add_argument("--workspace", required=True, type=Path)
     parser.add_argument("--target", type=int, default=260)
-    parser.add_argument("--max-series-pages", type=int, default=20)
+    parser.add_argument("--max-series-pages", type=int, default=80)
     parser.add_argument("--max-series-requests", type=int, default=600)
     parser.add_argument("--http-timeout", type=float, default=20.0)
     parser.add_argument("--request-delay", type=float, default=0.03)
