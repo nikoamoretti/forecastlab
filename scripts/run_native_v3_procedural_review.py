@@ -342,6 +342,7 @@ def invoke_cursor_role(
         "enabled",
         "--workspace",
         str(workspace),
+        "--trust",
         "--model",
         model_id,
         _instruction(role=role, manifest=manifest),

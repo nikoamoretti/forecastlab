@@ -84,9 +84,11 @@ def test_native_manifests_are_structurally_role_blind() -> None:
 
 def test_cursor_transport_records_only_validated_artifact(monkeypatch, tmp_path: Path) -> None:
     question, _ = _manifests()
+    commands: list[list[str]] = []
 
     def fake_run(command, **kwargs):  # noqa: ANN001, ANN202 - subprocess seam
         del kwargs
+        commands.append(command)
         return subprocess.CompletedProcess(
             command,
             0,
@@ -109,6 +111,12 @@ def test_cursor_transport_records_only_validated_artifact(monkeypatch, tmp_path:
     assert record["raw_response_persisted"] is False
     assert "candidate_outcome" not in record["artifact"]["input_manifest"]
     assert len(list((tmp_path / "transport").rglob("manifest.json"))) == 1
+    command = commands[0]
+    workspace = Path(command[command.index("--workspace") + 1])
+    assert command[command.index("--trust")] == "--trust"
+    assert "--yolo" not in command
+    assert "-f" not in command
+    assert sorted(path.name for path in workspace.iterdir()) == ["manifest.json"]
 
 
 def test_cursor_transport_fails_closed_on_non_json_output(monkeypatch, tmp_path: Path) -> None:
@@ -131,6 +139,30 @@ def test_cursor_transport_fails_closed_on_non_json_output(monkeypatch, tmp_path:
     assert record["record_type"] == "procedural_review_terminal_failure"
     assert record["error_code"] == "review_cursor_output_invalid_json"
     assert record["raw_response_persisted"] is False
+
+
+def test_substantive_review_failure_is_not_a_transport_failure(monkeypatch, tmp_path: Path) -> None:
+    question, _ = _manifests()
+    incomplete = _output("question_review")
+    incomplete["findings"] = incomplete["findings"][:-1]
+
+    def fake_run(command, **kwargs):  # noqa: ANN001, ANN202 - subprocess seam
+        del kwargs
+        return subprocess.CompletedProcess(command, 0, stdout=json.dumps(incomplete), stderr="")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    record = invoke_cursor_role(
+        role="question_review",
+        manifest=question,
+        root=tmp_path,
+        model_id="gpt-5.3-codex-low-fast",
+        cli_version="test-cli",
+        timeout_seconds=1,
+    )
+
+    assert record["record_type"] == "procedural_review_artifact"
+    assert record["gate_status"] == "failed"
+    assert "required_finding_missing:temporal_proof" in record["gate_reasons"]
 
 
 def test_role_instruction_does_not_cross_the_typed_boundary() -> None:
