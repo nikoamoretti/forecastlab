@@ -74,14 +74,19 @@ class FixtureNativeClient:
         self.request_count += 1
         parsed = urlparse(url)
         path = parsed.path
-        if path.endswith("/series"):
+        if path.endswith("/events"):
             categories = sorted({str(row["category"]) for row in self.markets if "category" in row})
             payload: dict[str, Any] = {
-                "series": [
-                    {"ticker": f"KXFIX-{category[:3].upper()}", "category": category}
-                    for category in categories
+                "events": [
+                    {
+                        "event_ticker": row["event_ticker"],
+                        "series_ticker": row["series_ticker"],
+                        "category": row["category"],
+                    }
+                    for row in self.markets
                 ]
             }
+            assert categories
         elif path.endswith("/historical/markets"):
             series = parse_qs(parsed.query)["series_ticker"][0]
             payload = {
@@ -207,7 +212,7 @@ def test_invalid_records_are_retained_as_failures_not_ready_candidates(tmp_path:
         target=200,
         client=client,  # type: ignore[arg-type]
         max_series_pages=1,
-        max_series_requests=1,
+        max_series_requests=600,
         environment={},
     )
 
