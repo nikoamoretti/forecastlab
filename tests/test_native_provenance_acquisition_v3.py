@@ -9,6 +9,7 @@ from urllib.parse import parse_qs, urlparse
 
 import pytest
 from scripts.acquire_native_provenance_candidates_v3 import (
+    KALSHI_NATIVE_SERIES,
     NativeAcquisitionError,
     acquire,
     preflight,
@@ -141,11 +142,9 @@ def test_preflight_refuses_unsafe_workspace_provider_and_database_access(tmp_pat
 
 def test_fixture_acquisition_is_resumable_blinded_and_provisionally_split(tmp_path: Path) -> None:
     source, source_sha = _source_repository(tmp_path)
-    categories = ("Economics", "Companies", "Science and Technology", "Climate and Weather")
     markets: list[dict[str, object]] = []
     for index in range(260):
-        category = categories[index % len(categories)]
-        series = f"KXFIX-{category[:3].upper()}"
+        category, series = KALSHI_NATIVE_SERIES[index % len(KALSHI_NATIVE_SERIES)]
         row = _market(index, series=series, category=category)
         row["category"] = category
         markets.append(row)
@@ -195,7 +194,7 @@ def test_fixture_acquisition_is_resumable_blinded_and_provisionally_split(tmp_pa
 
 def test_invalid_records_are_retained_as_failures_not_ready_candidates(tmp_path: Path) -> None:
     source, source_sha = _source_repository(tmp_path)
-    invalid = _market(1, series="KXFIX-ECO", category="Economics")
+    invalid = _market(1, series="KXJOBLESSCLAIMS", category="Economics")
     invalid["rules_primary"] = "short"
     invalid["category"] = "Economics"
     client = FixtureNativeClient([invalid])
@@ -215,4 +214,3 @@ def test_invalid_records_are_retained_as_failures_not_ready_candidates(tmp_path:
     assert result["ready_candidate_count"] == 0
     assert result["provenance_failure_count"] == 1
     assert result["native_ready_threshold_met"] is False
-

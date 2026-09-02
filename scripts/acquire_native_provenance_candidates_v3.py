@@ -18,7 +18,7 @@ import os
 import subprocess
 import tempfile
 import time
-from collections import Counter, defaultdict
+from collections import Counter
 from collections.abc import Mapping, Sequence
 from datetime import UTC, datetime
 from pathlib import Path
@@ -45,17 +45,15 @@ from forecastlab.private_internal_evaluation_v2 import (
 
 WORKSPACE_LABEL = "private-v1-native-provenance-corpus-v3"
 KALSHI_API = "https://api.elections.kalshi.com/trade-api/v2"
-KALSHI_CATEGORIES = (
-    "Climate and Weather",
-    "Commodities",
-    "Companies",
-    "Economics",
-    "Entertainment",
-    "Financials",
-    "Health",
-    "Science and Technology",
-    "Sports",
-    "Transportation",
+KALSHI_NATIVE_SERIES = (
+    ("Economics", "KXJOBLESSCLAIMS"),
+    ("Economics", "KXJPMOMINF"),
+    ("Economics", "KXRETAIL"),
+    ("Financials", "KXCBDECISIONEU"),
+    ("Companies", "KXIPHONERELEASE"),
+    ("Science and Technology", "KXOAIGOOGLE"),
+    ("Health", "KXFDAAPPROVE"),
+    ("Entertainment", "KXAWARDSCMAMEOTY"),
 )
 SOURCE_AUDIT_CATALOG = (
     {
@@ -86,7 +84,6 @@ SENSITIVE_ENV_KEYS = (
 )
 LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible"}
 MAX_BYTES = 4_000_000
-SERIES_PAGE_LIMIT = 200
 MARKET_PAGE_LIMIT = 200
 
 
@@ -303,51 +300,6 @@ def _get_json(
     }
 
 
-def _series_pages(
-    *, client: PublicHttpClient, workspace: Workspace, max_pages: int
-) -> list[dict[str, Any]]:
-    cursor: str | None = None
-    result: list[dict[str, Any]] = []
-    for page in range(max_pages):
-        params: dict[str, str] = {"limit": str(SERIES_PAGE_LIMIT)}
-        if cursor:
-            params["cursor"] = cursor
-        value, receipt = _get_json(
-            client=client,
-            workspace=workspace,
-            url=f"{KALSHI_API}/series?{urlencode(params)}",
-            folder="raw/series",
-        )
-        rows = value.get("series")
-        if not isinstance(rows, list):
-            raise NativeAcquisitionError("native_series_payload_invalid")
-        for row in rows:
-            if isinstance(row, dict):
-                result.append(row)
-        workspace.record("state/series_pages", f"{page:04d}", {**receipt, "count": len(rows)})
-        cursor = value.get("cursor") if isinstance(value.get("cursor"), str) else None
-        if not cursor:
-            break
-    return result
-
-
-def _round_robin_series(series: Sequence[Mapping[str, Any]]) -> list[tuple[str, str]]:
-    by_category: dict[str, list[str]] = defaultdict(list)
-    for row in series:
-        category = str(row.get("category") or "")
-        ticker = str(row.get("ticker") or "")
-        if category in KALSHI_CATEGORIES and ticker:
-            by_category[category].append(ticker)
-    for category, tickers in by_category.items():
-        tickers.sort(key=lambda value: (sha256_text(f"{category}:{value}"), value))
-    selected: list[tuple[str, str]] = []
-    while any(by_category.values()):
-        for category in KALSHI_CATEGORIES:
-            if by_category[category]:
-                selected.append((category, by_category[category].pop(0)))
-    return selected
-
-
 def _market_rows(
     *, client: PublicHttpClient, workspace: Workspace, ticker: str
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -495,8 +447,8 @@ def acquire(
     existing_ids = {str(row["candidate_id"]) for row in existing_candidates}
     existing_events = {str(row["grouping_features"]["event_ticker"]) for row in existing_candidates}
     completed_series = {str(row["ticker"]) for row in workspace.records("state/series") if row.get("status") == "completed"}
-    series = _series_pages(client=client, workspace=workspace, max_pages=max_series_pages)
-    for category, series_ticker in _round_robin_series(series):
+    del max_series_pages  # Native allowlist avoids the upstream unbounded series catalogue.
+    for category, series_ticker in KALSHI_NATIVE_SERIES:
         if len(existing_candidates) >= target or len(completed_series) >= max_series_requests:
             break
         if series_ticker in completed_series:
@@ -583,7 +535,6 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-sha", required=True)
     parser.add_argument("--workspace", required=True, type=Path)
     parser.add_argument("--target", type=int, default=260)
-    parser.add_argument("--max-series-pages", type=int, default=80)
     parser.add_argument("--max-series-requests", type=int, default=600)
     parser.add_argument("--http-timeout", type=float, default=20.0)
     parser.add_argument("--request-delay", type=float, default=0.03)
