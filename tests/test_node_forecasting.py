@@ -121,6 +121,18 @@ def test_node_forecaster_generates_probability_from_contract_question_and_claims
     assert model.calls[0]["verbosity"] == "low"
 
 
+def test_node_forecast_schema_uses_only_openai_structured_output_compatible_keywords() -> None:
+    schema = forecast_node_json_schema(
+        supporting_claim_ids=["support"],
+        opposing_claim_ids=["oppose"],
+    )
+
+    assert schema["properties"]["supporting_claim_ids"]["items"]["enum"] == ["support"]
+    assert schema["properties"]["opposing_claim_ids"]["items"]["enum"] == ["oppose"]
+    assert "uniqueItems" not in schema["properties"]["supporting_claim_ids"]
+    assert "uniqueItems" not in schema["properties"]["opposing_claim_ids"]
+
+
 @pytest.mark.parametrize("probability", [-0.01, 1.01])
 def test_node_forecaster_rejects_probability_outside_unit_interval(probability: float) -> None:
     model = StubModel(_valid_payload(probability=probability))

@@ -259,7 +259,6 @@ def forecast_node_json_schema(
         return {
             "type": "array",
             "maxItems": min(20, len(allowed)),
-            "uniqueItems": True,
             "items": {"type": "string", "enum": allowed},
         }
 
