@@ -33,6 +33,7 @@ from forecastlab.ranking import (
     rank_hits,
     schedule_ranked_hits,
 )
+from forecastlab.root_event import strict_schema
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import (
     AttachedEvidenceDocument,
@@ -485,6 +486,8 @@ class GraphResearchExecutor:
                 ),
                 schema_name="graph_research_plan",
                 max_output_tokens=self.research_plan_output_tokens,
+                **({"json_schema": strict_schema(NodeResearchPlan)}
+                   if self.profile.execution_strategy == "root_event_ensemble_v1" else {}),
             )
             payload = result.parsed if result.parsed is not None else json.loads(result.content)
             generated = NodeResearchPlan.model_validate(payload)
@@ -498,6 +501,8 @@ class GraphResearchExecutor:
             TypeError,
             ValidationError,
         ) as exc:
+            if self.profile.execution_strategy == "root_event_ensemble_v1" and isinstance(exc, (PermanentProviderError, TransientProviderError)):
+                raise
             return fallback, [f"research_plan_fallback:{exc.__class__.__name__}"]
 
         return (
@@ -558,6 +563,7 @@ class GraphResearchExecutor:
                 ),
                 prompt_bundle=self.prompt_bundle,
                 max_output_tokens=self.evidence_extraction_output_tokens,
+                strict_outputs=self.profile.execution_strategy == "root_event_ensemble_v1",
             )
             try:
                 return extractor.extract(
@@ -577,6 +583,8 @@ class GraphResearchExecutor:
                 PermanentProviderError,
                 TransientProviderError,
             ) as exc:
+                if self.profile.execution_strategy == "root_event_ensemble_v1" and isinstance(exc, (PermanentProviderError, TransientProviderError)):
+                    raise
                 reasons = (
                     exc.reasons
                     if isinstance(exc, EvidenceClaimError)
@@ -815,6 +823,8 @@ class GraphResearchExecutor:
                     self.search_candidate_pool_per_node,
                 )
             except (PermanentProviderError, TransientProviderError) as exc:
+                if self.profile.execution_strategy == "root_event_ensemble_v1":
+                    raise
                 retrieval_errors.append(f"search:{exc.__class__.__name__}:{exc}")
                 continue
             for hit in hits:

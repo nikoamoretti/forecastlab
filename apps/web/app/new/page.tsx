@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
+import PersonalDraft from "@/components/PersonalDraft";
 
 type ForecastContract = {
   id: string;
@@ -87,6 +88,7 @@ export default function NewQuestionPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("profile") === "root_event_ensemble_v1") setProfileId("root_event_ensemble_v1");
     api<Array<{ id: string; label: string; execution_strategy?: string }>>("/api/profiles")
       .then(setProfiles)
       .catch(() => setProfiles([]));
@@ -214,6 +216,8 @@ export default function NewQuestionPage() {
       : mode === "backtest"
         ? "Launch backtest"
         : "Launch mock run";
+
+  if (profileId === "root_event_ensemble_v1") return <PersonalDraft onBack={() => { setProfileId("three_track_ensemble"); window.history.replaceState(null, "", "/new"); }} />;
 
   if (step === "ready" && contract && isSingleModel) {
     return (

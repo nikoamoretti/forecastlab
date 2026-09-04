@@ -34,6 +34,10 @@ _STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "forecast_graph_compact_indexed_v1",
     "forecast_node",
     "scenario_synthesis",
+    "root_event",
+    "root_evidence",
+    "graph_research_plan",
+    "evidence_claims",
 }
 
 

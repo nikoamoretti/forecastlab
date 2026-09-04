@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api, pct } from "@/lib/api";
+import PersonalReport from "@/components/PersonalReport";
 
 const STAGES = [
   { id: "operationalize", label: "Operationalizing question" },
@@ -26,10 +27,11 @@ export default function ForecastPage() {
   const [evidenceMessage, setEvidenceMessage] = useState<string | null>(null);
   const [evidenceSubmitting, setEvidenceSubmitting] = useState(false);
 
-  async function load() {
-    const payload = await api<any>(`/api/questions/${id}/report`);
+  const load = useCallback(async () => {
+    const selectedRun = new URLSearchParams(window.location.search).get("run");
+    const payload = await api<any>(`/api/questions/${id}/report${selectedRun ? `?run_id=${encodeURIComponent(selectedRun)}` : ""}`);
     setData(payload);
-  }
+  }, [id]);
 
   useEffect(() => {
     load().catch((err: Error) => setError(err.message));
@@ -37,7 +39,7 @@ export default function ForecastPage() {
       load().catch(() => undefined);
     }, 1500);
     return () => clearInterval(timer);
-  }, [id]);
+  }, [load]);
 
   async function simulateWatch() {
     const watch = data?.watches?.[0];
@@ -117,6 +119,7 @@ export default function ForecastPage() {
   if (!data) return <p>Loading forecast…</p>;
   const run = data.latest_run || {};
   const tracks = run.tracks || [];
+  if (run.profile_id === "root_event_ensemble_v1") return <PersonalReport data={data} rerun={rerun} />;
   const evidence = run.evidence || [];
   const aggregation = run.aggregation || {};
   const versions = data.versions || [];

@@ -72,7 +72,7 @@ def update_secrets(patch: SettingsPatch) -> PublicSettings:
 
 def redacted_dump(data: dict[str, Any]) -> dict[str, Any]:
     out = dict(data)
-    for key in ("model_api_key", "search_api_key"):
+    for key in ("model_api_key", "search_api_key", "fred_api_key"):
         if out.get(key):
             out[key] = mask_secret(str(out[key]))
     return out

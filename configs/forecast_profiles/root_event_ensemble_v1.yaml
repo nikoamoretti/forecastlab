@@ -1,0 +1,23 @@
+id: root_event_ensemble_v1
+version: 1
+label: Personal V1 — same-event ensemble (pilot)
+description: Binary root-event estimates from validated shared evidence; withholds probability when evidence is insufficient.
+execution_strategy: root_event_ensemble_v1
+tracks: [base_rate, current_evidence, skeptic]
+graph_generation_enabled: true
+evidence_claims_enabled: true
+subquestions_per_track: 4
+search_results_per_subquestion: 5
+fetches_per_subquestion: 2
+max_model_calls: 40
+max_search_calls: 36
+max_fetched_documents: 24
+max_tokens: 200000
+max_output_tokens_per_call: 4096
+max_estimated_cost_usd: 5.0
+max_wall_clock_seconds: 300
+aggregation_method: root_event_ensemble_v1
+shrinkage: 0.10
+prompt_versions:
+  root_event: v1
+  root_evidence: v1

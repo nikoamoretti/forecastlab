@@ -10,7 +10,7 @@ from forecastlab.timeutil import as_utc
 QuestionType = Literal["binary"]
 RunMode = Literal["live", "backtest", "demo"]
 TrackType = Literal["base_rate", "current_evidence", "skeptic", "single_agent"]
-ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes", "single_model"]
+ForecastExecutionStrategy = Literal["legacy_tracks", "graph_nodes", "single_model", "root_event_ensemble_v1"]
 JobStatus = Literal["pending", "running", "completed", "failed"]
 SourceClass = Literal["primary", "secondary"]
 EvidenceClaimSourceClass = Literal["primary", "secondary", "unknown_legacy"]

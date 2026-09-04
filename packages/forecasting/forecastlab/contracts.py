@@ -8,7 +8,7 @@ from typing import Any
 
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from forecastlab.prompts import load_prompt
+from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import ForecastContract
 from forecastlab.timeutil import utcnow
@@ -112,8 +112,9 @@ def _default_resolution_method(fields: _CompiledContractFields) -> str:
 class QuestionCompiler:
     """Compile a natural-language binary question into an auditable draft contract."""
 
-    def __init__(self, model: ModelProvider) -> None:
+    def __init__(self, model: ModelProvider, *, prompt_bundle: PromptBundle | None = None) -> None:
         self.model = model
+        self.prompt_bundle = prompt_bundle
 
     def compile(
         self,
@@ -129,7 +130,7 @@ class QuestionCompiler:
         if preflight_reasons:
             raise ForecastContractError(preflight_reasons, "Question is too vague for a Forecast Contract")
 
-        system, _prompt_version = load_prompt("forecast_contract")
+        system, _prompt_version = self.prompt_bundle.get("forecast_contract") if self.prompt_bundle else load_prompt("forecast_contract")
         schema_name = "resolution_contract" if self.model.name == "mock" else "forecast_contract"
         try:
             result = self.model.complete_json(

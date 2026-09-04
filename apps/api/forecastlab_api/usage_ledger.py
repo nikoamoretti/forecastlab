@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import uuid
 from collections.abc import Callable
 
@@ -10,7 +11,13 @@ from forecastlab.errors import BudgetExceeded
 from forecastlab.ledger import LedgerEntry, RunAttemptRef, RunUsageTotals, summarize_entries
 from forecastlab.schemas import ModelUsage
 from forecastlab.timeutil import utcnow
-from forecastlab_api.models import ForecastRun, ForecastRunAttempt, ProviderCallLedger
+from forecastlab_api.models import (
+    ForecastRun,
+    ForecastRunAttempt,
+    ProspectiveAssignment,
+    ProspectiveCohort,
+    ProviderCallLedger,
+)
 
 
 def _entry_from_row(row: ProviderCallLedger) -> LedgerEntry:
@@ -152,6 +159,18 @@ class PersistentUsageLedger:
         reserved_cost_usd: float,
     ) -> LedgerEntry:
         with self.session_factory() as session:
+            if not math.isfinite(reserved_cost_usd) or reserved_cost_usd < 0 or min(reserved_input_tokens, reserved_output_tokens) < 0:
+                raise ValueError("invalid_usage_reservation")
+            # Lock BEFORE reading totals. An in-process mutex cannot protect two
+            # workers or a draft compiler racing a worker in another process.
+            if session.get_bind().dialect.name == "sqlite":
+                session.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            assignment = session.scalar(select(ProspectiveAssignment).where(ProspectiveAssignment.run_id == run_id))
+            cohort = None
+            if assignment is not None:
+                cohort = session.scalar(select(ProspectiveCohort).where(
+                    ProspectiveCohort.id == assignment.cohort_id).with_for_update())
+            session.scalar(select(ForecastRun).where(ForecastRun.id == run_id).with_for_update())
             existing = session.scalar(
                 select(ProviderCallLedger).where(
                     ProviderCallLedger.run_id == run_id,
@@ -167,6 +186,12 @@ class PersistentUsageLedger:
             pending_tokens = reserved_input_tokens + reserved_output_tokens
             if not self._fits(self._totals(session, run_id), extra_cost=reserved_cost_usd, extra_tokens=pending_tokens):
                 raise BudgetExceeded("provider_reserve", "max_estimated_cost_usd")
+            if cohort is not None:
+                run_ids = select(ProspectiveAssignment.run_id).where(ProspectiveAssignment.cohort_id == cohort.id)
+                rows = session.scalars(select(ProviderCallLedger).where(ProviderCallLedger.run_id.in_(run_ids))).all()
+                total = summarize_entries([_entry_from_row(row) for row in rows]).total_cost_usd
+                if total + reserved_cost_usd > cohort.budget_usd + 1e-12:
+                    raise BudgetExceeded("cohort_reserve", "cohort_budget_exhausted")
             existing = ProviderCallLedger(
                 id=str(uuid.uuid4()),
                 run_id=run_id,
@@ -185,6 +210,7 @@ class PersistentUsageLedger:
                 request_started_at=utcnow(),
             )
             session.add(existing)
+            session.flush()
             self._refresh_run(session, run_id)
             self._refresh_attempt(session, run_attempt_id)
             session.commit()

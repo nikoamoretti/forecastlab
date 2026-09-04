@@ -58,7 +58,13 @@ def process_once() -> bool:
         touch_worker(session, "running")
         try:
             payload = json.loads(job.payload_json)
-            if job.job_type == "forecast_run":
+            if job.job_type == "forecast_prepare":
+                from forecastlab_api.personal_forecasts import prepare_draft
+                run = session.get(ForecastRun, payload["run_id"])
+                if run is None:
+                    raise RuntimeError("run_not_found")
+                prepare_draft(session, run, job=job)
+            elif job.job_type == "forecast_run":
                 run = session.get(ForecastRun, payload["run_id"])
                 if run is None:
                     raise RuntimeError("run_not_found")

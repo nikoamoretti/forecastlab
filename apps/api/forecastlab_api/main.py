@@ -4,7 +4,7 @@ import csv
 import io
 import json
 import uuid
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -149,6 +149,7 @@ from forecastlab_api.models import (
     WorkerHeartbeat,
 )
 from forecastlab_api.persist import save_contract
+from forecastlab_api.personal_routes import router as personal_router
 from forecastlab_api.pipeline import create_run, execute_run, operationalize_question, provider_settings_from_secrets
 from forecastlab_api.probes import test_model_connection, test_search_connection
 from forecastlab_api.reports import build_v1_report, v1_report_markdown
@@ -161,6 +162,7 @@ from forecastlab_api.watches import attach_demo_watch, check_watch, validate_use
 
 configure_logging(settings.log_level)
 app = FastAPI(title="ForecastLab", version=__version__)
+app.include_router(personal_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.web_origin, "http://127.0.0.1:3000", "http://localhost:3000"],
@@ -427,7 +429,10 @@ def _contract_out(contract: Any) -> dict[str, Any] | None:
 
 def _run_order_time(run: ForecastRun) -> datetime:
     value = run.started_at or run.finished_at
-    return as_utc(value) if value is not None else utcnow()
+    if value is not None:
+        return as_utc(value)
+    created = json.loads(run.execution_context_json or "{}").get("created_at")
+    return as_utc(datetime.fromisoformat(created)) if created else datetime.min.replace(tzinfo=UTC)
 
 
 def _is_graph_profile(profile_id: str) -> bool:
@@ -844,10 +849,19 @@ def operationalize(question_id: str, db: Session = Depends(get_db)) -> dict[str,
 
 @app.post("/api/questions/{question_id}/runs")
 def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> dict[str, Any]:
+    from forecastlab_api.models import ProspectiveEntry
+    if db.scalar(select(ProspectiveEntry.id).where(ProspectiveEntry.question_id == question_id)):
+        raise HTTPException(409, "Prospective assignments use their frozen cohort jobs and budget")
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
     requested_profile = load_profile(body.profile_id)
+    if requested_profile.execution_strategy == "root_event_ensemble_v1":
+        from forecastlab_api.personal_forecasts import rerun
+        run = rerun(db, question, mode=body.mode, as_of=body.as_of)
+        if settings.embedded_worker:
+            execute_run(db, run)
+        return _row(run)
     if requested_profile.execution_strategy == "graph_nodes":
         approved_contract_for_question(db, question.id)
     elif requested_profile.execution_strategy == "single_model":
@@ -1148,6 +1162,15 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     v1_report = build_v1_report(payload)
     if v1_report is not None:
         payload["v1_report"] = v1_report
+    from forecastlab_api.models import PersonalForecast
+    personal = db.get(PersonalForecast, run.id)
+    if personal is not None:
+        result = json.loads(personal.result_json)
+        payload["outcome_status"] = personal.outcome_status or run.status
+        payload["probability"] = result.get("probability")
+        payload["evidence_gaps"] = result.get("evidence_gaps", [])
+        payload["personal_report"] = result
+        payload["frozen_prompts"] = json.loads(personal.prompts_json)
     return payload
 
 
@@ -1183,15 +1206,34 @@ def graph_forecast_report(forecast_id: str, db: Session = Depends(get_db)) -> di
 
 
 @app.get("/api/questions/{question_id}/report")
-def report(question_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
+def report(question_id: str, db: Session = Depends(get_db), run_id: str | None = None) -> dict[str, Any]:
     question = db.get(Question, question_id)
     if question is None:
         raise HTTPException(404, "Question not found")
     payload = _question_out(db, question)
     latest_run = payload["runs"][0] if payload["runs"] else None
+    if run_id:
+        selected = next((item for item in payload["runs"] if item["id"] == run_id), None)
+        if selected is None:
+            raise HTTPException(404, "Run does not belong to this question")
+        payload["is_historical_view"] = bool(latest_run and selected["id"] != latest_run["id"])
+        latest_run = selected
+        versions = payload["versions"]
+        index = next((i for i, item in enumerate(versions) if item["run_id"] == run_id), None)
+        payload["latest_probability"] = versions[index]["ensemble_probability"] if index is not None else None
+        payload["previous_probability"] = versions[index + 1]["ensemble_probability"] if index is not None and index + 1 < len(versions) else None
     if latest_run:
         payload["latest_run"] = get_run(latest_run["id"], db)
         payload["v1_report"] = payload["latest_run"].get("v1_report")
+        from forecastlab_api.models import PersonalForecast
+        personal = db.get(PersonalForecast, latest_run["id"])
+        if personal:
+            result = json.loads(personal.result_json)
+            payload["personal_report"] = result
+            payload["latest_probability"] = result.get("probability")
+            payload["outcome_status"] = personal.outcome_status or latest_run["status"]
+            payload["latest_run"]["outcome_status"] = payload["outcome_status"]
+            payload["latest_run"]["probability"] = payload["latest_probability"]
     return payload
 
 

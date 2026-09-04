@@ -213,10 +213,12 @@ class EvidenceExtractor:
         *,
         prompt_bundle: PromptBundle | None = None,
         max_output_tokens: int = 4096,
+        strict_outputs: bool = False,
     ) -> None:
         self.model = model
         self.prompt_bundle = prompt_bundle
         self.max_output_tokens = max(1, max_output_tokens)
+        self.strict_outputs = strict_outputs
 
     def extract(
         self,
@@ -282,6 +284,7 @@ class EvidenceExtractor:
                     ),
                     schema_name="evidence_claims",
                     max_output_tokens=self.max_output_tokens,
+                    **({"json_schema": self._strict_schema()} if self.strict_outputs else {}),
                 )
                 payload = result.parsed if result.parsed is not None else json.loads(result.content)
             extracted = _ExtractedClaims.model_validate(payload)
@@ -350,6 +353,12 @@ class EvidenceExtractor:
         if context_errors:
             raise EvidenceClaimError(context_errors, "Extracted claims are not eligible for forecasting context")
         return claims
+
+    @staticmethod
+    def _strict_schema() -> dict[str, Any]:
+        from forecastlab.root_event import strict_schema
+
+        return strict_schema(_ExtractedClaims)
 
     def document_fallback_claim(
         self,

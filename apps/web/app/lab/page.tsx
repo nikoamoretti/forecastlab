@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api, pct } from "@/lib/api";
+import ProspectiveLab from "@/components/ProspectiveLab";
 
 const SYNTHETIC_NOTICE = "Software-verification fixtures only. Not evidence of real-world forecasting quality.";
 
@@ -142,10 +143,10 @@ export default function LabPage() {
   const [statisticalAnalysis, setStatisticalAnalysis] = useState<any>(null);
   const [statisticalMessage, setStatisticalMessage] = useState("");
 
-  async function loadMeta() {
+  const loadMeta = useCallback(async () => {
     const ds = await api<{ datasets: any[] }>("/api/datasets");
     setDatasets(ds.datasets || []);
-    if (!datasetId && ds.datasets?.[0]) setDatasetId(ds.datasets[0].id);
+    if (ds.datasets?.[0]) setDatasetId(current => current || ds.datasets[0].id);
     const plist = await api<any[]>("/api/profiles");
     setProfiles(plist);
     const workflow = await api<any>("/api/evaluations/v1");
@@ -158,11 +159,11 @@ export default function LabPage() {
     } catch {
       setControlledExperiments([]);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadMeta().catch(() => setMessage("Lab metadata unavailable"));
-  }, []);
+  }, [loadMeta]);
 
   useEffect(() => {
     if (!experimentId) return;
@@ -267,6 +268,7 @@ export default function LabPage() {
     <div className="space-y-6">
       <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Evaluation lab</p>
       <h2 className="font-serif text-4xl">Benchmark experiments</h2>
+      <ProspectiveLab />
       <p className="max-w-2xl text-ink/80">
         Create an asynchronous experiment against one dataset. Real tasks use backtest mode. Results stay inside that
         experiment.

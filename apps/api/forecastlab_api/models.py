@@ -2000,3 +2000,95 @@ class ProviderCallLedger(Base):
     provider_request_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
     error_category: Mapped[str | None] = mapped_column(String(64), nullable=True)
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
+class PersonalForecast(Base):
+    """Additive envelope; no reinterpretation of existing run artifacts."""
+    __tablename__ = "personal_forecasts"
+    run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"), primary_key=True)
+    request_key: Mapped[str] = mapped_column(String(128), unique=True)
+    request_hash: Mapped[str] = mapped_column(String(64))
+    contract_id: Mapped[str | None] = mapped_column(ForeignKey("forecast_contracts.id"), nullable=True)
+    contract_json: Mapped[str] = mapped_column(Text, default="{}")
+    profile_json: Mapped[str] = mapped_column(Text)
+    prompts_json: Mapped[str] = mapped_column(Text)
+    macro_json: Mapped[str] = mapped_column(Text, default="{}")
+    result_json: Mapped[str] = mapped_column(Text, default="{}")
+    outcome_status: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class ProspectiveCohort(Base):
+    __tablename__ = "prospective_cohorts"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    budget_usd: Mapped[float] = mapped_column(Float, default=150.0)
+    manifest_json: Mapped[str] = mapped_column(Text, default="{}")
+    manifest_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    frozen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class ProspectiveEntry(Base):
+    __tablename__ = "prospective_entries"
+    __table_args__ = (UniqueConstraint("cohort_id", "question_id", name="uq_prospective_entry"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    cohort_id: Mapped[str] = mapped_column(ForeignKey("prospective_cohorts.id"))
+    question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"))
+    contract_json: Mapped[str] = mapped_column(Text)
+    macro_json: Mapped[str] = mapped_column(Text, default="{}")
+    release_event: Mapped[str] = mapped_column(String(255))
+    cutoff: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class ProspectiveAssignment(Base):
+    __tablename__ = "prospective_assignments"
+    __table_args__ = (UniqueConstraint("entry_id", "profile_id", name="uq_prospective_assignment"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    cohort_id: Mapped[str] = mapped_column(ForeignKey("prospective_cohorts.id"))
+    entry_id: Mapped[str] = mapped_column(ForeignKey("prospective_entries.id"))
+    profile_id: Mapped[str] = mapped_column(String(64))
+    run_id: Mapped[str] = mapped_column(ForeignKey("forecast_runs.id"), unique=True)
+
+
+class ProspectiveOutcome(Base):
+    __tablename__ = "prospective_outcomes"
+    __table_args__ = (
+        UniqueConstraint("entry_id", "revision", name="uq_prospective_outcome_revision"),
+        CheckConstraint("outcome IS NULL OR outcome IN (0, 1)", name="ck_prospective_outcome_binary"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    entry_id: Mapped[str] = mapped_column(ForeignKey("prospective_entries.id"))
+    revision: Mapped[int] = mapped_column(Integer)
+    outcome: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    source_url: Mapped[str] = mapped_column(Text)
+    evidence: Mapped[str] = mapped_column(Text)
+    confirmed_by: Mapped[str] = mapped_column(String(128))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+@event.listens_for(ProspectiveOutcome, "before_update")
+@event.listens_for(ProspectiveOutcome, "before_delete")
+def _immutable_prospective_outcome(*_args) -> None:
+    raise ValueError("prospective_outcomes_are_append_only")
+
+
+@event.listens_for(ProspectiveCohort, "before_update")
+def _frozen_prospective_manifest(_mapper, _connection, target: ProspectiveCohort) -> None:
+    state = inspect(target)
+    old = state.attrs.status.history.deleted
+    was_draft = (old[0] if old else target.status) == "draft"
+    if not was_draft and any(state.attrs[name].history.has_changes()
+                             for name in ("budget_usd", "manifest_json", "manifest_hash", "frozen_at")):
+        raise ValueError("prospective_manifest_is_frozen")
+
+
+@event.listens_for(PersonalForecast, "before_update")
+def _frozen_personal_settings(_mapper, _connection, target: PersonalForecast) -> None:
+    state = inspect(target)
+    if any(state.attrs[name].history.has_changes() for name in ("profile_json", "prompts_json", "macro_json", "request_key", "request_hash")):
+        raise ValueError("personal_forecast_settings_are_frozen")
+    history = state.attrs.contract_json.history
+    if history.has_changes() and history.deleted and history.deleted[0] != "{}":
+        raise ValueError("personal_forecast_contract_is_frozen")

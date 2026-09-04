@@ -24,7 +24,7 @@ from forecastlab.single_model import run_single_model_forecast
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease, touch_worker_standalone
-from forecastlab_api.models import ForecastRun, ForecastVersion, Question
+from forecastlab_api.models import ForecastRun, ForecastRunAttempt, ForecastVersion, PersonalForecast, Question
 from forecastlab_api.persist import persist_engine_result, save_contract
 from forecastlab_api.secrets import load_secrets
 from forecastlab_api.usage_ledger import PersistentUsageLedger, apply_totals_to_run
@@ -174,15 +174,22 @@ def execute_run(
 ) -> None:
     secrets = load_secrets()
     question = run.question
+    personal = session.get(PersonalForecast, run.id)
+    if personal is not None:
+        profile = ForecastProfile.model_validate_json(personal.profile_json)
+        prompt_bundle = PromptBundle.model_validate_json(personal.prompts_json)
     existing_version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
     if existing_version is not None:
         run.status = "completed"
         run.finished_at = run.finished_at or utcnow()
         run.progress_pct = 100
         run.progress_stage = "report"
-        run.progress_message = "Forecast ready"
+        run.progress_message = "Probability withheld; review evidence gaps" if personal and personal.outcome_status == "insufficient_evidence" else "Forecast ready"
         session.commit()
         return
+    if personal:
+        from forecastlab_api.prospective import check_assignment
+        check_assignment(session, run)
     raw_context = json.loads(run.execution_context_json or "{}")
     if raw_context:
         context = ExecutionContext.model_validate(raw_context)
@@ -222,8 +229,15 @@ def execute_run(
             cancellation_conditions=question.contract.cancellation_conditions,
             resolver_risk_notes=question.contract.resolver_risk_notes,
         )
+    if personal and personal.contract_json != "{}":
+        from forecastlab.schemas import ForecastContract
+        contract = ForecastContract.model_validate_json(personal.contract_json).to_resolution_contract()
     run.started_at = run.started_at or utcnow()
     run.status = "running"
+    if personal:
+        run.error_stage = None
+        run.error_message = None
+        personal.outcome_status = None
     session.commit()
     from forecastlab_api.db import SessionLocal
 
@@ -290,8 +304,23 @@ def execute_run(
     prior_elapsed = 0.0
     if run.started_at:
         prior_elapsed = max(0.0, (utcnow() - as_utc(run.started_at)).total_seconds())
+    if personal:
+        preparations = session.scalars(select(ForecastRunAttempt).where(
+            ForecastRunAttempt.run_id == run.id, ForecastRunAttempt.attempt_number < 0)).all()
+        prior_elapsed += sum(max(0, (as_utc(a.completed_at) - as_utc(a.started_at)).total_seconds())
+                             for a in preparations if a.completed_at is not None)
+        # Finish the read transaction before concurrent provider-ledger writes.
+        session.commit()
     try:
-        if profile.execution_strategy == "graph_nodes":
+        if profile.execution_strategy == "root_event_ensemble_v1":
+            from forecastlab_api.root_executor import execute_root_forecast
+            execute_root_forecast(session, run=run, profile=profile, context=context, model=model,
+                search=search, ledger=ledger, progress=progress, cache=frozen_cache,
+                prior_elapsed_seconds=prior_elapsed)
+            fixture_evidence_used = bool(context.fixture_evidence_allowed)
+            forecast_contract_id = personal.contract_id if personal else None
+            forecast_graph_id = json.loads(run.execution_context_json).get("forecast_graph_id")
+        elif profile.execution_strategy == "graph_nodes":
             if profile.graph_aggregation_enabled:
                 from forecastlab_api.graph_executor import GraphForecastExecutor
 
@@ -380,6 +409,9 @@ def execute_run(
             forecast_contract = forecast_contract_from_row(
                 approved_contract_for_question(session, question.id)
             )
+            if personal and personal.contract_json != "{}":
+                from forecastlab.schemas import ForecastContract
+                forecast_contract = ForecastContract.model_validate_json(personal.contract_json)
             result = run_single_model_forecast(
                 contract=forecast_contract,
                 profile_id=context.profile_id,
@@ -443,11 +475,24 @@ def execute_run(
             snapshot["forecast_contract_id"] = forecast_contract_id
         run.execution_context_json = json.dumps(snapshot, sort_keys=True)
         run.fixture_evidence_used = fixture_evidence_used
+        if personal and profile.execution_strategy != "root_event_ensemble_v1":
+            version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+            personal.outcome_status = "forecasted" if version and version.ensemble_probability is not None else "insufficient_evidence"
+            personal.result_json = json.dumps({**json.loads(personal.result_json), "schema_version": "personal_forecast_v1", "outcome_status": personal.outcome_status,
+                "probability": version.ensemble_probability if version else None, "contract": json.loads(personal.contract_json)})
         if run.started_at:
             run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
         session.commit()
         ledger.finish_attempt(attempt.id, status="completed")
     except Exception as exc:
+        if personal:
+            personal.outcome_status = "execution_failed"
+            run.status = "failed"
+            run.error_stage = type(exc).__name__
+            run.error_message = str(exc)[:500]
+            run.finished_at = utcnow()
+            run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
+            session.commit()
         ledger.finish_attempt(
             attempt.id,
             status="failed",
