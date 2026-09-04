@@ -193,6 +193,57 @@ def compact_forecast_graph_json_schema(
 ) -> dict[str, Any]:
     """Return the exact strict provider schema for compact indexed graph output."""
 
+    def relationship_index_schema(index: int) -> dict[str, Any]:
+        """Constrain references to the earlier portion of the compact array.
+
+        A compact graph's references are positional.  A generic non-negative
+        integer schema cannot express that a nine-node response has indexes
+        0..8, so a provider can return an otherwise schema-valid dangling
+        index.  ``prefixItems`` lets the strict provider boundary enforce the
+        existing topological transport convention before canonicalization.
+        """
+
+        if index == 0:
+            return {"type": "null"}
+        return {"type": ["integer", "null"], "minimum": 0, "maximum": index - 1}
+
+    def dependency_item_schema(index: int) -> dict[str, Any]:
+        # Strict schemas still need an items schema for an array constrained to
+        # zero entries.  The maximum is unreachable for index zero.
+        return {"type": "integer", "minimum": 0, "maximum": max(index - 1, 0)}
+
+    def compact_node_schema(index: int) -> dict[str, Any]:
+        return {
+            "type": "object",
+            "properties": {
+                "q": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": question_max_characters,
+                },
+                "t": {"type": "string", "enum": list(_FORECAST_NODE_TYPES)},
+                "w": {"type": "number", "minimum": 0, "maximum": 1},
+                "p": relationship_index_schema(index),
+                "d": {
+                    "type": "array",
+                    "maxItems": min(max_dependencies_per_node, index),
+                    "items": dependency_item_schema(index),
+                },
+                "s": {
+                    "type": "array",
+                    "maxItems": max_preferred_sources_per_node,
+                    "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": preferred_source_max_characters,
+                    },
+                },
+                "o": {"type": "string", "enum": list(_FORECAST_OUTPUT_TYPES)},
+            },
+            "required": ["q", "t", "w", "p", "d", "s", "o"],
+            "additionalProperties": False,
+        }
+
     return {
         "type": "object",
         "properties": {
@@ -200,36 +251,8 @@ def compact_forecast_graph_json_schema(
                 "type": "array",
                 "minItems": 5,
                 "maxItems": 10,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "q": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": question_max_characters,
-                        },
-                        "t": {"type": "string", "enum": list(_FORECAST_NODE_TYPES)},
-                        "w": {"type": "number", "minimum": 0, "maximum": 1},
-                        "p": {"type": ["integer", "null"], "minimum": 0},
-                        "d": {
-                            "type": "array",
-                            "maxItems": max_dependencies_per_node,
-                            "items": {"type": "integer", "minimum": 0},
-                        },
-                        "s": {
-                            "type": "array",
-                            "maxItems": max_preferred_sources_per_node,
-                            "items": {
-                                "type": "string",
-                                "minLength": 1,
-                                "maxLength": preferred_source_max_characters,
-                            },
-                        },
-                        "o": {"type": "string", "enum": list(_FORECAST_OUTPUT_TYPES)},
-                    },
-                    "required": ["q", "t", "w", "p", "d", "s", "o"],
-                    "additionalProperties": False,
-                },
+                "prefixItems": [compact_node_schema(index) for index in range(10)],
+                "items": False,
             }
         },
         "required": ["n"],

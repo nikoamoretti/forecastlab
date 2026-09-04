@@ -233,8 +233,17 @@ def test_q4_shaped_compact_graph_fits_and_restores_approved_canonical_graph() ->
     assert '"status": "pending"' not in request["system"]
     assert "zero-based indexes" in request["system"]
     assert set(request["json_schema"]["properties"]) == {"n"}
-    node_schema = request["json_schema"]["properties"]["n"]["items"]
+    compact_array_schema = request["json_schema"]["properties"]["n"]
+    assert compact_array_schema["items"] is False
+    assert len(compact_array_schema["prefixItems"]) == 10
+    node_schema = compact_array_schema["prefixItems"][3]
     assert set(node_schema["properties"]) == {"q", "t", "w", "p", "d", "s", "o"}
+    assert compact_array_schema["prefixItems"][0]["properties"]["p"] == {
+        "type": "null"
+    }
+    assert compact_array_schema["prefixItems"][0]["properties"]["d"]["maxItems"] == 0
+    assert node_schema["properties"]["p"]["maximum"] == 2
+    assert node_schema["properties"]["d"]["items"]["maximum"] == 2
     assert "UUID" not in json.dumps(request["json_schema"])
     assert result.graph.status == "approved"
     assert len(result.graph.nodes) == 8
@@ -331,6 +340,18 @@ def test_compact_transport_instructs_and_enforces_topological_relationships() ->
 
     assert model.calls[0]["system"].count("strictly smaller than i") == 1
     assert "base_rate, driver, adversarial, and resolver" in model.calls[0]["system"]
+
+
+def test_compact_schema_bounds_references_by_actual_array_position() -> None:
+    """A nine-node response cannot emit 9 as a reference from node eight."""
+
+    model = _GraphModel(_compact_payload())
+    _generator(model).generate(_contract())
+
+    items = model.calls[0]["json_schema"]["properties"]["n"]["prefixItems"]
+    ninth = items[8]["properties"]
+    assert ninth["p"]["maximum"] == 7
+    assert ninth["d"]["items"]["maximum"] == 7
 
 
 def test_visible_output_guard_precedes_compact_conversion_and_never_retries() -> None:
