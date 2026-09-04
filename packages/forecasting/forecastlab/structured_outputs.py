@@ -255,7 +255,14 @@ def forecast_node_json_schema(
 
     def claim_array(allowed: list[str]) -> dict[str, Any]:
         if not allowed:
-            return {"type": "array", "maxItems": 0}
+            # OpenAI's strict-schema subset still requires an ``items`` schema
+            # even when maxItems makes the only valid array empty.  The
+            # sentinel is unreachable and never leaves this transport schema.
+            return {
+                "type": "array",
+                "maxItems": 0,
+                "items": {"type": "string", "enum": ["__no_eligible_claim_id__"]},
+            }
         return {
             "type": "array",
             "maxItems": min(20, len(allowed)),

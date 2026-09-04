@@ -133,6 +133,20 @@ def test_node_forecast_schema_uses_only_openai_structured_output_compatible_keyw
     assert "uniqueItems" not in schema["properties"]["opposing_claim_ids"]
 
 
+def test_node_forecast_schema_keeps_items_for_empty_claim_stance() -> None:
+    schema = forecast_node_json_schema(
+        supporting_claim_ids=["support"],
+        opposing_claim_ids=[],
+    )
+
+    opposing = schema["properties"]["opposing_claim_ids"]
+    assert opposing["maxItems"] == 0
+    assert opposing["items"] == {
+        "type": "string",
+        "enum": ["__no_eligible_claim_id__"],
+    }
+
+
 @pytest.mark.parametrize("probability", [-0.01, 1.01])
 def test_node_forecaster_rejects_probability_outside_unit_interval(probability: float) -> None:
     model = StubModel(_valid_payload(probability=probability))
