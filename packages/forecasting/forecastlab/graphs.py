@@ -252,6 +252,7 @@ Transport rules:
 - Array indexes are zero-based.
 - Order nodes topologically: for node n[i], p and every index in d must be strictly smaller than i.
 - The first node therefore uses p=null and d=[]. This is the compact transport's explicit acyclic-reference convention.
+- Before emitting JSON, verify that t includes base_rate, driver, adversarial, and resolver. Do not use optional node types until all four mandatory categories are present.
 - Do not emit ids, UUIDs, status, or canonical property names.
 - ForecastLab deterministically restores local ids and pending status after strict validation."""
     return f"{prefix.rstrip()}\n\n{compact_shape}\n\nRules:\n{semantic_rules}".strip()

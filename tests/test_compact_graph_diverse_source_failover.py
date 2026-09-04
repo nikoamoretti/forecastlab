@@ -330,6 +330,7 @@ def test_compact_transport_instructs_and_enforces_topological_relationships() ->
     _generator(model).generate(_contract())
 
     assert model.calls[0]["system"].count("strictly smaller than i") == 1
+    assert "base_rate, driver, adversarial, and resolver" in model.calls[0]["system"]
 
 
 def test_visible_output_guard_precedes_compact_conversion_and_never_retries() -> None:
