@@ -7,7 +7,10 @@ function sleep(ms: number) {
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const isForm = typeof FormData !== "undefined" && init?.body instanceof FormData;
   const method = (init?.method || "GET").toUpperCase();
-  const attempts = method === "GET" ? 1 : 3;
+  // Writes can create Questions, contracts, runs, and provider-backed work. A
+  // transport failure after the server has accepted one must stay observable,
+  // rather than being replayed by the browser and creating duplicate work.
+  const attempts = ["GET", "HEAD", "OPTIONS"].includes(method) ? 3 : 1;
   let lastError: Error | null = null;
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const headers = new Headers(init?.headers);

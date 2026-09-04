@@ -48,6 +48,23 @@ test("mock happy path", async ({ page }) => {
   await expect(page.getByText(/2 versions/i)).toBeVisible({ timeout: 120000 });
 });
 
+test("a failed contract-generation POST is never replayed", async ({ page }) => {
+  let contractRequests = 0;
+  await page.route("**/api/contracts/generate", async (route) => {
+    contractRequests += 1;
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({ detail: "synthetic_contract_failure" })
+    });
+  });
+
+  await page.goto("/new");
+  await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
+  await expect(page.getByText("synthetic_contract_failure")).toBeVisible();
+  await expect.poll(() => contractRequests).toBe(1);
+});
+
 test("operational graph smoke report shows node evidence and calculation trace", async ({ page }) => {
   test.setTimeout(180000);
   await page.goto("/new");
