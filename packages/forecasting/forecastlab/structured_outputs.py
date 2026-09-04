@@ -252,7 +252,11 @@ def compact_forecast_graph_json_schema(
                 "minItems": 5,
                 "maxItems": 10,
                 "prefixItems": [compact_node_schema(index) for index in range(10)],
-                "items": False,
+                # OpenAI's strict-schema subset requires ``items`` to be an
+                # object.  ``maxItems`` prevents this overflow shape from ever
+                # being used; positions zero through nine are governed by the
+                # prefix schemas above.
+                "items": compact_node_schema(9),
             }
         },
         "required": ["n"],

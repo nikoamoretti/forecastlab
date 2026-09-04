@@ -234,7 +234,7 @@ def test_q4_shaped_compact_graph_fits_and_restores_approved_canonical_graph() ->
     assert "zero-based indexes" in request["system"]
     assert set(request["json_schema"]["properties"]) == {"n"}
     compact_array_schema = request["json_schema"]["properties"]["n"]
-    assert compact_array_schema["items"] is False
+    assert compact_array_schema["items"]["type"] == "object"
     assert len(compact_array_schema["prefixItems"]) == 10
     node_schema = compact_array_schema["prefixItems"][3]
     assert set(node_schema["properties"]) == {"q", "t", "w", "p", "d", "s", "o"}
