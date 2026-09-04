@@ -251,6 +251,11 @@ class Budget:
     def _elapsed(self) -> float:
         return self.prior_elapsed_seconds + (time.monotonic() - self.state.started_monotonic)
 
+    def remaining_seconds(self, stage: str) -> float:
+        with self._lock:
+            self.check(stage)
+            return max(0.001, self.profile.max_wall_clock_seconds - self._elapsed())
+
     def _check_time(self, stage: str) -> None:
         if self._elapsed() > self.profile.max_wall_clock_seconds:
             self._stop(stage, "max_wall_clock_seconds")

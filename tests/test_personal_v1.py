@@ -51,9 +51,11 @@ def test_personal_schemas_reach_the_actual_provider_transport(monkeypatch, schem
         model="gpt-5-mini", provider_id="openai")
     schema = strict_schema(RootEstimate)
     provider.complete_json(system="Return JSON", user="Test", schema_name=schema_name,
-        max_output_tokens=4096, json_schema=schema)
+        max_output_tokens=4096, json_schema=schema,
+        reasoning_effort="low" if schema_name == "root_event" else "minimal")
     assert sent[0]["json"]["response_format"] == {"type": "json_schema", "json_schema": {
         "name": schema_name, "strict": True, "schema": schema}}
+    assert sent[0]["json"]["reasoning_effort"] == ("low" if schema_name == "root_event" else "minimal")
 
 
 def test_macro_units_and_vintage_boundary():
@@ -124,6 +126,36 @@ def test_general_question_review_accepts_iso_timestamp_and_freezes_contract(clie
             session.commit()
 
 
+@pytest.mark.parametrize("method", ["single_model_forecaster_v1", "three_track_forecaster"])
+def test_personal_baseline_outcome_matches_its_persisted_probability(client, method):
+    import json
+
+    from sqlalchemy import select
+
+    from forecastlab.schemas import ForecastContract
+    from forecastlab_api.db import SessionLocal
+    from forecastlab_api.models import ForecastVersion, PersonalForecast, Question
+    from forecastlab_api.personal_forecasts import envelope
+    from forecastlab_api.pipeline import create_run_record, execute_run, resolve_for_question
+
+    draft = client.post("/api/forecast-drafts", json={"mode": "demo", "request_key": "baseline-review",
+        "macro": spec().model_dump(mode="json")}).json()
+    reviewed = client.post(f"/api/forecast-drafts/{draft['run_id']}/launch", json={"review": {}}).json()
+    contract = ForecastContract.model_validate(reviewed["result"]["contract"])
+    with SessionLocal() as session:
+        question = session.get(Question, draft["question_id"])
+        context = resolve_for_question(question, profile_id=method, mode="demo")
+        run = create_run_record(session, question=question, context=context, as_of=None, enqueue=False)
+        envelope(session, run, request_key="baseline-run", request_hash="baseline", contract=contract, macro=spec())
+        session.commit()
+        execute_run(session, run)
+        version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
+        personal = session.get(PersonalForecast, run.id)
+        assert version.ensemble_probability is not None
+        assert personal.outcome_status == "forecasted"
+        assert json.loads(personal.result_json)["probability"] == version.ensemble_probability
+
+
 def test_atomic_cost_reservations(client):
     from forecastlab.errors import BudgetExceeded
     from forecastlab_api.db import SessionLocal
@@ -142,6 +174,37 @@ def test_atomic_cost_reservations(client):
         successes = list(pool.map(reserve, range(4)))
     assert sum(successes) == 1
     assert ledger.totals(draft["run_id"]).total_cost_usd == pytest.approx(.6)
+
+
+@pytest.mark.parametrize("late_response", ["success", "retryable_failure"])
+def test_execution_deadline_retains_cost_and_prevents_a_paid_retry(monkeypatch, late_response):
+    from forecastlab import deadline
+    from forecastlab.errors import BudgetExceeded, TransientProviderError
+    from forecastlab.ledger import InMemoryUsageLedger
+    from forecastlab.physical import run_physical_attempts
+    from forecastlab.schemas import ModelUsage
+
+    clock = [100.0]
+    monkeypatch.setattr(deadline.time, "monotonic", lambda: clock[0])
+    ledger = InMemoryUsageLedger()
+    ledger.deadline = deadline.ExecutionDeadline.after(5)
+    sent = []
+    def send(attempt):
+        sent.append(attempt)
+        assert deadline.request_timeout(ledger, 60, "test") == 5
+        clock[0] += 6
+        if late_response == "retryable_failure":
+            raise TransientProviderError("Timed out")
+        return {"probability": .7}, ModelUsage(model="test", prompt_tokens=1, completion_tokens=1, cost_usd=.1)
+
+    with pytest.raises(BudgetExceeded, match="max_wall_clock_seconds"):
+        run_physical_attempts(ledger=ledger, run_id="run", run_attempt_id=None, logical_call_id="call",
+            stage="forecast", provider_type="model", provider="test", model="test",
+            reserved_input_tokens=1, reserved_output_tokens=1, reserved_cost_usd=.2, send=send,
+            sleep=lambda _: pytest.fail("No retry sleep after the deadline"))
+    assert sent == [1]
+    assert len(ledger.entries("run")) == 1
+    assert ledger.totals("run").total_cost_usd == pytest.approx(.1 if late_response == "success" else .2)
 
 
 def test_prospective_creation_does_not_require_or_accept_an_outcome(client):
@@ -297,6 +360,7 @@ def test_successful_root_pipeline_uses_only_same_event_estimates(client, monkeyp
         model = "mock-forecast-v1"
         def complete_json(self, **kwargs):
             assert kwargs["json_schema"]["additionalProperties"] is False
+            assert kwargs["reasoning_effort"] == ("minimal" if kwargs["schema_name"] == "root_evidence" else "low")
             body = json.loads(kwargs["user"])
             calls.append(body)
             if kwargs["schema_name"] == "root_evidence":
@@ -342,7 +406,7 @@ def test_cohort_freeze_budget_and_append_only_outcomes(client, monkeypatch):
     from forecastlab.execution import resolve_execution_context
     from forecastlab_api import prospective
     from forecastlab_api.db import SessionLocal
-    from forecastlab_api.models import ForecastRun, ForecastVersion, ProspectiveOutcome
+    from forecastlab_api.models import ForecastRun, ForecastVersion, PersonalForecast, ProspectiveOutcome
     from forecastlab_api.usage_ledger import PersistentUsageLedger
     def resolve(question, *, profile_id, mode):
         return resolve_execution_context(requested_mode="live", profile_id=profile_id, settings={
@@ -384,6 +448,7 @@ def test_cohort_freeze_budget_and_append_only_outcomes(client, monkeypatch):
             run = session.get(ForecastRun, cell["run_id"])
             run.status = "completed"
             run.finished_at = now
+            session.get(PersonalForecast, run.id).outcome_status = "forecasted"
             session.add(ForecastVersion(id=cell["run_id"], question_id=run.question_id, run_id=run.id, ensemble_probability=.7))
         session.commit()
     monkeypatch.setattr(prospective, "utcnow", lambda: datetime(2041, 1, 1, tzinfo=UTC))

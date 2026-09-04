@@ -284,8 +284,11 @@ class EvidenceExtractor:
                     ),
                     schema_name="evidence_claims",
                     max_output_tokens=self.max_output_tokens,
-                    **({"json_schema": self._strict_schema()} if self.strict_outputs else {}),
+                    **({"json_schema": self._strict_schema(), "reasoning_effort": "minimal"}
+                       if self.strict_outputs else {}),
                 )
+                if self.strict_outputs and result.diagnostics and result.diagnostics.finish_reason == "length":
+                    raise EvidenceClaimError(["provider_output_limit"], "Extraction reached the model output limit")
                 payload = result.parsed if result.parsed is not None else json.loads(result.content)
             extracted = _ExtractedClaims.model_validate(payload)
         except (json.JSONDecodeError, TypeError, ValidationError, KeyError) as exc:

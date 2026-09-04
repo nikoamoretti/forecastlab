@@ -7,6 +7,7 @@ from typing import Any, Literal
 
 import httpx
 
+from forecastlab.deadline import request_timeout
 from forecastlab.errors import PermanentProviderError, TransientProviderError, classify_http_status
 from forecastlab.hashing import redact_secrets
 from forecastlab.ledger import UsageLedger
@@ -237,7 +238,7 @@ class OpenAICompatibleProvider:
 
         def send(_physical: int) -> tuple[ChatResult, ModelUsage]:
             try:
-                with httpx.Client(timeout=timeout or self.timeout) as client:
+                with httpx.Client(timeout=request_timeout(self.ledger, timeout or self.timeout, self.stage)) as client:
                     response = client.post(url, headers=headers, json=body)
             except httpx.TimeoutException as exc:
                 raise TransientProviderError(redact_secrets(str(exc))) from exc

@@ -21,6 +21,7 @@ from forecastlab.evidence_claims import (
     EvidenceExtractor,
     eligible_claims_for_forecasting,
 )
+from forecastlab.fetch import FetchLimits
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import (
     FrozenHistoricalEvidenceSearchProvider,
@@ -486,9 +487,12 @@ class GraphResearchExecutor:
                 ),
                 schema_name="graph_research_plan",
                 max_output_tokens=self.research_plan_output_tokens,
-                **({"json_schema": strict_schema(NodeResearchPlan)}
+                **({"json_schema": strict_schema(NodeResearchPlan), "reasoning_effort": "minimal"}
                    if self.profile.execution_strategy == "root_event_ensemble_v1" else {}),
             )
+            if (self.profile.execution_strategy == "root_event_ensemble_v1" and result.diagnostics
+                    and result.diagnostics.finish_reason == "length"):
+                return fallback, ["research_plan_fallback:provider_output_limit"]
             payload = result.parsed if result.parsed is not None else json.loads(result.content)
             generated = NodeResearchPlan.model_validate(payload)
         except BudgetExceeded:
@@ -1060,6 +1064,8 @@ class GraphResearchExecutor:
                             if hit.published_at
                             else None
                         ),
+                        **({"limits": FetchLimits(timeout=min(20, self.budget.remaining_seconds("fetch_document")))}
+                           if self.profile.execution_strategy == "root_event_ensemble_v1" else {}),
                     )
             except BudgetExceeded:
                 raise

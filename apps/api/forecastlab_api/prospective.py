@@ -246,7 +246,8 @@ def cohort_report(session: Session, cohort_id: str) -> dict:
                 raise ValueError("prospective_assignment_envelope_missing")
             version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
             on_time = run.finished_at is not None and as_utc(run.finished_at) <= as_utc(entry.cutoff)
-            probability = version.ensemble_probability if version and run.status == "completed" and on_time else None
+            probability = (version.ensemble_probability if version and run.status == "completed" and on_time
+                           and personal.outcome_status == "forecasted" else None)
             outcome_value = outcome.outcome if outcome else None
             status = ("missed_cutoff" if run.finished_at and not on_time else
                       (personal.outcome_status or run.status))

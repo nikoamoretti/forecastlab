@@ -8,6 +8,7 @@ from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from forecastlab.deadline import ExecutionDeadline, check_deadline
 from forecastlab.engine import operationalize_only, run_forecast_engine
 from forecastlab.errors import ConfigurationError, GraphForecastExecutionError
 from forecastlab.execution import ExecutionContext, resolve_execution_context
@@ -311,6 +312,7 @@ def execute_run(
                              for a in preparations if a.completed_at is not None)
         # Finish the read transaction before concurrent provider-ledger writes.
         session.commit()
+        ledger.deadline = ExecutionDeadline.after(profile.max_wall_clock_seconds - prior_elapsed)
     try:
         if profile.execution_strategy == "root_event_ensemble_v1":
             from forecastlab_api.root_executor import execute_root_forecast
@@ -432,6 +434,7 @@ def execute_run(
                 pricing_catalog=catalog,
                 prior_elapsed_seconds=prior_elapsed,
             )
+            check_deadline(ledger, "persist_forecast")
             persist_engine_result(session, run, result)
             fixture_evidence_used = bool(result.fixture_evidence_used)
             forecast_contract_id = forecast_contract.id
@@ -456,6 +459,7 @@ def execute_run(
                 pricing_catalog=catalog,
                 prior_elapsed_seconds=prior_elapsed,
             )
+            check_deadline(ledger, "persist_forecast")
             persist_engine_result(session, run, result)
             fixture_evidence_used = bool(result.fixture_evidence_used)
             forecast_contract_id = None
@@ -476,6 +480,9 @@ def execute_run(
         run.execution_context_json = json.dumps(snapshot, sort_keys=True)
         run.fixture_evidence_used = fixture_evidence_used
         if personal and profile.execution_strategy != "root_event_ensemble_v1":
+            # SessionLocal disables autoflush. The version just added by the
+            # executor must be visible before deriving the personal outcome.
+            session.flush()
             version = session.scalar(select(ForecastVersion).where(ForecastVersion.run_id == run.id))
             personal.outcome_status = "forecasted" if version and version.ensemble_probability is not None else "insufficient_evidence"
             personal.result_json = json.dumps({**json.loads(personal.result_json), "schema_version": "personal_forecast_v1", "outcome_status": personal.outcome_status,

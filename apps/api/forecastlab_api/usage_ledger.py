@@ -7,6 +7,7 @@ from collections.abc import Callable
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from forecastlab.deadline import ExecutionDeadline, check_deadline
 from forecastlab.errors import BudgetExceeded
 from forecastlab.ledger import LedgerEntry, RunAttemptRef, RunUsageTotals, summarize_entries
 from forecastlab.schemas import ModelUsage
@@ -81,6 +82,7 @@ class PersistentUsageLedger:
         self.session_factory = session_factory
         self.max_cost_usd = max_cost_usd
         self.max_tokens = max_tokens
+        self.deadline: ExecutionDeadline | None = None
 
     def _fits(self, totals: RunUsageTotals, *, extra_cost: float, extra_tokens: int) -> bool:
         if self.max_cost_usd is not None and totals.total_cost_usd + extra_cost > self.max_cost_usd + 1e-12:
@@ -158,6 +160,7 @@ class PersistentUsageLedger:
         reserved_output_tokens: int,
         reserved_cost_usd: float,
     ) -> LedgerEntry:
+        check_deadline(self, stage)
         with self.session_factory() as session:
             if not math.isfinite(reserved_cost_usd) or reserved_cost_usd < 0 or min(reserved_input_tokens, reserved_output_tokens) < 0:
                 raise ValueError("invalid_usage_reservation")
@@ -171,6 +174,7 @@ class PersistentUsageLedger:
                 cohort = session.scalar(select(ProspectiveCohort).where(
                     ProspectiveCohort.id == assignment.cohort_id).with_for_update())
             session.scalar(select(ForecastRun).where(ForecastRun.id == run_id).with_for_update())
+            check_deadline(self, stage)
             existing = session.scalar(
                 select(ProviderCallLedger).where(
                     ProviderCallLedger.run_id == run_id,

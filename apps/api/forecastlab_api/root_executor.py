@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from forecastlab.budget import Budget, estimate_prompt_tokens
 from forecastlab.budgeted_provider import BudgetedModelProvider
+from forecastlab.deadline import check_deadline
 from forecastlab.errors import BudgetExceeded, PermanentProviderError
 from forecastlab.graph_research import GraphResearchExecutor
 from forecastlab.macro import MacroDataError, MacroSpec, fetch_macro
@@ -88,6 +89,9 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
     checkpoint = json.loads(record.result_json or "{}")
     if record.outcome_status in {"forecasted", "insufficient_evidence"}:
         return
+    checkpoint.setdefault("execution_policy", {"profile_version": profile.version,
+        "research_reasoning_effort": "minimal", "estimate_reasoning_effort": "low",
+        "research_plan_output_tokens": 4096, "estimate_output_tokens": 4096})
     budget = Budget.from_persisted(profile, ledger.totals(run.id), provider=context.model_provider,
         model=context.model_name, search_provider=context.search_provider, prior_elapsed_seconds=prior_elapsed_seconds)
     cache = cache or RunCache.create(run_id=run.id, model_provider=context.model_provider,
@@ -112,6 +116,14 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
         run.budget_json = json.dumps(budget.snapshot())
         session.commit()
 
+    def record_model_output(stage, response) -> None:
+        if response.diagnostics:
+            checkpoint.setdefault("model_output_diagnostics", []).append({
+                "stage": stage, **response.diagnostics.audit_payload()})
+            save()
+            if response.diagnostics.finish_reason == "length":
+                raise ValueError(f"model_output_limit:{stage}")
+
     try:
         # Reserve tokens AND estimated dollars, not just logical call counts.
         held = [budget.reserve_model_call(f"reserved_root:{role}", estimated_input_tokens=24000,
@@ -122,7 +134,8 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
             budget.add_fetch("macro_observations")
             try:
                 snapshot = fetch_macro(macro, as_of=as_utc(run.as_of) if run.mode == "backtest" else None,
-                                       fred_api_key=load_secrets().get("fred_api_key"))
+                                       fred_api_key=load_secrets().get("fred_api_key"),
+                                       timeout=budget.remaining_seconds("macro_observations"))
                 checkpoint["macro_snapshot"] = snapshot.model_dump(mode="json")
             except MacroDataError as exc:
                 if str(exc).startswith(("macro_request_failed", "bls_request_not_succeeded")):
@@ -137,7 +150,7 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                 run_id=run.id, mode=run.mode, as_of=as_utc(run.as_of) if run.as_of else None,
                 allow_local_fixtures=context.fixture_evidence_allowed,
                 max_queries_per_node=2, max_fetches_per_node=2, max_evidence_claims=8,
-                research_plan_output_tokens=2048, evidence_extraction_output_tokens=4096,
+                research_plan_output_tokens=4096, evidence_extraction_output_tokens=4096,
                 attached_documents=manual_evidence_documents_for_run(session, run=run), prompt_bundle=prompts).execute(node)
             persist_node_research(session, run=run, evidence=result.evidence, rejected=result.rejected, claims=result.claims)
             claims.extend(result.claims)
@@ -155,7 +168,9 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                 system=system, user=json.dumps({"contract": contract.model_dump(mode="json"),
                     "claims": [{"id": c.id, "claim": c.claim, "excerpt": c.excerpt, "url": c.source_url,
                                 "source_available_at": c.source_available_at.isoformat()} for c in candidates]}),
-                schema_name="root_evidence", json_schema=strict_schema(EvidenceAssessments), max_output_tokens=4096)
+                schema_name="root_evidence", json_schema=strict_schema(EvidenceAssessments), max_output_tokens=4096,
+                reasoning_effort="minimal")
+            record_model_output("assess_root_evidence", response)
             assessments = EvidenceAssessments.model_validate(response.parsed or json.loads(response.content)).assessments
         else:
             # Demo plumbing never manufactures a relevance assessment or an accuracy result.
@@ -186,19 +201,26 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                 budget.release_reservation(held[index])
                 response = BudgetedModelProvider(model, budget, stage=f"root_estimate:{role}").complete_json(
                     system=system, user=user, schema_name="root_event", json_schema=strict_schema(RootEstimate),
-                    max_output_tokens=4096)
+                    max_output_tokens=4096, reasoning_effort="low")
+                record_model_output(f"root_estimate:{role}", response)
                 estimate = RootEstimate.model_validate(response.parsed or json.loads(response.content))
                 if estimate.role != role:
                     raise ValueError("estimate_role_mismatch")
                 estimates.append(estimate)
                 checkpoint["estimates"] = [item.model_dump(mode="json") for item in estimates]
                 save()
+            check_deadline(ledger, "aggregate_root")
             aggregation = aggregate_root_estimates(contract, packet, estimates, as_of=as_of)
     except BudgetExceeded as exc:
+        if exc.reason == "max_wall_clock_seconds":
+            checkpoint["evidence_gaps"] = [f"execution_timeout:{exc.stage}"]
+            save()
+            raise
         gaps.append(f"budget_or_time_exhausted:{exc}")
     except (ValueError, TypeError, KeyError) as exc:
         gaps.append(f"invalid_forecast_artifact:{type(exc).__name__}:{str(exc)[:180]}")
         gaps.extend(str(reason) for reason in getattr(exc, "reasons", []))
+    check_deadline(ledger, "complete_root")
     outcome = "forecasted" if aggregation else "insufficient_evidence"
     for reservation in budget.reservations:
         if reservation.stage.startswith("reserved_root:") and not reservation.released:

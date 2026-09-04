@@ -5,6 +5,7 @@ from typing import Any
 
 import httpx
 
+from forecastlab.deadline import request_timeout
 from forecastlab.errors import ConfigurationError, PermanentProviderError, TransientProviderError, classify_http_status
 from forecastlab.execution import ExecutionContext
 from forecastlab.hashing import redact_secrets
@@ -56,7 +57,7 @@ class TavilySearchProvider:
 
         def send(_physical: int) -> tuple[list[SearchHit], ModelUsage]:
             try:
-                with httpx.Client(timeout=self.timeout) as client:
+                with httpx.Client(timeout=request_timeout(self.ledger, self.timeout, "search")) as client:
                     response = client.post("https://api.tavily.com/search", json=payload)
             except httpx.TimeoutException as exc:
                 raise TransientProviderError(redact_secrets(str(exc))) from exc

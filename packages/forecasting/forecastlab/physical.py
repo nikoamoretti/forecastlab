@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from collections.abc import Callable
 
+from forecastlab.deadline import check_deadline, request_timeout
 from forecastlab.errors import TransientProviderError
 from forecastlab.ledger import LedgerEntry, UsageLedger
 from forecastlab.schemas import ModelUsage
@@ -27,6 +28,7 @@ def run_physical_attempts[T](
 ) -> T:
     last_error: Exception | None = None
     for physical in range(1, max_attempts + 1):
+        check_deadline(ledger, stage)
         entry: LedgerEntry | None = None
         if ledger is not None and run_id:
             entry = ledger.reserve(
@@ -54,7 +56,7 @@ def run_physical_attempts[T](
                 )
             if physical >= max_attempts:
                 raise
-            sleep(min(2 ** (physical - 1), 8))
+            sleep(request_timeout(ledger, min(2 ** (physical - 1), 8), stage))
             continue
         except Exception as exc:
             if entry is not None and ledger is not None:
@@ -66,6 +68,8 @@ def run_physical_attempts[T](
             raise
         if entry is not None and ledger is not None:
             ledger.reconcile(entry.id, usage, status="succeeded")
+        # Retain the charged response even if it arrived too late to be used.
+        check_deadline(ledger, stage)
         return result
     assert last_error is not None
     raise last_error

@@ -117,10 +117,10 @@ def normalize_observations(indicator: str, values: dict[str, float], *, availabl
 
 
 def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key: str | None = None,
-                client: httpx.Client | None = None) -> MacroSnapshot:
+                client: httpx.Client | None = None, timeout: float = 15) -> MacroSnapshot:
     """Historical mode deliberately excludes the cutoff date absent intraday proof."""
     owned = client is None
-    http = client or httpx.Client(timeout=15, follow_redirects=False)
+    http = client or httpx.Client(timeout=min(15, timeout), follow_redirects=False)
     now = utcnow()
     meta = SERIES[spec.indicator]
     try:

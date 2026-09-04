@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 from forecastlab.budget import Budget
 from forecastlab.budgeted_provider import BudgetedModelProvider
 from forecastlab.contracts import QuestionCompiler
+from forecastlab.deadline import ExecutionDeadline, check_deadline
 from forecastlab.execution import ExecutionContext
 from forecastlab.macro import MacroSpec
 from forecastlab.profiles import load_profile
@@ -20,7 +21,7 @@ from forecastlab.prompts import PromptBundle, load_prompt_bundle
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.root_event import contract_hash, digest
 from forecastlab.schemas import ForecastContract, ForecastProfile
-from forecastlab.timeutil import utcnow
+from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.contracts import (
     apply_forecast_contract_review,
     approve_forecast_contract,
@@ -28,7 +29,7 @@ from forecastlab_api.contracts import (
     store_forecast_contract,
 )
 from forecastlab_api.jobs import enqueue_job
-from forecastlab_api.models import ForecastContractRow, ForecastRun, PersonalForecast, Question
+from forecastlab_api.models import ForecastContractRow, ForecastRun, ForecastRunAttempt, PersonalForecast, Question
 from forecastlab_api.pipeline import apply_execution_limits, create_run_record, resolve_for_question
 from forecastlab_api.secrets import load_secrets
 from forecastlab_api.usage_ledger import PersistentUsageLedger
@@ -111,7 +112,15 @@ def prepare_draft(session: Session, run: ForecastRun, job=None) -> None:
     ledger = PersistentUsageLedger(SessionLocal, max_cost_usd=profile.max_estimated_cost_usd, max_tokens=profile.max_tokens)
     attempt = ledger.begin_attempt(run_id=run.id, job_id=run.job_id,
                                    attempt_number=-max(1, job.attempts if job else 1))
+    preparations = session.scalars(select(ForecastRunAttempt).where(
+        ForecastRunAttempt.run_id == run.id, ForecastRunAttempt.attempt_number < 0,
+        ForecastRunAttempt.id != attempt.id)).all()
+    prior_elapsed = sum(max(0, (as_utc(a.completed_at or utcnow()) - as_utc(a.started_at)).total_seconds())
+                        for a in preparations)
+    session.commit()
+    ledger.deadline = ExecutionDeadline.after(profile.max_wall_clock_seconds - prior_elapsed)
     try:
+        check_deadline(ledger, "prepare_contract")
         macro = MacroSpec.model_validate_json(record.macro_json) if record.macro_json != "{}" else None
         if macro:
             contract = macro.template(run.question_id, str(uuid.uuid4()))
@@ -121,10 +130,12 @@ def prepare_draft(session: Session, run: ForecastRun, job=None) -> None:
                 base_url=context.model_base_url, model=context.model_name, execution=context,
                 timeout=context.model_timeout_seconds, ledger=ledger, run_id=run.id, run_attempt_id=attempt.id)
             budget = Budget.from_persisted(profile, ledger.totals(run.id), provider=context.model_provider,
-                                           model=context.model_name, search_provider=context.search_provider)
+                                           model=context.model_name, search_provider=context.search_provider,
+                                           prior_elapsed_seconds=prior_elapsed)
             contract = QuestionCompiler(BudgetedModelProvider(model, budget, stage="prepare_contract"),
                 prompt_bundle=PromptBundle.model_validate_json(record.prompts_json)).compile(
                 run.question.original_text, question_id=run.question_id)
+        check_deadline(ledger, "persist_prepared_contract")
         row = store_forecast_contract(session, contract)
         record.contract_id = row.id
         run.question.original_text = contract.original_question
