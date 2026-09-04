@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
+import QuestionSuggestions, { type QuestionSuggestion, type SuggestedMacro } from "@/components/QuestionSuggestions";
 
 type Draft = { run_id: string; question_id: string; status: string; progress_message: string;
-  cost_usd: number; max_cost_usd: number; error?: string; contract: Record<string, any> | null; macro: Record<string, any> };
+  cost_usd: number; max_cost_usd: number; error?: string; contract: Record<string, any> | null; macro: Record<string, any>;
+  result?: { question_selection?: QuestionSuggestion } };
 const contractFields = ["normalized_question", "yes_condition", "no_condition", "resolution_date", "authoritative_source", "resolution_method"];
 
 export default function PersonalDraft({ onBack }: { onBack: () => void }) {
   const router = useRouter();
   const [draft, setDraft] = useState<Draft | null>(null);
+  const [manual, setManual] = useState(false);
   const [kind, setKind] = useState("macro");
   const [mode, setMode] = useState("live");
   const [question, setQuestion] = useState("");
@@ -24,6 +27,24 @@ export default function PersonalDraft({ onBack }: { onBack: () => void }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const requestKey = useRef<string | null>(null);
+
+  function showDraft(payload: Draft) {
+    setDraft(payload);
+    window.history.replaceState(null, "", `/new?profile=root_event_ensemble_v1&draft=${payload.run_id}`);
+  }
+  async function selectSuggestion(suggestion: QuestionSuggestion) {
+    setBusy(true); setError("");
+    try {
+      showDraft(await api<Draft>(`/api/question-suggestions/${suggestion.id}/draft`, { method: "POST" }));
+    } catch (e) { setError(e instanceof Error ? e.message : "Could not prepare the suggested question"); }
+    finally { setBusy(false); }
+  }
+  function customize(macro: SuggestedMacro) {
+    setKind("macro"); setMode("live"); setIndicator(macro.indicator); setPeriod(macro.observation_period);
+    setThreshold(String(macro.threshold)); setComparison(macro.comparison); setRevision(macro.revision_policy);
+    setRelease(new Date(macro.release_at).toISOString().slice(0, 16));
+    setManual(true); requestKey.current = null; setError("");
+  }
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get("draft");
@@ -46,8 +67,7 @@ export default function PersonalDraft({ onBack }: { onBack: () => void }) {
         macro: kind === "macro" ? { indicator, observation_period: period, threshold: Number(threshold), comparison,
           release_at: `${release}:00Z`, revision_policy: revision } : null
       }) });
-      setDraft(payload);
-      window.history.replaceState(null, "", `/new?profile=root_event_ensemble_v1&draft=${payload.run_id}`);
+      showDraft(payload);
     } catch (e) { setError(e instanceof Error ? e.message : "Preparation failed"); }
     finally { setBusy(false); }
   }
@@ -68,7 +88,12 @@ export default function PersonalDraft({ onBack }: { onBack: () => void }) {
       <h2 className="mt-2 font-serif text-4xl">One question. A traceable forecast.</h2>
       <p className="mt-3">Review the event once. Research and three estimates follow within a $5 estimated ceiling, including preparation. Insufficient evidence withholds the probability.</p></div>
     {error && <p role="alert" className="text-copper">{error}</p>}
-    {!draft ? <form onSubmit={prepare} className="space-y-4"><fieldset disabled={busy} className="space-y-4">
+    {!draft && <div className="flex gap-5 border-b border-rule pb-3" aria-label="Question selection">
+      <button disabled={busy} aria-pressed={!manual} onClick={() => { setManual(false); setError(""); }} className={!manual ? "font-semibold underline" : "text-ink/60"}>Pick for me</button>
+      <button disabled={busy} aria-pressed={manual} onClick={() => { setManual(true); setError(""); }} className={manual ? "font-semibold underline" : "text-ink/60"}>Write my own question</button>
+    </div>}
+    {!draft && !manual && <QuestionSuggestions busy={busy} onSelect={selectSuggestion} onCustomize={customize} />}
+    {!draft && manual && <form onSubmit={prepare} className="space-y-4"><fieldset disabled={busy} className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2"><label>Question type<select aria-label="Question type" className={input} value={kind} onChange={e => setKind(e.target.value)}>
         <option value="macro">U.S. macro template</option><option value="general">General binary question</option></select></label>
       <label>Mode<select aria-label="Mode" className={input} value={mode} onChange={e => setMode(e.target.value)}><option value="live">Live</option><option value="demo">Demo fixtures</option><option value="backtest">Historical cutoff</option></select></label></div>
@@ -82,8 +107,12 @@ export default function PersonalDraft({ onBack }: { onBack: () => void }) {
       </div> : <label className="block">Binary question<textarea className={input} rows={4} required value={question} onChange={e => setQuestion(e.target.value)} /></label>}
       {mode === "backtest" && <label className="block">Information cutoff (ISO timestamp with timezone)<input className={input} required placeholder="2026-01-01T00:00:00Z" value={cutoff} onChange={e => setCutoff(e.target.value)} /></label>}
       <button className="border border-ink bg-ink px-5 py-3 text-paper" disabled={busy}>{busy ? "Preparing…" : "Prepare for review"}</button>
-    </fieldset></form> : <div className="space-y-5">
+    </fieldset></form>}
+    {draft && <div className="space-y-5">
       <p aria-live="polite">{draft.progress_message} · ${draft.cost_usd.toFixed(4)} spent of ${draft.max_cost_usd.toFixed(2)}</p>
+      {draft.result?.question_selection && <aside className="border border-rule p-4 text-sm"><p className="font-semibold">Selected by ForecastLab</p>
+        <p className="mt-2">{draft.result.question_selection.reason}</p>
+        <p className="mt-2"><a className="underline" href={draft.result.question_selection.schedule.source_url} target="_blank" rel="noreferrer">Release calendar</a> · <a className="underline" href={draft.result.question_selection.baseline.source_url} target="_blank" rel="noreferrer">Threshold source</a></p></aside>}
       {draft.error && <p role="alert">{draft.error}</p>}
       {draft.status === "awaiting_review" && draft.contract && <>
         {contractFields.map(key => <label className="block" key={key}>{key.replaceAll("_", " ")}
@@ -92,7 +121,7 @@ export default function PersonalDraft({ onBack }: { onBack: () => void }) {
         <button onClick={launch} disabled={busy} className="border border-ink bg-ink px-5 py-3 text-paper">{busy ? "Launching…" : "Approve question and forecast"}</button>
       </>}
       {!["preparing", "awaiting_review", "failed"].includes(draft.status) && <button className="underline" onClick={() => router.push(`/forecasts/${draft.question_id}`)}>Open forecast</button>}
-      <button className="block text-sm underline" onClick={() => { setDraft(null); requestKey.current = null; setError(""); window.history.replaceState(null, "", "/new?profile=root_event_ensemble_v1"); }}>Start a new draft</button>
+      <button disabled={busy} className="block text-sm underline" onClick={() => { setDraft(null); setManual(false); requestKey.current = null; setError(""); window.history.replaceState(null, "", "/new?profile=root_event_ensemble_v1"); }}>Start a new draft</button>
     </div>}
   </section>;
 }

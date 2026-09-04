@@ -64,7 +64,7 @@ def draft_out(session: Session, run_id: str) -> dict:
 
 
 def create_draft(session: Session, *, question: str, mode: str, as_of: datetime | None,
-                 request_key: str, macro: MacroSpec | None = None) -> ForecastRun:
+                 request_key: str, macro: MacroSpec | None = None, question_selection: dict | None = None) -> ForecastRun:
     fingerprint = digest({"question": question, "mode": mode, "as_of": as_of.isoformat() if as_of else None,
                           "macro": macro.model_dump(mode="json") if macro else None})
     existing = session.scalar(select(PersonalForecast).where(PersonalForecast.request_key == request_key))
@@ -85,7 +85,9 @@ def create_draft(session: Session, *, question: str, mode: str, as_of: datetime 
     run.progress_stage = "preparation"
     run.progress_message = "Preparing the question for review"
     item.status = "draft"
-    envelope(session, run, request_key=request_key, request_hash=fingerprint, macro=macro)
+    record = envelope(session, run, request_key=request_key, request_hash=fingerprint, macro=macro)
+    if question_selection:
+        record.result_json = json.dumps({"question_selection": question_selection})
     job = enqueue_job(session, job_type="forecast_prepare", payload={"run_id": run.id},
                       idempotency_key=f"forecast_prepare:{run.id}")
     session.flush()
@@ -96,7 +98,8 @@ def create_draft(session: Session, *, question: str, mode: str, as_of: datetime 
         session.rollback()
         if session.scalar(select(PersonalForecast).where(PersonalForecast.request_key == request_key)) is None:
             raise
-        return create_draft(session, question=question, mode=mode, as_of=as_of, request_key=request_key, macro=macro)
+        return create_draft(session, question=question, mode=mode, as_of=as_of, request_key=request_key,
+                            macro=macro, question_selection=question_selection)
     return run
 
 

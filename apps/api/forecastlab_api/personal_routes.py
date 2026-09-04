@@ -48,6 +48,22 @@ class OutcomeIn(BaseModel):
     confirmed_by: str = Field(min_length=1, max_length=128)
 
 
+@router.get("/api/question-suggestions")
+def get_suggestions(db: Session = Depends(get_db)) -> dict:
+    from forecastlab_api.question_suggestions import suggestions
+    return suggestions(db)
+
+
+@router.post("/api/question-suggestions/{suggestion_id}/draft", status_code=201)
+def post_suggestion_draft(suggestion_id: str, db: Session = Depends(get_db)) -> dict:
+    from forecastlab_api.question_suggestions import suggestion_draft
+    run = suggestion_draft(db, suggestion_id)
+    if settings.embedded_worker and run.status == "preparing":
+        prepare_draft(db, run)
+    db.expire_all()
+    return draft_out(db, run.id)
+
+
 @router.post("/api/forecast-drafts", status_code=201)
 def post_draft(body: DraftIn, db: Session = Depends(get_db)) -> dict:
     if not body.question.strip() and body.macro is None:

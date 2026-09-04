@@ -116,6 +116,55 @@ def normalize_observations(indicator: str, values: dict[str, float], *, availabl
     return output
 
 
+def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None) -> dict[str, MacroSnapshot]:
+    """One keyless BLS request for question selection, covering all three series.
+
+    The short history is only a threshold anchor. Research fetches its own full
+    history after approval; these observations never substitute for vintage data.
+    """
+    owned = client is None
+    http = client or httpx.Client(timeout=12, follow_redirects=False)
+    now = utcnow()
+    try:
+        response = http.post("https://api.bls.gov/publicAPI/v1/timeseries/data/", json={
+            "seriesid": [meta["bls"] for meta in SERIES.values()],
+            "startyear": str(now.year - 2), "endyear": str(now.year)})
+        response.raise_for_status()
+        payload = response.json()
+        if payload.get("status") != "REQUEST_SUCCEEDED":
+            raise MacroDataError("bls_request_not_succeeded")
+        series = {row["seriesID"]: row["data"] for row in payload["Results"]["series"]}
+        if set(series) != {meta["bls"] for meta in SERIES.values()}:
+            raise MacroDataError("macro_series_mismatch")
+        retrieved = utcnow()
+        snapshots = {}
+        for indicator, meta in SERIES.items():
+            values = {}
+            notes = {}
+            for row in series[meta["bls"]]:
+                period = row["period"]
+                if not period.startswith("M") or not 1 <= int(period[1:]) <= 12:
+                    continue
+                if str(row["value"]).strip() in {"-", ".", ""}:
+                    continue
+                key = f"{row['year']}-{int(period[1:]):02d}"
+                values[key] = float(row["value"])
+                notes[key] = [n["text"] for n in row.get("footnotes", []) if n.get("text")]
+            observations = normalize_observations(indicator, values, available_at=retrieved,
+                vintage=retrieved.isoformat(), source_url=f"https://data.bls.gov/timeseries/{meta['bls']}",
+                revision_basis="latest_observed_revisions_not_first_release", footnotes=notes)
+            snapshots[indicator] = MacroSnapshot(indicator=indicator, retrieved_at=retrieved, observations=observations,
+                raw_payload=payload, raw_hash=digest(payload))
+        return snapshots
+    except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
+        if isinstance(exc, MacroDataError):
+            raise
+        raise MacroDataError(f"macro_request_failed:{type(exc).__name__}") from None
+    finally:
+        if owned:
+            http.close()
+
+
 def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key: str | None = None,
                 client: httpx.Client | None = None, timeout: float = 15) -> MacroSnapshot:
     """Historical mode deliberately excludes the cutoff date absent intraday proof."""

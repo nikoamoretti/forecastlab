@@ -4,9 +4,17 @@
 
 ## Use
 
-Open **Try personal V1** on the board, or `/new?profile=root_event_ensemble_v1`. Enter a macro specification or general binary question, review the event/deadline/resolver, then approve. The worker constructs the research graph automatically. Demo mode verifies the flow and deliberately withholds a probability rather than inventing validated evidence.
+Open **Pick questions for me** on the board, or `/new?profile=root_event_ensemble_v1`. Review a recommended macro question, or choose **Write my own question** to enter a macro specification or general binary question. Review the event/deadline/resolver, then approve. The worker constructs the research graph automatically. Demo mode verifies the flow and deliberately withholds a probability rather than inventing validated evidence.
 
 Results lead with a probability, evidence gaps, or an explicit execution failure. Supporting and opposing findings link to sources. The three forecasters share a validated evidence packet, do not see each other's estimates, and all target the same approved contract. Their spread measures disagreement, not a statistical confidence interval. Receipts, frozen prompts, graph diagnostics, and rejected excerpts are expandable. Manual evidence intake and reruns remain available. Every completed investigation creates a version, including abstentions; a newer abstention never revives an older probability.
+
+## Automatic question selection
+
+The personal screen starts with **Pick for me**. `macro_question_selection_v1` reads the official BLS annual release calendar and all three supported series in one keyless API request. It selects the next release per indicator within 90 days (at least ten minutes away) and uses the latest observed value as the threshold. New questions come first, then the earliest scheduled release. The selection rule is deterministic and makes no claim about the probability or information value of a question. It does not use a model or paid search.
+
+Each pick explains the threshold and links to its observations and release calendar. Observation identity, units, seasonal adjustment, freshness, and publication order are checked; a missing CPI prior-year index prevents selection of that YoY question. The calendar provides the reference month explicitly, including delayed releases, with Eastern times converted using daylight-saving rules. Missing or expired sources produce visible gaps rather than guessed questions. Public inputs are cached under `data/local/question-selection-v1.json` for twelve hours and invalidated after scheduled releases; failed requests cool down for ten minutes. Concurrent cache refreshes share a filesystem lock.
+
+Selecting a recommendation creates a deterministic, free macro draft and preserves its selection receipt in the ordinary run result. Repeating the request resumes the same run. Matching existing questions link to their forecast or unfinished review, and questions sharing a release event are flagged. **Adjust inputs** opens the existing manual form with the selected values. Only **Approve question and forecast** starts research. Suggestions are currently for live U.S. macro questions; this does not enable recurring selection, automatic research, or promote the pilot forecasting method to the general default.
 
 ## Lifecycle and cost
 
@@ -37,6 +45,7 @@ Outcomes are initially unknown and kept outside the historical benchmark tables.
 ## API and persistence
 
 - `POST /api/forecast-drafts`, `GET /api/forecast-drafts/{run_id}`, `POST /api/forecast-drafts/{run_id}/launch`
+- `GET /api/question-suggestions`, `POST /api/question-suggestions/{id}/draft`
 - `GET /api/forecast-summaries?offset=0&limit=25&include_fixtures=false`
 - `POST/GET /api/prospective/cohorts`, `GET /api/prospective/cohorts/{id}`
 - `POST /api/prospective/cohorts/{id}/freeze`, `/launch`, `/score`

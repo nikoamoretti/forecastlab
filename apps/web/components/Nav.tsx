@@ -22,7 +22,7 @@ export function Nav() {
   }, []);
   return (
     <header className="border-b border-rule bg-paper/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-end justify-between px-6 py-5">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-end sm:justify-between">
         <Link href="/" className="block">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-copper">Local laboratory</p>
           <h1 className="font-serif text-3xl tracking-tight">ForecastLab</h1>

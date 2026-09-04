@@ -1,8 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  // These manual-workflow checks must not consume the public BLS daily quota.
+  await page.route("**/api/question-suggestions", route => route.fulfill({ json: {
+    items: [], gaps: [], checked_at: "2040-01-01T00:00:00Z", policy: "Test fixtures"
+  } }));
+});
+
 test("personal macro draft has one review, survives reload, and renders abstention history", async ({ page }) => {
   await page.goto("/new?profile=root_event_ensemble_v1");
   await expect(page.getByRole("heading", { name: "One question. A traceable forecast." })).toBeVisible();
+  await page.getByRole("button", { name: "Write my own question" }).click();
   await page.getByLabel("Mode", { exact: true }).selectOption("demo");
   await page.getByLabel("Observation month").fill("2040-01");
   await page.getByLabel("Release time (UTC)").fill("2040-02-05T13:30");
@@ -23,6 +31,7 @@ test("personal macro draft has one review, survives reload, and renders abstenti
 
 test("general binary contract can be edited and approved", async ({ page }) => {
   await page.goto("/new?profile=root_event_ensemble_v1");
+  await page.getByRole("button", { name: "Write my own question" }).click();
   await page.getByLabel("Mode", { exact: true }).selectOption("demo");
   await page.getByLabel("Question type").selectOption("general");
   await page.getByLabel("Binary question").fill("Will unemployment exceed 5% by January 2040?");

@@ -46,6 +46,10 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       }}><label className="flex-1">Evidence URL<input type="url" required className="mt-1 w-full border border-rule p-2" value={evidenceUrl} onChange={e => setEvidenceUrl(e.target.value)} /></label><button disabled={busy} className="border border-ink px-4 py-2">Check evidence URL</button></form>
     </details>}
     {message && <p role="status">{message}</p>}
+    {result.question_selection && <details className="border-t border-rule pt-4"><summary className="cursor-pointer">Why ForecastLab picked this question</summary>
+      <p className="mt-3 text-sm">{result.question_selection.reason}</p>
+      <p className="mt-2 text-sm"><a className="underline" href={result.question_selection.schedule.source_url}>Release calendar</a> · <a className="underline" href={result.question_selection.baseline.source_url}>Threshold source</a></p>
+      <pre className="mt-3 max-h-80 overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify(result.question_selection, null, 2)}</pre></details>}
     <section><h3 className="font-serif text-2xl">Version history</h3><ul className="mt-3 space-y-2">{data.versions.map((v: any) => <li key={v.id}><Link className="underline" href={`/forecasts/${data.id}?run=${v.run_id}`}>{v.created_at} · {v.ensemble_probability == null ? "Probability withheld" : pct(v.ensemble_probability)} · {v.profile_id}</Link></li>)}</ul></section>
     <details className="border-t border-rule pt-4"><summary className="cursor-pointer">Execution receipts, prompts, graph, and rejected evidence</summary><pre className="mt-4 max-h-[40rem] overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify({ graph: run.forecast_graph, budget: run.budget, attempts: run.run_attempts, ledger: run.provider_call_ledger, prompts: run.frozen_prompts, research: result.research_diagnostics, rejected: evidence.filter((e: any) => !e.usable), aggregation: result.aggregation }, null, 2)}</pre></details>
     <Link className="text-sm underline" href="/">Back to board</Link>
