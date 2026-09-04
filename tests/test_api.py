@@ -33,6 +33,35 @@ def test_settings_never_return_key(client) -> None:
     assert again.json().get("model_api_key") is None
 
 
+def test_manual_contract_creation_is_model_free_and_reviewable(client, monkeypatch) -> None:
+    from forecastlab_api import main as main_mod
+
+    def fail_if_compiler_is_built(**_kwargs):
+        raise AssertionError("manual contract creation must not build a model compiler")
+
+    monkeypatch.setattr(main_mod, "build_question_compiler", fail_if_compiler_is_built)
+    response = client.post(
+        "/api/contracts/manual",
+        json={
+            "question": "Will the official indicator reach 4.5 percent?",
+            "yes_condition": "The official first release reports 4.5 percent or higher.",
+            "no_condition": "The official first release reports less than 4.5 percent.",
+            "resolution_date": "2026-11-06T13:30:00Z",
+            "authoritative_source": "https://example.test/official-release",
+            "resolution_method": "Use the first official release only.",
+            "mode": "live",
+            "profile_id": "graph_live_smoke_v1",
+        },
+    )
+    assert response.status_code == 200
+    contract = response.json()
+    assert contract["status"] == "draft"
+    assert contract["question_id"]
+    approved = client.post(f"/api/contracts/{contract['id']}/approve")
+    assert approved.status_code == 200
+    assert approved.json()["status"] == "approved"
+
+
 def test_full_mock_forecast_contract_edit_report_export(client) -> None:
     created = client.post(
         "/api/questions",

@@ -35,7 +35,7 @@ from forecastlab.logging import configure_logging
 from forecastlab.procedural_ai_review import PROCEDURAL_AI_RELEASE_LABEL
 from forecastlab.profiles import list_profiles, load_profile, profile_hash
 from forecastlab.providers.mock import SAMPLE_QUESTION
-from forecastlab.schemas import ResolutionContract, SettingsPublic, SettingsUpdate
+from forecastlab.schemas import ForecastContract, ResolutionContract, SettingsPublic, SettingsUpdate
 from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.version import __version__
@@ -196,6 +196,32 @@ class ContractIn(BaseModel):
 
 class GenerateContractIn(BaseModel):
     question: str
+    mode: str = "demo"
+    profile_id: str = "three_track_ensemble"
+    as_of: datetime | None = None
+    created_by: str = "user"
+
+
+class ManualForecastContractIn(BaseModel):
+    """A reviewed contract that must not trigger a model call during creation."""
+
+    question: str
+    normalized_question: str | None = None
+    yes_condition: str
+    no_condition: str
+    resolution_date: datetime
+    authoritative_source: str
+    fallback_sources: list[str] = Field(default_factory=list)
+    resolution_method: str
+    ambiguity_notes: str = ""
+    cancellation_conditions: str = ""
+    resolver_risk_notes: str = ""
+    geography: str | None = None
+    units: str | None = None
+    domain: str | None = None
+    initial_reference_class: str = ""
+    suggested_drivers: list[str] = Field(default_factory=list)
+    known_dependencies: list[str] = Field(default_factory=list)
     mode: str = "demo"
     profile_id: str = "three_track_ensemble"
     as_of: datetime | None = None
@@ -548,6 +574,63 @@ def generate_contract(body: GenerateContractIn, db: Session = Depends(get_db)) -
     db.flush()
     if body.mode == "demo":
         attach_demo_watch(db, question)
+    row = store_forecast_contract(db, contract)
+    db.commit()
+    return forecast_contract_from_row(row).model_dump(mode="json")
+
+
+@app.post("/api/contracts/manual")
+def create_manual_contract(body: ManualForecastContractIn, db: Session = Depends(get_db)) -> dict[str, Any]:
+    """Create a user-reviewed draft contract without invoking a model."""
+    if body.mode not in {"demo", "live", "backtest"}:
+        raise HTTPException(422, "Unknown mode")
+    original_question = body.question.strip()
+    normalized_question = (body.normalized_question or original_question).strip()
+    if not original_question or not normalized_question:
+        raise HTTPException(422, "Question is required")
+
+    question_id = str(uuid.uuid4())
+    contract = ForecastContract(
+        id=str(uuid.uuid4()),
+        question_id=question_id,
+        created_at=utcnow(),
+        created_by=body.created_by.strip() or "user",
+        original_question=original_question,
+        normalized_question=normalized_question,
+        yes_condition=body.yes_condition.strip(),
+        no_condition=body.no_condition.strip(),
+        resolution_date=body.resolution_date,
+        authoritative_source=body.authoritative_source.strip(),
+        fallback_sources=[source.strip() for source in body.fallback_sources if source.strip()],
+        resolution_method=body.resolution_method.strip(),
+        ambiguity_notes=body.ambiguity_notes.strip(),
+        cancellation_conditions=body.cancellation_conditions.strip(),
+        resolver_risk_notes=body.resolver_risk_notes.strip(),
+        geography=body.geography.strip() if body.geography else None,
+        units=body.units.strip() if body.units else None,
+        domain=body.domain.strip() if body.domain else None,
+        initial_reference_class=body.initial_reference_class.strip(),
+        suggested_drivers=[driver.strip() for driver in body.suggested_drivers if driver.strip()],
+        known_dependencies=[dependency.strip() for dependency in body.known_dependencies if dependency.strip()],
+        status="draft",
+    )
+    approval_errors = contract.approval_errors()
+    if approval_errors:
+        raise ForecastContractError(approval_errors, "Manual Forecast Contract is missing required resolution fields")
+
+    question = Question(
+        id=question_id,
+        original_text=contract.original_question,
+        normalized_text=contract.normalized_question,
+        forecast_deadline=contract.resolution_date,
+        status="draft",
+        requested_mode=body.mode,
+        requested_profile_id=body.profile_id,
+        requested_as_of=body.as_of,
+        is_benchmark=False,
+    )
+    db.add(question)
+    db.flush()
     row = store_forecast_contract(db, contract)
     db.commit()
     return forecast_contract_from_row(row).model_dump(mode="json")
