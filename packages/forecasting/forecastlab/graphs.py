@@ -250,6 +250,8 @@ def _compact_transport_prompt(system: str) -> str:
 
 Transport rules:
 - Array indexes are zero-based.
+- Order nodes topologically: for node n[i], p and every index in d must be strictly smaller than i.
+- The first node therefore uses p=null and d=[]. This is the compact transport's explicit acyclic-reference convention.
 - Do not emit ids, UUIDs, status, or canonical property names.
 - ForecastLab deterministically restores local ids and pending status after strict validation."""
     return f"{prefix.rstrip()}\n\n{compact_shape}\n\nRules:\n{semantic_rules}".strip()
@@ -362,6 +364,14 @@ def _canonicalize_compact_graph(
                     f"n.{index}",
                     "invalid_node_index",
                     "Compact graph relationship index is outside the node array",
+                )
+            )
+        if any(reference >= index for reference in references):
+            errors.append(
+                _transport_validation_error(
+                    f"n.{index}",
+                    "non_topological_reference",
+                    "Compact graph relationships must refer only to earlier node indexes",
                 )
             )
     if errors:

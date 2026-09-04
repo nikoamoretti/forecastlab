@@ -311,8 +311,25 @@ def test_compact_relationship_domain_failures_are_not_repaired(
     with pytest.raises(ForecastGraphError) as exc_info:
         _generator(model).generate(_contract())
 
-    assert exc_info.value.reasons == ["graph_domain_validation_failed"]
+    expected = (
+        ["graph_domain_validation_failed"]
+        if failure_kind == "duplicate_question"
+        else ["structured_output_schema_invalid"]
+    )
+    assert exc_info.value.reasons == expected
+    if failure_kind == "cycle":
+        assert any(
+            error["error_type"] == "non_topological_reference"
+            for error in exc_info.value.audit["schema_validation_errors"]
+        )
     assert len(model.calls) == 1
+
+
+def test_compact_transport_instructs_and_enforces_topological_relationships() -> None:
+    model = _GraphModel(_compact_payload())
+    _generator(model).generate(_contract())
+
+    assert model.calls[0]["system"].count("strictly smaller than i") == 1
 
 
 def test_visible_output_guard_precedes_compact_conversion_and_never_retries() -> None:
