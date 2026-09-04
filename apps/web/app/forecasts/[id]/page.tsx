@@ -1104,7 +1104,8 @@ export default function ForecastPage() {
           <div>
             <dt className="text-ink/60">Reservations</dt>
             <dd>
-              {(budget.reservations || []).length} model calls · {costKind} cost
+              {budget.model_calls ?? "—"} model calls · {budget.search_calls ?? "—"} searches ·{" "}
+              {(budget.reservations || []).length} provider reservations · {costKind} cost
             </dd>
           </div>
         </dl>
