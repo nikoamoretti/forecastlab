@@ -110,29 +110,7 @@ RAW_OUTPUT_KEYS = {
     "model_api_key",
     "search_api_key",
 }
-KNOWN_FRONTEND_ADVISORIES = (
-    {
-        "package": "next",
-        "severity": "high",
-        "via": ["postcss", "sharp"],
-        "fix": "Next 16.3.3 (semver-major; not authorized in this task)",
-    },
-    {
-        "package": "postcss",
-        "severity": "high",
-        "advisories": [
-            "GHSA-qx2v-qp2m-jg93",
-            "GHSA-6g55-p6wh-862q",
-            "GHSA-fxqj-rqcc-2cmp",
-            "GHSA-r28c-9q8g-f849",
-        ],
-    },
-    {
-        "package": "sharp",
-        "severity": "high",
-        "advisories": ["GHSA-f88m-g3jw-g9cj"],
-    },
-)
+KNOWN_FRONTEND_ADVISORIES: tuple[dict[str, Any], ...] = ()
 
 
 class VerificationError(RuntimeError):
@@ -705,10 +683,10 @@ def _run_checkout(
         )
         frontend_advisories = _parse_audit(npm_audit.stdout)
         if frontend_advisories != {
-            "total": 3,
-            "high": 3,
+            "total": 0,
+            "high": 0,
             "critical": 0,
-            "package_names": ["next", "postcss", "sharp"],
+            "package_names": [],
         }:
             raise VerificationError("frontend_advisory_set_drifted")
 
@@ -1071,7 +1049,6 @@ def _manifest(
             "The latest live operational acceptance remains a hard 3-of-5 failure.",
             "This verifier uses synthetic mock evidence and establishes software reproducibility only.",
             "Forecasting quality and calibration have not been evaluated.",
-            "Three known high-severity frontend dependency advisories remain; the available fix is a semver-major Next upgrade.",
             "No tag, publication, merge, or deployment was authorized.",
         ],
     }
