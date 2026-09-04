@@ -352,7 +352,34 @@ def forecast_contract_error_handler(_request, exc: ForecastContractError) -> JSO
 
 @app.exception_handler(ForecastGraphError)
 def forecast_graph_error_handler(_request, exc: ForecastGraphError) -> JSONResponse:
-    return JSONResponse(status_code=422, content={"detail": str(exc), "reasons": exc.reasons})
+    allowed = {
+        "provider",
+        "model",
+        "prompt_version",
+        "schema_name",
+        "transport",
+        "transport_max_characters",
+        "transport_character_count",
+        "requested_max_output_tokens",
+        "requested_max_completion_tokens",
+        "requested_max_visible_output_tokens",
+        "reasoning_effort",
+        "verbosity",
+        "structured_output",
+        "schema_validation_errors",
+        "domain_validation_errors",
+        "estimated_graph_input_tokens",
+        "reserved_follow_on_tokens",
+        "run_token_ceiling",
+    }
+    # GraphGenerator's audit deliberately excludes response content, prompts,
+    # headers, and credentials. Keep this boundary explicit as the failure is
+    # exposed through the user-facing contract/graph workflow.
+    audit = {key: value for key, value in exc.audit.items() if key in allowed}
+    return JSONResponse(
+        status_code=422,
+        content={"detail": str(exc), "reasons": exc.reasons, "audit": audit},
+    )
 
 
 @app.exception_handler(EvidenceClaimError)

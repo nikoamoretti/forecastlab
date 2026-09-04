@@ -62,6 +62,29 @@ def test_manual_contract_creation_is_model_free_and_reviewable(client, monkeypat
     assert approved.json()["status"] == "approved"
 
 
+def test_graph_failure_response_preserves_sanitized_domain_diagnostics(client) -> None:
+    from forecastlab.graphs import ForecastGraphError
+    from forecastlab_api import main as main_mod
+
+    response = main_mod.forecast_graph_error_handler(
+        None,
+        ForecastGraphError(
+            ["graph_domain_validation_failed"],
+            audit={
+                "provider": "openai",
+                "domain_validation_errors": ["adversarial_node_required"],
+                "raw_content": "must never leave the model boundary",
+                "authorization": "must never leave the model boundary",
+            },
+        ),
+    )
+    body = json.loads(response.body)
+    assert body["reasons"] == ["graph_domain_validation_failed"]
+    assert body["audit"]["domain_validation_errors"] == ["adversarial_node_required"]
+    assert "raw_content" not in body["audit"]
+    assert "authorization" not in body["audit"]
+
+
 def test_full_mock_forecast_contract_edit_report_export(client) -> None:
     created = client.post(
         "/api/questions",
