@@ -32,6 +32,7 @@ _KNOWN_FINISH_REASONS = {"stop", "length", "content_filter", "tool_calls", "func
 _STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "forecast_graph",
     "forecast_graph_compact_indexed_v1",
+    "forecast_node",
     "scenario_synthesis",
 }
 

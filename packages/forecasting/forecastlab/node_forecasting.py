@@ -16,6 +16,7 @@ from forecastlab.schemas import (
     ForecastNodeOutput,
     NodeForecast,
 )
+from forecastlab.structured_outputs import forecast_node_json_schema
 
 FULL_EVIDENCE_STRENGTH = 2.0
 SECONDARY_SOURCE_FACTOR = 0.85
@@ -152,10 +153,22 @@ class NodeForecaster:
         if self.prompt_versions is not None:
             self.prompt_versions["forecast_node"] = version
         user = json.dumps(self._context(contract, node, claims))
+        supporting_ids = sorted(
+            claim.id for claim in claims if claim.supports_or_refutes == "supports"
+        )
+        opposing_ids = sorted(
+            claim.id for claim in claims if claim.supports_or_refutes == "refutes"
+        )
         result = self.model.complete_json(
             system=system,
             user=user,
             schema_name="forecast_node",
+            json_schema=forecast_node_json_schema(
+                supporting_claim_ids=supporting_ids,
+                opposing_claim_ids=opposing_ids,
+            ),
+            reasoning_effort="minimal",
+            verbosity="low",
         )
         try:
             parsed = result.parsed if result.parsed is not None else json.loads(result.content)

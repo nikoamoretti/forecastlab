@@ -43,6 +43,25 @@ _FORECAST_OUTPUT_TYPES = (
 )
 
 
+class ForecastNodeTransport(BaseModel):
+    """Strict provider transport for an auditable node-level forecast.
+
+    The dynamic JSON schema further constrains each claim-ID list to the
+    eligible claims supplied for the node.  This model keeps the stable output
+    shape separate from those per-request enumerations.
+    """
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    probability: float = Field(ge=0.0, le=1.0)
+    reasoning: str = Field(min_length=1, max_length=1_200)
+    supporting_claim_ids: list[str] = Field(max_length=20)
+    opposing_claim_ids: list[str] = Field(max_length=20)
+    uncertainty_notes: list[Annotated[str, Field(min_length=1, max_length=300)]] = Field(
+        max_length=8
+    )
+
+
 class ForecastGraphNodeOutput(BaseModel):
     """Strict transport schema for one model-authored Forecast Graph node."""
 
@@ -222,6 +241,52 @@ def scenario_synthesis_json_schema() -> dict[str, Any]:
     return ScenarioSynthesisTransport.model_json_schema()
 
 
+def forecast_node_json_schema(
+    *,
+    supporting_claim_ids: list[str],
+    opposing_claim_ids: list[str],
+) -> dict[str, Any]:
+    """Return a strict node schema bounded to the supplied eligible claims.
+
+    Claim identifiers are data, not prose.  Encoding their allowed sets in the
+    request keeps a successful structured response from inventing a citation
+    that the deterministic post-validation must reject.
+    """
+
+    def claim_array(allowed: list[str]) -> dict[str, Any]:
+        if not allowed:
+            return {"type": "array", "maxItems": 0}
+        return {
+            "type": "array",
+            "maxItems": min(20, len(allowed)),
+            "uniqueItems": True,
+            "items": {"type": "string", "enum": allowed},
+        }
+
+    return {
+        "type": "object",
+        "properties": {
+            "probability": {"type": "number", "minimum": 0, "maximum": 1},
+            "reasoning": {"type": "string", "minLength": 1, "maxLength": 1_200},
+            "supporting_claim_ids": claim_array(supporting_claim_ids),
+            "opposing_claim_ids": claim_array(opposing_claim_ids),
+            "uncertainty_notes": {
+                "type": "array",
+                "maxItems": 8,
+                "items": {"type": "string", "minLength": 1, "maxLength": 300},
+            },
+        },
+        "required": [
+            "probability",
+            "reasoning",
+            "supporting_claim_ids",
+            "opposing_claim_ids",
+            "uncertainty_notes",
+        ],
+        "additionalProperties": False,
+    }
+
+
 def structured_output_json_schema(schema_name: str) -> dict[str, Any] | None:
     if schema_name == "forecast_graph":
         return forecast_graph_json_schema()
@@ -265,6 +330,12 @@ def validate_structured_output(
         except ValidationError as exc:
             return None, sanitize_validation_errors(exc)
         return scenario.model_dump(mode="json"), []
+    if schema_name == "forecast_node":
+        try:
+            node = ForecastNodeTransport.model_validate(payload)
+        except ValidationError as exc:
+            return None, sanitize_validation_errors(exc)
+        return node.model_dump(mode="json"), []
     if schema_name != "forecast_graph":
         return payload if isinstance(payload, dict) else None, []
     try:

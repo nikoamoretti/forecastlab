@@ -812,7 +812,7 @@ def test_unrelated_task_does_not_receive_graph_reasoning_or_schema_mode(
     provider.complete_json(
         system="Return JSON.",
         user="Forecast.",
-        schema_name="forecast_node",
+        schema_name="resolution_contract",
         max_output_tokens=321,
         json_schema=forecast_graph_json_schema(),
         reasoning_effort="minimal",

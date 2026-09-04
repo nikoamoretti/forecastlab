@@ -10,6 +10,7 @@ from forecastlab.errors import StructuredOutputError
 from forecastlab.node_forecasting import NodeForecaster
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import EvidenceClaim, ForecastContract, ForecastNode, ModelUsage
+from forecastlab.structured_outputs import forecast_node_json_schema
 
 
 class StubModel:
@@ -112,6 +113,12 @@ def test_node_forecaster_generates_probability_from_contract_question_and_claims
     assert context["node_question"] == _node().question
     assert context["evidence_claims"][0]["id"] == "support"
     assert "document" not in context
+    assert model.calls[0]["json_schema"] == forecast_node_json_schema(
+        supporting_claim_ids=["support"],
+        opposing_claim_ids=[],
+    )
+    assert model.calls[0]["reasoning_effort"] == "minimal"
+    assert model.calls[0]["verbosity"] == "low"
 
 
 @pytest.mark.parametrize("probability", [-0.01, 1.01])
