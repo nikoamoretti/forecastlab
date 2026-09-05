@@ -21,6 +21,8 @@ disabled. It has **not** passed live forecasting qualification.
 
 - Python: **789 passed**, including SQLite and isolated Postgres concurrency,
   budgets, lease recovery, append-only history and import/restore tests.
+- Three additional release-environment regression tests passed after fixing
+  Vercel's redacted sensitive values in CLI environment exports.
 - Ruff and mypy: passed for application packages and operational scripts.
 - TypeScript, ESLint and production frontend build: passed.
 - Browser workflows: **24 passed, 2 skipped**. The two optional private-V1
@@ -52,6 +54,8 @@ receipts. Secret environment files are not included in the repository.
 4. The reviewed-release workflow must be reviewed and merged into the repository's
    existing default branch before it can operate there. The GitHub production
    environment and separate project-scoped Vercel credentials are configured.
+   Cross-project denial was verified for both tokens. They expire September 5,
+   2027 and must be rotated before subsequent releases after that date.
    The current GitHub plan rejects required deployment-reviewer rules, so releases
    instead require the owner's numeric identity and approval of the exact full
    commit SHA, followed by CI. The end-to-end GitHub release workflow has not run.

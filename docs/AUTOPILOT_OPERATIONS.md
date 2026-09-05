@@ -168,6 +168,9 @@ They are not merged or deployed automatically.
 The provisioned Neon database is PostgreSQL 18. The release workflow installs the
 PostgreSQL 18 client from the [official repository](https://www.postgresql.org/download/linux/ubuntu/)
 before taking a schema-inclusive backup; an older `pg_dump` cannot back it up.
+The CLI redacts sensitive environment variables. Release tooling loads only the
+integration's direct database and Blob credentials and rejects unavailable values;
+it does not need to export model, search, OAuth or session secrets.
 
 `GET /internal/readiness` reports migration, login and restore readiness without
 secrets. `POST /internal/source-preflight` runs only free public-data checks.

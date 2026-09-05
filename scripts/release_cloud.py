@@ -67,6 +67,22 @@ def smoke(url, path, expected, cwd):
         raise RuntimeError(f"staged_smoke_failed:{path}")
 
 
+def configure_release_environment(values):
+    # Vercel exports sensitive provider settings as [SENSITIVE]. A release
+    # needs only the integration's database and Blob credentials; importing
+    # every value would feed redacted booleans/numbers into application config.
+    for key in ("DATABASE_URL_UNPOOLED", "BLOB_READ_WRITE_TOKEN"):
+        if not values.get(key) or values[key] == "[SENSITIVE]":
+            raise RuntimeError("release_credential_unavailable:" + key)
+    url = make_url(values["DATABASE_URL_UNPOOLED"]).set(drivername="postgresql+psycopg")
+    os.environ.update({
+        "FORECASTLAB_ENV": "production", "FORECASTLAB_ALLOW_LOCAL_FIXTURES": "false",
+        "FORECASTLAB_EMBEDDED_WORKER": "false", "FORECASTLAB_BLOB_TOKEN": values["BLOB_READ_WRITE_TOKEN"],
+        "FORECASTLAB_DATABASE_URL": url.render_as_string(hide_password=False),
+    })
+    return url
+
+
 def main():
     if not os.environ.get("FORECASTLAB_RELEASE_SECRET"):
         raise RuntimeError("release_secret_required")
@@ -83,7 +99,7 @@ def main():
         cli(["env", "pull", str(environment), "--environment", "production", "--yes"])
         environment.chmod(0o600)
         values = dotenv_values(environment)
-        url = make_url(values["DATABASE_URL_UNPOOLED"]).set(drivername="postgresql+psycopg")
+        url = configure_release_environment(values)
         # pg_dump captures the OLD schema before importing the new application's
         # metadata, so a migration adding tables cannot break the backup.
         pg_env = {**os.environ, "PGHOST": url.host or "", "PGPORT": str(url.port or 5432),
@@ -91,8 +107,6 @@ def main():
         dumped = subprocess.run(["pg_dump", "--no-owner", "--no-privileges"], env=pg_env, capture_output=True)
         if dumped.returncode:
             raise RuntimeError("pre_release_snapshot_failed")
-        os.environ.update({k: v for k, v in values.items() if v is not None})
-        os.environ["FORECASTLAB_ENV"] = "production"
         from forecastlab_api.artifact_store import get_bytes, put_bytes
         from forecastlab_api.migrate import apply_migrations
         archive = put_bytes(gzip.compress(dumped.stdout), prefix="release-backups", content_type="application/gzip")
