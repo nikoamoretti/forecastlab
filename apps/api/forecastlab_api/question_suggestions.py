@@ -15,6 +15,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from forecastlab.macro import MacroDataError, MacroSnapshot, MacroSpec, fetch_latest_macro_snapshots
+from forecastlab.official_releases import PUBLIC_DATA_USER_AGENT
 from forecastlab.question_selection import (
     HORIZON_DAYS,
     SELECTION_VERSION,
@@ -40,7 +41,7 @@ class SelectionSources(BaseModel):
 
 def _fetch_sources(now: datetime, *, full_history: bool = False, cached_snapshots: dict[str, MacroSnapshot] | None = None) -> SelectionSources:
     result = SelectionSources(checked_at=now)
-    with httpx.Client(timeout=12, follow_redirects=False, headers={"User-Agent": "ForecastLab/1.0 public calendar"}) as http:
+    with httpx.Client(timeout=12, follow_redirects=False, headers={"User-Agent": PUBLIC_DATA_USER_AGENT}) as http:
         def read_calendar(url):
             with http.stream("GET", url) as response:
                 response.raise_for_status()
@@ -62,6 +63,9 @@ def _fetch_sources(now: datetime, *, full_history: bool = False, cached_snapshot
             except httpx.HTTPError as exc:
                 reason = f"HTTP {exc.response.status_code}" if isinstance(exc, httpx.HTTPStatusError) else type(exc).__name__
                 result.diagnostics.append({"url": url, "error": reason})
+                if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code in {403, 429}:
+                    result.gaps.append(f"BLS {year} release calendar unavailable ({reason}).")
+                    break  # Do not retry a blocked/rate-limited host through other paths.
                 # The official monthly list provides explicit reference periods
                 # and times. The public ICS feed omits reference periods, so it
                 # cannot replace this evidence by inferring last month's date.
@@ -79,6 +83,21 @@ def _fetch_sources(now: datetime, *, full_history: bool = False, cached_snapshot
             except ValueError as exc:
                 reason = str(exc) if isinstance(exc, MacroDataError) else type(exc).__name__
                 result.gaps.append(f"BLS {year} release calendar unavailable ({reason}).")
+        if not result.releases:
+            from forecastlab_api.official_sources import fetch_dol_schedules
+            try:
+                releases, documents, gaps = fetch_dol_schedules(http, now)
+                result.documents.update(documents)
+                if releases:
+                    result.releases = releases
+                    result.diagnostics.extend({"error": gap, "recovered_by": "dol_fed_schedule_v1"} for gap in result.gaps)
+                    result.gaps = gaps
+                else:
+                    result.gaps.extend(gaps)
+            except (httpx.HTTPError, ValueError) as exc:
+                reason = (f"HTTP {exc.response.status_code}" if isinstance(exc, httpx.HTTPStatusError)
+                          else str(exc) if isinstance(exc, MacroDataError) else type(exc).__name__)
+                result.gaps.append(f"Official alternative release sources unavailable ({reason}).")
         if result.releases:
             try:
                 checked = min((as_utc(s.retrieved_at) for s in (cached_snapshots or {}).values()), default=None)

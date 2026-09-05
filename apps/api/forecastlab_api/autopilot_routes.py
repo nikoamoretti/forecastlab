@@ -108,8 +108,10 @@ def outcome_source(proposal_id: str, db: Session = Depends(get_db)):
     row = db.get(OutcomeProposal, proposal_id)
     if not row:
         raise HTTPException(404, "Outcome proposal not found")
-    return Response(get_bytes(json.loads(row.payload_json)["artifact"]), media_type="application/octet-stream",
-        headers={"Content-Disposition": 'attachment; filename="official-release.html"', "Cache-Control": "private, no-store"})
+    artifact = json.loads(row.payload_json)["artifact"]
+    pdf = artifact.get("content_type", "").split(";", 1)[0] == "application/pdf"
+    return Response(get_bytes(artifact), media_type="application/pdf" if pdf else "application/octet-stream",
+        headers={"Content-Disposition": f'attachment; filename="official-release.{"pdf" if pdf else "html"}"', "Cache-Control": "private, no-store"})
 
 
 @router.get("/api/autopilot/metrics")
@@ -179,9 +181,13 @@ def source_preflight():
     if not settings.production:
         raise HTTPException(409, "Preflight requires the production service")
     sources = autopilot.database_selection_sources()
-    return {"checked_at": sources.checked_at, "gaps": sources.gaps, "release_count": len(sources.releases),
+    from forecastlab.question_selection import choose_questions
+    candidates, selection_gaps = choose_questions(sources.releases, sources.snapshots, now=utcnow())
+    return {"checked_at": sources.checked_at, "gaps": sources.gaps + selection_gaps, "release_count": len(sources.releases),
         "indicators": sorted(sources.snapshots), "retained_calendars": len(sources.documents),
         "source_diagnostics": sources.diagnostics,
+        "selectable_questions": [{"indicator": c.macro.indicator, "period": c.macro.observation_period,
+            "release_at": c.macro.release_at, "schedule_basis": c.schedule.schedule_basis} for c in candidates],
         "paid_provider_calls": 0}
 
 

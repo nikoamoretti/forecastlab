@@ -75,6 +75,19 @@ is within seven days; refreshes have a 24-hour cooldown and a two-per-week ceili
 A changed or ambiguous calendar suspends the question, including already queued
 paid calls. Forecasting stops 15 minutes before release.
 
+Selection version `macro_question_selection_v2` also supports the original BLS
+PDFs linked from the [Department of Labor economic data page](https://www.dol.gov/newsroom/economicdata).
+Each PDF must establish its own publication timestamp and observation period,
+and explicitly announce the next period, date and Eastern time. The current
+[New York Fed calendar](https://www.newyorkfed.org/research/calendars) must agree
+with that date and time. Missing, ambiguous or conflicting evidence withholds
+the affected question. No reference month is inferred from a release date.
+Both documents are retained with hashes and frozen into the approval record.
+DOL copies retain the `agency:bls` lineage; the calendar check does not count as
+independent corroboration of a measurement. A 403 or 429 stops further calendar
+requests to the BLS website in that refresh. The separately hosted BLS API still
+provides the batched observation history, with the existing cache and limits.
+
 Every refresh creates an ordinary new run. A latest failure or abstention remains
 the latest result. Older probabilities and failed versions remain dated in the
 history. Scores use Autopilot runs only: initial and latest eligible prerelease
@@ -88,6 +101,15 @@ API values cannot replace missing first-release evidence. Confirmation and
 corrections append adjudications; unconfirmed proposals never enter scores or
 historical evaluation datasets. Inbox messages and weekly summaries are generated
 without a writing-model call.
+
+Outcome collection can also retrieve the dated DOL PDF for the frozen release.
+It verifies the headline's exact period, publication time, units and adjustment,
+and rejects corrected/reissued documents. Confirmation re-extracts and checks the
+retained original bytes. The outcome record identifies DOL as publisher and BLS
+as the original source (`macro_first_release_v2`); older HTML records keep their
+existing parser and schema. When a rolling index drops a past event, the dated
+document can still support an outcome proposal. Known schedule conflicts still
+suspend the question, and human confirmation remains required before scoring.
 
 ## Import and restore
 

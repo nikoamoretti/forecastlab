@@ -163,13 +163,23 @@ def _resolution_evidence(candidate: QuestionSuggestion, sources: SelectionSource
     if not artifact:
         raise HTTPException(409, "Retained official release calendar is required")
     schedule = candidate.schedule
+    if schedule.schedule_basis == "dol_fed_schedule_v1" and artifact["sha256"] != schedule.source_hash:
+        raise HTTPException(409, "Original release document hash does not match the approved schedule")
+    corroboration = []
+    for source in schedule.verification_sources:
+        retained = sources.documents.get(source["url"])
+        if not retained or retained["sha256"] != source["source_hash"]:
+            raise HTTPException(409, "Retained schedule confirmation is required")
+        corroboration.append({**source, "artifact": retained})
+    if schedule.schedule_basis == "dol_fed_schedule_v1" and not corroboration:
+        raise HTTPException(409, "Current official calendar confirmation is required")
     return [{"schema_version": "evidence_assessment_v2", "claim_id": "calendar:" + digest(schedule.model_dump(mode="json")),
         "classification": "background", "relevant": True, "usable": True, "required_sections": ["resolution"],
-        "reason": "Deterministically parsed official release calendar; original document retained",
+        "reason": "Deterministically verified official release schedule; original documents retained",
         "claim": f"BLS {schedule.family}, observation period {schedule.observation_period}, scheduled release {schedule.release_at.isoformat()}",
-        "quote": "", "url": schedule.source_url, "title": "Official BLS release calendar",
+        "quote": schedule.quote, "url": schedule.source_url, "title": "Official BLS release schedule",
         "primary_source": True, "source_lineage": "agency:bls", "source_available_at": sources.checked_at.isoformat(),
-        "extraction_method": "official_calendar_adapter_v1", "artifact": artifact}]
+        "extraction_method": schedule.schedule_basis, "artifact": artifact, "corroboration": corroboration}]
 
 
 def dispatch(session, candidate: QuestionSuggestion, sources: SelectionSources, *, kind: str,
@@ -320,7 +330,11 @@ def reconcile(*, qualification=False) -> dict:
                 if not managed:
                     continue
                 macro = MacroSpec.model_validate_json(managed.macro_json)
-                if not _calendar_matches(managed, sources):
+                known_schedule = any(r.event_id == managed.release_event for r in sources.releases)
+                # A rolling index eventually omits an old event. After its
+                # deadline, the dated original document can still establish an
+                # outcome. Known conflicting dates always suspend the question.
+                if not _calendar_matches(managed, sources) and (utcnow() < macro.release_at or known_schedule):
                     managed.status = "schedule_review"
                     notify(session, "schedule:" + question_id, "incident", "Release schedule needs review",
                            "Forecasting suspended because the official calendar changed or could not be verified", question_id)
