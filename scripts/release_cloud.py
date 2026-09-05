@@ -1,8 +1,8 @@
 """Reviewed release entry point. A failed step leaves dispatch paused.
 
 Run only after CI passes, with the owner's approval of the exact release commit.
-Provider and database secrets are pulled into a temporary private file and are
-never logged. No migrations run inside request handlers or application startup.
+Database and Blob credentials are read into memory without logging their values.
+No migrations run inside request handlers or application startup.
 """
 from __future__ import annotations
 
