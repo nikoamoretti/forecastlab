@@ -48,7 +48,7 @@ def enqueue_job(session: Session, *, job_type: str, payload: dict, idempotency_k
 def recover_stale_jobs(session: Session) -> int:
     now = utcnow()
     recovered = 0
-    running = session.scalars(select(Job).where(Job.status == "running")).all()
+    running = session.scalars(select(Job).where(Job.status == "running").with_for_update(skip_locked=True)).all()
     for job in running:
         expires = as_utc(job.lease_expires_at) if job.lease_expires_at else None
         heartbeat = as_utc(job.heartbeat_at or job.started_at) if (job.heartbeat_at or job.started_at) else None
@@ -59,6 +59,16 @@ def recover_stale_jobs(session: Session) -> int:
             stale = True
         if not stale:
             continue
+        from forecastlab_api.models import ForecastRunAttempt
+        attempts = session.scalars(select(ForecastRunAttempt).where(
+            ForecastRunAttempt.job_id == job.id, ForecastRunAttempt.status == "running")).all()
+        for attempt in attempts:
+            # The heartbeat bounds active execution; queue/review downtime must
+            # not consume a fresh five-minute allowance after a restart.
+            last_active = as_utc(job.heartbeat_at or attempt.started_at)
+            attempt.completed_at = min(now, last_active + timedelta(seconds=8))
+            attempt.status = "interrupted"
+            attempt.error_category = "worker_interrupted"
         if job.attempts >= job.max_attempts:
             job.status = "failed"
             job.error = "stale_worker_max_attempts"
@@ -92,14 +102,16 @@ def claim_next_job(session: Session, *, owner: str = "worker") -> Job | None:
             # SQLAlchemy may already own the connection transaction; the
             # UPDATE ... WHERE status='pending' claim remains the guard.
             pass
-    candidate = (
+    candidate_query = (
         select(Job.id)
         .where(Job.status == "pending")
         .where((Job.available_at.is_(None)) | (Job.available_at <= now))
         .order_by(Job.created_at.asc())
         .limit(1)
-        .scalar_subquery()
     )
+    if session.get_bind().dialect.name == "postgresql":
+        candidate_query = candidate_query.with_for_update(skip_locked=True)
+    candidate = candidate_query.scalar_subquery()
     result = session.execute(
         update(Job)
         .where(Job.id == candidate, Job.status == "pending")
@@ -120,6 +132,9 @@ def claim_next_job(session: Session, *, owner: str = "worker") -> Job | None:
 
 
 def heartbeat(session: Session, job: Job, *, stage: str, message: str, pct: float) -> None:
+    if job.lease_owner:
+        from forecastlab_api.autopilot_store import assert_job_fence
+        assert_job_fence(session, job.id, job.lease_owner)
     now = utcnow()
     job.heartbeat_at = now
     job.lease_expires_at = now + timedelta(seconds=LEASE_SECONDS)
@@ -142,16 +157,18 @@ def touch_job_lease(job_id: str, *, owner: str = "worker") -> None:
 
     with SessionLocal() as session:
         job = session.get(Job, job_id)
-        if job is None or job.status != "running":
+        if job is None or job.status != "running" or job.lease_owner != owner:
             return
         now = utcnow()
         job.heartbeat_at = now
         job.lease_expires_at = now + timedelta(seconds=LEASE_SECONDS)
-        job.lease_owner = owner
         session.commit()
 
 
 def finish_job(session: Session, job: Job, *, ok: bool, error: str | None = None, category: str | None = None) -> None:
+    if job.lease_owner:
+        from forecastlab_api.autopilot_store import assert_job_fence
+        assert_job_fence(session, job.id, job.lease_owner)
     job.status = "completed" if ok else "failed"
     job.error = error
     job.error_category = category
@@ -195,6 +212,12 @@ def _reset_task_for_retry(session: Session, job: Job) -> None:
         payload = json.loads(job.payload_json or "{}")
     except json.JSONDecodeError:
         return
+    if payload.get("run_id"):
+        from forecastlab_api.models import ForecastRun
+        run = session.get(ForecastRun, payload["run_id"])
+        if run and run.status not in {"completed", "awaiting_review"}:
+            run.status = "pending" if job.job_type == "forecast_run" else "preparing"
+            run.progress_message = "Saved stages retained; waiting to resume"
     forecast_experiment_run_id = payload.get("forecast_experiment_run_id")
     if forecast_experiment_run_id:
         from forecastlab_api.models import ForecastExperimentRun

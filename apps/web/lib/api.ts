@@ -14,6 +14,10 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   let lastError: Error | null = null;
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const headers = new Headers(init?.headers);
+    if (!["GET", "HEAD", "OPTIONS"].includes(method) && typeof document !== "undefined") {
+      const csrf = document.cookie.split("; ").find(c => c.startsWith("forecastlab_csrf="))?.split("=").slice(1).join("=");
+      if (csrf) headers.set("x-csrf-token", decodeURIComponent(csrf));
+    }
     if (!isForm && !headers.has("Content-Type")) {
       headers.set("Content-Type", "application/json");
     }
@@ -23,6 +27,12 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       cache: "no-store"
     });
     const text = await response.text();
+    if (response.status === 401 && typeof window !== "undefined" && window.location.pathname !== "/login") {
+      // A full navigation clears cached private client state at the auth boundary.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.assign("/login");
+      throw new Error("Sign in to ForecastLab");
+    }
     if (response.status === 404 && attempt < attempts - 1) {
       await sleep(120 * (attempt + 1));
       continue;
@@ -32,6 +42,7 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       try {
         const body = text ? JSON.parse(text) : {};
         if (typeof body.detail === "string") detail = body.detail;
+        else if (Array.isArray(body.detail?.gaps)) detail = body.detail.gaps.join(". ");
         else if (Array.isArray(body.reasons) && body.reasons.length) detail = body.reasons.join(", ");
       } catch {
         if (text) detail = text.slice(0, 240);

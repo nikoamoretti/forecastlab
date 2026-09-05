@@ -18,6 +18,10 @@ dependencies = [
   "python-multipart>=0.0.17",
   "pyyaml>=6.0.2",
   "structlog>=24.4.0",
+  "psycopg[binary]>=3.2",
+  "authlib>=1.6.9",
+  "itsdangerous>=2.2",
+  "vercel>=0.4",
 ]
 
 [project.optional-dependencies]

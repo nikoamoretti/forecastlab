@@ -46,6 +46,12 @@ class BudgetedModelProvider:
         reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
         verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult:
+        replay = getattr(self.delegate, "get_cached_result", None)
+        if callable(replay):
+            cached = replay(system=system, user=user, schema_name=schema_name, temperature=temperature,
+                            json_schema=json_schema, reasoning_effort=reasoning_effort, verbosity=verbosity)
+            if cached is not None:
+                return cached
         estimated_input = estimated_input_tokens or estimate_prompt_tokens(system, user)
         allowed_output = self.budget.max_output_tokens_for_call(estimated_input)
         if self.max_output_tokens_cap is not None:

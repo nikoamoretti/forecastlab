@@ -2092,3 +2092,6 @@ def _frozen_personal_settings(_mapper, _connection, target: PersonalForecast) ->
     history = state.attrs.contract_json.history
     if history.has_changes() and history.deleted and history.deleted[0] != "{}":
         raise ValueError("personal_forecast_contract_is_frozen")
+
+# Register additive cloud tables whenever the established model registry is loaded.
+from forecastlab_api import autopilot_models as _autopilot_models  # noqa: E402,F401

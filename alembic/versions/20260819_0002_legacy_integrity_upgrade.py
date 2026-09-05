@@ -183,14 +183,14 @@ def _backfill(bind) -> None:
                 "WHERE requested_profile_id IS NULL OR requested_profile_id = ''"
             )
         )
-        bind.execute(text("UPDATE questions SET is_benchmark = 0 WHERE is_benchmark IS NULL"))
+        bind.execute(text("UPDATE questions SET is_benchmark = FALSE WHERE is_benchmark IS NULL"))
     if "forecast_runs" in names:
         bind.execute(text("UPDATE forecast_runs SET execution_context_json = '{}' WHERE execution_context_json IS NULL OR execution_context_json = ''"))
-        bind.execute(text("UPDATE forecast_runs SET fixture_evidence_used = 0 WHERE fixture_evidence_used IS NULL"))
-        bind.execute(text("UPDATE forecast_runs SET synthetic_fixture_run = 0 WHERE synthetic_fixture_run IS NULL"))
+        bind.execute(text("UPDATE forecast_runs SET fixture_evidence_used = FALSE WHERE fixture_evidence_used IS NULL"))
+        bind.execute(text("UPDATE forecast_runs SET synthetic_fixture_run = FALSE WHERE synthetic_fixture_run IS NULL"))
         # Leave configuration_hash, evidence_policy, and code_commit null. Do not invent them.
     if "evidence_items" in names:
-        bind.execute(text("UPDATE evidence_items SET published_at_unknown = CASE WHEN published_at IS NULL THEN 1 ELSE 0 END"))
+        bind.execute(text("UPDATE evidence_items SET published_at_unknown = CASE WHEN published_at IS NULL THEN TRUE ELSE FALSE END"))
     if "jobs" in names:
         bind.execute(text("UPDATE jobs SET error_history_json = '[]' WHERE error_history_json IS NULL OR error_history_json = ''"))
         bind.execute(text("UPDATE jobs SET available_at = COALESCE(available_at, created_at) WHERE available_at IS NULL"))
@@ -222,7 +222,7 @@ def _collapse_or_fail_duplicates(bind, table: str, key_columns: list[str]) -> No
     key_sql = ", ".join(key_columns)
     not_null = " AND ".join(f"{column} IS NOT NULL" for column in key_columns)
     groups = bind.execute(
-        text(f"SELECT {key_sql}, COUNT(*) AS n FROM {table} WHERE {not_null} GROUP BY {key_sql} HAVING n > 1")
+        text(f"SELECT {key_sql}, COUNT(*) AS n FROM {table} WHERE {not_null} GROUP BY {key_sql} HAVING COUNT(*) > 1")
     ).fetchall()
     if not groups:
         return

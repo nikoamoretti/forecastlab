@@ -25,7 +25,7 @@ from forecastlab.single_model import run_single_model_forecast
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.jobs import enqueue_job, heartbeat, touch_job_lease, touch_worker_standalone
-from forecastlab_api.models import ForecastRun, ForecastRunAttempt, ForecastVersion, PersonalForecast, Question
+from forecastlab_api.models import ForecastRun, ForecastVersion, PersonalForecast, Question
 from forecastlab_api.persist import persist_engine_result, save_contract
 from forecastlab_api.secrets import load_secrets
 from forecastlab_api.usage_ledger import PersistentUsageLedger, apply_totals_to_run
@@ -270,6 +270,12 @@ def execute_run(
         run_attempt_id=attempt.id,
         pricing_catalog=catalog,
     )
+    if personal and run.mode == "live":
+        ledger.reconcile_ambiguous = profile.version >= 3
+        from forecastlab_api.durable_execution import DurableModel, DurableSearch
+        model = DurableModel(model, run.id)
+        if search_provider_override is None:
+            search = DurableSearch(search, run.id)
     frozen_cache = (
         RunCache.create(
             run_id=run.id,
@@ -289,7 +295,7 @@ def execute_run(
         while not stop_heartbeat.wait(HEARTBEAT_INTERVAL_SECONDS):
             touch_worker_standalone("running")
             if job is not None:
-                touch_job_lease(job.id)
+                touch_job_lease(job.id, owner=job.lease_owner)
 
     worker = threading.Thread(target=heartbeat_loop, daemon=True)
     worker.start()
@@ -303,13 +309,11 @@ def execute_run(
         session.commit()
 
     prior_elapsed = 0.0
-    if run.started_at:
+    if run.started_at and not personal:
         prior_elapsed = max(0.0, (utcnow() - as_utc(run.started_at)).total_seconds())
     if personal:
-        preparations = session.scalars(select(ForecastRunAttempt).where(
-            ForecastRunAttempt.run_id == run.id, ForecastRunAttempt.attempt_number < 0)).all()
-        prior_elapsed += sum(max(0, (as_utc(a.completed_at) - as_utc(a.started_at)).total_seconds())
-                             for a in preparations if a.completed_at is not None)
+        from forecastlab_api.durable_execution import elapsed_execution
+        prior_elapsed = elapsed_execution(session, run.id, exclude_attempt_id=attempt.id)
         # Finish the read transaction before concurrent provider-ledger writes.
         session.commit()
         ledger.deadline = ExecutionDeadline.after(profile.max_wall_clock_seconds - prior_elapsed)
@@ -488,17 +492,20 @@ def execute_run(
             personal.result_json = json.dumps({**json.loads(personal.result_json), "schema_version": "personal_forecast_v1", "outcome_status": personal.outcome_status,
                 "probability": version.ensemble_probability if version else None, "contract": json.loads(personal.contract_json)})
         if run.started_at:
-            run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
+            run.latency_ms = int(elapsed_execution(session, run.id) * 1000) if personal else int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
         session.commit()
         ledger.finish_attempt(attempt.id, status="completed")
     except Exception as exc:
+        session.rollback()
+        from forecastlab_api.autopilot_store import assert_worker_fence
+        assert_worker_fence(session, run.id)
         if personal:
             personal.outcome_status = "execution_failed"
             run.status = "failed"
             run.error_stage = type(exc).__name__
             run.error_message = str(exc)[:500]
             run.finished_at = utcnow()
-            run.latency_ms = int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
+            run.latency_ms = int(elapsed_execution(session, run.id) * 1000) if personal else int((utcnow() - as_utc(run.started_at)).total_seconds() * 1000)
             session.commit()
         ledger.finish_attempt(
             attempt.id,

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastapi",
+  "regions": [
+    "iad1"
+  ],
+  "functions": {
+    "app.py": {
+      "maxDuration": 600
+    }
+  },
+  "crons": [
+    {
+      "path": "/internal/cron",
+      "schedule": "*/15 * * * *"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": false
+  }
+}

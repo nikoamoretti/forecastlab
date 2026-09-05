@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 const API = process.env.FORECASTLAB_API_ORIGIN || "http://127.0.0.1:8765";
 
 async function proxy(request: NextRequest, path: string[]) {
+  if (process.env.VERCEL) return new NextResponse(null, { status: 404 });
+  if (path.some(p => p === "." || p === ".." || /[\\/]/.test(p))) return new NextResponse(null, { status: 400 });
   const url = `${API}/demo/${path.join("/")}${request.nextUrl.search}`;
   const headers = new Headers();
   const contentType = request.headers.get("content-type");

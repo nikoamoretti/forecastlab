@@ -2,6 +2,10 @@
 
 Local-first laboratory for **binary** questions. Mock mode runs with no API keys. Live mode can use an OpenAI-compatible model endpoint and Tavily search.
 
+## Autopilot on Vercel
+
+The private cloud mode selects and monitors U.S. macro questions under a frozen policy and spending limits. It starts paused and requires qualified live runs before enablement. See [Autopilot operations](docs/AUTOPILOT_OPERATIONS.md) for hosting, login, migration, restore, and release instructions.
+
 ## Run on a Mac
 
 Double-click `Start ForecastLab.command`, or:

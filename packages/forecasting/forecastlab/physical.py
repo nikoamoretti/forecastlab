@@ -4,7 +4,7 @@ import time
 from collections.abc import Callable
 
 from forecastlab.deadline import check_deadline, request_timeout
-from forecastlab.errors import TransientProviderError
+from forecastlab.errors import TransientProviderError, UnknownProviderResult
 from forecastlab.ledger import LedgerEntry, UsageLedger
 from forecastlab.schemas import ModelUsage
 
@@ -54,6 +54,9 @@ def run_physical_attempts[T](
                     error_category="TransientProviderError",
                     error_message=str(exc),
                 )
+            if getattr(ledger, "reconcile_ambiguous", False) and exc.__cause__ is not None and type(exc.__cause__).__name__ in {
+                "ReadTimeout", "WriteTimeout", "ReadError", "WriteError", "RemoteProtocolError"}:
+                raise UnknownProviderResult("interrupted_provider_result_requires_reconciliation") from exc
             if physical >= max_attempts:
                 raise
             sleep(request_timeout(ledger, min(2 ** (physical - 1), 8), stage))

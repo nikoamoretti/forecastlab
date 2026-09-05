@@ -181,7 +181,7 @@ def _fail_if_distinct_builtin_duplicates(bind) -> None:
             FROM benchmark_datasets
             WHERE builtin_key IS NOT NULL AND builtin_version IS NOT NULL
             GROUP BY builtin_key, builtin_version
-            HAVING n > 1
+            HAVING COUNT(*) > 1
             """
         )
     ).fetchall()

@@ -228,3 +228,26 @@ def test_unavailable_sources_and_expired_suggestions_never_create_work(client, m
     assert "Calendar unavailable" in result["gaps"]
     assert client.post("/api/question-suggestions/" + "a" * 64 + "/draft").status_code == 409
     assert client.post("/api/question-suggestions/invalid/draft").status_code == 404
+
+
+def test_official_monthly_lists_replace_unavailable_annual_calendar(monkeypatch, tmp_path):
+    from forecastlab_api import question_suggestions as service
+    from forecastlab_api.config import settings
+    monkeypatch.setattr(settings, "data_dir", tmp_path)
+    original_client = httpx.Client
+    calls = []
+    def send(request):
+        calls.append(str(request.url))
+        if request.method == 'POST':
+            return httpx.Response(200, json=bls_payload())
+        if request.url.path.endswith('home.htm'):
+            return httpx.Response(503)
+        return httpx.Response(200, text=calendar_html([
+            ('Friday, September 11, 2026', '08:30 AM', 'Consumer Price Index for August 2026')]))
+    monkeypatch.setattr(service.httpx, 'Client', lambda **kwargs: original_client(transport=httpx.MockTransport(send), **kwargs))
+    result = service._fetch_sources(NOW)
+    assert result.releases and result.snapshots and not result.gaps
+    assert result.diagnostics[0]['error'] == 'HTTP 503'
+    assert any('_sched_list.htm' in url for url in calls)
+    assert len([url for url in calls if 'api.bls.gov' in url]) == 1
+    assert result.documents

@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from html.parser import HTMLParser
 from io import BytesIO
-from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
@@ -16,12 +15,13 @@ from pypdf import PdfReader
 from forecastlab.errors import EvidenceIntegrityError
 from forecastlab.hashing import content_hash, sha256_bytes
 from forecastlab.http_client import SafeResponse, safe_get
+from forecastlab.paths import project_root
 from forecastlab.schemas import FetchedDocument
 from forecastlab.ssrf import UnsafeURLError, validate_url
 from forecastlab.timeutil import as_utc, parse_datetime, utcnow
 from forecastlab.wayback import parse_wayback_url, verify_final_capture
 
-FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "sources"
+FIXTURES_DIR = project_root() / "fixtures" / "sources"
 MAX_BYTES = 2_000_000
 FETCH_TIMEOUT = 20.0
 
@@ -376,6 +376,7 @@ def fetch_document(
     mode: str = "live",
     publication_date_hint: datetime | None = None,
     publication_date_hint_source: str | None = None,
+    retain_bytes=None,
 ) -> FetchedDocument:
     limits = limits or FetchLimits()
     now = utcnow()
@@ -393,6 +394,8 @@ def fetch_document(
         path = FIXTURES_DIR / FIXTURE_PAGES[url]
         raw = path.read_text(encoding="utf-8")
         raw_bytes = raw.encode("utf-8")
+        if retain_bytes:
+            retain_bytes(raw_bytes, "text/html")
         text, title = _extract_html(raw, url)
         metadata, retained_hint, default_hint_source = _with_search_hint(
             _date_metadata_from_html(raw),
@@ -555,6 +558,8 @@ def fetch_document(
 
     data = response.content
     content_type = response.content_type
+    if retain_bytes:
+        retain_bytes(data, content_type)
     if "pdf" in content_type or target.lower().endswith(".pdf"):
         text, metadata = _extract_pdf(data)
         title = urlparse(url).path.rsplit("/", 1)[-1]

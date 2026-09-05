@@ -36,14 +36,30 @@ from forecastlab_api.watches import check_watch
 
 
 def process_once() -> bool:
+    from forecastlab_api.autopilot_store import claim_lease, release_lease, worker_ticket
+    ticket = claim_lease("paid_worker")
+    if ticket is None:
+        return False
+    token = worker_ticket.set(ticket)
+    try:
+        return _process_once(owner=f"{ticket[0]}:{ticket[1]}")
+    finally:
+        worker_ticket.reset(token)
+        release_lease("paid_worker", ticket)
+
+
+def _process_once(*, owner: str) -> bool:
     from forecastlab_api.db import SessionLocal
 
     with SessionLocal() as session:
         touch_worker(session, "idle")
         recover_stale_jobs(session)
-        job = claim_next_job(session)
+        job = claim_next_job(session, owner=owner)
         session.commit()
         if job is None:
+            from forecastlab_api.config import settings
+            if settings.cloud:
+                return False
             due = session.scalars(select(Watch).where(Watch.status == "active")).all()
             ran = False
             for watch in due:
@@ -90,6 +106,9 @@ def process_once() -> bool:
                 raise RuntimeError(f"unknown_job:{job.job_type}")
             finish_job(session, job, ok=True)
             session.commit()
+            if payload.get("run_id"):
+                from forecastlab_api.autopilot_store import record_run_finished
+                record_run_finished(payload["run_id"])
             return True
         except Exception as exc:
             session.rollback()
@@ -97,7 +116,7 @@ def process_once() -> bool:
 
             with RetrySessionLocal() as retry_session:
                 failed = retry_session.get(Job, job.id)
-                if failed:
+                if failed and failed.status == "running" and failed.lease_owner == owner:
                     category = error_category(exc)
                     message = str(exc)[:500]
                     if is_transient(exc):
@@ -132,6 +151,9 @@ def process_once() -> bool:
                                 category=category,
                             )
                     retry_session.commit()
+                    if payload.get("run_id"):
+                        from forecastlab_api.autopilot_store import record_run_finished
+                        record_run_finished(payload["run_id"])
             return True
 
 

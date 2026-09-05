@@ -819,13 +819,12 @@ class GraphResearchExecutor:
         queries_by_url: dict[str, list[str]] = {}
 
         for query in queries:
-            self.budget.add_search(f"search_node:{node.id}")
             try:
-                hits = self.cache.search(
-                    self.search,
-                    query,
-                    self.search_candidate_pool_per_node,
-                )
+                replay = getattr(self.search, "get_cached_result", None)
+                hits = replay(query, max_results=self.search_candidate_pool_per_node) if callable(replay) else None
+                if hits is None:
+                    self.budget.add_search(f"search_node:{node.id}")
+                    hits = self.cache.search(self.search, query, self.search_candidate_pool_per_node)
             except (PermanentProviderError, TransientProviderError) as exc:
                 if self.profile.execution_strategy == "root_event_ensemble_v1":
                     raise

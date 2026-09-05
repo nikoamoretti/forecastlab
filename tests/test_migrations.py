@@ -55,7 +55,7 @@ def test_alembic_creates_integrity_tables(tmp_path, monkeypatch) -> None:
     question_cols = {column["name"] for column in inspect(engine).get_columns("questions")}
     assert "requested_mode" in question_cols
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0031"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0032"
         assert {"personal_forecasts", "prospective_cohorts", "prospective_entries", "prospective_assignments", "prospective_outcomes"} <= set(tables)
         assert "benchmark_profile_snapshots" in tables
         question_cols = {column["name"] for column in inspect(engine).get_columns("benchmark_questions")}
@@ -539,7 +539,7 @@ def test_apply_schema_upgrades_empty_database(tmp_path, monkeypatch) -> None:
     apply_schema(db_url)
     engine = create_engine(db_url)
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0031"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0032"
 
 
 def test_manual_evidence_migration_is_empty_reversible_and_disables_legacy_auto_rerun(
@@ -730,7 +730,7 @@ def test_graph_generation_audit_migration_preserves_existing_graphs_without_fabr
         assert graph.generation_audit_json is None
     with engine.connect() as connection:
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0031"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0032"
 
 
 def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) -> None:
@@ -763,7 +763,7 @@ def test_real_evaluation_migration_preserves_existing_forecast_rows(tmp_path) ->
         assert connection.execute(text("SELECT COUNT(*) FROM forecast_experiments")).scalar_one() == 0
         assert (
             connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            == "20260904_0031"
+            == "20260904_0032"
         )
 
 
@@ -833,7 +833,7 @@ def test_historical_evidence_migration_preserves_existing_experiments_without_fa
     with engine.connect() as connection:
         assert connection.execute(
             text("SELECT version_num FROM alembic_version")
-        ).scalar_one() == "20260904_0031"
+        ).scalar_one() == "20260904_0032"
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 
@@ -874,7 +874,7 @@ def test_pilot_category_migration_preserves_existing_frozen_question_hash(tmp_pa
             )
         ).one()
         assert tuple(row) == ("b" * 64, None, "a" * 64)
-        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0031"
+        assert connection.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "20260904_0032"
 
 
 def test_procedural_review_migration_preserves_existing_release_without_fabrication(
@@ -943,7 +943,7 @@ def test_procedural_review_migration_preserves_existing_release_without_fabricat
     with engine.connect() as connection:
         assert connection.execute(
             text("SELECT version_num FROM alembic_version")
-        ).scalar_one() == "20260904_0031"
+        ).scalar_one() == "20260904_0032"
         assert connection.execute(text("PRAGMA foreign_key_check")).fetchall() == []
 
 

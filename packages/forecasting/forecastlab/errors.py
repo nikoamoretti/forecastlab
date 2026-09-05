@@ -32,6 +32,10 @@ class PermanentProviderError(RuntimeError):
     pass
 
 
+class UnknownProviderResult(PermanentProviderError):
+    """A request may have been processed; its charged result needs reconciliation."""
+
+
 class TransientProviderError(RuntimeError):
     pass
 

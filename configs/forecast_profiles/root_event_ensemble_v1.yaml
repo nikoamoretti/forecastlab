@@ -1,5 +1,5 @@
 id: root_event_ensemble_v1
-version: 2
+version: 3
 label: Personal V1 — same-event ensemble (pilot)
 description: Binary root-event estimates from validated shared evidence; withholds probability when evidence is insufficient.
 execution_strategy: root_event_ensemble_v1
@@ -20,4 +20,4 @@ aggregation_method: root_event_ensemble_v1
 shrinkage: 0.10
 prompt_versions:
   root_event: v1
-  root_evidence: v1
+  root_evidence: v2

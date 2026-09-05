@@ -19,12 +19,13 @@ export default function ProspectiveLab() {
   const [evidence, setEvidence] = useState("");
   const [fredKey, setFredKey] = useState("");
   const [fredSet, setFredSet] = useState(false);
+  const [cloudSecrets, setCloudSecrets] = useState(false);
   const refresh = useCallback(async () => {
     setCohorts((await api<any>("/api/prospective/cohorts")).cohorts);
     if (selected) setReport(await api<any>(`/api/prospective/cohorts/${selected}`));
   }, [selected]);
   useEffect(() => { refresh().catch(e => setError(e.message)); }, [refresh]);
-  useEffect(() => { api<any>("/api/macro/settings").then(data => setFredSet(data.fred_api_key_set)).catch(e => setError(e.message)); }, []);
+  useEffect(() => { api<any>("/api/macro/settings").then(data => { setFredSet(data.fred_api_key_set); setCloudSecrets(Boolean(data.secrets_managed_externally)); }).catch(e => setError(e.message)); }, []);
   async function action(path: string, body?: any) {
     setBusy(true); setError("");
     try { const result = await api<any>(path, { method: "POST", body: JSON.stringify(body || {}) });
@@ -83,6 +84,6 @@ export default function ProspectiveLab() {
     </details>
     <details><summary className="cursor-pointer">Historical macro data settings</summary><p className="mt-3 text-sm">BLS live data requires no key. ALFRED historical vintages: {fredSet ? "key configured" : "key not configured"}.</p>
       <form className="mt-3 flex gap-3" onSubmit={async e => { e.preventDefault(); setError(""); try { const result = await api<any>("/api/macro/settings", { method: "PATCH", body: JSON.stringify({ fred_api_key: fredKey }) }); setFredSet(result.fred_api_key_set); setFredKey(""); } catch (err) { setError(err instanceof Error ? err.message : "Could not save key"); } }}>
-        <input aria-label="FRED API key" type="password" autoComplete="off" className="border border-rule p-2" value={fredKey} onChange={e => setFredKey(e.target.value)} /><button className="border border-ink px-4 py-2">Save key locally</button></form></details>
+        <input aria-label="FRED API key" disabled={cloudSecrets} type="password" autoComplete="off" className="border border-rule p-2" value={fredKey} onChange={e => setFredKey(e.target.value)} /><button disabled={cloudSecrets} className="border border-ink px-4 py-2">{cloudSecrets ? "Manage key in Vercel" : "Save key locally"}</button></form></details>
   </section>;
 }

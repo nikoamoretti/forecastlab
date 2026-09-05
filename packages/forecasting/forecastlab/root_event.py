@@ -79,7 +79,7 @@ class RootEstimate(BaseModel):
 def source_lineage(url: str, *, publisher: str = "", text: str = "") -> str:
     host = (urlsplit(url).hostname or "").lower().removeprefix("www.")
     # Known mirrors share the originating statistical agency's lineage.
-    if (host == "bls.gov" or host.endswith(".bls.gov")) or ((host == "stlouisfed.org" or host.endswith(".stlouisfed.org")) and
+    if "bureau of labor statistics" in (publisher + " " + text).lower() or (host == "bls.gov" or host.endswith(".bls.gov")) or ((host == "stlouisfed.org" or host.endswith(".stlouisfed.org")) and
             any(s in (publisher + " " + text).lower() for s in ("bureau of labor", "bls", "unrate", "payems", "cpi"))):
         return "agency:bls"
     return "publisher:" + host

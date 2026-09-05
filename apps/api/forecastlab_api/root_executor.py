@@ -27,6 +27,7 @@ from forecastlab.root_event import (
 from forecastlab.run_cache import RunCache
 from forecastlab.schemas import EvidenceClaim, ForecastContract, ForecastGraph, ForecastNode
 from forecastlab.timeutil import as_utc, utcnow
+from forecastlab_api.autopilot_models import ExecutionCheckpoint, FinalEstimateHold
 from forecastlab_api.graphs import forecast_graph_from_row, store_forecast_graph
 from forecastlab_api.manual_evidence import manual_evidence_documents_for_run
 from forecastlab_api.models import ForecastGraphRow, ForecastRun, ForecastVersion, PersonalForecast, ResearchTrack
@@ -96,6 +97,9 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
         model=context.model_name, search_provider=context.search_provider, prior_elapsed_seconds=prior_elapsed_seconds)
     cache = cache or RunCache.create(run_id=run.id, model_provider=context.model_provider,
         search_provider=search.name, mode=run.mode, as_of=run.as_of, configuration_hash=context.configuration_hash)
+    if run.mode == "live" and cache.document_store is None:
+        from forecastlab_api.durable_execution import DurableDocumentStore
+        cache.document_store = DurableDocumentStore(run.id)
     graph = research_graph(session, run, contract)
     context_json = json.loads(run.execution_context_json)
     context_json.update({"forecast_contract_id": contract.id, "forecast_graph_id": graph.id,
@@ -105,11 +109,14 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
     claims = [EvidenceClaim.model_validate(item) for item in checkpoint.get("raw_claims", [])]
     finished_nodes = set(checkpoint.get("finished_nodes", []))
     gaps: list[str] = []
-    estimates: list[RootEstimate] = []
+    estimates: list[RootEstimate] = [RootEstimate.model_validate(item) for item in checkpoint.get("estimates", [])]
     packet: list[dict] = []
     aggregation = None
+    macro = MacroSpec.model_validate_json(record.macro_json) if record.macro_json != "{}" else None
 
     def save() -> None:
+        from forecastlab_api.autopilot_store import assert_worker_fence
+        assert_worker_fence(session, run.id)
         checkpoint["raw_claims"] = [claim.model_dump(mode="json") for claim in claims]
         checkpoint["finished_nodes"] = sorted(finished_nodes)
         record.result_json = json.dumps(checkpoint)
@@ -125,10 +132,29 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                 raise ValueError(f"model_output_limit:{stage}")
 
     try:
+        # A worker may stop after saving the provider response but before saving
+        # the estimate into the orchestration checkpoint. Recover that response
+        # before allocating any further provider capacity.
+        by_role = {item.role: item for item in estimates}
+        responses = session.scalars(select(ExecutionCheckpoint).where(ExecutionCheckpoint.run_id == run.id,
+            ExecutionCheckpoint.stage == "root_event", ExecutionCheckpoint.status == "completed")).all()
+        for response_row in responses:
+            payload = json.loads(response_row.payload_json)
+            recovered = RootEstimate.model_validate(payload.get("parsed") or json.loads(payload["content"]))
+            if recovered.role in by_role and recovered != by_role[recovered.role]:
+                raise ValueError("conflicting_completed_root_estimates")
+            by_role[recovered.role] = recovered
+        estimates = list(by_role.values())
         # Reserve tokens AND estimated dollars, not just logical call counts.
-        held = [budget.reserve_model_call(f"reserved_root:{role}", estimated_input_tokens=24000,
-                                          max_output_tokens=4096) for role in ROLES]
-        macro = MacroSpec.model_validate_json(record.macro_json) if record.macro_json != "{}" else None
+        completed_roles = {estimate.role for estimate in estimates}
+        held = {role: budget.reserve_model_call(f"reserved_root:{role}", estimated_input_tokens=24000,
+                max_output_tokens=4096) for role in ROLES if role not in completed_roles}
+        for role, reservation in held.items():
+            hold = session.get(FinalEstimateHold, (run.id, role))
+            if hold is None:
+                session.add(FinalEstimateHold(run_id=run.id, role=role,
+                    cost_usd=reservation.estimated_cost_usd, tokens=reservation.reserved_tokens))
+        session.commit()
         if macro and "macro_snapshot" not in checkpoint and run.mode != "demo":
             progress("evidence", "Retrieving official macro observations", 0.12)
             budget.add_fetch("macro_observations")
@@ -162,7 +188,9 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
             save()
         progress("evidence", "Checking relevance and required evidence", 0.70)
         candidates = [c for c in claims if c.extraction_method != "document_fallback"][:32]
-        if candidates and model.name != "mock":
+        if checkpoint.get("validated_packet"):
+            assessments = []
+        elif candidates and model.name != "mock":
             system, _ = prompts.get("root_evidence")
             response = BudgetedModelProvider(model, budget, stage="assess_root_evidence").complete_json(
                 system=system, user=json.dumps({"contract": contract.model_dump(mode="json"),
@@ -175,9 +203,26 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
         else:
             # Demo plumbing never manufactures a relevance assessment or an accuracy result.
             assessments = []
-        packet, _ = assess_packet(claims, assessments)
-        if checkpoint.get("macro_snapshot"):
-            packet.extend(_macro_packet(checkpoint["macro_snapshot"]))
+        if checkpoint.get("validated_packet"):
+            packet = checkpoint["validated_packet"]["items"]
+            if digest(packet) != checkpoint["validated_packet"]["hash"]:
+                raise ValueError("checkpoint_packet_hash_mismatch")
+        else:
+            packet, _ = assess_packet(claims, assessments)
+            if macro and profile.version >= 3:
+                from forecastlab.macro_evidence import validate_macro_packet
+                packet = validate_macro_packet(packet, macro, cutoff=checkpoint.get("forecast_cutoff"))
+            if checkpoint.get("macro_snapshot"):
+                if macro and profile.version >= 3:
+                    from datetime import datetime
+
+                    from forecastlab.macro import MacroSnapshot
+                    from forecastlab.macro_evidence import validate_snapshot
+                    validate_snapshot(MacroSnapshot.model_validate(checkpoint["macro_snapshot"]), macro,
+                        datetime.fromisoformat(checkpoint["forecast_cutoff"]) if checkpoint.get("forecast_cutoff") else utcnow())
+                packet.extend(_macro_packet(checkpoint["macro_snapshot"]))
+            packet.extend(checkpoint.get("resolution_evidence", []))
+            checkpoint["validated_packet"] = {"items": packet, "hash": digest(packet)}
         covered = {section for item in packet if item["usable"] for section in item["required_sections"]}
         gaps.extend(f"missing_{section}_evidence" for section in ("resolution", "reference_class", "current_conditions") if section not in covered)
         if not any(item.get("primary_source") and item["usable"] for item in packet):
@@ -191,6 +236,8 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
             as_of = checkpoint["forecast_cutoff"]
             system, _ = prompts.get("root_event")
             for index, role in enumerate(ROLES):
+                if role in completed_roles:
+                    continue
                 progress("forecast", f"Estimating the approved event: {role.replace('_', ' ')}", 0.78 + index * 0.06)
                 user = json.dumps({"contract": contract.model_dump(mode="json"), "contract_hash": contract_hash(contract),
                     "evidence_packet_hash": digest(packet), "target_question": contract.normalized_question,
@@ -198,7 +245,7 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                     "role": role, "evidence": [item for item in packet if item["usable"]]})
                 if estimate_prompt_tokens(system, user) > 24000:
                     raise ValueError("root_evidence_packet_exceeds_reserved_context")
-                budget.release_reservation(held[index])
+                budget.release_reservation(held[role])
                 response = BudgetedModelProvider(model, budget, stage=f"root_estimate:{role}").complete_json(
                     system=system, user=user, schema_name="root_event", json_schema=strict_schema(RootEstimate),
                     max_output_tokens=4096, reasoning_effort="low")
@@ -210,6 +257,10 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
                 checkpoint["estimates"] = [item.model_dump(mode="json") for item in estimates]
                 save()
             check_deadline(ledger, "aggregate_root")
+            from forecastlab_api.autopilot_models import AutopilotRun
+            auto = session.get(AutopilotRun, run.id)
+            if auto and utcnow() >= as_utc(auto.stop_at):
+                raise ValueError("prerelease_forecasting_window_closed")
             aggregation = aggregate_root_estimates(contract, packet, estimates, as_of=as_of)
     except BudgetExceeded as exc:
         if exc.reason == "max_wall_clock_seconds":
@@ -243,6 +294,8 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
     run.progress_message = "Forecast ready" if aggregation else "Probability withheld; review evidence gaps"
     run.question.status = "completed"
     run.question.stale = False
+    for hold in session.scalars(select(FinalEstimateHold).where(FinalEstimateHold.run_id == run.id)).all():
+        hold.consumed = True
     previous = session.scalar(select(ForecastVersion).where(ForecastVersion.question_id == run.question_id)
                                .order_by(ForecastVersion.created_at.desc()).limit(1))
     session.add(ForecastVersion(id=str(uuid.uuid4()), question_id=run.question_id, run_id=run.id,

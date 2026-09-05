@@ -5,9 +5,10 @@ from pathlib import Path
 import yaml
 
 from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.paths import project_root
 from forecastlab.schemas import ForecastProfile
 
-PROFILES_DIR = Path(__file__).resolve().parents[3] / "configs" / "forecast_profiles"
+PROFILES_DIR = project_root() / "configs" / "forecast_profiles"
 
 
 def profile_hash(profile: ForecastProfile) -> str:

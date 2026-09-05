@@ -87,8 +87,8 @@ def upgrade() -> None:
                 publication_date_verified = CASE
                     WHEN published_at IS NOT NULL
                          AND snapshot_verification_status IN ('fixture', 'cutoff_consistent_mock_manifest_verified')
-                        THEN 1
-                    ELSE 0
+                        THEN TRUE
+                    ELSE FALSE
                 END
             """
         )
@@ -117,7 +117,7 @@ def upgrade() -> None:
                 publication_date_verified = COALESCE(
                     (SELECT publication_date_verified FROM evidence_items
                      WHERE evidence_items.id = evidence_claims.evidence_item_id),
-                    0
+                    FALSE
                 ),
                 source_available_at = COALESCE(
                     (SELECT source_available_at FROM evidence_items

@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
+from forecastlab.paths import project_root
+
+ROOT = project_root()
 
 
 def current_git_commit(*, root: Path | None = None) -> str | None:
+    if root is None and os.environ.get("VERCEL_GIT_COMMIT_SHA"):
+        return os.environ["VERCEL_GIT_COMMIT_SHA"]
     directory = root or ROOT
     try:
         result = subprocess.run(

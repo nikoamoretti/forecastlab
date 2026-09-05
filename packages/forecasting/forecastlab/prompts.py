@@ -5,8 +5,9 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from forecastlab.hashing import sha256_text
+from forecastlab.paths import project_root
 
-PROMPTS_DIR = Path(__file__).resolve().parents[3] / "prompts"
+PROMPTS_DIR = project_root() / "prompts"
 
 
 class PromptRecord(BaseModel):

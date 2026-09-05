@@ -30,7 +30,7 @@ def upgrade() -> None:
     # V1 deliberately requires a user-initiated rerun. Normalize any legacy
     # opt-in value before the ORM guard makes the invariant permanent.
     if "watches" in tables:
-        op.execute(sa.text("UPDATE watches SET auto_rerun = 0 WHERE auto_rerun = 1"))
+        op.execute(sa.text("UPDATE watches SET auto_rerun = FALSE WHERE auto_rerun = TRUE"))
 
     if "manual_evidence_attachments" not in tables:
         op.create_table(

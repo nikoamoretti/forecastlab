@@ -83,6 +83,7 @@ class PersistentUsageLedger:
         self.max_cost_usd = max_cost_usd
         self.max_tokens = max_tokens
         self.deadline: ExecutionDeadline | None = None
+        self.reconcile_ambiguous = False
 
     def _fits(self, totals: RunUsageTotals, *, extra_cost: float, extra_tokens: int) -> bool:
         if self.max_cost_usd is not None and totals.total_cost_usd + extra_cost > self.max_cost_usd + 1e-12:
@@ -168,6 +169,14 @@ class PersistentUsageLedger:
             # workers or a draft compiler racing a worker in another process.
             if session.get_bind().dialect.name == "sqlite":
                 session.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            from forecastlab_api.autopilot_store import (
+                assert_worker_fence,
+                paid_stage,
+                remaining_holds,
+                reserve_automation,
+            )
+            assert_worker_fence(session, run_id)
+            stage = paid_stage.get() or stage
             assignment = session.scalar(select(ProspectiveAssignment).where(ProspectiveAssignment.run_id == run_id))
             cohort = None
             if assignment is not None:
@@ -187,8 +196,10 @@ class PersistentUsageLedger:
                 session.commit()
                 session.refresh(existing)
                 return _entry_from_row(existing)
+            held_cost, held_tokens = remaining_holds(session, run_id, stage)
+            week_id = reserve_automation(session, run_id, reserved_cost_usd + held_cost)
             pending_tokens = reserved_input_tokens + reserved_output_tokens
-            if not self._fits(self._totals(session, run_id), extra_cost=reserved_cost_usd, extra_tokens=pending_tokens):
+            if not self._fits(self._totals(session, run_id), extra_cost=reserved_cost_usd + held_cost, extra_tokens=pending_tokens + held_tokens):
                 raise BudgetExceeded("provider_reserve", "max_estimated_cost_usd")
             if cohort is not None:
                 run_ids = select(ProspectiveAssignment.run_id).where(ProspectiveAssignment.cohort_id == cohort.id)
@@ -214,7 +225,15 @@ class PersistentUsageLedger:
                 request_started_at=utcnow(),
             )
             session.add(existing)
+            if stage.startswith("root_estimate:"):
+                from forecastlab_api.autopilot_models import FinalEstimateHold
+                hold = session.get(FinalEstimateHold, (run_id, stage.split(":", 1)[1]))
+                if hold:
+                    hold.consumed = True
             session.flush()
+            if week_id:
+                from forecastlab_api.autopilot_models import AutopilotSpend
+                session.add(AutopilotSpend(ledger_id=existing.id, week_id=week_id))
             self._refresh_run(session, run_id)
             self._refresh_attempt(session, run_attempt_id)
             session.commit()
@@ -241,6 +260,8 @@ class PersistentUsageLedger:
                 row.provider_request_id = usage.request_id
             row.status = status
             row.request_completed_at = utcnow()
+            from forecastlab_api.autopilot_store import record_provider_result
+            record_provider_result(session, row.run_id, succeeded=status == "succeeded")
             self._refresh_run(session, row.run_id)
             self._refresh_attempt(session, row.run_attempt_id)
             session.commit()

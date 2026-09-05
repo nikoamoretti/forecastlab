@@ -666,6 +666,7 @@ class ProviderConfig(BaseModel):
 
 
 class SettingsPublic(BaseModel):
+    secrets_managed_externally: bool = False
     model_provider: str
     model_base_url: str | None
     model_name: str

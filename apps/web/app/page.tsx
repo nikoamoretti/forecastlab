@@ -5,7 +5,8 @@ import { api, pct } from "@/lib/api";
 
 type Summary = { id: string; original_text: string; created_at: string; stale: boolean; run_id: string | null;
   profile_id: string | null; mode: string | null; status: string | null; outcome_status: string | null;
-  probability: number | null; cost_usd: number | null; finished_at: string | null; run_created_at: string | null };
+  probability: number | null; cost_usd: number | null; finished_at: string | null; run_created_at: string | null;
+  automation_status?: string | null; latest_version?: number; pending_outcome?: boolean; sources_checked_at?: string | null };
 type Page = { items: Summary[]; total: number; offset: number; limit: number };
 
 function age(timestamp: string) {
@@ -41,7 +42,8 @@ export default function BoardPage() {
         <div><Link className="text-lg" href={row.profile_id === "root_event_ensemble_v1" && ["preparing", "awaiting_review"].includes(row.status || "") ? `/new?profile=root_event_ensemble_v1&draft=${row.run_id}` : `/forecasts/${row.id}`}>{row.original_text}</Link>
           <p className="mt-2 text-sm text-ink/70">{row.mode || "draft"} · {row.profile_id || "No method yet"} · {(row.outcome_status || row.status || "draft").replaceAll("_", " ")}{row.stale ? " · stale" : ""}</p>
           <p className="mt-1 text-xs text-ink/60">{age(row.finished_at || row.run_created_at || row.created_at)} · ${Number(row.cost_usd || 0).toFixed(4)}</p></div>
-        <p className="font-serif text-3xl">{row.outcome_status === "insufficient_evidence" ? "Withheld" : pct(row.probability)}</p>
+        {row.automation_status && <p className="col-start-1 text-xs text-copper">Autopilot · version {row.latest_version} · {row.automation_status.replaceAll('_', ' ')}{row.pending_outcome ? ' · Outcome awaiting confirmation' : ''}{row.sources_checked_at ? ` · Sources checked ${age(row.sources_checked_at)}` : ''}</p>}
+        <p className="col-start-2 row-start-1 font-serif text-3xl">{row.outcome_status === "insufficient_evidence" ? "Withheld" : pct(row.probability)}</p>
       </li>)}</ul>
       <nav className="flex items-center gap-5" aria-label="Forecast pages"><button disabled={offset === 0} className="underline disabled:opacity-30" onClick={() => setOffset(Math.max(0, offset - 25))}>Previous</button>
         <span className="text-sm">{data.total ? offset + 1 : 0}–{Math.min(offset + 25, data.total)} of {data.total}</span>

@@ -43,3 +43,6 @@ logs/
 tmp/
 *.log
 .forecastlab-pids
+.vercel
+.env*
+!.env.example

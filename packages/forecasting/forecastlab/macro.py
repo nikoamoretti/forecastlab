@@ -116,7 +116,7 @@ def normalize_observations(indicator: str, values: dict[str, float], *, availabl
     return output
 
 
-def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None) -> dict[str, MacroSnapshot]:
+def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_years: int = 3) -> dict[str, MacroSnapshot]:
     """One keyless BLS request for question selection, covering all three series.
 
     The short history is only a threshold anchor. Research fetches its own full
@@ -128,7 +128,7 @@ def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None) -> dict[
     try:
         response = http.post("https://api.bls.gov/publicAPI/v1/timeseries/data/", json={
             "seriesid": [meta["bls"] for meta in SERIES.values()],
-            "startyear": str(now.year - 2), "endyear": str(now.year)})
+            "startyear": str(now.year - min(10, max(3, history_years)) + 1), "endyear": str(now.year)})
         response.raise_for_status()
         payload = response.json()
         if payload.get("status") != "REQUEST_SUCCEEDED":

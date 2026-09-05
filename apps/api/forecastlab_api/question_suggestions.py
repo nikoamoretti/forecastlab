@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import fcntl
+import json
 import os
 import tempfile
 from datetime import datetime, timedelta
@@ -33,29 +34,58 @@ class SelectionSources(BaseModel):
     releases: list[ScheduledRelease] = Field(default_factory=list)
     snapshots: dict[str, MacroSnapshot] = Field(default_factory=dict)
     gaps: list[str] = Field(default_factory=list)
+    documents: dict[str, dict] = Field(default_factory=dict)
+    diagnostics: list[dict] = Field(default_factory=list)
 
 
-def _fetch_sources(now: datetime) -> SelectionSources:
+def _fetch_sources(now: datetime, *, full_history: bool = False, cached_snapshots: dict[str, MacroSnapshot] | None = None) -> SelectionSources:
     result = SelectionSources(checked_at=now)
     with httpx.Client(timeout=12, follow_redirects=False, headers={"User-Agent": "ForecastLab/1.0 public calendar"}) as http:
+        def read_calendar(url):
+            with http.stream("GET", url) as response:
+                response.raise_for_status()
+                content = bytearray()
+                for chunk in response.iter_bytes():
+                    content.extend(chunk)
+                    if len(content) > 2_000_000:
+                        raise MacroDataError("calendar_response_too_large")
+            parsed = parse_bls_calendar(content.decode("utf-8"), source_url=url, checked_at=now)
+            from forecastlab_api.artifact_store import put_bytes
+            result.documents[url] = put_bytes(bytes(content), content_type="text/html")
+            result.releases.extend(parsed)
+
         for year in sorted({now.year, (now + timedelta(days=HORIZON_DAYS)).year}):
             url = f"https://www.bls.gov/schedule/{year}/home.htm"
             try:
                 # Fixed official origin, no model/user URL or redirects.
-                with http.stream("GET", url) as response:
-                    response.raise_for_status()
-                    content = bytearray()
-                    for chunk in response.iter_bytes():
-                        content.extend(chunk)
-                        if len(content) > 2_000_000:
-                            raise MacroDataError("calendar_response_too_large")
-                result.releases.extend(parse_bls_calendar(content.decode("utf-8"), source_url=url, checked_at=now))
-            except (httpx.HTTPError, ValueError) as exc:
+                read_calendar(url)
+            except httpx.HTTPError as exc:
+                reason = f"HTTP {exc.response.status_code}" if isinstance(exc, httpx.HTTPStatusError) else type(exc).__name__
+                result.diagnostics.append({"url": url, "error": reason})
+                # The official monthly list provides explicit reference periods
+                # and times. The public ICS feed omits reference periods, so it
+                # cannot replace this evidence by inferring last month's date.
+                months = [(total // 12, total % 12 + 1) for offset in range(4)
+                    if (total := now.year * 12 + now.month - 1 + offset) // 12 == year]
+                for monthly_year, month in months:
+                    monthly_url = f"https://www.bls.gov/schedule/{monthly_year}/{month:02d}_sched_list.htm"
+                    try:
+                        read_calendar(monthly_url)
+                    except (httpx.HTTPError, ValueError) as monthly_exc:
+                        monthly_reason = f"HTTP {monthly_exc.response.status_code}" if isinstance(monthly_exc, httpx.HTTPStatusError) else type(monthly_exc).__name__
+                        result.gaps.append(f"BLS {monthly_year}-{month:02d} release calendar unavailable ({monthly_reason}).")
+                if not months:
+                    result.gaps.append(f"BLS {year} release calendar unavailable ({reason}).")
+            except ValueError as exc:
                 reason = str(exc) if isinstance(exc, MacroDataError) else type(exc).__name__
                 result.gaps.append(f"BLS {year} release calendar unavailable ({reason}).")
         if result.releases:
             try:
-                result.snapshots = fetch_latest_macro_snapshots(client=http)
+                checked = min((as_utc(s.retrieved_at) for s in (cached_snapshots or {}).values()), default=None)
+                reusable = checked is not None and timedelta(0) <= now - checked < timedelta(hours=12) and not any(
+                    checked < as_utc(release.release_at) <= now for release in result.releases)
+                result.snapshots = cached_snapshots if reusable else fetch_latest_macro_snapshots(client=http,
+                    **({"history_years": 10} if full_history else {}))
             except MacroDataError as exc:
                 result.gaps.append(f"BLS observations unavailable ({exc}).")
     return result
@@ -76,6 +106,8 @@ def selection_sources() -> SelectionSources:
     Serializing refreshes prevents page reloads/concurrent requests consuming the
     small unauthenticated BLS quota. Failures cool down for ten minutes.
     """
+    if settings.cloud:
+        return database_selection_sources()
     path = settings.data_dir / "local" / "question-selection-v1.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.with_suffix(".lock").open("a") as lock:
@@ -96,6 +128,33 @@ def selection_sources() -> SelectionSources:
         finally:
             temporary.unlink(missing_ok=True)
         return sources
+
+
+def database_selection_sources() -> SelectionSources:
+    from forecastlab_api.autopilot_models import AppSetting
+    from forecastlab_api.autopilot_store import claim_lease, release_lease
+    from forecastlab_api.db import SessionLocal
+    with SessionLocal() as session:
+        row = session.get(AppSetting, "question_selection")
+        cached = SelectionSources.model_validate_json(row.value_json) if row else None
+        if cached and _fresh(cached, utcnow()):
+            return cached
+        observations = session.get(AppSetting, "macro_observation_cache")
+        snapshots = {k: MacroSnapshot.model_validate(v) for k, v in json.loads(observations.value_json).items()} if observations else None
+    ticket = claim_lease("source_cache", seconds=180)
+    if ticket is None:
+        return SelectionSources(checked_at=utcnow(), gaps=["Source refresh is already in progress"])
+    try:
+        sources = _fetch_sources(utcnow(), full_history=True, cached_snapshots=snapshots)
+        with SessionLocal() as session:
+            session.merge(AppSetting(key="question_selection", value_json=sources.model_dump_json()))
+            if sources.snapshots:
+                session.merge(AppSetting(key="macro_observation_cache", value_json=json.dumps({
+                    k: v.model_dump(mode="json") for k, v in sources.snapshots.items()})))
+            session.commit()
+        return sources
+    finally:
+        release_lease("source_cache", ticket)
 
 
 def suggestions(session: Session) -> dict:

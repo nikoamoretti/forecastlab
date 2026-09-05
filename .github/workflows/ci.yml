@@ -3,11 +3,22 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_call:
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
@@ -17,19 +28,21 @@ jobs:
           python-version: "3.12"
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
       - name: Install Python from lockfile
         run: uv sync --extra dev --frozen
       - name: Python tests
         run: uv run python -m pytest -q
+        env:
+          FORECASTLAB_TEST_POSTGRES_URL: postgresql+psycopg://postgres:test-only@127.0.0.1:5432/postgres
       - name: Ruff
-        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py
+        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py
       - name: Mypy
         run: |
           uv run python -m mypy
-          uv run python -m mypy scripts/verify_private_v1_release.py
+          uv run python -m mypy scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py
       - name: Frontend
         working-directory: apps/web
         run: |

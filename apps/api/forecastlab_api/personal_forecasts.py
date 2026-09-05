@@ -132,6 +132,10 @@ def prepare_draft(session: Session, run: ForecastRun, job=None) -> None:
             model = build_model_provider(provider=context.model_provider, api_key=secrets.get("model_api_key"),
                 base_url=context.model_base_url, model=context.model_name, execution=context,
                 timeout=context.model_timeout_seconds, ledger=ledger, run_id=run.id, run_attempt_id=attempt.id)
+            if context.effective_mode == "live" and profile.version >= 3:
+                from forecastlab_api.durable_execution import DurableModel
+                ledger.reconcile_ambiguous = True
+                model = DurableModel(model, run.id)
             budget = Budget.from_persisted(profile, ledger.totals(run.id), provider=context.model_provider,
                                            model=context.model_name, search_provider=context.search_provider,
                                            prior_elapsed_seconds=prior_elapsed)

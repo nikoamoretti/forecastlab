@@ -6,8 +6,9 @@ from typing import Any
 import yaml
 
 from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.paths import project_root
 
-PRICING_PATH = Path(__file__).resolve().parents[3] / "configs" / "pricing" / "models.yaml"
+PRICING_PATH = project_root() / "configs" / "pricing" / "models.yaml"
 COST_LABELS = ("provider_reported", "estimated", "mixed", "unavailable")
 
 

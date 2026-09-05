@@ -40,7 +40,7 @@ from forecastlab.ssrf import UnsafeURLError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.version import __version__
 from forecastlab_api.aggregations import forecast_aggregation_from_row
-from forecastlab_api.config import settings
+from forecastlab_api.config import ROOT, settings
 from forecastlab_api.contracts import (
     apply_forecast_contract_review,
     approve_forecast_contract,
@@ -503,6 +503,10 @@ def _question_out(session: Session, question: Question) -> dict[str, Any]:
 
 @app.on_event("startup")
 def startup() -> None:
+    if settings.cloud:
+        # Production schema changes are a release operation. Cold starts never
+        # seed fixtures, write credentials, or mutate the schema.
+        return
     settings.data_dir.mkdir(parents=True, exist_ok=True)
     (settings.data_dir / "local").mkdir(parents=True, exist_ok=True)
     apply_schema()
@@ -1166,6 +1170,8 @@ def get_run(run_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     personal = db.get(PersonalForecast, run.id)
     if personal is not None:
         result = json.loads(personal.result_json)
+        if run.status != "completed":
+            result = {**result, "probability": None}
         payload["outcome_status"] = personal.outcome_status or run.status
         payload["probability"] = result.get("probability")
         payload["evidence_gaps"] = result.get("evidence_gaps", [])
@@ -1229,11 +1235,20 @@ def report(question_id: str, db: Session = Depends(get_db), run_id: str | None =
         personal = db.get(PersonalForecast, latest_run["id"])
         if personal:
             result = json.loads(personal.result_json)
+            if latest_run["status"] != "completed":
+                result = {**result, "probability": None}
             payload["personal_report"] = result
             payload["latest_probability"] = result.get("probability")
             payload["outcome_status"] = personal.outcome_status or latest_run["status"]
             payload["latest_run"]["outcome_status"] = payload["outcome_status"]
             payload["latest_run"]["probability"] = payload["latest_probability"]
+        from forecastlab_api.autopilot_models import AutopilotRun, ManagedQuestion
+        managed = db.get(ManagedQuestion, question_id)
+        if managed:
+            automatic_version = db.get(AutopilotRun, latest_run["id"])
+            payload["automation"] = {"status": managed.status, "release_event": managed.release_event,
+                "latest_version_kind": automatic_version.kind if automatic_version else "manual",
+                "last_checked_at": managed.last_checked_at}
     return payload
 
 
@@ -1331,12 +1346,20 @@ def export_md(question_id: str, db: Session = Depends(get_db)) -> PlainTextRespo
         )
         if item.get("rejection_reason"):
             lines.append(f"  - Rejection: {item.get('rejection_reason')}")
-    return PlainTextResponse("\n".join(lines), media_type="text/markdown")
+    from forecastlab_api.artifact_store import retain_export
+    exported = "\n".join(lines)
+    retain_export(db, question_id + ":markdown", exported.encode(), "text/markdown")
+    return PlainTextResponse(exported, media_type="text/markdown")
 
 
 @app.get("/api/questions/{question_id}/export.json")
 def export_json(question_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
-    return report(question_id, db)
+    from fastapi.encoders import jsonable_encoder
+
+    from forecastlab_api.artifact_store import retain_export
+    payload = report(question_id, db)
+    retain_export(db, question_id + ":json", json.dumps(jsonable_encoder(payload), sort_keys=True).encode(), "application/json")
+    return payload
 
 
 @app.post("/api/questions/{question_id}/watches")
@@ -1427,7 +1450,7 @@ def _parse_benchmark_file(raw: str, filename: str) -> list[dict[str, Any]]:
 
 @app.get("/api/benchmarks/template.csv")
 def benchmark_template() -> PlainTextResponse:
-    path = Path(__file__).resolve().parents[3] / "fixtures" / "benchmarks" / "import_template.csv"
+    path = ROOT / "fixtures" / "benchmarks" / "import_template.csv"
     return PlainTextResponse(path.read_text(encoding="utf-8"), media_type="text/csv")
 
 
@@ -1455,7 +1478,7 @@ def list_evaluation_datasets(db: Session = Depends(get_db)) -> dict[str, Any]:
 
 @app.get("/api/evaluation/datasets/template.csv")
 def evaluation_dataset_template() -> PlainTextResponse:
-    path = Path(__file__).resolve().parents[3] / "fixtures" / "benchmarks" / "evaluation_template.csv"
+    path = ROOT / "fixtures" / "benchmarks" / "evaluation_template.csv"
     return PlainTextResponse(path.read_text(encoding="utf-8"), media_type="text/csv")
 
 
@@ -2179,6 +2202,8 @@ def export_experiment_csv(experiment_id: str, db: Session = Depends(get_db)) -> 
     writer.writeheader()
     for row in summary.get("rows") or []:
         writer.writerow({key: row.get(key) for key in writer.fieldnames})
+    from forecastlab_api.artifact_store import retain_export
+    retain_export(db, experiment_id + ":csv", buffer.getvalue().encode(), "text/csv")
     return PlainTextResponse(buffer.getvalue(), media_type="text/csv")
 
 
@@ -2216,3 +2241,12 @@ def benchmark_summary(experiment_id: str | None = None, db: Session = Depends(ge
 
 def create_app() -> FastAPI:
     return app
+
+from forecastlab_api.auth import install_auth  # noqa: E402
+from forecastlab_api.auth import router as auth_router  # noqa: E402
+
+app.include_router(auth_router)
+from forecastlab_api.autopilot_routes import router as autopilot_router  # noqa: E402
+
+app.include_router(autopilot_router)
+install_auth(app)

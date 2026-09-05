@@ -92,18 +92,27 @@ def post_launch(run_id: str, body: LaunchIn, db: Session = Depends(get_db)) -> d
 @router.get("/api/forecast-summaries")
 def summaries(offset: int = Query(0, ge=0), limit: int = Query(25, ge=1, le=100),
               include_fixtures: bool = False, db: Session = Depends(get_db)) -> dict:
+    from forecastlab_api.autopilot_models import ManagedQuestion, OutcomeProposal, QuestionAdjudication
     # Rank first, paginate second. Fetch summary columns only, never full report
     # trees or per-question queries.
     order_time = func.coalesce(PersonalForecast.created_at, Job.created_at, ForecastRun.started_at, ForecastRun.finished_at)
     ranked = select(ForecastRun.id.label("run_id"), ForecastRun.question_id, order_time.label("run_created_at"),
+        func.count().over(partition_by=ForecastRun.question_id).label("latest_version"),
         func.row_number().over(partition_by=ForecastRun.question_id, order_by=(order_time.desc(), ForecastRun.id.desc())).label("rank")
     ).outerjoin(PersonalForecast, PersonalForecast.run_id == ForecastRun.id).outerjoin(Job, Job.id == ForecastRun.job_id).subquery()
     query = select(Question.id, Question.original_text, Question.created_at, Question.stale,
         ForecastRun.id.label("run_id"), ForecastRun.profile_id, ForecastRun.mode, ForecastRun.status,
         ForecastRun.finished_at, ForecastRun.total_cost_usd.label("cost_usd"),
         ranked.c.run_created_at,
+        ranked.c.latest_version,
+        ManagedQuestion.status.label("automation_status"), ManagedQuestion.release_event,
+        ManagedQuestion.last_checked_at.label("sources_checked_at"),
+        select(OutcomeProposal.id).where(OutcomeProposal.question_id == Question.id,
+            ~select(QuestionAdjudication.id).where(QuestionAdjudication.question_id == Question.id).correlate(Question).exists())
+            .correlate(Question).exists().label("pending_outcome"),
         PersonalForecast.outcome_status, ForecastVersion.ensemble_probability.label("probability"),
-    ).outerjoin(ranked, (ranked.c.question_id == Question.id) & (ranked.c.rank == 1))
+    ).outerjoin(ranked, (ranked.c.question_id == Question.id) & (ranked.c.rank == 1)).outerjoin(
+        ManagedQuestion, ManagedQuestion.question_id == Question.id)
     query = query.outerjoin(ForecastRun, ForecastRun.id == ranked.c.run_id).outerjoin(
         PersonalForecast, PersonalForecast.run_id == ForecastRun.id).outerjoin(
         ForecastVersion, ForecastVersion.run_id == ForecastRun.id).where(Question.is_benchmark.is_(False))
@@ -167,11 +176,13 @@ class MacroSettingsIn(BaseModel):
 @router.get("/api/macro/settings")
 def macro_settings() -> dict:
     from forecastlab_api.secrets import load_secrets
-    return {"fred_api_key_set": bool(load_secrets().get("fred_api_key"))}
+    return {"fred_api_key_set": bool(load_secrets().get("fred_api_key")), "secrets_managed_externally": settings.cloud}
 
 
 @router.patch("/api/macro/settings")
 def patch_macro_settings(body: MacroSettingsIn) -> dict:
+    if settings.cloud:
+        raise HTTPException(422, "Manage the production FRED key in Vercel environment settings")
     from forecastlab_api.secrets import load_secrets, save_secrets
     data = load_secrets()
     data["fred_api_key"] = body.fred_api_key.strip() or None
