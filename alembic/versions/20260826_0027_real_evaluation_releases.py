@@ -185,4 +185,3 @@ def downgrade() -> None:
     tables = set(inspect(bind).get_table_names())
     if "evaluation_releases" in tables:
         op.drop_table("evaluation_releases")
-

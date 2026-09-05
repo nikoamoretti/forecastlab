@@ -58,3 +58,60 @@ def test_rest_environment_filters_out_preview_values(monkeypatch):
     monkeypatch.setattr(project, "request", request)
     assert project.environment() == {"DATABASE_URL_UNPOOLED": "production"}
     project.client.close()
+
+
+def test_release_preserves_disabled_state_and_original_reason_across_polls(client):
+    from forecastlab_api.autopilot_routes import release_complete, release_pause
+    from forecastlab_api.autopilot_store import state
+    from forecastlab_api.db import SessionLocal
+
+    with SessionLocal() as session:
+        current = state(session)
+        current.enabled = False
+        current.pause_reason = "Awaiting live source qualification"
+        session.commit()
+        for _ in range(2):
+            assert release_pause(session)["drained"]
+            session.commit()
+        assert not release_complete(session)["automatic_spending_enabled"]
+        session.commit()
+        assert state(session).pause_reason == "Awaiting live source qualification"
+        release_complete(session)
+        assert state(session).pause_reason == "Awaiting live source qualification"
+
+
+@pytest.mark.parametrize("gaps", [[], ["Method changed; qualify the new revision"]])
+def test_release_resumes_previously_enabled_policy_only_if_still_qualified(client, monkeypatch, gaps):
+    from forecastlab_api import autopilot
+    from forecastlab_api.autopilot_routes import release_complete, release_pause
+    from forecastlab_api.autopilot_store import state
+    from forecastlab_api.db import SessionLocal
+
+    monkeypatch.setattr(autopilot, "enable_gaps", lambda _: gaps)
+    with SessionLocal() as session:
+        state(session).enabled = True
+        session.commit()
+        release_pause(session)
+        session.commit()
+        result = release_complete(session)
+        assert result["automatic_spending_enabled"] is (not gaps)
+        assert state(session).pause_reason == "; ".join(gaps)
+
+
+def test_release_completion_respects_owner_pause_during_maintenance(client, monkeypatch):
+    from forecastlab_api import autopilot
+    from forecastlab_api.autopilot_routes import release_complete, release_pause
+    from forecastlab_api.autopilot_store import state
+    from forecastlab_api.db import SessionLocal
+
+    monkeypatch.setattr(autopilot, "enable_gaps", lambda _: [])
+    with SessionLocal() as session:
+        state(session).enabled = True
+        session.commit()
+        release_pause(session)
+        session.commit()
+        autopilot.set_enabled(session, False)
+        release_pause(session)
+        session.commit()
+        assert not release_complete(session)["automatic_spending_enabled"]
+        assert state(session).pause_reason == "Paused by owner"

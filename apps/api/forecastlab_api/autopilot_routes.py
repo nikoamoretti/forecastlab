@@ -194,10 +194,12 @@ def release_pause(db: Session = Depends(get_db)):
     control = db.get(AppSetting, "release_control")
     previous = json.loads(control.value_json) if control else {}
     was_enabled = previous.get("was_enabled", False) if previous.get("dispatch_paused") else current.enabled
+    pause_reason = previous.get("pause_reason", "") if previous.get("dispatch_paused") else current.pause_reason
     db.merge(AppSetting(key="release_control", value_json=json.dumps({"dispatch_paused": True,
-        "was_enabled": was_enabled, "paused_at": utcnow().isoformat()})))
+        "was_enabled": was_enabled, "pause_reason": pause_reason, "paused_at": utcnow().isoformat()})))
     current.enabled = current.qualification_enabled = False
-    current.pause_reason = "Release maintenance"
+    if not previous.get("dispatch_paused") or current.pause_reason == "Release maintenance":
+        current.pause_reason = "Release maintenance"
     running = list(db.scalars(select(Job.id).where(Job.status == "running")))
     leased = bool(lease and lease.expires_at and as_utc(lease.expires_at) > utcnow())
     return {"paused": True, "drained": not running and not leased, "running_job_ids": running}
@@ -211,8 +213,12 @@ def release_complete(db: Session = Depends(get_db)):
     control = db.get(AppSetting, "release_control")
     previous = json.loads(control.value_json) if control else {}
     current = state(db, lock=True)
-    if previous.get("was_enabled") and not autopilot.enable_gaps(db):
-        current.enabled, current.pause_reason = True, ""
+    if previous.get("dispatch_paused") and current.pause_reason == "Release maintenance":
+        gaps = autopilot.enable_gaps(db) if previous.get("was_enabled") else []
+        if previous.get("was_enabled") and not gaps:
+            current.enabled, current.pause_reason = True, ""
+        else:
+            current.pause_reason = "; ".join(gaps) or previous.get("pause_reason") or "Autopilot remains paused"
     db.merge(AppSetting(key="release_control", value_json=json.dumps({"dispatch_paused": False,
         "revision": settings.deployment_revision, "completed_at": utcnow().isoformat()})))
     return {"dispatch_paused": False, "automatic_spending_enabled": current.enabled}
