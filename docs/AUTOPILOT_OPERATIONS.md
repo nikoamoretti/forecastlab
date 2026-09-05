@@ -157,7 +157,7 @@ and pushes cannot invoke it automatically. Supply separate project-scoped
 copy a broad personal CLI token into repository secrets. The workflow must be
 merged into the repository's default branch before it can be dispatched there.
 
-`scripts/release_cloud.py` pauses dispatch, drains jobs, takes and read-verifies a
+`uv run python -m scripts.release_cloud` pauses dispatch, drains jobs, takes and read-verifies a
 private `pg_dump` snapshot, applies additive migrations, stages both applications,
 checks their health/access boundaries, then promotes API and web. Failed release
 steps leave dispatch paused. Completion resumes a previously approved policy
@@ -168,9 +168,14 @@ They are not merged or deployed automatically.
 The provisioned Neon database is PostgreSQL 18. The release workflow installs the
 PostgreSQL 18 client from the [official repository](https://www.postgresql.org/download/linux/ubuntu/)
 before taking a schema-inclusive backup; an older `pg_dump` cannot back it up.
-The CLI redacts sensitive environment variables. Release tooling loads only the
-integration's direct database and Blob credentials and rejects unavailable values;
-it does not need to export model, search, OAuth or session secrets.
+Release tooling uses the Vercel REST API because the CLI's account lookup rejects
+project-scoped tokens ([upstream issue](https://github.com/vercel/vercel/issues/17506)).
+It reads the integration's direct database and Blob credentials through the
+documented per-variable endpoint and rejects unavailable values. It does not
+export model, search, OAuth or session secrets. Source bundles contain only the
+committed tree and exclude local data, secret files and the other application.
+Staging must leave the current production target unchanged; promotion is checked
+against the project's resulting production deployment ID.
 
 `GET /internal/readiness` reports migration, login and restore readiness without
 secrets. `POST /internal/source-preflight` runs only free public-data checks.

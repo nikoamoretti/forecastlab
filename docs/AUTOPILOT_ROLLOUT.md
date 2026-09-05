@@ -21,8 +21,8 @@ disabled. It has **not** passed live forecasting qualification.
 
 - Python: **789 passed**, including SQLite and isolated Postgres concurrency,
   budgets, lease recovery, append-only history and import/restore tests.
-- Three additional release-environment regression tests passed after fixing
-  Vercel's redacted sensitive values in CLI environment exports.
+- Ten additional release regression tests passed for credential isolation,
+  source-bundle exclusions and preview-environment isolation.
 - Ruff and mypy: passed for application packages and operational scripts.
 - TypeScript, ESLint and production frontend build: passed.
 - Browser workflows: **24 passed, 2 skipped**. The two optional private-V1
@@ -31,6 +31,8 @@ disabled. It has **not** passed live forecasting qualification.
 - Protected cloud API: unauthenticated settings access returns 401; readiness
   confirms migration `20260904_0032`, automatic spending disabled, qualification
   disabled and a verified restore receipt.
+- GitHub CI passed for the deployed application commit `efe4eff`; local checks
+  separately cover the subsequent release-tooling changes.
 
 Machine receipts are retained in ignored `data/local/autopilot/`, including
 `neon-import-receipt.json`, `cloud-restore-receipt.json` and the source-preflight

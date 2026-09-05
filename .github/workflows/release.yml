@@ -45,7 +45,6 @@ jobs:
         with:
           node-version: '24'
       - run: uv sync --frozen
-      - run: npm install --global vercel@58.10.0
       - name: Install PostgreSQL 18 backup client
         run: |
           sudo apt-get update
@@ -55,7 +54,7 @@ jobs:
           sudo apt-get install -y postgresql-client-18
           echo /usr/lib/postgresql/18/bin >> "$GITHUB_PATH"
       - name: Pause, drain, snapshot, migrate, stage, check and promote
-        run: uv run python scripts/release_cloud.py
+        run: uv run python -m scripts.release_cloud
         env:
           FORECASTLAB_API_VERCEL_TOKEN: ${{ secrets.FORECASTLAB_API_VERCEL_TOKEN }}
           FORECASTLAB_WEB_VERCEL_TOKEN: ${{ secrets.FORECASTLAB_WEB_VERCEL_TOKEN }}

@@ -10,32 +10,16 @@ import gzip
 import json
 import os
 import subprocess
-import tempfile
 import time
 from pathlib import Path
 
 import httpx
-from dotenv import dotenv_values
 from sqlalchemy import create_engine
 from sqlalchemy.engine import make_url
 
+from scripts.vercel_release import VercelProject
+
 ROOT = Path(__file__).resolve().parents[1]
-SCOPE = "yard-logix"
-
-
-def cli(arguments, *, cwd=ROOT):
-    token_name = "FORECASTLAB_WEB_VERCEL_TOKEN" if cwd == ROOT / "apps/web" else "FORECASTLAB_API_VERCEL_TOKEN"
-    token = os.environ.get(token_name) or os.environ.get("VERCEL_TOKEN")
-    command = ["vercel", "--scope", SCOPE]
-    if token:
-        command += ["--token", token]
-    command += arguments
-    result = subprocess.run(command, cwd=cwd, text=True, capture_output=True, check=False)
-    if result.returncode:
-        # Build diagnostics remain available in Vercel; avoid echoing arguments,
-        # environment values or errors containing secret-bearing URLs.
-        raise RuntimeError("vercel_command_failed:" + arguments[0])
-    return result.stdout.strip()
 
 
 def request(path, *, method="POST"):
@@ -44,27 +28,6 @@ def request(path, *, method="POST"):
     if response.status_code != 200:
         raise RuntimeError(f"release_endpoint_failed:{path}:{response.status_code}")
     return response.json()
-
-
-def link(cwd, project_id):
-    directory = cwd / ".vercel"
-    directory.mkdir(exist_ok=True)
-    (directory / "project.json").write_text(json.dumps({"orgId": os.environ["VERCEL_ORG_ID"], "projectId": project_id}))
-
-
-def stage(cwd):
-    output = cli(["deploy", "--prod", "--skip-domain", "--yes", "--format", "json"], cwd=cwd)
-    receipt = json.loads(output)
-    url = receipt.get("deployment", {}).get("url", "")
-    if receipt.get("deployment", {}).get("readyState") != "READY" or not url.startswith("https://") or not url.endswith(".vercel.app"):
-        raise RuntimeError("deployment_receipt_missing")
-    return url
-
-
-def smoke(url, path, expected, cwd):
-    output = cli(["curl", path, "--deployment", url, "--", "--silent", "--output", "/dev/null", "--write-out", "%{http_code}"], cwd=cwd)
-    if output.strip() != str(expected):
-        raise RuntimeError(f"staged_smoke_failed:{path}")
 
 
 def configure_release_environment(values):
@@ -92,13 +55,10 @@ def main():
         if time.monotonic() >= deadline:
             raise RuntimeError("release_drain_timeout")
         time.sleep(15)
-    link(ROOT, os.environ["FORECASTLAB_API_PROJECT_ID"])
-    link(ROOT / "apps/web", os.environ["FORECASTLAB_WEB_PROJECT_ID"])
-    with tempfile.TemporaryDirectory(prefix="forecastlab-release-") as temp:
-        environment = Path(temp) / "production.env"
-        cli(["env", "pull", str(environment), "--environment", "production", "--yes"])
-        environment.chmod(0o600)
-        values = dotenv_values(environment)
+    api_client = VercelProject(os.environ["FORECASTLAB_API_PROJECT_ID"], os.environ["FORECASTLAB_API_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
+    web_client = VercelProject(os.environ["FORECASTLAB_WEB_PROJECT_ID"], os.environ["FORECASTLAB_WEB_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
+    try:
+        values = api_client.environment()
         url = configure_release_environment(values)
         # pg_dump captures the OLD schema before importing the new application's
         # metadata, so a migration adding tables cannot break the backup.
@@ -120,17 +80,20 @@ def main():
             if connection.execute(text("SELECT enabled FROM autopilot_state WHERE id='personal'")).scalar():
                 raise RuntimeError("release_pause_lost")
         engine.dispose()
-        api = stage(ROOT)
-        web = stage(ROOT / "apps/web")
-        smoke(api, "/health", 200, ROOT)
-        smoke(api, "/api/settings", 401, ROOT)
-        smoke(web, "/login", 200, ROOT / "apps/web")
-        smoke(web, "/api/settings", 401, ROOT / "apps/web")
+        api = api_client.stage(ROOT, web=False)
+        web = web_client.stage(ROOT, web=True)
+        api_client.smoke(api, "/health", 200)
+        api_client.smoke(api, "/api/settings", 401)
+        web_client.smoke(web, "/login", 200)
+        web_client.smoke(web, "/api/settings", 401)
         print("Staged checks passed; promoting API and web.", flush=True)
-        cli(["promote", api, "--yes"])
-        cli(["promote", web, "--yes"], cwd=ROOT / "apps/web")
+        api_client.promote(api)
+        web_client.promote(web)
         result = request("/internal/release/complete")
-        print(json.dumps({"released": True, "api": api, "web": web, **result}), flush=True)
+        print(json.dumps({"released": True, "api": api["url"], "web": web["url"], **result}), flush=True)
+    finally:
+        api_client.client.close()
+        web_client.client.close()
 
 
 if __name__ == "__main__":
