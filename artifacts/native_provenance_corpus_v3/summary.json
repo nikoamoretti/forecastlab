@@ -1,0 +1,42 @@
+{
+  "artifact_version": "native_provenance_corpus_v3_summary_v1",
+  "policy_version": "private_v1_native_provenance_corpus_v3",
+  "acquisition_source_commit": "f7c80c5ae634cbfd42fb2e83d3a59eaeaadd62c6",
+  "acquisition_source_tree": "5e54f21edcc48dda6d87ad0a4e0b8cce6200148b",
+  "external_manifest_sha256": "13b2e7ec2c926c1136854e002cc19b7e4dfcbc1c569d27f29210f7948365852a",
+  "external_summary_hash": "d2825b19b655efa66552c38870d03cac3748ef8fa2108924a702917263a669f5",
+  "external_summary_sha256": "3780cb4f3075bed4eb590e87c0e8e00871213e4eb1d4d7c11f2bf3a1f0adf8d8",
+  "blinded_candidates_sha256": "f47189ede659ca6c27e7800b84d4c24f91f120140610aaed6cdb62720ec80593",
+  "sealed_outcomes_sha256": "f2ccbc0539613c695b43d0daccd24490fb768b1fcf1c6295903e46cb4b0f02d7",
+  "evidence_packets_sha256": "8e3b792e038983301aa6505615a0e4376746d3de881e5c01522d1b26f75d6a55",
+  "evidence_documents_sha256": "121687b9fb4f5681c185ac089547a4795f3f410d047b43152eafb4e1611c9dca",
+  "candidate_count": 260,
+  "machine_complete_count": 260,
+  "accepted_document_count": 260,
+  "native_provenance_ready_threshold": 200,
+  "native_provenance_ready_threshold_met": true,
+  "packet_statuses": {
+    "ready": 260
+  },
+  "provisional_split_counts": {
+    "development": 60,
+    "validation": 40,
+    "test": 100,
+    "reserve": 60
+  },
+  "split_seed": "forecastlab-native-provenance-v3-split-v1",
+  "outcome_used_for_split": false,
+  "v2_preflight_hash": "a4620d5d5e8501e0e8ac388e6de9471a322e49eb93cb87cfdf143ea5048a8acb",
+  "native_sealed_input_preflight_hash": "7c619acfc604c4fd882bf9b2d1197cefc8a9e8767541d407125143b78aeb2491",
+  "native_sealed_input_ready": true,
+  "review_artifacts_created": false,
+  "release_frozen": false,
+  "forecast_runs": 0,
+  "experiments": 0,
+  "scores": 0,
+  "calibration": null,
+  "openai_calls": 0,
+  "tavily_calls": 0,
+  "provider_spend_usd": 0.0,
+  "raw_and_sealed_records": "private_external_workspace_only"
+}

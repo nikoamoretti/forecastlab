@@ -11,13 +11,14 @@ ForecastLab is a local-first laboratory for **binary** future-event questions.
 - Deterministic logit-mean aggregation with shrinkage
 - Forecast versions, Markdown/JSON export
 - Synthetic benchmark import and Brier / log-loss comparison
-- URL/JSON watchers with an opt-in auto-rerun (default off)
+- URL/JSON watchers that mark a question stale; reruns are always explicit user actions
+- Audited manual evidence URL intake for an existing question or Forecast Node
 - Mock mode without credentials; live OpenAI-compatible + Tavily when keys are supplied
 - One-click Mac start
 
 ## Out of scope
 
-Numeric or date distributions, model training, payments, accounts, multi-tenancy, graph databases, arbitrary code execution, public publishing, autonomous prompt mutation, and any claim of calibration without sufficient out-of-sample data.
+Numeric or date distributions, model training, payments, accounts, multi-tenancy, graph databases, arbitrary code execution, public publishing, autonomous prompt mutation, automatic watcher reruns, a Question Feed, and any claim of calibration without sufficient out-of-sample data.
 
 ## Honest labels
 

@@ -1,0 +1,28 @@
+{
+  "fixture_label": "synthetic_acquisition_shape_only",
+  "candidate": {
+    "source_id": "public_source_adapter_id",
+    "source_market_id": "stable-public-record-id",
+    "original_question": "Will an objectively resolvable event occur before a stated date?",
+    "yes_condition": "The stated event occurs under the source terms.",
+    "no_condition": "The stated event does not occur under the source terms.",
+    "forecast_date": "2024-01-01T00:00:00+00:00",
+    "resolution_date": "2024-06-01T00:00:00+00:00",
+    "origin_proof_type": "platform_timestamped_market_record",
+    "event_family_id": "proposed-event-family",
+    "leakage_group_id": "proposed-leakage-group",
+    "review_status": "awaiting_human_review",
+    "adjudication_status": "awaiting_independent_adjudication"
+  },
+  "sealed_provisional_resolution": {
+    "candidate_id": "stable-candidate-id",
+    "provisional_observed_outcome": null,
+    "outcome_known_at": null,
+    "independently_adjudicated": false
+  },
+  "historical_evidence_packet": {
+    "status": "no_eligible_evidence",
+    "accepted_document_ids": [],
+    "review_status": "awaiting_human_review"
+  }
+}

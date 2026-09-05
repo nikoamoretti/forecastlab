@@ -4,24 +4,44 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-    command: bash -lc "pip install -e . && uvicorn forecastlab_api.main:app --host 0.0.0.0 --port 8765"
+    command: bash -lc "pip install -q uv && UV_PROJECT_ENVIRONMENT=/opt/forecastlab uv sync --frozen --no-dev && /opt/forecastlab/bin/uvicorn forecastlab_api.main:app --host 0.0.0.0 --port 8765"
     ports:
       - "8765:8765"
     environment:
       FORECASTLAB_DATABASE_URL: sqlite:////app/data/forecastlab.db
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 120s
   worker:
     image: python:3.12-slim
     working_dir: /app
     volumes:
       - ./:/app
-    command: bash -lc "pip install -e . && python -m forecastlab_api.worker"
+    command: bash -lc "pip install -q uv && UV_PROJECT_ENVIRONMENT=/opt/forecastlab uv sync --frozen --no-dev && /opt/forecastlab/bin/python -m forecastlab_api.worker"
     environment:
       FORECASTLAB_DATABASE_URL: sqlite:////app/data/forecastlab.db
+    depends_on:
+      api:
+        condition: service_healthy
   web:
-    image: node:22-slim
+    image: node:24-bookworm-slim
     working_dir: /app/apps/web
     volumes:
       - ./:/app
+      - web_node_modules:/app/apps/web/node_modules
+      - web_next:/app/apps/web/.next
     command: bash -lc "npm install && npm run dev -- --hostname 0.0.0.0 --port 3000"
     ports:
       - "3000:3000"
+    environment:
+      FORECASTLAB_API_ORIGIN: http://api:8765
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  web_node_modules:
+  web_next:

@@ -1,0 +1,20 @@
+id: model_only_v1
+version: 1
+label: Model-only baseline
+description: One structured forecast from the resolution contract only. No search or fetched documents.
+tracks:
+  - single_agent
+subquestions_per_track: 0
+search_results_per_subquestion: 0
+fetches_per_subquestion: 0
+aggregation_method: equal_weight_logit_shrinkage
+shrinkage: 0.10
+max_model_calls: 4
+max_search_calls: 0
+max_fetched_documents: 0
+max_tokens: 20000
+max_estimated_cost_usd: 0.50
+max_wall_clock_seconds: 60
+prompt_versions:
+  operationalize: v1
+  forecast_single_agent: v1

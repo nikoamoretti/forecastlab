@@ -1,6 +1,6 @@
 [project]
 name = "forecastlab"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Local-first probabilistic forecasting laboratory for binary questions."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -18,6 +18,10 @@ dependencies = [
   "python-multipart>=0.0.17",
   "pyyaml>=6.0.2",
   "structlog>=24.4.0",
+  "psycopg[binary]>=3.2",
+  "authlib>=1.6.9",
+  "itsdangerous>=2.2",
+  "vercel>=0.4",
 ]
 
 [project.optional-dependencies]
@@ -37,9 +41,15 @@ build-backend = "setuptools.build_meta"
 where = ["packages/forecasting", "apps/api"]
 include = ["forecastlab*", "forecastlab_api*"]
 
+[tool.setuptools.dynamic]
+version = {attr = "forecastlab.version.__version__"}
+
+[tool.uv]
+package = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["packages/forecasting", "apps/api"]
+pythonpath = [".", "packages/forecasting", "apps/api"]
 asyncio_mode = "auto"
 filterwarnings = ["ignore::DeprecationWarning"]
 

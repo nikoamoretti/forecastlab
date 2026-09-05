@@ -12,7 +12,13 @@ The single-agent profile receives the same contract family and a comparable evid
 
 - Brier: `(p - y)^2`
 - Log loss: uses clipped probabilities so zeros do not explode
-- Also reported: mean/median cost, latency, failure rate, source counts when present
+- Also reported: mean/median cost, latency, completion/partial/failure rates, and evidence coverage
+
+Evidence coverage is an operational completeness measure. Graph execution counts planned nodes with at least one cited persisted Evidence Claim; legacy execution counts research tracks with accepted cutoff-eligible evidence. It does not show that a citation is correct or that one forecasting profile is superior.
+
+## First V1 experiment workflow
+
+The Lab includes a fixed ten-question synthetic workflow comparing `single_model_forecaster_v1`, `three_track_forecaster`, and `graph_forecaster_v1`. It produces thirty asynchronous tasks and reports Brier score, log loss, total cost, latency, completion rate, and evidence coverage. The single-model profile makes one structured forecast call from the approved Forecast Contract and one evidence packet, without graph construction or probability aggregation. This workflow verifies experiment plumbing only. It is not a real benchmark, a calibration study, or evidence of profile superiority.
 
 ## Time and leakage
 

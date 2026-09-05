@@ -1,0 +1,22 @@
+id: three_track_equal_budget_v1
+version: 1
+label: Three-track equal budget
+description: Independent tracks with the same total search, fetch, token, cost, and wall-clock ceilings as single_agent_equal_budget_v1.
+tracks:
+  - base_rate
+  - current_evidence
+  - skeptic
+subquestions_per_track: 2
+search_results_per_subquestion: 3
+fetches_per_subquestion: 2
+aggregation_method: equal_weight_logit_shrinkage
+shrinkage: 0.10
+max_model_calls: 18
+max_search_calls: 12
+max_fetched_documents: 12
+max_tokens: 80000
+max_estimated_cost_usd: 2.0
+max_wall_clock_seconds: 180
+prompt_versions:
+  operationalize: v1
+  disagreement: v1

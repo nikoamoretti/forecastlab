@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          prune-cache: false
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install Python from lockfile
+        run: uv sync --extra dev --frozen
+      - name: Python tests
+        run: uv run python -m pytest -q
+        env:
+          FORECASTLAB_TEST_POSTGRES_URL: postgresql+psycopg://postgres:test-only@127.0.0.1:5432/postgres
+      - name: Ruff
+        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py
+      - name: Mypy
+        run: |
+          uv run python -m mypy
+          uv run python -m mypy scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py
+      - name: Frontend
+        working-directory: apps/web
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+      - name: Install Playwright
+        working-directory: apps/web
+        run: npx playwright install --with-deps chromium
+      - name: Start API and worker
+        run: |
+          mkdir -p data/local
+          uv run uvicorn forecastlab_api.main:app --host 127.0.0.1 --port 8765 &
+          uv run python -m forecastlab_api.worker &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:8765/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "API failed to start" >&2
+          exit 1
+      - name: Start web
+        working-directory: apps/web
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:3000 >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "web failed to start" >&2
+          exit 1
+      - name: Playwright
+        working-directory: apps/web
+        run: npx playwright test
+        env:
+          FORECASTLAB_API_ORIGIN: http://127.0.0.1:8765
+      - name: Stop background servers
+        if: always()
+        run: |
+          pkill -f 'uvicorn forecastlab_api.main:app' || true
+          pkill -f 'forecastlab_api.worker' || true
+          pkill -f 'next-server' || true

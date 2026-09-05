@@ -1,0 +1,69 @@
+{
+  "fixture_label": "synthetic_release_verification_only",
+  "fixture_version": 1,
+  "question": "Will the synthetic release-verification labor index be at or above 5.0 percent on 30 June 2027?",
+  "normalized_question": "Will the synthetic release-verification labor index be at or above 5.0 percent on 30 June 2027?",
+  "yes_condition": "The frozen synthetic resolver records the labor index at or above 5.0 percent on 30 June 2027.",
+  "no_condition": "The frozen synthetic resolver records the labor index below 5.0 percent on 30 June 2027.",
+  "resolution_date": "2027-07-15T00:00:00+00:00",
+  "authoritative_source": "https://release-fixtures.forecastlab.local/resolver/labor-index",
+  "fallback_sources": [
+    "https://release-fixtures.forecastlab.local/resolver/labor-index-archive"
+  ],
+  "resolution_method": "Apply the yes and no conditions to the frozen synthetic resolver record for the specified date.",
+  "nodes": [
+    {
+      "key": "base_rate",
+      "question": "What is the frozen historical base rate for the synthetic threshold crossing?",
+      "node_type": "base_rate",
+      "importance_weight": "0.30",
+      "parent": null,
+      "dependencies": [],
+      "preferred_sources": ["Synthetic statistical registry"]
+    },
+    {
+      "key": "current_driver",
+      "question": "Does the frozen synthetic leading indicator support a threshold crossing?",
+      "node_type": "driver",
+      "importance_weight": "0.25",
+      "parent": "base_rate",
+      "dependencies": [],
+      "preferred_sources": ["Synthetic leading-indicator registry"]
+    },
+    {
+      "key": "adversarial",
+      "question": "What frozen counterevidence could prevent the synthetic threshold crossing?",
+      "node_type": "adversarial",
+      "importance_weight": "0.20",
+      "parent": null,
+      "dependencies": ["current_driver"],
+      "preferred_sources": ["Synthetic counterevidence registry"]
+    },
+    {
+      "key": "resolver",
+      "question": "How will the frozen synthetic resolver apply the threshold rule?",
+      "node_type": "resolver",
+      "importance_weight": "0.15",
+      "parent": "base_rate",
+      "dependencies": [],
+      "preferred_sources": ["Synthetic resolver"]
+    },
+    {
+      "key": "trend",
+      "question": "What is the frozen medium-term trend in the synthetic labor index?",
+      "node_type": "trend",
+      "importance_weight": "0.10",
+      "parent": null,
+      "dependencies": ["current_driver"],
+      "preferred_sources": ["Synthetic trend registry"]
+    }
+  ],
+  "selected_node_keys": ["base_rate", "current_driver", "adversarial"],
+  "evidence_hosts": [
+    "primary.release-fixtures.forecastlab.local",
+    "secondary-a.release-fixtures.forecastlab.local",
+    "secondary-b.release-fixtures.forecastlab.local"
+  ],
+  "node_probabilities": ["0.42", "0.58", "0.47"],
+  "negative_fallback_node_key": "current_driver"
+}

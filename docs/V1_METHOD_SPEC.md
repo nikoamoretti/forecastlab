@@ -1,0 +1,398 @@
+# ForecastLab V1 method specification
+
+Status: intended V1 forecasting architecture. This is a conceptual specification, not an implementation claim.
+
+This document defines the method ForecastLab V1 must implement and evaluate. The current MVP contains resolution contracts, Forecast Contracts, Forecast Graphs, node-linked Evidence Claims, a complete opt-in graph execution path, independent legacy research tracks, evidence provenance, node forecasts, deterministic evidence and materiality gates, grounded explanatory Scenario Synthesis, and deterministic relationship-aware graph aggregation. Scenario probability modeling, calibration, and forecasting-quality validation remain requirements that are not implemented or proven.
+
+The governing principles are in [Forecasting Research Charter](FORECASTING_RESEARCH_CHARTER.md). Evaluation and adoption are governed by [Evaluation Protocol V1](EVALUATION_PROTOCOL_V1.md) and [Experiment Decision Rules](EXPERIMENT_DECISION_RULES.md).
+
+## Forecast lifecycle
+
+```text
+Question
+↓
+Forecast Contract generation
+↓
+Human review and approval
+↓
+Reference-class guidance
+↓
+Forecast Graph generation, validation, and freeze
+↓
+Evidence collection
+↓
+Document retrieval and cutoff validation
+↓
+Evidence Claim extraction and node linkage
+↓
+Node-level forecasts or independent legacy research tracks
+↓
+Scenario synthesis
+↓
+Probability calculation
+↓
+Report generation
+↓
+Monitoring and updating
+```
+
+Each stage must leave a stored, auditable artifact. A later stage may reject an earlier artifact as invalid, but it must not silently rewrite it.
+
+### 1. Question
+
+V1 accepts binary questions about future events. The original wording, author-supplied context, creation time, and intended forecast cutoff must be retained. A question is not forecastable until its resolution contract passes review.
+
+### 2. Forecast Contract
+
+The Forecast Contract converts ordinary wording into explicit scoring rules and research guidance. It is frozen for an experiment before any forecast is generated. A material contract change creates a new contract version and cannot be applied retroactively to improve a score.
+
+### 3. Reference class
+
+The system identifies one or more historical or structural reference classes, states why each is relevant, and records important differences from the present case. If no defensible reference class is available, that absence must be explicit. A fabricated or weak analogue must not be presented as a base rate.
+
+### 4. Forecast decomposition
+
+The system creates a question-specific graph of subforecasts and drivers. The graph describes what must be estimated, which nodes depend on others, and how each node can affect the final event.
+
+### 5. Evidence collection
+
+Evidence is collected against the graph and track charters. Search results are discovery aids; only retrieved, stored, eligible documents may produce Evidence Claims. Each claim is linked to one Forecast Node before it can become forecasting context. Backtests follow [Evidence Cutoff Policy](EVIDENCE_CUTOFF_POLICY.md).
+
+### 6. Independent research tracks
+
+Three tracks independently analyze the frozen contract and their assigned research objective. Independence ends only after each track has submitted its probability and structured support.
+
+### 7. Scenario synthesis
+
+The private-V1 path constructs exactly three grounded explanatory pathways—base, yes, and no—after evidence and materiality checks. Each pathway can reference only included nodes and their cited eligible claims. Scenarios expose mechanisms, triggers, invalidators, unresolved uncertainty, and direct relationship coverage; they have no probabilities or weights and cannot alter the calculation.
+
+### 8. Probability calculation
+
+Structured node forecasts, graph importance, direct relationships, and method settings are passed to a deterministic calculation owned by code. Grounded scenario prose is audit context only. The calculation and all parameter values are frozen as part of the profile.
+
+### 9. Report generation
+
+The report presents the final probability first, followed by contract, method identity, evidence, drivers, disagreement, uncertainty, failure status, cost, and limitations. Report prose cannot change the calculated probability.
+
+### 10. Monitoring and updating
+
+Monitoring identifies potentially material changes. It does not silently rerun or overwrite a forecast. An update is a new forecast version with a new cutoff, fresh evidence eligibility checks, a stated trigger, and a link to the preceding version.
+
+## Question compiler
+
+The question compiler must produce an editable resolution contract with these required fields:
+
+| Field | Requirement |
+| --- | --- |
+| Exact yes outcome | States the observable condition scored as 1. |
+| Exact no outcome | States the observable condition scored as 0, including boundary cases. |
+| Resolution date | Names the deadline and time zone used for scoring. |
+| Authoritative source | Names the primary resolver and the exact record or series when known. |
+| Fallback source | Defines an ordered fallback when the authoritative source is unavailable. An empty fallback must be explicit. |
+| Ambiguity rules | Resolves wording, revisions, preliminary releases, rounding, and boundary conditions. |
+| Cancellation rules | Defines treatment of cancellation, discontinuation, postponement, or an unresolvable event. |
+| Resolver risk | Records ways official scoring could differ from an ordinary-language interpretation. |
+
+The compiler must reject a contract when yes and no are not mutually exclusive, both could be false without a cancellation rule, the resolver cannot be identified, or the resolution date is not operationally usable.
+
+### Forecast Contract lifecycle
+
+1. **Generate:** the compiler normalizes the original question and returns structured JSON containing the outcome, resolution, ambiguity, metadata, and initial research-guidance fields. Generation does not begin research and does not estimate a probability.
+2. **Draft:** the generated contract is stored as `draft` with its own identifier, question identifier, version, creation time, and creator. Drafts may be incomplete, but their missing fields must remain explicit.
+3. **Review:** a human reviews the normalized question, yes and no conditions, resolution date, authoritative and fallback sources, resolution method, ambiguity notes, cancellation conditions, and resolver risks.
+4. **Approve:** a draft may become `approved` only when `yes_condition`, `no_condition`, `resolution_date`, `authoritative_source`, and `resolution_method` are present and the outcome conditions differ. Approval is the gate before the new contract flow starts research.
+5. **Freeze:** an approved contract supplies the immutable resolution inputs to forecasting. The initial reference class, suggested drivers, and known dependencies are research guidance only; they are not evidence and do not determine the forecast probability.
+6. **Supersede:** a material correction creates a higher contract version. Approving it marks the prior approved version `superseded`; historical forecasts retain the version they used.
+
+The first implementation stores Forecast Contracts separately from legacy resolution-contract rows. Approval writes the approved outcome and resolution fields into the legacy shape so existing forecast records and execution remain compatible. Legacy entry points that predate the Forecast Contract API remain a compatibility boundary and must not be described as V1-conforming unless they enforce the same approval gate.
+
+## Forecast decomposition
+
+### Dynamic subforecast graph
+
+Decomposition is question-specific rather than a fixed list of prompts. A forecast should create relevant nodes such as:
+
+- historical base rate;
+- current trend;
+- institutional behavior;
+- leading indicators;
+- external shocks;
+- opposing scenarios;
+- resolver behavior.
+
+Not every question needs every node. Each included node must earn its place by representing a distinct uncertainty or decision-relevant driver.
+
+Each node must define:
+
+| Field | Meaning |
+| --- | --- |
+| Question | A resolvable or estimable subquestion stated without assuming the parent answer. |
+| Importance | A pre-aggregation estimate of how materially the node can affect the parent forecast. In `graph_forecaster_v1`, it is the raw aggregation weight before normalization. It is not confidence. |
+| Dependencies | Other nodes or common causes that make the node conditionally related. |
+| Preferred evidence | Source types, records, and time windows best suited to answer the node. |
+| Output type | Probability, directional update, bounded quantity, scenario weight, or structured categorical result. |
+
+The graph must be acyclic for calculation, retain stable node identifiers, and record why a dependency exists. If two nodes reuse the same evidence or derive from the same upstream fact, that relationship must be represented rather than treated as independence.
+
+The graph is frozen before final evidence synthesis for an evaluation run. Development experiments may revise graph-generation rules, but validation and test runs may not change them after outcomes or scores are observed.
+
+### Forecast Graph lifecycle
+
+1. **Eligibility:** only an `approved` Forecast Contract may be used to generate a graph. The approved contract's normalized binary outcome is the graph root and is not rewritten by the generator.
+2. **Generate:** `GraphGenerator` returns a typed result containing structured JSON with 5–10 question-specific research nodes plus a sanitized success audit. The graph call uses the active profile's exact per-call output ceiling. Supported OpenAI models receive a strict `forecast_graph` JSON Schema with required fields, closed objects, typed enums, bounded weights, and the 5–10 item constraint; GPT-5 uses minimal reasoning effort for this bounded task. xAI and generic OpenAI-compatible transports keep their prior JSON-object behavior. Every generated graph includes at least one `base_rate`, `driver`, `adversarial`, and `resolver` node. Other permitted node types are `trend`, `dependency`, and `scenario`.
+3. **Relate:** each node records an optional parent, explicit node dependencies, preferred source guidance, required output type, and an importance weight. Importance expresses materiality to the outcome, not confidence. The graph forecaster uses it as the raw aggregation weight under the fixed calculation below.
+4. **Validate:** approval requires a root outcome, at least three nodes, an adversarial node, a resolver node, unique node identifiers and questions, valid parent and dependency references, and no cycles. Generator output also has to satisfy the stricter 5–10-node and required-type constraints. Structural schema validity and graph-domain validity are separate checks. A successful provider HTTP response may still fail as truncated output, refusal, empty output, invalid JSON, schema mismatch, or graph-domain failure. ForecastLab stores only sanitized response diagnostics and does not automatically repair, heuristically parse, or retry any of these semantic failures. A separate live invocation requires separate authorization.
+5. **Approve and freeze:** the current minimal API has no graph editor or separate human approval endpoint. `POST /api/contracts/{id}/graph` validates generated output and stores it directly as `approved`; invalid output is rejected rather than partially stored. Repeating the request returns the existing approved graph.
+6. **Gate:** a question created through the first-class Forecast Contract flow cannot start forecasting until its current approved contract has an approved graph. Legacy questions without first-class contracts remain a compatibility boundary.
+7. **Supersede:** the data model reserves `superseded` for a future versioning workflow. This foundation does not expose graph regeneration or mutation after approval.
+
+The opt-in `graph_forecaster_v1` profile executes the approved graph. The legacy profiles still use independent tracks and their existing aggregation. The graph profile retains declared relationships for planning and audit, and uses importance weights through the deterministic rule below.
+
+## Evidence model
+
+Every factual claim must map to:
+
+- source;
+- excerpt;
+- publication date, when known;
+- retrieval date;
+- source-availability timestamp;
+- temporal basis;
+- cutoff eligibility;
+- source classification;
+- confidence.
+
+For this specification:
+
+- **source** means the stored canonical URL or immutable record identifier;
+- **excerpt** means the smallest stored passage or record fields that support the claim;
+- **publication date** means the date attributed to publication by reliable source metadata; it may be unknown and is never synthesized from retrieval time;
+- **retrieval date** means when ForecastLab obtained the stored content;
+- **source-availability timestamp** means the time ForecastLab can prove the source bytes or immutable record were available for the run;
+- **temporal basis** records whether eligibility rests on a publication date, verified snapshot date, or live retrieval date;
+- **cutoff eligibility** records whether the source-availability proof satisfies the applicable live-run boundary or historical cutoff and why;
+- **source classification** distinguishes primary, secondary, and other pre-registered source classes;
+- **extraction method** records whether a claim came from full-document structured extraction, the bounded smaller-chunk structured retry, deterministic document fallback, a mock structured fixture, or unrecoverable legacy history;
+- **source host** is the normalized lowercase hostname without a leading `www.` and supports deterministic diversity checks;
+- **confidence** is the system's confidence that the evidence supports the mapped claim, not confidence that the forecast will resolve yes.
+
+Evidence records must also retain a content hash, title or record description, publisher when available, track and node usage, and rejection reason when ineligible. Duplicate URLs or materially duplicated content must be detected so repetition is not mistaken for independent corroboration.
+
+An inference may combine multiple evidence items, but it must link to them and be labeled as an inference. An unsupported claim must be removed from the forecast packet or recorded as a failure.
+
+### Evidence Claims lifecycle
+
+1. **Retrieve:** a fetched document retains its canonical URL, title, publisher, optional publication date and its discovery source, required retrieval and source-availability timestamps, typed temporal basis, content hash, cutoff status, and any rejection reason. Search-provider dates remain hints; a search hit alone cannot produce a claim.
+2. **Assign:** extraction is requested for one explicit Forecast Node and one stored `EvidenceItem`. The node identifier is mandatory; there is no unassigned Evidence Claim.
+3. **Extract:** `EvidenceExtractor` requests structured JSON containing the factual claim, an exact document excerpt, support or refutation stance, claim-support confidence, source quality, and primary-source assessment. Source metadata is copied from the fetched document rather than accepted from model output.
+4. **Validate:** extraction fails closed when the document is rejected or lacks URL, title, publisher, text, or source-availability provenance. Live mode may accept an undated page when its content was retrieved and hashed during the run; the publication date remains null, the temporal basis is `retrieval_date`, and the limitation is reported. Backtest mode rejects retrieval-basis evidence and requires a verified final archive snapshot or another explicitly supported immutable historical timestamp at or before `as_of`. A known publication date after the cutoff still rejects the document. Each excerpt must occur in the retrieved document. A malformed batch is rejected in full rather than partially accepted.
+5. **Persist:** `EvidenceClaim` stores the parent evidence-item and node identifiers together with copied temporal provenance, deterministic source class, actual extraction method, normalized source host, and model-authored assessment fields. Persistence verifies that both parents exist, the parent evidence item is eligible, its source metadata matches the claim, and the evidence item and node belong to the same forecasting question. Deterministic sufficiency never treats model-authored confidence, source quality, or primary-source labels as provenance facts.
+6. **Review:** `GET /api/nodes/{id}/evidence` presents Node → Claims → Sources, while `GET /api/evidence/{id}` returns a full individual claim. The minimal UI exposes this chain without adding an evidence editor.
+7. **Context gate:** only claims with verified mode-appropriate availability and all mandatory provenance fields are eligible for a forecasting context. Live retrieval-basis claims remain eligible; historical retrieval-basis claims are rejected even when their current-page retrieval occurred before execution completed. Rejected evidence and invalid claims are excluded by the claim-context selector.
+
+The opt-in graph execution path invokes this layer for each researched node. Legacy track prompts continue to receive their existing evidence packet and are unchanged. Semantic entailment beyond exact-excerpt grounding remains an extractor-model assessment that future evaluation must measure.
+
+### Private-V1 evidence sufficiency
+
+Production `graph_forecaster_v1` version 9 retains the frozen policy `private_v1_evidence_gate_v1`. The bounded `graph_live_smoke_v1` version 3 selects no evidence-sufficiency policy because it is an operational smoke, not a private-V1 quality gate.
+
+The evaluator is pure and deterministic. Its explicit inputs are the approved graph, immutable Research Plan, successful node runs and cited claim IDs, eligible Evidence Claims, parent Evidence Item identities, and the policy snapshot. It does not consume node probabilities, resolved outcomes, model-authored confidence, model-authored source-quality scores, or model-authored primary-source judgments.
+
+The version-1 policy requires:
+
+- at least three included node forecasts under the existing execution rule;
+- included selected-node coverage of at least `2/3`, tested by exact integer comparison;
+- included canonical graph-importance weight coverage of at least `0.50`;
+- every selected critical node to have a forecast and either one eligible structured primary claim or two eligible structured secondary claims from distinct normalized hosts;
+- every included noncritical node to cite at least one eligible structured claim;
+- at least one included node to cite eligible structured primary evidence;
+- at least two distinct normalized hosts across cited evidence entering aggregation.
+
+Only eligible claims actually cited by the included node run can count. Claim/node and item/claim relationships must match; duplicate URLs or Evidence Items do not inflate diversity; snippets, rejected or inaccessible documents, skipped-node claims, wrong-node claims, and temporally ineligible claims do not count. `document_fallback` and `unknown_legacy` cannot satisfy structured evidence, while `unknown_legacy` also cannot satisfy primary-source requirements.
+
+Each selected/included node receives one deterministic grade: `strong_primary`, `corroborated_secondary`, `adequate_secondary`, `weak_fallback`, or `insufficient`, with stable ordered reasons. One immutable assessment per Forecast Run stores the complete policy snapshot, pass/fail result, exact counts and coverage, host/source/extraction counts, per-node assessments, included/excluded/insufficient node IDs, and an input hash over every deterministic fact used. Identical reassessment returns the existing record; a different hash for an assessed run fails as a persistence-integrity conflict and cannot overwrite history.
+
+Failure occurs after node forecasting and before aggregation. ForecastLab preserves the plan, evidence, node runs, and assessment, records stage `evidence_sufficiency` and code `evidence_sufficiency_gate_failed`, and produces no aggregation, Forecast Version, or final probability. It does not search again, retry, or impute a probability. Passing records add the assessment identity, policy, and input hash to execution and calculation traces before the profile-selected deterministic aggregator runs.
+
+### Private-V1 material-node completeness
+
+Production `graph_forecaster_v1` version 9 also selects `private_v1_material_node_gate_v1`. The policy uses only canonical `ForecastNode.importance_weight` values converted with `Decimal` from canonical strings. It never consumes Research Planner priority, node probability, reasoning, confidence, evidence assessment scores, source quality, or resolved outcomes.
+
+The plan audit runs after the ordinary Research Plan is frozen and before any node research. Its frontier is the minimum selected-node importance weight. Any skipped graph node with a strictly greater importance weight fails the run at `research_planning` with code `private_v1_plan_omits_higher_importance_node`. Equal-weight skipped nodes at the frontier pass with warnings. ForecastLab persists the full immutable audit inside `ResearchPlan.budget_allocation` and does not reorder or repair the selection.
+
+The execution assessment runs after node forecasting, the critical-node and three-node minimum checks, and evidence sufficiency. Its frontier is the minimum importance weight among the exact node forecasts proposed for aggregation. Any excluded graph node with a strictly greater importance weight fails at `material_node_coverage` with code `material_node_coverage_gate_failed`. The evidence and material assessments are evaluated and preserved independently, so a run can retain both failure sets. Equal-weight excluded nodes and included nodes whose declared parent or dependency is excluded are warnings only; this version does not change aggregation or probabilities.
+
+One immutable assessment per Forecast Run stores the policy snapshot, graph/plan/evidence identities, canonical weights and exact coverage, selected/included/excluded IDs, higher-weight omissions, ties, relationship warnings, inclusion-affecting failure identities, and a deterministic input hash. Probabilities, reasoning, outcomes, confidence, and source quality are excluded from that hash. Identical reassessment returns the existing row; a conflicting hash fails closed without overwrite. See `docs/MATERIAL_NODE_COMPLETENESS_POLICY_V1.md` for the complete frozen rule.
+
+### Graph forecaster V1 execution lifecycle
+
+1. **Opt in:** `graph_forecaster_v1` selects the graph-node execution strategy. All existing profiles default to the unchanged legacy-track strategy.
+2. **Require contract:** execution fails before research unless the question has an `approved` first-class Forecast Contract. A legacy `ResolutionContractRow` alone does not satisfy this gate.
+3. **Ensure graph:** the worker loads the latest approved graph for that approved contract. If none exists, it generates, validates, stores, and commits the graph plus its sanitized generation audit before starting node research. The run context freezes graph ID/version, generated-versus-reused status, whether a generation model request occurred for that run, and the exact persisted audit. Reuse never invokes graph generation; legacy graphs with no stored audit remain explicitly unaudited rather than receiving reconstructed history.
+4. **Freeze a Research Plan:** Research Planner V3 (`graph_research_planner_v3`) keeps the V2 `importance_weight + dependency_count + uncertainty_score` ranking, critical-node retention, duplicate-question handling, and forecast-call reservation. It now budgets two separate evidence resources: `target_successful_documents_per_node`, which controls primary extraction and optional smaller-chunk retry calls, and `max_candidate_fetch_attempts_per_node`, which controls how many distinct already-ranked canonical URLs may be tried before that target is reached. The smoke plan also freezes the larger returned-candidate pool and its host-diversity scheduling policy without increasing searches or physical fetch attempts. Failed pre-extraction candidates consume fetch allowance but never consume extraction calls or create claims. A 401, 403, or 451 marks that hostname blocked for only the current node; remaining URLs from it are audited and skipped without another fetch so an already-returned distinct-host candidate can use the remaining allowance. The deterministic document fallback remains a zero-model-call path. The planner checks call, token, search, candidate-fetch, estimated-cost, and wall-clock dimensions before research, and stores the graph-generation envelopes/transport, targets, pool, attempts, backup allowance, per-phase estimates, selected/skipped order and reasons, forecast reserve, and headroom in one immutable `ResearchPlan`.
+5. **Audit the selected importance frontier:** when the profile names the material-node policy, compare selected and skipped canonical weights. Persist the audit on the plan and fail before every node-research call if a strictly higher-weight node was skipped. Do not modify the frozen plan.
+6. **Research selected nodes:** before concurrent workers begin, the shared locked budget freezes the plan's call roles and protects one node-forecast call for every selected node. A research worker cannot borrow that reserve, parallel workers cannot oversubscribe it, and a smaller-chunk extraction retry can run only from that node's persisted retry allocation. When no retry was planned, execution proceeds directly from a failed primary extraction to the existing low-confidence verbatim document fallback. Unused retry capacity remains an unused planning value; it does not create provider or ledger usage. `GraphResearchExecutor` otherwise keeps the same queries, ranking, temporal validation, extraction semantics, and fallback claim. Evidence persistence and node forecasting follow deterministic dependency order. Unselected nodes retain audited skip reasons and receive no imputed forecast.
+7. **Build forecasting context:** `NodeForecaster` receives exactly the approved Forecast Contract, the node question, and eligible Evidence Claims linked to that node. Raw documents and webpages are excluded. At least one eligible claim is required before the model call.
+8. **Generate and validate node forecast:** the model returns a structured probability in `[0, 1]`, reasoning, selected supporting and opposing claim identifiers, and uncertainty notes. Missing or out-of-range probabilities, malformed output, absent claim references, unknown claim identifiers, cross-node references, and support/refutation stance mismatches are rejected. The complete executor additionally requires the open interval `(0, 1)` because exact zero or one has infinite log odds. Code derives confidence from the selected claims as `min(1, total cited provenance strength / 2)`, where claim strength is `claim confidence × source quality × source factor` and the source factor is `1.0` for primary sources and `0.85` otherwise. Confidence is an audit field and does not alter graph aggregation.
+9. **Persist node output:** each successful `ForecastNodeRun` stores the node probability, derived confidence, model reasoning, supporting and opposing claim identifiers, uncertainty notes, model identity, raw importance weight, normalized weight, run identity, node identity, and creation time. Signed log-odds contributions are stored on the first-class `ForecastAggregation`, not in the legacy non-negative probability-contribution column.
+10. **Apply node-failure policy:** evidence failures are classified as `retrieval_failure`, `no_matching_source`, `cutoff_rejection`, or `extraction_failure` and retain the node ID, plan, queries, checked sources, and reason. Nodes with importance weight at least `0.8` are critical and are always selected. Any critical failure, or fewer than three successful selected nodes, stops without a probability. A noncritical selected-node failure is excluded, never imputed, and marks the result as reduced research confidence with an importance-weight coverage factor. Planned skips are reported separately and are not execution failures.
+11. **Assess deterministic evidence sufficiency:** when the active profile names a policy, evaluate the immutable cited evidence under that versioned policy. A failed production assessment stops before aggregation with all research artifacts intact and no probability. Profiles with no policy preserve their existing behavior.
+12. **Assess included importance frontier:** when configured, persist the immutable Material Node Coverage Assessment over the exact node runs proposed for aggregation. A strictly higher-weight excluded graph node fails closed without altering the included set. Relationship gaps and frontier ties remain warnings.
+13. **Synthesize grounded scenarios:** when the profile names `private_v1_scenario_synthesis_v1`, build the bounded canonical packet from the approved contract, included nodes and direct included relationships, exact included node runs, only their cited eligible claims, and the two deterministic assessment identities. Reserve and make at most one strict structured call. Code requires one `base_case`, one `yes_case`, and one `no_case`, validates every node/claim reference plus complete included-node and direct-relationship coverage, and assigns stable IDs only after validation. A failed synthesis is stored immutably at stage `scenario_synthesis`, triggers no repair or second call, and stops before aggregation.
+14. **Aggregate graph:** after every configured deterministic assessment and scenario stage passes, dispatch on the frozen profile method. `graph_forecaster_v1` version 9 sends the complete approved graph and only included node runs to `relationship_mass_conserving_log_odds_v1`. For each included source node, split its canonical weight equally across itself, its direct parent, and its deduplicated direct dependencies. Shares addressed to included recipients become effective weights. Shares addressed to excluded recipients plus every excluded node's own raw weight become neutral residual mass at probability `0.5`, whose log odds are zero. Effective included mass plus residual mass must equal total graph mass under `Decimal`; included weights remain normalized by total graph mass rather than being renormalized to one. The method never imputes an omitted probability. Old profile snapshots and `graph_live_smoke_v1` retain `importance_weighted_log_odds_v1` unchanged. Both methods reject duplicate forecasts, mixed run identities, outside nodes, invalid probabilities or weights, and zero total weight. Assessment and scenario identities are audit context and do not alter either calculation.
+15. **Persist final artifacts:** a successful transaction writes the Research Plan, eligible node runs, any tolerated structured failures, configured immutable assessments, immutable Scenario Synthesis, one immutable `ForecastAggregation`, and one `ForecastVersion` with the exact aggregation probability. New graph Forecast Versions use the semantic trigger event `run`; the linked `ForecastRun.profile_id`, not `trigger_event`, is the authoritative profile identity. Existing versions are not rewritten. A critical graph, planning, evidence, node, sufficiency, material-node, scenario-synthesis, or aggregation failure writes durable failure records and any completed artifacts, marks the run failed, and creates neither an aggregation nor a Forecast Version.
+16. **Report:** the graph report exposes the actual run profile, approved contract, full graph, sanitized generation audit and reuse state, Research Plan and material plan audit, Evidence Claims, node probabilities, structured failures, evidence and material assessments, grounded scenarios, normalized weights, contributions, coverage and final answer. JSON, Markdown, and web output derive profile identity from the linked run. A failed configured stage shows a null final probability and its exact reason; operational completion, deterministic gate status, evidence coverage, and unknown forecasting quality remain separate concepts.
+
+Relationship-aware aggregation is a deterministic weight-deconfliction heuristic, not a Bayesian network, causal model, conditional-probability system, scenario model, calibration result, or forecasting-quality claim. It uses only direct declared relationships, an equal split with no learned coefficient, and neutral residual mass for every unrepresented relationship or node. Reproducibility depends on the frozen graph, model and prompt identity, node probabilities, selected claim IDs, configured assessments, and profile version. Stable node ordering and canonical `Decimal` mass accounting make graph, dependency-list, and node-run presentation order irrelevant.
+
+`POST /api/forecasts/{id}/execute-graph` starts the complete path and `GET /api/forecasts/{id}/graph-report` returns its joined audit report. The existing `POST /api/forecasts/{id}/execute-v1`, `POST /api/forecasts/{id}/node-runs`, and `GET /api/forecasts/{id}/node-runs` endpoints remain available. `POST /api/questions/{id}/runs` also dispatches the complete path when `graph_forecaster_v1` is selected. No legacy profile or endpoint is removed.
+
+### Graph live smoke profile and cost preflight
+
+`graph_forecaster_v1` version 9 retains the version-8 evidence policy, material-node policy, relationship-aware aggregation, and all resource limits, and adds only `private_v1_scenario_synthesis_v1` plus prompt version `scenario_synthesis:v1`. Its Research Plan reserves one scenario call, 10,000 input tokens, 2,048 output tokens, estimated cost, and bounded wall-clock capacity before research. `graph_live_smoke_v1` remains byte-for-byte unchanged at version 3, selects no private-V1 policy, and creates no scenario artifact or call. It is a separate operational smoke profile that enters the same `GraphForecastExecutor`, uses the same graph semantics and existing prompt versions, enables graph generation, Evidence Claims, node forecasting, and graph aggregation, and retains `importance_weighted_log_odds_v1`. Version 3 preserves its 14 model calls, 4 searches, 8 fetched documents, 50,000 tokens, 1,536 general per-call output tokens, $0.50 estimated lifetime cost, and 300 seconds. It retains the OpenAI GPT-5 graph-generation completion/reasoning envelope of 8,192 tokens, separately enforced visible graph JSON cap of 1,536 tokens, minimal reasoning, low verbosity, and at most two distinct candidate URL attempts for a target of one successful evidence document per selected node. Its provider-facing `compact_indexed_v1` graph contains only question/type/weight, integer parent/dependency indexes, bounded source guidance, and output type; the 4,200-character transport is deterministically restored to the identical canonical graph before the normal validators and approval run. Planner V3 still searches once per selected node, but retains up to five returned candidates and deterministically prefers distinct hosts after the top-ranked URL. It therefore budgets up to six actual candidate attempts for the three-node minimum while extraction/model-call planning remains one successful document per node. With one graph-generation call consumed, 13 logical calls remain and the four-call node envelope permits three complete nodes with one call of headroom. This breadth is derived from all frozen resource dimensions, not a hard-coded product rule. The profile remains excluded from default scientific experiment profile sets.
+
+For live and non-synthetic backtest launch preflight, code calculates three values from the effective provider identities and committed conservative pricing catalog:
+
+1. the model upper bound using the profile token limit and the existing token split;
+2. the search upper bound using planned search calls times `estimate_search_cost()` for the effective search provider;
+3. the total upper bound as their sum.
+
+The total is compared with the effective Settings/profile ceiling before a Forecast Run is created. If either required catalog estimate is unavailable, the missing component and total remain explicitly unavailable and execution fails closed. These values are stored in the JSON `ExecutionContext` and exposed by execution preview and rejected-launch preflight responses. They are conservative planning estimates, not provider invoices or a vendor-enforced cap. A successful `graph_live_smoke_v1` run establishes only that the bounded operational path completed; it does not establish forecasting accuracy, calibration, reliability at production scale, or superiority over another profile.
+
+### Single-model evaluation baseline
+
+`single_model_forecaster_v1` is an isolated direct baseline. It requires the same approved Forecast Contract as graph execution, derives one deterministic research query, and builds one evidence packet through the existing search, fetch, cutoff, cache, budget, and provider-ledger seams. One structured model call receives only the contract and that packet and returns one probability, reasoning, uncertainty, and selected evidence IDs. Code validates the response and persists the direct result as a normal Forecast Version. The profile does not generate Forecast Graph nodes, extract Evidence Claims, create node forecasts, or invoke probability aggregation. Its `direct_model_probability_v1` calculation record is persistence and report metadata, not a mathematical combination.
+
+### Integrated graph aggregation
+
+ForecastLab dispatches one immutable deterministic aggregation method from the frozen profile. Both methods reject duplicate forecasts, forecasts outside the graph, mixed run identifiers, missing or invalid importance weights, zero total weight, and probabilities outside the open interval `(0, 1)`. The open interval is required because exact zero and one have infinite log odds.
+
+The compatibility method `importance_weighted_log_odds_v1` requires a complete included graph subset. For each node `i`, code calculates:
+
+1. `normalized_weight_i = importance_weight_i / sum(importance_weights)`;
+2. `log_odds_i = ln(probability_i / (1 - probability_i))`;
+3. `contribution_i = normalized_weight_i × log_odds_i`;
+4. `combined_log_odds = sum(contribution_i)`;
+5. `final_probability = 1 / (1 + exp(-combined_log_odds))`.
+
+The private-V1 method `relationship_mass_conserving_log_odds_v1` instead receives the complete approved graph plus the exact included node runs. Each included source node splits its canonical `Decimal` importance weight equally among itself, its direct parent, and its deduplicated direct dependencies. Shares whose recipient has a node forecast become effective included mass. Shares whose recipient is excluded, plus each excluded node's own raw mass, become neutral residual at probability `0.5` and log odds `0`. Effective weights are divided by total graph weight, never renormalized around omissions. Thus omitted graph mass shrinks the result toward `0.5` without inventing a missing probability. Exact mass conservation requires `effective included mass + neutral residual mass = total graph mass`.
+
+Nodes and relationship recipients are processed by stable identifiers, so graph order, dependency order, and node-run order cannot change the allocation or calculation trace. `ForecastAggregation` stores the selected method, final probability, full node contributions, source allocations, excluded mass, neutral residual, calculation trace, run identity, and creation time. The database permits one immutable first-class aggregation per forecast run; an identical repeat is idempotent and a conflicting replacement is rejected.
+
+`GraphForecastExecutor` dispatches only after the critical-node gate, three-node minimum, evidence-sufficiency assessment, material-node assessment, and any configured Scenario Synthesis have passed. It never asks either method to impute a failed node. Version 9 of `graph_forecaster_v1` selects the relationship-aware method; old snapshots and `graph_live_smoke_v1` retain the importance-only method. The older dependency-discounted graph helper remains an unselected compatibility implementation. Scenario identity is copied to the trace as non-numerical audit metadata only. See `docs/RELATIONSHIP_AWARE_AGGREGATION_V1.md` for the frozen aggregation policy and `docs/SCENARIO_SYNTHESIS_POLICY_V1.md` for the grounded explanation policy.
+
+### V1 report and first experiment lifecycle
+
+1. **Assemble the report:** a graph run joins its approved Forecast Contract, frozen Forecast Graph, `ForecastNodeRun` rows, persisted Evidence Claims, optional Evidence Sufficiency Assessment, and first-class Forecast Aggregation when one exists. Node sections show the node question, probability, confidence, reasoning, raw and normalized weights, log odds, signed contribution, and supporting and opposing cited claims with excerpts and source links. Unselected node-linked claims remain visible but are not presented as calculation inputs. A gate failure retains the assessment and research audit while omitting the calculation and probability.
+2. **Expose one calculation:** JSON, Markdown, and the report screen use the same structured V1 report payload. The calculation trace shows the selected method, direct source allocations and neutral residual when applicable, every node log-odds contribution, their sum, and the logistic conversion. It is an audit record, not a natural-language reconstruction.
+3. **Freeze the first comparison:** the dedicated workflow fixes ten synthetic binary questions and exactly three profiles, `single_model_forecaster_v1`, `three_track_forecaster`, and `graph_forecaster_v1`, creating thirty ordinary asynchronous benchmark tasks. The single-model profile is the one-call direct baseline; the legacy identifier is an experiment alias for the existing three-track execution path. Each paired task receives equivalent question and resolution-contract content, the same forecast cutoff and provider identity, and equal ceilings for model calls, searches, fetched documents, tokens, estimated cost, and wall-clock time.
+4. **Measure without selecting a winner:** profile and paired outputs include Brier score, log loss, total cost, latency, full completion rate, and evidence coverage. Graph evidence coverage is the fraction of planned nodes whose node forecast cites at least one persisted Evidence Claim. Legacy coverage is the fraction of research tracks with accepted cutoff-eligible evidence.
+5. **Retain the claim boundary:** this ten-question dataset is synthetic. It verifies execution, persistence, metric calculation, export, and UI behavior. It does not satisfy the real-data splits, baseline set, sample size, annotation audit, or prospective requirements in `EVALUATION_PROTOCOL_V1.md`, and no superiority claim may be drawn from it.
+
+## Independent tracks
+
+The conceptual role names map to the current persisted track identifiers as follows: base-rate researcher to `base_rate`, evidence researcher to `current_evidence`, and skeptic researcher to `skeptic`.
+
+### 1. Base-rate researcher
+
+Purpose: find historical analogues.
+
+The base-rate researcher identifies reference classes, estimates historical frequency where defensible, and explains relevant similarities and differences. It must state when sample quality or comparability is weak.
+
+### 2. Evidence researcher
+
+Purpose: analyze current information.
+
+The evidence researcher evaluates current state, trends, official records, leading indicators, and institution-specific information available by the cutoff. It must distinguish observed facts from forecasts made by sources.
+
+### 3. Skeptic researcher
+
+Purpose: find reasons the consensus is wrong.
+
+The skeptic researcher searches for disconfirming evidence, hidden dependencies, reversal mechanisms, tail events, wording risk, and resolver behavior. It must challenge both yes and no narratives rather than defaulting to pessimism.
+
+Tracks receive the same frozen resolution contract and forecast cutoff. They may receive distinct evidence assignments. Tracks must not see each other's conclusions, probabilities, reasoning summaries, or scenario weights before aggregation. Shared model state, shared retrieved documents, or shared graph nodes must be disclosed as potential dependence.
+
+Each track returns a probability, prior when applicable, cited drivers, counterarguments, unresolved uncertainties, evidence-quality assessment, and resolver-risk assessment. A failed track remains failed; another track must not impersonate it.
+
+## Scenario synthesis
+
+Production `graph_forecaster_v1` version 9 implements the frozen explanatory policy `private_v1_scenario_synthesis_v1`. After evidence and material-node gates pass, one strict structured call produces exactly three pathways: `base_case`, `yes_case`, and `no_case`. Each pathway includes a bounded title and summary, two to eight included node IDs, one to sixteen cited eligible claim IDs, and bounded lists of mechanisms, triggers, invalidators, and unresolved uncertainties.
+
+Code—not the model—owns allowed identifiers, claim-to-node grounding, complete included-node coverage, direct included parent/dependency co-coverage, kind/title uniqueness, yes/no distinction, stable scenario IDs, persistence, and the numerical forecast. The input excludes the final aggregation, resolved outcome, uncited or skipped evidence, raw documents, and provider responses. One immutable artifact per run stores the policy snapshot, input/output hashes, coverage audit, stable failure reasons, and sanitized diagnostics. Identical input is idempotent; conflicting input cannot overwrite history.
+
+These pathways are explanatory and need not be mutually exclusive or collectively exhaustive. They intentionally have no probabilities, weights, likelihoods, confidence scores, or adjustment fields. A valid synthesis does not change included nodes, node probabilities, graph weights, relationship mass, neutral residual mass, or the final probability. A failed synthesis preserves all prior artifacts and produces no aggregation, version, or probability. Probabilistic scenario weighting, conditional scenario inference, and calibration remain future research and must not be inferred from this explanatory stage. See [Scenario Synthesis Policy V1](SCENARIO_SYNTHESIS_POLICY_V1.md).
+
+## Probability model
+
+**The LLM proposes reasoning. Code calculates probabilities.**
+
+The V1 probability model must handle the following elements without hiding them in report prose.
+
+### Priors
+
+A prior comes from a defensible reference class or an explicitly neutral fallback. The source and sample behind a base rate must be recorded. When no reliable base rate exists, the method must label the prior as weak rather than manufacture precision.
+
+### Evidence updates
+
+Tracks propose the direction, importance, and rationale of evidence updates in a structured form. Code validates allowed ranges and applies the profile's frozen update rule. The same underlying fact must not be counted repeatedly through multiple citations or nodes.
+
+### Scenario weights
+
+The implemented private-V1 explanatory scenarios have no weights and do not enter probability calculation. Any future profile that introduces scenario probabilities or bounded weights requires a separate pre-registered policy, code-owned validation and combination rule, leakage controls, and frozen evaluation. The model must never alter such values after seeing a computed result merely to make the number feel plausible.
+
+### Dependency handling
+
+Dependencies are explicit graph edges or common-cause groups. The V1 method may group, cap, or condition dependent contributions, but the chosen rule must be simple, deterministic, documented, and compared with a simpler baseline. Assuming independence by omission is not permitted.
+
+### Aggregation
+
+Aggregation is a versioned code-owned function. It must expose included and missing inputs, clipping or bounds, weights, dependency adjustments, and the final calculation. The current equal-weight logit mean with fixed shrinkage remains an implemented baseline. It is not presumed to be the optimal V1 method.
+
+The required `hierarchical_forecaster` configuration uses the frozen subforecast graph and a deterministic rule to combine child-node and scenario outputs into the parent probability. Its exact combination rule is a research decision that must be pre-registered and justified before validation. Advanced mathematics must not be introduced unless a simpler method has failed and the new method can be evaluated fairly.
+
+### Calibration
+
+Calibration is evaluated after outcomes are known; it is not inferred from persuasive reasoning. Any calibration transform must be fitted on development data only, selected on validation data, and frozen before the test set is scored. If the available data are insufficient, V1 must use no learned calibration transform and must label outputs as uncalibrated estimates.
+
+## Report contract
+
+A V1 report must include:
+
+- final probability and forecast timestamp;
+- resolution contract and cutoff;
+- profile, model, prompt, code, and evidence-policy identity;
+- prior and reference-class limitations;
+- included, missing, and failed graph nodes and tracks;
+- scenario and dependency disclosures;
+- factual drivers linked to evidence;
+- counterarguments and unresolved uncertainties;
+- aggregation trace;
+- full, partial, or failed status;
+- cost, latency, and provider-attempt accounting;
+- an explicit limitations statement.
+
+Longer reports are not preferred. The report should contain the minimum material needed to understand and audit the number.
+
+## Reproducibility contract
+
+Every evaluation forecast must freeze the dataset, resolution contract, graph-generation rule, graph, evidence cutoff, evidence policy, prompts, models, profiles, aggregation and calibration rules, pricing snapshot, resource ceilings, code identity, and dependency identity. API keys and authorization material must never be stored in the freeze.
+
+A rerun under a changed identity is a new experiment, not a reproduction. A monitoring update is a new forecast version, not an edit to the original forecast.
+
+## Open V1 method decisions
+
+These decisions require pre-registered development and validation work before implementation can be called V1-conforming:
+
+- the graph-generation constraints and maximum graph complexity;
+- the deterministic hierarchical combination and dependency rules;
+- the scenario representation for overlapping rather than mutually exclusive cases;
+- the evidence-support confidence rubric and source-quality rubric;
+- the minimum evidence coverage required for a full forecast;
+- the handling of missing high-importance nodes without hiding partial status;
+- whether any calibration transform has enough development data to be justified;
+- the monitoring cadence and rule for selecting forecast versions in prospective evaluation.
+
+## V1 non-claims
+
+This specification does not establish that dynamic decomposition, three-track research, scenario synthesis, or hierarchical aggregation improves forecasts. It defines how those methods must behave so they can be tested. Until the protocol is completed, ForecastLab must not claim calibration, superiority, or real-world validation.

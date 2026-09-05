@@ -1,0 +1,63 @@
+# Reliable personal V1
+
+`root_event_ensemble_v1` is an explicitly selected pilot profile. Existing profiles and historical results remain available. This release supports binary questions, with U.S. unemployment, nonfarm payroll change, and CPI as its initial operational validation domain. A small prospective pilot cannot establish forecasting superiority.
+
+## Use
+
+Open **Pick questions for me** on the board, or `/new?profile=root_event_ensemble_v1`. Review a recommended macro question, or choose **Write my own question** to enter a macro specification or general binary question. Review the event/deadline/resolver, then approve. The worker constructs the research graph automatically. Demo mode verifies the flow and deliberately withholds a probability rather than inventing validated evidence.
+
+Results lead with a probability, evidence gaps, or an explicit execution failure. Supporting and opposing findings link to sources. The three forecasters share a validated evidence packet, do not see each other's estimates, and all target the same approved contract. Their spread measures disagreement, not a statistical confidence interval. Receipts, frozen prompts, graph diagnostics, and rejected excerpts are expandable. Manual evidence intake and reruns remain available. Every completed investigation creates a version, including abstentions; a newer abstention never revives an older probability.
+
+## Automatic question selection
+
+The personal screen starts with **Pick for me**. `macro_question_selection_v1` reads the official BLS annual release calendar and all three supported series in one keyless API request. It selects the next release per indicator within 90 days (at least ten minutes away) and uses the latest observed value as the threshold. New questions come first, then the earliest scheduled release. The selection rule is deterministic and makes no claim about the probability or information value of a question. It does not use a model or paid search.
+
+Each pick explains the threshold and links to its observations and release calendar. Observation identity, units, seasonal adjustment, freshness, and publication order are checked; a missing CPI prior-year index prevents selection of that YoY question. The calendar provides the reference month explicitly, including delayed releases, with Eastern times converted using daylight-saving rules. Missing or expired sources produce visible gaps rather than guessed questions. Public inputs are cached under `data/local/question-selection-v1.json` for twelve hours and invalidated after scheduled releases; failed requests cool down for ten minutes. Concurrent cache refreshes share a filesystem lock.
+
+Selecting a recommendation creates a deterministic, free macro draft and preserves its selection receipt in the ordinary run result. Repeating the request resumes the same run. Matching existing questions link to their forecast or unfinished review, and questions sharing a release event are flagged. **Adjust inputs** opens the existing manual form with the selected values. Only **Approve question and forecast** starts research. Suggestions are currently for live U.S. macro questions; this does not enable recurring selection, automatic research, or promote the pilot forecasting method to the general default.
+
+## Lifecycle and cost
+
+Question + run + frozen profile/prompts are persisted before paid compilation. `preparing → awaiting_review → pending → running → completed/failed` resumes one run. Launch is transactional and idempotent. Approval freezes the contract. Provider retries and preparation attempts remain in the same persistent usage ledger.
+
+The ceiling is the lower of the saved user limit and $5. Cost is estimated from the pricing catalog, including conservative reservations when failed requests have unknown usage. SQLite `BEGIN IMMEDIATE` serializes reservations; a prospective assignment also checks the whole cohort. Research holds capacity for three final calls (24,000 estimated input tokens and 4,096 output tokens each). The personal profile has a five-minute execution budget, including preparation and excluding review time; other existing safeguards remain applicable. Model and search timeouts and physical retries share one deadline. A late response remains charged but cannot become a forecast. Transport cleanup can finish after the deadline; execution timeout is an explicit failure.
+
+Forecast outcome is separate from execution status: `forecasted`, `insufficient_evidence` with null probability, or `execution_failed`. Missing roles, invalid probabilities, incompatible event identities, missing evidence sections, or invalid structured artifacts prevent aggregation.
+
+## Evidence and method
+
+The graph organizes resolver, reference-class, current-condition, and adversarial research. Node probabilities do not participate in the final calculation. Schema-constrained planning, extraction, assessment, and root estimates feed deterministic validation. Quotation checks and source/cutoff provenance reuse the existing document layer. Fallback excerpts remain inspectable but cannot satisfy the evidence gate. Identical quotations share a corroboration group; BLS and its known FRED mirrors share source lineage. Unknown provenance does not establish independent corroboration.
+
+All three required sections (resolution definition, reference class, current conditions) and a relevant primary source must be covered. The three roles are base rate, current evidence, and skeptic. Equal-weight log odds, 10% shrinkage toward the base-rate estimate, and the existing bounds are fixed for this method version. There is no writing-model probability override.
+
+Profile revision 2 retains that aggregation and uses minimal reasoning for planning/extraction/assessment, low reasoning for the three estimates, and a 4,096-token output ceiling. Revision 1 exhausted output and execution limits with the configured model during the first live pilot. Its frozen artifacts remain unchanged. Completed baseline summaries now read their stored probability after the database flush; the nine affected pilot summaries have an audited label correction with no probability or cost change.
+
+The macro adapter records series identifiers, observation periods, units, seasonal adjustment, availability times, revision basis, and the full hashed API response. Payroll series levels in thousands become monthly changes in jobs. CPI index levels become one-decimal 12-month percentages. Missing months remain missing; they are not interpolated or used to bridge a monthly/yearly change. Live history contains currently available revisions and is labeled accordingly, not described as a first-release backtest. The outcome contract separately specifies first release or value available at resolution, and requires a dated official release for adjudication.
+
+Historical macro calls require a configured FRED key and explicit ALFRED vintage bounds. At a UTC day boundary the implementation conservatively uses the previous day's vintage. Intraday requests currently withhold because FRED date vintages alone do not prove publication time; admitting newer intraday observations requires an additional verified publication-time source. Missing vintage evidence never triggers a fallback to today's series. The optional key is entered under **Lab → Historical macro data settings** and stored with existing local credentials.
+
+## Prospective Lab
+
+Create up to ten macro contracts, review, freeze, then launch. Each entry has a preregistered forecast completion cutoff and shared release-event identifier. Each is assigned to `root_event_ensemble_v1`, `single_model_forecaster_v1`, and `three_track_forecaster`, using ordinary jobs/runs. The manifest freezes source hash, contracts, cutoffs, profiles, models, prompts, and assignments. Changed frozen inputs block execution. Each method/question has its own ceiling; retries also count against the cohort ceiling of at most $150.
+
+Outcomes are initially unknown and kept outside the historical benchmark tables. After resolution a human must provide the outcome, dated source, supporting evidence, and confirmer. Corrections append a new revision. The database rejects outcome updates/deletes. Brier and log loss comparisons use the intersection of questions with confirmed outcomes and on-time valid forecasts from all three methods. Coverage, abstentions, failures, cost, latency, matched denominator, and release-event clusters remain visible. A late forecast is excluded from scoring.
+
+## API and persistence
+
+- `POST /api/forecast-drafts`, `GET /api/forecast-drafts/{run_id}`, `POST /api/forecast-drafts/{run_id}/launch`
+- `GET /api/question-suggestions`, `POST /api/question-suggestions/{id}/draft`
+- `GET /api/forecast-summaries?offset=0&limit=25&include_fixtures=false`
+- `POST/GET /api/prospective/cohorts`, `GET /api/prospective/cohorts/{id}`
+- `POST /api/prospective/cohorts/{id}/freeze`, `/launch`, `/score`
+- `POST /api/prospective/entries/{id}/outcomes`
+- `GET/PATCH /api/macro/settings` (returns key availability, never the key)
+
+Migration `20260904_0031` adds personal envelopes and prospective cohort/entry/assignment/outcome tables. Historical tables, results, exports, and saved configuration hashes are preserved. Empty-schema downgrade tests are supported; downgrading populated personal/prospective history is blocked to prevent data loss.
+
+## Verification and limits
+
+Python regressions cover event identity, invalid/missing estimates, aggregation ordering, irrelevant/fallback/copied evidence, macro units and missing periods, vintage boundaries, concurrent reservations, preparation failures/retries, duplicate launches, immutable snapshots/outcomes, and migration compatibility. Browser coverage includes the one-review flow, restoring drafts, general-question approval, abstention/history, unknown-outcome cohorts, and credential-setting transport. The positive pipeline test uses scripted evidence and models; it is software verification, not an accuracy result.
+
+The separate dependency maintenance change upgrades Next.js/React, migrates lint to ESLint, and updates build configuration. `npm audit` is clean. Provider availability, source extraction, and evidence sufficiency remain empirical pilot risks. General binary forecasts have no domain validation claim. Numeric/date distributions, automatic refresh, model training, MCP, and public multi-user deployment are deferred.
+
+Official references: [BLS API](https://www.bls.gov/developers/api_signature.htm), [FRED real-time periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html), [BLS employment release schedule](https://www.bls.gov/schedule/news_release/empsit.htm), [BLS CPI release schedule](https://www.bls.gov/schedule/news_release/cpi.htm).

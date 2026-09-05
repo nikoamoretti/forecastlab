@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "release_policy_version": "private_v1_real_evaluation_release_v1",
+  "dataset_ids": {
+    "development": "",
+    "validation": "",
+    "test": ""
+  },
+  "dataset_hashes": {
+    "development": "",
+    "validation": "",
+    "test": ""
+  },
+  "split_sizes": {
+    "development": 60,
+    "validation": 40,
+    "test": 100
+  },
+  "registered_at": "",
+  "profiles": [
+    {
+      "profile_id": "single_model_forecaster_v1",
+      "version": 0,
+      "profile_hash": "",
+      "source_profile": {},
+      "budget_ceiling": {}
+    },
+    {
+      "profile_id": "three_track_forecaster",
+      "version": 0,
+      "profile_hash": "",
+      "source_profile": {},
+      "budget_ceiling": {}
+    },
+    {
+      "profile_id": "graph_forecaster_v1",
+      "version": 0,
+      "profile_hash": "",
+      "source_profile": {},
+      "budget_ceiling": {}
+    }
+  ],
+  "prompt_versions": {},
+  "prompt_hashes": {},
+  "source_code_sha": "",
+  "tracked_source_hash": "",
+  "pyproject_hash": "",
+  "dependency_lock_hash": "",
+  "package_lock_hash": "",
+  "provider_identity": {
+    "model_provider": "",
+    "model": "",
+    "search_provider": ""
+  },
+  "evidence_cutoff_rule": "forecast_date",
+  "primary_metric": "brier_score",
+  "secondary_metrics": ["log_loss"],
+  "operational_metrics": [
+    "completion",
+    "failure",
+    "cost",
+    "latency",
+    "evidence_coverage"
+  ],
+  "paired_comparison_method": "paired_by_evaluation_question_id",
+  "bootstrap_method": "paired_percentile",
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 20260823,
+  "confidence_interval": "95%",
+  "calibration_minimum_sample": 20,
+  "failure_handling": "Failed runs receive no invented probability and no forecast score.",
+  "exclusion_rules": [
+    "Exclusions are frozen before execution and cannot depend on profile performance.",
+    "Excluded questions remain auditable but are neither executed nor scored."
+  ],
+  "split_permitted_uses": {
+    "development": "debugging_instrumentation_and_future_method_development",
+    "validation": "select_and_freeze_one_candidate_configuration",
+    "test": "one_shot_held_out_measurement_only"
+  },
+  "test_set_one_shot_rule": "The frozen test split may be executed once for the preregistered comparison.",
+  "no_tuning_rule": "No prompts, profiles, thresholds, exclusions, or methods may be tuned from test results.",
+  "allowed_conclusion_language": [
+    "observed difference",
+    "bounded retrospective measurement",
+    "insufficient evidence"
+  ],
+  "prohibited_claim_language": [
+    "winner",
+    "best",
+    "superior",
+    "calibrated"
+  ]
+}

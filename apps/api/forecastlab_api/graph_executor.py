@@ -1,0 +1,1597 @@
+from __future__ import annotations
+
+import json
+import uuid
+from collections.abc import Callable
+from typing import Any, NoReturn
+
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from forecastlab.contracts import ForecastContractError
+from forecastlab.engine import ProgressFn
+from forecastlab.errors import (
+    GraphForecastExecutionError,
+    PermanentProviderError,
+    StructuredOutputError,
+)
+from forecastlab.evidence_sufficiency import (
+    PRIVATE_V1_EVIDENCE_GATE_V1,
+    EvidenceSufficiencyAssessment,
+    EvidenceSufficiencyItem,
+    assess_evidence_sufficiency,
+)
+from forecastlab.execution import ExecutionContext
+from forecastlab.graph_aggregation import (
+    LOG_ODDS_METHOD,
+    RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
+    ForecastAggregationError,
+    GraphAggregator,
+    RelationshipMassConservingLogOddsAggregator,
+)
+from forecastlab.graph_execution import (
+    GraphNodeForecastResult,
+    run_graph_node_forecasts,
+)
+from forecastlab.graphs import ForecastGraphError
+from forecastlab.hashing import canonical_json, sha256_text
+from forecastlab.ledger import UsageLedger
+from forecastlab.material_node_coverage import (
+    PRIVATE_V1_MATERIAL_NODE_GATE_V1,
+    MaterialNodeCoverageAssessment,
+    MaterialNodeFailureIdentity,
+    assess_material_node_coverage,
+)
+from forecastlab.prompts import PromptBundle
+from forecastlab.providers.base import ModelProvider, SearchProvider
+from forecastlab.research_planning import (
+    MINIMUM_PLANNED_MODEL_CALLS_PER_NODE,
+    MINIMUM_PLANNED_TOKENS_PER_NODE,
+    MINIMUM_PLANNED_WALL_CLOCK_SECONDS,
+    ResearchPlan,
+    ResearchPlanningError,
+)
+from forecastlab.run_cache import RunCache
+from forecastlab.scenario_synthesis import (
+    PRIVATE_V1_SCENARIO_SYNTHESIS_V1,
+    SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS,
+    SCENARIO_SYNTHESIS_POLICY_VERSION,
+    SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS,
+    SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS,
+    ScenarioCoverageAudit,
+    ScenarioSynthesis,
+    ScenarioSynthesizer,
+    prepare_scenario_synthesis,
+)
+from forecastlab.schemas import (
+    ForecastAggregation,
+    ForecastGraph,
+    ForecastNodeRun,
+    ForecastProfile,
+)
+from forecastlab.timeutil import as_utc, utcnow
+from forecastlab_api.aggregations import store_forecast_aggregation
+from forecastlab_api.evidence_claims import evidence_claim_from_row
+from forecastlab_api.evidence_sufficiency import (
+    EvidenceSufficiencyStoreError,
+    evidence_sufficiency_from_row,
+    store_evidence_sufficiency_assessment,
+)
+from forecastlab_api.manual_evidence import manual_evidence_documents_for_run
+from forecastlab_api.material_node_coverage import (
+    MaterialNodeCoverageStoreError,
+    material_node_coverage_from_row,
+    store_material_node_coverage_assessment,
+)
+from forecastlab_api.models import (
+    EvidenceClaimRow,
+    EvidenceItem,
+    ForecastNodeRunRow,
+    ForecastRun,
+    ForecastVersion,
+    GraphExecutionFailureRow,
+)
+from forecastlab_api.persist import jsonable
+from forecastlab_api.research_plans import store_research_plan
+from forecastlab_api.scenario_synthesis import (
+    ScenarioSynthesisStoreError,
+    scenario_synthesis_for_run,
+    scenario_synthesis_from_row,
+    store_scenario_synthesis,
+)
+from forecastlab_api.v1_execution import (
+    ExecutionGraphResolution,
+    ensure_execution_graph,
+    persist_node_research,
+    record_execution_graph_resolution,
+)
+
+GraphResolver = Callable[..., tuple[Any, Any]]
+NodeRunner = Callable[..., GraphNodeForecastResult]
+CRITICAL_IMPORTANCE_THRESHOLD = 0.8
+MINIMUM_SUCCESSFUL_NODES = 3
+
+
+class GraphForecastExecutor:
+    """Persist the complete Contract -> Graph -> Claims -> Nodes -> Probability flow."""
+
+    def __init__(
+        self,
+        session: Session,
+        *,
+        run: ForecastRun,
+        profile: ForecastProfile,
+        execution: ExecutionContext,
+        model: ModelProvider,
+        search: SearchProvider,
+        allow_local_fixtures: bool,
+        prompt_bundle: PromptBundle | None = None,
+        progress: ProgressFn | None = None,
+        ledger: UsageLedger | None = None,
+        pricing_catalog: dict[str, Any] | None = None,
+        prior_elapsed_seconds: float = 0.0,
+        cache: RunCache | None = None,
+        graph_resolver: GraphResolver = ensure_execution_graph,
+        node_runner: NodeRunner = run_graph_node_forecasts,
+        aggregator: GraphAggregator | None = None,
+        relationship_aggregator: (
+            RelationshipMassConservingLogOddsAggregator | None
+        ) = None,
+    ) -> None:
+        self.session = session
+        self.run = run
+        self.profile = profile
+        self.execution = execution
+        self.model = model
+        self.search = search
+        self.allow_local_fixtures = allow_local_fixtures
+        self.prompt_bundle = prompt_bundle
+        self.progress = progress
+        self.ledger = ledger
+        self.pricing_catalog = pricing_catalog
+        self.prior_elapsed_seconds = prior_elapsed_seconds
+        self.cache = cache
+        self.graph_resolver = graph_resolver
+        self.node_runner = node_runner
+        self.aggregator = aggregator or GraphAggregator()
+        self.relationship_aggregator = (
+            relationship_aggregator
+            or RelationshipMassConservingLogOddsAggregator()
+        )
+
+    def execute(self) -> ForecastVersion:
+        existing = self.session.scalar(
+            select(ForecastVersion).where(ForecastVersion.run_id == self.run.id)
+        )
+        if existing is not None:
+            return existing
+
+        self._validate_profile()
+        try:
+            resolved_graph = self.graph_resolver(
+                self.session,
+                question=self.run.question,
+                model=self.model,
+                max_output_tokens=self.profile.max_output_tokens_per_call,
+                max_completion_tokens=(
+                    self.profile.graph_generation_max_completion_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                max_visible_output_tokens=(
+                    self.profile.graph_generation_max_visible_output_tokens
+                    or self.profile.max_output_tokens_per_call
+                ),
+                reasoning_effort=(
+                    self.profile.graph_generation_reasoning_effort
+                    or "minimal"
+                ),
+                verbosity=self.profile.graph_generation_verbosity,
+                transport=self.profile.graph_generation_transport,
+                transport_max_characters=(
+                    self.profile.graph_generation_transport_max_characters
+                ),
+                node_question_max_characters=(
+                    self.profile.graph_generation_node_question_max_characters
+                ),
+                local_id_max_characters=(
+                    self.profile.graph_generation_local_id_max_characters
+                ),
+                max_dependencies_per_node=(
+                    self.profile.graph_generation_max_dependencies_per_node
+                ),
+                max_preferred_sources_per_node=(
+                    self.profile.graph_generation_max_preferred_sources_per_node
+                ),
+                preferred_source_max_characters=(
+                    self.profile.graph_generation_preferred_source_max_characters
+                ),
+                run_token_ceiling=self.profile.max_tokens,
+                reserved_follow_on_tokens=(
+                    MINIMUM_SUCCESSFUL_NODES
+                    * MINIMUM_PLANNED_TOKENS_PER_NODE
+                    + (
+                        SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+                        + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+                        if self.profile.scenario_synthesis_policy
+                        == SCENARIO_SYNTHESIS_POLICY_VERSION
+                        else 0
+                    )
+                ),
+                prompt_bundle=self.prompt_bundle,
+            )
+        except ForecastContractError as exc:
+            self._fail(stage="contract", reasons=exc.reasons, message=str(exc))
+        except ForecastGraphError as exc:
+            self._fail(
+                stage="graph",
+                reasons=exc.reasons,
+                message=str(exc),
+                audit=exc.audit,
+            )
+        except StructuredOutputError as exc:
+            self._fail(stage="graph", reasons=[str(exc)], message=str(exc))
+        except PermanentProviderError as exc:
+            self._fail(
+                stage="graph",
+                reasons=["graph_generation_provider_failure"],
+                message=str(exc),
+            )
+
+        resolution: ExecutionGraphResolution | None
+        if isinstance(resolved_graph, ExecutionGraphResolution):
+            resolution = resolved_graph
+            contract = resolution.contract
+            graph = resolution.graph
+        else:
+            contract, graph = resolved_graph
+            resolution = None
+
+        if contract is None:
+            self._fail(
+                stage="contract",
+                reasons=["approved_forecast_contract_required"],
+                message="An approved Forecast Contract is required",
+            )
+        if graph is None:
+            self._fail(
+                stage="graph",
+                reasons=["approved_forecast_graph_required"],
+                message="An approved Forecast Graph could not be loaded or generated",
+            )
+
+        if resolution is None:
+            resolution = ExecutionGraphResolution(
+                contract=contract,
+                graph=graph,
+                status="reused",
+                model_request_issued=False,
+                generation_audit=graph.generation_audit,
+            )
+        record_execution_graph_resolution(self.run, resolution)
+        self.session.commit()
+
+        self._emit("graph", "Executing the approved Forecast Graph", 0.12)
+
+        def persist_plan(plan: ResearchPlan) -> None:
+            store_research_plan(self.session, plan)
+            self.session.commit()
+
+        try:
+            attached_evidence_documents = manual_evidence_documents_for_run(
+                self.session,
+                run=self.run,
+            )
+            node_result = self.node_runner(
+                contract=contract,
+                graph=graph,
+                profile_id=self.execution.profile_id,
+                mode=self.execution.effective_mode,
+                as_of=as_utc(self.run.as_of) if self.run.as_of else None,
+                model=self.model,
+                search=self.search,
+                run_id=self.run.id,
+                allow_local_fixtures=self.allow_local_fixtures,
+                progress=self.progress,
+                profile=self.profile,
+                execution=self.execution,
+                prompt_bundle=self.prompt_bundle,
+                cache=self.cache,
+                ledger=self.ledger,
+                pricing_catalog=self.pricing_catalog,
+                prior_elapsed_seconds=self.prior_elapsed_seconds,
+                persist_research=lambda _node, evidence, rejected, claims: persist_node_research(
+                    self.session,
+                    run=self.run,
+                    evidence=evidence,
+                    rejected=rejected,
+                    claims=claims,
+                ),
+                persist_research_plan=persist_plan,
+                capture_node_failures=True,
+                attached_evidence_documents=attached_evidence_documents,
+            )
+        except ResearchPlanningError as exc:
+            self._fail(
+                stage="research_planning",
+                reasons=exc.reasons,
+                message=str(exc),
+                audit=exc.audit,
+            )
+        except StructuredOutputError as exc:
+            self._fail(stage="node_research", reasons=[str(exc)], message=str(exc))
+
+        failures = self._node_failures(node_result)
+        fatal, failed_node_ids, reliability = self._apply_failure_policy(
+            node_result,
+            failures,
+        )
+        if fatal:
+            self._persist_partial_result(node_result, failures, reliability=reliability)
+            reasons = [failure["error_code"] for failure in failures]
+            self._raise_failure(
+                stage=str(failures[0]["stage"]),
+                reasons=reasons,
+                message=(
+                    "Graph execution stopped because a critical node failed or too few "
+                    "eligible node forecasts remained"
+                ),
+            )
+
+        node_runs = [
+            execution.node_run
+            for execution in node_result.nodes
+            if execution.node_run is not None
+            and execution.node.id not in failed_node_ids
+        ]
+        if failures:
+            self._persist_failures(failures)
+            self.session.flush()
+        evidence_assessment = self._assess_evidence_sufficiency(
+            node_result,
+            node_runs,
+        )
+        material_assessment = self._assess_material_node_coverage(
+            node_result,
+            node_runs,
+            evidence_assessment=evidence_assessment,
+        )
+        deterministic_gate_failures: list[dict[str, Any]] = []
+        if material_assessment is not None and material_assessment.status == "failed":
+            deterministic_gate_failures.append(
+                {
+                    "node_id": None,
+                    "stage": "material_node_coverage",
+                    "error_code": "material_node_coverage_gate_failed",
+                    "error_message": "; ".join(material_assessment.reasons),
+                    "critical_node": True,
+                    "impact": "forecast_failed",
+                    "research_plan": {
+                        "assessment_id": material_assessment.id,
+                        "policy_version": material_assessment.policy_version,
+                        "assessment_input_hash": (
+                            material_assessment.assessment_input_hash
+                        ),
+                        "reasons": material_assessment.reasons,
+                        "warnings": material_assessment.warnings,
+                    },
+                }
+            )
+        if evidence_assessment is not None and evidence_assessment.status == "failed":
+            deterministic_gate_failures.append({
+                "node_id": None,
+                "stage": "evidence_sufficiency",
+                "error_code": "evidence_sufficiency_gate_failed",
+                "error_message": "; ".join(evidence_assessment.reasons),
+                "critical_node": True,
+                "impact": "forecast_failed",
+                "research_plan": {
+                    "assessment_id": evidence_assessment.id,
+                    "policy_version": evidence_assessment.policy_version,
+                    "assessment_input_hash": evidence_assessment.assessment_input_hash,
+                    "reasons": evidence_assessment.reasons,
+                    "warnings": evidence_assessment.warnings,
+                },
+            })
+        if deterministic_gate_failures:
+            self._persist_partial_result(
+                node_result,
+                [*deterministic_gate_failures, *failures],
+                reliability=reliability,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+            )
+            primary_failure = deterministic_gate_failures[0]
+            self._raise_failure(
+                stage=str(primary_failure["stage"]),
+                reasons=[
+                    str(failure["error_code"])
+                    for failure in deterministic_gate_failures
+                ],
+                message="; ".join(
+                    str(failure["error_message"])
+                    for failure in deterministic_gate_failures
+                ),
+            )
+        scenario_synthesis = self._synthesize_scenarios(
+            node_result,
+            node_runs,
+            evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
+        )
+        if scenario_synthesis is not None and scenario_synthesis.status == "failed":
+            scenario_failure = {
+                "node_id": None,
+                "stage": "scenario_synthesis",
+                "error_code": "scenario_synthesis_failed",
+                "error_message": "; ".join(
+                    scenario_synthesis.failure_reasons
+                ),
+                "critical_node": True,
+                "impact": "forecast_failed",
+                "research_plan": {
+                    "scenario_synthesis_id": scenario_synthesis.id,
+                    "policy_version": scenario_synthesis.policy_version,
+                    "input_hash": scenario_synthesis.input_hash,
+                    "failure_reasons": scenario_synthesis.failure_reasons,
+                    "diagnostics": scenario_synthesis.diagnostics,
+                },
+            }
+            self._persist_partial_result(
+                node_result,
+                [scenario_failure, *failures],
+                reliability=reliability,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+                scenario_synthesis=scenario_synthesis,
+            )
+            self._raise_failure(
+                stage="scenario_synthesis",
+                reasons=["scenario_synthesis_failed"],
+                message=scenario_failure["error_message"],
+            )
+        included_node_ids = {node_run.node_id for node_run in node_runs}
+        if failures:
+            self._persist_failures(failures)
+            self._emit(
+                "aggregate",
+                "Aggregating eligible node forecasts with reduced research coverage",
+                0.88,
+            )
+        else:
+            self._emit("aggregate", "Aggregating complete node forecasts", 0.88)
+        try:
+            if self.profile.aggregation_method == LOG_ODDS_METHOD:
+                aggregation_graph = self._aggregation_graph(
+                    node_result.graph,
+                    included_node_ids=included_node_ids,
+                )
+                aggregation = self.aggregator.aggregate(
+                    aggregation_graph,
+                    node_runs,
+                )
+            elif (
+                self.profile.aggregation_method
+                == RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+            ):
+                aggregation = self.relationship_aggregator.aggregate(
+                    node_result.graph,
+                    node_runs,
+                    exclusion_origins=self._aggregation_exclusion_origins(
+                        node_result,
+                        included_node_ids=included_node_ids,
+                        failures=failures,
+                    ),
+                )
+            else:  # Defensive fail-closed guard after profile validation.
+                raise ForecastAggregationError(
+                    ["unsupported_graph_aggregation_method"]
+                )
+        except ForecastAggregationError as exc:
+            error_code = (
+                "relationship_aggregation_failed"
+                if self.profile.aggregation_method
+                == RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+                else "aggregation_failed"
+            )
+            failure = {
+                "node_id": None,
+                "stage": "aggregation",
+                "error_code": error_code,
+                "error_message": str(exc),
+                "critical_node": True,
+                "impact": "forecast_failed",
+            }
+            self._persist_partial_result(
+                node_result,
+                [failure],
+                reliability=reliability,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+            )
+            self._raise_failure(stage="aggregation", reasons=exc.reasons, message=str(exc))
+
+        if evidence_assessment is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "evidence_sufficiency_gate",
+                            "assessment_id": evidence_assessment.id,
+                            "policy_version": evidence_assessment.policy_version,
+                            "assessment_input_hash": (
+                                evidence_assessment.assessment_input_hash
+                            ),
+                            "status": evidence_assessment.status,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+        if material_assessment is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "material_node_coverage_gate",
+                            "assessment_id": material_assessment.id,
+                            "policy_version": material_assessment.policy_version,
+                            "assessment_input_hash": (
+                                material_assessment.assessment_input_hash
+                            ),
+                            "status": material_assessment.status,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+        if scenario_synthesis is not None:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "scenario_synthesis",
+                            "scenario_synthesis_id": scenario_synthesis.id,
+                            "policy_version": scenario_synthesis.policy_version,
+                            "input_hash": scenario_synthesis.input_hash,
+                            "output_hash": scenario_synthesis.output_hash,
+                            "status": scenario_synthesis.status,
+                            "numerical_effect": "none",
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+        if failures:
+            aggregation = aggregation.model_copy(
+                update={
+                    "calculation_trace": [
+                        {
+                            "step": "node_failure_tolerance",
+                            **reliability,
+                        },
+                        *aggregation.calculation_trace,
+                    ]
+                }
+            )
+
+        weighted_runs = self._apply_aggregation_weights(node_runs, aggregation)
+        version = self._persist_success(
+            node_result,
+            weighted_runs,
+            aggregation,
+            failures=failures,
+            reliability=reliability,
+            evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
+        )
+        self.session.commit()
+        return version
+
+    def _validate_profile(self) -> None:
+        reasons: list[str] = []
+        if self.profile.execution_strategy != "graph_nodes":
+            reasons.append("graph_execution_strategy_required")
+        for enabled, reason in (
+            (self.profile.graph_generation_enabled, "graph_generation_must_be_enabled"),
+            (self.profile.evidence_claims_enabled, "evidence_claims_must_be_enabled"),
+            (self.profile.node_forecasting_enabled, "node_forecasting_must_be_enabled"),
+            (self.profile.graph_aggregation_enabled, "graph_aggregation_must_be_enabled"),
+        ):
+            if not enabled:
+                reasons.append(reason)
+        if self.profile.aggregation_method not in {
+            LOG_ODDS_METHOD,
+            RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD,
+        }:
+            reasons.append("unsupported_graph_aggregation_method")
+        scenario_enabled = (
+            self.profile.scenario_synthesis_policy
+            == SCENARIO_SYNTHESIS_POLICY_VERSION
+        )
+        if scenario_enabled and (
+            self.profile.evidence_sufficiency_policy is None
+            or self.profile.material_node_policy == "none"
+        ):
+            reasons.append("scenario_synthesis_requires_deterministic_gates")
+        if scenario_enabled and (
+            self.profile.aggregation_method
+            != RELATIONSHIP_MASS_CONSERVING_LOG_ODDS_METHOD
+        ):
+            reasons.append("scenario_synthesis_requires_private_v1_aggregation")
+        graph_completion = (
+            self.profile.graph_generation_max_completion_tokens
+            or self.profile.max_output_tokens_per_call
+        )
+        graph_visible = (
+            self.profile.graph_generation_max_visible_output_tokens
+            or self.profile.max_output_tokens_per_call
+        )
+        if graph_visible > graph_completion:
+            reasons.append("graph_visible_output_exceeds_completion_envelope")
+        if graph_completion > self.profile.max_tokens:
+            reasons.append("graph_completion_envelope_exceeds_run_token_budget")
+        uses_explicit_graph_controls = any(
+            value is not None
+            for value in (
+                self.profile.graph_generation_max_completion_tokens,
+                self.profile.graph_generation_max_visible_output_tokens,
+                self.profile.graph_generation_reasoning_effort,
+                self.profile.graph_generation_verbosity,
+                self.profile.graph_generation_transport,
+            )
+        )
+        supports_explicit_graph_controls = bool(
+            self.execution.model_is_mock
+            or (
+                self.execution.model_provider == "openai"
+                and self.execution.model_name.casefold().startswith("gpt-5")
+            )
+        )
+        if uses_explicit_graph_controls and not supports_explicit_graph_controls:
+            reasons.append("graph_generation_capability_not_supported")
+        if uses_explicit_graph_controls and (
+            1
+            + MINIMUM_SUCCESSFUL_NODES
+            * MINIMUM_PLANNED_MODEL_CALLS_PER_NODE
+            + (1 if scenario_enabled else 0)
+            > self.profile.max_model_calls
+        ):
+            reasons.append("minimum_graph_execution_exceeds_model_call_budget")
+        if uses_explicit_graph_controls and (
+            graph_completion
+            + MINIMUM_SUCCESSFUL_NODES * MINIMUM_PLANNED_TOKENS_PER_NODE
+            + (
+                SCENARIO_SYNTHESIS_RESERVED_INPUT_TOKENS
+                + SCENARIO_SYNTHESIS_MAX_OUTPUT_TOKENS
+                if scenario_enabled
+                else 0
+            )
+            > self.profile.max_tokens
+        ):
+            reasons.append("minimum_graph_execution_exceeds_run_token_budget")
+        if uses_explicit_graph_controls and (
+            self.execution.model_timeout_seconds
+            + MINIMUM_PLANNED_WALL_CLOCK_SECONDS
+            + (SCENARIO_SYNTHESIS_WALL_CLOCK_SECONDS if scenario_enabled else 0)
+            > self.profile.max_wall_clock_seconds
+        ):
+            reasons.append("minimum_graph_execution_exceeds_wall_clock_budget")
+        candidate_attempts = (
+            self.profile.max_candidate_fetch_attempts_per_node
+            or self.profile.fetches_per_subquestion
+        )
+        if candidate_attempts * MINIMUM_SUCCESSFUL_NODES > self.profile.max_fetched_documents:
+            reasons.append("minimum_graph_execution_exceeds_fetch_budget")
+        if self.profile.max_search_calls < MINIMUM_SUCCESSFUL_NODES:
+            reasons.append("minimum_graph_execution_exceeds_search_budget")
+        if reasons:
+            self._fail(
+                stage="profile",
+                reasons=reasons,
+                message=f"Invalid graph profile: {self.profile.id}",
+            )
+
+    def _node_failures(self, result: GraphNodeForecastResult) -> list[dict[str, Any]]:
+        failures: list[dict[str, Any]] = []
+        for execution in result.nodes:
+            if not execution.research_selected:
+                continue
+            if execution.node_run is None:
+                raw_error = execution.error or "node_forecast_missing"
+                if raw_error == "node_forecast_evidence_required":
+                    error_code = "no_eligible_evidence"
+                elif raw_error.startswith("Budget exceeded"):
+                    error_code = "budget_exceeded"
+                else:
+                    error_code = raw_error
+                failures.append(
+                    {
+                        "node_id": execution.node.id,
+                        "stage": execution.error_stage or "node_forecast",
+                        "error_code": error_code,
+                        "error_message": execution.error_detail or raw_error,
+                        "research_plan": (
+                            execution.research_plan.model_dump(mode="json")
+                            if execution.research_plan is not None
+                            else {}
+                        ),
+                        "queries_attempted": execution.queries_attempted,
+                        "sources_checked": execution.sources_checked,
+                    }
+                )
+                continue
+            probability = execution.node_run.probability
+            if not 0.0 < probability < 1.0:
+                failures.append(
+                    {
+                        "node_id": execution.node.id,
+                        "stage": "node_forecast",
+                        "error_code": "invalid_node_probability",
+                        "error_message": (
+                            f"Node probability must be strictly between 0 and 1 for log-odds aggregation: "
+                            f"{probability}"
+                        ),
+                        "research_plan": (
+                            execution.research_plan.model_dump(mode="json")
+                            if execution.research_plan is not None
+                            else {}
+                        ),
+                        "queries_attempted": execution.queries_attempted,
+                        "sources_checked": execution.sources_checked,
+                    }
+                )
+        return failures
+
+    @staticmethod
+    def _critical_node(node: Any) -> bool:
+        return float(node.importance_weight) >= CRITICAL_IMPORTANCE_THRESHOLD
+
+    def _apply_failure_policy(
+        self,
+        result: GraphNodeForecastResult,
+        failures: list[dict[str, Any]],
+    ) -> tuple[bool, set[str], dict[str, Any]]:
+        nodes_by_id = {node.id: node for node in result.graph.nodes}
+        failed_node_ids = {
+            str(failure["node_id"])
+            for failure in failures
+            if failure.get("node_id") is not None
+        }
+        critical_node_ids = {
+            node.id for node in result.graph.nodes if self._critical_node(node)
+        }
+        successful_node_ids = {
+            execution.node.id
+            for execution in result.nodes
+            if execution.node_run is not None
+            and execution.node.id not in failed_node_ids
+        }
+        minimum_required = min(MINIMUM_SUCCESSFUL_NODES, len(result.graph.nodes))
+        critical_failures = sorted(failed_node_ids & critical_node_ids)
+        fatal = bool(critical_failures) or len(successful_node_ids) < minimum_required
+
+        for failure in failures:
+            node_id = failure.get("node_id")
+            critical = node_id is None or str(node_id) in critical_node_ids
+            failure["critical_node"] = critical
+            failure["impact"] = (
+                "forecast_failed" if fatal else "excluded_reduced_confidence"
+            )
+
+        total_weight = sum(float(node.importance_weight) for node in result.graph.nodes)
+        included_weight = sum(
+            float(nodes_by_id[node_id].importance_weight)
+            for node_id in successful_node_ids
+        )
+        coverage_factor = included_weight / total_weight if total_weight > 0 else 0.0
+        reliability = {
+            "policy": "critical_node_gate_v1",
+            "critical_importance_threshold": CRITICAL_IMPORTANCE_THRESHOLD,
+            "minimum_successful_nodes": minimum_required,
+            "critical_node_ids": sorted(critical_node_ids),
+            "failed_node_ids": sorted(failed_node_ids),
+            "included_node_ids": sorted(successful_node_ids),
+            "research_plan_id": (
+                result.research_plan.id
+                if result.research_plan is not None
+                else None
+            ),
+            "planned_selected_node_ids": (
+                result.research_plan.selected_nodes
+                if result.research_plan is not None
+                else [node.id for node in result.graph.nodes]
+            ),
+            "planned_skipped_node_ids": (
+                result.research_plan.skipped_nodes
+                if result.research_plan is not None
+                else []
+            ),
+            "critical_failure_ids": critical_failures,
+            "research_coverage_factor": round(coverage_factor, 12),
+            "impact": "forecast_failed" if fatal else (
+                "reduced_confidence" if failures else "none"
+            ),
+        }
+        return fatal, failed_node_ids, reliability
+
+    def _assess_evidence_sufficiency(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+    ) -> EvidenceSufficiencyAssessment | None:
+        policy_id = self.profile.evidence_sufficiency_policy
+        if policy_id is None:
+            return None
+        if policy_id != PRIVATE_V1_EVIDENCE_GATE_V1.version:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_evidence_sufficiency_policy"],
+                message=f"Unsupported evidence sufficiency policy: {policy_id}",
+            )
+        if result.research_plan is None:
+            self._fail(
+                stage="evidence_sufficiency",
+                reasons=["research_plan_required_for_evidence_sufficiency"],
+                message="A frozen ResearchPlan is required for evidence sufficiency",
+            )
+
+        claim_rows = self.session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceClaimRow.id)
+        ).all()
+        item_rows = self.session.scalars(
+            select(EvidenceItem)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceItem.id)
+        ).all()
+        assessment = assess_evidence_sufficiency(
+            forecast_run_id=self.run.id,
+            graph=result.graph,
+            plan=result.research_plan,
+            node_runs=node_runs,
+            claims=[evidence_claim_from_row(row) for row in claim_rows],
+            items=[
+                EvidenceSufficiencyItem(
+                    id=row.id,
+                    source_url=row.url,
+                    rejected=row.rejected,
+                    as_of_eligible=row.as_of_eligible,
+                )
+                for row in item_rows
+            ],
+        )
+        try:
+            stored = store_evidence_sufficiency_assessment(self.session, assessment)
+        except EvidenceSufficiencyStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable evidence sufficiency assessment conflict",
+            )
+        return evidence_sufficiency_from_row(stored)
+
+    def _assess_material_node_coverage(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        *,
+        evidence_assessment: EvidenceSufficiencyAssessment | None,
+    ) -> MaterialNodeCoverageAssessment | None:
+        policy_id = self.profile.material_node_policy
+        if policy_id == "none":
+            return None
+        if policy_id != PRIVATE_V1_MATERIAL_NODE_GATE_V1.version:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_material_node_policy"],
+                message=f"Unsupported material node policy: {policy_id}",
+            )
+        if result.research_plan is None:
+            self._fail(
+                stage="material_node_coverage",
+                reasons=["research_plan_required_for_material_node_coverage"],
+                message="A frozen ResearchPlan is required for material-node coverage",
+            )
+
+        failure_rows = self.session.scalars(
+            select(GraphExecutionFailureRow)
+            .where(
+                GraphExecutionFailureRow.forecast_run_id == self.run.id,
+                GraphExecutionFailureRow.node_id.is_not(None),
+            )
+            .order_by(GraphExecutionFailureRow.id)
+        ).all()
+        assessment = assess_material_node_coverage(
+            forecast_run_id=self.run.id,
+            graph=result.graph,
+            plan=result.research_plan,
+            node_runs=node_runs,
+            evidence_sufficiency_assessment_id=(
+                evidence_assessment.id if evidence_assessment is not None else None
+            ),
+            evidence_sufficiency_assessment_hash=(
+                evidence_assessment.assessment_input_hash
+                if evidence_assessment is not None
+                else None
+            ),
+            node_failures=[
+                MaterialNodeFailureIdentity(
+                    id=row.id,
+                    node_id=row.node_id,
+                    stage=row.stage,
+                    error_code=row.error_code,
+                    impact=row.impact,
+                )
+                for row in failure_rows
+            ],
+        )
+        try:
+            stored = store_material_node_coverage_assessment(
+                self.session,
+                assessment,
+            )
+        except MaterialNodeCoverageStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable material-node coverage assessment conflict",
+            )
+        return material_node_coverage_from_row(stored)
+
+    def _failed_scenario_artifact(
+        self,
+        *,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        evidence_assessment: EvidenceSufficiencyAssessment,
+        material_assessment: MaterialNodeCoverageAssessment,
+        reason: str,
+    ) -> ScenarioSynthesis:
+        created_at = utcnow()
+        input_payload = {
+            "policy_version": SCENARIO_SYNTHESIS_POLICY_VERSION,
+            "forecast_run_id": self.run.id,
+            "contract_id": result.contract.id,
+            "graph_id": result.graph.id,
+            "graph_version": result.graph.version,
+            "included_node_run_ids": sorted(run.id for run in node_runs),
+            "evidence_sufficiency_assessment_id": evidence_assessment.id,
+            "evidence_sufficiency_assessment_hash": (
+                evidence_assessment.assessment_input_hash
+            ),
+            "material_node_coverage_assessment_id": material_assessment.id,
+            "material_node_coverage_assessment_hash": (
+                material_assessment.assessment_input_hash
+            ),
+            "preparation_failure": reason,
+        }
+        input_hash = sha256_text(canonical_json(input_payload))
+        return ScenarioSynthesis(
+            id=str(
+                uuid.uuid5(
+                    uuid.NAMESPACE_URL,
+                    f"forecastlab:scenario-synthesis:{self.run.id}:{input_hash}",
+                )
+            ),
+            forecast_run_id=self.run.id,
+            policy_version=SCENARIO_SYNTHESIS_POLICY_VERSION,
+            policy_snapshot=PRIVATE_V1_SCENARIO_SYNTHESIS_V1.model_dump(
+                mode="json"
+            ),
+            status="failed",
+            created_at=created_at,
+            completed_at=created_at,
+            prompt_version=str(
+                self.profile.prompt_versions.get("scenario_synthesis") or "unknown"
+            ),
+            provider=str(getattr(self.model, "name", "unknown")),
+            model=str(
+                getattr(
+                    self.model,
+                    "model",
+                    getattr(self.model, "name", "unknown"),
+                )
+            ),
+            input_hash=input_hash,
+            scenarios=[],
+            coverage_audit=ScenarioCoverageAudit(
+                included_node_ids=sorted(run.node_id for run in node_runs),
+                covered_node_ids=[],
+                uncovered_node_ids=sorted(run.node_id for run in node_runs),
+                required_relationships=[],
+                covered_relationships=[],
+                uncovered_relationships=[],
+                cited_claim_ids=sorted(
+                    {
+                        claim_id
+                        for run in node_runs
+                        for claim_id in [
+                            *run.supporting_claim_ids,
+                            *run.opposing_claim_ids,
+                        ]
+                    }
+                ),
+                referenced_claim_ids=[],
+                errors=[reason],
+            ),
+            failure_reasons=[reason],
+            diagnostics={"pre_provider_failure": True},
+            evidence_sufficiency_assessment_id=evidence_assessment.id,
+            evidence_sufficiency_assessment_hash=(
+                evidence_assessment.assessment_input_hash
+            ),
+            material_node_coverage_assessment_id=material_assessment.id,
+            material_node_coverage_assessment_hash=(
+                material_assessment.assessment_input_hash
+            ),
+        )
+
+    def _synthesize_scenarios(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        *,
+        evidence_assessment: EvidenceSufficiencyAssessment | None,
+        material_assessment: MaterialNodeCoverageAssessment | None,
+    ) -> ScenarioSynthesis | None:
+        policy_id = self.profile.scenario_synthesis_policy
+        if policy_id == "none":
+            return None
+        if policy_id != SCENARIO_SYNTHESIS_POLICY_VERSION:
+            self._fail(
+                stage="profile",
+                reasons=["unsupported_scenario_synthesis_policy"],
+                message=f"Unsupported scenario synthesis policy: {policy_id}",
+            )
+        if evidence_assessment is None or material_assessment is None:
+            self._fail(
+                stage="scenario_synthesis",
+                reasons=["scenario_synthesis_assessments_required"],
+                message="Evidence and material assessments must precede scenario synthesis",
+            )
+
+        claim_rows = self.session.scalars(
+            select(EvidenceClaimRow)
+            .join(EvidenceItem, EvidenceClaimRow.evidence_item_id == EvidenceItem.id)
+            .where(EvidenceItem.run_id == self.run.id)
+            .order_by(EvidenceClaimRow.id)
+        ).all()
+        claims = [evidence_claim_from_row(row) for row in claim_rows]
+        try:
+            prepared = prepare_scenario_synthesis(
+                contract=result.contract,
+                graph=result.graph,
+                node_runs=node_runs,
+                claims=claims,
+                evidence_sufficiency_assessment_id=evidence_assessment.id,
+                evidence_sufficiency_assessment_hash=(
+                    evidence_assessment.assessment_input_hash
+                ),
+                material_node_coverage_assessment_id=material_assessment.id,
+                material_node_coverage_assessment_hash=(
+                    material_assessment.assessment_input_hash
+                ),
+            )
+        except ValueError as exc:
+            synthesis = self._failed_scenario_artifact(
+                result=result,
+                node_runs=node_runs,
+                evidence_assessment=evidence_assessment,
+                material_assessment=material_assessment,
+                reason=str(exc),
+            )
+        else:
+            existing = scenario_synthesis_for_run(self.session, self.run.id)
+            if existing is not None:
+                if existing.input_hash != prepared.input_hash:
+                    self._fail(
+                        stage="persistence",
+                        reasons=["conflicting_immutable_scenario_synthesis"],
+                        message="Immutable scenario synthesis input changed",
+                    )
+                return scenario_synthesis_from_row(existing)
+            if result.budget_controller is None:
+                synthesis = self._failed_scenario_artifact(
+                    result=result,
+                    node_runs=node_runs,
+                    evidence_assessment=evidence_assessment,
+                    material_assessment=material_assessment,
+                    reason="scenario_synthesis_budget_controller_required",
+                )
+            else:
+                synthesis = ScenarioSynthesizer(
+                    self.model,
+                    result.budget_controller,
+                    prompt_bundle=self.prompt_bundle,
+                ).synthesize(
+                    forecast_run_id=self.run.id,
+                    prepared=prepared,
+                    graph=result.graph,
+                    node_runs=node_runs,
+                    claims=claims,
+                    evidence_sufficiency_assessment_id=evidence_assessment.id,
+                    evidence_sufficiency_assessment_hash=(
+                        evidence_assessment.assessment_input_hash
+                    ),
+                    material_node_coverage_assessment_id=material_assessment.id,
+                    material_node_coverage_assessment_hash=(
+                        material_assessment.assessment_input_hash
+                    ),
+                )
+                result.budget = result.budget_controller.snapshot()
+                result.prompt_versions["scenario_synthesis"] = (
+                    synthesis.prompt_version
+                )
+        try:
+            stored = store_scenario_synthesis(self.session, synthesis)
+        except ScenarioSynthesisStoreError as exc:
+            self._fail(
+                stage="persistence",
+                reasons=[str(exc)],
+                message="Immutable scenario synthesis conflict",
+            )
+        return scenario_synthesis_from_row(stored)
+
+    @staticmethod
+    def _aggregation_graph(
+        graph: ForecastGraph,
+        *,
+        included_node_ids: set[str],
+    ) -> ForecastGraph:
+        nodes = [
+            node.model_copy(
+                update={
+                    "parent_node_id": (
+                        node.parent_node_id
+                        if node.parent_node_id in included_node_ids
+                        else None
+                    ),
+                    "dependencies": [
+                        dependency
+                        for dependency in node.dependencies
+                        if dependency in included_node_ids
+                    ],
+                }
+            )
+            for node in graph.nodes
+            if node.id in included_node_ids
+        ]
+        return graph.model_copy(update={"nodes": nodes})
+
+    @staticmethod
+    def _aggregation_exclusion_origins(
+        result: GraphNodeForecastResult,
+        *,
+        included_node_ids: set[str],
+        failures: list[dict[str, Any]],
+    ) -> dict[str, str]:
+        selected_node_ids = set(
+            result.research_plan.selected_nodes
+            if result.research_plan is not None
+            else []
+        )
+        skipped_node_ids = set(
+            result.research_plan.skipped_nodes
+            if result.research_plan is not None
+            else []
+        )
+        failure_by_node = {
+            str(failure["node_id"]): str(
+                failure.get("stage") or "node_execution_failure"
+            )
+            for failure in failures
+            if failure.get("node_id")
+        }
+        origins: dict[str, str] = {}
+        for node in sorted(result.graph.nodes, key=lambda item: item.id):
+            if node.id in included_node_ids:
+                continue
+            if node.id in skipped_node_ids:
+                origins[node.id] = "research_plan"
+            elif node.id in failure_by_node:
+                origins[node.id] = failure_by_node[node.id]
+            elif node.id in selected_node_ids:
+                origins[node.id] = "missing_node_forecast"
+            else:
+                origins[node.id] = "not_selected"
+        return origins
+
+    @staticmethod
+    def _apply_aggregation_weights(
+        node_runs: list[ForecastNodeRun],
+        aggregation: ForecastAggregation,
+    ) -> list[ForecastNodeRun]:
+        by_node = {item.node_id: item for item in aggregation.node_contributions}
+        return [
+            node_run.model_copy(
+                update={
+                    "raw_importance_weight": by_node[node_run.node_id].raw_importance_weight,
+                    "dependency_factor": 1.0,
+                    "normalized_weight": by_node[node_run.node_id].normalized_weight,
+                    # Signed log-odds contributions live on ForecastAggregation. The legacy
+                    # non-negative probability-contribution field remains a compatibility value.
+                    "probability_contribution": 0.0,
+                }
+            )
+            for node_run in node_runs
+        ]
+
+    def _persist_node_runs(self, node_runs: list[ForecastNodeRun]) -> None:
+        for node_run in node_runs:
+            existing = self.session.scalar(
+                select(ForecastNodeRunRow).where(
+                    ForecastNodeRunRow.forecast_run_id == self.run.id,
+                    ForecastNodeRunRow.node_id == node_run.node_id,
+                )
+            )
+            if existing is not None:
+                if (
+                    existing.probability != node_run.probability
+                    or existing.reasoning != node_run.reasoning
+                    or existing.supporting_claim_ids_json != json.dumps(node_run.supporting_claim_ids)
+                    or existing.opposing_claim_ids_json != json.dumps(node_run.opposing_claim_ids)
+                ):
+                    self._fail(
+                        stage="persistence",
+                        reasons=[f"conflicting_node_run:{node_run.node_id}"],
+                        message="A different node forecast is already stored for this run",
+                    )
+                existing.confidence = node_run.confidence
+                existing.uncertainty = node_run.uncertainty
+                existing.uncertainty_notes_json = json.dumps(node_run.uncertainty_notes)
+                existing.model_used = node_run.model_used
+                existing.raw_importance_weight = node_run.raw_importance_weight
+                existing.dependency_factor = node_run.dependency_factor
+                existing.normalized_weight = node_run.normalized_weight
+                existing.probability_contribution = node_run.probability_contribution
+                continue
+            self.session.add(
+                ForecastNodeRunRow(
+                    id=node_run.id,
+                    forecast_run_id=self.run.id,
+                    node_id=node_run.node_id,
+                    probability=node_run.probability,
+                    confidence=node_run.confidence,
+                    reasoning=node_run.reasoning,
+                    supporting_claim_ids_json=json.dumps(node_run.supporting_claim_ids),
+                    opposing_claim_ids_json=json.dumps(node_run.opposing_claim_ids),
+                    uncertainty=node_run.uncertainty,
+                    uncertainty_notes_json=json.dumps(node_run.uncertainty_notes),
+                    model_used=node_run.model_used,
+                    raw_importance_weight=node_run.raw_importance_weight,
+                    dependency_factor=node_run.dependency_factor,
+                    normalized_weight=node_run.normalized_weight,
+                    probability_contribution=node_run.probability_contribution,
+                    created_at=node_run.created_at,
+                )
+            )
+
+    def _persist_failures(self, failures: list[dict[str, Any]]) -> None:
+        for failure in failures:
+            node_id = failure.get("node_id")
+            stage = str(failure["stage"])
+            error_code = str(failure["error_code"])
+            existing = self.session.scalar(
+                select(GraphExecutionFailureRow).where(
+                    GraphExecutionFailureRow.forecast_run_id == self.run.id,
+                    GraphExecutionFailureRow.node_id == node_id,
+                    GraphExecutionFailureRow.stage == stage,
+                    GraphExecutionFailureRow.error_code == error_code,
+                )
+            )
+            research_plan_json = json.dumps(
+                failure.get("research_plan") or {},
+                sort_keys=True,
+            )
+            queries_attempted_json = json.dumps(
+                failure.get("queries_attempted") or [],
+            )
+            sources_checked_json = json.dumps(
+                failure.get("sources_checked") or [],
+                sort_keys=True,
+            )
+            if existing is None:
+                self.session.add(
+                    GraphExecutionFailureRow(
+                        id=str(uuid.uuid4()),
+                        forecast_run_id=self.run.id,
+                        node_id=node_id,
+                        stage=stage,
+                        error_code=error_code[:128],
+                        error_message=str(failure["error_message"]),
+                        research_plan_json=research_plan_json,
+                        queries_attempted_json=queries_attempted_json,
+                        sources_checked_json=sources_checked_json,
+                        critical_node=bool(failure.get("critical_node")),
+                        impact=str(failure.get("impact") or "forecast_failed"),
+                    )
+                )
+            else:
+                existing.error_message = str(failure["error_message"])
+                existing.research_plan_json = research_plan_json
+                existing.queries_attempted_json = queries_attempted_json
+                existing.sources_checked_json = sources_checked_json
+                existing.critical_node = bool(failure.get("critical_node"))
+                existing.impact = str(failure.get("impact") or "forecast_failed")
+
+    def _persist_partial_result(
+        self,
+        result: GraphNodeForecastResult,
+        failures: list[dict[str, Any]],
+        *,
+        reliability: dict[str, Any] | None = None,
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
+    ) -> None:
+        self._persist_node_runs(
+            [execution.node_run for execution in result.nodes if execution.node_run is not None]
+        )
+        self._persist_failures(failures)
+        self._apply_result_metadata(result)
+        self._store_artifact_ids(
+            result,
+            reliability=reliability,
+            evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
+        )
+        self.run.status = "failed"
+        self.run.error_stage = str(failures[0]["stage"])
+        self.run.error_message = (
+            f"{failures[0]['error_code']}: {failures[0]['error_message']}"
+            if failures[0]["stage"]
+            in {
+                "evidence_sufficiency",
+                "material_node_coverage",
+                "scenario_synthesis",
+            }
+            else "; ".join(str(item["error_code"]) for item in failures)
+        )
+        self.run.progress_stage = "failed"
+        self.run.progress_message = "Graph forecast stopped before aggregation"
+        self._finish_failed_run()
+        if not self.run.question.is_benchmark:
+            self.run.question.status = "failed"
+        self.session.commit()
+
+    def _persist_success(
+        self,
+        result: GraphNodeForecastResult,
+        node_runs: list[ForecastNodeRun],
+        aggregation: ForecastAggregation,
+        *,
+        failures: list[dict[str, Any]],
+        reliability: dict[str, Any],
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
+    ) -> ForecastVersion:
+        self._persist_node_runs(node_runs)
+        self._persist_failures(failures)
+        store_forecast_aggregation(self.session, aggregation)
+        self._apply_result_metadata(result)
+        self._store_artifact_ids(
+            result,
+            reliability=reliability,
+            evidence_assessment=evidence_assessment,
+            material_assessment=material_assessment,
+            scenario_synthesis=scenario_synthesis,
+        )
+        self.run.aggregation_json = json.dumps(jsonable(aggregation))
+        self.run.status = "completed"
+        self.run.error_stage = None
+        self.run.error_message = None
+        self.run.progress_pct = 100
+        self.run.progress_stage = "report"
+        self.run.progress_message = (
+            "Forecast ready with reduced research coverage"
+            if failures
+            else "Forecast ready"
+        )
+        self.run.finished_at = utcnow()
+
+        question = self.run.question
+        if not question.is_benchmark:
+            question.status = "complete"
+            question.stale = False
+
+        prior = self.session.scalar(
+            select(ForecastVersion)
+            .where(ForecastVersion.question_id == question.id)
+            .order_by(ForecastVersion.created_at.desc())
+            .limit(1)
+        )
+        probabilities = {node_run.node_id: node_run.probability for node_run in node_runs}
+        included_node_ids = {node_run.node_id for node_run in node_runs}
+        drivers = [
+            {
+                "factor": execution.node.question,
+                "direction": "up" if execution.node_run and execution.node_run.probability >= 0.5 else "down",
+                "importance": execution.node.importance_weight,
+                "evidence_ids": (
+                    [
+                        *execution.node_run.supporting_claim_ids,
+                        *execution.node_run.opposing_claim_ids,
+                    ]
+                    if execution.node_run is not None
+                    else []
+                ),
+                "inference": False,
+            }
+            for execution in result.nodes
+            if execution.node_run is not None
+            and execution.node.id in included_node_ids
+        ]
+        counterarguments = [
+            execution.node_run.reasoning
+            for execution in result.nodes
+            if execution.node_run is not None
+            and execution.node.id in included_node_ids
+            and (execution.node.node_type == "adversarial" or execution.node_run.opposing_claim_ids)
+        ]
+        claim_ids = list(
+            dict.fromkeys(
+                claim.id
+                for execution in result.nodes
+                if execution.node.id in included_node_ids
+                for claim in execution.claims
+            )
+        )
+        probability_values = list(probabilities.values())
+        version = ForecastVersion(
+            id=str(uuid.uuid4()),
+            question_id=question.id,
+            run_id=self.run.id,
+            raw_track_probabilities_json=json.dumps(probabilities, sort_keys=True),
+            ensemble_probability=aggregation.final_probability,
+            aggregation_json=json.dumps(jsonable(aggregation)),
+            shrinkage=0.0,
+            track_spread=(
+                round(max(probability_values) - min(probability_values), 12)
+                if probability_values
+                else None
+            ),
+            key_drivers_json=json.dumps(drivers),
+            counterarguments_json=json.dumps(counterarguments),
+            evidence_ids_json=json.dumps(claim_ids),
+            trigger_event="run",
+            previous_version_id=prior.id if prior else None,
+        )
+        self.session.add(version)
+        self.session.flush()
+        self._emit("report", "Graph forecast report is ready", 1.0)
+        return version
+
+    def _apply_result_metadata(self, result: GraphNodeForecastResult) -> None:
+        budget = result.budget
+        self.run.cost_usd = float(budget.get("total_cost_usd") or budget.get("cost_usd") or 0)
+        self.run.total_cost_usd = self.run.cost_usd
+        self.run.model_cost_usd = float(budget.get("model_cost_usd") or 0)
+        self.run.search_cost_usd = float(budget.get("search_cost_usd") or 0)
+        self.run.failed_attempt_cost_usd = float(budget.get("failed_attempt_cost_usd") or 0)
+        self.run.tokens = int(budget.get("tokens") or budget.get("total_tokens") or 0)
+        self.run.prompt_tokens = int(budget.get("prompt_tokens") or 0)
+        self.run.completion_tokens = int(budget.get("completion_tokens") or 0)
+        self.run.total_tokens = int(budget.get("total_tokens") or self.run.tokens)
+        self.run.provider_request_count = int(budget.get("provider_request_count") or 0)
+        self.run.cost_source = str(budget.get("cost_label") or "estimated")
+        self.run.prompt_versions_json = json.dumps(result.prompt_versions)
+        self.run.budget_json = json.dumps(jsonable(budget))
+        self.run.disagreement_summary = None
+        self.run.fixture_evidence_used = bool(result.fixture_evidence_used)
+
+    def _store_artifact_ids(
+        self,
+        result: GraphNodeForecastResult,
+        *,
+        reliability: dict[str, Any] | None = None,
+        evidence_assessment: EvidenceSufficiencyAssessment | None = None,
+        material_assessment: MaterialNodeCoverageAssessment | None = None,
+        scenario_synthesis: ScenarioSynthesis | None = None,
+    ) -> None:
+        try:
+            snapshot = json.loads(self.run.execution_context_json or "{}")
+        except json.JSONDecodeError:
+            snapshot = {}
+        snapshot["forecast_contract_id"] = result.contract.id
+        snapshot["forecast_graph_id"] = result.graph.id
+        if result.research_plan is not None:
+            snapshot["research_plan_id"] = result.research_plan.id
+        snapshot["graph_research_audit"] = [
+            {
+                "node_id": execution.node.id,
+                "research_selected": execution.research_selected,
+                "queries_attempted": list(execution.queries_attempted),
+                "sources_checked": list(execution.sources_checked),
+                "planning_warnings": list(execution.research_warnings),
+                "error": execution.error,
+                "error_stage": execution.error_stage,
+            }
+            for execution in result.nodes
+        ]
+        if reliability is not None:
+            snapshot["graph_research_reliability"] = reliability
+        if evidence_assessment is not None:
+            snapshot["evidence_sufficiency_assessment_id"] = evidence_assessment.id
+            snapshot["evidence_sufficiency_policy_version"] = (
+                evidence_assessment.policy_version
+            )
+            snapshot["evidence_sufficiency_assessment_input_hash"] = (
+                evidence_assessment.assessment_input_hash
+            )
+        if material_assessment is not None:
+            snapshot["material_node_coverage_assessment_id"] = (
+                material_assessment.id
+            )
+            snapshot["material_node_policy_version"] = (
+                material_assessment.policy_version
+            )
+            snapshot["material_node_coverage_assessment_input_hash"] = (
+                material_assessment.assessment_input_hash
+            )
+        if scenario_synthesis is not None:
+            snapshot["scenario_synthesis_id"] = scenario_synthesis.id
+            snapshot["scenario_synthesis_policy_version"] = (
+                scenario_synthesis.policy_version
+            )
+            snapshot["scenario_synthesis_input_hash"] = (
+                scenario_synthesis.input_hash
+            )
+            snapshot["scenario_synthesis_output_hash"] = (
+                scenario_synthesis.output_hash
+            )
+            snapshot["scenario_synthesis_status"] = scenario_synthesis.status
+        self.run.execution_context_json = json.dumps(snapshot)
+
+    def _fail(
+        self,
+        *,
+        stage: str,
+        reasons: list[str],
+        message: str,
+        audit: dict[str, Any] | None = None,
+    ) -> NoReturn:
+        failures = [
+            {
+                "node_id": None,
+                "stage": stage,
+                "error_code": reason,
+                "error_message": message,
+                "critical_node": True,
+                "impact": "forecast_failed",
+                "research_plan": audit or {},
+            }
+            for reason in reasons
+        ]
+        self._persist_failures(failures)
+        self.run.status = "failed"
+        self.run.error_stage = stage
+        self.run.error_message = "; ".join(reasons)
+        self.run.progress_stage = "failed"
+        self.run.progress_message = message
+        self._finish_failed_run()
+        if not self.run.question.is_benchmark:
+            self.run.question.status = "failed"
+        self.session.commit()
+        self._raise_failure(stage=stage, reasons=reasons, message=message)
+
+    def _finish_failed_run(self) -> None:
+        finished_at = utcnow()
+        self.run.finished_at = finished_at
+        if self.run.started_at is not None:
+            elapsed_ms = int(
+                (finished_at - as_utc(self.run.started_at)).total_seconds() * 1000
+            )
+            self.run.latency_ms = max(1, elapsed_ms)
+
+    @staticmethod
+    def _raise_failure(*, stage: str, reasons: list[str], message: str) -> NoReturn:
+        raise GraphForecastExecutionError(reasons, stage=stage, message=message)
+
+    def _emit(self, stage: str, message: str, pct: float) -> None:
+        if self.progress is not None:
+            self.progress(stage, message, pct, None)

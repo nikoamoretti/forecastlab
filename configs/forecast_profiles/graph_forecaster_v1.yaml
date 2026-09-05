@@ -1,0 +1,32 @@
+id: graph_forecaster_v1
+version: 9
+label: Graph forecaster V1
+description: Opt-in Forecast Contract, Forecast Graph, Evidence Claims, node forecasting, and deterministic graph aggregation path.
+execution_strategy: graph_nodes
+graph_generation_enabled: true
+evidence_claims_enabled: true
+node_forecasting_enabled: true
+graph_aggregation_enabled: true
+evidence_sufficiency_policy: private_v1_evidence_gate_v1
+material_node_policy: private_v1_material_node_gate_v1
+scenario_synthesis_policy: private_v1_scenario_synthesis_v1
+tracks:
+  - single_agent
+subquestions_per_track: 1
+search_results_per_subquestion: 2
+fetches_per_subquestion: 1
+aggregation_method: relationship_mass_conserving_log_odds_v1
+shrinkage: 0.0
+max_model_calls: 40
+max_search_calls: 36
+max_fetched_documents: 24
+max_tokens: 200000
+max_output_tokens_per_call: 4096
+max_estimated_cost_usd: 5.0
+max_wall_clock_seconds: 180
+prompt_versions:
+  forecast_graph: v1
+  graph_research: v1
+  evidence_claims: v1
+  forecast_node: v3
+  scenario_synthesis: v1

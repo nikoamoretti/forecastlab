@@ -3,26 +3,34 @@ from __future__ import annotations
 import json
 import uuid
 from datetime import timedelta
+from typing import Literal
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 
+from forecastlab.errors import PermanentProviderError, TransientProviderError
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.models import Job, JobEvent, WorkerHeartbeat
 
-STALE_AFTER = timedelta(seconds=45)
+RetryOutcome = Literal["rescheduled", "exhausted"]
+
+STALE_AFTER = timedelta(seconds=180)
+LEASE_SECONDS = 180
+TRANSIENT_BACKOFF = timedelta(seconds=2)
 
 
 def enqueue_job(session: Session, *, job_type: str, payload: dict, idempotency_key: str) -> Job:
     existing = session.scalar(select(Job).where(Job.idempotency_key == idempotency_key))
     if existing:
         return existing
+    now = utcnow()
     job = Job(
         id=str(uuid.uuid4()),
         job_type=job_type,
         status="pending",
         payload_json=json.dumps(payload),
         idempotency_key=idempotency_key,
+        available_at=now,
     )
     session.add(job)
     session.add(
@@ -40,35 +48,96 @@ def enqueue_job(session: Session, *, job_type: str, payload: dict, idempotency_k
 def recover_stale_jobs(session: Session) -> int:
     now = utcnow()
     recovered = 0
-    running = session.scalars(select(Job).where(Job.status == "running")).all()
+    running = session.scalars(select(Job).where(Job.status == "running").with_for_update(skip_locked=True)).all()
     for job in running:
+        expires = as_utc(job.lease_expires_at) if job.lease_expires_at else None
         heartbeat = as_utc(job.heartbeat_at or job.started_at) if (job.heartbeat_at or job.started_at) else None
-        if heartbeat is None or now - heartbeat > STALE_AFTER:
-            if job.attempts >= job.max_attempts:
-                job.status = "failed"
-                job.error = "stale_worker_max_attempts"
-                job.finished_at = now
-            else:
-                job.status = "pending"
-                job.error = "recovered_after_stale_heartbeat"
-            recovered += 1
+        stale = False
+        if expires is not None and expires < now:
+            stale = True
+        elif heartbeat is None or now - heartbeat > STALE_AFTER:
+            stale = True
+        if not stale:
+            continue
+        from forecastlab_api.models import ForecastRunAttempt
+        attempts = session.scalars(select(ForecastRunAttempt).where(
+            ForecastRunAttempt.job_id == job.id, ForecastRunAttempt.status == "running")).all()
+        for attempt in attempts:
+            # The heartbeat bounds active execution; queue/review downtime must
+            # not consume a fresh five-minute allowance after a restart.
+            last_active = as_utc(job.heartbeat_at or attempt.started_at)
+            attempt.completed_at = min(now, last_active + timedelta(seconds=8))
+            attempt.status = "interrupted"
+            attempt.error_category = "worker_interrupted"
+        if job.attempts >= job.max_attempts:
+            job.status = "failed"
+            job.error = "stale_worker_max_attempts"
+            job.error_category = "stale_worker_max_attempts"
+            job.finished_at = now
+            _fail_job_relatives(
+                session,
+                job,
+                error="stale_worker_max_attempts",
+                category="stale_worker_max_attempts",
+            )
+        else:
+            job.status = "pending"
+            job.error = "recovered_after_stale_heartbeat"
+            job.available_at = now
+            job.lease_owner = None
+            job.lease_expires_at = None
+            _reset_task_for_retry(session, job)
+        recovered += 1
     return recovered
 
 
-def claim_next_job(session: Session) -> Job | None:
+def claim_next_job(session: Session, *, owner: str = "worker") -> Job | None:
     recover_stale_jobs(session)
-    job = session.scalar(select(Job).where(Job.status == "pending").order_by(Job.created_at.asc()).limit(1))
-    if job is None:
+    now = utcnow()
+    if session.get_bind().dialect.name == "sqlite":
+        session.flush()
+        try:
+            session.connection().exec_driver_sql("BEGIN IMMEDIATE")
+        except Exception:
+            # SQLAlchemy may already own the connection transaction; the
+            # UPDATE ... WHERE status='pending' claim remains the guard.
+            pass
+    candidate_query = (
+        select(Job.id)
+        .where(Job.status == "pending")
+        .where((Job.available_at.is_(None)) | (Job.available_at <= now))
+        .order_by(Job.created_at.asc())
+        .limit(1)
+    )
+    if session.get_bind().dialect.name == "postgresql":
+        candidate_query = candidate_query.with_for_update(skip_locked=True)
+    candidate = candidate_query.scalar_subquery()
+    result = session.execute(
+        update(Job)
+        .where(Job.id == candidate, Job.status == "pending")
+        .values(
+            status="running",
+            attempts=Job.attempts + 1,
+            started_at=now,
+            heartbeat_at=now,
+            lease_owner=owner,
+            lease_expires_at=now + timedelta(seconds=LEASE_SECONDS),
+        )
+        .returning(Job.id)
+    )
+    claimed_id = result.scalar_one_or_none()
+    if claimed_id is None:
         return None
-    job.status = "running"
-    job.attempts += 1
-    job.started_at = utcnow()
-    job.heartbeat_at = job.started_at
-    return job
+    return session.get(Job, claimed_id)
 
 
 def heartbeat(session: Session, job: Job, *, stage: str, message: str, pct: float) -> None:
-    job.heartbeat_at = utcnow()
+    if job.lease_owner:
+        from forecastlab_api.autopilot_store import assert_job_fence
+        assert_job_fence(session, job.id, job.lease_owner)
+    now = utcnow()
+    job.heartbeat_at = now
+    job.lease_expires_at = now + timedelta(seconds=LEASE_SECONDS)
     job.progress_stage = stage
     job.progress_message = message
     job.progress_pct = pct
@@ -83,9 +152,26 @@ def heartbeat(session: Session, job: Job, *, stage: str, message: str, pct: floa
     )
 
 
-def finish_job(session: Session, job: Job, *, ok: bool, error: str | None = None) -> None:
+def touch_job_lease(job_id: str, *, owner: str = "worker") -> None:
+    from forecastlab_api.db import SessionLocal
+
+    with SessionLocal() as session:
+        job = session.get(Job, job_id)
+        if job is None or job.status != "running" or job.lease_owner != owner:
+            return
+        now = utcnow()
+        job.heartbeat_at = now
+        job.lease_expires_at = now + timedelta(seconds=LEASE_SECONDS)
+        session.commit()
+
+
+def finish_job(session: Session, job: Job, *, ok: bool, error: str | None = None, category: str | None = None) -> None:
+    if job.lease_owner:
+        from forecastlab_api.autopilot_store import assert_job_fence
+        assert_job_fence(session, job.id, job.lease_owner)
     job.status = "completed" if ok else "failed"
     job.error = error
+    job.error_category = category
     job.finished_at = utcnow()
     job.heartbeat_at = job.finished_at
     job.progress_pct = 100 if ok else job.progress_pct
@@ -95,9 +181,103 @@ def finish_job(session: Session, job: Job, *, ok: bool, error: str | None = None
             job_id=job.id,
             stage="completed" if ok else "failed",
             message=error or "Job completed",
-            payload_json="{}",
+            payload_json=json.dumps({"category": category}),
         )
     )
+
+
+def retry_job(session: Session, job: Job, *, error: str, category: str) -> RetryOutcome:
+    history = []
+    try:
+        history = json.loads(job.error_history_json or "[]")
+    except json.JSONDecodeError:
+        history = []
+    history.append({"error": error, "category": category, "at": utcnow().isoformat()})
+    job.error_history_json = json.dumps(history)
+    job.error = error
+    job.error_category = category
+    if job.attempts >= job.max_attempts:
+        finish_job(session, job, ok=False, error=error, category=category)
+        return "exhausted"
+    job.status = "pending"
+    job.available_at = utcnow() + TRANSIENT_BACKOFF
+    job.lease_owner = None
+    job.lease_expires_at = None
+    _reset_task_for_retry(session, job)
+    return "rescheduled"
+
+
+def _reset_task_for_retry(session: Session, job: Job) -> None:
+    try:
+        payload = json.loads(job.payload_json or "{}")
+    except json.JSONDecodeError:
+        return
+    if payload.get("run_id"):
+        from forecastlab_api.models import ForecastRun
+        run = session.get(ForecastRun, payload["run_id"])
+        if run and run.status not in {"completed", "awaiting_review"}:
+            run.status = "pending" if job.job_type == "forecast_run" else "preparing"
+            run.progress_message = "Saved stages retained; waiting to resume"
+    forecast_experiment_run_id = payload.get("forecast_experiment_run_id")
+    if forecast_experiment_run_id:
+        from forecastlab_api.models import ForecastExperimentRun
+
+        experiment_run = session.get(ForecastExperimentRun, forecast_experiment_run_id)
+        if experiment_run is not None and experiment_run.status == "running":
+            experiment_run.status = "pending"
+        return
+    task_id = payload.get("task_id")
+    if not task_id:
+        return
+    from forecastlab_api.models import BenchmarkTask
+
+    task = session.get(BenchmarkTask, task_id)
+    if task is not None and task.status == "running":
+        task.status = "pending"
+
+
+def _fail_job_relatives(
+    session: Session,
+    job: Job,
+    *,
+    error: str,
+    category: str,
+) -> None:
+    if job.job_type == "forecast_experiment_run":
+        from forecastlab_api.forecast_experiments import fail_forecast_experiment_job
+
+        if fail_forecast_experiment_job(
+            session,
+            job,
+            error=error,
+            category=category,
+        ):
+            return
+    from forecastlab_api.experiments import fail_job_relatives
+
+    fail_job_relatives(session, job, error=error, category=category)
+
+
+def error_category(exc: Exception) -> str:
+    if isinstance(exc, TransientProviderError):
+        return "TransientProviderError"
+    if isinstance(exc, PermanentProviderError):
+        return "PermanentProviderError"
+    name = exc.__class__.__name__
+    if name in {
+        "ConfigurationError",
+        "EvidenceIntegrityError",
+        "BudgetExceeded",
+        "StructuredOutputError",
+        "ExperimentEnvironmentMismatch",
+        "GraphForecastExecutionError",
+    }:
+        return name
+    return "PermanentProviderError"
+
+
+def is_transient(exc: Exception) -> bool:
+    return isinstance(exc, TransientProviderError)
 
 
 def touch_worker(session: Session, status: str = "idle") -> None:
@@ -110,8 +290,9 @@ def touch_worker(session: Session, status: str = "idle") -> None:
         row.status = status
 
 
-claim_next_job = claim_next_job
-finish_job = finish_job
-enqueue_job = enqueue_job
-recover_stale_jobs = recover_stale_jobs
-touch_worker = touch_worker
+def touch_worker_standalone(status: str = "running") -> None:
+    from forecastlab_api.db import SessionLocal
+
+    with SessionLocal() as session:
+        touch_worker(session, status)
+        session.commit()

@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Any
+import uuid
+from typing import Any, Literal
 
+from forecastlab.ledger import UsageLedger
 from forecastlab.providers.base import ChatResult
 from forecastlab.schemas import ModelUsage, SearchHit
 from forecastlab.timeutil import parse_datetime
@@ -62,8 +64,18 @@ def _usage(model: str, content: str) -> ModelUsage:
 class MockModelProvider:
     name = "mock"
 
-    def __init__(self, model: str = "mock-forecast-v1") -> None:
+    def __init__(
+        self,
+        model: str = "mock-forecast-v1",
+        *,
+        ledger: UsageLedger | None = None,
+        run_id: str | None = None,
+        run_attempt_id: str | None = None,
+    ) -> None:
         self.model = model
+        self.ledger = ledger
+        self.run_id = run_id
+        self.run_attempt_id = run_attempt_id
 
     def complete_json(
         self,
@@ -73,19 +85,52 @@ class MockModelProvider:
         schema_name: str,
         temperature: float = 0.2,
         timeout: float | None = None,
+        max_output_tokens: int | None = None,
+        max_completion_tokens: int | None = None,
+        max_visible_output_tokens: int | None = None,
+        estimated_input_tokens: int | None = None,
+        json_schema: dict[str, Any] | None = None,
+        reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None,
+        verbosity: Literal["low", "medium", "high"] | None = None,
     ) -> ChatResult:
+        del max_completion_tokens, max_visible_output_tokens, verbosity
         prompt_id = _prompt_id(system)
         payload = self._payload(prompt_id, user, schema_name)
         content = json.dumps(payload)
-        return ChatResult(content=content, parsed=payload, usage=_usage(self.model, content))
+        usage = _usage(self.model, content)
+        result = ChatResult(content=content, parsed=payload, usage=usage)
+        if self.ledger is not None and self.run_id:
+            entry = self.ledger.reserve(
+                run_id=self.run_id,
+                run_attempt_id=self.run_attempt_id,
+                logical_call_id=str(uuid.uuid4()),
+                physical_attempt_number=1,
+                stage=schema_name,
+                provider_type="model",
+                provider=self.name,
+                model=self.model,
+                reserved_input_tokens=usage.prompt_tokens,
+                reserved_output_tokens=usage.completion_tokens,
+                reserved_cost_usd=usage.cost_usd,
+            )
+            self.ledger.reconcile(entry.id, usage)
+        return result
 
     def _payload(self, prompt_id: str, user: str, schema_name: str) -> dict[str, Any]:
         if "operationalize" in prompt_id or schema_name == "resolution_contract":
             return dict(UNEMPLOYMENT_CONTRACT)
+        if schema_name == "graph_research_plan":
+            return self._graph_research_plan(user)
         if "plan" in prompt_id or schema_name == "research_plan":
             return self._plan(user)
         if "extract" in prompt_id or schema_name == "evidence_extract":
             return self._extract(user)
+        if schema_name == "forecast_node":
+            return self._forecast_node(user)
+        if schema_name == "scenario_synthesis":
+            return self._scenario_synthesis(user)
+        if schema_name == "single_model_forecast":
+            return self._single_model_forecast(user)
         if "forecast" in prompt_id or schema_name == "track_forecast":
             return self._forecast(user)
         if "disagreement" in prompt_id or schema_name == "disagreement_summary":
@@ -98,6 +143,60 @@ class MockModelProvider:
                 )
             }
         return {"note": "mock_unrecognized_prompt", "prompt_id": prompt_id}
+
+    @staticmethod
+    def _scenario_synthesis(user: str) -> dict[str, Any]:
+        packet = json.loads(user)
+        nodes = list((packet.get("graph") or {}).get("nodes") or [])
+        claims = list(packet.get("cited_evidence_claims") or [])
+        node_ids = [str(node["id"]) for node in nodes]
+        if len(node_ids) < 3:
+            return {"scenarios": []}
+        claim_by_node: dict[str, str] = {}
+        for claim in claims:
+            claim_by_node.setdefault(
+                str(claim.get("forecast_node_id")),
+                str(claim.get("id")),
+            )
+
+        def first_claim(references: list[str]) -> str:
+            return next(
+                claim_by_node[node_id]
+                for node_id in references
+                if node_id in claim_by_node
+            )
+
+        base_nodes = list(node_ids)
+        yes_nodes = list(node_ids[:-1])
+        no_nodes = list(node_ids[1:])
+        pathways = []
+        for kind, title, references in (
+            ("base_case", "Base pathway", base_nodes),
+            ("yes_case", "Yes-condition pathway", yes_nodes),
+            ("no_case", "No-condition pathway", no_nodes),
+        ):
+            pathways.append(
+                {
+                    "local_id": kind,
+                    "kind": kind,
+                    "title": title,
+                    "summary": (
+                        "The cited node evidence and direct graph relationships "
+                        "describe this grounded explanatory pathway."
+                    ),
+                    "node_ids": references,
+                    "claim_ids": [first_claim(references)],
+                    "mechanisms": [
+                        "The referenced drivers interact through the recorded graph relationships."
+                    ],
+                    "triggers": ["A cited leading indicator changes materially."],
+                    "invalidators": ["The cited mechanism fails to appear."],
+                    "unresolved_uncertainties": [
+                        "The timing and magnitude of the interaction remain uncertain."
+                    ],
+                }
+            )
+        return {"scenarios": pathways}
 
     def _plan(self, user: str) -> dict[str, Any]:
         if "base_rate" in user:
@@ -190,6 +289,35 @@ class MockModelProvider:
             "subquestions": subquestions,
         }
 
+    def _graph_research_plan(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            node = payload.get("node") or {}
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            node = {}
+        question = str(node.get("question") or "What evidence bears on this forecast node?")
+        preferred_sources = [
+            str(value)
+            for value in node.get("preferred_sources") or []
+            if str(value).strip()
+        ]
+        source_queries = [f"{question} {source}" for source in preferred_sources[:2]]
+        return {
+            "primary_research_question": question,
+            "supporting_search_queries": [
+                question,
+                *source_queries,
+                f"{question} official dated evidence",
+            ][:4],
+            "preferred_sources": preferred_sources or ["official primary sources"],
+            "required_evidence_types": [
+                str(node.get("required_output_type") or "dated factual finding").replace(
+                    "_", " "
+                ),
+                "dated primary-source excerpt",
+            ],
+        }
+
     def _extract(self, user: str) -> dict[str, Any]:
         excerpt = "Excerpt unavailable"
         if "U-3" in user or "unemployment" in user.lower():
@@ -200,6 +328,45 @@ class MockModelProvider:
             "publisher": "Fixture statistical agency",
             "source_class": "primary" if "bls" in user.lower() else "secondary",
             "notes": "Extracted from supplied document text only.",
+        }
+
+    def _forecast_node(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            claims = payload.get("evidence_claims") or []
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            claims = []
+        supporting = [str(claim["id"]) for claim in claims if claim.get("supports_or_refutes") == "supports"]
+        opposing = [str(claim["id"]) for claim in claims if claim.get("supports_or_refutes") == "refutes"]
+        total = len(supporting) + len(opposing)
+        directional_balance = (len(supporting) - len(opposing)) / total if total else 0.0
+        probability = min(0.95, max(0.05, 0.5 + 0.1 * directional_balance))
+        return {
+            "probability": probability,
+            "reasoning": (
+                f"The mock node forecast cites {len(supporting)} supporting and {len(opposing)} opposing "
+                "provenance-linked Evidence Claims."
+            ),
+            "supporting_claim_ids": supporting,
+            "opposing_claim_ids": opposing,
+            "uncertainty_notes": ["Synthetic mock evidence is not real-world forecasting evidence."],
+        }
+
+    def _single_model_forecast(self, user: str) -> dict[str, Any]:
+        try:
+            payload = json.loads(user)
+            packet = payload.get("evidence_packet") or []
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            packet = []
+        evidence_ids = [str(item["id"]) for item in packet if isinstance(item, dict) and item.get("id")]
+        return {
+            "probability": 0.36,
+            "reasoning": (
+                "The mock single-model baseline evaluates one approved Forecast Contract against "
+                f"one packet containing {len(evidence_ids)} provenance-bearing evidence excerpts."
+            ),
+            "uncertainty": ["Synthetic mock evidence is not real-world forecasting evidence."],
+            "evidence_ids": evidence_ids[:2],
         }
 
     def _forecast(self, user: str) -> dict[str, Any]:
@@ -336,5 +503,33 @@ def mock_search_hits(query: str, *, max_results: int = 3) -> list[SearchHit]:
 class MockSearchProvider:
     name = "mock"
 
+    def __init__(
+        self,
+        *,
+        ledger: UsageLedger | None = None,
+        run_id: str | None = None,
+        run_attempt_id: str | None = None,
+    ) -> None:
+        self.ledger = ledger
+        self.run_id = run_id
+        self.run_attempt_id = run_attempt_id
+
     def search(self, query: str, *, max_results: int = 5) -> list[SearchHit]:
-        return mock_search_hits(query, max_results=max_results)
+        hits = mock_search_hits(query, max_results=max_results)
+        if self.ledger is not None and self.run_id:
+            usage = ModelUsage(provider="mock", model="mock-search", cost_source="estimated")
+            entry = self.ledger.reserve(
+                run_id=self.run_id,
+                run_attempt_id=self.run_attempt_id,
+                logical_call_id=str(uuid.uuid4()),
+                physical_attempt_number=1,
+                stage="search",
+                provider_type="search",
+                provider=self.name,
+                model="mock-search",
+                reserved_input_tokens=0,
+                reserved_output_tokens=0,
+                reserved_cost_usd=0.0,
+            )
+            self.ledger.reconcile(entry.id, usage)
+        return hits

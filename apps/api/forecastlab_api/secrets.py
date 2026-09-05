@@ -16,6 +16,17 @@ def _path() -> Path:
 
 
 def load_secrets() -> dict[str, Any]:
+    if settings.cloud:
+        from forecastlab_api.autopilot_models import AppSetting
+        from forecastlab_api.db import SessionLocal
+        data = {key: getattr(settings, key) for key in (
+            "model_provider", "model_base_url", "model_name", "model_api_key", "model_timeout_seconds",
+            "max_cost_usd", "search_provider", "search_api_key", "fred_api_key")}
+        with SessionLocal() as session:
+            saved = session.get(AppSetting, "provider_settings")
+            if saved:
+                data.update(json.loads(saved.value_json))
+        return data
     path = _path()
     if not path.exists():
         data = {
@@ -34,6 +45,14 @@ def load_secrets() -> dict[str, Any]:
 
 
 def save_secrets(data: dict[str, Any]) -> None:
+    if settings.cloud:
+        from forecastlab_api.autopilot_models import AppSetting
+        from forecastlab_api.db import SessionLocal
+        allowed = {"model_provider", "model_base_url", "model_name", "model_timeout_seconds", "max_cost_usd", "search_provider"}
+        with SessionLocal() as session:
+            session.merge(AppSetting(key="provider_settings", value_json=json.dumps({k: v for k, v in data.items() if k in allowed})))
+            session.commit()
+        return
     path = _path()
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
     path.chmod(0o600)
@@ -46,6 +65,7 @@ def public_settings() -> PublicSettings:
     key_set = bool(data.get("model_api_key"))
     mode = "demo" if provider == "mock" or not key_set else "live"
     return PublicSettings(
+        secrets_managed_externally=settings.cloud,
         model_provider=provider,
         model_base_url=data.get("model_base_url"),
         model_name=data.get("model_name") or "mock-forecast-v1",
@@ -59,6 +79,9 @@ def public_settings() -> PublicSettings:
 
 
 def update_secrets(patch: SettingsPatch) -> PublicSettings:
+    if settings.cloud and any(key in patch.model_fields_set for key in ("model_api_key", "search_api_key")):
+        from fastapi import HTTPException
+        raise HTTPException(422, "Manage production provider keys in Vercel environment settings")
     data = load_secrets()
     updates = patch.model_dump(exclude_none=True)
     for key, value in updates.items():
@@ -72,7 +95,7 @@ def update_secrets(patch: SettingsPatch) -> PublicSettings:
 
 def redacted_dump(data: dict[str, Any]) -> dict[str, Any]:
     out = dict(data)
-    for key in ("model_api_key", "search_api_key"):
+    for key in ("model_api_key", "search_api_key", "fred_api_key"):
         if out.get(key):
             out[key] = mask_secret(str(out[key]))
     return out

@@ -1,0 +1,317 @@
+{
+  "candidate_label": "private-v1-verification-v1",
+  "cleanup": {
+    "active_jobs": 0,
+    "nonterminal_ledgers": 0,
+    "services_stopped": true,
+    "temporary_service_files_preserved": false,
+    "unreconciled_reservations": 0
+  },
+  "database": {
+    "alembic_head": "20260826_0026",
+    "fresh": {
+      "alembic_revision": "20260826_0026",
+      "foreign_key_violation_count": 0,
+      "integrity_check": "ok"
+    },
+    "legacy_upgrade": {
+      "alembic_revision": "20260826_0026",
+      "foreign_key_violation_count": 0,
+      "integrity_check": "ok",
+      "legacy_marker_row_preserved": true
+    },
+    "schema_parity": {
+      "comparison_basis": "structural parity with documented SQLite server-default metadata representation differences reported separately",
+      "differences": [],
+      "documented_default_metadata_difference_count": 21,
+      "documented_default_metadata_paths": [
+        "benchmark_datasets.description.default",
+        "benchmark_datasets.is_synthetic.default",
+        "benchmark_datasets.metadata_json.default",
+        "benchmark_datasets.provenance.default",
+        "benchmark_datasets.question_count.default",
+        "benchmark_experiments.completed_tasks.default",
+        "benchmark_experiments.evidence_policy.default",
+        "benchmark_experiments.execution_context_json.default",
+        "benchmark_experiments.experiment_hash.default",
+        "benchmark_experiments.failed_tasks.default",
+        "benchmark_experiments.is_synthetic.default",
+        "benchmark_experiments.model_name.default",
+        "benchmark_experiments.model_provider.default",
+        "benchmark_experiments.profile_hashes_json.default",
+        "benchmark_experiments.profile_ids_json.default",
+        "benchmark_experiments.prompt_hashes_json.default",
+        "benchmark_experiments.search_provider.default",
+        "benchmark_experiments.status.default",
+        "benchmark_experiments.total_tasks.default",
+        "benchmark_tasks.attempts.default",
+        "benchmark_tasks.status.default"
+      ],
+      "fresh_raw_schema_sha256": "74f46a12429f8a0419eb45cb433df2399aecd58fdacd35631f3265e3e4c4dc98",
+      "passed": true,
+      "raw_schema_hashes_equal": false,
+      "upgraded_raw_schema_sha256": "85da31b6d6d44e22a7a332102f26d7d7478a73bcb12a26d571e2e8f93de8f58c"
+    }
+  },
+  "frontend": {
+    "advisory_details": [
+      {
+        "fix": "Next 16.3.3 (semver-major; not authorized in this task)",
+        "package": "next",
+        "severity": "high",
+        "via": [
+          "postcss",
+          "sharp"
+        ]
+      },
+      {
+        "advisories": [
+          "GHSA-qx2v-qp2m-jg93",
+          "GHSA-6g55-p6wh-862q",
+          "GHSA-fxqj-rqcc-2cmp",
+          "GHSA-r28c-9q8g-f849"
+        ],
+        "package": "postcss",
+        "severity": "high"
+      },
+      {
+        "advisories": [
+          "GHSA-f88m-g3jw-g9cj"
+        ],
+        "package": "sharp",
+        "severity": "high"
+      }
+    ],
+    "browser": "passed",
+    "browser_workers": 1,
+    "frozen_install": "passed",
+    "known_advisories": {
+      "critical": 0,
+      "high": 3,
+      "package_names": [
+        "next",
+        "postcss",
+        "sharp"
+      ],
+      "total": 3
+    },
+    "negative_surface_probability": null,
+    "negative_surface_status": "failed",
+    "positive_surface_probability_present": true,
+    "positive_surface_status": "completed",
+    "production_build": "passed",
+    "typecheck": "passed"
+  },
+  "identities": {
+    "locks": {
+      "aggregate_sha256": "1ca30da90ea0274d80db5e09f73f789a7552930a40bec52183c2a5232c7a2af8",
+      "files": {
+        "apps/web/package-lock.json": "d81668674a3cab7f4e46f578eedf3ba3828bf899f236666ebc9824fee8804626",
+        "pyproject.toml": "e59878de8afab1b301aec88120f3a0df5b7fa73bc3d1c6c52010948a93a25552",
+        "uv.lock": "bfe11402c6919e0b854fabf86e09087e052953593b98ff40475a694006756524"
+      }
+    },
+    "migrations": {
+      "aggregate_sha256": "52a281a0fe259958c919a5a1de69a695928485dbe0d1e05a32897fd783775474",
+      "files": {
+        "alembic/versions/20260818_0001_integrity_schema.py": "34f7ab16b7d20200373ac8a27bab2a69d7ce95812a84409053d06de711c7f56b",
+        "alembic/versions/20260819_0002_legacy_integrity_upgrade.py": "73b6fd58d5d9ed0cd456880ca7311510f73992c09e8a94052738ffb9dc4a1a5d",
+        "alembic/versions/20260819_0003_experiment_snapshots.py": "4f6956c9773157d3a54806adcbb47f2a1c8455c98824b4b4249451b1392fb711",
+        "alembic/versions/20260819_0004_benchmark_task_run_identity.py": "c18e10d9bae1003be70c28b01418295ad534c442f805cb0ab1601d37db4980de",
+        "alembic/versions/20260819_0005_ledger_environment_and_parity.py": "8dde4992d130b397b518504e8334d4b107ee2b44a70c82c7eda15232c7d04ede",
+        "alembic/versions/20260819_0006_attempt_request_counts.py": "0c4c2f7dc67dad4c09f09c5537a1e33de9e7835bcfe7c6cce697845de5e5b95f",
+        "alembic/versions/20260821_0007_forecast_contracts.py": "8466b487c1876ea53b6ee7a085863cf6937129e8e47ec66947f58faafc65c263",
+        "alembic/versions/20260821_0008_forecast_graphs.py": "a11c6742e1a510f2666ff6468d68c19c00ba12250ff06fb3e8972503ff62d556",
+        "alembic/versions/20260821_0009_evidence_claims.py": "0c9ec930a110778768d89ef4c85d0c86bb704d558a8b9ad5d7397243f905d32b",
+        "alembic/versions/20260822_0010_forecast_node_runs.py": "72f83d2c90489928d24d610ca0996c3e2d3c927446e224e713ef3fa9777db9be",
+        "alembic/versions/20260822_0011_node_forecasting_aggregation.py": "7c691caca2fd0a4e2c16b17f5808c3ac0a4ebbeaddc9e05673c231df569dc16d",
+        "alembic/versions/20260822_0012_v1_evaluation_metrics.py": "d2b90ceeb8aaf2710687fdef64cb835067d29cb48730286f2e17d6a98592a452",
+        "alembic/versions/20260822_0013_node_forecaster_audit_fields.py": "97f5bf32db3d8f3711fc378c0382b8ad69bcc050426eacceb5e46440a5e7a605",
+        "alembic/versions/20260823_0014_forecast_aggregations.py": "1dad7cac770e9d6e9f150ef8561e4af65d73b5937a710d3d2017805329d82b07",
+        "alembic/versions/20260823_0015_graph_execution_failures.py": "942908792a726ca581bd9fca89aa6e64c1771143571f8ab3f5b83724411adc05",
+        "alembic/versions/20260823_0016_real_evaluation_framework.py": "fb76469c18fa8ec7942b0fb2c7eba8b3b353526b34e2468d14a412bb2e14c38e",
+        "alembic/versions/20260823_0017_forecast_experiment_runner.py": "7cef75527fab7d88ec8f56762a500a1eec6e0291a86544237ee8db8ba3644813",
+        "alembic/versions/20260823_0018_forecast_analysis.py": "89b87f17fc608abf92806516e7c48630e5865182ed5c9919c1c21f1b6ed57ee7",
+        "alembic/versions/20260823_0019_evaluation_question_category.py": "69251d027d07f84a154bb2ceeefa9112e6ec6ebd9873c3fcd297b092fac5ba89",
+        "alembic/versions/20260823_0020_graph_evidence_failure_audit.py": "d8eb0d5beeb102efdb72b65bc87972daef4ccb5b47f6d00fbb41167af6ff54f8",
+        "alembic/versions/20260824_0021_research_plans.py": "1dbe3c14fe98b94f579409833866a9ab95da258f83bd31bdaebf71f923636ea2",
+        "alembic/versions/20260825_0022_mode_aware_evidence_time.py": "7a1776b88e14a5c9bb91d12a1a08bfbcf544e1ce6a6affd6cba50d8f2ecde273",
+        "alembic/versions/20260825_0023_forecast_graph_generation_audit.py": "e862e8d5aee4b417658e61f70eff0e1ed18f4978a22b692988011748697c2fd0",
+        "alembic/versions/20260826_0024_evidence_sufficiency_gate.py": "80b76915e4df81f222de3e869d6cd5a1d44d8e6ef28d04b2a18c66877b572124",
+        "alembic/versions/20260826_0025_material_node_coverage.py": "d703241ef839645648ed29ab82659f7a4c7bdf683356126d877131cb32c54725",
+        "alembic/versions/20260826_0026_scenario_synthesis.py": "58d9fbb92b63772e58711f2c64bcd8a4c8c0d8ea9c47739dc0d6dcd76ec3adca"
+      }
+    },
+    "profiles": {
+      "aggregate_sha256": "caa0316c39844637bb19133eb9f4343fedf2e7766433a20a80614f3c49cd64bd",
+      "files": {
+        "configs/forecast_profiles/graph_forecaster_v1.yaml": "bad8ed974a2fcac8e2e6d41166e2a6e111897027f890ff6486ee9f69dd8f5e3a",
+        "configs/forecast_profiles/graph_live_smoke_v1.yaml": "2b80f85a213c981bd74b3f8891cae27d619957c1e011abf044956aa10ae6467b",
+        "configs/forecast_profiles/live_smoke_v1.yaml": "b3d23f0a2add5aeb583718b7f55652e2f6021beb2e027606d5fe517bcf7949b6",
+        "configs/forecast_profiles/model_only_v1.yaml": "8d5f16ff90f01ea298a8d1fd34d747879c4bb29d0518d777865cdb88b9d25d78",
+        "configs/forecast_profiles/single_agent_baseline.yaml": "435a3c10c664f3c4e6bd8dc72674f2e79d746a76b050a19fd40dac9d5b93ac45",
+        "configs/forecast_profiles/single_agent_equal_budget_v1.yaml": "350d6496c11dec102b7e465237e20c7b5b71976b1208e421cd2c5483a2a9960c",
+        "configs/forecast_profiles/single_model_forecaster_v1.yaml": "b930d01e422598c23526b287de13ecdba0f39cf1309c51915c78c046e803a231",
+        "configs/forecast_profiles/three_track_ensemble.yaml": "b8e37803bf545a6dcbf420d2cfc910190c2bb7b25534cf823962fedcd693b307",
+        "configs/forecast_profiles/three_track_equal_budget_v1.yaml": "1cbd850acb8c0ce7a827ecdff0d50158d67b4abd8cda70dca96cc63957cc0a4c",
+        "configs/forecast_profiles/three_track_forecaster.yaml": "f7d833574df553aa4223656347aa17c94b7e72201f5bad332579ba2a5b9adc65",
+        "configs/forecast_profiles/three_track_full_v1.yaml": "eb506eae66e8d6a9e049fe03e68bc0df6589bcd591ea6d100ebdb97a595e28f9"
+      }
+    },
+    "prompts": {
+      "aggregate_sha256": "30d8492a717234242424a0df2f5f3dd97ce6f8582751f989f0b63e7a6038bd9b",
+      "files": {
+        "prompts/disagreement.txt": "dba34d84faee7af771c60c0d301817bcfb0121c438c649551a8906a8204651e2",
+        "prompts/evidence_claims.txt": "b110537e5f666ce52c508262b2d2d553b76675c8e0d0d8c937fea16b53ecc88f",
+        "prompts/extract.txt": "974486e06b3e1a92bdf03491f6fb7e75733a4f4125de6a1db386a7009b85f692",
+        "prompts/forecast_base_rate.txt": "08af6d6fc8730a6f0bf5c648d7d21c4744b17e01c055095ee1bffbeac639ae4c",
+        "prompts/forecast_contract.txt": "9f752cf1210cd31117441d888aaa221c9ba07fabe6346bfc8adcb412245aeb03",
+        "prompts/forecast_current_evidence.txt": "091dd8b0720fe0b3af16d8a7d046cca696e08535f0f726f4533088754d51ae3d",
+        "prompts/forecast_graph.txt": "04ebce2f33492cb142c545651953e13886119e50719f91efe38d686d858bab24",
+        "prompts/forecast_node.txt": "61b126341bf8899239b5fe8ea4608e08390f4277c5cdb4785488366b724f981b",
+        "prompts/forecast_single_agent.txt": "26d5b63f662d686b88d00db3f4c7e3e5b32cd5e0bb1cdddd0c44d2d984799063",
+        "prompts/forecast_single_model.txt": "c82e115185a1d6e718eeb23e2aa6b9ca4fba3b018a602911f6b316a84b67297a",
+        "prompts/forecast_skeptic.txt": "583b7e24cada9c698fc694c9e2afe72893149e910fea71348b233c0119207b2b",
+        "prompts/graph_research.txt": "a8145ea234fa9599aa50dfb497c6f8ba344ed085fa4a19867711cdb9333a9324",
+        "prompts/operationalize.txt": "38c40d9b816f5a83b2a92d81fd28dd744d2f1134f444cc9d5c51f92f919872a4",
+        "prompts/plan_base_rate.txt": "120757b6be187cf34d79b89194ffd176baa5dfb291213f49c2455f7494174b94",
+        "prompts/plan_current_evidence.txt": "32bf1ef506115518cc80915a1e01554d69a5d7dd7fe8bc0ad9b9be07e1e87786",
+        "prompts/plan_single_agent.txt": "f9b7d6ae067a6a46f6936c2428081d43d0f06cc5c4e2967fb0150c5fafc2749c",
+        "prompts/plan_skeptic.txt": "d4bd702bcc2760b037b98735242a4ecde911b9ddd489049ca8b7fb383ba756e5",
+        "prompts/scenario_synthesis.txt": "31ec72bff9ee05fb741e46ee299e9ac4da4fdcdd9289b34f1c2c76de837f93cf"
+      }
+    }
+  },
+  "limitations": [
+    "The latest live operational acceptance remains a hard 3-of-5 failure.",
+    "This verifier uses synthetic mock evidence and establishes software reproducibility only.",
+    "Forecasting quality and calibration have not been evaluated.",
+    "Three known high-severity frontend dependency advisories remain; the available fix is a semver-major Next upgrade.",
+    "No tag, publication, merge, or deployment was authorized."
+  ],
+  "negative_journey": {
+    "aggregation_id": null,
+    "cost_usd": 0.0,
+    "error_stage": "evidence_sufficiency",
+    "evidence_claim_count": 3,
+    "evidence_item_count": 3,
+    "evidence_sufficiency_status": "failed",
+    "failure_codes": [
+      "evidence_sufficiency_gate_failed"
+    ],
+    "final_probability": null,
+    "fixture_label": "synthetic_release_verification_only",
+    "forecast_version_id": null,
+    "node_run_count": 3,
+    "profile_id": "graph_forecaster_v1",
+    "profile_version": 9,
+    "provider_request_count": 0,
+    "status": "failed"
+  },
+  "positive_journey": {
+    "aggregation_method": "relationship_mass_conserving_log_odds_v1",
+    "evidence_claim_count": 3,
+    "evidence_sufficiency_status": "passed",
+    "final_probability": 0.480867069435,
+    "fixture_label": "synthetic_release_verification_only",
+    "graph_node_count": 5,
+    "material_node_status": "passed",
+    "node_run_count": 3,
+    "profile_id": "graph_forecaster_v1",
+    "profile_version": 9,
+    "report_markdown_sha256": "5611825a06ac886003005814dd0619d6111332f9368ec071446a0181603fb7ae",
+    "report_markers": {
+      "no_probability": false,
+      "relationship_aggregation": true,
+      "scenario_synthesis": true
+    },
+    "scenario_kinds": [
+      "base_case",
+      "no_case",
+      "yes_case"
+    ],
+    "scenario_probability_invariance": {
+      "checked": true,
+      "evidence_assessment_in_trace": true,
+      "mass_conserved": true,
+      "material_assessment_in_trace": true,
+      "neutral_residual_fraction": "0.25",
+      "omitted_node_probability_created": false,
+      "probability_unchanged": true,
+      "scenario_identity_in_trace": true,
+      "scenario_numerical_effect": "none"
+    },
+    "scenario_status": "passed",
+    "selected_node_count": 3,
+    "status": "completed"
+  },
+  "preserved_results": {
+    "attempted_questions": 5,
+    "calibration_established": false,
+    "completed_questions": 3,
+    "forecasting_quality_established": false,
+    "latest_live_operational_acceptance": "FAIL"
+  },
+  "provider_usage": {
+    "live_openai_calls": 0,
+    "live_provider_ledger_rows": 0,
+    "live_tavily_calls": 0,
+    "mode": "mock_only",
+    "total_cost_usd": 0.0
+  },
+  "publication": {
+    "authorized": false,
+    "deployed": false,
+    "merged": false,
+    "release_published": false,
+    "tag_created": false
+  },
+  "reproducibility": {
+    "equivalent": true,
+    "isolated_checkout_count": 2,
+    "normalized_fields": [
+      "UUIDs",
+      "timestamps",
+      "temporary paths",
+      "ports"
+    ],
+    "normalized_result_sha256": "2e0471cf76ee6e8ebe3a7b165cfcf737fad7605dc62f54c06235f0d670331b5f",
+    "separate_home_database_cache_ports_and_stack": true,
+    "substantive_difference_count": 0,
+    "true_local_clones": true
+  },
+  "schema_version": 1,
+  "security": {
+    "committed_credential_artifact_count": 0,
+    "committed_database_file_count": 0,
+    "committed_environment_file_count": 0,
+    "forbidden_generated_key_count": 0,
+    "generated_output_secret_count": 0,
+    "known_synthetic_fixture_locations": [
+      "INTEGRITY_REPAIR_3_REPORT.md:secret_pattern_1",
+      "tests/test_api.py:secret_pattern_1",
+      "tests/test_api.py:secret_pattern_1",
+      "tests/test_experiment_reproducibility.py:secret_pattern_1",
+      "tests/test_paid_smoke.py:secret_pattern_1",
+      "tests/test_paid_smoke.py:secret_pattern_2",
+      "tests/test_provenance.py:secret_pattern_1",
+      "tests/test_provenance.py:secret_pattern_1",
+      "tests/test_ssrf_wayback_watchers.py:secret_pattern_1",
+      "tests/test_ssrf_wayback_watchers.py:secret_pattern_1",
+      "tests/test_ssrf_wayback_watchers.py:secret_pattern_3"
+    ],
+    "known_synthetic_fixture_match_count": 11,
+    "raw_provider_response_count": 0,
+    "suspected_secret_count": 0,
+    "suspected_secret_locations": [],
+    "tracked_text_file_count": 330
+  },
+  "source": {
+    "application_version": "0.3.1",
+    "commit_sha": "a265580333e0b98828778817650fbded2ee51521",
+    "commit_timestamp": "2026-08-26T11:10:09-07:00",
+    "tracked_source_sha256": "741e031e20819c564b435763c6976ba498e2dcec4ceda088aa740ebd32c814d2",
+    "tree_sha": "ec279e25e34d017489272f5b340009e6fe7188d2"
+  },
+  "verification_scope": "offline_private_v1_release_candidate"
+}

@@ -1,14 +1,25 @@
 #!/bin/zsh
 set -euo pipefail
+
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT"
+LOG_DIR="${FORECASTLAB_LOG_DIR:-$ROOT/logs}"
+
 for name in worker api web; do
-  if [[ -f "logs/${name}.pid" ]]; then
-    kill "$(cat "logs/${name}.pid")" 2>/dev/null || true
-    rm -f "logs/${name}.pid"
+  pid_file="$LOG_DIR/${name}.pid"
+  if [[ ! -f "$pid_file" ]]; then
+    continue
   fi
+  pid="$(tr -cd '0-9' < "$pid_file")"
+  if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+    kill "$pid" 2>/dev/null || true
+    for _ in {1..20}; do
+      if ! kill -0 "$pid" 2>/dev/null; then
+        break
+      fi
+      sleep 0.1
+    done
+  fi
+  rm -f "$pid_file"
 done
-pkill -f "forecastlab_api.worker" 2>/dev/null || true
-pkill -f "uvicorn forecastlab_api.main:app" 2>/dev/null || true
-pkill -f "next dev -p 3000" 2>/dev/null || true
+
 echo "ForecastLab stopped."

@@ -1,0 +1,65 @@
+name: Reviewed production release
+on:
+  workflow_dispatch:
+    inputs:
+      approved_commit:
+        description: Full commit SHA reviewed and approved by the owner
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: forecastlab-production-release
+  cancel-in-progress: false
+jobs:
+  approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require owner approval of this exact default-branch commit
+        env:
+          OWNER_ID: '146488758'
+          ACTOR_ID: ${{ github.actor_id }}
+          APPROVED_COMMIT: ${{ inputs.approved_commit }}
+          RELEASE_COMMIT: ${{ github.sha }}
+          RELEASE_REF: ${{ github.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          test "$ACTOR_ID" = "$OWNER_ID"
+          test "$APPROVED_COMMIT" = "$RELEASE_COMMIT"
+          test "$RELEASE_REF" = "refs/heads/$DEFAULT_BRANCH"
+  checks:
+    needs: approval
+    uses: ./.github/workflows/ci.yml
+  release:
+    needs: checks
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: uv sync --frozen
+      - name: Install PostgreSQL 18 backup client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-18
+          echo /usr/lib/postgresql/18/bin >> "$GITHUB_PATH"
+      - name: Pause, drain, snapshot, migrate, stage, check and promote
+        run: uv run python -m scripts.release_cloud
+        env:
+          FORECASTLAB_API_VERCEL_TOKEN: ${{ secrets.FORECASTLAB_API_VERCEL_TOKEN }}
+          FORECASTLAB_WEB_VERCEL_TOKEN: ${{ secrets.FORECASTLAB_WEB_VERCEL_TOKEN }}
+          FORECASTLAB_RELEASE_SECRET: ${{ secrets.FORECASTLAB_INTERNAL_SECRET }}
+          FORECASTLAB_RELEASE_API: https://forecastlab-api.vercel.app
+          VERCEL_ORG_ID: team_bpaUtKwQ9fN7jXrJZlx3V2dN
+          FORECASTLAB_API_PROJECT_ID: prj_m4XcIxSgbxrQ1tpZ5f95DUi5Zbqf
+          FORECASTLAB_WEB_PROJECT_ID: prj_ZVYlk5taMBR9jp9vC68kpCj0Vdad
