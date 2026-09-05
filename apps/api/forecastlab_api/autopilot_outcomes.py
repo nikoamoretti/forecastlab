@@ -12,7 +12,8 @@ from sqlalchemy import select
 from forecastlab.evaluation import brier_score, log_loss, mean
 from forecastlab.http_client import safe_get
 from forecastlab.macro import MacroDataError, MacroSpec
-from forecastlab.macro_evidence import parse_first_release
+from forecastlab.macro_evidence import parse_release_document
+from forecastlab.official_releases import PUBLIC_DATA_USER_AGENT
 from forecastlab.root_event import contract_hash, digest
 from forecastlab.schemas import ForecastContract
 from forecastlab.timeutil import as_utc, utcnow
@@ -44,24 +45,30 @@ def collect_outcome(session, managed: ManagedQuestion):
     cache_key = "release:" + managed.release_event
     cached = session.get(AppSetting, cache_key)
     urls = [f"https://www.bls.gov/news.release/archives/{family}_{suffix}.htm",
-            f"https://www.bls.gov/news.release/{family}.nr0.htm"]
+            f"https://www.bls.gov/news.release/{family}.nr0.htm",
+            f"https://www.dol.gov/newsroom/economicdata/{family}_{suffix}.pdf"]
     problems = []
+    blocked_bls = False
     for url in urls:
+        if blocked_bls and url.startswith("https://www.bls.gov/"):
+            continue
         try:
             if cached:
                 manifest = json.loads(cached.value_json)
-                html = get_bytes(manifest["artifact"]).decode("utf-8")
+                content = get_bytes(manifest["artifact"])
                 url = manifest["source_url"]
                 retrieved = datetime.fromisoformat(manifest["retrieved_at"])
             else:
-                response = safe_get(url, timeout=8)
+                response = safe_get(url, timeout=8, headers={"User-Agent": PUBLIC_DATA_USER_AGENT})
+                if response.status_code in {403, 429} and url.startswith("https://www.bls.gov/"):
+                    blocked_bls = True
                 if response.status_code != 200 or response.final_url != url:
                     raise MacroDataError("official_release_unavailable")
-                html = response.content.decode("utf-8")
+                content = response.content
                 retrieved = utcnow()
-                manifest = {"artifact": put_bytes(response.content, content_type="text/html", prefix="releases"),
+                manifest = {"artifact": put_bytes(response.content, content_type=response.content_type, prefix="releases"),
                             "source_url": url, "retrieved_at": retrieved.isoformat()}
-            measurement = parse_first_release(html, spec, source_url=url, retrieved_at=retrieved)
+            measurement = parse_release_document(content, spec, source_url=url, retrieved_at=retrieved)
             personal = session.get(PersonalForecast, managed.initial_run_id)
             contract = ForecastContract.model_validate_json(personal.contract_json)
             payload = {**measurement, "artifact": manifest["artifact"], "release_event": managed.release_event}
@@ -95,7 +102,7 @@ def confirm(session, proposal_id: str, *, confirmed_by: str, correction: dict | 
     if contract_hash(contract) != proposal.contract_hash or utcnow() < spec.release_at:
         raise HTTPException(409, "Outcome does not match the frozen contract or is not due")
     payload = json.loads(proposal.payload_json)
-    verified = parse_first_release(get_bytes(payload["artifact"]).decode("utf-8"), spec,
+    verified = parse_release_document(get_bytes(payload["artifact"]), spec,
         source_url=payload["source_url"], retrieved_at=datetime.fromisoformat(payload["retrieved_at"]))
     if verified["outcome"] != payload["outcome"] or verified["value"] != payload["value"]:
         raise HTTPException(409, "Outcome evidence failed verification")

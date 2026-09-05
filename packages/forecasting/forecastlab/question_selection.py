@@ -8,13 +8,13 @@ from html.parser import HTMLParser
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from forecastlab.macro import SERIES, MacroDataError, MacroObservation, MacroSnapshot, MacroSpec
 from forecastlab.root_event import digest
 from forecastlab.timeutil import as_utc
 
-SELECTION_VERSION = "macro_question_selection_v1"
+SELECTION_VERSION = "macro_question_selection_v2"
 HORIZON_DAYS = 90
 
 
@@ -25,6 +25,9 @@ class ScheduledRelease(BaseModel):
     source_url: str
     source_hash: str
     checked_at: datetime
+    schedule_basis: str = "bls_calendar_v1"
+    quote: str = ""
+    verification_sources: list[dict] = Field(default_factory=list)
 
     @property
     def event_id(self) -> str:

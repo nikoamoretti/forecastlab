@@ -104,6 +104,27 @@ def test_changed_calendar_suspends_without_dispatch(ready, monkeypatch):
         assert session.get(ManagedQuestion, run.question_id).status == "schedule_review"
 
 
+@pytest.mark.parametrize("known_conflict", [False, True])
+def test_due_release_outcome_survives_rolling_index_but_not_known_conflict(ready, monkeypatch, known_conflict):
+    from forecastlab_api import autopilot_outcomes
+    autopilot, sessions, sources, *_ = ready
+    run_id = auto_run(ready)
+    with sessions() as session:
+        complete(session, run_id)
+        state(session).enabled = False
+        session.commit()
+    if known_conflict:
+        sources.releases = [r.model_copy(update={"release_at": r.release_at + timedelta(hours=1)}) for r in sources.releases]
+    else:
+        sources.releases = []
+    checked = []
+    monkeypatch.setattr(autopilot, "database_selection_sources", lambda: sources)
+    monkeypatch.setattr(autopilot, "utcnow", lambda: NOW + timedelta(days=8))
+    monkeypatch.setattr(autopilot_outcomes, "collect_outcome", lambda session, managed: checked.append(managed.question_id))
+    assert autopilot.reconcile()["queued"] == []
+    assert bool(checked) is not known_conflict
+
+
 def test_release_drain_lock_blocks_new_workers(client, monkeypatch):
     from forecastlab_api.config import settings
     monkeypatch.setattr(settings, "internal_secret", "test-release-secret")

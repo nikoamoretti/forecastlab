@@ -47,24 +47,26 @@ receipts. Secret environment files are not included in the repository.
 1. GitHub OAuth client ID and client secret must be configured in the API
    project's production environment. The owner ID is already pinned to
    `146488758`. End-to-end owner login cannot be verified until then.
-2. BLS annual and monthly release-calendar requests return HTTP 403 from Vercel.
-   The monthly fallback works in local source checks, but it also fails from
-   the deployed function. This is a failed preflight, not a passed qualification.
-   No model/search calls or live qualification forecasts have been run: **$0**
-   automatic provider spending in this rollout. Resolve official-source access
-   before running the bounded three-indicator qualification batch.
+2. The original BLS annual/monthly source preflight failed with HTTP 403 from
+   Vercel. A subsequent isolated Vercel preview verified HTTP 200 for the DOL
+   original release PDFs, New York Fed calendars, and the separate BLS data API.
+   The source repair adds that official fallback with exact-period/time checks;
+   its production preflight must pass before running the bounded three-indicator
+   qualification batch. No model/search qualification calls have been made.
+   Source access alone is not live forecasting qualification.
 3. Neon compute size, automatic suspension and native seven-day restore history
    still need provider-dashboard verification. The tested daily private Blob
    backup mechanism is separate from Neon point-in-time recovery. Database cost
    has not yet been measured against the $6–10/month target.
-4. The reviewed-release workflow must be reviewed and merged into the repository's
-   existing default branch before it can operate there. The GitHub production
+4. The reviewed-release workflow was merged in PR #3 after CI passed (802 Python
+   tests and 24 browser tests). It is active on the default branch. The GitHub production
    environment and separate project-scoped Vercel credentials are configured.
    Cross-project denial was verified for both tokens. They expire September 5,
    2027 and must be rotated before subsequent releases after that date.
    The current GitHub plan rejects required deployment-reviewer rules, so releases
    instead require the owner's numeric identity and approval of the exact full
-   commit SHA, followed by CI. The end-to-end GitHub release workflow has not run.
+   commit SHA, followed by CI. End-to-end release receipts are retained separately
+   from the initial deployment evidence above.
 
 Do not enable the policy or describe ForecastLab as qualified for unattended
 forecasting until these activation checks pass. The operational procedure and

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import calendar
+import io
 import re
 from datetime import datetime
 from html.parser import HTMLParser
@@ -92,6 +93,46 @@ def parse_first_release(html: str, spec: MacroSpec, *, source_url: str, retrieve
     parser = _ReleaseText()
     parser.feed(html)
     text = " ".join(" ".join(parser.parts).split())
+    return _parse_release_text(text, spec, source_url=source_url, retrieved_at=retrieved_at)
+
+
+def release_pdf_text(content: bytes) -> str:
+    """Extract retained original bytes; never accept an HTML error as a PDF."""
+    if not content.startswith(b"%PDF-") or len(content) > 2_000_000:
+        raise MacroDataError("official_release_pdf_invalid")
+    from pypdf import PdfReader
+    try:
+        reader = PdfReader(io.BytesIO(content))
+        if reader.is_encrypted or not 1 <= len(reader.pages) <= 40:
+            raise MacroDataError("official_release_pdf_page_limit")
+        text = " ".join(" ".join(page.extract_text() or "" for page in reader.pages).split())
+    except MacroDataError:
+        raise
+    except Exception:
+        raise MacroDataError("official_release_pdf_extraction_failed") from None
+    if "Bureau of Labor Statistics" not in text[:2000] or "embargoed until" not in text[:500]:
+        raise MacroDataError("official_release_pdf_identity_missing")
+    return text
+
+
+def parse_release_document(content: bytes, spec: MacroSpec, *, source_url: str, retrieved_at: datetime) -> dict:
+    """DOL republishes BLS's dated original PDF; it is the same source lineage."""
+    family = "cpi" if spec.indicator == "cpi" else "empsit"
+    suffix = as_utc(spec.release_at).astimezone(ZoneInfo("America/New_York")).strftime("%m%d%Y")
+    if source_url == f"https://www.dol.gov/newsroom/economicdata/{family}_{suffix}.pdf":
+        if spec.revision_policy != "first_release":
+            raise MacroDataError("first_release_contract_required")
+        result = _parse_release_text(release_pdf_text(content), spec, source_url=source_url, retrieved_at=retrieved_at)
+        return {**result, "schema_version": "macro_first_release_v2", "source_lineage": "agency:bls",
+            "publisher": "U.S. Department of Labor", "extraction_method": "original_pdf_text_v1",
+            "original_source_url": f"https://www.bls.gov/news.release/archives/{family}_{suffix}.htm"}
+    if content.startswith(b"%PDF-"):
+        raise MacroDataError("official_dated_release_required")
+    return parse_first_release(content.decode("utf-8"), spec, source_url=source_url, retrieved_at=retrieved_at)
+
+
+def _parse_release_text(text: str, spec: MacroSpec, *, source_url: str, retrieved_at: datetime) -> dict:
+    family = "cpi" if spec.indicator == "cpi" else "empsit"
     if not text or re.search(r"corrected|correction to|reissued", text[:2000], re.I):
         raise MacroDataError("first_release_unavailable_or_corrected")
     timestamp = re.search(r"(\d{1,2}):(\d{2})\s*(a\.m\.|p\.m\.)\s*\(ET\)\s*\w+,?\s*(" + MONTHS + r")\s+(\d{1,2}),?\s+(\d{4})", text, re.I)
