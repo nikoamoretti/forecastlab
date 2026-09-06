@@ -1,6 +1,6 @@
 # Autopilot cost options
 
-Assessment: 2026-09-05. These are implementation options, not deployed savings or changes to the frozen pilot method.
+Assessment: 2026-09-05. The owner subsequently restricted cost work to infrastructure and explicitly preserved research depth. See FREE_INFRASTRUCTURE_REVIEW.md for the current recommendation. The research optimization suggestions below are withdrawn from the active plan; no such changes were deployed.
 
 ## Keep the useful baseline
 
@@ -16,13 +16,13 @@ A later scheduler version can read a small private object containing the earlies
 
 For comparison, one five-minute wake per hour would cost about $1.59/month in this same compute-only scenario; two per day about $0.13. Neither figure includes the other charges above or represents a deployment promise. Avoid adding a paid cache subscription solely to save a few dollars of database compute.
 
-## Second priority: research one release, reuse its documents
+## Withdrawn proposal: research one release, reuse its documents
 
 Payrolls and unemployment share the Employment Situation release. Cache retained source bytes and question-independent extraction by source hash, extraction version and publication cutoff. Reuse across those questions while independently assessing relevance to each exact contract. Never reuse another question's probability, treat copies as independent sources, or allow later-publication information into an earlier cutoff. Continue to charge each physical provider attempt to its originating run and weekly ledger; cache hits incur no fictional provider charge.
 
 This needs a new execution/prompt version and matched qualification runs before replacing the current profile.
 
-## Third priority: spend research effort on actual gaps
+## Withdrawn proposal: spend research effort on actual gaps
 
 The approved release document and validated BLS observation history already cover some resolution, current-condition and reference-class requirements. A future macro-specific executor can use deterministic coverage checks before commissioning model-planned searches. Search for missing drivers and contrary evidence, then stop once the defined evidence requirements and minimum adversarial checks are met. Keep all three blind root estimates. Compare abstention rate, latency, measured provider cost and resolved-question scores against the current method; lower cost alone is insufficient.
 
@@ -38,4 +38,4 @@ Do not shorten restore retention, replace missing first-release evidence with re
 
 ## First live qualification measurement
 
-CPI run `0548b8d4-7103-4c01-8b22-f0120a79a215` completed with three estimates in 219.8 seconds. The conservative ledger total was $0.51293: planning $0.04353, eight searches $0.064, eleven extraction calls $0.24737, evidence assessment $0.054135, and three final estimates $0.103895. The model was `gpt-5-mini-2025-08-07`. Extraction accounted for about 48% of the estimated cost; the three final estimates accounted for about 20%. This supports prioritizing evidence reuse and more selective extraction over removing forecasters. One run is not a representative cost benchmark or an accuracy result.
+CPI run `0548b8d4-7103-4c01-8b22-f0120a79a215` completed with three estimates in 219.8 seconds. The conservative ledger total was $0.51293: planning $0.04353, eight searches $0.064, eleven extraction calls $0.24737, evidence assessment $0.054135, and three final estimates $0.103895. The model was `gpt-5-mini-2025-08-07`. Extraction accounted for about 48% of the estimated cost; the three final estimates accounted for about 20%. This records the original cost breakdown only; it does not authorize reducing or changing research. One run is not a representative cost benchmark or an accuracy result.
