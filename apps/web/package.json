@@ -8,7 +8,8 @@
     "start": "next start -p 3000",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:outcome-acceptance": "playwright test -c playwright.outcome-acceptance.config.ts"
   },
   "dependencies": {
     "next": "^16.3.4",

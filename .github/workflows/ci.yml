@@ -82,6 +82,10 @@ jobs:
         run: npx playwright test
         env:
           FORECASTLAB_API_ORIGIN: http://127.0.0.1:8765
+      - name: Isolated Autopilot outcome acceptance
+        # Dedicated spec is excluded from the ordinary Playwright suite above.
+        # This step always runs the isolated runner; a missing receipt fails.
+        run: uv run python tests/run_autopilot_outcome_acceptance.py
       - name: Stop background servers
         if: always()
         run: |
