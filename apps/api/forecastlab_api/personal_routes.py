@@ -158,6 +158,19 @@ def post_outcome(entry_id: str, body: OutcomeIn, db: Session = Depends(get_db)) 
     return {"id": row.id, "revision": row.revision, "outcome": row.outcome}
 
 
+@router.post("/api/prospective/cohorts/{cohort_id}/official-outcomes/process")
+def process_official_outcomes(cohort_id: str, db: Session = Depends(get_db)) -> dict:
+    """Run the narrow official-first-release adjudicator; never calls a model."""
+    from forecastlab_api.official_macro_outcomes import process_due_prospective_entries
+    cohort = db.get(ProspectiveCohort, cohort_id)
+    if cohort is None:
+        raise HTTPException(404, "Cohort not found")
+    # A cohort-specific request must not process or mutate other cohorts.
+    amendments = process_due_prospective_entries(db, cohort_id=cohort_id)
+    return {"amendments": [{"id": row.id, "status": row.status, "exception_code": row.exception_code} for row in amendments],
+            "report": cohort_report(db, cohort_id)}
+
+
 @router.post("/api/prospective/cohorts/{cohort_id}/score")
 def score_cohort(cohort_id: str, db: Session = Depends(get_db)) -> dict:
     report = cohort_report(db, cohort_id)

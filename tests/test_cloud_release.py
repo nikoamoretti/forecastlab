@@ -115,3 +115,55 @@ def test_release_completion_respects_owner_pause_during_maintenance(client, monk
         session.commit()
         assert not release_complete(session)["automatic_spending_enabled"]
         assert state(session).pause_reason == "Paused by owner"
+
+
+def test_local_release_preflight_requires_clean_exact_default_head(monkeypatch):
+    from scripts import release_local
+
+    commit = "a" * 40
+    responses = {
+        ("git", "status", "--porcelain"): "",
+        ("git", "remote", "get-url", "origin"): release_local.REPOSITORY,
+        ("git", "rev-parse", "HEAD"): commit,
+        ("git", "ls-remote", "origin", "refs/heads/" + release_local.DEFAULT_BRANCH): commit + "\trefs/heads/" + release_local.DEFAULT_BRANCH,
+        ("gh", "api", "user", "--jq", ".id"): release_local.OWNER_ID,
+        ("pg_dump", "--version"): "pg_dump (PostgreSQL) 18.6",
+    }
+    monkeypatch.setattr(release_local, "output", lambda *args: responses[args])
+    release_local.preflight(commit)
+    responses[("git", "status", "--porcelain")] = " M apps/api/forecastlab_api/main.py"
+    with pytest.raises(RuntimeError, match="release_tree_not_clean"):
+        release_local.preflight(commit)
+    responses[("git", "status", "--porcelain")] = ""
+    responses[("git", "ls-remote", "origin", "refs/heads/" + release_local.DEFAULT_BRANCH)] = "b" * 40 + "\trefs/heads/" + release_local.DEFAULT_BRANCH
+    with pytest.raises(RuntimeError, match="release_commit_not_default_head"):
+        release_local.preflight(commit)
+
+
+def test_local_release_control_uses_same_transactional_routes(client):
+    from scripts.release_local import database_control
+
+    assert database_control("/internal/release/pause")["drained"]
+    assert not database_control("/internal/release/complete")["dispatch_paused"]
+    with pytest.raises(RuntimeError, match="unknown_release_control_command"):
+        database_control("/internal/release/unrecognized")
+
+
+def test_local_release_requires_staged_smoke_access_before_pausing():
+    from scripts import release_local
+
+    class Project:
+        def __init__(self, project_id, name, bypass=True):
+            self.details = {"id": project_id, "name": name,
+                            "targets": {"production": {"id": "existing"}},
+                            "protectionBypass": {"key": {"scope": "automation-bypass"}} if bypass else {}}
+
+        def project(self):
+            return self.details
+
+    api = Project(release_local.API_PROJECT_ID, "forecastlab-api")
+    web = Project(release_local.WEB_PROJECT_ID, "forecastlab-web")
+    release_local.validate_cloud_targets(api, web)
+    web.details["protectionBypass"] = {}
+    with pytest.raises(RuntimeError, match="staged_smoke_bypass_missing"):
+        release_local.validate_cloud_targets(api, web)

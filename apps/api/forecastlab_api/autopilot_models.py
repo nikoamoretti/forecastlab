@@ -164,6 +164,37 @@ class QuestionAdjudication(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
+class OfficialMacroOutcomeAmendment(Base):
+    """Append-only post-freeze evidence for a deterministic macro outcome."""
+
+    __tablename__ = "official_macro_outcome_amendments"
+    __table_args__ = (
+        UniqueConstraint("question_id", "revision", name="uq_official_macro_outcome_amendment_revision"),
+        CheckConstraint("status IN ('ready', 'exception')", name="ck_official_macro_outcome_amendment_status"),
+        CheckConstraint("outcome IS NULL OR outcome IN (0, 1)", name="ck_official_macro_outcome_amendment_binary"),
+    )
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    question_id: Mapped[str] = mapped_column(ForeignKey("questions.id"), index=True)
+    prospective_entry_id: Mapped[str | None] = mapped_column(ForeignKey("prospective_entries.id"), nullable=True)
+    revision: Mapped[int] = mapped_column(Integer)
+    policy_version: Mapped[str] = mapped_column(String(64))
+    contract_hash: Mapped[str] = mapped_column(String(64))
+    release_event: Mapped[str] = mapped_column(String(255))
+    status: Mapped[str] = mapped_column(String(16))
+    source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source_identity_json: Mapped[str] = mapped_column(Text, default="{}")
+    artifact_json: Mapped[str] = mapped_column(Text, default="{}")
+    source_sha256: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    parser_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    measurement_json: Mapped[str] = mapped_column(Text, default="{}")
+    outcome: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    outcome_known_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    retrieved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    exception_code: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    exception_detail: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
 class InboxEvent(Base):
     __tablename__ = "inbox_events"
     id: Mapped[str] = mapped_column(String(128), primary_key=True)
@@ -184,6 +215,6 @@ def _immutable(_mapper, _connection, _target):
     raise ValueError("append_only_record")
 
 
-for _model in (AutopilotPolicy, AutopilotRun, OutcomeProposal, QuestionAdjudication):
+for _model in (AutopilotPolicy, AutopilotRun, OutcomeProposal, QuestionAdjudication, OfficialMacroOutcomeAmendment):
     event.listen(_model, "before_update", _immutable)
     event.listen(_model, "before_delete", _immutable)

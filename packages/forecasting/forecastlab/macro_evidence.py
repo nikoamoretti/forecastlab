@@ -5,6 +5,7 @@ import calendar
 import io
 import re
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 from html.parser import HTMLParser
 from zoneinfo import ZoneInfo
 
@@ -18,6 +19,14 @@ ALIASES = {
     "cpi": r"consumer price|CPI|inflation|CUUR0000SA0",
 }
 MONTHS = "|".join(calendar.month_name[1:])
+FIRST_RELEASE_PARSER_VERSION = "macro_first_release_v1"
+
+
+def archived_first_release_url(spec: MacroSpec) -> str:
+    """The immutable dated BLS identity required for automated adjudication."""
+    family = "cpi" if spec.indicator == "cpi" else "empsit"
+    suffix = as_utc(spec.release_at).astimezone(ZoneInfo("America/New_York")).strftime("%m%d%Y")
+    return f"https://www.bls.gov/news.release/archives/{family}_{suffix}.htm"
 
 
 def validate_snapshot(snapshot: MacroSnapshot, spec: MacroSpec, cutoff: datetime) -> None:
@@ -150,25 +159,33 @@ def _parse_release_text(text: str, spec: MacroSpec, *, source_url: str, retrieve
         raise MacroDataError("release_observation_period_mismatch")
     headline = text[heading.end():heading.end() + 1800]
     if spec.indicator == "unemployment":
-        finding = re.search(r"(?:the )?unemployment rate\b[^.;]{0,100}?\b(?:at|to)\s+(\d+(?:\.\d+)?)\s+percent", headline, re.I)
-        value = float(finding.group(1)) if finding else None
-        if value is not None and not 0 <= value <= 100:
-            value = None
+        matches = list(re.finditer(r"(?:the )?unemployment rate\b(?!\s+(?:for|among|of)\b)[^.;]{0,100}?\b(?:at|to)\s+(\d+(?:\.\d+)?)\s+percent", headline, re.I))
+        measurements = [Decimal(match.group(1)) for match in matches]
+        if any(not 0 <= measurement <= 100 for measurement in measurements):
+            raise MacroDataError("headline_measurement_unverified")
     elif spec.indicator == "payrolls":
-        finding = re.search(r"total nonfarm payroll employment\b([^.;]{0,130}?)([+-]?\d{1,3}(?:,\d{3})+|[+-]?\d+)\)?\s*(?:in\s+" + calendar.month_name[target_month] + r"|\))", headline, re.I)
-        value = float(finding.group(2).replace(",", "")) if finding else None
-        if finding and value is not None and re.search(r"fell|declin|decreas|lost", finding.group(1), re.I):
-            value = -abs(value)
+        matches = list(re.finditer(r"total nonfarm payroll employment\b([^.;]{0,130}?)([+-]?\d{1,3}(?:,\d{3})+|[+-]?\d+)\)?\s*(?:in\s+" + calendar.month_name[target_month] + r"|\))", headline, re.I))
+        measurements = [Decimal(match.group(2).replace(",", "")) for match in matches]
+        measurements = [-abs(value) if re.search(r"fell|declin|decreas|lost", match.group(1), re.I) else value
+                        for match, value in zip(matches, measurements, strict=True)]
     else:
-        finding = re.search(r"over the last 12 months,? the all items index\s+(increased|rose|decreased|fell)\s+(\d+(?:\.\d+)?)\s+percent\s+before seasonal adjustment", headline, re.I)
-        value = float(finding.group(2)) if finding else None
-        if finding and value is not None and finding.group(1).lower() in {"decreased", "fell"}:
-            value = -value
-    if value is None or finding is None:
+        matches = list(re.finditer(r"over the last 12 months,? the all items index\s+(increased|rose|decreased|fell)\s+(\d+(?:\.\d+)?)\s+percent\s+before seasonal adjustment", headline, re.I))
+        measurements = [Decimal(match.group(2)) * (-1 if match.group(1).lower() in {"decreased", "fell"} else 1)
+                        for match in matches]
+    if not matches:
         raise MacroDataError("headline_measurement_unverified")
-    outcome = {"gt": value > spec.threshold, "ge": value >= spec.threshold,
-               "lt": value < spec.threshold, "le": value <= spec.threshold}[spec.comparison]
-    return {"schema_version": "macro_first_release_v1", "indicator": spec.indicator,
+    if len(set(measurements)) != 1:
+        raise MacroDataError("headline_measurement_conflicting")
+    finding = matches[0]
+    value = float(measurements[0])
+    try:
+        measured = Decimal(str(value))
+        threshold = Decimal(str(spec.threshold))
+    except (InvalidOperation, ValueError) as exc:
+        raise MacroDataError("macro_threshold_not_decimal") from exc
+    outcome = {"gt": measured > threshold, "ge": measured >= threshold,
+               "lt": measured < threshold, "le": measured <= threshold}[spec.comparison]
+    return {"schema_version": FIRST_RELEASE_PARSER_VERSION, "indicator": spec.indicator,
         "period": spec.observation_period, "value": value, "units": SERIES[spec.indicator]["units"],
         "seasonal_adjustment": SERIES[spec.indicator]["adjustment"], "publication_time": as_utc(published).isoformat(),
         "retrieved_at": as_utc(retrieved_at).isoformat(), "revision_basis": "official_first_release",

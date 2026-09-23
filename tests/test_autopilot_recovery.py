@@ -106,7 +106,7 @@ def test_changed_calendar_suspends_without_dispatch(ready, monkeypatch):
 
 @pytest.mark.parametrize("known_conflict", [False, True])
 def test_due_release_outcome_survives_rolling_index_but_not_known_conflict(ready, monkeypatch, known_conflict):
-    from forecastlab_api import autopilot_outcomes
+    from forecastlab_api import official_macro_outcomes
     autopilot, sessions, sources, *_ = ready
     run_id = auto_run(ready)
     with sessions() as session:
@@ -120,9 +120,67 @@ def test_due_release_outcome_survives_rolling_index_but_not_known_conflict(ready
     checked = []
     monkeypatch.setattr(autopilot, "database_selection_sources", lambda: sources)
     monkeypatch.setattr(autopilot, "utcnow", lambda: NOW + timedelta(days=8))
-    monkeypatch.setattr(autopilot_outcomes, "collect_outcome", lambda session, managed: checked.append(managed.question_id))
+    monkeypatch.setattr(official_macro_outcomes, "process_managed_question", lambda session, managed: checked.append(managed.question_id))
     assert autopilot.reconcile()["queued"] == []
     assert bool(checked) is not known_conflict
+
+
+def test_existing_proposal_does_not_block_automatic_official_adjudication(ready, monkeypatch):
+    from forecastlab.http_client import SafeResponse
+    from forecastlab_api import official_macro_outcomes
+    from forecastlab_api.autopilot_models import OutcomeProposal
+
+    autopilot, sessions, sources, *_ = ready
+    run_id = auto_run(ready)
+    future = NOW + timedelta(days=8)
+    html = b"""<pre>8:30 a.m. (ET) Friday, September 11, 2026
+CONSUMER PRICE INDEX - AUGUST 2026
+Over the last 12 months, the all items index increased 3.4 percent before seasonal adjustment.</pre>"""
+    monkeypatch.setattr(autopilot, "utcnow", lambda: future)
+    monkeypatch.setattr(official_macro_outcomes, "utcnow", lambda: future)
+    monkeypatch.setattr(official_macro_outcomes, "safe_get", lambda url, **_: SafeResponse(
+        url=url, final_url=url, status_code=200, content=html,
+        content_type="text/html", bytes_read=len(html)))
+    sources.releases = []
+    monkeypatch.setattr(autopilot, "database_selection_sources", lambda: sources)
+    with sessions() as session:
+        complete(session, run_id)
+        managed = session.scalar(select(ManagedQuestion).where(ManagedQuestion.initial_run_id == run_id))
+        session.add(OutcomeProposal(id="existing-proposal", question_id=managed.question_id,
+            contract_hash="prior-proposal", payload_json="{}"))
+        state(session).enabled = False
+        session.commit()
+
+    assert autopilot.reconcile()["queued"] == []
+    with sessions() as session:
+        managed = session.scalar(select(ManagedQuestion).where(ManagedQuestion.initial_run_id == run_id))
+        adjudication = session.scalar(select(QuestionAdjudication).where(
+            QuestionAdjudication.question_id == managed.question_id))
+        assert managed.status == "resolved"
+        assert adjudication is not None
+        assert adjudication.confirmed_by == official_macro_outcomes.SYSTEM_ATTRIBUTION
+        assert adjudication.outcome in (0, 1)
+
+
+def test_due_official_outcome_proceeds_when_discovery_sources_fail(ready, monkeypatch):
+    from forecastlab_api import official_macro_outcomes
+
+    autopilot, sessions, *_ = ready
+    run_id = auto_run(ready)
+    with sessions() as session:
+        complete(session, run_id)
+        state(session).enabled = False
+        session.commit()
+    monkeypatch.setattr(autopilot, "utcnow", lambda: NOW + timedelta(days=8))
+    monkeypatch.setattr(autopilot, "database_selection_sources", lambda: (_ for _ in ()).throw(TimeoutError()))
+    checked = []
+    monkeypatch.setattr(official_macro_outcomes, "process_managed_question",
+        lambda session, managed: checked.append(managed.question_id))
+
+    result = autopilot.reconcile()
+    assert result["status"] == "selection_sources_unavailable"
+    assert len(checked) == 1
+    assert result["queued"] == []
 
 
 def test_release_drain_lock_blocks_new_workers(client, monkeypatch):
