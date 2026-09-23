@@ -46,17 +46,14 @@ def configure_release_environment(values):
     return url
 
 
-def main():
-    if not os.environ.get("FORECASTLAB_RELEASE_SECRET"):
-        raise RuntimeError("release_secret_required")
+def release_with_clients(api_client, web_client, control_request=request):
+    """Keep the backup, migration and staged-promotion path identical for both runners."""
     print("Pausing dispatch and draining active work.", flush=True)
     deadline = time.monotonic() + 720
-    while not request("/internal/release/pause")["drained"]:
+    while not control_request("/internal/release/pause")["drained"]:
         if time.monotonic() >= deadline:
             raise RuntimeError("release_drain_timeout")
         time.sleep(15)
-    api_client = VercelProject(os.environ["FORECASTLAB_API_PROJECT_ID"], os.environ["FORECASTLAB_API_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
-    web_client = VercelProject(os.environ["FORECASTLAB_WEB_PROJECT_ID"], os.environ["FORECASTLAB_WEB_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
     try:
         values = api_client.environment()
         url = configure_release_environment(values)
@@ -89,11 +86,19 @@ def main():
         print("Staged checks passed; promoting API and web.", flush=True)
         api_client.promote(api)
         web_client.promote(web)
-        result = request("/internal/release/complete")
+        result = control_request("/internal/release/complete")
         print(json.dumps({"released": True, "api": api["url"], "web": web["url"], **result}), flush=True)
     finally:
         api_client.client.close()
         web_client.client.close()
+
+
+def main():
+    if not os.environ.get("FORECASTLAB_RELEASE_SECRET"):
+        raise RuntimeError("release_secret_required")
+    api_client = VercelProject(os.environ["FORECASTLAB_API_PROJECT_ID"], os.environ["FORECASTLAB_API_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
+    web_client = VercelProject(os.environ["FORECASTLAB_WEB_PROJECT_ID"], os.environ["FORECASTLAB_WEB_VERCEL_TOKEN"], os.environ["VERCEL_ORG_ID"])
+    release_with_clients(api_client, web_client)
 
 
 if __name__ == "__main__":
