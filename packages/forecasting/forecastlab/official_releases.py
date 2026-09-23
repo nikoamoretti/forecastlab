@@ -6,7 +6,7 @@ import hashlib
 import re
 from datetime import datetime, timedelta
 from html.parser import HTMLParser
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 from zoneinfo import ZoneInfo
 
 from forecastlab.macro import MacroDataError, MacroSpec
@@ -18,6 +18,23 @@ DOL_INDEX = "https://www.dol.gov/newsroom/economicdata"
 PUBLIC_DATA_USER_AGENT = "ForecastLab/1.0 (+https://forecastlab-web.vercel.app; contact: https://github.com/nikoamoretti)"
 DOL_PDF_PATTERN = r"https://www\.dol\.gov/newsroom/economicdata/(empsit|cpi)_(\d{8})\.pdf"
 LABELS = {"empsit": "Employment Situation", "cpi": "Consumer Price Index"}
+
+
+def official_correction_evidence_url(url: str) -> bool:
+    """True for existing www.bls.gov HTTPS URLs and dated DOL economic-data PDFs."""
+    if not isinstance(url, str) or not url or len(url) > 1000 or any(ch.isspace() for ch in url):
+        return False
+    parts = urlsplit(url)
+    if parts.scheme != "https" or parts.username is not None or parts.password is not None or parts.port is not None:
+        return False
+    host = (parts.hostname or "").casefold()
+    if host == "www.bls.gov":
+        return parts.path.startswith("/")
+    if host == "www.dol.gov":
+        if parts.query or parts.fragment:
+            return False
+        return re.fullmatch(DOL_PDF_PATTERN, f"https://www.dol.gov{parts.path}") is not None
+    return False
 
 
 class _Links(HTMLParser):

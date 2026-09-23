@@ -148,6 +148,16 @@ paused, invalidate copied sessions, review nonterminal jobs and reconcile unknow
 provider calls before reconnecting the service. A populated Autopilot migration
 cannot be destructively downgraded; use a verified backup to recover.
 
+A September 9, 2026 recovery check restored a fresh production snapshot into a
+separate PostgreSQL 18 instance. Full-row parity passed for 67 tables and 33,481
+records at revision `20260904_0032`. Receipt:
+`data/local/autopilot/v1-restore-2026-09-09.json` (`verified: true`, SHA-256
+`66a4b8fd52141edb181bc7cdec2589f9eae5339a93ad2d25356ce118788c85b4`). Focused
+SQLite plus PostgreSQL tests: 61 passed. Native Neon seven-day point-in-time
+recovery remains unverified. The same day's source preflight receipt
+`data/local/autopilot/v1-source-preflight-2026-09-09.json` recorded no gaps and
+zero paid calls; GitHub OAuth remains unconfigured.
+
 ## Qualification and activation
 
 Deploy with automatic spending disabled. Confirm the restore receipt, owner login
@@ -198,6 +208,14 @@ export model, search, OAuth or session secrets. Source bundles contain only the
 committed tree and exclude local data, secret files and the other application.
 Staging must leave the current production target unchanged; promotion is checked
 against the project's resulting production deployment ID.
+
+September 9, 2026 rollback targets, if a later reviewed release of the isolated
+outcome-acceptance change must be withdrawn, are API
+`dpl_HG85vToqjV8tqDkBjhZ8xvtTMk5r` and web `dpl_8qt1jyoBqCc5YADho5upwWotwm2p`
+at commit `20c549c62c8b1f01bb4535517fa2e2f23d62ebe3`. Keep dispatch paused. No
+schema rollback is required for that change. Receipt:
+`data/local/autopilot/v1-rollback-targets-2026-09-09.json`. This record is not a
+ship. Paid Neon remains the production database.
 
 `GET /internal/readiness` reports migration, login and restore readiness without
 secrets. `POST /internal/source-preflight` runs only free public-data checks.
