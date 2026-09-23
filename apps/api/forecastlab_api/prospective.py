@@ -17,6 +17,7 @@ from forecastlab.macro import MacroSpec
 from forecastlab.root_event import digest
 from forecastlab.schemas import ForecastContract
 from forecastlab.timeutil import as_utc, utcnow
+from forecastlab_api.autopilot_models import OfficialMacroOutcomeAmendment
 from forecastlab_api.contracts import approve_forecast_contract, store_forecast_contract
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
@@ -235,6 +236,9 @@ def cohort_report(session: Session, cohort_id: str) -> dict:
     for entry in entries_for(session, cohort.id):
         outcome = session.scalar(select(ProspectiveOutcome).where(ProspectiveOutcome.entry_id == entry.id)
                                  .order_by(ProspectiveOutcome.revision.desc()).limit(1))
+        amendment = session.scalar(select(OfficialMacroOutcomeAmendment).where(
+            OfficialMacroOutcomeAmendment.prospective_entry_id == entry.id
+        ).order_by(OfficialMacroOutcomeAmendment.revision.desc()).limit(1))
         assignments = session.scalars(select(ProspectiveAssignment).where(ProspectiveAssignment.entry_id == entry.id)).all()
         cells = []
         for assignment in assignments:
@@ -259,7 +263,14 @@ def cohort_report(session: Session, cohort_id: str) -> dict:
         questions.append({"id": entry.id, "question_id": entry.question_id, "contract": json.loads(entry.contract_json),
             "cutoff": as_utc(entry.cutoff).isoformat(), "release_event": entry.release_event, "cells": cells,
             "outcome": None if not outcome else {"value": outcome.outcome, "revision": outcome.revision,
-                "source_url": outcome.source_url, "evidence": outcome.evidence, "confirmed_by": outcome.confirmed_by}})
+                "source_url": outcome.source_url, "evidence": outcome.evidence, "confirmed_by": outcome.confirmed_by},
+            "official_outcome_amendment": None if not amendment else {
+                "id": amendment.id, "revision": amendment.revision, "status": amendment.status,
+                "policy_version": amendment.policy_version, "source_url": amendment.source_url,
+                "source_sha256": amendment.source_sha256, "outcome_known_at": amendment.outcome_known_at,
+                "retrieved_at": amendment.retrieved_at, "parser_version": amendment.parser_version,
+                "exception_code": amendment.exception_code,
+            }})
     matched = [q for q in questions if len(q["cells"]) == 3 and all(c["brier_score"] is not None for c in q["cells"])]
     methods = []
     for method in METHODS:

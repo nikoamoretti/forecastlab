@@ -24,7 +24,6 @@ from forecastlab_api.autopilot_models import (
     ExecutionCheckpoint,
     InboxEvent,
     ManagedQuestion,
-    OutcomeProposal,
 )
 from forecastlab_api.autopilot_store import (
     budget_totals,
@@ -311,12 +310,46 @@ def reconcile(*, qualification=False) -> dict:
             should_discover = current.enabled or qualification
             managed_ids = list(session.scalars(select(ManagedQuestion.question_id).where(
                 ManagedQuestion.status.in_(["active", "awaiting_outcome"]),
-                ~select(OutcomeProposal.id).where(OutcomeProposal.question_id == ManagedQuestion.question_id).exists(),
             ).order_by(ManagedQuestion.last_checked_at.asc().nulls_first(), ManagedQuestion.created_at)))
             session.commit()
+            # Official outcomes do not depend on the discovery-source index or
+            # paid forecasting. Resolve due frozen entries even when source
+            # discovery is paused or temporarily unavailable.
+            from forecastlab_api.official_macro_outcomes import process_due_prospective_entries
+            process_due_prospective_entries(session)
         if not should_discover and not managed_ids:
             return {"status": "paused", "queued": []}
-        sources = database_selection_sources()
+        try:
+            sources = database_selection_sources()
+        except Exception as exc:
+            # Discovery is independent of adjudicating an already frozen
+            # question. The exact dated first-release document can still
+            # establish its outcome while the rolling source index is down.
+            from forecastlab_api.official_macro_outcomes import process_managed_question
+            with SessionLocal() as session:
+                checks = 0
+                for question_id in managed_ids:
+                    if checks >= 2:
+                        break
+                    managed = session.get(ManagedQuestion, question_id)
+                    if not managed or utcnow() < MacroSpec.model_validate_json(managed.macro_json).release_at:
+                        continue
+                    checks += 1
+                    try:
+                        managed.status = "awaiting_outcome"
+                        session.commit()
+                        process_managed_question(session, managed)
+                    except Exception as outcome_exc:
+                        session.rollback()
+                        notify(session, "outcome-check:" + question_id + ":" + utcnow().strftime("%Y-%m-%d"),
+                               "incident", "Official outcome check needs attention",
+                               type(outcome_exc).__name__, question_id)
+                        session.commit()
+                notify(session, "selection-sources:" + utcnow().strftime("%Y-%m-%d"), "incident",
+                       "Public data check needs attention", type(exc).__name__)
+                session.commit()
+            return {"status": "selection_sources_unavailable", "queued": [],
+                    "gaps": ["selection_sources_" + type(exc).__name__]}
         candidates, gaps = choose_questions(sources.releases, sources.snapshots, now=utcnow())
         with SessionLocal() as session:
             if sources.gaps:
@@ -344,8 +377,8 @@ def reconcile(*, qualification=False) -> dict:
                         continue
                     managed.status = "awaiting_outcome"
                     session.commit()
-                    from forecastlab_api.autopilot_outcomes import collect_outcome
-                    collect_outcome(session, managed)
+                    from forecastlab_api.official_macro_outcomes import process_managed_question
+                    process_managed_question(session, managed)
                     checks += 1
                     continue
                 if not should_discover or qualification or utcnow() >= macro.release_at - timedelta(minutes=15):
