@@ -39,6 +39,7 @@ _STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "root_evidence",
     "graph_research_plan",
     "evidence_claims",
+    "track_forecast",
 }
 
 

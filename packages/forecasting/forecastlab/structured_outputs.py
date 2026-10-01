@@ -10,7 +10,7 @@ from pydantic import (
     field_validator,
 )
 
-from forecastlab.schemas import ForecastNodeType
+from forecastlab.schemas import ForecastNodeType, TrackForecastOutput
 
 ForecastGraphOutputType = Literal[
     "probability",
@@ -320,6 +320,75 @@ def forecast_node_json_schema(
     }
 
 
+def track_forecast_json_schema(*, evidence_ids: list[str]) -> dict[str, Any]:
+    """Return the strict three-track estimate schema bounded to supplied evidence.
+
+    The shape mirrors ``TrackForecastOutput``.  Strict schemas require every
+    property, so optional model fields are required here and nullable where
+    the model allows ``None``.  Driver citations are limited to the evidence
+    identifiers supplied to the track, matching the post-validation filter.
+    """
+
+    unit_interval = {"type": "number", "minimum": 0, "maximum": 1}
+    if evidence_ids:
+        evidence_array: dict[str, Any] = {
+            "type": "array",
+            "items": {"type": "string", "enum": list(evidence_ids)},
+        }
+    else:
+        # OpenAI's strict-schema subset still requires an ``items`` schema
+        # even when maxItems makes the only valid array empty.  The sentinel
+        # is unreachable and never leaves this transport schema.
+        evidence_array = {
+            "type": "array",
+            "maxItems": 0,
+            "items": {"type": "string", "enum": ["__no_supplied_evidence_id__"]},
+        }
+    string_list = {"type": "array", "items": {"type": "string"}}
+    return {
+        "type": "object",
+        "properties": {
+            "probability": {"type": "number", "minimum": 0.01, "maximum": 0.99},
+            "prior_probability": {
+                "type": ["number", "null"],
+                "minimum": 0.01,
+                "maximum": 0.99,
+            },
+            "key_drivers": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "factor": {"type": "string"},
+                        "direction": {"type": "string", "enum": ["up", "down", "unclear"]},
+                        "importance": unit_interval,
+                        "evidence_ids": evidence_array,
+                        "inference": {"type": "boolean"},
+                    },
+                    "required": ["factor", "direction", "importance", "evidence_ids", "inference"],
+                    "additionalProperties": False,
+                },
+            },
+            "counterarguments": string_list,
+            "unresolved_uncertainties": string_list,
+            "resolver_risk": unit_interval,
+            "evidence_quality": unit_interval,
+            "reasoning_summary": {"type": "string"},
+        },
+        "required": [
+            "probability",
+            "prior_probability",
+            "key_drivers",
+            "counterarguments",
+            "unresolved_uncertainties",
+            "resolver_risk",
+            "evidence_quality",
+            "reasoning_summary",
+        ],
+        "additionalProperties": False,
+    }
+
+
 def structured_output_json_schema(schema_name: str) -> dict[str, Any] | None:
     if schema_name == "forecast_graph":
         return forecast_graph_json_schema()
@@ -369,6 +438,12 @@ def validate_structured_output(
         except ValidationError as exc:
             return None, sanitize_validation_errors(exc)
         return node.model_dump(mode="json"), []
+    if schema_name == "track_forecast":
+        try:
+            track = TrackForecastOutput.model_validate(payload)
+        except ValidationError as exc:
+            return None, sanitize_validation_errors(exc)
+        return track.model_dump(mode="json"), []
     if schema_name != "forecast_graph":
         return payload if isinstance(payload, dict) else None, []
     try:

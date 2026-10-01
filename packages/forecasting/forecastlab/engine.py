@@ -37,10 +37,20 @@ from forecastlab.schemas import (
     ResolutionContract,
     TrackForecastOutput,
 )
+from forecastlab.structured_outputs import sanitize_validation_errors, track_forecast_json_schema
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
 
 ProgressFn = Callable[[str, str, float, dict[str, Any] | None], None]
+
+# Profiles whose track estimates use the strict provider schema.  Legacy
+# track profiles, including the frozen three_track_forecaster comparator, keep
+# the original JSON-object request so their results remain reproducible.
+_STRICT_TRACK_FORECAST_PROFILES = frozenset({"three_track_strict_forecaster_v1"})
+
+
+def uses_strict_track_forecast(profile: ForecastProfile) -> bool:
+    return profile.id in _STRICT_TRACK_FORECAST_PROFILES
 
 
 @dataclass
@@ -94,6 +104,7 @@ def _ask_json(
     schema_name: str,
     prompt_versions: dict[str, str],
     prompt_bundle: PromptBundle | None = None,
+    json_schema: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     system, version = _resolve_prompt(prompt_name, prompt_bundle)
     prompt_versions[prompt_name] = version
@@ -104,6 +115,9 @@ def _ask_json(
         estimated_input_tokens=estimated_input,
         max_output_tokens=max_output,
     )
+    request: dict[str, Any] = {}
+    if json_schema is not None:
+        request["json_schema"] = json_schema
     try:
         result: ChatResult = model.complete_json(
             system=system,
@@ -111,6 +125,7 @@ def _ask_json(
             schema_name=schema_name,
             max_output_tokens=max_output,
             estimated_input_tokens=estimated_input,
+            **request,
         )
     except Exception:
         budget.release_reservation(reservation)
@@ -132,13 +147,22 @@ def _ask_model(
     prompt_versions: dict[str, str],
     model_cls: type,
     prompt_bundle: PromptBundle | None = None,
+    json_schema: dict[str, Any] | None = None,
 ) -> Any:
-    parsed = _ask_json(model, budget, stage, prompt_name, user, schema_name, prompt_versions, prompt_bundle)
+    parsed = _ask_json(
+        model, budget, stage, prompt_name, user, schema_name, prompt_versions, prompt_bundle, json_schema
+    )
     try:
         return model_cls.model_validate(parsed)
-    except ValidationError:
-        repair = user + "\n\nPrevious JSON failed validation. Return corrected JSON only.\n" + json.dumps(parsed)[:4000]
-        parsed = _ask_json(model, budget, stage, prompt_name, repair, schema_name, prompt_versions, prompt_bundle)
+    except ValidationError as first_error:
+        repair = user + "\n\nPrevious JSON failed validation. Return corrected JSON only.\n"
+        if json_schema is not None:
+            # Field paths and messages only; provider values are not echoed twice.
+            repair += "Validation errors: " + json.dumps(sanitize_validation_errors(first_error)) + "\n"
+        repair += json.dumps(parsed)[:4000]
+        parsed = _ask_json(
+            model, budget, stage, prompt_name, repair, schema_name, prompt_versions, prompt_bundle, json_schema
+        )
         try:
             return model_cls.model_validate(parsed)
         except ValidationError as exc:
@@ -315,6 +339,11 @@ def _run_track(
                         continue
                     evidence.append(record)
         _emit(progress, "forecast", f"Producing {track} estimate", 0.7)
+        forecast_schema = (
+            track_forecast_json_schema(evidence_ids=[item["id"] for item in evidence])
+            if uses_strict_track_forecast(profile)
+            else None
+        )
         forecast = _ask_model(
             model,
             budget,
@@ -342,6 +371,7 @@ def _run_track(
             prompt_versions,
             TrackForecastOutput,
             prompt_bundle,
+            forecast_schema,
         )
         allowed = {item["id"] for item in evidence}
         forecast.key_drivers = [
