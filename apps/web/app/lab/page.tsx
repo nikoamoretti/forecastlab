@@ -9,6 +9,7 @@ const SYNTHETIC_NOTICE = "Software-verification fixtures only. Not evidence of r
 const PROFILE_LABELS: Record<string, string> = {
   single_model_forecaster_v1: "Single model V1",
   three_track_forecaster: "Three track",
+  three_track_strict_forecaster_v1: "Three track (strict)",
   graph_forecaster_v1: "Graph forecast V1"
 };
 
