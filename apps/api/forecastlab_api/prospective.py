@@ -34,7 +34,9 @@ from forecastlab_api.models import (
 from forecastlab_api.personal_forecasts import envelope
 from forecastlab_api.pipeline import create_run_record, resolve_for_question
 
-METHODS = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_forecaster")
+# Methods assigned to newly frozen cohorts.  Reports use the methods recorded
+# in each cohort's frozen manifest, so earlier cohorts keep their own set.
+METHODS = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1")
 
 
 def forecasting_source_hash() -> str:
@@ -271,9 +273,11 @@ def cohort_report(session: Session, cohort_id: str) -> dict:
                 "retrieved_at": amendment.retrieved_at, "parser_version": amendment.parser_version,
                 "exception_code": amendment.exception_code,
             }})
-    matched = [q for q in questions if len(q["cells"]) == 3 and all(c["brier_score"] is not None for c in q["cells"])]
+    cohort_methods = tuple(json.loads(cohort.manifest_json).get("methods") or METHODS) if cohort.manifest_json else METHODS
+    matched = [q for q in questions if len(q["cells"]) == len(cohort_methods)
+               and all(c["brier_score"] is not None for c in q["cells"])]
     methods = []
-    for method in METHODS:
+    for method in cohort_methods:
         cells = [c for q in questions for c in q["cells"] if c["method"] == method]
         scores = [c for q in matched for c in q["cells"] if c["method"] == method]
         latencies = [c["latency_ms"] for c in cells if c["latency_ms"] is not None]

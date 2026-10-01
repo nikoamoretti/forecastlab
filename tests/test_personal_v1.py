@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
 
@@ -128,7 +129,6 @@ def test_general_question_review_accepts_iso_timestamp_and_freezes_contract(clie
 
 @pytest.mark.parametrize("method", ["single_model_forecaster_v1", "three_track_forecaster"])
 def test_personal_baseline_outcome_matches_its_persisted_probability(client, method):
-    import json
 
     from sqlalchemy import select
 
@@ -344,7 +344,6 @@ def test_version_selection_and_cohort_rerun_budget_isolation(client):
 
 
 def test_successful_root_pipeline_uses_only_same_event_estimates(client, monkeypatch):
-    import json
     import uuid
 
     from tests.test_evidence_sufficiency import _claim
@@ -466,3 +465,37 @@ def test_cohort_freeze_budget_and_append_only_outcomes(client, monkeypatch):
         outcome.evidence = "Overwrite"
         with pytest.raises(ValueError, match="append_only"):
             session.commit()
+
+
+def test_new_cohorts_use_strict_three_track_and_reports_follow_frozen_methods(client, monkeypatch):
+    from forecastlab.execution import resolve_execution_context
+    from forecastlab_api import prospective
+    from forecastlab_api.db import SessionLocal
+
+    def resolve(question, *, profile_id, mode):
+        return resolve_execution_context(requested_mode="live", profile_id=profile_id, settings={
+            "model_provider": "openrouter", "model_name": "openai/gpt-5-mini", "model_api_key": "test-not-real",
+            "search_provider": "tavily", "search_api_key": "test-not-real", "max_cost_usd": 5})
+    monkeypatch.setattr(prospective, "resolve_for_question", resolve)
+    now = datetime.now(UTC)
+
+    def freeze(name: str) -> dict:
+        cohort = client.post("/api/prospective/cohorts", json={"name": name, "budget_usd": 1,
+            "questions": [{"macro": spec().model_dump(mode="json"), "cutoff": (now + timedelta(days=1)).isoformat(),
+                           "release_event": "release"}]}).json()
+        return client.post(f"/api/prospective/cohorts/{cohort['id']}/freeze", json={"reviewed_by": "Test reviewer"}).json()
+
+    current = prospective.METHODS
+    assert current == ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1")
+    legacy = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_forecaster")
+    monkeypatch.setattr(prospective, "METHODS", legacy)
+    earlier = freeze("Earlier")
+    monkeypatch.setattr(prospective, "METHODS", current)
+    data = freeze("Strict")
+
+    assert [m["method"] for m in data["methods"]] == list(current)
+    assert {c["method"] for c in data["questions"][0]["cells"]} == set(current)
+    with SessionLocal() as session:
+        report = prospective.cohort_report(session, earlier["id"])
+    assert [m["method"] for m in report["methods"]] == list(legacy)
+    assert {m["method"]: m["assigned"] for m in report["methods"]} == dict.fromkeys(legacy, 1)

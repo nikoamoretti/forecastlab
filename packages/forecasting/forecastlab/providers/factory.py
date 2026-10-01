@@ -6,7 +6,19 @@ from forecastlab.errors import ConfigurationError
 from forecastlab.execution import ExecutionContext
 from forecastlab.ledger import UsageLedger
 from forecastlab.providers.mock import MockModelProvider
-from forecastlab.providers.openai_compatible import OpenAICompatibleProvider, ProviderError
+from forecastlab.providers.openai_compatible import (
+    DEFAULT_OPENAI_BASE,
+    DEFAULT_OPENROUTER_BASE,
+    DEFAULT_XAI_BASE,
+    OpenAICompatibleProvider,
+    ProviderError,
+)
+
+_DEFAULT_BASE_URLS = {"openrouter": DEFAULT_OPENROUTER_BASE, "xai": DEFAULT_XAI_BASE}
+
+
+def default_base_url(provider: str) -> str:
+    return _DEFAULT_BASE_URLS.get(provider, DEFAULT_OPENAI_BASE)
 
 
 def build_model_provider(
@@ -34,7 +46,7 @@ def build_model_provider(
             raise ConfigurationError(["model_api_key_missing"])
         return OpenAICompatibleProvider(
             api_key=api_key,
-            base_url=execution.model_base_url or base_url or "https://api.openai.com/v1",
+            base_url=execution.model_base_url or base_url or default_base_url(execution.model_provider),
             model=execution.model_name,
             timeout=timeout,
             ledger=ledger,
@@ -52,13 +64,10 @@ def build_model_provider(
         )
     if not api_key:
         raise ConfigurationError(["model_api_key_missing"])
-    if provider in {"openai_compatible", "xai", "openai"}:
-        default_base = "https://api.x.ai/v1" if provider == "xai" else "https://api.openai.com/v1"
-        if provider == "openai_compatible":
-            default_base = base_url or "https://api.openai.com/v1"
+    if provider in {"openai_compatible", "xai", "openai", "openrouter"}:
         return OpenAICompatibleProvider(
             api_key=api_key,
-            base_url=base_url or default_base,
+            base_url=base_url or default_base_url(provider),
             model=model,
             timeout=timeout,
             ledger=ledger,
