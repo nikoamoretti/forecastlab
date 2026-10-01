@@ -19,6 +19,9 @@ from forecastlab.structured_outputs import validate_structured_output
 
 DEFAULT_XAI_BASE = "https://api.x.ai/v1"
 DEFAULT_OPENAI_BASE = "https://api.openai.com/v1"
+DEFAULT_OPENROUTER_BASE = "https://openrouter.ai/api/v1"
+# OpenRouter model identifiers carry the upstream vendor, e.g. ``openai/gpt-5-mini``.
+_OPENROUTER_OPENAI_PREFIX = "openai/"
 _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES = ("gpt-5", "o1", "o3", "o4")
 _OPENAI_NO_TEMPERATURE_PREFIXES = _OPENAI_MAX_COMPLETION_TOKEN_PREFIXES
 _OPENAI_STRICT_SCHEMA_PREFIXES = (
@@ -47,8 +50,16 @@ class ProviderError(PermanentProviderError):
     pass
 
 
+def _is_openrouter(provider_id: str) -> bool:
+    return provider_id.strip().lower() == "openrouter"
+
+
 def _is_openai_model_family(provider_id: str, model: str, prefixes: tuple[str, ...]) -> bool:
-    return provider_id.strip().lower() == "openai" and model.strip().lower().startswith(prefixes)
+    provider = provider_id.strip().lower()
+    name = model.strip().lower()
+    if provider == "openrouter" and name.startswith(_OPENROUTER_OPENAI_PREFIX):
+        return name.removeprefix(_OPENROUTER_OPENAI_PREFIX).startswith(prefixes)
+    return provider == "openai" and name.startswith(prefixes)
 
 
 def _completion_limit_field(
@@ -111,7 +122,17 @@ def _usage_from_response(
     prompt = int(usage.get("prompt_tokens") or 0)
     completion = int(usage.get("completion_tokens") or 0)
     rate = lookup_rate(provider, model, catalog=catalog)
-    if rate:
+    reported_cost = usage.get("cost")
+    if (
+        _is_openrouter(provider)
+        and isinstance(reported_cost, int | float)
+        and not isinstance(reported_cost, bool)
+        and reported_cost >= 0
+    ):
+        # OpenRouter reports the amount charged for every completion.
+        cost = float(reported_cost)
+        source = "provider_reported"
+    elif rate:
         cost = (prompt / 1_000_000) * float(rate.get("input_per_million") or 0) + (completion / 1_000_000) * float(
             rate.get("output_per_million") or 0
         )
@@ -206,12 +227,18 @@ class OpenAICompatibleProvider:
                 {"role": "user", "content": user},
             ],
         }
+        if strict_schema and _is_openrouter(self.provider_id):
+            # Route only to upstream endpoints that honor the strict schema.
+            body["provider"] = {"require_parameters": True}
         if (
             _is_strict_structured_task_schema(schema_name)
             and reasoning_effort is not None
             and _supports_minimal_reasoning(self.provider_id, self.model)
         ):
-            body["reasoning_effort"] = reasoning_effort
+            if _is_openrouter(self.provider_id):
+                body["reasoning"] = {"effort": reasoning_effort}
+            else:
+                body["reasoning_effort"] = reasoning_effort
         if (
             _is_strict_structured_task_schema(schema_name)
             and verbosity is not None

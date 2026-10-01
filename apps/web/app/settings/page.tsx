@@ -89,6 +89,7 @@ export default function SettingsPage() {
           <option value="openai_compatible">openai_compatible</option>
           <option value="openai">openai</option>
           <option value="xai">xai</option>
+          <option value="openrouter">openrouter</option>
         </select>
       </label>
       <label className="block">

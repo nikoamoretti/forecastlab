@@ -16,7 +16,7 @@ from forecastlab.timeutil import utcnow
 
 MOCK_MODEL_PROVIDERS = {"mock", "demo"}
 MOCK_SEARCH_PROVIDERS = {"mock", "demo"}
-REAL_MODEL_PROVIDERS = {"openai_compatible", "openai", "xai"}
+REAL_MODEL_PROVIDERS = {"openai_compatible", "openai", "xai", "openrouter"}
 REAL_SEARCH_PROVIDERS = {"tavily"}
 
 

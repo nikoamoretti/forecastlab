@@ -46,7 +46,7 @@ SENSITIVE_ENV_KEYS = {
     "FORECASTLAB_MODEL_API_KEY",
     "FORECASTLAB_SEARCH_API_KEY",
 }
-LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible"}
+LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible", "openrouter"}
 QUESTION_PREFIXES = (
     "will ",
     "is ",

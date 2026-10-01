@@ -94,7 +94,7 @@ SENSITIVE_ENV_KEYS = (
     "FORECASTLAB_MODEL_API_KEY",
     "FORECASTLAB_SEARCH_API_KEY",
 )
-LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible"}
+LIVE_PROVIDER_NAMES = {"openai", "tavily", "xai", "openai_compatible", "openrouter"}
 MAX_BYTES = 4_000_000
 MARKET_PAGE_LIMIT = 200
 MAX_PUBLIC_HTTP_ATTEMPTS = 3
