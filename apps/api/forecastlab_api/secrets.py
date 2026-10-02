@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from forecastlab.execution import search_api_key_for
 from forecastlab.hashing import mask_secret
 from forecastlab.schemas import PublicSettings, SettingsPatch
 from forecastlab_api.config import settings
@@ -71,7 +72,14 @@ def public_settings() -> PublicSettings:
         model_name=data.get("model_name") or "mock-forecast-v1",
         model_api_key_set=key_set,
         search_provider=search,
-        search_api_key_set=bool(data.get("search_api_key")),
+        search_api_key_set=bool(
+            search_api_key_for(
+                search,
+                data.get("search_api_key"),
+                model_provider=provider,
+                model_api_key=data.get("model_api_key"),
+            )
+        ),
         max_cost_usd=float(data.get("max_cost_usd") or 5.0),
         model_timeout_seconds=float(data.get("model_timeout_seconds") or 60.0),
         mode=mode,

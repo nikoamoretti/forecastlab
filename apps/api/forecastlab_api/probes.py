@@ -4,6 +4,7 @@ import time
 from typing import Any
 
 from forecastlab.errors import PermanentProviderError, TransientProviderError
+from forecastlab.execution import search_api_key_for
 from forecastlab.hashing import redact_secrets
 from forecastlab.providers.factory import build_model_provider
 from forecastlab.providers.search import build_search_provider
@@ -58,7 +59,14 @@ def test_search_connection() -> dict[str, Any]:
     secrets = load_secrets()
     started = time.perf_counter()
     try:
-        search = build_search_provider(str(secrets.get("search_provider") or "mock"), secrets.get("search_api_key"))
+        search_provider = str(secrets.get("search_provider") or "mock")
+        search_key = search_api_key_for(
+            search_provider,
+            secrets.get("search_api_key"),
+            model_provider=secrets.get("model_provider"),
+            model_api_key=secrets.get("model_api_key"),
+        )
+        search = build_search_provider(search_provider, search_key)
         hits = search.search("US unemployment rate", max_results=1)
         return {
             "provider": getattr(search, "name", secrets.get("search_provider")),

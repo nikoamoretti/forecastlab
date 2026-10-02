@@ -13,6 +13,7 @@ Every forecast goes through `resolve_execution_context()` before a job or run is
 
 - Requires a non-mock model provider, model name, API key, and a base URL when the provider is `openai_compatible`.
 - Requires a non-mock search provider and a search key when that provider needs one.
+- Search providers are `tavily` and `openai_web_search`. `openai_web_search` calls the OpenAI Responses API `web_search` tool with `gpt-5-mini` and reuses the model API key when the model provider is `openai` and no search key is set. Result URLs come only from the tool's citations and source list; publication dates are not taken from the search and are read from each fetched page as usual. Each search is charged as the tool fee plus its tokens at the `openai` catalog rate, recorded as search cost rather than forecasting tokens.
 - Fixture hosts under `fixtures.forecastlab.local` are forbidden. A final check fails the run with `live_run_fixture_evidence_violation` if they appear.
 - Missing configuration returns HTTP 422 and does not create a pending run.
 - Evidence policy: `live_current`.

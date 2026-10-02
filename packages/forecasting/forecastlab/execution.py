@@ -17,7 +17,23 @@ from forecastlab.timeutil import utcnow
 MOCK_MODEL_PROVIDERS = {"mock", "demo"}
 MOCK_SEARCH_PROVIDERS = {"mock", "demo"}
 REAL_MODEL_PROVIDERS = {"openai_compatible", "openai", "xai", "openrouter"}
-REAL_SEARCH_PROVIDERS = {"tavily"}
+REAL_SEARCH_PROVIDERS = {"tavily", "openai_web_search"}
+
+
+def search_api_key_for(
+    search_provider: str,
+    search_api_key: str | None,
+    *,
+    model_provider: str | None,
+    model_api_key: str | None,
+) -> str | None:
+    """OpenAI web search reuses the OpenAI model key when no search key is set."""
+
+    if search_api_key:
+        return search_api_key
+    if search_provider == "openai_web_search" and model_provider == "openai":
+        return model_api_key or None
+    return None
 
 
 class ProviderSettings(BaseModel):
@@ -106,7 +122,14 @@ def _settings_from_mapping(data: dict[str, Any] | ProviderSettings) -> ProviderS
         model_base_url=data.get("model_base_url"),
         model_api_key_set=bool(data.get("model_api_key")),
         search_provider=str(data.get("search_provider") or "mock"),
-        search_api_key_set=bool(data.get("search_api_key")),
+        search_api_key_set=bool(
+            search_api_key_for(
+                str(data.get("search_provider") or "mock"),
+                data.get("search_api_key"),
+                model_provider=data.get("model_provider"),
+                model_api_key=data.get("model_api_key"),
+            )
+        ),
         max_cost_usd=float(data.get("max_cost_usd") or 5.0),
         model_timeout_seconds=float(data.get("model_timeout_seconds") or 60.0),
     )

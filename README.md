@@ -1,6 +1,6 @@
 # ForecastLab
 
-Local-first laboratory for **binary** questions. Mock mode runs with no API keys. Live mode can use an OpenAI-compatible model endpoint and Tavily search.
+Local-first laboratory for **binary** questions. Mock mode runs with no API keys. Live mode can use an OpenAI-compatible model endpoint and either Tavily search or OpenAI's built-in web search (`openai_web_search`).
 
 ## Autopilot on Vercel
 

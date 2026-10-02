@@ -16,6 +16,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from forecastlab.environment import working_tree_dirty
+from forecastlab.execution import search_api_key_for
 from forecastlab.gitinfo import ROOT
 from forecastlab.hashing import redact_secrets
 from forecastlab.profiles import load_profile
@@ -76,7 +77,14 @@ MAX_PROBABILITY = 0.99
 def credentials_ready(secrets: dict[str, Any] | None = None) -> bool:
     data = secrets if secrets is not None else load_secrets()
     model_ok = bool(data.get("model_api_key")) and str(data.get("model_provider") or "") not in {"", "mock", "demo"}
-    search_ok = bool(data.get("search_api_key")) and str(data.get("search_provider") or "") not in {"", "mock", "demo"}
+    search_provider = str(data.get("search_provider") or "")
+    search_key = search_api_key_for(
+        search_provider,
+        data.get("search_api_key"),
+        model_provider=data.get("model_provider"),
+        model_api_key=data.get("model_api_key"),
+    )
+    search_ok = bool(search_key) and search_provider not in {"", "mock", "demo"}
     return model_ok and search_ok
 
 
