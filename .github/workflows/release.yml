@@ -1,5 +1,12 @@
 name: Reviewed production release
 on:
+  # A merge into the default branch made by the owner's account is the release
+  # approval. Documentation-only merges do not release.
+  push:
+    branches: [grok/forecastlab-mvp]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
   workflow_dispatch:
     inputs:
       approved_commit:
@@ -19,7 +26,7 @@ jobs:
         env:
           OWNER_ID: '146488758'
           ACTOR_ID: ${{ github.actor_id }}
-          APPROVED_COMMIT: ${{ inputs.approved_commit }}
+          APPROVED_COMMIT: ${{ github.event_name == 'push' && github.sha || inputs.approved_commit }}
           RELEASE_COMMIT: ${{ github.sha }}
           RELEASE_REF: ${{ github.ref }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
