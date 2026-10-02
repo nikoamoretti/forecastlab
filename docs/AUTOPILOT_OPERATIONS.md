@@ -170,10 +170,13 @@ operation, not superior accuracy.
 Git-triggered Vercel deployments are disabled in both project configurations.
 The current GitHub plan does not support required deployment reviewers in this
 private repository. Instead, `.github/workflows/release.yml` requires the owner's
-numeric GitHub identity and an explicitly approved full commit SHA. It checks that
-SHA against the selected default-branch commit, then runs CI before deployment.
-Dispatching the workflow with that SHA is the release approval; dependency PRs
-and pushes cannot invoke it automatically. Supply separate project-scoped
+numeric GitHub identity on a default-branch commit, then runs CI before deployment.
+A push to the default branch by the owner's account, including the owner merging a
+pull request, is the release approval for that exact commit; documentation-only
+pushes (`docs/**` and Markdown files) do not release. Pushes and merges by any
+other identity, including Dependabot, fail the approval job and do not deploy.
+The owner can also dispatch the workflow manually with an explicitly approved full
+commit SHA, which is checked against the selected default-branch commit. Supply separate project-scoped
 `FORECASTLAB_API_VERCEL_TOKEN` and `FORECASTLAB_WEB_VERCEL_TOKEN`, plus
 `FORECASTLAB_INTERNAL_SECRET`, as `production` environment secrets. Do not
 copy a broad personal CLI token into repository secrets. The workflow must be
