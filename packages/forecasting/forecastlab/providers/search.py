@@ -282,6 +282,8 @@ class OpenAIWebSearchProvider:
                 error = data.get("error") if isinstance(data.get("error"), dict) else {}
                 raise TransientProviderError(f"OpenAI web search failed: {redact_secrets(str(error.get('code')))}")
             hits, calls = openai_web_search_hits(data, max_results=max_results)
+            if calls == 0:
+                raise SearchProviderError("openai_web_search_unsupported_response: no web search call")
             cost, source = self._cost(data, calls)
             # Search tokens are part of the search charge, not the forecasting token budget.
             usage = ModelUsage(

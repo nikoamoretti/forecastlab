@@ -187,13 +187,14 @@ def test_search_cost_is_tool_fee_plus_tokens_and_skips_token_budget(monkeypatch:
 
 
 def test_http_client_error_is_permanent_and_redacted(monkeypatch: pytest.MonkeyPatch) -> None:
-    _stub_client(monkeypatch, status_code=401, text="bad key sk-abcdefghijklmnopqrstuvwxyz0123456789")
+    fake_key = "sk-" + ("x" * 36)
+    _stub_client(monkeypatch, status_code=401, text=f"bad key {fake_key}")
 
     with pytest.raises(PermanentProviderError) as excinfo:
         OpenAIWebSearchProvider("test-api-key", pricing_catalog=CATALOG).search("q")
 
     assert "OpenAI web search HTTP 401" in str(excinfo.value)
-    assert "abcdefghijklmnopqrstuvwxyz0123456789" not in str(excinfo.value)
+    assert fake_key not in str(excinfo.value)
 
 
 def test_search_key_falls_back_to_openai_model_key_only() -> None:
@@ -246,4 +247,13 @@ def test_failed_response_status_raises(monkeypatch: pytest.MonkeyPatch) -> None:
     _stub_client(monkeypatch, payload={"status": "failed", "error": {"code": "server_error"}, "output": []})
 
     with pytest.raises(TransientProviderError, match="server_error"):
+        OpenAIWebSearchProvider("test-api-key", pricing_catalog=CATALOG).search("q")
+
+
+def test_response_without_web_search_call_fails_closed(monkeypatch: pytest.MonkeyPatch) -> None:
+    payload = _payload()
+    payload["output"] = [item for item in payload["output"] if item["type"] != "web_search_call"]
+    _stub_client(monkeypatch, payload=payload)
+
+    with pytest.raises(PermanentProviderError, match="openai_web_search_unsupported_response"):
         OpenAIWebSearchProvider("test-api-key", pricing_catalog=CATALOG).search("q")
