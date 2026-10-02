@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from forecastlab.deadline import ExecutionDeadline, check_deadline
 from forecastlab.engine import operationalize_only, run_forecast_engine
 from forecastlab.errors import ConfigurationError, GraphForecastExecutionError
-from forecastlab.execution import ExecutionContext, resolve_execution_context
+from forecastlab.execution import ExecutionContext, resolve_execution_context, search_api_key_for
 from forecastlab.graph_execution import run_graph_forecast_engine
 from forecastlab.pricing import load_pricing
 from forecastlab.profiles import load_profile
@@ -263,7 +263,12 @@ def execute_run(
     )
     search = search_provider_override or build_search_provider(
         context.search_provider,
-        secrets.get("search_api_key"),
+        search_api_key_for(
+            context.search_provider,
+            secrets.get("search_api_key"),
+            model_provider=context.model_provider,
+            model_api_key=secrets.get("model_api_key"),
+        ),
         execution=context,
         ledger=ledger,
         run_id=run.id,

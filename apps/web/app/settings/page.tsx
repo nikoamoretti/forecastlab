@@ -113,6 +113,7 @@ export default function SettingsPage() {
         >
           <option value="mock">mock</option>
           <option value="tavily">tavily</option>
+          <option value="openai_web_search">openai_web_search (reuses OpenAI key)</option>
         </select>
       </label>
       <label className="block">

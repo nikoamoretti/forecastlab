@@ -36,6 +36,14 @@ search:
     estimated_per_request: 0.008
     source: manual conservative estimate, not a Tavily invoice
     estimated: true
+  openai_web_search:
+    per_request: null
+    # Upper bound per search for preflight and reservation; actual cost is the
+    # tool fee plus the call's tokens at the openai catalog rate.
+    estimated_per_request: 0.10
+    tool_call_fee_usd: 0.01
+    source: manual conservative estimate from OpenAI web search tool pricing, not an OpenAI invoice
+    estimated: true
   unknown:
     per_request: null
     estimated_per_request: 0.01
