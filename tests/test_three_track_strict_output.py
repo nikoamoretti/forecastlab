@@ -66,14 +66,17 @@ def _assert_strict_subset(schema: dict[str, Any]) -> None:
 STRICT_PROFILE = "three_track_strict_forecaster_v1"
 
 
-def test_strict_profile_matches_frozen_comparator_except_track_transport() -> None:
+def test_strict_profile_matches_frozen_comparator_except_transport_and_wall_clock() -> None:
     strict = load_profile(STRICT_PROFILE)
     frozen = load_profile("three_track_forecaster")
     assert uses_strict_track_forecast(strict)
     assert not uses_strict_track_forecast(frozen)
     assert not uses_strict_track_forecast(load_profile("three_track_ensemble"))
-    identity = {"id", "label", "description"}
-    assert strict.model_dump(exclude=identity) == frozen.model_dump(exclude=identity)
+    assert strict.version == 2
+    assert strict.max_wall_clock_seconds == load_profile("root_event_ensemble_v1").max_wall_clock_seconds == 300
+    assert frozen.max_wall_clock_seconds == 180
+    differing = {"id", "label", "description", "version", "max_wall_clock_seconds"}
+    assert strict.model_dump(exclude=differing) == frozen.model_dump(exclude=differing)
 
 
 def test_strict_profile_requests_track_estimates_with_bounded_schema() -> None:
