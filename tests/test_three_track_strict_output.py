@@ -72,7 +72,7 @@ def test_strict_profile_matches_frozen_comparator_except_transport_and_wall_cloc
     assert uses_strict_track_forecast(strict)
     assert not uses_strict_track_forecast(frozen)
     assert not uses_strict_track_forecast(load_profile("three_track_ensemble"))
-    assert strict.version == 2
+    assert strict.version == 3
     assert strict.max_wall_clock_seconds == load_profile("root_event_ensemble_v1").max_wall_clock_seconds == 300
     assert frozen.max_wall_clock_seconds == 180
     differing = {"id", "label", "description", "version", "max_wall_clock_seconds"}
@@ -206,3 +206,96 @@ def test_provider_sends_strict_track_schema_only_to_supported_models(
         assert result.diagnostics.strict_schema_validation_succeeded is False
     else:
         assert body["response_format"] == {"type": "json_object"}
+
+
+def test_strict_profile_requests_resolution_contract_with_strict_schema() -> None:
+    from forecastlab.structured_outputs import resolution_contract_json_schema
+
+    model = RecordingModel()
+    _run(STRICT_PROFILE, model)
+    contract_calls = [call for call in model.calls if call["schema_name"] == "resolution_contract"]
+    assert len(contract_calls) == 1
+    assert contract_calls[0]["json_schema"] == resolution_contract_json_schema()
+
+    legacy = RecordingModel()
+    _run("three_track_forecaster", legacy)
+    assert all("json_schema" not in call for call in legacy.calls)
+
+
+@pytest.mark.parametrize("schema_fn", ["resolution_contract_json_schema", "forecast_contract_json_schema"])
+def test_contract_schemas_meet_strict_subset_and_require_iso_dates(schema_fn: str) -> None:
+    import re
+
+    from forecastlab import structured_outputs
+
+    schema = getattr(structured_outputs, schema_fn)()
+    _assert_strict_subset(schema)
+    date_field = "resolution_deadline" if schema_fn == "resolution_contract_json_schema" else "resolution_date"
+    pattern = re.compile(schema["properties"][date_field]["pattern"])
+    for valid in ("2026-11-06", "2026-11-06T13:30:00Z", "2026-11-06T08:30:00-05:00", "2026-11-06T08:30"):
+        assert pattern.fullmatch(valid), valid
+    for invalid in ("2026-11-06 (the date of the Employment Situation news release).", "Nov 6, 2026", ""):
+        assert not pattern.fullmatch(invalid), invalid
+
+
+def test_question_compiler_requests_strict_forecast_contract() -> None:
+    from forecastlab.contracts import QuestionCompiler
+    from forecastlab.structured_outputs import forecast_contract_json_schema
+
+    calls: list[dict[str, Any]] = []
+    payload = {
+        "normalized_question": "Will the U.S. unemployment rate for October 2026 exceed 4.2%?",
+        "yes_condition": "The first published BLS rate is above 4.2%.",
+        "no_condition": "The first published BLS rate is 4.2% or lower.",
+        "resolution_date": "2026-11-06",
+        "authoritative_source": "BLS Employment Situation",
+        "fallback_sources": [],
+        "resolution_method": "Compare the first published rate with 4.2%.",
+        "ambiguity_notes": "",
+        "cancellation_conditions": "",
+        "resolver_risk_notes": "",
+        "forecast_type": "binary",
+        "geography": "United States",
+        "units": "percent",
+        "domain": "macro",
+        "initial_reference_class": "",
+        "suggested_drivers": [],
+        "known_dependencies": [],
+        "rejection_reasons": [],
+    }
+
+    class OpenAILikeModel:
+        name = "openai"
+
+        def complete_json(self, **kwargs: Any) -> ChatResult:
+            calls.append(kwargs)
+            return ChatResult(content=json.dumps(payload), parsed=payload, usage=MockModelProvider().complete_json(
+                system="PROMPT_ID: x", user="{}", schema_name="x").usage)
+
+    contract = QuestionCompiler(OpenAILikeModel()).compile(
+        "Will the U.S. unemployment rate for October 2026 exceed 4.2%?", question_id="q"
+    )
+    assert calls[0]["schema_name"] == "forecast_contract"
+    assert calls[0]["json_schema"] == forecast_contract_json_schema()
+    assert contract.resolution_date is not None and contract.resolution_date.date().isoformat() == "2026-11-06"
+
+
+@pytest.mark.parametrize("schema_name", ["resolution_contract", "forecast_contract"])
+def test_provider_sends_strict_contract_schema_to_openai(monkeypatch: pytest.MonkeyPatch, schema_name: str) -> None:
+    from forecastlab.structured_outputs import forecast_contract_json_schema, resolution_contract_json_schema
+
+    requests = _stub_client(monkeypatch)
+    schema = resolution_contract_json_schema() if schema_name == "resolution_contract" else forecast_contract_json_schema()
+    OpenAICompatibleProvider(
+        api_key="test-api-key",
+        base_url="https://provider.example.test/v1",
+        model="gpt-5-mini-2025-08-07",
+        provider_id="openai",
+    ).complete_json(system="Return JSON.", user="{}", schema_name=schema_name, max_output_tokens=4096, json_schema=schema)
+
+    body = requests[0]["json"]
+    assert body["response_format"] == {
+        "type": "json_schema",
+        "json_schema": {"name": schema_name, "strict": True, "schema": schema},
+    }
+    assert "reasoning_effort" not in body

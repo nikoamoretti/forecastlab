@@ -1,7 +1,7 @@
 id: three_track_strict_forecaster_v1
-version: 2
+version: 3
 label: Three-track forecaster with strict track estimates
-description: Existing three-track execution path whose track estimates use the strict provider schema. Separate from the frozen three_track_forecaster comparator. Revision 2 allows 300 seconds, matching root_event_ensemble_v1, because a live run stopped the third track at 180 seconds.
+description: Existing three-track execution path whose track estimates use the strict provider schema. Separate from the frozen three_track_forecaster comparator. Revision 2 allows 300 seconds, matching root_event_ensemble_v1, because a live run stopped the third track at 180 seconds. Revision 3 also requests the resolution contract with a strict schema after a live run failed on a prose resolution_deadline.
 execution_strategy: legacy_tracks
 tracks:
   - base_rate

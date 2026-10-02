@@ -43,6 +43,8 @@ _STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "graph_research_plan",
     "evidence_claims",
     "track_forecast",
+    "resolution_contract",
+    "forecast_contract",
 }
 
 
