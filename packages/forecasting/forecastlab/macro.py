@@ -1,7 +1,10 @@
-"""Small, typed BLS/ALFRED boundary. No present-day data in historical calls."""
+"""Small, typed BLS/FRED/ALFRED boundary. No present-day data in historical calls."""
 from __future__ import annotations
 
 import calendar
+import csv
+import io
+import re
 from datetime import UTC, date, datetime, time, timedelta
 from typing import Literal
 
@@ -12,17 +15,57 @@ from forecastlab.root_event import digest
 from forecastlab.schemas import ForecastContract
 from forecastlab.timeutil import as_utc, utcnow
 
+# ``source`` selects the live adapter and outcome adjudicator, ``cadence`` the
+# observation-period format, and ``transform`` the deterministic normalization.
+# BLS entries keep their original keys and values; the FRED ``fred`` id of a BLS
+# series is only used for historical ALFRED vintages.
 SERIES = {
-    "unemployment": {"bls": "LNS14000000", "fred": "UNRATE", "units": "percent", "adjustment": "seasonally_adjusted", "label": "U.S. unemployment rate"},
-    "payrolls": {"bls": "CES0000000001", "fred": "PAYEMS", "units": "jobs", "adjustment": "seasonally_adjusted", "label": "U.S. nonfarm payroll monthly change"},
-    "cpi": {"bls": "CUUR0000SA0", "fred": "CPIAUCNS", "units": "percent_year_over_year", "adjustment": "not_seasonally_adjusted", "label": "U.S. CPI year-over-year inflation"},
+    "unemployment": {"bls": "LNS14000000", "fred": "UNRATE", "units": "percent", "adjustment": "seasonally_adjusted", "label": "U.S. unemployment rate",
+                     "source": "bls", "cadence": "monthly", "transform": "level", "lineage": "agency:bls"},
+    "payrolls": {"bls": "CES0000000001", "fred": "PAYEMS", "units": "jobs", "adjustment": "seasonally_adjusted", "label": "U.S. nonfarm payroll monthly change",
+                 "source": "bls", "cadence": "monthly", "transform": "change_thousands", "lineage": "agency:bls"},
+    "cpi": {"bls": "CUUR0000SA0", "fred": "CPIAUCNS", "units": "percent_year_over_year", "adjustment": "not_seasonally_adjusted", "label": "U.S. CPI year-over-year inflation",
+            "source": "bls", "cadence": "monthly", "transform": "yoy_percent", "lineage": "agency:bls"},
+    "jobless_claims": {"fred": "ICSA", "units": "claims", "adjustment": "seasonally_adjusted", "label": "U.S. initial jobless claims",
+                       "source": "fred", "cadence": "weekly", "transform": "level", "lineage": "agency:dol",
+                       "publisher": "U.S. Department of Labor", "fallback_url": "https://www.dol.gov/ui/data.pdf"},
+    "treasury_10y": {"fred": "DGS10", "units": "percent", "adjustment": "not_seasonally_adjusted", "label": "U.S. 10-year Treasury constant-maturity yield",
+                     "source": "fred", "cadence": "daily", "transform": "level", "lineage": "agency:frb",
+                     "publisher": "Board of Governors of the Federal Reserve System", "fallback_url": "https://www.federalreserve.gov/releases/h15/"},
 }
+FRED_GRAPH_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
+# Weekly/daily history is capped so the root evidence packet stays well inside
+# the 24,000-token context reserved for each root estimate.
+FRED_HISTORY_LIMITS = {"weekly": 104, "daily": 130}
+FRED_STALENESS_DAYS = {"weekly": 14, "daily": 7}
+_FRED_LOOKBACK_DAYS = {"weekly": 7 * 110, "daily": 200}
+_FRED_VALUE = re.compile(r"^-?\d+(?:\.\d+)?$")
+
+
+def bls_indicators() -> tuple[str, ...]:
+    """The three monthly BLS indicators used by question selection and Autopilot."""
+    return tuple(name for name, meta in SERIES.items() if meta["source"] == "bls")
+
+
+def series_id(indicator: str) -> str:
+    """The identifier of the series in the indicator's own live source."""
+    meta = SERIES[indicator]
+    return meta["bls"] if meta["source"] == "bls" else meta["fred"]
+
+
+def next_weekday(day: date) -> date:
+    following = day + timedelta(days=1)
+    while following.weekday() >= 5:
+        following += timedelta(days=1)
+    return following
 
 
 class MacroSpec(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
-    indicator: Literal["unemployment", "payrolls", "cpi"]
-    observation_period: str = Field(pattern=r"^\d{4}-(0[1-9]|1[0-2])$")
+    indicator: Literal["unemployment", "payrolls", "cpi", "jobless_claims", "treasury_10y"]
+    # YYYY-MM for monthly series; YYYY-MM-DD for weekly (week-ending Saturday)
+    # and daily (weekday) series. The cadence check is in the model validator.
+    observation_period: str = Field(pattern=r"^\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$")
     threshold: float
     comparison: Literal["gt", "ge", "lt", "le"] = "gt"
     release_at: datetime
@@ -37,13 +80,35 @@ class MacroSpec(BaseModel):
 
     @model_validator(mode="after")
     def period_precedes_release(self):
-        year, month = map(int, self.observation_period.split("-"))
-        if date(year, month, calendar.monthrange(year, month)[1]) >= self.release_at.date():
+        cadence = SERIES[self.indicator]["cadence"]
+        if cadence == "monthly":
+            if len(self.observation_period) != 7:
+                raise ValueError("monthly_observation_period_must_be_year_month")
+            year, month = map(int, self.observation_period.split("-"))
+            if date(year, month, calendar.monthrange(year, month)[1]) >= self.release_at.date():
+                raise ValueError("observation_period_must_precede_release")
+            return self
+        if len(self.observation_period) != 10:
+            raise ValueError("observation_period_must_be_iso_date")
+        try:
+            observed = date.fromisoformat(self.observation_period)
+        except ValueError:
+            raise ValueError("observation_period_invalid_date") from None
+        if cadence == "weekly" and observed.weekday() != 5:
+            raise ValueError("weekly_observation_period_must_be_week_ending_saturday")
+        if cadence == "daily" and observed.weekday() >= 5:
+            raise ValueError("daily_observation_period_must_be_weekday")
+        if observed >= self.release_at.date():
+            raise ValueError("observation_period_must_precede_release")
+        if cadence == "daily" and self.release_at.date() < next_weekday(observed):
+            # A daily yield is posted after its trading day, usually the next business day.
             raise ValueError("observation_period_must_precede_release")
         return self
 
     def template(self, question_id: str, contract_id: str) -> ForecastContract:
         series = SERIES[self.indicator]
+        if series["source"] == "fred":
+            return self._fred_template(question_id, contract_id)
         op = {"gt": "greater than", "ge": "at least", "lt": "less than", "le": "at most"}[self.comparison]
         rule = "first published value" if self.revision_policy == "first_release" else "latest value available at the resolution time"
         release_name = "cpi" if self.indicator == "cpi" else "empsit"
@@ -60,6 +125,41 @@ class MacroSpec(BaseModel):
             domain="us_macro", geography="US", units=series["units"],
             initial_reference_class=f"Historical monthly observations of {series['label']}",
             suggested_drivers=["Recent monthly observations", "Trend and revision uncertainty"],
+        )
+
+    def _fred_template(self, question_id: str, contract_id: str) -> ForecastContract:
+        series = SERIES[self.indicator]
+        fred_id = series["fred"]
+        weekly = series["cadence"] == "weekly"
+        op = {"gt": "greater than", "ge": "at least", "lt": "less than", "le": "at most"}[self.comparison]
+        rule = "first published value" if self.revision_policy == "first_release" else "latest value available at the resolution time"
+        units = series["units"].replace("_", " ")
+        period = f"the week ending {self.observation_period}" if weekly else self.observation_period
+        name = f"{series['label']} ({series['adjustment'].replace('_', ' ')}, FRED series {fred_id})"
+        threshold = f"{int(self.threshold):,}" if self.threshold.is_integer() else f"{self.threshold:g}"
+        question = (f"Will the {rule} of {name} for {period} be {op} {threshold} {units} "
+                    f"in the release expected on {self.release_at.date()}?")
+        revision_note = ("The DOL advance figure is revised the following week; that revision is not used. "
+                         if weekly else "")
+        return ForecastContract(
+            id=contract_id, question_id=question_id, created_at=utcnow(), created_by="macro_template_fred_v1",
+            original_question=question, normalized_question=question,
+            yes_condition=f"The {rule} of {name} for {period} is {op} {threshold} {units}.",
+            no_condition="The specified published value does not satisfy the yes condition.",
+            resolution_date=self.release_at, authoritative_source=f"https://fred.stlouisfed.org/series/{fred_id}",
+            fallback_sources=[f"https://alfred.stlouisfed.org/series?seid={fred_id}", series["fallback_url"]],
+            resolution_method=(f"Use FRED series {fred_id} ({series['adjustment']}, {series['cadence']}, units {series['units']}), "
+                f"originally published by the {series['publisher']}, and the {rule}. The initial-release value is the "
+                f"value for {self.observation_period} in the earliest ALFRED vintage of {fred_id} that contains that "
+                f"observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. "
+                f"{revision_note}Do not substitute later revisions for a first release."),
+            cancellation_conditions=("Cancel if no value is published for the specified observation period (for example "
+                "a market or federal holiday), the release is withdrawn, or the measurement cannot be established from "
+                "an official dated record."),
+            domain="us_macro", geography="US", units=series["units"],
+            initial_reference_class=f"Historical {series['cadence']} observations of {series['label']}",
+            suggested_drivers=[f"Recent {series['cadence']} observations",
+                               "Revision uncertainty" if weekly else "Scheduled data releases and monetary-policy communications"],
         )
 
 
@@ -100,15 +200,23 @@ def normalize_observations(indicator: str, values: dict[str, float], *, availabl
                            vintage: str, source_url: str, revision_basis: str,
                            footnotes: dict[str, list[str]] | None = None) -> list[MacroObservation]:
     meta = SERIES[indicator]
+    transform = meta["transform"]
     output = []
     for period, value in sorted(values.items()):
-        if indicator != "unemployment":
-            prior = values.get(_previous_period(period, 1 if indicator == "payrolls" else 12))
-            if prior is None or (indicator == "cpi" and prior <= 0):
+        if transform == "change_thousands":
+            prior = values.get(_previous_period(period, 1))
+            if prior is None:
                 continue
-            value = round((value - prior) * 1000) if indicator == "payrolls" else round((value / prior - 1) * 100, 1)
+            value = round((value - prior) * 1000)
+        elif transform == "yoy_percent":
+            prior = values.get(_previous_period(period, 12))
+            if prior is None or prior <= 0:
+                continue
+            value = round((value / prior - 1) * 100, 1)
+        elif transform != "level":
+            raise MacroDataError("macro_transform_unknown")
         output.append(MacroObservation(
-            series_id=meta["bls"], period=period, value=value, units=meta["units"],
+            series_id=series_id(indicator), period=period, value=value, units=meta["units"],
             seasonal_adjustment=meta["adjustment"], source_url=source_url,
             available_at=available_at, vintage=vintage, revision_basis=revision_basis,
             footnotes=(footnotes or {}).get(period, []),
@@ -127,18 +235,19 @@ def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_
     now = utcnow()
     try:
         response = http.post("https://api.bls.gov/publicAPI/v1/timeseries/data/", json={
-            "seriesid": [meta["bls"] for meta in SERIES.values()],
+            "seriesid": [SERIES[name]["bls"] for name in bls_indicators()],
             "startyear": str(now.year - min(10, max(3, history_years)) + 1), "endyear": str(now.year)})
         response.raise_for_status()
         payload = response.json()
         if payload.get("status") != "REQUEST_SUCCEEDED":
             raise MacroDataError("bls_request_not_succeeded")
         series = {row["seriesID"]: row["data"] for row in payload["Results"]["series"]}
-        if set(series) != {meta["bls"] for meta in SERIES.values()}:
+        if set(series) != {SERIES[name]["bls"] for name in bls_indicators()}:
             raise MacroDataError("macro_series_mismatch")
         retrieved = utcnow()
         snapshots = {}
-        for indicator, meta in SERIES.items():
+        for indicator in bls_indicators():
+            meta = SERIES[indicator]
             values = {}
             notes = {}
             for row in series[meta["bls"]]:
@@ -173,6 +282,13 @@ def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key:
     now = utcnow()
     meta = SERIES[spec.indicator]
     try:
+        if meta["source"] == "fred":
+            if as_of is not None:
+                # Weekly/daily ALFRED backtests need intraday publication evidence
+                # that this adapter does not have. Fail closed instead of guessing.
+                raise MacroDataError("historical_fred_series_not_supported")
+            return fetch_fred_snapshot(spec.indicator, before=date.fromisoformat(spec.observation_period),
+                                       client=http, now=now)
         if as_of is not None:
             if not fred_api_key:
                 raise MacroDataError("historical_macro_vintage_key_required")
@@ -239,6 +355,85 @@ def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key:
         if isinstance(exc, MacroDataError):
             raise
         # httpx exception text can contain FRED credentials in the URL.
+        raise MacroDataError(f"macro_request_failed:{type(exc).__name__}") from None
+    finally:
+        if owned:
+            http.close()
+
+
+def parse_fred_csv(text: str, value_column: str) -> list[tuple[str, str]]:
+    """Strictly parse a two-column FRED/ALFRED CSV into raw (date, value) strings.
+
+    Missing values (``.`` or empty, e.g. a market holiday) are kept as raw
+    strings so callers can tell an absent row from a published blank.
+    """
+    rows = list(csv.reader(io.StringIO(text.lstrip("\ufeff"))))
+    rows = [row for row in rows if row]
+    if not rows or len(rows[0]) != 2 or rows[0][0].strip() not in {"observation_date", "DATE"} or rows[0][1].strip() != value_column:
+        raise MacroDataError("fred_csv_malformed")
+    output = []
+    for row in rows[1:]:
+        if len(row) != 2:
+            raise MacroDataError("fred_csv_malformed")
+        day, value = row[0].strip(), row[1].strip()
+        try:
+            if len(day) != 10:
+                raise ValueError(day)
+            date.fromisoformat(day)
+        except ValueError:
+            raise MacroDataError("fred_csv_malformed") from None
+        if value not in {"", "."} and not _FRED_VALUE.match(value):
+            raise MacroDataError("fred_csv_malformed")
+        output.append((day, value))
+    return output
+
+
+def fetch_fred_snapshot(indicator: str, *, before: date | None = None, client: httpx.Client | None = None,
+                        now: datetime | None = None) -> MacroSnapshot:
+    """Latest keyless FRED observations strictly before ``before``.
+
+    This is current (revised) data for live forecasting, never an initial-release
+    outcome. Stale or empty history fails closed.
+    """
+    meta = SERIES[indicator]
+    if meta["source"] != "fred":
+        raise MacroDataError("fred_series_required")
+    owned = client is None
+    http = client or httpx.Client(timeout=12, follow_redirects=False)
+    now = as_utc(now or utcnow())
+    cadence = meta["cadence"]
+    fred_id = meta["fred"]
+    start = min(before or now.date(), now.date()) - timedelta(days=_FRED_LOOKBACK_DAYS[cadence])
+    try:
+        url = f"{FRED_GRAPH_CSV}?id={fred_id}&cosd={start.isoformat()}"
+        response = http.get(url)
+        response.raise_for_status()
+        text = response.content.decode("utf-8")
+        values: dict[str, float] = {}
+        for day, raw in parse_fred_csv(text, fred_id):
+            if raw in {"", "."}:
+                continue
+            values[day] = float(raw)
+        retrieved = utcnow()
+        observations = normalize_observations(indicator, values, available_at=retrieved, vintage=retrieved.isoformat(),
+            source_url=f"https://fred.stlouisfed.org/series/{fred_id}",
+            revision_basis="latest_observed_revisions_not_first_release")
+        if not observations:
+            raise MacroDataError("macro_observations_missing")
+        if before is not None:
+            # Never supply the target or a later period to the forecast.
+            observations = [row for row in observations if row.period < before.isoformat()]
+        if not observations:
+            raise MacroDataError("macro_pre_target_observations_missing")
+        if (now.date() - date.fromisoformat(observations[-1].period)).days > FRED_STALENESS_DAYS[cadence]:
+            raise MacroDataError("macro_current_conditions_stale")
+        observations = observations[-FRED_HISTORY_LIMITS[cadence]:]
+        payload = {"source_url": url, "content_type": response.headers.get("content-type", ""), "csv": text}
+        return MacroSnapshot(indicator=indicator, retrieved_at=retrieved, observations=observations,
+                             raw_hash=digest(payload), raw_payload=payload, source_lineage=meta["lineage"])
+    except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
+        if isinstance(exc, MacroDataError):
+            raise
         raise MacroDataError(f"macro_request_failed:{type(exc).__name__}") from None
     finally:
         if owned:

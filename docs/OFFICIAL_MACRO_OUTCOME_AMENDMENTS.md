@@ -27,3 +27,5 @@ Missing, redirecting, malformed, wrong-period, revised/corrected, tampered, or
 conflicting evidence is stored as an `exception`; it produces no outcome or
 score. Transient unavailability is retried no more often than every 30 minutes;
 ready, conflicting, and non-transient exception records are never overwritten.
+
+FRED-sourced fast indicators (ICSA, DGS10) are adjudicated separately under `official_fred_initial_release_v1` from the earliest ALFRED vintage. They use the same append-only amendment rows; see `docs/FAST_RESOLVING_QUESTIONS.md`.
