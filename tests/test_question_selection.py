@@ -7,7 +7,7 @@ from datetime import UTC, datetime, timedelta
 import httpx
 import pytest
 
-from forecastlab.macro import SERIES, MacroDataError, fetch_latest_macro_snapshots
+from forecastlab.macro import SERIES, MacroDataError, bls_indicators, fetch_latest_macro_snapshots
 from forecastlab.question_selection import ScheduledRelease, choose_questions, parse_bls_calendar
 
 NOW = datetime(2026, 9, 4, 20, tzinfo=UTC)
@@ -82,7 +82,10 @@ def test_batch_uses_one_request_and_normalizes_all_three_indicators(monkeypatch)
     with httpx.Client(transport=httpx.MockTransport(send)) as http:
         result = fetch_latest_macro_snapshots(client=http)
     assert len(requests) == 1
-    assert set(requests[0]["seriesid"]) == {meta["bls"] for meta in SERIES.values()}
+    # SERIES also holds FRED-only fast indicators; the BLS batch covers exactly the three BLS ones.
+    assert bls_indicators() == ("unemployment", "payrolls", "cpi")
+    assert set(requests[0]["seriesid"]) == {SERIES[name]["bls"] for name in bls_indicators()}
+    assert set(result) == set(bls_indicators())
     assert result["payrolls"].observations[-1].value == 22000
     assert result["payrolls"].observations[-1].units == "jobs"
     assert result["cpi"].observations[-1].value == 3.0

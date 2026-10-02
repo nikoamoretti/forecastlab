@@ -12,7 +12,7 @@ from forecastlab.budgeted_provider import BudgetedModelProvider
 from forecastlab.deadline import check_deadline
 from forecastlab.errors import BudgetExceeded, PermanentProviderError
 from forecastlab.graph_research import GraphResearchExecutor
-from forecastlab.macro import MacroDataError, MacroSpec, fetch_macro
+from forecastlab.macro import SERIES, MacroDataError, MacroSpec, fetch_macro
 from forecastlab.prompts import PromptBundle
 from forecastlab.root_event import (
     ROLES,
@@ -64,6 +64,11 @@ def _macro_packet(snapshot: dict) -> list[dict]:
         return []
     latest = observations[-1]
     history = [{"period": row["period"], "value": row["value"]} for row in observations]
+    meta = SERIES.get(snapshot["indicator"], {})
+    if meta.get("source") == "fred":
+        title, lineage = f"FRED {meta['fred']} observations ({meta['label']})", meta["lineage"]
+    else:
+        title, lineage = f"BLS {snapshot['indicator']} observations", "agency:bls"
     # Numeric transforms are deterministic and backed by the retained raw API
     # response. They do not pretend to be quotations from a prose document.
     return [{
@@ -72,8 +77,8 @@ def _macro_packet(snapshot: dict) -> list[dict]:
         "required_sections": ["current_conditions"] + (["reference_class"] if len(history) >= 24 else []),
         "reason": "Validated official series; deterministic units and transformations; retained raw response",
         "claim": f"{snapshot['indicator']}: {json.dumps(history)}; units={latest['units']}; adjustment={latest['seasonal_adjustment']}",
-        "quote": "", "url": latest["source_url"], "title": f"BLS {snapshot['indicator']} observations",
-        "primary_source": True, "source_lineage": "agency:bls", "source_available_at": latest["available_at"],
+        "quote": "", "url": latest["source_url"], "title": title,
+        "primary_source": True, "source_lineage": lineage, "source_available_at": latest["available_at"],
         "extraction_method": "structured_macro_adapter_v1", "revision_basis": latest["revision_basis"],
     }]
 

@@ -20,7 +20,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from forecastlab.http_client import safe_get
-from forecastlab.macro import MacroDataError, MacroSpec
+from forecastlab.macro import SERIES, MacroDataError, MacroSpec
 from forecastlab.macro_evidence import FIRST_RELEASE_PARSER_VERSION, archived_first_release_url, parse_release_document
 from forecastlab.official_releases import PUBLIC_DATA_USER_AGENT
 from forecastlab.root_event import contract_hash, digest
@@ -44,6 +44,10 @@ RETRYABLE_EXCEPTION_CODES = frozenset({
     "official_dated_release_unavailable",
     "official_release_timeout",
     "official_release_connecterror",
+    # FRED/ALFRED initial-release adjudication (official_fred_outcomes.py):
+    # a value that is not yet in any vintage is "not ready", retried later.
+    "fred_initial_release_not_yet_published",
+    "official_fred_vintage_unavailable",
 })
 RETRY_INTERVAL = timedelta(minutes=30)
 
@@ -135,6 +139,7 @@ def _append_amendment(
     source_identity: dict | None = None, artifact: dict | None = None, source_sha256: str | None = None,
     measurement: dict | None = None, outcome: int | None = None, outcome_known_at: datetime | None = None,
     retrieved_at: datetime | None = None, exception_code: str | None = None,
+    policy_version: str = POLICY_VERSION, parser_version: str = FIRST_RELEASE_PARSER_VERSION,
 ) -> OfficialMacroOutcomeAmendment:
     """Idempotently retain either a ready measurement or a terminal exception."""
     identity = {"question_id": target.question_id, "contract_hash": target.expected_contract_hash,
@@ -144,7 +149,7 @@ def _append_amendment(
         # exception ID forever would bypass the 30-minute cooldown after the
         # first retry because its created_at could never advance.
         identity["retry_window"] = str(int(utcnow().timestamp() // int(RETRY_INTERVAL.total_seconds())))
-    amendment_id = digest({"policy": POLICY_VERSION, **identity})
+    amendment_id = digest({"policy": policy_version, **identity})
     existing = session.get(OfficialMacroOutcomeAmendment, amendment_id)
     if existing:
         return existing
@@ -154,14 +159,15 @@ def _append_amendment(
     if status == "ready" and ready and ready.source_sha256 != source_sha256:
         return _append_amendment(session, target, status="exception", source_url=source_url,
             source_identity=source_identity, source_sha256=source_sha256,
-            exception_code="official_release_conflicting_or_tampered")
+            exception_code="official_release_conflicting_or_tampered",
+            policy_version=policy_version, parser_version=parser_version)
     row = OfficialMacroOutcomeAmendment(
         id=amendment_id, question_id=target.question_id, prospective_entry_id=target.prospective_entry_id,
-        revision=(prior[-1].revision if prior else 0) + 1, policy_version=POLICY_VERSION,
+        revision=(prior[-1].revision if prior else 0) + 1, policy_version=policy_version,
         contract_hash=target.expected_contract_hash, release_event=target.release_event, status=status,
         source_url=source_url, source_identity_json=json.dumps(source_identity or {}, sort_keys=True),
         artifact_json=json.dumps(artifact or {}, sort_keys=True), source_sha256=source_sha256,
-        parser_version=FIRST_RELEASE_PARSER_VERSION if measurement else None,
+        parser_version=parser_version if measurement else None,
         measurement_json=json.dumps(measurement or {}, sort_keys=True), outcome=outcome,
         outcome_known_at=outcome_known_at, retrieved_at=retrieved_at,
         exception_code=exception_code, exception_detail=exception_code, created_at=utcnow(),
@@ -198,7 +204,11 @@ def retain_official_macro_amendment(session: Session, target: FrozenMacroTarget)
 
     No provider, forecast, or model call is involved.  Any missing, revised,
     malformed, conflicting, or tampered source becomes an exception row.
+    FRED-sourced indicators use their own initial-release (ALFRED) policy.
     """
+    if SERIES[target.macro.indicator]["source"] == "fred":
+        from forecastlab_api.official_fred_outcomes import retain_official_fred_amendment
+        return retain_official_fred_amendment(session, target)
     _begin_immediate(session)
     try:
         _validate_frozen_contract(target)
@@ -249,10 +259,11 @@ def apply_prospective_amendment(session: Session, entry: ProspectiveEntry, amend
             return existing
         raise OfficialMacroOutcomeError("prospective_outcome_already_adjudicated")
     revision = session.scalar(select(func.max(ProspectiveOutcome.revision)).where(ProspectiveOutcome.entry_id == entry.id)) or 0
+    # BLS rows carry POLICY_VERSION, so their evidence and attribution are unchanged.
     row = ProspectiveOutcome(id=str(uuid.uuid4()), entry_id=entry.id, revision=revision + 1, outcome=amendment.outcome,
-        source_url=amendment.source_url or "", evidence=json.dumps({"amendment_id": amendment.id, "policy_version": POLICY_VERSION,
+        source_url=amendment.source_url or "", evidence=json.dumps({"amendment_id": amendment.id, "policy_version": amendment.policy_version,
         "outcome_known_at": amendment.outcome_known_at.isoformat() if amendment.outcome_known_at else None}),
-        confirmed_by=SYSTEM_ATTRIBUTION, created_at=utcnow())
+        confirmed_by=f"system:{amendment.policy_version}", created_at=utcnow())
     session.add(row)
     return row
 

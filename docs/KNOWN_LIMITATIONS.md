@@ -54,3 +54,4 @@
   leakage review before they can enter a frozen evaluation release. It does not
   change the preserved 3/5 live operational acceptance failure and it supplies
   no forecasting-quality or calibration result.
+- Fast-resolving FRED questions (`jobless_claims`/ICSA, `treasury_10y`/DGS10; see `docs/FAST_RESOLVING_QUESTIONS.md`) resolve on the initial ALFRED vintage, not on later revisions such as ICSA's following-week revision. The selection rule ignores holidays, so a DGS10 holiday has no value and its entry needs owner cancellation. Daily yields are near random-walk, so these questions mainly test calibration. Only `root_event_ensemble_v1` reads the FRED snapshot. The web UI cannot create these questions; use the API. FRED backtests are not supported.
