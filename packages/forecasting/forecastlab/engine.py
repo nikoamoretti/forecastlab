@@ -37,15 +37,20 @@ from forecastlab.schemas import (
     ResolutionContract,
     TrackForecastOutput,
 )
-from forecastlab.structured_outputs import sanitize_validation_errors, track_forecast_json_schema
+from forecastlab.structured_outputs import (
+    resolution_contract_json_schema,
+    sanitize_validation_errors,
+    track_forecast_json_schema,
+)
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab.wayback import discover_snapshots, mock_snapshots, nearest_eligible_snapshot
 
 ProgressFn = Callable[[str, str, float, dict[str, Any] | None], None]
 
-# Profiles whose track estimates use the strict provider schema.  Legacy
-# track profiles, including the frozen three_track_forecaster comparator, keep
-# the original JSON-object request so their results remain reproducible.
+# Profiles whose resolution contract and track estimates use strict provider
+# schemas.  Legacy track profiles, including the frozen three_track_forecaster
+# comparator, keep the original JSON-object requests so their results remain
+# reproducible.
 _STRICT_TRACK_FORECAST_PROFILES = frozenset({"three_track_strict_forecaster_v1"})
 
 
@@ -461,6 +466,7 @@ def run_forecast_engine(
             prompt_versions,
             ResolutionContract,
             prompt_bundle,
+            resolution_contract_json_schema() if uses_strict_track_forecast(profile) else None,
         )
 
     tracks: list[TrackResult] = []

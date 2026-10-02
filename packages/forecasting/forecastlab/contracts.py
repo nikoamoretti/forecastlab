@@ -11,6 +11,7 @@ from pydantic import AliasChoices, BaseModel, ConfigDict, Field, ValidationError
 from forecastlab.prompts import PromptBundle, load_prompt
 from forecastlab.providers.base import ModelProvider
 from forecastlab.schemas import ForecastContract
+from forecastlab.structured_outputs import forecast_contract_json_schema
 from forecastlab.timeutil import utcnow
 
 _BINARY_QUESTION = re.compile(r"\b(will|would|does|do|did|is|are|was|were|has|have|can|could|should)\b", re.I)
@@ -132,12 +133,18 @@ class QuestionCompiler:
 
         system, _prompt_version = self.prompt_bundle.get("forecast_contract") if self.prompt_bundle else load_prompt("forecast_contract")
         schema_name = "resolution_contract" if self.model.name == "mock" else "forecast_contract"
+        # Providers that support strict schemas reject non-ISO dates and missing
+        # keys at the boundary; others still receive JSON-object mode.
+        request: dict[str, Any] = (
+            {"json_schema": forecast_contract_json_schema()} if schema_name == "forecast_contract" else {}
+        )
         try:
             result = self.model.complete_json(
                 system=system,
                 user=json.dumps({"question": original}),
                 schema_name=schema_name,
                 max_output_tokens=4096,
+                **request,
             )
             payload = result.parsed if result.parsed is not None else json.loads(result.content)
             fields = _CompiledContractFields.model_validate(payload)

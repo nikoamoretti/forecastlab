@@ -389,6 +389,79 @@ def track_forecast_json_schema(*, evidence_ids: list[str]) -> dict[str, Any]:
     }
 
 
+# An ISO 8601 date or timestamp, optionally with a zone.  Strict schemas use a
+# pattern rather than ``format`` so prose such as "2026-11-06 (release day)"
+# is rejected at the provider boundary instead of failing validation later.
+ISO_8601_DATE_OR_TIMESTAMP_PATTERN = (
+    r"^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$"
+)
+
+
+def _strict_object(properties: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "type": "object",
+        "properties": properties,
+        "required": list(properties),
+        "additionalProperties": False,
+    }
+
+
+def resolution_contract_json_schema() -> dict[str, Any]:
+    """Return the strict schema for the engine's ``ResolutionContract`` step."""
+
+    text = {"type": "string"}
+    nullable_text = {"type": ["string", "null"]}
+    return _strict_object(
+        {
+            "exact_yes": text,
+            "exact_no": text,
+            "resolution_deadline": {"type": "string", "pattern": ISO_8601_DATE_OR_TIMESTAMP_PATTERN},
+            "authoritative_source": text,
+            "fallback_sources": {"type": "array", "items": text},
+            "geography": nullable_text,
+            "units": nullable_text,
+            "ambiguity_notes": text,
+            "cancellation_conditions": text,
+            "resolver_risk_notes": text,
+        }
+    )
+
+
+def forecast_contract_json_schema() -> dict[str, Any]:
+    """Return the strict schema for the personal Forecast Contract compiler.
+
+    Keys follow the ``forecast_contract`` prompt.  ``resolution_date`` stays
+    nullable because the prompt allows an undeterminable date, but any value
+    must be an ISO 8601 date or timestamp.
+    """
+
+    text = {"type": "string"}
+    nullable_text = {"type": ["string", "null"]}
+    text_list = {"type": "array", "items": text}
+    return _strict_object(
+        {
+            "normalized_question": text,
+            "yes_condition": text,
+            "no_condition": text,
+            "resolution_date": {"type": ["string", "null"], "pattern": ISO_8601_DATE_OR_TIMESTAMP_PATTERN},
+            "authoritative_source": text,
+            "fallback_sources": text_list,
+            "resolution_method": text,
+            "ambiguity_notes": text,
+            "cancellation_conditions": text,
+            "resolver_risk_notes": text,
+            "forecast_type": {"type": "string", "enum": ["binary"]},
+            "geography": nullable_text,
+            "units": nullable_text,
+            "domain": nullable_text,
+            "initial_reference_class": text,
+            "suggested_drivers": text_list,
+            "known_dependencies": text_list,
+            "rejection_reasons": text_list,
+        }
+    )
+
+
 def structured_output_json_schema(schema_name: str) -> dict[str, Any] | None:
     if schema_name == "forecast_graph":
         return forecast_graph_json_schema()

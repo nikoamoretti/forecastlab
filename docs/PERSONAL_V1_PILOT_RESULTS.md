@@ -40,6 +40,18 @@ The root estimates were 35%, 40%, and 38%, with a spread of 5 percentage points.
 
 Revision 2 uses minimal reasoning for planning, extraction, and assessment, low reasoning for the estimates, and a 4,096-token output allowance. Model/search requests and physical retries now share one execution deadline. Late responses retain their cost but cannot become forecasts. Timeouts are explicit execution failures. The aggregation formula remains unchanged.
 
+### Observed outcome (added 2026-10-02)
+
+The September 2026 seasonally adjusted U-3 rate was first published on 2026-10-02 as **4.2%**, which is strictly greater than 4.1%, so the repair-check question resolves **yes**. The BLS public API (series `LNS14000000`, period M09 marked latest) returned 4.2, and the ALFRED `UNRATE` vintage dated 2026-10-02 shows the same first print. The BLS news-release page itself returned HTTP 403 to the verifying environment. This note does not create a database outcome or adjudication record; the local database still requires the normal append-only outcome entry.
+
+| Method | Probability of yes | Brier score | Log loss |
+| --- | ---: | ---: | ---: |
+| Root ensemble | 37.376% | 0.3922 | 0.984 |
+| Single model | 30.0% | 0.4900 | 1.204 |
+| Uninformed 50% reference | 50.0% | 0.2500 | 0.693 |
+
+Both forecasts leaned the wrong way. One resolved question is not evidence about accuracy or calibration; the matched resolved denominator for the original pilot remains as stated below.
+
 Combined estimated cost was **$7.325915**. The maximum combined cost for an original assignment plus its repair check was **$1.074875**. Both remain below the original $150 total and $5 per question/method limits. Costs use the application's conservative pricing catalog and are estimates, not provider invoices.
 
 ## Release decision and limits
