@@ -499,3 +499,117 @@ def test_new_cohorts_use_strict_three_track_and_reports_follow_frozen_methods(cl
         report = prospective.cohort_report(session, earlier["id"])
     assert [m["method"] for m in report["methods"]] == list(legacy)
     assert {m["method"]: m["assigned"] for m in report["methods"]} == dict.fromkeys(legacy, 1)
+
+
+def _schedule_sources(*, release_at, documents_ok=True):
+    from forecastlab.question_selection import ScheduledRelease
+    from forecastlab_api.question_suggestions import SelectionSources
+
+    checked = datetime.now(UTC)
+    url, confirm = "https://www.dol.gov/newsroom/economicdata/empsit_test.pdf", "https://www.newyorkfed.org/test.html"
+    release = ScheduledRelease(family="empsit", observation_period="2040-01", release_at=release_at, source_url=url,
+        source_hash="a" * 64, checked_at=checked, schedule_basis="dol_fed_schedule_v1",
+        quote="The Employment Situation for January 2040 is scheduled to be released on February 5, 2040.",
+        verification_sources=[{"url": confirm, "source_hash": "b" * 64, "checked_at": checked.isoformat(),
+                               "role": "current_release_time_confirmation", "source_lineage": "agency:bls"}])
+    documents = {url: {"sha256": "a" * 64, "path": "calendar.pdf"}, confirm: {"sha256": "b" * 64 if documents_ok else "c" * 64}}
+    return SelectionSources(checked_at=checked, releases=[release], documents=documents)
+
+
+def _freeze_with_sources(client, monkeypatch, sources_fn):
+    from forecastlab.execution import resolve_execution_context
+    from forecastlab_api import prospective
+    from forecastlab_api.config import settings
+
+    def resolve(question, *, profile_id, mode):
+        return resolve_execution_context(requested_mode="live", profile_id=profile_id, settings={
+            "model_provider": "openai", "model_name": "gpt-5-mini", "model_api_key": "test-not-real",
+            "search_provider": "tavily", "search_api_key": "test-not-real", "max_cost_usd": 5})
+    monkeypatch.setattr(prospective, "resolve_for_question", resolve)
+    monkeypatch.setattr(settings, "cohort_schedule_evidence", True)
+    monkeypatch.setattr(prospective, "selection_sources", sources_fn)
+    now = datetime.now(UTC)
+    cohort = client.post("/api/prospective/cohorts", json={"name": "Schedule", "budget_usd": 1,
+        "questions": [{"macro": spec().model_dump(mode="json"), "cutoff": (now + timedelta(days=1)).isoformat(),
+                       "release_event": "release"}]}).json()
+    frozen = client.post(f"/api/prospective/cohorts/{cohort['id']}/freeze", json={"reviewed_by": "Test reviewer"})
+    assert frozen.status_code == 200, frozen.text
+    return frozen.json()
+
+
+def _frozen_state(cohort_id):
+    from sqlalchemy import select
+
+    from forecastlab_api.db import SessionLocal
+    from forecastlab_api.models import PersonalForecast, ProspectiveAssignment, ProspectiveCohort
+
+    with SessionLocal() as session:
+        manifest = json.loads(session.get(ProspectiveCohort, cohort_id).manifest_json)
+        run_ids = [row.run_id for row in session.scalars(select(ProspectiveAssignment).where(
+            ProspectiveAssignment.cohort_id == cohort_id))]
+        results = [json.loads(session.get(PersonalForecast, run_id).result_json) for run_id in run_ids]
+    return manifest, results
+
+
+def test_cohort_freeze_attaches_verified_official_schedule_as_resolution_evidence(client, monkeypatch):
+    sources = _schedule_sources(release_at=spec().release_at)
+    data = _freeze_with_sources(client, monkeypatch, lambda: sources)
+    manifest, results = _frozen_state(data["id"])
+
+    official = manifest["entries"][0]["official_schedule"]
+    assert official["source_urls"] == [sources.releases[0].source_url]
+    assert official["source_sha256"] == ["a" * 64]
+    assert len(results) == 3
+    for result in results:
+        (item,) = result["resolution_evidence"]
+        assert item["required_sections"] == ["resolution"] and item["usable"] and item["primary_source"]
+        assert item["claim_id"] == official["claim_ids"][0]
+        assert item["quote"].startswith("The Employment Situation for January 2040")
+
+
+@pytest.mark.parametrize(("case", "gap"), [
+    ("other_release", "official_schedule_release_not_verified"),
+    ("bad_hash", "official_schedule_documents_unverified"),
+    ("network", "official_schedule_sources_unavailable"),
+])
+def test_cohort_freeze_records_schedule_gap_without_evidence(client, monkeypatch, case, gap):
+    if case == "network":
+        def sources_fn():
+            raise httpx.ConnectError("offline")
+    else:
+        release_at = spec().release_at + (timedelta(days=1) if case == "other_release" else timedelta())
+        sources = _schedule_sources(release_at=release_at, documents_ok=case != "bad_hash")
+        def sources_fn():
+            return sources
+    data = _freeze_with_sources(client, monkeypatch, sources_fn)
+    manifest, results = _frozen_state(data["id"])
+
+    assert manifest["entries"][0]["official_schedule"] == {"gap": gap}
+    assert all("resolution_evidence" not in result for result in results)
+
+
+def test_cohort_freeze_skips_schedule_lookup_when_disabled(client, monkeypatch):
+    from forecastlab_api.config import settings
+
+    def forbidden():
+        raise AssertionError("schedule sources must not be fetched when disabled")
+
+    from forecastlab.execution import resolve_execution_context
+    from forecastlab_api import prospective
+
+    def resolve(question, *, profile_id, mode):
+        return resolve_execution_context(requested_mode="live", profile_id=profile_id, settings={
+            "model_provider": "openai", "model_name": "gpt-5-mini", "model_api_key": "test-not-real",
+            "search_provider": "tavily", "search_api_key": "test-not-real", "max_cost_usd": 5})
+    monkeypatch.setattr(prospective, "resolve_for_question", resolve)
+    monkeypatch.setattr(prospective, "selection_sources", forbidden)
+    assert settings.cohort_schedule_evidence is False
+    now = datetime.now(UTC)
+    cohort = client.post("/api/prospective/cohorts", json={"name": "Disabled", "budget_usd": 1,
+        "questions": [{"macro": spec().model_dump(mode="json"), "cutoff": (now + timedelta(days=1)).isoformat(),
+                       "release_event": "release"}]}).json()
+    frozen = client.post(f"/api/prospective/cohorts/{cohort['id']}/freeze", json={"reviewed_by": "Test reviewer"})
+    assert frozen.status_code == 200, frozen.text
+    manifest, results = _frozen_state(frozen.json()["id"])
+    assert manifest["entries"][0]["official_schedule"] == {"gap": "official_schedule_lookup_disabled"}
+    assert all("resolution_evidence" not in result for result in results)

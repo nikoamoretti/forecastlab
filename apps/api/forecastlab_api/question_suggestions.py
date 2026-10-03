@@ -23,6 +23,7 @@ from forecastlab.question_selection import (
     choose_questions,
     parse_bls_calendar,
 )
+from forecastlab.root_event import digest
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.config import settings
 from forecastlab_api.models import ForecastRun, PersonalForecast, Question
@@ -147,6 +148,35 @@ def selection_sources() -> SelectionSources:
         finally:
             temporary.unlink(missing_ok=True)
         return sources
+
+
+def schedule_resolution_evidence(schedule: ScheduledRelease, sources: SelectionSources) -> list[dict]:
+    """Packet item for a deterministically verified official release schedule.
+
+    Shared by Autopilot and prospective cohorts. The retained schedule document
+    and its corroborating calendars must match the hashes recorded at
+    selection; otherwise no evidence is produced.
+    """
+    artifact = sources.documents.get(schedule.source_url)
+    if not artifact:
+        raise HTTPException(409, "Retained official release calendar is required")
+    if schedule.schedule_basis == "dol_fed_schedule_v1" and artifact["sha256"] != schedule.source_hash:
+        raise HTTPException(409, "Original release document hash does not match the approved schedule")
+    corroboration = []
+    for source in schedule.verification_sources:
+        retained = sources.documents.get(source["url"])
+        if not retained or retained["sha256"] != source["source_hash"]:
+            raise HTTPException(409, "Retained schedule confirmation is required")
+        corroboration.append({**source, "artifact": retained})
+    if schedule.schedule_basis == "dol_fed_schedule_v1" and not corroboration:
+        raise HTTPException(409, "Current official calendar confirmation is required")
+    return [{"schema_version": "evidence_assessment_v2", "claim_id": "calendar:" + digest(schedule.model_dump(mode="json")),
+        "classification": "background", "relevant": True, "usable": True, "required_sections": ["resolution"],
+        "reason": "Deterministically verified official release schedule; original documents retained",
+        "claim": f"BLS {schedule.family}, observation period {schedule.observation_period}, scheduled release {schedule.release_at.isoformat()}",
+        "quote": schedule.quote, "url": schedule.source_url, "title": "Official BLS release schedule",
+        "primary_source": True, "source_lineage": "agency:bls", "source_available_at": sources.checked_at.isoformat(),
+        "extraction_method": schedule.schedule_basis, "artifact": artifact, "corroboration": corroboration}]
 
 
 def database_selection_sources() -> SelectionSources:
