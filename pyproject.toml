@@ -31,6 +31,11 @@ dev = [
   "ruff>=0.8.0",
   "mypy>=1.13.0",
   "types-pyyaml>=6.0.12",
+  "numpy>=2.0",
+]
+# Country-month conflict panel (forecastlab.conflict); not used by the API or worker.
+conflict = [
+  "numpy>=2.0",
 ]
 
 [build-system]
