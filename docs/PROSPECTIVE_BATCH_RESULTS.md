@@ -38,6 +38,32 @@ Both batches ran in ephemeral local instances, whose databases were discarded. T
 | `single_model_forecaster_v1` | 7 | 0 | 0 | Day-to-day estimates for the same yield threshold range from 45% to 80%. |
 | `three_track_strict_forecaster_v1` | 6 | 0 | 1 | Estimates range from 40.9% to 53%. |
 
+## Statistical baseline supplement
+
+Both batches were frozen before `statistical_baseline_v1` existed. `scripts/baseline_supplement.py` computed the deterministic baseline for every entry on 2026-10-03, after the freezes but before any release. It used the same latest observations the cohorts saw: DGS10 through 2026-10-01, ICSA through the week ending 2026-09-26, unemployment and payrolls through 2026-09, and CPI through 2026-08. The results are in `baseline_supplement.json` in each artifact directory. Each file records the snapshot hash and last observation.
+
+The scorer reports these forecasts as a separate method, `statistical_baseline_v1 (post-freeze supplement)`. They are not part of the frozen manifests.
+
+| Batch | Question | Baseline probability | 80% range of the published value |
+| --- | --- | ---: | --- |
+| `prospective_macro_batch_20261002` | unemployment 2026-10 > 4.1 | 52.6% | 3.9 to 4.3 |
+| `prospective_macro_batch_20261002` | cpi 2026-09 > 3.3 | 57.4% | 2.9 to 3.9 |
+| `prospective_macro_batch_20261002` | cpi 2026-09 > 3.5 | 35.8% | 2.9 to 3.9 |
+| `prospective_macro_batch_20261002` | unemployment 2026-11 > 4.2 | 25.9% | 3.7 to 4.4 |
+| `prospective_macro_batch_20261002` | unemployment 2026-10 > 4.2 | 25.7% | 3.9 to 4.3 |
+| `prospective_macro_batch_20261002` | unemployment 2026-10 > 4.3 | 9.1% | 3.9 to 4.3 |
+| `prospective_macro_batch_20261002` | payrolls 2026-10 > 100,000 | 32.9% | -167000 to 244000 |
+| `prospective_macro_batch_20261002` | payrolls 2026-10 > 29,000 | 53.1% | -167000 to 244000 |
+| `prospective_macro_batch_20261002` | cpi 2026-09 > 3.4 | 47.5% | 2.9 to 3.9 |
+| `prospective_macro_batch_20261002` | payrolls 2026-11 > 29,000 | 52.7% | -160000 to 218000 |
+| `prospective_fast_fred_batch_20261003` | treasury_10y 2026-10-09 > 5.24 | 53.0% | 5.12 to 5.39 |
+| `prospective_fast_fred_batch_20261003` | treasury_10y 2026-10-06 > 5.24 | 52.4% | 5.15 to 5.35 |
+| `prospective_fast_fred_batch_20261003` | jobless_claims 2026-10-10 > 197,000 | 45.5% | 183000 to 214000 |
+| `prospective_fast_fred_batch_20261003` | treasury_10y 2026-10-08 > 5.24 | 53.3% | 5.13 to 5.37 |
+| `prospective_fast_fred_batch_20261003` | jobless_claims 2026-10-03 > 197,000 | 43.9% | 185000 to 210000 |
+| `prospective_fast_fred_batch_20261003` | treasury_10y 2026-10-05 > 5.24 | 49.8% | 5.16 to 5.33 |
+| `prospective_fast_fred_batch_20261003` | treasury_10y 2026-10-07 > 5.24 | 53.0% | 5.13 to 5.37 |
+
 ## Scoring
 
 `python scripts/score_prospective_artifacts.py` resolves every exported entry and writes `scores.json` next to each artifact. Questions that have not been published stay `pending`.

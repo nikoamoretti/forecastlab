@@ -1,0 +1,350 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "interval_80": [
+        3.9,
+        4.3
+      ],
+      "k": 60,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:49.012316+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "LNS14000000",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+        "units": "percent",
+        "value": 4.2,
+        "vintage": "2026-10-03T11:22:49.012316+00:00"
+      },
+      "mode": 4.2,
+      "n": 114,
+      "probability": 0.5260869565217391,
+      "release_event": "employment-2026-11-06",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "1140d9d59f22b5cc741b4e91d231d9c8738c9d41257aec939abb3fb2a4f08138",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:49.012316+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "interval_80": [
+        2.9,
+        3.9
+      ],
+      "k": 58,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:50.101801+00:00",
+        "period": "2026-08",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "not_seasonally_adjusted",
+        "series_id": "CUUR0000SA0",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+        "units": "percent_year_over_year",
+        "value": 3.4,
+        "vintage": "2026-10-03T11:22:50.101801+00:00"
+      },
+      "mode": 3.3,
+      "n": 101,
+      "probability": 0.5735294117647058,
+      "release_event": "cpi-2026-10-14",
+      "snapshot": {
+        "observations": 103,
+        "raw_hash": "711bb695247cf305ce1d22e251e9dbf319089dcb0e56df5839eb02c075167b26",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:50.101801+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "interval_80": [
+        2.9,
+        3.9
+      ],
+      "k": 36,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:51.059147+00:00",
+        "period": "2026-08",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "not_seasonally_adjusted",
+        "series_id": "CUUR0000SA0",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+        "units": "percent_year_over_year",
+        "value": 3.4,
+        "vintage": "2026-10-03T11:22:51.059147+00:00"
+      },
+      "mode": 3.3,
+      "n": 101,
+      "probability": 0.35784313725490197,
+      "release_event": "cpi-2026-10-14",
+      "snapshot": {
+        "observations": 103,
+        "raw_hash": "711bb695247cf305ce1d22e251e9dbf319089dcb0e56df5839eb02c075167b26",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:51.059147+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "interval_80": [
+        3.7,
+        4.4
+      ],
+      "k": 29,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:51.972293+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "LNS14000000",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+        "units": "percent",
+        "value": 4.2,
+        "vintage": "2026-10-03T11:22:51.972293+00:00"
+      },
+      "mode": 4.2,
+      "n": 113,
+      "probability": 0.25877192982456143,
+      "release_event": "employment-2026-12-04",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "1140d9d59f22b5cc741b4e91d231d9c8738c9d41257aec939abb3fb2a4f08138",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:51.972293+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "interval_80": [
+        3.9,
+        4.3
+      ],
+      "k": 29,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:52.838021+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "LNS14000000",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+        "units": "percent",
+        "value": 4.2,
+        "vintage": "2026-10-03T11:22:52.838021+00:00"
+      },
+      "mode": 4.2,
+      "n": 114,
+      "probability": 0.2565217391304348,
+      "release_event": "employment-2026-11-06",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "1140d9d59f22b5cc741b4e91d231d9c8738c9d41257aec939abb3fb2a4f08138",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:52.838021+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "interval_80": [
+        3.9,
+        4.3
+      ],
+      "k": 10,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:53.827055+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "LNS14000000",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+        "units": "percent",
+        "value": 4.2,
+        "vintage": "2026-10-03T11:22:53.827055+00:00"
+      },
+      "mode": 4.2,
+      "n": 114,
+      "probability": 0.09130434782608696,
+      "release_event": "employment-2026-11-06",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "1140d9d59f22b5cc741b4e91d231d9c8738c9d41257aec939abb3fb2a4f08138",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:53.827055+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/UNRATE"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "interval_80": [
+        -167000,
+        244000
+      ],
+      "k": 37,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:54.877514+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "CES0000000001",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+        "units": "jobs",
+        "value": 29000,
+        "vintage": "2026-10-03T11:22:54.877514+00:00"
+      },
+      "mode": 41000,
+      "n": 113,
+      "probability": 0.32894736842105265,
+      "release_event": "employment-2026-11-06",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "a34c259522d73d2f432465f27a3916ab54577986174dd5dd2df810ace13ec386",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PAYEMS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:54.877514+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "interval_80": [
+        -167000,
+        244000
+      ],
+      "k": 60,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:55.799201+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "CES0000000001",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+        "units": "jobs",
+        "value": 29000,
+        "vintage": "2026-10-03T11:22:55.799201+00:00"
+      },
+      "mode": 41000,
+      "n": 113,
+      "probability": 0.5307017543859649,
+      "release_event": "employment-2026-11-06",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "a34c259522d73d2f432465f27a3916ab54577986174dd5dd2df810ace13ec386",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PAYEMS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:55.799201+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "interval_80": [
+        2.9,
+        3.9
+      ],
+      "k": 48,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:56.733616+00:00",
+        "period": "2026-08",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "not_seasonally_adjusted",
+        "series_id": "CUUR0000SA0",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+        "units": "percent_year_over_year",
+        "value": 3.4,
+        "vintage": "2026-10-03T11:22:56.733616+00:00"
+      },
+      "mode": 3.3,
+      "n": 101,
+      "probability": 0.47549019607843135,
+      "release_event": "cpi-2026-10-14",
+      "snapshot": {
+        "observations": 103,
+        "raw_hash": "711bb695247cf305ce1d22e251e9dbf319089dcb0e56df5839eb02c075167b26",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:56.733616+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+      },
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T11:22:47.694320+00:00",
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "interval_80": [
+        -160000,
+        218000
+      ],
+      "k": 59,
+      "last_observation": {
+        "available_at": "2026-10-03T11:22:57.747494+00:00",
+        "period": "2026-09",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "seasonal_adjustment": "seasonally_adjusted",
+        "series_id": "CES0000000001",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+        "units": "jobs",
+        "value": 29000,
+        "vintage": "2026-10-03T11:22:57.747494+00:00"
+      },
+      "mode": 52000,
+      "n": 112,
+      "probability": 0.5265486725663717,
+      "release_event": "employment-2026-12-04",
+      "snapshot": {
+        "observations": 116,
+        "raw_hash": "a34c259522d73d2f432465f27a3916ab54577986174dd5dd2df810ace13ec386",
+        "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PAYEMS&cosd=2017-01-01",
+        "retrieved_at": "2026-10-03T11:22:57.747494+00:00",
+        "revision_basis": "fred_mirror_of_bls_latest_observed_revisions_not_first_release",
+        "source_lineage": "agency:bls",
+        "source_url": "https://fred.stlouisfed.org/series/PAYEMS"
+      },
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "24d2aa6e-2256-48b3-a136-068ad45810e4",
+  "generated_at": "2026-10-03T11:22:47.694320+00:00",
+  "manifest_hash": "c38a7b02b6e511d15bb81a6ffddf48352137493329c24864fc5a8abaed34d6bb",
+  "method": "statistical_baseline_v1",
+  "note": "Computed after the cohort froze, before any entry's release. Not part of the frozen manifest; scored separately as a post-freeze supplement.",
+  "rule_version": "statistical_baseline_rule_v1"
+}

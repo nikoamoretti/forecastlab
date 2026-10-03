@@ -121,3 +121,23 @@ def test_score_artifact_scores_resolved_and_keeps_pending(tmp_path: Path, monkey
     single = scores["methods"]["single_model_forecaster_v1"]
     assert single["forecasted"] == 2 and single["resolved_forecasts"] == 1
     assert single["mean_brier"] == pytest.approx(0.49)
+
+
+def test_post_freeze_baseline_supplement_is_scored_as_its_own_method(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _write_artifact(tmp_path)
+    (tmp_path / "baseline_supplement.json").write_text(json.dumps({"method": "statistical_baseline_v1", "cells": [
+        {"entry_id": "e1", "release_event": "employment-2026-10-02", "status": "forecasted", "probability": 0.6},
+        {"entry_id": "e2", "release_event": "dgs10-2026-10-05", "status": "forecasted", "probability": 0.5}]}))
+    vintages = {"2026-10-01": {"2026-08-01": "4.1"}, "2026-10-02": {"2026-08-01": "4.1", "2026-09-01": "4.2"}}
+
+    def not_ready(*_args, **_kwargs):
+        raise artifact_scoring.OfficialMacroOutcomeError(artifact_scoring.NOT_READY)
+
+    monkeypatch.setattr(artifact_scoring.official_fred_outcomes, "find_initial_release", not_ready)
+    scores = score_artifact(tmp_path, today=date(2026, 10, 3), fetch=_fake_alfred(vintages, latest="2026-10-03"))
+
+    supplement = scores["methods"]["statistical_baseline_v1 (post-freeze supplement)"]
+    assert supplement["forecasted"] == 2 and supplement["resolved_forecasts"] == 1
+    assert supplement["mean_brier"] == pytest.approx((1 - 0.6) ** 2)
+    # The frozen methods are unchanged by the supplement.
+    assert scores["methods"]["root_event_ensemble_v1"]["mean_brier"] == pytest.approx((1 - 0.374) ** 2)
