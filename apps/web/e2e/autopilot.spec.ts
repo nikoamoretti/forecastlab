@@ -48,6 +48,7 @@ test('authentication failure opens the owner login without starting OAuth automa
   await page.route('**/api/autopilot', route => route.fulfill({ status: 401, json: { detail: 'Sign in' } }));
   await page.goto('/autopilot');
   await expect(page).toHaveURL(/\/login$/);
+  await expect(page.getByLabel('Access code')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Continue with GitHub' })).toBeVisible();
 });
 
