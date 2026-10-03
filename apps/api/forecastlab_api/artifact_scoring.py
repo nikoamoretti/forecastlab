@@ -36,6 +36,9 @@ from forecastlab_api.official_fred_outcomes import ALFRED_GRAPH_CSV, NOT_READY
 from forecastlab_api.official_macro_outcomes import OfficialMacroOutcomeError
 
 SCORING_VERSION = "prospective_artifact_scoring_v1"
+# Optional post-freeze statistical-baseline forecasts (scripts/baseline_supplement.py).
+SUPPLEMENT_FILE = "baseline_supplement.json"
+SUPPLEMENT_SUFFIX = " (post-freeze supplement)"
 NEW_YORK = ZoneInfo("America/New_York")
 EPSILON = 1e-9
 Fetch = Callable[[str], str]
@@ -165,8 +168,23 @@ def score_artifact(directory: Path, *, today: date | None = None, fetch: Fetch =
             if probability is not None and outcome is not None:
                 row |= {"brier": brier(probability, outcome), "log_loss": log_loss(probability, outcome)}
             cells.append(row)
+    supplement_path = directory / SUPPLEMENT_FILE
+    supplement_methods: list[str] = []
+    if supplement_path.exists():
+        # Added after the cohort froze; never part of the frozen manifest.
+        supplement = json.loads(supplement_path.read_text())
+        method = f"{supplement['method']}{SUPPLEMENT_SUFFIX}"
+        supplement_methods.append(method)
+        for cell in supplement["cells"]:
+            result = outcomes[cell["entry_id"]]
+            probability, outcome = cell["probability"], result.get("outcome")
+            row = {"entry_id": cell["entry_id"], "release_event": cell["release_event"], "method": method,
+                   "status": cell["status"], "probability": probability, "outcome": outcome}
+            if probability is not None and outcome is not None:
+                row |= {"brier": brier(probability, outcome), "log_loss": log_loss(probability, outcome)}
+            cells.append(row)
     methods = {}
-    for method in manifest["methods"]:
+    for method in [*manifest["methods"], *supplement_methods]:
         own = [row for row in cells if row["method"] == method]
         scored = [row for row in own if "brier" in row]
         methods[method] = {
