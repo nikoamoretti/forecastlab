@@ -39,7 +39,7 @@ export default function ProspectiveLab() {
   return <section className="space-y-5 border-y border-rule py-6">
     <div><p className="font-mono text-xs uppercase tracking-widest text-copper">Prospective evaluation</p>
       <h3 className="mt-2 font-serif text-3xl">Record first. Resolve later.</h3>
-      <p className="mt-3 text-sm">Three frozen methods, up to 10 macro questions, $5 per assignment and $150 total. A verified dated BLS first release can be system-adjudicated; exceptions remain unresolved. All methods use the same matched question set.</p></div>
+      <p className="mt-3 text-sm">Four frozen methods for new cohorts: three AI methods at up to $5 per assignment, and the deterministic statistical baseline at $0, the bar the AI methods must beat. Up to 10 macro questions and $150 total. Earlier cohorts keep the methods they were frozen with. A verified dated BLS first release can be system-adjudicated; exceptions remain unresolved. All methods use the same matched question set.</p></div>
     {error && <p role="alert" className="text-copper">{error}</p>}
     <label className="block">Cohort<select aria-label="Cohort" className={field} value={selected} onChange={e => { setSelected(e.target.value); setReport(null); }}><option value="">Select a cohort</option>{cohorts.map(c => <option key={c.id} value={c.id}>{c.name} · {c.status}</option>)}</select></label>
     {report && <div className="space-y-5">
@@ -83,7 +83,7 @@ export default function ProspectiveLab() {
           <label>Resolution value<select className={field} value={q.revision_policy} onChange={e => setNewQuestions(newQuestions.map((v, i) => i === index ? { ...v, revision_policy: e.target.value } : v))}><option value="first_release">First published value</option><option value="as_of_resolution">Latest at resolution</option></select></label>
         </fieldset>)}
         {newQuestions.length < 10 && <button type="button" className="underline" onClick={() => setNewQuestions([...newQuestions, { indicator: "unemployment", observation_period: "", threshold: "5", comparison: "gt", release_at: "", revision_policy: "first_release" }])}>Add question</button>}
-        <p className="text-sm">{newQuestions.length * 3} assignments · maximum ${newQuestions.length * 15} including retries</p>
+        <p className="text-sm">{newQuestions.length * 4} assignments · maximum ${newQuestions.length * 15} including retries (the statistical baseline costs $0)</p>
         <button disabled={busy} className="border border-ink px-4 py-2">Create reviewable cohort</button>
       </form>
     </details>

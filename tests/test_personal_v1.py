@@ -419,7 +419,7 @@ def test_cohort_freeze_budget_and_append_only_outcomes(client, monkeypatch):
     assert frozen.status_code == 200, frozen.text
     data = frozen.json()
     cells = data["questions"][0]["cells"]
-    assert len(cells) == 3
+    assert len(cells) == len(prospective.METHODS) == 4
     repeated = client.post(f"/api/prospective/cohorts/{cohort['id']}/freeze", json={"reviewed_by": "Test reviewer"}).json()
     assert repeated["manifest_hash"] == data["manifest_hash"]
     from forecastlab_api.models import ProspectiveCohort, ProspectiveEntry
@@ -486,7 +486,8 @@ def test_new_cohorts_use_strict_three_track_and_reports_follow_frozen_methods(cl
         return client.post(f"/api/prospective/cohorts/{cohort['id']}/freeze", json={"reviewed_by": "Test reviewer"}).json()
 
     current = prospective.METHODS
-    assert current == ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1")
+    assert current == ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1",
+                       "statistical_baseline_v1")
     legacy = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_forecaster")
     monkeypatch.setattr(prospective, "METHODS", legacy)
     earlier = freeze("Earlier")
@@ -559,7 +560,7 @@ def test_cohort_freeze_attaches_verified_official_schedule_as_resolution_evidenc
     official = manifest["entries"][0]["official_schedule"]
     assert official["source_urls"] == [sources.releases[0].source_url]
     assert official["source_sha256"] == ["a" * 64]
-    assert len(results) == 3
+    assert len(results) == 4
     for result in results:
         (item,) = result["resolution_evidence"]
         assert item["required_sections"] == ["resolution"] and item["usable"] and item["primary_source"]

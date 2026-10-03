@@ -251,6 +251,16 @@ def estimate_workload(profile: ForecastProfile) -> dict[str, int]:
             "planned_fetches": fetches,
             "planned_max_tokens": profile.max_tokens,
         }
+    if profile.execution_strategy == "statistical_baseline":
+        # One official-data request; no model or search call.
+        return {
+            "tracks": 0,
+            "subquestions": 0,
+            "planned_model_calls": 0,
+            "planned_search_calls": 0,
+            "planned_fetches": min(1, profile.max_fetched_documents),
+            "planned_max_tokens": 0,
+        }
     tracks = max(1, len(profile.tracks))
     subq = tracks * profile.subquestions_per_track
     searches = 0 if profile.max_search_calls == 0 else subq
