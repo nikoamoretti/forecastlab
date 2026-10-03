@@ -78,3 +78,19 @@ The scorer reports these forecasts as a separate method, `statistical_baseline_v
 - **Scores** are Brier score and log loss per method, alongside the 0.25 Brier of an uninformed 50% forecast.
 
 The sample is small and the questions are correlated: several share a release event, and the thresholds are nested. Report coverage, withholdings and failures together with any score.
+
+## GPU questions (general binary, 2026-10-03)
+
+Five binary candidates from `docs/research/gpu_scouting_questions_2026-10.json` ran through the three AI methods on 2026-10-03, each against the same approved contract. They are not a frozen cohort and the statistical baseline does not apply to them. The record is in `artifacts/prospective_gpu_questions_20261003/forecasts.json`, with outcomes still to be recorded from each named source after its resolution date. Estimated cost was about $4.30.
+
+| Question | Resolves | root ensemble | single model | strict three-track |
+| --- | --- | --- | ---: | ---: |
+| USTR extends the Section 301 exclusion for graphics cards beyond 2026-11-10 | 2026-11-10 | withheld | 28% | 20% |
+| A Moore Threads Lushan card is on retail sale | 2026-12-31 | withheld | 25% | 25% |
+| NVIDIA announces an RTX 50 Super card with a US price | 2027-01-31 | withheld | 20% | 7% |
+| NVIDIA raises an official RTX 50 US MSRP | 2027-03-31 | withheld | 10% | 12% |
+| Sony, Microsoft or Nintendo raises a named console's US MSRP again | 2027-06-30 | withheld | 12% | 7% |
+
+The root method withheld all five because its evidence gate did not find primary sources for the resolution, reference-class or current-conditions sections. On general questions about company and policy announcements, it currently produces no forecast.
+
+The USTR estimates are open to question. USTR has extended these exclusions several times before, so the historical base rate looks higher than 20–28%. The resolution will show whether the AI methods underweighted that history.
