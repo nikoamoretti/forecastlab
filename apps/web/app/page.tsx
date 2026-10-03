@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api, pct } from "@/lib/api";
+import { verdict } from "@/lib/verdict";
 
 type Summary = { id: string; original_text: string; created_at: string; stale: boolean; run_id: string | null;
   profile_id: string | null; mode: string | null; status: string | null; outcome_status: string | null;
@@ -43,7 +44,10 @@ export default function BoardPage() {
           <p className="mt-2 text-sm text-ink/70">{row.mode || "draft"} · {row.profile_id || "No method yet"} · {(row.outcome_status || row.status || "draft").replaceAll("_", " ")}{row.stale ? " · stale" : ""}</p>
           <p className="mt-1 text-xs text-ink/60">{age(row.finished_at || row.run_created_at || row.created_at)} · ${Number(row.cost_usd || 0).toFixed(4)}</p></div>
         {row.automation_status && <p className="col-start-1 text-xs text-copper">Autopilot · version {row.latest_version} · {row.automation_status.replaceAll('_', ' ')}{row.pending_outcome ? ' · Outcome awaiting confirmation' : ''}{row.sources_checked_at ? ` · Sources checked ${age(row.sources_checked_at)}` : ''}</p>}
-        <p className="col-start-2 row-start-1 font-serif text-3xl">{row.outcome_status === "insufficient_evidence" ? "Withheld" : pct(row.probability)}</p>
+        <div className="col-start-2 row-start-1 text-right">{row.outcome_status === "insufficient_evidence" || row.probability == null
+          ? <p className="font-serif text-3xl">{row.outcome_status === "insufficient_evidence" ? "Withheld" : pct(row.probability)}</p>
+          : <><p className="font-serif text-2xl">{verdict(row.probability).label}</p>
+            <p className="mt-1 text-sm text-ink/70">{pct(row.probability)} · {verdict(row.probability).odds}</p></>}</div>
       </li>)}</ul>
       <nav className="flex items-center gap-5" aria-label="Forecast pages"><button disabled={offset === 0} className="underline disabled:opacity-30" onClick={() => setOffset(Math.max(0, offset - 25))}>Previous</button>
         <span className="text-sm">{data.total ? offset + 1 : 0}–{Math.min(offset + 25, data.total)} of {data.total}</span>
