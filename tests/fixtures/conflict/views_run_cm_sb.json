@@ -1,0 +1,7 @@
+{"next_page": "", "prev_page": "", "models": ["main_mean_ln"], "row_count": 4, "page_count": 1, "page_cur": 1, "start_date": 530, "end_date": 565,
+ "data": [
+  {"country_id": 105, "month_id": 530, "name": "France", "gwcode": 220, "isoab": "FRA", "year": 2024, "month": 2, "main_mean_ln": 0.1361, "main_dich": 0.0034},
+  {"country_id": 117, "month_id": 530, "name": "Ukraine", "gwcode": 369, "isoab": "UKR", "year": 2024, "month": 2, "main_mean_ln": 7.8905, "main_dich": 0.9998},
+  {"country_id": 999, "month_id": 532, "name": "Serbia", "gwcode": 340, "isoab": "SRB", "year": 2024, "month": 4, "main_mean_ln": 0.01, "main_dich": 0.001},
+  {"country_id": 117, "month_id": 532, "name": "Ukraine", "gwcode": 369, "isoab": "UKR", "year": 2024, "month": 4, "main_mean_ln": 8.5322, "main_dich": null}
+ ]}
