@@ -121,7 +121,10 @@ export default function ForecastPage() {
   if (!data) return <p>Loading forecast…</p>;
   const run = data.latest_run || {};
   const tracks = run.tracks || [];
-  if (run.profile_id === "root_event_ensemble_v1") return <PersonalReport data={data} rerun={rerun} />;
+  // Both personal-envelope methods; the statistical baseline adds its own deterministic section.
+  if (run.profile_id === "root_event_ensemble_v1" || run.profile_id === "statistical_baseline_v1") {
+    return <PersonalReport data={data} rerun={rerun} />;
+  }
   const evidence = run.evidence || [];
   const aggregation = run.aggregation || {};
   const versions = data.versions || [];

@@ -331,6 +331,13 @@ def execute_run(
             fixture_evidence_used = bool(context.fixture_evidence_allowed)
             forecast_contract_id = personal.contract_id if personal else None
             forecast_graph_id = json.loads(run.execution_context_json).get("forecast_graph_id")
+        elif profile.execution_strategy == "statistical_baseline":
+            from forecastlab_api.baseline_executor import execute_statistical_baseline
+            execute_statistical_baseline(session, run=run, profile=profile, context=context, ledger=ledger,
+                progress=progress, prior_elapsed_seconds=prior_elapsed)
+            fixture_evidence_used = False
+            forecast_contract_id = personal.contract_id if personal else None
+            forecast_graph_id = None
         elif profile.execution_strategy == "graph_nodes":
             if profile.graph_aggregation_enabled:
                 from forecastlab_api.graph_executor import GraphForecastExecutor
@@ -488,7 +495,7 @@ def execute_run(
             snapshot["forecast_contract_id"] = forecast_contract_id
         run.execution_context_json = json.dumps(snapshot, sort_keys=True)
         run.fixture_evidence_used = fixture_evidence_used
-        if personal and profile.execution_strategy != "root_event_ensemble_v1":
+        if personal and profile.execution_strategy not in {"root_event_ensemble_v1", "statistical_baseline"}:
             # SessionLocal disables autoflush. The version just added by the
             # executor must be visible before deriving the personal outcome.
             session.flush()

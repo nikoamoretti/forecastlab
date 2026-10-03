@@ -30,7 +30,11 @@ fails closed when the latest observation is older than 14 days (weekly) or 7 day
 evidence packet stays well inside its 24,000-token reserve. Backtests of FRED
 series raise `historical_fred_series_not_supported`.
 
-Only `root_event_ensemble_v1` reads macro snapshots. The cohort's other methods
+`root_event_ensemble_v1` and `statistical_baseline_v1` read macro snapshots. The
+statistical baseline passes optional `fetch_macro` arguments that widen only its
+own FRED history to 156 weekly or 520 weekday observations; the capped history
+above still bounds the root evidence packet (see
+[the statistical baseline](STATISTICAL_BASELINE.md)). The cohort's other methods
 (`single_model_forecaster_v1`, `three_track_strict_forecaster_v1`) see the
 contract plus their own search.
 

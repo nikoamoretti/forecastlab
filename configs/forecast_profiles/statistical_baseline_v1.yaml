@@ -1,0 +1,21 @@
+id: statistical_baseline_v1
+version: 1
+label: Statistical baseline V1 (deterministic, no model)
+description: Deterministic benchmark for macro questions with a MacroSpec (rule statistical_baseline_rule_v1, see docs/STATISTICAL_BASELINE.md). The point forecast is the last published value (unemployment, CPI year-over-year, initial claims, 10-year yield) or the mean of the last three payroll changes. The rule's own errors at the same horizon over a trailing window of 120 months, 156 weeks or 520 weekdays, added to the point and rounded to publication precision, form the predictive distribution. Probability is (k + 0.5) / (n + 1), bounded to [0.02, 0.98]. One official-data request, no model or search call, zero cost. Other questions, demo runs and historical FRED runs withhold.
+execution_strategy: statistical_baseline
+tracks: []
+graph_generation_enabled: false
+evidence_claims_enabled: false
+subquestions_per_track: 0
+search_results_per_subquestion: 0
+fetches_per_subquestion: 0
+aggregation_method: statistical_baseline_v1
+shrinkage: 0.0
+max_model_calls: 0
+max_search_calls: 0
+max_fetched_documents: 1
+max_tokens: 0
+max_output_tokens_per_call: 0
+max_estimated_cost_usd: 0.0
+max_wall_clock_seconds: 120
+prompt_versions: {}

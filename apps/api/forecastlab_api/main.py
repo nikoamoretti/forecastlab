@@ -860,9 +860,9 @@ def post_run(question_id: str, body: RunIn, db: Session = Depends(get_db)) -> di
     if question is None:
         raise HTTPException(404, "Question not found")
     requested_profile = load_profile(body.profile_id)
-    if requested_profile.execution_strategy == "root_event_ensemble_v1":
+    if requested_profile.execution_strategy in {"root_event_ensemble_v1", "statistical_baseline"}:
         from forecastlab_api.personal_forecasts import rerun
-        run = rerun(db, question, mode=body.mode, as_of=body.as_of)
+        run = rerun(db, question, mode=body.mode, as_of=body.as_of, profile_id=body.profile_id)
         if settings.embedded_worker:
             execute_run(db, run)
         return _row(run)

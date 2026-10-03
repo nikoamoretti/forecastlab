@@ -275,8 +275,14 @@ def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_
 
 
 def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key: str | None = None,
-                client: httpx.Client | None = None, timeout: float = 15) -> MacroSnapshot:
-    """Historical mode deliberately excludes the cutoff date absent intraday proof."""
+                client: httpx.Client | None = None, timeout: float = 15,
+                fred_history_limit: int | None = None, fred_lookback_days: int | None = None) -> MacroSnapshot:
+    """Historical mode deliberately excludes the cutoff date absent intraday proof.
+
+    ``fred_history_limit`` and ``fred_lookback_days`` only widen the weekly/daily
+    FRED history for callers that need it (the statistical baseline). The
+    defaults keep the capped history that bounds the root evidence packet.
+    """
     owned = client is None
     http = client or httpx.Client(timeout=min(15, timeout), follow_redirects=False)
     now = utcnow()
@@ -288,7 +294,8 @@ def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key:
                 # that this adapter does not have. Fail closed instead of guessing.
                 raise MacroDataError("historical_fred_series_not_supported")
             return fetch_fred_snapshot(spec.indicator, before=date.fromisoformat(spec.observation_period),
-                                       client=http, now=now)
+                                       client=http, now=now, history_limit=fred_history_limit,
+                                       lookback_days=fred_lookback_days)
         if as_of is not None:
             if not fred_api_key:
                 raise MacroDataError("historical_macro_vintage_key_required")
@@ -389,21 +396,27 @@ def parse_fred_csv(text: str, value_column: str) -> list[tuple[str, str]]:
 
 
 def fetch_fred_snapshot(indicator: str, *, before: date | None = None, client: httpx.Client | None = None,
-                        now: datetime | None = None) -> MacroSnapshot:
+                        now: datetime | None = None, history_limit: int | None = None,
+                        lookback_days: int | None = None) -> MacroSnapshot:
     """Latest keyless FRED observations strictly before ``before``.
 
     This is current (revised) data for live forecasting, never an initial-release
-    outcome. Stale or empty history fails closed.
+    outcome. Stale or empty history fails closed. ``history_limit`` and
+    ``lookback_days`` default to the capped root-evidence history.
     """
     meta = SERIES[indicator]
     if meta["source"] != "fred":
         raise MacroDataError("fred_series_required")
+    if (history_limit is not None and history_limit < 1) or (lookback_days is not None and lookback_days < 1):
+        raise MacroDataError("fred_history_window_invalid")
     owned = client is None
     http = client or httpx.Client(timeout=12, follow_redirects=False)
     now = as_utc(now or utcnow())
     cadence = meta["cadence"]
     fred_id = meta["fred"]
-    start = min(before or now.date(), now.date()) - timedelta(days=_FRED_LOOKBACK_DAYS[cadence])
+    limit = FRED_HISTORY_LIMITS[cadence] if history_limit is None else history_limit
+    lookback = _FRED_LOOKBACK_DAYS[cadence] if lookback_days is None else lookback_days
+    start = min(before or now.date(), now.date()) - timedelta(days=lookback)
     try:
         url = f"{FRED_GRAPH_CSV}?id={fred_id}&cosd={start.isoformat()}"
         response = http.get(url)
@@ -427,7 +440,7 @@ def fetch_fred_snapshot(indicator: str, *, before: date | None = None, client: h
             raise MacroDataError("macro_pre_target_observations_missing")
         if (now.date() - date.fromisoformat(observations[-1].period)).days > FRED_STALENESS_DAYS[cadence]:
             raise MacroDataError("macro_current_conditions_stale")
-        observations = observations[-FRED_HISTORY_LIMITS[cadence]:]
+        observations = observations[-limit:]
         payload = {"source_url": url, "content_type": response.headers.get("content-type", ""), "csv": text}
         return MacroSnapshot(indicator=indicator, retrieved_at=retrieved, observations=observations,
                              raw_hash=digest(payload), raw_payload=payload, source_lineage=meta["lineage"])
