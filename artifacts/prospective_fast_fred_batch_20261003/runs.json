@@ -1,0 +1,233 @@
+{
+  "1a28be00-0a5b-4f04-b4e9-dc83884ac611": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:10:20.816599",
+    "latency_ms": 101237,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-03 00:08:39.584845",
+    "status": "completed",
+    "total_cost_usd": 0.32142000000000004
+  },
+  "32f09218-ada8-4b88-8f0b-aae78b0ffd76": {
+    "ensemble_probability": 0.41917007307972853,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:13:09.289418",
+    "latency_ms": 150992,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:10:38.307056",
+    "status": "completed",
+    "total_cost_usd": 0.4103050000000001
+  },
+  "35ca64ab-8645-41a3-b826-7f8b9b854af2": {
+    "ensemble_probability": 0.55,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:21:24.486833",
+    "latency_ms": 15944,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:21:08.546953",
+    "status": "completed",
+    "total_cost_usd": 0.03464
+  },
+  "3a022b3b-d379-409d-84eb-1818a14f7621": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:05:44.519952",
+    "latency_ms": 135737,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-03 00:03:28.788020",
+    "status": "completed",
+    "total_cost_usd": 0.301975
+  },
+  "44f8d1b4-5e5d-4415-8408-102472136aed": {
+    "ensemble_probability": 0.8,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:06:02.837083",
+    "latency_ms": 17878,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:05:44.963200",
+    "status": "completed",
+    "total_cost_usd": 0.036250000000000004
+  },
+  "45d8761e-bb2c-4e9e-826e-c209df100f36": {
+    "ensemble_probability": 0.40902000498997837,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:08:39.138484",
+    "latency_ms": 155872,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:06:03.275602",
+    "status": "completed",
+    "total_cost_usd": 0.38636000000000004
+  },
+  "5fa6a64e-b1f9-4137-b9c6-9dc5f13b2438": {
+    "ensemble_probability": 0.529811960668346,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:58:26.857113",
+    "latency_ms": 196202,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:55:10.669495",
+    "status": "completed",
+    "total_cost_usd": 0.38450000000000006
+  },
+  "6e5033a3-d463-4023-8a67-1a4a5f781743": {
+    "ensemble_probability": 0.55,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:51:09.147303",
+    "latency_ms": 17860,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:50:51.304779",
+    "status": "completed",
+    "total_cost_usd": 0.034185
+  },
+  "765d1cac-42af-4ff9-9d2f-b3f6201cf3d5": {
+    "ensemble_probability": 0.55,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:55:10.231412",
+    "latency_ms": 19533,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:54:50.701996",
+    "status": "completed",
+    "total_cost_usd": 0.038225
+  },
+  "7bdeca88-a2f2-4f0e-883d-d170920cf200": {
+    "ensemble_probability": 0.4,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:00:47.012412",
+    "latency_ms": 17224,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:00:29.792512",
+    "status": "completed",
+    "total_cost_usd": 0.038294999999999996
+  },
+  "9eb65d68-4838-4cf5-9086-8b7620257e68": {
+    "ensemble_probability": 0.45,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:14:58.847782",
+    "latency_ms": 17785,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:14:41.067075",
+    "status": "completed",
+    "total_cost_usd": 0.03894500000000001
+  },
+  "9fe7a2b6-0ade-448d-b619-92b55a2492c1": {
+    "ensemble_probability": 0.4586832548857421,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:24:16.885468",
+    "latency_ms": 171971,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:21:24.925348",
+    "status": "completed",
+    "total_cost_usd": 0.3965000000000001
+  },
+  "a4a59d3d-a94c-41f1-9305-1cf0c8409808": {
+    "ensemble_probability": 0.4119476522661372,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:18:32.351381",
+    "latency_ms": 213071,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:14:59.289478",
+    "status": "completed",
+    "total_cost_usd": 0.42005500000000007
+  },
+  "a6304984-614e-4fe1-b884-d5eeb4aa508b": {
+    "ensemble_probability": 0.43,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:10:37.866860",
+    "latency_ms": 16615,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:10:21.257440",
+    "status": "completed",
+    "total_cost_usd": 0.037505
+  },
+  "a7a57bf7-949c-4238-8370-fe3f72ad1972": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:14:40.626764",
+    "latency_ms": 90895,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-03 00:13:09.736155",
+    "status": "completed",
+    "total_cost_usd": 0.26982000000000006
+  },
+  "a7b626d9-2b40-4ee2-a046-60733b02020d": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:50:50.860355",
+    "latency_ms": 139326,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:48:31.539460",
+    "status": "completed",
+    "total_cost_usd": 0.30715500000000007
+  },
+  "abf740af-262a-46e2-bb5e-2412da3a9e51": {
+    "ensemble_probability": 0.5047073495092818,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:21:08.104841",
+    "latency_ms": 155314,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-03 00:18:32.796396",
+    "status": "completed",
+    "total_cost_usd": 0.5073050000000001
+  },
+  "b857f2bf-3634-4106-b7d2-42c8121cc655": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:54:50.262611",
+    "latency_ms": 119569,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:52:50.697313",
+    "status": "completed",
+    "total_cost_usd": 0.274515
+  },
+  "cd9052da-049f-4df0-b987-a85841cc39be": {
+    "ensemble_probability": null,
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:52:50.255326",
+    "latency_ms": 100654,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:51:09.599141",
+    "status": "failed",
+    "total_cost_usd": 0.20184000000000002
+  },
+  "dd59a1e9-1e3f-4bd8-991c-250ddfdde31d": {
+    "ensemble_probability": null,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:00:29.350436",
+    "latency_ms": 122043,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:58:27.311119",
+    "status": "completed",
+    "total_cost_usd": 0.3179200000000001
+  },
+  "de71e3a8-3447-46bc-a1b9-6629253322ce": {
+    "ensemble_probability": 0.4879261184171747,
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:03:28.340306",
+    "latency_ms": 160900,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:00:47.450404",
+    "status": "completed",
+    "total_cost_usd": 0.3985350000000001
+  }
+}

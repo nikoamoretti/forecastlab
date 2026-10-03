@@ -1,0 +1,378 @@
+{
+  "06988cb4-ce60-487a-85d2-abbd3c6c8428": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:16:39.563084",
+    "latency_ms": 144209,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:14:15.358245",
+    "status": "completed",
+    "total_cost_usd": 0.40768000000000004,
+    "version": [
+      null
+    ]
+  },
+  "19e85e75-ae9c-4e4d-adfb-cf507943d39d": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:33:10.184187",
+    "latency_ms": 181701,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:30:08.487937",
+    "status": "completed",
+    "total_cost_usd": 0.47268,
+    "version": [
+      0.30000000000000004
+    ]
+  },
+  "1f5c635d-848f-41db-87f2-6ac2ce3b1e41": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:56:36.396963",
+    "latency_ms": 160557,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:53:55.844602",
+    "status": "completed",
+    "total_cost_usd": 0.5129,
+    "version": [
+      0.3767958593434868
+    ]
+  },
+  "31435ffc-8d19-4c28-9e70-109a3d59069c": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:30:08.035498",
+    "latency_ms": 193794,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:26:54.254101",
+    "status": "completed",
+    "total_cost_usd": 0.39582000000000006,
+    "version": [
+      0.4496938329763394
+    ]
+  },
+  "36a15d47-c1ec-4b0d-8a3b-5aa559cbb442": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:46:57.005784",
+    "latency_ms": 202471,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:43:34.545732",
+    "status": "completed",
+    "total_cost_usd": 0.3949600000000001,
+    "version": [
+      0.07033939177740528
+    ]
+  },
+  "38c8c583-4380-4219-b9a5-8e98a8a427fa": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:14:14.916435",
+    "latency_ms": 106803,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:12:28.110925",
+    "status": "failed",
+    "total_cost_usd": 0.22769000000000003,
+    "version": null
+  },
+  "4895838a-a77b-4819-a823-6d2cfc00dca2": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:02:14.579832",
+    "latency_ms": 109634,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-03 00:00:24.952068",
+    "status": "completed",
+    "total_cost_usd": 0.36034000000000005,
+    "version": [
+      null
+    ]
+  },
+  "4f74bd0c-29f7-44db-8bfd-67a3676ea34b": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:56:58.351989",
+    "latency_ms": 21516,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:56:36.839816",
+    "status": "completed",
+    "total_cost_usd": 0.04092,
+    "version": [
+      0.7
+    ]
+  },
+  "537d084e-463a-45bd-b482-219705cb59fa": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:49:59.895799",
+    "latency_ms": 182448,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:46:57.452426",
+    "status": "completed",
+    "total_cost_usd": 0.4644250000000001,
+    "version": [
+      0.5404578649722903
+    ]
+  },
+  "6058d30a-9186-470f-9ff4-a47d36f64884": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:38:11.519207",
+    "latency_ms": 14241,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:37:57.282245",
+    "status": "completed",
+    "total_cost_usd": 0.031475,
+    "version": [
+      0.35
+    ]
+  },
+  "6440f829-46a6-4bc9-8f4a-7850281853dc": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:26:37.625820",
+    "latency_ms": 115130,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:24:42.502543",
+    "status": "completed",
+    "total_cost_usd": 0.3483400000000001,
+    "version": [
+      null
+    ]
+  },
+  "6a298311-300c-4f3b-a02d-f9ab57aef007": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:12:11.708410",
+    "latency_ms": 125214,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:10:06.499118",
+    "status": "completed",
+    "total_cost_usd": 0.35485,
+    "version": [
+      null
+    ]
+  },
+  "6ef38cd5-c901-483f-b07b-b4c25bafb619": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:18:45.628573",
+    "latency_ms": 114899,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:16:50.727092",
+    "status": "failed",
+    "total_cost_usd": 0.22674000000000002,
+    "version": null
+  },
+  "75739a1b-2cbe-4da5-b314-cb971210938d": {
+    "error_message": "single_model_forecast_unsupported_evidence_reference",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:21:37.867178",
+    "latency_ms": 14305,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:21:23.559750",
+    "status": "failed",
+    "total_cost_usd": 0.027945,
+    "version": null
+  },
+  "7b082d8a-fa9c-4f31-94ae-c59eca4e3768": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:26:53.812867",
+    "latency_ms": 15738,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:26:38.080240",
+    "status": "completed",
+    "total_cost_usd": 0.029415,
+    "version": [
+      0.4
+    ]
+  },
+  "80ef3c0b-a6ee-424d-8a61-260eb8ef9fae": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-03 00:04:59.699535",
+    "latency_ms": 151335,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-03 00:02:28.362966",
+    "status": "failed",
+    "total_cost_usd": 0.35226,
+    "version": null
+  },
+  "8767e994-d529-4358-b2ae-adac745fa9c3": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:35:20.998681",
+    "latency_ms": 117322,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:33:23.674972",
+    "status": "failed",
+    "total_cost_usd": 0.21257500000000001,
+    "version": null
+  },
+  "8bb157cf-d3fa-4e4c-91c3-a05e2bef5433": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:40:04.182084",
+    "latency_ms": 112210,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:38:11.970249",
+    "status": "failed",
+    "total_cost_usd": 0.20689000000000005,
+    "version": null
+  },
+  "9955bf70-8491-454a-95e7-cb88a61ea8f5": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:21:23.114236",
+    "latency_ms": 157055,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:18:46.065432",
+    "status": "completed",
+    "total_cost_usd": 0.4489350000000001,
+    "version": [
+      0.2671762224285628
+    ]
+  },
+  "9c5ef3d7-1d47-4147-863e-f4287ca48ab1": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:33:23.237900",
+    "latency_ms": 12604,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:33:10.636539",
+    "status": "completed",
+    "total_cost_usd": 0.03008,
+    "version": [
+      0.6
+    ]
+  },
+  "9dd324bc-eac6-4882-86a4-b373ed0b05c1": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:02:27.925295",
+    "latency_ms": 12901,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-03 00:02:15.027193",
+    "status": "completed",
+    "total_cost_usd": 0.03182,
+    "version": [
+      0.95
+    ]
+  },
+  "b1d42624-d4a1-4ec2-b42e-823f9d15f3f3": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:50:16.638557",
+    "latency_ms": 16305,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:50:00.336448",
+    "status": "completed",
+    "total_cost_usd": 0.03245,
+    "version": [
+      0.45
+    ]
+  },
+  "b5f84b17-7717-427a-8611-b21fbf2003a0": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:12:27.663653",
+    "latency_ms": 15518,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:12:12.154951",
+    "status": "completed",
+    "total_cost_usd": 0.031415,
+    "version": [
+      0.62
+    ]
+  },
+  "bced1235-e48c-422d-abdb-318657ef3ded": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:37:56.838557",
+    "latency_ms": 155411,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:35:21.432798",
+    "status": "completed",
+    "total_cost_usd": 0.40249,
+    "version": [
+      null
+    ]
+  },
+  "bdd362c8-c45c-45b7-ae02-75ed739aff19": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:43:34.105566",
+    "latency_ms": 17960,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:43:16.150465",
+    "status": "completed",
+    "total_cost_usd": 0.03561,
+    "version": [
+      0.65
+    ]
+  },
+  "be069daa-03f5-4101-b91c-1b3f5d08d53a": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:43:15.706540",
+    "latency_ms": 191089,
+    "profile_id": "root_event_ensemble_v1",
+    "started_at": "2026-10-02 23:40:04.622371",
+    "status": "completed",
+    "total_cost_usd": 0.45692499999999997,
+    "version": [
+      null
+    ]
+  },
+  "d6122052-25c0-4cc6-a3aa-9adfa6c7b095": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-03 00:00:24.503831",
+    "latency_ms": 205719,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:56:58.794019",
+    "status": "completed",
+    "total_cost_usd": 0.40373000000000003,
+    "version": [
+      0.41425382685238976
+    ]
+  },
+  "d849dacf-ee3d-43fc-a91f-0e9fe61584f5": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:16:50.291148",
+    "latency_ms": 10290,
+    "profile_id": "single_model_forecaster_v1",
+    "started_at": "2026-10-02 23:16:40.004821",
+    "status": "completed",
+    "total_cost_usd": 0.026275,
+    "version": [
+      0.65
+    ]
+  },
+  "defb66a5-ebaa-4133-819b-a84cf7a69dd9": {
+    "error_message": "invalid_structured_output:research_plan",
+    "error_stage": "StructuredOutputError",
+    "finished_at": "2026-10-02 23:24:42.066928",
+    "latency_ms": 183763,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:21:38.301496",
+    "status": "failed",
+    "total_cost_usd": 0.33838500000000005,
+    "version": null
+  },
+  "ff3a9260-40fc-421c-a5c2-02c99aa147d2": {
+    "error_message": null,
+    "error_stage": null,
+    "finished_at": "2026-10-02 23:53:55.399984",
+    "latency_ms": 218334,
+    "profile_id": "three_track_strict_forecaster_v1",
+    "started_at": "2026-10-02 23:50:17.074534",
+    "status": "completed",
+    "total_cost_usd": 0.41100000000000003,
+    "version": [
+      0.5
+    ]
+  }
+}
