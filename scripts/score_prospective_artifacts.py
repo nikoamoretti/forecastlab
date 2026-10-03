@@ -20,7 +20,8 @@ from forecastlab_api.artifact_scoring import write_scores  # noqa: E402
 
 
 def main(argv: list[str]) -> int:
-    directories = [Path(arg) for arg in argv] or sorted((ROOT / "artifacts").glob("prospective_*"))
+    directories = [Path(arg) for arg in argv] or sorted(
+        path.parent for path in (ROOT / "artifacts").glob("prospective_*/cohort_report.json"))
     for directory in directories:
         scores = write_scores(directory)
         print(f"{directory.name}: {scores['resolved_entries']}/{scores['total_entries']} questions resolved")

@@ -94,3 +94,13 @@ Five binary candidates from `docs/research/gpu_scouting_questions_2026-10.json` 
 The root method withheld all five because its evidence gate did not find primary sources for the resolution, reference-class or current-conditions sections. On general questions about company and policy announcements, it currently produces no forecast.
 
 The USTR estimates are open to question. USTR has extended these exclusions several times before, so the historical base rate looks higher than 20–28%. The resolution will show whether the AI methods underweighted that history.
+
+## Claude Code forecaster (2026-10-03)
+
+`claude_code_forecaster_v1` is Claude working in a Claude Code session with web search, at no API cost. It forecast all 22 open questions at 2026-10-03T19:26:53Z, before any of them resolved. Each forecast has its rationale and dated sources in `claude_code_supplement.json` for the two macro batches, and in `forecasts.json` for the GPU questions. The scorer treats every `*_supplement.json` as a separate, labeled post-freeze method.
+
+Where it differs most from the other methods:
+
+- **September CPI:** Claude forecasts 96%, 91% and 74% for thresholds of 3.3, 3.4 and 3.5%. The statistical baseline gives 57%, 48% and 36%. Claude cites the Cleveland Fed nowcast of 3.60% and a 3.7% consensus.
+- **10-year yield, Oct 5–9:** 58–68% for above 5.24, against about 50–53% from the baseline. Claude cites Treasury's official 5.28 for Oct 2.
+- **The USTR graphics-card exclusion:** 85%, against 20–28% from the other AI methods. Claude cites the US–China truce extension to 2027-01-10 and USTR's record of extending these exclusions before the deadline.

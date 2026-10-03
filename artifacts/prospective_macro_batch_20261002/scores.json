@@ -319,12 +319,100 @@
       "probability": 0.5265486725663717,
       "release_event": "employment-2026-12-04",
       "status": "forecasted"
+    },
+    {
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.96,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.91,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.74,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.57,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.27,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.08,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.32,
+      "release_event": "employment-2026-12-04",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.56,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.26,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.55,
+      "release_event": "employment-2026-12-04",
+      "status": "forecasted"
     }
   ],
   "cohort_id": "24d2aa6e-2256-48b3-a136-068ad45810e4",
   "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
   "manifest_hash": "c38a7b02b6e511d15bb81a6ffddf48352137493329c24864fc5a8abaed34d6bb",
   "methods": {
+    "claude_code_forecaster_v1 (post-freeze supplement)": {
+      "assigned": 10,
+      "forecasted": 10,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
     "root_event_ensemble_v1": {
       "assigned": 10,
       "forecasted": 4,

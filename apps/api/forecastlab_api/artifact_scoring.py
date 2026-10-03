@@ -36,8 +36,9 @@ from forecastlab_api.official_fred_outcomes import ALFRED_GRAPH_CSV, NOT_READY
 from forecastlab_api.official_macro_outcomes import OfficialMacroOutcomeError
 
 SCORING_VERSION = "prospective_artifact_scoring_v1"
-# Optional post-freeze statistical-baseline forecasts (scripts/baseline_supplement.py).
-SUPPLEMENT_FILE = "baseline_supplement.json"
+# Optional post-freeze forecasts by methods outside the frozen manifest, e.g.
+# baseline_supplement.json (scripts/baseline_supplement.py) or claude_code_supplement.json.
+SUPPLEMENT_GLOB = "*_supplement.json"
 SUPPLEMENT_SUFFIX = " (post-freeze supplement)"
 NEW_YORK = ZoneInfo("America/New_York")
 EPSILON = 1e-9
@@ -168,9 +169,8 @@ def score_artifact(directory: Path, *, today: date | None = None, fetch: Fetch =
             if probability is not None and outcome is not None:
                 row |= {"brier": brier(probability, outcome), "log_loss": log_loss(probability, outcome)}
             cells.append(row)
-    supplement_path = directory / SUPPLEMENT_FILE
     supplement_methods: list[str] = []
-    if supplement_path.exists():
+    for supplement_path in sorted(directory.glob(SUPPLEMENT_GLOB)):
         # Added after the cohort froze; never part of the frozen manifest.
         supplement = json.loads(supplement_path.read_text())
         method = f"{supplement['method']}{SUPPLEMENT_SUFFIX}"
