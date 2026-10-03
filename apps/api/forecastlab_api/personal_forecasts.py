@@ -219,7 +219,9 @@ def launch_draft(session: Session, run_id: str, review: dict) -> ForecastRun:
     return run
 
 
-def rerun(session: Session, question: Question, *, mode: str, as_of: datetime | None) -> ForecastRun:
+def rerun(session: Session, question: Question, *, mode: str, as_of: datetime | None,
+          profile_id: str = PROFILE) -> ForecastRun:
+    """A fresh personal-envelope run (root method, or the statistical baseline) of an approved contract."""
     from forecastlab_api.v1_execution import approved_contract_for_question
     contract = forecast_contract_from_row(approved_contract_for_question(session, question.id))
     if contract.resolution_date is None or (mode == "live" and contract.resolution_date <= utcnow()):
@@ -227,7 +229,7 @@ def rerun(session: Session, question: Question, *, mode: str, as_of: datetime | 
     prior = session.scalar(select(PersonalForecast).join(ForecastRun).where(ForecastRun.question_id == question.id)
                            .order_by(PersonalForecast.created_at.desc()))
     macro = MacroSpec.model_validate_json(prior.macro_json) if prior and prior.macro_json != "{}" else None
-    context = resolve_for_question(question, profile_id=PROFILE, mode=mode, as_of=as_of)
+    context = resolve_for_question(question, profile_id=profile_id, mode=mode, as_of=as_of)
     run = create_run_record(session, question=question, context=context, as_of=as_of)
     envelope(session, run, request_key=f"rerun:{run.id}", request_hash=contract_hash(contract), contract=contract, macro=macro)
     session.commit()

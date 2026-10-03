@@ -5,12 +5,37 @@ import { api, pct } from "@/lib/api";
 import { verdictShort } from "@/lib/verdict";
 import VerdictHeadline from "@/components/VerdictHeadline";
 
+const STATISTICAL_BASELINE_PROFILE = "statistical_baseline_v1";
+
+function baselineValue(indicator: string, value: number | null | undefined) {
+  if (value == null) return "—";
+  if (indicator === "unemployment" || indicator === "cpi") return `${value.toFixed(1)}%`;
+  if (indicator === "treasury_10y") return `${value.toFixed(2)}%`;
+  const whole = Math.round(value).toLocaleString("en-US");
+  return indicator === "jobless_claims" ? `${whole} claims` : `${value > 0 ? "+" : ""}${whole} jobs`;
+}
+
+function StatisticalBaselineDetails({ baseline }: { baseline: any }) {
+  const value = (v: number | null | undefined) => baselineValue(baseline.indicator, v);
+  const unit = baseline.horizon.h === 1 ? baseline.horizon.unit : `${baseline.horizon.unit}s`;
+  return <section className="border-y border-rule py-5"><h3 className="font-serif text-2xl">How the statistical baseline got this number</h3>
+    <p className="mt-2">{baseline.rationale}</p>
+    <p className="mt-3">Most likely published value {value(baseline.mode)} · 80% range {value(baseline.interval_80[0])} to {value(baseline.interval_80[1])} · 90% range {value(baseline.interval_90[0])} to {value(baseline.interval_90[1])}</p>
+    <div className="mt-3 overflow-x-auto"><table className="text-left text-sm"><thead><tr><th className="border-b border-rule p-2">Percentile</th>{Object.keys(baseline.quantiles).map((level: string) => <th key={level} className="border-b border-rule p-2">{level}th</th>)}</tr></thead>
+      <tbody><tr><td className="p-2">Published value</td>{Object.entries(baseline.quantiles).map(([level, v]) => <td key={level} className="p-2">{value(v as number)}</td>)}</tr></tbody></table></div>
+    <p className="mt-3 text-xs text-ink/70">Deterministic rule {baseline.rule_version}: {String(baseline.point_rule).replaceAll("_", " ")}, plus the rule&apos;s own errors {baseline.horizon.h} {unit} ahead over {baseline.window.start} to {baseline.window.end} ({baseline.window.observations} observations, n = {baseline.n}, k = {baseline.k}). {baseline.probability_rule}; unbounded {(baseline.raw_probability * 100).toFixed(1)}%. No model or search call; cost $0.</p>
+    {baseline.snapshot && <p className="mt-1 text-xs text-ink/70">Official data: <a className="underline" href={baseline.snapshot.source_url} rel="noreferrer">{baseline.snapshot.source_url}</a> · retrieved {baseline.snapshot.retrieved_at} · {String(baseline.snapshot.revision_basis || "").replaceAll("_", " ")} · last observation {baseline.last_observation.period} = {value(baseline.last_observation.value)} · raw response SHA-256 <span className="break-all font-mono">{baseline.snapshot.raw_hash}</span></p>}
+  </section>;
+}
+
 export default function PersonalReport({ data, rerun }: { data: any; rerun: () => Promise<void> }) {
   const [evidenceUrl, setEvidenceUrl] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
   const run = data.latest_run;
   const result = data.personal_report || {};
+  const baseline = result.statistical_baseline;
+  const isBaseline = run.profile_id === STATISTICAL_BASELINE_PROFILE || result.method === STATISTICAL_BASELINE_PROFILE;
   const evidence = result.evidence_assessments || [];
   const contract = result.contract || data.forecast_contract || {};
   const history = data.runs?.length ? data.runs.map((historicalRun: any) => {
@@ -22,7 +47,7 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
   const terminal = ["completed", "failed"].includes(run.status);
   return <article className="space-y-8">
     {data.is_historical_view && <p className="border border-rule p-3">Viewing a historical run. <Link className="underline" href={`/forecasts/${data.id}`}>Open latest forecast</Link></p>}
-    <header><p className="font-mono text-xs uppercase tracking-widest text-copper">{run.mode} · Personal V1 · {String(data.outcome_status || run.status).replaceAll("_", " ")}</p>
+    <header><p className="font-mono text-xs uppercase tracking-widest text-copper">{run.mode} · {isBaseline ? "Statistical baseline (no model)" : "Personal V1"} · {String(data.outcome_status || run.status).replaceAll("_", " ")}</p>
       <h2 className="mt-3 max-w-4xl font-serif text-4xl">{data.original_text}</h2>
       {run.status !== "failed" && result.probability != null
         ? <div className="mt-5"><VerdictHeadline probability={result.probability} /></div>
@@ -37,7 +62,8 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       <p className="mt-2 text-sm">{contract.resolution_date} · <a href={contract.authoritative_source} className="underline" rel="noreferrer">Authoritative source</a></p>
       <p className="mt-2 text-sm">{contract.resolution_method}</p></section>
     {(result.evidence_gaps || []).length > 0 && <section><h3 className="font-serif text-2xl">Research gaps</h3><ul className="mt-3 list-disc space-y-2 pl-5">{result.evidence_gaps.map((s: string) => <li key={s}>{s.replaceAll("_", " ")}</li>)}</ul></section>}
-    {(["supporting", "opposing", "background"] as const).map(kind => <section key={kind}><h3 className="font-serif text-2xl">{kind === "supporting" ? "Supporting evidence" : kind === "opposing" ? "Opposing evidence" : "Background and measurements"}</h3>
+    {baseline && <StatisticalBaselineDetails baseline={baseline} />}
+    {!isBaseline && (["supporting", "opposing", "background"] as const).map(kind => <section key={kind}><h3 className="font-serif text-2xl">{kind === "supporting" ? "Supporting evidence" : kind === "opposing" ? "Opposing evidence" : "Background and measurements"}</h3>
       <ul className="mt-3 space-y-4">{evidence.filter((e: any) => e.usable && e.classification === kind).map((e: any) => <li key={e.claim_id} className="border-l-2 border-rule pl-4">
         <a href={e.url} className="underline" rel="noreferrer">{e.title || e.url}</a>{e.claim?.length > 1200 ? <details className="mt-2 text-sm"><summary className="cursor-pointer">Inspect the full observation history</summary><p className="mt-2 whitespace-pre-wrap">{e.claim}</p></details> : <p className="mt-1 whitespace-pre-wrap text-sm">{e.claim}</p>}
         {e.quote && <blockquote className="mt-2 text-sm text-ink/70">“{e.quote}”</blockquote>}<p className="mt-1 text-xs text-ink/60">Available {e.source_available_at} · {e.source_lineage}</p></li>)}</ul>
@@ -46,7 +72,7 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       <p className="mt-2 text-sm">Shared evidence; estimates do not see each other. Spread is disagreement, not a confidence interval.</p>
       {result.aggregation?.spread != null && <p className="mt-2 text-sm">Estimate spread: {(result.aggregation.spread * 100).toFixed(1)} percentage points.</p>}
       <div className="mt-4 grid gap-4 md:grid-cols-3">{result.estimates.map((e: any) => <div className="border border-rule p-4" key={e.role}><p>{e.role.replaceAll("_", " ")}</p><p className="mt-2 font-serif text-3xl">{pct(e.probability)}</p><p className="mt-3 text-sm">{e.reasoning}</p></div>)}</div></section>}
-    <section><h3 className="font-serif text-2xl">Developments to watch</h3><ul className="mt-3 list-disc space-y-2 pl-5">{(result.developments_to_watch || []).map((s: string) => <li key={s}>{s}</li>)}</ul></section>
+    {!isBaseline && <section><h3 className="font-serif text-2xl">Developments to watch</h3><ul className="mt-3 list-disc space-y-2 pl-5">{(result.developments_to_watch || []).map((s: string) => <li key={s}>{s}</li>)}</ul></section>}
     {terminal && !data.is_benchmark && !data.is_historical_view && <button disabled={busy} onClick={async () => { setBusy(true); setMessage(""); try { await rerun(); } catch (e) { setMessage(e instanceof Error ? e.message : "Rerun failed"); } finally { setBusy(false); } }} className="border border-ink px-4 py-2">Run a fresh forecast</button>}
     {run.mode !== "demo" && <details><summary className="cursor-pointer">Add evidence for a future rerun</summary>
       <form className="mt-3 flex flex-wrap items-end gap-3" onSubmit={async event => { event.preventDefault(); setBusy(true); setMessage("");

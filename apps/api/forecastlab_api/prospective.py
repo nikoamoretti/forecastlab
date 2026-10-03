@@ -39,7 +39,10 @@ from forecastlab_api.question_suggestions import schedule_resolution_evidence, s
 
 # Methods assigned to newly frozen cohorts.  Reports use the methods recorded
 # in each cohort's frozen manifest, so earlier cohorts keep their own set.
-METHODS = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1")
+# ``statistical_baseline_v1`` is deterministic and costs $0: it adds no model
+# or search spend to the cohort budget.
+METHODS = ("root_event_ensemble_v1", "single_model_forecaster_v1", "three_track_strict_forecaster_v1",
+           "statistical_baseline_v1")
 
 
 def forecasting_source_hash() -> str:
