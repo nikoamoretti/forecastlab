@@ -1,0 +1,319 @@
+{
+  "cells": [
+    {
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.62,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "cpi-2026-10-14",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.65,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "cpi-2026-10-14",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": 0.2671762224285628,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "cpi-2026-10-14",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "cpi-2026-10-14",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-12-04",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4,
+      "release_event": "employment-2026-12-04",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4496938329763394,
+      "release_event": "employment-2026-12-04",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": 0.30000000000000004,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.6,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.35,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-11-06",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.65,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.07033939177740528,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": 0.5404578649722903,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.45,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.5,
+      "release_event": "employment-2026-11-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": 0.3767958593434868,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.7,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.41425382685238976,
+      "release_event": "cpi-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-12-04",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.95,
+      "release_event": "employment-2026-12-04",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "employment-2026-12-04",
+      "status": "execution_failed"
+    }
+  ],
+  "cohort_id": "24d2aa6e-2256-48b3-a136-068ad45810e4",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "c38a7b02b6e511d15bb81a6ffddf48352137493329c24864fc5a8abaed34d6bb",
+  "methods": {
+    "root_event_ensemble_v1": {
+      "assigned": 10,
+      "forecasted": 4,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "single_model_forecaster_v1": {
+      "assigned": 10,
+      "forecasted": 9,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "three_track_strict_forecaster_v1": {
+      "assigned": 10,
+      "forecasted": 4,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "0b87f4ba-50c6-4423-872d-796cb9f5c9fa": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "14bf6180-65b3-494a-8a63-990338fb1651": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "27954d60-fa29-4974-8b78-b9c24372574f": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "37353987-3756-45e0-80f7-ed447514f71a": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "666cd77b-244d-433f-81d4-6bf09a22519c": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "67059f16-df87-474a-be11-72a22d7b7c5a": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "7084500c-ec25-4649-9d26-837f91a5f2a1": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "86054306-91c5-4aec-9c08-c28208164658": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "cf0c8389-7f43-45a2-9c29-886d406da17a": {
+      "reason": "release_in_future",
+      "status": "pending"
+    },
+    "e119fe30-495d-4ef4-ad72-11c080f90a53": {
+      "reason": "release_in_future",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-03",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 10
+}
