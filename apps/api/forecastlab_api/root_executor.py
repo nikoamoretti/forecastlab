@@ -12,7 +12,14 @@ from forecastlab.budgeted_provider import BudgetedModelProvider
 from forecastlab.deadline import check_deadline
 from forecastlab.errors import BudgetExceeded, PermanentProviderError
 from forecastlab.graph_research import GraphResearchExecutor
-from forecastlab.macro import SERIES, MacroDataError, MacroSpec, fetch_macro
+from forecastlab.macro import (
+    FRED_MIRROR_REVISION_BASIS,
+    LIVE_MONTHLY_CACHE,
+    SERIES,
+    MacroDataError,
+    MacroSpec,
+    fetch_macro,
+)
 from forecastlab.prompts import PromptBundle
 from forecastlab.root_event import (
     ROLES,
@@ -67,6 +74,9 @@ def _macro_packet(snapshot: dict) -> list[dict]:
     meta = SERIES.get(snapshot["indicator"], {})
     if meta.get("source") == "fred":
         title, lineage = f"FRED {meta['fred']} observations ({meta['label']})", meta["lineage"]
+    elif latest["revision_basis"] == FRED_MIRROR_REVISION_BASIS:
+        # BLS refused the request; the same BLS series was read from its FRED copy.
+        title, lineage = f"BLS {snapshot['indicator']} observations (FRED mirror {meta['fred']})", "agency:bls"
     else:
         title, lineage = f"BLS {snapshot['indicator']} observations", "agency:bls"
     # Numeric transforms are deterministic and backed by the retained raw API
@@ -166,7 +176,8 @@ def execute_root_forecast(session: Session, *, run: ForecastRun, profile, contex
             try:
                 snapshot = fetch_macro(macro, as_of=as_utc(run.as_of) if run.mode == "backtest" else None,
                                        fred_api_key=load_secrets().get("fred_api_key"),
-                                       timeout=budget.remaining_seconds("macro_observations"))
+                                       timeout=budget.remaining_seconds("macro_observations"),
+                                       cache=LIVE_MONTHLY_CACHE)
                 checkpoint["macro_snapshot"] = snapshot.model_dump(mode="json")
             except MacroDataError as exc:
                 if str(exc).startswith(("macro_request_failed", "bls_request_not_succeeded")):

@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session
 from forecastlab.budget import Budget
 from forecastlab.deadline import check_deadline, request_timeout
 from forecastlab.errors import BudgetExceeded, PermanentProviderError
-from forecastlab.macro import MacroDataError, MacroSnapshot, MacroSpec, fetch_macro
+from forecastlab.macro import LIVE_MONTHLY_CACHE, MacroDataError, MacroSnapshot, MacroSpec, fetch_macro
 from forecastlab.macro_evidence import validate_snapshot
 from forecastlab.statistical_baseline import (
     METHOD,
@@ -84,7 +84,7 @@ def execute_statistical_baseline(session: Session, *, run: ForecastRun, profile,
                         fred_api_key=load_secrets().get("fred_api_key"),
                         timeout=request_timeout(ledger, budget.remaining_seconds("macro_observations"),
                                                 "macro_observations"),
-                        **fred_history_options(macro.indicator))
+                        cache=LIVE_MONTHLY_CACHE, **fred_history_options(macro.indicator))
                     checkpoint["macro_snapshot"] = snapshot.model_dump(mode="json")
                 except MacroDataError as exc:
                     if str(exc).startswith(("macro_request_failed", "bls_request_not_succeeded")):

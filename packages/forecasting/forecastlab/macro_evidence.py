@@ -107,8 +107,8 @@ def parse_first_release(html: str, spec: MacroSpec, *, source_url: str, retrieve
     return _parse_release_text(text, spec, source_url=source_url, retrieved_at=retrieved_at)
 
 
-def release_pdf_text(content: bytes) -> str:
-    """Extract retained original bytes; never accept an HTML error as a PDF."""
+def pdf_text(content: bytes) -> str:
+    """Whitespace-normalized text of a small, unencrypted PDF; no publisher identity check."""
     if not content.startswith(b"%PDF-") or len(content) > 2_000_000:
         raise MacroDataError("official_release_pdf_invalid")
     from pypdf import PdfReader
@@ -116,11 +116,16 @@ def release_pdf_text(content: bytes) -> str:
         reader = PdfReader(io.BytesIO(content))
         if reader.is_encrypted or not 1 <= len(reader.pages) <= 40:
             raise MacroDataError("official_release_pdf_page_limit")
-        text = " ".join(" ".join(page.extract_text() or "" for page in reader.pages).split())
+        return " ".join(" ".join(page.extract_text() or "" for page in reader.pages).split())
     except MacroDataError:
         raise
     except Exception:
         raise MacroDataError("official_release_pdf_extraction_failed") from None
+
+
+def release_pdf_text(content: bytes) -> str:
+    """Extract retained original bytes; never accept an HTML error as a PDF."""
+    text = pdf_text(content)
     if "Bureau of Labor Statistics" not in text[:2000] or "embargoed until" not in text[:500]:
         raise MacroDataError("official_release_pdf_identity_missing")
     return text

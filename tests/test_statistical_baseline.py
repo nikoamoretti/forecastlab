@@ -8,7 +8,14 @@ from decimal import Decimal
 import httpx
 import pytest
 
-from forecastlab.macro import MacroObservation, MacroSnapshot, MacroSpec, fetch_macro, normalize_observations
+from forecastlab.macro import (
+    LIVE_MONTHLY_CACHE,
+    MacroObservation,
+    MacroSnapshot,
+    MacroSpec,
+    fetch_macro,
+    normalize_observations,
+)
 from forecastlab.root_event import digest
 from forecastlab.statistical_baseline import (
     MIN_ERRORS,
@@ -357,8 +364,9 @@ def test_cohort_run_through_execute_run_is_deterministic_free_and_on_time(client
         attempts = session.scalars(select(ForecastRunAttempt).where(ForecastRunAttempt.run_id == run_id)).all()
         assert [attempt.status for attempt in attempts] == ["completed"]
         assert json.loads(run.budget_json)["fetches"] == 1 and json.loads(run.budget_json)["model_calls"] == 0
-    assert len(calls) == 1 and set(calls[0]) == {"as_of", "fred_api_key", "timeout"}
+    assert len(calls) == 1 and set(calls[0]) == {"as_of", "fred_api_key", "timeout", "cache"}
     assert calls[0]["as_of"] is None and 0 < calls[0]["timeout"] <= 120
+    assert calls[0]["cache"] is LIVE_MONTHLY_CACHE  # shared with the root method's live monthly fetch
     baseline = result["statistical_baseline"]
     assert baseline["rule_version"] == RULE_VERSION and (baseline["n"], baseline["k"]) == (119, 30)
     assert baseline["horizon"]["h"] == 1 and baseline["window"]["start"] == "2030-01"

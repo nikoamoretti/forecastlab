@@ -13,7 +13,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from forecastlab.evaluation import brier_score, log_loss
-from forecastlab.macro import SERIES, MacroSpec
+from forecastlab.macro import SERIES, MacroDataError, MacroSpec
 from forecastlab.question_selection import event_key
 from forecastlab.root_event import digest
 from forecastlab.schemas import ForecastContract
@@ -32,6 +32,11 @@ from forecastlab_api.models import (
     ProspectiveEntry,
     ProspectiveOutcome,
     Question,
+)
+from forecastlab_api.official_sources import (
+    RELEASE_DOCUMENT_UNAVAILABLE,
+    fetch_fred_release_documents,
+    release_document_evidence,
 )
 from forecastlab_api.personal_forecasts import envelope
 from forecastlab_api.pipeline import create_run_record, resolve_for_question
@@ -139,18 +144,21 @@ def entries_for(session: Session, cohort_id: str) -> list[ProspectiveEntry]:
 
 
 def official_schedule_evidence(entries: list[ProspectiveEntry]) -> dict[str, dict]:
-    """Verified official release-schedule evidence for BLS entries, keyed by entry id.
+    """Verified official ``resolution`` evidence for every entry, keyed by entry id.
 
-    Autopilot attaches the same deterministically verified schedule (retained
-    DOL/BLS documents with hash checks) as each run's ``resolution`` evidence.
-    Each value is either ``{"evidence": [...]}`` or ``{"gap": reason}``. FRED
-    entries and releases absent from the verified calendar get a gap, so the
-    root method keeps withholding unless research supplies resolution evidence.
+    BLS entries: Autopilot attaches the same deterministically verified
+    schedule (retained DOL/BLS documents with hash checks) as each run's
+    ``resolution`` evidence. FRED entries (ICSA, DGS10): the retained official
+    publication document (DOL weekly claims release or Federal Reserve H.15)
+    whose verbatim quotation shows the measurement and the publication pattern
+    the contract assumes (see ``fred_release_evidence``). Each value is either
+    ``{"evidence": [...]}`` or ``{"gap": reason}``. An entry with a gap keeps
+    withholding in the root method unless research supplies resolution evidence.
     """
     specs = {entry.id: MacroSpec.model_validate_json(entry.macro_json) for entry in entries}
     bls = {entry_id: spec for entry_id, spec in specs.items() if SERIES[spec.indicator]["source"] == "bls"}
-    result: dict[str, dict] = {entry_id: {"gap": "official_schedule_not_applicable"}
-                               for entry_id in specs if entry_id not in bls}
+    fred = {entry_id: spec for entry_id, spec in specs.items() if entry_id not in bls}
+    result: dict[str, dict] = fred_release_evidence(fred) if fred else {}
     if not bls:
         return result
     try:
@@ -168,6 +176,30 @@ def official_schedule_evidence(entries: list[ProspectiveEntry]) -> dict[str, dic
             result[entry_id] = {"evidence": schedule_resolution_evidence(release, sources)}
         except HTTPException:
             result[entry_id] = {"gap": "official_schedule_documents_unverified"}
+    return result
+
+
+def fred_release_evidence(specs: dict[str, MacroSpec]) -> dict[str, dict]:
+    """One retained official document per FRED indicator, verified against each entry.
+
+    The document never states the entry's own release date. It is attached
+    only when it is recent, follows the publication pattern the contract
+    assumes, and predates the target; otherwise the entry records the gap.
+    """
+    try:
+        documents = fetch_fred_release_documents({spec.indicator for spec in specs.values()})
+    except Exception:  # Network or source failure must not block a freeze.
+        return {entry_id: {"gap": RELEASE_DOCUMENT_UNAVAILABLE} for entry_id in specs}
+    result: dict[str, dict] = {}
+    for entry_id, spec in specs.items():
+        retained = documents.get(spec.indicator, RELEASE_DOCUMENT_UNAVAILABLE)
+        if isinstance(retained, str):
+            result[entry_id] = {"gap": retained}
+            continue
+        try:
+            result[entry_id] = {"evidence": release_document_evidence(spec, retained)}
+        except MacroDataError as exc:
+            result[entry_id] = {"gap": str(exc)}
     return result
 
 

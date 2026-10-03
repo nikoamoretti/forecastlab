@@ -67,7 +67,8 @@ The baseline reads official observations through the same `fetch_macro` path as 
 - **Live, monthly series.** The keyless BLS v1 API returns ten calendar years. After the payroll and 12-month
   transforms that is roughly 94 to 119 usable months, depending on the series and the month of the year
   (106 to 118 for unemployment and 94 to 106 for CPI in the backtest), so the 120-month window is never
-  full. These values are the latest revisions, not first releases, and are labeled that way.
+  full. These values are the latest revisions, not first releases, and are labeled that way. If BLS refuses
+  the request, the same ten calendar years come from the keyless FRED mirror (see **BLS quota** below).
 - **Live, weekly and daily series.** The keyless FRED CSV path is used. The baseline passes optional
   `fetch_macro` arguments (`fred_history_limit`, `fred_lookback_days`) that widen only its own history to
   156 weeks or 520 weekdays. The root method's capped history (104 weekly, 130 daily) is unchanged.
@@ -219,10 +220,14 @@ coverage.
   slightly.
 - **Exact values.** At 1,000-job precision, a payroll mode is rarely the exact print; the intervals are more
   informative.
-- **BLS quota.** Each baseline run on a BLS question makes one keyless BLS v1 request, and BLS allows 25 per
-  day per address for unregistered use. A 10-question BLS cohort now makes about 20 such requests between
-  the root method and the baseline. When the quota is exhausted, both fail with
-  `bls_request_not_succeeded`, an execution failure.
+- **BLS quota.** BLS allows 25 keyless v1 requests per day per address. The baseline and the root method
+  share an in-process cache of each indicator's live monthly response: at most one hour old, within the same
+  New York day, and never across 08:30 New York time. Without it, a 10-question BLS cohort made about 20
+  requests. When BLS refuses a request (quota or another non-success status, or HTTP 429), the same series
+  is read from its keyless FRED mirror (`UNRATE`, `PAYEMS`, `CPIAUCNS`) over the same ten calendar years, with
+  the same transforms. Those observations keep the BLS series id and `agency:bls` lineage. Their source URL
+  is the FRED page, and their revision basis is `fred_mirror_of_bls_latest_observed_revisions_not_first_release`.
+  Only a failed mirror request is still an execution failure (`bls_request_not_succeeded:fred_mirror_failed:...`).
 - **Provider settings.** In live mode the run's execution context still records the configured model and
   search providers, because live context resolution requires them. The baseline never calls them, and its
   ledger stays empty.
