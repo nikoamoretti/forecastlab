@@ -406,6 +406,39 @@ def _strict_object(properties: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def research_plan_json_schema(*, max_subquestions: int) -> dict[str, Any]:
+    """Return the strict schema for a three-track ``ResearchPlan``.
+
+    The shape mirrors ``ResearchPlan``/``SubquestionPlan``.  At least one
+    subquestion and one search query are required because the engine searches
+    the first query of each planned subquestion.
+    """
+
+    text = {"type": "string"}
+    subquestion = _strict_object(
+        {
+            "text": text,
+            "purpose": text,
+            "preferred_source_types": {"type": "array", "items": text},
+            "search_queries": {"type": "array", "minItems": 1, "maxItems": 3, "items": text},
+            "expected_output": text,
+            "relationship_to_forecast": text,
+        }
+    )
+    return _strict_object(
+        {
+            "objective": text,
+            "approach": text,
+            "subquestions": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": max(1, max_subquestions),
+                "items": subquestion,
+            },
+        }
+    )
+
+
 def resolution_contract_json_schema() -> dict[str, Any]:
     """Return the strict schema for the engine's ``ResolutionContract`` step."""
 

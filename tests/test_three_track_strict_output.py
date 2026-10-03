@@ -72,7 +72,7 @@ def test_strict_profile_matches_frozen_comparator_except_transport_and_wall_cloc
     assert uses_strict_track_forecast(strict)
     assert not uses_strict_track_forecast(frozen)
     assert not uses_strict_track_forecast(load_profile("three_track_ensemble"))
-    assert strict.version == 3
+    assert strict.version == 4
     assert strict.max_wall_clock_seconds == load_profile("root_event_ensemble_v1").max_wall_clock_seconds == 300
     assert frozen.max_wall_clock_seconds == 180
     differing = {"id", "label", "description", "version", "max_wall_clock_seconds"}
@@ -299,3 +299,50 @@ def test_provider_sends_strict_contract_schema_to_openai(monkeypatch: pytest.Mon
         "json_schema": {"name": schema_name, "strict": True, "schema": schema},
     }
     assert "reasoning_effort" not in body
+
+
+def test_strict_profile_requests_research_plans_with_strict_schema() -> None:
+    from forecastlab.structured_outputs import research_plan_json_schema
+
+    model = RecordingModel()
+    _run(STRICT_PROFILE, model)
+    plan_calls = [call for call in model.calls if call["schema_name"] == "research_plan"]
+    assert len(plan_calls) == 3
+    expected = research_plan_json_schema(max_subquestions=load_profile(STRICT_PROFILE).subquestions_per_track)
+    assert all(call["json_schema"] == expected for call in plan_calls)
+
+    legacy = RecordingModel()
+    _run("three_track_forecaster", legacy)
+    assert all("json_schema" not in call for call in legacy.calls)
+
+
+def test_research_plan_schema_meets_strict_subset_and_bounds_lists() -> None:
+    from forecastlab.schemas import ResearchPlan
+    from forecastlab.structured_outputs import research_plan_json_schema
+
+    schema = research_plan_json_schema(max_subquestions=4)
+    _assert_strict_subset(schema)
+    assert schema["properties"]["subquestions"]["minItems"] == 1
+    assert schema["properties"]["subquestions"]["maxItems"] == 4
+    subquestion = schema["properties"]["subquestions"]["items"]
+    assert subquestion["properties"]["search_queries"]["minItems"] == 1
+    assert set(schema["properties"]) == set(ResearchPlan.model_fields)
+    assert set(subquestion["properties"]) == set(ResearchPlan.model_fields["subquestions"].annotation.__args__[0].model_fields)
+
+
+def test_provider_sends_strict_research_plan_schema_to_openai(monkeypatch: pytest.MonkeyPatch) -> None:
+    from forecastlab.structured_outputs import research_plan_json_schema
+
+    requests = _stub_client(monkeypatch)
+    schema = research_plan_json_schema(max_subquestions=4)
+    OpenAICompatibleProvider(
+        api_key="test-api-key",
+        base_url="https://provider.example.test/v1",
+        model="gpt-5-mini-2025-08-07",
+        provider_id="openai",
+    ).complete_json(system="Return JSON.", user="{}", schema_name="research_plan", max_output_tokens=4096, json_schema=schema)
+
+    assert requests[0]["json"]["response_format"] == {
+        "type": "json_schema",
+        "json_schema": {"name": "research_plan", "strict": True, "schema": schema},
+    }

@@ -38,6 +38,7 @@ from forecastlab.schemas import (
     TrackForecastOutput,
 )
 from forecastlab.structured_outputs import (
+    research_plan_json_schema,
     resolution_contract_json_schema,
     sanitize_validation_errors,
     track_forecast_json_schema,
@@ -256,6 +257,9 @@ def _run_track(
             prompt_versions,
             ResearchPlan,
             prompt_bundle,
+            research_plan_json_schema(max_subquestions=profile.subquestions_per_track)
+            if uses_strict_track_forecast(profile)
+            else None,
         )
         plan.subquestions = plan.subquestions[: profile.subquestions_per_track]
         _emit(progress, "evidence", f"Collecting evidence for {track}", 0.35)
