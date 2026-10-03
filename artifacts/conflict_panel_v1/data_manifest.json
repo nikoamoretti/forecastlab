@@ -1,0 +1,993 @@
+{
+ "attribution": "UCDP Georeferenced Event Dataset (GED) and UCDP Candidate Events Dataset, Uppsala Conflict Data Program (https://ucdp.uu.se/downloads/), CC BY 4.0. Cite Davies, Pettersson and Oberg (2026), Sundberg and Melander (2013) and Hegre, Croicu, Eck and Hogbladh (2020).",
+ "sources": [
+  {
+   "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
+   "filename": "ged261-csv.zip",
+   "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667",
+   "bytes": 39122522,
+   "retrieved_at": "2026-10-03T00:08:30+00:00",
+   "last_modified": "Mon, 08 Jun 2026 19:54:24 GMT",
+   "kind": "ged_final",
+   "version": "26.1",
+   "first_month": "1989-01",
+   "last_month": "2025-12"
+  },
+  {
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_06.csv",
+   "filename": "GEDEvent_v26_01_26_06.csv",
+   "sha256": "68dd3d363b8edf4808bd6bf6f5d0412c3c722ffb1db367aeb8eff48bab80589a",
+   "bytes": 7800501,
+   "retrieved_at": "2026-10-03T00:08:30+00:00",
+   "last_modified": "Mon, 20 Jul 2026 17:46:11 GMT",
+   "kind": "candidate_cumulative",
+   "version": "26.01.26.06",
+   "first_month": "2026-01",
+   "last_month": "2026-06"
+  },
+  {
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_7.csv",
+   "filename": "GEDEvent_v26_0_7.csv",
+   "sha256": "9fc2c6dd85eee91845512e8ef1055281d9fd028fb98748a6f2a27c6e8aa8c562",
+   "bytes": 1357690,
+   "retrieved_at": "2026-10-03T00:08:30+00:00",
+   "last_modified": "Thu, 20 Aug 2026 22:26:48 GMT",
+   "kind": "candidate_monthly",
+   "version": "26.0.7",
+   "first_month": "2026-07",
+   "last_month": "2026-07"
+  },
+  {
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_8.csv",
+   "filename": "GEDEvent_v26_0_8.csv",
+   "sha256": "2ad6e0b2bfdbaa31873716a3455096923a8539519d69d96aeeea2d0f44a34593",
+   "bytes": 1443396,
+   "retrieved_at": "2026-10-03T00:08:30+00:00",
+   "last_modified": "Sun, 20 Sep 2026 20:44:14 GMT",
+   "kind": "candidate_monthly",
+   "version": "26.0.8",
+   "first_month": "2026-08",
+   "last_month": "2026-08"
+  }
+ ],
+ "vintage_reference_file": {
+  "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v25_01_25_12.csv",
+  "filename": "GEDEvent_v25_01_25_12.csv",
+  "sha256": "04191644956606b3a1305c427171c265c25fbdb314b9ef28b86503c981c5c24b",
+  "bytes": 20801238,
+  "retrieved_at": "2026-10-03T00:08:31+00:00",
+  "last_modified": "Tue, 20 Jan 2026 18:57:04 GMT",
+  "kind": "candidate_reference",
+  "version": "25.01.25.12",
+  "first_month": "2025-01",
+  "last_month": "2025-12"
+ },
+ "panel": {
+  "first_month": "1989-01",
+  "last_month": "2026-08",
+  "countries": 130,
+  "valid_country_months": 58018,
+  "month_assignment": "date_start",
+  "fatality_estimate": "best",
+  "candidate_status_policy": "all",
+  "fatalities_by_series": {
+   "sb": 2666268,
+   "ns": 416631,
+   "os": 1300237,
+   "total": 4383136
+  },
+  "derived_file_sha256": "a584e54c4b021e84dd31fff3008b82d1516fb205dc4d88cbcdf2aabcd2c17bdf",
+  "built_at": "2026-10-03T10:12:01+00:00"
+ },
+ "final_release_counts": {
+  "rows": 417968,
+  "used": 417968
+ },
+ "candidate_release_counts": [
+  {
+   "kind": "candidate_cumulative",
+   "version": "26.01.26.06",
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_06.csv",
+   "first_month": "2026-01",
+   "last_month": "2026-06",
+   "counts": {
+    "rows": 10051,
+    "status:Check": 128,
+    "status:Check deaths": 441,
+    "status:Check dyad": 2173,
+    "status:Check geography": 268,
+    "status:Check incompatibility": 3,
+    "status:Check type of violence": 220,
+    "status:Check vague or biased source": 199,
+    "status:Clear": 6619,
+    "events_used_after_dedup": 10039
+   }
+  },
+  {
+   "kind": "candidate_monthly",
+   "version": "26.0.7",
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_7.csv",
+   "first_month": "2026-07",
+   "last_month": "2026-07",
+   "counts": {
+    "earlier_month_events": 32,
+    "replaced_earlier_copy": 12,
+    "rows": 1828,
+    "status:Check": 30,
+    "status:Check deaths": 95,
+    "status:Check dyad": 626,
+    "status:Check geography": 56,
+    "status:Check incompatibility": 4,
+    "status:Check type of violence": 46,
+    "status:Check vague or biased source": 65,
+    "status:Clear": 906,
+    "events_used_after_dedup": 1814
+   }
+  },
+  {
+   "kind": "candidate_monthly",
+   "version": "26.0.8",
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_8.csv",
+   "first_month": "2026-08",
+   "last_month": "2026-08",
+   "counts": {
+    "earlier_month_events": 32,
+    "replaced_earlier_copy": 14,
+    "rows": 1806,
+    "status:Check": 35,
+    "status:Check deaths": 69,
+    "status:Check dyad": 526,
+    "status:Check geography": 63,
+    "status:Check incompatibility": 1,
+    "status:Check type of violence": 60,
+    "status:Check vague or biased source": 26,
+    "status:Clear": 1026,
+    "events_used_after_dedup": 1806
+   }
+  }
+ ],
+ "candidate_events_used": 13659,
+ "existence_window_adjustments": [],
+ "selection_notes": [],
+ "vintage_check": {
+  "reference_release": {
+   "kind": "candidate_reference",
+   "version": "25.01.25.12",
+   "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v25_01_25_12.csv",
+   "first_month": "2025-01",
+   "last_month": "2025-12",
+   "sha256": "04191644956606b3a1305c427171c265c25fbdb314b9ef28b86503c981c5c24b"
+  },
+  "final_release": "26.1",
+  "year": 2025,
+  "final_fatalities_best": 245464,
+  "candidate_all_events": {
+   "events": 28396,
+   "fatalities_best": 181331,
+   "country_months_compared": 948,
+   "thresholds": {
+    "ge_1": {
+     "both": 488,
+     "candidate_only": 107,
+     "final_only": 10
+    },
+    "ge_25": {
+     "both": 292,
+     "candidate_only": 33,
+     "final_only": 11
+    },
+    "ge_100": {
+     "both": 173,
+     "candidate_only": 15,
+     "final_only": 5
+    }
+   },
+   "mean_abs_log1p_difference": 0.3462
+  },
+  "candidate_clear_events_only": {
+   "events": 22468,
+   "fatalities_best": 138955,
+   "country_months_compared": 948,
+   "thresholds": {
+    "ge_1": {
+     "both": 443,
+     "candidate_only": 29,
+     "final_only": 55
+    },
+    "ge_25": {
+     "both": 263,
+     "candidate_only": 2,
+     "final_only": 40
+    },
+    "ge_100": {
+     "both": 156,
+     "candidate_only": 0,
+     "final_only": 22
+    }
+   },
+   "mean_abs_log1p_difference": 0.3441
+  }
+ },
+ "countries": [
+  {
+   "country_id": 2,
+   "iso3": "USA",
+   "country": "United States of America",
+   "region": "Americas"
+  },
+  {
+   "country_id": 20,
+   "iso3": "CAN",
+   "country": "Canada",
+   "region": "Americas"
+  },
+  {
+   "country_id": 41,
+   "iso3": "HTI",
+   "country": "Haiti",
+   "region": "Americas"
+  },
+  {
+   "country_id": 42,
+   "iso3": "DOM",
+   "country": "Dominican Republic",
+   "region": "Americas"
+  },
+  {
+   "country_id": 51,
+   "iso3": "JAM",
+   "country": "Jamaica",
+   "region": "Americas"
+  },
+  {
+   "country_id": 52,
+   "iso3": "TTO",
+   "country": "Trinidad and Tobago",
+   "region": "Americas"
+  },
+  {
+   "country_id": 70,
+   "iso3": "MEX",
+   "country": "Mexico",
+   "region": "Americas"
+  },
+  {
+   "country_id": 80,
+   "iso3": "BLZ",
+   "country": "Belize",
+   "region": "Americas"
+  },
+  {
+   "country_id": 90,
+   "iso3": "GTM",
+   "country": "Guatemala",
+   "region": "Americas"
+  },
+  {
+   "country_id": 91,
+   "iso3": "HND",
+   "country": "Honduras",
+   "region": "Americas"
+  },
+  {
+   "country_id": 92,
+   "iso3": "SLV",
+   "country": "El Salvador",
+   "region": "Americas"
+  },
+  {
+   "country_id": 93,
+   "iso3": "NIC",
+   "country": "Nicaragua",
+   "region": "Americas"
+  },
+  {
+   "country_id": 94,
+   "iso3": "CRI",
+   "country": "Costa Rica",
+   "region": "Americas"
+  },
+  {
+   "country_id": 95,
+   "iso3": "PAN",
+   "country": "Panama",
+   "region": "Americas"
+  },
+  {
+   "country_id": 100,
+   "iso3": "COL",
+   "country": "Colombia",
+   "region": "Americas"
+  },
+  {
+   "country_id": 101,
+   "iso3": "VEN",
+   "country": "Venezuela",
+   "region": "Americas"
+  },
+  {
+   "country_id": 110,
+   "iso3": "GUY",
+   "country": "Guyana",
+   "region": "Americas"
+  },
+  {
+   "country_id": 130,
+   "iso3": "ECU",
+   "country": "Ecuador",
+   "region": "Americas"
+  },
+  {
+   "country_id": 135,
+   "iso3": "PER",
+   "country": "Peru",
+   "region": "Americas"
+  },
+  {
+   "country_id": 140,
+   "iso3": "BRA",
+   "country": "Brazil",
+   "region": "Americas"
+  },
+  {
+   "country_id": 145,
+   "iso3": "BOL",
+   "country": "Bolivia",
+   "region": "Americas"
+  },
+  {
+   "country_id": 150,
+   "iso3": "PRY",
+   "country": "Paraguay",
+   "region": "Americas"
+  },
+  {
+   "country_id": 155,
+   "iso3": "CHL",
+   "country": "Chile",
+   "region": "Americas"
+  },
+  {
+   "country_id": 160,
+   "iso3": "ARG",
+   "country": "Argentina",
+   "region": "Americas"
+  },
+  {
+   "country_id": 200,
+   "iso3": "GBR",
+   "country": "United Kingdom",
+   "region": "Europe"
+  },
+  {
+   "country_id": 210,
+   "iso3": "NLD",
+   "country": "Netherlands",
+   "region": "Europe"
+  },
+  {
+   "country_id": 211,
+   "iso3": "BEL",
+   "country": "Belgium",
+   "region": "Europe"
+  },
+  {
+   "country_id": 220,
+   "iso3": "FRA",
+   "country": "France",
+   "region": "Europe"
+  },
+  {
+   "country_id": 230,
+   "iso3": "ESP",
+   "country": "Spain",
+   "region": "Europe"
+  },
+  {
+   "country_id": 260,
+   "iso3": "DEU",
+   "country": "Germany",
+   "region": "Europe"
+  },
+  {
+   "country_id": 290,
+   "iso3": "POL",
+   "country": "Poland",
+   "region": "Europe"
+  },
+  {
+   "country_id": 305,
+   "iso3": "AUT",
+   "country": "Austria",
+   "region": "Europe"
+  },
+  {
+   "country_id": 325,
+   "iso3": "ITA",
+   "country": "Italy",
+   "region": "Europe"
+  },
+  {
+   "country_id": 338,
+   "iso3": "MLT",
+   "country": "Malta",
+   "region": "Europe"
+  },
+  {
+   "country_id": 339,
+   "iso3": "ALB",
+   "country": "Albania",
+   "region": "Europe"
+  },
+  {
+   "country_id": 343,
+   "iso3": "MKD",
+   "country": "North Macedonia",
+   "region": "Europe"
+  },
+  {
+   "country_id": 344,
+   "iso3": "HRV",
+   "country": "Croatia",
+   "region": "Europe"
+  },
+  {
+   "country_id": 345,
+   "iso3": "SRB",
+   "country": "Serbia (Yugoslavia)",
+   "region": "Europe"
+  },
+  {
+   "country_id": 346,
+   "iso3": "BIH",
+   "country": "Bosnia-Herzegovina",
+   "region": "Europe"
+  },
+  {
+   "country_id": 352,
+   "iso3": "CYP",
+   "country": "Cyprus",
+   "region": "Europe"
+  },
+  {
+   "country_id": 359,
+   "iso3": "MDA",
+   "country": "Moldova",
+   "region": "Europe"
+  },
+  {
+   "country_id": 360,
+   "iso3": "ROU",
+   "country": "Romania",
+   "region": "Europe"
+  },
+  {
+   "country_id": 365,
+   "iso3": "RUS",
+   "country": "Russia (Soviet Union)",
+   "region": "Europe"
+  },
+  {
+   "country_id": 369,
+   "iso3": "UKR",
+   "country": "Ukraine",
+   "region": "Europe"
+  },
+  {
+   "country_id": 371,
+   "iso3": "ARM",
+   "country": "Armenia",
+   "region": "Europe"
+  },
+  {
+   "country_id": 372,
+   "iso3": "GEO",
+   "country": "Georgia",
+   "region": "Europe"
+  },
+  {
+   "country_id": 373,
+   "iso3": "AZE",
+   "country": "Azerbaijan",
+   "region": "Europe"
+  },
+  {
+   "country_id": 380,
+   "iso3": "SWE",
+   "country": "Sweden",
+   "region": "Europe"
+  },
+  {
+   "country_id": 404,
+   "iso3": "GNB",
+   "country": "Guinea-Bissau",
+   "region": "Africa"
+  },
+  {
+   "country_id": 420,
+   "iso3": "GMB",
+   "country": "Gambia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 432,
+   "iso3": "MLI",
+   "country": "Mali",
+   "region": "Africa"
+  },
+  {
+   "country_id": 433,
+   "iso3": "SEN",
+   "country": "Senegal",
+   "region": "Africa"
+  },
+  {
+   "country_id": 434,
+   "iso3": "BEN",
+   "country": "Benin",
+   "region": "Africa"
+  },
+  {
+   "country_id": 435,
+   "iso3": "MRT",
+   "country": "Mauritania",
+   "region": "Africa"
+  },
+  {
+   "country_id": 436,
+   "iso3": "NER",
+   "country": "Niger",
+   "region": "Africa"
+  },
+  {
+   "country_id": 437,
+   "iso3": "CIV",
+   "country": "Ivory Coast",
+   "region": "Africa"
+  },
+  {
+   "country_id": 438,
+   "iso3": "GIN",
+   "country": "Guinea",
+   "region": "Africa"
+  },
+  {
+   "country_id": 439,
+   "iso3": "BFA",
+   "country": "Burkina Faso",
+   "region": "Africa"
+  },
+  {
+   "country_id": 450,
+   "iso3": "LBR",
+   "country": "Liberia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 451,
+   "iso3": "SLE",
+   "country": "Sierra Leone",
+   "region": "Africa"
+  },
+  {
+   "country_id": 452,
+   "iso3": "GHA",
+   "country": "Ghana",
+   "region": "Africa"
+  },
+  {
+   "country_id": 461,
+   "iso3": "TGO",
+   "country": "Togo",
+   "region": "Africa"
+  },
+  {
+   "country_id": 471,
+   "iso3": "CMR",
+   "country": "Cameroon",
+   "region": "Africa"
+  },
+  {
+   "country_id": 475,
+   "iso3": "NGA",
+   "country": "Nigeria",
+   "region": "Africa"
+  },
+  {
+   "country_id": 482,
+   "iso3": "CAF",
+   "country": "Central African Republic",
+   "region": "Africa"
+  },
+  {
+   "country_id": 483,
+   "iso3": "TCD",
+   "country": "Chad",
+   "region": "Africa"
+  },
+  {
+   "country_id": 484,
+   "iso3": "COG",
+   "country": "Congo",
+   "region": "Africa"
+  },
+  {
+   "country_id": 490,
+   "iso3": "COD",
+   "country": "DR Congo (Zaire)",
+   "region": "Africa"
+  },
+  {
+   "country_id": 500,
+   "iso3": "UGA",
+   "country": "Uganda",
+   "region": "Africa"
+  },
+  {
+   "country_id": 501,
+   "iso3": "KEN",
+   "country": "Kenya",
+   "region": "Africa"
+  },
+  {
+   "country_id": 510,
+   "iso3": "TZA",
+   "country": "Tanzania",
+   "region": "Africa"
+  },
+  {
+   "country_id": 516,
+   "iso3": "BDI",
+   "country": "Burundi",
+   "region": "Africa"
+  },
+  {
+   "country_id": 517,
+   "iso3": "RWA",
+   "country": "Rwanda",
+   "region": "Africa"
+  },
+  {
+   "country_id": 520,
+   "iso3": "SOM",
+   "country": "Somalia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 522,
+   "iso3": "DJI",
+   "country": "Djibouti",
+   "region": "Africa"
+  },
+  {
+   "country_id": 530,
+   "iso3": "ETH",
+   "country": "Ethiopia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 531,
+   "iso3": "ERI",
+   "country": "Eritrea",
+   "region": "Africa"
+  },
+  {
+   "country_id": 540,
+   "iso3": "AGO",
+   "country": "Angola",
+   "region": "Africa"
+  },
+  {
+   "country_id": 541,
+   "iso3": "MOZ",
+   "country": "Mozambique",
+   "region": "Africa"
+  },
+  {
+   "country_id": 551,
+   "iso3": "ZMB",
+   "country": "Zambia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 552,
+   "iso3": "ZWE",
+   "country": "Zimbabwe (Rhodesia)",
+   "region": "Africa"
+  },
+  {
+   "country_id": 560,
+   "iso3": "ZAF",
+   "country": "South Africa",
+   "region": "Africa"
+  },
+  {
+   "country_id": 565,
+   "iso3": "NAM",
+   "country": "Namibia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 570,
+   "iso3": "LSO",
+   "country": "Lesotho",
+   "region": "Africa"
+  },
+  {
+   "country_id": 571,
+   "iso3": "BWA",
+   "country": "Botswana",
+   "region": "Africa"
+  },
+  {
+   "country_id": 572,
+   "iso3": "SWZ",
+   "country": "Kingdom of eSwatini (Swaziland)",
+   "region": "Africa"
+  },
+  {
+   "country_id": 580,
+   "iso3": "MDG",
+   "country": "Madagascar (Malagasy)",
+   "region": "Africa"
+  },
+  {
+   "country_id": 581,
+   "iso3": "COM",
+   "country": "Comoros",
+   "region": "Africa"
+  },
+  {
+   "country_id": 600,
+   "iso3": "MAR",
+   "country": "Morocco",
+   "region": "Africa"
+  },
+  {
+   "country_id": 615,
+   "iso3": "DZA",
+   "country": "Algeria",
+   "region": "Africa"
+  },
+  {
+   "country_id": 616,
+   "iso3": "TUN",
+   "country": "Tunisia",
+   "region": "Africa"
+  },
+  {
+   "country_id": 620,
+   "iso3": "LBY",
+   "country": "Libya",
+   "region": "Africa"
+  },
+  {
+   "country_id": 625,
+   "iso3": "SDN",
+   "country": "Sudan",
+   "region": "Africa"
+  },
+  {
+   "country_id": 626,
+   "iso3": "SSD",
+   "country": "South Sudan",
+   "region": "Africa"
+  },
+  {
+   "country_id": 630,
+   "iso3": "IRN",
+   "country": "Iran",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 640,
+   "iso3": "TUR",
+   "country": "Turkey",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 645,
+   "iso3": "IRQ",
+   "country": "Iraq",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 651,
+   "iso3": "EGY",
+   "country": "Egypt",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 652,
+   "iso3": "SYR",
+   "country": "Syria",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 660,
+   "iso3": "LBN",
+   "country": "Lebanon",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 663,
+   "iso3": "JOR",
+   "country": "Jordan",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 666,
+   "iso3": "ISR",
+   "country": "Israel",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 670,
+   "iso3": "SAU",
+   "country": "Saudi Arabia",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 678,
+   "iso3": "YEM",
+   "country": "Yemen (North Yemen)",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 690,
+   "iso3": "KWT",
+   "country": "Kuwait",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 692,
+   "iso3": "BHR",
+   "country": "Bahrain",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 694,
+   "iso3": "QAT",
+   "country": "Qatar",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 696,
+   "iso3": "ARE",
+   "country": "United Arab Emirates",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 698,
+   "iso3": "OMN",
+   "country": "Oman",
+   "region": "Middle East"
+  },
+  {
+   "country_id": 700,
+   "iso3": "AFG",
+   "country": "Afghanistan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 702,
+   "iso3": "TJK",
+   "country": "Tajikistan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 703,
+   "iso3": "KGZ",
+   "country": "Kyrgyzstan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 704,
+   "iso3": "UZB",
+   "country": "Uzbekistan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 710,
+   "iso3": "CHN",
+   "country": "China",
+   "region": "Asia"
+  },
+  {
+   "country_id": 750,
+   "iso3": "IND",
+   "country": "India",
+   "region": "Asia"
+  },
+  {
+   "country_id": 760,
+   "iso3": "BTN",
+   "country": "Bhutan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 770,
+   "iso3": "PAK",
+   "country": "Pakistan",
+   "region": "Asia"
+  },
+  {
+   "country_id": 771,
+   "iso3": "BGD",
+   "country": "Bangladesh",
+   "region": "Asia"
+  },
+  {
+   "country_id": 775,
+   "iso3": "MMR",
+   "country": "Myanmar (Burma)",
+   "region": "Asia"
+  },
+  {
+   "country_id": 780,
+   "iso3": "LKA",
+   "country": "Sri Lanka",
+   "region": "Asia"
+  },
+  {
+   "country_id": 790,
+   "iso3": "NPL",
+   "country": "Nepal",
+   "region": "Asia"
+  },
+  {
+   "country_id": 800,
+   "iso3": "THA",
+   "country": "Thailand",
+   "region": "Asia"
+  },
+  {
+   "country_id": 811,
+   "iso3": "KHM",
+   "country": "Cambodia (Kampuchea)",
+   "region": "Asia"
+  },
+  {
+   "country_id": 812,
+   "iso3": "LAO",
+   "country": "Laos",
+   "region": "Asia"
+  },
+  {
+   "country_id": 820,
+   "iso3": "MYS",
+   "country": "Malaysia",
+   "region": "Asia"
+  },
+  {
+   "country_id": 840,
+   "iso3": "PHL",
+   "country": "Philippines",
+   "region": "Asia"
+  },
+  {
+   "country_id": 850,
+   "iso3": "IDN",
+   "country": "Indonesia",
+   "region": "Asia"
+  },
+  {
+   "country_id": 900,
+   "iso3": "AUS",
+   "country": "Australia",
+   "region": "Asia"
+  },
+  {
+   "country_id": 910,
+   "iso3": "PNG",
+   "country": "Papua New Guinea",
+   "region": "Asia"
+  },
+  {
+   "country_id": 940,
+   "iso3": "SLB",
+   "country": "Solomon Islands",
+   "region": "Asia"
+  }
+ ]
+}
