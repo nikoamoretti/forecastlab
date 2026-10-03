@@ -141,3 +141,36 @@ def test_post_freeze_baseline_supplement_is_scored_as_its_own_method(tmp_path: P
     assert supplement["mean_brier"] == pytest.approx((1 - 0.6) ** 2)
     # The frozen methods are unchanged by the supplement.
     assert scores["methods"]["root_event_ensemble_v1"]["mean_brier"] == pytest.approx((1 - 0.374) ** 2)
+
+
+def test_every_supplement_file_is_scored_as_its_own_method(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _write_artifact(tmp_path)
+    for name, method, p in (("baseline_supplement.json", "statistical_baseline_v1", 0.6),
+                            ("claude_code_supplement.json", "claude_code_forecaster_v1", 0.8)):
+        (tmp_path / name).write_text(json.dumps({"method": method, "cells": [
+            {"entry_id": "e1", "release_event": "employment-2026-10-02", "status": "forecasted", "probability": p}]}))
+    vintages = {"2026-10-01": {"2026-08-01": "4.1"}, "2026-10-02": {"2026-08-01": "4.1", "2026-09-01": "4.2"}}
+
+    def not_ready(*_args, **_kwargs):
+        raise artifact_scoring.OfficialMacroOutcomeError(artifact_scoring.NOT_READY)
+
+    monkeypatch.setattr(artifact_scoring.official_fred_outcomes, "find_initial_release", not_ready)
+    scores = score_artifact(tmp_path, today=date(2026, 10, 3), fetch=_fake_alfred(vintages, latest="2026-10-03"))
+
+    assert scores["methods"]["claude_code_forecaster_v1 (post-freeze supplement)"]["mean_brier"] == pytest.approx(0.04)
+    assert scores["methods"]["statistical_baseline_v1 (post-freeze supplement)"]["mean_brier"] == pytest.approx(0.16)
+
+
+def test_score_script_skips_artifact_directories_without_a_cohort_report(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    import importlib.util
+
+    script = Path(__file__).resolve().parents[1] / "scripts" / "score_prospective_artifacts.py"
+    spec = importlib.util.spec_from_file_location("score_script", script)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "artifacts" / "prospective_general").mkdir(parents=True)
+    (tmp_path / "artifacts" / "prospective_general" / "forecasts.json").write_text("{}")
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "write_scores", lambda directory: pytest.fail(f"scored {directory}"))
+    assert module.main([]) == 0

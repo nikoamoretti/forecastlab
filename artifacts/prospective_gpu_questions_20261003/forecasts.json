@@ -66,6 +66,27 @@
           "probability": 0.06544998825094323,
           "run_id": "af4425ba-501e-468d-ac6f-753cccb2d821",
           "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.38,
+          "rationale": "Reporting through Jul-Aug 2026 (TrendForce, Benchlife via TweakTown) converges on a CES 2027 (early January) announcement, which falls inside the window, and NVIDIA's GeForce News launch posts normally carry US MSRPs (as with the RTX 40 SUPER at CES 2024). However, the refresh has already slipped repeatedly (CES 2026, then Q2, then Q3, then 'indefinitely'). The blocker, 3GB GDDR7 at $60-70 per module diverted to AI parts, persists, and as of mid-September NVIDIA has not acknowledged the cards exist. Confidence: low; this hinges on one event (CES 2027) and on unresolved memory-supply economics.",
+          "sources": [
+            {
+              "published": "2026-08",
+              "url": "https://www.tweaktown.com/news/112093/geforce-rtx-50-super-series-is-now-rumored-to-be-coming-in-early-2027/index.html"
+            },
+            {
+              "published": "2026-07-31",
+              "url": "https://tech-insider.org/nvidia-rtx-50-super-delay-2026/"
+            },
+            {
+              "published": "2026",
+              "url": "https://www.tweaktown.com/news/109694/geforce-rtx-50-super-series-delayed-indefinitely-as-nvidia-informs-its-partners/index.html"
+            }
+          ],
+          "status": "completed"
         }
       ],
       "id": "gpu-q04-nvidia-rtx50-super-announced",
@@ -143,6 +164,31 @@
           "probability": 0.24722103716611296,
           "run_id": "0ad39f8f-d8bf-4058-90ac-75dcb1cb3224",
           "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "On its Sep 3 2026 earnings call Moore Threads said Lushan-related GPU products are 'expected to launch within the year' (\u6709\u671b\u4e8e\u5e74\u5185\u4e0a\u5e02), but was explicitly non-committal on whether a consumer card comes first. Chinese coverage frames Lushan as closer to a pro graphics card (up to 64GB). In its favour, the MTT S80 went on JD.com retail sale almost immediately after its Nov 2022 announcement. Against it, hedged language, a late-December launch slipping retail into 2027, or a pro-first SKU would all resolve NO. Confidence: low.",
+          "sources": [
+            {
+              "published": "2026-09-03",
+              "url": "https://news.qq.com/rain/a/20260903A07TPZ00"
+            },
+            {
+              "published": "2026-09-04",
+              "url": "https://news.qq.com/rain/a/20260904A09H4S00"
+            },
+            {
+              "published": "2026-09",
+              "url": "https://en.kocpc.com.tw/archives/25170"
+            },
+            {
+              "published": "2025-12-20",
+              "url": "https://wccftech.com/moore-threads-lushan-gaming-huashan-ai-gpus-15x-gaming-uplift-50x-rt-boost-dx12-ultimate-support/"
+            }
+          ],
+          "status": "completed"
         }
       ],
       "id": "gpu-q07-moore-threads-lushan-retail-2026",
@@ -219,6 +265,27 @@
           "probability": 0.11667781591848865,
           "run_id": "6a986f40-94be-406e-ab9a-81e0e657df23",
           "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "NVIDIA has raised partner GPU-kit prices three times in 2026 (Jan, May, ~20-30% later) because of GDDR7 costs, yet it has kept official US MSRPs unchanged. It even sold Founders Editions at launch MSRP at QuakeCon and PAX West in Aug-Sep 2026, while street prices run far above MSRP (RTX 5090 median about $5,000). NVIDIA appears to prefer letting kit and retail prices absorb costs. The main tail is a formal reset around a SUPER launch or a further memory spike. Confidence: medium-low.",
+          "sources": [
+            {
+              "published": "2026",
+              "url": "https://www.techpowerup.com/351234/nvidia-rtx-50-series-gpus-could-see-another-20-30-price-hike-in-2026"
+            },
+            {
+              "published": "2026-09",
+              "url": "https://www.tomshardware.com/pc-components/gpus/nvidia-returns-to-selling-founders-edition-rtx-50-series-gpus-at-msrp-in-person-at-pax-west-verified-priority-access-has-rtx-5090-rtx-5080-and-rtx-5070-at-list-price"
+            },
+            {
+              "published": "2026-08",
+              "url": "https://www.tweaktown.com/news/113020/nvidia-is-selling-geforce-rtx-50-series-founders-edition-gpus-at-msrp-prices-at-quakecon-2026/index.html"
+            }
+          ],
+          "status": "completed"
         }
       ],
       "id": "gpu-q08-nvidia-official-msrp-increase",
@@ -293,6 +360,31 @@
           "probability": 0.2031442017434497,
           "run_id": "f30b7be8-c6f8-45e3-8400-15cff41ec8ae",
           "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "The 178 exclusions (including graphics processing modules) were extended to 2026-11-10 explicitly 'pursuant to' the Nov 2025 Busan deal. On ~Sep 23 2026 Bessent announced that the Busan Agreement is extended to Jan 10, 2027, so a matching exclusion extension is the default path. USTR has published every prior extension of this set before expiry (May 2025, Aug 2025, Nov 26 2025), though often within days of the deadline. Residual risks are late publication after Nov 10, the GPU line being dropped from a trimmed list, or truce breakdown. Confidence: medium-high; the main risk is timing or format.",
+          "sources": [
+            {
+              "published": "2026-09-23",
+              "url": "https://www.nbcnews.com/business/economy/us-china-extend-trade-truce-trump-rcna599525"
+            },
+            {
+              "published": "2026-09-30",
+              "url": "https://freightos.com/freight-resources/china-us-truce-to-reduce-some-tariffs-and-likely-postpone-port-fees-september-30-2026-update"
+            },
+            {
+              "published": "2025-11-26",
+              "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-extends-exclusions-china-section-301-tariffs-related-forced-technology-transfer-investigation"
+            },
+            {
+              "published": "2025-12-01",
+              "url": "https://www.federalregister.gov/documents/2025/12/01/2025-21671/notice-of-product-exclusion-extensions-chinas-acts-policies-and-practices-related-to-technology"
+            }
+          ],
+          "status": "completed"
         }
       ],
       "id": "gpu-q09-ustr-section301-gpu-exclusion-extended",
@@ -364,6 +456,27 @@
           "method": "three_track_strict_forecaster_v1",
           "probability": 0.07160800353028608,
           "run_id": "b96000c7-7b1d-4063-b658-d005d8e91e7e",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "All three just raised US prices: PS5 to $649.99 (Apr 2 2026), Series X to $799.99 (Aug 1 2026), Switch 2 to $499.99 (Sep 1 2026). The base rate across 2025-26 is about 6-7 US hikes in roughly 18 months across the three firms, with Sony's gap ~8 months and Microsoft's ~3-10 months. AI-driven DRAM/NAND pressure is expected to persist into 2027. Fresh hikes and the US-China tariff truce extension reduce near-term pressure, but a 9-month window across three makers keeps this near even. Confidence: low-medium.",
+          "sources": [
+            {
+              "published": "2026-07",
+              "url": "https://www.theshortcut.com/p/xbox-series-x-price-increase-microsofts-flagship-console-gets-150-dollars-more-expensive-in-august-2026"
+            },
+            {
+              "published": "2026-08",
+              "url": "https://tech-insider.org/nintendo-switch-2-price-increase-2026/"
+            },
+            {
+              "published": "2026",
+              "url": "https://tech-insider.org/console-price-increase-xbox-switch-2-2026/"
+            }
+          ],
           "status": "completed"
         }
       ],

@@ -1,0 +1,257 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "probability": 0.96,
+      "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Staying at or below 3.3% needs NSA m/m below ~0.2%, which is implausible given the gasoline jump. Confidence: high.",
+      "release_event": "cpi-2026-10-14",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+        },
+        {
+          "published": "2026-10-03",
+          "url": "https://nowflation.com/cpi-preview/september-2026"
+        },
+        {
+          "published": "2026-09-11",
+          "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+        },
+        {
+          "published": "2026-09-28",
+          "url": "https://fred.stlouisfed.org/series/GASREGW"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "probability": 0.91,
+      "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Printing at or below 3.4% needs NSA m/m below ~0.3%, about 1.5-2 nowcast-error sd below the nowcast. Confidence: high.",
+      "release_event": "cpi-2026-10-14",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+        },
+        {
+          "published": "2026-10-03",
+          "url": "https://nowflation.com/cpi-preview/september-2026"
+        },
+        {
+          "published": "2026-09-11",
+          "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+        },
+        {
+          "published": "2026-09-28",
+          "url": "https://fred.stlouisfed.org/series/GASREGW"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "probability": 0.74,
+      "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Needs a print of 3.6% or more (NSA m/m of ~0.4% or more). The nowcast centre is ~3.6%, and consensus at 3.7% is higher still. With an error sd of ~0.12pp, about a quarter of the mass rounds to 3.5% or below. Confidence: medium.",
+      "release_event": "cpi-2026-10-14",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+        },
+        {
+          "published": "2026-10-03",
+          "url": "https://nowflation.com/cpi-preview/september-2026"
+        },
+        {
+          "published": "2026-09-11",
+          "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+        },
+        {
+          "published": "2026-09-28",
+          "url": "https://fred.stlouisfed.org/series/GASREGW"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "probability": 0.57,
+      "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. P(unrounded \u22654.15) \u2248 0.55-0.6 given the start at 4.175 and mild reversion toward the 4.1-4.2 range. Confidence: low-medium.",
+      "release_event": "employment-2026-11-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10",
+          "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/UNRATE"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "probability": 0.27,
+      "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.25, about +0.08pp from the current level. Confidence: medium.",
+      "release_event": "employment-2026-11-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10",
+          "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/UNRATE"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "probability": 0.08,
+      "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.35, a rise of ~0.18pp in one month, which is roughly a 1.4-sd move. Confidence: medium.",
+      "release_event": "employment-2026-11-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10",
+          "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/UNRATE"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "probability": 0.32,
+      "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Two months of dispersion (sd ~0.17) and a mild upward drift from Fed tightening and the oil shock give P(\u22654.25) of about one-third. Confidence: low-medium.",
+      "release_event": "employment-2026-12-04",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10",
+          "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/UNRATE"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "probability": 0.56,
+      "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Centre ~45k against the 29k threshold gives slightly better than even odds. Confidence: low.",
+      "release_event": "employment-2026-11-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/PAYEMS"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "probability": 0.26,
+      "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Exceeding 100k needs about a +0.7-sd surprise. Only 2 of the last 6 months (Mar, Aug) cleared it in current vintage. Confidence: low-medium.",
+      "release_event": "employment-2026-11-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/PAYEMS"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "probability": 0.55,
+      "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Same distribution as October with slightly more downside drift from tighter policy. Confidence: low.",
+      "release_event": "employment-2026-12-04",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/PAYEMS"
+        }
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "24d2aa6e-2256-48b3-a136-068ad45810e4",
+  "generated_at": "2026-10-03T19:26:53Z",
+  "manifest_hash": "c38a7b02b6e511d15bb81a6ffddf48352137493329c24864fc5a8abaed34d6bb",
+  "method": "claude_code_forecaster_v1",
+  "note": "Claude (via Claude Code, web search) forecasting after the cohort froze and before any entry's release. Not part of the frozen manifest; scored separately as a post-freeze supplement."
+}

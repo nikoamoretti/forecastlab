@@ -1,0 +1,203 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "probability": 0.68,
+      "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 1 trading day(s), a random walk gives ~0.71; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+      "release_event": "dgs10-2026-10-05",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "probability": 0.64,
+      "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 2 trading day(s), a random walk gives ~0.67; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+      "release_event": "dgs10-2026-10-06",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "probability": 0.61,
+      "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 3 trading day(s), a random walk gives ~0.64; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+      "release_event": "dgs10-2026-10-07",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "probability": 0.6,
+      "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 4 trading day(s), a random walk gives ~0.63; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+      "release_event": "dgs10-2026-10-08",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "probability": 0.58,
+      "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 5 trading day(s), a random walk gives ~0.61; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+      "release_event": "dgs10-2026-10-09",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "probability": 0.5,
+      "rationale": "The last three first prints were 198k, 198k and 197k (4-week average 200k; consensus last week was 200k). The threshold sits right at the current level, and a 197k print resolves NO. Layoffs remain low, while payroll growth is weak. The hurricane season is historically quiet, so there is no storm distortion. Week-to-week first-print sd is about 8k, so the probability is roughly even, with a slight upward tilt toward the 4-week average offset by the downward trend. Confidence: low-medium; essentially a coin flip.",
+      "release_event": "claims-2026-10-08",
+      "sources": [
+        {
+          "published": "2026-10-01",
+          "url": "https://fred.stlouisfed.org/series/ICSA"
+        },
+        {
+          "published": "2026-10-01",
+          "url": "https://news.bloombergtax.com/financial-accounting/us-initial-jobless-claims-slip-to-197-000-lowest-since-july-2"
+        },
+        {
+          "published": "2026-09-27",
+          "url": "https://www.fox8live.com/2026/09/27/week-ahead-tropics-new-named-storms-are-expected/"
+        }
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-03T19:26:53Z",
+      "entry_id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "probability": 0.52,
+      "rationale": "Same base as the prior week but with one more week of dispersion and mild reversion toward the ~200k 4-week average. A possible Gulf tropical system on Oct 7-10 is a small upside tail. Claims were sub-200k for three straight weeks, which limits the tilt. Confidence: low-medium.",
+      "release_event": "claims-2026-10-15",
+      "sources": [
+        {
+          "published": "2026-10-01",
+          "url": "https://fred.stlouisfed.org/series/ICSA"
+        },
+        {
+          "published": "2026-10-01",
+          "url": "https://news.bloombergtax.com/financial-accounting/us-initial-jobless-claims-slip-to-197-000-lowest-since-july-2"
+        },
+        {
+          "published": "2026-09-27",
+          "url": "https://www.fox8live.com/2026/09/27/week-ahead-tropics-new-named-storms-are-expected/"
+        }
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "90214343-942a-4a89-b8aa-f0a8532a41ce",
+  "generated_at": "2026-10-03T19:26:53Z",
+  "manifest_hash": "fa95c02a36d90d94c7e5fba53fa49a90d15c12e6c6f7ea896044f48552776cbd",
+  "method": "claude_code_forecaster_v1",
+  "note": "Claude (via Claude Code, web search) forecasting after the cohort froze and before any entry's release. Not part of the frozen manifest; scored separately as a post-freeze supplement."
+}
