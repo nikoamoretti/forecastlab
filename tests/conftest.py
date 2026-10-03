@@ -26,6 +26,7 @@ def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Generator[TestCli
     monkeypatch.setattr(settings, "allow_local_fixtures", True)
     monkeypatch.setattr(settings, "credentials_path", tmp_path / "credentials.json")
     monkeypatch.setattr(settings, "data_dir", tmp_path)
+    monkeypatch.setattr(settings, "cohort_schedule_evidence", False)
 
     engine = create_engine(db_url, future=True, connect_args={"check_same_thread": False, "timeout": 30})
     from forecastlab_api.db import configure_sqlite_engine
