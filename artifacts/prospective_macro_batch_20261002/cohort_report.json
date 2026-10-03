@@ -1,0 +1,764 @@
+{
+  "budget_usd": 20.0,
+  "cost_usd": 7.717020000000001,
+  "id": "24d2aa6e-2256-48b3-a136-068ad45810e4",
+  "interpretation": "Operational pilot; small and potentially correlated sample, no accuracy or calibration claim.",
+  "manifest_hash": "c38a7b02b6e511d15bb81a6ffddf48352137493329c24864fc5a8abaed34d6bb",
+  "matched_resolved_count": 0,
+  "methods": [
+    {
+      "abstentions": 6,
+      "assigned": 10,
+      "brier_score": null,
+      "cost_usd": 4.229565,
+      "failures": 0,
+      "forecast_coverage": 0.4,
+      "forecasted": 4,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 152244.8,
+      "method": "root_event_ensemble_v1"
+    },
+    {
+      "abstentions": 0,
+      "assigned": 10,
+      "brier_score": null,
+      "cost_usd": 0.317405,
+      "failures": 1,
+      "forecast_coverage": 0.9,
+      "forecasted": 9,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 15137.8,
+      "method": "single_model_forecaster_v1"
+    },
+    {
+      "abstentions": 0,
+      "assigned": 10,
+      "brier_score": null,
+      "cost_usd": 3.1700500000000003,
+      "failures": 6,
+      "forecast_coverage": 0.4,
+      "forecasted": 4,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 160665.0,
+      "method": "three_track_strict_forecaster_v1"
+    }
+  ],
+  "name": "Prospective macro batch 2026-10-02 (strict three-track)",
+  "questions": [
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.35485,
+          "latency_ms": 125214,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "6a298311-300c-4f3b-a02d-f9ab57aef007",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.031415,
+          "latency_ms": 15518,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.62,
+          "run_id": "b5f84b17-7717-427a-8611-b21fbf2003a0",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.22769000000000003,
+          "latency_ms": 106803,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "38c8c583-4380-4219-b9a5-8e98a8a427fa",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.085036Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "43ab79d2-7386-46aa-bdd3-f10df1ac58c6",
+        "initial_reference_class": "Historical monthly observations of U.S. unemployment rate",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.1 percent in the 2026-11-06 release?",
+        "original_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.1 percent in the 2026-11-06 release?",
+        "question_id": "8ccb00bb-ce03-4f0e-ae1b-b1081ef9f3fb",
+        "resolution_date": "2026-11-06T13:30:00Z",
+        "resolution_method": "Use BLS series LNS14000000 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. unemployment rate for 2026-10 is greater than 4.1 percent."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "8ccb00bb-ce03-4f0e-ae1b-b1081ef9f3fb",
+      "release_event": "employment-2026-11-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.40768000000000004,
+          "latency_ms": 144209,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "06988cb4-ce60-487a-85d2-abbd3c6c8428",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.026275,
+          "latency_ms": 10290,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65,
+          "run_id": "d849dacf-ee3d-43fc-a91f-0e9fe61584f5",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.22674000000000002,
+          "latency_ms": 114899,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "6ef38cd5-c901-483f-b07b-b4c25bafb619",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.078667Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/cpi.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "46bac266-aad9-4e80-85d7-3f13e0f96329",
+        "initial_reference_class": "Historical monthly observations of U.S. CPI year-over-year inflation",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.3 percent year over year in the 2026-10-14 release?",
+        "original_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.3 percent year over year in the 2026-10-14 release?",
+        "question_id": "91bb58b2-9549-461e-8bc7-80c4865e5afb",
+        "resolution_date": "2026-10-14T12:30:00Z",
+        "resolution_method": "Use BLS series CUUR0000SA0 (not_seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent_year_over_year",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. CPI year-over-year inflation for 2026-09 is greater than 3.3 percent_year_over_year."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "91bb58b2-9549-461e-8bc7-80c4865e5afb",
+      "release_event": "cpi-2026-10-14"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.4489350000000001,
+          "latency_ms": 157055,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": 0.2671762224285628,
+          "run_id": "9955bf70-8491-454a-95e7-cb88a61ea8f5",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.027945,
+          "latency_ms": 14305,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": null,
+          "run_id": "75739a1b-2cbe-4da5-b314-cb971210938d",
+          "status": "execution_failed"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.33838500000000005,
+          "latency_ms": 183763,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "defb66a5-ebaa-4133-819b-a84cf7a69dd9",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.083971Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/cpi.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "345b1285-6bc1-4d71-8579-5a65cfcab2ed",
+        "initial_reference_class": "Historical monthly observations of U.S. CPI year-over-year inflation",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.5 percent year over year in the 2026-10-14 release?",
+        "original_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.5 percent year over year in the 2026-10-14 release?",
+        "question_id": "7b334111-a5a5-483e-be82-ddd99362df24",
+        "resolution_date": "2026-10-14T12:30:00Z",
+        "resolution_method": "Use BLS series CUUR0000SA0 (not_seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent_year_over_year",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. CPI year-over-year inflation for 2026-09 is greater than 3.5 percent_year_over_year."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "7b334111-a5a5-483e-be82-ddd99362df24",
+      "release_event": "cpi-2026-10-14"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.3483400000000001,
+          "latency_ms": 115130,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "6440f829-46a6-4bc9-8f4a-7850281853dc",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.029415,
+          "latency_ms": 15738,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.4,
+          "run_id": "7b082d8a-fa9c-4f31-94ae-c59eca4e3768",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.39582000000000006,
+          "latency_ms": 193794,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4496938329763394,
+          "run_id": "31435ffc-8d19-4c28-9e70-109a3d59069c",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.090150Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "970567b2-2a93-45c2-a32c-6dfbdf441437",
+        "initial_reference_class": "Historical monthly observations of U.S. unemployment rate",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. unemployment rate for 2026-11 be greater than 4.2 percent in the 2026-12-04 release?",
+        "original_question": "Will the U.S. unemployment rate for 2026-11 be greater than 4.2 percent in the 2026-12-04 release?",
+        "question_id": "feb7b917-f70e-42d6-91e1-5d52354d8126",
+        "resolution_date": "2026-12-04T13:30:00Z",
+        "resolution_method": "Use BLS series LNS14000000 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. unemployment rate for 2026-11 is greater than 4.2 percent."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "feb7b917-f70e-42d6-91e1-5d52354d8126",
+      "release_event": "employment-2026-12-04"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.47268,
+          "latency_ms": 181701,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": 0.30000000000000004,
+          "run_id": "19e85e75-ae9c-4e4d-adfb-cf507943d39d",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03008,
+          "latency_ms": 12604,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.6,
+          "run_id": "9c5ef3d7-1d47-4147-863e-f4287ca48ab1",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.21257500000000001,
+          "latency_ms": 117322,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "8767e994-d529-4358-b2ae-adac745fa9c3",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.085961Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "2c081706-fa6a-42ea-9db5-bd914d0f6bd8",
+        "initial_reference_class": "Historical monthly observations of U.S. unemployment rate",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.2 percent in the 2026-11-06 release?",
+        "original_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.2 percent in the 2026-11-06 release?",
+        "question_id": "98c236c6-7ace-400b-8f82-371643dd1d47",
+        "resolution_date": "2026-11-06T13:30:00Z",
+        "resolution_method": "Use BLS series LNS14000000 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. unemployment rate for 2026-10 is greater than 4.2 percent."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "98c236c6-7ace-400b-8f82-371643dd1d47",
+      "release_event": "employment-2026-11-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.40249,
+          "latency_ms": 155411,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "bced1235-e48c-422d-abdb-318657ef3ded",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.031475,
+          "latency_ms": 14241,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.35,
+          "run_id": "6058d30a-9186-470f-9ff4-a47d36f64884",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.20689000000000005,
+          "latency_ms": 112210,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "8bb157cf-d3fa-4e4c-91c3-a05e2bef5433",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.086809Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "9e18825e-faf0-4c07-90f3-83061483017e",
+        "initial_reference_class": "Historical monthly observations of U.S. unemployment rate",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.3 percent in the 2026-11-06 release?",
+        "original_question": "Will the U.S. unemployment rate for 2026-10 be greater than 4.3 percent in the 2026-11-06 release?",
+        "question_id": "b5bc6a41-41d8-493a-a69e-5634ba50bff9",
+        "resolution_date": "2026-11-06T13:30:00Z",
+        "resolution_method": "Use BLS series LNS14000000 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. unemployment rate for 2026-10 is greater than 4.3 percent."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "b5bc6a41-41d8-493a-a69e-5634ba50bff9",
+      "release_event": "employment-2026-11-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.45692499999999997,
+          "latency_ms": 191089,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "be069daa-03f5-4101-b91c-1b3f5d08d53a",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03561,
+          "latency_ms": 17960,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65,
+          "run_id": "bdd362c8-c45c-45b7-ae02-75ed739aff19",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.3949600000000001,
+          "latency_ms": 202471,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.07033939177740528,
+          "run_id": "36a15d47-c1ec-4b0d-8a3b-5aa559cbb442",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.089177Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "876f0545-af65-4ae7-83bb-ee2504b4013f",
+        "initial_reference_class": "Historical monthly observations of U.S. nonfarm payroll monthly change",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. nonfarm payroll monthly change for 2026-10 be greater than 100000 jobs in the 2026-11-06 release?",
+        "original_question": "Will the U.S. nonfarm payroll monthly change for 2026-10 be greater than 100000 jobs in the 2026-11-06 release?",
+        "question_id": "a164b7e8-b58b-464d-9924-45f48e2d56b7",
+        "resolution_date": "2026-11-06T13:30:00Z",
+        "resolution_method": "Use BLS series CES0000000001 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "jobs",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. nonfarm payroll monthly change for 2026-10 is greater than 100000 jobs."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "a164b7e8-b58b-464d-9924-45f48e2d56b7",
+      "release_event": "employment-2026-11-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.4644250000000001,
+          "latency_ms": 182448,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": 0.5404578649722903,
+          "run_id": "537d084e-463a-45bd-b482-219705cb59fa",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03245,
+          "latency_ms": 16305,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.45,
+          "run_id": "b1d42624-d4a1-4ec2-b42e-823f9d15f3f3",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.41100000000000003,
+          "latency_ms": 218334,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.5,
+          "run_id": "ff3a9260-40fc-421c-a5c2-02c99aa147d2",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.088023Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "288c2e4d-03f8-4925-87df-489d161834e4",
+        "initial_reference_class": "Historical monthly observations of U.S. nonfarm payroll monthly change",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. nonfarm payroll monthly change for 2026-10 be greater than 29000 jobs in the 2026-11-06 release?",
+        "original_question": "Will the U.S. nonfarm payroll monthly change for 2026-10 be greater than 29000 jobs in the 2026-11-06 release?",
+        "question_id": "c9d155ac-60e7-47e8-84a0-fa1ff6ecb24b",
+        "resolution_date": "2026-11-06T13:30:00Z",
+        "resolution_method": "Use BLS series CES0000000001 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "jobs",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. nonfarm payroll monthly change for 2026-10 is greater than 29000 jobs."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "86054306-91c5-4aec-9c08-c28208164658",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "c9d155ac-60e7-47e8-84a0-fa1ff6ecb24b",
+      "release_event": "employment-2026-11-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.5129,
+          "latency_ms": 160557,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": 0.3767958593434868,
+          "run_id": "1f5c635d-848f-41db-87f2-6ac2ce3b1e41",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.04092,
+          "latency_ms": 21516,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.7,
+          "run_id": "4f74bd0c-29f7-44db-8bfd-67a3676ea34b",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.40373000000000003,
+          "latency_ms": 205719,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.41425382685238976,
+          "run_id": "d6122052-25c0-4cc6-a3aa-9adfa6c7b095",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.082951Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/cpi.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "bcb43787-1cba-4bbd-821a-61b5457603e4",
+        "initial_reference_class": "Historical monthly observations of U.S. CPI year-over-year inflation",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.4 percent year over year in the 2026-10-14 release?",
+        "original_question": "Will the U.S. CPI year-over-year inflation for 2026-09 be greater than 3.4 percent year over year in the 2026-10-14 release?",
+        "question_id": "c2d11596-eb0c-48a4-9777-c1e7982dcebc",
+        "resolution_date": "2026-10-14T12:30:00Z",
+        "resolution_method": "Use BLS series CUUR0000SA0 (not_seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "percent_year_over_year",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. CPI year-over-year inflation for 2026-09 is greater than 3.4 percent_year_over_year."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "c2d11596-eb0c-48a4-9777-c1e7982dcebc",
+      "release_event": "cpi-2026-10-14"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.36034000000000005,
+          "latency_ms": 109634,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "4895838a-a77b-4819-a823-6d2cfc00dca2",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03182,
+          "latency_ms": 12901,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.95,
+          "run_id": "9dd324bc-eac6-4882-86a4-b373ed0b05c1",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.35226,
+          "latency_ms": 151335,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "80ef3c0b-a6ee-424d-8a61-260eb8ef9fae",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "cancellation_conditions": "Cancel if the specified release is withdrawn or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:09:58.091055Z",
+        "created_by": "macro_template_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://www.bls.gov/bls/news-release/empsit.htm"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "927a77e9-9f5a-4b98-acf0-d8389103d5c2",
+        "initial_reference_class": "Historical monthly observations of U.S. nonfarm payroll monthly change",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the U.S. nonfarm payroll monthly change for 2026-11 be greater than 29000 jobs in the 2026-12-04 release?",
+        "original_question": "Will the U.S. nonfarm payroll monthly change for 2026-11 be greater than 29000 jobs in the 2026-12-04 release?",
+        "question_id": "a2b02f5b-3998-43a0-bdea-301fb3ab7a6a",
+        "resolution_date": "2026-12-04T13:30:00Z",
+        "resolution_method": "Use BLS series CES0000000001 (seasonally_adjusted) and the first published value. Payroll changes use the published change in jobs; CPI uses the published 12-month percent change. Retain the dated release table as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent monthly observations",
+          "Trend and revision uncertainty"
+        ],
+        "units": "jobs",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. nonfarm payroll monthly change for 2026-11 is greater than 29000 jobs."
+      },
+      "cutoff": "2026-10-04T05:09:58+00:00",
+      "id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "a2b02f5b-3998-43a0-bdea-301fb3ab7a6a",
+      "release_event": "employment-2026-12-04"
+    }
+  ],
+  "release_event_count": 3,
+  "status": "awaiting_resolution"
+}
