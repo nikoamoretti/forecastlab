@@ -57,6 +57,31 @@ test("a newer withheld result never presents the older probability as current", 
   await expect(page.getByRole("heading", { name: "Version history" }).locator("..")).toContainText("75.0%");
 });
 
+test("a forecast leads with a verdict in words and keeps the exact probability", async ({ page }) => {
+  await page.route("**/api/questions/verdict-first/report", route => route.fulfill({ json: {
+    id: "verdict-first", original_text: "Will the October unemployment rate be above 4.2%?", outcome_status: "forecasted",
+    latest_run: { status: "completed", profile_id: "root_event_ensemble_v1", mode: "live", total_cost_usd: .2 },
+    personal_report: { probability: .374, evidence_gaps: [], estimates: [], contract: {} },
+    versions: [{ id: "v1", created_at: "2026-10-02", ensemble_probability: .374, profile_id: "root_event_ensemble_v1" }]
+  } }));
+  await page.goto("/forecasts/verdict-first");
+  const header = page.locator("article header");
+  await expect(header.getByText("Unlikely", { exact: true })).toBeVisible();
+  await expect(header).toContainText("Most likely no: about 4 in 10 chance it happens (37.4%).");
+  await expect(page.getByRole("heading", { name: "Version history" }).locator("..")).toContainText("Unlikely · 37.4%");
+});
+
+test("the board shows the verdict before the percentage", async ({ page }) => {
+  await page.route("**/api/forecast-summaries?*", route => route.fulfill({ json: { total: 1, offset: 0, limit: 25, items: [{
+    id: "verdict-board", original_text: "Will the 10-year yield be above 5.24%?", created_at: "2026-10-03T00:00:00Z", stale: false,
+    run_id: "r1", profile_id: "single_model_forecaster_v1", mode: "live", status: "completed", outcome_status: "forecasted",
+    probability: .8, cost_usd: .1, finished_at: "2026-10-03T00:00:00Z", run_created_at: "2026-10-03T00:00:00Z" }] } }));
+  await page.goto("/");
+  const row = page.getByRole("listitem").filter({ hasText: "10-year yield" });
+  await expect(row.getByText("Likely", { exact: true })).toBeVisible();
+  await expect(row).toContainText("80.0% · about 8 in 10");
+});
+
 test("prospective setup creates unknown outcomes without spending and settings PATCH works", async ({ page }) => {
   await page.goto("/lab");
   await page.getByText("Create a prospective cohort from macro templates", { exact: true }).click();
