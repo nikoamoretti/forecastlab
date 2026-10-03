@@ -342,3 +342,45 @@ def test_preview_refuses_provider_reservations(ready, monkeypatch):
     monkeypatch.setenv("VERCEL_ENV", "preview")
     with pytest.raises(BudgetExceeded, match="preview_provider_calls_disabled"):
         reserve(PersistentUsageLedger(sessions, max_cost_usd=5), run_id, "preview", .1)
+
+
+def test_owner_access_code_creates_session_and_rejects_wrong_codes(client, monkeypatch, tmp_path):
+    import hashlib
+    import json as _json
+
+    from forecastlab_api import auth
+    from forecastlab_api.config import settings
+    salt = b"0123456789abcdef"
+    digest = hashlib.scrypt(b"right-code", salt=salt, n=2**14, r=8, p=1, maxmem=64 * 1024 * 1024, dklen=32)
+    path = tmp_path / "owner_access_code.json"
+    path.write_text(_json.dumps({"algorithm": "scrypt", "n": 2**14, "r": 8, "p": 1, "dklen": 32,
+                                 "salt": salt.hex(), "hash": digest.hex()}))
+    monkeypatch.setattr(auth, "ACCESS_CODE_FILE", path)
+    monkeypatch.setattr(auth.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(settings, "env", "production")
+    monkeypatch.setattr(settings, "owner_github_id", "146488758")
+    monkeypatch.setattr(settings, "session_secret", "test-session-secret")
+    monkeypatch.setattr(settings, "internal_secret", "test-internal-secret")
+    headers = {"x-forecastlab-internal": "test-internal-secret", "origin": settings.web_origin}
+
+    assert client.post("/api/auth/code", json={"code": "wrong-code"}, headers=headers).status_code == 401
+    wrong_origin = {**headers, "origin": "https://evil.example"}
+    assert client.post("/api/auth/code", json={"code": "right-code"}, headers=wrong_origin).status_code == 403
+    # The browser path still requires the web proxy's internal header.
+    assert client.post("/api/auth/code", json={"code": "right-code"}, headers={"origin": settings.web_origin}).status_code == 401
+
+    response = client.post("/api/auth/code", json={"code": "right-code"}, headers=headers)
+    assert response.status_code == 200
+    assert "forecastlab_session" in response.cookies and "forecastlab_csrf" in response.cookies
+    client.cookies.set("forecastlab_session", response.cookies["forecastlab_session"])
+    assert client.get("/api/auth/session", headers=headers).json()["owner_id"] == "146488758"
+
+
+def test_committed_owner_access_code_is_a_hash_not_a_code():
+    import json as _json
+
+    from forecastlab.paths import project_root
+    spec = _json.loads((project_root() / "configs" / "owner_access_code.json").read_text())
+    assert spec["algorithm"] == "scrypt" and spec["n"] >= 2**15
+    assert len(bytes.fromhex(spec["hash"])) == 32 and len(bytes.fromhex(spec["salt"])) >= 16
+    assert set(spec) <= {"algorithm", "n", "r", "p", "dklen", "salt", "hash", "created", "note"}

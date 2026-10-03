@@ -30,6 +30,12 @@ separate from Neon's point-in-time recovery settings.
 
 ## Owner login
 
+The default sign-in is a private owner access code. `configs/owner_access_code.json` holds only its scrypt hash and salt; the code itself is never committed. `POST /api/auth/code` checks the code against that hash. The request must come through the web proxy (internal header) and from the web origin. A correct code creates the same opaque, seven-day, CSRF-protected owner session as GitHub sign-in. A wrong code returns 401 after a one-second delay.
+
+To rotate the code, write a new hash file with a fresh random code and salt, commit it, and release. Any existing sessions stay valid until they expire or the owner signs out.
+
+GitHub OAuth remains available as an alternative:
+
 Create a GitHub OAuth application with homepage
 `https://forecastlab-web.vercel.app` and callback
 `https://forecastlab-web.vercel.app/api/auth/github/callback`.

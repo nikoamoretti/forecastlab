@@ -1,0 +1,11 @@
+{
+  "algorithm": "scrypt",
+  "n": 32768,
+  "r": 8,
+  "p": 1,
+  "dklen": 32,
+  "salt": "ddf2ab2d1a40c00a3db4371d1de3070b",
+  "hash": "3da44d795a37849726014c482fe30d638f0d74d5e8fcb87dda4a08facd8980ef",
+  "created": "2026-10-03",
+  "note": "Hash of the owner's access code. The code itself is never stored in the repository."
+}
