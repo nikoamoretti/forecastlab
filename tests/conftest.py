@@ -9,6 +9,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
+@pytest.fixture(autouse=True)
+def _clear_live_macro_cache() -> Generator[None, None, None]:
+    """The process-wide live monthly macro cache must never carry data between tests."""
+    from forecastlab.macro import LIVE_MONTHLY_CACHE
+
+    LIVE_MONTHLY_CACHE.clear()
+    yield
+    LIVE_MONTHLY_CACHE.clear()
+
+
 @pytest.fixture()
 def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Generator[TestClient, None, None]:
     db_url = f"sqlite:///{tmp_path / 'test.db'}"

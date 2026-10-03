@@ -5,8 +5,11 @@ import calendar
 import csv
 import io
 import re
+import threading
+from dataclasses import dataclass
 from datetime import UTC, date, datetime, time, timedelta
 from typing import Literal
+from zoneinfo import ZoneInfo
 
 import httpx
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -34,6 +37,15 @@ SERIES = {
                      "publisher": "Board of Governors of the Federal Reserve System", "fallback_url": "https://www.federalreserve.gov/releases/h15/"},
 }
 FRED_GRAPH_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
+BLS_API_V1 = "https://api.bls.gov/publicAPI/v1/timeseries/data/"
+# Revision bases of live monthly observations. Both are current (revised) data,
+# never a first release. The mirror basis marks values read from the keyless
+# FRED copy of the same BLS series after BLS refused the request.
+BLS_REVISION_BASIS = "latest_observed_revisions_not_first_release"
+FRED_MIRROR_REVISION_BASIS = "fred_mirror_of_bls_latest_observed_revisions_not_first_release"
+NEW_YORK = ZoneInfo("America/New_York")
+# BLS publishes the Employment Situation and CPI at 08:30 New York time.
+BLS_RELEASE_TIME = time(8, 30)
 # Weekly/daily history is capped so the root evidence packet stays well inside
 # the 24,000-token context reserved for each root estimate.
 FRED_HISTORY_LIMITS = {"weekly": 104, "daily": 130}
@@ -224,23 +236,220 @@ def normalize_observations(indicator: str, values: dict[str, float], *, availabl
     return output
 
 
+class BlsRequestNotSucceeded(MacroDataError):
+    """BLS refused a keyless request: daily quota, throttling, or another non-success status."""
+
+    def __init__(self, reason: str, payload: dict | None = None) -> None:
+        super().__init__("bls_request_not_succeeded")
+        self.reason = reason
+        self.payload = payload
+
+
+@dataclass(frozen=True)
+class MonthlyFetch:
+    """One live monthly response as raw levels by ``YYYY-MM``, with its provenance.
+
+    Consumers must not mutate ``values``, ``notes`` or ``payload``: a cached
+    fetch is shared by every run that reuses it.
+    """
+    values: dict[str, float]
+    notes: dict[str, list[str]]
+    payload: dict
+    source_url: str
+    revision_basis: str
+    retrieved_at: datetime
+
+
+class LiveMonthlyCache:
+    """Reuse one live monthly response per indicator and history window.
+
+    Live BLS (or FRED-mirror) data only changes when BLS publishes, at 08:30
+    New York time. An entry is reused only while it is at most ``max_age`` old,
+    was retrieved on the same New York day, and no 08:30 release time lies
+    between its retrieval and now. A reused snapshot keeps its original
+    retrieval time, so the point-in-time checks (retrieved and available before
+    the forecast cutoff, observations before the target) and the staleness
+    check still apply unchanged. Failures are never cached. Historical
+    (ALFRED) and weekly/daily FRED requests never use this cache.
+    """
+
+    max_age = timedelta(hours=1)
+
+    def __init__(self) -> None:
+        self._entries: dict[tuple[str, int], MonthlyFetch] = {}
+        self._lock = threading.Lock()
+
+    @classmethod
+    def reusable(cls, retrieved_at: datetime, now: datetime) -> bool:
+        retrieved, current = as_utc(retrieved_at), as_utc(now)
+        if not timedelta(0) <= current - retrieved <= cls.max_age:
+            return False
+        local_retrieved, local_now = retrieved.astimezone(NEW_YORK), current.astimezone(NEW_YORK)
+        if local_retrieved.date() != local_now.date():
+            return False
+        release = datetime.combine(local_now.date(), BLS_RELEASE_TIME, tzinfo=NEW_YORK)
+        return not local_retrieved < release <= local_now
+
+    def get(self, key: tuple[str, int], now: datetime) -> MonthlyFetch | None:
+        with self._lock:
+            entry = self._entries.get(key)
+            if entry is not None and not self.reusable(entry.retrieved_at, now):
+                del self._entries[key]
+                entry = None
+            return entry
+
+    def put(self, key: tuple[str, int], value: MonthlyFetch) -> None:
+        with self._lock:
+            self._entries[key] = value
+
+    def clear(self) -> None:
+        with self._lock:
+            self._entries.clear()
+
+
+# Shared by the root method and the statistical baseline within one process.
+LIVE_MONTHLY_CACHE = LiveMonthlyCache()
+
+
+def _bls_request(http: httpx.Client, series_ids: list[str], *, start_year: int, end_year: int) -> dict:
+    response = http.post(BLS_API_V1, json={"seriesid": series_ids, "startyear": str(start_year), "endyear": str(end_year)})
+    if response.status_code == 429:
+        raise BlsRequestNotSucceeded("bls_http_429")
+    response.raise_for_status()
+    payload = response.json()
+    if payload.get("status") != "REQUEST_SUCCEEDED":
+        # The keyless quota answers HTTP 200 with REQUEST_NOT_PROCESSED and a message.
+        raise BlsRequestNotSucceeded(f"bls_status:{str(payload.get('status'))[:64]}", payload)
+    return payload
+
+
+def _bls_monthly_values(rows: list[dict]) -> tuple[dict[str, float], dict[str, list[str]]]:
+    values: dict[str, float] = {}
+    notes: dict[str, list[str]] = {}
+    for row in rows:
+        period = row["period"]
+        if not period.startswith("M") or not 1 <= int(period[1:]) <= 12:
+            continue
+        # BLS represents unavailable observations (including the October 2025
+        # shutdown gap) with a hyphen. Retain the raw row, never impute it or
+        # bridge it when computing changes.
+        if str(row["value"]).strip() in {"-", ".", ""}:
+            continue
+        key = f"{row['year']}-{int(period[1:]):02d}"
+        values[key] = float(row["value"])
+        notes[key] = [note["text"] for note in row.get("footnotes", []) if note.get("text")]
+    return values, notes
+
+
+def fred_mirror_url(indicator: str, start_year: int) -> str:
+    return f"{FRED_GRAPH_CSV}?id={SERIES[indicator]['fred']}&cosd={start_year:04d}-01-01"
+
+
+def fetch_fred_mirror(indicator: str, http: httpx.Client, *, start_year: int,
+                      bls_error: BlsRequestNotSucceeded) -> MonthlyFetch:
+    """The keyless FRED copy of a BLS series, read only after BLS refused the request.
+
+    The history window starts on 1 January of ``start_year``, the same calendar
+    window as the BLS request it replaces. Raw levels go through the same
+    normalization; a published blank is skipped, never imputed. The lineage
+    stays ``agency:bls``; the observations name the FRED source URL and the
+    mirror revision basis. A mirror failure keeps the
+    ``bls_request_not_succeeded`` prefix so executors treat it as a provider
+    failure, not as missing evidence.
+    """
+    meta = SERIES[indicator]
+    if meta["source"] != "bls":
+        raise MacroDataError("bls_series_required")
+    fred_id = meta["fred"]
+    url = fred_mirror_url(indicator, start_year)
+    try:
+        response = http.get(url)
+        response.raise_for_status()
+        text = response.content.decode("utf-8")
+        values: dict[str, float] = {}
+        for day, raw in parse_fred_csv(text, fred_id):
+            if not day.endswith("-01"):
+                raise MacroDataError("fred_csv_malformed")
+            if raw in {"", "."}:
+                continue
+            values[day[:7]] = float(raw)
+    except (httpx.HTTPError, ValueError) as exc:
+        reason = str(exc) if isinstance(exc, MacroDataError) else type(exc).__name__
+        raise MacroDataError(f"bls_request_not_succeeded:fred_mirror_failed:{reason}") from None
+    payload = {"source_url": url, "content_type": response.headers.get("content-type", ""), "csv": text,
+               "mirror_of": {"agency": "bls", "bls_series_id": meta["bls"], "fred_series_id": fred_id},
+               "bls_fallback_reason": bls_error.reason, "bls_response": bls_error.payload}
+    return MonthlyFetch(values=values, notes={}, payload=payload, source_url=f"https://fred.stlouisfed.org/series/{fred_id}",
+                        revision_basis=FRED_MIRROR_REVISION_BASIS, retrieved_at=utcnow())
+
+
+def _monthly_snapshot(indicator: str, fetched: MonthlyFetch) -> MacroSnapshot:
+    observations = normalize_observations(indicator, fetched.values, available_at=fetched.retrieved_at,
+        vintage=fetched.retrieved_at.isoformat(), source_url=fetched.source_url,
+        revision_basis=fetched.revision_basis, footnotes=fetched.notes)
+    return MacroSnapshot(indicator=indicator, retrieved_at=fetched.retrieved_at, observations=observations,
+                         raw_payload=fetched.payload, raw_hash=digest(fetched.payload))
+
+
+def published_level_periods(snapshot: MacroSnapshot) -> set[str]:
+    """Monthly periods with a published raw level in the retained payload (BLS or its FRED mirror)."""
+    meta = SERIES[snapshot.indicator]
+    payload = snapshot.raw_payload
+    if "csv" in payload:
+        try:
+            return {day[:7] for day, raw in parse_fred_csv(payload["csv"], meta["fred"]) if raw not in {"", "."}}
+        except MacroDataError:
+            return set()
+    rows: list[dict] = next((s.get("data", []) for s in payload.get("Results", {}).get("series", [])
+                             if s.get("seriesID") == meta["bls"]), [])
+    return {f"{r.get('year')}-{str(r.get('period', ''))[1:]}" for r in rows
+            if str(r.get("value", "")).strip() not in {"-", ".", ""}}
+
+
+def live_bls_monthly(indicator: str, http: httpx.Client, *, now: datetime,
+                     cache: LiveMonthlyCache | None = None) -> MonthlyFetch:
+    """Ten calendar years of one BLS series: BLS first, its FRED mirror if BLS refuses."""
+    meta = SERIES[indicator]
+    start_year = now.year - 9
+    key = (indicator, start_year)
+    if cache is not None and (hit := cache.get(key, now)) is not None:
+        return hit
+    try:
+        payload = _bls_request(http, [meta["bls"]], start_year=start_year, end_year=now.year)
+        rows = payload["Results"]["series"][0]
+        if rows["seriesID"] != meta["bls"]:
+            raise MacroDataError("macro_series_mismatch")
+        values, notes = _bls_monthly_values(rows["data"])
+        fetched = MonthlyFetch(values=values, notes=notes, payload=payload,
+                               source_url=f"https://data.bls.gov/timeseries/{meta['bls']}",
+                               revision_basis=BLS_REVISION_BASIS, retrieved_at=utcnow())
+    except BlsRequestNotSucceeded as exc:
+        fetched = fetch_fred_mirror(indicator, http, start_year=start_year, bls_error=exc)
+    if cache is not None:
+        cache.put(key, fetched)
+    return fetched
+
+
 def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_years: int = 3) -> dict[str, MacroSnapshot]:
     """One keyless BLS request for question selection, covering all three series.
 
     The short history is only a threshold anchor. Research fetches its own full
     history after approval; these observations never substitute for vintage data.
+    If BLS refuses the request (quota or another non-success status), each
+    series is read from its keyless FRED mirror over the same calendar window.
     """
     owned = client is None
     http = client or httpx.Client(timeout=12, follow_redirects=False)
     now = utcnow()
+    start_year = now.year - min(10, max(3, history_years)) + 1
     try:
-        response = http.post("https://api.bls.gov/publicAPI/v1/timeseries/data/", json={
-            "seriesid": [SERIES[name]["bls"] for name in bls_indicators()],
-            "startyear": str(now.year - min(10, max(3, history_years)) + 1), "endyear": str(now.year)})
-        response.raise_for_status()
-        payload = response.json()
-        if payload.get("status") != "REQUEST_SUCCEEDED":
-            raise MacroDataError("bls_request_not_succeeded")
+        try:
+            payload = _bls_request(http, [SERIES[name]["bls"] for name in bls_indicators()],
+                                   start_year=start_year, end_year=now.year)
+        except BlsRequestNotSucceeded as exc:
+            return {indicator: _monthly_snapshot(indicator, fetch_fred_mirror(indicator, http, start_year=start_year,
+                                                                              bls_error=exc))
+                    for indicator in bls_indicators()}
         series = {row["seriesID"]: row["data"] for row in payload["Results"]["series"]}
         if set(series) != {SERIES[name]["bls"] for name in bls_indicators()}:
             raise MacroDataError("macro_series_mismatch")
@@ -248,22 +457,10 @@ def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_
         snapshots = {}
         for indicator in bls_indicators():
             meta = SERIES[indicator]
-            values = {}
-            notes = {}
-            for row in series[meta["bls"]]:
-                period = row["period"]
-                if not period.startswith("M") or not 1 <= int(period[1:]) <= 12:
-                    continue
-                if str(row["value"]).strip() in {"-", ".", ""}:
-                    continue
-                key = f"{row['year']}-{int(period[1:]):02d}"
-                values[key] = float(row["value"])
-                notes[key] = [n["text"] for n in row.get("footnotes", []) if n.get("text")]
-            observations = normalize_observations(indicator, values, available_at=retrieved,
-                vintage=retrieved.isoformat(), source_url=f"https://data.bls.gov/timeseries/{meta['bls']}",
-                revision_basis="latest_observed_revisions_not_first_release", footnotes=notes)
-            snapshots[indicator] = MacroSnapshot(indicator=indicator, retrieved_at=retrieved, observations=observations,
-                raw_payload=payload, raw_hash=digest(payload))
+            values, notes = _bls_monthly_values(series[meta["bls"]])
+            snapshots[indicator] = _monthly_snapshot(indicator, MonthlyFetch(values=values, notes=notes,
+                payload=payload, source_url=f"https://data.bls.gov/timeseries/{meta['bls']}",
+                revision_basis=BLS_REVISION_BASIS, retrieved_at=retrieved))
         return snapshots
     except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
         if isinstance(exc, MacroDataError):
@@ -276,12 +473,17 @@ def fetch_latest_macro_snapshots(*, client: httpx.Client | None = None, history_
 
 def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key: str | None = None,
                 client: httpx.Client | None = None, timeout: float = 15,
-                fred_history_limit: int | None = None, fred_lookback_days: int | None = None) -> MacroSnapshot:
+                fred_history_limit: int | None = None, fred_lookback_days: int | None = None,
+                cache: LiveMonthlyCache | None = None) -> MacroSnapshot:
     """Historical mode deliberately excludes the cutoff date absent intraday proof.
 
     ``fred_history_limit`` and ``fred_lookback_days`` only widen the weekly/daily
     FRED history for callers that need it (the statistical baseline). The
     defaults keep the capped history that bounds the root evidence packet.
+
+    Live monthly (BLS) series fall back to their keyless FRED mirror when BLS
+    refuses the request (see ``live_bls_monthly``). ``cache`` optionally reuses
+    a recent live monthly response; see ``LiveMonthlyCache`` for its limits.
     """
     owned = client is None
     http = client or httpx.Client(timeout=min(15, timeout), follow_redirects=False)
@@ -318,32 +520,14 @@ def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key:
             source = f"https://alfred.stlouisfed.org/series?seid={meta['fred']}&vintage_date={vintage}"
             basis = "alfred_previous_day_vintage"
             notes: dict[str, list[str]] = {}
+            retrieved: datetime | None = None
         else:
-            response = http.post("https://api.bls.gov/publicAPI/v1/timeseries/data/", json={
-                "seriesid": [meta["bls"]], "startyear": str(now.year - 9), "endyear": str(now.year)})
-            response.raise_for_status()
-            payload = response.json()
-            if payload.get("status") != "REQUEST_SUCCEEDED":
-                raise MacroDataError("bls_request_not_succeeded")
-            rows = payload["Results"]["series"][0]
-            if rows["seriesID"] != meta["bls"]:
-                raise MacroDataError("macro_series_mismatch")
-            values = {}
-            notes = {}
-            for row in rows["data"]:
-                if row["period"].startswith("M") and 1 <= int(row["period"][1:]) <= 12:
-                    period = f"{row['year']}-{int(row['period'][1:]):02d}"
-                    # BLS represents unavailable observations (including the
-                    # October 2025 shutdown gap) with a hyphen. Retain the raw
-                    # row, never impute it or bridge it when computing changes.
-                    if str(row["value"]).strip() in {"-", ".", ""}:
-                        continue
-                    values[period] = float(row["value"])
-                    notes[period] = [note["text"] for note in row.get("footnotes", []) if note.get("text")]
-            available = utcnow()
+            fetched = live_bls_monthly(spec.indicator, http, now=now, cache=cache)
+            values, notes, payload = fetched.values, fetched.notes, fetched.payload
+            # A reused (cached) response keeps its original retrieval time.
+            available = retrieved = fetched.retrieved_at
             vintage = available.isoformat()
-            source = f"https://data.bls.gov/timeseries/{meta['bls']}"
-            basis = "latest_observed_revisions_not_first_release"
+            source, basis = fetched.source_url, fetched.revision_basis
         observations = normalize_observations(spec.indicator, values, available_at=available, vintage=vintage,
                                              source_url=source, revision_basis=basis, footnotes=notes)
         if not observations:
@@ -356,7 +540,7 @@ def fetch_macro(spec: MacroSpec, *, as_of: datetime | None = None, fred_api_key:
         latest_end = latest.replace(day=calendar.monthrange(latest.year, latest.month)[1])
         if ((as_utc(as_of).date() if as_of else now.date()) - latest_end).days > 75:
             raise MacroDataError("macro_current_conditions_stale")
-        return MacroSnapshot(indicator=spec.indicator, retrieved_at=utcnow(), observations=observations,
+        return MacroSnapshot(indicator=spec.indicator, retrieved_at=retrieved or utcnow(), observations=observations,
                              raw_hash=digest(payload), raw_payload=payload)
     except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
         if isinstance(exc, MacroDataError):

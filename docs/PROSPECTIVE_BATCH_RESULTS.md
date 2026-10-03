@@ -34,7 +34,7 @@ Both batches ran in ephemeral local instances, whose databases were discarded. T
 
 | Method | Forecasts | Withheld | Failed | Notes |
 | --- | ---: | ---: | ---: | --- |
-| `root_event_ensemble_v1` | 1 | 6 | 0 | No verified schedule evidence exists for FRED series, so the method withholds unless research supplies resolution evidence. |
+| `root_event_ensemble_v1` | 1 | 6 | 0 | No verified schedule evidence exists for FRED series, so the method withholds unless research supplies resolution evidence. Later cohorts attach the official DOL or H.15 publication document at freeze ([details](FAST_RESOLVING_QUESTIONS.md#resolution-evidence-at-cohort-freeze)). |
 | `single_model_forecaster_v1` | 7 | 0 | 0 | Day-to-day estimates for the same yield threshold range from 45% to 80%. |
 | `three_track_strict_forecaster_v1` | 6 | 0 | 1 | Estimates range from 40.9% to 53%. |
 

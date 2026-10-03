@@ -10,7 +10,15 @@ from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from forecastlab.macro import SERIES, MacroDataError, MacroObservation, MacroSnapshot, MacroSpec, bls_indicators
+from forecastlab.macro import (
+    SERIES,
+    MacroDataError,
+    MacroObservation,
+    MacroSnapshot,
+    MacroSpec,
+    bls_indicators,
+    published_level_periods,
+)
 from forecastlab.root_event import digest
 from forecastlab.timeutil import as_utc
 
@@ -174,10 +182,8 @@ def choose_questions(releases: list[ScheduledRelease], snapshots: dict[str, Macr
         if indicator == "cpi":
             # An absent prior-year index makes this specific YoY event unsuitable.
             prior_year = f"{int(release.observation_period[:4]) - 1}{release.observation_period[4:]}"
-            rows: list[dict] = next((s.get("data", []) for s in snapshot.raw_payload.get("Results", {}).get("series", [])
-                         if s.get("seriesID") == meta["bls"]), [])
-            if not any(f"{r.get('year')}-{str(r.get('period', ''))[1:]}" == prior_year and
-                       str(r.get("value", "")).strip() not in {"-", ".", ""} for r in rows):
+            # The retained payload is either the BLS response or its FRED mirror CSV.
+            if prior_year not in published_level_periods(snapshot):
                 gaps.append("cpi: The target month's prior-year index is missing; a year-over-year question is not selectable.")
                 continue
         spec = MacroSpec(indicator=indicator, observation_period=release.observation_period,
