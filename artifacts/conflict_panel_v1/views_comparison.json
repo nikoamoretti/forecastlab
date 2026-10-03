@@ -1,0 +1,1557 @@
+{
+ "comparison": "panel baseline on the sb series versus published ViEWS fatalities runs",
+ "views_api": "https://api.viewsforecasting.org/",
+ "runs_used": [
+  "fatalities001_2021_12_t01",
+  "fatalities001_2022_01_t01",
+  "fatalities001_2022_02_t01",
+  "fatalities001_2022_03_t01",
+  "fatalities001_2022_04_t01",
+  "fatalities001_2022_05_t01",
+  "fatalities001_2022_06_t01",
+  "fatalities001_2022_07_t01",
+  "fatalities001_2022_08_t01",
+  "fatalities001_2022_09_t01",
+  "fatalities001_2022_10_t01",
+  "fatalities001_2022_11_t01",
+  "fatalities001_2022_12_t01",
+  "fatalities001_2023_01_t01",
+  "fatalities001_2023_02_t01",
+  "fatalities001_2023_03_t01",
+  "fatalities002_2023_04_t01",
+  "fatalities002_2023_05_t01",
+  "fatalities002_2023_06_t01",
+  "fatalities002_2023_07_t01",
+  "fatalities002_2023_08_t01",
+  "fatalities002_2023_09_t02",
+  "fatalities002_2023_10_t02",
+  "fatalities002_2023_11_t01",
+  "fatalities002_2023_12_t01",
+  "fatalities002_2024_01_t01",
+  "fatalities002_2024_02_t01",
+  "fatalities002_2024_03_t01",
+  "fatalities002_2024_04_t01",
+  "fatalities002_2024_05_t01",
+  "fatalities002_2024_06_t01",
+  "fatalities002_2024_07_t01",
+  "fatalities002_2024_08_t01",
+  "fatalities002_2024_09_t01",
+  "fatalities002_2024_10_t01",
+  "fatalities002_2024_11_t01",
+  "fatalities002_2024_12_t01",
+  "fatalities002_2025_01_t01",
+  "fatalities002_2025_02_t01",
+  "fatalities002_2025_03_t01",
+  "fatalities002_2025_04_t01",
+  "fatalities002_2025_05_t01",
+  "fatalities002_2025_06_t01",
+  "fatalities002_2025_07_t01",
+  "fatalities002_2025_08_t01",
+  "fatalities002_2025_09_t01",
+  "fatalities003_2025_10_t01",
+  "fatalities003_2025_11_t01",
+  "fatalities003_2025_12_t01",
+  "fatalities003_2026_01_t01",
+  "fatalities003_2026_02_t01",
+  "fatalities003_2026_03_t01",
+  "fatalities003_2026_04_t01",
+  "fatalities003_2026_05_t01",
+  "fatalities003_2026_06_t01",
+  "fatalities003_2026_07_t01"
+ ],
+ "runs_skipped_as_duplicates": [
+  "fatalities002_2023_09_t01",
+  "fatalities002_2023_10_t01",
+  "fatalities002_2025_10_t01"
+ ],
+ "views_outcome_dataset": "predictors_fatalities003_0000_00",
+ "asof_data": {
+  "series": "sb (state-based fatalities, UCDP best estimate)",
+  "threshold": 25,
+  "rows_backtest": 24180,
+  "rows_matched": 24180,
+  "runs_used": [
+   "fatalities001_2021_12_t01",
+   "fatalities001_2022_01_t01",
+   "fatalities001_2022_02_t01",
+   "fatalities001_2022_03_t01",
+   "fatalities001_2022_04_t01",
+   "fatalities001_2022_05_t01",
+   "fatalities001_2022_11_t01",
+   "fatalities001_2022_12_t01",
+   "fatalities001_2023_01_t01",
+   "fatalities001_2023_02_t01",
+   "fatalities001_2023_03_t01",
+   "fatalities002_2023_04_t01",
+   "fatalities002_2023_05_t01",
+   "fatalities002_2023_06_t01",
+   "fatalities002_2023_07_t01",
+   "fatalities002_2023_08_t01",
+   "fatalities002_2023_09_t02",
+   "fatalities002_2023_10_t02",
+   "fatalities002_2023_11_t01",
+   "fatalities002_2023_12_t01",
+   "fatalities002_2024_01_t01",
+   "fatalities002_2024_02_t01",
+   "fatalities002_2024_03_t01",
+   "fatalities002_2024_04_t01",
+   "fatalities002_2024_05_t01",
+   "fatalities002_2024_06_t01",
+   "fatalities002_2024_07_t01",
+   "fatalities002_2024_08_t01",
+   "fatalities002_2024_09_t01",
+   "fatalities002_2024_10_t01",
+   "fatalities002_2024_11_t01",
+   "fatalities002_2024_12_t01",
+   "fatalities002_2025_01_t01",
+   "fatalities002_2025_02_t01",
+   "fatalities002_2025_03_t01",
+   "fatalities002_2025_04_t01",
+   "fatalities002_2025_05_t01",
+   "fatalities002_2025_06_t01",
+   "fatalities002_2025_07_t01",
+   "fatalities002_2025_08_t01",
+   "fatalities002_2025_09_t01",
+   "fatalities003_2025_10_t01",
+   "fatalities003_2025_11_t01",
+   "fatalities003_2025_12_t01",
+   "fatalities003_2026_01_t01",
+   "fatalities003_2026_02_t01",
+   "fatalities003_2026_03_t01",
+   "fatalities003_2026_04_t01",
+   "fatalities003_2026_05_t01",
+   "fatalities003_2026_06_t01",
+   "fatalities003_2026_07_t01"
+  ],
+  "results": {
+   "ucdp_panel": {
+    "all": {
+     "n": 24180,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 3344,
+     "mse_log1p": {
+      "panel_baseline": 0.601574,
+      "views": 0.664261,
+      "relative_improvement_vs_views": 0.094371,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.00280167,
+       0.185509
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0361882,
+      "views": 0.0380859,
+      "relative_improvement_vs_views": 0.0498259,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0166213,
+       0.0986643
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.22123,
+      "mse_log1p_zero_forecast": 4.26838,
+      "mse_log1p_persistence": 0.761399,
+      "brier_ge25_climatology": 0.0886969
+     },
+     "views_by_family": {
+      "fatalities001": 5720,
+      "fatalities002": 15470,
+      "fatalities003": 2990
+     }
+    },
+    "1": {
+     "n": 6630,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 909,
+     "mse_log1p": {
+      "panel_baseline": 0.45241,
+      "views": 0.480057,
+      "relative_improvement_vs_views": 0.0575924,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0269808,
+       0.146034
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0311378,
+      "views": 0.0335192,
+      "relative_improvement_vs_views": 0.0710451,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0110163,
+       0.118515
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.16047,
+      "mse_log1p_zero_forecast": 4.20542,
+      "mse_log1p_persistence": 0.605112,
+      "brier_ge25_climatology": 0.0871421
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 1300
+     }
+    },
+    "3": {
+     "n": 6370,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-05"
+     ],
+     "events_ge25": 879,
+     "mse_log1p": {
+      "panel_baseline": 0.555076,
+      "views": 0.600066,
+      "relative_improvement_vs_views": 0.0749743,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0288524,
+       0.176905
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.034305,
+      "views": 0.0361917,
+      "relative_improvement_vs_views": 0.052129,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.00761393,
+       0.10189
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.19289,
+      "mse_log1p_zero_forecast": 4.23995,
+      "mse_log1p_persistence": 0.727674,
+      "brier_ge25_climatology": 0.0876361
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 1040
+     }
+    },
+    "6": {
+     "n": 5980,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-02"
+     ],
+     "events_ge25": 832,
+     "mse_log1p": {
+      "panel_baseline": 0.639596,
+      "views": 0.7369,
+      "relative_improvement_vs_views": 0.132046,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0109024,
+       0.226707
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0377379,
+      "views": 0.039515,
+      "relative_improvement_vs_views": 0.0449744,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0432402,
+       0.105488
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.24487,
+      "mse_log1p_zero_forecast": 4.31294,
+      "mse_log1p_persistence": 0.820453,
+      "brier_ge25_climatology": 0.089802
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 650
+     }
+    },
+    "12": {
+     "n": 5200,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2025-08"
+     ],
+     "events_ge25": 724,
+     "mse_log1p": {
+      "panel_baseline": 0.804995,
+      "views": 0.894226,
+      "relative_improvement_vs_views": 0.099786,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0372714,
+       0.208827
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0431523,
+      "views": 0.0445853,
+      "relative_improvement_vs_views": 0.0321409,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0575696,
+       0.105458
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.30624,
+      "mse_log1p_zero_forecast": 4.33222,
+      "mse_log1p_persistence": 0.934063,
+      "brier_ge25_climatology": 0.0907078
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3770
+     }
+    }
+   },
+   "views_aggregation": {
+    "all": {
+     "n": 24180,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 3359,
+     "mse_log1p": {
+      "panel_baseline": 0.602459,
+      "views": 0.661598,
+      "relative_improvement_vs_views": 0.0893873,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.00840964,
+       0.183388
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0354743,
+      "views": 0.0372199,
+      "relative_improvement_vs_views": 0.0468981,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0237089,
+       0.0964416
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.25143,
+      "mse_log1p_zero_forecast": 4.33617,
+      "mse_log1p_persistence": 0.760365,
+      "brier_ge25_climatology": 0.0889837
+     },
+     "views_by_family": {
+      "fatalities001": 5720,
+      "fatalities002": 15470,
+      "fatalities003": 2990
+     }
+    },
+    "1": {
+     "n": 6630,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 912,
+     "mse_log1p": {
+      "panel_baseline": 0.438981,
+      "views": 0.462484,
+      "relative_improvement_vs_views": 0.0508198,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0410341,
+       0.141321
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0302355,
+      "views": 0.0323974,
+      "relative_improvement_vs_views": 0.0667284,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.00557153,
+       0.11435
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.18301,
+      "mse_log1p_zero_forecast": 4.26218,
+      "mse_log1p_persistence": 0.587,
+      "brier_ge25_climatology": 0.0873117
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 1300
+     }
+    },
+    "3": {
+     "n": 6370,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-05"
+     ],
+     "events_ge25": 883,
+     "mse_log1p": {
+      "panel_baseline": 0.554702,
+      "views": 0.596673,
+      "relative_improvement_vs_views": 0.0703421,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0365591,
+       0.176016
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0333307,
+      "views": 0.0347329,
+      "relative_improvement_vs_views": 0.0403708,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.023477,
+       0.0917069
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.21943,
+      "mse_log1p_zero_forecast": 4.30443,
+      "mse_log1p_persistence": 0.724304,
+      "brier_ge25_climatology": 0.0879281
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 1040
+     }
+    },
+    "6": {
+     "n": 5980,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-02"
+     ],
+     "events_ge25": 836,
+     "mse_log1p": {
+      "panel_baseline": 0.662058,
+      "views": 0.754182,
+      "relative_improvement_vs_views": 0.122151,
+      "relative_improvement_95ci_country_bootstrap": [
+       5.02401e-05,
+       0.220272
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0372382,
+      "views": 0.0389577,
+      "relative_improvement_vs_views": 0.044136,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0497908,
+       0.106465
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.29569,
+      "mse_log1p_zero_forecast": 4.40834,
+      "mse_log1p_persistence": 0.844663,
+      "brier_ge25_climatology": 0.0901261
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3900,
+      "fatalities003": 650
+     }
+    },
+    "12": {
+     "n": 5200,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2025-08"
+     ],
+     "events_ge25": 728,
+     "mse_log1p": {
+      "panel_baseline": 0.800859,
+      "views": 0.888529,
+      "relative_improvement_vs_views": 0.0986682,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0406567,
+       0.206322
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0427513,
+      "views": 0.0444167,
+      "relative_improvement_vs_views": 0.037495,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0610097,
+       0.114888
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.32699,
+      "mse_log1p_zero_forecast": 4.38639,
+      "mse_log1p_persistence": 0.928637,
+      "brier_ge25_climatology": 0.0910947
+     },
+     "views_by_family": {
+      "fatalities001": 1430,
+      "fatalities002": 3770
+     }
+    }
+   }
+  }
+ },
+ "revised_data": {
+  "series": "sb (state-based fatalities, UCDP best estimate)",
+  "threshold": 25,
+  "rows_backtest": 26780,
+  "rows_matched": 26780,
+  "runs_used": [
+   "fatalities001_2021_12_t01",
+   "fatalities001_2022_01_t01",
+   "fatalities001_2022_02_t01",
+   "fatalities001_2022_03_t01",
+   "fatalities001_2022_04_t01",
+   "fatalities001_2022_05_t01",
+   "fatalities001_2022_06_t01",
+   "fatalities001_2022_07_t01",
+   "fatalities001_2022_08_t01",
+   "fatalities001_2022_09_t01",
+   "fatalities001_2022_10_t01",
+   "fatalities001_2022_11_t01",
+   "fatalities001_2022_12_t01",
+   "fatalities001_2023_01_t01",
+   "fatalities001_2023_02_t01",
+   "fatalities001_2023_03_t01",
+   "fatalities002_2023_04_t01",
+   "fatalities002_2023_05_t01",
+   "fatalities002_2023_06_t01",
+   "fatalities002_2023_07_t01",
+   "fatalities002_2023_08_t01",
+   "fatalities002_2023_09_t02",
+   "fatalities002_2023_10_t02",
+   "fatalities002_2023_11_t01",
+   "fatalities002_2023_12_t01",
+   "fatalities002_2024_01_t01",
+   "fatalities002_2024_02_t01",
+   "fatalities002_2024_03_t01",
+   "fatalities002_2024_04_t01",
+   "fatalities002_2024_05_t01",
+   "fatalities002_2024_06_t01",
+   "fatalities002_2024_07_t01",
+   "fatalities002_2024_08_t01",
+   "fatalities002_2024_09_t01",
+   "fatalities002_2024_10_t01",
+   "fatalities002_2024_11_t01",
+   "fatalities002_2024_12_t01",
+   "fatalities002_2025_01_t01",
+   "fatalities002_2025_02_t01",
+   "fatalities002_2025_03_t01",
+   "fatalities002_2025_04_t01",
+   "fatalities002_2025_05_t01",
+   "fatalities002_2025_06_t01",
+   "fatalities002_2025_07_t01",
+   "fatalities002_2025_08_t01",
+   "fatalities002_2025_09_t01",
+   "fatalities003_2025_10_t01",
+   "fatalities003_2025_11_t01",
+   "fatalities003_2025_12_t01",
+   "fatalities003_2026_01_t01",
+   "fatalities003_2026_02_t01",
+   "fatalities003_2026_03_t01",
+   "fatalities003_2026_04_t01",
+   "fatalities003_2026_05_t01",
+   "fatalities003_2026_06_t01",
+   "fatalities003_2026_07_t01"
+  ],
+  "results": {
+   "ucdp_panel": {
+    "all": {
+     "n": 26780,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 3648,
+     "mse_log1p": {
+      "panel_baseline": 0.562869,
+      "views": 0.670949,
+      "relative_improvement_vs_views": 0.161086,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0653365,
+       0.253953
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0352712,
+      "views": 0.0374962,
+      "relative_improvement_vs_views": 0.0593393,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0153725,
+       0.11443
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.19051,
+      "mse_log1p_zero_forecast": 4.21296,
+      "mse_log1p_persistence": 0.704008,
+      "brier_ge25_climatology": 0.0876004
+     },
+     "views_by_family": {
+      "fatalities001": 8320,
+      "fatalities002": 15470,
+      "fatalities003": 2990
+     }
+    },
+    "1": {
+     "n": 7280,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 987,
+     "mse_log1p": {
+      "panel_baseline": 0.412853,
+      "views": 0.496245,
+      "relative_improvement_vs_views": 0.168046,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0918362,
+       0.253825
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.029818,
+      "views": 0.032902,
+      "relative_improvement_vs_views": 0.0937333,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.017668,
+       0.154594
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.14038,
+      "mse_log1p_zero_forecast": 4.16802,
+      "mse_log1p_persistence": 0.536934,
+      "brier_ge25_climatology": 0.0862498
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 1300
+     }
+    },
+    "3": {
+     "n": 7020,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-05"
+     ],
+     "events_ge25": 954,
+     "mse_log1p": {
+      "panel_baseline": 0.513955,
+      "views": 0.604277,
+      "relative_improvement_vs_views": 0.14947,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0570706,
+       0.247226
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0331857,
+      "views": 0.0356136,
+      "relative_improvement_vs_views": 0.0681731,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.00643866,
+       0.124014
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.16365,
+      "mse_log1p_zero_forecast": 4.18718,
+      "mse_log1p_persistence": 0.664333,
+      "brier_ge25_climatology": 0.0868083
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 1040
+     }
+    },
+    "6": {
+     "n": 6630,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-02"
+     ],
+     "events_ge25": 902,
+     "mse_log1p": {
+      "panel_baseline": 0.598431,
+      "views": 0.733041,
+      "relative_improvement_vs_views": 0.183633,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0561026,
+       0.295147
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0367031,
+      "views": 0.0381369,
+      "relative_improvement_vs_views": 0.0375976,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0553561,
+       0.103377
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.19953,
+      "mse_log1p_zero_forecast": 4.22224,
+      "mse_log1p_persistence": 0.759211,
+      "brier_ge25_climatology": 0.0878172
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 650
+     }
+    },
+    "12": {
+     "n": 5850,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2025-08"
+     ],
+     "events_ge25": 805,
+     "mse_log1p": {
+      "panel_baseline": 0.767947,
+      "views": 0.897994,
+      "relative_improvement_vs_views": 0.14482,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.00404884,
+       0.258614
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0429371,
+      "views": 0.0447463,
+      "relative_improvement_vs_views": 0.0404317,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0515087,
+       0.11382
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.2749,
+      "mse_log1p_zero_forecast": 4.28932,
+      "mse_log1p_persistence": 0.89697,
+      "brier_ge25_climatology": 0.0899859
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3770
+     }
+    }
+   },
+   "views_aggregation": {
+    "all": {
+     "n": 26780,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 3663,
+     "mse_log1p": {
+      "panel_baseline": 0.561519,
+      "views": 0.675805,
+      "relative_improvement_vs_views": 0.169111,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0775682,
+       0.256656
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0345537,
+      "views": 0.0367142,
+      "relative_improvement_vs_views": 0.0588485,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0214884,
+       0.114434
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.22919,
+      "mse_log1p_zero_forecast": 4.2913,
+      "mse_log1p_persistence": 0.698154,
+      "brier_ge25_climatology": 0.087859
+     },
+     "views_by_family": {
+      "fatalities001": 8320,
+      "fatalities002": 15470,
+      "fatalities003": 2990
+     }
+    },
+    "1": {
+     "n": 7280,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-07"
+     ],
+     "events_ge25": 990,
+     "mse_log1p": {
+      "panel_baseline": 0.391392,
+      "views": 0.488929,
+      "relative_improvement_vs_views": 0.199492,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.122733,
+       0.278889
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.028854,
+      "views": 0.0318803,
+      "relative_improvement_vs_views": 0.0949275,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.021603,
+       0.156175
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.17906,
+      "mse_log1p_zero_forecast": 4.2458,
+      "mse_log1p_persistence": 0.504487,
+      "brier_ge25_climatology": 0.0864004
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 1300
+     }
+    },
+    "3": {
+     "n": 7020,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-05"
+     ],
+     "events_ge25": 958,
+     "mse_log1p": {
+      "panel_baseline": 0.515029,
+      "views": 0.61531,
+      "relative_improvement_vs_views": 0.162977,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0752749,
+       0.251348
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0322177,
+      "views": 0.0342899,
+      "relative_improvement_vs_views": 0.0604329,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0157613,
+       0.118465
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.208,
+      "mse_log1p_zero_forecast": 4.27381,
+      "mse_log1p_persistence": 0.656719,
+      "brier_ge25_climatology": 0.0870733
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 1040
+     }
+    },
+    "6": {
+     "n": 6630,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2026-02"
+     ],
+     "events_ge25": 906,
+     "mse_log1p": {
+      "panel_baseline": 0.609141,
+      "views": 0.745074,
+      "relative_improvement_vs_views": 0.182443,
+      "relative_improvement_95ci_country_bootstrap": [
+       0.0593964,
+       0.292333
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0361532,
+      "views": 0.0376342,
+      "relative_improvement_vs_views": 0.0393521,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0632889,
+       0.105846
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.24308,
+      "mse_log1p_zero_forecast": 4.30691,
+      "mse_log1p_persistence": 0.773736,
+      "brier_ge25_climatology": 0.0881081
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3900,
+      "fatalities003": 650
+     }
+    },
+    "12": {
+     "n": 5850,
+     "countries": 130,
+     "origins": [
+      "2021-12",
+      "2025-08"
+     ],
+     "events_ge25": 809,
+     "mse_log1p": {
+      "panel_baseline": 0.775047,
+      "views": 0.902449,
+      "relative_improvement_vs_views": 0.141173,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.00537832,
+       0.256254
+      ]
+     },
+     "brier_ge25": {
+      "panel_baseline": 0.0426369,
+      "views": 0.0445964,
+      "relative_improvement_vs_views": 0.0439369,
+      "relative_improvement_95ci_country_bootstrap": [
+       -0.0547782,
+       0.121236
+      ]
+     },
+     "reference": {
+      "mse_log1p_climatology": 2.30126,
+      "mse_log1p_zero_forecast": 4.35121,
+      "mse_log1p_persistence": 0.903223,
+      "brier_ge25_climatology": 0.0903345
+     },
+     "views_by_family": {
+      "fatalities001": 2080,
+      "fatalities002": 3770
+     }
+    }
+   }
+  }
+ },
+ "asof_origins_skipped": [
+  {
+   "origin": "2022-06",
+   "reason": "as-of data do not reach the origin"
+  },
+  {
+   "origin": "2022-07",
+   "reason": "as-of data do not reach the origin"
+  },
+  {
+   "origin": "2022-08",
+   "reason": "as-of data do not reach the origin"
+  },
+  {
+   "origin": "2022-09",
+   "reason": "as-of data do not reach the origin"
+  },
+  {
+   "origin": "2022-10",
+   "reason": "as-of data do not reach the origin"
+  }
+ ],
+ "asof_data_releases_by_origin": {
+  "2021-12": {
+   "cutoff": "2022-01-31",
+   "releases": [
+    "21.1",
+    "21.01.21.12"
+   ]
+  },
+  "2022-01": {
+   "cutoff": "2022-02-28",
+   "releases": [
+    "21.1",
+    "21.01.21.12",
+    "22.0.1"
+   ]
+  },
+  "2022-02": {
+   "cutoff": "2022-03-31",
+   "releases": [
+    "21.1",
+    "21.01.21.12",
+    "22.0.1",
+    "22.0.2"
+   ]
+  },
+  "2022-03": {
+   "cutoff": "2022-04-30",
+   "releases": [
+    "21.1",
+    "21.01.21.12",
+    "22.01.22.03"
+   ]
+  },
+  "2022-04": {
+   "cutoff": "2022-05-31",
+   "releases": [
+    "22.1",
+    "22.01.22.03",
+    "22.0.4"
+   ]
+  },
+  "2022-05": {
+   "cutoff": "2022-06-30",
+   "releases": [
+    "22.1",
+    "22.01.22.03",
+    "22.0.4",
+    "22.0.5"
+   ]
+  },
+  "2022-11": {
+   "cutoff": "2022-12-31",
+   "releases": [
+    "22.1",
+    "22.01.22.09",
+    "22.0.10",
+    "22.0.11"
+   ]
+  },
+  "2022-12": {
+   "cutoff": "2023-01-31",
+   "releases": [
+    "22.1",
+    "22.01.22.12"
+   ]
+  },
+  "2023-01": {
+   "cutoff": "2023-02-28",
+   "releases": [
+    "22.1",
+    "22.01.22.12",
+    "23.0.1"
+   ]
+  },
+  "2023-02": {
+   "cutoff": "2023-03-31",
+   "releases": [
+    "22.1",
+    "22.01.22.12",
+    "23.0.1",
+    "23.0.2"
+   ]
+  },
+  "2023-03": {
+   "cutoff": "2023-04-30",
+   "releases": [
+    "22.1",
+    "22.01.22.12",
+    "23.0.1",
+    "23.0.2",
+    "23.0.3"
+   ]
+  },
+  "2023-04": {
+   "cutoff": "2023-05-31",
+   "releases": [
+    "22.1",
+    "22.01.22.12",
+    "23.0.1",
+    "23.0.2",
+    "23.0.3",
+    "23.0.4"
+   ]
+  },
+  "2023-05": {
+   "cutoff": "2023-06-30",
+   "releases": [
+    "23.1",
+    "23.0.1",
+    "23.0.2",
+    "23.0.3",
+    "23.0.4",
+    "23.0.5"
+   ]
+  },
+  "2023-06": {
+   "cutoff": "2023-07-31",
+   "releases": [
+    "23.1",
+    "23.01.23.06"
+   ]
+  },
+  "2023-07": {
+   "cutoff": "2023-08-31",
+   "releases": [
+    "23.1",
+    "23.01.23.06",
+    "23.0.7"
+   ]
+  },
+  "2023-08": {
+   "cutoff": "2023-09-30",
+   "releases": [
+    "23.1",
+    "23.01.23.06",
+    "23.0.7",
+    "23.0.8"
+   ]
+  },
+  "2023-09": {
+   "cutoff": "2023-10-31",
+   "releases": [
+    "23.1",
+    "23.01.23.06",
+    "23.0.7",
+    "23.0.8",
+    "23.0.9"
+   ]
+  },
+  "2023-10": {
+   "cutoff": "2023-11-30",
+   "releases": [
+    "23.1",
+    "23.01.23.09",
+    "23.0.10"
+   ]
+  },
+  "2023-11": {
+   "cutoff": "2023-12-31",
+   "releases": [
+    "23.1",
+    "23.01.23.09",
+    "23.0.10",
+    "23.0.11"
+   ]
+  },
+  "2023-12": {
+   "cutoff": "2024-01-31",
+   "releases": [
+    "23.1",
+    "23.01.23.12"
+   ]
+  },
+  "2024-01": {
+   "cutoff": "2024-02-29",
+   "releases": [
+    "23.1",
+    "23.01.23.12",
+    "24.0.1"
+   ]
+  },
+  "2024-02": {
+   "cutoff": "2024-03-31",
+   "releases": [
+    "23.1",
+    "23.01.23.12",
+    "24.0.1",
+    "24.0.2"
+   ]
+  },
+  "2024-03": {
+   "cutoff": "2024-04-30",
+   "releases": [
+    "23.1",
+    "23.01.23.12",
+    "24.01.24.03"
+   ]
+  },
+  "2024-04": {
+   "cutoff": "2024-05-31",
+   "releases": [
+    "24.1",
+    "24.01.24.03",
+    "24.0.4"
+   ]
+  },
+  "2024-05": {
+   "cutoff": "2024-06-30",
+   "releases": [
+    "24.1",
+    "24.01.24.03",
+    "24.0.4",
+    "24.0.5"
+   ]
+  },
+  "2024-06": {
+   "cutoff": "2024-07-31",
+   "releases": [
+    "24.1",
+    "24.01.24.06"
+   ]
+  },
+  "2024-07": {
+   "cutoff": "2024-08-31",
+   "releases": [
+    "24.1",
+    "24.01.24.06",
+    "24.0.7"
+   ]
+  },
+  "2024-08": {
+   "cutoff": "2024-09-30",
+   "releases": [
+    "24.1",
+    "24.01.24.06",
+    "24.0.7",
+    "24.0.8"
+   ]
+  },
+  "2024-09": {
+   "cutoff": "2024-10-31",
+   "releases": [
+    "24.1",
+    "24.01.24.09"
+   ]
+  },
+  "2024-10": {
+   "cutoff": "2024-11-30",
+   "releases": [
+    "24.1",
+    "24.01.24.09",
+    "24.0.10"
+   ]
+  },
+  "2024-11": {
+   "cutoff": "2024-12-31",
+   "releases": [
+    "24.1",
+    "24.01.24.09",
+    "24.0.10",
+    "24.0.11"
+   ]
+  },
+  "2024-12": {
+   "cutoff": "2025-01-31",
+   "releases": [
+    "24.1",
+    "24.01.24.12"
+   ]
+  },
+  "2025-01": {
+   "cutoff": "2025-02-28",
+   "releases": [
+    "24.1",
+    "24.01.24.12",
+    "25.0.1"
+   ]
+  },
+  "2025-02": {
+   "cutoff": "2025-03-31",
+   "releases": [
+    "24.1",
+    "24.01.24.12",
+    "25.0.1",
+    "25.0.2"
+   ]
+  },
+  "2025-03": {
+   "cutoff": "2025-04-30",
+   "releases": [
+    "24.1",
+    "24.01.24.12",
+    "25.0.1",
+    "25.0.2",
+    "25.0.3"
+   ]
+  },
+  "2025-04": {
+   "cutoff": "2025-05-31",
+   "releases": [
+    "24.1",
+    "24.01.24.12",
+    "25.01.25.03",
+    "25.0.4"
+   ]
+  },
+  "2025-05": {
+   "cutoff": "2025-06-30",
+   "releases": [
+    "25.1",
+    "25.01.25.03",
+    "25.0.4",
+    "25.0.5"
+   ]
+  },
+  "2025-06": {
+   "cutoff": "2025-07-31",
+   "releases": [
+    "25.1",
+    "25.01.25.06"
+   ]
+  },
+  "2025-07": {
+   "cutoff": "2025-08-31",
+   "releases": [
+    "25.1",
+    "25.01.25.06",
+    "25.0.7"
+   ]
+  },
+  "2025-08": {
+   "cutoff": "2025-09-30",
+   "releases": [
+    "25.1",
+    "25.01.25.06",
+    "25.0.7",
+    "25.0.8"
+   ]
+  },
+  "2025-09": {
+   "cutoff": "2025-10-31",
+   "releases": [
+    "25.1",
+    "25.01.25.09"
+   ]
+  },
+  "2025-10": {
+   "cutoff": "2025-11-30",
+   "releases": [
+    "25.1",
+    "25.01.25.09",
+    "25.0.10"
+   ]
+  },
+  "2025-11": {
+   "cutoff": "2025-12-31",
+   "releases": [
+    "25.1",
+    "25.01.25.09",
+    "25.0.10",
+    "25.0.11"
+   ]
+  },
+  "2025-12": {
+   "cutoff": "2026-01-31",
+   "releases": [
+    "25.1",
+    "25.01.25.12"
+   ]
+  },
+  "2026-01": {
+   "cutoff": "2026-02-28",
+   "releases": [
+    "25.1",
+    "25.01.25.12",
+    "26.0.1"
+   ]
+  },
+  "2026-02": {
+   "cutoff": "2026-03-31",
+   "releases": [
+    "25.1",
+    "25.01.25.12",
+    "26.0.1",
+    "26.0.2"
+   ]
+  },
+  "2026-03": {
+   "cutoff": "2026-04-30",
+   "releases": [
+    "25.1",
+    "25.01.25.12",
+    "26.01.26.03"
+   ]
+  },
+  "2026-04": {
+   "cutoff": "2026-05-31",
+   "releases": [
+    "25.1",
+    "25.01.25.12",
+    "26.01.26.03",
+    "26.0.4"
+   ]
+  },
+  "2026-05": {
+   "cutoff": "2026-06-30",
+   "releases": [
+    "26.1",
+    "26.01.26.03",
+    "26.0.4",
+    "26.0.5"
+   ]
+  },
+  "2026-06": {
+   "cutoff": "2026-07-31",
+   "releases": [
+    "26.1",
+    "26.01.26.06"
+   ]
+  },
+  "2026-07": {
+   "cutoff": "2026-08-31",
+   "releases": [
+    "26.1",
+    "26.01.26.06",
+    "26.0.7"
+   ]
+  }
+ },
+ "vintage_effect_on_panel_baseline": {
+  "all": {
+   "n": 24180,
+   "revised_data": {
+    "mse_log1p": 0.555107,
+    "brier_ge1": 0.0409021,
+    "brier_ge25": 0.0352996
+   },
+   "asof_data": {
+    "mse_log1p": 0.601574,
+    "brier_ge1": 0.0468538,
+    "brier_ge25": 0.0361882
+   }
+  },
+  "1": {
+   "n": 6630,
+   "revised_data": {
+    "mse_log1p": 0.402515,
+    "brier_ge1": 0.0365823,
+    "brier_ge25": 0.0298337
+   },
+   "asof_data": {
+    "mse_log1p": 0.45241,
+    "brier_ge1": 0.04375,
+    "brier_ge25": 0.0311378
+   }
+  },
+  "3": {
+   "n": 6370,
+   "revised_data": {
+    "mse_log1p": 0.509901,
+    "brier_ge1": 0.0393392,
+    "brier_ge25": 0.0333649
+   },
+   "asof_data": {
+    "mse_log1p": 0.555076,
+    "brier_ge1": 0.045334,
+    "brier_ge25": 0.034305
+   }
+  },
+  "6": {
+   "n": 5980,
+   "revised_data": {
+    "mse_log1p": 0.595219,
+    "brier_ge1": 0.0422445,
+    "brier_ge25": 0.0372713
+   },
+   "asof_data": {
+    "mse_log1p": 0.639596,
+    "brier_ge1": 0.0475417,
+    "brier_ge25": 0.0377379
+   }
+  },
+  "12": {
+   "n": 5200,
+   "revised_data": {
+    "mse_log1p": 0.758912,
+    "brier_ge1": 0.0467806,
+    "brier_ge25": 0.0423712
+   },
+   "asof_data": {
+    "mse_log1p": 0.804995,
+    "brier_ge1": 0.0518816,
+    "brier_ge25": 0.0431523
+   }
+  }
+ },
+ "raw_responses": "views/raw_manifest.json",
+ "data_vintage": {
+  "last_month": "2026-08",
+  "built_at": "2026-10-03T10:12:01+00:00",
+  "candidate_status_policy": "all",
+  "releases": [
+   {
+    "first_month": "1989-01",
+    "kind": "ged_final",
+    "last_month": "2025-12",
+    "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667",
+    "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
+    "version": "26.1"
+   },
+   {
+    "first_month": "2026-01",
+    "kind": "candidate_cumulative",
+    "last_month": "2026-06",
+    "sha256": "68dd3d363b8edf4808bd6bf6f5d0412c3c722ffb1db367aeb8eff48bab80589a",
+    "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_06.csv",
+    "version": "26.01.26.06"
+   },
+   {
+    "first_month": "2026-07",
+    "kind": "candidate_monthly",
+    "last_month": "2026-07",
+    "sha256": "9fc2c6dd85eee91845512e8ef1055281d9fd028fb98748a6f2a27c6e8aa8c562",
+    "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_7.csv",
+    "version": "26.0.7"
+   },
+   {
+    "first_month": "2026-08",
+    "kind": "candidate_monthly",
+    "last_month": "2026-08",
+    "sha256": "2ad6e0b2bfdbaa31873716a3455096923a8539519d69d96aeeea2d0f44a34593",
+    "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_8.csv",
+    "version": "26.0.8"
+   }
+  ]
+ },
+ "code": {
+  "model_version": "conflict_panel_v1",
+  "application_version": "0.3.1",
+  "git_commit": "463ba69bf780b23cbb3440b25dc6a11c7056d6c1",
+  "working_tree_dirty": true,
+  "conflict_package_sha256": "07fffcde12f1db3a72c9405b2683061a6fb9f38329fc7f4f32a55d95593293e5",
+  "numpy_version": "2.5.3",
+  "python_version": "3.13.14"
+ },
+ "panel_config": {
+  "series": "sb",
+  "thresholds": [
+   1,
+   25,
+   100
+  ],
+  "horizons": [
+   1,
+   3,
+   6,
+   12
+  ],
+  "train_start": "1990-12",
+  "l2": 1.0,
+  "bin_atoms": 20,
+  "climatology_atoms": 61,
+  "climatology_prior": 0.5,
+  "model_version": "conflict_panel_v1",
+  "features": [
+   "log1p_fatalities_1m",
+   "log1p_fatalities_3m",
+   "log1p_fatalities_6m",
+   "log1p_fatalities_12m",
+   "log1p_fatalities_24m",
+   "log1p_months_since_fatality",
+   "share_violent_months_12m",
+   "region_mean_log1p_fatalities_12m",
+   "global_share_violent_months_12m"
+  ]
+ }
+}

@@ -23,6 +23,8 @@ apps/web/blob-report/
 
 # Local data and secrets
 data/local/
+# Downloaded public datasets (UCDP GED for the conflict panel); fetched at runtime, never committed
+data/cache/
 data/*.db
 data/*.db-journal
 data/*.db-wal
