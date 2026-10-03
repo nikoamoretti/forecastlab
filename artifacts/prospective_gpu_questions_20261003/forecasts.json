@@ -1,0 +1,381 @@
+{
+  "created_at": "2026-10-03",
+  "model": "openai gpt-5-mini",
+  "note": "General binary questions from docs/research/gpu_scouting_questions_2026-10.json. Not a frozen prospective cohort: each method ran once on 2026-10-03 against the same approved contract. Outcomes must be recorded from the named resolution source after the resolution date.",
+  "questions": [
+    {
+      "approved_contract": {
+        "ambiguity_notes": "1) 'SUPER' matching: treat case-insensitive substring match of the contiguous letters S-U-P-E-R within the official product name as shown in the NVIDIA post. Hyphenation or punctuation adjacent to 'SUPER' (e.g., 'RTX 50-SUPER' or 'SUPER-RTX') counts if the substring appears contiguous. 2) 'Desktop' excludes laptop/mobile-only SKUs; the product must be presented as a desktop GeForce SKU in the NVIDIA post. 3) 'US price or MSRP' requires an explicit price stated in US dollars (e.g., '$499' or 'MSRP: US$499'); prices given only in other currencies, or only vague statements such as 'starting at XX' without currency/US designation, do not meet the requirement. 4) 'Official NVIDIA keynote backed by such a post' means the keynote alone does not suffice unless the keynote is accompanied by a qualifying post on one of the two specified sites within the date window. 5) Time zones and dates: the contract treats the inclusive calendar window using the publish date shown on the authoritative page; if time-of-day is shown, convert to UTC and apply the inclusive window 2026-10-03T00:00:00Z through 2027-01-31T23:59:59Z. 6) If NVIDIA issues region-specific versions of a post where the US site lacks price info but another region's NVIDIA site includes USD pricing, only the content of the specified US NVIDIA pages counts unless the US page explicitly links to/contains the USD MSRP.",
+        "authoritative_source": "Primary resolver: NVIDIA Newsroom (https://nvidianews.nvidia.com/) and NVIDIA GeForce News (https://www.nvidia.com/en-us/geforce/news/). For keynotes, the authoritative evidence is the qualifying post on one of those two sites that explicitly documents the keynote and the product naming/pricing.",
+        "cancellation_conditions": "This contract may be canceled if NVIDIA permanently decommissions both authoritative sources (NVIDIA Newsroom and NVIDIA GeForce News) and no archival captures (Wayback or other verified archives) exist to determine what was published during the window; or if the questioner requests cancellation or materially changes the question wording before resolution. Cancellation also applies if the user-provided resolution window or authoritative sources are demonstrably incorrect and the parties agree cancellation is appropriate.",
+        "created_at": "2026-10-03T11:24:49.867021Z",
+        "created_by": "user",
+        "domain": "consumer GPU hardware / product announcements (NVIDIA GeForce desktop GPUs)",
+        "fallback_sources": [
+          "Internet Archive (Wayback) capture(s) of the specific NVIDIA Newsroom or NVIDIA GeForce News page(s) that would contain the announcement, in chronological order of capture if multiple",
+          "Official NVIDIA YouTube channel or NVIDIA event page only if the NVIDIA page or video is explicitly referenced/linked from a qualifying NVIDIA Newsroom or GeForce News post (used solely to corroborate timing/content, not as primary)",
+          "Archived press materials distributed by NVIDIA corporate communications (if publicly archived) that mirror the Newsroom/GeForce post"
+        ],
+        "forecast_type": "binary",
+        "geography": "United States (price requirement: US dollars/MSRP in USD)",
+        "id": "3f47f414-f537-43f0-9d9d-85c33b1f1e25",
+        "initial_reference_class": "Historical NVIDIA GeForce product announcements and naming changes (e.g., prior RTX 20/30/40-series 'SUPER' or otherwise mid-cycle refresh announcements) and NVIDIA press release behavior for consumer GPU launches",
+        "known_dependencies": [
+          "NVIDIA corporate communications schedule and methods",
+          "Availability and archival stability of the NVIDIA Newsroom and NVIDIA GeForce News websites",
+          "Public presentation schedule (keynotes, virtual events) where NVIDIA might choose to announce products",
+          "Currency conventions and MSRP disclosure policies used by NVIDIA"
+        ],
+        "no_condition": "No post meeting the yes_condition exists on the NVIDIA Newsroom or NVIDIA GeForce News between 2026-10-03T00:00:00Z and 2027-01-31T23:59:59Z inclusive, and there is no official NVIDIA keynote within that window that is accompanied by a post on one of those two sites that meets the yes_condition. Announcements that only appear as leaks, partner listings, retailer listings, media reports, social posts without a qualifying post on the specified NVIDIA sites, or that omit an explicit US price/MSRP in USD for a 'SUPER' SKU do NOT satisfy the yes_condition and therefore contribute to a NO outcome.",
+        "normalized_question": "Will NVIDIA officially announce, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card that has the substring 'SUPER' in its product name and the announcement includes a US price or MSRP, where the announcement is published on the NVIDIA Newsroom (https://nvidianews.nvidia.com/), NVIDIA GeForce News (https://www.nvidia.com/en-us/geforce/news/), or is an official NVIDIA keynote that is accompanied by a post on one of those two sites?",
+        "original_question": "Will NVIDIA officially announce at least one GeForce RTX 50 'SUPER' desktop graphics card with a US price between 2026-10-03 and 2027-01-31? Resolution: YES if NVIDIA announces, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card with 'SUPER' in its name, together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom, NVIDIA GeForce News, or an official NVIDIA keynote backed by such a post. Leaks, partner listings, retailer listings and media reports do not count. Otherwise NO. Source: NVIDIA Newsroom \u2014 https://nvidianews.nvidia.com/ ; NVIDIA GeForce News \u2014 https://www.nvidia.com/en-us/geforce/news/ Resolution date: 2027-01-31.",
+        "question_id": "a07e1652-f36c-4f09-9785-ed9a531f05cb",
+        "resolution_date": "2027-01-31T23:59:59Z",
+        "resolution_method": "Check the specified authoritative sites for posts published with a visible publish date between 2026-10-03 and 2027-01-31 inclusive. A qualifying post must (1) explicitly name at least one desktop GeForce RTX 50-series product whose official product name as shown in the post contains the substring 'SUPER' (case-insensitive) and (2) include an explicit US price or explicit MSRP in US dollars for at least one such 'SUPER' SKU in the same post. If a keynote is the origin of the announcement, require that one of the two specified sites publishes a backing post within the window that satisfies (1) and (2). If such a qualifying post is found, resolve YES. If no qualifying post is found on those sites within the window, resolve NO. For date comparisons, use the publish date shown on the authoritative site; if only a calendar date is shown, treat that calendar date (in UTC) for inclusion in the window. If a post is subsequently edited after publication, use the content as it appeared in the authoritative source as of the publish date; if necessary, use archived captures to determine original text.",
+        "resolver_risk_notes": "Risks include: (1) NVIDIA editing or deleting qualifying posts after initial publication\u2014use archived snapshots to verify original content if available; (2) regional variations where US site content differs from other NVIDIA regional sites; (3) ambiguity over whether a named product is a desktop vs. mobile SKU\u2014rely on the product description in the NVIDIA post; (4) price formatting or phrasing that might not explicitly state 'MSRP' but uses 'US$' or '$'\u2014only explicit US dollar pricing or 'MSRP' in USD will count; (5) reliance on third-party reporting is disallowed; thus verifying the post on the specified NVIDIA sites is essential.",
+        "status": "approved",
+        "suggested_drivers": [
+          "NVIDIA product refresh cycle and roadmap for RTX 50-series",
+          "Competitive pressure from AMD/Intel desktop GPU releases",
+          "Retail pricing strategy and MSRP decisions",
+          "NVIDIA marketing/naming strategy (use of 'SUPER' suffix)",
+          "Macro factors affecting component costs (silicon, memory) and US pricing"
+        ],
+        "units": "US dollars (USD) for price/MSRP",
+        "version": 1,
+        "yes_condition": "Between 2026-10-03T00:00:00Z and 2027-01-31T23:59:59Z inclusive, NVIDIA publishes on the NVIDIA Newsroom (https://nvidianews.nvidia.com/) OR NVIDIA GeForce News (https://www.nvidia.com/en-us/geforce/news/) a press release or news post that (a) names at least one desktop GeForce RTX 50-series product whose official product name as shown in the post contains the substring 'SUPER' (case-insensitive), and (b) in that same post provides an explicit United States price or an explicit MSRP stated in US dollars for at least one of those 'SUPER' product SKUs; OR NVIDIA delivers an official NVIDIA keynote within the same date window and that keynote is explicitly backed by a post on one of the two specified NVIDIA sites that satisfies (a) and (b). If such a post exists on the specified site(s) within the window, the contract resolves to YES."
+      },
+      "forecasts": [
+        {
+          "created_at": "2026-10-03T11:28:15.555485",
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "ad28b57a-df53-4fd9-bf13-0db8c39555e9",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:36:27.115933",
+          "method": "single_model_forecaster_v1",
+          "probability": 0.2,
+          "run_id": "009e382b-ead8-49c8-8647-2c87ad84fc70",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:40:17.306740",
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.06544998825094323,
+          "run_id": "af4425ba-501e-468d-ac6f-753cccb2d821",
+          "status": "completed"
+        }
+      ],
+      "id": "gpu-q04-nvidia-rtx50-super-announced",
+      "outcome": null,
+      "question": "Will NVIDIA officially announce at least one GeForce RTX 50 'SUPER' desktop graphics card with a US price between 2026-10-03 and 2027-01-31?",
+      "resolution_criteria": "YES if NVIDIA announces, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card with 'SUPER' in its name, together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom, NVIDIA GeForce News, or an official NVIDIA keynote backed by such a post. Leaks, partner listings, retailer listings and media reports do not count. Otherwise NO.",
+      "resolution_date": "2027-01-31",
+      "resolution_source": "NVIDIA Newsroom \u2014 https://nvidianews.nvidia.com/ ; NVIDIA GeForce News \u2014 https://www.nvidia.com/en-us/geforce/news/",
+      "root_withheld_gaps": null
+    },
+    {
+      "approved_contract": {
+        "ambiguity_notes": "Definitions and assumptions made for clarity: 'Moore Threads official social-media accounts' means accounts that are linked from Moore Threads' official website or are platform-verified accounts that Moore Threads publicly identifies as official. 'On sale' is interpreted to mean orders are being accepted from the general public with full or immediate payment and a stated price and shipping method/date; mere pre-order listings that do not accept full payment or only allow reservation/notification do not count. 'Consumer or gaming graphics card' excludes products explicitly described as enterprise/datacenter-only, OEM-only, development/engineering samples, or embedded modules. 'Purchasable at retail' in Tom's Hardware means the article explicitly states retail availability and is accompanied by a retailer link or explicit purchase/price/shipping details; an article speculating availability or stating only an upcoming pre-order does not meet the criterion. Time references are evaluated in UTC.",
+        "authoritative_source": "Primary authoritative sources: Moore Threads official website (https://www.mthreads.com/) and Moore Threads' official, verified social-media accounts (company-verified accounts such as those linked from the official website). Secondary authoritative source (equally accepted by the question): Tom's Hardware GPU news page (https://www.tomshardware.com/pc-components/gpus) and specific Tom's Hardware articles on that page.",
+        "cancellation_conditions": "This contract is void if the question is materially altered by the asker after publishing (e.g., different cutoff date, different sources) or if all potential authoritative sources (Moore Threads official site and the specified Tom's Hardware pages) are permanently and verifiably inaccessible with no archived records available, making resolution impossible. Routine deletions/removals that can be shown via archived captures do not cancel the contract.",
+        "created_at": "2026-10-03T11:25:12.778496Z",
+        "created_by": "user",
+        "domain": "computer hardware (consumer GPUs)",
+        "fallback_sources": [
+          "Internet Archive / Wayback Machine snapshots of Moore Threads website pages or social-media posts dated on or before the cutoff",
+          "Archived screenshots or timestamped captures of Moore Threads' official social-media posts (from verified accounts) if the original posts are deleted",
+          "Retailer product pages (major online retailers or manufacturer storefronts) that show a Lushan-based consumer card available for purchase with price, order button, and shipping details, captured with timestamps",
+          "Other reputable technology news outlets (e.g., AnandTech, The Verge) reporting availability and linking to purchase pages, in case Tom's Hardware item is unavailable"
+        ],
+        "forecast_type": "binary",
+        "geography": "Global (any country)",
+        "id": "9638397b-57d4-40ed-ab20-05be89687aa8",
+        "initial_reference_class": "Availability of consumer graphics cards from smaller/new GPU vendors (e.g., previous small GPU vendor launches and retail availability timelines), Moore Threads' prior product announcements and availability, and launches of comparable Chinese GPU vendors.",
+        "known_dependencies": [
+          "Moore Threads' internal product roadmap and business decisions to target consumer/gaming segment",
+          "Availability of retail channels willing to list and sell Moore Threads-based cards",
+          "Regulatory or export restrictions that could limit retail availability in some countries",
+          "Public clarity about which Moore Threads products are Lushan-based versus other architectures",
+          "Timely publication by Moore Threads or Tom's Hardware before the cutoff date"
+        ],
+        "no_condition": "By 2026-12-31T23:59:59Z, neither the Moore Threads official website nor Moore Threads' official, verified social-media accounts have posted an announcement fulfilling the 'yes' criteria (orders accepted with stated price and shipping) for a Lushan-based consumer/gaming card, AND Tom's Hardware has not published a report meeting the 'yes' criteria (explicitly reporting the card as purchasable at retail with supporting retailer link or explicit purchase/price/shipping details). Pre-orders or reservation sign-ups that do not accept full payment with shipping, engineering samples, OEM/enterprise-only products, or announcements that only state \"pre-order\" without accepted payment/shipping do not satisfy the 'yes' condition and therefore count toward 'no'.",
+        "normalized_question": "By 2026-12-31, will a consumer or gaming graphics card based on Moore Threads' 'Lushan' GPU be available for retail purchase in any country, as evidenced by an announcement on Moore Threads' official website or Moore Threads' official social-media accounts that the Lushan-based card is on sale (orders accepted with a stated price and shipping), or by Tom's Hardware reporting it as purchasable at retail by that date?",
+        "original_question": "Will a consumer graphics card based on Moore Threads' 'Lushan' GPU be available for retail purchase in any country by 2026-12-31? Resolution: YES if, by 2026-12-31, Moore Threads announces through its official website or official social-media accounts that a Lushan-based consumer or gaming graphics card is on sale (orders accepted with a stated price and shipping) to the general public. The same applies if Tom's Hardware reports it as purchasable at retail by that date. Pre-order or reservation sign-ups without shipping, engineering samples and enterprise-only products do not count. Otherwise NO. Source: Moore Threads official website \u2014 https://www.mthreads.com/ ; Tom's Hardware GPU news \u2014 https://www.tomshardware.com/pc-components/gpus Resolution date: 2026-12-31.",
+        "question_id": "1ba38769-6526-474a-9d3a-bd26deb51519",
+        "resolution_date": "2026-12-31T23:59:59Z",
+        "resolution_method": "Check Moore Threads' official website and any official, verified Moore Threads social-media accounts for a post or product page, dated on or before 2026-12-31T23:59:59Z (UTC), that announces a Lushan-based consumer/gaming graphics card is on sale and provides or links to a purchase mechanism which accepts orders/payments from the general public and shows a stated price and shipping method/date. If found, verify the post/account is an official/verified Moore Threads channel and that the product is not described as an engineering sample, OEM/enterprise-only, or \"notify me\" listing. If Moore Threads evidence is absent, check Tom's Hardware's GPU news section for an article dated on or before the cutoff that explicitly reports a Lushan-based consumer/gaming card is purchasable at retail, and verify the article either links to a retailer listing that accepts purchase/payment and shows shipping details, or explicitly states immediate retail availability including price/shipping. If an authoritative source item is deleted or no longer accessible, use archived captures (Wayback, archived screenshots) dated on or before the cutoff. If one of the authoritative sources meets the 'yes' criteria by the cutoff, the contract resolves YES; otherwise it resolves NO.",
+        "resolver_risk_notes": "Potential resolution risks include: difficulty verifying whether a social-media account is truly an official/verified Moore Threads channel if verification status is unclear on the platform; deletion or retroactive editing of posts after the cutoff date (archival captures should be used when available); ambiguous product naming or rebranding where a Lushan-based card is marketed under a different model name without explicit mention of 'Lushan'; paywalls or access restrictions on Tom's Hardware articles; retailer listings that accept payment but are fraudulent or not genuine Moore Threads products; regional product variants that are limited to specific markets but still count because the question allows 'any country'. Timestamp and time-zone interpretation risks are mitigated by using UTC cutoff.",
+        "status": "approved",
+        "suggested_drivers": [
+          "Moore Threads securing sufficient foundry/wafer supply and yields for Lushan",
+          "Completion and certification of consumer drivers and software support",
+          "Partnerships with add-in-board (AIB) partners and retailers for distribution",
+          "Pricing strategy and market demand for a non-Nvidia/AMD consumer GPU",
+          "Export controls or trade restrictions affecting sales outside China",
+          "Component supply-chain (memory, power delivery) availability",
+          "Successful manufacturing validation and QA enabling retail shipping"
+        ],
+        "units": null,
+        "version": 1,
+        "yes_condition": "By 2026-12-31T23:59:59Z, at least one of the following is true: (A) Moore Threads posts on its official website (https://www.mthreads.com/) or on an official, verified Moore Threads social-media account an announcement that a consumer or gaming graphics card based on the 'Lushan' GPU is \"on sale\" to the general public, where \"on sale\" means the announcement and/or linked purchase page accepts orders/payments from the general public with a stated purchase price and a stated shipping method/date (i.e., the seller will accept payment and arrange shipment to retail consumers), and the product is not limited to enterprise/OEM customers or labelled engineering sample; OR (B) Tom's Hardware publishes a report on its GPU news page (https://www.tomshardware.com/pc-components/gpus) that explicitly states a Lushan-based consumer or gaming graphics card is purchasable at retail as of that report's date and either (1) links to a retailer product page that accepts purchase/payment and provides shipping details, or (2) explicitly states that the card is available for immediate retail purchase with price/shipping information."
+      },
+      "forecasts": [
+        {
+          "created_at": "2026-10-03T11:29:54.049607",
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "d4a8582f-5b73-46db-8ebf-8676aa5e6d3f",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:40:34.947892",
+          "method": "single_model_forecaster_v1",
+          "probability": 0.25,
+          "run_id": "e711ca7f-d0b3-41f2-b780-dcf558f0f36b",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:43:45.372014",
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.24722103716611296,
+          "run_id": "0ad39f8f-d8bf-4058-90ac-75dcb1cb3224",
+          "status": "completed"
+        }
+      ],
+      "id": "gpu-q07-moore-threads-lushan-retail-2026",
+      "outcome": null,
+      "question": "Will a consumer graphics card based on Moore Threads' 'Lushan' GPU be available for retail purchase in any country by 2026-12-31?",
+      "resolution_criteria": "YES if, by 2026-12-31, Moore Threads announces through its official website or official social-media accounts that a Lushan-based consumer or gaming graphics card is on sale (orders accepted with a stated price and shipping) to the general public. The same applies if Tom's Hardware reports it as purchasable at retail by that date. Pre-order or reservation sign-ups without shipping, engineering samples and enterprise-only products do not count. Otherwise NO.",
+      "resolution_date": "2026-12-31",
+      "resolution_source": "Moore Threads official website \u2014 https://www.mthreads.com/ ; Tom's Hardware GPU news \u2014 https://www.tomshardware.com/pc-components/gpus",
+      "root_withheld_gaps": null
+    },
+    {
+      "approved_contract": {
+        "ambiguity_notes": "1) 'Existing RTX 50 desktop card' is interpreted as one of the models in the provided launch-MSRP table; if NVIDIA renames or re-SKUs a model such that mapping is unclear, the resolver should require an explicit model identifier or reject ambiguous matches. 2) 'Starting at' counts only if NVIDIA itself labels the price 'starting at' or equivalent on an authoritative NVIDIA page or in a direct NVIDIA quote; third-party descriptions of 'starting at' do not count. 3) Founder Edition vs MSRP: treat any NVIDIA-published official US 'MSRP' or 'starting at' price as authoritative regardless of whether it is called 'Founders Edition' only if NVIDIA presents it as the MSRP/starting price on the qualifying channel. 4) Prices shown as ranges count only if the lower bound (or the explicitly labeled 'starting at' value) is in USD and strictly greater than the listed launch MSRP. 5) Partner 'kit', bundle, retailer, marketplace listings, non-US regional prices, taxes, shipping, or suggested retail for partners are excluded. 6) If NVIDIA publishes a global price without USD explicitness, it does not qualify unless the publication explicitly states the US MSRP in USD.",
+        "authoritative_source": "Any one of the following as published during the resolution window: (a) NVIDIA Newsroom article (https://nvidianews.nvidia.com/), (b) NVIDIA GeForce News post on NVIDIA's GeForce site, (c) NVIDIA US product page for the specific RTX 50-series desktop card on https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/ or its subpages, or (d) a Reuters or Bloomberg article that directly quotes an NVIDIA statement (press release or spokesperson) that contains the US MSRP or 'starting at' USD price.",
+        "cancellation_conditions": "Cancel the contract if the authoritative sources are legally or technically inaccessible for the entire resolution window (e.g., site blocked and no archived copies exist) such that verification is impossible, or if NVIDIA ceases to use the terms 'MSRP'/'starting at' and specifically disclaims publishing any MSRP worldwide and no qualifying Reuters/Bloomberg quotation exists; in such cases the contract should be marked cancelled rather than resolved.",
+        "created_at": "2026-10-03T11:25:44.741548Z",
+        "created_by": "user",
+        "domain": "Consumer GPU hardware / product pricing",
+        "fallback_sources": [
+          "Reuters or Bloomberg articles that report a price increase but do not directly quote NVIDIA; use only if they explicitly attribute the MSRP to NVIDIA and no direct NVIDIA source is available.",
+          "Archived copies (Internet Archive / Wayback Machine) or cached copies of the NVIDIA Newsroom or NVIDIA product pages captured during the resolution window, if the live pages are unavailable.",
+          "Screenshots or published copies of an NVIDIA press release hosted by major reputable outlets (e.g., Reuters, Bloomberg, The Verge) that reproduce the NVIDIA text verbatim and include a timestamp."
+        ],
+        "forecast_type": "binary",
+        "geography": "United States (US)",
+        "id": "af55ec55-a70a-4d4e-92fd-29aa143e6d98",
+        "initial_reference_class": "Historical instances of NVIDIA (and major GPU vendors) publishing official changes to US MSRP for a given GeForce generation during the product cycle (e.g., mid-cycle MSRP changes observed in prior GeForce series).",
+        "known_dependencies": [
+          "NVIDIA Newsroom announcements and press releases",
+          "NVIDIA GeForce News posts and NVIDIA product pages (US)",
+          "Reuters and Bloomberg reporting that directly quotes NVIDIA",
+          "Web archive services (Wayback) for historical page captures"
+        ],
+        "no_condition": "During the period 2026-10-03T00:00:00Z through 2027-03-31T23:59:59Z inclusive, no publication on the qualifying channels (NVIDIA Newsroom, NVIDIA GeForce News, NVIDIA US product pages for the RTX 50-series, or Reuters/Bloomberg articles that directly quote NVIDIA) contains an official US MSRP or explicit 'starting at' USD price for any of the listed RTX 50-series desktop cards that is strictly greater than that card's listed launch MSRP. Publications showing a price equal to or lower than the launch MSRP do not count as YES. Publications that only show partner 'kit' prices, third-party retail/marketplace prices, or non-US prices do not count as YES.",
+        "normalized_question": "Will NVIDIA announce an increase to the official US MSRP of any GeForce RTX 50-series desktop graphics card between 2026-10-03 and 2027-03-31 (inclusive)?",
+        "original_question": "Will NVIDIA announce an increase to the official US MSRP of any GeForce RTX 50-series desktop graphics card by 2027-03-31? Resolution: YES if, between 2026-10-03 and 2027-03-31, NVIDIA states a US MSRP or 'starting at' price above the launch MSRP for any existing RTX 50 desktop card. Launch MSRPs: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. Qualifying channels: the NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page, or an NVIDIA statement quoted by Reuters or Bloomberg. Increases only to partner 'kit' prices, retail or marketplace listings, or prices outside the US do not count. Otherwise NO. Source: NVIDIA Newsroom \u2014 https://nvidianews.nvidia.com/ ; NVIDIA GeForce graphics cards pages \u2014 https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/ Resolution date: 2027-03-31.",
+        "question_id": "c3b8beda-ea77-4754-91b4-d471238528b6",
+        "resolution_date": "2027-03-31T23:59:59Z",
+        "resolution_method": "1) Search the qualifying authoritative sources for publications dated within 2026-10-03T00:00:00Z through 2027-03-31T23:59:59Z. 2) For any candidate publication, extract the named product (must match one of the RTX 50-series desktop cards listed) and the explicit US MSRP or 'starting at' price in USD. 3) Confirm the price is presented as an official MSRP or 'starting at' price by NVIDIA (not third-party retail, marketplace listing, or partner kit) and that it is for the US market (USD and published on/for the US site or explicitly labeled USD/US). 4) Compare the extracted USD price to the launch MSRP for that model; if the extracted price is strictly greater than the launch MSRP for that model, the contract resolves YES. 5) If no qualifying publication meeting these conditions is found in the window, the contract resolves NO. 6) If reliance is placed on Reuters/Bloomberg, require that the article directly quotes NVIDIA (press release text or spokesperson) attributing the USD MSRP; otherwise prefer direct NVIDIA sources or archived copies.",
+        "resolver_risk_notes": "Risks include: (a) NVIDIA product pages being updated without timestamps or historical record\u2014use archived snapshots to confirm timing; (b) Reuters/Bloomberg paraphrasing rather than directly quoting NVIDIA\u2014require direct quote attributing the MSRP to NVIDIA; (c) ambiguous model naming or rebranding making mapping to the launch MSRP table unclear; (d) pages showing multiple regional prices or ranges without clear US USD labeling; (e) press releases that refer to MSRP changes for partner configurations only\u2014these must be excluded; (f) screenshots or secondary reporting may lack provenance\u2014prefer primary NVIDIA sources.",
+        "status": "approved",
+        "suggested_drivers": [
+          "Component costs (DRAM, GPUs, substrates)",
+          "Global supply chain constraints",
+          "US inflation and currency effects",
+          "Competitive pressure from AMD/Intel in the same segment",
+          "Marketing/positioning decisions (e.g., repositioning Founders Edition pricing)",
+          "Tariffs or regulatory changes affecting import costs",
+          "Changes in NVIDIA's relationship with board partners or packaging/kit strategy",
+          "Inventory/stock management and shortages"
+        ],
+        "units": "US dollars (USD)",
+        "version": 1,
+        "yes_condition": "Between 2026-10-03T00:00:00Z and 2027-03-31T23:59:59Z inclusive, NVIDIA publishes (on one of the qualifying channels listed in authoritative_source) an official US MSRP or an explicit 'starting at' price in USD for any existing GeForce RTX 50-series desktop card that is strictly greater than that card's launch MSRP from the following table: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. The published price must appear in one of the qualifying channels (NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page for the RTX 50-series, or a Reuters or Bloomberg article that directly quotes an NVIDIA statement). Prices limited to partner 'kit' SKUs, third-party retail or marketplace listings, or non-US prices do not count."
+      },
+      "forecasts": [
+        {
+          "created_at": "2026-10-03T11:32:16.807102",
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "34ebd677-ec44-460e-b8a2-33348df9f6de",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:44:10.031171",
+          "method": "single_model_forecaster_v1",
+          "probability": 0.1,
+          "run_id": "fae08409-a9b2-4678-a8ab-9fb1ea8546b0",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:47:22.565087",
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.11667781591848865,
+          "run_id": "6a986f40-94be-406e-ab9a-81e0e657df23",
+          "status": "completed"
+        }
+      ],
+      "id": "gpu-q08-nvidia-official-msrp-increase",
+      "outcome": null,
+      "question": "Will NVIDIA announce an increase to the official US MSRP of any GeForce RTX 50-series desktop graphics card by 2027-03-31?",
+      "resolution_criteria": "YES if, between 2026-10-03 and 2027-03-31, NVIDIA states a US MSRP or 'starting at' price above the launch MSRP for any existing RTX 50 desktop card. Launch MSRPs: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. Qualifying channels: the NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page, or an NVIDIA statement quoted by Reuters or Bloomberg. Increases only to partner 'kit' prices, retail or marketplace listings, or prices outside the US do not count. Otherwise NO.",
+      "resolution_date": "2027-03-31",
+      "resolution_source": "NVIDIA Newsroom \u2014 https://nvidianews.nvidia.com/ ; NVIDIA GeForce graphics cards pages \u2014 https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/",
+      "root_withheld_gaps": null
+    },
+    {
+      "approved_contract": {
+        "ambiguity_notes": "1) \"ET\" is interpreted as U.S. Eastern Time. On 2026-11-10 Eastern Time will be Eastern Standard Time (UTC-05:00); the resolution_date uses -05:00. 2) Acceptable identification of the exclusion includes matching product description, HTS/statistical reporting number 8473.30.1180, or USTR entry 20(ttt)(iii)(108). If a notice uses different wording but clearly and unambiguously refers to the same HTS/statistical reporting number or entry identifier, it counts. 3) If a USTR publication lists multiple HTS codes together, the resolution requires that 8473.30.1180 be explicitly included. 4) If USTR publishes a generic extension policy that could be interpreted to extend this exclusion but does not explicitly identify the exclusion by description, HTS number, or entry identifier, it does not count. 5) If publication happens on 2026-11-10 in a medium other than ustr.gov press releases or the Federal Register (e.g., only on X/Twitter), it does not count unless the same text appears on ustr.gov or in the Federal Register by the deadline.",
+        "authoritative_source": "Office of the U.S. Trade Representative: press release on ustr.gov (press releases page or USTR exclusion index page) OR a Federal Register notice amending the Section 301 exclusion list that explicitly identifies the exclusion by the product description, HTS/statistical reporting number 8473.30.1180, or entry 20(ttt)(iii)(108).",
+        "cancellation_conditions": "Cancel the contract only if the question's meaning becomes impossible to apply without changing it, for example if USTR permanently removes the concept of an \"exclusion index\" and provides no comparable record of prior exclusions and extensions such that the entry identifier 20(ttt)(iii)(108) cannot be mapped to any product; or if HTS/statistical reporting number 8473.30.1180 is officially and unambiguously superseded/reclassified before the resolution date and USTR indicates the reclassification renders the original exclusion entry inapplicable. Routine edits to USTR website structure or press-release URLs do not warrant cancellation.",
+        "created_at": "2026-10-03T11:26:10.916965Z",
+        "created_by": "user",
+        "domain": "trade policy / tariffs",
+        "fallback_sources": [
+          "USTR exclusion index page on ustr.gov (if separate from press releases)",
+          "FederalRegister.gov search results for USTR Section 301 exclusion notices",
+          "Archived USTR press release page (e.g., Internet Archive) if live page unavailable",
+          "Customs and Border Protection (CBP) notices or industry advisory referencing the USTR extension (only if they reproduce the USTR/Federal Register text verbatim)"
+        ],
+        "forecast_type": "binary",
+        "geography": "United States",
+        "id": "9b5d628e-86b2-4d05-9f70-692b423e3376",
+        "initial_reference_class": "Past USTR Section 301 tariff exclusion publications and subsequent extensions or lapses for specific HTS subheadings (i.e., other individual exclusion entries that were extended, allowed to lapse, or reinstated between 2018\u20132026).",
+        "known_dependencies": [
+          "USTR internal review and rulemaking schedule for Section 301 exclusions",
+          "Federal Register publication schedules and clearance processes",
+          "HTS classification stability for 8473.30.1180 and any reclassification actions",
+          "Public comments or industry petitions submitted to USTR before the deadline"
+        ],
+        "no_condition": "By 2026-11-10T23:59:00-05:00, USTR has not published on ustr.gov a press release or on the Federal Register a notice that both (a) clearly identifies the exclusion as the product description above or by HTS/statistical reporting number 8473.30.1180 or entry 20(ttt)(iii)(108), and (b) states a new end date that is strictly after 2026-11-10. If the exclusion lapses (i.e., its end date remains on or before 2026-11-10) and no qualifying extension is published by the deadline, the answer is NO. A notice published after 2026-11-10 that purports to reinstate or extend the exclusion (even if retroactive) does NOT count toward YES.",
+        "normalized_question": "By 2026-11-10 23:59 ET, will the U.S. Trade Representative (USTR) publish on ustr.gov (Office of the U.S. Trade Representative press release) or in the Federal Register a notice extending the Section 301 tariff exclusion for \"Printed circuit assemblies for rendering images onto computer screens (\\\"graphics processing modules\\\")\" (statistical reporting number / HTSUS subheading 8473.30.1180), entry 20(ttt)(iii)(108) in USTR's exclusion index, so that the exclusion's end date is any date after 2026-11-10?",
+        "original_question": "Will USTR extend the Section 301 tariff exclusion for 'graphics processing modules' (statistical reporting number 8473.30.1180) beyond 2026-11-10? Resolution: YES if, by 2026-11-10 23:59 ET, USTR publishes a press release on ustr.gov or a Federal Register notice extending the exclusion for 'Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")' to any date after 2026-11-10. This is entry 20(ttt)(iii)(108) in USTR's exclusion index. USTR describes the current extension as running 'until November 10, 2026'; some secondary notices give the end as 11:59 p.m. EDT on 2026-11-09. Either way, an extension published by 2026-11-10 23:59 ET counts. NO if the exclusion lapses without such an extension. A reinstatement published after 2026-11-10 does not count, even if retroactive. Source: Office of the U.S. Trade Representative press releases \u2014 https://ustr.gov/about/policy-offices/press-office/press-releases ; Federal Register \u2014 https://www.federalregister.gov/ Resolution date: 2026-11-10.",
+        "question_id": "e8719556-13b9-4ae9-b07d-f1d4bcfb645d",
+        "resolution_date": "2026-11-10T23:59:00Z",
+        "resolution_method": "Check the Office of the U.S. Trade Representative press releases and exclusion index on ustr.gov and check the Federal Register through 2026-11-10T23:59:00-05:00 for any publication that (1) unambiguously identifies the subject exclusion either by the exact product description \"Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")\", or by HTS/statistical reporting number 8473.30.1180, or by USTR entry number 20(ttt)(iii)(108); and (2) states an extension resulting in a new end date that is strictly after 2026-11-10. If such a publication exists on or before the deadline, the contract resolves YES; otherwise it resolves NO. Do not count third-party reporting, social-media posts, or publications on other websites unless they reproduce the USTR press release or Federal Register notice verbatim and the original USTR/Federal Register record is unavailable but verifiable via archive. Do not count any reinstatement/extension published after 2026-11-10 even if it states a retroactive effective date.",
+        "resolver_risk_notes": "1) USTR sometimes republishes or updates press releases; use the publication timestamp on ustr.gov or the Federal Register filing timestamp to determine if it occurred by the deadline. 2) Federal Register notices may be posted with different publication/effective dates; use the FR publication filing date/time. 3) USTR may use slightly different phrasing; prioritize explicit inclusion of HTS 8473.30.1180 or entry 20(ttt)(iii)(108) to avoid misinterpretation. 4) Archival or mirror sites may show content even if USTR later deletes it; prefer the original ustr.gov press release or Federal Register record (or an authoritative archive with timestamp) for resolution. 5) There is a small risk of time-zone misinterpretation; this contract uses Eastern Time (UTC-05:00) as specified.",
+        "status": "approved",
+        "suggested_drivers": [
+          "USTR judgment about industrial impact and domestic industry lobbying for graphics processors",
+          "Domestic semiconductor and electronics supply chain availability and import volumes",
+          "Broader U.S. trade policy toward targeted countries and tariff review schedule",
+          "Timing relative to U.S. political calendar and administration priorities",
+          "Input from interagency review (Commerce, Treasury, Department of Defense) or industry petitions"
+        ],
+        "units": null,
+        "version": 1,
+        "yes_condition": "By 2026-11-10T23:59:00-05:00, the Office of the U.S. Trade Representative publishes either (a) a press release on ustr.gov (press release list or USTR exclusion index page) or (b) a Federal Register notice that (i) explicitly identifies the exclusion by the product description \"Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")\", or by the HTSUS/statistical reporting number 8473.30.1180, or by entry identifier 20(ttt)(iii)(108) in USTR's exclusion index; and (ii) states that the exclusion's end date has been extended so that the new end date is a calendar date strictly after 2026-11-10 (i.e., effective through at least 2026-11-11 or later). Any published extension meeting these identification and date requirements and posted on ustr.gov or in the Federal Register by the deadline satisfies YES."
+      },
+      "forecasts": [
+        {
+          "created_at": "2026-10-03T11:33:53.665365",
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "9eae859a-8e1c-4c9f-8df3-c9dfb4b557f1",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:47:39.402421",
+          "method": "single_model_forecaster_v1",
+          "probability": 0.28,
+          "run_id": "95c5bc73-d18b-49a6-894f-bb8b6ba3e16c",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:50:40.750642",
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.2031442017434497,
+          "run_id": "f30b7be8-c6f8-45e3-8400-15cff41ec8ae",
+          "status": "completed"
+        }
+      ],
+      "id": "gpu-q09-ustr-section301-gpu-exclusion-extended",
+      "outcome": null,
+      "question": "Will USTR extend the Section 301 tariff exclusion for 'graphics processing modules' (statistical reporting number 8473.30.1180) beyond 2026-11-10?",
+      "resolution_criteria": "YES if, by 2026-11-10 23:59 ET, USTR publishes a press release on ustr.gov or a Federal Register notice extending the exclusion for 'Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")' to any date after 2026-11-10. This is entry 20(ttt)(iii)(108) in USTR's exclusion index. USTR describes the current extension as running 'until November 10, 2026'; some secondary notices give the end as 11:59 p.m. EDT on 2026-11-09. Either way, an extension published by 2026-11-10 23:59 ET counts. NO if the exclusion lapses without such an extension. A reinstatement published after 2026-11-10 does not count, even if retroactive.",
+      "resolution_date": "2026-11-10",
+      "resolution_source": "Office of the U.S. Trade Representative press releases \u2014 https://ustr.gov/about/policy-offices/press-office/press-releases ; Federal Register \u2014 https://www.federalregister.gov/",
+      "root_withheld_gaps": null
+    },
+    {
+      "approved_contract": {
+        "ambiguity_notes": "Unresolved/clarifying points and assumptions: (1) \"Published in the window\" means the post's published/posted timestamp as displayed on the authoritative site falls within 2026-10-03T00:00:00Z through 2027-06-30T23:59:59Z inclusive. If a page shows a single \"published\" timestamp and that timestamp is in the window, it counts even if the content was later edited; if the site shows separate \"published\" and \"updated\" timestamps, use the published date for window inclusion unless the publisher explicitly indicates the price change was added on the updated date and the updated date is within the window. (2) \"MSRP\" means the manufacturer's suggested retail price for the US market, expressed in USD. If the announcement gives only non-USD prices or only non-US regional prices, it does not count unless it also clearly gives the US MSRP in USD or gives a numeric increase that allows unambiguous computation for the US MSRP. (3) \"PS5 (standard disc model)\" excludes the Digital Edition; \"Xbox Series X (1 TB disc model)\" refers to the 1 TB disc-equipped Series X SKU; \"Nintendo Switch 2\" refers to the base (non-special-edition) consumer retail SKU for the new console generation. (4) Announcements that change only bundle pricing, announce separate/new SKUs (e.g., high-storage variant or special edition), or state that only retailer pricing will change are excluded. (5) If similar wording appears on company corporate press-release pages or partner sites but not on the named authoritative channels, it does not qualify unless the named channel also publishes it within the window.",
+        "authoritative_source": "Manufacturer consumer-facing news channels: PlayStation Blog (https://blog.playstation.com/), Xbox Wire / news.xbox.com/en-us/ (https://news.xbox.com/en-us/), Nintendo of America \"What's New\" / news (https://www.nintendo.com/us/whatsnew/).",
+        "cancellation_conditions": "This contract should be canceled if all three authoritative channels become permanently inaccessible to public viewers and no archived copies (e.g., official archives or web archives) can be used to determine what was published in the window; or if the questioner publicly modifies the target models, channels, thresholds, or time window before resolution. Temporary outages of the authoritative sites do not by themselves cancel the contract.",
+        "created_at": "2026-10-03T11:26:39.747152Z",
+        "created_by": "user",
+        "domain": "consumer electronics / video game consoles",
+        "fallback_sources": [],
+        "forecast_type": "binary",
+        "geography": "United States (US MSRP)",
+        "id": "5440a694-2933-42da-ad4f-a3b08d9b3b44",
+        "initial_reference_class": "Historical frequency of official manufacturer-declared MSRP increases for Sony, Microsoft, and Nintendo console base models over multi-year periods (past price-change announcements for current- or prior-generation consoles).",
+        "known_dependencies": [
+          "Announcements of new SKUs or hardware revisions (could prompt price rebasings)",
+          "Company earnings calls or investor guidance indicating pricing changes",
+          "Major component shortages or cost changes announced by suppliers",
+          "Retailer promotions or marketplace pricing that might prompt MSRP adjustments"
+        ],
+        "no_condition": "By 2027-06-30T23:59:59Z (inclusive) there is no qualifying post meeting the yes_condition on any of the three authoritative channels; or any posts that mention price changes during the window are limited to bundles, new SKUs/new model variants, retailer-specific pricing, or non-US markets, or otherwise do not permit an unambiguous determination that the manufacturer's US MSRP for one of the named base models has been raised above the stated 2026-10-03 level. Announcements published outside the window do not count.",
+        "normalized_question": "Will Sony, Microsoft, or Nintendo publish an official announcement on their stated US consumer-facing news channels between 2026-10-03T00:00:00Z and 2027-06-30T23:59:59Z (inclusive) that raises the US MSRP for at least one of these specific base console models above its 2026-10-03 level: PlayStation 5 (standard disc model) > $649.99, Xbox Series X (1 TB disc model) > $799.99, or Nintendo Switch 2 (base model) > $499.99?",
+        "original_question": "Will Sony, Microsoft or Nintendo announce a further increase in the US MSRP of the PS5 (standard disc model), the Xbox Series X (1 TB disc model) or the Nintendo Switch 2 between 2026-10-03 and 2027-06-30? Resolution: YES if an official announcement published in the window raises the US MSRP of at least one of these models above its level on 2026-10-03: PS5 $649.99; Xbox Series X 1 TB $799.99; Switch 2 $499.99. Qualifying channels: the PlayStation Blog, Xbox Wire / news.xbox.com, or Nintendo of America news. Price changes only for bundles, new SKUs, retailers or non-US markets do not count. Otherwise NO. Source: PlayStation Blog \u2014 https://blog.playstation.com/ ; Xbox Wire \u2014 https://news.xbox.com/en-us/ ; Nintendo of America news \u2014 https://www.nintendo.com/us/whatsnew/ Resolution date: 2027-06-30.",
+        "question_id": "3b357ed7-e0c3-4e1a-925f-0f43db25743a",
+        "resolution_date": "2027-06-30T23:59:59Z",
+        "resolution_method": "Search each authoritative channel for posts whose visible publication timestamp (the post's published/posted date as shown on the page) falls within 2026-10-03T00:00:00Z through 2027-06-30T23:59:59Z inclusive. For each such post, determine whether it concerns one of these exact models (PS5 standard disc model; Xbox Series X 1 TB disc model; Nintendo Switch 2 base model) and whether it (a) states a new US MSRP in USD that is strictly greater than the specified 2026-10-03 level, or (b) states an MSRP increase with numeric information (percentage or absolute amount) that, when applied to the known baseline MSRP on 2026-10-03, yields a new US MSRP strictly greater than that baseline. Exclude posts that only reference bundle pricing, announce new separate SKUs or model variants (different storage, special editions, or hardware revisions that are distinct SKUs), are retailer-specific price changes, or apply only to non-US markets. If at least one qualifying post is found, resolve YES; otherwise resolve NO at the resolution_date.",
+        "resolver_risk_notes": "Risks to resolution include: posts being edited or removed after initial publication (which may change visible content), ambiguous language about \"price adjustments\" without numeric detail, region-specific versions of posts showing different content (US vs other regions), mirrored or syndicated copies that display different timestamps, and announcements published on non-listed channels (social, investor filings) but not on the named consumer news pages. Resolvers should capture timestamps and content (e.g., via screenshots or archive captures) to mitigate removal/edits, and prefer the US-specific page variants where available.",
+        "status": "approved",
+        "suggested_drivers": [
+          "Component (semiconductor) cost inflation or deflation",
+          "Global supply-chain constraints or improvements",
+          "Exchange rate movements (USD vs JPY/EUR) and corporate hedging",
+          "Inflation and general macroeconomic conditions",
+          "Corporate pricing strategy and profit-margin targets",
+          "Demand/sales trends for each console",
+          "Launch timing of new hardware revisions or accessories",
+          "Tariffs or regulatory changes affecting import costs"
+        ],
+        "units": "USD",
+        "version": 1,
+        "yes_condition": "At least one qualifying post published on or after 2026-10-03T00:00:00Z and on or before 2027-06-30T23:59:59Z on one of these authoritative channels (PlayStation Blog, Xbox Wire / news.xbox.com/en-us/, or Nintendo of America \"What's New\" / news page) either: (a) explicitly states a new US MSRP (in USD) for the named base model that is strictly greater than the stated 2026-10-03 level for that model (PS5 disc > $649.99, Xbox Series X 1 TB disc > $799.99, Switch 2 base > $499.99), or (b) explicitly states an MSRP increase for the named base model and provides sufficient numeric information (e.g., percent increase, exact increment, or the new price) that allows an unambiguous calculation showing the new US MSRP would be strictly greater than the stated 2026-10-03 level. The announcement must apply to the manufacturer's US MSRP for the named base model and must not be limited only to bundles, new separate SKUs/new model variants, retailer-specific pricing, or non-US markets."
+      },
+      "forecasts": [
+        {
+          "created_at": "2026-10-03T11:35:45.624086",
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "35191094-c218-4110-b37a-1a46c6e01a49",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:51:07.495755",
+          "method": "single_model_forecaster_v1",
+          "probability": 0.12,
+          "run_id": "f41df861-a575-4aa3-a503-107cd97f7771",
+          "status": "completed"
+        },
+        {
+          "created_at": "2026-10-03T11:54:44.077480",
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.07160800353028608,
+          "run_id": "b96000c7-7b1d-4063-b658-d005d8e91e7e",
+          "status": "completed"
+        }
+      ],
+      "id": "gpu-q15-console-msrp-increase-by-mid-2027",
+      "outcome": null,
+      "question": "Will Sony, Microsoft or Nintendo announce a further increase in the US MSRP of the PS5 (standard disc model), the Xbox Series X (1 TB disc model) or the Nintendo Switch 2 between 2026-10-03 and 2027-06-30?",
+      "resolution_criteria": "YES if an official announcement published in the window raises the US MSRP of at least one of these models above its level on 2026-10-03: PS5 $649.99; Xbox Series X 1 TB $799.99; Switch 2 $499.99. Qualifying channels: the PlayStation Blog, Xbox Wire / news.xbox.com, or Nintendo of America news. Price changes only for bundles, new SKUs, retailers or non-US markets do not count. Otherwise NO.",
+      "resolution_date": "2027-06-30",
+      "resolution_source": "PlayStation Blog \u2014 https://blog.playstation.com/ ; Xbox Wire \u2014 https://news.xbox.com/en-us/ ; Nintendo of America news \u2014 https://www.nintendo.com/us/whatsnew/",
+      "root_withheld_gaps": null
+    }
+  ],
+  "schema": "general_question_forecasts_v1",
+  "search": "tavily"
+}
