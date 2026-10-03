@@ -1,0 +1,558 @@
+{
+  "budget_usd": 15.0,
+  "cost_usd": 5.156250000000001,
+  "id": "90214343-942a-4a89-b8aa-f0a8532a41ce",
+  "interpretation": "Operational pilot; small and potentially correlated sample, no accuracy or calibration claim.",
+  "manifest_hash": "fa95c02a36d90d94c7e5fba53fa49a90d15c12e6c6f7ea896044f48552776cbd",
+  "matched_resolved_count": 0,
+  "methods": [
+    {
+      "abstentions": 6,
+      "assigned": 7,
+      "brier_score": null,
+      "cost_usd": 2.3001100000000005,
+      "failures": 0,
+      "forecast_coverage": 0.14285714285714285,
+      "forecasted": 1,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 123445.85714285714,
+      "method": "root_event_ensemble_v1"
+    },
+    {
+      "abstentions": 0,
+      "assigned": 7,
+      "brier_score": null,
+      "cost_usd": 0.258045,
+      "failures": 0,
+      "forecast_coverage": 1.0,
+      "forecasted": 7,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 17548.428571428572,
+      "method": "single_model_forecaster_v1"
+    },
+    {
+      "abstentions": 0,
+      "assigned": 7,
+      "brier_score": null,
+      "cost_usd": 2.5980950000000003,
+      "failures": 1,
+      "forecast_coverage": 0.8571428571428571,
+      "forecasted": 6,
+      "log_loss": null,
+      "matched_resolved_count": 0,
+      "mean_latency_ms": 164237.42857142858,
+      "method": "three_track_strict_forecaster_v1"
+    }
+  ],
+  "name": "Fast FRED batch 2026-10-02 (claims + 10y yield)",
+  "questions": [
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.30715500000000007,
+          "latency_ms": 139326,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "a7b626d9-2b40-4ee2-a046-60733b02020d",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.034185,
+          "latency_ms": 17860,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55,
+          "run_id": "6e5033a3-d463-4023-8a67-1a4a5f781743",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.20184000000000002,
+          "latency_ms": 100654,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": null,
+          "run_id": "cd9052da-049f-4df0-b987-a85841cc39be",
+          "status": "execution_failed"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/DGS10",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.710418Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=DGS10",
+          "https://www.federalreserve.gov/releases/h15/"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "ae02b4af-4447-47c2-9da0-cd404102bb8c",
+        "initial_reference_class": "Historical daily observations of U.S. 10-year Treasury constant-maturity yield",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-09 be greater than 5.24 percent in the release expected on 2026-10-12?",
+        "original_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-09 be greater than 5.24 percent in the release expected on 2026-10-12?",
+        "question_id": "6c74fa92-0c16-4b6d-b4ef-42b3aa6e282c",
+        "resolution_date": "2026-10-12T21:00:00Z",
+        "resolution_method": "Use FRED series DGS10 (not_seasonally_adjusted, daily, units percent), originally published by the Board of Governors of the Federal Reserve System, and the first published value. The initial-release value is the value for 2026-10-09 in the earliest ALFRED vintage of DGS10 that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent daily observations",
+          "Scheduled data releases and monetary-policy communications"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-09 is greater than 5.24 percent."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "6c74fa92-0c16-4b6d-b4ef-42b3aa6e282c",
+      "release_event": "dgs10-2026-10-09"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.274515,
+          "latency_ms": 119569,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "b857f2bf-3634-4106-b7d2-42c8121cc655",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.038225,
+          "latency_ms": 19533,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55,
+          "run_id": "765d1cac-42af-4ff9-9d2f-b3f6201cf3d5",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.38450000000000006,
+          "latency_ms": 196202,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.529811960668346,
+          "run_id": "5fa6a64e-b1f9-4137-b9c6-9dc5f13b2438",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/DGS10",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.707876Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=DGS10",
+          "https://www.federalreserve.gov/releases/h15/"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "3a13e02c-1562-4c9c-bcae-89d81d0bd79d",
+        "initial_reference_class": "Historical daily observations of U.S. 10-year Treasury constant-maturity yield",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-06 be greater than 5.24 percent in the release expected on 2026-10-07?",
+        "original_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-06 be greater than 5.24 percent in the release expected on 2026-10-07?",
+        "question_id": "4148f2dd-c5c6-4cd3-a8e1-aab1f8fd2bb2",
+        "resolution_date": "2026-10-07T21:00:00Z",
+        "resolution_method": "Use FRED series DGS10 (not_seasonally_adjusted, daily, units percent), originally published by the Board of Governors of the Federal Reserve System, and the first published value. The initial-release value is the value for 2026-10-06 in the earliest ALFRED vintage of DGS10 that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent daily observations",
+          "Scheduled data releases and monetary-policy communications"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-06 is greater than 5.24 percent."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "4148f2dd-c5c6-4cd3-a8e1-aab1f8fd2bb2",
+      "release_event": "dgs10-2026-10-06"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.3179200000000001,
+          "latency_ms": 122043,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "dd59a1e9-1e3f-4bd8-991c-250ddfdde31d",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.038294999999999996,
+          "latency_ms": 17224,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.4,
+          "run_id": "7bdeca88-a2f2-4f0e-883d-d170920cf200",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.3985350000000001,
+          "latency_ms": 160900,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4879261184171747,
+          "run_id": "de71e3a8-3447-46bc-a1b9-6629253322ce",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/ICSA",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.706051Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=ICSA",
+          "https://www.dol.gov/ui/data.pdf"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "c42ce586-a1b2-4e60-99be-8c737eb26a24",
+        "initial_reference_class": "Historical weekly observations of U.S. initial jobless claims",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-10 be greater than 197,000 claims in the release expected on 2026-10-15?",
+        "original_question": "Will the first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-10 be greater than 197,000 claims in the release expected on 2026-10-15?",
+        "question_id": "23818254-7240-4a2d-972b-fbef30f77612",
+        "resolution_date": "2026-10-15T12:30:00Z",
+        "resolution_method": "Use FRED series ICSA (seasonally_adjusted, weekly, units claims), originally published by the U.S. Department of Labor, and the first published value. The initial-release value is the value for 2026-10-10 in the earliest ALFRED vintage of ICSA that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. The DOL advance figure is revised the following week; that revision is not used. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent weekly observations",
+          "Revision uncertainty"
+        ],
+        "units": "claims",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-10 is greater than 197,000 claims."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "23818254-7240-4a2d-972b-fbef30f77612",
+      "release_event": "claims-2026-10-15"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.301975,
+          "latency_ms": 135737,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "3a022b3b-d379-409d-84eb-1818a14f7621",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.036250000000000004,
+          "latency_ms": 17878,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.8,
+          "run_id": "44f8d1b4-5e5d-4415-8408-102472136aed",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.38636000000000004,
+          "latency_ms": 155872,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.40902000498997837,
+          "run_id": "45d8761e-bb2c-4e9e-826e-c209df100f36",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/DGS10",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.709569Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=DGS10",
+          "https://www.federalreserve.gov/releases/h15/"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "e89c83d4-04fc-44d2-bdd3-4323c7215a7d",
+        "initial_reference_class": "Historical daily observations of U.S. 10-year Treasury constant-maturity yield",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-08 be greater than 5.24 percent in the release expected on 2026-10-09?",
+        "original_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-08 be greater than 5.24 percent in the release expected on 2026-10-09?",
+        "question_id": "6c1f9853-3e29-413f-8739-75f35b5d24b4",
+        "resolution_date": "2026-10-09T21:00:00Z",
+        "resolution_method": "Use FRED series DGS10 (not_seasonally_adjusted, daily, units percent), originally published by the Board of Governors of the Federal Reserve System, and the first published value. The initial-release value is the value for 2026-10-08 in the earliest ALFRED vintage of DGS10 that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent daily observations",
+          "Scheduled data releases and monetary-policy communications"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-08 is greater than 5.24 percent."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "6c1f9853-3e29-413f-8739-75f35b5d24b4",
+      "release_event": "dgs10-2026-10-08"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.32142000000000004,
+          "latency_ms": 101237,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "1a28be00-0a5b-4f04-b4e9-dc83884ac611",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.037505,
+          "latency_ms": 16615,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.43,
+          "run_id": "a6304984-614e-4fe1-b884-d5eeb4aa508b",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.4103050000000001,
+          "latency_ms": 150992,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.41917007307972853,
+          "run_id": "32f09218-ada8-4b88-8f0b-aae78b0ffd76",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/ICSA",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.702491Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=ICSA",
+          "https://www.dol.gov/ui/data.pdf"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "5471f403-7bcc-422d-98d1-b49057259697",
+        "initial_reference_class": "Historical weekly observations of U.S. initial jobless claims",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-03 be greater than 197,000 claims in the release expected on 2026-10-08?",
+        "original_question": "Will the first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-03 be greater than 197,000 claims in the release expected on 2026-10-08?",
+        "question_id": "43b78d28-4af2-4733-a915-76f40c9aef23",
+        "resolution_date": "2026-10-08T12:30:00Z",
+        "resolution_method": "Use FRED series ICSA (seasonally_adjusted, weekly, units claims), originally published by the U.S. Department of Labor, and the first published value. The initial-release value is the value for 2026-10-03 in the earliest ALFRED vintage of ICSA that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. The DOL advance figure is revised the following week; that revision is not used. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent weekly observations",
+          "Revision uncertainty"
+        ],
+        "units": "claims",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. initial jobless claims (seasonally adjusted, FRED series ICSA) for the week ending 2026-10-03 is greater than 197,000 claims."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "43b78d28-4af2-4733-a915-76f40c9aef23",
+      "release_event": "claims-2026-10-08"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.26982000000000006,
+          "latency_ms": 90895,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": null,
+          "run_id": "a7a57bf7-949c-4238-8370-fe3f72ad1972",
+          "status": "insufficient_evidence"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03894500000000001,
+          "latency_ms": 17785,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.45,
+          "run_id": "9eb65d68-4838-4cf5-9086-8b7620257e68",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.42005500000000007,
+          "latency_ms": 213071,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4119476522661372,
+          "run_id": "a4a59d3d-a94c-41f1-9305-1cf0c8409808",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/DGS10",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.707059Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=DGS10",
+          "https://www.federalreserve.gov/releases/h15/"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "7c75efdf-7dff-4e83-9337-402e28191807",
+        "initial_reference_class": "Historical daily observations of U.S. 10-year Treasury constant-maturity yield",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-05 be greater than 5.24 percent in the release expected on 2026-10-06?",
+        "original_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-05 be greater than 5.24 percent in the release expected on 2026-10-06?",
+        "question_id": "2015eed0-307c-46e7-8134-27167bb5f272",
+        "resolution_date": "2026-10-06T21:00:00Z",
+        "resolution_method": "Use FRED series DGS10 (not_seasonally_adjusted, daily, units percent), originally published by the Board of Governors of the Federal Reserve System, and the first published value. The initial-release value is the value for 2026-10-05 in the earliest ALFRED vintage of DGS10 that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent daily observations",
+          "Scheduled data releases and monetary-policy communications"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-05 is greater than 5.24 percent."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "2015eed0-307c-46e7-8134-27167bb5f272",
+      "release_event": "dgs10-2026-10-05"
+    },
+    {
+      "cells": [
+        {
+          "brier_score": null,
+          "cost_usd": 0.5073050000000001,
+          "latency_ms": 155314,
+          "log_loss": null,
+          "method": "root_event_ensemble_v1",
+          "probability": 0.5047073495092818,
+          "run_id": "abf740af-262a-46e2-bb5e-2412da3a9e51",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.03464,
+          "latency_ms": 15944,
+          "log_loss": null,
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55,
+          "run_id": "35ca64ab-8645-41a3-b826-7f8b9b854af2",
+          "status": "forecasted"
+        },
+        {
+          "brier_score": null,
+          "cost_usd": 0.3965000000000001,
+          "latency_ms": 171971,
+          "log_loss": null,
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4586832548857421,
+          "run_id": "9fe7a2b6-0ade-448d-b619-92b55a2492c1",
+          "status": "forecasted"
+        }
+      ],
+      "contract": {
+        "ambiguity_notes": "",
+        "authoritative_source": "https://fred.stlouisfed.org/series/DGS10",
+        "cancellation_conditions": "Cancel if no value is published for the specified observation period (for example a market or federal holiday), the release is withdrawn, or the measurement cannot be established from an official dated record.",
+        "created_at": "2026-10-02T23:48:30.708754Z",
+        "created_by": "macro_template_fred_v1",
+        "domain": "us_macro",
+        "fallback_sources": [
+          "https://alfred.stlouisfed.org/series?seid=DGS10",
+          "https://www.federalreserve.gov/releases/h15/"
+        ],
+        "forecast_type": "binary",
+        "geography": "US",
+        "id": "40b7c02c-4a00-424f-826d-b2cfc34cad71",
+        "initial_reference_class": "Historical daily observations of U.S. 10-year Treasury constant-maturity yield",
+        "known_dependencies": [],
+        "no_condition": "The specified published value does not satisfy the yes condition.",
+        "normalized_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-07 be greater than 5.24 percent in the release expected on 2026-10-08?",
+        "original_question": "Will the first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-07 be greater than 5.24 percent in the release expected on 2026-10-08?",
+        "question_id": "469af6c8-c861-46f9-b144-33e3ec4eae8b",
+        "resolution_date": "2026-10-08T21:00:00Z",
+        "resolution_method": "Use FRED series DGS10 (not_seasonally_adjusted, daily, units percent), originally published by the Board of Governors of the Federal Reserve System, and the first published value. The initial-release value is the value for 2026-10-07 in the earliest ALFRED vintage of DGS10 that contains that observation. Retain the dated ALFRED vintage CSV and its vintage date as outcome evidence. Do not substitute later revisions for a first release.",
+        "resolver_risk_notes": "",
+        "status": "approved",
+        "suggested_drivers": [
+          "Recent daily observations",
+          "Scheduled data releases and monetary-policy communications"
+        ],
+        "units": "percent",
+        "version": 1,
+        "yes_condition": "The first published value of U.S. 10-year Treasury constant-maturity yield (not seasonally adjusted, FRED series DGS10) for 2026-10-07 is greater than 5.24 percent."
+      },
+      "cutoff": "2026-10-03T05:48:00+00:00",
+      "id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "official_outcome_amendment": null,
+      "outcome": null,
+      "question_id": "469af6c8-c861-46f9-b144-33e3ec4eae8b",
+      "release_event": "dgs10-2026-10-07"
+    }
+  ],
+  "release_event_count": 7,
+  "status": "awaiting_resolution"
+}

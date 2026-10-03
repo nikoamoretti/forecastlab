@@ -39,7 +39,11 @@ from forecastlab_api.contracts import store_forecast_contract
 from forecastlab_api.models import ForecastRun, Job, PersonalForecast, Question
 from forecastlab_api.personal_forecasts import PROFILE, envelope
 from forecastlab_api.pipeline import create_run_record, resolve_for_question
-from forecastlab_api.question_suggestions import SelectionSources, database_selection_sources
+from forecastlab_api.question_suggestions import (
+    SelectionSources,
+    database_selection_sources,
+    schedule_resolution_evidence,
+)
 from forecastlab_api.secrets import load_secrets
 
 
@@ -158,27 +162,7 @@ def source_fingerprint(snapshot: MacroSnapshot) -> str:
 
 
 def _resolution_evidence(candidate: QuestionSuggestion, sources: SelectionSources) -> list[dict]:
-    artifact = sources.documents.get(candidate.schedule.source_url)
-    if not artifact:
-        raise HTTPException(409, "Retained official release calendar is required")
-    schedule = candidate.schedule
-    if schedule.schedule_basis == "dol_fed_schedule_v1" and artifact["sha256"] != schedule.source_hash:
-        raise HTTPException(409, "Original release document hash does not match the approved schedule")
-    corroboration = []
-    for source in schedule.verification_sources:
-        retained = sources.documents.get(source["url"])
-        if not retained or retained["sha256"] != source["source_hash"]:
-            raise HTTPException(409, "Retained schedule confirmation is required")
-        corroboration.append({**source, "artifact": retained})
-    if schedule.schedule_basis == "dol_fed_schedule_v1" and not corroboration:
-        raise HTTPException(409, "Current official calendar confirmation is required")
-    return [{"schema_version": "evidence_assessment_v2", "claim_id": "calendar:" + digest(schedule.model_dump(mode="json")),
-        "classification": "background", "relevant": True, "usable": True, "required_sections": ["resolution"],
-        "reason": "Deterministically verified official release schedule; original documents retained",
-        "claim": f"BLS {schedule.family}, observation period {schedule.observation_period}, scheduled release {schedule.release_at.isoformat()}",
-        "quote": schedule.quote, "url": schedule.source_url, "title": "Official BLS release schedule",
-        "primary_source": True, "source_lineage": "agency:bls", "source_available_at": sources.checked_at.isoformat(),
-        "extraction_method": schedule.schedule_basis, "artifact": artifact, "corroboration": corroboration}]
+    return schedule_resolution_evidence(candidate.schedule, sources)
 
 
 def dispatch(session, candidate: QuestionSuggestion, sources: SelectionSources, *, kind: str,

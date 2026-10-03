@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     credentials_path: Path = ROOT / "data" / "local" / "credentials.json"
     allow_local_fixtures: bool = True
     embedded_worker: bool = False
+    # Freezing a prospective cohort retrieves the official release calendar to
+    # attach verified schedule evidence. Isolated tests disable this network step.
+    cohort_schedule_evidence: bool = True
     log_level: str = "INFO"
 
     model_provider: str = "mock"

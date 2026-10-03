@@ -1,0 +1,235 @@
+{
+  "cells": [
+    {
+      "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "dgs10-2026-10-09",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.55,
+      "release_event": "dgs10-2026-10-09",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "dgs10-2026-10-09",
+      "status": "execution_failed"
+    },
+    {
+      "entry_id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "dgs10-2026-10-06",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.55,
+      "release_event": "dgs10-2026-10-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.529811960668346,
+      "release_event": "dgs10-2026-10-06",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "claims-2026-10-15",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4,
+      "release_event": "claims-2026-10-15",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4879261184171747,
+      "release_event": "claims-2026-10-15",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "dgs10-2026-10-08",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.8,
+      "release_event": "dgs10-2026-10-08",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.40902000498997837,
+      "release_event": "dgs10-2026-10-08",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "claims-2026-10-08",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.43,
+      "release_event": "claims-2026-10-08",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.41917007307972853,
+      "release_event": "claims-2026-10-08",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": null,
+      "release_event": "dgs10-2026-10-05",
+      "status": "insufficient_evidence"
+    },
+    {
+      "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.45,
+      "release_event": "dgs10-2026-10-05",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4119476522661372,
+      "release_event": "dgs10-2026-10-05",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "method": "root_event_ensemble_v1",
+      "outcome": null,
+      "probability": 0.5047073495092818,
+      "release_event": "dgs10-2026-10-07",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "method": "single_model_forecaster_v1",
+      "outcome": null,
+      "probability": 0.55,
+      "release_event": "dgs10-2026-10-07",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "method": "three_track_strict_forecaster_v1",
+      "outcome": null,
+      "probability": 0.4586832548857421,
+      "release_event": "dgs10-2026-10-07",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "90214343-942a-4a89-b8aa-f0a8532a41ce",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "fa95c02a36d90d94c7e5fba53fa49a90d15c12e6c6f7ea896044f48552776cbd",
+  "methods": {
+    "root_event_ensemble_v1": {
+      "assigned": 7,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "single_model_forecaster_v1": {
+      "assigned": 7,
+      "forecasted": 7,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "three_track_strict_forecaster_v1": {
+      "assigned": 7,
+      "forecasted": 6,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "13f127d7-f551-4184-9856-a4c8d13b1c18": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "1fa481be-5232-46b6-8bd7-c8fe62e2d51c": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "7a061736-f242-48ec-bc26-27a8be6f3bbc": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "8ab49dab-21d3-4457-b6f9-df59641cc9d8": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "96fb882f-1eab-4f04-b3fc-60b55913baf9": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-03",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 7
+}

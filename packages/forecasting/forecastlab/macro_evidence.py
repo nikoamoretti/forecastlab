@@ -9,7 +9,7 @@ from decimal import Decimal, InvalidOperation
 from html.parser import HTMLParser
 from zoneinfo import ZoneInfo
 
-from forecastlab.macro import SERIES, MacroDataError, MacroSnapshot, MacroSpec
+from forecastlab.macro import SERIES, MacroDataError, MacroSnapshot, MacroSpec, series_id
 from forecastlab.root_event import digest
 from forecastlab.timeutil import as_utc, parse_datetime
 
@@ -17,6 +17,8 @@ ALIASES = {
     "unemployment": r"unemployment|jobless|LNS14000000|UNRATE",
     "payrolls": r"nonfarm|non-farm|payroll|CES0000000001|PAYEMS",
     "cpi": r"consumer price|CPI|inflation|CUUR0000SA0",
+    "jobless_claims": r"initial claims|jobless claims|unemployment insurance claims|ICSA",
+    "treasury_10y": r"10-year|ten-year|treasury yield|DGS10",
 }
 MONTHS = "|".join(calendar.month_name[1:])
 FIRST_RELEASE_PARSER_VERSION = "macro_first_release_v1"
@@ -36,7 +38,7 @@ def validate_snapshot(snapshot: MacroSnapshot, spec: MacroSpec, cutoff: datetime
     if as_utc(snapshot.retrieved_at) > as_utc(cutoff) or not snapshot.observations:
         raise MacroDataError("macro_snapshot_after_cutoff_or_empty")
     for observation in snapshot.observations:
-        if (observation.series_id != meta["bls"] or observation.units != meta["units"] or
+        if (observation.series_id != series_id(spec.indicator) or observation.units != meta["units"] or
                 observation.seasonal_adjustment != meta["adjustment"]):
             raise MacroDataError("macro_measurement_units_or_adjustment_mismatch")
         if observation.period >= spec.observation_period or as_utc(observation.available_at) > as_utc(cutoff):

@@ -45,6 +45,7 @@ _STRICT_STRUCTURED_TASK_SCHEMA_NAMES = {
     "track_forecast",
     "resolution_contract",
     "forecast_contract",
+    "research_plan",
 }
 
 

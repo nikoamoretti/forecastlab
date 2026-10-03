@@ -10,7 +10,7 @@ from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from forecastlab.macro import SERIES, MacroDataError, MacroObservation, MacroSnapshot, MacroSpec
+from forecastlab.macro import SERIES, MacroDataError, MacroObservation, MacroSnapshot, MacroSpec, bls_indicators
 from forecastlab.root_event import digest
 from forecastlab.timeutil import as_utc
 
@@ -118,6 +118,9 @@ def parse_bls_calendar(html: str, *, source_url: str, checked_at: datetime) -> l
 
 
 def event_key(spec: MacroSpec) -> tuple[str, str]:
+    if spec.indicator not in bls_indicators():
+        # Weekly/daily FRED observations are their own release events.
+        return (spec.indicator, spec.observation_period)
     return ("cpi" if spec.indicator == "cpi" else "empsit", spec.observation_period)
 
 
@@ -138,7 +141,8 @@ def choose_questions(releases: list[ScheduledRelease], snapshots: dict[str, Macr
     tracked = tracked or []
     suggestions = []
     gaps = []
-    for indicator, meta in SERIES.items():
+    for indicator in bls_indicators():
+        meta = SERIES[indicator]
         family = "cpi" if indicator == "cpi" else "empsit"
         upcoming = sorted((r for r in releases if r.family == family and
                            now + timedelta(minutes=10) < as_utc(r.release_at) <= now + timedelta(days=HORIZON_DAYS)),

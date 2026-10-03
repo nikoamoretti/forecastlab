@@ -13,11 +13,13 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from forecastlab.evaluation import brier_score, log_loss
-from forecastlab.macro import MacroSpec
+from forecastlab.macro import SERIES, MacroSpec
+from forecastlab.question_selection import event_key
 from forecastlab.root_event import digest
 from forecastlab.schemas import ForecastContract
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api.autopilot_models import OfficialMacroOutcomeAmendment
+from forecastlab_api.config import settings
 from forecastlab_api.contracts import approve_forecast_contract, store_forecast_contract
 from forecastlab_api.jobs import enqueue_job
 from forecastlab_api.models import (
@@ -33,6 +35,7 @@ from forecastlab_api.models import (
 )
 from forecastlab_api.personal_forecasts import envelope
 from forecastlab_api.pipeline import create_run_record, resolve_for_question
+from forecastlab_api.question_suggestions import schedule_resolution_evidence, selection_sources
 
 # Methods assigned to newly frozen cohorts.  Reports use the methods recorded
 # in each cohort's frozen manifest, so earlier cohorts keep their own set.
@@ -132,7 +135,44 @@ def entries_for(session: Session, cohort_id: str) -> list[ProspectiveEntry]:
                                .order_by(ProspectiveEntry.id)).all())
 
 
+def official_schedule_evidence(entries: list[ProspectiveEntry]) -> dict[str, dict]:
+    """Verified official release-schedule evidence for BLS entries, keyed by entry id.
+
+    Autopilot attaches the same deterministically verified schedule (retained
+    DOL/BLS documents with hash checks) as each run's ``resolution`` evidence.
+    Each value is either ``{"evidence": [...]}`` or ``{"gap": reason}``. FRED
+    entries and releases absent from the verified calendar get a gap, so the
+    root method keeps withholding unless research supplies resolution evidence.
+    """
+    specs = {entry.id: MacroSpec.model_validate_json(entry.macro_json) for entry in entries}
+    bls = {entry_id: spec for entry_id, spec in specs.items() if SERIES[spec.indicator]["source"] == "bls"}
+    result: dict[str, dict] = {entry_id: {"gap": "official_schedule_not_applicable"}
+                               for entry_id in specs if entry_id not in bls}
+    if not bls:
+        return result
+    try:
+        sources = selection_sources()
+    except Exception:  # Network or source failure must not block a freeze.
+        return result | {entry_id: {"gap": "official_schedule_sources_unavailable"} for entry_id in bls}
+    for entry_id, spec in bls.items():
+        family, period = event_key(spec)
+        release = next((item for item in sources.releases if item.family == family and item.observation_period == period
+                        and as_utc(item.release_at) == as_utc(spec.release_at)), None)
+        if release is None:
+            result[entry_id] = {"gap": "official_schedule_release_not_verified"}
+            continue
+        try:
+            result[entry_id] = {"evidence": schedule_resolution_evidence(release, sources)}
+        except HTTPException:
+            result[entry_id] = {"gap": "official_schedule_documents_unverified"}
+    return result
+
+
 def freeze_cohort(session: Session, cohort_id: str, *, reviewed_by: str) -> ProspectiveCohort:
+    # Retrieve public schedule documents before taking the write lock.
+    pending = session.get(ProspectiveCohort, cohort_id)
+    schedules = (official_schedule_evidence(entries_for(session, cohort_id))
+                 if settings.cohort_schedule_evidence and pending is not None and pending.status == "draft" else {})
     if session.get_bind().dialect.name == "sqlite":
         session.connection().exec_driver_sql("BEGIN IMMEDIATE")
     cohort = session.scalar(select(ProspectiveCohort).where(ProspectiveCohort.id == cohort_id).with_for_update())
@@ -155,6 +195,7 @@ def freeze_cohort(session: Session, cohort_id: str, *, reviewed_by: str) -> Pros
         contract = contract.model_copy(update={"status": "approved"})
         entry.contract_json = contract.model_dump_json()
         question = session.get(Question, entry.question_id)
+        schedule = schedules.get(entry.id, {"gap": "official_schedule_lookup_disabled"})
         methods = []
         for profile_id in METHODS:
             context = resolve_for_question(question, profile_id=profile_id, mode="live")
@@ -163,7 +204,10 @@ def freeze_cohort(session: Session, cohort_id: str, *, reviewed_by: str) -> Pros
             frozen = envelope(session, run, request_key=f"cohort:{cohort.id}:{entry.id}:{profile_id}",
                 request_hash=digest({"contract": entry.contract_json, "method": profile_id}), contract=contract,
                 macro=MacroSpec.model_validate_json(entry.macro_json))
-            frozen.result_json = json.dumps({"forecast_cutoff": as_utc(entry.cutoff).isoformat()})
+            frozen_result: dict = {"forecast_cutoff": as_utc(entry.cutoff).isoformat()}
+            if schedule.get("evidence"):
+                frozen_result["resolution_evidence"] = schedule["evidence"]
+            frozen.result_json = json.dumps(frozen_result)
             session.add(ProspectiveAssignment(id=str(uuid.uuid4()), cohort_id=cohort.id,
                 entry_id=entry.id, profile_id=profile_id, run_id=run.id))
             methods.append({"profile_id": profile_id, "run_id": run.id,
@@ -171,7 +215,11 @@ def freeze_cohort(session: Session, cohort_id: str, *, reviewed_by: str) -> Pros
                 "profile": json.loads(frozen.profile_json), "prompt_hash": digest(json.loads(frozen.prompts_json))})
         manifest["entries"].append({"entry_id": entry.id, "contract": contract.model_dump(mode="json"),
             "macro": json.loads(entry.macro_json), "cutoff": as_utc(entry.cutoff).isoformat(),
-            "release_event": entry.release_event, "methods": methods})
+            "release_event": entry.release_event, "methods": methods,
+            "official_schedule": ({"claim_ids": [item["claim_id"] for item in schedule["evidence"]],
+                                   "source_urls": [item["url"] for item in schedule["evidence"]],
+                                   "source_sha256": [item["artifact"]["sha256"] for item in schedule["evidence"]]}
+                                  if schedule.get("evidence") else {"gap": schedule["gap"]})})
     cohort.manifest_json = json.dumps(manifest, sort_keys=True)
     cohort.manifest_hash = digest(manifest)
     cohort.frozen_at = utcnow()

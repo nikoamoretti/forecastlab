@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { api, pct } from "@/lib/api";
+import { verdictShort } from "@/lib/verdict";
+import VerdictHeadline from "@/components/VerdictHeadline";
 
 export default function PersonalReport({ data, rerun }: { data: any; rerun: () => Promise<void> }) {
   const [evidenceUrl, setEvidenceUrl] = useState("");
@@ -22,7 +24,9 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
     {data.is_historical_view && <p className="border border-rule p-3">Viewing a historical run. <Link className="underline" href={`/forecasts/${data.id}`}>Open latest forecast</Link></p>}
     <header><p className="font-mono text-xs uppercase tracking-widest text-copper">{run.mode} · Personal V1 · {String(data.outcome_status || run.status).replaceAll("_", " ")}</p>
       <h2 className="mt-3 max-w-4xl font-serif text-4xl">{data.original_text}</h2>
-      <p className="mt-5 font-serif text-5xl">{run.status === "failed" ? "Forecast failed" : result.probability == null ? (terminal ? "Probability withheld" : "Research in progress") : pct(result.probability)}</p>
+      {run.status !== "failed" && result.probability != null
+        ? <div className="mt-5"><VerdictHeadline probability={result.probability} /></div>
+        : <p className="mt-5 font-serif text-5xl">{run.status === "failed" ? "Forecast failed" : terminal ? "Probability withheld" : "Research in progress"}</p>}
       <p className="mt-3" aria-live="polite">{run.progress_message}</p>
       {run.error_message && <p role="alert" className="mt-2 text-copper">{run.error_message}</p>}
       <p className="mt-2 text-sm">${Number(run.total_cost_usd || 0).toFixed(4)} including preparation · {data.automation ? `Autopilot question · ${data.automation.latest_version_kind} version · ${data.automation.status.replaceAll("_", " ")}` : data.stale ? "Stale after a watched change" : "Manual updates"}</p>
@@ -56,7 +60,7 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       <p className="mt-3 text-sm">{result.question_selection.reason}</p>
       <p className="mt-2 text-sm"><a className="underline" href={result.question_selection.schedule.source_url}>Release calendar</a> · <a className="underline" href={result.question_selection.baseline.source_url}>Threshold source</a></p>
       <pre className="mt-3 max-h-80 overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify(result.question_selection, null, 2)}</pre></details>}
-    <section><h3 className="font-serif text-2xl">Version history</h3><ul className="mt-3 space-y-2">{history.map((v: any) => <li key={v.id}><Link className="underline" href={`/forecasts/${data.id}?run=${v.run_id}`}>{v.created_at} · {v.status === "failed" ? "Forecast failed" : v.status && v.status !== "completed" ? v.status.replaceAll("_", " ") : v.ensemble_probability == null ? "Probability withheld" : pct(v.ensemble_probability)} · {v.profile_id}</Link></li>)}</ul></section>
+    <section><h3 className="font-serif text-2xl">Version history</h3><ul className="mt-3 space-y-2">{history.map((v: any) => <li key={v.id}><Link className="underline" href={`/forecasts/${data.id}?run=${v.run_id}`}>{v.created_at} · {v.status === "failed" ? "Forecast failed" : v.status && v.status !== "completed" ? v.status.replaceAll("_", " ") : v.ensemble_probability == null ? "Probability withheld" : verdictShort(v.ensemble_probability)} · {v.profile_id}</Link></li>)}</ul></section>
     <details className="border-t border-rule pt-4"><summary className="cursor-pointer">Execution receipts, prompts, graph, and rejected evidence</summary><pre className="mt-4 max-h-[40rem] overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify({ graph: run.forecast_graph, budget: run.budget, attempts: run.run_attempts, ledger: run.provider_call_ledger, prompts: run.frozen_prompts, research: result.research_diagnostics, rejected: evidence.filter((e: any) => !e.usable), aggregation: result.aggregation }, null, 2)}</pre></details>
     <Link className="text-sm underline" href="/">Back to board</Link>
   </article>;
