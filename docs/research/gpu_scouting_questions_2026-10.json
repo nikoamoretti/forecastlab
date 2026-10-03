@@ -1,0 +1,167 @@
+[
+  {
+    "id": "gpu-q01-trendforce-1q27-dram-forecast",
+    "question": "What quarter-on-quarter change in conventional DRAM contract prices for 1Q27 will TrendForce forecast in its first press release that gives a numeric range for that quarter (midpoint, in %)?",
+    "type": "numeric",
+    "resolution_criteria": "Resolves to the midpoint, in percentage points, of the first numeric range TrendForce publishes in a press release on its Press Center for the QoQ change in 'conventional DRAM' contract prices for 1Q27. For example, '+8–13%' resolves as 10.5 and '-5% to -10%' resolves as -7.5. Use the first qualifying release published between 2026-10-03 and 2027-02-15. Ranges for single product categories (PC, server, mobile or graphics DRAM) do not count. If only a blended conventional DRAM + HBM range is published, use it and record that it is blended. If no qualifying release is published by 2027-02-15, the question is annulled.",
+    "resolution_source": "TrendForce Press Center — https://www.trendforce.com/presscenter",
+    "resolution_date": "2027-02-15",
+    "why_it_matters": "Memory is the main cost driver behind the 2026 GPU price surge. The size and sign of the first 1Q27 forecast is the earliest public read on whether the squeeze is easing.",
+    "current_value_or_status": "4Q26 forecast: +10–15% QoQ (midpoint 12.5), TrendForce press release 2026-09-30 (https://www.trendforce.com/presscenter/news/20260930-13258.html). 3Q26 forecast: +13–18% (2026-07-03). 1Q26 reported: +93–98% (2026-06-01).",
+    "lever": "Memory technology and supply"
+  },
+  {
+    "id": "gpu-q02-trendforce-dram-decline-by-2027",
+    "question": "Will TrendForce publish, by 2027-12-31, a press release that forecasts or reports a quarter-on-quarter decline in conventional DRAM contract prices for any quarter from 1Q27 through 1Q28?",
+    "type": "binary",
+    "resolution_criteria": "YES if, between 2026-10-03 and 2027-12-31, any press release on TrendForce's Press Center states a forecast or reported QoQ change in overall 'conventional DRAM' contract prices for any calendar quarter from 1Q27 through 1Q28 that lies entirely below 0%. Examples that count: '-3% to -8%', 'decline of 5–10%'. Ranges that include zero (e.g., '-3% to +2%') or 'flat' do not count. Figures for single product categories (PC, server, mobile or graphics DRAM) and spot prices do not count. Otherwise NO.",
+    "resolution_source": "TrendForce Press Center — https://www.trendforce.com/presscenter",
+    "resolution_date": "2027-12-31",
+    "why_it_matters": "A forecast decline in contract DRAM prices is the most direct signpost that the input driving GPU and console price increases has turned. Suppliers (Micron, SK hynix) and PC makers (Acer) currently disagree on when this happens.",
+    "current_value_or_status": "Every TrendForce quarterly figure since 4Q25 has been an increase: 4Q25 +45–50% and 1Q26 +93–98% (reported); 2Q26 +58–63%, 3Q26 +13–18% and 4Q26 +10–15% (forecasts). Sources: TrendForce press releases of 2026-02-26, 2026-06-01, 2026-03-31, 2026-07-03 and 2026-09-30.",
+    "lever": "Memory technology and supply"
+  },
+  {
+    "id": "gpu-q03-micron-fq2-2027-gross-margin",
+    "question": "What GAAP gross margin (%) will Micron report for its fiscal second quarter of 2027?",
+    "type": "numeric",
+    "resolution_criteria": "Resolves to the GAAP gross margin percentage for fiscal Q2 2027 stated in Micron's quarterly earnings press release (Form 8-K, Exhibit 99.1). Micron's fiscal Q2 2027 ends in late February or early March 2027. If no percentage is stated, compute GAAP gross margin divided by revenue, rounded to one decimal place. Use the first published figure, ignoring later restatements. If no release is published by 2027-04-15, the question is annulled.",
+    "resolution_source": "Micron Investor Relations — https://investors.micron.com/ ; SEC EDGAR filings for Micron (CIK 0000723125) — https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=8-K",
+    "resolution_date": "2027-04-15",
+    "why_it_matters": "Memory-maker margins show who captures the shortage rent. A falling margin would be an early, objective sign that DRAM and GDDR pricing power is fading.",
+    "current_value_or_status": "Fiscal Q4 2026 GAAP gross margin 86.8%; fiscal Q1 2027 guidance ~85.95% GAAP. Source: Micron press release, 2026-09-30 (https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm).",
+    "lever": "Memory technology and supply"
+  },
+  {
+    "id": "gpu-q04-nvidia-rtx50-super-announced",
+    "question": "Will NVIDIA officially announce at least one GeForce RTX 50 'SUPER' desktop graphics card with a US price between 2026-10-03 and 2027-01-31?",
+    "type": "binary",
+    "resolution_criteria": "YES if NVIDIA announces, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card with 'SUPER' in its name, together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom, NVIDIA GeForce News, or an official NVIDIA keynote backed by such a post. Leaks, partner listings, retailer listings and media reports do not count. Otherwise NO.",
+    "resolution_source": "NVIDIA Newsroom — https://nvidianews.nvidia.com/ ; NVIDIA GeForce News — https://www.nvidia.com/en-us/geforce/news/",
+    "resolution_date": "2027-01-31",
+    "why_it_matters": "The rumoured Super cards use 3 GB GDDR7 modules (e.g., 18 GB on a 192-bit bus). Their launch and price would show whether memory costs have eased enough to raise VRAM per dollar. CES 2027 falls inside the window.",
+    "current_value_or_status": "Not announced. Tom's Hardware (2026-07-18) reports the cards are built but on hold over 3 GB GDDR7 pricing ($60–70 vs ~$20 for a 2 GB module), and NVIDIA launched no new GPU at CES 2026 (https://www.tomshardware.com/pc-components/gpus/nvidia-rtx-50-super-gpus-are-reportedly-ready-but-stuck-in-limbo-due-to-excessive-gddr7-pricing-3gb-gddr7-module-costs-triple-the-price-of-2gb).",
+    "lever": "Competition and new entrants; memory technology (3 GB GDDR7)"
+  },
+  {
+    "id": "gpu-q05-nvidia-rtx60-announced-2027",
+    "question": "Will NVIDIA officially announce a GeForce RTX 60-series desktop graphics card with a US price by 2027-12-31?",
+    "type": "binary",
+    "resolution_criteria": "YES if NVIDIA announces, between 2026-10-03 and 2027-12-31 inclusive, at least one desktop GeForce card from its next numbered generation after RTX 50 (expected to be named RTX 60xx), together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom or NVIDIA GeForce News. Laptop-only GPUs, workstation (RTX PRO) cards, leaks and reports do not count. Otherwise NO.",
+    "resolution_source": "NVIDIA Newsroom — https://nvidianews.nvidia.com/ ; NVIDIA GeForce News — https://www.nvidia.com/en-us/geforce/news/",
+    "resolution_date": "2027-12-31",
+    "why_it_matters": "New generations have historically delivered the largest steps in performance per dollar and pushed down prices of older cards. A 2028 slip would extend the current price regime.",
+    "current_value_or_status": "Not announced. The Information, as reported by TrendForce (2026-02-06), said NVIDIA delayed RTX 60, previously targeted for mass production by late 2027, and plans no new gaming GPU in 2026 (https://www.trendforce.com/news/2026/02/06/news-nvidia-reportedly-plans-no-new-gaming-gpu-in-2026-amid-memory-tightness-first-time-in-30-years/).",
+    "lever": "Competition and new entrants"
+  },
+  {
+    "id": "gpu-q06-amd-next-gen-radeon-announced-2027",
+    "question": "Will AMD officially announce a desktop Radeon gaming graphics card based on its next-generation architecture after RDNA 4 (reported as RDNA 5), with a US price, by 2027-12-31?",
+    "type": "binary",
+    "resolution_criteria": "YES if AMD announces, between 2026-10-03 and 2027-12-31 inclusive, a desktop Radeon gaming card together with a US SEP or MSRP. AMD must describe its graphics architecture as the successor to RDNA 4, under any name such as 'RDNA 5'. The announcement must be made via the AMD Newsroom or AMD Investor Relations. New SKUs based on RDNA 4 or earlier architectures do not count, nor do leaks and reports. Otherwise NO.",
+    "resolution_source": "AMD Newsroom — https://www.amd.com/en/newsroom.html ; AMD Investor Relations press releases — https://ir.amd.com/news-events/press-releases",
+    "resolution_date": "2027-12-31",
+    "why_it_matters": "AMD has been the main source of price competition in the $300–$600 bracket. Its next generation's timing determines when NVIDIA faces new mid-range pressure.",
+    "current_value_or_status": "Not announced. Board partners at Computex 2026 expect H2 2027, possibly early 2028 (Tom's Hardware, 2026-06-07: https://www.tomshardware.com/pc-components/gpus/amds-rdna-5-gaming-gpus-are-coming-late-next-year-according-to-aibs-at-computex-manufacturers-expect-new-team-red-cards-in-the-second-half-of-2027-alongside-nvidia).",
+    "lever": "Competition and new entrants"
+  },
+  {
+    "id": "gpu-q07-moore-threads-lushan-retail-2026",
+    "question": "Will a consumer graphics card based on Moore Threads' 'Lushan' GPU be available for retail purchase in any country by 2026-12-31?",
+    "type": "binary",
+    "resolution_criteria": "YES if, by 2026-12-31, Moore Threads announces through its official website or official social-media accounts that a Lushan-based consumer or gaming graphics card is on sale (orders accepted with a stated price and shipping) to the general public. The same applies if Tom's Hardware reports it as purchasable at retail by that date. Pre-order or reservation sign-ups without shipping, engineering samples and enterprise-only products do not count. Otherwise NO.",
+    "resolution_source": "Moore Threads official website — https://www.mthreads.com/ ; Tom's Hardware GPU news — https://www.tomshardware.com/pc-components/gpus",
+    "resolution_date": "2026-12-31",
+    "why_it_matters": "This is the most ambitious Chinese consumer GPU claim: 15x AAA performance over the MTT S80 and up to 64 GB of memory. On-time delivery and independent benchmarks would show whether a new entrant can add supply outside the NVIDIA/AMD duopoly.",
+    "current_value_or_status": "Announced Dec 2025 (Tom's Hardware, 2025-12-21). Expected to launch in Q4 2026, per Moore Threads' 2026-09-03 results briefing as reported by KOCPC (2026-09-05: https://en.kocpc.com.tw/archives/25170).",
+    "lever": "Competition and new entrants"
+  },
+  {
+    "id": "gpu-q08-nvidia-official-msrp-increase",
+    "question": "Will NVIDIA announce an increase to the official US MSRP of any GeForce RTX 50-series desktop graphics card by 2027-03-31?",
+    "type": "binary",
+    "resolution_criteria": "YES if, between 2026-10-03 and 2027-03-31, NVIDIA states a US MSRP or 'starting at' price above the launch MSRP for any existing RTX 50 desktop card. Launch MSRPs: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. Qualifying channels: the NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page, or an NVIDIA statement quoted by Reuters or Bloomberg. Increases only to partner 'kit' prices, retail or marketplace listings, or prices outside the US do not count. Otherwise NO.",
+    "resolution_source": "NVIDIA Newsroom — https://nvidianews.nvidia.com/ ; NVIDIA GeForce graphics cards pages — https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/",
+    "resolution_date": "2027-03-31",
+    "why_it_matters": "So far the shortage has shown up in street prices and partner costs while official MSRPs stayed fixed. An official increase would reset the price anchor that reviews, retailers and future 'price cuts' are measured against.",
+    "current_value_or_status": "No official US MSRP increase found as of 2026-10-03. NVIDIA sold Founders Editions at launch MSRP at QuakeCon in Aug 2026 (Tom's Hardware, 2026-08-07). Cheapest US street prices are 1.24x–3.50x MSRP (Tom's Hardware price tracker, updated 2026-09-28: https://www.tomshardware.com/pc-components/gpus/lowest-gpu-prices-tracking).",
+    "lever": "Market pricing (MSRP vs street)"
+  },
+  {
+    "id": "gpu-q09-ustr-section301-gpu-exclusion-extended",
+    "question": "Will USTR extend the Section 301 tariff exclusion for 'graphics processing modules' (statistical reporting number 8473.30.1180) beyond 2026-11-10?",
+    "type": "binary",
+    "resolution_criteria": "YES if, by 2026-11-10 23:59 ET, USTR publishes a press release on ustr.gov or a Federal Register notice extending the exclusion for 'Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")' to any date after 2026-11-10. This is entry 20(ttt)(iii)(108) in USTR's exclusion index. USTR describes the current extension as running 'until November 10, 2026'; some secondary notices give the end as 11:59 p.m. EDT on 2026-11-09. Either way, an extension published by 2026-11-10 23:59 ET counts. NO if the exclusion lapses without such an extension. A reinstatement published after 2026-11-10 does not count, even if retroactive.",
+    "resolution_source": "Office of the U.S. Trade Representative press releases — https://ustr.gov/about/policy-offices/press-office/press-releases ; Federal Register — https://www.federalregister.gov/",
+    "resolution_date": "2026-11-10",
+    "why_it_matters": "Without the exclusion, China-made graphics cards would face a 25% Section 301 tariff. That would raise US prices directly and could shift assembly locations. It is the nearest-dated policy signpost.",
+    "current_value_or_status": "In force until 2026-11-10 as one of 178 exclusions extended by USTR on 2025-11-26 (https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-extends-exclusions-china-section-301-tariffs-related-forced-technology-transfer-investigation).",
+    "lever": "Manufacturing and policy (tariffs)"
+  },
+  {
+    "id": "gpu-q10-section232-phase2-covers-graphics-cards",
+    "question": "By 2027-03-31, will a presidential proclamation impose Section 232 tariffs that apply to graphics cards (HTSUS 8473.30.11) imported for consumer use?",
+    "type": "binary",
+    "resolution_criteria": "YES if a proclamation under Section 232 of the Trade Expansion Act of 1962 is published between 2026-10-03 and 2027-03-31 and imposes additional duties on at least some imports classified under HTSUS 8473.30.11. Duties that apply above a quota, cap or company-specific allowance count. Publication must be on whitehouse.gov or in the Federal Register. NO if no such proclamation is published, or if every such proclamation excludes HTSUS 8473.30.11 or exempts non-data-center consumer uses as the January 2026 Phase 1 proclamation did.",
+    "resolution_source": "Federal Register (presidential documents) — https://www.federalregister.gov/presidential-documents ; White House presidential actions — https://www.whitehouse.gov/presidential-actions/",
+    "resolution_date": "2027-03-31",
+    "why_it_matters": "Consumer graphics cards currently appear to carry no additional US duty. A broad 'Phase 2' covering chip-containing products would add a new cost layer on top of the memory shock.",
+    "current_value_or_status": "Phase 1 (Proclamation 11002, 2026-01-14) covers only advanced chips above compute-performance and memory-bandwidth thresholds and exempts non-data-center consumer applications (EY, 2026-02-09). POLITICO, via Tom's Hardware (2026-08-27), reports a Phase 2 covering laptops, consoles and servers is being weighed (https://www.tomshardware.com/tech-industry/policy/trump-administration-weighs-expanding-chip-tariffs-to-laptops-consoles-and-servers).",
+    "lever": "Manufacturing and policy (tariffs)"
+  },
+  {
+    "id": "gpu-q11-bls-cpi-computers-yoy-mar2027",
+    "question": "What will be the year-over-year % change in the BLS CPI-U index 'Computers, peripherals, and smart home assistants' (series CUUR0000SEEE01) for March 2027?",
+    "type": "numeric",
+    "resolution_criteria": "Resolves to 100 × (March 2027 index value ÷ March 2026 index value − 1), rounded to one decimal place. Use the values in the BLS database or FRED as first published with the March 2027 CPI release, which is expected in mid-April 2027. If BLS does not publish a March 2027 value by 2027-04-30, the question is annulled.",
+    "resolution_source": "U.S. Bureau of Labor Statistics — https://data.bls.gov/timeseries/CUUR0000SEEE01 ; FRED — https://fred.stlouisfed.org/series/CUUR0000SEEE01",
+    "resolution_date": "2027-04-20",
+    "why_it_matters": "This is an official, objective measure of consumer computing-hardware prices. It does not depend on retailer scraping. It captures whether the memory shock keeps passing through to consumers.",
+    "current_value_or_status": "August 2026 = 38.020, +8.4% YoY vs August 2025 (35.064). March 2026 = 35.293. December 2025 = 33.730. Source: FRED, accessed 2026-10-03.",
+    "lever": "Market pricing (official statistics)"
+  },
+  {
+    "id": "gpu-q12-jpr-q4-2026-aib-shipments",
+    "question": "How many PC graphics add-in boards (millions of units) will Jon Peddie Research report were shipped worldwide in Q4 2026?",
+    "type": "numeric",
+    "resolution_criteria": "Resolves to the Q4 2026 add-in board (AIB) shipment total, in millions of units, stated in Jon Peddie Research's first public news release on Q4'26 AIB shipments on jonpeddie.com. If only a QoQ % is given, compute it from the Q3 2026 total in JPR's Q3 release. Ignore later restatements. If no such public release appears by 2027-04-30, the question is annulled.",
+    "resolution_source": "Jon Peddie Research news — https://www.jonpeddie.com/news/",
+    "resolution_date": "2027-04-30",
+    "why_it_matters": "Unit shipments distinguish a supply squeeze (falling units, rising prices) from demand pulled forward ahead of price rises. It is the main public check on reported NVIDIA supply cuts.",
+    "current_value_or_status": "Q2 2026: 12.5 million (+6.6% YoY), JPR 2026-09-09. Q1 2026: 11.82 million (+8.3% YoY), JPR 2026-06-10. JPR's Q1 and Q2 figures do not fully reconcile.",
+    "lever": "Market state (supply and volumes)"
+  },
+  {
+    "id": "gpu-q13-steam-vram-12gb-plus-mar2027",
+    "question": "In the Steam Hardware & Software Survey for March 2027, what combined share (%) of users will report a primary GPU with 12 GB of VRAM or more?",
+    "type": "numeric",
+    "resolution_criteria": "Sum the percentages of all 'VRAM' rows of 12 GB or more (12, 16, 20, 22, 24, 32, 48 and 64 GB, and any larger). Read them from the combined (Windows, Mac and Linux) view of the main survey page for the March 2027 survey, which Valve typically publishes in early April 2027. If the page has already moved on to the next month, use an Internet Archive snapshot of https://store.steampowered.com/hwsurvey/ taken between 2027-04-01 and 2027-04-20 that shows March 2027 data. Round to two decimals. If no March 2027 data is published by 2027-04-30, the question is annulled.",
+    "resolution_source": "Valve, Steam Hardware & Software Survey — https://store.steampowered.com/hwsurvey/",
+    "resolution_date": "2027-04-20",
+    "why_it_matters": "VRAM capacity is the binding constraint for modern games and local AI. This measures whether gamers are actually getting access to higher-VRAM GPUs despite high prices. Note that Steam's survey sample is volatile from month to month.",
+    "current_value_or_status": "September 2026: 50.11% (12 GB 13.06 + 16 GB 27.21 + 20 GB 1.39 + 22 GB 1.04 + 24 GB 5.50 + 32 GB 1.41 + 64 GB 0.50). 8 GB alone: 26.71%. Source: Steam survey, accessed 2026-10-03.",
+    "lever": "Accessibility outcome (memory capacity in the installed base)"
+  },
+  {
+    "id": "gpu-q14-pc-partner-fy2026-gross-margin",
+    "question": "What gross profit margin (%) will PC Partner Group report for the full year ended 31 December 2026?",
+    "type": "numeric",
+    "resolution_criteria": "Resolves to the gross profit margin for the year ended 31 December 2026 stated in PC Partner Group's full-year results announcement, published on its website or via SGX. If no percentage is stated, compute gross profit divided by revenue, rounded to one decimal place. If no full-year results are published by 2027-03-31, the question is annulled.",
+    "resolution_source": "PC Partner Group investor information — https://www.pcpartner.com/ ; SGX company announcements — https://www.sgx.com/securities/company-announcements",
+    "resolution_date": "2027-03-31",
+    "why_it_matters": "PC Partner (Zotac, Inno3D, Manli; contract manufacturer for AMD/Sapphire cards) is the main listed pure-play board partner. Its margin shows how much of the GPU price surge is board-partner margin rather than passed-through component cost.",
+    "current_value_or_status": "H1 FY2026: 16.5% gross margin (H1 FY2025: 10.5%). Source: PC Partner condensed interim statements dated 2026-08-14 (https://www.pcpartner.com/attachment/ac/1786708541S1DJ7.pdf).",
+    "lever": "Cost stack (board-partner margins)"
+  },
+  {
+    "id": "gpu-q15-console-msrp-increase-by-mid-2027",
+    "question": "Will Sony, Microsoft or Nintendo announce a further increase in the US MSRP of the PS5 (standard disc model), the Xbox Series X (1 TB disc model) or the Nintendo Switch 2 between 2026-10-03 and 2027-06-30?",
+    "type": "binary",
+    "resolution_criteria": "YES if an official announcement published in the window raises the US MSRP of at least one of these models above its level on 2026-10-03: PS5 $649.99; Xbox Series X 1 TB $799.99; Switch 2 $499.99. Qualifying channels: the PlayStation Blog, Xbox Wire / news.xbox.com, or Nintendo of America news. Price changes only for bundles, new SKUs, retailers or non-US markets do not count. Otherwise NO.",
+    "resolution_source": "PlayStation Blog — https://blog.playstation.com/ ; Xbox Wire — https://news.xbox.com/en-us/ ; Nintendo of America news — https://www.nintendo.com/us/whatsnew/",
+    "resolution_date": "2027-06-30",
+    "why_it_matters": "Consoles and console-like devices are the traditional low-cost route to GPU-class gaming. Further increases would confirm memory costs are still feeding through to all gaming hardware. Microsoft has said it expects memory and storage prices to double again by fall 2027.",
+    "current_value_or_status": "PS5 $649.99 from 2026-04-02 (PlayStation Blog, 2026-03-27). Xbox Series X 1 TB $799.99 from 2026-08-01 (Pure Xbox, 2026-06-25). Switch 2 $499.99 from 2026-09-01 (Nintendo of America, 2026-05-07).",
+    "lever": "Access models (consoles and PC-like devices)"
+  }
+]
