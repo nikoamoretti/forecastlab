@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api, pct } from "@/lib/api";
+import { verdictShort } from "@/lib/verdict";
 import PersonalReport from "@/components/PersonalReport";
+import VerdictHeadline from "@/components/VerdictHeadline";
 
 const STAGES = [
   { id: "operationalize", label: "Operationalizing question" },
@@ -185,9 +187,13 @@ export default function ForecastPage() {
           <p className="font-mono text-xs uppercase tracking-[0.2em]">
             {directModelProbability ? "Single-model estimate" : "Ensemble estimate"}
           </p>
-          <p className="font-serif text-6xl leading-none">
-            {pct(displayedProbability)}
-          </p>
+          {displayedProbability == null ? (
+            <p className="font-serif text-6xl leading-none">{pct(displayedProbability)}</p>
+          ) : (
+            <div className="mt-2">
+              <VerdictHeadline probability={displayedProbability} className="font-serif text-4xl leading-tight" />
+            </div>
+          )}
           <p className="mt-3 text-sm">
             {graphExecutionFailed
               ? materialGateFailed
@@ -1051,7 +1057,7 @@ export default function ForecastPage() {
         <ol className="mt-3 space-y-2">
           {versions.map((version: any, index: number) => (
             <li key={version.id} className="border-b border-rule py-2 text-sm">
-              Version {versions.length - index}: {pct(version.ensemble_probability)} · {version.profile_id || "unknown profile"} ·{" "}
+              Version {versions.length - index}: {verdictShort(version.ensemble_probability)} · {version.profile_id || "unknown profile"} ·{" "}
               {version.trigger_event} ·{" "}
               {version.created_at}
             </li>
