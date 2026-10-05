@@ -1,0 +1,34 @@
+{
+  "id": "prospective_daily_20261005",
+  "interpretation": "Daily zero-cost set; small, correlated sample.",
+  "manifest_hash": "bb38b47181a0f2f7144baf2a2a0bcd940d28d579177718056598728870d459ca",
+  "methods": [
+    "statistical_baseline_v1"
+  ],
+  "questions": [
+    {
+      "cells": [
+        {
+          "interval_80": [
+            5.12,
+            5.4
+          ],
+          "method": "statistical_baseline_v1",
+          "probability": 0.5405117270788913,
+          "snapshot": {
+            "observations": 511,
+            "raw_hash": "fda1d5d0875ff851c5b3f48a57512ecec6c226fc043d7ec5b5cc90edfe71eb73",
+            "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2024-09-16",
+            "retrieved_at": "2026-10-05T11:19:03.895592+00:00",
+            "revision_basis": "latest_observed_revisions_not_first_release",
+            "source_lineage": "agency:frb",
+            "source_url": "https://fred.stlouisfed.org/series/DGS10"
+          },
+          "status": "forecasted"
+        }
+      ],
+      "id": "bb0f3a1c023cd9de",
+      "release_event": "dgs10-2026-10-12"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-05T11:19:45+00:00",
+      "entry_id": "bb0f3a1c023cd9de",
+      "probability": 0.58,
+      "rationale": "DGS10 printed 5.24% on Oct 1 (H.15) after a sharp September climb to multi-decade highs, and the market 10-year closed near 5.28% on Oct 2 despite a weak September payrolls report, leaving the level a few basis points above the 5.24% threshold. With roughly a week of trading and recent daily moves of 5-10bp, the outcome is near a coin flip tilted slightly toward above; weaker jobs data trims Fed-hike pressure while FOMC minutes and supply concerns keep upside risk. Oct 12 is Columbus Day, when SIFMA recommends a full bond-market close, so DGS10 will most likely have no value and the question should resolve as cancelled; this probability is conditional on a value being published.",
+      "release_event": "dgs10-2026-10-12",
+      "sources": [
+        {
+          "published": "2026-10-02",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html"
+        },
+        {
+          "published": "2026-10-02",
+          "url": "https://fred.stlouisfed.org/series/DGS10"
+        },
+        {
+          "published": "2026-01-01",
+          "url": "https://www.marketbeat.com/bond-market-holidays/"
+        }
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261005",
+  "generated_at": "2026-10-05T11:19:45+00:00",
+  "manifest_hash": "bb38b47181a0f2f7144baf2a2a0bcd940d28d579177718056598728870d459ca",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
