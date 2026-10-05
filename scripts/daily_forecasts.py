@@ -5,8 +5,9 @@ baseline, and Claude's own forecasts, stored as a scoreable artifact.
   python scripts/daily_forecasts.py prepare            # writes artifacts/prospective_daily_<date>/
   python scripts/daily_forecasts.py record <dir> <claude_forecasts.json>
 
-``prepare`` applies ``fast_fred_question_selection_v1`` (initial jobless claims
-and the 10-year yield, thresholds at the latest observed value) to fresh keyless
+``prepare`` applies the current ``FAST_SELECTION_VERSION`` (initial jobless
+claims and the 10-year yield, thresholds at the latest observed value, skipping
+U.S. bond-market holidays) to fresh keyless
 FRED data, drops questions already present in any earlier artifact, and computes
 ``statistical_baseline_v1`` for each. It writes ``frozen_manifest.json`` and
 ``cohort_report.json`` in the shape ``scripts/score_prospective_artifacts.py``
