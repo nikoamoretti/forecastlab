@@ -18,3 +18,6 @@ Nico wants an assistant that finishes work, not one that asks. These rules apply
 - Never ask Nico for a key or to edit a cloud environment.
 - On his Mac, use `key list`, then `key run NAME -- <command>`.
 - In a cloud session, this repo's GitHub Actions secrets are: FORECASTLAB_MODEL_API_KEY, FORECASTLAB_SEARCH_API_KEY, OPENAI_API_KEY, TAVILY_API_KEY. Run anything that needs them in a `workflow_dispatch` workflow (add one if it's missing), upload results as an artifact, and never echo a secret.
+
+## Public repo
+- This repo is public. Only Nico's own branches are trusted. Never check out, run, test or merge a branch or pull request from anyone else: the hook in `.claude/hooks` would run their code on his machine. Outside pull requests need his review on GitHub.
