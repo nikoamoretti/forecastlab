@@ -159,8 +159,10 @@ body = {"name": "Fast FRED pilot", "questions": propose_fast_questions(now, snap
 
 ## Limitations
 
-- **Holidays.** The rule ignores holidays. A DGS10 market holiday has no
-  observation, and its entry should be cancelled. A claims release moved by a
+- **Holidays.** Since `fast_fred_question_selection_v2`, DGS10 days skip U.S.
+  bond-market full closes (federal holidays observed, plus Good Friday). Entries
+  chosen by v1 on a holiday have no observation and resolve as cancelled. A day
+  that SIFMA closes early rather than fully is still selected. A claims release moved by a
   holiday, such as Thanksgiving week, still resolves from the first vintage;
   only the contract's expected date is wrong.
 - **Revisions.** ICSA's advance figure is revised the following week. The
