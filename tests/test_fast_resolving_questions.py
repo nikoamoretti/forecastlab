@@ -609,7 +609,7 @@ def test_fast_questions_drop_questions_without_a_valid_cutoff():
     claims = [q for q in questions if q["macro"]["indicator"] == "jobless_claims"]
     assert [q["macro"]["observation_period"] for q in claims] == ["2026-10-10"]
     assert [q["macro"]["observation_period"] for q in questions if q["macro"]["indicator"] == "treasury_10y"] == [
-        "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15"]
+        "2026-10-09", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16"]  # Oct 12: Columbus Day, skipped
     open_ = datetime(2026, 10, 5, 13, 30, tzinfo=UTC)
     release = datetime(2026, 10, 6, 21, tzinfo=UTC)
     assert _cutoff(datetime(2026, 10, 5, 10, tzinfo=UTC), release, market_open=open_) == datetime(2026, 10, 5, 13, tzinfo=UTC)
@@ -636,3 +636,15 @@ def test_fast_questions_create_a_cohort_through_the_api(client):
     contracts = [q["contract"] for q in response.json()["questions"]]
     assert {c["authoritative_source"] for c in contracts} == {
         "https://fred.stlouisfed.org/series/ICSA", "https://fred.stlouisfed.org/series/DGS10"}
+
+
+def test_dgs10_selection_skips_bond_market_holidays() -> None:
+    from forecastlab.fast_questions import FAST_SELECTION_VERSION, bond_market_holidays
+
+    holidays_2026 = bond_market_holidays(2026)
+    assert date(2026, 10, 12) in holidays_2026  # Columbus Day
+    assert date(2026, 4, 3) in holidays_2026  # Good Friday
+    assert date(2026, 11, 26) in holidays_2026  # Thanksgiving
+    assert date(2026, 7, 3) in holidays_2026  # Independence Day observed (July 4 is a Saturday)
+    assert date(2026, 10, 13) not in holidays_2026
+    assert FAST_SELECTION_VERSION == "fast_fred_question_selection_v2"
