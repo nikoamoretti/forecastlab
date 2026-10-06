@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import secrets
 import time
 from datetime import timedelta
@@ -124,6 +125,11 @@ def _start_session(identity: str, response):
     return response
 
 
+def normalize_passphrase(code: str) -> str:
+    """Lowercase words joined by single hyphens, so case, spaces and separators typed by hand do not matter."""
+    return "-".join(re.findall(r"[a-z0-9]+", code.lower()))
+
+
 def access_code_matches(code: str) -> bool:
     """Compare a submitted owner access code with the committed scrypt hash (never the code itself)."""
     from forecastlab.paths import project_root
@@ -133,6 +139,8 @@ def access_code_matches(code: str) -> bool:
     spec = json.loads(path.read_text())
     if spec.get("algorithm") != "scrypt":
         return False
+    if spec.get("normalize") == "passphrase_v1":
+        code = normalize_passphrase(code)
     digest = hashlib.scrypt(code.encode(), salt=bytes.fromhex(spec["salt"]), n=int(spec["n"]), r=int(spec["r"]),
                             p=int(spec["p"]), maxmem=64 * 1024 * 1024, dklen=int(spec["dklen"]))
     return secrets.compare_digest(digest.hex(), spec["hash"])
@@ -150,7 +158,7 @@ def code_login(request: Request, body: AccessCodeIn):
     if not settings.owner_github_id:
         raise HTTPException(503, "Owner authentication is not configured")
     if not access_code_matches(body.code):
-        time.sleep(1)  # The code is high-entropy; the delay only makes guessing slower still.
+        time.sleep(1)  # The passphrase is high-entropy; the delay only makes guessing slower still.
         raise HTTPException(401, "That access code is not valid")
     return _start_session(settings.owner_github_id, JSONResponse({"ok": True}))
 
