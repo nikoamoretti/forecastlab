@@ -1,0 +1,38 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-06T10:54:35+00:00",
+      "entry_id": "56e4e1b2fcb37d19",
+      "probability": 0.56,
+      "rationale": "The latest FRED print (2026-10-02) is exactly 5.28%, and the yield has climbed about 50bp since early September; on 2026-10-05 the 10-year hit a fresh intraday 2002 high near 5.35% and Trading Economics shows it near 5.28-5.32% on 2026-10-06. With the level sitting just above the threshold and roughly five trading days to go (FOMC minutes and a 10-year auction on 2026-10-07, a 30-year auction on 2026-10-08), the outcome is close to a coin flip, tilted slightly upward by momentum and a hike-leaning Fed but tempered by the weak September payrolls (29K) that pulled yields off their highs.",
+      "release_event": "dgs10-2026-10-13",
+      "sources": [
+        "https://fred.stlouisfed.org/series/DGS10",
+        "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html",
+        "https://tradingeconomics.com/united-states/government-bond-yield",
+        "https://tradingeconomics.com/united-states/government-bond-yield/news/589171",
+        "https://stockmarketwatch.com/bonds/reports/october-2026"
+      ],
+      "status": "forecasted"
+    },
+    {
+      "computed_at": "2026-10-06T10:54:35+00:00",
+      "entry_id": "f9f7b84fc8c381e0",
+      "probability": 0.55,
+      "rationale": "Same setup as the 2026-10-13 question: the 10-year is trading around 5.28-5.32% (2026-10-06) against a 5.28% threshold after a sharp September-October selloff to 2002 highs. The September CPI release lands on 2026-10-14 itself, adding variance in both directions, so I keep this close to the baseline and slightly below the 10-13 forecast to reflect the wider spread.",
+      "release_event": "dgs10-2026-10-14",
+      "sources": [
+        "https://fred.stlouisfed.org/series/DGS10",
+        "https://stockmarketwatch.com/bonds/reports/october-2026",
+        "https://tradingeconomics.com/united-states/government-bond-yield",
+        "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261006",
+  "generated_at": "2026-10-06T10:54:35+00:00",
+  "manifest_hash": "b640315c04931f63d803bdc1beb7453316b1ab8cb2cd341245f06e742fdc961e",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}

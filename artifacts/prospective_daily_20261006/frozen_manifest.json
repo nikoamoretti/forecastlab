@@ -1,0 +1,40 @@
+{
+  "frozen_at": "2026-10-06T10:53:33.055008+00:00",
+  "manifest": {
+    "created_at": "2026-10-06T10:53:33.055008+00:00",
+    "entries": [
+      {
+        "cutoff": "2026-10-06T16:53:00+00:00",
+        "entry_id": "56e4e1b2fcb37d19",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "treasury_10y",
+          "observation_period": "2026-10-13",
+          "release_at": "2026-10-14T21:00:00Z",
+          "revision_policy": "first_release",
+          "threshold": 5.28
+        },
+        "release_event": "dgs10-2026-10-13"
+      },
+      {
+        "cutoff": "2026-10-06T16:53:00+00:00",
+        "entry_id": "f9f7b84fc8c381e0",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "treasury_10y",
+          "observation_period": "2026-10-14",
+          "release_at": "2026-10-15T21:00:00Z",
+          "revision_policy": "first_release",
+          "threshold": 5.28
+        },
+        "release_event": "dgs10-2026-10-14"
+      }
+    ],
+    "methods": [
+      "statistical_baseline_v1"
+    ],
+    "schema_version": "prospective_daily_v1",
+    "selection": "fast_fred_question_selection_v2"
+  },
+  "manifest_hash": "b640315c04931f63d803bdc1beb7453316b1ab8cb2cd341245f06e742fdc961e"
+}
