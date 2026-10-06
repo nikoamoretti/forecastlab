@@ -1,0 +1,71 @@
+{
+  "cells": [
+    {
+      "entry_id": "56e4e1b2fcb37d19",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.5405117270788913,
+      "release_event": "dgs10-2026-10-13",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "f9f7b84fc8c381e0",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.5587606837606838,
+      "release_event": "dgs10-2026-10-14",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "56e4e1b2fcb37d19",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.56,
+      "release_event": "dgs10-2026-10-13",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "f9f7b84fc8c381e0",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.55,
+      "release_event": "dgs10-2026-10-14",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261006",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "b640315c04931f63d803bdc1beb7453316b1ab8cb2cd341245f06e742fdc961e",
+  "methods": {
+    "claude_code_forecaster_v1 (post-freeze supplement)": {
+      "assigned": 2,
+      "forecasted": 2,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "statistical_baseline_v1": {
+      "assigned": 2,
+      "forecasted": 2,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "56e4e1b2fcb37d19": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    },
+    "f9f7b84fc8c381e0": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-06",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 2
+}
