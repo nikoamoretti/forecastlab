@@ -383,4 +383,23 @@ def test_committed_owner_access_code_is_a_hash_not_a_code():
     spec = _json.loads((project_root() / "configs" / "owner_access_code.json").read_text())
     assert spec["algorithm"] == "scrypt" and spec["n"] >= 2**15
     assert len(bytes.fromhex(spec["hash"])) == 32 and len(bytes.fromhex(spec["salt"])) >= 16
-    assert set(spec) <= {"algorithm", "n", "r", "p", "dklen", "salt", "hash", "created", "note"}
+    assert set(spec) <= {"algorithm", "n", "r", "p", "dklen", "salt", "hash", "normalize", "created", "note"}
+
+
+def test_passphrase_matches_regardless_of_case_spacing_and_separators(monkeypatch, tmp_path):
+    import hashlib
+    import json as _json
+
+    from forecastlab_api import auth
+    salt = b"fedcba9876543210"
+    digest = hashlib.scrypt(b"apple-river-stone-cloud-maple", salt=salt, n=2**14, r=8, p=1,
+                            maxmem=64 * 1024 * 1024, dklen=32)
+    path = tmp_path / "owner_access_code.json"
+    path.write_text(_json.dumps({"algorithm": "scrypt", "n": 2**14, "r": 8, "p": 1, "dklen": 32,
+                                 "salt": salt.hex(), "hash": digest.hex(), "normalize": "passphrase_v1"}))
+    monkeypatch.setattr(auth, "ACCESS_CODE_FILE", path)
+    for typed in ("apple-river-stone-cloud-maple", " Apple River Stone Cloud Maple \n",
+                  "apple river  stone_cloud.maple", "APPLE-RIVER-STONE-CLOUD-MAPLE"):
+        assert auth.access_code_matches(typed), typed
+    for wrong in ("apple-river-stone-cloud", "applerivertonecloudmaple", "apple-river-stone-cloud-maples"):
+        assert not auth.access_code_matches(wrong), wrong
