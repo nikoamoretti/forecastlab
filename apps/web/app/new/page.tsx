@@ -355,8 +355,8 @@ export default function NewQuestionPage() {
 
   return (
     <form onSubmit={createAndGenerate} className="mx-auto max-w-3xl space-y-6">
-      <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">New question</p>
-      <h2 className="font-serif text-4xl">State a binary claim, then inspect the contract.</h2>
+      <p className="font-mono text-xs uppercase tracking-[0.25em] text-copper">Advanced · paid research pipeline</p>
+      <h2 className="font-serif text-4xl">Run the full research pipeline</h2>
       {error ? <p className="text-copper">{error}</p> : null}
       <label className="block">
         <span className="text-sm">Question</span>

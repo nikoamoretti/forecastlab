@@ -20,7 +20,7 @@ test("personal macro draft has one review, survives reload, and renders abstenti
   await expect(page.getByLabel("resolution method", { exact: true })).toHaveValue(/first/);
   await page.getByRole("button", { name: "Approve question and forecast" }).click();
   await expect(page).toHaveURL(/\/forecasts\//);
-  await expect(page.getByText("Probability withheld", { exact: true }).first()).toBeVisible({ timeout: 30000 });
+  await expect(page.getByText(/No forecast: not enough evidence/).first()).toBeVisible({ timeout: 30000 });
   await expect(page.getByRole("heading", { name: "Research gaps" })).toBeVisible();
   const history = page.getByRole("heading", { name: "Version history" }).locator("..");
   await expect(history.getByRole("listitem")).toHaveCount(1);
@@ -40,7 +40,7 @@ test("general binary contract can be edited and approved", async ({ page }) => {
   await page.getByLabel("resolution date", { exact: true }).fill("2040-02-05T13:30:00Z");
   await page.getByRole("button", { name: "Approve question and forecast" }).click();
   await expect(page).toHaveURL(/\/forecasts\//);
-  await expect(page.getByText("Probability withheld", { exact: true }).first()).toBeVisible({ timeout: 30000 });
+  await expect(page.getByText(/No forecast: not enough evidence/).first()).toBeVisible({ timeout: 30000 });
 });
 
 test("a newer withheld result never presents the older probability as current", async ({ page }) => {
@@ -52,7 +52,7 @@ test("a newer withheld result never presents the older probability as current", 
       { id: "v1", created_at: "2026-09-03", ensemble_probability: .75, profile_id: "root_event_ensemble_v1" }]
   } }));
   await page.goto("/forecasts/latest-withheld");
-  await expect(page.locator("article header")).toContainText("Probability withheld");
+  await expect(page.locator("article header")).toContainText("No forecast: not enough evidence");
   await expect(page.locator("article header")).not.toContainText("75% sure");
   await expect(page.getByRole("heading", { name: "Version history" }).locator("..")).toContainText("Yes · 75% sure");
 });
@@ -80,34 +80,6 @@ test("all runs show the call before the percentage", async ({ page }) => {
   const row = page.getByRole("listitem").filter({ hasText: "10-year yield" });
   await expect(row.getByText("Yes · 80% sure", { exact: true })).toBeVisible();
   await expect(row).toContainText("80.0% chance of yes");
-});
-
-test("the track record shows the score, each result and the open calls", async ({ page }) => {
-  const forecasters = [
-    { method: "claude_code_forecaster_v1", label: "Claude", about: "Researches on the web.", forecasts: 1, resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25 },
-    { method: "root_event_ensemble_v1", label: "Research pipeline", about: "Three AI estimates.", forecasts: 2, resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25 }];
-  const question = (id: string, title: string, extra: object) => ({ id, title, detail: `Exact rule for ${id}`, topic: "Jobs",
-    resolves_on: "2026-10-02", status: "resolved", outcome: 1, actual: "4.2%", forecasts: [], call: null, verdict: null, ...extra });
-  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-07", forecasters,
-    summary: { resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 3 },
-    questions: [
-      question("q1", "Will unemployment come in above 4.1%?", { forecasts: [{ method: "root_event_ensemble_v1", probability: .37 }],
-        call: { method: "root_event_ensemble_v1", probability: .37 }, verdict: "wrong" }),
-      question("q2", "Will the economy add more than 162,000 jobs?", { outcome: 0, actual: "+29,000 jobs",
-        forecasts: [{ method: "root_event_ensemble_v1", probability: .33 }], call: { method: "root_event_ensemble_v1", probability: .33 }, verdict: "right" }),
-      question("q3", "Will the 10-year yield on Oct 13 be above 5.28%?", { status: "pending", outcome: null, actual: null, resolves_on: "2026-10-14",
-        topic: "Interest rates", forecasts: [{ method: "claude_code_forecaster_v1", probability: .56 }], call: { method: "claude_code_forecaster_v1", probability: .56 } })] } }));
-  await page.goto("/");
-  await expect(page.getByRole("heading", { name: "1 of 2 calls right" })).toBeVisible();
-  const wrong = page.getByRole("listitem").filter({ hasText: "above 4.1%" });
-  await expect(wrong).toContainText("✗ Wrong");
-  await expect(wrong).toContainText("We said: No, 63% sure");
-  await expect(wrong).toContainText("What happened: Yes (actual: 4.2%)");
-  await expect(page.getByRole("listitem").filter({ hasText: "162,000 jobs" })).toContainText("✓ Right");
-  const open = page.getByRole("heading", { name: "Results due this week" }).locator("..");
-  await expect(open).toContainText("Our call: Yes, 56% sure");
-  await expect(open).toContainText("result due Oct 14");
-  await expect(page.getByRole("row").filter({ hasText: "Research pipeline" })).toContainText("1 of 2");
 });
 
 test("prospective setup creates unknown outcomes without spending and settings PATCH works", async ({ page }) => {

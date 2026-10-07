@@ -1,7 +1,8 @@
 """The owner's track record: every recorded forecast, its outcome, and whether the call was right.
 
-Built from the committed prospective artifacts (``artifacts/prospective_*``) and their
-``scores.json``. The API deployment does not ship ``artifacts/``, so
+Built from the committed prospective artifacts (``artifacts/prospective_*``): cohorts with
+``scores.json``, and ``forecasts.json`` sets of general questions (the GPU set and the
+questions the owner asked Claude, whose ids match their ``question_requests`` entries). The API deployment does not ship ``artifacts/``, so
 ``scripts/build_track_record.py`` writes the result to ``data/track_record.json`` and
 ``GET /api/track-record`` serves that file.
 
@@ -13,12 +14,13 @@ that answered it. A call is right when it put more than 50% on what happened; an
 from __future__ import annotations
 
 import json
+import re
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 from forecastlab.fast_questions import bond_market_holidays
-from forecastlab.macro import MacroSpec
+from forecastlab.macro import SERIES, MacroSpec
 from forecastlab.plain_questions import TOPICS, format_value, question_text, question_title
 from forecastlab.timeutil import utcnow
 
@@ -45,7 +47,8 @@ def _forecaster(method: str) -> str:
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
     by_method = {f["method"]: f for f in forecasts}
-    return next((by_method[m] for m in PRIMARY_ORDER if m in by_method), forecasts[0] if forecasts else None)
+    chosen = next((by_method[m] for m in PRIMARY_ORDER if m in by_method), forecasts[0] if forecasts else None)
+    return {"method": chosen["method"], "probability": chosen["probability"]} if chosen else None
 
 
 def verdict(probability: float, outcome: int | None) -> str | None:
@@ -57,9 +60,22 @@ def verdict(probability: float, outcome: int | None) -> str | None:
     return "right" if (probability > 0.5) == bool(outcome) else "wrong"
 
 
+def _reasoning(cell: dict[str, Any]) -> dict[str, Any]:
+    """The forecaster's own explanation, when it recorded one."""
+    keep = {"rationale": cell.get("rationale"), "sources": cell.get("sources"),
+            "made_at": cell.get("computed_at") or cell.get("created_at")}
+    return {key: value for key, value in keep.items() if value}
+
+
 def _macro_questions(directory: Path) -> list[dict[str, Any]]:
     scores = json.loads((directory / "scores.json").read_text())
     manifest = json.loads((directory / "frozen_manifest.json").read_text())["manifest"]
+    explained: dict[tuple[str, str], dict[str, Any]] = {}
+    for supplement_path in sorted(directory.glob("*_supplement.json")):
+        supplement = json.loads(supplement_path.read_text())
+        for cell in supplement["cells"]:
+            explained[(cell["entry_id"], supplement["method"])] = _reasoning(cell)
+    in_database = manifest.get("schema_version") == "autopilot_export_v1"
     questions = []
     for entry in manifest["entries"]:
         spec = MacroSpec.model_validate(entry["macro"])
@@ -67,7 +83,8 @@ def _macro_questions(directory: Path) -> list[dict[str, Any]]:
         for cell in scores["cells"]:
             if cell["entry_id"] == entry["entry_id"] and cell["probability"] is not None:
                 method = _forecaster(cell["method"])
-                forecasts.setdefault(method, {"method": method, "probability": cell["probability"]})
+                forecasts.setdefault(method, {"method": method, "probability": cell["probability"],
+                                              **explained.get((entry["entry_id"], method), {})})
         result = scores["outcomes"].get(entry["entry_id"], {})
         status, outcome, actual = "pending", None, None
         if result.get("status") == "resolved":
@@ -80,6 +97,8 @@ def _macro_questions(directory: Path) -> list[dict[str, Any]]:
             "id": entry["entry_id"], "title": question_title(spec), "detail": question_text(spec),
             "topic": TOPICS[spec.indicator], "resolves_on": spec.release_at.date().isoformat(),
             "status": status, "outcome": outcome, "actual": actual,
+            "source_url": f"https://fred.stlouisfed.org/series/{SERIES[spec.indicator]['fred']}",
+            "report_url": f"/forecasts/{entry['entry_id']}" if in_database else None,
             "forecasts": sorted(forecasts.values(), key=lambda f: PRIMARY_ORDER.index(f["method"])
                                 if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER)),
             "source": directory.name})
@@ -90,14 +109,18 @@ def _general_questions(path: Path) -> list[dict[str, Any]]:
     data = json.loads(path.read_text())
     questions = []
     for question in data["questions"]:
-        forecasts = [{"method": f["method"], "probability": f["probability"]}
+        forecasts = [{"method": f["method"], "probability": f["probability"], **_reasoning(f)}
                      for f in question["forecasts"] if f.get("probability") is not None]
+        url = re.search(r"https?://\S+", question.get("resolution_source", ""))
         outcome = question.get("outcome")
         questions.append({
             "id": question["id"], "title": question["question"], "detail": question["resolution_criteria"],
-            "topic": "Tech", "resolves_on": question["resolution_date"],
+            # The GPU set predates per-question topics.
+            "topic": question.get("topic") or data.get("topic") or ("Tech" if "gpu" in path.parent.name else "Other"),
+            "resolves_on": question["resolution_date"],
             "status": "pending" if outcome is None else "resolved",
-            "outcome": None if outcome is None else int(outcome), "actual": None,
+            "outcome": None if outcome is None else int(outcome), "actual": question.get("outcome_note"),
+            "source_url": url.group(0).rstrip(" ;,)") if url else None, "report_url": None,
             "forecasts": sorted(forecasts, key=lambda f: PRIMARY_ORDER.index(f["method"])
                                 if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER)),
             "source": path.parent.name})

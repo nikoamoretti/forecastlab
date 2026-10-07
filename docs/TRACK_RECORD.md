@@ -9,9 +9,19 @@ The app's home page answers three questions: which forecasts have been decided, 
 Inputs:
 
 - Cohorts with `frozen_manifest.json` and `scores.json`. These are the macro and fast batches, the daily sets, and `prospective_autopilot_pilot_202609`.
-- `forecasts.json` files for general questions, such as the GPU set. These stay open until an outcome is recorded in the file.
+- `forecasts.json` files for general questions:
+  - The GPU set.
+  - `prospective_requests_<date>`: questions the owner asked on **Ask a question**, answered by Claude in the daily run. Their ids match the request ids, so an answered request links to `/q/<id>`.
+
+  These stay open until an outcome is recorded in the file with `scripts/question_requests.py outcome`.
 
 `prospective_autopilot_pilot_202609` holds the first three Autopilot forecasts, made on 2026-09-05 in the live database. They were exported unchanged on 2026-10-07 so that they are scored with the same first-release rules. Pipeline smoke tests, drafts and failed runs are not part of the record. They remain under **All runs**.
+
+## Pages
+
+- **`/` Track record.** The score, progress toward 30 results, the next result, the latest results and the open questions, five at a time. Every row opens the question page.
+- **`/q/<id>` Question page.** Our call and what happened side by side, why we made the call (the forecaster's own rationale and dated sources), what each forecaster said, and how the question is decided.
+- **`/ask` Ask a question.** Owner questions wait in `app_settings` rows keyed `question_request:<id>` (`GET/POST /api/question-requests`, `DELETE` to withdraw, `POST …/answered`) until the daily run answers them. The paid research pipeline remains at `/new`.
 
 ## Rules
 

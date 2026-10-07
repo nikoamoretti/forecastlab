@@ -152,6 +152,7 @@ from forecastlab_api.persist import save_contract
 from forecastlab_api.personal_routes import router as personal_router
 from forecastlab_api.pipeline import create_run, execute_run, operationalize_question, provider_settings_from_secrets
 from forecastlab_api.probes import test_model_connection, test_search_connection
+from forecastlab_api.question_requests import router as question_requests_router
 from forecastlab_api.reports import build_v1_report, v1_report_markdown
 from forecastlab_api.research_plans import research_plan_from_row
 from forecastlab_api.scenario_synthesis import scenario_synthesis_from_row
@@ -163,6 +164,7 @@ from forecastlab_api.watches import attach_demo_watch, check_watch, validate_use
 configure_logging(settings.log_level)
 app = FastAPI(title="ForecastLab", version=__version__)
 app.include_router(personal_router)
+app.include_router(question_requests_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.web_origin, "http://127.0.0.1:3000", "http://localhost:3000"],
