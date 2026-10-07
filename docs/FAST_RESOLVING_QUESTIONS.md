@@ -127,22 +127,28 @@ owner should cancel that entry.
 
 ## Selection rule
 
-`forecastlab.fast_questions.propose_fast_questions(now, snapshots)` is a fixed,
-non-optimized rule that returns `CohortQuestionIn`-compatible dicts:
+`forecastlab.fast_questions.propose_fast_questions(now, snapshots, open_indicators)`
+is a fixed, non-optimized rule that returns `CohortQuestionIn`-compatible dicts.
+Since `fast_fred_question_selection_v3` it proposes at most one question per
+indicator, and none for an indicator in `open_indicators` (the daily run passes
+every indicator with a question whose release is still ahead). Versions 1 and 2
+proposed 2 claims weeks and 5 consecutive yield days on every run, which filled
+the record with near-identical questions.
 
-- **Claims (2 questions).** It takes the next two week-ending Saturdays whose
-  Thursday 8:30 New York release is after `now`. In UTC that is 12:30 during
-  daylight time and 13:30 during standard time. The event is
+- **Claims (1 question).** It takes the next week-ending Saturday whose
+  Thursday 8:30 New York release still leaves a valid cutoff. In UTC that is
+  12:30 during daylight time and 13:30 during standard time. The event is
   `claims-<release date>`.
-- **DGS10 (5 questions).** It takes the next five weekdays strictly after
-  `now`'s UTC date. Each is released the following weekday at 21:00 UTC. The
-  event is `dgs10-<observation date>`.
+- **DGS10 (1 question).** It takes the week-ahead close: the first Friday at
+  least 3 days after `now`'s UTC date, moved back a day while it is a bond-market
+  holiday. It is released the following weekday at 21:00 UTC. The event is
+  `dgs10-<observation date>`.
 - **Threshold and comparison.** The threshold is the latest observed value
   before the target, and the comparison is `gt`.
 - **Cutoff.** The cutoff is the earliest of three times: `now + 6h`, the release
   minus 30 minutes, and (for DGS10) the observation date's 13:30 UTC market open
   minus 30 minutes. A question without `now < cutoff < release` is dropped. The
-  result never exceeds the cohort maximum of 10 questions.
+  result never exceeds 2 questions.
 
 The web UI was not updated. Create fast cohorts through
 `POST /api/prospective/cohorts`, for example:

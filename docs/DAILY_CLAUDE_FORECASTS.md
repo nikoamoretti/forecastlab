@@ -5,7 +5,7 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 ## What one run does
 
 1. **Merge yesterday's run.** Merge any open `claude/daily-forecasts-*` pull request whose CI is green.
-2. **Prepare questions.** Run `python scripts/daily_forecasts.py prepare`. It applies the current fast selection rule, `fast_fred_question_selection_v2` (jobless claims and the 10-year yield, thresholds at the latest observed value, skipping U.S. bond-market holidays) and skips targets already in any artifact. It writes `artifacts/prospective_daily_<date>/` with the statistical baseline's forecasts and `questions.json`. If there is nothing new, skip to step 4.
+2. **Prepare questions.** Run `python scripts/daily_forecasts.py prepare`. It applies the current fast selection rule, `fast_fred_question_selection_v3` (at most one jobless claims question and one week-ahead 10-year yield question, thresholds at the latest observed value, none for an indicator that still has an unreleased question) and skips targets already in any artifact. It writes `artifacts/prospective_daily_<date>/` with the statistical baseline's forecasts and `questions.json`. If there is nothing new, skip to step 4.
 3. **Forecast.** Claude forecasts every question in `questions.json`.
    - Start with the base rate: the baseline probability and the recent history.
    - Then look for news: consensus forecasts, recent releases, market moves.

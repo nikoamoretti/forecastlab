@@ -570,16 +570,33 @@ def test_fast_questions_follow_the_fixed_rule():
     assert [(q.macro.indicator, q.macro.observation_period, q.macro.threshold, q.macro.release_at.isoformat(), q.release_event)
             for q in parsed] == [
         ("jobless_claims", "2026-10-03", 197000.0, "2026-10-08T12:30:00+00:00", "claims-2026-10-08"),
-        ("jobless_claims", "2026-10-10", 197000.0, "2026-10-15T12:30:00+00:00", "claims-2026-10-15"),
-        ("treasury_10y", "2026-10-05", 5.24, "2026-10-06T21:00:00+00:00", "dgs10-2026-10-05"),
-        ("treasury_10y", "2026-10-06", 5.24, "2026-10-07T21:00:00+00:00", "dgs10-2026-10-06"),
-        ("treasury_10y", "2026-10-07", 5.24, "2026-10-08T21:00:00+00:00", "dgs10-2026-10-07"),
-        ("treasury_10y", "2026-10-08", 5.24, "2026-10-09T21:00:00+00:00", "dgs10-2026-10-08"),
         ("treasury_10y", "2026-10-09", 5.24, "2026-10-12T21:00:00+00:00", "dgs10-2026-10-09"),
     ]
     assert {q.cutoff for q in parsed} == {datetime(2026, 10, 3, 5, 29, tzinfo=UTC)}
     assert all(now < q.cutoff < q.macro.release_at and q.macro.comparison == "gt" for q in parsed)
     assert len(questions) <= 10
+
+
+def test_fast_questions_skip_indicators_with_an_open_question():
+    from forecastlab.fast_questions import propose_fast_questions
+
+    now = datetime(2026, 10, 2, 23, 29, 41, tzinfo=UTC)
+    only_claims = propose_fast_questions(now, _fast_snapshots(), open_indicators={"treasury_10y"})
+    assert [q["macro"]["indicator"] for q in only_claims] == ["jobless_claims"]
+    assert propose_fast_questions(now, _fast_snapshots(), open_indicators={"treasury_10y", "jobless_claims"}) == []
+
+
+@pytest.mark.parametrize(("today", "target"), [
+    (date(2026, 10, 5), date(2026, 10, 9)),    # Monday: this Friday
+    (date(2026, 10, 6), date(2026, 10, 9)),    # Tuesday: exactly 3 days ahead
+    (date(2026, 10, 7), date(2026, 10, 16)),   # Wednesday: next Friday
+    (date(2026, 3, 30), date(2026, 4, 2)),     # Good Friday Apr 3: the Thursday before
+    (date(2026, 11, 23), date(2026, 11, 27)),  # Thanksgiving week: Friday is open
+])
+def test_dgs10_target_is_the_week_ahead_close(today, target):
+    from forecastlab.fast_questions import dgs10_target
+
+    assert dgs10_target(today) == target
 
 
 def test_fast_questions_use_eastern_standard_time_after_dst_ends():
@@ -594,8 +611,7 @@ def test_fast_questions_use_eastern_standard_time_after_dst_ends():
     snapshots = {"jobless_claims": _snapshot("jobless_claims", {"2026-10-24": 210000.0}, retrieved=now)}
     claims = propose_fast_questions(now, snapshots)
     assert [(q["macro"]["observation_period"], q["macro"]["release_at"], q["release_event"]) for q in claims] == [
-        ("2026-10-31", "2026-11-05T13:30:00Z", "claims-2026-11-05"),
-        ("2026-11-07", "2026-11-12T13:30:00Z", "claims-2026-11-12")]
+        ("2026-10-31", "2026-11-05T13:30:00Z", "claims-2026-11-05")]
     assert all(q["macro"]["threshold"] == 210000.0 for q in claims)
 
 
@@ -603,13 +619,11 @@ def test_fast_questions_drop_questions_without_a_valid_cutoff():
     from forecastlab.fast_questions import _cutoff, propose_fast_questions
 
     # Thursday 12:10 UTC: the week ending Oct 3 is still unreleased (12:30) but
-    # the safety margin leaves no cutoff, so it is dropped and still counted.
+    # the safety margin leaves no cutoff, so the following week is proposed.
     now = datetime(2026, 10, 8, 12, 10, tzinfo=UTC)
     questions = propose_fast_questions(now, _fast_snapshots(now))
-    claims = [q for q in questions if q["macro"]["indicator"] == "jobless_claims"]
-    assert [q["macro"]["observation_period"] for q in claims] == ["2026-10-10"]
-    assert [q["macro"]["observation_period"] for q in questions if q["macro"]["indicator"] == "treasury_10y"] == [
-        "2026-10-09", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16"]  # Oct 12: Columbus Day, skipped
+    assert [(q["macro"]["indicator"], q["macro"]["observation_period"]) for q in questions] == [
+        ("jobless_claims", "2026-10-10"), ("treasury_10y", "2026-10-16")]
     open_ = datetime(2026, 10, 5, 13, 30, tzinfo=UTC)
     release = datetime(2026, 10, 6, 21, tzinfo=UTC)
     assert _cutoff(datetime(2026, 10, 5, 10, tzinfo=UTC), release, market_open=open_) == datetime(2026, 10, 5, 13, tzinfo=UTC)
@@ -629,8 +643,8 @@ def test_fast_questions_create_a_cohort_through_the_api(client):
         "treasury_10y": _snapshot("treasury_10y", {(now.date() - timedelta(days=1)).isoformat(): 4.5}, retrieved=now),
     }
     questions = propose_fast_questions(now, snapshots)
-    # 2 + 5, unless now is inside the 30-minute margin before a claims release.
-    assert len(questions) in {6, 7}
+    # One claims and one week-ahead yield question.
+    assert len(questions) == 2
     response = client.post("/api/prospective/cohorts", json={"name": "Fast FRED pilot", "budget_usd": 1, "questions": questions})
     assert response.status_code == 201, response.text
     contracts = [q["contract"] for q in response.json()["questions"]]
@@ -647,4 +661,4 @@ def test_dgs10_selection_skips_bond_market_holidays() -> None:
     assert date(2026, 11, 26) in holidays_2026  # Thanksgiving
     assert date(2026, 7, 3) in holidays_2026  # Independence Day observed (July 4 is a Saturday)
     assert date(2026, 10, 13) not in holidays_2026
-    assert FAST_SELECTION_VERSION == "fast_fred_question_selection_v2"
+    assert FAST_SELECTION_VERSION == "fast_fred_question_selection_v3"

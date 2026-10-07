@@ -64,3 +64,12 @@ def test_existing_targets_are_not_proposed_again(tmp_path: Path) -> None:
                             "comparison": "gt"}) == module.entry_id({"indicator": "treasury_10y",
                                                                      "observation_period": "2026-10-13",
                                                                      "threshold": 5.24, "comparison": "gt"})
+
+
+def test_indicators_with_unreleased_questions_are_open(tmp_path: Path) -> None:
+    from datetime import UTC, datetime
+
+    module = _module()
+    _artifact(tmp_path / "prospective_daily_20261006")
+    assert module.open_indicators(tmp_path, datetime(2026, 10, 14, 20, tzinfo=UTC)) == {"treasury_10y"}
+    assert module.open_indicators(tmp_path, datetime(2026, 10, 14, 21, tzinfo=UTC)) == set()

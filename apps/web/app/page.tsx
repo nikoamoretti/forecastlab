@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { MEANINGFUL_RESULTS, Question, TrackRecord, callText, relativeDay, shortDate, versusGuessing } from "@/lib/trackRecord";
+import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, callText, groupBySeries, relativeDay, shortDate, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -25,14 +25,36 @@ function OpenRow({ q, today }: { q: Question; today: string }) {
   </Link></li>;
 }
 
-function Expandable({ items, label, children }: { items: Question[]; label: string; children: (q: Question) => React.ReactNode }) {
+// Several questions on one indicator collapse into one row that opens to show each of them.
+function GroupRow({ group, children, summary }: { group: QuestionGroup; children: (q: Question) => React.ReactNode; summary: string }) {
+  const [open, setOpen] = useState(false);
+  if (group.items.length === 1) return <>{children(group.items[0])}</>;
+  return <li>
+    <button className="grid w-full gap-x-4 gap-y-1 py-4 text-left hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center"
+      aria-expanded={open} onClick={() => setOpen(!open)}>
+      <span className="text-sm text-ink/60">{group.items.length} questions</span>
+      <span>{group.label}<span className="mt-1 block text-sm text-ink/60">{summary}</span></span>
+      <span aria-hidden className="hidden text-xl text-ink/30 sm:block">{open ? "−" : "+"}</span>
+    </button>
+    {open && <ul className="mb-3 divide-y divide-rule border-y border-rule pl-4 sm:pl-8">{group.items.map(children)}</ul>}
+  </li>;
+}
+
+function Expandable({ groups, label, children, summary }: {
+  groups: QuestionGroup[]; label: string; children: (q: Question) => React.ReactNode; summary: (g: QuestionGroup) => string }) {
   const [all, setAll] = useState(false);
   return <>
-    <ul className="divide-y divide-rule border-y border-rule">{(all ? items : items.slice(0, SHOWN)).map(children)}</ul>
-    {items.length > SHOWN && <button className="mt-3 py-2 text-sm underline" onClick={() => setAll(!all)}>
-      {all ? "Show fewer" : `Show all ${items.length} ${label}`}</button>}
+    <ul className="divide-y divide-rule border-y border-rule">{(all ? groups : groups.slice(0, SHOWN)).map(g =>
+      <GroupRow key={g.key} group={g} summary={summary(g)}>{children}</GroupRow>)}</ul>
+    {groups.length > SHOWN && <button className="mt-3 py-2 text-sm underline" onClick={() => setAll(!all)}>
+      {all ? "Show fewer" : `Show all ${groups.length} ${label}`}</button>}
   </>;
 }
+
+const span = (g: QuestionGroup) => {
+  const first = shortDate(g.items[0].resolves_on), last = shortDate(g.items[g.items.length - 1].resolves_on);
+  return first === last ? first : `${first} to ${last}`;
+};
 
 export default function TrackRecordPage() {
   const [data, setData] = useState<TrackRecord | null>(null);
@@ -78,14 +100,18 @@ export default function TrackRecordPage() {
     <section>
       <h3 className="font-serif text-3xl">Latest results</h3>
       {resolved.length
-        ? <div className="mt-4"><Expandable items={resolved} label="results">{q => <ResultRow key={q.id} q={q} />}</Expandable></div>
+        ? <div className="mt-4"><Expandable groups={groupBySeries(resolved)} label="results"
+            summary={g => `${g.items.filter(q => q.verdict === "right").length} of ${g.items.length} right · decided ${span(g)}`}>
+            {q => <ResultRow key={q.id} q={q} />}</Expandable></div>
         : <p className="mt-3 text-ink/70">Nothing has been decided yet.</p>}
     </section>
 
     <section>
       <h3 className="font-serif text-3xl">Coming up <span className="text-ink/40">{open.length}</span></h3>
-      <p className="mt-1 text-sm text-ink/60">Our call on each open question, soonest first.</p>
-      <div className="mt-4"><Expandable items={open} label="open questions">{q => <OpenRow key={q.id} q={q} today={today} />}</Expandable></div>
+      <p className="mt-1 text-sm text-ink/60">Our call on each open question, soonest first. Questions on the same figure are grouped.</p>
+      <div className="mt-4"><Expandable groups={groupBySeries(open)} label="topics"
+        summary={g => `Different thresholds or days · results ${span(g)}`}>
+        {q => <OpenRow key={q.id} q={q} today={today} />}</Expandable></div>
     </section>
 
     <section>

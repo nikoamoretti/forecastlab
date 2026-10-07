@@ -5,10 +5,11 @@ baseline, and Claude's own forecasts, stored as a scoreable artifact.
   python scripts/daily_forecasts.py prepare            # writes artifacts/prospective_daily_<date>/
   python scripts/daily_forecasts.py record <dir> <claude_forecasts.json>
 
-``prepare`` applies the current ``FAST_SELECTION_VERSION`` (initial jobless
-claims and the 10-year yield, thresholds at the latest observed value, skipping
-U.S. bond-market holidays) to fresh keyless
-FRED data, drops questions already present in any earlier artifact, and computes
+``prepare`` applies the current ``FAST_SELECTION_VERSION`` (at most one jobless
+claims and one week-ahead 10-year yield question, thresholds at the latest
+observed value) to fresh keyless FRED data. It proposes nothing for an indicator
+that already has an unreleased question in any artifact, drops questions already
+present in any earlier artifact, and computes
 ``statistical_baseline_v1`` for each. It writes ``frozen_manifest.json`` and
 ``cohort_report.json`` in the shape ``scripts/score_prospective_artifacts.py``
 scores, plus ``questions.json`` with each question's text and forecast cutoff.
@@ -63,11 +64,21 @@ def existing_targets(artifacts: Path) -> set[tuple[str, str]]:
     return targets
 
 
+def open_indicators(artifacts: Path, now: datetime) -> set[str]:
+    """Indicators with a question in any artifact whose release is still ahead of ``now``."""
+    indicators = set()
+    for manifest in artifacts.glob("prospective_*/frozen_manifest.json"):
+        for entry in json.loads(manifest.read_text())["manifest"]["entries"]:
+            if as_utc(datetime.fromisoformat(entry["macro"]["release_at"].replace("Z", "+00:00"))) > now:
+                indicators.add(entry["macro"]["indicator"])
+    return indicators
+
+
 def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts") -> Path | None:
     now = as_utc(now or utcnow())
     snapshots = {name: fetch_fred_snapshot(name, now=now) for name in ("jobless_claims", "treasury_10y")}
     seen = existing_targets(artifacts)
-    proposals = [q for q in propose_fast_questions(now, snapshots)
+    proposals = [q for q in propose_fast_questions(now, snapshots, open_indicators(artifacts, now))
                  if (q["macro"]["indicator"], q["macro"]["observation_period"]) not in seen]
     if not proposals:
         print("no new questions today")
