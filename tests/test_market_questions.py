@@ -32,11 +32,12 @@ EVENTS = {
         {"id": "e3", "slug": "sure-thing", "markets": [_market("m4", "Near certain?", 0.97, 90_000)]},  # above 95%
     ],
     "politics": [
-        {"id": "e4", "slug": "israel-pm", "markets": [_market("m5", "Will Netanyahu be the next PM?", 0.36, 6_000_000)]},
+        {"id": "e4", "slug": "israel-pm", "markets": [_market("m5", "Will the Knesset pass the 2027 budget?", 0.36, 6_000_000)]},
+        {"id": "e8", "slug": "next-pm", "markets": [_market("m9", "Will Ana Brnabić be the next Prime Minister of Serbia?", 0.4, 900_000)]},  # settles at swearing-in
         {"id": "e5", "slug": "far-future", "markets": [_market("m6", "Too far out?", 0.5, 80_000, ends="2026-12-31T00:00:00Z")]},
         {"id": "e6", "slug": "multi", "markets": [_market("m7", "Team A or B?", 0.5, 80_000, outcomes=("A", "B"))]},
     ],
-    "world": [{"id": "e4", "slug": "israel-pm", "markets": [_market("m5", "Will Netanyahu be the next PM?", 0.36, 6_000_000)]}],
+    "world": [{"id": "e4", "slug": "israel-pm", "markets": [_market("m5", "Will the Knesset pass the 2027 budget?", 0.36, 6_000_000)]}],
     "tech": [{"id": "e7", "slug": "openai-training", "markets": [_market("m8", "Will OpenAI resume training?", 0.62, 15_000)]}],
 }
 
@@ -84,7 +85,9 @@ def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_pat
 
     answers = tmp_path / "claude.json"
     answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
-        {"id": q["id"], "probability": 0.7, "rationale": "Because.", "sources": ["https://example.org"]} for q in questions]}))
+        {"id": q["id"], "probability": 0.7, "rationale": "Because.", "sources": ["https://example.org"],
+         **({"integrity_note": "Odds showed up in a search summary."} if q["id"] == "polymarket-m5" else {})}
+        for q in questions]}))
     script.record(directory, answers)
 
     late = tmp_path / "late.json"
@@ -107,6 +110,7 @@ def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_pat
     assert hold["call"] == {"method": "combined_median_v1", "probability": 0.7, "members": 1}  # market excluded
     assert (hold["status"], hold["verdict"], hold["actual"], hold["topic"]) == ("resolved", "right", "Polymarket: Yes", "Economy")
     assert by_id["polymarket-m5"]["verdict"] == "wrong"
+    assert by_id["polymarket-m5"]["note"] == "Odds showed up in a search summary." and hold["note"] is None
     assert by_id["polymarket-m8"]["status"] == "cancelled"
     market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")
     assert (market["resolved"], market["right"]) == (2, 2)  # 0.78 on yes, 0.36 on no

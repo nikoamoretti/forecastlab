@@ -37,7 +37,7 @@ def _general(directory: Path) -> Path:
     (directory / "forecasts.json").write_text(json.dumps({"schema": "owner_requests_v1", "questions": [
         {"id": "req-1", "question": "Will it rain in Paris on Oct 20?", "topic": "Weather",
          "resolution_criteria": "Yes if Météo-France records rain at Paris-Montsouris on 2026-10-20.",
-         "resolution_date": "2026-10-21", "resolution_source": "https://meteofrance.com", "outcome": None,
+         "resolution_date": "2026-10-21", "resolution_source": "https://meteofrance.com", "outcome": None, "integrity_note": "Disclosed early.",
          "forecasts": [{"method": "claude_code_forecaster_v1", "probability": 0.4, "rationale": "Climatology."}]}]}))
     (directory / "briefs.json").write_text(json.dumps({"written_at": NOW.isoformat(), "briefs": {
         "req-1": "Paris sees measurable rain on about 40% of October days (Météo-France normals, retrieved 2026-10-07)."}}))
@@ -91,6 +91,7 @@ def test_panel_answers_once_records_cost_and_joins_the_median(tmp_path: Path) ->
     question = record["questions"][0]
     assert question["call"]["probability"] == pytest.approx(0.65) and question["call"]["members"] == 4
     assert question["verdict"] == "right"
+    assert question["note"] == "Disclosed early."
     assert next(f for f in record["forecasters"] if f["method"] == "judge_nemotron_super_v1")["label"] == "Nemotron Super (judge)"
 
 

@@ -7,6 +7,10 @@ about skill); one market per Polymarket event, so siblings such as "who will be 
 minister" do not crowd the sample; topics taken in turn, at most ``TOPIC_LIMIT`` per topic
 and ``DAILY_LIMIT`` in all a day.
 
+v2 (2026-10-07) also skips "who will be the next prime minister/president" markets. Their
+trading closes on election day, but they settle only when someone takes office, often
+months later, so they would sit unresolved long past their listed date.
+
 The market price at selection time is kept as a benchmark forecaster. It is never part of
 our call. A question resolves only when Polymarket's resolution is final: the market is
 closed, one outcome pays 1, and the last UMA resolution status is "resolved".
@@ -15,13 +19,14 @@ closed, one outcome pays 1, and the last UMA resolution status is "resolved".
 from __future__ import annotations
 
 import json
+import re
 import urllib.parse
 import urllib.request
 from collections.abc import Callable
 from datetime import datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v1"
+SELECTION_VERSION = "polymarket_selection_v2"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -31,6 +36,8 @@ MIN_DAYS, MAX_DAYS = 2, 21
 MIN_VOLUME = 10_000
 MIN_PRICE, MAX_PRICE = 0.05, 0.95
 DAILY_LIMIT = 8
+# Markets that settle when someone takes office, not when trading closes.
+SLOW_SETTLING = re.compile(r"\bnext (prime minister|president|chancellor|premier|pm|leader|speaker)\b", re.IGNORECASE)
 TOPIC_LIMIT = 2
 
 Fetch = Callable[[str], Any]
@@ -72,7 +79,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]
                 volume = float(market.get("volumeNum") or 0)
                 closes = market.get("endDate")
                 if (market.get("closed") or price is None or not closes or volume < MIN_VOLUME
-                        or not MIN_PRICE <= price <= MAX_PRICE):
+                        or not MIN_PRICE <= price <= MAX_PRICE or SLOW_SETTLING.search(market.get("question") or "")):
                     continue
                 if not now + timedelta(days=MIN_DAYS) <= _parse_time(closes) <= now + timedelta(days=MAX_DAYS):
                     continue
