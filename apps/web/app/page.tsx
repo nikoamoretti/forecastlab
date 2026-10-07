@@ -10,7 +10,7 @@ const DAY = 86_400_000;
 
 function ResultRow({ q }: { q: Question }) {
   return <li><Link href={`/q/${q.id}`} className="grid gap-x-4 gap-y-1 py-4 hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center">
-    <span><ResultMark verdict={q.verdict} /></span>
+    <span><ResultMark verdict={q.verdict} scored={q.scored !== false} /></span>
     <span>{q.title}
       <span className="mt-1 block text-sm text-ink/60">We said {callText(q.call!.probability)} · actual {q.actual ?? (q.outcome ? "yes" : "no")} · {shortDate(q.resolves_on)}</span></span>
     <span aria-hidden className="hidden text-xl text-ink/30 sm:block">›</span>

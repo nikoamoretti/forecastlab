@@ -111,10 +111,11 @@ def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_pat
     assert (hold["status"], hold["verdict"], hold["actual"], hold["topic"]) == ("resolved", "right", "Polymarket: Yes", "Economy")
     assert by_id["polymarket-m5"]["verdict"] == "wrong"
     assert by_id["polymarket-m5"]["note"] == "Odds showed up in a search summary." and hold["note"] is None
+    assert by_id["polymarket-m5"]["scored"] is False and hold["scored"] is True  # a disclosed leak counts in no score
     assert by_id["polymarket-m8"]["status"] == "cancelled"
     market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")
-    assert (market["resolved"], market["right"]) == (2, 2)  # 0.78 on yes, 0.36 on no
-    assert record["summary"]["right"] == 1 and record["summary"]["wrong"] == 1
+    assert (market["resolved"], market["right"]) == (1, 1)  # 0.78 on yes; m5 is unscored
+    assert (record["summary"]["right"], record["summary"]["wrong"], record["summary"]["unscored"]) == (1, 0, 1)
 
 
 def _manifold(market_id: str, question: str, price: float, *, bettors: int = 40, volume: float = 5_000,

@@ -43,7 +43,7 @@ export default function QuestionPage() {
         <p className="font-mono text-xs uppercase tracking-widest text-copper">What happened</p>
         {q.status === "resolved" ? <>
           <p className="mt-2 font-serif text-4xl">{q.outcome ? "Yes" : "No"}</p>
-          <p className="mt-2 flex flex-wrap items-center gap-3 text-sm">{q.actual && <span className="text-ink/60">Actual: {q.actual}</span>}<ResultMark verdict={q.verdict} /></p>
+          <p className="mt-2 flex flex-wrap items-center gap-3 text-sm">{q.actual && <span className="text-ink/60">Actual: {q.actual}</span>}<ResultMark verdict={q.verdict} scored={q.scored !== false} /></p>
         </> : q.status === "cancelled"
           ? <p className="mt-2 text-ink/70">Cancelled: {q.actual ?? "no official value was published (market holiday)"}. It doesn’t count.</p>
           : <p className="mt-2 text-ink/70">Not decided yet. {overdue ? `Due ${shortDate(q.resolves_on, true)}; waiting for ${market ? `${marketName} to settle it` : "the official figure"}.`
@@ -52,7 +52,7 @@ export default function QuestionPage() {
     </section>
 
     {q.note && <aside className="border-l-4 border-copper bg-white/60 p-4 text-sm" aria-label="Integrity note">
-      <p className="font-medium">Integrity note</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
+      <p className="font-medium">Integrity note{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
 
     {reasoning?.rationale && <section>
       <h3 className="font-serif text-2xl">Why {labels[reasoning.method] ?? "the forecaster"} said {callText(reasoning.probability).split(",")[0].toLowerCase()}</h3>

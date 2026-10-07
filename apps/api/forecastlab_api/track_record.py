@@ -12,6 +12,10 @@ same call on all four questions decided by then). A call is right when it put mo
 50% on what happened; an exact 50% is a toss-up and counts in the accuracy score but not
 in the right/wrong tally. Each forecaster keeps its own record, so the page shows whether
 the combination beats its members.
+
+A question marked ``unscored`` (for example, a forecast that may have seen the market's
+odds) stays on the page with its integrity note but counts in no score: not the headline
+tally and not any forecaster's row. The mark is set before the outcome is known.
 """
 
 from __future__ import annotations
@@ -122,7 +126,7 @@ def _macro_questions(directory: Path) -> list[dict[str, Any]]:
             "id": entry["entry_id"], "title": question_title(spec), "detail": question_text(spec),
             "topic": TOPICS[spec.indicator], "resolves_on": spec.release_at.date().isoformat(),
             "status": status, "outcome": outcome, "actual": actual,
-            "source_url": f"https://fred.stlouisfed.org/series/{SERIES[spec.indicator]['fred']}",
+            "scored": True, "source_url": f"https://fred.stlouisfed.org/series/{SERIES[spec.indicator]['fred']}",
             "report_url": f"/forecasts/{entry['entry_id']}" if in_database else None,
             "forecasts": sorted(forecasts.values(), key=lambda f: PRIMARY_ORDER.index(f["method"])
                                 if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER)),
@@ -145,7 +149,7 @@ def _general_questions(path: Path) -> list[dict[str, Any]]:
             "resolves_on": question["resolution_date"],
             "status": "cancelled" if question.get("cancelled") else "pending" if outcome is None else "resolved",
             "outcome": None if outcome is None else int(outcome), "actual": question.get("outcome_note"),
-            "note": question.get("integrity_note"),
+            "note": question.get("integrity_note"), "scored": not question.get("unscored", False),
             "source_url": url.group(0).rstrip(" ;,)") if url else None, "report_url": None,
             "forecasts": sorted(forecasts, key=lambda f: PRIMARY_ORDER.index(f["method"])
                                 if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER)),
@@ -176,10 +180,11 @@ def build_track_record(artifacts: Path, *, today: date | None = None) -> dict[st
         call = _call(question["forecasts"])
         question["call"] = call
         question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
-    resolved = [q for q in questions if q["status"] == "resolved" and q["call"]]
+    resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),
-                "cancelled": sum(q["status"] == "cancelled" for q in questions), "total": len(questions)}
+                "cancelled": sum(q["status"] == "cancelled" for q in questions),
+                "unscored": sum(not q["scored"] for q in questions), "total": len(questions)}
     forecasters = [{"method": COMBINED, **COMBINED_INFO, "forecasts": sum(q["call"] is not None for q in questions),
                     **_tally([(q["call"]["probability"], q["outcome"]) for q in resolved])}]
     for method in sorted({f["method"] for q in questions for f in q["forecasts"]},
