@@ -5,7 +5,7 @@ export type Forecast = { method: string; probability: number; rationale?: string
 export type Question = {
   id: string; title: string; detail: string; topic: string; resolves_on: string;
   status: "pending" | "resolved" | "cancelled"; outcome: 0 | 1 | null; actual: string | null;
-  source_url: string | null; report_url: string | null;
+  source_url: string | null; report_url: string | null; note?: string | null;
   forecasts: Forecast[]; call: Forecast | null; verdict: "right" | "wrong" | "toss_up" | null;
 };
 export type Tally = { resolved: number; right: number; wrong: number; toss_ups: number; brier: number | null; coin_flip_brier: number };

@@ -142,6 +142,7 @@ def _general_questions(path: Path) -> list[dict[str, Any]]:
             "resolves_on": question["resolution_date"],
             "status": "cancelled" if question.get("cancelled") else "pending" if outcome is None else "resolved",
             "outcome": None if outcome is None else int(outcome), "actual": question.get("outcome_note"),
+            "note": question.get("integrity_note"),
             "source_url": url.group(0).rstrip(" ;,)") if url else None, "report_url": None,
             "forecasts": sorted(forecasts, key=lambda f: PRIMARY_ORDER.index(f["method"])
                                 if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER)),

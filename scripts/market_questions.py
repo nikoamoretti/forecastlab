@@ -11,7 +11,8 @@
 independent of the benchmark.
 
 ``record`` takes ``{"method", "forecast_made_at", "forecasts": [{"id", "probability",
-"rationale", "sources"}]}``, checks that every question is covered, that probabilities lie
+"rationale", "sources", "integrity_note"?}]}`` (``integrity_note`` discloses, for example,
+market odds seen in a search result), checks that every question is covered, that probabilities lie
 in [0.02, 0.98] and that the forecast was made before each market closes, and writes
 ``forecasts.json``, which the track record reads.
 
@@ -95,6 +96,7 @@ def record(directory: Path, forecasts_path: Path) -> Path:
             "id": qid, "question": question["question"], "topic": question["topic"],
             "resolution_criteria": question["resolution_criteria"], "resolution_date": question["closes_at"][:10],
             "resolution_source": question["market_url"], "market_id": prices[qid]["market_id"], "outcome": None,
+            **({"integrity_note": forecast["integrity_note"]} if forecast.get("integrity_note") else {}),
             "forecasts": [
                 {"method": MARKET_METHOD, "probability": prices[qid]["yes_price"], "created_at": snapshot["taken_at"]},
                 {"method": data.get("method", CLAUDE_METHOD), "probability": probability, "created_at": made_at.isoformat(),

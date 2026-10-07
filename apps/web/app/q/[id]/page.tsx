@@ -19,13 +19,15 @@ export default function QuestionPage() {
   const labels = Object.fromEntries(data.forecasters.map(f => [f.method, f.label]));
   // Forecasters that wrote down their reasoning (Claude does); the first one is shown.
   const reasoning = q.forecasts.find(f => f.rationale) ?? null;
+  const overdue = q.status === "pending" && q.resolves_on < data.generated_on;
+  const market = q.source_url?.includes("polymarket.com") ?? false;
 
   return <article className="mx-auto max-w-3xl space-y-10">
     <Link href="/" className="inline-block py-1 text-sm text-ink/70 hover:text-ink">‹ Track record</Link>
 
     <header>
       <p className="text-sm text-ink/60">{q.topic} · {q.status === "resolved" ? `decided ${shortDate(q.resolves_on, true)}`
-        : q.status === "cancelled" ? "cancelled" : `result due ${relativeDay(q.resolves_on, data.generated_on).replace(/^(Today|Tomorrow|Yesterday)$/, day => day.toLowerCase())}`}</p>
+        : q.status === "cancelled" ? "cancelled" : overdue ? "waiting for the result" : `result due ${relativeDay(q.resolves_on, data.generated_on).replace(/^(Today|Tomorrow|Yesterday)$/, day => day.toLowerCase())}`}</p>
       <h2 className="mt-2 font-serif text-4xl leading-tight">{q.title}</h2>
     </header>
 
@@ -43,9 +45,13 @@ export default function QuestionPage() {
           <p className="mt-2 flex flex-wrap items-center gap-3 text-sm">{q.actual && <span className="text-ink/60">Actual: {q.actual}</span>}<ResultMark verdict={q.verdict} /></p>
         </> : q.status === "cancelled"
           ? <p className="mt-2 text-ink/70">Cancelled: {q.actual ?? "no official value was published (market holiday)"}. It doesn’t count.</p>
-          : <p className="mt-2 text-ink/70">Not decided yet. The official figure is due {shortDate(q.resolves_on, true)}.</p>}
+          : <p className="mt-2 text-ink/70">Not decided yet. {overdue ? `Due ${shortDate(q.resolves_on, true)}; waiting for ${market ? "Polymarket to settle it" : "the official figure"}.`
+            : `${market ? "Polymarket settles it after" : "The official figure is due"} ${shortDate(q.resolves_on, true)}.`}</p>}
       </div>
     </section>
+
+    {q.note && <aside className="border-l-4 border-copper bg-white/60 p-4 text-sm" aria-label="Integrity note">
+      <p className="font-medium">Integrity note</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
 
     {reasoning?.rationale && <section>
       <h3 className="font-serif text-2xl">Why {labels[reasoning.method] ?? "the forecaster"} said {callText(reasoning.probability).split(",")[0].toLowerCase()}</h3>
@@ -74,7 +80,7 @@ export default function QuestionPage() {
       <h3 className="font-medium text-ink">How it’s decided</h3>
       <p className="mt-2 [overflow-wrap:anywhere]">{q.detail}</p>
       <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
-        {q.source_url && <a className="underline" href={q.source_url} target="_blank" rel="noreferrer">Official data source</a>}
+        {q.source_url && <a className="underline" href={q.source_url} target="_blank" rel="noreferrer">{market ? "The market and its rules (Polymarket)" : "Official data source"}</a>}
         {q.report_url && <Link className="underline" href={q.report_url}>Full research report</Link>}</p>
     </section>
   </article>;
