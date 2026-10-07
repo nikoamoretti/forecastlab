@@ -23,6 +23,8 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
    - priced between 5% and 95%;
    - one per event and at most two per topic.
 
+   It also adds up to 4 Manifold questions (`manifold_selection_v1`) from the economics, politics, technology and world topics, under the same window, price band and topic cap. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
+
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
    - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.
    - `market_snapshot.json` holds that price. Don't open it before recording.

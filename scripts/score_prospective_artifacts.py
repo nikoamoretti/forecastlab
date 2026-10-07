@@ -35,7 +35,7 @@ def main(argv: list[str]) -> int:
             print(f"  {method}: {summary['forecasted']}/{summary['assigned']} forecasts, "
                   f"{summary['resolved_forecasts']} scored, mean Brier "
                   f"{'n/a' if brier is None else f'{brier:.3f}'} (50% guess = 0.250)")
-    try:  # Polymarket's final results for borrowed questions; a network failure only delays them
+    try:  # Polymarket's and Manifold's final results for borrowed questions; a network failure only delays them
         resolve_markets()
     except Exception as exc:  # noqa: BLE001
         print(f"market questions not checked: {type(exc).__name__}")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Daily questions borrowed from Polymarket (rule: forecastlab.market_questions).
+"""Daily questions borrowed from Polymarket and Manifold (rule: forecastlab.market_questions).
 
   python scripts/market_questions.py prepare                   # artifacts/prospective_markets_<date>/
   python scripts/market_questions.py record <dir> <forecasts.json>
@@ -16,7 +16,7 @@ market odds seen in a search result), checks that every question is covered, tha
 in [0.02, 0.98] and that the forecast was made before each market closes, and writes
 ``forecasts.json``, which the track record reads.
 
-``resolve`` records Polymarket's final result for questions whose market has closed.
+``resolve`` records the market's final result (Polymarket or Manifold) for questions whose market has closed.
 """
 
 from __future__ import annotations
@@ -30,11 +30,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
 from forecastlab.market_questions import (  # noqa: E402
+    MANIFOLD_DAILY_LIMIT,
+    MANIFOLD_SELECTION_VERSION,
     MARKET_METHOD,
     SELECTION_VERSION,
     Fetch,
     candidates,
     fetch_json,
+    manifold_candidates,
+    manifold_resolution,
+    manifold_rules,
     resolution,
     select,
 )
@@ -57,7 +62,12 @@ def known_ids(artifacts: Path) -> set[str]:
 
 def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json) -> Path | None:
     now = as_utc(now or utcnow())
-    chosen = select(candidates(now, fetch), known_ids(artifacts))
+    seen = known_ids(artifacts)
+    chosen = select(candidates(now, fetch), seen)
+    try:  # Manifold adds questions; if it is unreachable, Polymarket's still run
+        chosen += [manifold_rules(item, fetch) for item in select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT)]
+    except Exception as exc:  # noqa: BLE001
+        print(f"manifold questions skipped today ({type(exc).__name__})")
     if not chosen:
         print("no new market questions today")
         return None
@@ -65,17 +75,18 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
     directory.mkdir(parents=True, exist_ok=False)
     keep = ("id", "question", "topic", "resolution_criteria", "closes_at", "market_url")
     (directory / "questions.json").write_text(json.dumps(
-        {"selection": SELECTION_VERSION, "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen]},
+        {"selection": f"{SELECTION_VERSION}+{MANIFOLD_SELECTION_VERSION}", "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen]},
         indent=2, sort_keys=True) + "\n")
     (directory / "market_snapshot.json").write_text(json.dumps(
         {"taken_at": now.isoformat(), "markets": [{"id": c["id"], "market_id": c["market_id"], "yes_price": c["market_price"],
-                                                   "volume": c["volume"]} for c in chosen]}, indent=2, sort_keys=True) + "\n")
+                                                   "volume": c["volume"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: {len(chosen)} questions")
     return directory
 
 
 def record(directory: Path, forecasts_path: Path) -> Path:
-    questions = {q["id"]: q for q in json.loads((directory / "questions.json").read_text())["questions"]}
+    selected = json.loads((directory / "questions.json").read_text())
+    questions = {q["id"]: q for q in selected["questions"]}
     snapshot = json.loads((directory / "market_snapshot.json").read_text())
     prices = {m["id"]: m for m in snapshot["markets"]}
     data = json.loads(forecasts_path.read_text())
@@ -98,12 +109,14 @@ def record(directory: Path, forecasts_path: Path) -> Path:
             "resolution_source": question["market_url"], "market_id": prices[qid]["market_id"], "outcome": None,
             **({"integrity_note": forecast["integrity_note"]} if forecast.get("integrity_note") else {}),
             "forecasts": [
-                {"method": MARKET_METHOD, "probability": prices[qid]["yes_price"], "created_at": snapshot["taken_at"]},
+                {"method": prices[qid].get("method", MARKET_METHOD), "probability": prices[qid]["yes_price"],
+                 "created_at": snapshot["taken_at"]},
                 {"method": data.get("method", CLAUDE_METHOD), "probability": probability, "created_at": made_at.isoformat(),
                  "rationale": forecast.get("rationale", ""), "sources": forecast.get("sources", [])}]})
     target = directory / "forecasts.json"
-    target.write_text(json.dumps({"schema": "market_questions_v1", "selection": SELECTION_VERSION, "note": (
-        "Questions borrowed from Polymarket and resolved by Polymarket. The market price at selection is a benchmark, "
+    target.write_text(json.dumps({"schema": "market_questions_v1", "selection": selected.get("selection", SELECTION_VERSION), "note": (
+        "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at "
+        "selection is a benchmark, "
         "not part of our call; our forecasters did not look at it."), "questions": out}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: recorded {len(out)} forecasts")
     return target
@@ -119,17 +132,18 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
         for question in data["questions"]:
             if question["outcome"] is not None or question.get("cancelled") or question["resolution_date"] > today.date().isoformat():
                 continue
+            manifold = question["id"].startswith("manifold-")
             try:
-                result = resolution(question["market_id"], fetch)
+                result = (manifold_resolution if manifold else resolution)(question["market_id"], fetch)
             except Exception as exc:  # noqa: BLE001 - one unreachable market must not stop the others
                 print(f"{question['id']}: still open ({type(exc).__name__})")
                 continue
             if result["status"] == "resolved":
                 question |= {"outcome": result["outcome"], "outcome_source": question["resolution_source"],
-                             "outcome_note": f"Polymarket: {'Yes' if result['outcome'] else 'No'}"}
+                             "outcome_note": f"{'Manifold' if manifold else 'Polymarket'}: {'Yes' if result['outcome'] else 'No'}"}
                 changed += 1
             elif result["status"] == "cancelled":
-                question |= {"cancelled": True, "outcome_note": "Polymarket settled it 50/50"}
+                question |= {"cancelled": True, "outcome_note": "Manifold cancelled it" if manifold else "Polymarket settled it 50/50"}
                 changed += 1
         if changed > before:
             path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")

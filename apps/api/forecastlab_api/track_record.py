@@ -51,9 +51,12 @@ FORECASTERS: dict[str, dict[str, str]] = {
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
         "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
+    "manifold_price_v1": {
+        "label": "Manifold (benchmark)",
+        "about": "Manifold's play-money price when we forecast. Not part of our call."},
 }
 # Benchmarks are scored like forecasters but never enter our call.
-BENCHMARKS = {"market_price_v1"}
+BENCHMARKS = {"market_price_v1", "manifold_price_v1"}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
