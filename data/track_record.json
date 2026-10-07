@@ -4,7 +4,7 @@
       "about": "The median of every forecaster's probability on the question. This is our call.",
       "brier": 0.24948799796324403,
       "coin_flip_brier": 0.25,
-      "forecasts": 29,
+      "forecasts": 36,
       "label": "Combined forecast",
       "method": "combined_median_v1",
       "resolved": 4,
@@ -16,11 +16,47 @@
       "about": "Claude researches each question on the web and states a probability.",
       "brier": 0.10239999999999996,
       "coin_flip_brier": 0.25,
-      "forecasts": 26,
+      "forecasts": 33,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
       "resolved": 1,
       "right": 1,
+      "toss_ups": 0,
+      "wrong": 0
+    },
+    {
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 6,
+      "label": "Nemotron Ultra (judge)",
+      "method": "judge_nemotron_ultra_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
+    },
+    {
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 7,
+      "label": "Nemotron Super (judge)",
+      "method": "judge_nemotron_super_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
+    },
+    {
+      "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 2,
+      "label": "Gemma (judge)",
+      "method": "judge_gemma_v1",
+      "resolved": 0,
+      "right": 0,
       "toss_ups": 0,
       "wrong": 0
     },
@@ -71,6 +107,18 @@
       "right": 0,
       "toss_ups": 0,
       "wrong": 1
+    },
+    {
+      "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 7,
+      "label": "Prediction market (benchmark)",
+      "method": "market_price_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
     }
   ],
   "generated_on": "2026-10-07",
@@ -517,6 +565,104 @@
     {
       "actual": null,
       "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
+            "https://www.coindesk.com/price/ethereum (2026-10-07)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.48,
+          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.455
+        }
+      ],
+      "id": "polymarket-5311923",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "status": "pending",
+      "title": "Will Ethereum dip to $2,500 October 5-11?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
+            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.32,
+          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.195
+        }
+      ],
+      "id": "polymarket-5311866",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $80,000 October 5-11?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 2,
         "method": "combined_median_v1",
         "probability": 0.5602558635394457
@@ -898,6 +1044,265 @@
       "status": "pending",
       "title": "Will the 10-year U.S. Treasury yield on Oct 15, 2026 be above 5.31%?",
       "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.505
+      },
+      "detail": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
+          "sources": [
+            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
+            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
+            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
+            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        }
+      ],
+      "id": "polymarket-5008726",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-21",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/openai-resumes-training-on",
+      "status": "pending",
+      "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.57
+      },
+      "detail": "This market will resolve to the next individual who officially assumes the office of Prime Minister of Serbia by June 30, 2028, 11:59 PM ET.\n\nTo count for resolution, the individual must be elected by the National Assembly and be formally sworn-in, resulting in the official formation of a new government. Any interim or caretaker Prime Minister who is not elected by the National Assembly will not count toward the resolution of this market.\n\nIf no such Prime Minister takes office by June 30, 2028, 11:59 PM ET, this market will resolve to \u201cOther\u201d.\n\nThis market will resolve based on a consensus of credible reporting. If there is ambiguity, this market will resolve solely based on official information from the Serbian government.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Vucic resigned the presidency on Sept 27, 2026 to head the SNS 'United Serbia' list as its PM candidate in the Oct 25 snap election; if SNS and allies (SPS, minority parties) win a majority, parliament is expected to elect him. SNS has won every election since 2012 and pro-government Faktor Plus (Sept 21) has it 48.6% vs 37.1% for the Student List, but NSPM (Sept 30) shows 41.7% vs 44.4% and CRTA has the students well ahead, so the outcome is genuinely uncertain; the long June 2028 deadline covers slow government formation or a repeat vote.",
+          "sources": [
+            "https://www.euronews.com/2026/09/28/serbias-president-aleksandar-vucic-resigns-to-run-for-prime-minister-in-snap-elections (2026-09-28)",
+            "https://www.aljazeera.com/news/2026/10/4/serbian-populist-leader-vucic-launches-campaign-for-prime-minister (2026-10-04)",
+            "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Serbian_parliamentary_election (accessed 2026-10-07)",
+            "https://balk.hu/en/2026/09/21/kozvelemeny-kutatas-szerbia-vucic-faktor-plus/ (2026-09-21)",
+            "https://eualive.net/survey-suggests-serbia-nears-tipping-point-44-back-the-student-list-only-32-support-vucic/ (early Oct 2026)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.55,
+          "rationale": "Base rate: SNS has won every parliamentary election since 2012, but the Student List has surged in credible polls (CRTA, NSPM) to a slight lead, while pro-government pollsters still show SNS ahead. Vu\u010di\u0107 resigned the presidency to run as PM candidate, demonstrating commitment and control of state resources, yet the opposition momentum from the Novi Sad protests is significant. Government formation after the Oct 25 election could take months, but the June 2028 deadline allows ample time. The race is essentially a toss-up with a slight edge to the incumbent party's structural advantages."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.6,
+          "rationale": "The base rate for the SNS winning a Serbian parliamentary election is high given their streak since 2012, suggesting around a 70% chance of leading the next government. Recent polls are split, with some showing the opposition Student List ahead and others showing the SNS ahead, indicating a competitive race that reduces the incumbent's advantage. Considering Vucic's personal candidacy, the SNS's ability to form coalitions, and the uncertainty of post\u2011election negotiations, the probability shifts to roughly 60% that he will be elected Prime Minister by the June 2028 deadline."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.6805
+        }
+      ],
+      "id": "polymarket-2757891",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-25",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/next-prime-minister-of-serbia-20260629223938642",
+      "status": "pending",
+      "title": "Will Aleksandar Vu\u010di\u0107 be the next Prime Minister of Serbia?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.635
+      },
+      "detail": "This market will resolve according to the change in basis points in the target for the overnight rate resulting from the October 2026 interest rate announcement of the Bank of Canada, relative to the level it was prior to this announcement.\n\nThe resolution source will be official information from the Bank of Canada, including the statement or release from its October 2026 interest rate announcement, scheduled for October 28, 2026, as listed on the official Bank of Canada calendar (https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/#target-dates). This market may resolve as soon as the statement or release of the Bank of Canada resulting from its October 2026 interest rate decision with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified announcement is postponed to a date and time before the start of the next scheduled announcement, this market will resolve based on the outcome of that postponed announcement.  If the specified announcement is cancelled, or postponed such that no decision is announced by the start of the next scheduled announcement, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified announcement will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.67,
+          "rationale": "The BoC has held at 2.25% for seven straight decisions (latest Sept 2, 2026), and its preferred core measures (CPI-trim 1.9%, CPI-median 2.0% in August) are at target even though headline CPI is 3.0% on gasoline. Macklem (Sept 21) said the Bank does not want to be late to hike, overnight swaps priced a meaningful hike chance in mid/late September, and the Fed just hiked, but RBC, Desjardins and Capital Economics all expect a hold in October; a cut is very unlikely.",
+          "sources": [
+            "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/ (2026-09-02)",
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/260914/dq260914a-eng.pdf (2026-09-14)",
+            "https://www.bloomberg.com/news/articles/2026-09-21/macklem-flags-risk-of-delaying-rate-hike-too-long (2026-09-21)",
+            "https://www.theglobeandmail.com/business/economy/article-bank-of-canada-next-rate-decision-market-expectations/ (late Sept 2026)",
+            "https://www.canadianmortgagetrends.com/2026/10/canadians-expect-higher-inflation-as-bank-of-canada-weighs-hikes/ (2026-10-06)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Base rate favors holds (7 consecutive), and core inflation (CPI-trim 1.9%, median 2.0%) is at target, with RBC/Desjardins forecasting hold through 2026. However, headline CPI at 3.0%, Macklem's hawkish tilt, Fed tightening, $101 oil, and rising inflation expectations make this a close call per Capital Economics, keeping hike probability meaningful."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.58,
+          "rationale": "The base rate for a BoC meeting resulting in no change is roughly 60% given recent holding streaks. Evidence points to a hold: seven consecutive holds, core inflation near target, analyst consensus for no October hike, and the Bank's cautious stance. Countervailing factors\u2014headline CPI at 3%, rising inflation expectations, and a recent Fed rate hike\u2014could push toward a hike, keeping the outcome uncertain but slightly favoring no change."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_gemma_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 'hold' is generally high during stable periods, and the Bank of Canada has held rates for seven consecutive meetings. While Governor Macklem has flagged the risk of being too slow to hike and the US Fed recently raised rates, major analysts (RBC, Desjardins, Capital Economics) expect a hold through 2026. The primary risks that could trigger a hike are the upcoming Oct 19 surveys or a significant spike in inflation data, but the current core inflation measures remain near the 2% target."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7825
+        }
+      ],
+      "id": "polymarket-2941850",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/bank-of-canada-decision-in-october-20260715203359314",
+      "status": "pending",
+      "title": "Will the Bank of Canada make no change to the target for the overnight rate at the October interest rate announcement?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.4
+      },
+      "detail": "Legislative elections are schedule to be held in Israel on October 27, 2026. \n\nThis market will resolve to the next individual who is officially appointed and sworn in as Prime Minister of Israel following the 2026 parliamentary election. If an election is called early, this market will immediately resolve to the individual who is officially appointed and sworn in after that election.\n\nTo count for resolution, the individual must be formally sworn in. Any interim or caretaker Prime Minister will not count toward the resolution of this market.\n\nIf no such Prime Minister is sworn in by December 31, 2027, 11:59 PM ET, this market will resolve to \u201cOther\u201d.\n\nThe primary resolution source for this market will be official information from the Government of Israel; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "Poll averages as of Oct 7 put Netanyahu's outgoing coalition at ~51.6 seats (53.6 incl. Winter's party), well short of 61, while the Zionist opposition (~53) has pledged not to serve with Netanyahu but also largely rules out Arab parties, pointing to a possible deadlock. Netanyahu has repeatedly survived hung parliaments (sworn in again in 2020 and 2022) and the market allows until end-2027, including any repeat election, but a caretaker term does not count; Israeli polls have modestly underestimated his bloc before.",
+          "sources": [
+            "https://www.israel.com/israel-election-2026 (updated 2026-10-07)",
+            "https://www.jpost.com/israel-election-2026/article-909918 (2026-09-28)",
+            "https://www.jpost.com/israel-election-2026/article-906335 (Sept 2026)",
+            "https://en.wikipedia.org/wiki/2026_Israeli_legislative_election (accessed 2026-10-07)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.38,
+          "rationale": "Base rate: Netanyahu has won 4 of the last 6 elections (2009, 2013, 2015, 2022) and excels at post-election coalition building. Evidence against: current polling aggregates show his bloc at only 51-52 seats (well short of 61), declining from 55 in January; opposition leaders (Eisenkot, Bennett, Lapid, Golan, Liberman) signed a cooperation pact; potential kingmaker Hendel rules out Haredi and Arab parties and demands Netanyahu's exit. Evidence for: polls can shift in 20 days, Channel 14 shows a 61+ path, Netanyahu has historically outperformed final polls, and opposition unity may fracture over policy/portfolios. Probability could rise if Likud surges in final days or fall if opposition coalesces around a single alternative candidate."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.22,
+          "rationale": "Historically, an incumbent Israeli Prime Minister wins re\u2011election about 40% of the time when facing a competitive election. Current polling shows Netanyahu\u2019s bloc at roughly 22\u201323 seats and the outgoing coalition at only 51\u201352 seats, short of the 61\u2011seat majority needed to govern, while opposition parties (Yashar, Together, and others) are polling strongly and have signed a cooperation agreement. Hendel\u2011Zelekha\u2019s Reservists, a potential kingmaker, have ruled out coalitions with Haredi or Arab parties and called for Netanyahu to step down, further reducing his chances. The probability could rise if Netanyahu manages to attract support from smaller parties or if late\u2011campaign shifts boost his bloc above the majority threshold."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_gemma_v1",
+          "probability": 0.45,
+          "rationale": "The base rate for Netanyahu returning to power is high given his historical resilience, but current polling shows his coalition is precarious, hovering around the 61-seat threshold. The formation of a coordinated opposition bloc (Eisenkot, Bennett, Lapid, etc.) increases the likelihood of a non-Netanyahu government. However, the tight polling and the difficulty of forming a stable alternative coalition in Israel's fragmented system keep the probability significant."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        }
+      ],
+      "id": "polymarket-682705",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
+      "status": "pending",
+      "title": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.5
+      },
+      "detail": "This market will resolve according to South Korea's real Gross Domestic Product (GDP) growth rate (Year-on-Year, %) in Q3 of 2026, as reported in the Bank of Korea\u2019s Real Gross Domestic Product (Advance Estimate) release for Q3 of 2026, scheduled for release on October 27, 2026.\n\nThe GDP release will be made available here: https://www.bok.or.kr/eng/singl/newsDataEng/list.do?pageIndex=&targetDepth=3&menuNo=400423&syncMenuChekKey=1&searchCnd=1&searchKwd=&depth2=400417&depth3=400423&date=&sdate=&edate=&sort=1&pageUnit=10\n\nThe relevant figure may be found in the table titled \u201cGrowth Rates by Type of Economic Activity and Component of Expenditure (original series, percentage change over previous year)\u201d in the row \u201cGross Domestic Product\u201d and the column for the specified quarter. Changes in South Korea\u2019s GDP reporting format will not disqualify a published figure from counting.\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: the resolution source for this market reports year-on-year GDP growth rates to only one decimal point (e.g. 0.3%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359&date=2026-01",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Q2 2026 real GDP grew 0.6% q/q and 3.7% y/y (Q1: 1.7% q/q, 3.6% y/y), but Q3 2025 is a tough base (+1.3% q/q), so Q3 2026 y/y is roughly 2.4% plus Q3 q/q growth, and Chuseok falling in September 2026 (2.5 fewer working days than Sept 2025) depresses the original-series y/y. The BOK's 3.3% full-year forecast implies H2 near 3.0% with Q3 below Q4, but chip exports hit records in September and the BOK has underestimated recent quarters; my central estimate is ~2.8% with wide uncertainty, so the 3.0-3.4 bucket gets about a quarter.",
+          "sources": [
+            "https://www.bok.or.kr/eng/bbs/E0000634/view.do?nttId=11063106&menuNo=400423&relate=Y&depth=400423&programType=newsDataEng (2026-07-23)",
+            "https://www.koreatimes.co.kr/economy/20260423/koreas-q1-gdp-grows-17-nearly-double-forecast-on-surging-chip-exports (2026-04-23)",
+            "https://www.koreajoongangdaily.com/business/bok-raises-korea-growth-outlook-to-33-on-strong-chip-exports/12847113 (2026-08-27)",
+            "https://www.koreatimes.co.kr/economy/20261001/koreas-sept-exports-hit-record-1209-bil-on-robust-chip-sales (2026-10-01)",
+            "https://www.koreatimes.co.kr/economy/20251203/korea-posts-13-q3-gdp-growth-faster-than-initial-estimate-bok (2025-12-03)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: The BOK's 3.3% full-year 2026 forecast sits at the midpoint of the 3.0-3.4% range, and Q1/Q2 both exceeded expectations (3.6% and 3.7% y/y). Evidence moving me up: Record September exports ($120.9B, semiconductors +263% y/y) and the approximation Q3 y/y \u2248 2.4% + Q3 q/q suggest that even modest Q3 q/q growth of 0.6-1.0% (similar to Q2's 0.6%) would land in the target range. Evidence moving me down: The high Q3 2025 base (1.3% q/q) and Chuseok calendar effect (21.5 vs 24 working days in September) depress the original-series q/q figure. Net assessment: Slightly above 50% given export strength and forecast upgrades, but calendar effects and base effects create meaningful downside risk."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.5,
+          "rationale": "Historically, South Korea's quarterly YoY GDP growth has fallen in the 3.0\u20113.4% band only about 15\u201120% of the time (base rate). Recent Q1\u2011Q2 2026 outturns were 3.6% and 3.7% YoY, the BOK raised its 2026 forecast to 3.3%, and September 2026 exports surged, suggesting Q3 2026 q/q growth could be around 0.6\u20111.0%. Using the approximation YoY \u2248 Q2 YoY + Q3 q/q \u2013 Q3 2025 q/q (1.3%), this yields a YoY range of roughly 3.0% to 3.4% for plausible q/q outcomes, shifting the probability upward to about one\u2011half. A weaker q/q print or a larger base\u2011year effect could push the result below 3.0%, while stronger growth could exceed 3.4%."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.37
+        }
+      ],
+      "id": "polymarket-3083657",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/south-korea-gdp-growth-yoy-in-q3-2026-20260723231127764",
+      "status": "pending",
+      "title": "Will South Korea GDP growth in Q3 2026 be between 3.0% and 3.4%?",
+      "topic": "Economy",
       "verdict": null
     },
     {
@@ -1554,11 +1959,11 @@
     "brier": 0.24948799796324403,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 24,
+    "pending": 31,
     "resolved": 4,
     "right": 2,
     "toss_ups": 0,
-    "total": 29,
+    "total": 36,
     "wrong": 2
   },
   "version": "track_record_v2"
