@@ -6,12 +6,27 @@ export type Question = {
   id: string; title: string; detail: string; topic: string; resolves_on: string;
   status: "pending" | "resolved" | "cancelled"; outcome: 0 | 1 | null; actual: string | null;
   source_url: string | null; report_url: string | null; note?: string | null; scored?: boolean;
+  series?: string; series_label?: string;
   forecasts: Forecast[]; call: Forecast | null; verdict: "right" | "wrong" | "toss_up" | null;
 };
 export type Tally = { resolved: number; right: number; wrong: number; toss_ups: number; brier: number | null; coin_flip_brier: number };
 export type Forecaster = Tally & { method: string; label: string; about: string; forecasts: number };
 export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number };
   forecasters: Forecaster[]; questions: Question[] };
+
+// Questions on one indicator (other thresholds or days) shown together, in first-seen order.
+export type QuestionGroup = { key: string; label: string; items: Question[] };
+
+export function groupBySeries(questions: Question[]): QuestionGroup[] {
+  const groups = new Map<string, QuestionGroup>();
+  for (const q of questions) {
+    const key = q.series ?? q.id;
+    const group = groups.get(key) ?? { key, label: q.series_label ?? q.title, items: [] };
+    group.items.push(q);
+    groups.set(key, group);
+  }
+  return [...groups.values()];
+}
 
 // Results this many decided questions in, a score starts to reflect skill more than luck.
 export const MEANINGFUL_RESULTS = 30;

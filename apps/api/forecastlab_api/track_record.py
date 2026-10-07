@@ -13,6 +13,9 @@ same call on all four questions decided by then). A call is right when it put mo
 in the right/wrong tally. Each forecaster keeps its own record, so the page shows whether
 the combination beats its members.
 
+Macro questions carry ``series`` (the indicator) and ``series_label`` so the page can show
+threshold and date siblings of one indicator as a single expandable row.
+
 A question marked ``unscored`` (for example, a forecast that may have seen the market's
 odds) stays on the page with its integrity note but counts in no score: not the headline
 tally and not any forecaster's row. The mark is set before the outcome is known.
@@ -67,6 +70,9 @@ FORECASTERS: dict[str, dict[str, str]] = {
         "label": "Manifold (benchmark)",
         "about": "Manifold's play-money price when we forecast. Not part of our call."},
 }
+SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job growth",
+                 "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
+                 "treasury_10y": "10-year U.S. Treasury yield"}
 # Benchmarks are scored like forecasters but never enter our call.
 BENCHMARKS = {"market_price_v1", "manifold_price_v1"}
 PRIMARY_ORDER = list(FORECASTERS)
@@ -132,7 +138,8 @@ def _macro_questions(directory: Path) -> list[dict[str, Any]]:
                 status = "cancelled"
         questions.append({
             "id": entry["entry_id"], "title": question_title(spec), "detail": question_text(spec),
-            "topic": TOPICS[spec.indicator], "resolves_on": spec.release_at.date().isoformat(),
+            "topic": TOPICS[spec.indicator], "series": spec.indicator, "series_label": SERIES_LABELS[spec.indicator],
+            "resolves_on": spec.release_at.date().isoformat(),
             "status": status, "outcome": outcome, "actual": actual,
             "scored": True, "source_url": f"https://fred.stlouisfed.org/series/{SERIES[spec.indicator]['fred']}",
             "report_url": f"/forecasts/{entry['entry_id']}" if in_database else None,
