@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid API is called. The model work runs in the owner's Claude Code session, and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds zero-cost forecasts every weekday. The research runs in the owner's Claude Code session. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
@@ -24,12 +24,19 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid 
    - one per event and at most two per topic.
 
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
-   - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast. `market_snapshot.json` holds it; don't open that file before recording.
+   - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.
+   - `market_snapshot.json` holds that price. Don't open it before recording.
    - Save `{"forecast_made_at", "forecasts": [{"id", "probability", "rationale", "sources"}]}`. Then run `python scripts/market_questions.py record <dir> <file>`.
 6. **Record the step 3 forecasts.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
-7. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
-8. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
-9. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
+7. **Judge panel.** Write `briefs.json` in each directory that got new questions today: the daily set, the market set and the asked set.
+   - The format is `{"written_at", "briefs": {"<question id>": "<brief>"}}`.
+   - A brief is 4–8 sentences of the evidence found in steps 3–5: dated facts, the base rate and recent history, and source URLs.
+   - It contains no probability, no lean and no market odds.
+   - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
+   - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
+8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
+9. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
+10. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
 
 ## Honesty rules
 
@@ -37,4 +44,5 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid 
 - Never edit a recorded forecast. A later view goes in a new day's artifact.
 - Holidays without a published value resolve as cancelled, not as yes or no. So does a Polymarket market settled 50/50.
 - Market questions are forecast without looking at any market's odds.
+- Judges see only the question, its rule and Claude's brief. They never see Claude's probability.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.
