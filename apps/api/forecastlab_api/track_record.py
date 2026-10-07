@@ -43,6 +43,14 @@ FORECASTERS: dict[str, dict[str, str]] = {
         "label": "Nemotron Ultra (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes."},
     "judge_nemotron_super_v1": {
         "label": "Nemotron Super (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes."},
+    "judge_deepseek_v4_pro_v1": {
+        "label": "DeepSeek V4 Pro (judge)", "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes."},
+    "judge_kimi_k26_v1": {
+        "label": "Kimi K2.6 (judge)", "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes."},
+    "judge_qwen38_27b_v1": {
+        "label": "Qwen 3.8 27B (judge)", "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes."},
+    "judge_minimax_m3_v1": {
+        "label": "MiniMax M3 (judge)", "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes."},
     "judge_gemma_v1": {
         "label": "Gemma (judge)", "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes."},
     "root_event_ensemble_v1": {

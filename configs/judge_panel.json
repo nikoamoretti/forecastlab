@@ -1,11 +1,14 @@
 {
-  "version": "judge_panel_v1",
+  "version": "judge_panel_v2",
   "prompt_version": "judge_prompt_v1",
   "daily_budget_usd": 1.0,
   "max_tokens": 6000,
   "members": [
     {"method": "judge_nemotron_ultra_v1", "model": "nvidia/nemotron-3-ultra-550b-a55b:free"},
     {"method": "judge_nemotron_super_v1", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
-    {"method": "judge_gemma_v1", "model": "google/gemma-4-31b-it:free"}
+    {"method": "judge_deepseek_v4_pro_v1", "model": "deepseek/deepseek-v4-pro"},
+    {"method": "judge_kimi_k26_v1", "model": "moonshotai/kimi-k2.6"},
+    {"method": "judge_qwen38_27b_v1", "model": "qwen/qwen3.8-27b"},
+    {"method": "judge_minimax_m3_v1", "model": "minimax/minimax-m3"}
   ]
 }
