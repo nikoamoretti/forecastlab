@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { verdictShort } from "@/lib/verdict";
+import { callShort } from "@/lib/verdict";
 
 export default function ProspectiveLab() {
   const [cohorts, setCohorts] = useState<any[]>([]);
@@ -54,7 +54,7 @@ export default function ProspectiveLab() {
       <ul className="space-y-4">{report.questions.map((q: any) => <li key={q.id} className="border border-rule p-4"><Link href={`/forecasts/${q.question_id}`} className="font-medium underline">{q.contract.normalized_question}</Link>
         <p className="mt-2 text-sm">{q.contract.yes_condition}</p><p className="mt-1 text-sm">{q.contract.resolution_method}</p>
         <p className="mt-2 text-xs">Forecast deadline: {q.cutoff} · Release: {q.contract.resolution_date} · {q.release_event}</p>
-        <ul className="mt-2 space-y-1 text-sm">{q.cells.map((c: any) => <li key={c.run_id}><Link className="underline" href={`/forecasts/${q.question_id}?run=${c.run_id}`}>{c.method}: {verdictShort(c.probability)} ({c.status})</Link></li>)}</ul>
+        <ul className="mt-2 space-y-1 text-sm">{q.cells.map((c: any) => <li key={c.run_id}><Link className="underline" href={`/forecasts/${q.question_id}?run=${c.run_id}`}>{c.method}: {callShort(c.probability)} ({c.status})</Link></li>)}</ul>
         {q.outcome && <p className="mt-2 text-sm">Outcome: {q.outcome.value == null ? "Cancelled" : q.outcome.value ? "Yes" : "No"} · revision {q.outcome.revision} · confirmed by {q.outcome.confirmed_by}</p>}
         {q.official_outcome_amendment && <p className="mt-1 text-xs text-ink/70">Official outcome amendment: {q.official_outcome_amendment.status} · {q.official_outcome_amendment.policy_version} · known {q.official_outcome_amendment.outcome_known_at ?? "—"} · retrieved {q.official_outcome_amendment.retrieved_at ?? "—"}{q.official_outcome_amendment.exception_code ? ` · ${q.official_outcome_amendment.exception_code}` : ""}</p>}
         {new Date(q.contract.resolution_date) <= new Date() && (q.outcome

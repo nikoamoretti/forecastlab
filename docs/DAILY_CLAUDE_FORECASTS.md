@@ -13,7 +13,7 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid 
    - Keep probabilities coherent across nested thresholds and within [0.02, 0.98].
    - Write a 2–4 sentence rationale for each forecast, with dated source URLs.
 4. **Record.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
-5. **Score.** Run `python scripts/score_prospective_artifacts.py`, which rescores every artifact against first releases.
+5. **Score.** Run `python scripts/score_prospective_artifacts.py`, which rescores every artifact against first releases and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
 6. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
 7. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
 

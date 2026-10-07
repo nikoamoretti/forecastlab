@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { api, pct } from "@/lib/api";
-import { verdictShort } from "@/lib/verdict";
+import { callShort } from "@/lib/verdict";
 import VerdictHeadline from "@/components/VerdictHeadline";
 
 const STATISTICAL_BASELINE_PROFILE = "statistical_baseline_v1";
@@ -86,7 +86,7 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       <p className="mt-3 text-sm">{result.question_selection.reason}</p>
       <p className="mt-2 text-sm"><a className="underline" href={result.question_selection.schedule.source_url}>Release calendar</a> · <a className="underline" href={result.question_selection.baseline.source_url}>Threshold source</a></p>
       <pre className="mt-3 max-h-80 overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify(result.question_selection, null, 2)}</pre></details>}
-    <section><h3 className="font-serif text-2xl">Version history</h3><ul className="mt-3 space-y-2">{history.map((v: any) => <li key={v.id}><Link className="underline" href={`/forecasts/${data.id}?run=${v.run_id}`}>{v.created_at} · {v.status === "failed" ? "Forecast failed" : v.status && v.status !== "completed" ? v.status.replaceAll("_", " ") : v.ensemble_probability == null ? "Probability withheld" : verdictShort(v.ensemble_probability)} · {v.profile_id}</Link></li>)}</ul></section>
+    <section><h3 className="font-serif text-2xl">Version history</h3><ul className="mt-3 space-y-2">{history.map((v: any) => <li key={v.id}><Link className="underline" href={`/forecasts/${data.id}?run=${v.run_id}`}>{v.created_at} · {v.status === "failed" ? "Forecast failed" : v.status && v.status !== "completed" ? v.status.replaceAll("_", " ") : v.ensemble_probability == null ? "Probability withheld" : callShort(v.ensemble_probability)} · {v.profile_id}</Link></li>)}</ul></section>
     <details className="border-t border-rule pt-4"><summary className="cursor-pointer">Execution receipts, prompts, graph, and rejected evidence</summary><pre className="mt-4 max-h-[40rem] overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify({ graph: run.forecast_graph, budget: run.budget, attempts: run.run_attempts, ledger: run.provider_call_ledger, prompts: run.frozen_prompts, research: result.research_diagnostics, rejected: evidence.filter((e: any) => !e.usable), aggregation: result.aggregation }, null, 2)}</pre></details>
     <Link className="text-sm underline" href="/">Back to board</Link>
   </article>;

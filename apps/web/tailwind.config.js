@@ -9,7 +9,8 @@ module.exports = {
         rule: "#d7cbb8",
         copper: "#9a4b24",
         pine: "#215c4b",
-        moss: "#3f6f5c"
+        moss: "#3f6f5c",
+        brick: "#a3392b"
       },
       fontFamily: {
         serif: ["Fraunces", "Iowan Old Style", "Palatino", "serif"],

@@ -65,6 +65,6 @@ test('a failed refresh remains visible in version history', async ({ page }) => 
   const history = page.getByRole('heading', { name: 'Version history' }).locator('..');
   await expect(history.getByRole('listitem')).toHaveCount(2);
   await expect(history).toContainText('Forecast failed');
-  await expect(history).toContainText('70.0%');
-  await expect(page.locator('article header')).not.toContainText('70.0%');
+  await expect(history).toContainText('Yes · 70% sure');
+  await expect(page.locator('article header')).not.toContainText('70% sure');
 });

@@ -174,3 +174,19 @@ def test_score_script_skips_artifact_directories_without_a_cohort_report(tmp_pat
     monkeypatch.setattr(module, "ROOT", tmp_path)
     monkeypatch.setattr(module, "write_scores", lambda directory: pytest.fail(f"scored {directory}"))
     assert module.main([]) == 0
+
+
+def test_resolved_outcome_stays_resolved_when_a_later_source_request_fails(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _write_artifact(tmp_path)
+    earlier = {"e1": {"status": "resolved", "value": "4.2", "outcome": 1}}
+
+    def unreachable(*_args, **_kwargs):
+        raise artifact_scoring.MacroDataError("alfred_vintage_unavailable")
+
+    monkeypatch.setattr(artifact_scoring.official_fred_outcomes, "find_initial_release", unreachable)
+
+    scores = score_artifact(tmp_path, today=date(2026, 10, 9), fetch=unreachable, previous_outcomes=earlier)
+
+    assert scores["outcomes"]["e1"] == earlier["e1"]
+    assert scores["methods"]["root_event_ensemble_v1"]["resolved_forecasts"] == 1

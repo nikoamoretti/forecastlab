@@ -1,0 +1,80 @@
+{
+  "cells": [
+    {
+      "brier": 0.39860347915078637,
+      "entry_id": "72a2577c-9562-41b1-96cc-3c9fb4458b00",
+      "log_loss": 0.9979090051994145,
+      "method": "root_event_ensemble_v1",
+      "outcome": 1,
+      "probability": 0.36864947996316155,
+      "release_event": "employment-2026-10-02",
+      "status": "forecasted"
+    },
+    {
+      "brier": 0.10672908606141251,
+      "entry_id": "b9010c94-73e8-4fdd-b6e7-85d647c1faa9",
+      "log_loss": 0.39555563678360267,
+      "method": "root_event_ensemble_v1",
+      "outcome": 0,
+      "probability": 0.32669417818720387,
+      "release_event": "employment-2026-10-02",
+      "status": "forecasted"
+    },
+    {
+      "brier": 0.21588337264241306,
+      "entry_id": "1a10fb61-1420-441f-a653-a2e8ebf0f929",
+      "log_loss": 0.6248018773159206,
+      "method": "root_event_ensemble_v1",
+      "outcome": 0,
+      "probability": 0.46463251354421276,
+      "release_event": "cpi-2026-09-11",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_autopilot_pilot_202609",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "325740a5b2f7119d6729311db3825feedac4d3317526400d6aed99bb894339ab",
+  "methods": {
+    "root_event_ensemble_v1": {
+      "assigned": 3,
+      "forecasted": 3,
+      "mean_brier": 0.24040531261820397,
+      "mean_log_loss": 0.6727555064329792,
+      "resolved_forecasts": 3,
+      "uninformed_50pct_brier": 0.25
+    }
+  },
+  "outcomes": {
+    "1a10fb61-1420-441f-a653-a2e8ebf0f929": {
+      "basis": "alfred_release_day_vintage:yoy_percent",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=CPIAUCNS&cosd=2025-08-01&coed=2026-08-01&vintage_date=2026-09-10",
+      "status": "resolved",
+      "value": "3.4",
+      "vintage_date": "2026-09-11",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=CPIAUCNS&cosd=2025-08-01&coed=2026-08-01&vintage_date=2026-09-11"
+    },
+    "72a2577c-9562-41b1-96cc-3c9fb4458b00": {
+      "basis": "alfred_release_day_vintage:level",
+      "outcome": 1,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-08-01&coed=2026-09-01&vintage_date=2026-10-01",
+      "status": "resolved",
+      "value": "4.2",
+      "vintage_date": "2026-10-02",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-08-01&coed=2026-09-01&vintage_date=2026-10-02"
+    },
+    "b9010c94-73e8-4fdd-b6e7-85d647c1faa9": {
+      "basis": "alfred_release_day_vintage:change_thousands",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-08-01&coed=2026-09-01&vintage_date=2026-10-01",
+      "status": "resolved",
+      "value": "29000",
+      "vintage_date": "2026-10-02",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-08-01&coed=2026-09-01&vintage_date=2026-10-02"
+    }
+  },
+  "resolved_entries": 3,
+  "scored_on": "2026-10-07",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 3
+}

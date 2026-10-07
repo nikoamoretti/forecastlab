@@ -123,23 +123,27 @@
     {
       "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": null,
       "release_event": "dgs10-2026-10-05",
       "status": "insufficient_evidence"
     },
     {
+      "brier": 0.30250000000000005,
       "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "log_loss": 0.7985076962177716,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.45,
       "release_event": "dgs10-2026-10-05",
       "status": "forecasted"
     },
     {
+      "brier": 0.34580556367530796,
       "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "log_loss": 0.8868589953115752,
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.4119476522661372,
       "release_event": "dgs10-2026-10-05",
       "status": "forecasted"
@@ -209,9 +213,11 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.25211863459810757,
       "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "log_loss": 0.6973844750354605,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.4978858350951374,
       "release_event": "dgs10-2026-10-05",
       "status": "forecasted"
@@ -225,9 +231,11 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.10239999999999996,
       "entry_id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "log_loss": 0.3856624808119846,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.68,
       "release_event": "dgs10-2026-10-05",
       "status": "forecasted"
@@ -288,10 +296,10 @@
     "claude_code_forecaster_v1 (post-freeze supplement)": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.10239999999999996,
+      "mean_log_loss": 0.3856624808119846,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "root_event_ensemble_v1": {
       "assigned": 7,
@@ -304,26 +312,26 @@
     "single_model_forecaster_v1": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.30250000000000005,
+      "mean_log_loss": 0.7985076962177716,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "statistical_baseline_v1 (post-freeze supplement)": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.25211863459810757,
+      "mean_log_loss": 0.6973844750354605,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "three_track_strict_forecaster_v1": {
       "assigned": 7,
       "forecasted": 6,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.34580556367530796,
+      "mean_log_loss": 0.8868589953115752,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     }
   },
   "outcomes": {
@@ -348,16 +356,21 @@
       "status": "pending"
     },
     "8ab49dab-21d3-4457-b6f9-df59641cc9d8": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "basis": "alfred_initial_vintage",
+      "outcome": 1,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-21&coed=2026-10-05&vintage_date=2026-10-05",
+      "status": "resolved",
+      "value": "5.31",
+      "vintage_date": "2026-10-06",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-21&coed=2026-10-05&vintage_date=2026-10-06"
     },
     "96fb882f-1eab-4f04-b3fc-60b55913baf9": {
       "reason": "fred_initial_release_not_yet_published",
       "status": "pending"
     }
   },
-  "resolved_entries": 0,
-  "scored_on": "2026-10-06",
+  "resolved_entries": 1,
+  "scored_on": "2026-10-07",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 7
 }

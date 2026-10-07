@@ -34,7 +34,8 @@ sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 sys.path.insert(0, str(ROOT / "apps" / "api"))
 
 from forecastlab.fast_questions import FAST_SELECTION_VERSION, propose_fast_questions  # noqa: E402
-from forecastlab.macro import SERIES, MacroSpec, fetch_fred_snapshot, fetch_macro  # noqa: E402
+from forecastlab.macro import MacroSpec, fetch_fred_snapshot, fetch_macro  # noqa: E402
+from forecastlab.plain_questions import question_text  # noqa: E402
 from forecastlab.statistical_baseline import (  # noqa: E402
     METHOD as BASELINE,
 )
@@ -47,7 +48,6 @@ from forecastlab.timeutil import as_utc, utcnow  # noqa: E402
 
 DAILY_SCHEMA = "prospective_daily_v1"
 CLAUDE_METHOD = "claude_code_forecaster_v1"
-OPERATORS = {"gt": "above", "ge": "at or above", "lt": "below", "le": "at or below"}
 
 
 def entry_id(macro: dict) -> str:
@@ -61,14 +61,6 @@ def existing_targets(artifacts: Path) -> set[tuple[str, str]]:
         for entry in json.loads(manifest.read_text())["manifest"]["entries"]:
             targets.add((entry["macro"]["indicator"], entry["macro"]["observation_period"]))
     return targets
-
-
-def question_text(spec: MacroSpec) -> str:
-    meta = SERIES[spec.indicator]
-    period = f"the week ending {spec.observation_period}" if meta["cadence"] == "weekly" else spec.observation_period
-    threshold = f"{int(spec.threshold):,}" if spec.threshold >= 1000 else f"{spec.threshold:g}"
-    return (f"Will the first published {meta['label']} (FRED {meta['fred']}) for {period} be "
-            f"{OPERATORS[spec.comparison]} {threshold} {meta['units'].replace('_', ' ')}?")
 
 
 def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts") -> Path | None:

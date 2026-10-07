@@ -528,6 +528,16 @@ def api_meta() -> dict[str, str]:
     return {"application_version": __version__, "service": "forecastlab-api"}
 
 
+@app.get("/api/track-record")
+def api_track_record() -> dict[str, Any]:
+    """Every recorded forecast with its outcome; built by scripts/build_track_record.py."""
+    from forecastlab.paths import project_root
+    path = project_root() / "data" / "track_record.json"
+    if not path.exists():
+        raise HTTPException(404, "No track record has been built yet")
+    return json.loads(path.read_text())
+
+
 @app.get("/health/db")
 def health_db(db: Session = Depends(get_db)) -> dict[str, str]:
     db.scalar(select(Question.id).limit(1))
