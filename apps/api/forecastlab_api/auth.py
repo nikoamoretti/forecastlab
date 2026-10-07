@@ -109,7 +109,7 @@ async def callback(request: Request):
     if not settings.owner_github_id or identity != settings.owner_github_id:
         raise HTTPException(403, "This application is restricted to its owner")
     request.session.clear()
-    return _start_session(identity, RedirectResponse(settings.web_origin.rstrip("/") + "/autopilot", status_code=303))
+    return _start_session(identity, RedirectResponse(settings.web_origin.rstrip("/") + "/", status_code=303))
 
 
 def _start_session(identity: str, response):
