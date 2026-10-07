@@ -18,6 +18,18 @@
             "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
             "https://www.coindesk.com/price/ethereum (2026-10-07)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.48,
+          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
         }
       ],
       "id": "polymarket-5311923",
@@ -48,6 +60,24 @@
             "https://www.theglobeandmail.com/business/economy/article-bank-of-canada-next-rate-decision-market-expectations/ (late Sept 2026)",
             "https://www.canadianmortgagetrends.com/2026/10/canadians-expect-higher-inflation-as-bank-of-canada-weighs-hikes/ (2026-10-06)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Base rate favors holds (7 consecutive), and core inflation (CPI-trim 1.9%, median 2.0%) is at target, with RBC/Desjardins forecasting hold through 2026. However, headline CPI at 3.0%, Macklem's hawkish tilt, Fed tightening, $101 oil, and rising inflation expectations make this a close call per Capital Economics, keeping hike probability meaningful."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.58,
+          "rationale": "The base rate for a BoC meeting resulting in no change is roughly 60% given recent holding streaks. Evidence points to a hold: seven consecutive holds, core inflation near target, analyst consensus for no October hike, and the Bank's cautious stance. Countervailing factors\u2014headline CPI at 3%, rising inflation expectations, and a recent Fed rate hike\u2014could push toward a hike, keeping the outcome uncertain but slightly favoring no change."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_gemma_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 'hold' is generally high during stable periods, and the Bank of Canada has held rates for seven consecutive meetings. While Governor Macklem has flagged the risk of being too slow to hike and the US Fed recently raised rates, major analysts (RBC, Desjardins, Capital Economics) expect a hold through 2026. The primary risks that could trigger a hike are the upcoming Oct 19 surveys or a significant spike in inflation data, but the current core inflation measures remain near the 2% target."
         }
       ],
       "id": "polymarket-2941850",
@@ -78,6 +108,24 @@
             "https://www.jpost.com/israel-election-2026/article-906335 (Sept 2026)",
             "https://en.wikipedia.org/wiki/2026_Israeli_legislative_election (accessed 2026-10-07)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.38,
+          "rationale": "Base rate: Netanyahu has won 4 of the last 6 elections (2009, 2013, 2015, 2022) and excels at post-election coalition building. Evidence against: current polling aggregates show his bloc at only 51-52 seats (well short of 61), declining from 55 in January; opposition leaders (Eisenkot, Bennett, Lapid, Golan, Liberman) signed a cooperation pact; potential kingmaker Hendel rules out Haredi and Arab parties and demands Netanyahu's exit. Evidence for: polls can shift in 20 days, Channel 14 shows a 61+ path, Netanyahu has historically outperformed final polls, and opposition unity may fracture over policy/portfolios. Probability could rise if Likud surges in final days or fall if opposition coalesces around a single alternative candidate."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.22,
+          "rationale": "Historically, an incumbent Israeli Prime Minister wins re\u2011election about 40% of the time when facing a competitive election. Current polling shows Netanyahu\u2019s bloc at roughly 22\u201323 seats and the outgoing coalition at only 51\u201352 seats, short of the 61\u2011seat majority needed to govern, while opposition parties (Yashar, Together, and others) are polling strongly and have signed a cooperation agreement. Hendel\u2011Zelekha\u2019s Reservists, a potential kingmaker, have ruled out coalitions with Haredi or Arab parties and called for Netanyahu to step down, further reducing his chances. The probability could rise if Netanyahu manages to attract support from smaller parties or if late\u2011campaign shifts boost his bloc above the majority threshold."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_gemma_v1",
+          "probability": 0.45,
+          "rationale": "The base rate for Netanyahu returning to power is high given his historical resilience, but current polling shows his coalition is precarious, hovering around the 61-seat threshold. The formation of a coordinated opposition bloc (Eisenkot, Bennett, Lapid, etc.) increases the likelihood of a non-Netanyahu government. However, the tight polling and the difficulty of forming a stable alternative coalition in Israel's fragmented system keep the probability significant."
         }
       ],
       "id": "polymarket-682705",
@@ -107,6 +155,12 @@
             "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
             "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
         }
       ],
       "id": "polymarket-5008726",
@@ -136,6 +190,18 @@
             "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
             "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.32,
+          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
         }
       ],
       "id": "polymarket-5311866",
@@ -166,6 +232,18 @@
             "https://www.koreatimes.co.kr/economy/20261001/koreas-sept-exports-hit-record-1209-bil-on-robust-chip-sales (2026-10-01)",
             "https://www.koreatimes.co.kr/economy/20251203/korea-posts-13-q3-gdp-growth-faster-than-initial-estimate-bok (2025-12-03)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: The BOK's 3.3% full-year 2026 forecast sits at the midpoint of the 3.0-3.4% range, and Q1/Q2 both exceeded expectations (3.6% and 3.7% y/y). Evidence moving me up: Record September exports ($120.9B, semiconductors +263% y/y) and the approximation Q3 y/y \u2248 2.4% + Q3 q/q suggest that even modest Q3 q/q growth of 0.6-1.0% (similar to Q2's 0.6%) would land in the target range. Evidence moving me down: The high Q3 2025 base (1.3% q/q) and Chuseok calendar effect (21.5 vs 24 working days in September) depress the original-series q/q figure. Net assessment: Slightly above 50% given export strength and forecast upgrades, but calendar effects and base effects create meaningful downside risk."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.5,
+          "rationale": "Historically, South Korea's quarterly YoY GDP growth has fallen in the 3.0\u20113.4% band only about 15\u201120% of the time (base rate). Recent Q1\u2011Q2 2026 outturns were 3.6% and 3.7% YoY, the BOK raised its 2026 forecast to 3.3%, and September 2026 exports surged, suggesting Q3 2026 q/q growth could be around 0.6\u20111.0%. Using the approximation YoY \u2248 Q2 YoY + Q3 q/q \u2013 Q3 2025 q/q (1.3%), this yields a YoY range of roughly 3.0% to 3.4% for plausible q/q outcomes, shifting the probability upward to about one\u2011half. A weaker q/q print or a larger base\u2011year effect could push the result below 3.0%, while stronger growth could exceed 3.4%."
         }
       ],
       "id": "polymarket-3083657",
@@ -196,6 +274,18 @@
             "https://balk.hu/en/2026/09/21/kozvelemeny-kutatas-szerbia-vucic-faktor-plus/ (2026-09-21)",
             "https://eualive.net/survey-suggests-serbia-nears-tipping-point-44-back-the-student-list-only-32-support-vucic/ (early Oct 2026)"
           ]
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.55,
+          "rationale": "Base rate: SNS has won every parliamentary election since 2012, but the Student List has surged in credible polls (CRTA, NSPM) to a slight lead, while pro-government pollsters still show SNS ahead. Vu\u010di\u0107 resigned the presidency to run as PM candidate, demonstrating commitment and control of state resources, yet the opposition momentum from the Novi Sad protests is significant. Government formation after the Oct 25 election could take months, but the June 2028 deadline allows ample time. The race is essentially a toss-up with a slight edge to the incumbent party's structural advantages."
+        },
+        {
+          "created_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.6,
+          "rationale": "The base rate for the SNS winning a Serbian parliamentary election is high given their streak since 2012, suggesting around a 70% chance of leading the next government. Recent polls are split, with some showing the opposition Student List ahead and others showing the SNS ahead, indicating a competitive race that reduces the incumbent's advantage. Considering Vucic's personal candidacy, the SNS's ability to form coalitions, and the uncertainty of post\u2011election negotiations, the probability shifts to roughly 60% that he will be elected Prime Minister by the June 2028 deadline."
         }
       ],
       "id": "polymarket-2757891",
