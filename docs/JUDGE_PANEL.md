@@ -9,19 +9,20 @@ Each panel member is a forecaster of its own. Its probability goes into the medi
 
 ## Members
 
-`configs/judge_panel.json` lists the members (`judge_panel_v1`). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
+`configs/judge_panel.json` lists the members (`judge_panel_v2` since 2026-10-07). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
 
-| Method | OpenRouter model | Cost |
+| Method | OpenRouter model | Cost (USD per million tokens, in / out, 2026-10-07) |
 | --- | --- | --- |
 | `judge_nemotron_ultra_v1` | `nvidia/nemotron-3-ultra-550b-a55b:free` | free |
 | `judge_nemotron_super_v1` | `nvidia/nemotron-3-super-120b-a12b:free` | free |
-| `judge_gemma_v1` | `google/gemma-4-31b-it:free` | free, often rate-limited |
+| `judge_deepseek_v4_pro_v1` | `deepseek/deepseek-v4-pro` | 0.21 / 0.42 |
+| `judge_kimi_k26_v1` | `moonshotai/kimi-k2.6` | 0.47 / 2.45 |
+| `judge_qwen38_27b_v1` | `qwen/qwen3.8-27b` | 0.43 / 2.55 |
+| `judge_minimax_m3_v1` | `minimax/minimax-m3` | 0.30 / 1.20 |
 
-The panel starts with free models for two reasons:
-- The OpenRouter account had no credit left on 2026-10-07.
-- The account's allowed-providers setting rules out some other free models.
+All six are open weights from five labs. The four paid members cost about a cent per question together; the $1 daily cap still bounds the worst case.
 
-**Planned paid panel, once credit exists:** DeepSeek V4 Pro, Kimi K2.6, Qwen3.8 27B and MiniMax M3. All four are open weights and come from four different labs. At OpenRouter's 2026-10-07 prices, each question costs about a cent across all four. Changing members means a new panel version (`judge_panel_v2`) and new method names, so each record stays attached to the model that earned it.
+**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
 
 ## Rules
 

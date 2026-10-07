@@ -15,7 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import judge_panel as script  # noqa: E402
 
-CONFIG = load_config(ROOT / "configs" / "judge_panel.json")
+# The mechanics are tested on a frozen three-member panel; the live panel is configs/judge_panel.json.
+CONFIG = load_config(ROOT / "fixtures" / "judge_panel_v1.json")
+LIVE = load_config(ROOT / "configs" / "judge_panel.json")
 NOW = datetime(2026, 10, 7, 12, tzinfo=UTC)
 CHEAP = {m.model: Price(0.3e-6, 1.2e-6) for m in CONFIG.members}
 ANSWERS = {"judge_nemotron_ultra_v1": 0.6, "judge_nemotron_super_v1": 0.7, "judge_gemma_v1": 1.0}
@@ -45,8 +47,9 @@ def _general(directory: Path) -> Path:
 
 
 def test_every_panel_member_has_a_label_on_the_track_record() -> None:
-    assert {m.method for m in CONFIG.members} <= set(FORECASTERS)
-    assert CONFIG.daily_budget_usd == 1.0
+    assert {m.method for m in [*CONFIG.members, *LIVE.members]} <= set(FORECASTERS)
+    assert LIVE.daily_budget_usd == 1.0
+    assert len({m.method for m in LIVE.members}) == len({m.model for m in LIVE.members}) == len(LIVE.members)
 
 
 @pytest.mark.parametrize("text", ['{"probability": 0.3, "reasoning": "x"}', 'Sure.\n{"probability": 0.3, "reasoning": "x"} done'])
