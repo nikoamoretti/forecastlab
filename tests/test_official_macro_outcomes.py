@@ -253,7 +253,11 @@ def test_frozen_contract_tampering_blocks_before_fetch(client, monkeypatch):
         row, contract = _entry(session, entry_id="entry", threshold=3.2)
         _freeze_cohort(cohort, [(row, contract)])
         session.commit()
-        row.contract_json = row.contract_json.replace("3.2", "3.3", 1)
+        # Tamper with a hashed field. A plain text replace could land in created_at,
+        # which the hash excludes, whenever that timestamp happens to contain "3.2".
+        tampered = json.loads(row.contract_json)
+        tampered["normalized_question"] = tampered["normalized_question"].replace("3.2", "3.3")
+        row.contract_json = json.dumps(tampered)
         session.commit()
         amendment = official_macro_outcomes.process_prospective_entry(session, "entry")
         assert amendment.status == "exception"
