@@ -11,6 +11,14 @@ v2 (2026-10-07) also skips "who will be the next prime minister/president" marke
 trading closes on election day, but they settle only when someone takes office, often
 months later, so they would sit unresolved long past their listed date.
 
+Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07) adds up to ``MANIFOLD_DAILY_LIMIT``
+more questions a day from Manifold's economics, politics, technology and world topics, under
+the same window, price band and topic cap. Manifold trades play money, so it needs at least
+``MANIFOLD_MIN_BETTORS`` traders and ``MANIFOLD_MIN_VOLUME`` mana traded, and skips personal
+markets ("Will I ...") whose creator decides the answer about themselves. Its price is a
+separate benchmark (``MANIFOLD_METHOD``). A Manifold question resolves when the market
+resolves YES or NO; MKT or CANCEL counts as cancelled.
+
 The market price at selection time is kept as a benchmark forecaster. It is never part of
 our call. A question resolves only when Polymarket's resolution is final: the market is
 closed, one outcome pays 1, and the last UMA resolution status is "resolved".
@@ -39,6 +47,17 @@ DAILY_LIMIT = 8
 # Markets that settle when someone takes office, not when trading closes.
 SLOW_SETTLING = re.compile(r"\bnext (prime minister|president|chancellor|premier|pm|leader|speaker)\b", re.IGNORECASE)
 TOPIC_LIMIT = 2
+
+MANIFOLD_SELECTION_VERSION = "manifold_selection_v1"
+MANIFOLD_METHOD = "manifold_price_v1"
+MANIFOLD = "https://api.manifold.markets/v0"
+MANIFOLD_TOPICS = {"economics-default": "Economy", "politics-default": "Politics", "technology-default": "Tech",
+                   "world-default": "World"}
+MANIFOLD_MIN_BETTORS = 15
+MANIFOLD_MIN_VOLUME = 1_000
+MANIFOLD_DAILY_LIMIT = 4
+# Markets about the creator themselves ("Will I get the job?"), which the creator resolves.
+PERSONAL = re.compile(r"\b(I|I'm|I'll|me|my)\b")
 
 Fetch = Callable[[str], Any]
 
@@ -119,5 +138,52 @@ def resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, Any]:
     if prices == [1.0, 0.0]:
         return {"status": "resolved", "outcome": 1}
     if prices == [0.0, 1.0]:
+        return {"status": "resolved", "outcome": 0}
+    return {"status": "cancelled"}
+
+
+def manifold_candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]:
+    """Manifold yes/no markets that pass the rule, in the same shape as Polymarket candidates."""
+    start, end = now + timedelta(days=MIN_DAYS), now + timedelta(days=MAX_DAYS)
+    found: dict[str, dict[str, Any]] = {}
+    for slug, topic in MANIFOLD_TOPICS.items():
+        query = {"term": "", "filter": "open", "contractType": "BINARY", "sort": "close-date", "topicSlug": slug,
+                 "limit": "500"}
+        for market in fetch(f"{MANIFOLD}/search-markets?{urllib.parse.urlencode(query)}"):
+            if market["id"] in found or market.get("isResolved") or market.get("outcomeType") != "BINARY":
+                continue
+            closes, price = market.get("closeTime"), market.get("probability")
+            question = (market.get("question") or "").strip()
+            if not isinstance(closes, int | float) or not isinstance(price, int | float):
+                continue
+            closes_at = datetime.fromtimestamp(closes / 1000, tz=now.tzinfo)
+            if (not start <= closes_at <= end or not MIN_PRICE <= price <= MAX_PRICE
+                    or int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS
+                    or float(market.get("volume") or 0) < MANIFOLD_MIN_VOLUME
+                    or PERSONAL.search(question) or SLOW_SETTLING.search(question)):
+                continue
+            found[market["id"]] = {
+                "id": f"manifold-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": slug,
+                "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]),
+                "market_price": round(float(price), 4), "market_url": market["url"], "method": MANIFOLD_METHOD}
+    return list(found.values())
+
+
+def manifold_rules(item: dict[str, Any], fetch: Fetch = fetch_json) -> dict[str, Any]:
+    """Search results carry no resolution rules; the market itself does. Fetched for chosen questions only."""
+    detail = fetch(f"{MANIFOLD}/market/{item['market_id']}")
+    rules = (detail.get("textDescription") or "").strip()
+    return item | {"resolution_criteria": rules or f"Resolves as the Manifold market resolves: {item['market_url']}"}
+
+
+def manifold_resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, Any]:
+    """{"status": "resolved", "outcome": 1|0} for YES/NO; "cancelled" for MKT or CANCEL; else pending."""
+    market = fetch(f"{MANIFOLD}/market/{market_id}")
+    if not market.get("isResolved"):
+        return {"status": "pending"}
+    resolved = market.get("resolution")
+    if resolved == "YES":
+        return {"status": "resolved", "outcome": 1}
+    if resolved == "NO":
         return {"status": "resolved", "outcome": 0}
     return {"status": "cancelled"}

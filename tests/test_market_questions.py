@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from forecastlab.market_questions import candidates, resolution, select
+from forecastlab.market_questions import candidates, manifold_candidates, manifold_resolution, resolution, select
 from forecastlab_api.track_record import build_track_record
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -116,3 +116,86 @@ def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_pat
     market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")
     assert (market["resolved"], market["right"]) == (1, 1)  # 0.78 on yes; m5 is unscored
     assert (record["summary"]["right"], record["summary"]["wrong"], record["summary"]["unscored"]) == (1, 0, 1)
+
+
+def _manifold(market_id: str, question: str, price: float, *, bettors: int = 40, volume: float = 5_000,
+              closes: str = "2026-10-15T00:00:00+00:00") -> dict:
+    return {"id": market_id, "question": question, "probability": price, "uniqueBettorCount": bettors,
+            "volume": volume, "closeTime": int(datetime.fromisoformat(closes).timestamp() * 1000),
+            "outcomeType": "BINARY", "isResolved": False, "url": f"https://manifold.markets/u/{market_id}"}
+
+
+MANIFOLD_SEARCH = {
+    "economics-default": [
+        _manifold("f1", "Will the Fed raise rates in October 2026?", 0.23),
+        _manifold("f2", "Will WTI close above $99.50 on Oct 8?", 0.4, closes="2026-10-08T00:00:00+00:00"),  # too soon
+        _manifold("f3", "Will silver outperform gold?", 0.55, bettors=6),  # too few traders
+        _manifold("f4", "Will I get the OpenAI Pro subscription this week?", 0.5),  # personal
+    ],
+    "politics-default": [_manifold("f5", "Will the shutdown end by Oct 20?", 0.97)],  # above 95%
+    "technology-default": [_manifold("f6", "Will Gemini 4 be released before Oct 15?", 0.31, volume=200)],  # thin
+    "world-default": [_manifold("f7", "Will there be mass protests in the USA on Oct 14?", 0.6)],
+}
+
+
+def manifold_fetch(url: str):
+    if "manifold.markets/v0/search-markets" in url:
+        return MANIFOLD_SEARCH[url.split("topicSlug=")[1].split("&")[0]]
+    if "manifold.markets/v0/market/" in url:
+        market_id = url.rsplit("/", 1)[1]
+        return {"id": market_id, "textDescription": f"Rules for {market_id}.", "isResolved": market_id == "f1",
+                "resolution": "YES" if market_id == "f1" else None}
+    return fake_fetch(url)
+
+
+def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
+    pool = {c["market_id"]: c for c in manifold_candidates(NOW, manifold_fetch)}
+    assert set(pool) == {"f1", "f7"}
+    assert pool["f1"] | {"volume": 0} == {
+        "id": "manifold-f1", "market_id": "f1", "topic": "Economy", "tag": "economics-default",
+        "question": "Will the Fed raise rates in October 2026?", "closes_at": "2026-10-15T00:00:00Z", "volume": 0,
+        "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
+
+
+@pytest.mark.parametrize(("market", "expected"), [
+    ({"isResolved": True, "resolution": "YES"}, {"status": "resolved", "outcome": 1}),
+    ({"isResolved": True, "resolution": "NO"}, {"status": "resolved", "outcome": 0}),
+    ({"isResolved": True, "resolution": "MKT"}, {"status": "cancelled"}),
+    ({"isResolved": True, "resolution": "CANCEL"}, {"status": "cancelled"}),
+    ({"isResolved": False}, {"status": "pending"}),
+])
+def test_manifold_results(market: dict, expected: dict) -> None:
+    assert manifold_resolution("f1", lambda _url: market) == expected
+
+
+def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, manifold_fetch)
+    assert directory is not None
+    selected = json.loads((directory / "questions.json").read_text())
+    by_id = {q["id"]: q for q in selected["questions"]}
+    assert selected["selection"] == "polymarket_selection_v2+manifold_selection_v1"
+    assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
+    assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
+    assert "market_price" not in json.dumps(selected)
+
+    answers = tmp_path / "claude.json"
+    answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
+        {"id": qid, "probability": 0.3} for qid in by_id]}))
+    script.record(directory, answers)
+    recorded = {q["id"]: q for q in json.loads((directory / "forecasts.json").read_text())["questions"]}
+    assert recorded["manifold-f1"]["forecasts"][0] == {
+        "method": "manifold_price_v1", "probability": 0.23, "created_at": NOW.isoformat()}
+    assert recorded["polymarket-m1"]["forecasts"][0]["method"] == "market_price_v1"
+
+    def settled(url: str):
+        if "manifold" in url:
+            return manifold_fetch(url)
+        return {"closed": False, "outcomePrices": "[]"}
+
+    script.resolve(artifacts, settled, today=datetime(2026, 10, 16, tzinfo=UTC))
+    record = build_track_record(artifacts, today=datetime(2026, 10, 16).date())
+    fed = next(q for q in record["questions"] if q["id"] == "manifold-f1")
+    assert (fed["status"], fed["actual"], fed["verdict"]) == ("resolved", "Manifold: Yes", "wrong")
+    assert fed["call"] == {"method": "combined_median_v1", "probability": 0.3, "members": 1}  # benchmark excluded
