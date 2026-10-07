@@ -35,6 +35,12 @@ COIN_FLIP_BRIER = 0.25
 FORECASTERS: dict[str, dict[str, str]] = {
     "claude_code_forecaster_v1": {
         "label": "Claude", "about": "Claude researches each question on the web and states a probability."},
+    "judge_nemotron_ultra_v1": {
+        "label": "Nemotron Ultra (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes."},
+    "judge_nemotron_super_v1": {
+        "label": "Nemotron Super (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes."},
+    "judge_gemma_v1": {
+        "label": "Gemma (judge)", "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes."},
     "root_event_ensemble_v1": {
         "label": "Research pipeline", "about": "Three AI estimates built from one shared, checked evidence packet."},
     "single_model_forecaster_v1": {"label": "Single AI model", "about": "One AI model with web search."},
