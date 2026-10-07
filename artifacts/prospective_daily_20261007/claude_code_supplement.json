@@ -1,0 +1,24 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-07T10:54:05+00:00",
+      "entry_id": "4c40cc475a07a5e1",
+      "probability": 0.55,
+      "rationale": "The 10-year closed at 5.27% on 2026-10-06 after 5.31% on 2026-10-05 (Treasury par curve), and early 2026-10-07 trading shows it back near 5.32-5.33%, at the 2002-high area, so the threshold sits roughly at the current level. The drivers of the 70bp run since late July (Fed hike signals, oil tied to the Iran conflict, heavy issuance) remain in place, but a 6-trading-day horizon with roughly 15bp standard deviation, a 10-year auction today and September CPI on 2026-10-14 make this close to a coin flip with a slight upward lean, in line with the baseline's 0.56.",
+      "release_event": "dgs10-2026-10-15",
+      "sources": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026 (retrieved 2026-10-07; 10Y 5.31 on 2026-10-05, 5.27 on 2026-10-06)",
+        "https://tradingeconomics.com/united-states/government-bond-yield (retrieved 2026-10-07; 10Y ~5.32-5.33% intraday, 10-year auction and FOMC minutes 2026-10-07)",
+        "https://www.vantagemarkets.com/market-news/global-bond-rout-treasury-gilt-yields-october-5-2026/ (2026-10-05; 10Y hit 5.34% intraday, highest since 2002)",
+        "https://www.crestwoodadvisors.com/october-2026-economic-and-market-update-higher-and-higher-bond-yields-rise-to-levels-not-seen-in-nearly-two-decades/ (October 2026; Fed hike, oil, issuance drivers)",
+        "https://fedratecalc.com/cpi-release-date/ (retrieved 2026-10-07; September CPI due 2026-10-14)"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261007",
+  "generated_at": "2026-10-07T10:54:05+00:00",
+  "manifest_hash": "e583a9d52346081249f5a4d0cb592ccbe805d4bdfadfdccbc816de71b1ec280a",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
