@@ -173,6 +173,8 @@ def test_score_script_skips_artifact_directories_without_a_cohort_report(tmp_pat
     (tmp_path / "artifacts" / "prospective_general" / "forecasts.json").write_text("{}")
     monkeypatch.setattr(module, "ROOT", tmp_path)
     monkeypatch.setattr(module, "write_scores", lambda directory: pytest.fail(f"scored {directory}"))
+    monkeypatch.setattr(module, "resolve_markets", lambda: 0)  # no Polymarket calls from tests
+    monkeypatch.setattr(module, "build_track_record", lambda: 0)  # leaves data/track_record.json alone
     assert module.main([]) == 0
 
 

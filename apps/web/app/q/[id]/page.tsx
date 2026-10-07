@@ -42,7 +42,7 @@ export default function QuestionPage() {
           <p className="mt-2 font-serif text-4xl">{q.outcome ? "Yes" : "No"}</p>
           <p className="mt-2 flex flex-wrap items-center gap-3 text-sm">{q.actual && <span className="text-ink/60">Actual: {q.actual}</span>}<ResultMark verdict={q.verdict} /></p>
         </> : q.status === "cancelled"
-          ? <p className="mt-2 text-ink/70">Cancelled: no official value was published (market holiday). It doesn’t count.</p>
+          ? <p className="mt-2 text-ink/70">Cancelled: {q.actual ?? "no official value was published (market holiday)"}. It doesn’t count.</p>
           : <p className="mt-2 text-ink/70">Not decided yet. The official figure is due {shortDate(q.resolves_on, true)}.</p>}
       </div>
     </section>

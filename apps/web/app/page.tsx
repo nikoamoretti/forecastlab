@@ -90,7 +90,7 @@ export default function TrackRecordPage() {
 
     <section>
       <h3 className="font-serif text-3xl">Who forecasts best</h3>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Every question goes to several forecasters. Our call is the combined forecast: the median of their probabilities. Each forecaster’s own record shows whether the combination beats it.</p>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Every question goes to several forecasters. Our call is the combined forecast: the median of their probabilities. The prediction market is only a benchmark to beat; it is never part of our call. Each forecaster’s own record shows whether the combination beats it.</p>
       <ul className="mt-4 divide-y divide-rule border-y border-rule">{data.forecasters.map(f => <li key={f.method}
         className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <span><span className="font-medium">{f.label}</span><span className="block text-sm text-ink/60">{f.about}</span></span>

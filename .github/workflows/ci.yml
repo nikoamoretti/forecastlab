@@ -38,11 +38,11 @@ jobs:
         env:
           FORECASTLAB_TEST_POSTGRES_URL: postgresql+psycopg://postgres:test-only@127.0.0.1:5432/postgres
       - name: Ruff
-        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py scripts/conflict_panel.py
+        run: uv run python -m ruff check packages apps/api tests scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py scripts/conflict_panel.py scripts/market_questions.py
       - name: Mypy
         run: |
           uv run python -m mypy
-          uv run python -m mypy scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py scripts/conflict_panel.py
+          uv run python -m mypy scripts/verify_private_v1_release.py scripts/cloud_data.py scripts/release_cloud.py scripts/vercel_release.py scripts/conflict_panel.py scripts/market_questions.py
       - name: Frontend
         working-directory: apps/web
         run: |

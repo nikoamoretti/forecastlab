@@ -42,7 +42,12 @@ FORECASTERS: dict[str, dict[str, str]] = {
     "three_track_forecaster": {"label": "Three-track AI (early)", "about": "Earlier version of the three-track AI."},
     "statistical_baseline_v1": {
         "label": "Statistical baseline", "about": "A fixed rule based on past data, with no AI. The bar to beat."},
+    "market_price_v1": {
+        "label": "Prediction market (benchmark)",
+        "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
 }
+# Benchmarks are scored like forecasters but never enter our call.
+BENCHMARKS = {"market_price_v1"}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
@@ -55,10 +60,11 @@ COMBINED_INFO = {"label": "Combined forecast",
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
-    """Our call: the median probability across the forecasters that answered."""
-    if not forecasts:
+    """Our call: the median probability across the forecasters that answered (benchmarks excluded)."""
+    members = [f["probability"] for f in forecasts if f["method"] not in BENCHMARKS]
+    if not members:
         return None
-    return {"method": COMBINED, "probability": median(f["probability"] for f in forecasts), "members": len(forecasts)}
+    return {"method": COMBINED, "probability": median(members), "members": len(members)}
 
 
 def verdict(probability: float, outcome: int | None) -> str | None:
@@ -128,7 +134,7 @@ def _general_questions(path: Path) -> list[dict[str, Any]]:
             # The GPU set predates per-question topics.
             "topic": question.get("topic") or data.get("topic") or ("Tech" if "gpu" in path.parent.name else "Other"),
             "resolves_on": question["resolution_date"],
-            "status": "pending" if outcome is None else "resolved",
+            "status": "cancelled" if question.get("cancelled") else "pending" if outcome is None else "resolved",
             "outcome": None if outcome is None else int(outcome), "actual": question.get("outcome_note"),
             "source_url": url.group(0).rstrip(" ;,)") if url else None, "report_url": None,
             "forecasts": sorted(forecasts, key=lambda f: PRIMARY_ORDER.index(f["method"])
