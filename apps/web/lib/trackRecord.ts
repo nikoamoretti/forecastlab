@@ -1,7 +1,7 @@
 import { call } from "@/lib/verdict";
 
 export type Source = string | { url: string; published?: string };
-export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string };
+export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number };
 export type Question = {
   id: string; title: string; detail: string; topic: string; resolves_on: string;
   status: "pending" | "resolved" | "cancelled"; outcome: 0 | 1 | null; actual: string | null;

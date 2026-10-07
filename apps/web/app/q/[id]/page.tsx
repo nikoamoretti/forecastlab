@@ -17,9 +17,8 @@ export default function QuestionPage() {
   if (!q) return <div className="space-y-4"><p>This question is not in the track record.</p><Link className="underline" href="/">Back to track record</Link></div>;
 
   const labels = Object.fromEntries(data.forecasters.map(f => [f.method, f.label]));
-  const lead = q.forecasts.find(f => f.method === q.call?.method);
-  const explained = q.forecasts.find(f => f.rationale) ?? null;
-  const reasoning = lead?.rationale ? lead : explained;
+  // Forecasters that wrote down their reasoning (Claude does); the first one is shown.
+  const reasoning = q.forecasts.find(f => f.rationale) ?? null;
 
   return <article className="mx-auto max-w-3xl space-y-10">
     <Link href="/" className="inline-block py-1 text-sm text-ink/70 hover:text-ink">‹ Track record</Link>
@@ -34,7 +33,8 @@ export default function QuestionPage() {
       <div className="border border-rule bg-white/50 p-5">
         <p className="font-mono text-xs uppercase tracking-widest text-copper">Our call</p>
         <p className="mt-2 font-serif text-4xl">{q.call ? callText(q.call.probability) : "No call"}</p>
-        {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · by {labels[q.call.method] ?? q.call.method}</p>}
+        {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.members
+          ? `the middle (median) of ${q.call.members} forecaster${q.call.members === 1 ? "" : "s"}` : `by ${labels[q.call.method] ?? q.call.method}`}</p>}
       </div>
       <div className={`border p-5 ${q.status === "resolved" ? "border-ink/30 bg-white/70" : "border-dashed border-rule"}`}>
         <p className="font-mono text-xs uppercase tracking-widest text-copper">What happened</p>
@@ -48,7 +48,7 @@ export default function QuestionPage() {
     </section>
 
     {reasoning?.rationale && <section>
-      <h3 className="font-serif text-2xl">Why {reasoning === lead ? "we" : labels[reasoning.method] ?? "the forecaster"} said {callText(reasoning.probability).split(",")[0].toLowerCase()}</h3>
+      <h3 className="font-serif text-2xl">Why {labels[reasoning.method] ?? "the forecaster"} said {callText(reasoning.probability).split(",")[0].toLowerCase()}</h3>
       <p className="mt-3 whitespace-pre-line leading-relaxed [overflow-wrap:anywhere]">{reasoning.rationale}</p>
       {!!reasoning.sources?.length && <div className="mt-4"><p className="text-sm text-ink/60">Sources</p>
         <ul className="mt-1 space-y-1 text-sm">{reasoning.sources.map(source => <li key={sourceUrl(source)}>
@@ -60,9 +60,13 @@ export default function QuestionPage() {
       <h3 className="font-serif text-2xl">What each forecaster said</h3>
       <table className="mt-3 w-full text-left">
         <tbody>{q.forecasts.map(f => <tr key={f.method} className="border-b border-rule/60">
-          <td className="py-2 pr-4">{labels[f.method] ?? f.method}{f.method === q.call?.method && <span className="ml-2 text-xs text-copper">our call</span>}</td>
+          <td className="py-2 pr-4">{labels[f.method] ?? f.method}</td>
           <td className="py-2 pr-4 font-medium tabular-nums">{callText(f.probability)}</td>
-          <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(f.probability)} yes</td></tr>)}</tbody>
+          <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(f.probability)} yes</td></tr>)}
+          {q.call && q.forecasts.length > 1 && <tr className="border-t-2 border-ink/20">
+            <td className="py-2 pr-4 font-medium">Combined (our call)</td>
+            <td className="py-2 pr-4 font-medium tabular-nums">{callText(q.call.probability)}</td>
+            <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(q.call.probability)} yes</td></tr>}</tbody>
       </table>
     </section>
 

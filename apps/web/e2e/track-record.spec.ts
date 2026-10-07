@@ -16,7 +16,7 @@ async function mockRecord(page: Page) {
       question("q2", "Will the economy add more than 162,000 jobs?", { outcome: 0, actual: "+29,000 jobs",
         forecasts: [{ method: "root_event_ensemble_v1", probability: .33 }], call: { method: "root_event_ensemble_v1", probability: .33 }, verdict: "right" }),
       question("q3", "Will the 10-year yield on Oct 7 be above 5.28%?", { status: "pending", outcome: null, actual: null, resolves_on: "2026-10-08",
-        topic: "Interest rates", call: { method: "claude_code_forecaster_v1", probability: .56 },
+        topic: "Interest rates", call: { method: "combined_median_v1", probability: .48, members: 2 },
         forecasts: [{ method: "claude_code_forecaster_v1", probability: .56, rationale: "The yield sits just above the threshold.",
           sources: [{ url: "https://fred.stlouisfed.org/series/DGS10", published: "2026-10-06" }], made_at: "2026-10-06T11:00:00Z" },
         { method: "root_event_ensemble_v1", probability: .4 }] })] } }));
@@ -29,7 +29,7 @@ test("the home page leads with the score, the next result and clickable question
   await expect(page.getByText("About the same as guessing so far")).toBeVisible();
   await expect(page.getByText("2 of 30 results")).toBeVisible();
   const next = page.getByRole("link", { name: /Next result · Tomorrow/ });
-  await expect(next).toContainText("Our call: Yes, 56% sure");
+  await expect(next).toContainText("Our call: No, 52% sure");
   const wrong = page.getByRole("link", { name: /above 4\.1%/ });
   await expect(wrong).toContainText("✗ Wrong");
   await expect(wrong).toContainText("We said No, 63% sure · actual 4.2%");
@@ -46,11 +46,13 @@ test("an open question explains our call with its sources", async ({ page }) => 
   await mockRecord(page);
   await page.goto("/q/q3");
   await expect(page.getByText("result due tomorrow")).toBeVisible();
-  await expect(page.getByText("Yes, 56% sure").first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Why we said yes" })).toBeVisible();
+  await expect(page.getByText("No, 52% sure").first()).toBeVisible();
+  await expect(page.getByText("48.0% chance of yes · the middle (median) of 2 forecasters")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Why Claude said yes" })).toBeVisible();
   await expect(page.getByText("The yield sits just above the threshold.")).toBeVisible();
   await expect(page.getByRole("link", { name: "fred.stlouisfed.org, Oct 6, 2026" })).toBeVisible();
   await expect(page.getByRole("row").filter({ hasText: "Research pipeline" })).toContainText("No, 60% sure");
+  await expect(page.getByRole("row").filter({ hasText: "Combined (our call)" })).toContainText("No, 52% sure");
 });
 
 test("asking a question queues it for Claude and can be withdrawn", async ({ page }) => {

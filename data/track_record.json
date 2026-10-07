@@ -1,6 +1,18 @@
 {
   "forecasters": [
     {
+      "about": "The median of every forecaster's probability on the question. This is our call.",
+      "brier": 0.24948799796324403,
+      "coin_flip_brier": 0.25,
+      "forecasts": 29,
+      "label": "Combined forecast",
+      "method": "combined_median_v1",
+      "resolved": 4,
+      "right": 2,
+      "toss_ups": 0,
+      "wrong": 2
+    },
+    {
       "about": "Claude researches each question on the web and states a probability.",
       "brier": 0.10239999999999996,
       "coin_flip_brier": 0.25,
@@ -66,8 +78,9 @@
     {
       "actual": "5.31%",
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.68
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.4739429175475687
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-05 be above 5.24 percent?",
       "forecasts": [
@@ -122,12 +135,13 @@
       "status": "resolved",
       "title": "Will the 10-year U.S. Treasury yield on Oct 5, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": "right"
+      "verdict": "wrong"
     },
     {
       "actual": "4.2%",
       "call": {
-        "method": "root_event_ensemble_v1",
+        "members": 1,
+        "method": "combined_median_v1",
         "probability": 0.36864947996316155
       },
       "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-09 be above 4.1 percent?",
@@ -151,7 +165,8 @@
     {
       "actual": "+29,000 jobs",
       "call": {
-        "method": "root_event_ensemble_v1",
+        "members": 1,
+        "method": "combined_median_v1",
         "probability": 0.32669417818720387
       },
       "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-09 be above 162,000 jobs?",
@@ -175,7 +190,8 @@
     {
       "actual": "3.4%",
       "call": {
-        "method": "root_event_ensemble_v1",
+        "members": 1,
+        "method": "combined_median_v1",
         "probability": 0.46463251354421276
       },
       "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-08 be above 3.4 percent year over year?",
@@ -199,8 +215,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.64
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.539905980334173
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-06 be above 5.24 percent?",
       "forecasts": [
@@ -260,8 +277,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.5
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.434551282051282
       },
       "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-03 be above 197,000 claims?",
       "forecasts": [
@@ -313,8 +331,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.61
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.529723991507431
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-07 be above 5.24 percent?",
       "forecasts": [
@@ -378,8 +397,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.6
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.5664194915254237
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-08 be above 5.24 percent?",
       "forecasts": [
@@ -439,8 +459,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.58
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.55
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-09 be above 5.24 percent?",
       "forecasts": [
@@ -496,8 +517,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.58
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5602558635394457
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-12 be above 5.24 percent?",
       "forecasts": [
@@ -544,8 +566,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.56
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5502558635394457
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-13 be above 5.28 percent?",
       "forecasts": [
@@ -581,8 +604,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.96
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.65
       },
       "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.3 percent year over year?",
       "forecasts": [
@@ -634,8 +658,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.74
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.35784313725490197
       },
       "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.5 percent year over year?",
       "forecasts": [
@@ -687,8 +712,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.91
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.47549019607843135
       },
       "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.4 percent year over year?",
       "forecasts": [
@@ -748,8 +774,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.55
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5543803418803419
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-14 be above 5.28 percent?",
       "forecasts": [
@@ -784,8 +811,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.52
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.471382414047297
       },
       "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-10 be above 197,000 claims?",
       "forecasts": [
@@ -837,8 +865,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.55
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5543803418803419
       },
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-15 be above 5.31 percent?",
       "forecasts": [
@@ -874,7 +903,8 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
+        "members": 3,
+        "method": "combined_median_v1",
         "probability": 0.57
       },
       "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.1 percent?",
@@ -927,8 +957,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.27
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.28500000000000003
       },
       "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.2 percent?",
       "forecasts": [
@@ -984,8 +1015,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.08
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.09130434782608696
       },
       "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.3 percent?",
       "forecasts": [
@@ -1037,8 +1069,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.26
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.29447368421052633
       },
       "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 100,000 jobs?",
       "forecasts": [
@@ -1090,8 +1123,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.56
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.5307017543859649
       },
       "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 29,000 jobs?",
       "forecasts": [
@@ -1147,8 +1181,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.85
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.28
       },
       "detail": "YES if, by 2026-11-10 23:59 ET, USTR publishes a press release on ustr.gov or a Federal Register notice extending the exclusion for 'Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")' to any date after 2026-11-10. This is entry 20(ttt)(iii)(108) in USTR's exclusion index. USTR describes the current extension as running 'until November 10, 2026'; some secondary notices give the end as 11:59 p.m. EDT on 2026-11-09. Either way, an extension published by 2026-11-10 23:59 ET counts. NO if the exclusion lapses without such an extension. A reinstatement published after 2026-11-10 does not count, even if retroactive.",
       "forecasts": [
@@ -1201,8 +1236,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.32
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.36
       },
       "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-11 be above 4.2 percent?",
       "forecasts": [
@@ -1258,7 +1294,8 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
+        "members": 3,
+        "method": "combined_median_v1",
         "probability": 0.55
       },
       "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-11 be above 29,000 jobs?",
@@ -1307,8 +1344,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.27
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.25
       },
       "detail": "YES if, by 2026-12-31, Moore Threads announces through its official website or official social-media accounts that a Lushan-based consumer or gaming graphics card is on sale (orders accepted with a stated price and shipping) to the general public. The same applies if Tom's Hardware reports it as purchasable at retail by that date. Pre-order or reservation sign-ups without shipping, engineering samples and enterprise-only products do not count. Otherwise NO.",
       "forecasts": [
@@ -1361,8 +1399,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.38
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.2
       },
       "detail": "YES if NVIDIA announces, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card with 'SUPER' in its name, together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom, NVIDIA GeForce News, or an official NVIDIA keynote backed by such a post. Leaks, partner listings, retailer listings and media reports do not count. Otherwise NO.",
       "forecasts": [
@@ -1411,8 +1450,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.15
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.11667781591848865
       },
       "detail": "YES if, between 2026-10-03 and 2027-03-31, NVIDIA states a US MSRP or 'starting at' price above the launch MSRP for any existing RTX 50 desktop card. Launch MSRPs: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. Qualifying channels: the NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page, or an NVIDIA statement quoted by Reuters or Bloomberg. Increases only to partner 'kit' prices, retail or marketplace listings, or prices outside the US do not count. Otherwise NO.",
       "forecasts": [
@@ -1461,8 +1501,9 @@
     {
       "actual": null,
       "call": {
-        "method": "claude_code_forecaster_v1",
-        "probability": 0.45
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.12
       },
       "detail": "YES if an official announcement published in the window raises the US MSRP of at least one of these models above its level on 2026-10-03: PS5 $649.99; Xbox Series X 1 TB $799.99; Switch 2 $499.99. Qualifying channels: the PlayStation Blog, Xbox Wire / news.xbox.com, or Nintendo of America news. Price changes only for bundles, new SKUs, retailers or non-US markets do not count. Otherwise NO.",
       "forecasts": [
@@ -1510,15 +1551,15 @@
     }
   ],
   "summary": {
-    "brier": 0.205903984463653,
+    "brier": 0.24948799796324403,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
     "pending": 24,
     "resolved": 4,
-    "right": 3,
+    "right": 2,
     "toss_ups": 0,
     "total": 29,
-    "wrong": 1
+    "wrong": 2
   },
-  "version": "track_record_v1"
+  "version": "track_record_v2"
 }

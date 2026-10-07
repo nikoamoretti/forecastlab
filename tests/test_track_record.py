@@ -49,17 +49,21 @@ def test_track_record_marks_calls_and_counts_each_forecaster(tmp_path: Path) -> 
     by_id = {q["id"]: q for q in record["questions"]}
     unemployment = by_id["u"]
     assert unemployment["title"] == "Will the U.S. unemployment rate for September 2026 come in above 4.1%?"
-    assert unemployment["call"] == {"method": "root_event_ensemble_v1", "probability": 0.37}
+    # Our call is the median of the forecasters that answered: (0.37 + 0.6) / 2.
+    assert unemployment["call"] == {"method": "combined_median_v1", "probability": pytest.approx(0.485), "members": 2}
     assert (unemployment["status"], unemployment["actual"], unemployment["verdict"]) == ("resolved", "4.2%", "wrong")
     assert [f["method"] for f in unemployment["forecasts"]] == ["root_event_ensemble_v1", "statistical_baseline_v1"]
     assert by_id["h"]["status"] == "cancelled"  # Columbus Day: no 10-year yield is published.
-    assert by_id["y"]["call"]["method"] == "claude_code_forecaster_v1"  # supplement suffix removed; Claude leads
+    assert by_id["y"]["call"]["probability"] == pytest.approx(0.52)  # supplement suffix removed before combining
+    assert by_id["y"]["forecasts"][0]["method"] == "claude_code_forecaster_v1"
     assert by_id["gpu"]["status"] == "pending" and by_id["gpu"]["topic"] == "Tech"
     assert [q["id"] for q in record["questions"]] == ["u", "h", "y", "gpu"]
 
     summary = record["summary"]
     assert (summary["resolved"], summary["right"], summary["wrong"], summary["pending"], summary["cancelled"]) == (1, 0, 1, 2, 1)
-    assert summary["brier"] == pytest.approx(0.63 ** 2)
+    assert summary["brier"] == pytest.approx(0.515 ** 2)
+    assert record["forecasters"][0]["method"] == "combined_median_v1"
+    assert (record["forecasters"][0]["resolved"], record["forecasters"][0]["wrong"]) == (1, 1)
     baseline = next(f for f in record["forecasters"] if f["method"] == "statistical_baseline_v1")
     assert (baseline["forecasts"], baseline["resolved"], baseline["right"]) == (2, 1, 1)
     assert baseline["label"] == "Statistical baseline"

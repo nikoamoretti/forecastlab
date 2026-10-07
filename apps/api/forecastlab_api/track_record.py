@@ -6,9 +6,12 @@ questions the owner asked Claude, whose ids match their ``question_requests`` en
 ``scripts/build_track_record.py`` writes the result to ``data/track_record.json`` and
 ``GET /api/track-record`` serves that file.
 
-"Our call" for a question is the forecast of the first forecaster in ``PRIMARY_ORDER``
-that answered it. A call is right when it put more than 50% on what happened; an exact
-50% is a toss-up and counts in the accuracy score but not in the right/wrong tally.
+"Our call" for a question is the median of every forecaster's probability on it (the
+``combined_median_v1`` rule, adopted 2026-10-07 in place of "Claude first"; it gives the
+same call on all four questions decided by then). A call is right when it put more than
+50% on what happened; an exact 50% is a toss-up and counts in the accuracy score but not
+in the right/wrong tally. Each forecaster keeps its own record, so the page shows whether
+the combination beats its members.
 """
 
 from __future__ import annotations
@@ -17,6 +20,7 @@ import json
 import re
 from datetime import date
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 from forecastlab.fast_questions import bond_market_holidays
@@ -24,7 +28,8 @@ from forecastlab.macro import SERIES, MacroSpec
 from forecastlab.plain_questions import TOPICS, format_value, question_text, question_title
 from forecastlab.timeutil import utcnow
 
-TRACK_RECORD_VERSION = "track_record_v1"
+TRACK_RECORD_VERSION = "track_record_v2"
+COMBINED = "combined_median_v1"
 SUPPLEMENT_SUFFIX = " (post-freeze supplement)"
 COIN_FLIP_BRIER = 0.25
 FORECASTERS: dict[str, dict[str, str]] = {
@@ -45,10 +50,15 @@ def _forecaster(method: str) -> str:
     return method.removesuffix(SUPPLEMENT_SUFFIX)
 
 
+COMBINED_INFO = {"label": "Combined forecast",
+                 "about": "The median of every forecaster's probability on the question. This is our call."}
+
+
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
-    by_method = {f["method"]: f for f in forecasts}
-    chosen = next((by_method[m] for m in PRIMARY_ORDER if m in by_method), forecasts[0] if forecasts else None)
-    return {"method": chosen["method"], "probability": chosen["probability"]} if chosen else None
+    """Our call: the median probability across the forecasters that answered."""
+    if not forecasts:
+        return None
+    return {"method": COMBINED, "probability": median(f["probability"] for f in forecasts), "members": len(forecasts)}
 
 
 def verdict(probability: float, outcome: int | None) -> str | None:
@@ -154,7 +164,8 @@ def build_track_record(artifacts: Path, *, today: date | None = None) -> dict[st
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),
                 "cancelled": sum(q["status"] == "cancelled" for q in questions), "total": len(questions)}
-    forecasters = []
+    forecasters = [{"method": COMBINED, **COMBINED_INFO, "forecasts": sum(q["call"] is not None for q in questions),
+                    **_tally([(q["call"]["probability"], q["outcome"]) for q in resolved])}]
     for method in sorted({f["method"] for q in questions for f in q["forecasts"]},
                          key=lambda m: PRIMARY_ORDER.index(m) if m in PRIMARY_ORDER else len(PRIMARY_ORDER)):
         rows = [(f["probability"], q["outcome"]) for q in resolved for f in q["forecasts"] if f["method"] == method]
