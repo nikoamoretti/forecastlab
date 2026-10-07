@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api, pct } from "@/lib/api";
-import { verdictShort } from "@/lib/verdict";
+import { callShort } from "@/lib/verdict";
 import PersonalReport from "@/components/PersonalReport";
 import VerdictHeadline from "@/components/VerdictHeadline";
 
@@ -1060,7 +1060,7 @@ export default function ForecastPage() {
         <ol className="mt-3 space-y-2">
           {versions.map((version: any, index: number) => (
             <li key={version.id} className="border-b border-rule py-2 text-sm">
-              Version {versions.length - index}: {verdictShort(version.ensemble_probability)} · {version.profile_id || "unknown profile"} ·{" "}
+              Version {versions.length - index}: {callShort(version.ensemble_probability)} · {version.profile_id || "unknown profile"} ·{" "}
               {version.trigger_event} ·{" "}
               {version.created_at}
             </li>

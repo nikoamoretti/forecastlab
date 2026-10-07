@@ -1,0 +1,49 @@
+{
+  "id": "prospective_autopilot_pilot_202609",
+  "interpretation": "First Autopilot forecasts (three questions).",
+  "manifest_hash": "325740a5b2f7119d6729311db3825feedac4d3317526400d6aed99bb894339ab",
+  "methods": [
+    "root_event_ensemble_v1"
+  ],
+  "questions": [
+    {
+      "cells": [
+        {
+          "computed_at": "2026-09-05T06:44:37.421571Z",
+          "method": "root_event_ensemble_v1",
+          "probability": 0.36864947996316155,
+          "run_id": "aff8e7bb-2b6f-4062-9896-e9c43f44d46a",
+          "status": "forecasted"
+        }
+      ],
+      "id": "72a2577c-9562-41b1-96cc-3c9fb4458b00",
+      "release_event": "employment-2026-10-02"
+    },
+    {
+      "cells": [
+        {
+          "computed_at": "2026-09-05T06:41:01.899577Z",
+          "method": "root_event_ensemble_v1",
+          "probability": 0.32669417818720387,
+          "run_id": "75f230a4-ff9b-46a5-b7cd-7d8a0e4d17e5",
+          "status": "forecasted"
+        }
+      ],
+      "id": "b9010c94-73e8-4fdd-b6e7-85d647c1faa9",
+      "release_event": "employment-2026-10-02"
+    },
+    {
+      "cells": [
+        {
+          "computed_at": "2026-09-05T06:36:21.907370Z",
+          "method": "root_event_ensemble_v1",
+          "probability": 0.46463251354421276,
+          "run_id": "0548b8d4-7103-4c01-8b22-f0120a79a215",
+          "status": "forecasted"
+        }
+      ],
+      "id": "1a10fb61-1420-441f-a653-a2e8ebf0f929",
+      "release_event": "cpi-2026-09-11"
+    }
+  ]
+}

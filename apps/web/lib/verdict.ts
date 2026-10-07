@@ -43,7 +43,21 @@ export function verdict(p: number): Verdict {
   return { label: VERDICT_SCALE[index].label, lean, odds: chance, sentence: `${lead}: ${chance} chance it happens (${pct(p)}).` };
 }
 
-// Compact form for lists and tables, e.g. "Unlikely · 37.4%".
-export function verdictShort(p?: number | null) {
-  return p == null ? pct(p) : `${verdict(p).label} · ${pct(p)}`;
+export type Call = { answer: "Yes" | "No" | "Toss-up"; sure: number; sentence: string };
+
+// The forecast as a decision: which way we lean and how sure we are of that side.
+// 37% becomes "No, 63% sure". Exactly 50% makes no call.
+export function call(p: number): Call {
+  if (p === 0.5) return { answer: "Toss-up", sure: 0.5, sentence: "Toss-up: we make no call (50%)." };
+  const answer = p > 0.5 ? "Yes" : "No";
+  const sure = Math.max(p, 1 - p);
+  const event = answer === "Yes" ? "it happens" : "it doesn't happen";
+  return { answer, sure, sentence: `We think ${event}, ${Math.round(sure * 100)}% sure (${pct(p)} chance of yes).` };
+}
+
+// Compact form for lists, e.g. "No · 63% sure".
+export function callShort(p?: number | null) {
+  if (p == null) return pct(p);
+  const c = call(p);
+  return c.answer === "Toss-up" ? "Toss-up · 50%" : `${c.answer} · ${Math.round(c.sure * 100)}% sure`;
 }

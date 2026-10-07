@@ -152,13 +152,21 @@ def log_loss(probability: float, outcome: int) -> float:
     return -math.log(clipped if outcome else 1 - clipped)
 
 
-def score_artifact(directory: Path, *, today: date | None = None, fetch: Fetch = fetch_text) -> dict[str, Any]:
-    """Resolve every entry of one exported cohort and score each method's forecasts."""
+def score_artifact(directory: Path, *, today: date | None = None, fetch: Fetch = fetch_text,
+                   previous_outcomes: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Resolve every entry of one exported cohort and score each method's forecasts.
+
+    A first-release value never changes once published, so an entry resolved in
+    ``previous_outcomes`` stays resolved when a later source request fails.
+    """
     today = today or utcnow().date()
     report = json.loads((directory / "cohort_report.json").read_text())
     manifest = json.loads((directory / "frozen_manifest.json").read_text())["manifest"]
     specs = {entry["entry_id"]: MacroSpec.model_validate(entry["macro"]) for entry in manifest["entries"]}
-    outcomes = {entry_id: resolve(spec, today=today, fetch=fetch) for entry_id, spec in specs.items()}
+    outcomes = {}
+    for entry_id, spec in specs.items():
+        earlier = (previous_outcomes or {}).get(entry_id, {})
+        outcomes[entry_id] = earlier if earlier.get("status") == "resolved" else resolve(spec, today=today, fetch=fetch)
     cells = []
     for question in report["questions"]:
         result = outcomes[question["id"]]
@@ -202,6 +210,8 @@ def score_artifact(directory: Path, *, today: date | None = None, fetch: Fetch =
 
 
 def write_scores(directory: Path, *, today: date | None = None, fetch: Fetch = fetch_text) -> dict[str, Any]:
-    scores = score_artifact(directory, today=today, fetch=fetch)
-    (directory / "scores.json").write_text(json.dumps(scores, indent=2, sort_keys=True) + "\n")
+    path = directory / "scores.json"
+    previous = json.loads(path.read_text()).get("outcomes") if path.exists() else None
+    scores = score_artifact(directory, today=today, fetch=fetch, previous_outcomes=previous)
+    path.write_text(json.dumps(scores, indent=2, sort_keys=True) + "\n")
     return scores

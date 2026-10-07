@@ -1,0 +1,939 @@
+{
+  "forecasters": [
+    {
+      "about": "Claude researches each question on the web and states a probability.",
+      "brier": 0.10239999999999996,
+      "coin_flip_brier": 0.25,
+      "forecasts": 25,
+      "label": "Claude",
+      "method": "claude_code_forecaster_v1",
+      "resolved": 1,
+      "right": 1,
+      "toss_ups": 0,
+      "wrong": 0
+    },
+    {
+      "about": "Three AI estimates built from one shared, checked evidence packet.",
+      "brier": 0.24040531261820397,
+      "coin_flip_brier": 0.25,
+      "forecasts": 8,
+      "label": "Research pipeline",
+      "method": "root_event_ensemble_v1",
+      "resolved": 3,
+      "right": 2,
+      "toss_ups": 0,
+      "wrong": 1
+    },
+    {
+      "about": "One AI model with web search.",
+      "brier": 0.30250000000000005,
+      "coin_flip_brier": 0.25,
+      "forecasts": 21,
+      "label": "Single AI model",
+      "method": "single_model_forecaster_v1",
+      "resolved": 1,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 1
+    },
+    {
+      "about": "Three separate AI analyses, combined.",
+      "brier": 0.34580556367530796,
+      "coin_flip_brier": 0.25,
+      "forecasts": 15,
+      "label": "Three-track AI",
+      "method": "three_track_strict_forecaster_v1",
+      "resolved": 1,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 1
+    },
+    {
+      "about": "A fixed rule based on past data, with no AI. The bar to beat.",
+      "brier": 0.25211863459810757,
+      "coin_flip_brier": 0.25,
+      "forecasts": 20,
+      "label": "Statistical baseline",
+      "method": "statistical_baseline_v1",
+      "resolved": 1,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 1
+    }
+  ],
+  "generated_on": "2026-10-07",
+  "questions": [
+    {
+      "actual": "5.31%",
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.68
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-05 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.68
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.45
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4119476522661372
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4978858350951374
+        }
+      ],
+      "id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+      "outcome": 1,
+      "resolves_on": "2026-10-06",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 5, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": "right"
+    },
+    {
+      "actual": "4.2%",
+      "call": {
+        "method": "root_event_ensemble_v1",
+        "probability": 0.36864947996316155
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-09 be above 4.1 percent?",
+      "forecasts": [
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.36864947996316155
+        }
+      ],
+      "id": "72a2577c-9562-41b1-96cc-3c9fb4458b00",
+      "outcome": 1,
+      "resolves_on": "2026-10-02",
+      "source": "prospective_autopilot_pilot_202609",
+      "status": "resolved",
+      "title": "Will the U.S. unemployment rate for September 2026 come in above 4.1%?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "+29,000 jobs",
+      "call": {
+        "method": "root_event_ensemble_v1",
+        "probability": 0.32669417818720387
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-09 be above 162,000 jobs?",
+      "forecasts": [
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.32669417818720387
+        }
+      ],
+      "id": "b9010c94-73e8-4fdd-b6e7-85d647c1faa9",
+      "outcome": 0,
+      "resolves_on": "2026-10-02",
+      "source": "prospective_autopilot_pilot_202609",
+      "status": "resolved",
+      "title": "Will the U.S. economy add more than 162,000 jobs in September 2026?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "3.4%",
+      "call": {
+        "method": "root_event_ensemble_v1",
+        "probability": 0.46463251354421276
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-08 be above 3.4 percent year over year?",
+      "forecasts": [
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.46463251354421276
+        }
+      ],
+      "id": "1a10fb61-1420-441f-a653-a2e8ebf0f929",
+      "outcome": 0,
+      "resolves_on": "2026-09-11",
+      "source": "prospective_autopilot_pilot_202609",
+      "status": "resolved",
+      "title": "Will U.S. inflation (CPI, year over year) for August 2026 come in above 3.4%?",
+      "topic": "Inflation",
+      "verdict": "right"
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.64
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-06 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.529811960668346
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.524364406779661
+        }
+      ],
+      "id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+      "outcome": null,
+      "resolves_on": "2026-10-07",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 6, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.5
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-03 be above 197,000 claims?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.43
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.41917007307972853
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4391025641025641
+        }
+      ],
+      "id": "7a061736-f242-48ec-bc26-27a8be6f3bbc",
+      "outcome": null,
+      "resolves_on": "2026-10-08",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 3, 2026 come in above 197,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.61
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-07 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.61
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.5047073495092818
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4586832548857421
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.529723991507431
+        }
+      ],
+      "id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+      "outcome": null,
+      "resolves_on": "2026-10-08",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 7, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.6
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-08 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.6
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.8
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.40902000498997837
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5328389830508474
+        }
+      ],
+      "id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "outcome": null,
+      "resolves_on": "2026-10-09",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 8, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.58
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-09 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5298507462686567
+        }
+      ],
+      "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "outcome": null,
+      "resolves_on": "2026-10-12",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 9, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.58
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-12 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5405117270788913
+        }
+      ],
+      "id": "bb0f3a1c023cd9de",
+      "outcome": null,
+      "resolves_on": "2026-10-13",
+      "source": "prospective_daily_20261005",
+      "status": "cancelled",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.56
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-13 be above 5.28 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.56
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5405117270788913
+        }
+      ],
+      "id": "56e4e1b2fcb37d19",
+      "outcome": null,
+      "resolves_on": "2026-10-14",
+      "source": "prospective_daily_20261006",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 13, 2026 be above 5.28%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.96
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.3 percent year over year?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.96
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5735294117647058
+        }
+      ],
+      "id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "outcome": null,
+      "resolves_on": "2026-10-14",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.3%?",
+      "topic": "Inflation",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.74
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.5 percent year over year?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.2671762224285628
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.35784313725490197
+        }
+      ],
+      "id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "outcome": null,
+      "resolves_on": "2026-10-14",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.5%?",
+      "topic": "Inflation",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.91
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.4 percent year over year?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.3767958593434868
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.7
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.41425382685238976
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.47549019607843135
+        }
+      ],
+      "id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "outcome": null,
+      "resolves_on": "2026-10-14",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.4%?",
+      "topic": "Inflation",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.55
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-14 be above 5.28 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5587606837606838
+        }
+      ],
+      "id": "f9f7b84fc8c381e0",
+      "outcome": null,
+      "resolves_on": "2026-10-15",
+      "source": "prospective_daily_20261006",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 14, 2026 be above 5.28%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.52
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-10 be above 197,000 claims?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.4
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4879261184171747
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.45483870967741935
+        }
+      ],
+      "id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "outcome": null,
+      "resolves_on": "2026-10-15",
+      "source": "prospective_fast_fred_batch_20261003",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 10, 2026 come in above 197,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.57
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.1 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.62
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5260869565217391
+        }
+      ],
+      "id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "outcome": null,
+      "resolves_on": "2026-11-06",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.1%?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.27
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.2 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.30000000000000004
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.6
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.2565217391304348
+        }
+      ],
+      "id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "outcome": null,
+      "resolves_on": "2026-11-06",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.2%?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.08
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.3 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.35
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.09130434782608696
+        }
+      ],
+      "id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "outcome": null,
+      "resolves_on": "2026-11-06",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.3%?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.26
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 100,000 jobs?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.26
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.07033939177740528
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.32894736842105265
+        }
+      ],
+      "id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "outcome": null,
+      "resolves_on": "2026-11-06",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. economy add more than 100,000 jobs in October 2026?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.56
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 29,000 jobs?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.56
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.5404578649722903
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.45
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.5
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5307017543859649
+        }
+      ],
+      "id": "86054306-91c5-4aec-9c08-c28208164658",
+      "outcome": null,
+      "resolves_on": "2026-11-06",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. economy add more than 29,000 jobs in October 2026?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.85
+      },
+      "detail": "YES if, by 2026-11-10 23:59 ET, USTR publishes a press release on ustr.gov or a Federal Register notice extending the exclusion for 'Printed circuit assemblies for rendering images onto computer screens (\"graphics processing modules\")' to any date after 2026-11-10. This is entry 20(ttt)(iii)(108) in USTR's exclusion index. USTR describes the current extension as running 'until November 10, 2026'; some secondary notices give the end as 11:59 p.m. EDT on 2026-11-09. Either way, an extension published by 2026-11-10 23:59 ET counts. NO if the exclusion lapses without such an extension. A reinstatement published after 2026-11-10 does not count, even if retroactive.",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.28
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.2031442017434497
+        }
+      ],
+      "id": "gpu-q09-ustr-section301-gpu-exclusion-extended",
+      "outcome": null,
+      "resolves_on": "2026-11-10",
+      "source": "prospective_gpu_questions_20261003",
+      "status": "pending",
+      "title": "Will USTR extend the Section 301 tariff exclusion for 'graphics processing modules' (statistical reporting number 8473.30.1180) beyond 2026-11-10?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.32
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-11 be above 4.2 percent?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.32
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.4
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4496938329763394
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.25877192982456143
+        }
+      ],
+      "id": "37353987-3756-45e0-80f7-ed447514f71a",
+      "outcome": null,
+      "resolves_on": "2026-12-04",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. unemployment rate for November 2026 come in above 4.2%?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.55
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-11 be above 29,000 jobs?",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.95
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5265486725663717
+        }
+      ],
+      "id": "e119fe30-495d-4ef4-ad72-11c080f90a53",
+      "outcome": null,
+      "resolves_on": "2026-12-04",
+      "source": "prospective_macro_batch_20261002",
+      "status": "pending",
+      "title": "Will the U.S. economy add more than 29,000 jobs in November 2026?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.27
+      },
+      "detail": "YES if, by 2026-12-31, Moore Threads announces through its official website or official social-media accounts that a Lushan-based consumer or gaming graphics card is on sale (orders accepted with a stated price and shipping) to the general public. The same applies if Tom's Hardware reports it as purchasable at retail by that date. Pre-order or reservation sign-ups without shipping, engineering samples and enterprise-only products do not count. Otherwise NO.",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.25
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.24722103716611296
+        }
+      ],
+      "id": "gpu-q07-moore-threads-lushan-retail-2026",
+      "outcome": null,
+      "resolves_on": "2026-12-31",
+      "source": "prospective_gpu_questions_20261003",
+      "status": "pending",
+      "title": "Will a consumer graphics card based on Moore Threads' 'Lushan' GPU be available for retail purchase in any country by 2026-12-31?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.38
+      },
+      "detail": "YES if NVIDIA announces, between 2026-10-03 and 2027-01-31 inclusive, at least one desktop GeForce RTX 50-series card with 'SUPER' in its name, together with a US price or MSRP. The announcement must be made via the NVIDIA Newsroom, NVIDIA GeForce News, or an official NVIDIA keynote backed by such a post. Leaks, partner listings, retailer listings and media reports do not count. Otherwise NO.",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.38
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.2
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.06544998825094323
+        }
+      ],
+      "id": "gpu-q04-nvidia-rtx50-super-announced",
+      "outcome": null,
+      "resolves_on": "2027-01-31",
+      "source": "prospective_gpu_questions_20261003",
+      "status": "pending",
+      "title": "Will NVIDIA officially announce at least one GeForce RTX 50 'SUPER' desktop graphics card with a US price between 2026-10-03 and 2027-01-31?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.15
+      },
+      "detail": "YES if, between 2026-10-03 and 2027-03-31, NVIDIA states a US MSRP or 'starting at' price above the launch MSRP for any existing RTX 50 desktop card. Launch MSRPs: 5090 $1,999; 5080 $999; 5070 Ti $749; 5070 $549; 5060 Ti 16 GB $429; 5060 Ti 8 GB $379; 5060 $299; 5050 $249. Qualifying channels: the NVIDIA Newsroom, NVIDIA GeForce News, an NVIDIA US product page, or an NVIDIA statement quoted by Reuters or Bloomberg. Increases only to partner 'kit' prices, retail or marketplace listings, or prices outside the US do not count. Otherwise NO.",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.1
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.11667781591848865
+        }
+      ],
+      "id": "gpu-q08-nvidia-official-msrp-increase",
+      "outcome": null,
+      "resolves_on": "2027-03-31",
+      "source": "prospective_gpu_questions_20261003",
+      "status": "pending",
+      "title": "Will NVIDIA announce an increase to the official US MSRP of any GeForce RTX 50-series desktop graphics card by 2027-03-31?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "method": "claude_code_forecaster_v1",
+        "probability": 0.45
+      },
+      "detail": "YES if an official announcement published in the window raises the US MSRP of at least one of these models above its level on 2026-10-03: PS5 $649.99; Xbox Series X 1 TB $799.99; Switch 2 $499.99. Qualifying channels: the PlayStation Blog, Xbox Wire / news.xbox.com, or Nintendo of America news. Price changes only for bundles, new SKUs, retailers or non-US markets do not count. Otherwise NO.",
+      "forecasts": [
+        {
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.12
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.07160800353028608
+        }
+      ],
+      "id": "gpu-q15-console-msrp-increase-by-mid-2027",
+      "outcome": null,
+      "resolves_on": "2027-06-30",
+      "source": "prospective_gpu_questions_20261003",
+      "status": "pending",
+      "title": "Will Sony, Microsoft or Nintendo announce a further increase in the US MSRP of the PS5 (standard disc model), the Xbox Series X (1 TB disc model) or the Nintendo Switch 2 between 2026-10-03 and 2027-06-30?",
+      "topic": "Tech",
+      "verdict": null
+    }
+  ],
+  "summary": {
+    "brier": 0.205903984463653,
+    "cancelled": 1,
+    "coin_flip_brier": 0.25,
+    "pending": 23,
+    "resolved": 4,
+    "right": 3,
+    "toss_ups": 0,
+    "total": 28,
+    "wrong": 1
+  },
+  "version": "track_record_v1"
+}

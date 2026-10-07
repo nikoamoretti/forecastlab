@@ -1,0 +1,64 @@
+{
+  "frozen_at": "2026-10-07T00:00:00Z",
+  "manifest": {
+    "entries": [
+      {
+        "cutoff": "2026-10-02T12:30:00Z",
+        "entry_id": "72a2577c-9562-41b1-96cc-3c9fb4458b00",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "unemployment",
+          "observation_period": "2026-09",
+          "release_at": "2026-10-02T12:30:00Z",
+          "revision_policy": "first_release",
+          "threshold": 4.1
+        },
+        "methods": [
+          "root_event_ensemble_v1"
+        ],
+        "question": "Will the U.S. unemployment rate for 2026-09 be greater than 4.1 percent in the 2026-10-02 release?",
+        "release_event": "employment-2026-10-02"
+      },
+      {
+        "cutoff": "2026-10-02T12:30:00Z",
+        "entry_id": "b9010c94-73e8-4fdd-b6e7-85d647c1faa9",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "payrolls",
+          "observation_period": "2026-09",
+          "release_at": "2026-10-02T12:30:00Z",
+          "revision_policy": "first_release",
+          "threshold": 162000
+        },
+        "methods": [
+          "root_event_ensemble_v1"
+        ],
+        "question": "Will the U.S. nonfarm payroll monthly change for 2026-09 be greater than 162000 jobs in the 2026-10-02 release?",
+        "release_event": "employment-2026-10-02"
+      },
+      {
+        "cutoff": "2026-09-11T12:30:00Z",
+        "entry_id": "1a10fb61-1420-441f-a653-a2e8ebf0f929",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "cpi",
+          "observation_period": "2026-08",
+          "release_at": "2026-09-11T12:30:00Z",
+          "revision_policy": "first_release",
+          "threshold": 3.4
+        },
+        "methods": [
+          "root_event_ensemble_v1"
+        ],
+        "question": "Will the U.S. CPI year-over-year inflation for 2026-08 be greater than 3.4 percent year over year in the 2026-09-11 release?",
+        "release_event": "cpi-2026-09-11"
+      }
+    ],
+    "methods": [
+      "root_event_ensemble_v1"
+    ],
+    "note": "The first three Autopilot forecasts, made on 2026-09-05 in the live database and exported unchanged on 2026-10-07 from /api/forecast-summaries so they are scored with the same first-release rules as the other artifacts. Probabilities and run ids are the stored values; each forecast finished weeks before its release.",
+    "schema_version": "autopilot_export_v1"
+  },
+  "manifest_hash": "325740a5b2f7119d6729311db3825feedac4d3317526400d6aed99bb894339ab"
+}

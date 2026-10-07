@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test("mock happy path", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("ForecastLab")).toBeVisible();
-  await page.getByRole("link", { name: "New question", exact: true }).click();
+  await page.getByRole("link", { name: "Ask a question", exact: true }).click();
   await expect(page.getByRole("heading", { name: /State a binary claim/i })).toBeVisible();
   await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
   await expect(page.getByRole("heading", { name: /Review the contract/i })).toBeVisible({
