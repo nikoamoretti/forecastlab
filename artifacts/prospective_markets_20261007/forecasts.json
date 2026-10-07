@@ -1,0 +1,211 @@
+{
+  "note": "Questions borrowed from Polymarket and resolved by Polymarket. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.455
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
+            "https://www.coindesk.com/price/ethereum (2026-10-07)"
+          ]
+        }
+      ],
+      "id": "polymarket-5311923",
+      "market_id": "5311923",
+      "outcome": null,
+      "question": "Will Ethereum dip to $2,500 October 5-11?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-10-12",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7825
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.67,
+          "rationale": "The BoC has held at 2.25% for seven straight decisions (latest Sept 2, 2026), and its preferred core measures (CPI-trim 1.9%, CPI-median 2.0% in August) are at target even though headline CPI is 3.0% on gasoline. Macklem (Sept 21) said the Bank does not want to be late to hike, overnight swaps priced a meaningful hike chance in mid/late September, and the Fed just hiked, but RBC, Desjardins and Capital Economics all expect a hold in October; a cut is very unlikely.",
+          "sources": [
+            "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/ (2026-09-02)",
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/260914/dq260914a-eng.pdf (2026-09-14)",
+            "https://www.bloomberg.com/news/articles/2026-09-21/macklem-flags-risk-of-delaying-rate-hike-too-long (2026-09-21)",
+            "https://www.theglobeandmail.com/business/economy/article-bank-of-canada-next-rate-decision-market-expectations/ (late Sept 2026)",
+            "https://www.canadianmortgagetrends.com/2026/10/canadians-expect-higher-inflation-as-bank-of-canada-weighs-hikes/ (2026-10-06)"
+          ]
+        }
+      ],
+      "id": "polymarket-2941850",
+      "market_id": "2941850",
+      "outcome": null,
+      "question": "Will the Bank of Canada make no change to the target for the overnight rate at the October interest rate announcement?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the target for the overnight rate resulting from the October 2026 interest rate announcement of the Bank of Canada, relative to the level it was prior to this announcement.\n\nThe resolution source will be official information from the Bank of Canada, including the statement or release from its October 2026 interest rate announcement, scheduled for October 28, 2026, as listed on the official Bank of Canada calendar (https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/#target-dates). This market may resolve as soon as the statement or release of the Bank of Canada resulting from its October 2026 interest rate decision with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified announcement is postponed to a date and time before the start of the next scheduled announcement, this market will resolve based on the outcome of that postponed announcement.  If the specified announcement is cancelled, or postponed such that no decision is announced by the start of the next scheduled announcement, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified announcement will not be considered.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/bank-of-canada-decision-in-october-20260715203359314",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "Poll averages as of Oct 7 put Netanyahu's outgoing coalition at ~51.6 seats (53.6 incl. Winter's party), well short of 61, while the Zionist opposition (~53) has pledged not to serve with Netanyahu but also largely rules out Arab parties, pointing to a possible deadlock. Netanyahu has repeatedly survived hung parliaments (sworn in again in 2020 and 2022) and the market allows until end-2027, including any repeat election, but a caretaker term does not count; Israeli polls have modestly underestimated his bloc before.",
+          "sources": [
+            "https://www.israel.com/israel-election-2026 (updated 2026-10-07)",
+            "https://www.jpost.com/israel-election-2026/article-909918 (2026-09-28)",
+            "https://www.jpost.com/israel-election-2026/article-906335 (Sept 2026)",
+            "https://en.wikipedia.org/wiki/2026_Israeli_legislative_election (accessed 2026-10-07)"
+          ]
+        }
+      ],
+      "id": "polymarket-682705",
+      "market_id": "682705",
+      "outcome": null,
+      "question": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+      "resolution_criteria": "Legislative elections are schedule to be held in Israel on October 27, 2026. \n\nThis market will resolve to the next individual who is officially appointed and sworn in as Prime Minister of Israel following the 2026 parliamentary election. If an election is called early, this market will immediately resolve to the individual who is officially appointed and sworn in after that election.\n\nTo count for resolution, the individual must be formally sworn in. Any interim or caretaker Prime Minister will not count toward the resolution of this market.\n\nIf no such Prime Minister is sworn in by December 31, 2027, 11:59 PM ET, this market will resolve to \u201cOther\u201d.\n\nThe primary resolution source for this market will be official information from the Government of Israel; however, a consensus of credible reporting may also be used.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
+          "sources": [
+            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
+            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
+            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
+            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
+          ]
+        }
+      ],
+      "id": "polymarket-5008726",
+      "market_id": "5008726",
+      "outcome": null,
+      "question": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
+      "resolution_criteria": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
+      "resolution_date": "2026-10-21",
+      "resolution_source": "https://polymarket.com/event/openai-resumes-training-on",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.195
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
+            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
+          ]
+        }
+      ],
+      "id": "polymarket-5311866",
+      "market_id": "5311866",
+      "outcome": null,
+      "question": "Will Bitcoin dip to $80,000 October 5-11?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-10-12",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.37
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Q2 2026 real GDP grew 0.6% q/q and 3.7% y/y (Q1: 1.7% q/q, 3.6% y/y), but Q3 2025 is a tough base (+1.3% q/q), so Q3 2026 y/y is roughly 2.4% plus Q3 q/q growth, and Chuseok falling in September 2026 (2.5 fewer working days than Sept 2025) depresses the original-series y/y. The BOK's 3.3% full-year forecast implies H2 near 3.0% with Q3 below Q4, but chip exports hit records in September and the BOK has underestimated recent quarters; my central estimate is ~2.8% with wide uncertainty, so the 3.0-3.4 bucket gets about a quarter.",
+          "sources": [
+            "https://www.bok.or.kr/eng/bbs/E0000634/view.do?nttId=11063106&menuNo=400423&relate=Y&depth=400423&programType=newsDataEng (2026-07-23)",
+            "https://www.koreatimes.co.kr/economy/20260423/koreas-q1-gdp-grows-17-nearly-double-forecast-on-surging-chip-exports (2026-04-23)",
+            "https://www.koreajoongangdaily.com/business/bok-raises-korea-growth-outlook-to-33-on-strong-chip-exports/12847113 (2026-08-27)",
+            "https://www.koreatimes.co.kr/economy/20261001/koreas-sept-exports-hit-record-1209-bil-on-robust-chip-sales (2026-10-01)",
+            "https://www.koreatimes.co.kr/economy/20251203/korea-posts-13-q3-gdp-growth-faster-than-initial-estimate-bok (2025-12-03)"
+          ]
+        }
+      ],
+      "id": "polymarket-3083657",
+      "market_id": "3083657",
+      "outcome": null,
+      "question": "Will South Korea GDP growth in Q3 2026 be between 3.0% and 3.4%?",
+      "resolution_criteria": "This market will resolve according to South Korea's real Gross Domestic Product (GDP) growth rate (Year-on-Year, %) in Q3 of 2026, as reported in the Bank of Korea\u2019s Real Gross Domestic Product (Advance Estimate) release for Q3 of 2026, scheduled for release on October 27, 2026.\n\nThe GDP release will be made available here: https://www.bok.or.kr/eng/singl/newsDataEng/list.do?pageIndex=&targetDepth=3&menuNo=400423&syncMenuChekKey=1&searchCnd=1&searchKwd=&depth2=400417&depth3=400423&date=&sdate=&edate=&sort=1&pageUnit=10\n\nThe relevant figure may be found in the table titled \u201cGrowth Rates by Type of Economic Activity and Component of Expenditure (original series, percentage change over previous year)\u201d in the row \u201cGross Domestic Product\u201d and the column for the specified quarter. Changes in South Korea\u2019s GDP reporting format will not disqualify a published figure from counting.\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: the resolution source for this market reports year-on-year GDP growth rates to only one decimal point (e.g. 0.3%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359&date=2026-01",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/south-korea-gdp-growth-yoy-in-q3-2026-20260723231127764",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.6805
+        },
+        {
+          "created_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Vucic resigned the presidency on Sept 27, 2026 to head the SNS 'United Serbia' list as its PM candidate in the Oct 25 snap election; if SNS and allies (SPS, minority parties) win a majority, parliament is expected to elect him. SNS has won every election since 2012 and pro-government Faktor Plus (Sept 21) has it 48.6% vs 37.1% for the Student List, but NSPM (Sept 30) shows 41.7% vs 44.4% and CRTA has the students well ahead, so the outcome is genuinely uncertain; the long June 2028 deadline covers slow government formation or a repeat vote.",
+          "sources": [
+            "https://www.euronews.com/2026/09/28/serbias-president-aleksandar-vucic-resigns-to-run-for-prime-minister-in-snap-elections (2026-09-28)",
+            "https://www.aljazeera.com/news/2026/10/4/serbian-populist-leader-vucic-launches-campaign-for-prime-minister (2026-10-04)",
+            "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Serbian_parliamentary_election (accessed 2026-10-07)",
+            "https://balk.hu/en/2026/09/21/kozvelemeny-kutatas-szerbia-vucic-faktor-plus/ (2026-09-21)",
+            "https://eualive.net/survey-suggests-serbia-nears-tipping-point-44-back-the-student-list-only-32-support-vucic/ (early Oct 2026)"
+          ]
+        }
+      ],
+      "id": "polymarket-2757891",
+      "market_id": "2757891",
+      "outcome": null,
+      "question": "Will Aleksandar Vu\u010di\u0107 be the next Prime Minister of Serbia?",
+      "resolution_criteria": "This market will resolve to the next individual who officially assumes the office of Prime Minister of Serbia by June 30, 2028, 11:59 PM ET.\n\nTo count for resolution, the individual must be elected by the National Assembly and be formally sworn-in, resulting in the official formation of a new government. Any interim or caretaker Prime Minister who is not elected by the National Assembly will not count toward the resolution of this market.\n\nIf no such Prime Minister takes office by June 30, 2028, 11:59 PM ET, this market will resolve to \u201cOther\u201d.\n\nThis market will resolve based on a consensus of credible reporting. If there is ambiguity, this market will resolve solely based on official information from the Serbian government.",
+      "resolution_date": "2026-10-25",
+      "resolution_source": "https://polymarket.com/event/next-prime-minister-of-serbia-20260629223938642",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v1"
+}
