@@ -51,6 +51,7 @@
         }
       ],
       "id": "polymarket-2941850",
+      "integrity_note": "Disclosed before resolution: a web-search summary quoted this market's price while Claude was researching. Claude says its estimate was already formed from economists' calls and core inflation and was kept unchanged; this cannot be verified, so treat this forecast as possibly influenced by the benchmark.",
       "market_id": "2941850",
       "outcome": null,
       "question": "Will the Bank of Canada make no change to the target for the overnight rate at the October interest rate announcement?",
@@ -109,6 +110,7 @@
         }
       ],
       "id": "polymarket-5008726",
+      "integrity_note": "Disclosed before resolution: a search result (a social-media post) cited prediction-market odds for a related, later date while Claude was researching. Claude says it ignored it; this cannot be verified, so treat this forecast as possibly influenced by the benchmark.",
       "market_id": "5008726",
       "outcome": null,
       "question": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
