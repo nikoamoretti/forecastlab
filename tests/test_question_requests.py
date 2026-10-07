@@ -48,7 +48,7 @@ def test_claude_answers_are_recorded_and_appear_in_the_track_record(tmp_path, mo
     record = build_track_record(tmp_path / "artifacts", today=date(2026, 10, 8))
     [asked] = record["questions"]
     assert (asked["id"], asked["topic"], asked["status"]) == ("req-1", "Interest rates", "pending")
-    assert asked["call"] == {"method": "claude_code_forecaster_v1", "probability": 0.3}
+    assert asked["call"] == {"method": "combined_median_v1", "probability": 0.3, "members": 1}
     assert asked["forecasts"][0]["rationale"] == "Markets price a hold."
 
     with pytest.raises(SystemExit, match="outside"):
