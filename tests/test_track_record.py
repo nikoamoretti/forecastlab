@@ -69,6 +69,25 @@ def test_track_record_marks_calls_and_counts_each_forecaster(tmp_path: Path) -> 
     assert baseline["label"] == "Statistical baseline"
 
 
+def test_unscored_question_is_shown_but_counts_in_no_score(tmp_path: Path) -> None:
+    (tmp_path / "prospective_markets_x").mkdir()
+    question = {"resolution_criteria": "Polymarket rules.", "resolution_date": "2026-10-05", "outcome": 1,
+                "forecasts": [{"method": "claude_code_forecaster_v1", "probability": 0.8},
+                              {"method": "market_price_v1", "probability": 0.7}]}
+    (tmp_path / "prospective_markets_x" / "forecasts.json").write_text(json.dumps({"questions": [
+        question | {"id": "clean", "question": "Clean?"},
+        question | {"id": "leaked", "question": "Leaked?", "integrity_note": "Saw the odds.", "unscored": True}]}))
+
+    record = build_track_record(tmp_path, today=date(2026, 10, 7))
+
+    by_id = {q["id"]: q for q in record["questions"]}
+    assert (by_id["leaked"]["scored"], by_id["leaked"]["verdict"], by_id["leaked"]["note"]) == (False, "right", "Saw the odds.")
+    assert by_id["clean"]["scored"] is True
+    assert (record["summary"]["resolved"], record["summary"]["unscored"]) == (1, 1)
+    for forecaster in record["forecasters"]:
+        assert forecaster["resolved"] == 1, forecaster["method"]
+
+
 @pytest.mark.parametrize(("probability", "outcome", "expected"), [
     (0.63, 1, "right"), (0.37, 1, "wrong"), (0.37, 0, "right"), (0.5, 1, "toss_up"), (0.7, None, None)])
 def test_verdict(probability: float, outcome: int | None, expected: str | None) -> None:
