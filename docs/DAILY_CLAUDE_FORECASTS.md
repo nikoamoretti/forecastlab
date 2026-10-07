@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid API is called. The model work runs in the owner's Claude Code session, and data comes from keyless official sources.
+A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid API is called. The model work runs in the owner's Claude Code session, and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
@@ -17,14 +17,24 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. No paid 
    - Save the answers as `{"forecast_made_at", "answers": [{"id", "question", "topic", "resolution_criteria", "resolution_date", "resolution_source", "probability", "rationale", "sources"}]}` and run `python scripts/question_requests.py record <file>`. The ids must be the request ids.
    - After the pull request is pushed, run `python scripts/question_requests.py answered <id> ...`.
    - For an asked question whose resolution date has passed, check the named source and run `python scripts/question_requests.py outcome <artifact_dir> <id> yes|no --note "<what happened>" --source <url>`.
-5. **Record.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
-6. **Score.** Run `python scripts/score_prospective_artifacts.py`, which rescores every artifact against first releases and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
-7. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
-8. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
+5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v1` and writes `artifacts/prospective_markets_<date>/`, with up to 8 Polymarket questions:
+   - closing in 2–21 days;
+   - at least $10,000 traded;
+   - priced between 5% and 95%;
+   - one per event and at most two per topic.
+
+   Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
+   - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast. `market_snapshot.json` holds it; don't open that file before recording.
+   - Save `{"forecast_made_at", "forecasts": [{"id", "probability", "rationale", "sources"}]}`. Then run `python scripts/market_questions.py record <dir> <file>`.
+6. **Record the step 3 forecasts.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
+7. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
+8. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
+9. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
 
 ## Honesty rules
 
 - Never use information published after the forecast time.
 - Never edit a recorded forecast. A later view goes in a new day's artifact.
-- Holidays without a published value resolve as cancelled, not as yes or no.
+- Holidays without a published value resolve as cancelled, not as yes or no. So does a Polymarket market settled 50/50.
+- Market questions are forecast without looking at any market's odds.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.

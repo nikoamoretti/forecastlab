@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "apps" / "api"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_track_record import main as build_track_record  # noqa: E402
+from market_questions import resolve as resolve_markets  # noqa: E402
 
 from forecastlab_api.artifact_scoring import write_scores  # noqa: E402
 
@@ -34,6 +35,10 @@ def main(argv: list[str]) -> int:
             print(f"  {method}: {summary['forecasted']}/{summary['assigned']} forecasts, "
                   f"{summary['resolved_forecasts']} scored, mean Brier "
                   f"{'n/a' if brier is None else f'{brier:.3f}'} (50% guess = 0.250)")
+    try:  # Polymarket's final results for borrowed questions; a network failure only delays them
+        resolve_markets()
+    except Exception as exc:  # noqa: BLE001
+        print(f"market questions not checked: {type(exc).__name__}")
     return build_track_record()
 
 
