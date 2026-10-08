@@ -1,0 +1,279 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.205
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
+          ]
+        }
+      ],
+      "id": "polymarket-5238585",
+      "market_id": "5238585",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $2,600 on October 10?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-10",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "The Fed hiked a quarter point to 3.75-4.00% on Sept 16 (unanimous). The Oct 7 minutes say most officials see another hike as likely by year end, but Jefferson and Williams signalled patience, and CME FedWatch (futures, not a betting market) showed about 80% pricing a hold for Oct 27-28. December is the more likely hike meeting, with a new SEP.",
+          "sources": [
+            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
+            "https://kaohooninternational.com/economics/592288"
+          ]
+        }
+      ],
+      "id": "polymarket-2589812",
+      "market_id": "2589812",
+      "outcome": null,
+      "question": "Will there be no change in Fed interest rates after the October 2026 meeting?",
+      "resolution_criteria": "The FED interest rates are defined in this market by the upper bound of the target federal funds range. The decisions on the target federal funds range are made by the Federal Open Market Committee (FOMC) meetings.\n\nThis market will resolve to the amount of basis points the upper bound of the target federal funds rate is changed by versus the level it was prior to the Federal Reserve's October 2026 meeting.\n\nIf the target federal funds rate is changed to a level not expressed in the displayed options, the change will be rounded up to the nearest 25 and will resolve to the relevant bracket. (e.g. if there's a cut/increase of 12.5 bps it will be considered to be 25 bps)\n\nThe resolution source for this market is the FOMC\u2019s statement after its meeting scheduled for October 27-28, 2026 according to the official calendar: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.\n\nThe level and change of the target federal funds rate is also published at the official website of the Federal Reserve at https://www.federalreserve.gov/monetarypolicy/openmarket.htm.\n\nThis market may resolve as soon as the FOMC\u2019s statement for their October meeting with relevant data is issued. If no statement is released by the end date of the next scheduled meeting, this market will resolve to the \"No change\" bracket.",
+      "resolution_date": "2026-10-29",
+      "resolution_source": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.875
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "Iotova's ticket polls 41-48% of decided voters against 22-26% for Gurov, the runner-up, in Trend (Sept 26-Oct 2) and Market Links polls. A runoff on Nov 1 is likely, but a lead that size in round one rarely reverses; the main risk is opposition consolidation behind Gurov.",
+          "sources": [
+            "https://www.bta.bg/en/news/bulgaria/1218353-trend-poll-iotova-valchev-presidential-ticket-leads-with-47-8-gurov-kandev-at",
+            "https://balgarianovinite.com/en/bulgaria-2026-presidential-elections-yotova-gy-2/"
+          ]
+        }
+      ],
+      "id": "polymarket-1194643",
+      "market_id": "1194643",
+      "outcome": null,
+      "question": "Will Iliana Iotova win the next Bulgarian presidential election?",
+      "resolution_criteria": "Presidential elections in Bulgaria are expected to be held in the Fall of 2026.\n\nThis market will resolve according to the listed candidate who wins the next presidential election in Bulgaria. \n\nThis market includes any potential second round. If the result of this election isn't known by December 31, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Bulgarian government, specifically the Central Election Commission (Centralna izbiratelna komisia, CEC) (www.cik.bg/).",
+      "resolution_date": "2026-10-26",
+      "resolution_source": "https://polymarket.com/event/bulgaria-presidential-election",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.949
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
+          ]
+        }
+      ],
+      "id": "polymarket-5286491",
+      "market_id": "5286491",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $78,000 on October 11?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-11",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.65
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "The RBNZ hiked in July and Sept 2 to 2.75%, saying the OCR 'may need to increase further' but its published track had October as a pause. ANZ and ASB call an October hike (higher oil, weaker NZD, stronger GDP); Westpac, BNZ and Kiwibank expect a hold until December. Q3 CPI on Oct 21 will decide it, so this is close to even with a slight lean to a hold.",
+          "sources": [
+            "https://www.interest.co.nz/economy/140090/bank-economists-split-october-rate-hike-rbnz%E2%80%99s-dovish-shift-signals-potential-cash",
+            "https://www.interest.co.nz/economy/140345/anz-nz-economists-now-expect-reserve-bank-increase-ocr-350-rather-3",
+            "https://www.fxstreet.com/news/the-new-zealand-dollar-holds-near-its-lows-while-business-confidence-jumps-202610052300"
+          ]
+        }
+      ],
+      "id": "polymarket-3212218",
+      "market_id": "3212218",
+      "outcome": null,
+      "question": "Reserve Bank of New Zealand increases interest rates by 25 bps at the October 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the official cash rate (OCR) resulting from the October 2026 meeting of the Reserve Bank of New Zealand, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of New Zealand, including the statement or release from its October 2026 meeting, scheduled for October 28, 2026, as listed on the official RBNZ calendar (https://www.rbnz.govt.nz/news-and-events/events). This market may resolve as soon as the statement or release of the Reserve Bank of New Zealand resulting from its October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/reserve-bank-of-new-zealand-decision-in-october-20260729164521631",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.515
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Since mid-September Eisenkot's Yashar has led Likud in 7 of 8 published polls, usually by 2-4 seats (latest Channel 12 and Kan: 23 to 21). Likud has sometimes beaten its final polls, and three weeks remain, so an upset is plausible but less likely than not.",
+          "sources": [
+            "https://israel2026.co.il/en/election-polls.html",
+            "https://www.jpost.com/israel-election-2026/article-908444"
+          ]
+        }
+      ],
+      "id": "polymarket-2100981",
+      "market_id": "2100981",
+      "outcome": null,
+      "question": "Will Likud win the most seats in the 2026 Israeli legislative election?",
+      "resolution_criteria": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel\u2019s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/israeli-legislative-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.16
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "Fl\u00e1vio Bolsonaro led the Oct 4 first round 47.0% to 45.2%. The remaining ~7.6% went mostly to right or centre-right candidates (Cury, Renan Santos, Caiado, Zema), which favours Fl\u00e1vio in the Oct 25 runoff. Lula led pre-election polls, so polling error cuts both ways, but he starts behind.",
+          "sources": [
+            "https://www.riotimesonline.com/brazil-election-first-round-results-lula-flavio-2026/",
+            "https://www.cnn.com/2026/10/04/americas/brazil-president-elections-2026-latam-intl",
+            "https://www.aljazeera.com/news/2026/10/5/brazils-presidential-race-three-key-takeaways-from-the-first-round"
+          ]
+        }
+      ],
+      "id": "manifold-qUIpIulZcs",
+      "market_id": "qUIpIulZcs",
+      "outcome": null,
+      "question": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?",
+      "resolution_criteria": "This is one of 25 props in the 11th annual Narcissist Forecasting Contest, as described here:\n\nhttps://braff.co/advice/f/announcing-the-2026-narcissist-forecasting-contest\n\nThe prop and any ambiguities will be resolved by a panel of human judges, as described in the fine print of the entry form:\n\nhttps://forms.gle/nDDxdxyYSNheY9FV7\n\nThis means that the prop may resolve differently from how other, similar-looking Manifold props resolve. Do not bet on this market if that is going to bother you.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://manifold.markets/AdamBraff/will-luiz-inacio-lula-da-silva-win",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1984
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "Anthropic filed its S-1 confidentially about four months ago, and it is still not public on EDGAR as of Oct 4. Reports put the IPO in mid-November, with marketing from about Nov 9; since a public S-1 must be out 15 days before the roadshow, the flip is most likely in late October, after Oct 16.",
+          "sources": [
+            "https://forkast.news/anthropics-public-s-1-still-missing-from-edgar-as-october-ipo-window-opens/",
+            "https://cryptobriefing.com/anthropic-files-confidential-s-1-eyes-potential-ipo-by-end-of-2026/"
+          ]
+        }
+      ],
+      "id": "manifold-25IRCRlIuz",
+      "market_id": "25IRCRlIuz",
+      "outcome": null,
+      "question": "Will Anthropic\u2019s IPO S-1 be public by 16 October 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic\u2019s Form S-1 registration statement for its proposed IPO becomes publicly accessible on the SEC\u2019s EDGAR system by 23:59 New York time on 16 October 2026, inclusive.\nA preliminary S-1 counts; final pricing and SEC approval are not required. Confidential submissions, leaked documents, and announcements or news reports without a publicly accessible S-1 on EDGAR do not count.\nThe IPO itself does not need to occur by the deadline. A subsequent postponement or cancellation does not reverse a qualifying YES. Otherwise, resolves NO.",
+      "resolution_date": "2026-10-15",
+      "resolution_source": "https://manifold.markets/jim/will-anthropics-ipo-s1-be-public-by",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7969
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "The prize is announced Oct 9 and Oslo experts rate Trump's chances as quite low, so the question reduces to whether Trump himself openly criticizes the committee by Oct 16. In 2025 the sharp criticism came from a White House spokesman more than from Trump, and this year Machado has already given him her medal, so he may not engage.",
+          "sources": [
+            "https://www.abc.net.au/news/2026-10-05/nobel-peace-prize-announced-trump-carney-space-station/107228440",
+            "https://www.unilad.com/news/likelihood-trump-will-get-nobel-peace-prize-265920-20261007"
+          ]
+        }
+      ],
+      "id": "manifold-AZNPqg2l0P",
+      "market_id": "AZNPqg2l0P",
+      "outcome": null,
+      "question": "Will Trump win Nobel Piss Prize 2026? [Read description]",
+      "resolution_criteria": "Resolves Yes if Trump does not win Nobel Peace Prize 2026 and openly criticizes the Nobel committee for not awarding the prize to him before this market closes.",
+      "resolution_date": "2026-10-16",
+      "resolution_source": "https://manifold.markets/vdb/will-trump-win-nobel-piss-prize-202-8A99I8qhyq",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0928
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Fable 5.1 shipped on Sept 1. As of Oct 7, nothing official points to a successor: no model ID, pricing or docs entry, and only two unsupported Oct 2 rumour posts. A general release in the next four days would break with the usual gap of several months between versions.",
+          "sources": [
+            "https://www.orcarouter.ai/blog/claude-fable-5-5-release-date",
+            "https://www.macrumors.com/2026/09/01/anthropic-claude-fable-5-1/"
+          ]
+        }
+      ],
+      "id": "manifold-zSchQpqLyI",
+      "market_id": "zSchQpqLyI",
+      "outcome": null,
+      "question": "Will Anthropic release a new Claude Fable model before October 12, 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before October 12, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "resolution_date": "2026-10-11",
+      "resolution_source": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-8sCn2czguE",
+      "topic": "Tech"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
