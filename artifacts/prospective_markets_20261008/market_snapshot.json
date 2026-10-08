@@ -1,0 +1,75 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-5238585",
+      "market_id": "5238585",
+      "method": "market_price_v1",
+      "volume": 23482.495407,
+      "yes_price": 0.205
+    },
+    {
+      "id": "polymarket-2589812",
+      "market_id": "2589812",
+      "method": "market_price_v1",
+      "volume": 8150469.035767996,
+      "yes_price": 0.835
+    },
+    {
+      "id": "polymarket-1194643",
+      "market_id": "1194643",
+      "method": "market_price_v1",
+      "volume": 373169.7561469999,
+      "yes_price": 0.875
+    },
+    {
+      "id": "polymarket-5286491",
+      "market_id": "5286491",
+      "method": "market_price_v1",
+      "volume": 10880.077741,
+      "yes_price": 0.949
+    },
+    {
+      "id": "polymarket-3212218",
+      "market_id": "3212218",
+      "method": "market_price_v1",
+      "volume": 34049.207233999994,
+      "yes_price": 0.65
+    },
+    {
+      "id": "polymarket-2100981",
+      "market_id": "2100981",
+      "method": "market_price_v1",
+      "volume": 313525.96961000003,
+      "yes_price": 0.515
+    },
+    {
+      "id": "manifold-qUIpIulZcs",
+      "market_id": "qUIpIulZcs",
+      "method": "manifold_price_v1",
+      "volume": 1647.0540250088875,
+      "yes_price": 0.16
+    },
+    {
+      "id": "manifold-25IRCRlIuz",
+      "market_id": "25IRCRlIuz",
+      "method": "manifold_price_v1",
+      "volume": 15457.699712541704,
+      "yes_price": 0.1984
+    },
+    {
+      "id": "manifold-AZNPqg2l0P",
+      "market_id": "AZNPqg2l0P",
+      "method": "manifold_price_v1",
+      "volume": 1009.0400051428276,
+      "yes_price": 0.7969
+    },
+    {
+      "id": "manifold-zSchQpqLyI",
+      "market_id": "zSchQpqLyI",
+      "method": "manifold_price_v1",
+      "volume": 6346.522060842393,
+      "yes_price": 0.0928
+    }
+  ],
+  "taken_at": "2026-10-08T12:50:46.321157+00:00"
+}

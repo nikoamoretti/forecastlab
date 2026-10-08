@@ -1,0 +1,597 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.205
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "Based on Ethereum's typical daily volatility of 3\u20114%, a two\u2011day window implies roughly a 5% standard deviation, giving about a 30% chance of a >2.8% rise if price movement were unbiased. However, the current price is down ~4\u20115% over the past day and week, and spot ETH ETFs experienced $161\u202fM of outflows, indicating bearish pressure that lowers the upward probability. Adjusting for this drift brings the estimate down to roughly 20%. A sudden positive catalyst (e.g., macro\u2011economic news or a major on\u2011chain upgrade) could raise the chance, while continued outflows or further price declines would push it lower."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a 2.8% gain over ~2 days in ETH is roughly 40-45% given typical daily volatility of 3-4%. However, the evidence shows ETH is in a short-term downtrend (down 4.1% over the week, 4.6% from Oct 7 open) with significant ETF outflows ($161M), suggesting bearish momentum. This lowers the probability below the base rate, though a reversal is still possible given crypto's volatility."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.28,
+          "rationale": "With ETH daily volatility around 3\u20134%, a ~2.8% gain over roughly two days is about a 0.5\u20130.7 standard-deviation move, giving a base-rate chance near 30%. However, the recent downtrend\u2014spot ETH down ~4% on the week and $161M in spot ETF outflows\u2014suggests modest negative short-term drift, lowering the odds slightly. The probability could rise if ETF flows reverse or crypto broadly rallies, or fall further if risk-off sentiment and outflows continue."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.27,
+          "rationale": "With 3-4% daily volatility, a 2.8% rise over roughly two days is about half a standard deviation, giving a zero-drift base rate near 30%. The recent 4-5% decline and $161M of ETF outflows suggest negative short-term drift, so I tilt below that base rate. A sharp volatility bounce or renewed ETF inflows could push it higher, while continued risk-off selling could keep it below $2,600."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for ETH being above a level ~3% above current price 2 days out is roughly 40-45% given typical 3-4% daily volatility. Current downtrend (down 4.6% on the day, $161M ETF outflows) makes a 2.8% recovery to $2,600 less likely than a coin in a neutral setup, but a 2-day bounce in a choppy market is not unusual. A meaningful shift in ETF flows or macro risk-on move could push this above 50%; continued outflows and weak risk appetite would push it well below."
+        }
+      ],
+      "id": "polymarket-5238585",
+      "market_id": "5238585",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $2,600 on October 10?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-10",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "The Fed hiked a quarter point to 3.75-4.00% on Sept 16 (unanimous). The Oct 7 minutes say most officials see another hike as likely by year end, but Jefferson and Williams signalled patience, and CME FedWatch (futures, not a betting market) showed about 80% pricing a hold for Oct 27-28. December is the more likely hike meeting, with a new SEP.",
+          "sources": [
+            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
+            "https://kaohooninternational.com/economics/592288"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.8,
+          "rationale": "Base rate: In a tightening cycle the Fed often hikes at consecutive meetings, but pauses are common when data is mixed. Evidence: Fed funds futures price an 80% chance of a hold at the October 27-28 meeting, while the October 7 minutes show most officials expect another hike by year-end, pointing to a possible December move instead. This probability could shift if upcoming inflation or employment data materially alters expectations before the meeting."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.8,
+          "rationale": "Historically, the Fed holds rates about 30% of the time at any given meeting (base rate). After the September 25\u2011bp hike, minutes showed most officials favor another hike, but Fed funds futures priced an 80% chance of a hold at the October meeting, reflecting market expectations. This shifts the probability toward a hold, though unexpected inflation or labor data could prompt a hike, lowering the chance."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for no change is around 50%, but the evidence strongly favors a hold. The FOMC hiked in September, and minutes indicate most expect another hike by year-end, but not necessarily in October. Fed funds futures price an 80% chance of a hold, and some officials suggest waiting for more data. This supports a high probability of no change at the October meeting."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.75,
+          "rationale": "Fed funds futures price roughly an 80% chance of a hold at the October meeting, providing a strong base rate. While the September minutes revealed 16 of 18 officials project at least one more 2026 hike, influential policymakers Vice Chair Jefferson and NY Fed President Williams advocated waiting for more data, tilting the balance toward a pause in October. Unexpectedly strong inflation or labor-market reports before the October 27\u201328 meeting could still prompt the Committee to hike earlier than futures currently imply."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for a given FOMC meeting is usually a hold, but the September 2026 hike and hawkish dot projections make a change more plausible than in a normal cycle. The strongest specific evidence is that Fed funds futures priced about an 80% chance of a hold for October, with the remaining hike likely deferred to December. Incoming inflation or labor data, or a more hawkish statement, could push the probability lower."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate for FOMC holds at any given meeting is roughly 60-70% historically, but recent evidence strongly favors a hold: the Sept 16 hike was unanimous, minutes show most officials expect only one more hike by year-end (likely December, which carries new projections), and FedWatch prices ~80% chance of a hold at the Oct 27-28 meeting. The October meeting is a non-Sep/Dec meeting without new SEP projections, making a hold more likely as the Fed saves action for December. A surprise hike remains possible given inflation persistence, but the evidence tilts clearly toward no change."
+        }
+      ],
+      "id": "polymarket-2589812",
+      "market_id": "2589812",
+      "outcome": null,
+      "question": "Will there be no change in Fed interest rates after the October 2026 meeting?",
+      "resolution_criteria": "The FED interest rates are defined in this market by the upper bound of the target federal funds range. The decisions on the target federal funds range are made by the Federal Open Market Committee (FOMC) meetings.\n\nThis market will resolve to the amount of basis points the upper bound of the target federal funds rate is changed by versus the level it was prior to the Federal Reserve's October 2026 meeting.\n\nIf the target federal funds rate is changed to a level not expressed in the displayed options, the change will be rounded up to the nearest 25 and will resolve to the relevant bracket. (e.g. if there's a cut/increase of 12.5 bps it will be considered to be 25 bps)\n\nThe resolution source for this market is the FOMC\u2019s statement after its meeting scheduled for October 27-28, 2026 according to the official calendar: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.\n\nThe level and change of the target federal funds rate is also published at the official website of the Federal Reserve at https://www.federalreserve.gov/monetarypolicy/openmarket.htm.\n\nThis market may resolve as soon as the FOMC\u2019s statement for their October meeting with relevant data is issued. If no statement is released by the end date of the next scheduled meeting, this market will resolve to the \"No change\" bracket.",
+      "resolution_date": "2026-10-29",
+      "resolution_source": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.875
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "Iotova's ticket polls 41-48% of decided voters against 22-26% for Gurov, the runner-up, in Trend (Sept 26-Oct 2) and Market Links polls. A runoff on Nov 1 is likely, but a lead that size in round one rarely reverses; the main risk is opposition consolidation behind Gurov.",
+          "sources": [
+            "https://www.bta.bg/en/news/bulgaria/1218353-trend-poll-iotova-valchev-presidential-ticket-leads-with-47-8-gurov-kandev-at",
+            "https://balgarianovinite.com/en/bulgaria-2026-presidential-elections-yotova-gy-2/"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.75,
+          "rationale": "The base rate for a leading first\u2011round candidate in Bulgarian presidential elections is high, as the front\u2011runner typically wins the runoff (e.g., Radev 2021). Current polls show Iliana Iotova leading with 47.8% in the first round, well ahead of the nearest rival, and she benefits from being the sitting vice president. While polling error or a late\u2011campaign shift could reduce her chances, the evidence suggests she is favored to win."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.88,
+          "rationale": "The base rate for a frontrunner with a large polling lead in Bulgarian presidential elections is high, though not certain. Iliana Iotova, as sitting vice president, holds a commanding lead in recent polls (47.8% vs. 24.6% for the nearest rival), and the fragmented opposition makes a runoff upset less likely. However, runoff dynamics or a major scandal could shift support, so the probability is not extreme."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Bulgarian presidential runoffs historically favor first-round leaders with large pluralities. Evidence: Multiple polls place Iotova roughly 20 points ahead of her nearest rival, giving her a commanding position to win a likely second-round runoff. What could change it: A late-breaking scandal, severe polling error, or unexpectedly high consolidation of opposition voters behind the runner-up could reduce her chances."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "The base rate for a candidate leading a likely two-candidate runoff by about 20 points is high, and Iotova is the sitting vice president with the strongest first-round and head-to-head numbers. The main uncertainty is Bulgarian polling error, turnout, and a possible anti-incumbent or anti-establishment surge for Gurov or a third candidate. Given the consistent lead, I assign about 82%."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate: Incumbent-affiliated presidential candidates in Bulgaria have a strong advantage, and Iotova is the sitting vice president running on a major coalition ticket. Polls show her consistently leading, with a Trend poll at 47.8% and others in the 41-45% range, but she faces a likely runoff where her lead is less decisive. The main downside risk is the runoff itself, where her margin over Gurov (21-26%) could narrow or flip, and historically Bulgarian runoffs have produced surprises."
+        }
+      ],
+      "id": "polymarket-1194643",
+      "market_id": "1194643",
+      "outcome": null,
+      "question": "Will Iliana Iotova win the next Bulgarian presidential election?",
+      "resolution_criteria": "Presidential elections in Bulgaria are expected to be held in the Fall of 2026.\n\nThis market will resolve according to the listed candidate who wins the next presidential election in Bulgaria. \n\nThis market includes any potential second round. If the result of this election isn't known by December 31, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Bulgarian government, specifically the Central Election Commission (Centralna izbiratelna komisia, CEC) (www.cik.bg/).",
+      "resolution_date": "2026-10-26",
+      "resolution_source": "https://polymarket.com/event/bulgaria-presidential-election",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.949
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.82,
+          "rationale": "Starting from the current ~$82,300, a drop to $78,000 requires a 5.2% decline over ~76 hours. With Bitcoin's typical daily volatility of 2\u20133%, the 3\u2011day volatility is roughly 3.5\u20135.2%, making a 5.2% drop a 1\u20131.5 standard deviation event, which historically occurs only 15\u201330% of the time. The bearish Fed minutes, high yields, and ETF outflows increase downside risk, but the short horizon limits the impact. Thus the probability of staying above $78,000 is in the low 80s."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Bitcoin's daily volatility is about 2-3%, so over three days the expected price movement is roughly \u00b14-5% (one\u2011sigma). To fall below $78,000 from the current $82,303 requires a ~5.2% drop, which is about 1.2\u03c3 below the mean, giving a roughly 12% chance of a breach under a symmetric random walk. Evidence points to bearish pressure from Fed minutes, rising Treasury yields and ETF outflows, which skews the distribution downward, reducing the chance of staying above the threshold. Adjusting for this bias yields an estimated probability of about 78% that the Binance BTC/USDT close at 12:00\u202fET on Oct\u202f11 will be above $78,000."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Bitcoin is currently around $82,300, about 5.2% above the $78,000 threshold. With typical daily volatility of 2-3%, a 5% drop over three days is roughly a 1-1.5 standard deviation move. Given negative news (Fed minutes, ETF outflows), there is some downward pressure, but the buffer is substantial. I estimate a ~75% chance it remains above $78,000 at the specified time."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.68,
+          "rationale": "Base rate from Bitcoin's typical 2\u20133% daily volatility suggests a ~5% decline over three days is roughly a one-sigma event, giving roughly 15\u201320% baseline odds of falling below $78,000. The current evidence\u2014hawkish Fed minutes, 24-year-high Treasury yields, and ongoing ETF outflows\u2014introduces meaningful negative momentum and downside skew, raising the chance of a breach. However, the ~5.2% buffer is still material, and much of the recent bearish news may already be partially reflected in today's 2.7% drop. Probability could shift materially if ETF outflows accelerate or if macro sentiment deteriorates further."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate: with BTC around $82,300 and only about 76 hours to the 12:00 ET close, a Yes outcome requires the price not to fall more than roughly 5.2%, which is less likely than not given typical 2-3% daily volatility. The negative Fed, high-yield, and ETF-outflow evidence raises downside tail risk and suggests a modest negative drift, so I trim from a neutral ~85-90% to about 82%. A sharp macro shock, continued ETF outflows, or a volatility spike could push it below $78,000, while stabilization or a relief bounce would make Yes more likely."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: BTC is currently around $82,300, which is about 5.5% above the $78,000 threshold, giving a reasonable buffer. Daily volatility of 2-3% means a 5.2% drop over 3 days is unlikely but not impossible, especially given current bearish catalysts (Fed hawkishness, high Treasury yields, ETF outflows). The combination of a meaningful buffer and typical volatility suggests a moderate-to-high probability of staying above $78,000."
+        }
+      ],
+      "id": "polymarket-5286491",
+      "market_id": "5286491",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $78,000 on October 11?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-11",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.65
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "The RBNZ hiked in July and Sept 2 to 2.75%, saying the OCR 'may need to increase further' but its published track had October as a pause. ANZ and ASB call an October hike (higher oil, weaker NZD, stronger GDP); Westpac, BNZ and Kiwibank expect a hold until December. Q3 CPI on Oct 21 will decide it, so this is close to even with a slight lean to a hold.",
+          "sources": [
+            "https://www.interest.co.nz/economy/140090/bank-economists-split-october-rate-hike-rbnz%E2%80%99s-dovish-shift-signals-potential-cash",
+            "https://www.interest.co.nz/economy/140345/anz-nz-economists-now-expect-reserve-bank-increase-ocr-350-rather-3",
+            "https://www.fxstreet.com/news/the-new-zealand-dollar-holds-near-its-lows-while-business-confidence-jumps-202610052300"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.35,
+          "rationale": "The RBNZ's own September policy track signaled a pause in October, and only about one-third of a hike was priced in swaps as of early September, with most banks (Westpac, BNZ, Kiwibank) expecting a hold. However, upside inflation risks have intensified since the September meeting\u2014Dubai crude >40% above RBNZ assumptions, a weaker NZD, and strong 2.6% y/y Q2 GDP\u2014making a hike plausible if the October 21 Q3 CPI prints hot. The decision remains data-dependent and finely balanced."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: historically the RBNZ changes the OCR in about one\u2011quarter of its meetings, and of those changes roughly half are increases, giving a ~25% prior for a 25\u202fbp hike. Recent evidence pushes the probability up \u2013 the RBNZ delivered two consecutive 25\u202fbp hikes in July and September and signaled that further increases may be needed, while several banks (ASB, ANZ) now expect an October hike and ANZ reaffirmed this view on Sept\u202f21. Offsetting this, the September policy track indicated a pause in October, Westpac and BNZ expect a hold, and a hike was only about one\u2011third priced in swaps earlier in September. The upcoming Q3 CPI release on Oct\u202f21 could sway the decision, but the mixed signals lead to a modest upward adjustment from the base rate to roughly a 35% chance of a 25\u202fbp increase."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The RBNZ's September projections indicated a pause in October, but they stressed the path is not pre-determined. Since then, data has been hawkish: GDP growth strong, oil prices up, NZD weaker. Economists are split, with ANZ expecting a hike and others a hold. Market pricing in early September implied about a one-third chance. The Q3 CPI on Oct 21 will be critical; currently, the probability is around 35%."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.38,
+          "rationale": "The base rate favors a pause: the RBNZ\u2019s own September forecast track explicitly pointed to no change in October, and only about one-third of a hike was priced into swaps in early September. However, ANZ and ASB still expect a 25 bp increase, citing upside inflation risks from Dubai crude running more than 40% above the RBNZ\u2019s assumption, a weaker NZD, and solid Q2 GDP growth, which nudges the probability modestly above the base rate. The outcome likely hinges on the Q3 CPI report due October 21; a strong print could cement a hike, while a soft reading would reinforce the pause signaled in the bank\u2019s track."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The base rate is around one-third, matching the early swap pricing after RBNZ's hawkish September statement that the OCR may need to rise further. The split economist forecasts and the September track showing an October pause argue against a higher probability, while ANZ's reaffirmed hike and oil, weak-NZD, and GDP pressures push it modestly above the initial market price. Q3 CPI on October 21 is the main remaining swing factor."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate for an RBNZ hike at any given meeting is roughly 50%, but the RBNZ's own September track signaled a pause in October, which pulls the probability down. However, ANZ's late-September call for an October hike, citing oil prices well above RBNZ assumptions, a weak NZD, and strong Q2 GDP, suggests upside risk, and swaps priced only about a one-third chance. The Q3 CPI print on Oct 21 is the key swing factor: a hot print would likely tip the balance toward a 25bp hike, while a soft print would reinforce the pause signal."
+        }
+      ],
+      "id": "polymarket-3212218",
+      "market_id": "3212218",
+      "outcome": null,
+      "question": "Reserve Bank of New Zealand increases interest rates by 25 bps at the October 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the official cash rate (OCR) resulting from the October 2026 meeting of the Reserve Bank of New Zealand, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of New Zealand, including the statement or release from its October 2026 meeting, scheduled for October 28, 2026, as listed on the official RBNZ calendar (https://www.rbnz.govt.nz/news-and-events/events). This market may resolve as soon as the statement or release of the Reserve Bank of New Zealand resulting from its October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/reserve-bank-of-new-zealand-decision-in-october-20260729164521631",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.515
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Since mid-September Eisenkot's Yashar has led Likud in 7 of 8 published polls, usually by 2-4 seats (latest Channel 12 and Kan: 23 to 21). Likud has sometimes beaten its final polls, and three weeks remain, so an upset is plausible but less likely than not.",
+          "sources": [
+            "https://israel2026.co.il/en/election-polls.html",
+            "https://www.jpost.com/israel-election-2026/article-908444"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.32,
+          "rationale": "Historically Likud has won the most seats in about 4 of the last 6 Israeli elections, giving a base rate near 0.45. Recent polls from mid\u2011September to early October 2026 show the Yashar bloc leading Likud in 7 out of 8 surveys, with margins typically 2\u20114 seats, suggesting a lower chance for Likud to finish first. However, polling error, last\u2011minute campaign events, or coalition realignments could shift the outcome, keeping the probability above zero but well below one\u2011half."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.28,
+          "rationale": "Recent polls show Likud trailing Yashar in 7 of 8 surveys, with Likud averaging roughly 21 seats to Yashar's 22, a gap within typical polling error. Likud has historically been the largest party and could gain from late undecideds, but current evidence makes it the underdog."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.35,
+          "rationale": "The base rate favors the party leading in late polls, and Yashar has led Likud in seven of the eight most recent surveys by an average of roughly two to three seats. While Israeli polls can miss and Likud benefits from a reliable right-wing turnout machine, the consistency of Yashar's narrow edge makes Likud an underdog. A late swing, polling error, or superior Likud mobilization could close the gap."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Likud has historically been Israel's largest party, giving it a reasonable base rate, but the evidence brief shows Yashar (Gideon Sa'ar's breakaway party) leading Likud in 7 of 8 recent polls, typically by 2-6 seats. This consistent and cross-pollster lead for Yashar is decisive evidence that Likud is unlikely to finish first. While polls can shift, especially with security developments in Israel, the magnitude and consistency of Yashar's lead makes a Likud victory improbable but not negligible given potential late-breaking events."
+        }
+      ],
+      "id": "polymarket-2100981",
+      "market_id": "2100981",
+      "outcome": null,
+      "question": "Will Likud win the most seats in the 2026 Israeli legislative election?",
+      "resolution_criteria": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel\u2019s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/israeli-legislative-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.16
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "Fl\u00e1vio Bolsonaro led the Oct 4 first round 47.0% to 45.2%. The remaining ~7.6% went mostly to right or centre-right candidates (Cury, Renan Santos, Caiado, Zema), which favours Fl\u00e1vio in the Oct 25 runoff. Lula led pre-election polls, so polling error cuts both ways, but he starts behind.",
+          "sources": [
+            "https://www.riotimesonline.com/brazil-election-first-round-results-lula-flavio-2026/",
+            "https://www.cnn.com/2026/10/04/americas/brazil-president-elections-2026-latam-intl",
+            "https://www.aljazeera.com/news/2026/10/5/brazils-presidential-race-three-key-takeaways-from-the-first-round"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate for a candidate trailing in the first round of a Brazilian presidential runoff is roughly 40-45% to win, given historical comebacks. Lula trails Fl\u00e1vio Bolsonaro by 1.9 percentage points, and the remaining ~5.5% of votes came from right-leaning or centrist candidates who are likely to shift mostly to Bolsonaro, making a comeback difficult unless Lula can attract a substantial share of those voters or Bolsonaro loses support. If Lula secures about 40% of the undecided/other vote, he could overturn the deficit, but that seems uncertain, leading to a probability below 0.5."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The first-round leader in Brazilian presidential elections has historically won the runoff, and Fl\u00e1vio Bolsonaro's 47.03% combined with other right-wing candidates' votes (totaling 51.7%) suggests a majority if they consolidate. However, Lula is a strong incumbent with a loyal base, and the 1.9-point gap is small enough that shifts in turnout or centrist support could still flip the result, though polls underestimated Fl\u00e1vio, indicating hidden anti-Lula sentiment."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.2,
+          "rationale": "In Brazil\u2019s democratic era, the first-round leader has won every presidential runoff, giving a strong base rate against a trailing incumbent. Fl\u00e1vio Bolsonaro leads Lula by about 1.9 percentage points and can likely consolidate most of the roughly 4.7% of votes that went to eliminated right-wing candidates, putting him over 50%. Lula\u2019s path requires winning an overwhelming share of centrist voters and a major shift in the campaign\u2019s final weeks, which is possible but unlikely."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for an incumbent or leading challenger winning a runoff after losing the first round is roughly 40-45% historically in Brazil. Fl\u00e1vio Bolsonaro outperformed polls by ~5 points in round one, suggesting momentum and a stronger-than-expected right-wing coalition, which slightly hurts Lula. However, runoff dynamics in Brazil typically favor the left due to broader coalition-building (Ciro Gomes, Simone Tebet, and other eliminated candidates' voters), and Lula has won runoffs before. The narrow 1.87-point gap is within typical runoff swing margins, making this a close call leaning slightly toward Fl\u00e1vio."
+        }
+      ],
+      "id": "manifold-qUIpIulZcs",
+      "market_id": "qUIpIulZcs",
+      "outcome": null,
+      "question": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?",
+      "resolution_criteria": "This is one of 25 props in the 11th annual Narcissist Forecasting Contest, as described here:\n\nhttps://braff.co/advice/f/announcing-the-2026-narcissist-forecasting-contest\n\nThe prop and any ambiguities will be resolved by a panel of human judges, as described in the fine print of the entry form:\n\nhttps://forms.gle/nDDxdxyYSNheY9FV7\n\nThis means that the prop may resolve differently from how other, similar-looking Manifold props resolve. Do not bet on this market if that is going to bother you.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://manifold.markets/AdamBraff/will-luiz-inacio-lula-da-silva-win",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1984
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "Anthropic filed its S-1 confidentially about four months ago, and it is still not public on EDGAR as of Oct 4. Reports put the IPO in mid-November, with marketing from about Nov 9; since a public S-1 must be out 15 days before the roadshow, the flip is most likely in late October, after Oct 16.",
+          "sources": [
+            "https://forkast.news/anthropics-public-s-1-still-missing-from-edgar-as-october-ipo-window-opens/",
+            "https://cryptobriefing.com/anthropic-files-confidential-s-1-eyes-potential-ipo-by-end-of-2026/"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: companies with confidential S-1 submissions often go public within 3-6 months, but the specific evidence points to a deliberate timeline slip. Bloomberg reports the IPO has moved from October to mid-November with roadshow marketing starting the week of November 9, and SEC rules require the S-1 public at least 15 days before roadshow, implying a public filing around October 25 \u2014 nine days after the October 16 deadline. The confidential filing was ~126 days ago (early June), so a filing is imminent, but the reported schedule makes an October 16 appearance unlikely unless the company accelerates its timeline."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for companies that have filed a confidential S-1 to make it public within two weeks of a planned roadshow is roughly 30\u201140%. Anthropic\u2019s confidential filing dates back to late May, and Bloomberg reports have pushed the IPO target from October to mid\u2011November, with roadshow likely starting the week of Nov\u202f9. SEC rules require the S-1 to be public at least 15 days before roadshow, implying a public filing around Oct\u202f25, after the Oct\u202f16 deadline. This shifts the probability downward to about 25%. Faster\u2011than\u2011expected market readiness or a decision to front\u2011load the filing could raise it, while further delays or additional confidentiality requests could lower it."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for an IPO S-1 becoming public within a specific short window is low, especially given the confidential submission process. The evidence indicates that Anthropic's public filing is expected around October 25 to align with a mid-November roadshow, making an October 16 deadline unlikely. Reporting suggests the delay is intentional to include Q3 results, and no public filing was available as of October 4, so only a sudden change in plans would lead to a Yes."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for IPOs is to follow reported roadshow schedules, and confidential filers typically go public shortly before marketing begins rather than weeks earlier. The evidence indicates Anthropic deliberately shifted to a mid-November timeline with roadshows around Nov 9, implying a public S-1 near Oct 25 so Q3 results can be included, and no public filing was on EDGAR as of Oct 4. An unexpected acceleration\u2014if Q3 figures are finalized faster than reported or market conditions suddenly demand an earlier debut\u2014could push the filing forward, but the stated plan makes an Oct 16 public filing unlikely."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.25,
+          "rationale": "Base rate: a confidential draft S-1 filed around early June with no public S-1 by Oct 4 suggests the public filing is likely in the weeks before a mid-November roadshow, not necessarily by Oct 16. The 15-day rule and reported Nov 9 marketing point to a public filing around Oct 25, making an Oct 16 filing possible but not the central case. It could rise if Anthropic releases Q3 results and clears SEC review quickly, but it falls if it waits for Q3 or a later roadshow."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "Base rate for a public S-1 filing within a specific 8-day window when reporting suggests a mid-November target is low. The evidence indicates Anthropic's IPO timeline has shifted from October to mid-November, with formal marketing possibly starting the week of Nov 9, which would require a public S-1 by roughly Oct 25\u2014after the Oct 16 deadline. The confidential S-1 was filed ~126 days before Oct 4, and no public version was on EDGAR as of that date. A public S-1 by Oct 16 would require an acceleration of the timeline that contradicts current reporting, making this unlikely but not impossible if Anthropic moves faster than expected."
+        }
+      ],
+      "id": "manifold-25IRCRlIuz",
+      "market_id": "25IRCRlIuz",
+      "outcome": null,
+      "question": "Will Anthropic\u2019s IPO S-1 be public by 16 October 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic\u2019s Form S-1 registration statement for its proposed IPO becomes publicly accessible on the SEC\u2019s EDGAR system by 23:59 New York time on 16 October 2026, inclusive.\nA preliminary S-1 counts; final pricing and SEC approval are not required. Confidential submissions, leaked documents, and announcements or news reports without a publicly accessible S-1 on EDGAR do not count.\nThe IPO itself does not need to occur by the deadline. A subsequent postponement or cancellation does not reverse a qualifying YES. Otherwise, resolves NO.",
+      "resolution_date": "2026-10-15",
+      "resolution_source": "https://manifold.markets/jim/will-anthropics-ipo-s1-be-public-by",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7969
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "The prize is announced Oct 9 and Oslo experts rate Trump's chances as quite low, so the question reduces to whether Trump himself openly criticizes the committee by Oct 16. In 2025 the sharp criticism came from a White House spokesman more than from Trump, and this year Machado has already given him her medal, so he may not engage.",
+          "sources": [
+            "https://www.abc.net.au/news/2026-10-05/nobel-peace-prize-announced-trump-carney-space-station/107228440",
+            "https://www.unilad.com/news/likelihood-trump-will-get-nobel-peace-prize-265920-20261007"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.7,
+          "rationale": "The base rate for any individual winning the Nobel Peace Prize is extremely low (roughly 1/287 \u2248 0.0035 given the number of nominations), and expert assessment rates Trump's chances as 'quite low', suggesting a >99% chance he does not win. Trump has previously criticized the Nobel committee when overlooked, indicating a high likelihood of public criticism if he does not receive the prize. Combining a ~0.99 probability of not winning with an estimated ~0.7 conditional probability of criticism yields a joint probability around 0.7."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The base rate for Trump not winning the Nobel Peace Prize is very high, with experts rating his chances as 'quite low'. Given his past behavior, when he missed the 2025 prize his office immediately criticized the committee, making it highly likely he will openly criticize again if he loses. The short resolution window (by Oct 16) further supports a prompt reaction. However, a small chance exists that he wins the prize or unusually refrains from criticism."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Base rate: Most nominees do not win, and Trump's chances are rated 'quite low' by PRIO, so it is very likely he loses. Conditional on losing, Trump has a history of grievance toward the Nobel committee\u2014his White House criticized them in 2025\u2014but the requirement for him personally (not surrogates) to openly criticize before Oct 16 is uncertain. I adjust downward because he may let aides respond, use the 2025 medal from Machado to deflect, or stay silent, leaving a moderate chance he personally lashes out within the seven-day window."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "Base rate: a president who is passed over for the Nobel Peace Prize does not automatically attack the committee, but Trump has a strong recent precedent of doing so via the White House after missing 2025. PRIO's 'quite low' assessment and the list of likely alternatives make a Trump win unlikely, so the key uncertainty is whether he personally makes an explicit criticism within the seven-day window. Given his pattern and the political salience of the prize, I estimate a roughly 70% chance both conditions are met."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: Trump publicly criticizing the Nobel committee after not winning is highly likely given his pattern of attacking institutions that snub him (e.g., the 2025 White House statement). The 2026 prize is announced Oct 9, just a week before resolution, and experts rate his chances as quite low. The key uncertainty is whether he issues public criticism within the narrow Oct 9\u201316 window, but his track record (repeatedly claiming he deserves it, Machado giving him her 2025 medal) makes criticism very probable. If he surprisingly wins, the question resolves No, but that outcome appears unlikely."
+        }
+      ],
+      "id": "manifold-AZNPqg2l0P",
+      "market_id": "AZNPqg2l0P",
+      "outcome": null,
+      "question": "Will Trump win Nobel Piss Prize 2026? [Read description]",
+      "resolution_criteria": "Resolves Yes if Trump does not win Nobel Peace Prize 2026 and openly criticizes the Nobel committee for not awarding the prize to him before this market closes.",
+      "resolution_date": "2026-10-16",
+      "resolution_source": "https://manifold.markets/vdb/will-trump-win-nobel-piss-prize-202-8A99I8qhyq",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0928
+        },
+        {
+          "created_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Fable 5.1 shipped on Sept 1. As of Oct 7, nothing official points to a successor: no model ID, pricing or docs entry, and only two unsupported Oct 2 rumour posts. A general release in the next four days would break with the usual gap of several months between versions.",
+          "sources": [
+            "https://www.orcarouter.ai/blog/claude-fable-5-5-release-date",
+            "https://www.macrumors.com/2026/09/01/anthropic-claude-fable-5-1/"
+          ]
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.03,
+          "rationale": "Base rate: Anthropic's major model releases are typically spaced months apart (Fable 5.1 on Sept 1). Only 37 days have passed, and a 4-day window is very short. Evidence: As of Oct 7, no model identifier, pricing, or benchmark page for any successor exists in official documentation or third-party catalogs; Oct 2 rumors lack substantiation. Probability could rise if Anthropic makes a surprise announcement today or tomorrow, but current indicators point to a very low chance."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.07,
+          "rationale": "Anthropic's historical release cadence for Claude Fable models suggests a new version appears roughly every few months, giving a baseline probability of about 4\u20117% for any specific 4\u2011day window. The evidence shows no trace of a successor (no model identifier, pricing, benchmark pages, or credible announcements) after the September 1 release of Fable 5.1, which lowers the chance of an imminent launch. Only an unexpected, unannounced release could shift the probability upward, but such a surprise appears unlikely given the lack of any preparatory signs."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.04,
+          "rationale": "A new model within six weeks of Fable 5.1 would be unusually fast, and as of Oct 7 there were no official listings, pricing pages, or documentation for a successor. The only hints are two unsupported posts, which is weak evidence. A surprise launch in the next three days is possible but unlikely given the quiet official channels."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for an unannounced major model release in a three-day window is extremely low. An October 7 check found no official documentation, pricing, or benchmark pages for any successor to Fable 5.1, which are standard precursors to general availability. Unsubstantiated rumors from October 2 lack supporting evidence and do not change this outlook. Only a surprise zero-notice release before October 12 would resolve this yes, which is unlikely."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a new major Claude Fable model becoming generally available within four days of a recent 5.1 release is low. The Oct 7 absence of official model identifiers, pricing, documentation, or benchmark pages, plus unsupported Oct 2 successor posts, strongly suggests no imminent official release. Only a surprise official GA announcement in the next few days would materially change the probability."
+        },
+        {
+          "created_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "Anthropic released Fable 5.1 only ~5 weeks ago, and as of Oct 7 there is no official announcement, documentation, or pricing for any successor. Anthropic's typical release cadence is several months between versions, making a new release within the next 4 days very unlikely. The only signals are unverified blog posts with no supporting evidence, which the resolution criteria explicitly exclude. A surprise launch remains the main way this resolves YES, but the base rate for that is low."
+        }
+      ],
+      "id": "manifold-zSchQpqLyI",
+      "market_id": "zSchQpqLyI",
+      "outcome": null,
+      "question": "Will Anthropic release a new Claude Fable model before October 12, 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before October 12, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "resolution_date": "2026-10-11",
+      "resolution_source": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-8sCn2czguE",
+      "topic": "Tech"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
