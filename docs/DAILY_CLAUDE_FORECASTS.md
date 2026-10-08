@@ -36,6 +36,7 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
    - A brief is 4–8 sentences of the evidence found in steps 3–5: dated facts, the base rate and recent history, and source URLs.
    - It contains no probability, no lean and no market odds.
    - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
+   - If the key is not available locally (a cloud routine's container can be recycled), commit and push the briefs to the daily branch and dispatch the **Judge panel** workflow instead: `gh api -X POST repos/nikoamoretti/forecastlab/actions/workflows/judge-panel.yml/dispatches -f ref=grok/forecastlab-mvp -f 'inputs[branch]=claude/daily-forecasts-<date>' -f 'inputs[dirs]=artifacts/<dir> ...'`. It runs the panel with the repository's key and commits the output to the branch. Wait for it to finish, then `git pull` before step 8.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
 8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
 9. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.

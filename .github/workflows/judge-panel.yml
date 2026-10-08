@@ -1,0 +1,69 @@
+name: Judge panel
+
+# Runs scripts/judge_panel.py with the repository's OpenRouter key, so the daily
+# routine does not need the key in its own (recyclable) container. It commits the
+# panel's output back to the daily branch; the routine then pulls, rescores and
+# pushes, and that push runs CI. With no branch it only checks the key.
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Daily branch, claude/daily-forecasts-YYYYMMDD (empty: only check the key)"
+        required: false
+        default: ""
+      dirs:
+        description: "Space-separated artifact directories with briefs.json"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: judge-panel
+  cancel-in-progress: false
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+      BRANCH: ${{ inputs.branch }}
+      DIRS: ${{ inputs.dirs }}
+    steps:
+      - name: Validate inputs
+        run: |
+          if [ -n "$BRANCH" ]; then
+            [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
+            [[ "$DIRS" =~ ^artifacts/[A-Za-z0-9_]+(\ artifacts/[A-Za-z0-9_]+)*$ ]] || { echo "dirs must be artifacts/<name> ..."; exit 1; }
+          fi
+      - name: Check the key reaches OpenRouter
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $OPENROUTER_API_KEY" https://openrouter.ai/api/v1/key)
+          echo "OpenRouter key check: HTTP $code" | tee -a "$GITHUB_STEP_SUMMARY"
+          test "$code" = 200
+      - uses: actions/checkout@v4
+        if: inputs.branch != ''
+        with:
+          ref: ${{ inputs.branch }}
+      - uses: astral-sh/setup-uv@v5
+        if: inputs.branch != ''
+        with:
+          python-version: "3.12"
+      - name: Run the panel
+        if: inputs.branch != ''
+        run: |
+          uv sync --frozen
+          # $DIRS is validated above; word splitting is intended.
+          uv run --frozen python scripts/judge_panel.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
+          uv run --frozen python scripts/judge_panel.py spend | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Commit the panel's forecasts
+        if: inputs.branch != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts
+          git diff --cached --quiet && { echo "Nothing new from the panel"; exit 0; }
+          git commit -m "Judge panel forecasts"
+          git push origin "HEAD:$BRANCH"
