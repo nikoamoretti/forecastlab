@@ -49,3 +49,14 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 - Market questions are forecast without looking at any market's odds.
 - Judges see only the question, its rule and Claude's brief. They never see Claude's probability.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.
+
+## Running from a locked-down container
+
+A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, or may have lost the OpenRouter key when its container was recycled. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to the daily branch:
+
+- `step=prepare`: creates `claude/daily-forecasts-<date>` from `grok/forecastlab-mvp` if needed and runs both `prepare` commands (steps 2 and 5).
+- `step=judge` with `dirs=artifacts/<dir> ...`: runs the judge panel on directories with `briefs.json` (step 7).
+- `step=score`: runs step 8, then dispatches CI on the branch, since pushes made by the workflow do not start CI.
+- `step=check-key`: only checks that the key reaches OpenRouter.
+
+Dispatch with `gh api -X POST repos/nikoamoretti/forecastlab/actions/workflows/daily-run.yml/dispatches -f ref=grok/forecastlab-mvp -f inputs[step]=prepare -f inputs[branch]=claude/daily-forecasts-<date>`. Between steps, `git pull` the branch, forecast and `record` locally (those commands need no network), and push.
