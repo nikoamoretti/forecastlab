@@ -4,6 +4,8 @@ on:
   push:
   pull_request:
   workflow_call:
+  # Lets the daily run's score step start CI on a branch it pushed with GITHUB_TOKEN.
+  workflow_dispatch:
 
 jobs:
   verify:

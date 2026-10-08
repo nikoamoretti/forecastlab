@@ -1,0 +1,117 @@
+name: Daily run steps
+
+# The network and key steps of docs/DAILY_CLAUDE_FORECASTS.md, for a Claude
+# session whose container cannot reach FRED, Polymarket, Manifold or OpenRouter,
+# or no longer holds the OpenRouter key. Each step commits its output to the
+# daily branch. "score" then dispatches CI on the branch, because pushes made
+# with GITHUB_TOKEN do not start workflows on their own.
+#   prepare    create the branch from grok/forecastlab-mvp if needed, then run
+#              daily_forecasts.py prepare and market_questions.py prepare
+#   judge      run judge_panel.py on DIRS (each needs briefs.json)
+#   score      run score_prospective_artifacts.py, then dispatch CI
+#   check-key  only check that the key reaches OpenRouter
+on:
+  workflow_dispatch:
+    inputs:
+      step:
+        type: choice
+        options: [prepare, judge, score, check-key]
+        required: true
+      branch:
+        description: "claude/daily-forecasts-YYYYMMDD"
+        required: false
+        default: ""
+      dirs:
+        description: "judge only: space-separated artifacts/<dir> with briefs.json"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: daily-run
+  cancel-in-progress: false
+
+jobs:
+  step:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      STEP: ${{ inputs.step }}
+      BRANCH: ${{ inputs.branch }}
+      DIRS: ${{ inputs.dirs }}
+      BASE: grok/forecastlab-mvp
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Validate inputs
+        run: |
+          if [ "$STEP" != check-key ]; then
+            [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
+          fi
+          if [ "$STEP" = judge ]; then
+            [[ "$DIRS" =~ ^artifacts/[A-Za-z0-9_]+(\ artifacts/[A-Za-z0-9_]+)*$ ]] || { echo "dirs must be artifacts/<name> ..."; exit 1; }
+          fi
+      - name: Check the key reaches OpenRouter
+        if: inputs.step == 'judge' || inputs.step == 'check-key'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $OPENROUTER_API_KEY" https://openrouter.ai/api/v1/key)
+          echo "OpenRouter key check: HTTP $code" | tee -a "$GITHUB_STEP_SUMMARY"
+          test "$code" = 200
+      - uses: actions/checkout@v4
+        if: inputs.step != 'check-key'
+        with:
+          fetch-depth: 0
+      - name: Switch to the daily branch
+        if: inputs.step != 'check-key'
+        run: |
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+          elif [ "$STEP" = prepare ]; then
+            git checkout -B "$BRANCH" "origin/$BASE"
+          else
+            echo "branch $BRANCH does not exist"; exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: astral-sh/setup-uv@v5
+        if: inputs.step != 'check-key'
+        with:
+          python-version: "3.12"
+      - name: Prepare questions
+        if: inputs.step == 'prepare'
+        run: |
+          uv sync --frozen
+          uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+          uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Run the judge panel
+        if: inputs.step == 'judge'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+        run: |
+          uv sync --frozen
+          # $DIRS is validated above; word splitting is intended.
+          uv run --frozen python scripts/judge_panel.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
+          uv run --frozen python scripts/judge_panel.py spend | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Score
+        if: inputs.step == 'score'
+        run: |
+          uv sync --frozen
+          uv run --frozen python scripts/score_prospective_artifacts.py | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Commit and push
+        if: inputs.step != 'check-key'
+        run: |
+          git add artifacts data/track_record.json
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit" | tee -a "$GITHUB_STEP_SUMMARY"
+            if [ "$STEP" = prepare ]; then git push origin "HEAD:$BRANCH"; fi
+          else
+            git commit -m "Daily run: $STEP"
+            git push origin "HEAD:$BRANCH"
+          fi
+      - name: Run CI on the branch
+        if: inputs.step == 'score'
+        run: gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"

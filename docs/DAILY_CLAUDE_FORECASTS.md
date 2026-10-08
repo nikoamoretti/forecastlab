@@ -36,7 +36,6 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
    - A brief is 4–8 sentences of the evidence found in steps 3–5: dated facts, the base rate and recent history, and source URLs.
    - It contains no probability, no lean and no market odds.
    - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
-   - If the key is not available locally (a cloud routine's container can be recycled), commit and push the briefs to the daily branch and dispatch the **Judge panel** workflow instead: `gh api -X POST repos/nikoamoretti/forecastlab/actions/workflows/judge-panel.yml/dispatches -f ref=grok/forecastlab-mvp -f 'inputs[branch]=claude/daily-forecasts-<date>' -f 'inputs[dirs]=artifacts/<dir> ...'`. It runs the panel with the repository's key and commits the output to the branch. Wait for it to finish, then `git pull` before step 8.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
 8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
 9. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
@@ -50,3 +49,14 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 - Market questions are forecast without looking at any market's odds.
 - Judges see only the question, its rule and Claude's brief. They never see Claude's probability.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.
+
+## Running from a locked-down container
+
+A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, or may have lost the OpenRouter key when its container was recycled. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to the daily branch:
+
+- `step=prepare`: creates `claude/daily-forecasts-<date>` from `grok/forecastlab-mvp` if needed and runs both `prepare` commands (steps 2 and 5).
+- `step=judge` with `dirs=artifacts/<dir> ...`: runs the judge panel on directories with `briefs.json` (step 7).
+- `step=score`: runs step 8, then dispatches CI on the branch, since pushes made by the workflow do not start CI.
+- `step=check-key`: only checks that the key reaches OpenRouter.
+
+Dispatch with `gh api -X POST repos/nikoamoretti/forecastlab/actions/workflows/daily-run.yml/dispatches -f ref=grok/forecastlab-mvp -f inputs[step]=prepare -f inputs[branch]=claude/daily-forecasts-<date>`. Between steps, `git pull` the branch, forecast and `record` locally (those commands need no network), and push.
