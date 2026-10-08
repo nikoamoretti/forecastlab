@@ -52,11 +52,9 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 
 ## Running from a locked-down container
 
-A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, or may have lost the OpenRouter key when its container was recycled. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to the daily branch:
+A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, may have lost the OpenRouter key when its container was recycled, and cannot dispatch workflows through the Claude GitHub App. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to `claude/daily-forecasts-<date>`:
 
-- `step=prepare`: creates `claude/daily-forecasts-<date>` from `grok/forecastlab-mvp` if needed and runs both `prepare` commands (steps 2 and 5).
-- `step=judge` with `dirs=artifacts/<dir> ...`: runs the judge panel on directories with `briefs.json` (step 7).
-- `step=score`: runs step 8, then dispatches CI on the branch, since pushes made by the workflow do not start CI.
-- `step=check-key`: only checks that the key reaches OpenRouter.
+- **prepare** (steps 2 and 5) runs on a weekday schedule at 10:05 UTC. It creates the branch from `grok/forecastlab-mvp` and runs both `prepare` commands.
+- **finish** (steps 7 and 8) runs the judge panel on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
 
-Dispatch with `gh api -X POST repos/nikoamoretti/forecastlab/actions/workflows/daily-run.yml/dispatches -f ref=grok/forecastlab-mvp -f inputs[step]=prepare -f inputs[branch]=claude/daily-forecasts-<date>`. Between steps, `git pull` the branch, forecast and `record` locally (those commands need no network), and push.
+To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "finish", "dirs": ["artifacts/prospective_markets_<date>"]}`. The workflow removes the file when it is done. Between steps, `git pull` the branch, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.
