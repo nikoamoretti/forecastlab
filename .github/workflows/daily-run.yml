@@ -3,26 +3,36 @@ name: Daily run steps
 # The network and key steps of docs/DAILY_CLAUDE_FORECASTS.md, for a Claude
 # session whose container cannot reach FRED, Polymarket, Manifold or OpenRouter,
 # or no longer holds the OpenRouter key. Each step commits its output to the
-# daily branch. "score" then dispatches CI on the branch, because pushes made
-# with GITHUB_TOKEN do not start workflows on their own.
+# daily branch claude/daily-forecasts-YYYYMMDD.
 #   prepare    create the branch from grok/forecastlab-mvp if needed, then run
 #              daily_forecasts.py prepare and market_questions.py prepare
-#   judge      run judge_panel.py on DIRS (each needs briefs.json)
-#   score      run score_prospective_artifacts.py, then dispatch CI
+#   finish     run judge_panel.py on DIRS (each needs briefs.json), then
+#              score_prospective_artifacts.py, then dispatch CI on the branch
+#              (pushes made with GITHUB_TOKEN start no workflows on their own)
 #   check-key  only check that the key reaches OpenRouter
+# Triggers: the weekday schedule runs prepare for today. A push to a daily
+# branch that adds daily-run-request.json ({"step": "prepare"|"finish",
+# "dirs": [...]}) runs that step and removes the file; the Claude GitHub App
+# cannot dispatch workflows, but its pushes do start them. workflow_dispatch
+# works for people.
 on:
+  schedule:
+    - cron: "5 10 * * 1-5"
+  push:
+    branches: ["claude/daily-forecasts-*"]
+    paths: ["daily-run-request.json"]
   workflow_dispatch:
     inputs:
       step:
         type: choice
-        options: [prepare, judge, score, check-key]
+        options: [prepare, finish, check-key]
         required: true
       branch:
         description: "claude/daily-forecasts-YYYYMMDD"
         required: false
         default: ""
       dirs:
-        description: "judge only: space-separated artifacts/<dir> with briefs.json"
+        description: "finish only: space-separated artifacts/<dir> with briefs.json"
         required: false
         default: ""
 
@@ -39,34 +49,48 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      STEP: ${{ inputs.step }}
-      BRANCH: ${{ inputs.branch }}
-      DIRS: ${{ inputs.dirs }}
       BASE: grok/forecastlab-mvp
       GH_TOKEN: ${{ github.token }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
     steps:
-      - name: Validate inputs
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve the step
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_STEP: ${{ inputs.step }}
+          IN_BRANCH: ${{ inputs.branch }}
+          IN_DIRS: ${{ inputs.dirs }}
+          REF_NAME: ${{ github.ref_name }}
         run: |
+          case "$EVENT" in
+            schedule) STEP=prepare; BRANCH="claude/daily-forecasts-$(date -u +%Y%m%d)"; DIRS="" ;;
+            push)
+              BRANCH="$REF_NAME"
+              [ -f daily-run-request.json ] || { echo "request file was removed; nothing to do"; echo "STEP=none" >> "$GITHUB_ENV"; exit 0; }
+              STEP=$(jq -r '.step' daily-run-request.json)
+              DIRS=$(jq -r '(.dirs // []) | join(" ")' daily-run-request.json) ;;
+            *) STEP="$IN_STEP"; BRANCH="$IN_BRANCH"; DIRS="$IN_DIRS" ;;
+          esac
           if [ "$STEP" != check-key ]; then
+            [[ "$STEP" =~ ^(prepare|finish)$ ]] || { echo "unknown step $STEP"; exit 1; }
             [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
           fi
-          if [ "$STEP" = judge ]; then
+          if [ -n "$DIRS" ]; then
             [[ "$DIRS" =~ ^artifacts/[A-Za-z0-9_]+(\ artifacts/[A-Za-z0-9_]+)*$ ]] || { echo "dirs must be artifacts/<name> ..."; exit 1; }
           fi
+          { echo "STEP=$STEP"; echo "BRANCH=$BRANCH"; echo "DIRS=$DIRS"; } >> "$GITHUB_ENV"
+          echo "Step: $STEP on $BRANCH ${DIRS:+(dirs: $DIRS)}" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Check the key reaches OpenRouter
-        if: inputs.step == 'judge' || inputs.step == 'check-key'
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+        if: env.STEP == 'check-key' || (env.STEP == 'finish' && env.DIRS != '')
         run: |
           code=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $OPENROUTER_API_KEY" https://openrouter.ai/api/v1/key)
           echo "OpenRouter key check: HTTP $code" | tee -a "$GITHUB_STEP_SUMMARY"
-          test "$code" = 200
-      - uses: actions/checkout@v4
-        if: inputs.step != 'check-key'
-        with:
-          fetch-depth: 0
+          if [ "$STEP" = check-key ]; then test "$code" = 200; fi
+          if [ "$code" != 200 ]; then echo "NO_KEY=1" >> "$GITHUB_ENV"; fi
       - name: Switch to the daily branch
-        if: inputs.step != 'check-key'
+        if: env.STEP == 'prepare' || env.STEP == 'finish'
         run: |
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
             git checkout -B "$BRANCH" "origin/$BRANCH"
@@ -78,40 +102,38 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: astral-sh/setup-uv@v5
-        if: inputs.step != 'check-key'
+        if: env.STEP == 'prepare' || env.STEP == 'finish'
         with:
           python-version: "3.12"
       - name: Prepare questions
-        if: inputs.step == 'prepare'
+        if: env.STEP == 'prepare'
         run: |
           uv sync --frozen
-          uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
-          uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+          if ls artifacts | grep -Eq "^prospective_(daily|markets)_${BRANCH#claude/daily-forecasts-}"; then
+            echo "Questions for this date already exist" | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+            uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Run the judge panel
-        if: inputs.step == 'judge'
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+        if: env.STEP == 'finish' && env.DIRS != '' && env.NO_KEY != '1'
         run: |
           uv sync --frozen
           # $DIRS is validated above; word splitting is intended.
           uv run --frozen python scripts/judge_panel.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
           uv run --frozen python scripts/judge_panel.py spend | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Score
-        if: inputs.step == 'score'
+        if: env.STEP == 'finish'
         run: |
           uv sync --frozen
           uv run --frozen python scripts/score_prospective_artifacts.py | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
-        if: inputs.step != 'check-key'
+        if: env.STEP == 'prepare' || env.STEP == 'finish'
         run: |
+          git rm -q --ignore-unmatch daily-run-request.json
           git add artifacts data/track_record.json
-          if git diff --cached --quiet; then
-            echo "Nothing new to commit" | tee -a "$GITHUB_STEP_SUMMARY"
-            if [ "$STEP" = prepare ]; then git push origin "HEAD:$BRANCH"; fi
-          else
-            git commit -m "Daily run: $STEP"
-            git push origin "HEAD:$BRANCH"
-          fi
+          if ! git diff --cached --quiet; then git commit -m "Daily run: $STEP"; fi
+          git push origin "HEAD:$BRANCH"
       - name: Run CI on the branch
-        if: inputs.step == 'score'
+        if: env.STEP == 'finish'
         run: gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
