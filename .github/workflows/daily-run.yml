@@ -47,7 +47,7 @@ concurrency:
 jobs:
   step:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       BASE: grok/forecastlab-mvp
       GH_TOKEN: ${{ github.token }}
@@ -117,10 +117,13 @@ jobs:
           fi
       - name: Run the judge panel
         if: env.STEP == 'finish' && env.DIRS != '' && env.NO_KEY != '1'
+        # A slow panel must not cost the day: answers already logged are still scored and committed.
+        timeout-minutes: 40
+        continue-on-error: true
         run: |
           uv sync --frozen
           # $DIRS is validated above; word splitting is intended.
-          uv run --frozen python scripts/judge_panel.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
+          uv run --frozen python -u scripts/judge_panel.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
           uv run --frozen python scripts/judge_panel.py spend | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Score
         if: env.STEP == 'finish'

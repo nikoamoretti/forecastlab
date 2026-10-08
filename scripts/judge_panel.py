@@ -14,7 +14,8 @@ served it, goes to ``judge_panel_log.json`` in the directory. The forecasts are 
 where the track record reads them. Cohorts with ``frozen_manifest.json`` get one
 ``<method>_supplement.json`` per member. General question sets get the judges added to
 ``forecasts.json``. A run stops starting calls once the next call's worst case would push
-today's spend past ``daily_budget_usd``. Without ``OPENROUTER_API_KEY`` it does nothing.
+today's spend past ``daily_budget_usd``. Members are asked side by side, each going through
+the questions in order, and the log is saved after every call so a cancelled run keeps what it paid for. Without ``OPENROUTER_API_KEY`` it does nothing.
 """
 
 from __future__ import annotations
@@ -24,6 +25,8 @@ import json
 import os
 import re
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -33,6 +36,7 @@ sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
 from forecastlab.judge_panel import (  # noqa: E402
     Budget,
+    Member,
     PanelConfig,
     PanelQuestion,
     Post,
@@ -146,37 +150,49 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
     now = as_utc(now or utcnow())
     budget = Budget(config.daily_budget_usd, spent_on(artifacts, now.date().isoformat()))
     summary: dict[str, Any] = {"asked": 0, "answered": 0, "skipped_budget": 0, "spent_before_usd": round(budget.spent, 4)}
+    lock = threading.Lock()
     for directory in directories:
         log_path = directory / LOG
         log: dict[str, Any] = json.loads(log_path.read_text()) if log_path.exists() else {
             "panel": config.version, "prompt_version": config.prompt_version, "attempts": []}
         done = {(a["id"], a["method"]) for a in log["attempts"] if a["ok"]}
-        tried = {(a["id"], a["method"]) for a in log["attempts"]}
-        for question in load_questions(directory):
-            if now >= question.cutoff:
-                continue
-            brief_hash = hashlib.sha256(question.brief.encode()).hexdigest()[:16]
-            for member in config.members:
+        tried_today = {(a["id"], a["method"]) for a in log["attempts"] if a["at"][:10] == now.date().isoformat()}
+        questions = [q for q in load_questions(directory) if now < q.cutoff]
+
+        def ask_all(member: Member, questions: list[PanelQuestion], log: dict[str, Any], log_path: Path,
+                    skip: set[tuple[str, str]]) -> None:
+            """One member's questions, in order. Members run side by side; the log is saved after every call."""
+            price = price_list.get(member.model)
+            if price is None:
+                print(f"{member.model}: no published price, skipped", flush=True)
+                return
+            for question in questions:
                 key = (question.id, member.method)
                 # One attempt per member and question per day; a failed one may be retried on a later day.
-                if key in done or (key in tried and any(a["at"][:10] == now.date().isoformat()
-                                                        for a in log["attempts"] if (a["id"], a["method"]) == key)):
+                if key in skip:
                     continue
-                price = price_list.get(member.model)
-                if price is None:
-                    print(f"{member.model}: no published price, skipped")
-                    continue
-                if not budget.allows(worst_case_cost(len(prompt(question, now)) + 1000, config.max_tokens, price)):
-                    summary["skipped_budget"] += 1
-                    continue
+                worst = worst_case_cost(len(prompt(question, now)) + 1000, config.max_tokens, price)
+                with lock:
+                    if not budget.allows(worst):
+                        summary["skipped_budget"] += 1
+                        continue
+                    budget.charge(worst)  # held until the real cost is known
                 attempt = ask(member, question, now=now, post=post, max_tokens=config.max_tokens, price=price)
-                attempt |= {"brief_sha256": brief_hash, "prompt_version": config.prompt_version}
-                budget.charge(attempt["cost_usd"])
-                log["attempts"].append(attempt)
-                summary["asked"] += 1
-                summary["answered"] += attempt["ok"]
-                if not attempt["ok"]:
-                    print(f"{question.id} {member.method}: {attempt['error']}")
+                attempt |= {"brief_sha256": hashlib.sha256(question.brief.encode()).hexdigest()[:16],
+                            "prompt_version": config.prompt_version}
+                with lock:
+                    budget.charge(attempt["cost_usd"] - worst)
+                    log["attempts"].append(attempt)
+                    summary["asked"] += 1
+                    summary["answered"] += attempt["ok"]
+                    _write(log_path, log)  # paid answers survive a cancelled job
+                print(f"{question.id} {member.method}: "
+                      + ("answered" if attempt["ok"] else attempt["error"]), flush=True)
+
+        with ThreadPoolExecutor(max_workers=max(1, len(config.members))) as pool:
+            for future in [pool.submit(ask_all, m, questions, log, log_path, done | tried_today) for m in config.members]:
+                future.result()
+        log["attempts"].sort(key=lambda a: (a["at"], a["id"], a["method"]))
         _write(log_path, log)
         write_forecasts(directory, config, log["attempts"])
     summary["spent_today_usd"] = round(budget.spent, 4)
