@@ -1,0 +1,70 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-10-12T04:00:00Z",
+      "id": "polymarket-5311925",
+      "market_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "question": "Will Ethereum dip to $2,400 October 5-11?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-10-30T03:59:00Z",
+      "id": "polymarket-3081965",
+      "market_url": "https://polymarket.com/event/ecb-interest-rates-october-2026-20260723225848778",
+      "question": "Will the ECB announce no change at the October 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the deposit facility rate resulting from the October 2026 meeting of the European Central Bank, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the European Central Bank, including the statement or release from its October 2026 meeting, scheduled for October 28-29, 2026, as listed on the official European Central Bank calendar (https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html). This market may resolve as soon as the statement or release of the European Central Bank's October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-10-25T23:59:00Z",
+      "id": "polymarket-4824602",
+      "market_url": "https://polymarket.com/event/serbia-parliamentary-election-winner-2026",
+      "question": "Will Student List \u2013 Students Win win the most seats in the 2026 Serbian parliamentary election?",
+      "resolution_criteria": "Parliamentary elections to elect the 250 members of the National Assembly of Serbia are scheduled to take place on October 25, 2026.\n\nThis market will resolve to the electoral list that wins the greatest number of seats in the National Assembly of Serbia as a result of this election.\n\nElectoral lists will be primarily ranked by the number of seats won in the specified election. If two or more lists are tied on seats, ties will be broken by the total number of valid votes received, with higher vote totals ranking higher. If lists remain tied, ties will be broken by alphabetical order of the listed names. This market will resolve to the list that occupies the highest finishing position after applying this ranking.\n\nThis market's resolution will be based solely on the number of seats won by the named electoral list, as it appears on the ballot and official proclamations, regardless of which parties make up the list or how its members later organize themselves in the National Assembly.\n\nIf the results of the specified election are not definitively known by March 31, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nThis market will resolve based on the results of the elections, as indicated by a consensus of credible reporting. In the case of ambiguity, this market will resolve solely based on the results as reported by the Republic Electoral Commission of Serbia (https://www.rik.parlament.gov.rs/).",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-11T16:00:00Z",
+      "id": "polymarket-5286464",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-october-11-2026",
+      "question": "Will the price of Ethereum be above $2,400 on October 11?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-10-30T06:00:00Z",
+      "id": "polymarket-3251572",
+      "market_url": "https://polymarket.com/event/eurozone-gdp-growth-in-q3-2026",
+      "question": "Will Eurozone GDP growth in Q3 2026 be between 0.8% and 1.1%?",
+      "resolution_criteria": "This market will resolve according to the Eurozone (Euro Area 21) Q3 2026 GDP growth rate over the same quarter of the previous year (% change), based on seasonally adjusted data, in the Eurostat Preliminary Flash Estimate of GDP release for Q3 of 2026, scheduled for October 30, 2026.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nThe GDP release will be made available here: https://ec.europa.eu/eurostat/web/main/news/euro-indicators\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nThis market\u2019s resolution source reports GDP growth rates to one decimal point. Thus, this is the level of precision that will be used when resolving this market.\n\nNote: data from the initial release of the referenced flash GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release of the specified report will not be considered for this market's resolution.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-10-28T03:59:00Z",
+      "id": "polymarket-2110579",
+      "market_url": "https://polymarket.com/event/israel-election-likud-of-seats",
+      "question": "Will Likud win 30-34 seats in the 2026 Israeli legislative election?",
+      "resolution_criteria": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the number of seats won by the Likud party in the Israeli Knesset as a result of this election.\n\nIf the Likud party contests this election as part of a joint candidate list with one or more parties, all seats won by the joint candidate list will be counted. If the Likud party merges with another party prior to the election, all seats won by the resultant merged party, or any joint candidate list through which it contests the election, will be counted.\n\nIf the results of this election are not definitively known by October 31, 2027, 11:59 PM ET, this market will resolve to the lowest range bracket.\n\nThis market's resolution will be based solely on the number of seats won by the Likud party in this election.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel\u2019s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-27T17:00:00Z",
+      "id": "manifold-OqEUCA9tCN",
+      "market_url": "https://manifold.markets/MAKER/-will-the-fed-raise-interest-rates-Z62t6ZhEy5",
+      "question": "\ud83c\uddfa\ud83c\uddf8 Will the Fed raise interest rates in October 2026?",
+      "resolution_criteria": "Resolve YES if the Federal Open Market Committee increases the target range for the federal funds rate at its October 27\u201328, 2026 meeting relative to the target range in effect immediately before the meeting.\n\nResolve NO if the FOMC leaves the target range unchanged or lowers it.\n\nResolution will be based on the first official Federal Reserve monetary policy statement issued for the October 27\u201328, 2026 FOMC meeting.\n\nThe size of the increase does not matter. Any increase in the target range counts as YES.\n\nChanges to forward guidance, the balance sheet, quantitative tightening, Treasury operations, or any other policy measure do not count unless the target range for the federal funds rate is also increased.\n\nIf the September FOMC decision is delayed beyond the market\u2019s scheduled closing time, the market will remain closed to trading but unresolved until the Federal Reserve publishes the official decision, at which point it will resolve based on that decision",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-10-14T23:59:00Z",
+      "id": "manifold-Qgu99q9Lpu",
+      "market_url": "https://manifold.markets/HumanClanker/will-gemini-4-argon-be-released-pub",
+      "question": "Will Gemini 4 Argon be released publicly before October 15",
+      "resolution_criteria": "Resolution criteria\n\nThis market resolves to YES if Google makes its Gemini 4 Argon model publicly available to individual developers or consumers on or before October 14, 2026, at 11:59 PM PT. Otherwise, this market resolves to NO.\n\nTo qualify as publicly available, ordinary individual users must be able to obtain access without being individually selected, invited, vetted, or approved by Google. Qualified access pathways include:\n\nDeveloper Access: Available via Google AI Studio, the Gemini API, or Google Cloud Vertex AI for any registered developer.\n\nConsumer Access: Offered via a generally available consumer subscription (e.g., Google AI Advanced, Google AI Ultra, or a successor tier) on the Gemini web or mobile interface.\n\nExclusions and Edge Cases:\n\nAccess does not qualify if it remains restricted to enterprise customers, select companies, private-preview cohorts, trusted testers, or members of specific closed initiatives such as Google's Fairwind program.\n\nPaid subscriptions or paid API usage qualify as public access, as long as any ordinary user can sign up and pay.\n\nGeographic restrictions will not prevent a YES resolution, provided ordinary individual users in at least one supported region can obtain unvetted access.\n\nThe model must be functionally accessible and interactive by the deadline; a mere announcement of a future release date does not suffice.\n\nBackground\n\nGoogle announced its next-generation frontier AI model, Gemini 4 Argon, on September 30, 2026. Engineered for complex reasoning, multi-step software engineering (scoring 77.9% on DeepSWE v1.1), and defensive cybersecurity, the model boasts a massive 1-million-token output capacity.\n\nAt launch, Google made Gemini 4 Argon available exclusively to trusted testers and select cybersecurity partners through its vetted Fairwind program. This market tracks whether Google transitions the model from its restricted early-access phase to general public availability for developers or consumers before the October 15, 2026 deadline.",
+      "topic": "Tech"
+    }
+  ],
+  "selected_at": "2026-10-09T10:54:01.601597+00:00",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
