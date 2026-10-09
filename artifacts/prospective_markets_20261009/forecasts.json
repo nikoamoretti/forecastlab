@@ -18,6 +18,24 @@
             "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
             "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Base rate for a 4% ETH decline over a few days is roughly 30% given typical daily volatility. The price is already near the 50\u2011day EMA at $2,500 and has been falling each day since Oct\u202f4, with liquidations and rising Treasury yields adding downside pressure, which raises the chance of breaking through to $2,400. However, the $2,500 level could act as support and a bounce would keep the price above the threshold, so the probability is moderate, not extreme."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 6.6% intraday move in a week is moderate, but ETH is already near $2,500 with strong downward momentum, critical support at $2,500 breaking, and only a 4% drop needed to hit $2,400. Rising Treasury yields and heavy long liquidations add selling pressure, making a dip likely within the remaining 65 hours. However, if the $2,500 support holds or a sudden positive catalyst emerges, the probability would drop significantly."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for ETH dropping an additional ~4% from current levels ($2,500) within a week is moderate but not high. The evidence shows ETH has been declining steadily, with $2,500 identified as critical support; a break below could trigger further selling toward $2,330-$2,355. However, the question requires a specific Binance 1-minute low at or below $2,400, and with 65 hours remaining, the price would need to drop another ~4%. Rising yields and weak sentiment support downside risk, but the 50-day EMA at $2,500 may hold. I'd put this at roughly 18% probability."
         }
       ],
       "id": "polymarket-5311925",
@@ -46,6 +64,36 @@
             "https://admiralmarkets.com/analytics/traders-blog/ecb-meeting-october-2026",
             "https://www.cnbc.com/2026/09/10/ecb-interest-rate-hike-lagarde-iran.html"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Base rate for ECB meetings is roughly a 60% chance of no change given recent tightening cycles, but the September 25bp hike and hawkish comments shift odds toward another increase. Market futures priced a 60% chance of an October hike, while analyst views are split (Danske expects a hike, Goldman/UBS see December, MUFG sees no further hikes), implying about a one\u2011third chance of an October hike from that perspective. Averaging the market and analyst signals yields ~46\u201147% probability of a hike, so the probability of no change is about 55%."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "The base rate for no change at a meeting following a recent hike is moderate, but Lagarde's unexpectedly dovish early-October comments, emphasizing that rising long-term yields will slow growth and damp inflation pass-through, significantly reduce the likelihood of a hike. Ebury's judgment that an October hike is unlikely and the shift from prior futures pricing (60% hike probability before the dovish tone) support a higher chance of no change, though lingering hawkish risks from September's inflation beat and Nagel's cautious stance prevent a higher probability."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.7,
+          "rationale": "The base rate favors a pause after a September hike, and Lagarde's early-October dovish pivot\u2014arguing that higher long-term yields will slow growth and dampen energy pass-through\u2014combined with Ebury's assessment that an October hike is unlikely, strongly point to no change. While futures had priced a significant chance of a hike as of late September and some analysts still expect one, the freshest guidance from the ECB President tilts the balance toward steady rates. The main risks to this view are a further upside inflation surprise or an escalation in the Iran war before the meeting."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a hold in an active hiking cycle is roughly 50-60%, but the September 25bp hike and inflation beat made another increase plausible. The main evidence shifting the estimate is Lagarde's early-October dovish tone and Ebury's view that an October hike is unlikely, which favors a hold. A surprise energy shock, stronger inflation data, or hawkish ECB officials could still push the market toward a 25bp increase."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "Base rate for ECB holding rates steady at any given meeting is roughly 50-60%. The evidence is mixed: futures priced ~60% for a hike in late September, but Lagarde's early October dovish comments and Ebury's assessment that an October hike is unlikely pull toward no change. Goldman, UBS, and MUFG expect no October hike, while Danske expects one. The dovish shift in Lagarde's tone and the tightening of financial conditions via higher long-term yields suggest the ECB will likely pause in October, though a September inflation beat keeps the possibility of a hike alive."
         }
       ],
       "id": "polymarket-3081965",
@@ -74,6 +122,42 @@
             "https://vreme.com/en/vesti/studentska-lista-sns-izbori-istrazivanje-javnog-mnjenja/",
             "https://www.intellinews.com/serbia-to-hold-snap-parliamentary-election-on-october-25-466709"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.25,
+          "rationale": "Base rate strongly favors SNS, which has won every parliamentary election since 2012 with institutional advantages including media control and state resources. The evidence is sharply divided: a reputable CRTA/Stanford face-to-face poll (June, n=2,324) showed the Student List leading 44.9% to 35.7%, but a more recent Faktor Plus poll (Sept) shows SNS ahead 48.6% to 37.1%. The snap election timing (called Sept 8 for Oct 25) disadvantages the nascent student list's organization. While the student movement is unprecedented and could mobilize protest voters, the polling divergence and SNS's structural advantages make the Student List an underdog to win the most seats."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.13,
+          "rationale": "The base rate for an opposition list to win the most seats in Serbian parliamentary elections is low, given the SNS\u2019s consistent dominance since 2012 (historically around 10\u201115% chance for a non\u2011SNS plurality). Recent polling shows mixed signals: an earlier CRTA/Stanford poll had the Student List leading 44.9% to 35.7%, but a more recent Faktor Plus survey (Sept\u202f16\u201120) placed the Vucic\u2011led United Serbia list ahead 48.6% to 37.1%, a margin that translates into a likely seat advantage under Serbia\u2019s electoral system. The ruling party\u2019s control of most national broadcast media further supports its ability to sustain turnout and voter loyalty. While protest momentum could boost the Student List, the weight of the more recent poll and historical trends suggests a modest chance of an upset."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for an opposition list winning the most seats in Serbia is low, as the ruling SNS has dominated since 2012. The most recent poll (Faktor Plus, Sept 16-20) shows the SNS-led list at 48.6% and the Student List at 37.1%, a significant lead, though an earlier CRTA/Stanford poll (June) had the Student List ahead. Given the incumbency advantage, media control, and the snap election timing suggesting Vucic's confidence, the Student List is the underdog, but the protest movement's momentum and polling volatility keep the probability above zero."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: The ruling SNS and its allies have won every Serbian parliamentary election since 2012, and incumbents in the region typically benefit from media control and state resources. Evidence: Polls diverge sharply\u2014an independent June face-to-face survey gave the Student List a nine-point lead among committed voters, while a more recent government-leaning mid-September poll placed the Vucic-led list ahead by roughly eleven points, though the student list was gaining ground. What could change it: A heavy state-media campaign and superior turnout machinery could solidify the government's lead, while a surge in youth turnout or undecided voters breaking against the status quo could deliver a plurality to the students."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The base rate favors the incumbent Vucic-led list, and the latest September poll has United Serbia ahead of the Student List by 11.5 points, which would likely translate into the most seats. The main reason not to be more confident is that an earlier face-to-face CRTA/Stanford poll had the Student List ahead, the student protest movement is strong, and Serbia's polling/media environment is noisy. A final surge or turnout shift could still put the Student List first, but the recent poll makes an upset less likely."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "Base rate favors the incumbent SNS, which has dominated Serbian elections for years with structural advantages including control of most national broadcast media. Polling evidence is sharply divided: CRTA/Stanford (June) shows Student List leading 44.9% to 35.7%, while the more recent Faktor Plus poll (September) shows SNS/United Serbia leading 48.6% to 37.1%, though the Student List gained 5.6 points recently. The student protest movement has genuine momentum and one credible poll puts it ahead, but the 11.5-point gap in the most recent poll, combined with historical patterns of polls underestimating SNS due to media asymmetry and turnout dynamics, makes a Student List plurality unlikely though not implausible."
         }
       ],
       "id": "polymarket-4824602",
@@ -102,6 +186,36 @@
             "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
             "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for ETH to remain above a level roughly 4% below its current price over a two\u2011day horizon is about 65% given typical daily volatility. ETH is currently trading near $2,500, which is above the 50\u2011day EMA support at $2,500, but the asset has been declining each day since Oct\u202f4 and faces downward pressure from rising Treasury yields. If the downtrend continues, a further ~4% drop could push the price below $2,400; however, the recent average daily decline (~1.1%) suggests a modest move, making a breach less likely than a hold. Overall, the evidence tilts the probability slightly above the base rate to around 68%."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a short-term price target is near 50%, but ETH is in a clear downtrend, down over 8% on the week and falling daily since Oct 4. It is currently near $2,500, with $2,400 only 4% below, but bearish momentum, large liquidations, and macro headwinds (rising yields) make a break below likely. A quick reversal is possible but less probable given the trend and only 54 hours remaining."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.56,
+          "rationale": "Base rate: With ETH near $2,500 and roughly 54 hours until resolution, a 4% decline to fall below $2,400 is well within typical short-term volatility but not guaranteed. Evidence: The market is in a multi-day downtrend with rising Treasury yields pressuring risk assets, and analysts highlight $2,500 as critical support, with the next support zone at $2,330\u2013$2,355, suggesting downside risk if the level fails. What could change it: A hold or bounce at the $2,500 support level would likely keep the price above $2,400, whereas a sustained break below $2,500 would sharply increase the odds of a sub-$2,400 close."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "A neutral two-day crypto base rate for staying above a threshold 4% below spot is fairly high, roughly 65-75%. The evidence of an 8% weekly decline, lower closes since Oct 4, and $2,500 as critical support suggests a real risk of a break toward $2,330-2,355, so I trim the probability. A bounce off support or continued macro-driven selling could materially change the outcome."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "Base rate for ETH closing above a round number 2 days out, given current price near $2,500, is moderate. Evidence: ETH is currently around $2,500, only ~$100 above the $2,400 threshold, and has been declining steadily for days with bearish catalysts (rising yields, long liquidations). The 50-day EMA at $2,500 is critical support; a break below could push price toward $2,330-$2,355, well under $2,400. However, $2,500 is still ~4% above the threshold, giving meaningful cushion. The main risk is continued downward momentum over the next 54 hours."
         }
       ],
       "id": "polymarket-5286464",
@@ -129,6 +243,30 @@
             "https://tradingeconomics.com/euro-area/gdp-growth-annual",
             "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-07092026-ap"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "The Trading Economics forecast of 1.0% y/y centers in the 0.8-1.1% range, supported by Q2's upward revision to 1.2% y/y and favorable base effects from weak Q3 2025 growth. However, ECB rate hikes in July and September 2026 plus the Iran war energy shock create material downside risk, and the narrow 0.3pp range with three weeks until the flash estimate implies significant uncertainty."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: historically, Eurozone Q3 YoY GDP growth falls in the 0.8\u20111.1% range only about a quarter of the time. Recent evidence shows Q2 2026 YoY growth at +1.2% (up from +0.6% in Q1) and Trading Economics' model forecasts Q3 2026 at +1.0% YoY, suggesting the economy is hovering around the middle of the target band. The ECB's rate hikes and energy\u2011price shock pose downside risks, while a stronger\u2011than\u2011expected rebound from the Iran\u2011war shock could push growth above 1.1%. Balancing these factors yields a moderate probability that the flash estimate will land between 0.8% and 1.1% (exclusive of 1.1)."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate for a narrow GDP growth range is low, but the Trading Economics model forecast of 1.0% y/y for Q3 2026, combined with a low base from Q3 2025, suggests a reasonable chance of the outcome falling in the 0.8-1.0% range (Yes). However, the ECB rate hikes and energy price shock from the Iran war introduce downside risks that could push growth below 0.8% or keep it at 1.0%, making the probability moderately above 50%."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "The base rate for Eurozone annual GDP growth landing in any given 0.3 percentage point bracket is roughly 1/3. Recent data shows Q2 2026 at 1.2% y/y (revised up) and Q1 at 0.6% y/y, suggesting momentum but with ECB rate hikes and energy shock weighing on growth. Trading Economics' model forecast of 1.0% y/y for Q3 2026 falls squarely in the 0.8-1.1% bracket, but the wide range of possible outcomes given the energy shock and rate hikes keeps probability below 50%."
         }
       ],
       "id": "polymarket-3251572",
@@ -156,6 +294,42 @@
             "https://www.thepetek.com/polls",
             "https://www.jpost.com/israel-election-2026/article-911139"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "Base rate from 2022 shows Likud won 32 seats (within 30-34 range), but current polling average is 23 seats with a range of 19-32, 7 seats below the threshold. The highest individual poll (32) barely reaches the range bottom. With only 18 days until the election, a 7-seat swing from the average would require a dramatic shift or systematic polling error larger than 2022's slight underestimate. The fragmented right bloc and Eisenkot's Yashar party competing for similar voters further reduce likelihood."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.18,
+          "rationale": "Historically Likud has won 30\u201134 seats in about a quarter of recent elections (2021\u20112022), giving a base rate near 0.25. Current polling averages Likud at only 23 seats with a range of 19\u201132, well below the target bracket, and the party is running alone while its allies compete separately, limiting seat\u2011sharing boosts. Unless a significant late\u2011campaign shift occurs\u2014such as a collapse of rival blocs or a surge in undecided voters favoring Likud\u2014the likelihood of landing in the 30\u201134 seat range remains low."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate from recent elections shows Likud often wins around 30 seats, but current polling averages 23 seats (range 19-32), well below the 30-34 target. With the election only 18 days away, a significant surge is unlikely, though polls have historically underestimated Likud slightly. The evidence strongly suggests a low probability, but not impossible given polling errors and potential late shifts."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.07,
+          "rationale": "The polling average is 23 seats and recent surveys show 20 and 26, placing Likud well below the 30-34 target with only about two weeks remaining. While Likud has historically edged above final polls and one outlier showed 32, a gain of roughly seven to eleven seats would require an extraordinary late surge or a polling miss far beyond typical Israeli error. Only a major game-changing event, such as a security crisis or collapse of competing right-wing parties, would likely push Likud into this range."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.1,
+          "rationale": "Likud's recent base rate is high, with 30-35 seats in the last four elections, but the current poll average of 23 and recent polls at 20 and 26 put 30-34 well above the consensus. Reaching 30 seats would require a positive polling error of roughly 7 seats, larger than the typical 1-3 seat underestimation of Likud seen in recent elections. A late swing, turnout shift, or hidden-voter bias could still push it into the bracket, but the evidence makes that unlikely."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The Petek average of the last 10 polls gives Likud 23 seats, well below the 30-34 range, with individual polls ranging from 19 to 32. Only one recent poll (Direct Polls/i24NEWS at 26) comes close to the range, and even that falls short. Likud's 2022 result of 32 seats was achieved with final polls around 30-31, but current polling is significantly weaker, suggesting a substantial decline. The probability would increase if late polls show a surge toward 30 seats, but current evidence strongly favors a result below 30."
         }
       ],
       "id": "polymarket-2110579",
@@ -183,6 +357,42 @@
             "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
             "https://www.fxstreet.com/analysis/ecb-october-hike-looks-unlikely-lagarde-strikes-a-surprisingly-dovish-tone-202610080843"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.18,
+          "rationale": "Base rate from CME FedWatch futures implies ~20% chance of a hike at the October meeting. The September minutes indicated most officials see another increase likely by year-end, but Governor Jefferson and NY Fed President Williams explicitly signaled patience, and the softer-than-expected core PCE print on October 8 reduces near-term pressure. The December meeting includes a new Summary of Economic Projections, making it a more natural venue for a next hike if needed. Probability could rise if upcoming inflation or labor data surprise to the upside, or if FOMC communication shifts more hawkish before the meeting."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a Fed rate hike at any given meeting is roughly 30% based on historical frequency of tightening cycles. The September 2026 hike to 3.75\u20114.00% and FOMC minutes indicating most officials see another increase likely by year\u2011end push the probability upward, but softer-than\u2011expected core PCE inflation and CME FedWatch futures pricing ~80% for no change at the October meeting strongly suggest a dovish bias. Taking these factors together, the probability of an October hike is adjusted down to about 20%. This could change if inflation data surprise to the upside or if Fed officials shift to a more hawkish tone before the meeting."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a hike at any given FOMC meeting is moderate, and an immediate follow-up after a September hike is less likely. Minutes show most officials expect another increase by year-end, but soft core PCE and dovish signals from Jefferson and Williams suggest patience; CME FedWatch prices about 80% no change for October. I therefore estimate a roughly 20% chance of an October hike, with December more likely if data firm."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.18,
+          "rationale": "Fed funds futures as of October 8 price roughly a 20% chance of a hike at the October meeting, providing a well-informed market base rate. While the September FOMC minutes showed most officials expect another increase by year-end, subsequent signals of patience from Governor Jefferson and President Williams alongside softer core PCE inflation suggest the next move is more likely to occur in December. With no Summary of Economic Projections scheduled for October and the Fed having just raised rates in September, the bar for a back-to-back hike appears high."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a consecutive Fed hike after a recent 25bp increase is modest, and the market is pricing about an 80% chance of no change at the October meeting. The October 7 minutes showing many officials expect another hike by year-end supports some tail risk, but the softer core PCE print and dovish signals from Jefferson and Williams make an October hike less likely. A stronger inflation surprise or hawkish Fed communication before the meeting could push the probability higher."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "CME FedWatch futures priced approximately 80% for no change at the October 27-28 meeting, implying about 20% odds of a hike. The FOMC minutes suggest 'most officials' saw another increase as likely by year-end, but the pending December SEP and softer-than-expected core PCE inflation reduce urgency for an October move, with some officials (Jefferson, Williams) signaling patience. A surprise hawkish data print or shift in Fed rhetoric could push this higher, but market pricing is the strongest available signal."
         }
       ],
       "id": "manifold-OqEUCA9tCN",
@@ -211,6 +421,42 @@
             "https://aicoder.com/news/news-20261003-gemini-4-argon-next-week-unverified",
             "https://aireiter.com/blog/gemini-4-argon-api-pricing-availability"
           ]
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.25,
+          "rationale": "Base rate for Google moving a frontier model from restricted preview to general public access is typically weeks to months, but the company stated paid API/Ultra users would get access 'as soon as possible' after the Sept 30 announcement. Negative evidence: as of Oct 8, rumored Oct 8-10 launch dates were unconfirmed, and Argon remained absent from public model lists, pricing pages, and changelogs as of Oct 3. With only 5 days until the Oct 14 deadline and no confirmed signs of imminent public rollout, the probability is low but non-zero given Google's stated intent to move quickly."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "Base rate for frontier models shows roughly a 30% chance of moving from limited tester access to full public availability within two weeks of announcement. As of October 8, Gemini 4 Argon remained absent from public model lists, pricing pages, and changelogs, and Google\u2019s own statements indicated a broader rollout only after guardrails are refined, with no firm date given. This lack of visible progress suggests the release is unlikely before the October 14 deadline, though a faster-than-expected rollout or confirmation of unverified rumors could raise the probability."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for a major model release within two weeks of restricted-access launch is low; most frontier models stay in vetted preview for weeks to months. Google's own statements only commit to expanding access 'as soon as possible' after guardrail refinement, with no date given, and as of October 8 Argon was still absent from public APIs and changelogs. Unverified social claims of an imminent launch have not been substantiated, and the evidence suggests Google is still in an early controlled rollout phase, making a fully public release by October 14 unlikely unless an official announcement or public availability appears very soon."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a major frontier model moving from a restricted safety preview to full public API or consumer availability in under two weeks is low. Google has explicitly stated that developers and consumers will receive access only after guardrails are refined, offered no specific date, and Argon remained off public pricing pages and changelogs as of October 3, while launch rumors were still unconfirmed on October 8, leaving only five days until the deadline. The probability would rise sharply if Google announces imminent public availability for paying API or Ultra subscribers before October 14."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "A frontier model moving from vetted early access to unvetted public access within five days is plausible but not the base-case outcome. Google's statement that paid API customers and AI Ultra subscribers come next 'as soon as possible,' plus unconfirmed Oct 8-10 launch claims, raises the odds. However, the model was still absent from public model lists, pricing, and changelogs as of Oct 8, and guardrail refinement suggests a possible delay."
+        },
+        {
+          "created_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for a major Google model moving from restricted early access to full public availability within ~2 weeks of announcement is low, as Google typically takes weeks to months for broad rollout. The evidence shows Argon remains in the Fairwind trusted-tester program as of Oct 8, with Google explicitly stating paid API and Ultra subscribers come 'as soon as possible' but no date given, and unconfirmed social media claims of an Oct 8-10 launch did not materialize. A YES would require Google to accelerate its stated timeline significantly within the remaining ~5 days, which is possible but not the central expectation. The main thing that could move this higher is a sudden Google announcement of public availability in the final days before the deadline."
         }
       ],
       "id": "manifold-Qgu99q9Lpu",
