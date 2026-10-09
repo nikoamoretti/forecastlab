@@ -38,6 +38,22 @@ Both batches ran in ephemeral local instances, whose databases were discarded. T
 | `single_model_forecaster_v1` | 7 | 0 | 0 | Day-to-day estimates for the same yield threshold range from 45% to 80%. |
 | `three_track_strict_forecaster_v1` | 6 | 0 | 1 | Estimates range from 40.9% to 53%. |
 
+## Fast batch results (scored 2026-10-09)
+
+Four of the seven fast questions have resolved from the first FRED vintage (ALFRED). The yield questions for Oct 8 and Oct 9 and the claims question for the week ending Oct 10 are still pending.
+
+| Question | Actual | Outcome | root ensemble | single model | strict three-track | statistical baseline | Claude Code |
+| --- | ---: | :---: | ---: | ---: | ---: | ---: | ---: |
+| Claims, week ending Oct 3, above 197,000 | 197,000 | No | withheld | 43% | 42% | 44% | 50% |
+| 10-year yield Oct 5 above 5.24% | 5.31% | Yes | withheld | 45% | 41% | 50% | 68% |
+| 10-year yield Oct 6 above 5.24% | 5.27% | Yes | withheld | 55% | 53% | 52% | 64% |
+| 10-year yield Oct 7 above 5.24% | 5.28% | Yes | 50% | 55% | 46% | 53% | 61% |
+| **Mean Brier (lower is better; 0.25 = coin flip)** | | | 0.245 (1 forecast) | 0.223 | 0.259 | 0.223 | 0.159 |
+
+- Claude Code was closest on all three yield days because it started from Treasury's official 5.28% for Oct 2, already above the line. It was the furthest on claims, where it said 50% and the number landed exactly on 197,000, which does not count as "above".
+- The strict three-track method did worse than a coin flip, mainly by leaning below 50% on the yield days.
+- This proves little. It is four questions, three of them the same yield threshold on consecutive days, so they mostly count as one bet. Claude's forecasts were also made after the cohort froze (about 14 hours later), so it saw slightly more news than the frozen methods.
+
 ## Statistical baseline supplement
 
 Both batches were frozen before `statistical_baseline_v1` existed. `scripts/baseline_supplement.py` computed the deterministic baseline for every entry on 2026-10-03, after the freezes but before any release. It used the same latest observations the cohorts saw: DGS10 through 2026-10-01, ICSA through the week ending 2026-09-26, unemployment and payrolls through 2026-09, and CPI through 2026-08. The results are in `baseline_supplement.json` in each artifact directory. Each file records the snapshot hash and last observation.
