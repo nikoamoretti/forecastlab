@@ -25,6 +25,7 @@ COOKIE = "forecastlab_session"
 CSRF_COOKIE = "forecastlab_csrf"
 # scrypt hash of the owner access code; the code itself is never committed.
 ACCESS_CODE_FILE: Path | None = None  # override for tests; default is configs/owner_access_code.json
+SESSION_DAYS = 365  # the owner signs in once a year per device
 
 
 def hashed(value: str) -> str:
@@ -118,10 +119,11 @@ def _start_session(identity: str, response):
     session_token, csrf = secrets.token_urlsafe(32), secrets.token_urlsafe(32)
     with SessionLocal() as session:
         session.add(AuthSession(token_hash=hashed(session_token), owner_id=identity, csrf_hash=hashed(csrf),
-                                expires_at=utcnow() + timedelta(days=7)))
+                                expires_at=utcnow() + timedelta(days=SESSION_DAYS)))
         session.commit()
-    response.set_cookie(COOKIE, session_token, httponly=True, secure=settings.cloud, samesite="lax", max_age=604800)
-    response.set_cookie(CSRF_COOKIE, csrf, httponly=False, secure=settings.cloud, samesite="lax", max_age=604800)
+    max_age = SESSION_DAYS * 86400
+    response.set_cookie(COOKIE, session_token, httponly=True, secure=settings.cloud, samesite="lax", max_age=max_age)
+    response.set_cookie(CSRF_COOKIE, csrf, httponly=False, secure=settings.cloud, samesite="lax", max_age=max_age)
     return response
 
 

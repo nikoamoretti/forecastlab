@@ -372,6 +372,7 @@ def test_owner_access_code_creates_session_and_rejects_wrong_codes(client, monke
     response = client.post("/api/auth/code", json={"code": "right-code"}, headers=headers)
     assert response.status_code == 200
     assert "forecastlab_session" in response.cookies and "forecastlab_csrf" in response.cookies
+    assert "max-age=31536000" in response.headers["set-cookie"].lower()  # signed in for a year
     client.cookies.set("forecastlab_session", response.cookies["forecastlab_session"])
     assert client.get("/api/auth/session", headers=headers).json()["owner_id"] == "146488758"
 
