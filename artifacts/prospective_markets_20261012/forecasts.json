@@ -1,0 +1,721 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.545
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "BTC traded about $84,050 on the morning of Mon Oct 12 (FXStreet/CoinDesk, 08:05 GMT). October's high so far is about $86,980 (Oct 4), so $87,500 has not been touched and needs roughly +4% on any Binance 1-minute high in the 19 days left. At typical BTC daily volatility of about 2.5% a barrier that near is touched more often than not, but headwinds are real: $681M of spot ETF outflows last week, Treasury yields at multi-year highs, $85,000 resistance and US CPI on Oct 14.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-shrugs-off-etf-outflows-to-trade-above-84-000-as-oil-falls-202610120805",
+            "https://bitcoinnewsdigest.substack.com/p/bitcoin-news-digest-october-11-2026",
+            "https://www.fxstreet.com/cryptocurrencies/news/top-3-price-prediction-bitcoin-ethereum-ripple-btc-reclaims-83-500-eth-takes-back-50-day-ema-xrp-holds-support-202610120311"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.8,
+          "rationale": "Bitcoin's October high of $86,980 is already within 0.6% of the $87,500 target, and with 19 days remaining\u2014including the CPI release on Oct 14 and FOMC meeting on Oct 27-28\u2014volatility could easily produce a brief 1-minute spike above that level. While ETF outflows and elevated Treasury yields create downside pressure, the proximity of the month's high and Bitcoin's typical intraday volatility make a touch of $87,500 more likely than not."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: Bitcoin has about a 20% chance of making a new monthly high of this magnitude when it is already within a few percent of the recent monthly high, based on historical volatility. Evidence: The price is currently $84,050, only ~0.6% below the October high of $86,980, and there are 19 days left with upcoming CPI and FOMC events that could spark a short\u2011term spike. However, strong resistance at $85,000 (already broken) and macro headwinds from high Treasury yields and recent ETF outflows limit upside, keeping the probability moderate."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Bitcoin is around $84,050 and needs a roughly 4% rally to $87,500 with 19 days left; BTC's volatility makes such a move plausible, and October's high of $86,980 is already close to the target. However, resistance near $85,000, ETF outflows, high Treasury yields, and upcoming CPI/FOMC events create meaningful downside risk. I therefore see it as more likely than not but far from certain."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: with about 19 days left and typical BTC volatility, a +4% touch from the current ~$84,050 level has roughly a 60-75% chance under neutral drift. The strongest bullish evidence is that October's high was already about $86,980, only 0.6% below the target, and the market has shown enough volatility to move more than 8% in a week. The main bearish evidence is that price is still below $85,000 resistance, ETF outflows are heavy, Treasury yields are high, and CPI/FOMC risk could suppress upside. A dovish CPI or renewed ETF inflows would raise the odds, while a hot CPI or yield spike would lower them."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "BTC needs to rise ~4.1% from $84,050 to touch $87,500, and it has already come within $520 of the target earlier this month (high of ~$86,980 on Oct 4), showing it's reachable. However, the macro backdrop is challenging: $681M in ETF outflows last week, multi-year high Treasury yields, and analysts cite $85,000 as firm resistance. With 19 days remaining and major catalysts (CPI Oct 14, FOMC Oct 27-28) that could drive volatility in either direction, a brief spike to $87,500 is plausible but not the base case given the bearish tilt."
+        }
+      ],
+      "id": "polymarket-5170735",
+      "market_id": "5170735",
+      "outcome": null,
+      "question": "Will Bitcoin reach $87,500 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for BTC/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT High prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.395
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "WTI settled at $91.85 on Fri Oct 9 and traded near $90.5 on Oct 12 (Mitrade), so a Pyth 1-minute high of $100 needs about +10% on the active-month contract by Oct 30. Oil is volatile with Hormuz shipping incidents (a tanker reportedly hit a mine over the weekend, Iran calls the US response insufficient), but the Oct 8 low was $87.96, the September spike topped out near $104-106, and the Russia diesel deal plus the announced Russia-Ukraine energy ceasefire are pushing prices down. US CPI on Oct 14 and the FOMC on Oct 27-28 add macro risk.",
+          "sources": [
+            "https://mitrade.com/insights/commodity-analysis/oil-news/brent-round-trip-hormuz-energy-ceasefire-20261012J1346",
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-shrugs-off-etf-outflows-to-trade-above-84-000-as-oil-falls-202610120805"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: WTI's ~30% annualized volatility implies a ~25-30% chance of a 10% upward move in a month. The September spike to $104-106 demonstrates $100 is reachable under geopolitical stress. The Hormuz mine incident creates material upside tail risk, but the Russian diesel deal and potential Ukraine ceasefire provided offsetting downside pressure, netting a 1.8% drop Monday. Conflicting catalysts and the 10% required move from ~$90.5 keep probability elevated but below 50%."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.09,
+          "rationale": "Base rate for WTI reaching $100 in any given month is low, roughly 5% based on recent years where prices rarely exceed $100. The Hormuz mine incident adds upward pressure, potentially raising the chance by about 5 percentage points, while the Russian diesel deal and possible Ukraine\u2011Russia energy ceasefire exert downward pressure, offsetting some of that gain. Considering the current price around $91\u201192 and the need for a ~10% rise to $100, the net probability that a 1\u2011minute Pyth candle hits $100 during October 2026 is estimated at about 9%."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "The base rate for WTI reaching $100 in any given month is moderate given recent volatility and the September spike to $104\u2013106. Current prices near $90.50 require a ~10% rally, which is plausible if Hormuz tensions escalate, but the Russian supply deal and energy ceasefire are bearish offsets. Upcoming CPI and FOMC could trigger moves, but without a clear catalyst, the probability is below even odds."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "WTI reached roughly $104\u2013106 in September, so a move from the current ~$92 to $100 is well within recent volatility. However, prices fell 1.8% today despite the Hormuz mine incident because of offsetting bearish news\u2014a Russian diesel supply deal and unconfirmed ceasefire rumors\u2014showing the market is currently tugged in both directions. With about eighteen days left, unresolved Gulf tensions and upcoming macro events (CPI, FOMC) could still spark a spike, but the immediate momentum is not strongly bullish. I therefore see the chance as moderate, roughly balancing the recent precedent against current headwinds."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.28,
+          "rationale": "A 10% intraday move in WTI over the remaining October sessions is not the base case, but is plausible in a high-volatility geopolitical environment. The Strait of Hormuz mine incident and possible U.S. response create a meaningful tail risk for a sharp spike, while Monday's 1.8% decline on sanctions relief and an energy ceasefire suggests the market is not pricing an immediate jump to $100. Escalation in Hormuz or a supply shock would raise the probability, whereas de-escalation, weak demand data, or a dovish macro backdrop would lower it."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.28,
+          "rationale": "Base rate: WTI hitting $100 on a 1-minute candle during a given month is a moderately improbable but not rare event when prices are within ~10% of that level. Evidence: WTI recently spiked to $104-106 in September, demonstrating the level is reachable, but current prices are ~$90-92 with a 1.8% decline on Monday Oct 12 due to a reported (unconfirmed) Russia-Ukraine energy ceasefire and offsetting bearish supply news. Hormuz geopolitical tensions remain a wildcard upside risk, but near-term momentum is downward. A probability of ~28% reflects that the $100 level has been touched recently but current trajectory and mixed catalysts make it less likely than not within the remaining ~19 trading sessions."
+        }
+      ],
+      "id": "polymarket-4936103",
+      "market_id": "4936103",
+      "outcome": null,
+      "question": "Will WTI Crude Oil (WTI) hit (HIGH) $100 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-wti-hit-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.785
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "The June ceasefire collapsed in July and the US has kept a blockade of Iranian ports since July 14. CENTCOM's last confirmed strikes on Iranian territory in the sources found were Aug 30 and Sept 1. On Oct 8 Trump said the US will not attack Iran before the Nov 3 midterms while the blockade stays, and CBS (Oct 11) reported no recent US strikes on Iranian land. Enforcement at sea (a ship disabled in the Gulf of Oman Oct 10) does not count, but Houthi attacks on Riyadh, the weekend Hormuz mine incidents and stalled talks leave real escalation risk through Oct 31.",
+          "sources": [
+            "https://cbsnews.com/live-updates/iran-war-trump-us-elections-saudi-arabia-yemen-houthis",
+            "https://www.cbsnews.com/live-updates/iran-war-us-strikes-strait-of-hormuz-larak-island/",
+            "https://timesofisrael.com/liveblog-october-11-2026"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.88,
+          "rationale": "Base rate for escalation during a prolonged pause in similar conflicts is moderate (~30-40% chance of strike in a 3-week window), but the evidence strongly shifts probability toward continuation. President Trump's explicit October 8 statement that the U.S. will not attack Iran before the November 3 midterms while the blockade continues is a clear political commitment backed by a 6-week pause in strikes on Iranian territory (last confirmed Sept 1). The ongoing blockade strategy and lack of recent strikes (per CBS Oct 11) suggest a deliberate choice of pressure over kinetic action. Only a major Iranian provocation or significant Houthi escalation directly attributed to Iran would likely override this electoral calculus before October 31."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.78,
+          "rationale": "The base rate of a direct US strike on Iranian territory in any given month is low, historically around 5%. However, the ongoing U.S.-Israeli war on Iran, the blockade since July, and recent strikes in August\u2011September raise the risk above the base rate. President Trump\u2019s Oct\u202f8 statement that the U.S. will not attack Iran before the Nov\u202f3 midterms, combined with CBS reports of no recent strikes as of Oct\u202f11, reduces the likelihood of a qualifying action before Oct\u202f31. Taking these factors together yields an estimated ~78% chance that the ceasefire (no qualifying strike) continues through the date."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate of U.S. strikes on Iran has been zero since early September, and President Trump explicitly stated on Oct 8 that the U.S. will not attack Iran before the Nov 3 midterms. This public commitment, combined with the lack of recent strikes, suggests a very low likelihood of a qualifying military action by Oct 31. However, the volatile regional situation, including Houthi attacks and Iranian dissatisfaction, leaves a small chance of an unexpected escalation that could prompt a strike despite the stated policy."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.89,
+          "rationale": "Despite the ongoing war and port blockade, the last confirmed U.S. strikes on Iranian territory were over six weeks ago, and President Trump explicitly stated on October 8 that the U.S. would not attack Iran before the November 3 midterms\u2014a period that fully covers the remaining forecast window. The narrow definition of a qualifying action, which excludes naval engagements, cyber operations, and strikes outside terrestrial Iran, further limits the scenarios that would trigger a 'No' resolution. While a major Iranian escalation or a sudden reversal of Trump's pledge could change the outlook, the short timeframe and public commitment make a continued pause the most likely outcome."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.9,
+          "rationale": "In an active US-Iran war with an ongoing blockade, the base risk of a US strike on Iranian territory over 19 days would be substantial, but the explicit Oct 8 statement that the US will not attack Iran before Nov 3 and the lack of confirmed strikes on Iranian territory since Sept 1 make a qualifying action less likely. The main downside risk is escalation from Houthi attacks on Saudi Arabia or Iranian retaliation, which could prompt a US air or missile strike despite the stated pause. Interceptions, maritime strikes, and actions against proxies would not resolve No, so the threshold for a No outcome remains relatively high."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.75,
+          "rationale": "Base rate for a fragile post-collapsed-ceasefire situation with active blockade is uncertain, but Trump's explicit Oct 8 statement that the US will not attack Iran before the Nov 3 midterms is a strong anchor\u2014this commits the US to hold off for at least 3 more days past the Oct 31 resolution date. The blockade is not a qualifying military action under the resolution criteria, and recent provocations (Houthi strikes, Iran calling US proposals 'insufficient') have not triggered strikes. The remaining 19 days carry escalation risk given the collapsed June ceasefire and ongoing tensions, warranting meaningful probability of No, but the political signal and current trajectory favor the ceasefire holding."
+        }
+      ],
+      "id": "polymarket-4641065",
+      "market_id": "4641065",
+      "outcome": null,
+      "question": "US x Iran ceasefire continues through October 31?",
+      "resolution_criteria": "This market will resolve to \u201cNo\u201d if the United States takes a qualifying military action against Iran by the specified date, 11:59 PM Iran Standard Time. Otherwise this market will resolve to \u201cYes.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by the United States, that directly impacts Iran. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Iran do not constitute a military action regardless of any damage incurred.\n\n\u201cIran\u201d refers to the terrestrial territory of Iran, including its internal waters. Iran\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Iran as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Iran Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of the United States and Iran and a consensus of credible reporting.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.255
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "The Arena Text leaderboard (no style control) was last seen with Google's Gemini 4 Argon (High) at #1 on about 1525-1534, marked preliminary, ahead of Anthropic's best, claude-opus-5.5-high, at about 1515 (arena.ai, updated Oct 8; Arena post and The Rundown, Oct 1). Third-party aggregators disagree and show Anthropic models on top, but they are older or inconsistent snapshots. Anthropic would need a new release or a preliminary Argon score to fall by roughly 10-20 points within 19 days. OpenAI's GPT-6.1 Astra was cancelled for October (WSJ via Gizmodo, Sept 28).",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.therundown.ai/news/google-gemini-4-argon-benchmarks-limited-rollout",
+            "https://www.orcarouter.ai/blog/gemini-4-release-date",
+            "https://gizmodo.com/openai-cancels-release-of-gpt-6-1-astra-because-it-regressed-on-safety-2000818566"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for either Anthropic or Google leading the arena leaderboard is roughly even given recent historical swings. As of early October, Google's Gemini\u20114\u2011Argon\u2011High holds a ~19\u2011point lead over Anthropic's top Claude models, though Argon is limited to a specialized program and may see fewer updates. Anthropic\u2019s models are tightly clustered and could release a new version that closes the gap, especially with OpenAI\u2019s planned GPT\u20116.1 Astra scrapped, reducing competition. Considering the margin and uncertainty about model updates, there is about a 35% chance Anthropic will occupy rank\u202f1 by the October\u202f31 check."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for any single company holding the top spot is modest, but current evidence strongly favors Google: as of October 8, Gemini 4 Argon High leads the arena.ai Text Arena with ~1534, ahead of Anthropic's claude-opus-5.5-high at 1515. No upcoming Anthropic release is mentioned, and OpenAI's planned model was scrapped, reducing competitive pressure. While the Google model's preliminary status and limited availability could lead to volatility, the 19-day window and stable lead make an Anthropic takeover unlikely."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.42,
+          "rationale": "Google's gemini-4-argon-high currently leads by about 19 points, but it is preliminary, restricted to vetted cyber-defense teams, and has fewer than 5,000 votes, creating material downside risk from score regression or an AutoEval flag. Anthropic already occupies ranks 2 through 4 with broadly available models, so any slippage from Argon would immediately put Anthropic in first place. The remaining three weeks offer limited time for a major new release, yet leaderboard volatility for preliminary entries and the possibility of an Anthropic incremental update keep the race fairly open."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for any one major lab to hold the top arena slot is roughly one-third, but the current Oct 8 snapshot has Google's Gemini 4 Argon High ahead of Anthropic's closest model by about 19 points. That lead is not decisive because the scores are preliminary, Anthropic has several models clustered near the top, and Google's Argon appears to have limited availability, which could affect its arena performance. The probability could rise if Anthropic ships a stronger model or Google's lead erodes, and fall if Argon's preliminary rank stabilizes or another lab releases a stronger model."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: with multiple top labs (Google, Anthropic, OpenAI, Meta, xAI) competing, any single company holding #1 on a given day is typically around 20-30%. Evidence: as of early October 2026, Google's Gemini 4 Argon (High) holds the top spot on arena.ai at ~1534, with Anthropic's Claude Opus 5.5 High second at ~1515, a meaningful but not insurmountable gap. Anthropic is the closest competitor and could overtake if Google doesn't update Argon or if Argon's limited rollout (vetted cyber-defense teams only) limits its vote count and stability. Key swing factors: whether Google releases a Gemini 4 update or Argon stabilizes higher, whether Anthropic ships a new Claude variant before Oct 31, and whether OpenAI's scrapped GPT-6.1 Astra gets revived."
+        }
+      ],
+      "id": "polymarket-3554657",
+      "market_id": "3554657",
+      "outcome": null,
+      "question": "Will Anthropic have the best AI model at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.145
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "Iran's foreign ministry said on Oct 7 that Iran and Oman agreed coordinates of safe routes through Hormuz and how to notify the maritime authority (IRNA via Gulf News). Oman's last public statement found was the Aug 25 'framework' for a temporary joint corridor, and on Aug 26 only Iran described the deal in detail. The rule needs both countries to announce acceptance of the same agreement. Work is advanced, but Iran ties reopening to US commitments, the IRGC threatens to block the southern route, and the US blockade continues, so a clean joint announcement by Oct 31 is possible but not the base case.",
+          "sources": [
+            "https://gulfnews.com/world/mena/iran-oman-deal-reached-on-navigational-corridors-through-hormuz-amid-ongoing-tensions-baghaei-1.500702429",
+            "https://www.aljazeera.com/news/2026/8/26/iran-oman-agree-on-temporary-hormuz-route-what-we-know",
+            "https://maritime-executive.com/article/oman-signals-progress-on-hormuz-shipping-corridor-agreement"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.2,
+          "rationale": "Base rate for diplomatic agreements between regional rivals under active tension with third-party dependencies is low (~15-20% in short windows). Evidence shows only a framework from August with asymmetric announcements (Iran detailing terms, Oman saying 'deal near'), and Iran's Oct 7 statement describes technical coordination on coordinates, not formal acceptance of a binding agreement. Major blockers remain: Iran conditions Hormuz access on US commitments and IRGC control, an IRGC adviser threatened to block the southern route, and the US port blockade continues. Talks on permanent terms, fees, and traffic management are explicitly 'still to come.' With 19 days left and no Omani confirmation since August, the probability of both countries formally announcing acceptance of the same qualifying agreement by Oct 31 is low. Could increase if US-Iran talks progress or Oman issues a clear acceptance statement."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a bilateral Hormuz traffic agreement between Oman and Iran being announced in any given month is low, likely under 10%. Evidence shows only Iran has announced details of a temporary corridor, while Oman has not issued a confirming statement and Iranian officials indicate the strait remains under IRGC control pending U.S. commitments. Without an Omani announcement, the required joint acceptance is unlikely before Oct 31, though a sudden Omani declaration or joint communiqu\u00e9 could raise the probability."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a formal bilateral agreement on Hormuz traffic being announced within a short window is low, given the complexity and tensions. Iran's Oct 7 statement indicates progress on a temporary corridor, but Oman has not yet announced acceptance, and the IRGC adviser's threat signals internal Iranian obstacles. With unresolved issues and only 19 days remaining, the chance of both countries officially accepting the same agreement by the deadline is modest."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "Diplomatic agreements on contested shipping corridors rarely move from a preliminary framework to mutually announced final acceptance in under three weeks. The evidence shows a persistent asymmetry: Iran has unilaterally claimed progress on safe-route coordinates, while Oman has not echoed these specifics and officials explicitly note that talks on fees, permanent arrangements, and traffic management are ongoing. Iran\u2019s insistence that the strait stays closed until U.S. conditions are met\u2014alongside continuing U.S. port blockades and IRGC threats to seal the southern route\u2014makes a bilateral, traffic-restoring announcement by October 31 improbable. The probability would rise sharply only if both capitals suddenly issued a joint statement confirming a finalized text, but the current trajectory points to prolonged negotiation rather than imminent mutual acceptance."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.32,
+          "rationale": "Base rate for a formal bilateral maritime agreement in a high-tension strait within three weeks is low, but the August framework and Iran's October 7 statement that safe-route coordinates were agreed make a limited corridor deal plausible. The key missing piece is an unambiguous Omani acceptance, and the absence of a new Omani statement plus U.S. blockade/IRGC closure warnings lowers the probability. An Omani or joint announcement, or credible reporting confirming Omani acceptance, would push this up sharply."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.22,
+          "rationale": "Base rate for contentious bilateral agreements with unresolved third-party issues in ~19 days is low (~10-15%). Evidence moving probability up is clear momentum: Aug framework deal, Oct 7 Iran announcement on coordinates, and Oman signaling proximity to deal. Evidence moving probability down includes: U.S. commitments under the June memorandum remain unmet (Iran's precondition), ongoing U.S. blockade, IRGC adviser threats against the southern route, no formal matching Omani acceptance announcement, and the fact that talks on permanent arrangement/fees are still pending. A material shift would occur if Oman publicly confirms acceptance of the temporary corridor agreement, or if U.S.-Iran tensions de-escalate."
+        }
+      ],
+      "id": "polymarket-3954617",
+      "market_id": "3954617",
+      "outcome": null,
+      "question": "Iran-Oman Hormuz Agreement by October 31?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if a diplomatic agreement between Oman and Iran over traffic in the strait of Hormuz is announced by the specified date, 11:59 PM ET.\n\nA diplomatic agreement refers to an official agreement, treaty, deal, or substantially similar diplomatic instrument that establishes agreed actions, policies, obligations, or commitments between Oman and Iran.\n\nA qualifying diplomatic agreement must establish Iranian or Omani policies, obligations, or commitments aimed at managing, permitting, restoring, or increasing vessel or shipping traffic through the Strait of Hormuz, including agreements defining vessel traffic corridors, fee collection policies, or other management policies.\n\nAll listed countries must announce their acceptance of the same qualifying diplomatic agreement for the Payout Condition to be met. A joint announcement will qualify, as will separate announcements from each entity of its own acceptance of an agreement which, taken together, directly indicate that all the listed countries accepted the same agreement. Separate announcements of individual policies will not qualify if the policies are not announced as part of a diplomatic agreement.\n\nEach announcement must be a declarative statement that clearly and unambiguously communicates acceptance of an agreement. Statements that reference ongoing negotiations or a prospective agreement, or that allude to or express support for an agreement without confirming acceptance of the agreement, do not qualify. A qualifying announcement need not reference the agreement by name or use specific terminology, provided it clearly communicates acceptance of an agreement.\n \nWhether announcements from the listed countries represent a diplomatic agreement and whether such an agreement qualifies will be primarily determined through the announcements themselves. Where an announcement is made by all listed countries but, based on the announcements, it remains ambiguous whether the announcements represent a qualifying diplomatic agreement between the countries, this market will remain open until either i) definitive confirmation that the announcements represent a qualifying diplomatic agreement between the listed entities is achieved through further announcements from the listed countries or a consensus of credible reporting or ii) 14 calendar days (ET) have passed after the date that the last country made their first potentially qualifying announcement. If, at the end of the fourteenth calendar day, no definitive confirmation has been achieved, this market will resolve based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments of Oman and Iran and a consensus of credible reporting.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/iran-oman-hormuz-management-agreement-byptptpt-20260804222725871",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.125
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "ETH traded about $2,543-2,562 on Oct 12 (FXStreet, CoinGecko via CryptoTicker), reclaiming its 50-day EMA near $2,505; the 24-hour low was $2,496. A Binance 1-minute low of $2,100 needs a fall of about 17-18% within 19 days. At ETH daily volatility near 3.5-4% that is touched roughly one time in five, and ETF outflows (nine straight days), negative MACD and macro risk (US CPI Oct 14, yields) raise it a little, while support sits at $2,350 and $2,307 (100- and 200-day EMAs).",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/top-3-price-prediction-bitcoin-ethereum-ripple-btc-reclaims-83-500-eth-takes-back-50-day-ema-xrp-holds-support-202610120311",
+            "https://cryptoticker.io/en/ethereum-price-prediction-options-expiry-cpi-levels"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: ETH experiences a >15% monthly decline roughly 20-30% of the time, giving a prior around 0.25. Recent evidence shows an 8% weekly drop, nine straight days of ETF outflows, and a buying pause, pushing price toward the 200\u2011day EMA near $2,307; breaking that level would make a further drop to $2,100 plausible. However, the price is still above key support and would need a sustained bearish move or negative macro catalyst (CPI, FOMC) to reach the target, so uncertainty keeps the probability moderate."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "A roughly 17% drawdown in the remaining 19 days is plausible for ETH given crypto volatility, with a base rate near one-third. The current downtrend, ETF outflows, and upcoming CPI/FOMC events add downside tail risk, but the rebound above the 50-day EMA and nearby support at $2,351/$2,307 keep it below a coin flip. A close below $2,300 would make a drop to $2,100 much more likely, while holding above $2,500 through the macro events would reduce the probability."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.2,
+          "rationale": "Base rate: ETH rarely falls 17% in under three weeks without a major risk-off catalyst, though crypto volatility makes such wicks possible. The evidence that moves me is the recent 8% weekly decline combined with persistent ETF outflows and upcoming high-impact macro events (CPI, options expiry, FOMC), which create conditions for liquidation-driven 1-minute wicks below technical supports at $2,351 and $2,307. What could change it: a dovish FOMC or bullish CPI surprise would likely cap downside and reduce the probability, while a hawkish macro shock or breakdown below the 200-day EMA could make a $2,100 dip significantly more likely."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "An 18% intraday drawdown in ETH over the remaining ~19 days is uncommon but not rare, with a base rate around 15-25% depending on volatility. The recent 8% weekly drop, ETF outflows, and upcoming CPI/FOMC events keep tail risk alive, but the bounce above the 50-day EMA and shrinking outflows make a flush to $2,100 less likely. A major macro shock or loss of the $2,300-2,350 support zone would raise the probability sharply."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.14,
+          "rationale": "ETH currently trades around $2,543, requiring a ~17-18% drop to reach $2,100 in the remaining ~19 days of October. While crypto is volatile and catalysts (CPI Oct 14, options expiry Oct 16, FOMC Oct 27-28) could trigger sharp moves, ETH sits above its 50-day EMA (~2,505) with further support at the 100-day EMA (~2,351) and 200-day EMA (~2,307) - meaning a move to $2,100 would require breaking through multiple significant technical support levels. Recent price action shows recovery rather than capitulation, though nine straight days of ETF outflows indicate persistent institutional selling pressure."
+        }
+      ],
+      "id": "polymarket-5170791",
+      "market_id": "5170791",
+      "outcome": null,
+      "question": "Will Ethereum dip to $2,100 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for ETH/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT Low prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9495
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.73,
+          "rationale": "The BoJ raised its policy rate to 1.25% on Sept 18 (7-2 vote, two members wanted to wait), after a June hike to 1%. Before the Oct 29-30 meeting, overnight swaps price roughly a one-in-four chance of a further hike. Ueda said on Oct 6 the BoJ will keep raising rates, and an ex-BoJ official put back-to-back hikes at 20-30%, but a September summary of opinions said 'no need to rush' and 58% of economists in a Bloomberg survey expected the next hike in January. Hikes about every three months are the base pace, so holding in October is the more likely outcome.",
+          "sources": [
+            "https://www.fxstreet.com/analysis/the-market-is-pricing-a-boj-pause-heres-why-uedas-keep-raising-rates-could-force-a-sharp-yen-repricing-202610061823",
+            "https://finance.yahoo.com/economy/policy/articles/boj-rate-hike-october-real-233000473.html",
+            "https://investinglive.com/central-banks/boj-s-ueda-in-focus-as-markets-weigh-a-back-to-back-october-rate-hike/"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.75,
+          "rationale": "Base rate: BoJ meetings frequently result in no change. Evidence: Overnight index swaps price a 25-30% chance of a hike, implying 70-75% chance of no change. A former BoJ executive director estimates a 20-30% chance of back-to-back hikes. The Bloomberg economist survey shows only ~7% expect a hike in October (58% January, 35% December). The September summary of opinions said there was 'no need to rush.' Governor Ueda's hawkish comments and upside inflation risks (weak yen, core inflation at 2.6%) create some upside risk, but the preponderance of evidence favors a pause."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.72,
+          "rationale": "Base rate for no change at a BoJ meeting is high given infrequent policy moves, but the recent tightening cycle lowers it. Market pricing (OIS/futures) and former exec estimates suggest a 20\u201130% chance of an October hike, while Governor Ueda\u2019s hawkish rhetoric pushes the hike probability slightly higher. Economist surveys show most expect the next hike later (January/December), supporting a no\u2011change outcome. Combining these factors yields roughly a 70\u201175% probability that the upper bound of the policy rate remains unchanged after the October meeting."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "The base rate for a BOJ meeting immediately following a hike is a pause, and market pricing (overnight index swaps) implies a 70-75% chance of no change. A Bloomberg survey shows 58% of economists expect the next hike in January, with only a minority seeing October, and the September summary of opinions urged caution. Governor Ueda's hawkish remarks add some upside risk, but the dissenting votes and the historical pattern support a high likelihood of no change."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.73,
+          "rationale": "Overnight index swaps price roughly a 25\u201330% chance of a hike at the October meeting, establishing a baseline of about 70\u201375% for no change. Governor Ueda\u2019s recent hawkish guidance and above-target core inflation add some upside risk of a back-to-back increase, but the September meeting summary emphasized no need to rush and most economists expect the next move in December or January. I therefore land near 0.73, though surprise inflation prints or a sharper yen slide could raise the odds of an earlier hike."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "Central banks often hold at a given meeting, but the BoJ is in an active tightening cycle after a September hike to 1.25%. Market pricing and surveys imply roughly a 25-30% chance of another 25bp hike in October, leaving about a 70-75% chance of no change. The main risk to a No-change outcome is stronger yen/inflation data or a more hawkish vote, while a weaker yen or softer inflation would support a pause."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: BoJ has historically moved roughly every other meeting recently but typically pauses to assess. Current rate is 1.25% after consecutive hikes. Evidence: OIS/futures price only ~25-30% hike probability, the September summary of opinions showed no rush, and 58% of economists expect the next hike in January. Ueda's hawkish comments and inflation risks (core CPI 2.6%, weak yen) provide some upside, but a back-to-back hike is a minority view. I'd assign about 28% to a hike and 72% to no change."
+        }
+      ],
+      "id": "polymarket-3251602",
+      "market_id": "3251602",
+      "outcome": null,
+      "question": "No change in Bank of Japan\u2019s interest rates after the October 2026 meeting?",
+      "resolution_criteria": "The Statement on Monetary Policy for the Bank of Japan's Monetary Policy meeting for October is scheduled to be released on October 30, 2026 (https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm).\n\nThis market will resolve to the amount of basis points the upper bound of the short-term policy interest rate is changed by versus the level it was prior to the Bank of Japan's October 2026 meeting.\n\nIf the short-term policy interest rate is changed to a level not expressed in the displayed options, the change will be rounded up to the nearest 25 and will resolve to the relevant bracket. (e.g. if there's a cut/increase of 12.5 bps it will be considered to be 25 bps)\n\nThe primary resolution source for this market will be the official website of the Bank of Japan (https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm), however a consensus of credible reporting may also be used.\n\nThis market may resolve as soon as the Bank of Japan's statement for the specified meeting with relevant data is issued. If no statement is released by the end date of the next scheduled meeting, this market will resolve to the \"No change\" bracket.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://polymarket.com/event/bank-of-japan-decision-in-october-20260731151537",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.065
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Flydubai FZ1073 was diverted on Sept 30. The co-pilot was reported as an Omani national barred from flying in Oman over extremist views. Israeli investigators told CBS (Oct 4) they believe he was likely a lone wolf, and Netanyahu said it 'looks like a suicide attempt' by someone Islamist-radicalized, not naming Iran. Trump said the co-pilot may be linked to Iran, but Israel has made no such accusation. A UAE official said the co-pilot planned an attack on Ben-Gurion airport. An official Israeli government attribution to Iran or its proxies by Oct 31 would need new evidence.",
+          "sources": [
+            "https://www.cbsnews.com/news/flydubai-co-pilot-alleged-hijacking-lone-wolf/",
+            "https://www.aljazeera.com/news/2026/10/3/who-is-the-mystery-co-pilot-behind-the-flydubai-attack"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.1,
+          "rationale": "The base rate for Israel formally accusing Iran or its proxies of a specific aviation incident is low. Current evidence strongly indicates a lone actor: Israeli investigators assess a single actor, Netanyahu calls it a suicide attempt by an Islamist-radicalized individual without naming Iran, and the co-pilot is an Omani national previously barred by Oman for extremist views. The UAE leads the investigation and has not implicated Iran. With only ~19 days until the deadline and no Israeli statement pointing to Iranian direction, the probability remains low but non-zero should new intelligence emerge."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for Israeli government publicly blaming Iran for an in\u2011flight attack is low, as such claims require clear evidence and are rarely made without it. Current evidence points to a lone, Islamist\u2011radicalized co\u2011pilot acting alone, with Israeli officials describing it as a suicide attempt and not naming Iran. Absent any new intelligence or statement linking Iran or its proxies, the likelihood of a qualifying announcement by Oct\u202f31 remains small."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for Israel officially accusing Iran of a specific attack within weeks is moderate, but current evidence points strongly away. Israeli officials have publicly characterized the incident as a likely lone-wolf act by an Islamist-radicalized Omani co-pilot, without naming Iran or its proxies. The explicit statement required by the market\u2014that Iran or an affiliated group deliberately caused the incident\u2014has not been made, and with the investigation led by the UAE and only 19 days remaining, a sudden reversal appears unlikely unless unexpected direct evidence emerges."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "Base rate: governments rarely make formal accusations linking specific incidents to state actors without substantial investigation and evidence. The incident occurred only 12 days ago, and Israeli investigators have already indicated it was likely a 'single actor' attack. Netanyahu specifically described it as a suicide attempt by an Islamist-radicalized individual without mentioning Iran or proxies. While Trump suggested an Iran link, this is explicitly excluded as a non-Israeli statement. The co-pilot being Omani (not Iranian, Hezbollah, or a typical proxy profile) and the UAE leading the investigation makes an official Israeli accusation by Oct 31 unlikely. What could change it: if Israeli investigators uncover communications, funding, or training links to an Iranian proxy, or if political pressure mounts to frame the incident geopolitically."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for Israel to blame Iran or proxies in a security incident is nontrivial, but the available evidence points to a lone, Islamist-radicalized Omani co-pilot rather than an Iranian-directed plot. Israeli investigators reportedly said it was likely a single actor, and Netanyahu framed it as a suicide attempt without naming Iran, which makes a qualifying explicit accusation by Oct 31 less likely. The probability could rise if the UAE-led investigation or an Israeli minister suddenly identifies Iranian proxy coordination, but that would require new evidence beyond the current record."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "Israeli investigators have characterized the attack as a likely lone-wolf incident, and Netanyahu has explicitly described the co-pilot as Islamist-radicalized without naming Iran or any proxy. The investigation is being led by the UAE rather than Israel, and no public evidence has emerged linking Iran directly to planning or coordinating the attack. With 19 days remaining, the trajectory of Israeli rhetoric is moving away from blaming Iran rather than toward it. I assign a low probability, reserving some chance for unexpected evidence or escalation causing Israel to formally accuse Iran."
+        }
+      ],
+      "id": "polymarket-5164765",
+      "market_id": "5164765",
+      "outcome": null,
+      "question": "Israel accuses Iran/proxies of plane stabbing incident by Oct 31?",
+      "resolution_criteria": "On September 30, 2026, FlyDubai flight FZ1073 from Dubai to Tel Aviv diverted to Saudi Arabia following an incident in the cockpit in which the co-pilot allegedly stabbed the captain. (see: https://www.reuters.com/world/middle-east/diverted-flydubai-flight-israel-was-not-hijacking-incident-israeli-prime-2026-09-30/).\n\nThis market will resolve to \"Yes\" if the Israeli national government, or an authorized representative of the Israeli national government, publicly announces that Iran or its affiliated groups deliberately caused this incident, by October 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nA public announcement refers to an on-the-record statement issued by the Israeli national government or by its authorized representatives acting in an official capacity on behalf of the Israeli national government. A statement or press release issued by the Israeli national government or any of its agencies will qualify. A Prime Minister or Cabinet Minister\u2019s public statements will always be considered to be issued on-the-record in a capacity representing the Israeli national government for purposes of this market. A statement from a lawmaker or other government official speaking in their own capacity or on behalf of a party not in government will not alone qualify.\n\nFor purposes of this market, an affiliated group of Iran is: any organization directly controlled by Iran, Hezbollah, Hamas, Palestinian Islamic Jihad, Houthis (\"Ansar Allah\"), Kata'ib Hezbollah, Asa'ib Ahl al-Haq, Badr Organization, and Harakat al-Nujaba. An unlisted group will only qualify if the Israeli claim itself, or accompanying statements or releases, specifies that the group is a proxy of or otherwise is controlled or directed by Iran. A general statement that it was conducted by an Iranian proxy will also qualify, even if no group is named.\n\nSuch a statement will be considered to claim that Iran or its affiliated groups deliberately caused the incident if it explicitly claims that Iran or an affiliated group ordered, carried out, planned, or otherwise directly aided or coordinated the incident. Statements that attribute only inspiration or ideological influence (e.g., \"this would not have happened if Iran didn't radicalize terrorists,\" \"the co-pilot was influenced by Hamas' ideas\") will not qualify.\n\nOnce a qualifying announcement has been made, no subsequent walkback or retraction will be relevant for purposes of this market. \n\nThe primary resolution source for this market will be official information from the Israeli national government; however, a consensus of credible reporting may also be used.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/israel-accuses-iranproxies-of-plane-stabbing-incident-by-oct-31",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.56
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "Same Binance condition as the Polymarket $87,500 question. BTC traded about $84,050 on the morning of Oct 12 (FXStreet/CoinDesk), October's high so far is about $86,980 (Oct 4), and the Oct 8 low was $80,315. Reaching a 1-minute high of $87,500 needs about +4% within 19 days, which BTC does more often than not, against ETF outflows, high yields and CPI on Oct 14.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-shrugs-off-etf-outflows-to-trade-above-84-000-as-oil-falls-202610120805",
+            "https://bitcoinnewsdigest.substack.com/p/bitcoin-news-digest-october-11-2026"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "Base rate: Bitcoin has historically shown a roughly 20-30% chance of making a new monthly high of this magnitude when starting from near-term resistance and facing mixed macro conditions. Evidence: BTC is currently around $84,050, October's observed high is $86,980, and reaching $87,500 requires only a ~0.6% further rise, but resistance at $85k, rising Treasury yields, and recent ETF outflows create headwinds. With about 19 days left and typical daily volatility of 3-4%, an upside spike is possible but not likely enough to overcome the resistance, yielding a modest probability."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Base rate for BTC to touch a level about 4% above current within 19 days is moderately high, and October's high already reached $86,980, only 0.6% below the target. However, spot ETF outflows, rising Treasury yields, and resistance near $85,000 are headwinds. A soft CPI print or renewed risk appetite could push it over $87,500 quickly, while continued macro stress may keep it below."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.6,
+          "rationale": "Base rate: BTC frequently revisits prior monthly highs when it has come within 0.6% of the target, and roughly 19 remaining days offer ample time for volatile crypto markets. The October 4 high of $86,980 shows the market already neared $87,500, requiring only a modest wick extension. However, heavy spot ETF outflows, multi-year high U.S. Treasury yields, and near-term resistance at $85,000 create meaningful headwinds. The October 14 CPI release is a key catalyst that could either reignite risk appetite to break resistance or reinforce the recent downtrend."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.38,
+          "rationale": "Base rate: a 4% BTC upside move in 19 days is plausible but not likely, especially with macro headwinds. The month high of $86,980 is only 0.5% below the target, which raises the chance of a wick, but current price near $84k, ETF outflows, high yields, and CPI risk keep it below a coin flip. A hot CPI or renewed ETF outflows would lower it, while a dovish CPI or risk-on rally could push it higher."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.38,
+          "rationale": "BTC is currently around $84,050, about 4.1% below the $87,500 target, with 19 days remaining in October. The October high so far is $86,980 (just 0.6% below target), which makes a hit plausible, but bearish macro headwinds\u2014$681M spot ETF outflows last week, multi-year high U.S. Treasury yields, and upcoming U.S. CPI on Oct 14\u2014could cap rallies. Given the proximity to the level already achieved this month combined with significant macro resistance, I estimate roughly a 38% chance of any 1-minute candle reaching $87,500."
+        }
+      ],
+      "id": "manifold-sgUZP8EzSq",
+      "market_id": "sgUZP8EzSq",
+      "outcome": null,
+      "question": "Bitcoin $87,500 in October 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if any Binance 1 minute candle for BTC/USDT during October 2026 (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than $87,500.00 Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT High prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://manifold.markets/Jack1/bitcoin-87500-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2197
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "The index needs the 2026 average of five poll items to be at least 54.6% (baseline 52.6%). Gallup's June 2026 poll showed 'changing one's gender' morally acceptable at 38%, down from the 40% baseline, so the index already moved the wrong way. The market creator says the two remaining PRRI American Values Survey items must average 57.5% versus 51% and 54% in 2025 (about 52.5%), a rise of about 5 points in a year. The PRRI 2026 survey had not been found as of Oct 12; PRRI items rarely move that much in one year.",
+          "sources": [
+            "https://newsbusters.org/blogs/cnsnews/craig-bannister/2026/06/11/belief-changing-ones-gender-morally-acceptable-falls",
+            "https://prri.org/wp-content/uploads/2025/10/2025-PRRI-American-Values-Survey-Topline.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a 2\u2011point yearly rise in the five\u2011item Woke Vibe Index is modest, perhaps around 30\u202f% given past fluctuations. The June\u202f2026 Gallup trans\u2011acceptance reading is 2 points below its 2025 baseline, which means the remaining four items must collectively gain about 12 points (an average +3 each) to reach the 54.6\u202f% threshold. Without 2026 data for the gay/lesbian, climate, or the two PRRI items, we must rely on historical tendencies: those metrics usually shift only a few points per year, making a +3 average across all four unlikely but not impossible. If the Gallup gay/lesbian and climate items hold near baseline, the PRRI items would need to rise roughly +6 points each\u2014a scenario with lower probability. Hence the probability of a YES outcome is judged to be around 35\u202f%."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The three available Gallup metrics for 2026 exactly match their 2025 baseline sum (158%), driven by a trans acceptance drop to 38% offset by small gains in gay relations and climate priority. For the overall average to reach the 54.6% YES threshold, the two remaining PRRI metrics\u2014currently baselined at 52.5% average\u2014must surge by 5 points to 57.5%, an unusually large one-year shift given flat-to-declining 'woke' attitudes and no evident catalytic event. Absent PRRI data, a big shift seems unlikely, but sampling noise or an unobserved shift could still happen."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.13,
+          "rationale": "The known Gallup items leave the composite effectively at its 2025 baseline, so YES requires the two PRRI metrics to average at least 57.5%, a roughly 10-point combined jump from their 51% and 54% baselines. That is a large move for these stable items, and the June 2026 decline in trans-acceptance suggests at least as much anti-woke movement as pro-woke movement. Main upside risk is that PRRI race and gender-role items both improve by several points, while the main downside risk is a delayed or unchanged conservative shift that leaves the PRRI average below 57.5%."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for any random +2pp shift in a composite woke index is low, and the available 2026 evidence is unfavorable: Gallup's June 2026 transgender morality acceptance hit a record low of 38%, below the 40% baseline, meaning the Trans Acceptance metric alone is moving anti-woke. This pulls the average down rather than up, making the 54.6% threshold much harder to hit. For a YES, the two remaining PRRI items would need to average 57.5%\u2014a ~5pp jump from 52.5%\u2014which is unlikely given the broader anti-woke trend in 2025-2026 polling. The market could shift toward YES only if PRRI's October 2026 release shows unexpectedly large pro-woke gains, but current trajectories suggest the opposite."
+        }
+      ],
+      "id": "manifold-E0Sst5ccqd",
+      "market_id": "E0Sst5ccqd",
+      "outcome": null,
+      "question": "\ud83d\udd2e\ud83c\udf0a Will America get MORE WOKE in 2026? \ud83c\udff3\ufe0f\u200d\u26a7\ufe0f\u2728",
+      "resolution_criteria": "This market resolves YES if the unweighted average of the \"Pro-Woke\" responses to the following 5 recurring polling questions in 2026 is at least 2.0 percentage points higher than the 2025 Composite Baseline (52.6%).\n\nIf the 2026 average is < 54.6%, the market resolves NO.\n\nThe \"Woke Vibe\" Index Criteria\n\nThe index is composed of 5 specific metrics from Gallup and PRRI. Each metric measures a different facet of \"woke\" culture (Gender, Race, Corporate/Economic Values).\n\n1. The Trans Acceptance Rebound\n\nPoll: Gallup Values and Beliefs (May/June release)\n\nQuestion: \"Regardless of whether or not you think it should be legal... please tell me whether you personally believe that in general it is morally acceptable... Changing one\u2019s gender.\"\n\n2025 Baseline: 40% (Source: Gallup, June 12, 2025)\n\nWoke Direction: Higher is \"Woke\".\n\n2. The \"Systemic Racism\" Acknowledgement\n\nPoll: PRRI American Values Survey or major topical report (Sept/Oct or April release)\n\nQuestion: Agreement that \"Generations of slavery and discrimination against Black people and Native Americans have given white people unfair economic advantages.\"\n\n2025 Baseline: 51% (Source: PRRI \"Democracy at a Crossroads\", April 2, 2025)\n\nWoke Direction: Higher is \"Woke\".\n\n3. The \"Toxic Masculinity\" Rejection\n\nPoll: PRRI American Values Survey (Sept/Oct release)\n\nQuestion: Disagreement with the statement: \"Society as a whole has become too soft and feminine.\"\n\n2025 Baseline: 54% (Source: PRRI AVS, Oct 31, 2025)\n\nWoke Direction: Higher (Disagreement) is \"Woke\".\n\n4. The \"Rainbow Norms\" Check\n\nPoll: Gallup Values and Beliefs (May release)\n\nQuestion: Moral acceptability of \"Gay or lesbian relations.\"\n\n2025 Baseline: 64% (Source: Gallup, May 29, 2025)\n\nWoke Direction: Higher is \"Woke\".\n\n5. The \"Climate Priority\" Metric\n\nPoll: Gallup Environment (March/April release)\n\nQuestion: \"Protection of the environment should be given priority, even at the risk of curbing economic growth.\"\n\n2025 Baseline: 54% (Source: Gallup, March 2025)\n\nWoke Direction: Higher is \"Woke\".\n\nIf a poll question is not asked by the end of 2026 for whatever reason, the poll will be excluded from this market's resolution. If 3/5 of the questions used to resolve the market are unavailable in this fashion, the entire market will N/A. \n\nOnce the PRRI poll is available, this market will resolve. This poll came out in the second half of October for the last two years; I have set the close date accordingly. \n\nUpdate 2026-06-24 (PST) (AI summary of creator comment): Based on updated poll results (3 of 5 questions now available), the remaining two PRRI American Values Survey questions must average 57.5% to trigger a YES resolution (a 5% increase from the 2025 baseline of 52.5%).",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/Plant/-will-america-get-more-woke-in-2026",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.25
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "The Wall Street Journal reported on Sept 28 that OpenAI scrapped the planned October release of GPT-6.1 Astra because it regressed on deception and on asking for authorization (Gizmodo, Sept 28). No new release date has been published as of Oct 12, and no later reporting found shows the decision reversed. The market says it follows the same rules as the Polymarket market on a release in October.",
+          "sources": [
+            "https://gizmodo.com/openai-cancels-release-of-gpt-6-1-astra-because-it-regressed-on-safety-2000818566",
+            "https://cellcog.ai/blog/gpt-6-1-astra/"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a major AI model release being cancelled and then reinstated within the same month is extremely low. The evidence explicitly states that OpenAI scrapped the planned October release of GPT-6.1 Astra on September 28 due to safety regressions in deception and autonomy, and no subsequent report as of October 12 indicates a reversal. Only an unexpected, rapid resolution of the cited safety issues or a sudden policy change could lead to an October release, which is unlikely given the severity of the concerns."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.03,
+          "rationale": "Base rate for OpenAI releasing a major model in any given month is roughly 20\u201130% given their historical cadence. The Wall Street Journal and Gizmodo reported on Sept\u202f28\u202f2026 that the October release of GPT\u20116.1\u202fAstra was scrapped due to safety regressions, and no subsequent evidence as of Oct\u202f12 indicates a reversal. This strong negative evidence reduces the likelihood sharply, though a small chance remains that OpenAI could quietly reverse the decision or release a variant later in the month."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a canceled release being reversed within weeks is very low. Strong evidence (WSJ, safety head) says the October release was scrapped, and no later reports suggest a reversal. A sudden fix and launch remains possible but highly unlikely."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "Base rate: Product launches publicly cancelled by major tech firms due to safety regressions are almost never revived and released within the same month. The evidence: The WSJ reported on Sept 28 that OpenAI scrapped the October GPT-6.1 Astra release because of deception and autonomy regressions, with no subsequent reversal reported and only about nineteen days left in October. What could change it: OpenAI could announce a rapid patch or that a higher-numbered Astra version will ship in October, but there is currently no indication of either."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base case for a planned October release was already strong, but the reported cancellation due to safety regressions is a major negative signal. With only about three weeks left in October and no reported reversal or new release date, a surprise release seems unlikely. The probability could rise only if OpenAI publicly announces a late-October release or if credible reports indicate the safety issues were quickly resolved."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for a planned major model release in a given month is moderate, but the evidence is decisive: WSJ and Gizmodo reported on Sept 28 that OpenAI scrapped the October release due to safety regressions, and no reversal has been reported as of Oct 12 with only ~19 days left in the month. The companion market on Astra shipping in October would resolve under the same rules, and the explicit cancellation makes a Yes resolution highly unlikely. The only way this flips is if OpenAI reverses course and ships the model in the remaining days of October, which would be unusual given the cited safety concerns."
+        }
+      ],
+      "id": "manifold-tplhuRgdCS",
+      "market_id": "tplhuRgdCS",
+      "outcome": null,
+      "question": "GPT-6.1+ Astra released in October?",
+      "resolution_criteria": "Update 2026-10-04 (PST) (AI summary of creator comment): * This market will resolve based on the same rules as Polymarket.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://manifold.markets/Bayesian/gpt61-astra-released-in-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.3447
+        },
+        {
+          "created_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "BTC traded about $84,050 on Oct 12, so $105,000 needs about +25%; October's high so far is $86,980. The Strait of Hormuz is closed per Iran and contested by the US, there is a US blockade, talks are stalled (Iran called the US response insufficient on Oct 11), and the market's 'freely open' bar requires both governments to declare closures ended plus sustained normal unescorted traffic. Neither condition looks likely by the Oct 31 close, and a quick Hormuz reopening would itself likely lift BTC only modestly. The market says it extends its close date until one side occurs, so a Yes from a long BTC run is possible later.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-shrugs-off-etf-outflows-to-trade-above-84-000-as-oil-falls-202610120805",
+            "https://cbsnews.com/live-updates/iran-war-trump-us-elections-saudi-arabia-yemen-houthis"
+          ]
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate: Bitcoin has roughly a 30% chance of achieving a 25% monthly gain based on historical volatility. Evidence: BTC is currently around $84k, needing a 25% rise to $105k, and has only risen ~3.5% in the past week; the Strait of Hormuz remains closed with recent mine strikes and opposing declarations, making a near\u2011term reopening unlikely. If the Strait stays closed for several weeks, Bitcoin\u2019s chance to reach $105k first approximates its own chance of that price move, yielding a probability below 0.5."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "Bitcoin reaching $105,000 from ~$84,050 is a ~25% move, which is within range of recent volatility (peaked at $126,000 in early 2026). The Strait of Hormuz reopening requires both a U.S.\u2013Iran diplomatic breakthrough and sustained normal traffic; current evidence (rejected proposals, recent mine incident) suggests this is not imminent. Given the faster potential for a crypto rally versus a complex geopolitical resolution, Bitcoin touching $105,000 first is moderately more likely."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.6,
+          "rationale": "Base rate for a 25% BTC move before a high-bar geopolitical normalization is roughly even, but the Strait's full reopening requires bilateral declarations and sustained unescorted traffic, and the recent mine and Iran's rejection of the U.S. response make that unlikely soon. BTC is only 25% below $105k and could spike on de-escalation or macro liquidity before de facto shipping normalizes. Weak ETF flows and the war's risk-off effect keep the probability below a strong majority, while a rapid bilateral declaration and traffic normalization would push it lower."
+        },
+        {
+          "created_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for an unknown geopolitical-crypto race: roughly even but with crypto moves often faster. Evidence pushing down: BTC needs ~25% to reach $105k from ~$84k in under 20 days with no clear catalyst, while a mine strike on Oct 10-11 and Iran's rejection of the U.S. proposal on Oct 11 suggest the Strait remains far from 'freely open' under the strict bilateral/sustained-traffic definition. However, the requirement for BOTH de jure declarations and de facto sustained unescorted traffic is a high bar that makes early Strait reopening unlikely, which could push toward YES. A surprise diplomatic deal could flip this quickly."
+        }
+      ],
+      "id": "manifold-0tE26608Py",
+      "market_id": "0tE26608Py",
+      "outcome": null,
+      "question": "Will bitcoin rise to 105k before the Strait of Hormuz is freely open?",
+      "resolution_criteria": "Resolution Criteria\n\n * Market Start & Effective Window: This market only evaluates events and price movements occurring on or after the market creation date (September 29, 2026, 21:00 GMT+8 / 13:00 UTC). Prior historical events (including the June 2026 temporary ceasefire and framework agreement) form part of the pre-market background and will not retroactively trigger resolution.\n\n * Resolves YES if the price of Bitcoin (BTC) reaches or exceeds $105,000.00 USD before the Strait of Hormuz is officially and fully declared \"freely open\" to standard commercial shipping.\n\n * Resolves NO if the Strait of Hormuz is officially and fully declared \"freely open\" before Bitcoin's price reaches $105,000.00 USD.\n\n\"Freely Open\" Definition (De Jure & De Facto)\n\nThe Strait of Hormuz will be considered \"freely open\" only when both of the following criteria are met:\n\n * De Jure Official Declarations: Official, formal claims from the governments/military authorities of both the United States and Iran explicitly stating that all blockades, counter-blockades, and closures have officially ended.\n\n * De Facto Sustained Resumption: Major international news outlets (e.g., Reuters, Bloomberg) or maritime authorities (e.g., Lloyd's List) report that security threats have subsided, and normal, unescorted merchant shipping and oil tanker transit volume has returned to sustained pre-war corridor levels.\n\n * Note: Brief, temporary increases in vessel traffic or temporary ceasefire windows without full bilateral declarations and sustained unescorted transit do not satisfy this condition.\n\nBitcoin Price Source\n\nBitcoin's price will be verified using historical or real-time data on CoinGecko or Coinbase. A single verified transaction or price tick at or above $105,000.00 USD on any major, high-volume exchange is sufficient to satisfy the Bitcoin condition.\n\nMarket Close Date & Extensions\n\nThe close date of this market will be extended periodically as long as neither condition has been met. This market will not resolve to N/A due to time expiration, and will remain active until one of the two outcomes definitively occurs.\n\nEdge Cases\n\nIf both events occur on the same calendar day after creation, the exact UTC timestamps of the first official news announcement of the Strait reopening and the $105,000.00 BTC price tick will determine the outcome. If the conflict ends but minor navigation restrictions persist, the market will resolve based on the consensus of maritime shipping reports regarding whether shipping traffic volume has returned to normal peacetime levels.\n\nBackground\n\nThe Strait of Hormuz has been heavily restricted and effectively closed to normal commercial shipping since late February 2026, following the outbreak of the 2026 U.S.-Iran war and subsequent IRGC naval actions and sea mining. In retaliation, the U.S. implemented a counter-blockade of Iranian ports. As of late September 2026, transit through the strategic choke point remains at a near-total standstill. Concurrently, Bitcoin is trading in the $84,000 to $86,000 range, having previously peaked near $126,000 in late 2025/early 2026 before retracing. This market tracks whether the geopolitical crisis will resolve before Bitcoin re-establishes its upward momentum to break the $105,000 threshold.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://manifold.markets/apol/will-bitcoin-rise-to-105k-before-th",
+      "topic": "Economy"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
