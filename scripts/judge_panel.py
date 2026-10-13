@@ -35,6 +35,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
+from forecastlab.cursor_research import CONFIG_FILE as RESEARCH_CONFIG  # noqa: E402
+from forecastlab.cursor_research import load_settings  # noqa: E402
 from forecastlab.judge_panel import (  # noqa: E402
     Budget,
     Member,
@@ -84,7 +86,8 @@ def load_questions(directory: Path) -> list[PanelQuestion]:
             raise SystemExit(f"{directory.name}/{qid}: the brief mentions a prediction market or odds")
     research_path = directory / RESEARCH_FILE  # optional: the source documents fetched for the briefs
     fetched = json.loads(research_path.read_text())["sources"] if research_path.exists() else {}
-    sources = {qid: excerpts([Source(**s) for s in items]) for qid, items in fetched.items()}
+    sources = {qid: excerpts([Source(title=s["title"], url=s["url"], published=s["published"], text=s["text"])
+                              for s in items]) for qid, items in fetched.items()}
     questions = []
     if is_cohort(directory):
         for entry in json.loads((directory / "questions.json").read_text()):
@@ -150,9 +153,18 @@ def write_forecasts(directory: Path, config: PanelConfig, attempts: list[dict[st
     _write(path, data)
 
 
+def check_independent(config: PanelConfig) -> None:
+    """No judge may come from the model family that did the research (configs/research.json)."""
+    family = load_settings(ROOT / RESEARCH_CONFIG).model_family
+    clash = [m.model for m in config.members if family in m.model.lower()]
+    if clash:
+        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {family} (configs/research.json)")
+
+
 def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], now: datetime | None = None,
         config: PanelConfig | None = None, artifacts: Path = ROOT / "artifacts") -> dict[str, Any]:
     config = config or load_config(CONFIG)
+    check_independent(config)
     now = as_utc(now or utcnow())
     budget = Budget(config.daily_budget_usd, spent_on(artifacts, now.date().isoformat()))
     summary: dict[str, Any] = {"asked": 0, "answered": 0, "skipped_budget": 0, "spent_before_usd": round(budget.spent, 4)}

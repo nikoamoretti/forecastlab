@@ -1,0 +1,12 @@
+{
+  "mode": "dry_run",
+  "provider": "cursor",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "parallel": 3,
+  "timeout_s": 240,
+  "daily_run_cap": 120,
+  "weekly_run_cap": 1000,
+  "window_utc": [9, 15],
+  "base_branch": "grok/forecastlab-mvp"
+}
