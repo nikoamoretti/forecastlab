@@ -1,0 +1,102 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-01T04:00:00Z",
+      "id": "polymarket-5170822",
+      "market_url": "https://polymarket.com/event/what-price-will-xrp-hit-in-october-2026",
+      "question": "Will XRP reach $1.80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT High prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-5180413",
+      "market_url": "https://polymarket.com/event/largest-company-end-of-october-2026",
+      "question": "Will NVIDIA be the largest company in the world by market cap on October 31, 2026?",
+      "resolution_criteria": "This market will resolve to the largest company in the world by market cap on October 31, 2026, as of market close.\n\nThe resolution source for this market will be a consensus of credible reporting.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-5476380",
+      "market_url": "https://polymarket.com/event/us-imports-russian-diesel-by-october-31",
+      "question": "US imports Russian diesel by October 31?",
+      "resolution_criteria": "On October 9, 2026, Donald Trump announced an agreement with Vladimir Putin to import Russian diesel fuel, and the United States Treasury issued General License 135 authorizing the importation of Russian-origin diesel fuel into the United States through April 7, 2027 (see: https://truthsocial.com/@realDonaldTrump/posts/117412435306815143 & https://ofac.treasury.gov/recent-actions/20261009_33).\n\nThis market will resolve to \u201cYes\u201d if Russian diesel fuel is imported to the United States between market creation and October 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nRussian diesel fuel refers to diesel fuel of Russian production origin.\n\nImported to the United States refers to the diesel fuel being physically delivered to a United States port or into the terrestrial territory of the United States for commercial or government use within the United States. Diesel fuel carried as a vessel\u2019s own fuel, held in bond for re-export, or passing through the United States in transit to another country will not qualify.\n\nTo qualify, the import must either be described by a consensus of credible reporting as having been made under the agreement announced on October 9, 2026 (or any amended or successor arrangement between the governments of the United States and Russia), or be authorized under General License 135 (or any amended or successor authorization permitting the importation of Russian-origin diesel fuel).\n\nThe primary resolution source for this market will be a consensus of credible reporting.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-3667937",
+      "market_url": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt",
+      "question": "Will the next Google Gemini Pro model be released by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if Google's next Gemini Pro model is made available to the general public between market creation and the specified date (ET). Otherwise, this market will resolve to \u201cNo\u201d.\n\nAny Gemini model released after market creation and labeled as \"Pro\" may qualify (e.g., gemini-3.2-pro, gemini-3.5-pro, or gemini-4.0-pro-preview). Gemini models labeled only as Flash, Flash-Lite, or another non-Pro variant will not qualify.\n\nProducts labeled as a GA promotion of an already-existing Preview model (e.g., gemini-3.1-pro-ga) may qualify\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must be either clearly defined and publicly announced by Google as being accessible to the general public or otherwise made publicly accessible and explicitly labeled within the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Google, with additional verification from a consensus of credible reporting.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-10-16T03:59:00Z",
+      "id": "polymarket-5183416",
+      "market_url": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
+      "question": "Israel military action against Lebanon on October 15?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-11-01T04:00:00Z",
+      "id": "polymarket-5170807",
+      "market_url": "https://polymarket.com/event/what-price-will-solana-hit-in-october-2026",
+      "question": "Will Solana dip to $80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for SOL/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the SOL/USDT Low prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-10-30T03:59:00Z",
+      "id": "polymarket-3247818",
+      "market_url": "https://polymarket.com/event/us-gdp-growth-in-q3-2026-20260730144539767",
+      "question": "Will US GDP growth in Q3 2026 be greater than 3.0%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted and annualized GDP \"Advance Estimate\" release for Q3 of 2026, scheduled for October 29, 2026.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nThe GDP release will be made available here: https://www.bea.gov/data/gdp/gross-domestic-product\n\nNote: data in the first available GDP report is labelled by the BEA as an \"Advance Estimate\". The data found in the advance estimate will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the release of the advance estimate will not be considered for this market's resolution.\n\nIf the advance estimate is not released, this market will resolve based on the first officially published figure for real GDP for the specified quarter (e.g., the \u2018second\u2019 or \u2018third\u2019 estimate, etc.), as reported by the BEA. If no official estimate is released by the date the next quarter's advanced estimate is scheduled to be published, this market will resolve based on the most recent previous figure released by the BEA.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-10-26T03:59:00Z",
+      "id": "polymarket-5340071",
+      "market_url": "https://polymarket.com/event/brazil-presidential-election-second-round-margin-of-victory",
+      "question": "Will Fl\u00e1vio Bolsonaro win the second round of the 2026 Brazilian presidential election by less than 4%?",
+      "resolution_criteria": "The second round of the presidential election is scheduled to take place in Brazil on October 25, 2026.\n\nThis market will resolve according to the margin of victory between the top two candidates in the second round of the next Brazil Presidential Election.\n\nFor the purpose of this market, the \u201cmargin of victory\u201d is defined as the absolute difference between the percentages of valid votes received by the first- and second-place candidates. Percentages of the valid votes received by each candidate will be determined by dividing the total number of valid votes each of the top two candidates receives by the sum of all valid votes cast in the election.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf a candidate other than Fl\u00e1vio Bolsonaro or Luiz In\u00e1cio Lula da Silva receives the most valid votes in the second round, or if the top two candidates receive exactly the same number of valid votes, this market will resolve to \"Other\".\n\nThis market will resolve based on the official vote count once the vote count has been made official.\n\nIf a recount is initiated before the vote total has been made official, the market will remain open until the recount is completed and the vote is made official.\n\nIf the result of this election isn't known definitively by June 30, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Brazilian government, specifically the Superior Electoral Court (Tribunal Superior Eleitoral, TSE) (e.g., https://dadosabertos.tse.jus.br/).",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-02T23:59:00Z",
+      "id": "manifold-QRL0Uygyg0",
+      "market_url": "https://manifold.markets/Balasar/diesel-export-ban-before-midterms",
+      "question": "Diesel export ban before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if the United States federal government enacts a ban or embargo on the export of diesel fuel (distillate fuel oil) from the U.S. at any point before the U.S. midterm elections on November 3, 2026. Otherwise, this market will resolve to NO.\n\nTo qualify:\n\nThe action must be federal, implemented via an executive order, a federal agency action (e.g., from the Department of Energy or the Bureau of Industry and Security), or federal legislation signed into law. State-level proposals, actions, or non-binding resolutions do not qualify.\n\nThe policy must legally prohibit or comprehensively restrict the export of U.S. diesel fuel to foreign markets (temporary bans or short-term emergency embargoes qualify, but narrow, non-binding guidelines or routine administrative export licensing adjustments do not).\n\nThe ban must be officially announced and scheduled to take effect or be in effect prior to November 3, 2026.\n\nCredible financial and political news sources\u2014such as Bloomberg, Reuters, or The Wall Street Journal\u2014will be used to verify the outcomes.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-02T23:59:00Z",
+      "id": "manifold-0ppnynEdpg",
+      "market_url": "https://manifold.markets/SaiVazquez/elsayed-comdemn-or-disavow-hasan-pi",
+      "question": "El-Sayed comdemn or disavow Hasan Piker before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if, at any point before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026), Dr. Abdul El-Sayed or his official campaign issues an explicit public statement that condemns, disavows, or formally distances his campaign from Twitch streamer Hasan Piker.\n\nFor a YES resolution, the statement must meet the following criteria:\n\nMust be before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026)\n\nMust be published by a credible news organization, via an official campaign press release, or through El-Sayed\u2019s official verified social media channels.\n\nMust feature El-Sayed (or his campaign) explicitly condemning, or disavowing Piker, or explicitly stating regret or an apology for holding joint campaign events with him.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-30T23:59:00Z",
+      "id": "manifold-qLNSsQUZyN",
+      "market_url": "https://manifold.markets/Simon74fe/will-anthropics-ipo-s1-be-public-by-EspZI2PuCc",
+      "question": "Will Anthropic\u2019s IPO Form S-1 be public by 31 October 2026?",
+      "resolution_criteria": "Resolves YES if a Form S-1 or S-1/A for Anthropic\u2019s proposed IPO is publicly accessible on SEC EDGAR by 23:59 ET on 31 October 2026. Publication of earlier confidential drafts (DRS) alone doesn\u2019t count. Leaks and press reports don\u2019t count. A filing that is later withdrawn  counts.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-02T23:59:00Z",
+      "id": "manifold-IUgtSpszNS",
+      "market_url": "https://manifold.markets/xixi/will-trump-declare-a-national-emerg-qphcUqSlZZ",
+      "question": "Will Trump declare a national emergency before the midterms?",
+      "resolution_criteria": "Shadow strategist Bannon seems to believe so. \n\nResolution criteria\n\nThis market resolves to YES if Donald Trump, in his capacity as President of the United States, officially declares a new national emergency under the National Emergencies Act (50 U.S.C. 1601 et seq.) on or before November 3, 2026 (11:59 PM EST).\n\nSource of Truth: The declaration must be officially published as a Presidential Proclamation or Executive Order on the Federal Register (federalregister.gov) or the official White House website (whitehouse.gov).\n\nExclusions: This market requires a newly declared national emergency. The continuation, extension, or modification of existing national emergencies (such as the January 2025 emergency regarding energy and critical minerals) will not qualify.\n\nIf no qualifying new national emergency is officially declared by the deadline, the market resolves to NO.\n\nBackground\n\nIn July and August 2026, key allies of Donald Trump\u2014including former White House strategist Steve Bannon and media host Wayne Allyn Root\u2014publicly urged the President to declare a national security emergency to assert federal control over the upcoming 2026 midterm elections. Proponents of this move suggest it could be used to implement voting restrictions, such as strict photo ID and citizenship requirements, or station ICE agents at polling places.\n\nLegal scholars and critics have heavily disputed the legality of such an action, noting that the U.S. Constitution explicitly grants individual states and Congress\u2014not the executive branch\u2014the authority to administer federal elections. Trump himself has publicly declined to rule out the idea, stating in an August 2026 interview that \"stranger things have happened\" when asked about declaring an election-related emergency.\n\nUpdate 2026-08-22 (PST) (AI summary of creator comment): To resolve to YES, any newly declared national emergency must have the effect of disrupting the midterms.\n\nRoutine declarations (such as foreign sanctions) will not qualify unless they disrupt the midterms.\n\nThe mechanism of disruption matters less than the declaration itself.\n\nUpdate 2026-08-23 (PST) (AI summary of creator comment): * The market's subtext (disrupting or asserting control over the midterms) governs the resolution criteria.\n\nRoutine trade or foreign sanctions (such as Cuba- or Venezuela-style sanctions) will not qualify for a YES resolution.\n\nUpdate 2026-08-24 (PST) (AI summary of creator comment): - A qualifying declaration must have the practical effect of disrupting or asserting federal authority over the midterms, regardless of its stated basis (such as using foreign interference as a pretext).\n\nRoutine foreign sanctions or trade declarations do not qualify.\n\nFinal resolution is subject to creator judgment.",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-10-13T10:54:44.534467+00:00",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
