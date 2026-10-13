@@ -1,22 +1,21 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds zero-cost forecasts every weekday. The research runs in the owner's Claude Code session. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac, not in Claude's session. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
 1. **Merge yesterday's run.** Merge any open `claude/daily-forecasts-*` pull request whose CI is green.
 2. **Prepare questions.** Run `python scripts/daily_forecasts.py prepare`. It applies the current fast selection rule, `fast_fred_question_selection_v3` (at most one jobless claims question and one week-ahead 10-year yield question, thresholds at the latest observed value, none for an indicator that still has an unreleased question) and skips targets already in any artifact. It writes `artifacts/prospective_daily_<date>/` with the statistical baseline's forecasts and `questions.json`. If there is nothing new, skip to step 4.
-3. **Fetch the sources, then forecast.** Before forecasting any question set (this one, the market set in step 5 and the asked set in step 4), get the source documents:
-   - Write `research_queries.json` in the directory: `{"queries": {"<question id>": ["query", ...]}}`, with 3–5 targeted queries per question. Aim at primary sources: the official release, filing, statement, data series or schedule that decides the question, then the latest reporting on it. Queries must not look for odds or prediction markets.
-   - Run `python scripts/research_pack.py run <dir> ...` (it needs `TAVILY_API_KEY`; from a locked-down container use the **research** step below). It writes `research.json` with up to 8 sources per question and the full page text, after dropping prediction-market sites and any sentence that mentions one.
-   - Read each question's sources in full before forecasting, and search further where they leave a gap.
+3. **Read the research, then forecast.** The research is not done in Claude's session and costs no Claude tokens. A LaunchAgent on the owner's Mac (`scripts/mac_research.sh`, see [CURSOR_RESEARCH.md](CURSOR_RESEARCH.md)) runs cursor-agent on a non-Claude model for every new question and pushes `research.json`; the **download** step then fetches every cited page and checks the quotes. Before forecasting any question set:
+   - Check that `research.json` is on the daily branch. If it is not there by 15:00 UTC, **skip the day**: forecast nothing, run no judges, and say so in one line. The questions stay and are researched on the next day with research. Never fall back to searching the web.
+   - Run `python scripts/cursor_research.py digest <dir> ...` and read each question's evidence: dated facts with their source, the base rate and the open unknowns. Skip any question the digest says has no research (research failed for it), and the same for one where `research.json` lists it under `failed`.
+   - Do not search the web. Forecast from the digest alone.
 
-   Claude then forecasts every question in `questions.json`.
-   - Start with the base rate: the baseline probability and the recent history.
-   - Then look for news: consensus forecasts, recent releases, market moves.
-   - Use web search, but only information published before now.
+   Claude then forecasts every researched question in `questions.json`.
+   - Start with the base rate in the digest: the reference class and counts, then the baseline probability and recent history.
+   - Adjust only for evidence in the digest, and prefer sources whose quotes were checked.
    - Keep probabilities coherent across nested thresholds and within [0.02, 0.98].
-   - Write a 2–4 sentence rationale for each forecast, with dated source URLs.
+   - Write a 2–4 sentence rationale for each forecast, with dated source URLs from the digest.
 4. **Answer the owner's questions.** The owner asks questions on the app's **Ask a question** page. With `FORECASTLAB_PASSPHRASE` set to the owner passphrase, `python scripts/question_requests.py waiting` lists the waiting ones.
    - For each, write a precise resolution rule: what counts as yes, the resolution date, and the source that will decide it. Then forecast it as in step 3, with a short topic such as "Tech" or "Interest rates".
    - Save the answers as `{"forecast_made_at", "answers": [{"id", "question", "topic", "resolution_criteria", "resolution_date", "resolution_source", "probability", "rationale", "sources"}]}` and run `python scripts/question_requests.py record <file>`. The ids must be the request ids.
@@ -33,14 +32,15 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
    - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.
    - `market_snapshot.json` holds that price. Don't open it before recording.
-   - Search summaries sometimes quote odds anyway. Add `-polymarket -kalshi -manifold -odds` to searches about a market question. If odds still appear, don't use them, and disclose it in that forecast's `integrity_note`. The note is shown on the question's page.
+   - The research tasks name no market, and answers that cite a market site or odds are cleaned before they are saved. If odds still appear in the digest, don't use them, and disclose it in that forecast's `integrity_note`. The note is shown on the question's page.
    - Save `{"forecast_made_at", "forecasts": [{"id", "probability", "rationale", "sources"}]}`. Then run `python scripts/market_questions.py record <dir> <file>`.
 6. **Record the step 3 forecasts.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
 7. **Judge panel.** Write `briefs.json` in each directory that got new questions today: the daily set, the market set and the asked set.
    - The format is `{"written_at", "briefs": {"<question id>": "<brief>"}}`.
-   - A brief is 8–15 sentences built from the documents in `research.json` and any further searches: the dated facts that decide the question, each with its source; the base rate and how it was worked out; and what would change the answer. Prefer the primary source over a write-up of it.
+   - A brief is 8–15 sentences built from the digest: the dated facts that decide the question, each with its source; the base rate and how it was worked out; and what would change the answer. Prefer the primary source over a write-up of it.
    - The judges also read excerpts of the `research.json` sources, so a brief need not restate them word for word.
    - It contains no probability, no lean and no market odds.
+   - Judges never come from the research model's family (`configs/research.json`); `judge_panel.py` refuses to run if one does.
    - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
 8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
@@ -60,8 +60,9 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 
 A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, may have lost the OpenRouter key when its container was recycled, and cannot dispatch workflows through the Claude GitHub App. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to `claude/daily-forecasts-<date>`:
 
-- **prepare** (steps 2 and 5) runs on a weekday schedule at 10:05 UTC. It creates the branch from `grok/forecastlab-mvp` and runs both `prepare` commands.
-- **research** (step 3's source fetch) runs `research_pack.py` on the listed directories, each with `research_queries.json`, and commits `research.json`.
+- **prepare** (steps 2 and 5) creates the branch from `grok/forecastlab-mvp` if needed and runs both `prepare` commands. It has no schedule: the Mac research job asks for it, and so does the routine if the Mac has not.
+- **download** (step 3) runs `research_download.py` on the listed directories after the Mac job pushes `research.json`: it downloads each cited page, checks the quotes against it and keeps the page text around them.
+- **research** is retired (Tavily search through `research_pack.py`); it is kept only for hand runs.
 - **finish** (steps 7 and 8) runs the judge panel on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
 
-To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "research", "dirs": ["artifacts/prospective_markets_<date>"]}` or the same with `"finish"`. The workflow removes the file when it is done. The order is prepare, then research (after writing `research_queries.json`), then finish. Between steps, `git pull` the branch, read the sources, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.
+To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "finish", "dirs": ["artifacts/prospective_markets_<date>"]}`. The workflow removes the file when it is done. The order is prepare, research (on the Mac), download, then finish. Between steps, `git pull` the branch, read the digests, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.
