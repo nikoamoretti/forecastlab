@@ -20,6 +20,6 @@ Research for the daily forecasts is done by `cursor-agent` on the owner's Mac, o
 
 ## Setup on the Mac
 
-The job needs `cursor-agent` signed in, `git` with push access to `nikoamoretti/forecastlab`, and `uv` or Python 3.9+ on the LaunchAgent's `PATH`. The job uses its own clone at `~/.forecastlab/repo` (set `FORECASTLAB_REPO` to change it) and a scratch worktree at `~/.forecastlab/work`.
+The job needs `cursor-agent` signed in, `git` with push access to `nikoamoretti/forecastlab`, and Python 3.9+ (`python3`) on the LaunchAgent's `PATH`. The job uses its own clone at `~/.forecastlab/repo` (set `FORECASTLAB_REPO` to change it) and a scratch worktree at `~/.forecastlab/work`.
 
 Hand test of three questions, nothing pushed: `scripts/mac_research.sh --dry-run --branch claude/daily-forecasts-<date>-dryrun`.

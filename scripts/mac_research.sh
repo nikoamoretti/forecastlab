@@ -12,9 +12,7 @@
   cd "$REPO"
   git fetch -q origin "$BASE"
   git checkout -q --detach "origin/$BASE"
-  if command -v uv >/dev/null; then
-    exec uv run --frozen --quiet python scripts/cursor_research.py daily "$@"
-  fi
+  # The job uses only the standard library (Python 3.9 or later), so it needs no virtualenv.
   exec python3 scripts/cursor_research.py daily "$@"
   exit
 }
