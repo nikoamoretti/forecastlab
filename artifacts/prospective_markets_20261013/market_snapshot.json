@@ -1,0 +1,89 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-5170822",
+      "market_id": "5170822",
+      "method": "market_price_v1",
+      "volume": 25699.745293000004,
+      "yes_price": 0.07
+    },
+    {
+      "id": "polymarket-5180413",
+      "market_id": "5180413",
+      "method": "market_price_v1",
+      "volume": 74366.67437300002,
+      "yes_price": 0.9155
+    },
+    {
+      "id": "polymarket-5476380",
+      "market_id": "5476380",
+      "method": "market_price_v1",
+      "volume": 178840.31207800002,
+      "yes_price": 0.225
+    },
+    {
+      "id": "polymarket-3667937",
+      "market_id": "3667937",
+      "method": "market_price_v1",
+      "volume": 164605.11736900007,
+      "yes_price": 0.115
+    },
+    {
+      "id": "polymarket-5183416",
+      "market_id": "5183416",
+      "method": "market_price_v1",
+      "volume": 62060.274786999995,
+      "yes_price": 0.835
+    },
+    {
+      "id": "polymarket-5170807",
+      "market_id": "5170807",
+      "method": "market_price_v1",
+      "volume": 23686.754417999997,
+      "yes_price": 0.076
+    },
+    {
+      "id": "polymarket-3247818",
+      "market_id": "3247818",
+      "method": "market_price_v1",
+      "volume": 40604.65476,
+      "yes_price": 0.665
+    },
+    {
+      "id": "polymarket-5340071",
+      "market_id": "5340071",
+      "method": "market_price_v1",
+      "volume": 165087.80332799998,
+      "yes_price": 0.28
+    },
+    {
+      "id": "manifold-QRL0Uygyg0",
+      "market_id": "QRL0Uygyg0",
+      "method": "manifold_price_v1",
+      "volume": 6621.960283006197,
+      "yes_price": 0.062
+    },
+    {
+      "id": "manifold-0ppnynEdpg",
+      "market_id": "0ppnynEdpg",
+      "method": "manifold_price_v1",
+      "volume": 23077.048794212104,
+      "yes_price": 0.1953
+    },
+    {
+      "id": "manifold-qLNSsQUZyN",
+      "market_id": "qLNSsQUZyN",
+      "method": "manifold_price_v1",
+      "volume": 5729.381105349328,
+      "yes_price": 0.4143
+    },
+    {
+      "id": "manifold-IUgtSpszNS",
+      "market_id": "IUgtSpszNS",
+      "method": "manifold_price_v1",
+      "volume": 10690.28035851467,
+      "yes_price": 0.22
+    }
+  ],
+  "taken_at": "2026-10-13T10:54:44.534467+00:00"
+}

@@ -1,0 +1,729 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.07
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "XRP traded about $1.40 on Mon Oct 12 (FXStreet), sitting on its 50-day EMA after drifting down from about $1.50 in early October, with RSI near 45 and a negative MACD. $1.80 needs a 28% rise on a Binance 1-minute high within 19 days. At XRP's roughly 60-70% annualized volatility that is about 1.7 standard deviations for a touch, a few percent to 8% before adjusting for weak momentum and ETF-flow-driven crypto headwinds.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/ripple-price-forecast-xrp-defends-50-day-ema-as-standard-chartered-launches-rlusd-custody-202610121230",
+            "https://www.fxstreet.com/cryptocurrencies/news/ripple-price-forecast-xrp-gathers-strength-around-150-after-43-returns-in-q3-202610061230"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "Base rate for a 20-28% intramonth surge in a major cryptocurrency like XRP is roughly 25-30% over an 18-day window. Current technicals are mixed: XRP sits at its 50-day EMA ($1.40) with RSI near 45 and negative MACD, suggesting limited near-term momentum, but 13 consecutive weeks of spot ETF inflows provide fundamental support. The 1-minute high condition only requires a momentary spike, which is more likely than a sustained close above $1.80. A positive catalyst (e.g., regulatory news, Ripple partnership) could trigger a sharp rally, while continued broad crypto weakness (BTC ~$80k) caps upside."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Base rate: XRP has shown a >28% monthly upside roughly 15% of the time over the past year, reflecting its typical volatility. Current evidence places XRP near its 50\u2011day EMA with RSI around 45, a negative MACD, and spot ETF inflows failing to lift price while Bitcoin\u2019s weakness drags the broader market down, suggesting limited upward momentum. These factors reduce the likelihood of a sharp spike to $1.80 in the remaining ~18 days, though a sudden positive catalyst could raise the chance."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a large intra-month rally in a major altcoin is low, and XRP is currently around $1.40, needing a ~28% surge to $1.80 in 18 days. The evidence shows weakening momentum (RSI 45, negative MACD), a broader crypto market under pressure, and XRP already down from $1.50 earlier in October. Persistent ETF inflows provide some support, but the required spike is unlikely without a strong positive catalyst, which is not present."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "Base rate for a ~28% XRP rally in about 18 days is modest but non-negligible given crypto volatility. Current evidence points to weakening momentum\u2014price slipping from $1.50, negative MACD, and broad crypto pressure\u2014though persistent ETF inflows provide underlying demand. Reaching $1.80 would likely require a broad market reversal or an unexpected idiosyncratic catalyst. The 1-minute candle resolution means a brief wick could suffice, adding a small tail-risk premium."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "A 28% move from $1.40 to $1.80 in about 18 days is well within XRP's historical volatility range, but the current setup is weak: price is near the 50-day EMA, RSI/MACD are negative, and BTC has been under pressure. Sustained ETF inflows and institutional custody news provide a bullish tail, but a broad crypto rally would be needed to push a 1-minute high to $1.80."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "XRP needs ~28% upside in 18 days from ~$1.40 with weakening technicals (RSI ~45, negative MACD) and broader crypto market under pressure (BTC ~$80,300). Base rate for a 28% monthly rally under these conditions is low (~10-15%), but supportive fundamentals (13 straight weeks of ETF inflows, RLUSD custody launch, prior 43% Q3 gains) and XRP's historical tendency for sharp moves warrant a modest uplift. The probability could rise meaningfully on a broader crypto rally or break above key EMAs."
+        }
+      ],
+      "id": "polymarket-5170822",
+      "market_id": "5170822",
+      "outcome": null,
+      "question": "Will XRP reach $1.80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT High prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-xrp-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9155
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Nvidia's market cap is about $5.5 trillion in mid-October 2026 against about $4.3 trillion for Alphabet, the nearest rival cited, a gap of roughly 25-28%. Overturning that in 18 days would take a large relative move, since the two stocks would need a 25%+ relative swing. The remaining risk is a sharp Nvidia drawdown, a data or definition dispute (consensus of credible reporting) or an Apple or Microsoft surge.",
+          "sources": [
+            "https://simplywall.st/stocks/us/semiconductors/nasdaq-nvda/nvidia/news/elite-undervalued-stocks-to-watch-in-october-2026",
+            "https://explore.nemo.money/en/stocks/compare/nvidia-vs-alphabet"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.88,
+          "rationale": "NVIDIA currently leads Alphabet by approximately $1.2 trillion (28%), a gap that would require an extremely large relative move in just 18 trading days. Historical mega-cap daily volatility of 1-2% implies an 18-day relative move of 28% is a 3.5-7 standard deviation event, making a lead change highly unlikely absent catastrophic NVIDIA-specific news or transformative Alphabet catalysts. The base rate favors the current leader given the short horizon and massive gap, though the contested ranking earlier in 2026 shows the race can be volatile over longer periods."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.03,
+          "rationale": "Base rate: the title of world's largest company by market cap changes infrequently over short periods, with historical half\u2011month change probabilities around 5%. Evidence: Nvidia currently leads Alphabet by roughly $1.2\u202ftrillion (about 22% of Nvidia's value), a sizable gap that would require a large, coordinated move in just 18 days. While regulatory shifts, earnings surprises, or a sudden AI\u2011sentiment reversal could narrow or reverse the gap, such a move would need to exceed typical volatility, making overtake unlikely but not impossible."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.9,
+          "rationale": "The base rate for the current market-cap leader with 18 days left is fairly high. Nvidia's reported $5.5T market cap gives it roughly a 28% lead over Alphabet at $4.3T, meaning Alphabet or another mega-cap would need an unusually large relative move in under three weeks to overtake it. Alphabet earnings or an AI-linked Nvidia selloff could narrow the gap, but a full reversal by October 31 remains unlikely."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.9,
+          "rationale": "With a roughly $1.2 trillion (28%) market-cap lead over Alphabet and only about 18 days until resolution, the base rate strongly favors Nvidia retaining the top spot. Although rankings were contested in May 2026, Nvidia has since extended its advantage to a level that would require an extreme, historically rare relative swing to reverse. The most plausible path to a 'No' would be a major simultaneous catalyst\u2014such as Alphabet surging on earnings while Nvidia plunges on adverse news\u2014but no such decisive event is indicated in the evidence."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.88,
+          "rationale": "The base rate favors the current market-cap leader, and Nvidia's reported $5.46-5.53 trillion valuation gives it a roughly $1.2 trillion cushion over Alphabet. That gap would require a large relative move in 18 days, such as a major AI-sector selloff, a strong Alphabet earnings pop, or a broad macro shock. Those risks are real but not likely enough to make the outcome close."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "NVIDIA leads by roughly $1.2T (about 28% of Alphabet's value) with 18 trading days remaining. Base rate for a company with this lead to remain #1 over a few weeks is moderately favorable. The evidence of a 28% gap is meaningful but not insurmountable\u2014either a ~15% NVIDIA drop or a ~15% Alphabet rally (or combination) could flip the ranking. What moves the probability up from a coin flip is the substantial cushion and NVIDIA's entrenched market position; what keeps it from being higher is the demonstrated contestability (Alphabet closed in by May 2026) and normal volatility over 18 trading days."
+        }
+      ],
+      "id": "polymarket-5180413",
+      "market_id": "5180413",
+      "outcome": null,
+      "question": "Will NVIDIA be the largest company in the world by market cap on October 31, 2026?",
+      "resolution_criteria": "This market will resolve to the largest company in the world by market cap on October 31, 2026, as of market close.\n\nThe resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/largest-company-end-of-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.225
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "OFAC General License 135 (Oct 9) authorizes Russian-origin diesel imports into the US through April 7, 2027, covering cargoes loaded on tankers as of Oct 9, and Russia partially lifted its diesel export ban on Oct 10 (500,000 tons). Vessel-tracking reports (Vortexa, Windward, VesselFinder, via NV and UNN, Oct 10-11) show the Greek tanker MINERVA ZEN, which left St. Petersburg Sept 22 with about 280,000 barrels of diesel/gasoil, arriving at the US East Coast (Wilmington, NC) around Oct 11-13, which would be a Russian-origin import authorized under the license well before Oct 31. Risks: the single-cargo evidence is OSINT-based, the cargo may be gasoil or discharged elsewhere, and resolution needs consensus credible reporting.",
+          "sources": [
+            "https://english.nv.ua/business/russian-diesel-tanker-heads-toward-u-s-as-analysts-question-moscow-s-export-capacity-50648976.html",
+            "https://unn.ua/en/news/the-first-russian-diesel-shipment-arrived-on-the-us-east-coast-osint-analysts",
+            "https://kyivindependent.com/russia-partially-lifts-ban-on-diesel-exports-after-trump-putin-deal/",
+            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.65,
+          "rationale": "Base rate for US imports of Russian diesel is near zero due to sanctions, but the October 9 General License 135 and Russia's partial export ban lift create a new pathway. A specific tanker (MINERVA ZEN) carrying ~280,000 barrels of Russian diesel is reported en route to Wilmington, NC with an ETA of October 11-13, which would allow physical delivery before the October 31 deadline. However, the vessel-tracking reports are OSINT-only and unconfirmed; EU/UK sanctions and the $100/bbl price cap pose significant compliance hurdles for the Greek-flagged vessel; Russian output is down ~30%; and US political opposition could prompt license reversal. Confirmation of actual offloading would raise probability sharply, while diversion or legal challenges would lower it."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.84,
+          "rationale": "The base rate of US importing Russian diesel under current sanctions is very low (\u22485%). The October 9 Trump\u2011Putin agreement and OFAC General License 135 create a specific legal pathway, and OSINT tracking shows a tanker loaded in September already en route to the US East Coast with an expected arrival around October 11\u201113. These factors strongly increase the likelihood of an import before the October 31 cutoff. However, potential obstacles such as EU/UK sanctions, the $100 price cap, reduced Russian output, and political opposition could delay or block the shipment, keeping the probability short of certainty."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "Base rate for Russian diesel imports to the US in a three-week window would be very low, but the Oct 9 agreement, OFAC General License 135, and Russia's partial export ban lift create a clear authorization pathway. A specific tanker, MINERVA ZEN, was tracked carrying Russian-origin diesel/gasoil with a US East Coast ETA of Oct 11-13, making physical delivery by Oct 31 highly likely. The main uncertainty is that the vessel-tracking reports are OSINT-based and not yet independently confirmed by major outlets, and discharge could still face logistical or political obstacles."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.75,
+          "rationale": "Base rate: US imports of Russian diesel have been effectively zero under prior sanctions. The evidence: the US Treasury issued General License 135 explicitly authorizing imports through April 2027, Russia partially lifted its export ban, and OSINT vessel tracking places a Greek tanker with suspected Russian diesel near the US East Coast with an ETA around today, making physical delivery by Oct 31 plausible. However, the tracking data are unconfirmed, the cargo was loaded before the license date which may complicate authorization, and political or logistical obstacles could still delay or divert the shipment."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "The base rate for a newly licensed, politically announced import deal materializing within three weeks is high, especially with OFAC General License 135 and Russia\u2019s partial export-ban lift. The strongest evidence is the OSINT vessel-tracking report that a tanker with Russian diesel/gasoil is already approaching the US East Coast with an ETA around Oct 11-13, which would likely produce credible reporting by Oct 31 if confirmed. The main uncertainty is that the shipment is not yet independently confirmed, may have been loaded before the license/agreement, or could be delayed, diverted, or fail to meet the consensus-reporting standard."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.8,
+          "rationale": "The legal framework is in place (General License 135), Russia has partially lifted its diesel export ban, and most importantly, the MINERVA ZEN is reportedly already en route from St. Petersburg to the US East Coast with an ETA of Oct 11-13, suggesting Russian diesel may already be arriving or about to arrive. Obstacles include EU/UK sanctions complications, the $100 price cap, reduced Russian output (~30% down), and US lawmaker opposition that could cause port or political delays. The base rate for a specific shipment reaching port within 18 days is moderate-to-high given active transit, but OSINT reports remain unconfirmed and last-minute complications are possible."
+        }
+      ],
+      "id": "polymarket-5476380",
+      "market_id": "5476380",
+      "outcome": null,
+      "question": "US imports Russian diesel by October 31?",
+      "resolution_criteria": "On October 9, 2026, Donald Trump announced an agreement with Vladimir Putin to import Russian diesel fuel, and the United States Treasury issued General License 135 authorizing the importation of Russian-origin diesel fuel into the United States through April 7, 2027 (see: https://truthsocial.com/@realDonaldTrump/posts/117412435306815143 & https://ofac.treasury.gov/recent-actions/20261009_33).\n\nThis market will resolve to \u201cYes\u201d if Russian diesel fuel is imported to the United States between market creation and October 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nRussian diesel fuel refers to diesel fuel of Russian production origin.\n\nImported to the United States refers to the diesel fuel being physically delivered to a United States port or into the terrestrial territory of the United States for commercial or government use within the United States. Diesel fuel carried as a vessel\u2019s own fuel, held in bond for re-export, or passing through the United States in transit to another country will not qualify.\n\nTo qualify, the import must either be described by a consensus of credible reporting as having been made under the agreement announced on October 9, 2026 (or any amended or successor arrangement between the governments of the United States and Russia), or be authorized under General License 135 (or any amended or successor authorization permitting the importation of Russian-origin diesel fuel).\n\nThe primary resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/us-imports-russian-diesel-by-october-31",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.115
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "Google promised Gemini 3.5 Pro for June 2026 and has not shipped it; the Gemini Pro page still says coming soon and it is not in the API model list (page checked Oct 3). SemiAnalysis reported it quietly dropped and Google said in September it had stepped back to focus on Flash models. On Sept 30 Google announced Gemini 4 Argon, but only to a trusted cyber-defender program and with no Pro label or public date as of Oct 11, so it would not clearly qualify. A qualifying Pro-labeled public release in the 18 days left is unlikely but possible.",
+          "sources": [
+            "https://aiwiz.uk/blog/gemini-3-5-pro/",
+            "https://felloai.com/all-we-know-about-google-gemini-4/"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for Google model releases is moderate (~6-12 month cycles), but specific evidence is decisively negative: Gemini 3.5 Pro was announced for June 2026, reported months behind in July, quietly dropped in August, and Google explicitly stepped back from Pro to focus on Flash in September. The only new model (Gemini 4 Argon, announced Sept 30) is limited to trusted cyber defenders with no Pro label or public access timeline. With only 18 days until the deadline and no public Pro model in sight, a release would require an unprecedented reversal and immediate public launch."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Historically Google has released a new Gemini Pro model roughly every 8\u201112 months, giving a base rate of about 20\u201125% for a release in the next ~1.5 months. However, the evidence shows Gemini 3.5 Pro was announced months ago, remains unavailable, has been reported as delayed and possibly dropped, and Google leadership indicated a shift focus to Flash models. The only recent announcement (Gemini 4 Argon) is limited to a trusted program and lacks a Pro label. These factors substantially lower the likelihood of a public Pro release by Oct 31."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a major AI model release within an 18-day window is low, and the evidence strongly suggests Google has deprioritized or canceled Gemini 3.5 Pro, with no new Pro model announced. The only recent release is Gemini 4 Argon, which is not Pro-labeled and is limited to a closed program, making a public Pro launch by October 31 highly unlikely. Only an unexpected, last-minute public announcement of a new Pro model would change this assessment."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a major model release in an 18-day window with no prior public announcement is very low. Evidence indicates Google deprioritized Gemini 3.5 Pro and the recently announced Gemini 4 Argon has no Pro variant or public release date as of October 11. The only plausible path to resolution is a surprise launch, but current official signals make this highly unlikely."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a major Pro model shipping within 18 days is modest, but the evidence is strongly negative: Gemini 3.5 Pro was delayed, reportedly dropped, and Google says it is focusing on Flash. The only newer Gemini 4 item is Argon, which is not Pro-labeled and is restricted, so a qualifying public Pro release would require a surprise rebrand or new launch. A last-minute public Pro announcement or API listing would be the main way this resolves Yes."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.07,
+          "rationale": "The evidence strongly suggests no Gemini Pro model will be publicly released by October 31, 2026. Google explicitly stepped back from Gemini 3.5 Pro in September to focus on Flash, and Gemini 4 Argon (announced Sept 30) is restricted to trusted cyber defenders with no Pro label. With only 18 days remaining and no indication of an imminent public Pro release, the base rate is very low. The only upside scenario would be a sudden surprise announcement, but current signals point firmly against this."
+        }
+      ],
+      "id": "polymarket-3667937",
+      "market_id": "3667937",
+      "outcome": null,
+      "question": "Will the next Google Gemini Pro model be released by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if Google's next Gemini Pro model is made available to the general public between market creation and the specified date (ET). Otherwise, this market will resolve to \u201cNo\u201d.\n\nAny Gemini model released after market creation and labeled as \"Pro\" may qualify (e.g., gemini-3.2-pro, gemini-3.5-pro, or gemini-4.0-pro-preview). Gemini models labeled only as Flash, Flash-Lite, or another non-Pro variant will not qualify.\n\nProducts labeled as a GA promotion of an already-existing Preview model (e.g., gemini-3.1-pro-ga) may qualify\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must be either clearly defined and publicly announced by Google as being accessible to the general public or otherwise made publicly accessible and explicitly labeled within the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Google, with additional verification from a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
+          "sources": [
+            "https://www.profilenews.com/en/october-12-2026-daily-report/",
+            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
+            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate of Israeli qualifying strikes on any given day is low, but recent evidence shows a pattern of continued air strikes despite a June truce, including confirmed warplane strikes on Oct\u202f12. This ongoing activity raises the likelihood of another strike on Oct\u202f15, though the truce and possible diplomatic pressure could suppress action, keeping probability below certainty."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for Israeli military action on any given day is elevated due to the ongoing, though reduced, conflict since the June 2026 truce. The evidence brief shows near-daily attacks in August and recent strikes on October 11-12, including air strikes that would qualify. Given the pattern of frequent qualifying actions, it is more likely than not that at least one such strike occurs on October 15, but the possibility of a lull or only non-qualifying actions (like artillery) keeps the probability from being higher."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Base rate of qualifying Israeli strikes fell after the June truce but remained non-zero, with warplane strikes confirmed on Oct 12. This recent activity and ongoing southern border violence make an Oct 15 air or missile strike plausible, though the compressed one-day window and truce framework mean a quiet day remains slightly more likely. The probability would shift lower if Oct 13-14 show no further air operations, or higher if diplomatic talks collapse or Hezbollah provocations escalate."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate is elevated because Israeli air operations have continued despite the truce, with near-daily attacks reported in August and a specific Oct 12 report of Israeli warplanes striking villages in southern Lebanon. The main uncertainty is whether the frequency has declined enough since June that a qualifying air or missile strike may not occur on Oct 15. New reports of strikes or confirmed interception failures on Oct 13-15 would move this sharply."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.8,
+          "rationale": "Despite a June 2026 Israel-Hezbollah truce, Israeli attacks on Lebanon have continued at a high rate, described as 'near-daily attacks' in August, with recent reports on Oct 12 specifically mentioning Israeli warplane strikes on Kfar Tibnit and Wadi al-Hujair (qualifying air strikes). This consistent pattern of air strikes against Lebanese territory strongly suggests a qualifying military action is likely on Oct 15. The base rate for any specific day in this ongoing low-intensity conflict pattern is high, though the truce may cause some day-to-day variability."
+        }
+      ],
+      "id": "polymarket-5183416",
+      "market_id": "5183416",
+      "outcome": null,
+      "question": "Israel military action against Lebanon on October 15?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
+      "resolution_date": "2026-10-16",
+      "resolution_source": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.076
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "SOL traded about $107.9 on Tue Oct 13, having reclaimed its 50-day EMA ($107.49), with the 100-day EMA at $99.34, 200-day at $97.18 and horizontal support near $96. $80 is about 26% below spot on a Binance 1-minute low within 18 days. At roughly 70% annualized volatility that is about 1.9 standard deviations for a touch. Spot SOL ETFs have six straight days of small outflows, but there is no sign of an imminent break of the $96 support.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/solana-price-forecast-sol-reclaims-50-day-ema-amid-tokenization-expansion-202610130751"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "Base rate for a 26% drop in 18 days is low but non-trivial for crypto; SOL at $108 has trendline support at $84.82 and an earlier floor at $77.07, making $80 a plausible but not inevitable target. Bearish signals (MACD negative, RSI 42 with room to fall, ETF outflows, BTC weakness) are offset by the 50-day EMA reclaim and new Hong Kong ETF listing. A break below the $84.82 trendline would sharply increase odds, while a bounce from current levels would lower them."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: SOL experiences a \u226526% monthly decline in roughly 20-30% of months given its historical volatility. Current price is $107.9 with nearby support at $96.19 (horizontal) and a rising trendline at $84.82; breaking that trendline would be needed to reach $80, and the earlier floor at $77.07 suggests $80 is above a known low. Technical indicators show mixed signals: price reclaimed the 50\u2011day EMA (bullish) but MACD is below zero and RSI is neutral, while SOL ETFs saw small outflows and BTC weakened to $80k, adding downside pressure. Considering these factors, the chance of a 1\u2011minute low hitting $80 sometime in the remaining 18 days of October is moderate, estimated at about 30%."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a ~26% drop in 18 days is low, especially with SOL currently above key EMAs and horizontal support. While bearish momentum (RSI 42, MACD below zero) and ETF outflows exist, a drop to $80 would require breaking below the rising trendline near $84.82 and the $77 floor, which is unlikely without a major catalyst. A sharp BTC decline or unexpected negative news could change this, but current evidence doesn't support a high probability."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.28,
+          "rationale": "Base rate for SOL dropping roughly 26% in an 18-day window is moderate given typical crypto volatility, but multiple technical supports cluster between $96 and $99, and the reclaimed 50-day EMA suggests near-term strength. Bearish momentum from MACD below zero, persistent small ETF outflows, and recent BTC weakness add downside risk, while the rising trendline near $84.82 and earlier floor at $77.07 show a viable path to $80 if those supports fail. The probability would rise sharply on a break below $96 or a broader crypto selloff, and fall if SOL holds above $105."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.16,
+          "rationale": "Base rate for a 26% SOL drawdown in the remaining ~18 days is low-to-moderate, perhaps 10-20%, and 1-minute lows make a brief touch more likely than a daily close. The evidence against a crash is that SOL is above its 200-day EMA, just reclaimed the 50-day, and ETF outflows are small, while the evidence for it is weak MACD/RSI, BTC weakness, and key support at $96/$84.8 that would need to fail. A major BTC/macro shock or accelerated ETF outflows would push this higher; continued trend strength would push it lower."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "Starting from a base rate of ~15-20% for a 26% drop in ~18 days in crypto, I adjust upward slightly given bearish signals: MACD below zero, RSI near 42, six consecutive days of US spot SOL ETF outflows, and BTC recently hitting $80,300. However, major supports at $96.19 (horizontal), $84.82 (rising trendline), and $77.07 (earlier floor) suggest a $80 dip would require breaking through these levels, with the trendline at ~$85 acting as a nearby buffer. The probability could rise if BTC breaks lower or ETF outflows accelerate, but the proximity of the $84.82 trendline limits the likelihood of a clean $80 touch without a broader market flush."
+        }
+      ],
+      "id": "polymarket-5170807",
+      "market_id": "5170807",
+      "outcome": null,
+      "question": "Will Solana dip to $80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for SOL/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the SOL/USDT Low prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-solana-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.665
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "The Atlanta Fed GDPNow estimate for Q3 2026 was 3.7% on Oct 6 and 3.6% on Oct 8, down from an initial 5.0% in late September; inventories contribute about 2 points of it, net exports subtract about 2.7 points, and consumption is running at 3.4%. The Philadelphia Fed SPF (Aug 14) was lower at 2.5%. With the advance estimate due Oct 29, GDPNow at this stage has a typical error of about 1.5 points and inventory-heavy readings tend to revise toward consensus, so >3.0% is a bit better than even.",
+          "sources": [
+            "https://fedpolicy.org/releases/2026-10-06/gdpnow-2026-q3-oct-6/",
+            "https://investinglive.com/news/atlanta-fed-gdpnow-q3-tracker-3-6-vs-3-7-prior",
+            "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/spf-q3-2026"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for quarterly annualized GDP growth exceeding 3% is roughly 40-45%. The Atlanta Fed GDPNow nowcast stands at 3.6% as of October 8, which, given a typical forecast error of about 0.8 percentage points at this horizon, implies a ~75% chance of exceeding 3%. However, the nowcast has fallen steadily from 5.0% in late September, and the large, volatile contributions from inventories (+1.98 points) and investment (+21.5%) increase the risk of downward revisions as more source data arrive. The older SPF median forecast of 2.5% also suggests some downside risk. Balancing these factors yields a probability of about 65%."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.6,
+          "rationale": "Historically, US quarterly real GDP growth exceeds 3% about 35% of the time (base rate). The Atlanta Fed GDPNow estimate for Q3 2026 has been trending downward from 5.0% to 3.6% but remains above the 3.0% threshold, while the Philadelphia Fed Survey of Professional Forecasters projects a lower 2.5% growth. The mixed signals suggest a moderate chance above 3%, leading to an estimated probability of roughly 60%."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for US GDP growth exceeding 3.0% in any given quarter is low (around 10-15% historically), but the GDPNow tracker consistently estimates Q3 2026 growth well above 3.0%, with latest readings around 3.6%. While the Survey of Professional Forecasters is lower at 2.5%, the GDPNow model has been reasonably accurate historically, and the strength in investment and consumption suggests a significant probability of exceeding 3.0%. However, GDPNow is known to converge toward the advance estimate over time, so further downward revisions before October 29 could lower the probability."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for a US quarterly GDP print above 3.0% is moderate, but the latest GDPNow of 3.6% is the strongest signal and puts the advance estimate above the threshold. The main uncertainty is that GDPNow can be noisy, especially with large swings in investment, inventories, and net exports, while the Philadelphia Fed survey is lower at 2.5%. A final print would need to fall more than 0.6 points below the current nowcast to resolve No, which is plausible but not likely."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "The Atlanta Fed GDPNow estimate, currently at 3.6% (down from an initial 5.0%), is above the 3.0% threshold, providing a positive signal. However, the Philadelphia Fed SPF professional forecasters' median of 2.5% is below 3.0%, and GDPNow has been trending downward. GDPNow is a reasonable but imperfect predictor, and with ~16 days until the advance estimate, the nowcast could shift further. The competing signals\u2014GDPNow above 3.0% vs. SPF below and a declining trend\u2014leave the outcome genuinely uncertain, with a slight lean toward above 3.0%."
+        }
+      ],
+      "id": "polymarket-3247818",
+      "market_id": "3247818",
+      "outcome": null,
+      "question": "Will US GDP growth in Q3 2026 be greater than 3.0%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted and annualized GDP \"Advance Estimate\" release for Q3 of 2026, scheduled for October 29, 2026.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nThe GDP release will be made available here: https://www.bea.gov/data/gdp/gross-domestic-product\n\nNote: data in the first available GDP report is labelled by the BEA as an \"Advance Estimate\". The data found in the advance estimate will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the release of the advance estimate will not be considered for this market's resolution.\n\nIf the advance estimate is not released, this market will resolve based on the first officially published figure for real GDP for the specified quarter (e.g., the \u2018second\u2019 or \u2018third\u2019 estimate, etc.), as reported by the BEA. If no official estimate is released by the date the next quarter's advanced estimate is scheduled to be published, this market will resolve based on the most recent previous figure released by the BEA.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://polymarket.com/event/us-gdp-growth-in-q3-2026-20260730144539767",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.28
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "The Oct 25 runoff is Lula against Flavio Bolsonaro after Flavio led the Oct 4 first round 47.03% to 45.16% of valid votes. Post-first-round runoff polls favor Flavio on valid votes: AtlasIntel Oct 9 (52.8-47.2), Datafolha Oct 8 (52-48) and Ipespe Oct 10 (52.7-47.3), a lead of 4 to 5.6 points. Treating the final margin as roughly Flavio +5 with a polling error near 5 points, the chance that Flavio wins by under 4 is about a quarter; a Lula win or a Flavio win by 4+ resolves No.",
+          "sources": [
+            "https://www.riotimesonline.com/brazil-election-poll-tracker-2026/"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.32,
+          "rationale": "Base rate: Brazilian presidential runoffs since 1989 have had margins under 4% in about half of elections (1989, 1994, 1998, 2002, 2006, 2010, 2014, 2018, 2022). Current runoff polls (AtlasIntel, Datafolha, Ipespe) show Fl\u00e1vio Bolsonaro leading by 4\u20135.6 points (average ~52.5% vs 47.5%). Assuming a normal polling error of ~2 percentage points, the probability Fl\u00e1vio's true vote share falls between 50% (win) and 52% (margin <4%) is roughly 30%. This could increase if polls tighten in the final two weeks or decrease if Fl\u00e1vio's lead solidifies."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.24,
+          "rationale": "Base rate from recent Brazilian runoffs shows margins under 4% in about half of cases when the winner is the incumbent or challenger, but the historical split is uneven. Current polling averages Fl\u00e1vio Bolsonaro around 52.8% of valid votes, implying a margin of roughly 5.6%; to win by less than 4% he would need between 50% and 52% of the vote. Assuming poll uncertainty of \u00b12\u20133 points, the probability his true share falls in that 2\u2011point window is roughly 20\u201130%. Adjusting for the small chance of an upset or a third\u2011party surge, the overall probability is about 24%."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The base case is a close runoff, but post-first-round polls show Fl\u00e1vio leading by roughly 4 to 5.6 points, with Datafolha at exactly 4 and the others higher. That makes a sub-4-point Fl\u00e1vio win plausible but not the central outcome, especially since polling error and late movement could push the margin either way. I estimate about a one-third chance the true valid-vote margin lands below 4 points while still favoring Fl\u00e1vio."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Three major runoff polls show Flavio leading Lula by margins of 4.4-5.5 points, all above the 4% threshold required for a Yes resolution. While the election is competitive and a Lula win or a tighter Flavio win are plausible, the polling consensus currently suggests a margin at or above 4 points, making Yes slightly less likely than No. A late shift toward Lula, lower turnout among Flavio's base, or polling error could push the margin under 4%."
+        }
+      ],
+      "id": "polymarket-5340071",
+      "market_id": "5340071",
+      "outcome": null,
+      "question": "Will Fl\u00e1vio Bolsonaro win the second round of the 2026 Brazilian presidential election by less than 4%?",
+      "resolution_criteria": "The second round of the presidential election is scheduled to take place in Brazil on October 25, 2026.\n\nThis market will resolve according to the margin of victory between the top two candidates in the second round of the next Brazil Presidential Election.\n\nFor the purpose of this market, the \u201cmargin of victory\u201d is defined as the absolute difference between the percentages of valid votes received by the first- and second-place candidates. Percentages of the valid votes received by each candidate will be determined by dividing the total number of valid votes each of the top two candidates receives by the sum of all valid votes cast in the election.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf a candidate other than Fl\u00e1vio Bolsonaro or Luiz In\u00e1cio Lula da Silva receives the most valid votes in the second round, or if the top two candidates receive exactly the same number of valid votes, this market will resolve to \"Other\".\n\nThis market will resolve based on the official vote count once the vote count has been made official.\n\nIf a recount is initiated before the vote total has been made official, the market will remain open until the recount is completed and the vote is made official.\n\nIf the result of this election isn't known definitively by June 30, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Brazilian government, specifically the Superior Electoral Court (Tribunal Superior Eleitoral, TSE) (e.g., https://dadosabertos.tse.jus.br/).",
+      "resolution_date": "2026-10-26",
+      "resolution_source": "https://polymarket.com/event/brazil-presidential-election-second-round-margin-of-victory",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.062
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Trump said on Sept 22 he was looking very seriously at a diesel export ban with diesel at a record $6.52, and Treasury said it was examining one. The White House then denied on Sept 23 that it was preparing a ban, and Energy Secretary Wright said nobody was considering a flat ban because it could raise gasoline and jet prices; the oil industry opposes it. On Oct 9 the administration took the opposite tack, licensing Russian diesel imports through April 2027. A federal export ban announced by Nov 3 is possible only if prices spike again.",
+          "sources": [
+            "https://oilprice.com/Energy/Energy-General/White-House-Rules-Out-Diesel-Export-Ban-as-Prices-Surge-Above-650.html",
+            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for a US diesel export ban is near zero historically. The White House explicitly denied considering a ban on Sept 23, with Energy Secretary Wright citing adverse price effects on gasoline and jet fuel, and the administration instead licensed Russian diesel imports on Oct 9 as its chosen price-relief measure. With only ~3 weeks until the midterms, reversing course to announce and implement a ban would be politically and policy-inconsistent. Only a sudden, severe supply crisis could change this, but current evidence points decisively to NO."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a federal diesel export ban in the U.S. is very low, as such measures are rare and typically only considered during severe supply crises. Although Trump and some officials expressed serious consideration in late September, the White House explicitly denied pursuing a ban on September 23 and instead opted to license Russian diesel imports through April 2027 to ease prices, indicating a policy direction opposite to a ban. With the midterms only a few weeks away and no credible signs of an imminent ban, the probability remains low, though a sudden price spike or political shift could modestly raise it."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "US diesel export bans are historically rare, and the White House explicitly denied considering one in late September, while the Energy Secretary warned it could raise gasoline and jet fuel prices. The administration has instead licensed Russian diesel imports to ease prices before the midterms, indicating a chosen alternative. Only a sharp reversal and emergency action before Nov 3 would make this Yes, so I assign a low but non-zero probability."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for U.S. diesel export bans is near zero, as they are historically rare and opposed by the petroleum industry. The White House explicitly denied considering a ban after Trump floated it, Energy Secretary Wright warned it could raise gasoline and jet fuel prices, and the administration instead licensed Russian diesel imports on Oct. 9 as its chosen pre-midterm price relief. With only about three weeks until the election, the window for a dramatic policy reversal is narrow, though an unexpected surge in diesel prices could theoretically revive the proposal."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a sudden federal diesel export ban is very low, and the White House explicitly denied considering one on Sept 23. The Oct 9 decision to license Russian diesel imports is a concrete alternative that reduces the political need for an export embargo. A late Trump reversal remains possible if prices stay high before the midterms, but current evidence points to no ban."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.1,
+          "rationale": "The base rate for a sudden major policy reversal in the final ~21 days before an election is low. The White House explicitly denied considering a diesel export ban on Sept 23, Energy Secretary Wright warned it would spike gasoline and jet fuel prices, and the API opposed it. Critically, on Oct 9 the administration chose an alternative solution\u2014licensing Russian diesel imports through April 2027\u2014signaling its preferred approach to easing prices. However, diesel remains at $6.28/gal, keeping political pressure elevated, so a last-minute reversal cannot be entirely ruled out."
+        }
+      ],
+      "id": "manifold-QRL0Uygyg0",
+      "market_id": "QRL0Uygyg0",
+      "outcome": null,
+      "question": "Diesel export ban before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if the United States federal government enacts a ban or embargo on the export of diesel fuel (distillate fuel oil) from the U.S. at any point before the U.S. midterm elections on November 3, 2026. Otherwise, this market will resolve to NO.\n\nTo qualify:\n\nThe action must be federal, implemented via an executive order, a federal agency action (e.g., from the Department of Energy or the Bureau of Industry and Security), or federal legislation signed into law. State-level proposals, actions, or non-binding resolutions do not qualify.\n\nThe policy must legally prohibit or comprehensively restrict the export of U.S. diesel fuel to foreign markets (temporary bans or short-term emergency embargoes qualify, but narrow, non-binding guidelines or routine administrative export licensing adjustments do not).\n\nThe ban must be officially announced and scheduled to take effect or be in effect prior to November 3, 2026.\n\nCredible financial and political news sources\u2014such as Bloomberg, Reuters, or The Wall Street Journal\u2014will be used to verify the outcomes.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/Balasar/diesel-export-ban-before-midterms",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1953
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "El-Sayed is the Democratic nominee in a toss-up Michigan Senate race against Mike Rogers, leading by 1-7 points in six recent polls (InsiderAdvantage Oct 9-10: 48-46). He has repeatedly appeared with Hasan Piker, including a final primary event on Aug 3, and when asked on Oct 12 dismissed the line of questioning as silly rather than distancing himself. An explicit condemnation or disavowal would cost him the base in a close race, so it is unlikely before Nov 3 unless a new Piker controversy forces it.",
+          "sources": [
+            "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776",
+            "https://www.detroitnews.com/story/news/politics/2026/08/03/abdul-el-sayed-hasan-piker-michigan-senate-campaign-haley-stevens/91150258007/"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.28,
+          "rationale": "Base rate for candidates in tight races disavowing controversial figures in final weeks is moderate (~30%), but El-Sayed has consistently dismissed Piker questions since August without disavowing, suggesting a strategic choice to avoid alienating progressive voters. The Toss-Up race and pressure from Jewish leaders/Democrats create incentive, but with only 3 weeks left and a slight polling lead, a reversal would risk appearing calculating and depressing youth turnout. A major new Piker controversy or polling shift could trigger a statement, but current trajectory favors maintaining the 'dismiss as silly' stance."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for candidates issuing explicit disavowals of controversial supporters before an election is roughly 30%. El\u2011Sayed has so far dismissed concerns about Hasan Piker without disavowing him, showing reluctance, but ongoing criticism from Jewish leaders and Michigan Democrats could create pressure. His current lead in the polls reduces the incentive to take a risky move, lowering the likelihood somewhat."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for a candidate explicitly disavowing a controversial former associate mid-campaign is low, as it risks alienating supporters. El-Sayed has consistently dismissed calls to condemn Piker, most recently on Oct 12, and with the election only three weeks away, he likely calculates that a disavowal would do more harm than good in a tight race. However, if external pressure from Jewish leaders or Democratic officials intensifies, he might still issue a statement, so the probability is not negligible."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "Candidates rarely explicitly condemn a progressive ally who helped them win a primary unless a major new scandal forces their hand. El-Sayed dismissed Piker-related questions as 'silly' on October 12 and has resisted months of pressure from Michigan Democrats and Jewish leaders, suggesting he sees disavowal as costlier than the ongoing controversy. With only three weeks until polls close and El-Sayed holding a narrow lead, a last-minute reversal would risk alienating his base and appearing opportunistic without clear electoral benefit. The probability would rise only if Piker generates a severe new controversy or polling shows the association is decisively sinking El-Sayed with swing voters."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a candidate formally disavowing a past campaign ally is low unless the ally becomes a major liability or new scandal emerges. The evidence lowers the probability because El-Sayed is polling ahead and, as of Oct. 12, was still refusing to disavow Piker and dismissing comparisons. The probability could rise if Piker says or does something new, if Jewish-voter pressure intensifies, or if the campaign decides an apology for the joint events is strategically necessary."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "El-Sayed has had months since the primary events to distance himself from Piker but has consistently refused, dismissing criticism as 'silly' as recently as Oct 12. Politicians leading in polls rarely disavow allies who helped them in primaries, as it risks alienating the progressive base while not gaining moderate votes. With only ~3 weeks remaining and El-Sayed already up 1-7 points, the incentive to create a controversy by formally condemning Piker is very low; a YES would require either a damaging leak/surprise or sudden poll movement driven by Piker-related attacks."
+        }
+      ],
+      "id": "manifold-0ppnynEdpg",
+      "market_id": "0ppnynEdpg",
+      "outcome": null,
+      "question": "El-Sayed comdemn or disavow Hasan Piker before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if, at any point before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026), Dr. Abdul El-Sayed or his official campaign issues an explicit public statement that condemns, disavows, or formally distances his campaign from Twitch streamer Hasan Piker.\n\nFor a YES resolution, the statement must meet the following criteria:\n\nMust be before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026)\n\nMust be published by a credible news organization, via an official campaign press release, or through El-Sayed\u2019s official verified social media channels.\n\nMust feature El-Sayed (or his campaign) explicitly condemning, or disavowing Piker, or explicitly stating regret or an apology for holding joint campaign events with him.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/SaiVazquez/elsayed-comdemn-or-disavow-hasan-pi",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4143
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "Anthropic announced a confidential draft S-1 on June 1, 2026 and no public S-1 was on EDGAR as of Oct 11 (132 days later). Bloomberg reported a private investor meeting on Oct 14 and formal marketing starting the week of Nov 9 with trading before Thanksgiving; the SEC's 15-day rule would then require a public S-1 by about Oct 23-25. The schedule has already slipped once (from mid-October), and SEC review or market conditions could push it into November, so this is close to a coin flip.",
+          "sources": [
+            "https://financefeeds.com/anthropics-14-october-investor-day-nears-but-its-s-1-still-isnt-public-the-ipo-timeline-explained/",
+            "https://www.neoteo.com/en/anthropic-may-push-its-ipo-to-november-after-confidential-s-1-filing"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.65,
+          "rationale": "Base rate: most companies that confidentially file a draft S-1 go public within 4-6 months; Anthropic's confidential filing was 132 days ago. The Bloomberg report of a private investor meeting on Oct 14 and possible formal marketing the week of Nov 9 implies a public S-1 around Oct 23-25 under the SEC's 15-day rule, which would meet the Oct 31 deadline. However, the timeline has already slipped from mid-October marketing to November, and Anthropic has not confirmed dates, so further delays are plausible."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for companies that file a confidential S-1 is high\u2014about 70\u201180% go public within four months, implying a strong chance of a public filing by Oct\u202f31. However, as of Oct\u202f11 no S-1 had appeared on EDGAR, which updates the probability downward given the elapsed time. Bloomberg\u2019s report of a private investor meeting on Oct\u202f14 and possible marketing the week of Nov\u202f9 suggests a roadshow that would require a public filing around Oct\u202f23\u201125 under the SEC\u2019s 15\u2011day rule, which would meet the deadline, lifting the estimate somewhat. Balancing these factors yields a roughly one\u2011in\u2011four chance that Anthropic\u2019s S-1 will be public by 31\u202fOct\u202f2026."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Companies often publicly file within a few months of a confidential draft, and Bloomberg reports a timeline requiring a public S-1 by ~Oct 25 to start marketing Nov 9, which fits within the Oct 31 deadline. However, the schedule has already slipped from earlier plans, and there is no official confirmation, so a further delay is possible. I estimate a 75% chance based on a moderate base rate adjusted for the specific reported timeline and current uncertainty."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "A company with a confidential S-1 and a reported late-October/early-November roadshow has a high base chance of filing publicly before the roadshow. The Oct 14 investor meeting and possible Nov 9 marketing imply a public S-1 around Oct 23-25 under the 15-day rule, which would satisfy the Oct 31 cutoff. However, the schedule has already slipped, Anthropic has not confirmed dates, and an early-November filing could still allow trading before Thanksgiving, so there is meaningful uncertainty."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.6,
+          "rationale": "Base rate for a major tech IPO whose confidential S-1 has been on file for 132+ days to make a public filing within ~3 weeks is moderate. The Bloomberg timeline implies marketing starting the week of Nov 9, which under the SEC 15-day rule requires a public S-1 by Oct 23-25\u2014comfortably before Oct 31. However, the schedule has already slipped from earlier mid-October expectations, and Anthropic has not confirmed dates, meaning a further slip past Nov 9 marketing would push the public S-1 past the Oct 31 deadline. A shift either way (earlier or later confirmation) could move this probability significantly."
+        }
+      ],
+      "id": "manifold-qLNSsQUZyN",
+      "market_id": "qLNSsQUZyN",
+      "outcome": null,
+      "question": "Will Anthropic\u2019s IPO Form S-1 be public by 31 October 2026?",
+      "resolution_criteria": "Resolves YES if a Form S-1 or S-1/A for Anthropic\u2019s proposed IPO is publicly accessible on SEC EDGAR by 23:59 ET on 31 October 2026. Publication of earlier confidential drafts (DRS) alone doesn\u2019t count. Leaks and press reports don\u2019t count. A filing that is later withdrawn  counts.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://manifold.markets/Simon74fe/will-anthropics-ipo-s1-be-public-by-EspZI2PuCc",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.22
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Trump said in February he was not considering an election-related national emergency and later said 'stranger things have happened' without ruling it out; Bannon and allies are urging one, and a draft order has circulated among supporters. The market needs a new emergency that actually disrupts or asserts federal control over the midterms, and legal scholars say the executive has no authority to administer elections. With 3 weeks left and no reported move by the administration, a qualifying declaration is unlikely.",
+          "sources": [
+            "https://www.pbs.org/newshour/politics/trump-says-hes-not-mulling-a-draft-executive-order-to-seize-control-over-elections-heres-what-we-know",
+            "https://www.newsweek.com/trump-ally-demands-national-emergency-to-place-ice-at-midterm-poll-stations-12338733"
+          ]
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.07,
+          "rationale": "Historically, presidents have almost never used the National Emergencies Act to influence elections, giving a base rate well below 5%. Trump\u2019s allies have publicly urged such a move and he has not ruled it out, which raises the chance, but his February statement that he was not considering it and the strong legal constraints that any election\u2011related emergency would likely be struck down keep the probability modest. Overall, the evidence suggests a roughly 7% likelihood of a newly declared national emergency that would disrupt the 2026 midterms before the November 3 deadline."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a president declaring a national emergency to disrupt or control midterm elections is essentially zero historically. Trump's February denial and subsequent non-committal 'stranger things have happened' remark, combined with no concrete steps as of mid-October, suggest a low probability. Legal challenges and the strict market criteria (requiring practical disruption, not just routine sanctions) further reduce the likelihood, though Trump's unpredictability and Bannon's influence leave a small tail risk."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.1,
+          "rationale": "Base rate: Declaring a national emergency to assert federal control over elections is unprecedented and legally dubious, making the prior very low. Evidence: Trump explicitly disavowed the idea in February, and while he refused to rule it out in August under pressure from allies, no concrete action has materialized with only three weeks until the deadline. What would change it: A sudden escalation in Trump's rhetoric alleging foreign interference or voting fraud in the final weeks would substantially increase the probability."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for a new, election-disrupting National Emergencies Act declaration in a three-week window is low, and Trump earlier said he was not considering such a move. The main upward evidence is his refusal to rule it out and pressure from Bannon and Root, but legal constraints, likely court challenges, and the absence of an imminent draft order keep the probability modest. A sudden announcement, leaked order, or explicit threat would materially raise the estimate."
+        },
+        {
+          "created_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for Trump declaring a new national emergency is moderate given his history of using emergency powers, but the specific requirement that it must disrupt or assert federal authority over midterms is a much higher bar. Trump publicly said in February 2026 he was not considering such a move, and while he declined to rule it out in August, legal scholars note it would face immediate court challenges and likely fail. The political cost of overtly federalizing elections before midterms is high even for Trump, and allies' rhetoric doesn't necessarily translate to action. A last-minute October surprise declaration remains possible but unlikely given the legal and political obstacles."
+        }
+      ],
+      "id": "manifold-IUgtSpszNS",
+      "market_id": "IUgtSpszNS",
+      "outcome": null,
+      "question": "Will Trump declare a national emergency before the midterms?",
+      "resolution_criteria": "Shadow strategist Bannon seems to believe so. \n\nResolution criteria\n\nThis market resolves to YES if Donald Trump, in his capacity as President of the United States, officially declares a new national emergency under the National Emergencies Act (50 U.S.C. 1601 et seq.) on or before November 3, 2026 (11:59 PM EST).\n\nSource of Truth: The declaration must be officially published as a Presidential Proclamation or Executive Order on the Federal Register (federalregister.gov) or the official White House website (whitehouse.gov).\n\nExclusions: This market requires a newly declared national emergency. The continuation, extension, or modification of existing national emergencies (such as the January 2025 emergency regarding energy and critical minerals) will not qualify.\n\nIf no qualifying new national emergency is officially declared by the deadline, the market resolves to NO.\n\nBackground\n\nIn July and August 2026, key allies of Donald Trump\u2014including former White House strategist Steve Bannon and media host Wayne Allyn Root\u2014publicly urged the President to declare a national security emergency to assert federal control over the upcoming 2026 midterm elections. Proponents of this move suggest it could be used to implement voting restrictions, such as strict photo ID and citizenship requirements, or station ICE agents at polling places.\n\nLegal scholars and critics have heavily disputed the legality of such an action, noting that the U.S. Constitution explicitly grants individual states and Congress\u2014not the executive branch\u2014the authority to administer federal elections. Trump himself has publicly declined to rule out the idea, stating in an August 2026 interview that \"stranger things have happened\" when asked about declaring an election-related emergency.\n\nUpdate 2026-08-22 (PST) (AI summary of creator comment): To resolve to YES, any newly declared national emergency must have the effect of disrupting the midterms.\n\nRoutine declarations (such as foreign sanctions) will not qualify unless they disrupt the midterms.\n\nThe mechanism of disruption matters less than the declaration itself.\n\nUpdate 2026-08-23 (PST) (AI summary of creator comment): * The market's subtext (disrupting or asserting control over the midterms) governs the resolution criteria.\n\nRoutine trade or foreign sanctions (such as Cuba- or Venezuela-style sanctions) will not qualify for a YES resolution.\n\nUpdate 2026-08-24 (PST) (AI summary of creator comment): - A qualifying declaration must have the practical effect of disrupting or asserting federal authority over the midterms, regardless of its stated basis (such as using foreign interference as a pretext).\n\nRoutine foreign sanctions or trade declarations do not qualify.\n\nFinal resolution is subject to creator judgment.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/xixi/will-trump-declare-a-national-emerg-qphcUqSlZZ",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
