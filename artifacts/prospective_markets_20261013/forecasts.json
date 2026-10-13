@@ -1,0 +1,333 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.07
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "XRP traded about $1.40 on Mon Oct 12 (FXStreet), sitting on its 50-day EMA after drifting down from about $1.50 in early October, with RSI near 45 and a negative MACD. $1.80 needs a 28% rise on a Binance 1-minute high within 19 days. At XRP's roughly 60-70% annualized volatility that is about 1.7 standard deviations for a touch, a few percent to 8% before adjusting for weak momentum and ETF-flow-driven crypto headwinds.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/ripple-price-forecast-xrp-defends-50-day-ema-as-standard-chartered-launches-rlusd-custody-202610121230",
+            "https://www.fxstreet.com/cryptocurrencies/news/ripple-price-forecast-xrp-gathers-strength-around-150-after-43-returns-in-q3-202610061230"
+          ]
+        }
+      ],
+      "id": "polymarket-5170822",
+      "market_id": "5170822",
+      "outcome": null,
+      "question": "Will XRP reach $1.80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT High prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-xrp-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9155
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Nvidia's market cap is about $5.5 trillion in mid-October 2026 against about $4.3 trillion for Alphabet, the nearest rival cited, a gap of roughly 25-28%. Overturning that in 18 days would take a large relative move, since the two stocks would need a 25%+ relative swing. The remaining risk is a sharp Nvidia drawdown, a data or definition dispute (consensus of credible reporting) or an Apple or Microsoft surge.",
+          "sources": [
+            "https://simplywall.st/stocks/us/semiconductors/nasdaq-nvda/nvidia/news/elite-undervalued-stocks-to-watch-in-october-2026",
+            "https://explore.nemo.money/en/stocks/compare/nvidia-vs-alphabet"
+          ]
+        }
+      ],
+      "id": "polymarket-5180413",
+      "market_id": "5180413",
+      "outcome": null,
+      "question": "Will NVIDIA be the largest company in the world by market cap on October 31, 2026?",
+      "resolution_criteria": "This market will resolve to the largest company in the world by market cap on October 31, 2026, as of market close.\n\nThe resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/largest-company-end-of-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.225
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "OFAC General License 135 (Oct 9) authorizes Russian-origin diesel imports into the US through April 7, 2027, covering cargoes loaded on tankers as of Oct 9, and Russia partially lifted its diesel export ban on Oct 10 (500,000 tons). Vessel-tracking reports (Vortexa, Windward, VesselFinder, via NV and UNN, Oct 10-11) show the Greek tanker MINERVA ZEN, which left St. Petersburg Sept 22 with about 280,000 barrels of diesel/gasoil, arriving at the US East Coast (Wilmington, NC) around Oct 11-13, which would be a Russian-origin import authorized under the license well before Oct 31. Risks: the single-cargo evidence is OSINT-based, the cargo may be gasoil or discharged elsewhere, and resolution needs consensus credible reporting.",
+          "sources": [
+            "https://english.nv.ua/business/russian-diesel-tanker-heads-toward-u-s-as-analysts-question-moscow-s-export-capacity-50648976.html",
+            "https://unn.ua/en/news/the-first-russian-diesel-shipment-arrived-on-the-us-east-coast-osint-analysts",
+            "https://kyivindependent.com/russia-partially-lifts-ban-on-diesel-exports-after-trump-putin-deal/",
+            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
+          ]
+        }
+      ],
+      "id": "polymarket-5476380",
+      "market_id": "5476380",
+      "outcome": null,
+      "question": "US imports Russian diesel by October 31?",
+      "resolution_criteria": "On October 9, 2026, Donald Trump announced an agreement with Vladimir Putin to import Russian diesel fuel, and the United States Treasury issued General License 135 authorizing the importation of Russian-origin diesel fuel into the United States through April 7, 2027 (see: https://truthsocial.com/@realDonaldTrump/posts/117412435306815143 & https://ofac.treasury.gov/recent-actions/20261009_33).\n\nThis market will resolve to \u201cYes\u201d if Russian diesel fuel is imported to the United States between market creation and October 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nRussian diesel fuel refers to diesel fuel of Russian production origin.\n\nImported to the United States refers to the diesel fuel being physically delivered to a United States port or into the terrestrial territory of the United States for commercial or government use within the United States. Diesel fuel carried as a vessel\u2019s own fuel, held in bond for re-export, or passing through the United States in transit to another country will not qualify.\n\nTo qualify, the import must either be described by a consensus of credible reporting as having been made under the agreement announced on October 9, 2026 (or any amended or successor arrangement between the governments of the United States and Russia), or be authorized under General License 135 (or any amended or successor authorization permitting the importation of Russian-origin diesel fuel).\n\nThe primary resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/us-imports-russian-diesel-by-october-31",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.115
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "Google promised Gemini 3.5 Pro for June 2026 and has not shipped it; the Gemini Pro page still says coming soon and it is not in the API model list (page checked Oct 3). SemiAnalysis reported it quietly dropped and Google said in September it had stepped back to focus on Flash models. On Sept 30 Google announced Gemini 4 Argon, but only to a trusted cyber-defender program and with no Pro label or public date as of Oct 11, so it would not clearly qualify. A qualifying Pro-labeled public release in the 18 days left is unlikely but possible.",
+          "sources": [
+            "https://aiwiz.uk/blog/gemini-3-5-pro/",
+            "https://felloai.com/all-we-know-about-google-gemini-4/"
+          ]
+        }
+      ],
+      "id": "polymarket-3667937",
+      "market_id": "3667937",
+      "outcome": null,
+      "question": "Will the next Google Gemini Pro model be released by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if Google's next Gemini Pro model is made available to the general public between market creation and the specified date (ET). Otherwise, this market will resolve to \u201cNo\u201d.\n\nAny Gemini model released after market creation and labeled as \"Pro\" may qualify (e.g., gemini-3.2-pro, gemini-3.5-pro, or gemini-4.0-pro-preview). Gemini models labeled only as Flash, Flash-Lite, or another non-Pro variant will not qualify.\n\nProducts labeled as a GA promotion of an already-existing Preview model (e.g., gemini-3.1-pro-ga) may qualify\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must be either clearly defined and publicly announced by Google as being accessible to the general public or otherwise made publicly accessible and explicitly labeled within the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Google, with additional verification from a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
+          "sources": [
+            "https://www.profilenews.com/en/october-12-2026-daily-report/",
+            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
+            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
+          ]
+        }
+      ],
+      "id": "polymarket-5183416",
+      "market_id": "5183416",
+      "outcome": null,
+      "question": "Israel military action against Lebanon on October 15?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
+      "resolution_date": "2026-10-16",
+      "resolution_source": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.076
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "SOL traded about $107.9 on Tue Oct 13, having reclaimed its 50-day EMA ($107.49), with the 100-day EMA at $99.34, 200-day at $97.18 and horizontal support near $96. $80 is about 26% below spot on a Binance 1-minute low within 18 days. At roughly 70% annualized volatility that is about 1.9 standard deviations for a touch. Spot SOL ETFs have six straight days of small outflows, but there is no sign of an imminent break of the $96 support.",
+          "sources": [
+            "https://www.fxstreet.com/cryptocurrencies/news/solana-price-forecast-sol-reclaims-50-day-ema-amid-tokenization-expansion-202610130751"
+          ]
+        }
+      ],
+      "id": "polymarket-5170807",
+      "market_id": "5170807",
+      "outcome": null,
+      "question": "Will Solana dip to $80 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for SOL/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the SOL/USDT Low prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-solana-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.665
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "The Atlanta Fed GDPNow estimate for Q3 2026 was 3.7% on Oct 6 and 3.6% on Oct 8, down from an initial 5.0% in late September; inventories contribute about 2 points of it, net exports subtract about 2.7 points, and consumption is running at 3.4%. The Philadelphia Fed SPF (Aug 14) was lower at 2.5%. With the advance estimate due Oct 29, GDPNow at this stage has a typical error of about 1.5 points and inventory-heavy readings tend to revise toward consensus, so >3.0% is a bit better than even.",
+          "sources": [
+            "https://fedpolicy.org/releases/2026-10-06/gdpnow-2026-q3-oct-6/",
+            "https://investinglive.com/news/atlanta-fed-gdpnow-q3-tracker-3-6-vs-3-7-prior",
+            "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/spf-q3-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-3247818",
+      "market_id": "3247818",
+      "outcome": null,
+      "question": "Will US GDP growth in Q3 2026 be greater than 3.0%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted and annualized GDP \"Advance Estimate\" release for Q3 of 2026, scheduled for October 29, 2026.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nThe GDP release will be made available here: https://www.bea.gov/data/gdp/gross-domestic-product\n\nNote: data in the first available GDP report is labelled by the BEA as an \"Advance Estimate\". The data found in the advance estimate will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the release of the advance estimate will not be considered for this market's resolution.\n\nIf the advance estimate is not released, this market will resolve based on the first officially published figure for real GDP for the specified quarter (e.g., the \u2018second\u2019 or \u2018third\u2019 estimate, etc.), as reported by the BEA. If no official estimate is released by the date the next quarter's advanced estimate is scheduled to be published, this market will resolve based on the most recent previous figure released by the BEA.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://polymarket.com/event/us-gdp-growth-in-q3-2026-20260730144539767",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.28
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "The Oct 25 runoff is Lula against Flavio Bolsonaro after Flavio led the Oct 4 first round 47.03% to 45.16% of valid votes. Post-first-round runoff polls favor Flavio on valid votes: AtlasIntel Oct 9 (52.8-47.2), Datafolha Oct 8 (52-48) and Ipespe Oct 10 (52.7-47.3), a lead of 4 to 5.6 points. Treating the final margin as roughly Flavio +5 with a polling error near 5 points, the chance that Flavio wins by under 4 is about a quarter; a Lula win or a Flavio win by 4+ resolves No.",
+          "sources": [
+            "https://www.riotimesonline.com/brazil-election-poll-tracker-2026/"
+          ]
+        }
+      ],
+      "id": "polymarket-5340071",
+      "market_id": "5340071",
+      "outcome": null,
+      "question": "Will Fl\u00e1vio Bolsonaro win the second round of the 2026 Brazilian presidential election by less than 4%?",
+      "resolution_criteria": "The second round of the presidential election is scheduled to take place in Brazil on October 25, 2026.\n\nThis market will resolve according to the margin of victory between the top two candidates in the second round of the next Brazil Presidential Election.\n\nFor the purpose of this market, the \u201cmargin of victory\u201d is defined as the absolute difference between the percentages of valid votes received by the first- and second-place candidates. Percentages of the valid votes received by each candidate will be determined by dividing the total number of valid votes each of the top two candidates receives by the sum of all valid votes cast in the election.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf a candidate other than Fl\u00e1vio Bolsonaro or Luiz In\u00e1cio Lula da Silva receives the most valid votes in the second round, or if the top two candidates receive exactly the same number of valid votes, this market will resolve to \"Other\".\n\nThis market will resolve based on the official vote count once the vote count has been made official.\n\nIf a recount is initiated before the vote total has been made official, the market will remain open until the recount is completed and the vote is made official.\n\nIf the result of this election isn't known definitively by June 30, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Brazilian government, specifically the Superior Electoral Court (Tribunal Superior Eleitoral, TSE) (e.g., https://dadosabertos.tse.jus.br/).",
+      "resolution_date": "2026-10-26",
+      "resolution_source": "https://polymarket.com/event/brazil-presidential-election-second-round-margin-of-victory",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.062
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Trump said on Sept 22 he was looking very seriously at a diesel export ban with diesel at a record $6.52, and Treasury said it was examining one. The White House then denied on Sept 23 that it was preparing a ban, and Energy Secretary Wright said nobody was considering a flat ban because it could raise gasoline and jet prices; the oil industry opposes it. On Oct 9 the administration took the opposite tack, licensing Russian diesel imports through April 2027. A federal export ban announced by Nov 3 is possible only if prices spike again.",
+          "sources": [
+            "https://oilprice.com/Energy/Energy-General/White-House-Rules-Out-Diesel-Export-Ban-as-Prices-Surge-Above-650.html",
+            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
+          ]
+        }
+      ],
+      "id": "manifold-QRL0Uygyg0",
+      "market_id": "QRL0Uygyg0",
+      "outcome": null,
+      "question": "Diesel export ban before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if the United States federal government enacts a ban or embargo on the export of diesel fuel (distillate fuel oil) from the U.S. at any point before the U.S. midterm elections on November 3, 2026. Otherwise, this market will resolve to NO.\n\nTo qualify:\n\nThe action must be federal, implemented via an executive order, a federal agency action (e.g., from the Department of Energy or the Bureau of Industry and Security), or federal legislation signed into law. State-level proposals, actions, or non-binding resolutions do not qualify.\n\nThe policy must legally prohibit or comprehensively restrict the export of U.S. diesel fuel to foreign markets (temporary bans or short-term emergency embargoes qualify, but narrow, non-binding guidelines or routine administrative export licensing adjustments do not).\n\nThe ban must be officially announced and scheduled to take effect or be in effect prior to November 3, 2026.\n\nCredible financial and political news sources\u2014such as Bloomberg, Reuters, or The Wall Street Journal\u2014will be used to verify the outcomes.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/Balasar/diesel-export-ban-before-midterms",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1953
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "El-Sayed is the Democratic nominee in a toss-up Michigan Senate race against Mike Rogers, leading by 1-7 points in six recent polls (InsiderAdvantage Oct 9-10: 48-46). He has repeatedly appeared with Hasan Piker, including a final primary event on Aug 3, and when asked on Oct 12 dismissed the line of questioning as silly rather than distancing himself. An explicit condemnation or disavowal would cost him the base in a close race, so it is unlikely before Nov 3 unless a new Piker controversy forces it.",
+          "sources": [
+            "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776",
+            "https://www.detroitnews.com/story/news/politics/2026/08/03/abdul-el-sayed-hasan-piker-michigan-senate-campaign-haley-stevens/91150258007/"
+          ]
+        }
+      ],
+      "id": "manifold-0ppnynEdpg",
+      "market_id": "0ppnynEdpg",
+      "outcome": null,
+      "question": "El-Sayed comdemn or disavow Hasan Piker before midterms?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if, at any point before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026), Dr. Abdul El-Sayed or his official campaign issues an explicit public statement that condemns, disavows, or formally distances his campaign from Twitch streamer Hasan Piker.\n\nFor a YES resolution, the statement must meet the following criteria:\n\nMust be before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026)\n\nMust be published by a credible news organization, via an official campaign press release, or through El-Sayed\u2019s official verified social media channels.\n\nMust feature El-Sayed (or his campaign) explicitly condemning, or disavowing Piker, or explicitly stating regret or an apology for holding joint campaign events with him.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/SaiVazquez/elsayed-comdemn-or-disavow-hasan-pi",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4143
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "Anthropic announced a confidential draft S-1 on June 1, 2026 and no public S-1 was on EDGAR as of Oct 11 (132 days later). Bloomberg reported a private investor meeting on Oct 14 and formal marketing starting the week of Nov 9 with trading before Thanksgiving; the SEC's 15-day rule would then require a public S-1 by about Oct 23-25. The schedule has already slipped once (from mid-October), and SEC review or market conditions could push it into November, so this is close to a coin flip.",
+          "sources": [
+            "https://financefeeds.com/anthropics-14-october-investor-day-nears-but-its-s-1-still-isnt-public-the-ipo-timeline-explained/",
+            "https://www.neoteo.com/en/anthropic-may-push-its-ipo-to-november-after-confidential-s-1-filing"
+          ]
+        }
+      ],
+      "id": "manifold-qLNSsQUZyN",
+      "market_id": "qLNSsQUZyN",
+      "outcome": null,
+      "question": "Will Anthropic\u2019s IPO Form S-1 be public by 31 October 2026?",
+      "resolution_criteria": "Resolves YES if a Form S-1 or S-1/A for Anthropic\u2019s proposed IPO is publicly accessible on SEC EDGAR by 23:59 ET on 31 October 2026. Publication of earlier confidential drafts (DRS) alone doesn\u2019t count. Leaks and press reports don\u2019t count. A filing that is later withdrawn  counts.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://manifold.markets/Simon74fe/will-anthropics-ipo-s1-be-public-by-EspZI2PuCc",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.22
+        },
+        {
+          "created_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Trump said in February he was not considering an election-related national emergency and later said 'stranger things have happened' without ruling it out; Bannon and allies are urging one, and a draft order has circulated among supporters. The market needs a new emergency that actually disrupts or asserts federal control over the midterms, and legal scholars say the executive has no authority to administer elections. With 3 weeks left and no reported move by the administration, a qualifying declaration is unlikely.",
+          "sources": [
+            "https://www.pbs.org/newshour/politics/trump-says-hes-not-mulling-a-draft-executive-order-to-seize-control-over-elections-heres-what-we-know",
+            "https://www.newsweek.com/trump-ally-demands-national-emergency-to-place-ice-at-midterm-poll-stations-12338733"
+          ]
+        }
+      ],
+      "id": "manifold-IUgtSpszNS",
+      "market_id": "IUgtSpszNS",
+      "outcome": null,
+      "question": "Will Trump declare a national emergency before the midterms?",
+      "resolution_criteria": "Shadow strategist Bannon seems to believe so. \n\nResolution criteria\n\nThis market resolves to YES if Donald Trump, in his capacity as President of the United States, officially declares a new national emergency under the National Emergencies Act (50 U.S.C. 1601 et seq.) on or before November 3, 2026 (11:59 PM EST).\n\nSource of Truth: The declaration must be officially published as a Presidential Proclamation or Executive Order on the Federal Register (federalregister.gov) or the official White House website (whitehouse.gov).\n\nExclusions: This market requires a newly declared national emergency. The continuation, extension, or modification of existing national emergencies (such as the January 2025 emergency regarding energy and critical minerals) will not qualify.\n\nIf no qualifying new national emergency is officially declared by the deadline, the market resolves to NO.\n\nBackground\n\nIn July and August 2026, key allies of Donald Trump\u2014including former White House strategist Steve Bannon and media host Wayne Allyn Root\u2014publicly urged the President to declare a national security emergency to assert federal control over the upcoming 2026 midterm elections. Proponents of this move suggest it could be used to implement voting restrictions, such as strict photo ID and citizenship requirements, or station ICE agents at polling places.\n\nLegal scholars and critics have heavily disputed the legality of such an action, noting that the U.S. Constitution explicitly grants individual states and Congress\u2014not the executive branch\u2014the authority to administer federal elections. Trump himself has publicly declined to rule out the idea, stating in an August 2026 interview that \"stranger things have happened\" when asked about declaring an election-related emergency.\n\nUpdate 2026-08-22 (PST) (AI summary of creator comment): To resolve to YES, any newly declared national emergency must have the effect of disrupting the midterms.\n\nRoutine declarations (such as foreign sanctions) will not qualify unless they disrupt the midterms.\n\nThe mechanism of disruption matters less than the declaration itself.\n\nUpdate 2026-08-23 (PST) (AI summary of creator comment): * The market's subtext (disrupting or asserting control over the midterms) governs the resolution criteria.\n\nRoutine trade or foreign sanctions (such as Cuba- or Venezuela-style sanctions) will not qualify for a YES resolution.\n\nUpdate 2026-08-24 (PST) (AI summary of creator comment): - A qualifying declaration must have the practical effect of disrupting or asserting federal authority over the midterms, regardless of its stated basis (such as using foreign interference as a pretext).\n\nRoutine foreign sanctions or trade declarations do not qualify.\n\nFinal resolution is subject to creator judgment.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://manifold.markets/xixi/will-trump-declare-a-national-emerg-qphcUqSlZZ",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
