@@ -6,12 +6,14 @@ name: Daily run steps
 # daily branch claude/daily-forecasts-YYYYMMDD.
 #   prepare    create the branch from grok/forecastlab-mvp if needed, then run
 #              daily_forecasts.py prepare and market_questions.py prepare
+#   research   run research_pack.py on DIRS (each needs research_queries.json):
+#              Tavily searches with full page text, saved as research.json
 #   finish     run judge_panel.py on DIRS (each needs briefs.json), then
 #              score_prospective_artifacts.py, then dispatch CI on the branch
 #              (pushes made with GITHUB_TOKEN start no workflows on their own)
 #   check-key  only check that the key reaches OpenRouter
 # Triggers: the weekday schedule runs prepare for today. A push to a daily
-# branch that adds daily-run-request.json ({"step": "prepare"|"finish",
+# branch that adds daily-run-request.json ({"step": "prepare"|"research"|"finish",
 # "dirs": [...]}) runs that step and removes the file; the Claude GitHub App
 # cannot dispatch workflows, but its pushes do start them. workflow_dispatch
 # works for people.
@@ -25,14 +27,14 @@ on:
     inputs:
       step:
         type: choice
-        options: [prepare, finish, check-key]
+        options: [prepare, research, finish, check-key]
         required: true
       branch:
         description: "claude/daily-forecasts-YYYYMMDD"
         required: false
         default: ""
       dirs:
-        description: "finish only: space-separated artifacts/<dir> with briefs.json"
+        description: "research and finish: space-separated artifacts/<dir>"
         required: false
         default: ""
 
@@ -52,6 +54,7 @@ jobs:
       BASE: grok/forecastlab-mvp
       GH_TOKEN: ${{ github.token }}
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY || secrets.FORECASTLAB_SEARCH_API_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,7 +77,7 @@ jobs:
             *) STEP="$IN_STEP"; BRANCH="$IN_BRANCH"; DIRS="$IN_DIRS" ;;
           esac
           if [ "$STEP" != check-key ]; then
-            [[ "$STEP" =~ ^(prepare|finish)$ ]] || { echo "unknown step $STEP"; exit 1; }
+            [[ "$STEP" =~ ^(prepare|research|finish)$ ]] || { echo "unknown step $STEP"; exit 1; }
             [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
           fi
           if [ -n "$DIRS" ]; then
@@ -90,7 +93,7 @@ jobs:
           if [ "$STEP" = check-key ]; then test "$code" = 200; fi
           if [ "$code" != 200 ]; then echo "NO_KEY=1" >> "$GITHUB_ENV"; fi
       - name: Switch to the daily branch
-        if: env.STEP == 'prepare' || env.STEP == 'finish'
+        if: env.STEP == 'prepare' || env.STEP == 'research' || env.STEP == 'finish'
         run: |
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
             git checkout -B "$BRANCH" "origin/$BRANCH"
@@ -102,7 +105,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: astral-sh/setup-uv@v5
-        if: env.STEP == 'prepare' || env.STEP == 'finish'
+        if: env.STEP == 'prepare' || env.STEP == 'research' || env.STEP == 'finish'
         with:
           python-version: "3.12"
       - name: Prepare questions
@@ -115,6 +118,13 @@ jobs:
             uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
             uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
           fi
+      - name: Fetch source documents
+        if: env.STEP == 'research'
+        run: |
+          [ -n "$DIRS" ] || { echo "research needs dirs"; exit 1; }
+          uv sync --frozen
+          # $DIRS is validated above; word splitting is intended.
+          uv run --frozen python -u scripts/research_pack.py run $DIRS | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Run the judge panel
         if: env.STEP == 'finish' && env.DIRS != '' && env.NO_KEY != '1'
         # A slow panel must not cost the day: answers already logged are still scored and committed.
@@ -131,7 +141,7 @@ jobs:
           uv sync --frozen
           uv run --frozen python scripts/score_prospective_artifacts.py | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
-        if: env.STEP == 'prepare' || env.STEP == 'finish'
+        if: env.STEP == 'prepare' || env.STEP == 'research' || env.STEP == 'finish'
         run: |
           git rm -q --ignore-unmatch daily-run-request.json
           git add artifacts data/track_record.json

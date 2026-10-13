@@ -2,8 +2,8 @@
 
 Research is the expensive part of forecasting. Reading many pages costs money when a pay-per-use model does it. The judge panel splits the work:
 
-- **Claude researches.** This runs in the owner's Claude Code session, so it costs nothing per question. For each question it writes a neutral *evidence brief*: dated facts, base rates and source URLs.
-- **Cheap open-weights models judge.** Each one reads the question, its resolution rule and the brief, and states a probability.
+- **Claude researches.** This runs in the owner's Claude Code session, so it costs nothing per question. It first fetches the source documents for each question (`scripts/research_pack.py`, Tavily search with full page text, prediction-market sites and odds removed), then writes a neutral *evidence brief* from them: dated facts, base rates and source URLs.
+- **Cheap open-weights models judge.** Each one reads the question, its resolution rule, the brief and excerpts of the fetched sources (up to about 12,000 characters, `judge_prompt_v2`), and states a probability.
 
 Each panel member is a forecaster of its own. Its probability goes into the median that makes our call, next to Claude and the statistical baseline. Its own row on the Track record page shows whether it adds anything.
 
@@ -29,7 +29,7 @@ All six are open weights from five labs. The four paid members cost about a cent
 - **Briefs are evidence, not forecasts.**
   - A brief holds no probability, no lean and no market odds.
   - `scripts/judge_panel.py` refuses a brief that mentions Polymarket, Kalshi, Manifold, Metaculus, betting odds or implied probability.
-- **Independence.** Members see only the question, its rule and the brief. They never see Claude's forecast, each other's answers or the market price.
+- **Independence.** Members see only the question, its rule, the brief and the source excerpts. They never see Claude's forecast, each other's answers or the market price.
 - **Before the cutoff.** A member is asked only while the question's forecast cutoff is ahead: the entry cutoff for FRED questions, the market close for Polymarket questions, and the resolution date for asked questions.
 - **One answer per member.**
   - A member is asked at most once a day per question. A failed call can be retried on a later day, before the cutoff.
@@ -42,7 +42,7 @@ All six are open weights from five labs. The four paid members cost about a cent
   - Free models cost 0.
 - **Audit trail.** Every attempt goes to `judge_panel_log.json` in the artifact directory. Each entry records:
   - the model requested and the model that served it;
-  - the prompt version and the brief's hash;
+  - the prompt version and the hashes of the brief and the source excerpts;
   - tokens, cost, and the answer or the error.
 
   `python scripts/judge_panel.py spend` prints today's spend and this month's.

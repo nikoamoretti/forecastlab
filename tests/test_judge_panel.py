@@ -8,12 +8,14 @@ from pathlib import Path
 
 import pytest
 
+from forecastlab import research
 from forecastlab.judge_panel import Budget, Price, load_config, parse_answer
 from forecastlab_api.track_record import FORECASTERS, build_track_record
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import judge_panel as script  # noqa: E402
+import research_pack  # noqa: E402
 
 # The mechanics are tested on a frozen three-member panel; the live panel is configs/judge_panel.json.
 CONFIG = load_config(ROOT / "fixtures" / "judge_panel_v1.json")
@@ -153,3 +155,36 @@ def test_cohort_judges_become_scored_supplements_before_the_cutoff(tmp_path: Pat
     assert judge["manifest_hash"] == claude["manifest_hash"] and judge["method"] == "judge_gemma_v1"
     assert set(claude["cells"][0]) - {"sources"} <= set(judge["cells"][0])
     assert judge["cells"][0]["probability"] == 0.98
+
+
+def test_judges_read_the_fetched_sources_without_market_odds(tmp_path: Path) -> None:
+    directory = _general(tmp_path / "prospective_requests_20261007")
+    (directory / research.QUERIES_FILE).write_text(json.dumps({"queries": {"req-1": ["Paris October rainfall normals"]}}))
+    page = ("Météo-France normals show rain on 12 of 31 October days at Montsouris. "
+            "Polymarket traders put rain at 70%. A front is due on Oct 19.") * 4
+    hits = [{"url": "https://polymarket.com/event/paris-rain", "title": "Paris rain", "raw_content": page},
+            {"url": "https://meteofrance.com/normales", "title": "Normales", "raw_content": page, "published_date": "2026-10-06"},
+            {"url": "https://example.org/short", "title": "Too short", "raw_content": "Rain."}]
+    assert research_pack.run([directory], search=lambda query: hits) == 1
+
+    saved = json.loads((directory / research.RESEARCH_FILE).read_text())["sources"]["req-1"]
+    assert [s["url"] for s in saved] == ["https://meteofrance.com/normales"]
+    assert "Polymarket" not in saved[0]["text"] and "12 of 31 October days" in saved[0]["text"]
+
+    calls: list[dict] = []
+    script.run([directory], post=fake_post(calls), price_list=CHEAP, now=NOW, config=CONFIG, artifacts=tmp_path)
+    content = calls[0]["messages"][1]["content"]
+    assert "Source excerpts" in content and "https://meteofrance.com/normales, 2026-10-06" in content
+
+
+def test_research_queries_must_not_look_for_odds(tmp_path: Path) -> None:
+    directory = _general(tmp_path / "prospective_requests_20261007")
+    (directory / research.QUERIES_FILE).write_text(json.dumps({"queries": {"req-1": ["Kalshi odds rain Paris"]}}))
+    with pytest.raises(SystemExit, match="prediction markets"):
+        research_pack.run([directory], search=lambda query: [])
+
+
+def test_excerpts_stay_within_the_prompt_budget() -> None:
+    sources = [research.Source(title=f"S{n}", url=f"https://e.org/{n}", published="", text="x" * 5000) for n in range(10)]
+    text = research.excerpts(sources)
+    assert len(text) < 12100 and text.count("[") == 6  # six 1,800-character excerpts fit in 12,000
