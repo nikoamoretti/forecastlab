@@ -12,14 +12,13 @@ name: Daily run steps
 #              score_prospective_artifacts.py, then dispatch CI on the branch
 #              (pushes made with GITHUB_TOKEN start no workflows on their own)
 #   check-key  only check that the key reaches OpenRouter
-# Triggers: the weekday schedule runs prepare for today. A push to a daily
+# Triggers: no schedule (daily runs are paused until the research pipeline
+# plan is approved, 2026-10-13). A push to a daily
 # branch that adds daily-run-request.json ({"step": "prepare"|"research"|"finish",
 # "dirs": [...]}) runs that step and removes the file; the Claude GitHub App
 # cannot dispatch workflows, but its pushes do start them. workflow_dispatch
 # works for people.
 on:
-  schedule:
-    - cron: "5 10 * * 1-5"
   push:
     branches: ["claude/daily-forecasts-*"]
     paths: ["daily-run-request.json"]
