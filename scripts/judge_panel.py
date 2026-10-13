@@ -6,7 +6,8 @@
 
 Each directory needs ``briefs.json``: ``{"written_at", "briefs": {"<question id>": "<brief>"}}``,
 written by Claude after its research. A brief holds dated facts, base rates and source URLs,
-and no probability or lean. It never quotes prediction-market odds.
+and no probability or lean. It never quotes prediction-market odds. When the directory also
+has ``research.json`` (scripts/research_pack.py), the judges read excerpts of those sources too.
 
 For every question with a brief whose forecast cutoff is still ahead, every panel member
 that has not answered yet is asked once. Each attempt, with its cost and the model that
@@ -49,6 +50,7 @@ from forecastlab.judge_panel import (  # noqa: E402
     prompt,
     worst_case_cost,
 )
+from forecastlab.research import RESEARCH_FILE, Source, excerpts  # noqa: E402
 from forecastlab.timeutil import as_utc, utcnow  # noqa: E402
 
 CONFIG = ROOT / "configs" / "judge_panel.json"
@@ -80,6 +82,9 @@ def load_questions(directory: Path) -> list[PanelQuestion]:
             raise SystemExit(f"{directory.name}/{qid}: the brief is empty")
         if FORBIDDEN_IN_BRIEF.search(brief):
             raise SystemExit(f"{directory.name}/{qid}: the brief mentions a prediction market or odds")
+    research_path = directory / RESEARCH_FILE  # optional: the source documents fetched for the briefs
+    fetched = json.loads(research_path.read_text())["sources"] if research_path.exists() else {}
+    sources = {qid: excerpts([Source(**s) for s in items]) for qid, items in fetched.items()}
     questions = []
     if is_cohort(directory):
         for entry in json.loads((directory / "questions.json").read_text()):
@@ -88,7 +93,8 @@ def load_questions(directory: Path) -> list[PanelQuestion]:
                     id=entry["entry_id"], question=entry["question"],
                     criteria=(f"{entry['question']} It resolves on the first published value, released around "
                               f"{entry['release_at'][:10]}; later revisions do not count."),
-                    resolves_on=entry["release_at"][:10], cutoff=_parse(entry["cutoff"]), brief=briefs[entry["entry_id"]]))
+                    resolves_on=entry["release_at"][:10], cutoff=_parse(entry["cutoff"]), brief=briefs[entry["entry_id"]],
+                    sources=sources.get(entry["entry_id"], "")))
         return questions
     closes = {}
     if (directory / "questions.json").exists():  # market questions: the forecast must precede the close
@@ -99,7 +105,7 @@ def load_questions(directory: Path) -> list[PanelQuestion]:
                 id=question["id"], question=question["question"], criteria=question["resolution_criteria"],
                 resolves_on=question["resolution_date"],
                 cutoff=_parse(closes.get(question["id"]) or f"{question['resolution_date']}T00:00:00Z"),
-                brief=briefs[question["id"]]))
+                brief=briefs[question["id"]], sources=sources.get(question["id"], "")))
     return questions
 
 
@@ -179,6 +185,7 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
                     budget.charge(worst)  # held until the real cost is known
                 attempt = ask(member, question, now=now, post=post, max_tokens=config.max_tokens, price=price)
                 attempt |= {"brief_sha256": hashlib.sha256(question.brief.encode()).hexdigest()[:16],
+                            "sources_sha256": hashlib.sha256(question.sources.encode()).hexdigest()[:16],
                             "prompt_version": config.prompt_version}
                 with lock:
                     budget.charge(attempt["cost_usd"] - worst)

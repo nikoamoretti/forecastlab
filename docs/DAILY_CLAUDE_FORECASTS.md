@@ -6,7 +6,12 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 
 1. **Merge yesterday's run.** Merge any open `claude/daily-forecasts-*` pull request whose CI is green.
 2. **Prepare questions.** Run `python scripts/daily_forecasts.py prepare`. It applies the current fast selection rule, `fast_fred_question_selection_v3` (at most one jobless claims question and one week-ahead 10-year yield question, thresholds at the latest observed value, none for an indicator that still has an unreleased question) and skips targets already in any artifact. It writes `artifacts/prospective_daily_<date>/` with the statistical baseline's forecasts and `questions.json`. If there is nothing new, skip to step 4.
-3. **Forecast.** Claude forecasts every question in `questions.json`.
+3. **Fetch the sources, then forecast.** Before forecasting any question set (this one, the market set in step 5 and the asked set in step 4), get the source documents:
+   - Write `research_queries.json` in the directory: `{"queries": {"<question id>": ["query", ...]}}`, with 3–5 targeted queries per question. Aim at primary sources: the official release, filing, statement, data series or schedule that decides the question, then the latest reporting on it. Queries must not look for odds or prediction markets.
+   - Run `python scripts/research_pack.py run <dir> ...` (it needs `TAVILY_API_KEY`; from a locked-down container use the **research** step below). It writes `research.json` with up to 8 sources per question and the full page text, after dropping prediction-market sites and any sentence that mentions one.
+   - Read each question's sources in full before forecasting, and search further where they leave a gap.
+
+   Claude then forecasts every question in `questions.json`.
    - Start with the base rate: the baseline probability and the recent history.
    - Then look for news: consensus forecasts, recent releases, market moves.
    - Use web search, but only information published before now.
@@ -33,7 +38,8 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 6. **Record the step 3 forecasts.** Run `python scripts/daily_forecasts.py record <dir> <forecasts.json>`. It refuses forecasts made at or after an entry's cutoff, extreme probabilities, and any mismatch with the entries.
 7. **Judge panel.** Write `briefs.json` in each directory that got new questions today: the daily set, the market set and the asked set.
    - The format is `{"written_at", "briefs": {"<question id>": "<brief>"}}`.
-   - A brief is 4–8 sentences of the evidence found in steps 3–5: dated facts, the base rate and recent history, and source URLs.
+   - A brief is 8–15 sentences built from the documents in `research.json` and any further searches: the dated facts that decide the question, each with its source; the base rate and how it was worked out; and what would change the answer. Prefer the primary source over a write-up of it.
+   - The judges also read excerpts of the `research.json` sources, so a brief need not restate them word for word.
    - It contains no probability, no lean and no market odds.
    - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
@@ -47,7 +53,7 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 - Never edit a recorded forecast. A later view goes in a new day's artifact.
 - Holidays without a published value resolve as cancelled, not as yes or no. So does a Polymarket market settled 50/50.
 - Market questions are forecast without looking at any market's odds.
-- Judges see only the question, its rule and Claude's brief. They never see Claude's probability.
+- Judges see only the question, its rule, Claude's brief and excerpts of the fetched sources. They never see Claude's probability or a market price.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.
 
 ## Running from a locked-down container
@@ -55,6 +61,7 @@ A scheduled Claude Code routine adds zero-cost forecasts every weekday. The rese
 A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, may have lost the OpenRouter key when its container was recycled, and cannot dispatch workflows through the Claude GitHub App. The **Daily run steps** workflow (`.github/workflows/daily-run.yml`) runs those steps in GitHub Actions with the repository's secrets and commits each result to `claude/daily-forecasts-<date>`:
 
 - **prepare** (steps 2 and 5) runs on a weekday schedule at 10:05 UTC. It creates the branch from `grok/forecastlab-mvp` and runs both `prepare` commands.
+- **research** (step 3's source fetch) runs `research_pack.py` on the listed directories, each with `research_queries.json`, and commits `research.json`.
 - **finish** (steps 7 and 8) runs the judge panel on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
 
-To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "finish", "dirs": ["artifacts/prospective_markets_<date>"]}`. The workflow removes the file when it is done. Between steps, `git pull` the branch, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.
+To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "research", "dirs": ["artifacts/prospective_markets_<date>"]}` or the same with `"finish"`. The workflow removes the file when it is done. The order is prepare, then research (after writing `research_queries.json`), then finish. Between steps, `git pull` the branch, read the sources, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.

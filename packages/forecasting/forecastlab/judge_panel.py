@@ -2,8 +2,8 @@
 
 Claude does the expensive part, the web research, and writes a neutral evidence brief per
 question: dated facts, base rates and sources, with no probability and no lean. Each panel
-member then reads the question, its resolution rule and the brief, and answers with a
-probability. Members do not see each other, Claude's forecast or any market price, so
+member then reads the question, its resolution rule, the brief and excerpts of the source
+documents fetched for it (forecastlab.research), and answers with a probability. Members do not see each other, Claude's forecast or any market price, so
 each one is a separate forecaster in the median call.
 
 Spending is capped per UTC day (``daily_budget_usd`` in ``configs/judge_panel.json``).
@@ -58,6 +58,7 @@ class PanelQuestion:
     resolves_on: str
     cutoff: datetime
     brief: str
+    sources: str = ""  # excerpts of the fetched source documents (forecastlab.research.excerpts)
 
 
 @dataclass(frozen=True)
@@ -72,7 +73,7 @@ def load_config(path: Path) -> PanelConfig:
 
 SYSTEM = (
     "You are a careful, well-calibrated forecaster. You estimate the probability that a question "
-    "resolves Yes, using only the evidence brief you are given and general knowledge. Start from "
+    "resolves Yes, using only the evidence brief and source excerpts you are given and general knowledge. Start from "
     "the base rate, adjust for the specific evidence, and avoid overconfidence: use extreme "
     "probabilities only when the evidence is decisive. Reply with JSON only."
 )
@@ -85,7 +86,9 @@ def prompt(question: PanelQuestion, now: datetime) -> str:
         f"How it resolves: {question.criteria}\n"
         f"Resolution date: {question.resolves_on}\n\n"
         f"Evidence brief (written by a researcher today; facts and sources only):\n{question.brief}\n\n"
-        'Answer with a JSON object: {"probability": <number from 0 to 1 that the answer is Yes>, '
+        + (f"Source excerpts (fetched today; read them yourself, they may disagree with the brief):\n"
+           f"{question.sources}\n\n" if question.sources else "")
+        + 'Answer with a JSON object: {"probability": <number from 0 to 1 that the answer is Yes>, '
         '"reasoning": "<two to four sentences: base rate, the evidence that moved you, what could change it>"}'
     )
 
