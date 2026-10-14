@@ -73,6 +73,15 @@ def tasks(directory: Path) -> list[dict[str, str]]:
                                             f"around {entry['release_at'][:10]}; later revisions do not count."),
                           "resolves_on": entry["release_at"][:10], "topic": "US economic data"})
         return found
+    listed = json.loads((directory / "questions.json").read_text()) if (directory / "questions.json").exists() else {}
+    if isinstance(listed, dict) and listed.get("questions"):
+        # A market set as prepared, before anyone has forecast it (forecasts.json comes with `record`).
+        # Only these fields are read: the entry's market link and price are never passed on.
+        for question in listed["questions"]:
+            found.append({"id": question["id"], "question": clean(question["question"]),
+                          "criteria": clean(question.get("resolution_criteria") or ""),
+                          "resolves_on": (question.get("closes_at") or "")[:10], "topic": question.get("topic") or ""})
+        return found
     for question in json.loads((directory / "forecasts.json").read_text())["questions"]:
         if question.get("outcome") is not None or question.get("cancelled"):
             continue

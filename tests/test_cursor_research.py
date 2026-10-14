@@ -66,6 +66,22 @@ def test_tasks_carry_no_market_names_links_or_prices(tmp_path: Path) -> None:
     assert "Never use or mention prediction markets" in text  # the instruction names them; the task does not
 
 
+def test_prepared_market_set_without_forecasts_yields_tasks_without_market_fields(tmp_path: Path) -> None:
+    directory = tmp_path / "prospective_markets_20261014"
+    directory.mkdir()
+    (directory / "questions.json").write_text(json.dumps({"selected_at": "2026-10-14T09:25:00Z", "selection": {}, "questions": [{
+        "id": "polymarket-9", "question": "Will US CPI inflation for September be above 3.0%?",
+        "resolution_criteria": "Resolves Yes if BLS reports year-over-year CPI above 3.0%.",
+        "closes_at": "2026-10-15T12:00:00Z", "topic": "Economy",
+        "market_url": "https://polymarket.com/event/cpi-september"}]}))
+    (directory / "market_snapshot.json").write_text("{}")  # never read
+    (task,) = cr.tasks(directory)
+    assert task == {"id": "polymarket-9", "question": "Will US CPI inflation for September be above 3.0%?",
+                    "criteria": "Resolves Yes if BLS reports year-over-year CPI above 3.0%.",
+                    "resolves_on": "2026-10-15", "topic": "Economy"}
+    assert "polymarket.com" not in cr.prompt(task, "2026-10-14")
+
+
 def test_cohort_tasks(tmp_path: Path) -> None:
     directory = tmp_path / "prospective_daily_20261014"
     directory.mkdir()
