@@ -3,15 +3,17 @@
     {
       "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "dgs10-2026-10-09",
       "status": "insufficient_evidence"
     },
     {
+      "brier": 0.30250000000000005,
       "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "log_loss": 0.7985076962177717,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.55,
       "release_event": "dgs10-2026-10-09",
       "status": "forecasted"
@@ -19,7 +21,7 @@
     {
       "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "dgs10-2026-10-09",
       "status": "execution_failed"
@@ -191,9 +193,11 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.2807418133214524,
       "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "log_loss": 0.7547050735593787,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.5298507462686567,
       "release_event": "dgs10-2026-10-09",
       "status": "forecasted"
@@ -297,9 +301,11 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.3364,
       "entry_id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "log_loss": 0.867500567704723,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.58,
       "release_event": "dgs10-2026-10-09",
       "status": "forecasted"
@@ -330,9 +336,9 @@
     "claude_code_forecaster_v1 (post-freeze supplement)": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": 0.19882,
-      "mean_log_loss": 0.5871367635378568,
-      "resolved_forecasts": 5,
+      "mean_brier": 0.22175,
+      "mean_log_loss": 0.6338640642323345,
+      "resolved_forecasts": 6,
       "uninformed_50pct_brier": 0.25
     },
     "root_event_ensemble_v1": {
@@ -346,17 +352,17 @@
     "single_model_forecaster_v1": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": 0.30648,
-      "mean_log_loss": 0.8331477056633307,
-      "resolved_forecasts": 5,
+      "mean_brier": 0.3058166666666667,
+      "mean_log_loss": 0.8273743707557376,
+      "resolved_forecasts": 6,
       "uninformed_50pct_brier": 0.25
     },
     "statistical_baseline_v1 (post-freeze supplement)": {
       "assigned": 7,
       "forecasted": 7,
-      "mean_brier": 0.23524716399199636,
-      "mean_log_loss": 0.6635301124043476,
-      "resolved_forecasts": 5,
+      "mean_brier": 0.24282960554690572,
+      "mean_log_loss": 0.6787259392635194,
+      "resolved_forecasts": 6,
       "uninformed_50pct_brier": 0.25
     },
     "three_track_strict_forecaster_v1": {
@@ -370,8 +376,13 @@
   },
   "outcomes": {
     "13f127d7-f551-4184-9856-a4c8d13b1c18": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "basis": "alfred_initial_vintage",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-25&coed=2026-10-09&vintage_date=2026-10-12",
+      "status": "resolved",
+      "value": "5.24",
+      "vintage_date": "2026-10-13",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-25&coed=2026-10-09&vintage_date=2026-10-13"
     },
     "1fa481be-5232-46b6-8bd7-c8fe62e2d51c": {
       "basis": "alfred_initial_vintage",
@@ -423,8 +434,8 @@
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-23&coed=2026-10-07&vintage_date=2026-10-08"
     }
   },
-  "resolved_entries": 5,
-  "scored_on": "2026-10-13",
+  "resolved_entries": 6,
+  "scored_on": "2026-10-14",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 7
 }
