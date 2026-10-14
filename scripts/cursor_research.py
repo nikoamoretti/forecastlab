@@ -124,7 +124,7 @@ def daily(args: argparse.Namespace) -> None:
     found = re.search(r"claude/daily-forecasts-(\d{8})", branch)
     if not found:
         raise SystemExit(f"{branch} is not a daily branch")
-    marker = STATE / f"done-{branch.replace('/', '_')}"
+    marker = STATE / f"done2-{branch.replace('/', '_')}"  # done2: markers from the first version are ignored
     if marker.exists() and not args.dry_run:
         return
     used = ledger()
@@ -152,10 +152,9 @@ def daily(args: argparse.Namespace) -> None:
 
     work = checkout(f"origin/{branch}")
     dirs = [d for d in sorted((work / "artifacts").glob(f"prospective_*_{found.group(1)}"))
-            if (d / "forecasts.json").exists() or (d / "frozen_manifest.json").exists()]
+            if (d / "questions.json").exists() or (d / "forecasts.json").exists()]
     if not dirs:
-        log(f"{branch}: no new questions today")
-        marker.touch()
+        log(f"{branch}: no questions to research yet; trying again next run")
         return
     agent = cursor_agent(settings.model, settings.timeout_s)
     runs, changed = 0, []
