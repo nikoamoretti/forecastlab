@@ -2,99 +2,99 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.2158848755623633,
+      "brier": 0.25842427506012416,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 9,
-      "right": 6,
+      "resolved": 14,
+      "right": 7,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 7
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1661,
+      "brier": 0.17275454545454544,
       "coin_flip_brier": 0.25,
       "forecasts": 75,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 6,
-      "right": 4,
+      "resolved": 11,
+      "right": 7,
       "toss_ups": 1,
-      "wrong": 1
+      "wrong": 3
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.0009,
+      "brier": 0.2817,
       "coin_flip_brier": 0.25,
       "forecasts": 33,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.004900000000000001,
+      "brier": 0.2837,
       "coin_flip_brier": 0.25,
       "forecasts": 49,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.0016,
+      "brier": 0.3370000000000001,
       "coin_flip_brier": 0.25,
       "forecasts": 41,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.0009,
+      "brier": 0.32045000000000007,
       "coin_flip_brier": 0.25,
       "forecasts": 34,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.0025000000000000005,
+      "brier": 0.24624999999999997,
       "coin_flip_brier": 0.25,
       "forecasts": 38,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.0025000000000000005,
+      "brier": 0.33745,
       "coin_flip_brier": 0.25,
       "forecasts": 42,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -110,51 +110,51 @@
     },
     {
       "about": "Three AI estimates built from one shared, checked evidence packet.",
-      "brier": 0.24163268687118317,
+      "brier": 0.31532413956503785,
       "coin_flip_brier": 0.25,
       "forecasts": 8,
       "label": "Research pipeline",
       "method": "root_event_ensemble_v1",
-      "resolved": 4,
+      "resolved": 6,
       "right": 3,
       "toss_ups": 0,
-      "wrong": 1
+      "wrong": 3
     },
     {
       "about": "One AI model with web search.",
-      "brier": 0.30648,
+      "brier": 0.255925,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Single AI model",
       "method": "single_model_forecaster_v1",
-      "resolved": 5,
-      "right": 3,
+      "resolved": 8,
+      "right": 5,
       "toss_ups": 0,
-      "wrong": 2
+      "wrong": 3
     },
     {
       "about": "Three separate AI analyses, combined.",
-      "brier": 0.2405814178389229,
+      "brier": 0.2576676114252808,
       "coin_flip_brier": 0.25,
       "forecasts": 15,
       "label": "Three-track AI",
       "method": "three_track_strict_forecaster_v1",
-      "resolved": 5,
+      "resolved": 6,
       "right": 3,
       "toss_ups": 0,
-      "wrong": 2
+      "wrong": 3
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.23524716399199636,
+      "brier": 0.25848119629907346,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 5,
-      "right": 3,
+      "resolved": 9,
+      "right": 4,
       "toss_ups": 0,
-      "wrong": 2
+      "wrong": 5
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
@@ -170,19 +170,334 @@
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.008611839999999999,
+      "brier": 0.16898652500000003,
       "coin_flip_brier": 0.25,
       "forecasts": 14,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 1,
+      "resolved": 2,
       "right": 1,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     }
   ],
-  "generated_on": "2026-10-13",
+  "generated_on": "2026-10-14",
   "questions": [
+    {
+      "actual": "3.7%",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.65
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.3 percent year over year?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.96,
+          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Staying at or below 3.3% needs NSA m/m below ~0.2%, which is implausible given the gasoline jump. Confidence: high.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+            },
+            {
+              "published": "2026-10-03",
+              "url": "https://nowflation.com/cpi-preview/september-2026"
+            },
+            {
+              "published": "2026-09-11",
+              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+            },
+            {
+              "published": "2026-09-28",
+              "url": "https://fred.stlouisfed.org/series/GASREGW"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.5735294117647058
+        }
+      ],
+      "id": "14bf6180-65b3-494a-8a63-990338fb1651",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-14",
+      "scored": true,
+      "series": "cpi",
+      "series_label": "U.S. inflation (CPI)",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+      "status": "resolved",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.3%?",
+      "topic": "Inflation",
+      "verdict": "right"
+    },
+    {
+      "actual": "3.7%",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.35784313725490197
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.5 percent year over year?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Needs a print of 3.6% or more (NSA m/m of ~0.4% or more). The nowcast centre is ~3.6%, and consensus at 3.7% is higher still. With an error sd of ~0.12pp, about a quarter of the mass rounds to 3.5% or below. Confidence: medium.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+            },
+            {
+              "published": "2026-10-03",
+              "url": "https://nowflation.com/cpi-preview/september-2026"
+            },
+            {
+              "published": "2026-09-11",
+              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+            },
+            {
+              "published": "2026-09-28",
+              "url": "https://fred.stlouisfed.org/series/GASREGW"
+            }
+          ]
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.2671762224285628
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.35784313725490197
+        }
+      ],
+      "id": "27954d60-fa29-4974-8b78-b9c24372574f",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-14",
+      "scored": true,
+      "series": "cpi",
+      "series_label": "U.S. inflation (CPI)",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+      "status": "resolved",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.5%?",
+      "topic": "Inflation",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "3.7%",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.47549019607843135
+      },
+      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.4 percent year over year?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Printing at or below 3.4% needs NSA m/m below ~0.3%, about 1.5-2 nowcast-error sd below the nowcast. Confidence: high.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+            },
+            {
+              "published": "2026-10-03",
+              "url": "https://nowflation.com/cpi-preview/september-2026"
+            },
+            {
+              "published": "2026-09-11",
+              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+            },
+            {
+              "published": "2026-09-28",
+              "url": "https://fred.stlouisfed.org/series/GASREGW"
+            }
+          ]
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.3767958593434868
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.7
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.41425382685238976
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.47549019607843135
+        }
+      ],
+      "id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-14",
+      "scored": true,
+      "series": "cpi",
+      "series_label": "U.S. inflation (CPI)",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
+      "status": "resolved",
+      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.4%?",
+      "topic": "Inflation",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.25
+      },
+      "detail": "Resolution criteria\n\nThis market resolves to YES if Google makes its Gemini 4 Argon model publicly available to individual developers or consumers on or before October 14, 2026, at 11:59 PM PT. Otherwise, this market resolves to NO.\n\nTo qualify as publicly available, ordinary individual users must be able to obtain access without being individually selected, invited, vetted, or approved by Google. Qualified access pathways include:\n\nDeveloper Access: Available via Google AI Studio, the Gemini API, or Google Cloud Vertex AI for any registered developer.\n\nConsumer Access: Offered via a generally available consumer subscription (e.g., Google AI Advanced, Google AI Ultra, or a successor tier) on the Gemini web or mobile interface.\n\nExclusions and Edge Cases:\n\nAccess does not qualify if it remains restricted to enterprise customers, select companies, private-preview cohorts, trusted testers, or members of specific closed initiatives such as Google's Fairwind program.\n\nPaid subscriptions or paid API usage qualify as public access, as long as any ordinary user can sign up and pay.\n\nGeographic restrictions will not prevent a YES resolution, provided ordinary individual users in at least one supported region can obtain unvetted access.\n\nThe model must be functionally accessible and interactive by the deadline; a mere announcement of a future release date does not suffice.\n\nBackground\n\nGoogle announced its next-generation frontier AI model, Gemini 4 Argon, on September 30, 2026. Engineered for complex reasoning, multi-step software engineering (scoring 77.9% on DeepSWE v1.1), and defensive cybersecurity, the model boasts a massive 1-million-token output capacity.\n\nAt launch, Google made Gemini 4 Argon available exclusively to trusted testers and select cybersecurity partners through its vetted Fairwind program. This market tracks whether Google transitions the model from its restricted early-access phase to general public availability for developers or consumers before the October 15, 2026 deadline.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "Google announced Gemini 4 Argon on Sept 30 with access limited to Fairwind cyber defenders and internal teams. It names paid API and AI Ultra as the next tier 'as soon as possible' but gives no date; as of Oct 8 Argon was not in public model lists, and rumors of an Oct 9-10 launch were unconfirmed. Five days remain; Google has moved fast before, but a cautious, guardrail-gated rollout makes it less likely than not.",
+          "sources": [
+            "https://runtimewire.com/article/everything-we-know-about-google-s-gemini-4-argon",
+            "https://aicoder.com/news/news-20261003-gemini-4-argon-next-week-unverified",
+            "https://aireiter.com/blog/gemini-4-argon-api-pricing-availability"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.25,
+          "rationale": "Base rate for Google moving a frontier model from restricted preview to general public access is typically weeks to months, but the company stated paid API/Ultra users would get access 'as soon as possible' after the Sept 30 announcement. Negative evidence: as of Oct 8, rumored Oct 8-10 launch dates were unconfirmed, and Argon remained absent from public model lists, pricing pages, and changelogs as of Oct 3. With only 5 days until the Oct 14 deadline and no confirmed signs of imminent public rollout, the probability is low but non-zero given Google's stated intent to move quickly."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "Base rate for frontier models shows roughly a 30% chance of moving from limited tester access to full public availability within two weeks of announcement. As of October 8, Gemini 4 Argon remained absent from public model lists, pricing pages, and changelogs, and Google\u2019s own statements indicated a broader rollout only after guardrails are refined, with no firm date given. This lack of visible progress suggests the release is unlikely before the October 14 deadline, though a faster-than-expected rollout or confirmation of unverified rumors could raise the probability."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for a major model release within two weeks of restricted-access launch is low; most frontier models stay in vetted preview for weeks to months. Google's own statements only commit to expanding access 'as soon as possible' after guardrail refinement, with no date given, and as of October 8 Argon was still absent from public APIs and changelogs. Unverified social claims of an imminent launch have not been substantiated, and the evidence suggests Google is still in an early controlled rollout phase, making a fully public release by October 14 unlikely unless an official announcement or public availability appears very soon."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a major frontier model moving from a restricted safety preview to full public API or consumer availability in under two weeks is low. Google has explicitly stated that developers and consumers will receive access only after guardrails are refined, offered no specific date, and Argon remained off public pricing pages and changelogs as of October 3, while launch rumors were still unconfirmed on October 8, leaving only five days until the deadline. The probability would rise sharply if Google announces imminent public availability for paying API or Ultra subscribers before October 14."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "A frontier model moving from vetted early access to unvetted public access within five days is plausible but not the base-case outcome. Google's statement that paid API customers and AI Ultra subscribers come next 'as soon as possible,' plus unconfirmed Oct 8-10 launch claims, raises the odds. However, the model was still absent from public model lists, pricing, and changelogs as of Oct 8, and guardrail refinement suggests a possible delay."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for a major Google model moving from restricted early access to full public availability within ~2 weeks of announcement is low, as Google typically takes weeks to months for broad rollout. The evidence shows Argon remains in the Fairwind trusted-tester program as of Oct 8, with Google explicitly stating paid API and Ultra subscribers come 'as soon as possible' but no date given, and unconfirmed social media claims of an Oct 8-10 launch did not materialize. A YES would require Google to accelerate its stated timeline significantly within the remaining ~5 days, which is possible but not the central expectation. The main thing that could move this higher is a sudden Google announcement of public availability in the final days before the deadline."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4261
+        }
+      ],
+      "id": "manifold-Qgu99q9Lpu",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-14",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://manifold.markets/HumanClanker/will-gemini-4-argon-be-released-pub",
+      "status": "resolved",
+      "title": "Will Gemini 4 Argon be released publicly before October 15",
+      "topic": "Tech",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "5.24%",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.55
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-09 be above 5.24 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 5 trading day(s), a random walk gives ~0.61; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.federalreserve.gov/releases/h15/"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/DGS10"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.55
+        },
+        {
+          "made_at": "2026-10-03T11:22:57.752528+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.5298507462686567
+        }
+      ],
+      "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_fast_fred_batch_20261003",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 9, 2026 be above 5.24%?",
+      "topic": "Interest rates",
+      "verdict": "wrong"
+    },
     {
       "actual": "Manifold: No",
       "call": {
@@ -878,67 +1193,6 @@
       "call": {
         "members": 3,
         "method": "combined_median_v1",
-        "probability": 0.55
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-09 be above 5.24 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.58,
-          "rationale": "Official Treasury par curve (source of DGS10) shows 10y at 5.28 on 2026-10-02 (5.24 on 10-01; 5.29 peak 09-30). One CNBC headline summary claimed 5.18 after the payrolls miss, conflicting with the official print; I weight the official 5.28 ~90%. Starting 4bp above threshold, with ~5bp daily vol (20d realized 5.2bp) over 5 trading day(s), a random walk gives ~0.61; shaded down for the conflicting report and for mean-reversion risk after the weak September payrolls cut October hike odds to ~17-21%. Probability decays with horizon. Confidence: medium; a single-day move of 4bp or more is common, so this is close to a coin flip with a positive tilt.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.federalreserve.gov/releases/h15/"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/DGS10"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://tech-insider.org/fed-october-2026-rate-hold-odds-polymarket-swing/"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.55
-        },
-        {
-          "made_at": "2026-10-03T11:22:57.752528+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.5298507462686567
-        }
-      ],
-      "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_fast_fred_batch_20261003",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 9, 2026 be above 5.24%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
         "probability": 0.48
       },
       "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
@@ -1184,260 +1438,6 @@
       "status": "pending",
       "title": "Will the 10-year U.S. Treasury yield on Oct 13, 2026 be above 5.28%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.65
-      },
-      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.3 percent year over year?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.96,
-          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Staying at or below 3.3% needs NSA m/m below ~0.2%, which is implausible given the gasoline jump. Confidence: high.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
-            },
-            {
-              "published": "2026-10-03",
-              "url": "https://nowflation.com/cpi-preview/september-2026"
-            },
-            {
-              "published": "2026-09-11",
-              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
-            },
-            {
-              "published": "2026-09-28",
-              "url": "https://fred.stlouisfed.org/series/GASREGW"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.65
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.5735294117647058
-        }
-      ],
-      "id": "14bf6180-65b3-494a-8a63-990338fb1651",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-14",
-      "scored": true,
-      "series": "cpi",
-      "series_label": "U.S. inflation (CPI)",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
-      "status": "pending",
-      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.3%?",
-      "topic": "Inflation",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.35784313725490197
-      },
-      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.5 percent year over year?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.74,
-          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Needs a print of 3.6% or more (NSA m/m of ~0.4% or more). The nowcast centre is ~3.6%, and consensus at 3.7% is higher still. With an error sd of ~0.12pp, about a quarter of the mass rounds to 3.5% or below. Confidence: medium.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
-            },
-            {
-              "published": "2026-10-03",
-              "url": "https://nowflation.com/cpi-preview/september-2026"
-            },
-            {
-              "published": "2026-09-11",
-              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
-            },
-            {
-              "published": "2026-09-28",
-              "url": "https://fred.stlouisfed.org/series/GASREGW"
-            }
-          ]
-        },
-        {
-          "method": "root_event_ensemble_v1",
-          "probability": 0.2671762224285628
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.35784313725490197
-        }
-      ],
-      "id": "27954d60-fa29-4974-8b78-b9c24372574f",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-14",
-      "scored": true,
-      "series": "cpi",
-      "series_label": "U.S. inflation (CPI)",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
-      "status": "pending",
-      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.5%?",
-      "topic": "Inflation",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.47549019607843135
-      },
-      "detail": "Will the first published U.S. CPI year-over-year inflation (FRED CPIAUCNS) for 2026-09 be above 3.4 percent year over year?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.91,
-          "rationale": "Aug CPI-U NSA 334.980 (3.4% YoY); Sep-2025 base 324.800. Cleveland Fed nowcast (Oct 2) is +0.53% m/m and 3.60% YoY; Street consensus is 3.7%; Nowflation 3.58-3.60%. Weekly retail gasoline averaged ~$4.36 in September vs ~$4.06 in August (+7%), so a large energy contribution is near-certain. Printing at or below 3.4% needs NSA m/m below ~0.3%, about 1.5-2 nowcast-error sd below the nowcast. Confidence: high.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
-            },
-            {
-              "published": "2026-10-03",
-              "url": "https://nowflation.com/cpi-preview/september-2026"
-            },
-            {
-              "published": "2026-09-11",
-              "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
-            },
-            {
-              "published": "2026-09-28",
-              "url": "https://fred.stlouisfed.org/series/GASREGW"
-            }
-          ]
-        },
-        {
-          "method": "root_event_ensemble_v1",
-          "probability": 0.3767958593434868
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.7
-        },
-        {
-          "method": "three_track_strict_forecaster_v1",
-          "probability": 0.41425382685238976
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.47549019607843135
-        }
-      ],
-      "id": "cf0c8389-7f43-45a2-9c29-886d406da17a",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-14",
-      "scored": true,
-      "series": "cpi",
-      "series_label": "U.S. inflation (CPI)",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
-      "status": "pending",
-      "title": "Will U.S. inflation (CPI, year over year) for September 2026 come in above 3.4%?",
-      "topic": "Inflation",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.25
-      },
-      "detail": "Resolution criteria\n\nThis market resolves to YES if Google makes its Gemini 4 Argon model publicly available to individual developers or consumers on or before October 14, 2026, at 11:59 PM PT. Otherwise, this market resolves to NO.\n\nTo qualify as publicly available, ordinary individual users must be able to obtain access without being individually selected, invited, vetted, or approved by Google. Qualified access pathways include:\n\nDeveloper Access: Available via Google AI Studio, the Gemini API, or Google Cloud Vertex AI for any registered developer.\n\nConsumer Access: Offered via a generally available consumer subscription (e.g., Google AI Advanced, Google AI Ultra, or a successor tier) on the Gemini web or mobile interface.\n\nExclusions and Edge Cases:\n\nAccess does not qualify if it remains restricted to enterprise customers, select companies, private-preview cohorts, trusted testers, or members of specific closed initiatives such as Google's Fairwind program.\n\nPaid subscriptions or paid API usage qualify as public access, as long as any ordinary user can sign up and pay.\n\nGeographic restrictions will not prevent a YES resolution, provided ordinary individual users in at least one supported region can obtain unvetted access.\n\nThe model must be functionally accessible and interactive by the deadline; a mere announcement of a future release date does not suffice.\n\nBackground\n\nGoogle announced its next-generation frontier AI model, Gemini 4 Argon, on September 30, 2026. Engineered for complex reasoning, multi-step software engineering (scoring 77.9% on DeepSWE v1.1), and defensive cybersecurity, the model boasts a massive 1-million-token output capacity.\n\nAt launch, Google made Gemini 4 Argon available exclusively to trusted testers and select cybersecurity partners through its vetted Fairwind program. This market tracks whether Google transitions the model from its restricted early-access phase to general public availability for developers or consumers before the October 15, 2026 deadline.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "Google announced Gemini 4 Argon on Sept 30 with access limited to Fairwind cyber defenders and internal teams. It names paid API and AI Ultra as the next tier 'as soon as possible' but gives no date; as of Oct 8 Argon was not in public model lists, and rumors of an Oct 9-10 launch were unconfirmed. Five days remain; Google has moved fast before, but a cautious, guardrail-gated rollout makes it less likely than not.",
-          "sources": [
-            "https://runtimewire.com/article/everything-we-know-about-google-s-gemini-4-argon",
-            "https://aicoder.com/news/news-20261003-gemini-4-argon-next-week-unverified",
-            "https://aireiter.com/blog/gemini-4-argon-api-pricing-availability"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.25,
-          "rationale": "Base rate for Google moving a frontier model from restricted preview to general public access is typically weeks to months, but the company stated paid API/Ultra users would get access 'as soon as possible' after the Sept 30 announcement. Negative evidence: as of Oct 8, rumored Oct 8-10 launch dates were unconfirmed, and Argon remained absent from public model lists, pricing pages, and changelogs as of Oct 3. With only 5 days until the Oct 14 deadline and no confirmed signs of imminent public rollout, the probability is low but non-zero given Google's stated intent to move quickly."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.25,
-          "rationale": "Base rate for frontier models shows roughly a 30% chance of moving from limited tester access to full public availability within two weeks of announcement. As of October 8, Gemini 4 Argon remained absent from public model lists, pricing pages, and changelogs, and Google\u2019s own statements indicated a broader rollout only after guardrails are refined, with no firm date given. This lack of visible progress suggests the release is unlikely before the October 14 deadline, though a faster-than-expected rollout or confirmation of unverified rumors could raise the probability."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for a major model release within two weeks of restricted-access launch is low; most frontier models stay in vetted preview for weeks to months. Google's own statements only commit to expanding access 'as soon as possible' after guardrail refinement, with no date given, and as of October 8 Argon was still absent from public APIs and changelogs. Unverified social claims of an imminent launch have not been substantiated, and the evidence suggests Google is still in an early controlled rollout phase, making a fully public release by October 14 unlikely unless an official announcement or public availability appears very soon."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.2,
-          "rationale": "The base rate for a major frontier model moving from a restricted safety preview to full public API or consumer availability in under two weeks is low. Google has explicitly stated that developers and consumers will receive access only after guardrails are refined, offered no specific date, and Argon remained off public pricing pages and changelogs as of October 3, while launch rumors were still unconfirmed on October 8, leaving only five days until the deadline. The probability would rise sharply if Google announces imminent public availability for paying API or Ultra subscribers before October 14."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.3,
-          "rationale": "A frontier model moving from vetted early access to unvetted public access within five days is plausible but not the base-case outcome. Google's statement that paid API customers and AI Ultra subscribers come next 'as soon as possible,' plus unconfirmed Oct 8-10 launch claims, raises the odds. However, the model was still absent from public model lists, pricing, and changelogs as of Oct 8, and guardrail refinement suggests a possible delay."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for a major Google model moving from restricted early access to full public availability within ~2 weeks of announcement is low, as Google typically takes weeks to months for broad rollout. The evidence shows Argon remains in the Fairwind trusted-tester program as of Oct 8, with Google explicitly stating paid API and Ultra subscribers come 'as soon as possible' but no date given, and unconfirmed social media claims of an Oct 8-10 launch did not materialize. A YES would require Google to accelerate its stated timeline significantly within the remaining ~5 days, which is possible but not the central expectation. The main thing that could move this higher is a sudden Google announcement of public availability in the final days before the deadline."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.4261
-        }
-      ],
-      "id": "manifold-Qgu99q9Lpu",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-14",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://manifold.markets/HumanClanker/will-gemini-4-argon-be-released-pub",
-      "status": "pending",
-      "title": "Will Gemini 4 Argon be released publicly before October 15",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -5067,16 +5067,16 @@
     }
   ],
   "summary": {
-    "brier": 0.2158848755623633,
+    "brier": 0.25842427506012416,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 68,
-    "resolved": 9,
-    "right": 6,
+    "pending": 63,
+    "resolved": 14,
+    "right": 7,
     "toss_ups": 0,
     "total": 78,
     "unscored": 2,
-    "wrong": 3
+    "wrong": 7
   },
   "version": "track_record_v2"
 }
