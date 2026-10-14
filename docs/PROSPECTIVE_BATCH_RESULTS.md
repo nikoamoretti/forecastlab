@@ -38,9 +38,9 @@ Both batches ran in ephemeral local instances, whose databases were discarded. T
 | `single_model_forecaster_v1` | 7 | 0 | 0 | Day-to-day estimates for the same yield threshold range from 45% to 80%. |
 | `three_track_strict_forecaster_v1` | 6 | 0 | 1 | Estimates range from 40.9% to 53%. |
 
-## Fast batch results (scored 2026-10-09)
+## Fast batch results (scored 2026-10-09, updated 2026-10-14)
 
-Four of the seven fast questions have resolved from the first FRED vintage (ALFRED). The yield questions for Oct 8 and Oct 9 and the claims question for the week ending Oct 10 are still pending.
+Six of the seven fast questions have resolved from the first FRED vintage (ALFRED). Only the claims question for the week ending Oct 10 is still pending (published Oct 15).
 
 | Question | Actual | Outcome | root ensemble | single model | strict three-track | statistical baseline | Claude Code |
 | --- | ---: | :---: | ---: | ---: | ---: | ---: | ---: |
@@ -48,11 +48,27 @@ Four of the seven fast questions have resolved from the first FRED vintage (ALFR
 | 10-year yield Oct 5 above 5.24% | 5.31% | Yes | withheld | 45% | 41% | 50% | 68% |
 | 10-year yield Oct 6 above 5.24% | 5.27% | Yes | withheld | 55% | 53% | 52% | 64% |
 | 10-year yield Oct 7 above 5.24% | 5.28% | Yes | 50% | 55% | 46% | 53% | 61% |
-| **Mean Brier (lower is better; 0.25 = coin flip)** | | | 0.245 (1 forecast) | 0.223 | 0.259 | 0.223 | 0.159 |
+| 10-year yield Oct 8 above 5.24% | 5.22% | No | withheld | 80% | 41% | 53% | 60% |
+| 10-year yield Oct 9 above 5.24% | 5.24% | No | withheld | 55% | failed | 53% | 58% |
+| **Mean Brier (lower is better; 0.25 = coin flip)** | | | 0.245 (1 forecast) | 0.306 | 0.241 (5 forecasts) | 0.243 | 0.222 |
 
-- Claude Code was closest on all three yield days because it started from Treasury's official 5.28% for Oct 2, already above the line. It was the furthest on claims, where it said 50% and the number landed exactly on 197,000, which does not count as "above".
-- The strict three-track method did worse than a coin flip, mainly by leaning below 50% on the yield days.
+- Claude Code was closest on the first three yield days because it started from Treasury's official 5.28% for Oct 2, already above the line. It was the furthest on claims, where it said 50% and the number landed exactly on 197,000, which does not count as "above". The yield then fell to 5.22% on Oct 8 and to exactly 5.24% on Oct 9 (not above the line), and every method leaned Yes on those two days, the single model hardest at 80% on Oct 8.
+- Through Oct 7 the strict three-track method did worse than a coin flip by leaning below 50% on the yield days; the two No days brought it back to 0.241.
 - This proves little. It is four questions, three of them the same yield threshold on consecutive days, so they mostly count as one bet. Claude's forecasts were also made after the cohort froze (about 14 hours later), so it saw slightly more news than the frozen methods.
+
+## September CPI results (scored 2026-10-14)
+
+The September 2026 CPI came in at 3.7% year over year (first release, ALFRED vintage of 2026-10-14), above all three thresholds, so all three questions resolved Yes. Seven other questions in the batch (October and November employment) are still pending.
+
+| Question | Outcome | root ensemble | single model | strict three-track | statistical baseline | Claude Code |
+| --- | :---: | ---: | ---: | ---: | ---: | ---: |
+| CPI for 2026-09 above 3.3% | Yes | withheld | 65% | failed | 57% | 96% |
+| CPI for 2026-09 above 3.4% | Yes | 38% | 70% | 41% | 48% | 91% |
+| CPI for 2026-09 above 3.5% | Yes | 27% | failed | failed | 36% | 74% |
+| **Mean Brier (lower is better; 0.25 = coin flip)** | | 0.463 (2 forecasts) | 0.106 (2 forecasts) | 0.343 (1 forecast) | 0.290 | 0.026 |
+
+- Every method put its probability for Yes on the 3.4% and 3.5% questions below Claude Code's, and the research pipeline (root ensemble) gave 38% and 27% to questions that resolved Yes, which is why its score is worse than a coin flip.
+- Claude Code (web search) and the statistical baseline were both produced after the freeze and before the release (2026-10-03), so they are scored separately as post-freeze supplements. The three questions are thresholds on one number, so this is one data point, not three.
 
 ## Statistical baseline supplement
 
