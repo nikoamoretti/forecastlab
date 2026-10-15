@@ -1,0 +1,1382 @@
+{
+  "failed": {},
+  "findings": {
+    "manifold-SyhgEZC68s": {
+      "base_rate": "In the two most recent Texas U.S.\nSenate general elections cited by Ballotpedia, Republicans won both: John Cornyn defeated M.J.\nHegar 54%\u201344% in 2020, and Ted Cruz defeated Colin Allred 53%\u201345% in 2024.",
+      "facts": [
+        {
+          "fact": "On August 28, 2026, the Texas Deputy Secretary of State certified the November 3, 2026 general-election ballot, listing Ken Paxton (Republican), James Talarico (Democrat), and Ted Brown (Libertarian) for U.S.\nSenator.",
+          "source": 0
+        },
+        {
+          "fact": "The general election is Tuesday, November 3, 2026; in-person early voting begins Monday, October 19, 2026, and ends Friday, October 30, 2026, so it had not started as of October 15, 2026.",
+          "source": 1
+        },
+        {
+          "fact": "James Talarico won the March 3, 2026 Democratic primary for U.S.\nSenate over Jasmine Crockett and Ahmad Hassan, and those results were certified.",
+          "source": 2
+        },
+        {
+          "fact": "Ken Paxton defeated incumbent John Cornyn in the May 26, 2026 Republican primary runoff for U.S.\nSenate.",
+          "source": 3
+        },
+        {
+          "fact": "A Marist poll of Texas likely voters interviewed October 8\u201311, 2026, and released October 14, 2026, had Talarico at 47% and Paxton at 45%, a gap inside the \u00b14.9 point margin of error; 53% of likely voters expected Paxton to win.",
+          "source": 4
+        },
+        {
+          "fact": "The UT/Texas Politics Project poll fielded September 25\u2013October 5, 2026, among 861 likely voters, and published October 13, 2026, had Talarico at 50% and Paxton at 47%, inside a \u00b13.34 point margin of error.",
+          "source": 5
+        },
+        {
+          "fact": "A Siena Research Institute release dated October 13, 2026, reported Talarico at 48% and Paxton at 44%, compared with 49\u201343 in September.",
+          "source": 6
+        },
+        {
+          "fact": "Write-in candidates certified for U.S.\nSenator on August 28, 2026, include Avery Ayers, Bradford \"Brad\" Hall, Zul Mohamed, and Jade Simmons.",
+          "source": 7
+        }
+      ],
+      "uncertainties": [
+        "No votes have been cast in the November 3, 2026 general election, and early voting does not begin until October 19, 2026.",
+        "Recent public polls show a Talarico lead of 2 to 4 points, and those leads sit inside the reported margins of error.",
+        "Turnout, late campaign events, and the share taken by Ted Brown and the four certified write-in candidates are still unknown."
+      ]
+    },
+    "manifold-nngCdzg62E": {
+      "base_rate": "Reference class: apps that reached #1 on the US iOS free chart since 2012 (Sensor Tower, via The Verge, 2026-02-19).\nOf 568 such apps, 478 had a #1 run of 10 days or fewer; 292 lasted three days or fewer; 130 were #1 for one day.\nEight apps (Temu, Facebook Messenger, ChatGPT, YouTube, TikTok, Zoom Workplace, Bitmoji, Threads) had at least 100 days at #1.\nMuse's current run is already longer than the typical short spike, but the same source treats promo-driven #1s as brief.",
+      "facts": [
+        {
+          "fact": "On 2026-10-15 at 10:09:45 UTC, Apple's US Top Free iPhone feed listed Muse from Meta (Meta Platforms, Inc., id 6760173601, released 2026-09-08) first, ahead of Vinted.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-15, NewsBytes reported Muse had briefly lost the US free chart to Dave's Hot Chicken and was again in the top spot, while Muse Wonder access cost $20 or $100 a month.",
+          "source": 1
+        },
+        {
+          "fact": "Across Oct 1\u201314, 2026, AppTrendKit recorded Muse's best daily US Top Free rank as #1 on all 14 days, with an average rank of #1.",
+          "source": 2
+        },
+        {
+          "fact": "GameQuant, published 2026-10-13, recorded Muse at #1 on the US Top Free Apps chart every day from 2026-09-18 through 2026-10-06, using each day's best rank.",
+          "source": 3
+        },
+        {
+          "fact": "In a 90-day US Top Free archive ending 2026-10-15, Muse had 26 days at #1 and Dave's Hot Chicken had 1 day at #1.",
+          "source": 4
+        },
+        {
+          "fact": "Sensor Tower data reported by The Verge on 2026-02-19 said 478 of 568 apps that reached #1 on the US free chart since 2012 stayed there 10 days or fewer, and free-food promotions have repeatedly produced short #1 runs.",
+          "source": 5
+        },
+        {
+          "fact": "NDTV reported that on 2026-10-14 Zac Hall said Muse had been knocked out of the top App Store spot for the first time since launch, with Dave's Hot Chicken taking the spot.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "The deciding observation is the first Apple US Top Free snapshot at or after 17:00 UTC on 2026-10-31, about 16 days after the latest feed, so the current #1 does not settle the question.",
+        "The chart already flipped away from Muse on 2026-10-14 for a restaurant free-slider promotion and flipped back by 2026-10-15, so another short promo can change the snapshot that counts.",
+        "Paid Muse Wonder tiers ($20 or $100 a month) could slow new downloads even if the listing stays free.",
+        "Daily trackers that store an app's best rank can show Muse at #1 on a day when a later snapshot had another app first, and the resolution rule uses one specific later snapshot."
+      ]
+    },
+    "manifold-tAzh2Qytdl": {
+      "base_rate": "Comparable case: after OpenAI\u2019s $200 individual Pro tier in December 2024, Anthropic announced its own $200 individual Max tier on 2025-04-09, about four months later (1 of 1 documented Anthropic follow-on at that price level).\nThe current deadline is 2026-11-01, 33 days after OpenAI\u2019s 2026-09-29 $500 announcement.",
+      "facts": [
+        {
+          "fact": "On 2026-09-29 OpenAI announced ChatGPT Pro 500, described on its DevDay recap as a new plan with the highest usage allowance and Ultrafast access.",
+          "source": 0
+        },
+        {
+          "fact": "OpenAI\u2019s Help Center lists Pro 500 at a standard monthly price of $500, above Pro 100 at $100 and Pro 200 at $200.",
+          "source": 1
+        },
+        {
+          "fact": "As of a Claude Help Center page updated the day before 2026-10-15, Anthropic\u2019s individual Max web tiers are Max 5x at $100 per month and Max 20x at $200 per month.",
+          "source": 2
+        },
+        {
+          "fact": "Anthropic\u2019s API-credit help article assigns Max 20x a $200 monthly credit and caps pooled Team credits at $500; those amounts are usage credits, not a new individual subscription price.",
+          "source": 3
+        },
+        {
+          "fact": "The Verge reported on 2026-09-29 that OpenAI was adding a $500-per-month ChatGPT Pro tier and had reopened its $200 tier with new usage limits.",
+          "source": 4
+        },
+        {
+          "fact": "On 2025-04-09 Anthropic announced individual Max tiers at $100 and $200 per month, which The Verge described as competing with OpenAI\u2019s $200 tier from December 2024.",
+          "source": 5
+        },
+        {
+          "fact": "Reporting published 2026-10-08 on Anthropic\u2019s 2026-10-07 credit rollout still listed the highest individual Max web price at $200 per month.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "No Anthropic page found through 2026-10-15 confirms or rules out a future individual tier at $400 or more before 2026-11-01 00:00 CET.",
+        "The Max help page says prices and plans can change at Anthropic\u2019s discretion, so a priced announcement could still appear in the remaining window.",
+        "An announcement would count even if the plan is not yet available; searches would miss an official post that is not indexed.",
+        "Mobile Max prices may differ from the web list, but the resolution uses the standard U.S.\nprice excluding tax.",
+        "Team credit pools capped at $500 and usage-based API billing would not satisfy the individual-subscription criterion even if they appear in the same period."
+      ]
+    },
+    "manifold-uISNlAqC2E": {
+      "base_rate": "In the 20 U.S.\nmidterms from 1946 through 2022, the president\u2019s party lost House seats 18 times and gained seats twice (1998, +4 under Clinton; 2002, +8 under George W.\nBush), per the American Presidency Project table last updated July 13, 2026.\nLosses in that set ranged from 4 seats (1962) to 63 (2010).\nWhether a loss produced a change in House control depended on how many seats the president\u2019s party held going in; that table\u2019s 2026 row lists 220 Republican House seats to defend and no result.",
+      "facts": [
+        {
+          "fact": "As of the Clerk\u2019s October 1, 2026 official list, the House had 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies (Florida\u2019s 20th and Texas\u2019s 23rd), out of 435 seats.",
+          "source": 0
+        },
+        {
+          "fact": "The House Press Gallery records that Rep.\nTony Gonzales (R-TX) resigned on April 14, 2026, and Rep.\nSheila Cherfilus-McCormick (D-FL) resigned on April 21, 2026.",
+          "source": 1
+        },
+        {
+          "fact": "The FEC states that Tuesday, November 3, 2026, is the next regularly scheduled federal general election date, and that certified results come from state election offices rather than immediately from the FEC.",
+          "source": 2
+        },
+        {
+          "fact": "On October 9, 2026, the Cook Political Report moved 18 House ratings toward Democrats and wrote that its most likely outcome was a Democratic pickup of 9 to 19 seats, which it said would mean 224 to 234 Democratic seats.",
+          "source": 3
+        },
+        {
+          "fact": "On October 14, 2026, Sabato\u2019s Crystal Ball listed House ratings as 214 at least Leans Democratic, 201 at least Leans Republican, and 20 toss-ups, and said the House remained extremely likely to flip to Democrats.",
+          "source": 4
+        },
+        {
+          "fact": "A Washington Post analysis published October 14, 2026, said Democrats needed a net gain of three seats for a majority and had a chance in about two dozen districts.",
+          "source": 5
+        },
+        {
+          "fact": "The American Presidency Project table, last updated July 13, 2026, lists the president\u2019s party House seat change as a loss in 18 of the 20 midterms from 1946 through 2022 and a gain in two (1998, +4; 2002, +8); its unfinished 2026 row lists Donald J.\nTrump (R), 220 House seats to defend, and a blank seat-change cell.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "The November 3, 2026, election has not been held, and no certified House results exist.",
+        "Cook\u2019s 9-to-19-seat Democratic range and Crystal Ball\u2019s 20 toss-ups leave open outcomes both above and below 218 Republican seats if ratings miss.",
+        "The Clerk\u2019s October 1 count is 218 Republicans, 214 Democrats, and 1 independent, while some October analyses still describe a three-seat Democratic path to a majority; how the independent and the two vacancies are counted changes the seats Republicans must hold.",
+        "State certification, possible recounts, and any race not decided on election night can delay a count of 218, and the FEC says results are not available immediately.",
+        "The resolution standard among decision-desk calls, members sworn in, and certified results had not been settled in the question\u2019s July 12, 2026, note."
+      ]
+    },
+    "polymarket-3089558": {
+      "base_rate": "",
+      "facts": [
+        {
+          "fact": "On 5 October 2026 ISW assessed the nearest Russian advance near Dobropillya was at least seven kilometers from the city\u2019s eastern outskirts, and treated a Russian presence in southwestern Dobropillya as an infiltration mission.",
+          "source": 0
+        },
+        {
+          "fact": "On 12 October 2026 ISW again coded a Russian servicemember in southern Dobropillya as infiltration and said it had no evidence for a Russian Defense Ministry claim that Russian forces had seized Lidyne, about 13.5 kilometers beyond the furthest assessed Russian advance northeast of Dobropillya.",
+          "source": 1
+        },
+        {
+          "fact": "On 5 October 2026 a report citing DeepState said Russian troops had entered Novyi Donbas but had not consolidated, and that the gray zone covered about two-thirds of the settlement, the eastern and central parts.",
+          "source": 2
+        },
+        {
+          "fact": "On 13 October 2026 DeepState\u2019s map update, as quoted by Informator, said Russian forces advanced in Bilytske and near Dorozhne and Novyi Donbas, without stating that Novyi Donbas was captured.",
+          "source": 3
+        },
+        {
+          "fact": "On 14 October 2026 Gazeta.ua, citing DeepState, reported Russian infantry advances in the areas of Matyasheve, Novyi Donbas, Dorozhne, and Bilytske, and said the gray zone near Dobropillya was growing under a tactic of deep infiltration.",
+          "source": 4
+        },
+        {
+          "fact": "A 15 October 2026 summary of ISW\u2019s 13\u201314 October assessment said Russian forces on the Pokrovsk axis had shifted effort from Udachne and Kotlyne toward Serhiivka and did not report a confirmed Russian seizure of Novyi Donbas.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "No public ISW text through 15 October 2026 states that the intersection at 48.450545 N, 37.181493 E is shaded as Assessed Russian-Controlled Terrain or Assessed Russian Advances; infiltration shading would not qualify.",
+        "DeepState reports describe advances near Novyi Donbas and a gray zone covering much of the settlement, but they do not say whether that specific intersection is occupied or only contested.",
+        "Qualifying ISW shading would still have to persist through the next full daily ISW update, and the map can change before 31 October 2026, 11:59 p.m.\nET.",
+        "A negotiated transfer would count only if Russia actually took control of the intersection; no such established transfer was reported in these sources."
+      ]
+    },
+    "polymarket-3499789": {
+      "base_rate": "Of 22 RBA cash-rate decisions from February 2024 through September 2026, 15 were no change.\nIn the 2026 sequence alone, 2 of 6 decisions (June and August) were no change and 4 were 25-basis-point increases.",
+      "facts": [
+        {
+          "fact": "On 29 September 2026 the RBA Monetary Policy Board unanimously raised the cash rate target by 25 basis points to 4.60 per cent.",
+          "source": 0
+        },
+        {
+          "fact": "The Board said inflation was still too high and that it could increase the cash rate target further if needed.",
+          "source": 0
+        },
+        {
+          "fact": "September minutes said domestic and global developments had raised the risk of persistently elevated inflation, and that the cash rate could rise further if required.",
+          "source": 1
+        },
+        {
+          "fact": "The 2026 calendar lists a Monetary Policy Board meeting on 2\u20133 November 2026, with the decision announced at 2.30 pm on the second day and the Statement on Monetary Policy released with the November outcome.",
+          "source": 2
+        },
+        {
+          "fact": "The ABS said CPI rose 4.0 per cent in the 12 months to August 2026, up from 3.5 per cent in July, while trimmed-mean inflation was unchanged at 3.6 per cent.",
+          "source": 4
+        },
+        {
+          "fact": "On 13 October 2026 Commonwealth Bank economists still expected the cash rate to stay on hold, while describing a November rise as a clear risk and calling the September-quarter CPI on 28 October the next key release.",
+          "source": 5
+        },
+        {
+          "fact": "Across the 22 cash-rate decisions with effective dates from 7 February 2024 through 30 September 2026, 15 left the target unchanged, three cut it by 25 basis points and four raised it by 25 basis points; of the six 2026 decisions, two were unchanged (June and August) and four were 25-basis-point increases.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "The November 2026 decision has not been made; the scheduled announcement is 2.30 pm AEDT on 3 November 2026.",
+        "September-quarter CPI, due 28 October 2026, and any labour-market or spending data before the meeting are not yet in the Board\u2019s published assessment.",
+        "The September statement and minutes left the path dependent on the Middle East conflict, oil and energy prices, AI-related cost pressures, domestic capacity and inflation expectations.",
+        "The Board has not said whether 4.60 per cent is the peak; it explicitly left open a further increase."
+      ]
+    },
+    "polymarket-3554659": {
+      "base_rate": "On the style-controlled text leaderboard (a related but not identical board to the resolution source), LMArena published 189 snapshots from 2024-08-28 through 2026-10-13 and the #1 lab changed 7 times.\nDays at #1 in that span: OpenAI 314, Anthropic 240, Google 222.\nGoogle\u2019s latest reign was 13 days as of the 2026-10-13 snapshot, after Anthropic\u2019s 236-day run.",
+      "facts": [
+        {
+          "fact": "On the 2026-10-13 Text Arena Overall board with style control off, gemini-4-argon-high (Google) is rank 1 with score 1533\u00b19, labeled Preliminary, on 4,903 votes, and its listed rank spread is 1\u20131.",
+          "source": 0
+        },
+        {
+          "fact": "On that same 2026-10-13 style-control-off table, second is Anthropic\u2019s claude-opus-5.5-high at 1516\u00b18 (7,687 votes), rank spread 2\u20135.",
+          "source": 0
+        },
+        {
+          "fact": "A 2026-10-14 reading of the 2026-10-13 Hugging Face leaderboard dataset puts gemini-4-argon-high at 1533.239 (CI 1524.438\u20131542.039) and says that interval still overlaps ranks 2 through 6; votes rose only from 4,892 on Oct 8 to 4,903.",
+          "source": 1
+        },
+        {
+          "fact": "On the style-controlled text board (not the resolution filter), Essentras\u2019s Oct 13 snapshot still lists Google\u2019s gemini-4-argon-high first at 1,525\u00b19, with Meta\u2019s muse-wonder-max second at 1,513\u00b113.",
+          "source": 2
+        },
+        {
+          "fact": "Across 189 style-controlled text leaderboards from 2024-08-28 to 2026-10-13, the lab in first place changed 7 times; Google\u2019s current run began 2026-09-30 after Anthropic\u2019s claude-opus-5.5-high held first from 2026-02-06 (236 days).",
+          "source": 2
+        },
+        {
+          "fact": "As of an Oct 8, 2026 report, Gemini 4 Argon High was not generally available; Google was limiting early access and had given no public date beyond \u201cas soon as possible.\u201d",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "The resolution check is 2026-10-31 12:00 PM ET; the latest published Text Arena snapshot found is dated 2026-10-13.",
+        "gemini-4-argon-high is still marked Preliminary with only about 4,900 votes, so additional votes before Oct 31 can move its score and rank.",
+        "Style control off (the resolution setting) and style control on disagree on scores and on who is second (Anthropic vs Meta).",
+        "New or updated models can enter before the check; muse-wonder-max was a new high entry on the Oct 13 publish.",
+        "Models labeled AutoEval at check time are excluded even if they show a rank; it is unknown whether any contender will carry that label on Oct 31."
+      ]
+    },
+    "polymarket-4936081": {
+      "base_rate": "",
+      "facts": [
+        {
+          "fact": "At 6:05 a.m.\nET on 15 October 2026, Kitco\u2019s gold spot bid was $4,156.50 per troy ounce, $356.50 above $3,800, and the same page\u2019s per-ounce low for that session was $4,099.20.",
+          "source": 0
+        },
+        {
+          "fact": "On 14 October 2026, Kitco reported spot gold near $4,098.80 and listed first support at $4,072.70, with the deepest stated near-term downside objective at $4,004.68.",
+          "source": 1
+        },
+        {
+          "fact": "Investing.com\u2019s active Gold futures (December 2026) page showed a 15 October 2026 session range of 4,120.95 to 4,183.35 and a 52-week range of 3,890.70 to 5,626.80; its 15 September\u201315 October 2026 table\u2019s lowest daily low was 4,091.20 on 7 October 2026, and 14 October\u2019s low was 4,095.00.",
+          "source": 2
+        },
+        {
+          "fact": "Through 14 October 2026, the lowest XAUTicker daily close listed for October was $4,107.25 on 7 October 2026, and the 15 October 2026 morning edition was written against $4,137.17.",
+          "source": 3
+        },
+        {
+          "fact": "CME\u2019s metals issues-and-stops report recorded the October 2026 COMEX 100 gold futures settlement at 4,084.80 USD for intent date 14 October 2026.",
+          "source": 4
+        },
+        {
+          "fact": "The FT COMEX Gold series, timestamped 15 October 2026, listed a 52-week range low of 3,913.70 and an October session low of 4,067.80 on 7 October 2026, with 14 October\u2019s low at 4,080.70.",
+          "source": 5
+        },
+        {
+          "fact": "Pyth\u2019s History API can return 1-minute OHLC candles, including a low for each candle, but those October 2026 Metal.XAU/USD 1-minute lows were not retrieved for this note.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "October 2026 trading continues through the 31 October session, which under the stated schedule runs into the evening of Friday 30 October ET, so later 1-minute lows are not yet observable.",
+        "The deciding series is Pyth\u2019s exact 1-minute Gold (XAUUSD) low, and the Kitco, XAUTicker, FT, and CME prints above are different instruments or aggregations that can differ from a Pyth candle low.",
+        "The 15 October 2026 Kitco and futures ranges were captured during an open session, so that day\u2019s final low was not yet fixed.",
+        "If Pyth 1-minute data cannot be verified, resolution falls back to the official daily high or low of the relevant CME COMEX Gold (GC) contract, and the liquid December contract and the thin October contract have printed different lows."
+      ]
+    },
+    "polymarket-5593523": {
+      "base_rate": "On CryptoStruct\u2019s Binance USDT-M BTCUSDT daily lows, 0 of the 13 UTC sessions from 2026-10-01 through 2026-10-13 printed a low at or below 76,000 (lowest in that stretch: 80,345 on 2026-10-08).\nIn the prior month on the same series, daily lows at or below 76,000 printed on 2026-09-15 (74,909), 2026-09-16 (75,025), and 2026-09-17 (75,975).",
+      "facts": [
+        {
+          "fact": "On 2026-10-15 at 10:02:42 AM UTC, Yahoo Finance listed the still-open BTC-USD session low at $80,474.07, with completed-session lows of $81,345.88 on Oct 14, $80,962.52 on Oct 13, and $81,681.63 on Oct 12.",
+          "source": 0
+        },
+        {
+          "fact": "CoinMarketCap showed Bitcoin at $81,160.77 with a 24-hour range of $80,274.98 to $83,821.86.",
+          "source": 1
+        },
+        {
+          "fact": "At 5:07:11 AM EDT on 2026-10-15, ChartExchange showed a composite BTCUSDT last of 81,350.50 and a Binance quote of 81,360.01; its UTC daily lows for Oct 12, 13, 14, and the partial Oct 15 session were 81,739.13, 81,011.00, 81,429.00, and 80,226.35.",
+          "source": 2
+        },
+        {
+          "fact": "CryptoStruct\u2019s Binance USDT-M BTCUSDT daily table, last dated 2026-10-13, lists UTC-day lows of 81,700 on 2026-10-12 and 80,985 on 2026-10-13.",
+          "source": 3
+        },
+        {
+          "fact": "On that same Binance USDT-M series, the Oct 1\u201313 2026 daily lows stay at or above 80,345, while 2026-09-15, 2026-09-16, and 2026-09-17 daily lows are 74,909, 75,025, and 75,975.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "The resolution window runs through 11:59 PM ET on 2026-10-18, so Oct 15\u201318 Binance 1-minute lows are not yet final.",
+        "api.binance.com klines returned HTTP 451, so the deciding Binance spot BTC/USDT 1-minute Low series was not read directly.",
+        "Yahoo is a BTC-USD index, ChartExchange\u2019s daily table is a composite, and CryptoStruct\u2019s dated lows are Binance USDT-M perpetuals through 2026-10-13 only, not the spot 1-minute chart named in the resolution rule.",
+        "UTC daily bars do not line up exactly with the 12:00 AM\u201311:59 PM ET window, so an ET-boundary print could sit in a different UTC day than the tables above."
+      ]
+    },
+    "polymarket-5593553": {
+      "base_rate": "On ChartExchange ETHUSDT daily bars from 2026-08-11 through the partial session of 2026-10-15 (66 calendar days), a daily low at or below 2,200 printed on 14 days: 2026-08-11 through 2026-08-23 (13 days) and 2026-09-15 (low 2,198.01).\nIn the following 30 days, 2026-09-16 through 2026-10-15, zero daily lows were at or below 2,200.",
+      "facts": [
+        {
+          "fact": "As of about 5:19 a.m.\nEDT on 2026-10-15, ChartExchange showed a Binance ETHUSDT print of 2,371.20 and a 2026-10-15 UTC daily low of 2,317.00, with UTC daily lows of 2,401.06 on 2026-10-14, 2,409.09 on 2026-10-13, and 2,442.85 on 2026-10-12.",
+          "source": 0
+        },
+        {
+          "fact": "Yahoo Finance ETH-USD, as of 9:49 a.m.\nUTC on 2026-10-15, listed daily lows of 2,342.51 on 15 Oct 2026, 2,403.21 on 14 Oct 2026, 2,407.63 on 13 Oct 2026, and 2,441.68 on 12 Oct 2026.",
+          "source": 1
+        },
+        {
+          "fact": "CoinGecko data cited on 2026-10-15 put ETH at $2,351.63 after a 24-hour range of $2,332.43 to $2,524.82.",
+          "source": 2
+        },
+        {
+          "fact": "The BLS released the September 2026 CPI at 8:30 a.m.\nET on Wednesday, 2026-10-14, reporting a 0.6% seasonally adjusted monthly rise and a 3.7% rise over the prior 12 months.",
+          "source": 3
+        },
+        {
+          "fact": "Tindex, last updated 15 October 2026 at 10:30, showed ETH at 2,359 USD with a same-day low of 2,326.",
+          "source": 4
+        },
+        {
+          "fact": "A MarketRadar snapshot taken at 00:49 UTC on 2026-10-15 recorded ETH at 2,413 USD.",
+          "source": 5
+        },
+        {
+          "fact": "On the same ChartExchange ETHUSDT daily history, the most recent daily low at or below 2,200 before this window was 2,198.01 on 2026-09-15; from 2026-08-11 through 2026-08-23 daily lows were also at or below 2,200, and no daily low in that table from 2026-09-16 through the 2026-10-15 partial day was at or below 2,200.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "The window runs through 11:59 p.m.\nET on 2026-10-18, so later 1-minute Binance ETHUSDT lows are still unprinted.",
+        "Binance\u2019s own kline API returned HTTP 451 from this environment, so no official 1-minute ETHUSDT Low series was read directly; quoted lows are daily aggregates from ChartExchange (which lists a Binance price), Yahoo ETH-USD, CoinGecko, and Tindex, and they disagree by tens of dollars.",
+        "Resolution uses the final Low of each Binance 1-minute candle from 12:00 a.m.\nET on 2026-10-12 through 11:59 p.m.\nET on 2026-10-18, which can differ from UTC daily lows and from non-Binance spot indexes.",
+        "The 2026-10-15 daily low is still forming; the lowest figure seen so far in these sources is about 2,317, roughly 117 dollars above 2,200."
+      ]
+    },
+    "polymarket-562802": {
+      "base_rate": "House History, Art & Archives: since the modern party system began in the decade before the Civil War, the House changed majorities in a midterm a little more than one-third of the time; of 19 majority changes in that span (presidential and midterm years), more than three-quarters were at midterms.\nThe office\u2019s majority-change table includes the midterms of 1994, 2006, 2010, 2018, and 2022.\nSabato\u2019s Crystal Ball (October 8, 2026): in each of the last five midterms (2006, 2010, 2014, 2018, and 2022), the president\u2019s party lost control of one or both chambers, and the nonpresidential party eithe",
+      "facts": [
+        {
+          "fact": "As of the Clerk of the House list dated October 1, 2026, the 119th Congress House had 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies (Florida\u2019s 20th and Texas\u2019s 23rd), out of 435 voting seats.",
+          "source": 0
+        },
+        {
+          "fact": "The House Press Gallery\u2019s 119th Congress breakdown lists 218 Republicans, 214 Democrats, and 1 independent, and notes the April 14, 2026 resignation of Rep.\nTony Gonzales (R-TX) and the April 21, 2026 resignation of Rep.\nSheila Cherfilus-McCormick (D-FL).",
+          "source": 1
+        },
+        {
+          "fact": "Congressional Research Service report R46413, updated November 1, 2024, states that the next federal election after November 5, 2024 is scheduled for November 3, 2026, and that House members elected then begin service with the Congress that commences January 3.",
+          "source": 2
+        },
+        {
+          "fact": "USAGov, last updated October 6, 2026, states that the next midterm elections are in November 2026 and that all 435 House seats are up for election.",
+          "source": 3
+        },
+        {
+          "fact": "The House Office of the Historian lists House majority changes at the 1994, 2006, 2010, 2018, and 2022 elections, among earlier midterms, and states that midterm majority changes have occurred a little more than one-third of the time since the modern party system began.",
+          "source": 4
+        },
+        {
+          "fact": "On October 8, 2026, Sabato\u2019s Crystal Ball rated 214 House districts at least Leans Democratic, 201 at least Leans Republican, and 20 Toss-ups, and said post-2024 redistricting raised Democratic-held Trump-won districts from 13 to 22 and Republican-held Harris-won districts from 3 to 8.",
+          "source": 5
+        },
+        {
+          "fact": "Crystal Ball\u2019s October 8, 2026 article identifies Rep.\nKevin Kiley of California\u2019s 6th District as an independent and a former Republican, and rates that race Likely Democratic.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "No 2026 House results exist yet; the election is November 3, 2026, and control of the 120th Congress is not determined until seats are decided, including any runoffs.",
+        "Crystal Ball\u2019s October 8 ratings left 20 districts as toss-ups, so a majority of 218 of 435 can still go either way depending on those races and on seats rated only as leans.",
+        "Redistricting since 2024 changed which party is defending crossover districts, including new maps cited in Florida, California, and Utah, and those lines have not yet been tested in this general election.",
+        "One sitting member, Kevin Kiley (CA-6), is identified as an independent; under the resolution rules, an independent counts only if a caucus or announced caucus intent is known, and that may not be settled on election night.",
+        "Two voting seats were vacant on the October 1, 2026 Clerk list (FL-20 and TX-23); special-election timing, certification disputes, recounts, or a tied chamber decided by the first elected Speaker could still change which party is credited with control."
+      ]
+    },
+    "polymarket-562831": {
+      "base_rate": "In the Brookings Vital Statistics table \u201cLosses by the President's Party in Midterm Elections, 1862\u20132022\u201d (41 midterms), the president\u2019s party lost House seats in 37 elections and gained House seats in 4 (1902, 1934, 1998, and 2002).\nThat series counts seat change, not how often the president\u2019s party kept both chambers.",
+      "facts": [
+        {
+          "fact": "As listed on the Senate website for the 119th Congress, Republicans hold 53 seats, Democrats 45, and independents 2.",
+          "source": 0
+        },
+        {
+          "fact": "Class II Senate terms, the class whose terms end January 3, 2027, are the seats whose regular terms expire before the 120th Congress.",
+          "source": 1
+        },
+        {
+          "fact": "The Senate Class II page lists 13 Democrats and 20 Republicans whose terms expire in 2027.",
+          "source": 1
+        },
+        {
+          "fact": "The Clerk of the House\u2019s official member list dated October 1, 2026, shows 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies (Florida\u2019s 20th and Texas\u2019s 23rd) among 435 voting seats.",
+          "source": 2
+        },
+        {
+          "fact": "The House Press Gallery lists the 119th Congress as 218 Republicans, 214 Democrats, and 1 independent, and notes it is not updated until departures are read on the floor; it records the resignations of Tony Gonzales (R-TX) on April 14, 2026, and Sheila Cherfilus-McCormick (D-FL) on April 21, 2026.",
+          "source": 6
+        },
+        {
+          "fact": "The FEC states that Tuesday, November 3, 2026, is the next regularly scheduled federal general election date, and that listed future dates are tentative and subject to change.",
+          "source": 3
+        },
+        {
+          "fact": "Ballotpedia states that 33 regular Senate seats are up on November 3, 2026 (13 Democratic-held and 20 Republican-held) plus special elections for the unexpired terms of Marco Rubio (R-FL) and J.D.\nVance (R-OH).",
+          "source": 4
+        },
+        {
+          "fact": "On October 8, 2026, the Associated Press reported that Senate primaries were over, the general-election field was set, and control of the Senate was still undecided.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "No 2026 general-election results exist yet; Election Day is November 3, 2026, and the FEC says future election dates can change.",
+        "Every voting House seat is on the ballot.\nThe October 1 Clerk roster has Republicans at 218 of 435, with two vacancies and one independent, so a shift of a small number of seats would change which party has 218.",
+        "Senate control depends on 33 Class II races plus the Florida and Ohio special elections.\nSeats not on the November 2026 ballot stay with the party holding them on election day, including later switches or vacancies by sitting senators who are not up.",
+        "A 50\u201350 Senate is controlled, under these rules, by the party of the vice president.\nWhether any new independents caucus with a party can remain unresolved until an announcement or January 4, 2027, at 11:59 p.m.\nET.",
+        "Runoffs, recounts, and late certifications can assign seats after November 3, 2026, and a seat is counted for the party under which the member was elected even if that person later switches parties or leaves before Congress organizes."
+      ]
+    }
+  },
+  "mode": "dry_run",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-15T10:10:56+00:00",
+  "runs": 12,
+  "sources": {
+    "manifold-SyhgEZC68s": [
+      {
+        "published": "2026-08-28",
+        "quotes": [
+          "I, DAVE NELSON, DEPUTY SECRETARY OF STATE OF THE STATE OF TEXAS, pursuant to Sections 142.010 and 161.008 of the Texas Election Code, DO HEREBY CERTIFY that the attached exhibit constitutes the final ballot certification of candidates to appear on the general election ballot for state and district offices who have been certified to me by the appropriate state party chairs as their party's nominee or have been certified by me as the appropriate filing officer.",
+          "IN TESTIMONY WHEREOF, I have hereunto signed my name officially and caused to be impressed hereon the Seal of State at my office in the City of Austin, Texas this 28th day of August, 2026.",
+          "Ballot Certification Report 2026 NOVEMBER GENERAL ELECTION November 03, 2026"
+        ],
+        "text": "I, DAVE NELSON, DEPUTY SECRETARY OF STATE OF THE STATE OF TEXAS, pursuant to Sections 142.010 and 161.008 of the Texas Election Code, DO HEREBY CERTIFY that the attached exhibit constitutes the final ballot certification of candidates to appear on the general election ballot for state and district offices who have been certified to me by the appropriate state party chairs as their party's nominee or have been certified by me as the appropriate filing officer.\nIN TESTIMONY WHEREOF, I have hereunto signed my name officially and caused to be impressed hereon the Seal of State at my office in the City of Austin, Texas this 28th day of August, 2026.\nBallot Certification Report 2026 NOVEMBER GENERAL ELECTION November 03, 2026",
+        "title": "2026 Ballot Certification",
+        "url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "This date is extended to Monday, October 19, 2026 by Section 1.006 because the 17th day before election day is Saturday, October 17, 2026.",
+          "Last day of early voting by personal appearance for November 3 general election."
+        ],
+        "text": "This date is extended to Monday, October 19, 2026 by Section 1.006 because the 17th day before election day is Saturday, October 17, 2026.\nLast day of early voting by personal appearance for November 3 general election.",
+        "title": "Important Dates for the Party Conventions, Primary Elections, and General Election",
+        "url": "https://www.sos.texas.gov/elections/candidates/guide/2026/dates2026.shtml",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "James Talarico (D) defeated Jasmine Crockett (D) and Ahmad Hassan (D) in the Democratic primary for U.S.\nSenate in Texas on March 3, 2026.",
+          "The results have been certified."
+        ],
+        "text": "James Talarico (D) defeated Jasmine Crockett (D) and Ahmad Hassan (D) in the Democratic primary for U.S.\nSenate in Texas on March 3, 2026.\nThe results have been certified.",
+        "title": "United States Senate election in Texas, 2026 (March 3 Democratic primary)",
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026_(March_3_Democratic_primary)",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Ken Paxton (R) defeated incumbent John Cornyn (R) in the Republican primary runoff for U.S.\nSenate in Texas on May 26, 2026.",
+          "In the 2024 election, incumbent Ted Cruz (R) defeated Colin Allred (D) 53%\u201345%.",
+          "In 2020, Cornyn defeated M.J.\nHegar (D) 54%\u201344%."
+        ],
+        "text": "Ken Paxton (R) defeated incumbent John Cornyn (R) in the Republican primary runoff for U.S.\nSenate in Texas on May 26, 2026.\nIn the 2024 election, incumbent Ted Cruz (R) defeated Colin Allred (D) 53%\u201345%.\nIn 2020, Cornyn defeated M.J.\nHegar (D) 54%\u201344%.",
+        "title": "United States Senate election in Texas, 2026 (May 26 Republican primary runoff)",
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026_(May_26_Republican_primary_runoff)",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "In the race for U.S.\nSenate in Texas, Democrat James Talarico and Republican Ken Paxton are competitive with only two points separating the two candidates among likely voters statewide.",
+          "Two points separate Talarico (47%) and Paxton (45%) among likely voters in the U.S.\nSenate race in Texas.",
+          "A majority (53%) of likely voters statewide think, regardless of whom they support, Paxton will win the Senate seat."
+        ],
+        "text": "In the race for U.S.\nSenate in Texas, Democrat James Talarico and Republican Ken Paxton are competitive with only two points separating the two candidates among likely voters statewide.\nTwo points separate Talarico (47%) and Paxton (45%) among likely voters in the U.S.\nSenate race in Texas.\nA majority (53%) of likely voters statewide think, regardless of whom they support, Paxton will win the Senate seat.",
+        "title": "2026 Midterm Elections in Texas",
+        "url": "https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "The poll was conducted September 25 to October 5, 2026, with trial ballot results presented among a sample of 861 likely voters (LV), producing a margin of error of +/- 3.34 percentage points.",
+          "In the trial ballot for the election to replace John Cornyn in the U.S.\nSenate, Attorney General Ken Paxton trails State Representative James Talarico 47% to 50%, with 1% preferring Libertarian Party candidate Ted Brown, and 2% preferring a non-specified \u201csomeone else.\u201d",
+          "Talarico\u2019s 3-percentage-point lead is within the poll\u2019s margin of error, and is similar to the polling leads the Austin-area legislator has enjoyed in most of the non-partisan public polling conducted since Labor Day."
+        ],
+        "text": "The poll was conducted September 25 to October 5, 2026, with trial ballot results presented among a sample of 861 likely voters (LV), producing a margin of error of +/- 3.34 percentage points.\nIn the trial ballot for the election to replace John Cornyn in the U.S.\nSenate, Attorney General Ken Paxton trails State Representative James Talarico 47% to 50%, with 1% preferring Libertarian Party candidate Ted Brown, and 2% preferring a non-specified \u201csomeone else.\u201d\nTalarico\u2019s 3-percentage-point lead is within the poll\u2019s margin of error, and is similar to the polling leads the Austin-area legislator has enjoyed in most of the non-partisan public polling conducted since Labor Day.",
+        "title": "Latest UT/Texas Politics Poll Finds Historic Levels of Competition in Texas Midterm Elections",
+        "url": "https://texaspolitics.utexas.edu/blog/latest-ut-texas-politics-poll-finds-historic-levels-of-competition-in-texas-midterm-elections",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "US Senate: Talarico (D) 48% Paxton (R) 44% (from 49-43% in September)"
+        ],
+        "text": "US Senate: Talarico (D) 48% Paxton (R) 44% (from 49-43% in September)",
+        "title": "Talarico Maintains Small Lead Over Paxton",
+        "url": "https://sri.siena.edu/2026/10/13/talarico-maintains-small-lead-over-paxton/",
+        "verified": null
+      },
+      {
+        "published": "2026-08-28",
+        "quotes": [
+          "I, DAVE NELSON, DEPUTY SECRETARY OF STATE OF THE STATE OF TEXAS, DO HEREBY CERTIFY, in accordance with Section 146.029 ofthe Texas Election Code, that the following candidates are certified as properly-filed declared write-in candidates for statewide and district offices for the November 3, 2026 General Election."
+        ],
+        "text": "I, DAVE NELSON, DEPUTY SECRETARY OF STATE OF THE STATE OF TEXAS, DO HEREBY CERTIFY, in accordance with Section 146.029 ofthe Texas Election Code, that the following candidates are certified as properly-filed declared write-in candidates for statewide and district offices for the November 3, 2026 General Election.",
+        "title": "2026 Write-in Ballot Certification",
+        "url": "https://www.sos.state.tx.us/elections/forms/2026-write-In-ballot-cert.pdf",
+        "verified": null
+      }
+    ],
+    "manifold-nngCdzg62E": [
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "\"updated\":\"Thu, 15 Oct 2026 10:09:45 +0000\"",
+          "\"artistName\":\"Meta Platforms, Inc.\",\"id\":\"6760173601\",\"name\":\"Muse from Meta\",\"releaseDate\":\"2026-09-08\"",
+          "\"name\":\"Vinted: Pre-loved marketplace\""
+        ],
+        "text": "\"updated\":\"Thu, 15 Oct 2026 10:09:45 +0000\"\n\"artistName\":\"Meta Platforms, Inc.\",\"id\":\"6760173601\",\"name\":\"Muse from Meta\",\"releaseDate\":\"2026-09-08\"\n\"name\":\"Vinted: Pre-loved marketplace\"",
+        "title": "Top Free Apps (Apple US App Store feed)",
+        "url": "https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Meta's Muse personal AI app, which had been ruling the US iOS App Store since its launch in early September, briefly lost its top spot to Dave's Hot Chicken.",
+          "Nonetheless, Muse is back in the top spot on the US App Store.",
+          "Access to Muse Wonder through the Muse personal agent app comes at a subscription cost of either $20 or $100 per month, depending on the tier."
+        ],
+        "text": "Meta's Muse personal AI app, which had been ruling the US iOS App Store since its launch in early September, briefly lost its top spot to Dave's Hot Chicken.\nNonetheless, Muse is back in the top spot on the US App Store.\nAccess to Muse Wonder through the Muse personal agent app comes at a subscription cost of either $20 or $100 per month, depending on the tier.",
+        "title": "Meta's Muse lost App Store crown to a chicken sandwich",
+        "url": "https://www.newsbytesapp.com/news/science/dave-s-hot-chicken-dethrones-meta-s-muse-app-from-top-spot/story",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Muse from Meta is the most downloaded free iPhone app in the US so far in October 2026, by its average rank on Apple's Top Free chart, ahead of Vinted: Pre-loved marketplace and ChatGPT.",
+          "October 2026 so far: Oct 1\u201314, 14 days of the United States chart.",
+          "Avg.\n#1 best #1 \u00b7 14 of 14 days"
+        ],
+        "text": "Muse from Meta is the most downloaded free iPhone app in the US so far in October 2026, by its average rank on Apple's Top Free chart, ahead of Vinted: Pre-loved marketplace and ChatGPT.\nOctober 2026 so far: Oct 1\u201314, 14 days of the United States chart.\nAvg.\n#1 best #1 \u00b7 14 of 14 days",
+        "title": "Most downloaded iPhone apps in the US: October 2026",
+        "url": "https://www.apptrendkit.com/most-downloaded-apps/us/2026-10",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "Muse from Meta, Meta's AI agent app, was #1 in the US Top Free Apps chart on every day from 18 September to 6 October 2026, 19 days in a row.",
+          "Muse entered the chart on 9 September, at #4.",
+          "Ranks are from the App Store Top Free Apps chart, and each is the best position the app held on that day."
+        ],
+        "text": "Muse from Meta, Meta's AI agent app, was #1 in the US Top Free Apps chart on every day from 18 September to 6 October 2026, 19 days in a row.\nMuse entered the chart on 9 September, at #4.\nRanks are from the App Store Top Free Apps chart, and each is the best position the app held on that day.",
+        "title": "Muse from Meta has held #1 on the US App Store for 19 days",
+        "url": "https://gamequant.io/insights/muse-from-meta-number-one-us-app-store",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "90 days 2026-05-17 to 2026-10-15",
+          "Muse from Meta Meta Platforms, Inc.\n26 days",
+          "Dave\u2019s Hot Chicken\u00ae Dave's Hot Chicken 1 days"
+        ],
+        "text": "90 days 2026-05-17 to 2026-10-15\nMuse from Meta Meta Platforms, Inc.\n26 days\nDave\u2019s Hot Chicken\u00ae Dave's Hot Chicken 1 days",
+        "title": "Top Free Apps history in United States",
+        "url": "https://top-apps.anerg.com/countries/us/top-free/history",
+        "verified": null
+      },
+      {
+        "published": "2026-02-19",
+        "quotes": [
+          "Since 2012, according to data from market intelligence firm Sensor Tower, only 568 different apps have been #1 in the US iOS App Store\u2019s free section.",
+          "For virtually every app that hits the top of the charts \u2014 a full 478 of the 568 on the list \u2014 the run is short, 10 days or fewer.",
+          "Your next best shot appears to be offering free stuff in exchange for app downloads, like Taco Bell, Chick-fil-A, McDonald\u2019s, Jimmy John\u2019s, and Krispy Kreme all have."
+        ],
+        "text": "Since 2012, according to data from market intelligence firm Sensor Tower, only 568 different apps have been #1 in the US iOS App Store\u2019s free section.\nFor virtually every app that hits the top of the charts \u2014 a full 478 of the 568 on the list \u2014 the run is short, 10 days or fewer.\nYour next best shot appears to be offering free stuff in exchange for app downloads, like Taco Bell, Chick-fil-A, McDonald\u2019s, Jimmy John\u2019s, and Krispy Kreme all have.",
+        "title": "What\u2019s so good about being the world\u2019s most popular app?",
+        "url": "https://www.theverge.com/tech/876196/top-app-store-apps-developers",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Meta's Muse personal AI app, which had held the No 1 position on the US iOS App Store's top charts since launching in early September, has reportedly lost its crown to Dave's Hot Chicken.",
+          "Users will need to pay either $20 or $100 per month, depending on the subscription tier, to access the model.",
+          "The bigger question is how long Dave's Hot Chicken can hold on to the No.\n1 position and whether Muse can reclaim its place once the promotional excitement fades."
+        ],
+        "text": "Meta's Muse personal AI app, which had held the No 1 position on the US iOS App Store's top charts since launching in early September, has reportedly lost its crown to Dave's Hot Chicken.\nUsers will need to pay either $20 or $100 per month, depending on the subscription tier, to access the model.\nThe bigger question is how long Dave's Hot Chicken can hold on to the No.\n1 position and whether Muse can reclaim its place once the promotional excitement fades.",
+        "title": "Meta Spent Millions On Muse AI.\nA Chicken Sandwich Just Dethroned It",
+        "url": "https://www.ndtv.com/artificial-intelligence/meta-spent-billions-on-muse-ai-a-chicken-sandwich-just-dethroned-it-12187714",
+        "verified": null
+      }
+    ],
+    "manifold-tAzh2Qytdl": [
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "GPT\u20116 Astra Ultrafast is available today in the API and in ChatGPT Work and Codex on Pro 500 and Enterprise plans.",
+          "For those who want even more usage and speed, the new Pro 500 plan offers our highest usage allowance at 25 times the ChatGPT Plus allowance and includes access to Ultrafast."
+        ],
+        "text": "GPT\u20116 Astra Ultrafast is available today in the API and in ChatGPT Work and Codex on Pro 500 and Enterprise plans.\nFor those who want even more usage and speed, the new Pro 500 plan offers our highest usage allowance at 25 times the ChatGPT Plus allowance and includes access to Ultrafast.",
+        "title": "DevDay 2026 Recap | OpenAI",
+        "url": "https://openai.com/index/devday-2026-recap/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "ChatGPT Pro now offers Pro 500, a new $500/month plan that includes GPT-6 Astra Ultrafast and GPT-6.1 Sol Ultrafast.",
+          "Pro 500 offers the highest included usage of the three plans.",
+          "Among Pro plans, Ultrafast is available only on Pro 500."
+        ],
+        "text": "ChatGPT Pro now offers Pro 500, a new $500/month plan that includes GPT-6 Astra Ultrafast and GPT-6.1 Sol Ultrafast.\nPro 500 offers the highest included usage of the three plans.\nAmong Pro plans, Ultrafast is available only on Pro 500.",
+        "title": "About ChatGPT Pro tiers | OpenAI Help Center",
+        "url": "https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "This article is about paid Max plans for individual consumers.",
+          "The Max plan is available in two tiers to match your usage needs: Max 5x: $100 per month.\nMax 20x: $200 per month.",
+          "Price and plans are subject to change at Anthropic's discretion."
+        ],
+        "text": "This article is about paid Max plans for individual consumers.\nThe Max plan is available in two tiers to match your usage needs: Max 5x: $100 per month.\nMax 20x: $200 per month.\nPrice and plans are subject to change at Anthropic's discretion.",
+        "title": "What is the Max plan?\n| Claude Help Center",
+        "url": "https://support.claude.com/en/articles/11049741-what-is-the-max-plan",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Max 5x $100.\nMax 20x $200.",
+          "On Team plans, credits for all seats are pooled into one monthly balance, capped at $500.",
+          "The credits don\u2019t change your usage limits in Claude, Claude Code, or Claude Cowork."
+        ],
+        "text": "Max 5x $100.\nMax 20x $200.\nOn Team plans, credits for all seats are pooled into one monthly balance, capped at $500.\nThe credits don\u2019t change your usage limits in Claude, Claude Code, or Claude Cowork.",
+        "title": "Monthly API credits for Max and Team plans | Claude Help Center",
+        "url": "https://support.claude.com/en/articles/17154008-monthly-api-credits-for-max-and-team-plans",
+        "verified": null
+      },
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "OpenAI is adding a $500 / month ChatGPT Pro tier.",
+          "The new plan includes the company\u2019s highest usage limits and access to its Ultrafast mode, which allows GPT-6 Astra to deliver faster responses across its services, including ChatGPT Work and Codex."
+        ],
+        "text": "OpenAI is adding a $500 / month ChatGPT Pro tier.\nThe new plan includes the company\u2019s highest usage limits and access to its Ultrafast mode, which allows GPT-6 Astra to deliver faster responses across its services, including ChatGPT Work and Codex.",
+        "title": "OpenAI is adding a $500 / month ChatGPT Pro tier.\n| The Verge",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1002134/openai-is-adding-a-500-month-chatgpt-pro-tier",
+        "verified": null
+      },
+      {
+        "published": "2025-04-09",
+        "quotes": [
+          "The new offering comes with two options: a $100 per month tier with 5x more usage than the Pro plan, and a $200 per month tier with 20x more usage.",
+          "It\u2019s also a direct competitor to the $200 a month tier OpenAI launched back in December."
+        ],
+        "text": "The new offering comes with two options: a $100 per month tier with 5x more usage than the Pro plan, and a $200 per month tier with 20x more usage.\nIt\u2019s also a direct competitor to the $200 a month tier OpenAI launched back in December.",
+        "title": "Anthropic launches a $200 per month tier for \u2018power users\u2019 | The Verge",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/645842/anthropic-launches-a-200-per-month-tier-for-power-users",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "On October 7, 2026, Anthropic added monthly API credits to Claude's Max and Team plans, which can be used to build and run your own apps and AI agents.",
+          "Max 5x receives $100 in API credits per month, and Max 20x receives $200.",
+          "Subscription prices are the pre-tax prices for plans purchased on the web."
+        ],
+        "text": "On October 7, 2026, Anthropic added monthly API credits to Claude's Max and Team plans, which can be used to build and run your own apps and AI agents.\nMax 5x receives $100 in API credits per month, and Max 20x receives $200.\nSubscription prices are the pre-tax prices for plans purchased on the web.",
+        "title": "Claude Max and Team Now Include Monthly API Credits, Up to $200 for Max Subscribers",
+        "url": "https://xenospectrum.com/en/claude-max-team-monthly-api-credits/",
+        "verified": null
+      }
+    ],
+    "manifold-uISNlAqC2E": [
+      {
+        "published": "2026-10-01",
+        "quotes": [
+          "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.",
+          "Compiled by KEVIN F.\nMcCUMBER, Clerk of the House of Representatives https://clerk.house.gov"
+        ],
+        "text": "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.\nCompiled by KEVIN F.\nMcCUMBER, Clerk of the House of Representatives https://clerk.house.gov",
+        "title": "Official List of Members of the House of Representatives, 119th Congress",
+        "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Please note this page will not be updated until member departures are read on the House floor.",
+          "*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.",
+          "*Rep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26."
+        ],
+        "text": "Please note this page will not be updated until member departures are read on the House floor.\n*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.\n*Rep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26.",
+        "title": "Party Breakdown | House Press Gallery",
+        "url": "https://pressgallery.house.gov/member-data/party-breakdown",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Tuesday, November 3, 2026, is the next regularly scheduled federal General Election date.",
+          "Election results are not available immediately from the FEC.\nInstead, state election offices are responsible for certifying results.",
+          "Dates listed for scheduled future elections are tentative and subject to change."
+        ],
+        "text": "Tuesday, November 3, 2026, is the next regularly scheduled federal General Election date.\nElection results are not available immediately from the FEC.\nInstead, state election offices are responsible for certifying results.\nDates listed for scheduled future elections are tentative and subject to change.",
+        "title": "FEC | Election results and voting information",
+        "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-09",
+        "quotes": [
+          "With less than four weeks to go, that heavy spending has yet to move the needle.",
+          "That is a key factor prompting us to move ratings for 18 more House races, all in Democrats\u2019 favor.",
+          "With these new moves, we\u2019re also adjusting our range: the most likely outcome is now that Democrats will pick up nine to 19 seats."
+        ],
+        "text": "With less than four weeks to go, that heavy spending has yet to move the needle.\nThat is a key factor prompting us to move ratings for 18 more House races, all in Democrats\u2019 favor.\nWith these new moves, we\u2019re also adjusting our range: the most likely outcome is now that Democrats will pick up nine to 19 seats.",
+        "title": "Eighteen More House Race Ratings Move in Democrats\u2019 Favor",
+        "url": "https://www.cookpolitical.com/analysis/house/house-overview/eighteen-more-house-race-ratings-move-democrats-favor",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "HOUSE: 214 at least Leans D, 201 at least Leans R, 20 Toss-ups.",
+          "We are now less than three weeks from the election.",
+          "The House, meanwhile, remains extremely likely to flip to Democrats."
+        ],
+        "text": "HOUSE: 214 at least Leans D, 201 at least Leans R, 20 Toss-ups.\nWe are now less than three weeks from the election.\nThe House, meanwhile, remains extremely likely to flip to Democrats.",
+        "title": "Five Senate Rating Changes as Close Battle for Majority Control Rages - Sabato's Crystal Ball",
+        "url": "https://centerforpolitics.org/crystalball/10_14_senate/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Democrats need a net gain of only three seats in the November midterm elections to win the majority.",
+          "They have a chance in about two dozen.",
+          "Donald Trump is among the least popular presidents in recent decades, according to job approval polling, and as prices keep rising, a growing number of Americans say the economy is their top issue and have disapproved of how he\u2019s handling it."
+        ],
+        "text": "Democrats need a net gain of only three seats in the November midterm elections to win the majority.\nThey have a chance in about two dozen.\nDonald Trump is among the least popular presidents in recent decades, according to job approval polling, and as prices keep rising, a growing number of Americans say the economy is their top issue and have disapproved of how he\u2019s handling it.",
+        "title": "Why Democrats will probably win back the House",
+        "url": "https://www.washingtonpost.com/politics/2026/10/14/what-could-go-wrong-them/",
+        "verified": null
+      },
+      {
+        "published": "2026-07-13",
+        "quotes": [
+          "House seat gain or loss calculated from \"Party Divisions of the House of Representatives, 1789 to Present\" https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+          "Note that both of these pages report party divisions immediately following an election.",
+          "In 2026 this does not include two special elections to fill unexpired terms of members from other electoral classes in Florida and Ohio."
+        ],
+        "text": "House seat gain or loss calculated from \"Party Divisions of the House of Representatives, 1789 to Present\" https://history.house.gov/Institution/Party-Divisions/Party-Divisions/\nNote that both of these pages report party divisions immediately following an election.\nIn 2026 this does not include two special elections to fill unexpired terms of members from other electoral classes in Florida and Ohio.",
+        "title": "Seats in Congress Gained/Lost by the President's Party in Mid-Term Elections",
+        "url": "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+        "verified": null
+      }
+    ],
+    "polymarket-3089558": [
+      {
+        "published": "2026-10-05",
+        "quotes": [
+          "Donetsk People\u2019s Republic (DNR) Head Denis Pushilin claimed on October 5 that Russian forces have seized several settlements near Dobropillya over the last week and have completed clearing operations in eastern Dobropillya.",
+          "ISW has observed evidence to assess that the nearest point of Russian advance in this area is at least seven kilometers from the eastern outskirts of Dobropillya.",
+          "Geolocated footage published on October 5 shows one Russian servicemember in southwestern Dobropillya during what ISW assesses was a Russian infiltration mission."
+        ],
+        "text": "Donetsk People\u2019s Republic (DNR) Head Denis Pushilin claimed on October 5 that Russian forces have seized several settlements near Dobropillya over the last week and have completed clearing operations in eastern Dobropillya.\nISW has observed evidence to assess that the nearest point of Russian advance in this area is at least seven kilometers from the eastern outskirts of Dobropillya.\nGeolocated footage published on October 5 shows one Russian servicemember in southwestern Dobropillya during what ISW assesses was a Russian infiltration mission.",
+        "title": "Russian Offensive Campaign Assessment, October 5, 2026",
+        "url": "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-5-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-12",
+        "quotes": [
+          "Ukrainian forces struck one Russian servicemember in southern Dobropillya, according to geolocated footage published on October 12, after what ISW assesses was a Russian infiltration mission.",
+          "The Russian MoD claimed that elements of the Russian Central Grouping of Forces (GoF) seized Lidyne (northeast of Dobropillya and roughly 13.5 kilometers from the furthest extent of Russian advances).",
+          "ISW has not observed any evidence to indicate that these claims are true."
+        ],
+        "text": "Ukrainian forces struck one Russian servicemember in southern Dobropillya, according to geolocated footage published on October 12, after what ISW assesses was a Russian infiltration mission.\nThe Russian MoD claimed that elements of the Russian Central Grouping of Forces (GoF) seized Lidyne (northeast of Dobropillya and roughly 13.5 kilometers from the furthest extent of Russian advances).\nISW has not observed any evidence to indicate that these claims are true.",
+        "title": "Russian Offensive Campaign Assessment, October 12, 2026",
+        "url": "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-12-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-05",
+        "quotes": [
+          "\u041d\u0430 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u0432\u0456\u0434\u0442\u0438\u043d\u043a\u0443 \u0444\u0440\u043e\u043d\u0442\u0443 (\u043f\u0456\u0432\u043d\u0456\u0447\u043d\u0438\u0439 \u0444\u0430\u0441 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0433\u043e \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443) \u0440\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0437\u0430\u0433\u0430\u0440\u0431\u043d\u0438\u043a\u0438 \u043f\u0440\u043e\u0440\u0432\u0430\u043b\u0438\u0441\u044f \u0432 \u0434\u043e\u0441\u0456 \u0432\u0456\u043b\u044c\u043d\u0435 \u0441\u0435\u043b\u0438\u0449\u0435 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u0457 \u043c\u0456\u0441\u044c\u043a\u043e\u0457 \u0433\u0440\u043e\u043c\u0430\u0434\u0438 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0433\u043e \u0440\u0430\u0439\u043e\u043d\u0443 \u0414\u043e\u043d\u0435\u0446\u044c\u043a\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456, \u0430\u043b\u0435 \u0449\u0435 \u043d\u0435 \u0432\u0441\u0442\u0438\u0433\u043b\u0438 \u0437\u0430\u043a\u0440\u0456\u043f\u0438\u0442\u0438\u0441\u044f \u0432 \u043d\u044c\u043e\u043c\u0443.",
+          "\u0422\u0435\u043f\u0435\u0440 \u0441\u0456\u0440\u0430 \u0437\u043e\u043d\u0430 \u043f\u043e\u0433\u043b\u0438\u043d\u0443\u043b\u0430 \u0434\u0432\u0456 \u0442\u0440\u0435\u0442\u0438\u043d\u0438 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443 (\u0441\u0445\u0456\u0434\u043d\u0443 \u0456 \u0446\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u0443)."
+        ],
+        "text": "\u041d\u0430 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u0432\u0456\u0434\u0442\u0438\u043d\u043a\u0443 \u0444\u0440\u043e\u043d\u0442\u0443 (\u043f\u0456\u0432\u043d\u0456\u0447\u043d\u0438\u0439 \u0444\u0430\u0441 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0433\u043e \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443) \u0440\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0437\u0430\u0433\u0430\u0440\u0431\u043d\u0438\u043a\u0438 \u043f\u0440\u043e\u0440\u0432\u0430\u043b\u0438\u0441\u044f \u0432 \u0434\u043e\u0441\u0456 \u0432\u0456\u043b\u044c\u043d\u0435 \u0441\u0435\u043b\u0438\u0449\u0435 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u0457 \u043c\u0456\u0441\u044c\u043a\u043e\u0457 \u0433\u0440\u043e\u043c\u0430\u0434\u0438 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0433\u043e \u0440\u0430\u0439\u043e\u043d\u0443 \u0414\u043e\u043d\u0435\u0446\u044c\u043a\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456, \u0430\u043b\u0435 \u0449\u0435 \u043d\u0435 \u0432\u0441\u0442\u0438\u0433\u043b\u0438 \u0437\u0430\u043a\u0440\u0456\u043f\u0438\u0442\u0438\u0441\u044f \u0432 \u043d\u044c\u043e\u043c\u0443.\n\u0422\u0435\u043f\u0435\u0440 \u0441\u0456\u0440\u0430 \u0437\u043e\u043d\u0430 \u043f\u043e\u0433\u043b\u0438\u043d\u0443\u043b\u0430 \u0434\u0432\u0456 \u0442\u0440\u0435\u0442\u0438\u043d\u0438 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443 (\u0441\u0445\u0456\u0434\u043d\u0443 \u0456 \u0446\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u0443).",
+        "title": "\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0440\u0432\u0430\u0432\u0441\u044f \u0443 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441",
+        "url": "https://real-vin.com/voroh-prorvavsia-u-novyi-donbas",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "\u0420\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443 \u0442\u0430 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u043d\u0430\u0441\u0435\u043b\u0435\u043d\u0438\u0445 \u043f\u0443\u043d\u043a\u0442\u0456\u0432 \u0414\u043e\u0440\u043e\u0436\u043d\u0454 \u0456 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441 \u043d\u0430 \u0414\u043e\u043d\u0435\u0447\u0447\u0438\u043d\u0456.",
+          "\"\u041c\u0430\u043f\u0443 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043e.\n\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443\", - \u0439\u0434\u0435\u0442\u044c\u0441\u044f \u0443 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u0456 \u043a\u0430\u043d\u0430\u043b\u0443."
+        ],
+        "text": "\u0420\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443 \u0442\u0430 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u043d\u0430\u0441\u0435\u043b\u0435\u043d\u0438\u0445 \u043f\u0443\u043d\u043a\u0442\u0456\u0432 \u0414\u043e\u0440\u043e\u0436\u043d\u0454 \u0456 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441 \u043d\u0430 \u0414\u043e\u043d\u0435\u0447\u0447\u0438\u043d\u0456.\n\"\u041c\u0430\u043f\u0443 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043e.\n\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443\", - \u0439\u0434\u0435\u0442\u044c\u0441\u044f \u0443 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u0456 \u043a\u0430\u043d\u0430\u043b\u0443.",
+        "title": "\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443 - DeepState",
+        "url": "https://informator.ua/uk/vorog-prosunuvsya-u-bilickomu-a-takozh-poblizu-dorozhnogo-ta-novogo-donbasu-deepstate",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "\u041f\u0456\u0445\u043e\u0442\u043d\u0456 \u0433\u0440\u0443\u043f\u0438 \u0440\u043e\u0441\u0456\u044f\u043d \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u0432 \u0440\u0430\u0439\u043e\u043d\u0430\u0445 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u043e\u0433\u043e, \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443, \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443 \u043d\u0430 \u0434\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0432 \u0414\u043e\u043d\u0435\u0446\u044c\u043a\u0456\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0456.",
+          "\u041f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u043b\u044f \u0437\u0431\u0456\u043b\u044c\u0448\u0443\u0454\u0442\u044c\u0441\u044f \"\u0441\u0456\u0440\u0430 \u0437\u043e\u043d\u0430\" (\u0440\u0430\u0439\u043e\u043d \u043f\u0440\u043e\u043d\u0438\u043a\u043d\u0435\u043d\u043d\u044f \u043e\u043a\u0443\u043f\u0430\u043d\u0442\u0456\u0432).",
+          "\u041d\u0438\u043d\u0456 \u0437\u0430\u0433\u0430\u0440\u0431\u043d\u0438\u043a\u0438 \u0437\u0430\u0441\u0442\u043e\u0441\u043e\u0432\u0443\u044e\u0442\u044c \u043d\u0430 \u0434\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0442\u0430\u043a\u0442\u0438\u043a\u0443 \"\u0433\u043b\u0438\u0431\u043e\u043a\u0438\u0445 \u043f\u0440\u043e\u0441\u043e\u0447\u0443\u0432\u0430\u043d\u044c\"."
+        ],
+        "text": "\u041f\u0456\u0445\u043e\u0442\u043d\u0456 \u0433\u0440\u0443\u043f\u0438 \u0440\u043e\u0441\u0456\u044f\u043d \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u0432 \u0440\u0430\u0439\u043e\u043d\u0430\u0445 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u043e\u0433\u043e, \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443, \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443 \u043d\u0430 \u0434\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0432 \u0414\u043e\u043d\u0435\u0446\u044c\u043a\u0456\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0456.\n\u041f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u043b\u044f \u0437\u0431\u0456\u043b\u044c\u0448\u0443\u0454\u0442\u044c\u0441\u044f \"\u0441\u0456\u0440\u0430 \u0437\u043e\u043d\u0430\" (\u0440\u0430\u0439\u043e\u043d \u043f\u0440\u043e\u043d\u0438\u043a\u043d\u0435\u043d\u043d\u044f \u043e\u043a\u0443\u043f\u0430\u043d\u0442\u0456\u0432).\n\u041d\u0438\u043d\u0456 \u0437\u0430\u0433\u0430\u0440\u0431\u043d\u0438\u043a\u0438 \u0437\u0430\u0441\u0442\u043e\u0441\u043e\u0432\u0443\u044e\u0442\u044c \u043d\u0430 \u0434\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0442\u0430\u043a\u0442\u0438\u043a\u0443 \"\u0433\u043b\u0438\u0431\u043e\u043a\u0438\u0445 \u043f\u0440\u043e\u0441\u043e\u0447\u0443\u0432\u0430\u043d\u044c\".",
+        "title": "\u0420\u043e\u0441\u0456\u044f\u043d\u0438 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u043d\u0430 \u043a\u0456\u043b\u044c\u043a\u043e\u0445 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0430\u0445 - DeepState",
+        "url": "https://gazeta.ua/articles/politics/_rosiyani-prosunulisya-na-kilkoh-napryamkah-deepstate/1260274",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "13 \u0436\u043e\u0432\u0442\u043d\u044f \u0440\u0435\u0447\u043d\u0438\u043a \u043e\u0434\u043d\u0456\u0454\u0457 \u0437 \u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0438\u0445 \u0431\u0440\u0438\u0433\u0430\u0434, \u0449\u043e \u0434\u0456\u044e\u0442\u044c \u043d\u0430 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443, \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u0438\u0432, \u0449\u043e \u0440\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430 \u0437\u043c\u0456\u0441\u0442\u0438\u043b\u0438 \u0430\u043a\u0446\u0435\u043d\u0442 \u0441\u0432\u043e\u0457\u0445 \u0437\u0443\u0441\u0438\u043b\u044c: \u0437\u0430\u043c\u0456\u0441\u0442\u044c \u0440\u0430\u0439\u043e\u043d\u0456\u0432 \u0423\u0434\u0430\u0447\u043d\u043e\u0433\u043e \u0442\u0430 \u041a\u043e\u0442\u043b\u0438\u043d\u043e\u0433\u043e \u0432\u043e\u043d\u0438 \u0437\u043e\u0441\u0435\u0440\u0435\u0434\u0438\u043b\u0438\u0441\u044f \u043d\u0430 \u0421\u0435\u0440\u0433\u0456\u0457\u0432\u0446\u0456.",
+          "\u0426\u0435 \u0440\u0456\u0448\u0435\u043d\u043d\u044f \u0431\u0443\u043b\u043e \u043f\u0440\u0438\u0439\u043d\u044f\u0442\u043e \u043f\u0456\u0441\u043b\u044f \u043e\u0446\u0456\u043d\u043a\u0438, \u0437\u0433\u0456\u0434\u043d\u043e \u0437 \u044f\u043a\u043e\u044e \u0421\u0435\u0440\u0433\u0456\u0457\u0432\u043a\u0430 \u0454 \u043d\u0430\u0439\u0431\u0456\u043b\u044c\u0448 \u043f\u0456\u0434\u0445\u043e\u0434\u044f\u0449\u0438\u043c \u043c\u0456\u0441\u0446\u0435\u043c \u0434\u043b\u044f \u0441\u0442\u0432\u043e\u0440\u0435\u043d\u043d\u044f \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u0443 \u0434\u043b\u044f \u043f\u043e\u0434\u0430\u043b\u044c\u0448\u0438\u0445 \u043d\u0430\u0441\u0442\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u0445 \u0434\u0456\u0439 \u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0433\u043e \u043a\u043e\u0440\u0434\u043e\u043d\u0443 \u0414\u043d\u0456\u043f\u0440\u043e\u043f\u0435\u0442\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456."
+        ],
+        "text": "13 \u0436\u043e\u0432\u0442\u043d\u044f \u0440\u0435\u0447\u043d\u0438\u043a \u043e\u0434\u043d\u0456\u0454\u0457 \u0437 \u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0438\u0445 \u0431\u0440\u0438\u0433\u0430\u0434, \u0449\u043e \u0434\u0456\u044e\u0442\u044c \u043d\u0430 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u043c\u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443, \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u0438\u0432, \u0449\u043e \u0440\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430 \u0437\u043c\u0456\u0441\u0442\u0438\u043b\u0438 \u0430\u043a\u0446\u0435\u043d\u0442 \u0441\u0432\u043e\u0457\u0445 \u0437\u0443\u0441\u0438\u043b\u044c: \u0437\u0430\u043c\u0456\u0441\u0442\u044c \u0440\u0430\u0439\u043e\u043d\u0456\u0432 \u0423\u0434\u0430\u0447\u043d\u043e\u0433\u043e \u0442\u0430 \u041a\u043e\u0442\u043b\u0438\u043d\u043e\u0433\u043e \u0432\u043e\u043d\u0438 \u0437\u043e\u0441\u0435\u0440\u0435\u0434\u0438\u043b\u0438\u0441\u044f \u043d\u0430 \u0421\u0435\u0440\u0433\u0456\u0457\u0432\u0446\u0456.\n\u0426\u0435 \u0440\u0456\u0448\u0435\u043d\u043d\u044f \u0431\u0443\u043b\u043e \u043f\u0440\u0438\u0439\u043d\u044f\u0442\u043e \u043f\u0456\u0441\u043b\u044f \u043e\u0446\u0456\u043d\u043a\u0438, \u0437\u0433\u0456\u0434\u043d\u043e \u0437 \u044f\u043a\u043e\u044e \u0421\u0435\u0440\u0433\u0456\u0457\u0432\u043a\u0430 \u0454 \u043d\u0430\u0439\u0431\u0456\u043b\u044c\u0448 \u043f\u0456\u0434\u0445\u043e\u0434\u044f\u0449\u0438\u043c \u043c\u0456\u0441\u0446\u0435\u043c \u0434\u043b\u044f \u0441\u0442\u0432\u043e\u0440\u0435\u043d\u043d\u044f \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u0443 \u0434\u043b\u044f \u043f\u043e\u0434\u0430\u043b\u044c\u0448\u0438\u0445 \u043d\u0430\u0441\u0442\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u0445 \u0434\u0456\u0439 \u0443 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0433\u043e \u043a\u043e\u0440\u0434\u043e\u043d\u0443 \u0414\u043d\u0456\u043f\u0440\u043e\u043f\u0435\u0442\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0457 \u043e\u0431\u043b\u0430\u0441\u0442\u0456.",
+        "title": "\u0421\u0438\u0442\u0443\u0430\u0446\u0456\u044f \u043d\u0430 \u0444\u0440\u043e\u043d\u0442\u0456 13 \u2013 14 \u0436\u043e\u0432\u0442\u043d\u044f 2026 \u0432\u0456\u0434 ISW",
+        "url": "https://24tv.ua/situatsiya-fronti-13-14-zhovtnya-2026-vid-isw-de-nastupala-rosiya_n3160851",
+        "verified": null
+      }
+    ],
+    "polymarket-3499789": [
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "At its meeting today, the Board decided to increase the cash rate target by 25 basis points to 4.60 per cent.",
+          "But inflation is still too high and the Board judged that, in light of recent developments, a further tightening in financial conditions is warranted to support a return of inflation to target in a reasonable period.",
+          "The Board will continue to do what it considers necessary to bring inflation sustainably back to target, including increasing the cash rate target further if needed."
+        ],
+        "text": "At its meeting today, the Board decided to increase the cash rate target by 25 basis points to 4.60 per cent.\nBut inflation is still too high and the Board judged that, in light of recent developments, a further tightening in financial conditions is warranted to support a return of inflation to target in a reasonable period.\nThe Board will continue to do what it considers necessary to bring inflation sustainably back to target, including increasing the cash rate target further if needed.",
+        "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+        "url": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+        "verified": null
+      },
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "The Board decided unanimously to raise the cash rate target by 25 basis points to 4.60 per cent.",
+          "Members judged that these domestic and global developments pointed to an increase in the risk of persistently elevated inflation.",
+          "The Board will remain focused on its mandate to deliver price stability and full employment and will continue to do what it considered necessary to achieve that outcome, including increasing the cash rate target further if required."
+        ],
+        "text": "The Board decided unanimously to raise the cash rate target by 25 basis points to 4.60 per cent.\nMembers judged that these domestic and global developments pointed to an increase in the risk of persistently elevated inflation.\nThe Board will remain focused on its mandate to deliver price stability and full employment and will continue to do what it considered necessary to achieve that outcome, including increasing the cash rate target further if required.",
+        "title": "Minutes of the Monetary Policy Board Meeting, 28 and 29 September 2026",
+        "url": "https://www.rba.gov.au/monetary-policy/rba-board-minutes/2026/2026-09-29.html",
+        "verified": null
+      },
+      {
+        "published": "2025-02-10",
+        "quotes": [
+          "The outcome of the meeting will be announced at 2.30 pm on the second day of the Board meeting, and the Governor will hold a media conference at 3.30 pm.",
+          "The quarterly Statement on Monetary Policy will be released at the same time as the outcome of the Board meeting in February, May, August and November."
+        ],
+        "text": "The outcome of the meeting will be announced at 2.30 pm on the second day of the Board meeting, and the Governor will hold a media conference at 3.30 pm.\nThe quarterly Statement on Monetary Policy will be released at the same time as the outcome of the Board meeting in February, May, August and November.",
+        "title": "2026 Monetary Policy Board Meeting Dates",
+        "url": "https://www.rba.gov.au/media-releases/2025/mr-25-02.html",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "The meeting schedules for the Monetary Policy Board and Payments System Board are below."
+        ],
+        "text": "The meeting schedules for the Monetary Policy Board and Payments System Board are below.",
+        "title": "Board Meeting Schedules",
+        "url": "https://www.rba.gov.au/schedules-events/board-meeting-schedules.html",
+        "verified": null
+      },
+      {
+        "published": "2026-09-30",
+        "quotes": [
+          "The Consumer Price Index (CPI) rose 4.0 per cent in the 12 months to August 2026, up from 3.5 per cent in the 12 months to July, according to the latest data from the Australian Bureau of Statistics (ABS).",
+          "Trimmed mean annual inflation remained steady at 3.6 per cent for the third consecutive month in August."
+        ],
+        "text": "The Consumer Price Index (CPI) rose 4.0 per cent in the 12 months to August 2026, up from 3.5 per cent in the 12 months to July, according to the latest data from the Australian Bureau of Statistics (ABS).\nTrimmed mean annual inflation remained steady at 3.6 per cent for the third consecutive month in August.",
+        "title": "CPI rose 4.0% in the year to August 2026",
+        "url": "https://www.abs.gov.au/media-centre/media-releases/cpi-rose-40-year-august-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "The RBA\u2019s Monetary Policy Board unanimously raised the cash rate by a quarter of percentage point to 4.60% at its 28 to 29 September meeting, after concluding several risks identified only a month earlier had either materialised or intensified.",
+          "CBA economists continue to expect the cash rate to remain on hold from here, but Allen said \u201cthe clear risk is another rate hike\u201d with November \u201cvery much live\u201d.",
+          "Attention will now turn to RBA Deputy Governor Andrew Hauser\u2019s comments on 21 October and September-quarter inflation data on 28 October."
+        ],
+        "text": "The RBA\u2019s Monetary Policy Board unanimously raised the cash rate by a quarter of percentage point to 4.60% at its 28 to 29 September meeting, after concluding several risks identified only a month earlier had either materialised or intensified.\nCBA economists continue to expect the cash rate to remain on hold from here, but Allen said \u201cthe clear risk is another rate hike\u201d with November \u201cvery much live\u201d.\nAttention will now turn to RBA Deputy Governor Andrew Hauser\u2019s comments on 21 October and September-quarter inflation data on 28 October.",
+        "title": "Inflation leaves RBA open to further rate rises if required, minutes reveal",
+        "url": "https://www.commbank.com.au/articles/newsroom/2026/10/rba-minutes-show-why-board-decided-it-could-not-wait-on-inflation.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "At the meeting, the RBA raised the official cash rate to a 15-year high of 4.60%.",
+          "The minutes were decisively more hawkish than Governor Bullock\u2019s unscripted media answers following the latest meeting, with a clear focus on upside risks to inflation and little attention given to downside risks to jobs and growth."
+        ],
+        "text": "At the meeting, the RBA raised the official cash rate to a 15-year high of 4.60%.\nThe minutes were decisively more hawkish than Governor Bullock\u2019s unscripted media answers following the latest meeting, with a clear focus on upside risks to inflation and little attention given to downside risks to jobs and growth.",
+        "title": "RBA fears \u201cpersistently elevated inflation\u201d",
+        "url": "https://www.macrobusiness.com.au/2026/10/rba-fears-persistently-elevated-inflation/",
+        "verified": null
+      }
+    ],
+    "polymarket-3554659": [
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "Oct 13, 2026 8,804,675 votes 415 models",
+          "| 1 | 1 1 | gemini-4-argon-high Google \u00b7 Proprietary | 1533\u00b19 Preliminary | 4,903 | $2 / $10 | 1M |",
+          "| 2 | 2 5 | claude-opus-5.5-high Anthropic \u00b7 Proprietary | 1516\u00b18 | 7,687 | $4 / $20 | 1M |"
+        ],
+        "text": "Oct 13, 2026 8,804,675 votes 415 models\n| 1 | 1 1 | gemini-4-argon-high Google \u00b7 Proprietary | 1533\u00b19 Preliminary | 4,903 | $2 / $10 | 1M |\n| 2 | 2 5 | claude-opus-5.5-high Anthropic \u00b7 Proprietary | 1516\u00b18 | 7,687 | $4 / $20 | 1M |",
+        "title": "Text Arena Overall (style control off)",
+        "url": "https://arena.ai/leaderboard/text/overall-no-style-control",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Gemini 4 Argon leads text at 1533.24 on 4,903 votes, still provisional.",
+          "Argon gained about eight Elo since the Oct 8 snapshot, but it has moved just eleven votes in that time, from 4,892 to 4,903.",
+          "Its confidence interval still overlaps #2 through #6."
+        ],
+        "text": "Gemini 4 Argon leads text at 1533.24 on 4,903 votes, still provisional.\nArgon gained about eight Elo since the Oct 8 snapshot, but it has moved just eleven votes in that time, from 4,892 to 4,903.\nIts confidence interval still overlaps #2 through #6.",
+        "title": "LMArena republishes text, WebDev, agent and search",
+        "url": "https://ai-model-psi-bice.vercel.app/news/lmarena-oct-13-refresh",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Between August 28, 2024 and October 13, 2026 LMArena published 189 text leaderboards.\nThe lab at #1 changed 7 times.",
+          "Google has held #1 since September 30, 2026, 13 days as of the latest leaderboard.\nThe current leader is gemini-4-argon-high.",
+          "History uses the style-controlled text leaderboard, which the dataset records from August 28, 2024."
+        ],
+        "text": "Between August 28, 2024 and October 13, 2026 LMArena published 189 text leaderboards.\nThe lab at #1 changed 7 times.\nGoogle has held #1 since September 30, 2026, 13 days as of the latest leaderboard.\nThe current leader is gemini-4-argon-high.\nHistory uses the style-controlled text leaderboard, which the dataset records from August 28, 2024.",
+        "title": "LLM Leaderboard October 2026",
+        "url": "https://essentras.com/llm-leaderboard",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "Gemini 4 Argon High is first in the Oct.\n8 Text Arena snapshot at 1,525\u00b19 after 4,892 votes, but the entry is explicitly preliminary.",
+          "Argon is not yet generally available.",
+          "It has given no date beyond \u201cas soon as possible.\u201d"
+        ],
+        "text": "Gemini 4 Argon High is first in the Oct.\n8 Text Arena snapshot at 1,525\u00b19 after 4,892 votes, but the entry is explicitly preliminary.\nArgon is not yet generally available.\nIt has given no date beyond \u201cas soon as possible.\u201d",
+        "title": "Gemini 4 Argon tops Text Arena, but access and token costs keep the lead provisional",
+        "url": "https://magica.com/news/gemini-4-argon-text-arena-lead",
+        "verified": null
+      }
+    ],
+    "polymarket-4936081": [
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The current price of gold is $4,156.50 per troy ounce as of October 15, 2026, 6:05 a.m.\nET, up $52.00 today.",
+          "As of October 15, 2026, 6:05 a.m.\nET, the gold price is $4,156.50 per troy ounce ($133.63 per gram).",
+          "Gold's current all-time high in U.S.\ndollars is $5,589.38 per ounce, set on January 28, 2026."
+        ],
+        "text": "The current price of gold is $4,156.50 per troy ounce as of October 15, 2026, 6:05 a.m.\nET, up $52.00 today.\nAs of October 15, 2026, 6:05 a.m.\nET, the gold price is $4,156.50 per troy ounce ($133.63 per gram).\nGold's current all-time high in U.S.\ndollars is $5,589.38 per ounce, set on January 28, 2026.",
+        "title": "Gold Price Today | Price of Gold Per Ounce | 24 Hour Spot Chart | KITCO",
+        "url": "https://www.kitco.com/charts/gold",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "At the time of writing, spot gold was trading near $4,098.80 an ounce, down $61.30, or 1.47%, while spot silver was trading near $55.410, down $3.640, or 6.16%.",
+          "Bears' next near-term downside price objective is a break below $4,066.54, with deeper downside targets at $4,060.37 and then $4,004.68.",
+          "First support is seen at $4,072.70 and then at $4,066.54."
+        ],
+        "text": "At the time of writing, spot gold was trading near $4,098.80 an ounce, down $61.30, or 1.47%, while spot silver was trading near $55.410, down $3.640, or 6.16%.\nBears' next near-term downside price objective is a break below $4,066.54, with deeper downside targets at $4,060.37 and then $4,004.68.\nFirst support is seen at $4,072.70 and then at $4,066.54.",
+        "title": "Gold falls below $4,100, silver plunges 6% as hot CPI boosts Fed-hike bets - Kitco PM Report",
+        "url": "https://www.kitco.com/news/article/2026-10-14/gold-falls-below-4100-silver-plunges-6-hot-cpi-boosts-fed-hike-bets-kitco",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Today\u2019s trading range for Gold futures is between 4,120.95 and 4,183.35.",
+          "The 52-week price range for Gold futures spans from 3,890.70 to 5,626.80."
+        ],
+        "text": "Today\u2019s trading range for Gold futures is between 4,120.95 and 4,183.35.\nThe 52-week price range for Gold futures spans from 3,890.70 to 5,626.80.",
+        "title": "Gold Futures Historical Prices (GC1!) - Investing.com UK",
+        "url": "https://uk.investing.com/commodities/gold-historical-data",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The latest close in October 2026 was $4,188.41, on 14 October 2026, up 0.17% on the month so far.",
+          "Its highest close was $4,194.61 on 9 October 2026, and its lowest $4,107.25 on 7 October 2026.",
+          "Spot gold in US dollars per troy ounce, from XAUTicker."
+        ],
+        "text": "The latest close in October 2026 was $4,188.41, on 14 October 2026, up 0.17% on the month so far.\nIts highest close was $4,194.61 on 9 October 2026, and its lowest $4,107.25 on 7 October 2026.\nSpot gold in US dollars per troy ounce, from XAUTicker.",
+        "title": "Gold price in October 2026: daily closes and market news",
+        "url": "https://goldtickerlive.live/2026/10",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "EXCHANGE: COMEX CONTRACT: OCTOBER 2026 COMEX 100 GOLD FUTURES SETTLEMENT: 4,084.800000000 USD INTENT DATE: 10/14/2026 DELIVERY DATE: 10/16/2026"
+        ],
+        "text": "EXCHANGE: COMEX CONTRACT: OCTOBER 2026 COMEX 100 GOLD FUTURES SETTLEMENT: 4,084.800000000 USD INTENT DATE: 10/14/2026 DELIVERY DATE: 10/16/2026",
+        "title": "CME Group Metals Issues and Stops Report",
+        "url": "https://www.cmegroup.com/delivery_reports/MetalsIssuesAndStopsReport.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Data delayed at least 15 minutes, as of Oct 15 2026 00:05 BST.",
+          "52 week range 3,913.70 - 5,586.20"
+        ],
+        "text": "Data delayed at least 15 minutes, as of Oct 15 2026 00:05 BST.\n52 week range 3,913.70 - 5,586.20",
+        "title": "COMEX Gold, GC.1:CMX historical prices - FT.com",
+        "url": "https://markets.ft.com/data/commodities/tearsheet/historical?c=COMEX+Gold",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Returns OHLC candlestick data in TradingView format.",
+          "Arrays are aligned by index \u2014 `t[0]`, `o[0]`, `h[0]`, `l[0]`, `c[0]` represent the same candle."
+        ],
+        "text": "Returns OHLC candlestick data in TradingView format.\nArrays are aligned by index \u2014 `t[0]`, `o[0]`, `h[0]`, `l[0]`, `c[0]` represent the same candle.",
+        "title": "History API | Pyth Developer Hub",
+        "url": "https://docs.pyth.network/price-feeds/pro/api/history",
+        "verified": null
+      }
+    ],
+    "polymarket-5593523": [
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "As of 10:02:42 AM UTC.\nMarket Open.",
+          "Oct 15, 2026 | 81,573.10 | 81,773.77 | 80,474.07 | 81,142.56 | 81,142.56 | 42,001,362,944",
+          "Oct 12, 2026 | 83,679.47 | 84,249.22 | 81,681.63 | 81,762.56 | 81,762.56 | 26,546,289,120"
+        ],
+        "text": "As of 10:02:42 AM UTC.\nMarket Open.\nOct 15, 2026 | 81,573.10 | 81,773.77 | 80,474.07 | 81,142.56 | 81,142.56 | 42,001,362,944\nOct 12, 2026 | 83,679.47 | 84,249.22 | 81,681.63 | 81,762.56 | 81,762.56 | 26,546,289,120",
+        "title": "Bitcoin USD (BTC-USD) Price History & Historical Data - Yahoo Finance",
+        "url": "https://finance.yahoo.com/quote/BTC-USD/history/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "$81,160.77",
+          "Low $80,274.98",
+          "High $83,821.86"
+        ],
+        "text": "$81,160.77\nLow $80,274.98\nHigh $83,821.86",
+        "title": "Bitcoin price today, BTC to USD live price, marketcap and chart | CoinMarketCap",
+        "url": "https://coinmarketcap.com/currencies/bitcoin/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Real-time Oct 15, 2026 5:07:11 AM EDT",
+          "Composite 81,350.50 Binance 81,360.01 OKX 81,350.50 Huobi 81,349.18 Bitfinex 81,354.00 HitBTC 81,371.47 Coinbase 81,362.95 Bitstamp 81,332.80 Gemini 80,743.40",
+          "2026-10-15 | 81,682.60 | 81,971.00 | 80,226.35 | 81,350.50 | -0.406% | 15,439 | 0.000%"
+        ],
+        "text": "Real-time Oct 15, 2026 5:07:11 AM EDT\nComposite 81,350.50 Binance 81,360.01 OKX 81,350.50 Huobi 81,349.18 Bitfinex 81,354.00 HitBTC 81,371.47 Coinbase 81,362.95 Bitstamp 81,332.80 Gemini 80,743.40\n2026-10-15 | 81,682.60 | 81,971.00 | 80,226.35 | 81,350.50 | -0.406% | 15,439 | 0.000%",
+        "title": "BTCUSDT Historical Prices | ChartExchange",
+        "url": "https://chartexchange.com/symbol/crypto-btcusdt/historical/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "BTCUSDT \u00b7 Binance USDT-M \u00b7 UTC days \u00b7 641 days with trades since 2025-01-11 \u00b7 source: CryptoStruct tick archive",
+          "2026-10-13 | 81,813 | 84,134 | 80,985 | 83,126 | 3,476,395 | $12.2B",
+          "2026-10-12 | 83,723 | 84,340 | 81,700 | 81,813 | 2,774,206 | $11.8B"
+        ],
+        "text": "BTCUSDT \u00b7 Binance USDT-M \u00b7 UTC days \u00b7 641 days with trades since 2025-01-11 \u00b7 source: CryptoStruct tick archive\n2026-10-13 | 81,813 | 84,134 | 80,985 | 83,126 | 3,476,395 | $12.2B\n2026-10-12 | 83,723 | 84,340 | 81,700 | 81,813 | 2,774,206 | $11.8B",
+        "title": "BTC/USDT (BTCUSDT) Historical Market Data \u2014 Every Tick, \u20ac1 a Day",
+        "url": "https://cryptostruct.com/pairs/btc-usdt",
+        "verified": null
+      }
+    ],
+    "polymarket-5593553": [
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Real-time Oct 15, 2026 5:19:28 AM EDT",
+          "Composite 2,371.200 Binance 2,371.200 OKX 2,371.550 Huobi 2,372.110 Bitfinex 2,372.000 HitBTC 2,373.789 Coinbase 2,372.580 Bitstamp 2,372.760 Gemini 2,420.350",
+          "2026-10-15 2,421.73 2,430.32 2,317.00 2,371.20 -2.081%"
+        ],
+        "text": "Real-time Oct 15, 2026 5:19:28 AM EDT\nComposite 2,371.200 Binance 2,371.200 OKX 2,371.550 Huobi 2,372.110 Bitfinex 2,372.000 HitBTC 2,373.789 Coinbase 2,372.580 Bitstamp 2,372.760 Gemini 2,420.350\n2026-10-15 2,421.73 2,430.32 2,317.00 2,371.20 -2.081%",
+        "title": "ETHUSDT Historical Prices | ChartExchange",
+        "url": "https://chartexchange.com/symbol/crypto-ethusdt/historical/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "As of 9:49:00 am UTC.\nMarket open.",
+          "15 Oct 2026 2,418.43 2,424.94 2,342.51 2,372.16 2,372.16 19,222,249,472",
+          "14 Oct 2026 2,496.63 2,526.07 2,403.21 2,418.21 2,418.21 13,382,928,521"
+        ],
+        "text": "As of 9:49:00 am UTC.\nMarket open.\n15 Oct 2026 2,418.43 2,424.94 2,342.51 2,372.16 2,372.16 19,222,249,472\n14 Oct 2026 2,496.63 2,526.07 2,403.21 2,418.21 2,418.21 13,382,928,521",
+        "title": "Ethereum USD (ETH-USD) price history and historical data \u2013 Yahoo Finance",
+        "url": "https://sg.finance.yahoo.com/quote/ETH-USD/history/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Ethereum (ETH), the second-largest cryptocurrency by market capitalization, fell 6.2% over the past 24 hours to $2,351.63 on Thursday, October 15, 2026, as forced selling of leveraged bullish bets deepened a decline that began after hotter-than-expected U.S.\ninflation data.",
+          "ETH traded at $2,351.63, according to CoinGecko data, after moving between a low of $2,332.43 and a high of $2,524.82 over 24 hours.",
+          "The decline traces back to the U.S.\nBureau of Labor Statistics (BLS) September Consumer Price Index (CPI) report, released on Wednesday, October 14, at 8:30 a.m.\nET (6:00 p.m.\nIST)."
+        ],
+        "text": "Ethereum (ETH), the second-largest cryptocurrency by market capitalization, fell 6.2% over the past 24 hours to $2,351.63 on Thursday, October 15, 2026, as forced selling of leveraged bullish bets deepened a decline that began after hotter-than-expected U.S.\ninflation data.\nETH traded at $2,351.63, according to CoinGecko data, after moving between a low of $2,332.43 and a high of $2,524.82 over 24 hours.\nThe decline traces back to the U.S.\nBureau of Labor Statistics (BLS) September Consumer Price Index (CPI) report, released on Wednesday, October 14, at 8:30 a.m.\nET (6:00 p.m.\nIST).",
+        "title": "Ethereum Price Drops 6.2% as ETH Long Liquidations Hit $265M After Hot US CPI",
+        "url": "https://www.cryptotimes.io/2026/10/15/ethereum-price-drops-6-2-as-eth-long-liquidations-hit-265m-after-hot-us-cpi/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Transmission of material in this release is embargoed until 8:30 a.m.\n(ET) Wednesday, October 14, 2026.",
+          "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S.\nBureau of Labor Statistics reported today.",
+          "Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment."
+        ],
+        "text": "Transmission of material in this release is embargoed until 8:30 a.m.\n(ET) Wednesday, October 14, 2026.\nThe Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S.\nBureau of Labor Statistics reported today.\nOver the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.",
+        "title": "Consumer Price Index Summary - 2026 M09 Results",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The live price of ETH on Tindex is 2,359 USD, last updated 15 October 2026 at 10:30.",
+          "Today's high 2,429 Today's low 2,326 12-month high 4,234 12-month low 732",
+          "15 October 2026 2,428 2,429 2,326 2,356"
+        ],
+        "text": "The live price of ETH on Tindex is 2,359 USD, last updated 15 October 2026 at 10:30.\nToday's high 2,429 Today's low 2,326 12-month high 4,234 12-month low 732\n15 October 2026 2,428 2,429 2,326 2,356",
+        "title": "ETH price today, 15 October 2026 \u2014 live chart & history | Tindex",
+        "url": "https://tindex.app/en/indicators/Cryptocurrency/ETH/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Snapshot taken at 00:49 UTC from live data.",
+          "Snapshot of Ethereum (ETH) on 2026-10-15: the price was 2,413 USD, down 4.11% over the previous 24 hours, with 24-hour volume of $1.22B and open interest of $2.61B."
+        ],
+        "text": "Snapshot taken at 00:49 UTC from live data.\nSnapshot of Ethereum (ETH) on 2026-10-15: the price was 2,413 USD, down 4.11% over the previous 24 hours, with 24-hour volume of $1.22B and open interest of $2.61B.",
+        "title": "Ethereum (ETH) on 2026-10-15: price, whale positions and market data | MarketRadar Whale",
+        "url": "https://marketradarwhale.com/en/coin/ETH/2026-10-15/",
+        "verified": null
+      }
+    ],
+    "polymarket-562802": [
+      {
+        "published": "2026-10-01",
+        "quotes": [
+          "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.",
+          "ONE HUNDRED NINETEENTH CONGRESS \u2022 OCTOBER 1, 2026"
+        ],
+        "text": "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.\nONE HUNDRED NINETEENTH CONGRESS \u2022 OCTOBER 1, 2026",
+        "title": "Official List of Members of the House of Representatives, 119th Congress",
+        "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "218 Republicans",
+          "214 Democrats",
+          "*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026."
+        ],
+        "text": "218 Republicans\n214 Democrats\n*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.",
+        "title": "Party Breakdown | House Press Gallery",
+        "url": "http://pressgallery.house.gov/member-data/party-breakdown",
+        "verified": null
+      },
+      {
+        "published": "2024-11-01",
+        "quotes": [
+          "Upcoming federal elections are scheduled for November 5, 2024, and November 3, 2026.",
+          "Current law states that \"the Tuesday next after the 1 st Monday in November, in every even-numbered year, is established as the day for the election, in each of the States and Territories of the United States, of Representatives and Delegates to the Congress commencing on the 3d day of January next thereafter.\""
+        ],
+        "text": "Upcoming federal elections are scheduled for November 5, 2024, and November 3, 2026.\nCurrent law states that \"the Tuesday next after the 1 st Monday in November, in every even-numbered year, is established as the day for the election, in each of the States and Territories of the United States, of Representatives and Delegates to the Congress commencing on the 3d day of January next thereafter.\"",
+        "title": "Election Day: Frequently Asked Questions (CRS R46413)",
+        "url": "https://www.congress.gov/crs-product/R46413",
+        "verified": null
+      },
+      {
+        "published": "2026-10-06",
+        "quotes": [
+          "The next midterm elections will be in November 2026.",
+          "All 435 House seats are up for election every midterm and presidential election year."
+        ],
+        "text": "The next midterm elections will be in November 2026.\nAll 435 House seats are up for election every midterm and presidential election year.",
+        "title": "Congressional elections and midterm elections | USAGov",
+        "url": "https://www.usa.gov/midterm-elections",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Since the start of the modern party system in the decade before the Civil War, the House has changed majorities in a midterm election a little more than one-third of the time.",
+          "But of the total 19 House majority changes in that time span, including presidential and midterm election years, more than three-quarters have occurred during a midterm.",
+          "Elections in the fall of 1930 had provided Republicans with a slim majority in the chamber.\nBut between Election Day 1930 and the opening of the new Congress 13 months later, 14 Representatives-elect died."
+        ],
+        "text": "Since the start of the modern party system in the decade before the Civil War, the House has changed majorities in a midterm election a little more than one-third of the time.\nBut of the total 19 House majority changes in that time span, including presidential and midterm election years, more than three-quarters have occurred during a midterm.\nElections in the fall of 1930 had provided Republicans with a slim majority in the chamber.\nBut between Election Day 1930 and the opening of the new Congress 13 months later, 14 Representatives-elect died.",
+        "title": "Majority Changes in the House of Representatives, 1856 to Present",
+        "url": "https://history.house.gov/Institution/Majority-Changes/Majority-Changes/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "HOUSE: 214 at least Leans D, 201 at least Leans R, 20 Toss-ups.",
+          "The last five midterms\u20142006, 2010, 2014, 2018, and 2022\u2014have all been bad for the president\u2019s party to varying degrees.",
+          "Redistricting has technically altered the number of \u201ccrossover\u201d seats each party is defending this year: The Democratic tally of Trump-won districts rose from 13 to 22, while the Republican total of Harris-won seats rose from 3 to 8."
+        ],
+        "text": "HOUSE: 214 at least Leans D, 201 at least Leans R, 20 Toss-ups.\nThe last five midterms\u20142006, 2010, 2014, 2018, and 2022\u2014have all been bad for the president\u2019s party to varying degrees.\nRedistricting has technically altered the number of \u201ccrossover\u201d seats each party is defending this year: The Democratic tally of Trump-won districts rose from 13 to 22, while the Republican total of Harris-won seats rose from 3 to 8.",
+        "title": "Republicans Try to Avoid a Crossover District Shutout; Four House Rating Changes - Sabato's Crystal Ball",
+        "url": "https://centerforpolitics.org/crystalball/republicans-try-to-avoid-a-crossover-district-shutout-four-house-rating-changes/",
+        "verified": null
+      }
+    ],
+    "polymarket-562831": [
+      {
+        "published": "",
+        "quotes": [
+          "Party Division 119th Congress \u2022 Majority Party: Republicans (53 seats) \u2022 Minority Party: Democrats (45 seats) \u2022 Other Parties: Independents (2 seats) More Party Division Information",
+          "Senators by Class \u2022 Class I (terms expire 2031) \u2022 Class II (terms expire 2027) \u2022 Class III (terms expire 2029)"
+        ],
+        "text": "Party Division 119th Congress \u2022 Majority Party: Republicans (53 seats) \u2022 Minority Party: Democrats (45 seats) \u2022 Other Parties: Independents (2 seats) More Party Division Information\nSenators by Class \u2022 Class I (terms expire 2031) \u2022 Class II (terms expire 2027) \u2022 Class III (terms expire 2029)",
+        "title": "U.S.\nSenate: Senators",
+        "url": "https://www.senate.gov/senators/index.htm",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Class II terms run from the beginning of the 117th Congress on January 3, 2021, to the end of the 119th Congress on January 3, 2027.",
+          "Senators in Class III were elected to office in the November 2022 general election, unless they took their seat through appointment or special election."
+        ],
+        "text": "Class II terms run from the beginning of the 117th Congress on January 3, 2021, to the end of the 119th Congress on January 3, 2027.\nSenators in Class III were elected to office in the November 2022 general election, unless they took their seat through appointment or special election.",
+        "title": "U.S.\nSenate: Class II - Senators Whose Terms of Service Expire in 2027",
+        "url": "https://www.senate.gov/senators/Class_II.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-01",
+        "quotes": [
+          "ONE HUNDRED NINETEENTH CONGRESS \u2022 OCTOBER 1, 2026",
+          "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435."
+        ],
+        "text": "ONE HUNDRED NINETEENTH CONGRESS \u2022 OCTOBER 1, 2026\nRepublicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.",
+        "title": "Official List of Members of the House of Representatives",
+        "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Tuesday, November 3, 2026, is the next regularly scheduled federal General Election date.",
+          "Dates listed for scheduled future elections are tentative and subject to change."
+        ],
+        "text": "Tuesday, November 3, 2026, is the next regularly scheduled federal General Election date.\nDates listed for scheduled future elections are tentative and subject to change.",
+        "title": "FEC | Election and voting information",
+        "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Elections to the U.S.\nSenate will happen on November 3, 2026.\nThirty-three of the 100 seats in the chamber are up for election and another two seats are up for special election.",
+          "Of the 33 regularly scheduled general elections in 2026, Democrats control 13 and Republicans control 20.",
+          "Two special elections will also happen on November 3, 2026.\nOne special election is to fill the last two years of the six-year term that Marco Rubio (R-Fla.) was elected to in 2022.\nThe other special election is to fill the last two years of the six-year term that J.D.\nVance (R-Ohio) was elected to in 2022."
+        ],
+        "text": "Elections to the U.S.\nSenate will happen on November 3, 2026.\nThirty-three of the 100 seats in the chamber are up for election and another two seats are up for special election.\nOf the 33 regularly scheduled general elections in 2026, Democrats control 13 and Republicans control 20.\nTwo special elections will also happen on November 3, 2026.\nOne special election is to fill the last two years of the six-year term that Marco Rubio (R-Fla.) was elected to in 2022.\nThe other special election is to fill the last two years of the six-year term that J.D.\nVance (R-Ohio) was elected to in 2022.",
+        "title": "United States Senate elections, 2026",
+        "url": "https://ballotpedia.org/United_States_Senate_elections,_2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "The primaries are over, and the field is set.",
+          "Control of the U.S.\nSenate is up for grabs.",
+          "And Republicans increasingly find themselves on defense as they try to hold on to their majority in the chamber."
+        ],
+        "text": "The primaries are over, and the field is set.\nControl of the U.S.\nSenate is up for grabs.\nAnd Republicans increasingly find themselves on defense as they try to hold on to their majority in the chamber.",
+        "title": "Senate races to watch in the 2026 midterm elections",
+        "url": "https://apnews.com/projects/2026-us-elections-senate-key-races-to-watch/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Please note this page will not be updated until member departures are read on the House floor.",
+          "Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.",
+          "Rep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26."
+        ],
+        "text": "Please note this page will not be updated until member departures are read on the House floor.\nRep.\nTony Gonzales (R-TX) resigned 04/14/2026.\nRep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26.",
+        "title": "Party Breakdown | House Press Gallery",
+        "url": "http://pressgallery.house.gov/member-data/party-breakdown",
+        "verified": null
+      }
+    ]
+  }
+}
