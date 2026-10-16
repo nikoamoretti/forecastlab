@@ -1,0 +1,131 @@
+{
+  "failed": {},
+  "findings": {
+    "a81bb32960e43a67": {
+      "base_rate": "Reference class: revised seasonally adjusted U.S.\ninitial claims (FRED ICSA vintage as of 2026-10-16), weeks strictly above 199,000.\nFrom the week ending 2026-01-03 through 2026-10-10, 32 of 41 weeks were above 199,000.\nIn the latest 4 weeks (ending 2026-09-19, 2026-09-26, 2026-10-03, and 2026-10-10), 0 of 4 were above 199,000.\nThese counts use later revisions, not first prints.",
+      "facts": [
+        {
+          "fact": "As of 2026-10-16, FRED ICSA has no observation for the week ending 2026-10-17; the latest observation is the week ending 2026-10-10, and the next release date shown is 2026-10-22.",
+          "source": 1
+        },
+        {
+          "fact": "On 2026-10-15, the Department of Labor's first published seasonally adjusted initial claims for the week ending 2026-10-10 were 199,000.",
+          "source": 0
+        },
+        {
+          "fact": "That 199,000 figure is not above 199,000; the four prior revised weekly levels on the 2026-10-15 FRED vintage were 198,000 (2026-09-12), 198,000 (2026-09-19), 199,000 (2026-09-26), and 198,000 (2026-10-03).",
+          "source": 4
+        },
+        {
+          "fact": "The first published level for the week ending 2026-10-03 was 197,000; the 2026-10-15 release revised it to 198,000.\nResolution of the 2026-10-17 week uses only the first published ICSA value.",
+          "source": 0
+        },
+        {
+          "fact": "The FRED release calendar lists the Unemployment Insurance Weekly Claims Report for Thursday, 2026-10-22, at 7:30 a.m., and that Thursday is not among ETA's listed holiday exceptions (which move the release off Thursday).",
+          "source": 2
+        },
+        {
+          "fact": "ETA states the weekly claims news release is published each Thursday at 8:30 a.m.\nEST except when Thursday is a federal holiday.",
+          "source": 3
+        },
+        {
+          "fact": "Unadjusted initial claims for the week ending 2026-10-10 were 190,626, up 11.4 percent, while seasonal factors had expected an 11.0 percent increase.",
+          "source": 0
+        },
+        {
+          "fact": "On the revised FRED vintage retrieved 2026-10-16, 32 of 41 weekly ICSA observations from the week ending 2026-01-03 through 2026-10-10 were strictly above 199,000, and 0 of the latest 4 weeks were.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "The first published ICSA value for the week ending 2026-10-17 does not exist yet and is scheduled for release on 2026-10-22.",
+        "A print of exactly 199,000 would not be above 199,000; recent revised weeks have sat at 198,000 or 199,000.",
+        "Seasonal factors for the week ending 2026-10-17 are not in the 2026-10-15 release, and the prior week's unadjusted change already differed from the factor the Department had expected.",
+        "The prior week's first print was revised by 1,000 claims, so the level that will be revised later can differ from the first print that decides this question.",
+        "No advance state-by-state initial-claims changes for the week ending 2026-10-17 were in the 2026-10-15 release."
+      ]
+    }
+  },
+  "mode": "dry_run",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-16T10:10:03+00:00",
+  "runs": 1,
+  "sources": {
+    "a81bb32960e43a67": [
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "In the week ending October 10, the advance figure for seasonally adjusted initial claims was 199,000, an increase of 1,000 from the previous week's revised level.",
+          "The previous week's level was revised up by 1,000 from 197,000 to 198,000.",
+          "The advance number of actual initial claims under state programs, unadjusted, totaled 190,626 in the week ending October 10, an increase of 19,456 (or 11.4 percent) from the previous week."
+        ],
+        "text": "In the week ending October 10, the advance figure for seasonally adjusted initial claims was 199,000, an increase of 1,000 from the previous week's revised level.\nThe previous week's level was revised up by 1,000 from 197,000 to 198,000.\nThe advance number of actual initial claims under state programs, unadjusted, totaled 190,626 in the week ending October 10, an increase of 19,456 (or 11.4 percent) from the previous week.",
+        "title": "Unemployment Insurance Weekly Claims",
+        "url": "https://www.dol.gov/ui/data.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "2026-10-10: 199,000 | Number, Seasonally Adjusted | Weekly, Ending Saturday",
+          "Next Release Date: Oct 22, 2026",
+          "Frequency: Weekly, Ending Saturday"
+        ],
+        "text": "2026-10-10: 199,000 | Number, Seasonally Adjusted | Weekly, Ending Saturday\nNext Release Date: Oct 22, 2026\nFrequency: Weekly, Ending Saturday",
+        "title": "Initial Claims (ICSA) | FRED | St.\nLouis Fed",
+        "url": "https://fred.stlouisfed.org/series/ICSA",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Thursday October 15, 2026 Updated",
+          "Thursday October 22, 2026",
+          "7:30 am Unemployment Insurance Weekly Claims Report"
+        ],
+        "text": "Thursday October 15, 2026 Updated\nThursday October 22, 2026\n7:30 am Unemployment Insurance Weekly Claims Report",
+        "title": "2026 Economic Release Calendar - Unemployment Insurance Weekly Claims Report | FRED | St.\nLouis Fed",
+        "url": "https://fred.stlouisfed.org/releases/calendar?rid=180&y=2026",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "The UI Weekly Claims News Release is published each week on Thursday morning at 8:30am EST.",
+          "Exceptions to this schedule occur when a Thursday falls on a Federal Holiday.",
+          "The most recent UI Weekly Claims News Release will always be available at the following URL: https://www.dol.gov/ui/data.pdf."
+        ],
+        "text": "The UI Weekly Claims News Release is published each week on Thursday morning at 8:30am EST.\nExceptions to this schedule occur when a Thursday falls on a Federal Holiday.\nThe most recent UI Weekly Claims News Release will always be available at the following URL: https://www.dol.gov/ui/data.pdf.",
+        "title": "Office of Unemployment Insurance, Employment & Training Administration (ETA) - U.S.\nDepartment of Labor",
+        "url": "https://oui.doleta.gov/unemploy/claims_arch.asp",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "2026-09-12 | 198000",
+          "2026-10-03 | 198000",
+          "2026-10-10 | 199000"
+        ],
+        "text": "2026-09-12 | 198000\n2026-10-03 | 198000\n2026-10-10 | 199000",
+        "title": "Table Data - Initial Claims | FRED | St.\nLouis Fed",
+        "url": "https://fred.stlouisfed.org/data/ICSA",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Jobless claims rose 1k to 199k in Oct.\n10 week compared with median est.\n200k, Labor Department data show.",
+          "Prior week claims revised up to 198k from 197k",
+          "4-week moving avg at 198.50k in the week ending Oct.\n10"
+        ],
+        "text": "Jobless claims rose 1k to 199k in Oct.\n10 week compared with median est.\n200k, Labor Department data show.\nPrior week claims revised up to 198k from 197k\n4-week moving avg at 198.50k in the week ending Oct.\n10",
+        "title": "US Weekly Jobless Claims Rise 1k to 199k; Est.\n200k",
+        "url": "https://news.bloomberglaw.com/daily-labor-report/us-weekly-jobless-claims-rise-1k-to-199k-est-200k",
+        "verified": null
+      }
+    ]
+  }
+}
