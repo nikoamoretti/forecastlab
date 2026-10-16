@@ -1,0 +1,89 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-5690024",
+      "market_id": "5690024",
+      "method": "market_price_v1",
+      "volume": 23761.647704000003,
+      "yes_price": 0.215
+    },
+    {
+      "id": "polymarket-3247826",
+      "market_id": "3247826",
+      "method": "market_price_v1",
+      "volume": 138176.71942799998,
+      "yes_price": 0.925
+    },
+    {
+      "id": "polymarket-562802",
+      "market_id": "562802",
+      "method": "market_price_v1",
+      "volume": 10258177.102664,
+      "yes_price": 0.905
+    },
+    {
+      "id": "polymarket-3554659",
+      "market_id": "3554659",
+      "method": "market_price_v1",
+      "volume": 588557.0839920001,
+      "yes_price": 0.7
+    },
+    {
+      "id": "polymarket-3089558",
+      "market_id": "3089558",
+      "method": "market_price_v1",
+      "volume": 43964.27810800002,
+      "yes_price": 0.12
+    },
+    {
+      "id": "polymarket-5564853",
+      "market_id": "5564853",
+      "method": "market_price_v1",
+      "volume": 16147.69038,
+      "yes_price": 0.94
+    },
+    {
+      "id": "polymarket-3499789",
+      "market_id": "3499789",
+      "method": "market_price_v1",
+      "volume": 56142.73684600001,
+      "yes_price": 0.885
+    },
+    {
+      "id": "polymarket-562831",
+      "market_id": "562831",
+      "method": "market_price_v1",
+      "volume": 7381369.916420001,
+      "yes_price": 0.085
+    },
+    {
+      "id": "manifold-uISNlAqC2E",
+      "market_id": "uISNlAqC2E",
+      "method": "manifold_price_v1",
+      "volume": 600087.5268359595,
+      "yes_price": 0.0586
+    },
+    {
+      "id": "manifold-tAzh2Qytdl",
+      "market_id": "tAzh2Qytdl",
+      "method": "manifold_price_v1",
+      "volume": 2399.496002729318,
+      "yes_price": 0.1312
+    },
+    {
+      "id": "manifold-SyhgEZC68s",
+      "market_id": "SyhgEZC68s",
+      "method": "manifold_price_v1",
+      "volume": 223159.25698634243,
+      "yes_price": 0.6193
+    },
+    {
+      "id": "manifold-nngCdzg62E",
+      "market_id": "nngCdzg62E",
+      "method": "manifold_price_v1",
+      "volume": 1079.609805586117,
+      "yes_price": 0.7428
+    }
+  ],
+  "taken_at": "2026-10-16T10:07:48.204513+00:00"
+}
