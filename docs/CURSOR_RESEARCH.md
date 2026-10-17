@@ -16,7 +16,7 @@ Research for the daily forecasts is done by `cursor-agent` on the owner's Mac, o
 - **Cost:** none beyond the Cursor plan. Each run uses about 100,000 tokens on Cursor's side and shows as Included. The CLI cannot read the plan's usage meter, so the job keeps its own count in `~/.forecastlab/ledger.json` and stops at `daily_run_cap` runs a day and `weekly_run_cap` a week. Questions are researched in file order, so a capped day researches the first ones.
 - **Mac asleep or job failed:** the LaunchAgent catches up when the Mac wakes. If `research.json` has not landed by 15:00 UTC, the routine skips the day: no forecasts, no judge spend. Nothing is ever forecast on search done by Claude instead.
 - **Independence:** `model_family` in `configs/research.json` names the researcher's family. `judge_panel.py` refuses to run when a judge's model id contains it, and the research model is never a forecaster. Change the model and the family together.
-- **Dry run:** while `mode` is `dry_run` the branch is `claude/daily-forecasts-<date>-dryrun`, the routine forecasts nothing from it, and no judge money is spent. Set `mode` to `live` to go live.
+- **Dry run:** while `mode` is `dry_run` the branch is `claude/daily-forecasts-<date>-dryrun`, the routine forecasts nothing from it, and no judge money is spent. Set `mode` to `live` to go live. The first three dry-run days (Oct 14 to 16, 2026) researched every question with no failures; 45 to 63 percent of the cited sources had every quote found on the downloaded page, and the rest were either unreachable from Actions or did not contain the quoted sentence. `mode` is `live` from 2026-10-17.
 
 ## Setup on the Mac
 
