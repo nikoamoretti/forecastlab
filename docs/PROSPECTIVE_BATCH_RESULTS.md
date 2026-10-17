@@ -54,7 +54,7 @@ All seven fast questions have resolved from the first FRED vintage (ALFRED), inc
 | **Mean Brier (lower is better; 0.25 = coin flip)** | | | 0.245 (1 forecast) | 0.314 | 0.244 (6 forecasts) | 0.251 | 0.223 |
 
 - Claude Code was closest on the first three yield days because it started from Treasury's official 5.28% for Oct 2, already above the line. It was the furthest on claims, where it said 50% and the number landed exactly on 197,000, which does not count as "above". The yield then fell to 5.22% on Oct 8 and to exactly 5.24% on Oct 9 (not above the line), and every method leaned Yes on those two days, the single model hardest at 80% on Oct 8.
-- Through Oct 7 the strict three-track method did worse than a coin flip by leaning below 50% on the yield days; the two No days and the claims Yes brought its mean to 0.244 across six forecasts.
+- Through Oct 7 the strict three-track method did worse than a coin flip by leaning below 50% on the yield days; the two No days brought it back to 0.241 on the five forecasts scored then; with the Oct 10 claims it is 0.244 across six forecasts.
 - This proves little. It is four questions, three of them the same yield threshold on consecutive days, so they mostly count as one bet. Claude's forecasts were also made after the cohort froze (about 14 hours later), so it saw slightly more news than the frozen methods.
 
 ## September CPI results (scored 2026-10-14)
