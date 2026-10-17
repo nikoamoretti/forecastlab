@@ -2,97 +2,97 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.25842427506012416,
+      "brier": 0.2468616522653236,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 14,
-      "right": 7,
+      "resolved": 20,
+      "right": 9,
       "toss_ups": 0,
-      "wrong": 7
+      "wrong": 11
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.17275454545454544,
+      "brier": 0.1977529411764706,
       "coin_flip_brier": 0.25,
       "forecasts": 75,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 11,
-      "right": 7,
-      "toss_ups": 1,
-      "wrong": 3
+      "resolved": 17,
+      "right": 9,
+      "toss_ups": 2,
+      "wrong": 6
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.2817,
+      "brier": 0.1986,
       "coin_flip_brier": 0.25,
       "forecasts": 33,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 3,
+      "right": 2,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.2837,
+      "brier": 0.179975,
       "coin_flip_brier": 0.25,
       "forecasts": 49,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.3370000000000001,
+      "brier": 0.17572500000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 41,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.32045000000000007,
+      "brier": 0.253825,
       "coin_flip_brier": 0.25,
       "forecasts": 34,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 2,
       "toss_ups": 0,
-      "wrong": 1
+      "wrong": 2
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.24624999999999997,
+      "brier": 0.16124999999999998,
       "coin_flip_brier": 0.25,
       "forecasts": 38,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.33745,
+      "brier": 0.18992500000000004,
       "coin_flip_brier": 0.25,
       "forecasts": 42,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -122,39 +122,39 @@
     },
     {
       "about": "One AI model with web search.",
-      "brier": 0.255925,
+      "brier": 0.2674888888888889,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Single AI model",
       "method": "single_model_forecaster_v1",
-      "resolved": 8,
+      "resolved": 9,
       "right": 5,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
     },
     {
       "about": "Three separate AI analyses, combined.",
-      "brier": 0.2576676114252808,
+      "brier": 0.2583179041072837,
       "coin_flip_brier": 0.25,
       "forecasts": 15,
       "label": "Three-track AI",
       "method": "three_track_strict_forecaster_v1",
-      "resolved": 6,
+      "resolved": 7,
       "right": 3,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.25848119629907346,
+      "brier": 0.2723162715154663,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 9,
+      "resolved": 13,
       "right": 4,
       "toss_ups": 0,
-      "wrong": 5
+      "wrong": 9
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
@@ -170,19 +170,340 @@
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.16898652500000003,
+      "brier": 0.10464630500000001,
       "coin_flip_brier": 0.25,
       "forecasts": 14,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 4,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 1
     }
   ],
-  "generated_on": "2026-10-14",
+  "generated_on": "2026-10-17",
   "questions": [
+    {
+      "actual": "5.10%",
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5543803418803419
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-15 be above 5.31 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T10:54:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "The 10-year closed at 5.27% on 2026-10-06 after 5.31% on 2026-10-05 (Treasury par curve), and early 2026-10-07 trading shows it back near 5.32-5.33%, at the 2002-high area, so the threshold sits roughly at the current level. The drivers of the 70bp run since late July (Fed hike signals, oil tied to the Iran conflict, heavy issuance) remain in place, but a 6-trading-day horizon with roughly 15bp standard deviation, a 10-year auction today and September CPI on 2026-10-14 make this close to a coin flip with a slight upward lean, in line with the baseline's 0.56.",
+          "sources": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026 (retrieved 2026-10-07; 10Y 5.31 on 2026-10-05, 5.27 on 2026-10-06)",
+            "https://tradingeconomics.com/united-states/government-bond-yield (retrieved 2026-10-07; 10Y ~5.32-5.33% intraday, 10-year auction and FOMC minutes 2026-10-07)",
+            "https://www.vantagemarkets.com/market-news/global-bond-rout-treasury-gilt-yields-october-5-2026/ (2026-10-05; 10Y hit 5.34% intraday, highest since 2002)",
+            "https://www.crestwoodadvisors.com/october-2026-economic-and-market-update-higher-and-higher-bond-yields-rise-to-levels-not-seen-in-nearly-two-decades/ (October 2026; Fed hike, oil, issuance drivers)",
+            "https://fedratecalc.com/cpi-release-date/ (retrieved 2026-10-07; September CPI due 2026-10-14)"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5587606837606838
+        }
+      ],
+      "id": "4c40cc475a07a5e1",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-16",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261007",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 15, 2026 be above 5.31%?",
+      "topic": "Interest rates",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.7
+      },
+      "detail": "Resolves Yes if Trump does not win Nobel Peace Prize 2026 and openly criticizes the Nobel committee for not awarding the prize to him before this market closes.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "The prize is announced Oct 9 and Oslo experts rate Trump's chances as quite low, so the question reduces to whether Trump himself openly criticizes the committee by Oct 16. In 2025 the sharp criticism came from a White House spokesman more than from Trump, and this year Machado has already given him her medal, so he may not engage.",
+          "sources": [
+            "https://www.abc.net.au/news/2026-10-05/nobel-peace-prize-announced-trump-carney-space-station/107228440",
+            "https://www.unilad.com/news/likelihood-trump-will-get-nobel-peace-prize-265920-20261007"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.7,
+          "rationale": "The base rate for any individual winning the Nobel Peace Prize is extremely low (roughly 1/287 \u2248 0.0035 given the number of nominations), and expert assessment rates Trump's chances as 'quite low', suggesting a >99% chance he does not win. Trump has previously criticized the Nobel committee when overlooked, indicating a high likelihood of public criticism if he does not receive the prize. Combining a ~0.99 probability of not winning with an estimated ~0.7 conditional probability of criticism yields a joint probability around 0.7."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The base rate for Trump not winning the Nobel Peace Prize is very high, with experts rating his chances as 'quite low'. Given his past behavior, when he missed the 2025 prize his office immediately criticized the committee, making it highly likely he will openly criticize again if he loses. The short resolution window (by Oct 16) further supports a prompt reaction. However, a small chance exists that he wins the prize or unusually refrains from criticism."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Base rate: Most nominees do not win, and Trump's chances are rated 'quite low' by PRIO, so it is very likely he loses. Conditional on losing, Trump has a history of grievance toward the Nobel committee\u2014his White House criticized them in 2025\u2014but the requirement for him personally (not surrogates) to openly criticize before Oct 16 is uncertain. I adjust downward because he may let aides respond, use the 2025 medal from Machado to deflect, or stay silent, leaving a moderate chance he personally lashes out within the seven-day window."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "Base rate: a president who is passed over for the Nobel Peace Prize does not automatically attack the committee, but Trump has a strong recent precedent of doing so via the White House after missing 2025. PRIO's 'quite low' assessment and the list of likely alternatives make a Trump win unlikely, so the key uncertainty is whether he personally makes an explicit criticism within the seven-day window. Given his pattern and the political salience of the prize, I estimate a roughly 70% chance both conditions are met."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: Trump publicly criticizing the Nobel committee after not winning is highly likely given his pattern of attacking institutions that snub him (e.g., the 2025 White House statement). The 2026 prize is announced Oct 9, just a week before resolution, and experts rate his chances as quite low. The key uncertainty is whether he issues public criticism within the narrow Oct 9\u201316 window, but his track record (repeatedly claiming he deserves it, Machado giving him her 2025 medal) makes criticism very probable. If he surprisingly wins, the question resolves No, but that outcome appears unlikely."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7969
+        }
+      ],
+      "id": "manifold-AZNPqg2l0P",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-16",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://manifold.markets/vdb/will-trump-win-nobel-piss-prize-202-8A99I8qhyq",
+      "status": "resolved",
+      "title": "Will Trump win Nobel Piss Prize 2026? [Read description]",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "5.19%",
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5543803418803419
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-14 be above 5.28 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-06T10:54:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "Same setup as the 2026-10-13 question: the 10-year is trading around 5.28-5.32% (2026-10-06) against a 5.28% threshold after a sharp September-October selloff to 2002 highs. The September CPI release lands on 2026-10-14 itself, adding variance in both directions, so I keep this close to the baseline and slightly below the 10-13 forecast to reflect the wider spread.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/DGS10",
+            "https://stockmarketwatch.com/bonds/reports/october-2026",
+            "https://tradingeconomics.com/united-states/government-bond-yield",
+            "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5587606837606838
+        }
+      ],
+      "id": "f9f7b84fc8c381e0",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-15",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261006",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 14, 2026 be above 5.28%?",
+      "topic": "Interest rates",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "199,000 claims",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.471382414047297
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-10 be above 197,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "Same base as the prior week but with one more week of dispersion and mild reversion toward the ~200k 4-week average. A possible Gulf tropical system on Oct 7-10 is a small upside tail. Claims were sub-200k for three straight weeks, which limits the tilt. Confidence: low-medium.",
+          "sources": [
+            {
+              "published": "2026-10-01",
+              "url": "https://fred.stlouisfed.org/series/ICSA"
+            },
+            {
+              "published": "2026-10-01",
+              "url": "https://news.bloombergtax.com/financial-accounting/us-initial-jobless-claims-slip-to-197-000-lowest-since-july-2"
+            },
+            {
+              "published": "2026-09-27",
+              "url": "https://www.fox8live.com/2026/09/27/week-ahead-tropics-new-named-storms-are-expected/"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.4
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.4879261184171747
+        },
+        {
+          "made_at": "2026-10-03T11:22:57.752528+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.45483870967741935
+        }
+      ],
+      "id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-15",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_fast_fred_batch_20261003",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 10, 2026 come in above 197,000 claims?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.18
+      },
+      "detail": "Resolves YES if Anthropic\u2019s Form S-1 registration statement for its proposed IPO becomes publicly accessible on the SEC\u2019s EDGAR system by 23:59 New York time on 16 October 2026, inclusive.\nA preliminary S-1 counts; final pricing and SEC approval are not required. Confidential submissions, leaked documents, and announcements or news reports without a publicly accessible S-1 on EDGAR do not count.\nThe IPO itself does not need to occur by the deadline. A subsequent postponement or cancellation does not reverse a qualifying YES. Otherwise, resolves NO.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "Anthropic filed its S-1 confidentially about four months ago, and it is still not public on EDGAR as of Oct 4. Reports put the IPO in mid-November, with marketing from about Nov 9; since a public S-1 must be out 15 days before the roadshow, the flip is most likely in late October, after Oct 16.",
+          "sources": [
+            "https://forkast.news/anthropics-public-s-1-still-missing-from-edgar-as-october-ipo-window-opens/",
+            "https://cryptobriefing.com/anthropic-files-confidential-s-1-eyes-potential-ipo-by-end-of-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: companies with confidential S-1 submissions often go public within 3-6 months, but the specific evidence points to a deliberate timeline slip. Bloomberg reports the IPO has moved from October to mid-November with roadshow marketing starting the week of November 9, and SEC rules require the S-1 public at least 15 days before roadshow, implying a public filing around October 25 \u2014 nine days after the October 16 deadline. The confidential filing was ~126 days ago (early June), so a filing is imminent, but the reported schedule makes an October 16 appearance unlikely unless the company accelerates its timeline."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for companies that have filed a confidential S-1 to make it public within two weeks of a planned roadshow is roughly 30\u201140%. Anthropic\u2019s confidential filing dates back to late May, and Bloomberg reports have pushed the IPO target from October to mid\u2011November, with roadshow likely starting the week of Nov\u202f9. SEC rules require the S-1 to be public at least 15 days before roadshow, implying a public filing around Oct\u202f25, after the Oct\u202f16 deadline. This shifts the probability downward to about 25%. Faster\u2011than\u2011expected market readiness or a decision to front\u2011load the filing could raise it, while further delays or additional confidentiality requests could lower it."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for an IPO S-1 becoming public within a specific short window is low, especially given the confidential submission process. The evidence indicates that Anthropic's public filing is expected around October 25 to align with a mid-November roadshow, making an October 16 deadline unlikely. Reporting suggests the delay is intentional to include Q3 results, and no public filing was available as of October 4, so only a sudden change in plans would lead to a Yes."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for IPOs is to follow reported roadshow schedules, and confidential filers typically go public shortly before marketing begins rather than weeks earlier. The evidence indicates Anthropic deliberately shifted to a mid-November timeline with roadshows around Nov 9, implying a public S-1 near Oct 25 so Q3 results can be included, and no public filing was on EDGAR as of Oct 4. An unexpected acceleration\u2014if Q3 figures are finalized faster than reported or market conditions suddenly demand an earlier debut\u2014could push the filing forward, but the stated plan makes an Oct 16 public filing unlikely."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.25,
+          "rationale": "Base rate: a confidential draft S-1 filed around early June with no public S-1 by Oct 4 suggests the public filing is likely in the weeks before a mid-November roadshow, not necessarily by Oct 16. The 15-day rule and reported Nov 9 marketing point to a public filing around Oct 25, making an Oct 16 filing possible but not the central case. It could rise if Anthropic releases Q3 results and clears SEC review quickly, but it falls if it waits for Q3 or a later roadshow."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "Base rate for a public S-1 filing within a specific 8-day window when reporting suggests a mid-November target is low. The evidence indicates Anthropic's IPO timeline has shifted from October to mid-November, with formal marketing possibly starting the week of Nov 9, which would require a public S-1 by roughly Oct 25\u2014after the Oct 16 deadline. The confidential S-1 was filed ~126 days before Oct 4, and no public version was on EDGAR as of that date. A public S-1 by Oct 16 would require an acceleration of the timeline that contradicts current reporting, making this unlikely but not impossible if Anthropic moves faster than expected."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1984
+        }
+      ],
+      "id": "manifold-25IRCRlIuz",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-15",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://manifold.markets/jim/will-anthropics-ipo-s1-be-public-by",
+      "status": "resolved",
+      "title": "Will Anthropic\u2019s IPO S-1 be public by 16 October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "5.21%",
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.5502558635394457
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-13 be above 5.28 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-06T10:54:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.56,
+          "rationale": "The latest FRED print (2026-10-02) is exactly 5.28%, and the yield has climbed about 50bp since early September; on 2026-10-05 the 10-year hit a fresh intraday 2002 high near 5.35% and Trading Economics shows it near 5.28-5.32% on 2026-10-06. With the level sitting just above the threshold and roughly five trading days to go (FOMC minutes and a 10-year auction on 2026-10-07, a 30-year auction on 2026-10-08), the outcome is close to a coin flip, tilted slightly upward by momentum and a hike-leaning Fed but tempered by the weak September payrolls (29K) that pulled yields off their highs.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/DGS10",
+            "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html",
+            "https://tradingeconomics.com/united-states/government-bond-yield",
+            "https://tradingeconomics.com/united-states/government-bond-yield/news/589171",
+            "https://stockmarketwatch.com/bonds/reports/october-2026"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5405117270788913
+        }
+      ],
+      "id": "56e4e1b2fcb37d19",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-14",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261006",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 13, 2026 be above 5.28%?",
+      "topic": "Interest rates",
+      "verdict": "wrong"
+    },
     {
       "actual": "3.7%",
       "call": {
@@ -1397,327 +1718,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_median_v1",
-        "probability": 0.5502558635394457
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-13 be above 5.28 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-06T10:54:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.56,
-          "rationale": "The latest FRED print (2026-10-02) is exactly 5.28%, and the yield has climbed about 50bp since early September; on 2026-10-05 the 10-year hit a fresh intraday 2002 high near 5.35% and Trading Economics shows it near 5.28-5.32% on 2026-10-06. With the level sitting just above the threshold and roughly five trading days to go (FOMC minutes and a 10-year auction on 2026-10-07, a 30-year auction on 2026-10-08), the outcome is close to a coin flip, tilted slightly upward by momentum and a hike-leaning Fed but tempered by the weak September payrolls (29K) that pulled yields off their highs.",
-          "sources": [
-            "https://fred.stlouisfed.org/series/DGS10",
-            "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html",
-            "https://tradingeconomics.com/united-states/government-bond-yield",
-            "https://tradingeconomics.com/united-states/government-bond-yield/news/589171",
-            "https://stockmarketwatch.com/bonds/reports/october-2026"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5405117270788913
-        }
-      ],
-      "id": "56e4e1b2fcb37d19",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-14",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261006",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 13, 2026 be above 5.28%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_median_v1",
-        "probability": 0.5543803418803419
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-14 be above 5.28 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-06T10:54:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "Same setup as the 2026-10-13 question: the 10-year is trading around 5.28-5.32% (2026-10-06) against a 5.28% threshold after a sharp September-October selloff to 2002 highs. The September CPI release lands on 2026-10-14 itself, adding variance in both directions, so I keep this close to the baseline and slightly below the 10-13 forecast to reflect the wider spread.",
-          "sources": [
-            "https://fred.stlouisfed.org/series/DGS10",
-            "https://stockmarketwatch.com/bonds/reports/october-2026",
-            "https://tradingeconomics.com/united-states/government-bond-yield",
-            "https://www.cnbc.com/2026/10/05/treasury-yields-bonds-fed-rates.html"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5587606837606838
-        }
-      ],
-      "id": "f9f7b84fc8c381e0",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-15",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261006",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 14, 2026 be above 5.28%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.471382414047297
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-10 be above 197,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.52,
-          "rationale": "Same base as the prior week but with one more week of dispersion and mild reversion toward the ~200k 4-week average. A possible Gulf tropical system on Oct 7-10 is a small upside tail. Claims were sub-200k for three straight weeks, which limits the tilt. Confidence: low-medium.",
-          "sources": [
-            {
-              "published": "2026-10-01",
-              "url": "https://fred.stlouisfed.org/series/ICSA"
-            },
-            {
-              "published": "2026-10-01",
-              "url": "https://news.bloombergtax.com/financial-accounting/us-initial-jobless-claims-slip-to-197-000-lowest-since-july-2"
-            },
-            {
-              "published": "2026-09-27",
-              "url": "https://www.fox8live.com/2026/09/27/week-ahead-tropics-new-named-storms-are-expected/"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.4
-        },
-        {
-          "method": "three_track_strict_forecaster_v1",
-          "probability": 0.4879261184171747
-        },
-        {
-          "made_at": "2026-10-03T11:22:57.752528+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.45483870967741935
-        }
-      ],
-      "id": "1fbb8d4c-7c59-4ef8-8ed5-ce98ae862992",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-15",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_fast_fred_batch_20261003",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Oct 10, 2026 come in above 197,000 claims?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.18
-      },
-      "detail": "Resolves YES if Anthropic\u2019s Form S-1 registration statement for its proposed IPO becomes publicly accessible on the SEC\u2019s EDGAR system by 23:59 New York time on 16 October 2026, inclusive.\nA preliminary S-1 counts; final pricing and SEC approval are not required. Confidential submissions, leaked documents, and announcements or news reports without a publicly accessible S-1 on EDGAR do not count.\nThe IPO itself does not need to occur by the deadline. A subsequent postponement or cancellation does not reverse a qualifying YES. Otherwise, resolves NO.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.25,
-          "rationale": "Anthropic filed its S-1 confidentially about four months ago, and it is still not public on EDGAR as of Oct 4. Reports put the IPO in mid-November, with marketing from about Nov 9; since a public S-1 must be out 15 days before the roadshow, the flip is most likely in late October, after Oct 16.",
-          "sources": [
-            "https://forkast.news/anthropics-public-s-1-still-missing-from-edgar-as-october-ipo-window-opens/",
-            "https://cryptobriefing.com/anthropic-files-confidential-s-1-eyes-potential-ipo-by-end-of-2026/"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.18,
-          "rationale": "Base rate: companies with confidential S-1 submissions often go public within 3-6 months, but the specific evidence points to a deliberate timeline slip. Bloomberg reports the IPO has moved from October to mid-November with roadshow marketing starting the week of November 9, and SEC rules require the S-1 public at least 15 days before roadshow, implying a public filing around October 25 \u2014 nine days after the October 16 deadline. The confidential filing was ~126 days ago (early June), so a filing is imminent, but the reported schedule makes an October 16 appearance unlikely unless the company accelerates its timeline."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.25,
-          "rationale": "The base rate for companies that have filed a confidential S-1 to make it public within two weeks of a planned roadshow is roughly 30\u201140%. Anthropic\u2019s confidential filing dates back to late May, and Bloomberg reports have pushed the IPO target from October to mid\u2011November, with roadshow likely starting the week of Nov\u202f9. SEC rules require the S-1 to be public at least 15 days before roadshow, implying a public filing around Oct\u202f25, after the Oct\u202f16 deadline. This shifts the probability downward to about 25%. Faster\u2011than\u2011expected market readiness or a decision to front\u2011load the filing could raise it, while further delays or additional confidentiality requests could lower it."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.08,
-          "rationale": "The base rate for an IPO S-1 becoming public within a specific short window is low, especially given the confidential submission process. The evidence indicates that Anthropic's public filing is expected around October 25 to align with a mid-November roadshow, making an October 16 deadline unlikely. Reporting suggests the delay is intentional to include Q3 results, and no public filing was available as of October 4, so only a sudden change in plans would lead to a Yes."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.12,
-          "rationale": "The base rate for IPOs is to follow reported roadshow schedules, and confidential filers typically go public shortly before marketing begins rather than weeks earlier. The evidence indicates Anthropic deliberately shifted to a mid-November timeline with roadshows around Nov 9, implying a public S-1 near Oct 25 so Q3 results can be included, and no public filing was on EDGAR as of Oct 4. An unexpected acceleration\u2014if Q3 figures are finalized faster than reported or market conditions suddenly demand an earlier debut\u2014could push the filing forward, but the stated plan makes an Oct 16 public filing unlikely."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.25,
-          "rationale": "Base rate: a confidential draft S-1 filed around early June with no public S-1 by Oct 4 suggests the public filing is likely in the weeks before a mid-November roadshow, not necessarily by Oct 16. The 15-day rule and reported Nov 9 marketing point to a public filing around Oct 25, making an Oct 16 filing possible but not the central case. It could rise if Anthropic releases Q3 results and clears SEC review quickly, but it falls if it waits for Q3 or a later roadshow."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.08,
-          "rationale": "Base rate for a public S-1 filing within a specific 8-day window when reporting suggests a mid-November target is low. The evidence indicates Anthropic's IPO timeline has shifted from October to mid-November, with formal marketing possibly starting the week of Nov 9, which would require a public S-1 by roughly Oct 25\u2014after the Oct 16 deadline. The confidential S-1 was filed ~126 days before Oct 4, and no public version was on EDGAR as of that date. A public S-1 by Oct 16 would require an acceleration of the timeline that contradicts current reporting, making this unlikely but not impossible if Anthropic moves faster than expected."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.1984
-        }
-      ],
-      "id": "manifold-25IRCRlIuz",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-15",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://manifold.markets/jim/will-anthropics-ipo-s1-be-public-by",
-      "status": "pending",
-      "title": "Will Anthropic\u2019s IPO S-1 be public by 16 October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_median_v1",
-        "probability": 0.5543803418803419
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-15 be above 5.31 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T10:54:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "The 10-year closed at 5.27% on 2026-10-06 after 5.31% on 2026-10-05 (Treasury par curve), and early 2026-10-07 trading shows it back near 5.32-5.33%, at the 2002-high area, so the threshold sits roughly at the current level. The drivers of the 70bp run since late July (Fed hike signals, oil tied to the Iran conflict, heavy issuance) remain in place, but a 6-trading-day horizon with roughly 15bp standard deviation, a 10-year auction today and September CPI on 2026-10-14 make this close to a coin flip with a slight upward lean, in line with the baseline's 0.56.",
-          "sources": [
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026 (retrieved 2026-10-07; 10Y 5.31 on 2026-10-05, 5.27 on 2026-10-06)",
-            "https://tradingeconomics.com/united-states/government-bond-yield (retrieved 2026-10-07; 10Y ~5.32-5.33% intraday, 10-year auction and FOMC minutes 2026-10-07)",
-            "https://www.vantagemarkets.com/market-news/global-bond-rout-treasury-gilt-yields-october-5-2026/ (2026-10-05; 10Y hit 5.34% intraday, highest since 2002)",
-            "https://www.crestwoodadvisors.com/october-2026-economic-and-market-update-higher-and-higher-bond-yields-rise-to-levels-not-seen-in-nearly-two-decades/ (October 2026; Fed hike, oil, issuance drivers)",
-            "https://fedratecalc.com/cpi-release-date/ (retrieved 2026-10-07; September CPI due 2026-10-14)"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5587606837606838
-        }
-      ],
-      "id": "4c40cc475a07a5e1",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-16",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261007",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 15, 2026 be above 5.31%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.7
-      },
-      "detail": "Resolves Yes if Trump does not win Nobel Peace Prize 2026 and openly criticizes the Nobel committee for not awarding the prize to him before this market closes.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.5,
-          "rationale": "The prize is announced Oct 9 and Oslo experts rate Trump's chances as quite low, so the question reduces to whether Trump himself openly criticizes the committee by Oct 16. In 2025 the sharp criticism came from a White House spokesman more than from Trump, and this year Machado has already given him her medal, so he may not engage.",
-          "sources": [
-            "https://www.abc.net.au/news/2026-10-05/nobel-peace-prize-announced-trump-carney-space-station/107228440",
-            "https://www.unilad.com/news/likelihood-trump-will-get-nobel-peace-prize-265920-20261007"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.7,
-          "rationale": "The base rate for any individual winning the Nobel Peace Prize is extremely low (roughly 1/287 \u2248 0.0035 given the number of nominations), and expert assessment rates Trump's chances as 'quite low', suggesting a >99% chance he does not win. Trump has previously criticized the Nobel committee when overlooked, indicating a high likelihood of public criticism if he does not receive the prize. Combining a ~0.99 probability of not winning with an estimated ~0.7 conditional probability of criticism yields a joint probability around 0.7."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.85,
-          "rationale": "The base rate for Trump not winning the Nobel Peace Prize is very high, with experts rating his chances as 'quite low'. Given his past behavior, when he missed the 2025 prize his office immediately criticized the committee, making it highly likely he will openly criticize again if he loses. The short resolution window (by Oct 16) further supports a prompt reaction. However, a small chance exists that he wins the prize or unusually refrains from criticism."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.4,
-          "rationale": "Base rate: Most nominees do not win, and Trump's chances are rated 'quite low' by PRIO, so it is very likely he loses. Conditional on losing, Trump has a history of grievance toward the Nobel committee\u2014his White House criticized them in 2025\u2014but the requirement for him personally (not surrogates) to openly criticize before Oct 16 is uncertain. I adjust downward because he may let aides respond, use the 2025 medal from Machado to deflect, or stay silent, leaving a moderate chance he personally lashes out within the seven-day window."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.7,
-          "rationale": "Base rate: a president who is passed over for the Nobel Peace Prize does not automatically attack the committee, but Trump has a strong recent precedent of doing so via the White House after missing 2025. PRIO's 'quite low' assessment and the list of likely alternatives make a Trump win unlikely, so the key uncertainty is whether he personally makes an explicit criticism within the seven-day window. Given his pattern and the political salience of the prize, I estimate a roughly 70% chance both conditions are met."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "Base rate: Trump publicly criticizing the Nobel committee after not winning is highly likely given his pattern of attacking institutions that snub him (e.g., the 2025 White House statement). The 2026 prize is announced Oct 9, just a week before resolution, and experts rate his chances as quite low. The key uncertainty is whether he issues public criticism within the narrow Oct 9\u201316 window, but his track record (repeatedly claiming he deserves it, Machado giving him her 2025 medal) makes criticism very probable. If he surprisingly wins, the question resolves No, but that outcome appears unlikely."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.7969
-        }
-      ],
-      "id": "manifold-AZNPqg2l0P",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-16",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://manifold.markets/vdb/will-trump-win-nobel-piss-prize-202-8A99I8qhyq",
-      "status": "pending",
-      "title": "Will Trump win Nobel Piss Prize 2026? [Read description]",
-      "topic": "Politics",
       "verdict": null
     },
     {
@@ -5067,16 +5067,16 @@
     }
   ],
   "summary": {
-    "brier": 0.25842427506012416,
+    "brier": 0.2468616522653236,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 63,
-    "resolved": 14,
-    "right": 7,
+    "pending": 57,
+    "resolved": 20,
+    "right": 9,
     "toss_ups": 0,
     "total": 78,
     "unscored": 2,
-    "wrong": 7
+    "wrong": 11
   },
   "version": "track_record_v2"
 }
