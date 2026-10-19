@@ -1,4 +1,5 @@
 {
+  "downloaded_at": "2026-10-19T09:20:28.949646+00:00",
   "failed": {
     "a81bb32960e43a67": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nToday is 2026-10-19 (UTC).\\nQuestion: Will the first p"
   },
@@ -58,10 +59,10 @@
           "Updated: Oct 16, 2026 3:16 PM CDT",
           "Next Release Date: Oct 19, 2026"
         ],
-        "text": "2026-10-15: 5.10 | Percent, Not Seasonally Adjusted | Daily\nUpdated: Oct 16, 2026 3:16 PM CDT\nNext Release Date: Oct 19, 2026",
+        "text": "2026-10-15: 5.10 | Percent, Not Seasonally Adjusted | Daily\nUpdated: Oct 16, 2026 3:16 PM CDT\nNext Release Date: Oct 19, 2026\n\nObservations\n2026-10-15: 5.10 | Percent, Not Seasonally Adjusted | Daily\nUpdated: Oct 16, 2026 3:16 PM CDT\nObservations\n2026-10-15:\n5.10\nUpdated:\nOct 16, 2026\n3:16 PM CDT\n| 2026-10-15: | 5.10 | |\n| 2026-10-14: | 5.19 | |\n| 2026-10-13: | 5.21 | |\n| 2026-10-12: | .\n| |\n| 2026-10-09: | 5.24 | |\n| View All | | |\nUnits:\nPercent,\nNot Seasonally Adjusted\nFrequency:\nDaily\nFullscreen",
         "title": "Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity (DGS10), FRED",
         "url": "https://fred.stlouisfed.org/series/DGS10",
-        "verified": null
+        "verified": false
       },
       {
         "published": "2026-10-16",
@@ -70,10 +71,10 @@
           "Release date: October 16, 2026",
           "10-year | 5.24 | | 5.21 | 5.19 | 5.10"
         ],
-        "text": "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.\nRelease date: October 16, 2026\n10-year | 5.24 | | 5.21 | 5.19 | 5.10",
+        "text": "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.\nRelease date: October 16, 2026\n10-year | 5.24 | | 5.21 | 5.19 | 5.10\n\nmore about the DDP and FRED partnership.\nH.15 Selected Interest Rates RSS Data Download FRED XML\nSelected Interest Rates\nYields in percent per annum\n| Instruments | 2026 Oct 9 | 2026 Oct 12* | 2026 Oct 13 | 2026 Oct 14 | 2026 Oct 15 |\n|---|---|---|---|---|---|\n| Federal funds (effective) 1 2 3 | 3.88 | 3.88 | 3.88 | 3.88 | 3.88 |\n| Commercial Paper 3 4 5 6 | | | | | |\n| Nonfinancial | | | | | |\n| 1-month | 3.96 | | 3.96 | 3.96 | 3.97 |\n| 2-month | 4.03 | | 4.02 | n.a.\n| 4.01 |\n| 3-month | 4.09 | | 4.09 | n.a.\n| n.a.\n|\n| Financial | | | | | |\n| 1-month | n.a.\n| | n.a.\n| n.a.\n| n.a.\n|\n| 2-month | n.a.\n| | n.a.\n| n.a.\n| 4.09 |\n| 3-month | n.a.\n| | 4.08 | n.a.\n| n.a.\n|\n| Bank prime loan 2 3 7 | 7.00 | 7.00 | 7.00 | 7.00 | 7.00 |\n| Discount window primary credit 2 8 | 4.00 | 4.00 | 4.00 | 4.00 | 4.00 |\n| U.S.\ngovernment securities | | | | | |\n| Treasury bills (secondary market) 3 4 | | | | | |\n| 4-week | 3.96 | | 3.91 | 3.93 | 4.00 |\n| 3-month | 4.06 | | 4.09 | 4.10 | 4.10 |\n| 6-month | 4.18 | | 4.20 | 4.23 | 4.21 |\n| 1-year | 4.26 | | 4.27 | 4.30 | 4.27 |\n| Treasury constant maturities | | | | | |\n| Nominal 9 | | | | | |\n| 1-month | 4.13 | | 4.10 | 4.11 | 4.17 |\n| 3-month | 4.25 | | 4.26 | 4.28 | 4.28 |\n| 6-month | 4.32 | | 4.34 | 4.37 | 4.35 |\n| 1-year | 4.47 | | 4.48 | 4.53 | 4.49 |\n| 2-year | 4.80 | | 4.79 | 4.82 | 4.77 |\n| 3-year | 4.89 | | 4.90 | 4.92 | 4.85 |\n| 5-year | 5.02 | | 5.00 | 5.00 | 4.91 |\n| 7-year | 5.13 | | 5.11 | 5.09 | 5.00 |\n| 10-year | 5.24 | | 5.21 | 5.19 | 5.10 |\n| 20-year | 5.65 | | 5.60 | 5.57 | 5.48 |\n| 30-year | 5.60 | | 5.56 | 5.52 | 5.43 |\n| Inflation indexed 10 | | | | | |\n| 5-year | 2.68 | | 2.67 | 2.64 | 2.58 |\n| 7-year | 2.79 | | 2.77 | 2.73 | 2.67 |\n| 10-year | 2.91 | | 2.88 | 2.84 | 2.78 |\n| 20-year | 3.17 | | 3.13 | 3.09 | 3.03 |\n| 30-year | 3.32 | | 3.28 | 3.24 | 3.18 |\n| Inflation-indexed long-term average 11 | 3.32 | | 3.27 | 3.23 | 3.17 |\n| * | Markets closed.\n|\n| n.a.\n| Not available.\n|\nFootnotes\n1.\nAs of March 1, 2016, the daily effective federal funds rate (EFFR) is a volume-weighted median of transaction-level data collected from depository institutions in the Report of Selected Money Market Rates (FR 2420).\nPrior to March 1, 2016, the EFFR was a volume-weighted mean of rates on brokered trades.\n2.\nWeekly figures are averages of 7 calendar days ending on Wednesday of the current week; monthly figures include each cale",
         "title": "Federal Reserve Board - H.15 - Selected Interest Rates (Daily) - October 16, 2026",
         "url": "https://www.federalreserve.gov/releases/h15/",
-        "verified": null
+        "verified": false
       },
       {
         "published": "2026-10-16",
@@ -82,12 +83,13 @@
           "10/15/2026 | 4.17 | 4.15 | 4.19 | 4.28 | 4.35 | 4.35 | 4.49 | 4.77 | 4.85 | 4.91 | 5.00 | 5.10 | 5.48 | 5.43",
           "10/16/2026 | 4.12 | 4.14 | 4.17 | 4.26 | 4.32 | 4.34 | 4.46 | 4.74 | 4.82 | 4.89 | 4.98 | 5.09 | 5.47 | 5.43"
         ],
-        "text": "These par yields are derived from indicative, bid-side market price quotations (not actual transactions) obtained by the Federal Reserve Bank of New York at or near 3:30 PM each trading day.\n10/15/2026 | 4.17 | 4.15 | 4.19 | 4.28 | 4.35 | 4.35 | 4.49 | 4.77 | 4.85 | 4.91 | 5.00 | 5.10 | 5.48 | 5.43\n10/16/2026 | 4.12 | 4.14 | 4.17 | 4.26 | 4.32 | 4.34 | 4.46 | 4.74 | 4.82 | 4.89 | 4.98 | 5.09 | 5.47 | 5.43",
+        "text": "These par yields are derived from indicative, bid-side market price quotations (not actual transactions) obtained by the Federal Reserve Bank of New York at or near 3:30 PM each trading day.\n10/15/2026 | 4.17 | 4.15 | 4.19 | 4.28 | 4.35 | 4.35 | 4.49 | 4.77 | 4.85 | 4.91 | 5.00 | 5.10 | 5.48 | 5.43\n10/16/2026 | 4.12 | 4.14 | 4.17 | 4.26 | 4.32 | 4.34 | 4.46 | 4.74 | 4.82 | 4.89 | 4.98 | 5.09 | 5.47 | 5.43\n\nDaily Treasury Rates\n| Date | 20 YR | 30 YR | Extrapolation Factor | 6 WEEKS BANK DISCOUNT | COUPON EQUIVALENT | 8 WEEKS BANK DISCOUNT | COUPON EQUIVALENT | 17 WEEKS BANK DISCOUNT | COUPON EQUIVALENT | 52 WEEKS BANK DISCOUNT | COUPON EQUIVALENT | 1 Mo | 1.5 Mo | 2 Mo | 3 Mo | 4 Mo | 6 Mo | 1 Yr | 2 Yr | 3 Yr | 5 Yr | 7 Yr | 10 Yr | 20 Yr | 30 Yr |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.06 | 4.10 | 4.13 | 4.17 | 4.26 | 4.27 | 4.44 | 4.78 | 4.91 | 5.01 | 5.12 | 5.24 | 5.64 | 5.61 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.04 | 4.09 | 4.11 | 4.19 | 4.26 | 4.27 | 4.46 | 4.83 | 4.96 | 5.06 | 5.17 | 5.28 | 5.67 | 5.63 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.05 | 4.10 | 4.13 | 4.22 | 4.27 | 4.30 | 4.47 | 4.84 | 4.97 | 5.06 | 5.19 | 5.31 | 5.70 | 5.66 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.06 | 4.12 | 4.13 | 4.21 | 4.26 | 4.28 | 4.46 | 4.79 | 4.88 | 5.03 | 5.15 | 5.27 | 5.68 | 5.64 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.07 | 4.13 | 4.14 | 4.22 | 4.28 | 4.28 | 4.42 | 4.77 | 4.87 | 5.03 | 5.15 | 5.28 | 5.71 | 5.67 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.14 | 4.14 | 4.13 | 4.23 | 4.29 | 4.30 | 4.44 | 4.75 | 4.85 | 4.99 | 5.11 | 5.22 | 5.64 | 5.60 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.13 | 4.13 | 4.13 | 4.25 | 4.29 | 4.32 | 4.47 | 4.80 | 4.89 | 5.02 | 5.13 | 5.24 | 5.65 | 5.60 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.10 | 4.15 | 4.15 | 4.26 | 4.32 | 4.34 | 4.48 | 4.79 | 4.90 | 5.00 | 5.11 | 5.21 | 5.60 | 5.56 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.11 | 4.15 | 4.15 | 4.28 | 4.36 | 4.37 | 4.53 | 4.82 | 4.92 | 5.00 | 5.09 | 5.19 | 5.57 | 5.52 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.17 | 4.15 | 4.19 | 4.28 | 4.35 | 4.35 | 4.49 | 4.77 | 4.85 | 4.91 | 5.00 | 5.10 | 5.48 | 5.43 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.12 | 4.14 | 4.17 | 4.26 | 4.32 | 4.34 | 4.46 | 4.74 | 4.82 | 4.89 | 4.98 | 5.09 | 5.47 | 5.43 |",
         "title": "Daily Treasury Par Yield Curve Rates, October 2026",
         "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
-        "verified": null
+        "verified": false
       },
       {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year'\nFor more information check",
         "published": "2026-10-19",
         "quotes": [
           "After a tumultuous week when the 10-year yield swung between a high of 5.329 percent on Wednesday and a low of 5.037 percent on Thursday, the benchmark note moved between advances and declines on Friday.",
@@ -100,6 +102,7 @@
         "verified": null
       },
       {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html'\nFor more information check: ",
         "published": "2026-10-13",
         "quotes": [
           "Yields on 10-year US Treasury debt have climbed to 24-year highs in recent days, with analysts putting that down to concerns about war-driven inflation as well as ballooning government debt and massive investment in AI.",
