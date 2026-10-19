@@ -1,0 +1,30 @@
+[
+  {
+    "cutoff": "2026-10-19T15:10:00+00:00",
+    "entry_id": "a81bb32960e43a67",
+    "macro": {
+      "comparison": "gt",
+      "indicator": "jobless_claims",
+      "observation_period": "2026-10-17",
+      "release_at": "2026-10-22T12:30:00Z",
+      "revision_policy": "first_release",
+      "threshold": 199000.0
+    },
+    "question": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-17 be above 199,000 claims?",
+    "release_at": "2026-10-22T12:30:00Z"
+  },
+  {
+    "cutoff": "2026-10-19T15:10:00+00:00",
+    "entry_id": "cfd7541436306b33",
+    "macro": {
+      "comparison": "gt",
+      "indicator": "treasury_10y",
+      "observation_period": "2026-10-23",
+      "release_at": "2026-10-26T21:00:00Z",
+      "revision_policy": "first_release",
+      "threshold": 5.1
+    },
+    "question": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-23 be above 5.1 percent?",
+    "release_at": "2026-10-26T21:00:00Z"
+  }
+]

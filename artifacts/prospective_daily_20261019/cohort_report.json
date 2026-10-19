@@ -1,0 +1,58 @@
+{
+  "id": "prospective_daily_20261019",
+  "interpretation": "Daily zero-cost set; small, correlated sample.",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "methods": [
+    "statistical_baseline_v1"
+  ],
+  "questions": [
+    {
+      "cells": [
+        {
+          "interval_80": [
+            187000,
+            212000
+          ],
+          "method": "statistical_baseline_v1",
+          "probability": 0.44551282051282054,
+          "snapshot": {
+            "observations": 156,
+            "raw_hash": "a706ca7e81142f33a2be976304a3195a04630e3e4d90e1c6527c8ea9d2b8c85c",
+            "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA&cosd=2023-09-30",
+            "retrieved_at": "2026-10-19T09:10:11.451218+00:00",
+            "revision_basis": "latest_observed_revisions_not_first_release",
+            "source_lineage": "agency:dol",
+            "source_url": "https://fred.stlouisfed.org/series/ICSA"
+          },
+          "status": "forecasted"
+        }
+      ],
+      "id": "a81bb32960e43a67",
+      "release_event": "claims-2026-10-22"
+    },
+    {
+      "cells": [
+        {
+          "interval_80": [
+            4.98,
+            5.25
+          ],
+          "method": "statistical_baseline_v1",
+          "probability": 0.526595744680851,
+          "snapshot": {
+            "observations": 510,
+            "raw_hash": "7eb06c9005173dc5f1b92fac6a7de9eea6160a75094b9d126b60034c306956d9",
+            "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2024-09-30",
+            "retrieved_at": "2026-10-19T09:10:12.022822+00:00",
+            "revision_basis": "latest_observed_revisions_not_first_release",
+            "source_lineage": "agency:frb",
+            "source_url": "https://fred.stlouisfed.org/series/DGS10"
+          },
+          "status": "forecasted"
+        }
+      ],
+      "id": "cfd7541436306b33",
+      "release_event": "dgs10-2026-10-23"
+    }
+  ]
+}
