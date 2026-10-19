@@ -73,3 +73,50 @@ def test_indicators_with_unreleased_questions_are_open(tmp_path: Path) -> None:
     _artifact(tmp_path / "prospective_daily_20261006")
     assert module.open_indicators(tmp_path, datetime(2026, 10, 14, 20, tzinfo=UTC)) == {"treasury_10y"}
     assert module.open_indicators(tmp_path, datetime(2026, 10, 14, 21, tzinfo=UTC)) == set()
+
+
+def _two_entry_artifact(directory: Path) -> None:
+    _artifact(directory)
+    manifest = json.loads((directory / "frozen_manifest.json").read_text())
+    manifest["manifest"]["entries"].append({**manifest["manifest"]["entries"][0], "entry_id": "b2"})
+    (directory / "frozen_manifest.json").write_text(json.dumps(manifest))
+    report = json.loads((directory / "cohort_report.json").read_text())
+    report["questions"].append({"id": "b2", "release_event": "icsa-2026-10-17", "cells": []})
+    (directory / "cohort_report.json").write_text(json.dumps(report))
+
+
+def test_skipped_entry_is_accepted_logged_and_manifest_untouched(tmp_path: Path, capsys) -> None:
+    module = _module()
+    day = tmp_path / "day"
+    _two_entry_artifact(day)
+    before = (day / "frozen_manifest.json").read_text()
+    module.record(day, _forecasts(tmp_path / "f.json", "2026-10-06T11:30:00Z"), skip={"b2"})
+    supplement = json.loads((day / "claude_code_supplement.json").read_text())
+    assert [c["entry_id"] for c in supplement["cells"]] == ["a1"]
+    assert supplement["skipped"] == [{"entry_id": "b2", "reason": "no research"}]
+    assert supplement["manifest_hash"] == "h"
+    assert "skipped b2" in capsys.readouterr().out
+    assert (day / "frozen_manifest.json").read_text() == before
+
+
+def test_skip_failed_reads_research_json(tmp_path: Path) -> None:
+    module = _module()
+    day = tmp_path / "day"
+    _two_entry_artifact(day)
+    (day / "research.json").write_text(json.dumps({"failed": {"b2": "TimeoutExpired"}}))
+    module.record(day, _forecasts(tmp_path / "f.json", "2026-10-06T11:30:00Z"), skip_failed=True)
+    skipped = json.loads((day / "claude_code_supplement.json").read_text())["skipped"]
+    assert skipped == [{"entry_id": "b2", "reason": "research failed or timed out"}]
+
+
+def test_unskipped_missing_entry_is_still_refused(tmp_path: Path) -> None:
+    module = _module()
+    day = tmp_path / "day"
+    _two_entry_artifact(day)
+    with pytest.raises(SystemExit):
+        module.record(day, _forecasts(tmp_path / "f.json", "2026-10-06T11:30:00Z"))
+    with pytest.raises(SystemExit):  # unknown skip id and skip-plus-forecast conflict
+        module.record(day, _forecasts(tmp_path / "f.json", "2026-10-06T11:30:00Z"), skip={"zz"})
+    with pytest.raises(SystemExit):
+        module.record(day, _forecasts(tmp_path / "f.json", "2026-10-06T11:30:00Z"), skip={"a1", "b2"})
+    assert not (day / "claude_code_supplement.json").exists()

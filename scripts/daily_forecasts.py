@@ -3,7 +3,7 @@
 baseline, and Claude's own forecasts, stored as a scoreable artifact.
 
   python scripts/daily_forecasts.py prepare            # writes artifacts/prospective_daily_<date>/
-  python scripts/daily_forecasts.py record <dir> <claude_forecasts.json>
+  python scripts/daily_forecasts.py record <dir> <claude_forecasts.json> [--skip <id>[,<id>...]] [--skip-failed]
 
 ``prepare`` applies the current ``FAST_SELECTION_VERSION`` (at most one jobless
 claims and one week-ahead 10-year yield question, thresholds at the latest
@@ -19,6 +19,10 @@ scores, plus ``questions.json`` with each question's text and forecast cutoff.
 entry must be covered, probabilities must lie in [0.02, 0.98], and
 ``forecast_made_at`` must precede every entry's cutoff. It then writes
 ``claude_code_supplement.json``, which the scorer reports as its own method.
+``--skip`` names entries that get no forecast today; ``--skip-failed`` adds the ids
+under ``failed`` in the directory's ``research.json``. Skipped entries are printed and
+written under ``skipped`` in the supplement with a reason; any other uncovered entry is
+still refused, and the frozen manifest is never touched.
 Nothing here calls a paid API.
 """
 
@@ -115,15 +119,25 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts") -
     return directory
 
 
-def record(directory: Path, forecasts_path: Path) -> Path:
+def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, skip_failed: bool = False) -> Path:
     manifest = json.loads((directory / "frozen_manifest.json").read_text())
     report = json.loads((directory / "cohort_report.json").read_text())
     entries = {e["entry_id"]: e for e in manifest["manifest"]["entries"]}
     data = json.loads(forecasts_path.read_text())
     made_at = as_utc(datetime.fromisoformat(data["forecast_made_at"].replace("Z", "+00:00")))
     forecasts = {f["entry_id"]: f for f in data["forecasts"]}
-    if set(forecasts) != set(entries):
-        raise SystemExit(f"forecasts must cover exactly the entries: missing {sorted(set(entries) - set(forecasts))}, "
+    skipped = {identifier: "no research" for identifier in skip or ()}
+    if skip_failed:
+        research = directory / "research.json"
+        failed = json.loads(research.read_text()).get("failed", {}) if research.exists() else {}
+        for identifier in failed:
+            skipped.setdefault(identifier, "research failed or timed out")
+    if set(skipped) - set(entries):
+        raise SystemExit(f"cannot skip unknown entries: {sorted(set(skipped) - set(entries))}")
+    if set(skipped) & set(forecasts):
+        raise SystemExit(f"entries both skipped and forecast: {sorted(set(skipped) & set(forecasts))}")
+    if set(forecasts) | set(skipped) != set(entries) or set(forecasts) - set(entries):
+        raise SystemExit(f"forecasts must cover exactly the entries: missing {sorted(set(entries) - set(forecasts) - set(skipped))}, "
                          f"unknown {sorted(set(forecasts) - set(entries))}")
     events = {q["id"]: q["release_event"] for q in report["questions"]}
     cells = []
@@ -140,6 +154,10 @@ def record(directory: Path, forecasts_path: Path) -> Path:
     supplement = {"method": data.get("method", CLAUDE_METHOD), "generated_at": made_at.isoformat(),
                   "cohort_id": report["id"], "manifest_hash": report["manifest_hash"],
                   "note": "Recorded before every entry's cutoff; scored as a separate method.", "cells": cells}
+    if skipped:
+        supplement["skipped"] = [{"entry_id": i, "reason": r} for i, r in sorted(skipped.items())]
+        for identifier, reason in sorted(skipped.items()):
+            print(f"{directory.name}: skipped {identifier} ({reason})")
     path = directory / "claude_code_supplement.json"
     path.write_text(json.dumps(supplement, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: recorded {len(cells)} forecasts")
@@ -150,8 +168,18 @@ def main(argv: list[str]) -> int:
     if argv[:1] == ["prepare"]:
         prepare()
         return 0
-    if argv[:1] == ["record"] and len(argv) == 3:
-        record(Path(argv[1]), Path(argv[2]))
+    if argv[:1] == ["record"] and len(argv) >= 3:
+        rest, skip, skip_failed = argv[3:], set(), False
+        while rest:
+            flag = rest.pop(0)
+            if flag == "--skip-failed":
+                skip_failed = True
+            elif flag == "--skip" and rest:
+                skip |= {i for i in rest.pop(0).split(",") if i}
+            else:
+                print(__doc__)
+                return 2
+        record(Path(argv[1]), Path(argv[2]), skip, skip_failed)
         return 0
     print(__doc__)
     return 2
