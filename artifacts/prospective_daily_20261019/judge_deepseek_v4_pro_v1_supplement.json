@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-19T10:58:27.658930+00:00",
+      "entry_id": "cfd7541436306b33",
+      "model": "deepseek/deepseek-v4-pro",
+      "probability": 0.45,
+      "rationale": "The base rate from October so far is mostly above 5.10 (9 of 11 prints), but the most recent yields have fallen to 5.10 and 5.09, indicating a downward trend. The 10-year yield closed at 5.087% on October 16, just below the threshold, and the recent weekly range of ~29 bps shows high volatility, so a small move could push it above 5.10. However, with no major catalysts before October 23 and the FOMC meeting after that date, the balance of recent momentum slightly favors a yield at or below 5.10.",
+      "release_event": "dgs10-2026-10-23",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261019",
+  "generated_at": "2026-10-19T10:58:27.658930+00:00",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "method": "judge_deepseek_v4_pro_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}
