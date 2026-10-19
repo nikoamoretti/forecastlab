@@ -4,7 +4,7 @@
       "about": "The median of every forecaster's probability on the question. This is our call.",
       "brier": 0.2468616522653236,
       "coin_flip_brier": 0.25,
-      "forecasts": 78,
+      "forecasts": 88,
       "label": "Combined forecast",
       "method": "combined_median_v1",
       "resolved": 20,
@@ -16,7 +16,7 @@
       "about": "Claude researches each question on the web and states a probability.",
       "brier": 0.1977529411764706,
       "coin_flip_brier": 0.25,
-      "forecasts": 75,
+      "forecasts": 84,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
       "resolved": 17,
@@ -28,7 +28,7 @@
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
       "brier": 0.1986,
       "coin_flip_brier": 0.25,
-      "forecasts": 33,
+      "forecasts": 41,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
       "resolved": 3,
@@ -40,7 +40,7 @@
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
       "brier": 0.179975,
       "coin_flip_brier": 0.25,
-      "forecasts": 49,
+      "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
       "resolved": 4,
@@ -52,7 +52,7 @@
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
       "brier": 0.17572500000000002,
       "coin_flip_brier": 0.25,
-      "forecasts": 41,
+      "forecasts": 48,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
       "resolved": 4,
@@ -64,7 +64,7 @@
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
       "brier": 0.253825,
       "coin_flip_brier": 0.25,
-      "forecasts": 34,
+      "forecasts": 39,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
       "resolved": 4,
@@ -76,7 +76,7 @@
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
       "brier": 0.16124999999999998,
       "coin_flip_brier": 0.25,
-      "forecasts": 38,
+      "forecasts": 44,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
       "resolved": 4,
@@ -88,7 +88,7 @@
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
       "brier": 0.18992500000000004,
       "coin_flip_brier": 0.25,
-      "forecasts": 42,
+      "forecasts": 51,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
       "resolved": 4,
@@ -148,7 +148,7 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2723162715154663,
       "coin_flip_brier": 0.25,
-      "forecasts": 21,
+      "forecasts": 23,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
       "resolved": 13,
@@ -160,7 +160,7 @@
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 35,
+      "forecasts": 43,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
       "resolved": 0,
@@ -181,7 +181,7 @@
       "wrong": 1
     }
   ],
-  "generated_on": "2026-10-17",
+  "generated_on": "2026-10-19",
   "questions": [
     {
       "actual": "5.10%",
@@ -1838,6 +1838,109 @@
     {
       "actual": null,
       "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.6
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.6,
+          "rationale": "Binance BTC/USDT last traded 82,830 on 2026-10-19, about 1% above the 82,000 line, after a 24-hour low of 80,684 (Binance 24h ticker, 2026-10-19). Five of the last nine daily closes were above 82,000. The resolving candle is noon ET on 2026-10-21, about two days away, and daily ranges of several thousand dollars (79,800 low on 2026-10-15) mean a roughly 0.3 standard deviation cushion, which gives a modest edge to Yes.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=10",
+            "https://www.coindesk.com/markets/2026/10/19/bitcoin-korea-s-kospi-and-nasdaq-futures-rally-as-china-gdp-beats-estimates"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate is near 50% because the $82,000 threshold sits in the middle of recent daily closes (5 of 9 above). Current spot ~$82,830 is only ~1% above the line with two days (~53 hours) until the 12:00 ET resolution, and Bitcoin's typical daily range of 2-3% means a cross in either direction is very plausible. The China GDP beat and risk-on tone provide modest upside bias, but the prior two-week downtrend (~2% weekly declines) and Fed hike expectations keep downside risk alive. The specific 1-minute candle at noon ET adds microstructure noise that could flip the outcome near the boundary."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.65,
+          "rationale": "Base rate: over the past month Bitcoin has spent roughly 60% of its time above $82,000 given its 80k\u201187k range. As of Oct\u202f19 the price is around $82,800, up ~1% from the prior close and within a 2.4k daily range, suggesting upward momentum. However, intraday volatility of several thousand dollars means a pullback below $82,000 by noon ET on Oct\u202f21 is plausible, so the probability is adjusted modestly above the base rate but not extreme."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.67,
+          "rationale": "Recent daily closes are mixed around 82k (5 of last 9 above), but current Binance BTC/USDT is about 82,830, roughly 1% above the threshold, and today's low was 82,010, suggesting short-term support. Two days of typical BTC volatility make a drop below 82k plausible but less likely than holding above. I estimate a two-in-three chance."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.58,
+          "rationale": "Base rate from the past nine daily closes is roughly a coin flip around $82,000. Spot currently sits near $82,800, about 1% above the threshold, which tilts the odds slightly upward, but Bitcoin\u2019s wide daily ranges and mixed macro cues\u2014China\u2019s GDP beat supporting risk appetite versus lingering Fed hike fears\u2014mean a dip below $82,000 remains easily possible. A decisive break under $80,000 or a rally toward $85,000+ in the next two days would materially shift the outlook."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.66,
+          "rationale": "The base rate for a two-day binary price question is near 50/50, but spot is already about 1% above the $82,000 strike at roughly $82,830. Recent daily ranges of $1,000-$3,000 imply enough volatility that a 1% drop over two days is plausible, but not more likely than holding above the level. The main risk to Yes is renewed risk-off or a continuation of the prior two-week downtrend; the main support is today's risk-on move and the price sitting above the threshold."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "Base rate: Bitcoin is currently trading around $82,800 on Binance, just above the $82,000 threshold. The recent 30-day range of $80,000-$87,000 straddles the threshold, and daily ranges have been several thousand dollars wide, so a 1% move in either direction over two days is plausible. Of the last nine daily closes, five were above $82,000 and four below, suggesting roughly even odds. The slight upward bias from today's positive China GDP news and risk-on sentiment nudges the probability modestly above 50%, but the high volatility and proximity to the threshold keep this close to a coin flip."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.675
+        }
+      ],
+      "id": "polymarket-5690022",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-21",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-21-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $82,000 on October 21?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "combined_median_v1",
+        "probability": 0.44551282051282054
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-17 be above 199,000 claims?",
+      "forecasts": [
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.44551282051282054
+        }
+      ],
+      "id": "a81bb32960e43a67",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-22",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261019",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 17, 2026 come in above 199,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.57
@@ -1961,6 +2064,70 @@
       "status": "pending",
       "title": "Will Student List \u2013 Students Win win the most seats in the 2026 Serbian parliamentary election?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.45
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-23 be above 5.1 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.46,
+          "rationale": "Treasury's par curve had the 10-year CMT at 5.10 on 2026-10-15 and 5.09 on 2026-10-16, down from 5.31 on 2026-10-05, so the series sits right on the 5.1 threshold (a print of exactly 5.10 resolves No). Nine of 11 October prints were above 5.10 and the statistical baseline is 0.53, but the latest two prints and a week of falling yields (Reuters, 2026-10-16: 5.087 percent, biggest weekly loss in over a year) put the starting point a basis point below the line. With about five trading days left and a weekly range near 29 basis points, the outcome is close to a coin flip, shaded slightly below even.",
+          "sources": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
+            "https://www.federalreserve.gov/releases/h15/",
+            "https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year",
+            "https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.45,
+          "rationale": "The latest 10-year yield (Oct 16) is 5.09%, just below the 5.10% threshold. With five trading days remaining until Oct 23, recent volatility (weekly range ~29 bps) makes a move of a few basis points likely, but the slight downtrend and market pricing of a Fed pause (83% chance) tilt the odds modestly toward staying at or below 5.10%. The base rate for October shows 9 of 11 prints above 5.10%, but the last two were 5.10% and 5.09%, indicating a recent shift. A sharp move on inflation, growth, or geopolitical news could easily flip the outcome."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.42,
+          "rationale": "Base rate from the first half of October shows about 82% of observations above 5.10%, but the last two days have been at or below the threshold and the yield has been falling over the week, putting the current level around 5.09\u20115.10%. The distance to the 5.10% cutoff is only about one basis point, while the recent weekly range is roughly 29 basis points, so modest moves in either direction could decide the outcome. With no major policy event before the Oct\u202f23 close (the next FOMC meeting is Oct\u202f27\u201128) and markets already pricing in a pause, the drift is slightly downward, leading to a modestly sub\u201150% chance of finishing above 5.10%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The base rate from October so far is mostly above 5.10 (9 of 11 prints), but the most recent yields have fallen to 5.10 and 5.09, indicating a downward trend. The 10-year yield closed at 5.087% on October 16, just below the threshold, and the recent weekly range of ~29 bps shows high volatility, so a small move could push it above 5.10. However, with no major catalysts before October 23 and the FOMC meeting after that date, the balance of recent momentum slightly favors a yield at or below 5.10."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: October 2026 10-year yields have averaged around 5.20, with 9 of 11 prints above 5.10, but the most recent two prints (5.10 on Oct 15, 5.09 on Oct 16) show a sharp downward trend after the weekly low of 5.037. The series is reported to two decimals, so a print of exactly 5.10 resolves No, and the question hinges on a few basis points. Given the recent momentum lower, the Fed on hold, and the FOMC meeting after the observation date, I lean slightly below 50% but keep meaningful probability for a bounce back above 5.10."
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.526595744680851
+        }
+      ],
+      "id": "cfd7541436306b33",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-26",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261019",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 23, 2026 be above 5.10%?",
+      "topic": "Interest rates",
       "verdict": null
     },
     {
@@ -3032,6 +3199,82 @@
       "call": {
         "members": 7,
         "method": "combined_median_v1",
+        "probability": 0.52
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Saudi Arabia takes a qualifying military action against Yemen on the specified date, Yemen Standard Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Saudi Arabia, that directly impacts Yemen. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Saudi Arabia. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Saudi Arabia directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Yemen do not constitute a military action regardless of any damage incurred.\n\n\u201cYemen\u201d refers to the terrestrial territory of Yemen, including its internal waters. Yemen\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Yemen as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Yemen Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Saudi Arabia and Yemen, the Houthis, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "Saudi-led coalition airstrikes on Houthi areas are documented on 2026-10-09, 10-10 (announced large-scale operations), 10-13 (Sanaa, Hodeidah and Dhamar fuel sites) and 10-18 (alleged strike on Saada), in a war that reignited in July (Al-Monitor, 2026-10-18; Arab News, 2026-10-10). That is at least four strike days in eleven, but the sources do not give a full count, Saudi talks with the Houthis were refused on 2026-10-16 though channels stay open, and the rule counts only strikes conducted by Saudi forces themselves and not intercepted munitions. A ten-day lead leaves room for a pause, and a single named day needs a strike that is both attributed to Saudi forces and reported, so slightly above even.",
+          "sources": [
+            "https://www.al-monitor.com/originals/2026/10/saudi-coalition-houthis-trade-strikes-disruption-spreads",
+            "https://www.arabnews.com/saudi-arabia/coalition-carries-out-wide-scale-operations-against-yemens-houthis-3005537",
+            "https://www.theguardian.com/world/2026/oct/13/saudi-arabia-strikes-strategic-oil-depots-near-yemen-capital",
+            "https://en.ypagency.net/408888"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.4,
+          "rationale": "Base rate from recent tempo shows ~4 qualifying strike days in the last 10 days (Oct 9, 10, 13, 18), suggesting a ~40% daily strike probability. The coalition declared 'around the clock' operations on Oct 10 and struck strategic targets Oct 13, while diplomatic talks were refused by Houthis on Oct 16, indicating continued escalation rather than pause. However, strikes are not yet daily, coalition statements don't always confirm Saudi (vs. partner) aircraft, and 10 days out allows time for a ceasefire or operational lull. Probability would rise with further Houthi attacks on Saudi territory or fall if Oman-mediated talks resume."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.27,
+          "rationale": "The base rate of Saudi-led coalition strikes on any given day during the renewed July\u20112026 conflict is roughly 20\u201130%, based on the observed frequency of strikes in early\u2011mid October. Evidence shows coalition air strikes on 9, 10, 13 and 18 October, indicating ongoing operations, but no source mentions a planned strike on 29 October. If the recent tempo continues, the chance of a qualifying Saudi strike on that date remains moderate; a diplomatic pause or ceasefire before the date would lower it, while sustained daily operations would raise it."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "The Saudi-led coalition has been conducting frequent airstrikes in Yemen throughout October 2026, with documented strikes on at least four days (9, 10, 13, 18 October) and a stated policy of 'around the clock' air support. Diplomatic efforts have failed, reducing the likelihood of a ceasefire. However, there is no specific evidence of a planned strike on 29 October, and the daily pattern is not perfectly consistent, so a strike is not guaranteed."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.3,
+          "rationale": "The base rate of coalition air raids is elevated, with confirmed strikes on at least four October days and coalition forces providing around-the-clock air support as of October 10, making a qualifying strike plausible. However, the ten-day lookahead allows time for a diplomatic pause or operational lull, and sources usually attribute action to the coalition rather than confirming Saudi forces specifically conducted a given strike. No evidence indicates a strike is scheduled for October 29, so the probability remains moderate."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.6,
+          "rationale": "Base rate for a specific day in an active air campaign is moderate, but documented Saudi/coalition strikes on 9, 10, 13, and 18 October and stated around-the-clock operations raise the chance of at least one qualifying Saudi strike on 29 October. The key uncertainties are whether the action is directly attributable to Saudi armed forces rather than the broader coalition and whether a diplomatic pause occurs before the date. A confirmed ceasefire or lack of Saudi attribution would lower the probability, while continued daily strikes would raise it."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: With active large-scale coalition air operations documented on at least 9, 10, 13, and 18 October 2026, including 136 targets struck in one operation and 'around the clock' air support, the daily probability of a qualifying Saudi strike is high. The evidence shows sustained, intense aerial operations against Houthi-controlled territory, making a strike on 29 October likely. However, uncertainty remains because coalition statements don't always distinguish Saudi aircraft from other coalition members, and a diplomatic pause (Saudi requested talks via Oman, refused) could reduce operations. The war reignited in July with repeated raids, strongly suggesting continued strikes through October."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.595
+        }
+      ],
+      "id": "polymarket-5167210",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-30",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/saudi-arabia-military-action-against-yemen-on-october-2026",
+      "status": "pending",
+      "title": "Saudi Arabia military action against Yemen on October 29?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
         "probability": 0.88
       },
       "detail": "This market will resolve to \u201cNo\u201d if the United States takes a qualifying military action against Iran by the specified date, 11:59 PM Iran Standard Time. Otherwise this market will resolve to \u201cYes.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by the United States, that directly impacts Iran. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Iran do not constitute a military action regardless of any damage incurred.\n\n\u201cIran\u201d refers to the terrestrial territory of Iran, including its internal waters. Iran\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Iran as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Iran Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of the United States and Iran and a consensus of credible reporting.",
@@ -3449,6 +3692,70 @@
       "status": "pending",
       "title": "Will bitcoin rise to 105k before the Strait of Hormuz is freely open?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.68
+      },
+      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "On the Arena Text Overall board (no style control) of 2026-10-15, Google's Gemini 4 Argon (High) is rank 1 at 1532 on 4,904 votes, 16 points ahead of Anthropic's Claude Opus 5.5 (High) at 1516, and it already led on 2026-10-08 (1525 vs 1507). The check is 2026-10-31, twelve days later; the overall text #1 changed 25 times between 2024-08-28 and 2026-10-15, about once a month, and Arena is still adding models. The model is marked Preliminary (plus or minus 9) so its score can drift, but a 16-point lead that has held a week makes Google the likely holder, with roughly a one-in-four chance that a new release or drift changes the top spot.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://arena.ai/leaderboard/text/overall",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://kbgtools.com/en/ai-model-ranking"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Google's Gemini 4 Argon (High) currently leads the arena.ai Text Arena Overall (no style control) by 16 points (1532 vs 1516) as of Oct 15, with a Preliminary label based on 4,904 votes. The historical base rate shows ~1 leadership change per month (25 changes in 26 months), giving roughly a 40% chance of a change in the 16-day window to Oct 31. However, the 16-point gap exceeds the 10-point threshold where AutoEval achieves >90% accuracy, and the leader just assumed the top spot on Oct 15. The Preliminary status and relatively low vote count for Google's model introduce score-drift risk, while frequent new model additions (changelog shows releases through Oct 18) create disruption potential. Balancing the meaningful lead against base-rate volatility and Preliminary uncertainty yields a modest edge for Google."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.88,
+          "rationale": "The leaderboard changes roughly once per month, giving about a 32% chance of at least one change in the 12\u2011day window from Oct\u202f15 to Oct\u202f31. Google\u2019s current 16\u2011point lead yields an AutoEval accuracy >90%, so there is less than a 10% chance the observed ranking is wrong even if no change occurs. Historical shifts show Google usually stays on top when the leader changes. Combining these factors gives roughly an 88% probability that Google\u2019s model remains ranked first on Oct\u202f31."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for a Text Arena #1 change is roughly once every few weeks, so a 12-day window has a substantial chance of a new leader. However, the exact resolution board showed Google's Gemini 4 Argon (High) at rank 1 on Oct 15 with a 16-point lead over Anthropic and a rank spread of 1-1, while no new text model is close. The main risks are score drift on the preliminary Google model or a new frontier model accumulating enough human votes before Oct 31."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "Google's Gemini 4 Argon (High) currently leads with 1532 vs 1516 for Claude Opus 5.5 (High), a 16-point gap that exceeds the 15-point AutoEval reliability threshold. However, the Google model is still 'Preliminary' with only ~4,900 votes (vs 60,000+ for the top Claude variants), making it vulnerable to score drift as more votes accumulate. Over a 16-day window, the historical base rate of leader changes (~25 changes in 26 months, or roughly once per month) combined with the fast pace of new frontier releases seen in the changelog suggests moderate downside risk, but the current solid gap prevents a major downward adjustment."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7065
+        }
+      ],
+      "id": "polymarket-3554659",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
+      "status": "pending",
+      "title": "Will Google have the best AI model at the end of October 2026?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -4110,6 +4417,83 @@
     {
       "actual": null,
       "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.15
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for SOL/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the SOL/USDT Low prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Solana traded near 105.7 on Binance on 2026-10-19 with an October low of 100.43 on 2026-10-18 (Twelve Data and Investing.com tables), so $90 needs a further drop of about 15 percent to a Binance 1-minute low before 2026-10-31. With 12 days left and daily volatility near 3.5 to 4 percent, a touch of that size is roughly a one-in-five event; spot Solana ETF outflows (ten straight sessions, 2026-10-18 reports) and the weak trend add some downside, while the 2026-10-21 Alpenglow upgrade could cut either way.",
+          "sources": [
+            "https://twelvedata.com/markets/722279/crypto/binance/sol-usd/historical-data",
+            "https://www.investing.com/crypto/solana/sol-usd-historical-data",
+            "https://www.analyticsinsight.net/news/solana-price-faces-usd-110-test-ahead-of-october-21-alpenglow-upgrade",
+            "https://cvj.ai/briefing/crypto-news/xrp-etfs-end-13-week-green-streak-as-sol-funds-bleed-25-5m/",
+            "https://solana.com/upgrades/alpenglow"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: SOL's 52-week low of $60 shows $90 is reachable, and crypto assets frequently move 15% in 12-day windows. Evidence: October has seen a steady 11% decline to ~$105, record ETF outflows ($25.5M worst week, 10 straight days), and the Alpenglow upgrade on Oct 21 adds event risk. The $100-101 support has held twice but intraday 1-minute wicks can breach daily lows by 1-2%. With 12 days left, continued selling pressure or upgrade turbulence could push price to $90, but a successful Alpenglow launch or inflow reversal would lower odds."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for SOL dropping to $90 or lower in any given month is roughly 20% based on the 52\u2011week range showing at least one sub\u2011$90 print in the past year. Recent daily lows have stayed above $100, and reaching $90 would require about a 15% decline from current levels over the remaining two weeks, which is unlikely without a broader market sell\u2011off. Continued ETF outflows add downside pressure, but the imminent Alpenglow upgrade on Oct\u202f21 could provide bullish support, lowering the chance of a dip before then. Balancing these factors yields an estimated probability of about 15% that a 1\u2011minute Binance SOL/USDT candle will hit $90 or lower in October 2026."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.1,
+          "rationale": "Base rate for a 15% decline in 12 days is low-to-moderate for a volatile crypto asset. The October low is around $100.4 with current price $105.7, and ETF outflows continue, but support near $100 has held and the Alpenglow upgrade could spur a rally. A decisive break below $100 would substantially raise the chance, so I estimate about 10%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.3,
+          "rationale": "The base rate is moderate: SOL has traded below $90 within the past year, but its October range has been $100\u2013$120 and it currently trades near $105. The evidence points to building downside pressure\u2014ten straight days of ETF outflows, falling futures open interest, and a series of lower daily lows culminating at $100.43 on October 18\u2014so a break of the $100 support level is plausible. If $100 breaks, a quick move toward $90 is feasible in volatile crypto markets, but the Alpenglow upgrade on October 21 could just as easily spark a relief rally or volatility that holds the floor. Twelve days remain, which is enough time for a 15% drop but not so long that the outcome is assured; the probability is raised by bearish momentum but capped by the uncertainty around the upgrade and the fact that $100 has not yet been breached on a daily basis."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "Base rate: a ~15% drawdown over the remaining 12 days is possible for SOL but not the modal outcome, perhaps 10-20% absent a shock. The evidence that moved me is the repeated tests of $100-101, ten straight ETF outflow days, and falling open interest, which make a break below $100 and a liquidation wick to $90 more plausible. The upcoming Alpenglow upgrade and absence of a confirmed broad crypto crash keep the probability from being high. I estimate 15%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.1,
+          "rationale": "SOL needs to drop roughly 15% from ~$105.75 to reach $90 in the remaining 12 days of October. Current price is near identified support at $100-101, which would need to break for $90 to be in play. The bearish setup\u201410 consecutive days of ETF outflows, worst weekly outflow ever ($25.5M), steady decline from $120 to $105, and elevated single-day volatility (5%+ moves)\u2014raises the probability above a negligible base rate, but the Alpenglow upgrade on Oct 21 could either trigger a bounce or a 'sell the news' event. A continued breakdown below $100 would shift this higher; a successful defense of $100 or post-Alpenglow rally would push it toward zero."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.175
+        }
+      ],
+      "id": "polymarket-5170806",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/what-price-will-solana-hit-in-october-2026",
+      "status": "pending",
+      "title": "Will Solana dip to $90 in October?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.13
@@ -4383,6 +4767,271 @@
       "status": "pending",
       "title": "Will Trump declare a national emergency before the midterms?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.565
+      },
+      "detail": "This market will resolve according to the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a seat is decided by a runoff, the runoff result will determine attribution of that seat.\n\nSeats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nHouse members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "The president's party lost House seats in 18 of 20 midterms from 1946 to 2022 (American Presidency Project), including -41 in 2018, and Gallup approval of the president was 33 to 35 percent in August 2026. Democrats need a net gain of three seats from the 218-214-1 House (Clerk, 2026-10-01; Ballotpedia, 2026-10-14), but mid-decade maps adopted in nine states could be worth a net nine Republican seats on 2024 results, and Cook's 2026-10-16 ratings have 185 Solid D, 171 Solid R and 21 toss-ups. A typical midterm swing against an unpopular president should outweigh the redistricting offset, leaving Democrats a clear but not certain favourite.",
+          "sources": [
+            "https://clerk.house.gov/member_info/olm-119.pdf",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://www.cookpolitical.com/ratings/house-race-ratings",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: the president's party lost House seats in 18 of 20 midterms (1946-2022), with an average loss of ~25 seats, and low presidential approval (33-35%) historically correlates with larger losses. Evidence: Republicans hold a razor-thin effective majority (219-214 with vacancies), Democrats need only a net +3, and Cook Political Report rates 21 seats as toss-ups, giving Democrats a plausible path. However, new redistricting maps are projected to net Republicans +9 seats based on 2024 presidential results, a significant structural headwind. The 2022 midterm (only -9 seats for Biden at 42% approval) shows midterms can defy historical averages. The race is a toss-up with a slight lean toward Democrats due to historical patterns and presidential unpopularity, but redistricting advantage keeps it competitive."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Historically, Democrats have won the House in only about 25% of midterms with a Republican president (base rate). President Trump-II\u2019s low approval (~35%) tends to boost the opposition, adding roughly +0.15 to Democratic chances. However, new district maps could give Republicans a net +9 seat advantage, subtracting about -0.10, while the 21 toss\u2011up seats provide a path for Democrats to secure the needed +3 net gain if they win a majority of them, contributing roughly +0.10. Combining these adjustments yields an estimated probability of around 55% that Democrats will control the House after the 2026 election."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "Base rate: the president's party has lost House seats in 18 of 20 midterms since 1946, and Republicans enter with only a slim 218-214 majority needing to net three gains while only able to lose two. However, structural advantages favor Republicans: new maps adopted in 9 states since 2024 could yield a net Republican gain of ~9 districts on 2024 presidential results, and the independent caucuses with Republicans, meaning Democrats must flip more ground than the raw number suggests. With GOP-favored redistricting, a competitive but Republican-tilted national environment, and only 21 Cook toss-ups, I estimate roughly a 1-in-5 chance Democrats win the majority."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.905
+        }
+      ],
+      "id": "polymarket-562802",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
+      "status": "pending",
+      "title": "Will the Democratic Party control the House after the 2026 Midterm elections?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.65
+      },
+      "detail": "This market will resolve according to the change in basis points in the cash rate target resulting from the November 2026 meeting of the Reserve Bank of Australia (RBA) Monetary Policy Board, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of Australia, including the statement or release from its November 2026 meeting, scheduled for November 2-3, 2026, as listed on the official RBA calendar (https://www.rba.gov.au/schedules-events/calendar/?topics=monetary-policy-board). This market may resolve as soon as the statement or release of the Reserve Bank of Australia Monetary Policy Board resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.68,
+          "rationale": "The RBA raised the cash rate 25 basis points to 4.60% on 2026-09-29 (fourth rise of 2026, after holds in June and August) and said it could raise again; CPI was 4.0% in the year to August with trimmed mean at 3.6% (ABS, 2026-09-30). Against that, unemployment rose to 4.7% in September (ABS, 2026-10-15), CommBank still expected a November hold on 2026-10-19 and Judo Bank moved its next rise from November to December. September-quarter CPI on 2026-10-28 is the swing factor, and a hot trimmed-mean print could force a fifth rise, so a hold is favoured but not safe.",
+          "sources": [
+            "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+            "https://www.abs.gov.au/media-centre/media-releases/cpi-rose-40-year-august-2026",
+            "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/latest-release",
+            "https://www.commbank.com.au/articles/newsroom/2026/10/rba-november-interest-rate-hold-risks-build.html",
+            "https://www.judo.bank/economics-weekly-briefing-19-october-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Base rate: RBA hiked at 4 of 6 meetings in 2026 (67% hike frequency), but the last two meetings before September were holds. Evidence: Labour market has softened (unemployment at 4.7% for two months), both CommBank and Judo Bank forecast a November hold as base case, and policy lags of 12-18 months argue for caution after four hikes this year. However, trimmed-mean inflation remains elevated at 3.6% annually, the RBA's September statement was hawkish citing upside risks, and the Q3 CPI (due Oct 28) could shift the outlook if it prints well above the expected 1.0% quarterly. The expert consensus leans hold but with building hike risks."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.46,
+          "rationale": "Base rate from six 2026 decisions shows holds in 2 of 6 meetings (~33%). Recent labor\u2011market softening (unemployment up to 4.7%) and forecasts from CommBank and Judo Bank shift odds toward a hold, while inflation remains elevated (headline CPI 4.0%, trimmed mean 3.6%) and the RBA signaled it could hike further if needed. The September\u2011quarter CPI release on 28 Oct will be decisive: a soft trimmed\u2011mean print (~1.0% quarterly) supports a hold, whereas a stronger print would raise hike probability."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.62,
+          "rationale": "The 2026 base rate of no change is two of six meetings, but current forecasts from CBA and Judo Bank expect a November hold despite hawkish RBA language. Softening labour-market data and lagged policy effects support a pause, while still-high trimmed mean inflation and upside price risks skew toward further hikes. The 28 October Q3 CPI, especially trimmed mean around 1.0% q/q, is the key swing factor."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.68,
+          "rationale": "Base rate: the RBA has hiked at four of six meetings in 2026, but after the September increase to 4.60% the labour market has softened further. Evidence: unemployment rose to 4.7% in September, and both Commonwealth Bank and Judo Bank now expect a hold in November, with Judo pushing its next hike forecast to December, though both warn the meeting is live and inflation risks are building. What could change it: the September-quarter CPI report due 28 October is the critical swing factor; a trimmed-mean quarterly print well above 1.0% would likely trigger another 25 bp hike, while a soft reading would cement a hold."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The 2026 base rate is hawkish, with four hikes and only two holds through September, and the RBA just raised rates while warning of further increases if needed. The main evidence for a hold is that major bank forecasts now expect November to be a pause, with Judo Bank explicitly moving its next expected hike to December after soft labour-market data. The key uncertainty is the September-quarter CPI release on 28 October; a trimmed-mean print materially above about 1.0% would make another 25bp rise much more likely."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: of six 2026 decisions through September, four were hikes and two were holds, but the most recent decision (September) was a hike with the Board signaling further increases may be needed. Evidence for a hold: CommBank and Judo Bank both expect a hold in November, citing softening labour market (unemployment at 4.7%) and the lagged effects of prior tightening; September-quarter CPI due October 28 is the key swing factor. Evidence against: trimmed-mean inflation remains elevated at 3.6%, the Board explicitly flagged upside risks from Middle East/oil and domestic capacity, and a hot CPI print could trigger another hike. I lean toward a hold given forecaster consensus and the data flow, but the risk of a hike is meaningful given the Board's hawkish tone."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.82
+        }
+      ],
+      "id": "polymarket-3499789",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/reserve-bank-of-australia-decision-in-november",
+      "status": "pending",
+      "title": "No change in Reserve Bank of Australia's interest rates at the November 2026 meeting?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will resolve according to the party that wins control of the United States Senate and the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chambers.\n\nFor determining Senate control, all regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Vacant Senate seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat. For determining House control, all House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a Senate or House seat is decided by a runoff, the runoff result will determine attribution of that seat, even if it takes place after November 2026.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected. \n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate and House members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate or House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.18,
+          "rationale": "This needs Republicans to hold both chambers. The House side is the hard part: the president's party lost House seats in 18 of 20 midterms from 1946 to 2022, approval was 33 to 35 percent in August 2026 (Gallup, via American Presidency Project) and Democrats need only a net three seats, partly offset by new Republican-favouring maps (Ballotpedia, 2026-10-14). The Senate is closer: Republicans hold 53 seats, Democrats need a net four, and Fox's 2026-10-18 ratings show 47 seats each with six toss-ups. Taking about a one-in-four chance of a Republican House and a high chance the Senate holds if it does, the joint outcome is under one in five.",
+          "sources": [
+            "https://clerk.house.gov/member_info/olm-119.pdf",
+            "https://www.senate.gov/history/partydiv.htm",
+            "https://www.foxnews.com/politics/nine-key-races-could-decide-who-controls-senate-where-stand",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for the president's party losing House seats in midterms is high (20 of 23 since 1934), and Trump's low approval (33-35%) suggests a challenging environment. Current House control is razor-thin (218 R, 214 D) with redistricting possibly helping Republicans, but Democrats need only a net gain of 3 seats. In the Senate, Republicans defend 22 of 35 seats, and Fox News rates the race at 47-47 with 6 toss-ups, making a Democratic net gain of 4 seats plausible. Given historical trends and the tight margins, Republicans retaining both chambers is less likely than not, but not impossible if they outperform polls or win key toss-ups."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: the president's party has lost House seats in 20 of 23 midterms since 1934, and Republicans currently hold a narrow 218-214 House edge with redistricting potentially adding ~9 GOP seats, making House retention more likely than not (~60-65%). However, the Senate is the bigger obstacle: Republicans defend 20 of 33 regular seats plus 2 specials, and Fox's Power Rankings show a 47-47 split with 6 toss-ups, meaning GOP Senate retention is roughly a coin flip (~50%). Multiplying these gives ~30-35%. The main downside risks are a Democratic wave (Trump approval at 33-35% is historically weak) and the possibility that independents or runoffs shift the count; the main upside is Republican redistricting advantages and incumbency."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.085
+        }
+      ],
+      "id": "polymarket-562831",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
+      "status": "pending",
+      "title": "2026 Balance of Power: R Senate, R House",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.78
+      },
+      "detail": "This market will resolve according to the change in basis points in the Bank Rate resulting from the November 2026 meeting of the Bank of England\u2019s Monetary Policy Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of England, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 5, 2026, as listed on the official Bank of England calendar (https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates). This market may resolve as soon as the statement or release of the Bank of England's November 2026 Monetary Policy Committee meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "The MPC held Bank Rate at 3.75% on 2026-09-17 by 6-3, with Greene, Mann and Pill voting for a 25 basis point rise, and Governor Bailey's statement says prolonged energy-price volatility makes a rise more likely. CPI was 3.1% in August (ONS, 2026-09-16) and the BoE expected it to rise further; a Reuters poll of 63 economists on 2026-10-12 to 14 had 54 expecting a 25 basis point rise in November, and Pill said on 2026-10-15 that a future hike need not start a long series. Seven straight holds in 2026 and a still-unpublished September CPI (2026-10-21) keep a hold plausible, but three votes already favour a rise and the near-term evidence points the same way.",
+          "sources": [
+            "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+            "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+            "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026",
+            "https://financialnewsletter.com/boe-to-raise-rates-2/",
+            "https://squawknews.com/news/493378-update-1-boe-s-pill-says-a-rate-hike-need-not-be-start-of-long-series"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: BoE has held rates for 7 consecutive meetings in 2026 after a Dec 2025 cut, with no hike in over 3 years. Evidence moving probability up: 86% of economists (54/63) now expect a 25bp hike in November (reversing Sept consensus), 3/9 MPC members voted for hike in Sept, CPI at 3.1% and rising with energy-driven upside risks, and BoE explicitly states prolonged energy volatility makes a hike more likely. Pill's Oct 15 comments signal a hike is coming but not a tightening cycle. Key downside risks: Sept CPI (Oct 21), budget, and labour data before Nov 5 meeting could soften the case if inflation surprises lower or energy prices ease."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.73,
+          "rationale": "Base rate: the Bank of England has not raised rates in over three years, implying a low prior probability of a hike at any given meeting (roughly 10\u201115%). Evidence from the September MPC minutes shows a 6\u20113 split with three members favoring a 25\u202fbp increase, a Reuters poll of economists shows 86% expecting a November hike, and inflation has risen to 3.1% with upward pressure from volatile energy prices, making a hike more likely. These factors shift the probability upward to around 70\u201175%. The main uncertainty is the upcoming September CPI release (due 21\u202fOct); a softer\u2011than\u2011expected print could revive the hold case, while a hot print would strengthen the hike case."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The base rate for any MPC meeting is modest, but the September vote was 6-3 with three members already favouring a 25bp hike, and inflation at 3.1% with energy-price volatility pushing upward. A mid-October Reuters poll found 54 of 63 economists expecting a 25bp rise, and BoE messaging has leaned hawkish, suggesting a hike is likely. The main residual uncertainty is the September CPI release on 21 October and the 28 October budget, which could still sway the committee toward a hold, so I set the probability at 85%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.8,
+          "rationale": "The Bank of England has held rates at 3.75% through all of 2026, but with CPI inflation at 3.1% and rising, the baseline chance of a hike is well above average. The September MPC vote was already 6-3 to hold with three members dissenting for a 25 bps rise, and Governor Bailey's subsequent statement explicitly warned that persistent energy volatility makes a rate increase more likely to return inflation to target; moreover, an October Reuters poll found 54 of 63 economists forecasting a November hike, reflecting a sharp shift in consensus. However, the September CPI report due on 21 October or upcoming labour data and budget announcements could still surprise to the downside, potentially convincing the majority of holdouts that inflation pressures are easing enough to keep rates unchanged."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.86,
+          "rationale": "The base case is a hold, but the evidence has shifted strongly toward a 25 bps hike: inflation is above target and expected to rise, three MPC members voted for a rise in September, and a large economist poll plus market commentary treat a November hike as likely. The main uncertainty is the September CPI print on October 21 and the October 28 budget, which could soften the case if energy prices ease or fiscal policy is less inflationary. Overall, the balance of evidence supports a high but not near-certain probability of a 25 bps increase."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: BoE has held at 3.75% for all seven 2026 meetings, but the September vote was a narrow 6-3 with three members seeking a hike, and inflation is rising (3.1% in August, expected higher). A Reuters poll of 63 economists taken 2026-10-12 to 14 found 54 expecting a 25bp rise in November, a sharp shift from September's ~90% expecting no change. Pill's comments suggest he supports a hike but not a long series, consistent with a one-off 25bp move. The main risks are a softer-than-expected September CPI print (due 2026-10-21) or easing energy prices, which could keep the MPC on hold; conversely, a hot print or hawkish budget on 28 October would push probability higher."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.935
+        }
+      ],
+      "id": "polymarket-3247826",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/bank-of-england-decision-in-november-20260730150602252",
+      "status": "pending",
+      "title": "Bank of England increases interest rates by 25 bps after November 2026 meeting?",
+      "topic": "Economy",
       "verdict": null
     },
     {
@@ -5070,11 +5719,11 @@
     "brier": 0.2468616522653236,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 57,
+    "pending": 67,
     "resolved": 20,
     "right": 9,
     "toss_ups": 0,
-    "total": 78,
+    "total": 88,
     "unscored": 2,
     "wrong": 11
   },

@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-19T10:58:27.658930+00:00",
+      "entry_id": "cfd7541436306b33",
+      "model": "minimax/minimax-m3",
+      "probability": 0.35,
+      "rationale": "Base rate: October 2026 10-year yields have averaged around 5.20, with 9 of 11 prints above 5.10, but the most recent two prints (5.10 on Oct 15, 5.09 on Oct 16) show a sharp downward trend after the weekly low of 5.037. The series is reported to two decimals, so a print of exactly 5.10 resolves No, and the question hinges on a few basis points. Given the recent momentum lower, the Fed on hold, and the FOMC meeting after the observation date, I lean slightly below 50% but keep meaningful probability for a bounce back above 5.10.",
+      "release_event": "dgs10-2026-10-23",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261019",
+  "generated_at": "2026-10-19T10:58:27.658930+00:00",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "method": "judge_minimax_m3_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}

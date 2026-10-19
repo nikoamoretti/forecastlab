@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-19T10:58:27.658930+00:00",
+      "entry_id": "cfd7541436306b33",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "probability": 0.45,
+      "rationale": "The latest 10-year yield (Oct 16) is 5.09%, just below the 5.10% threshold. With five trading days remaining until Oct 23, recent volatility (weekly range ~29 bps) makes a move of a few basis points likely, but the slight downtrend and market pricing of a Fed pause (83% chance) tilt the odds modestly toward staying at or below 5.10%. The base rate for October shows 9 of 11 prints above 5.10%, but the last two were 5.10% and 5.09%, indicating a recent shift. A sharp move on inflation, growth, or geopolitical news could easily flip the outcome.",
+      "release_event": "dgs10-2026-10-23",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261019",
+  "generated_at": "2026-10-19T10:58:27.658930+00:00",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "method": "judge_nemotron_ultra_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}

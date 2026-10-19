@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-19T10:58:27.658930+00:00",
+      "entry_id": "cfd7541436306b33",
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "probability": 0.42,
+      "rationale": "Base rate from the first half of October shows about 82% of observations above 5.10%, but the last two days have been at or below the threshold and the yield has been falling over the week, putting the current level around 5.09\u20115.10%. The distance to the 5.10% cutoff is only about one basis point, while the recent weekly range is roughly 29 basis points, so modest moves in either direction could decide the outcome. With no major policy event before the Oct\u202f23 close (the next FOMC meeting is Oct\u202f27\u201128) and markets already pricing in a pause, the drift is slightly downward, leading to a modestly sub\u201150% chance of finishing above 5.10%.",
+      "release_event": "dgs10-2026-10-23",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261019",
+  "generated_at": "2026-10-19T10:58:27.658930+00:00",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "method": "judge_nemotron_super_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}
