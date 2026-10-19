@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-19T10:56:56+00:00",
+      "entry_id": "cfd7541436306b33",
+      "probability": 0.46,
+      "rationale": "Treasury's par curve had the 10-year CMT at 5.10 on 2026-10-15 and 5.09 on 2026-10-16, down from 5.31 on 2026-10-05, so the series sits right on the 5.1 threshold (a print of exactly 5.10 resolves No). Nine of 11 October prints were above 5.10 and the statistical baseline is 0.53, but the latest two prints and a week of falling yields (Reuters, 2026-10-16: 5.087 percent, biggest weekly loss in over a year) put the starting point a basis point below the line. With about five trading days left and a weekly range near 29 basis points, the outcome is close to a coin flip, shaded slightly below even.",
+      "release_event": "dgs10-2026-10-23",
+      "sources": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
+        "https://www.federalreserve.gov/releases/h15/",
+        "https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year",
+        "https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261019",
+  "generated_at": "2026-10-19T10:56:56+00:00",
+  "manifest_hash": "92b7527d9f0735ba2fe87e431fac7c6193b4ae13dce896ef80f988b10a0bde8e",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
