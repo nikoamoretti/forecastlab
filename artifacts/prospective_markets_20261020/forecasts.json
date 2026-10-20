@@ -19,6 +19,30 @@
             "https://forecasteconomy.com/currencies/indicator/sol-usd",
             "https://www.coindesk.com/tech/2026/10/14/solana-sets-oct-21-for-alpenglow-upgrade-targeting-150-millisecond-finality"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.6,
+          "rationale": "The daily low on 18 October reached 100.43\u2013100.51 on Binance SOL/USD, within 0.5% of the $100 threshold, and 1\u2011minute wicks often penetrate slightly below daily lows. With 11 days remaining, current price ~$104 (\u22484% above target), recent daily moves of 1\u20135%, and the Alpenglow upgrade on 21 October adding event\u2011driven volatility, the chance of a 1\u2011minute candle printing \u2264$100 is elevated. However, the market has not yet resolved, implying no such 1\u2011minute low occurred in the first 20 days, which tempers the probability."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate is moderate given SOL is ~4% above $100 on Oct 20 with 11 days left, but the price has repeatedly approached $100 (lowest daily low $100.43 on Oct 18) and is in a downtrend. However, the absence of a confirmed sub-$100 one-minute low from Binance SOL/USDT data by Oct 20, combined with the potential for the Alpenglow upgrade to cause short-term volatility, leaves a fair chance but no certainty. A break below $100 in the remaining days would require a move of similar magnitude to recent daily swings, which is plausible but not guaranteed."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.55,
+          "rationale": "Solana\u2019s daily lows already came within roughly 0.5% of $100 on 15 and 18 October, and intraday ranges of 4\u20139% have been common this month, so a 4% drop from the current ~$104 level is well within recent price action over the remaining 11 days. The resolution depends on Binance SOL/USDT one-minute candles, which track the SOL/USD data closely, and the upcoming Alpenglow upgrade on 21 October adds event-driven volatility that could push the price toward the threshold. If the upgrade triggers a sustained bullish rally or support solidifies above $103, the probability falls, whereas any renewed selling would likely break $100 given its proximity."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: with 11 days left and price ~4% above $100, a touch requires a move the series has produced repeatedly (e.g., 5.7% drop on Oct 8, 5% on Oct 12). Evidence: multiple sources show a daily low of $100.43\u2013$100.51 on Oct 18, tantalizingly close to the $100 line, and the price has since recovered only modestly to ~$104. The Alpenglow upgrade on Oct 21 introduces event risk that could push price either way. The market would resolve Yes immediately if any 1-minute candle prints \u2264$100, and the recent volatility pattern makes this plausible but not certain."
         }
       ],
       "id": "polymarket-5170805",
@@ -48,6 +72,30 @@
             "https://uk.investing.com/commodities/crude-oil-historical-data",
             "https://www.fxstreet.com/news/wti-rises-above-9900-as-iran-warns-of-wider-blockade-202610200615"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.18,
+          "rationale": "The active-month December 2026 WTI contract (CLLZ6) is trading near $99.91 on 20 Oct, and none of the 14 completed October sessions saw the active month reach $105. A 5% rally to $105 in the remaining ~9 sessions is possible given tight inventories and Iran's blockade threats, but the Strait of Hormuz remains open and the market has not yet broken $101 this month. The 52-week high of $117.63 shows such moves are feasible, but they require a concrete supply disruption catalyst that has not yet materialized."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "Base rate: In the first 14 October sessions, no active-month print reached $105, with the active December contract at ~$99.91 as of Oct 20. The expired November contract briefly displayed $103.57 but is inactive and irrelevant. A ~5% rise in remaining ~9 sessions is possible but requires significant escalation (e.g., Hormuz blockade widening) given current range highs of ~$100.73. Unless such escalation drives a sharp spike, $105 is unlikely; prior 52-week highs above $117 show it's not impossible, but current incentives are only modestly bullish (large stock draw, Iran rhetoric)."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.17,
+          "rationale": "The base rate is that none of the 14 October trading sessions so far have recorded an active-month high at or above $105, and the December 2026 contract\u2014the current active month\u2014was trading near $99.91, requiring roughly a 5% rally over the remaining nine sessions. The front-month November contract expired at $103.57 without hitting the threshold, suggesting even prompt-month supply tightness was insufficient, while the December contract trades at a material discount. Geopolitical threats from Iran and a large inventory draw are bullish tail risks, but a verified active-month print above $105 would likely require an actual supply-disrupting escalation rather than the current rhetoric, keeping the probability low but non-negligible."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "Base rate: WTI has spent most of 2026 well below $105, and through 19 of October's ~21 trading sessions the active-month contract has stayed under $100 per Investing.com's daily highs (max 99.71). The December contract (now active) sits at ~$99.91 on Pyth, requiring a ~5% spike in roughly nine remaining sessions. The expired November contract showed $103.57 but is inactive and doesn't count. Geopolitical risk (Iran/Hormuz) provides some upside tail, but a sustained move to $105+ in the remaining window is unlikely. A confirmed Hormuz closure or major supply disruption could push this higher."
         }
       ],
       "id": "polymarket-4951227",
@@ -77,6 +125,36 @@
             "https://arena.ai/company/leaderboard-changelog",
             "https://www.allthingsmuse.com/articles/muse-wonder-full-webdev-arena-debut/"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.88,
+          "rationale": "Anthropic's Claude Opus 5.5 (Max) holds a commanding 33-point lead over OpenAI's GPT-6 Astra (Max) as of October 19, well beyond the \u00b114/\u00b110 confidence intervals and Arena's 5-point statistical indistinguishability threshold. The lead has persisted across two snapshots (Oct 8 and Oct 19), giving a 100% base rate in the available window. However, with 12 days until resolution, a new model could launch, accumulate enough human votes to exit AutoEval status, and surpass the leader, or vote accumulation could shift scores\u2014though the gap is large enough to make this unlikely."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate from two snapshots (Oct 8 and Oct 19) shows Anthropic's Claude Opus 5.5 (Max) firmly in first place with a 33-point lead over OpenAI's GPT-6 Astra (Max), well beyond the 5-point statistical indistinguishability threshold. The lead is large relative to the reported confidence intervals, and the short time until the check (11 days) makes it unlikely that a new model could accumulate enough human votes to surpass it, especially given that recent high-profile additions like Muse Wonder Full debuted far behind. The main risk is a sudden, highly capable new model or a significant score drop for the leader, but these are low-probability events."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.8,
+          "rationale": "Anthropic leads both mid-October snapshots with a stable 33-point margin over OpenAI that exceeds the models' confidence intervals, and recent entrants like Meta's Muse Wonder Full are more than 80 points behind. While the remaining 11 days leave room for an unannounced non-AutoEval model to overtake or for vote shifts to tighten the race, the incumbent lead and high existing vote counts on the top two models make an Anthropic victory the most likely outcome."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.88,
+          "rationale": "Anthropic's Claude Opus 5.5 (Max) was rank 1 on both the Oct 8 and Oct 19 snapshots, 33 points ahead of OpenAI's GPT-6 Astra with non-overlapping uncertainty, and the strongest new non-Anthropic entrant, Muse Wonder Full, debuted 81 points behind. The main risks are score drift as the leader accumulates more votes, a strong new non-Anthropic model leaving AutoEval status, or leaderboard unavailability. Given the current margin and stability, I assign a high but not near-certain probability."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Anthropic's Claude Opus 5.5 (Max) holds rank 1 on both the Oct 8 and Oct 19 snapshots with a 33-point lead over GPT-6 Astra, well outside the stated confidence intervals. The base rate from these two snapshots is 2/2 in Anthropic's favor. The lead could be overturned if a new model (e.g., from OpenAI, Meta, or Google) accumulates enough human votes to surpass Opus 5.5, or if Opus 5.5's score drops materially as more votes arrive, but the current margin makes this unlikely over the remaining ~12 days."
         }
       ],
       "id": "polymarket-3554548",
@@ -106,6 +184,36 @@
             "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-19-2026",
             "https://interfax.com.ua/news/general/1221814.html"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.1,
+          "rationale": "Base rate: ISW recorded only three Russian settlement seizures in Donetsk Oblast over ~6 weeks (since Sep 1) against a net Russian territorial loss of 198 sq km. Current evidence shows Svitle remains in the infiltration (grey) zone per both ISW (Oct 13, 16) and DeepState (Oct 17), with Ukrainian forces advancing nearby as of Oct 19. ISW explicitly assesses Russian tactics cannot produce a sudden breakthrough. For a 'Yes' resolution, the intersection must be shaded as Assessed Russian-Controlled Terrain or Advances and persist through a full ISW update cycle within the next 11 days, which would require a shift from infiltration to consolidated control contrary to recent trends."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "The base rate of Russian settlement seizures in Donetsk Oblast is low (three in about six weeks) amid net territorial losses. Current ISW and DeepState assessments show only infiltration missions near Svitle, not consolidated control, with Ukrainian forces counterattacking and advancing nearby. Within the 11-day window, a shift to assessed Russian control or advance that persists through an ISW update cycle is unlikely but not impossible if infiltration solidifies."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.1,
+          "rationale": "Russia has seized only three settlements in Donetsk Oblast over the past six weeks while suffering a net territorial loss, and ISW currently assesses activity near Svitle as limited infiltration rather than consolidated control or assessed advances. Ukrainian forces are actively contesting the area, recently advancing east of Dobropillya, and ISW judges that such small-group infiltration tactics cannot enable a sudden breakthrough. The probability would rise if geolocated evidence emerged showing Russian forces consolidating at the exact intersection, prompting ISW to update its map with qualifying shading that persists through a full daily cycle."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a specific intersection in a contested village to move from infiltration to assessed Russian control within 11 days is low, especially when ISW has repeatedly described only limited Russian infiltration near Dobropillya and Svitle. The strongest evidence of nearby Russian gains is DeepState's report of advances near Svitle, but it explicitly says Svitle remained in the grey infiltration zone, and ISW reported Ukrainian counter-advances and no consolidated Russian advance into Dobropillya. A Yes would require ISW to shade the exact intersection as assessed Russian-controlled terrain or assessed Russian advances and have it persist through a full update cycle, or an actual negotiated transfer, neither of which is currently indicated."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "Base rate: ISW reports only three Russian settlement seizures in Donetsk Oblast over ~6 weeks since Sept 1, with a net Russian territorial loss of 198 sq km, and explicitly states no evidence of Russian advance into Dobropillya beyond limited infiltration. Svitle is currently in the grey infiltration zone per DeepState (Oct 17), and ISW characterizes Russian presence there as infiltration missions, not consolidated control. The 11-day window is short, and converting an infiltration zone to assessed Russian control requires evidence of consolidated presence, which has not materialized. A negotiated settlement with actual Russian control is unlikely in this timeframe. Probability could rise if ISW publishes geolocated evidence of Russian consolidation at the specific intersection, or fall to near zero if Ukraine counter-advances."
         }
       ],
       "id": "polymarket-3372768",
@@ -135,6 +243,36 @@
             "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/",
             "https://bitcoinist.com/1win-public-sale-hits-3-9-million-in-commitments-within-minutes/"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.02,
+          "rationale": "The sale hit $3.9M in 8 minutes but has since grown only to ~$5.66M by Oct 17 (1.45x oversubscribed), with daily inflows decelerating to a few hundred thousand dollars. Reaching $60M would require a ~10x surge in the remaining ~11 days, far exceeding typical token sale oversubscription patterns and the observed trajectory. No evidence suggests a pending catalyst (major exchange listing, whale influx, or marketing blast) that could drive such an extreme late rally."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The sale raised ~$5.66M in its first two days, with growth slowing to a few hundred thousand dollars per day. Reaching over $60M would require a >10x surge in the remaining 10 days, which is extremely unlikely given the oversubscription model disincentivizes large deposits and no major catalyst is evident. The base rate for such token sales is that extreme oversubscription is rare."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "The base rate from the first five days shows explosive initial demand ($3.9M in eight minutes) but a sharp deceleration afterward, with only about $5.7M committed by October 17 and no verified figure since. Reaching $60M would require more than a tenfold increase in roughly ten days, a pace unsupported by current wallet participation or reported momentum. Probability could rise if 1win mobilizes its 100 million registered users, attracts large whale deposits, or extends the sale window, but absent such a catalyst the total is likely to remain far below the threshold."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.03,
+          "rationale": "The base rate is very low because the sale's allocation is only $3.9M and verified commitments were about $5.3M-$5.7M by October 16-17, with growth slowing to a few hundred thousand dollars per day. Exceeding $60M would require more than 10x the latest verified total and roughly 15x the allocation, which is far above the observed path and the project's own 5x oversubscription example. A late viral surge, whale deposits, or an official gross figure much higher than the 17 October reading could change this, but no credible evidence currently points to that."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for a small public token sale reaching 10x its current oversubscription is very low. As of 17 October, commitments were ~$5.66M against a $3.9M allocation, with growth of only a few hundred thousand per day after the initial 8-minute surge. Reaching $60M would require more than 10x the latest verified total, which is implausible given the modest daily inflow, the niche audience (online casino/betting brand), and the exclusion of US and several EU residents. A late surge or major change to terms could move this, but no evidence supports such a scenario."
         }
       ],
       "id": "polymarket-5786298",
@@ -164,6 +302,36 @@
             "https://www.cbr.ru/eng/statistics/ddkp/mo_br/",
             "https://www.cbr.ru/eng/dkp/mp_dec/"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "Base rate: after a long easing cycle (9 cuts in 14 months), the Bank paused in September citing increased proinflationary risks and underlying inflation accelerating to 5-6%. Evidence: September inflation at 6.4% vs 4% target, October 14 communication notes price growth 'markedly above' target, analyst survey expects key rate to average 14% for rest of 2026 (implying no cuts), and baseline forecast sees 6-7% inflation for 2026. The Bank's language emphasizes 'carefully calibrated decisions' rather than imminent easing. A cut would require a clear disinflation signal not present in the data."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a rate cut at a meeting following a pause with inflation well above target is very low. The Bank of Russia's September statement highlighted increased proinflationary risks and elevated price pressures, and the October 14 bulletin noted inflation remains markedly above target. The analyst survey median expects the key rate to stay at 14.0% through year-end, and there is no signal of an imminent cut. A decrease would require a sharp unexpected drop in inflation or a much smaller budget deficit, which current data do not support."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "The Bank of Russia cut rates at nine of its last ten meetings, but the September pause reflected prevailing proinflationary risks with inflation at 6.4%, well above the 4% target. The October analyst survey implies the key rate will average 14.00% for the remainder of 2026, and the Bank\u2019s 14 October bulletin stressed that inflation remains markedly above target, making a resumption of easing unlikely. However, the October meeting will incorporate updated budget projections, and a smaller-than-expected deficit or markedly weaker inflation data could prompt a surprise cut. The probability would rise if the Bank signals before the meeting that it intends to lower rates."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The 2026 easing cycle makes cuts a plausible base case, but the September hold and the Bank's warning that proinflationary risks now prevail argue against an immediate cut. September inflation at 6.4% and the analyst survey implying a 14.0% average key rate for the rest of 2026 both point to a hold. A decrease would require a clear pre-meeting signal of weaker inflation or a smaller fiscal deficit, which is not present in the evidence."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The Bank of Russia paused its easing cycle in September after inflation accelerated to 6.4% (well above the 4% target), with underlying inflation at 5-6% annualized. The October 14 Talking Trends bulletin noted that while seasonally adjusted price growth slowed, it remained 'markedly above' target, and the analyst survey raised the 2026 year-end inflation forecast to 7.1% with the median key rate forecast implying 14.0% for the remainder of 2026. Given the hawkish tone, elevated inflation, and analyst consensus pointing to no change, a cut is unlikely but not impossible if the October statement shows a more favorable budget outlook or sharper disinflation."
         }
       ],
       "id": "polymarket-3081958",
@@ -193,6 +361,30 @@
             "https://www.politico.com/news/2026/10/19/california-billionaire-tax-poll-01125462",
             "https://ballotpedia.org/California_Ballot_Measures:_Historical_Ballot_Measures_Factbook"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.38,
+          "rationale": "Proposition 40 qualified for the November 2026 ballot as a one-time 5% wealth tax on billionaires, but a Citrin-POLITICO poll on October 19 shows only 46% support vs 43% opposition, short of a majority. Historical base rate for California initiatives is 36% passage. The measure faces a unique nullification risk: if competing Propositions 41 or 42 receive more yes votes, Prop 40 could be blocked even with a majority. With ballots already mailing and two weeks until Election Day, the race is competitive but currently leaning against passage."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.48,
+          "rationale": "The base rate for California ballot initiatives is 36%, but Proposition 40 is polling at 46% yes, 43% no with 11% undecided as of October 19, 2026. The poll shows it just short of a majority, and undecided voters historically break against tax measures, though high-profile support could help. The outcome is highly uncertain, with late spending or shifts among undecideds potentially changing it."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "The base rate for California ballot initiatives is about 36% approval, but this is a tax measure and the latest likely-voter poll shows only 46% support versus 43% opposition, with ballots already mailed and little movement. Proposition 40 must not only reach a majority but also outvote the competing anti-tax measures 41 or 42, which adds a meaningful nullification risk. The main upside is a late swing among undecideds or weak support for the rival measures; the main downside is that tax measures and this one-time billionaire tax remain below majority support."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for California ballot initiatives passing is 36%, but this measure has a unique complication: Propositions 41 and 42 on the same ballot could nullify Prop 40 even if it wins a majority. The latest Citrin-POLITICO poll shows 46% support vs 43% opposed, which is below majority and suggests the measure is in genuine jeopardy. The nullification risk from competing measures adds meaningful downside, so I estimate slightly above the base rate but well below 50%."
         }
       ],
       "id": "polymarket-648383",
@@ -222,6 +414,30 @@
             "https://www.newsfromthestates.com/article/2-weeks-until-midterms-analysts-say-dems-still-track-win-us-house-majority",
             "https://www.cookpolitical.com/print/ratings/races/house"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "The base rate shows the president's party loses House seats in 90% of midterms (18 of 20 since 1946). The current generic ballot shows Democrats leading by 8 points (52-44), historically consistent with a double-digit seat gain for the out-party. Cook Political Report rates 24 Republican seats as toss-up or worse versus only 10 Democratic seats, and its top analyst projects a Democratic net gain of 10-20 seats. Republicans currently hold exactly 218 seats, so even a modest Democratic gain of 3+ seats would cost them the majority. The probability could increase if the generic ballot tightens significantly, Cook shifts many toss-ups toward Republicans, or the new congressional maps prove more favorable to Republicans than the national swing suggests."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.13,
+          "rationale": "The base rate is strongly against the president's party in midterms, and current indicators are worse for Republicans: Trump's approval is 33%, the generic ballot is D+8, and Cook projects a Democratic net gain of 10-20 seats. Cook's ratings show Democrats closer to 218 (203 solid/likely/lean vs 192 for Republicans) with Republicans defending far more toss-up seats. I therefore estimate only about a 13% chance Republicans hold a majority, with the main upside risk being a polling miss or district-level map effects."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "The base rate from 1946-2022 shows the president's party loses House seats in 90% of midterms, and Republicans enter the final two weeks with only 218 seats. An ABC/Post/Ipsos poll gives Democrats a 52%-44% generic ballot lead, Trump\u2019s approval is at a record-low 33%, and Cook Political Report projects a Democratic net gain of 10\u201320 seats\u2014well above the three needed for a majority\u2014while Republicans defend 24 toss-up seats to Democrats\u2019 ten. Republicans could still retain control if the polls systematically underestimate their support or if the new mid-decade maps provide a much larger structural cushion than forecasters currently assume."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate strongly favors the president's party losing House seats in midterms (18 of 20 since 1946), and Republicans start with only a 3-seat majority (218-214). The ABC/Post/Ipsos poll shows Democrats leading the generic ballot by 8 points with Trump at a record-low 33% approval, and Cook's top analyst projects a Democratic net gain of 10-20 seats. Cook's ratings show 34 Republican seats at toss-up or worse versus only 10 Democratic, and mid-decade redistricting in several states further complicates the map for Republicans. The probability would rise if late polling or Cook ratings shifted toward Republicans, but current evidence points clearly toward a Democratic takeover."
         }
       ],
       "id": "manifold-uISNlAqC2E",
@@ -251,6 +467,36 @@
             "https://www.anthropic.com/claude-haiku-5-5",
             "https://openai.com/index/devday-2026-recap/"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.08,
+          "rationale": "Base rate is very low: Anthropic's highest individual tier has been $200 (Max 20x) with no history of $400+ consumer plans. The only recent move (Oct 7) added API credits to existing tiers, not a new price point. OpenAI's Pro 500 ($500) launched Sep 29 creates competitive pressure, but 11 days is an extremely short window for Anthropic to design, approve, and announce a new tier. No leaks, rumors, or preparatory signals appear in the evidence. Probability would rise sharply if credible reporting emerged of an imminent launch event or pricing page staging."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "Base rate: Anthropic has never offered a $400+ individual plan, and current Max tiers top out at $200. Evidence: As of October 20, 2026, official pages show no higher tier, and the recent API credit addition (Oct 7) suggests a focus on value-adds rather than a new price tier. The short remaining time (until Nov 1) makes a sudden $400+ announcement unlikely without prior signals, which are absent."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.13,
+          "rationale": "Anthropic's highest individual tier remains Max 20x at $200/month, and its October 7 update only added API credits to existing plans rather than launching a new, more expensive subscription. With roughly eleven days left and no credible leaks or hints in recent reporting, the base rate for a surprise announcement of a $400+ tier is low. Although Anthropic could theoretically rush out a competitive response to OpenAI's $500 Pro 500 plan, the absence of any preparatory signals makes this unlikely."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a major AI lab to match a competitor's new ultra-premium individual tier within about two weeks is modest, but Anthropic's current top individual plans are still $100 and $200, and its recent move was adding API credits rather than launching a higher-priced subscription. As of October 20, official Claude pricing and help pages show no $400+ individual tier, and there is no credible reporting of one being imminent. A YES would require a surprise official announcement or pricing-page confirmation in the remaining 11 days, so the probability is low but nonzero."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "Base rate: Anthropic's current top individual tier is Max 20x at $200/month, and there is no public indication of a $400+ tier in development. OpenAI's $500 Pro 500 announcement on Sept 29 creates competitive pressure, but Anthropic has not signaled a response in the 3 weeks since, and their recent moves (Oct 7 API credits) focused on enhancing existing plans rather than launching new premium tiers. With only ~12 days until the deadline and no leaked announcements or credible reporting of an imminent $400+ tier, the probability is low but not negligible given the competitive dynamic. A sudden announcement in the next 12 days would be required for YES."
         }
       ],
       "id": "manifold-tAzh2Qytdl",
@@ -280,6 +526,36 @@
             "https://txelectionresults.com/runoffs/2026",
             "https://en.wikipedia.org/wiki/1988_United_States_Senate_election_in_Texas"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.38,
+          "rationale": "The base rate is extremely unfavorable for Democrats: no Democratic win in a Texas Senate race since Lloyd Bentsen in 1988 (0-for-9+ since). Current evidence shows a statistical tie \u2014 Marist poll has Talarico +2 within a \u00b14.9 MoE, RCP average +2.2 \u2014 and a fundraising edge for Talarico ($64M vs $18M in Q3), but Republican outside spending dominates ($368M vs $132M). Independents lean Talarico, yet 53% of likely voters expect Paxton to win. The Libertarian and write-in candidates could siphon votes. A Democratic win is plausible but remains an uphill battle given Texas's durable Republican lean; probability would rise with a clear polling lead outside MoE or strong early-vote turnout data favoring Talarico."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "Texas has not elected a Democratic senator since 1988, a strong Republican baseline. Late October polls show Democrat James Talarico narrowly leading Republican Ken Paxton (47%-45% in Marist, RCP average +2.2) with a large campaign fundraising edge, but the lead is within the margin of error and Texas-specific polling shows Republicans leading the generic ballot. Given the state's GOP lean and history of polls underestimating Republicans here, I treat this as a tossup with a slight Republican tilt, so a Democratic win is roughly 45%."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Republicans have won every Texas Senate race since 1988, giving Democrats a very low base rate. However, the latest Marist poll shows a statistical tie within the margin of error, Talarico has dramatically outraised Paxton, and national midterm fundamentals with low presidential approval favor Democrats. The race remains a toss-up, but GOP advantages in Texas generic-ballot preference and outside spending keep Republicans slightly favored."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.52,
+          "rationale": "Texas Senate races have been overwhelmingly Republican since 1988, but the latest polls show Talarico with a small lead (Marist +2, RCP +2.2) and a large reported Q3 fundraising advantage. The GOP-favorable Texas generic ballot, Paxton's name recognition, and the red state base rate keep the race close and prevent a strong Democratic edge. Further polling, early-vote turnout, and final mail-ballot counts could move the result either way."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate is very low: no Democrat has won a Texas Senate race since 1988. However, the Marist poll shows Talarico leading Paxton 47%-45% among likely voters, and the Real Clear Politics average has Talarico up by 2.2 points, suggesting a genuinely competitive race. Talarico's massive fundraising advantage ($64M vs $18M in Q3) and the national environment favoring Democrats (52%-44% House ballot lead) further support Democratic chances. The race is within margins of error, so this remains a toss-up, but the evidence tilts slightly toward Democrats given the consistent small leads in polling."
         }
       ],
       "id": "manifold-SyhgEZC68s",
@@ -309,6 +585,30 @@
             "https://gamequant.io/app/ios/6760173601/muse-from-meta",
             "https://www.benzinga.com/markets/tech/26/10/62434096/metas-muse-racks-up-10-million-downloads-but-its-path-to-profits-remains-unclear"
           ]
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.28,
+          "rationale": "Base rate from the last 90 days shows Muse held #1 only 29/90 days (32%) with high churn (9.5% daily) and five apps sharing the top spot. As of Oct 20, the official Apple feed shows Muse at #3 behind Capital One Mobile and Vinted, suggesting its 25-day #1 streak has ended. Meta's Oct 21 earnings and heavy promotion could drive a rebound in the 11 remaining days, but launch-driven peaks typically fade by week 6 (day 43 post-launch) and Muse's retention/open rates lag ChatGPT. The current downward trajectory and strong competition make a sustained return to #1 by Oct 31 unlikely but not impossible."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for a single app holding #1 for over a month is low, and Muse has already fallen to #3 on October 20 after a long run. Its download peak passed on day 12, retention and open rates lag ChatGPT, and the chart is volatile (9.5% daily churn). Meta's promotion and earnings cycle could briefly push it back up, but sustained #1 through October 31 is unlikely given the current downward trend and strong competition."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: The US #1 free iPhone spot is volatile, with 9.5% daily churn and the top rank shared among many apps over the past 90 days. Evidence: The official Apple feed on Oct 20 shows Muse at #3 behind Capital One Mobile and Vinted, while third-party trackers claiming a recent #1 contradict this authoritative snapshot; combined with BNP Paribas data showing downloads peaked and retention lags ChatGPT, Muse appears to be losing organic momentum despite heavy promotion. What could change it: Meta could mount a renewed campaign around its Oct 21 earnings or Halloween to push Muse back to #1, and surges by banking or shopping apps are often short-lived, but sustaining the exact #1 position at the Oct 31 snapshot is uncertain."
+        },
+        {
+          "created_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: over 90 days, #1 was split across 5 apps with 9.5% daily churn, so any single app holding #1 on a specific future date is well below 50%. Muse was #1 for 29 of 90 days but has already slipped to #3 on Oct 20 per the official Apple feed, with Capital One Mobile and Vinted ahead. The app's downloads have stabilized post-peak and retention lags ChatGPT, suggesting organic momentum is fading, though Meta's heavy promotion and the Oct 21 earnings cycle could push it back up. The deciding factor is whether Meta can re-promote Muse to #1 in the final week; given it's currently #3 and trending down, I'd put the odds modestly below the historical hit rate."
         }
       ],
       "id": "manifold-nngCdzg62E",
