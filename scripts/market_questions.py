@@ -2,7 +2,7 @@
 """Daily questions borrowed from Polymarket and Manifold (rule: forecastlab.market_questions).
 
   python scripts/market_questions.py prepare                   # artifacts/prospective_markets_<date>/
-  python scripts/market_questions.py record <dir> <forecasts.json>
+  python scripts/market_questions.py record <dir> <forecasts.json> [--skip <id>[,<id>...]] [--skip-failed]
   python scripts/market_questions.py resolve                   # every open market question
 
 ``prepare`` writes ``questions.json`` (question, rules, close time) and, separately,
@@ -16,6 +16,10 @@ market odds seen in a search result; such a question is marked ``unscored``, so 
 the page but counts in no score), checks that every question is covered, that probabilities lie
 in [0.02, 0.98] and that the forecast was made before each market closes, and writes
 ``forecasts.json``, which the track record reads.
+
+``--skip`` names questions that get no forecast today; ``--skip-failed`` adds the ids under
+``failed`` in the directory's ``research.json``. Skipped questions are printed and listed under
+``skipped`` in ``forecasts.json`` with a reason; any other uncovered question is still refused.
 
 ``resolve`` records the market's final result (Polymarket or Manifold) for questions whose market has closed.
 """
@@ -85,7 +89,7 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
     return directory
 
 
-def record(directory: Path, forecasts_path: Path) -> Path:
+def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, skip_failed: bool = False) -> Path:
     selected = json.loads((directory / "questions.json").read_text())
     questions = {q["id"]: q for q in selected["questions"]}
     snapshot = json.loads((directory / "market_snapshot.json").read_text())
@@ -93,11 +97,24 @@ def record(directory: Path, forecasts_path: Path) -> Path:
     data = json.loads(forecasts_path.read_text())
     made_at = _parse(data["forecast_made_at"])
     forecasts = {f["id"]: f for f in data["forecasts"]}
-    if set(forecasts) != set(questions):
-        raise SystemExit(f"forecasts must cover exactly the questions: missing {sorted(set(questions) - set(forecasts))}, "
+    skipped = {identifier: "no research" for identifier in skip or ()}
+    if skip_failed:
+        research = directory / "research.json"
+        failed = json.loads(research.read_text()).get("failed", {}) if research.exists() else {}
+        for identifier in failed:
+            skipped.setdefault(identifier, "research failed or timed out")
+    if set(skipped) - set(questions):
+        raise SystemExit(f"cannot skip unknown questions: {sorted(set(skipped) - set(questions))}")
+    if set(skipped) & set(forecasts):
+        raise SystemExit(f"questions both skipped and forecast: {sorted(set(skipped) & set(forecasts))}")
+    if set(forecasts) | set(skipped) != set(questions) or set(forecasts) - set(questions):
+        raise SystemExit(f"forecasts must cover exactly the questions: missing {sorted(set(questions) - set(forecasts) - set(skipped))}, "
                          f"unknown {sorted(set(forecasts) - set(questions))}")
     out = []
     for qid, question in questions.items():
+        if qid in skipped:
+            print(f"{directory.name}: skipped {qid} ({skipped[qid]})")
+            continue
         forecast = forecasts[qid]
         probability = float(forecast["probability"])
         if not 0.02 <= probability <= 0.98:
@@ -115,10 +132,13 @@ def record(directory: Path, forecasts_path: Path) -> Path:
                 {"method": data.get("method", CLAUDE_METHOD), "probability": probability, "created_at": made_at.isoformat(),
                  "rationale": forecast.get("rationale", ""), "sources": forecast.get("sources", [])}]})
     target = directory / "forecasts.json"
-    target.write_text(json.dumps({"schema": "market_questions_v1", "selection": selected.get("selection", SELECTION_VERSION), "note": (
+    record_data = {"schema": "market_questions_v1", "selection": selected.get("selection", SELECTION_VERSION), "note": (
         "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at "
         "selection is a benchmark, "
-        "not part of our call; our forecasters did not look at it."), "questions": out}, indent=2, sort_keys=True) + "\n")
+        "not part of our call; our forecasters did not look at it."), "questions": out}
+    if skipped:
+        record_data["skipped"] = [{"id": i, "reason": r} for i, r in sorted(skipped.items())]
+    target.write_text(json.dumps(record_data, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: recorded {len(out)} forecasts")
     return target
 
@@ -155,8 +175,18 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
 def main(argv: list[str]) -> int:
     if argv[:1] == ["prepare"]:
         prepare()
-    elif argv[:1] == ["record"] and len(argv) == 3:
-        record(Path(argv[1]), Path(argv[2]))
+    elif argv[:1] == ["record"] and len(argv) >= 3:
+        rest, skip, skip_failed = argv[3:], set(), False
+        while rest:
+            flag = rest.pop(0)
+            if flag == "--skip-failed":
+                skip_failed = True
+            elif flag == "--skip" and rest:
+                skip |= {i for i in rest.pop(0).split(",") if i}
+            else:
+                print(__doc__)
+                return 2
+        record(Path(argv[1]), Path(argv[2]), skip, skip_failed)
     elif argv[:1] == ["resolve"]:
         resolve()
     else:

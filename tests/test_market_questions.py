@@ -199,3 +199,28 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     fed = next(q for q in record["questions"] if q["id"] == "manifold-f1")
     assert (fed["status"], fed["actual"], fed["verdict"]) == ("resolved", "Manifold: Yes", "wrong")
     assert fed["call"] == {"method": "combined_median_v1", "probability": 0.3, "members": 1}  # benchmark excluded
+
+
+def test_record_skips_questions_without_research(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, fake_fetch)
+    assert directory is not None
+    ids = [q["id"] for q in json.loads((directory / "questions.json").read_text())["questions"]]
+    answers = tmp_path / "claude.json"
+    answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
+        {"id": i, "probability": 0.6, "rationale": "Because.", "sources": []} for i in ids[2:]]}))
+    with pytest.raises(SystemExit, match="missing"):
+        script.record(directory, answers)
+    (directory / "research.json").write_text(json.dumps({"failed": [ids[0]]}))
+    with pytest.raises(SystemExit, match="missing"):
+        script.record(directory, answers, skip_failed=True)  # ids[1] is still uncovered
+    script.record(directory, answers, skip={ids[1]}, skip_failed=True)
+    recorded = json.loads((directory / "forecasts.json").read_text())
+    assert [q["id"] for q in recorded["questions"]] == ids[2:]
+    assert recorded["skipped"] == [{"id": ids[0], "reason": "research failed or timed out"}, {"id": ids[1], "reason": "no research"}]
+    assert f"skipped {ids[1]} (no research)" in capsys.readouterr().out
+    with pytest.raises(SystemExit, match="unknown"):
+        script.record(directory, answers, skip={"nope"})
+    with pytest.raises(SystemExit, match="both skipped and forecast"):
+        script.record(directory, answers, skip={ids[0], ids[2]})
