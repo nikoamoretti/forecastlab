@@ -1,0 +1,1296 @@
+{
+  "failed": {
+    "polymarket-562793": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nToday is 2026-10-20 (UTC).\\nQuestion: Will the Democra"
+  },
+  "findings": {
+    "manifold-SyhgEZC68s": {
+      "base_rate": "Reference class: U.S.\nSenate general and special elections in Texas after Lloyd Bentsen\u2019s 1988 win.\nNo Democrat won any of those contests through the 2024 election; Republicans won every Texas Senate race in that span.",
+      "facts": [
+        {
+          "fact": "As of the Texas Secretary of State page updated October 14, 2026, the November 3, 2026 U.S.\nSenate general election listed Ken Paxton (Republican), James Talarico (Democratic), Ted Brown (Libertarian), and write-ins Avery Ayers, Bradford Hall, Zul Mohamed, and Jade Simmons, with 0% of polling locations reporting.",
+          "source": 0
+        },
+        {
+          "fact": "The Texas Secretary of State calendar sets the uniform election for Tuesday, November 3, 2026, with voter registration ending October 5, 2026, and in-person early voting from October 19 through October 30, 2026.",
+          "source": 1
+        },
+        {
+          "fact": "In the March 3, 2026 Democratic primary for U.S.\nSenate, final results showed James Talarico with 1,216,412 votes (52.5%) and Jasmine Crockett with 1,071,900 (46.2%) of 2,319,187 ballots.",
+          "source": 2
+        },
+        {
+          "fact": "In the May 26, 2026 Republican primary runoff, with 254 of 254 counties reported, Ken Paxton received 885,949 votes (63.8%) and incumbent John Cornyn 501,725 (36.2%) of 1,387,674 Republican ballots.",
+          "source": 3
+        },
+        {
+          "fact": "A Marist poll of Texas likely voters, interviewed October 8\u201311, 2026, found James Talarico at 47% and Ken Paxton at 45%, with a margin of error of plus or minus 4.9 percentage points.",
+          "source": 4
+        },
+        {
+          "fact": "CBS Texas reported on October 18, 2026 that Talarico\u2019s campaign said he raised $64 million in the third quarter and that Paxton raised $18 million in the same quarter.",
+          "source": 5
+        },
+        {
+          "fact": "The Texas Tribune reported on October 13, 2026 that John Cornyn lost the Republican primary to Ken Paxton and that the U.S.\nSenate then had 53 Republicans and 47 Democrats.",
+          "source": 6
+        },
+        {
+          "fact": "Lloyd Bentsen\u2019s November 8, 1988 reelection was, as of 2026, the last time a Democrat won a U.S.\nSenate election in Texas.",
+          "source": 7
+        }
+      ],
+      "uncertainties": [
+        "No general-election votes had been reported as of the October 14, 2026 Secretary of State update; early voting was underway and Election Day is November 3, 2026.",
+        "The October Marist likely-voter margin (47%\u201345%) is inside the plus or minus 4.9 point margin of error, and later polls or turnout can move the result.",
+        "Libertarian Ted Brown and four certified write-in candidates remain on the ballot and could draw votes from the major-party nominees.",
+        "Mail ballots can still arrive through Election Day, and some postmarked ballots through November 4, 2026, so the winner may not be known on election night.",
+        "Campaign claims of third-quarter fundraising have not been independently confirmed here against a later FEC filing."
+      ]
+    },
+    "manifold-nngCdzg62E": {
+      "base_rate": "In the 90 US Top Free market days from 2026-05-17 to 2026-10-20, days at #1 were concentrated but still split: Muse 29, ChatGPT 25, TikTok Pro 12, 7 Brew Coffee 8, Capital One Mobile 6, and five other apps 1\u20134 days each.\nAverage daily churn in that window was 9.5%.",
+      "facts": [
+        {
+          "fact": "On the Apple US Top Free iPhone feed updated Tue, 20 Oct 2026 09:15:50 UTC, the order was Capital One Mobile, then Vinted: Pre-loved marketplace, then Muse from Meta.",
+          "source": 0
+        },
+        {
+          "fact": "An App Store snapshot stored for 2026-10-20 at 06:00 UTC also had Capital One Mobile at #1 and Muse from Meta at #3.",
+          "source": 1
+        },
+        {
+          "fact": "Appstro\u2019s daily US Top Free series from 15 Sept through 19 Oct 2026 shows Muse at #1 on 18 Sept and on every listed day from 18 Sept through 19 Oct except #2 on 14 Oct and 17 Oct.",
+          "source": 2
+        },
+        {
+          "fact": "GameQuant\u2019s page, current through 19 Oct 2026, says Muse reached #1 on 30 of the prior 30 days and was #1 that day, with US ratings up 68,512 in a week to 283,222.",
+          "source": 3
+        },
+        {
+          "fact": "Across 90 US Top Free market days from 2026-05-17 to 2026-10-20, Muse had 29 days at #1, ahead of ChatGPT (25) and TikTok Pro (12); Capital One Mobile had 6, and average daily chart churn was 9.5%.",
+          "source": 4
+        },
+        {
+          "fact": "On 19 Oct 2026, Benzinga reported BNP Paribas\u2019s Nick Jones saying Muse had passed 10.4 million downloads since the 8 Sept 2026 launch, that downloads peaked on day 12 and then stabilized through day 38, and that its app-open rate and 14-day retention lagged ChatGPT.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "The deciding observation is the first Apple US Top Free feed snapshot with an updated time at or after 17:00 UTC on 31 Oct 2026, which does not exist yet.",
+        "Trackers disagree on 19 Oct: Appstro and GameQuant list Muse at #1, while the 20 Oct Apple feed and the 06:00 UTC chart snapshot list it at #3 behind Capital One and Vinted.",
+        "Eleven days remain for Meta promotion, the 21 Oct earnings cycle, Muse Wonder, or a one-day surge by another free app to move the overall iPhone chart.",
+        "A rename of the same listing (id 6760173601) would still count, but removal from the store or a rank of #2 or lower on the deciding snapshot would not."
+      ]
+    },
+    "manifold-tAzh2Qytdl": {
+      "base_rate": "The only documented Anthropic individual premium step in these sources is Claude Max, still priced at $100 and $200 per month.\nNo count of prior Anthropic individual tiers at $400 or more appears in the pages read.",
+      "facts": [
+        {
+          "fact": "As of the Claude pricing page fetched on 2026-10-20, the highest listed individual plans are Max 5x and Max 20x, shown as from $100 per month, with $100 to $200 per month in API credits, not a $400 or higher subscription price.",
+          "source": 0
+        },
+        {
+          "fact": "Anthropic's Help Center lists individual Max web prices as Max 5x at $100 per month and Max 20x at $200 per month, and says prices and plans can change.",
+          "source": 1
+        },
+        {
+          "fact": "On 2026-10-07 Anthropic announced monthly API credits of $100 for Max 5x, $200 for Max 20x, and up to $500 pooled for Team, for Claude Platform API use, not a new individual subscription price.",
+          "source": 2
+        },
+        {
+          "fact": "On 2026-09-29 OpenAI's DevDay recap announced a Pro 500 plan with the highest usage allowance and Ultrafast access.",
+          "source": 3
+        },
+        {
+          "fact": "OpenAI's Help Center describes Pro 500 as a $500 per month individual plan.",
+          "source": 4
+        },
+        {
+          "fact": "Reporting published 2026-10-18 still described Claude Max 5x at $100 and Max 20x at $200 of monthly API credits, with no new $400-plus individual tier.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "Official pages do not carry a calendar date for the current Max prices, so a $400-plus tier announced and then removed before this fetch would not show.",
+        "Anthropic says prices and plans can change, and the resolution window runs through 2026-10-31 23:00 UTC.",
+        "Team credits capped at $500 and API usage billing do not meet the individual-subscription rule, but a new named individual tier at $400 or more could still be announced before the deadline.",
+        "Mobile prices may differ from web prices; the resolution criterion is the standard U.S.\nprice confirmed in an official announcement."
+      ]
+    },
+    "manifold-uISNlAqC2E": {
+      "base_rate": "Reference class: U.S.\nmidterm House seat change for the party holding the presidency, Brookings Vital Statistics Table 2-4.\nFrom 1946 through 2022 (20 midterms), that party lost House seats in 18 elections and gained seats in 2 (1998, Democrats +4; 2002, Republicans +8).\nThe table measures seats won versus the previous general election, not whether the party kept at least 218 seats.\nThe 2026 election has not been held, so it is not in the table.",
+      "facts": [
+        {
+          "fact": "The Clerk of the House\u2019s official member list dated October 1, 2026, counts 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies (FL-20 and TX-23) in the 119th Congress.",
+          "source": 0
+        },
+        {
+          "fact": "The House Press Gallery\u2019s 119th Congress breakdown matches 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies, and says the page updates only after departures are read on the floor; it lists resignations of Tony Gonzales (R-TX) on April 14, 2026, and Sheila Cherfilus-McCormick (D-FL) on April 21, 2026.",
+          "source": 1
+        },
+        {
+          "fact": "All 435 House districts are on the ballot on November 3, 2026.\nBallotpedia states that, from the pre-election balance it uses, Democrats need a net gain of three seats for a majority and Republicans can lose no more than two and still hold one.",
+          "source": 2
+        },
+        {
+          "fact": "As of July 26, 2026, Ballotpedia reports that California, Florida, Missouri, North Carolina, Tennessee, and Texas adopted new congressional maps for 2026 through voluntary mid-decade redistricting, with Ohio changing maps under state law and Alabama, Louisiana, and Utah changing maps because of litigation.",
+          "source": 2
+        },
+        {
+          "fact": "Cook Political Report\u2019s House ratings dated October 16, 2026, list solid seats as 182 Democratic and 168 Republican, likely/lean seats as 21 Democratic and 24 Republican, and toss-up or worse as 10 Democratic and 24 Republican.",
+          "source": 3
+        },
+        {
+          "fact": "An ABC News/Washington Post/Ipsos poll of October 9\u201313, 2026, published October 18, found likely voters preferring the Democratic House candidate 52% to 44%, and recorded Donald Trump\u2019s approval at 33% approve and 66% disapprove.",
+          "source": 4
+        },
+        {
+          "fact": "On October 19, 2026, States Newsroom reported that Cook House analyst Erin Covey, at a Brookings panel, projected a Democratic net gain of 10 to 20 House seats on November 3 and said Democrats need three seats for control.",
+          "source": 5
+        },
+        {
+          "fact": "Brookings Table 2-4, covering midterms from 1862 through 2022, records the president\u2019s party\u2019s House seat change versus the prior general election.\nFrom 1946 through 2022, that party gained House seats in 1998 (Democrats +4) and 2002 (Republicans +8) and lost seats in the other 18 midterms in that span, including Republicans \u221242 in 2018 and Democrats \u22129 in 2022.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "The election is November 3, 2026, so no Clerk of the House results for the 120th Congress exist yet.",
+        "Cook\u2019s October 16 summary still places dozens of seats in toss-up or worse, so small shifts in a few districts can move the total across 218.",
+        "New maps in at least California, Florida, Missouri, North Carolina, Tennessee, Texas, Ohio, Alabama, Louisiana, and Utah change the 2024 district baselines.",
+        "The current House has two vacancies and one independent; how those seats and any late resignations or special-election timing are counted before November 3 can change the starting margin used in pre-election math.",
+        "The generic ballot is not a district-by-district result, and early voting already underway can differ from Election Day voting."
+      ]
+    },
+    "polymarket-3081958": {
+      "base_rate": "Of the six scheduled Bank of Russia key-rate decisions in 2026 through 11 September 2026, five lowered the rate and one left it unchanged.\nOf the ten decisions listed from 25 July 2025 through 11 September 2026, nine were cuts and one was a hold.",
+      "facts": [
+        {
+          "fact": "As of 20 October 2026, the Bank of Russia key rate was 14.00% per annum, unchanged from the 11 September 2026 decision to hold it at that level.",
+          "source": 1
+        },
+        {
+          "fact": "The next Board of Directors key-rate meeting is scheduled for 23 October 2026, with the press release and medium-term forecast due at 13:30 Moscow time; no October decision had been published by 20 October 2026.",
+          "source": 0
+        },
+        {
+          "fact": "The Bank of Russia\u2019s English homepage lists September 2026 inflation at 6.4%, against a 4.0% inflation target, and the key rate at 14.00% from 27 July 2026.",
+          "source": 3
+        },
+        {
+          "fact": "On 14 October 2026 the Bank of Russia said September seasonally adjusted consumer-price growth slowed versus the summer but remained markedly above the 4% target.",
+          "source": 4
+        },
+        {
+          "fact": "In the 9\u201313 October 2026 analyst survey published on 14 October 2026, the median forecast put the average key rate for the remainder of 2026 at 14.0% per annum and raised the 2026 year-end inflation forecast to 7.1%.",
+          "source": 5
+        },
+        {
+          "fact": "Of the six 2026 key-rate decisions through 11 September listed by the Bank of Russia, five were cuts (13 February, 20 March, 24 April, 19 June and 24 July) and one was a hold (11 September).",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "The 23 October 2026 decision and updated medium-term forecast have not been released; the outcome is unknown until the press release.",
+        "The September statement said a higher structural primary budget deficit than in the July baseline could require a tighter stance, and those budget projections were to be reflected only in the October forecast.",
+        "September annual inflation was 6.35%, still above the 4% target, while recent price growth slowed from the summer; how the Board weighs that mix is not yet known."
+      ]
+    },
+    "polymarket-3372768": {
+      "base_rate": "ISW\u2019s 2026-10-16 assessment counted three Russian settlement seizures in Donetsk Oblast from 2026-09-01 through that date, with a net territorial loss of 198.28 square kilometers over the same period.\nNo published count was found of how often a named village intersection near Dobropillya moved from infiltration to assessed Russian control within an 11-day window.",
+      "facts": [
+        {
+          "fact": "On 2026-10-13, ISW assessed that geolocated footage from 2026-10-12 showed Ukrainian strikes on Russian servicemembers in western Svitle south of Dobropillya after Russian infiltration missions, which ISW treats as distinct from consolidated control.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-19, ISW reported a Ukrainian advance east of Dobropillya, including northwest of Shakhove on footage dated 2026-10-18, and cited a Ukrainian brigade saying Russian forces had been trying the same route toward Dobropillya since mid-spring 2026 while taking heavy losses.",
+          "source": 1
+        },
+        {
+          "fact": "On 2026-10-16, ISW said it had evidence of three Russian settlement seizures in Donetsk Oblast since 2026-09-01 alongside a net loss of 198.28 square kilometers, and no evidence of Russian advance into Dobropillya beyond limited infiltration.",
+          "source": 2
+        },
+        {
+          "fact": "On 2026-10-17, Interfax-Ukraine reported DeepState\u2019s map update that Russian forces advanced near Matyasheve and Svitle, adding 7.22 square kilometers of occupied area, while both settlements remained in the infiltration (grey) zone rather than occupied territory.",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-10-08, ISW assessed that Russian small-group infiltration near Dobropillya could not produce a sudden breakthrough, contrary to Russian Ministry of Defense claims of an encirclement.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "The live ISW story map layer at the exact intersection 48.405560\u00b0 N, 37.119791\u00b0 E was not independently read in this pass, so whether any part is already shaded as Assessed Russian-Controlled Terrain or Assessed Russian Advances is not confirmed from the map itself.",
+        "DeepState on 2026-10-17 left Svitle in the grey infiltration zone; that status does not map one-for-one onto ISW\u2019s qualifying layers, and later DeepState or ISW updates through 2026-10-31 could reclassify the intersection.",
+        "Qualifying ISW shading must still persist through the next full daily update cycle, and a later Ukrainian clearance would not undo a Yes only after that persistence condition is met.",
+        "About 11 days remain until 2026-10-31, 11:59 p.m.\nET; fighting south of Dobropillya is ongoing, and a negotiated transfer would count only if actual control, not a de jure announcement, is established."
+      ]
+    },
+    "polymarket-3554548": {
+      "base_rate": "On the two dated Code Arena | WebDev Overall snapshots in this window (Oct 8 and Oct 19, 2026), an Anthropic model held rank 1 both times (2 of 2).\nNo longer historical series of end-of-month leaders was available.",
+      "facts": [
+        {
+          "fact": "On the Code Arena | WebDev Models table dated Oct 19, 2026, Claude Opus 5.5 (Max), owned by Anthropic, is rank 1 with score 1807\u00b114 from 2,925 votes and a rank spread of 1\u20131.",
+          "source": 0
+        },
+        {
+          "fact": "The next model on that same Oct 19 table is OpenAI\u2019s GPT-6 Astra (Max) at rank 2, score 1774\u00b110, rank spread 2\u20134.",
+          "source": 0
+        },
+        {
+          "fact": "The Oct 19 lab view lists Anthropic first, OpenAI second, and Meta third, with Meta\u2019s best model (Muse Wonder Full Max) at model rank 6 and score 1726\u00b116.",
+          "source": 1
+        },
+        {
+          "fact": "An earlier Overall snapshot dated Oct 8, 2026 already had claude-opus-5.5-max at rank 1 (1813\u00b115) ahead of gpt-6-astra-max at rank 2 (1786\u00b111).",
+          "source": 2
+        },
+        {
+          "fact": "Arena\u2019s changelog for Oct 18\u201319, 2026 records new WebDev entries, including DeepSeek-V4.1-Flash-20261017 (Max) and Muse Wonder Full (Max).",
+          "source": 3
+        },
+        {
+          "fact": "Anthropic announced Claude Opus 5.5 on September 22, 2026, at $4 / $20 per million input and output tokens.",
+          "source": 4
+        },
+        {
+          "fact": "Arena labels AutoEval scores separately and says they are replaced once enough human votes arrive; models within 5 points are described as statistically indistinguishable under live evaluation.",
+          "source": 5
+        },
+        {
+          "fact": "Reporting on Oct 19, 2026 said Muse Wonder Full\u2019s first public WebDev result was sixth at 1,726, behind the Anthropic leader.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "The resolving check is Oct 31, 2026, 12:00 PM ET, about 11 days after the Oct 19 table, and Arena added new WebDev models on Oct 16, 18, and 19.",
+        "Muse Wonder Full (Max) has only 1,639 votes and a wide rank spread (4\u20137); more votes could move it, though it is 81 points below rank 1.",
+        "Gemini 4 Argon (High) is marked Preliminary at rank 10 (1678\u00b116); leaving preliminary status could change its score.",
+        "A model still labeled AutoEval at check time is excluded even if it shows a rank or score, so a new leader that has not yet received enough human votes would not count.",
+        "If the leaderboard is down at check time, resolution waits for the first later check; if it stays unavailable, the market resolves to Other."
+      ]
+    },
+    "polymarket-4951227": {
+      "base_rate": "In the Investing.com WTI futures table covering completed sessions from 1 October through 19 October 2026, the highest listed daily high is 99.71, so none of those 14 dated rows shows a daily high of 105.\nThe same page\u2019s 52-week range, through 20 October 2026, runs from 54.98 to 117.63, so a print at or above 105 occurred at least once in that trailing year on that series.",
+      "facts": [
+        {
+          "fact": "On 2026-10-20, Pyth\u2019s December 2026 ICE WTI feed CLLZ6 (expiry 19 November 2026) was Stable and last shown at 99.91000.",
+          "source": 0
+        },
+        {
+          "fact": "Pyth\u2019s November 2026 ICE WTI feed CLLX6, expiry 19 October 2026, was Inactive on 2026-10-20 with a displayed price of 103.57111 and no chart.",
+          "source": 1
+        },
+        {
+          "fact": "ICE lists the November 2026 WTI contract last trading day as 19 October 2026 and the December 2026 contract last trading day as 19 November 2026.",
+          "source": 3
+        },
+        {
+          "fact": "Investing.com\u2019s WTI futures history for 21 September\u201320 October 2026 lists a window high of 99.71; the same page\u2019s live 20 October 2026 day range was 98.07 to 100.73, while the 52-week range was 54.98 to 117.63.",
+          "source": 4
+        },
+        {
+          "fact": "On the morning of 20 October 2026, FXStreet reported the WTI benchmark near $99.15 and quoted an IRGC statement that the Strait of Hormuz had not been fully closed and that a blockade could be widened.",
+          "source": 5
+        },
+        {
+          "fact": "The EIA, as reported by the Wall Street Journal on 15 October 2026, said commercial crude stocks excluding the SPR fell 8.6 million barrels to 415.6 million barrels in the week ended 9 October 2026.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "Pyth 1-minute High and Low candles for the Active Month CLL series through 20 October 2026 were not retrieved; the displayed last prices are not session highs.",
+        "The 20 October 2026 ICE session was still open when these pages were read, and October business-day sessions continue through 30 October 2026.",
+        "Vendor screens disagree: some quotes place recent prints in the low 100s, while the Investing.com daily-high column stays under 100.",
+        "Whether any qualifying CLL 1-minute high reached 105 before the November contract\u2019s 19 October 2026 last trading day, and during the Active Month window only, is not shown on these pages.",
+        "Strait of Hormuz and related shipping threats described on 20 October 2026 could still move the December contract before the month ends."
+      ]
+    },
+    "polymarket-5170805": {
+      "base_rate": "",
+      "facts": [
+        {
+          "fact": "On Twelve Data\u2019s Binance SOL/USD daily series, the lowest low from 1 October through the partial 20 October 2026 session was 100.43 on 18 October 2026; 1 October\u2019s low was 116.73.",
+          "source": 0
+        },
+        {
+          "fact": "Investing.com\u2019s Binance SOL/USD table for 20 September\u201320 October 2026 lists an 18 October 2026 low of 100.510 and a range low of 100.510.",
+          "source": 1
+        },
+        {
+          "fact": "CoinDesk\u2019s exchange table showed Binance SOL-USDT at 104.03 USDT, down 1.37%, while its headline SOL/USD figure was $103.88, down 1.47%.",
+          "source": 2
+        },
+        {
+          "fact": "Bitget\u2019s own daily history shows a 1 October 2026 low of $116.83 and an 18 October 2026 low of $100.51, with the 20 October 2026 \u201con this day\u201d price at $103.88.",
+          "source": 3
+        },
+        {
+          "fact": "Forecast Economy\u2019s Binance daily-close series printed 105.15 USD on 20 October 2026, versus 105.08 USD on 19 October 2026.",
+          "source": 4
+        },
+        {
+          "fact": "CoinDesk reported on 14 October 2026 that Solana scheduled the Alpenglow upgrade for epoch 1064, expected around 15:00 UTC on 21 October 2026.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "Binance\u2019s public kline API returned HTTP 451, so the official SOL/USDT 1-minute lows named in the resolution rule were not read directly.",
+        "Vendor daily lows differ slightly (100.43 on Twelve Data\u2019s Binance SOL/USD versus 100.510 on Investing.com\u2019s Binance SOL/USD and Bitget), and SOL/USD is not the SOL/USDT pair used for resolution.",
+        "A daily low above 100 implies no 1-minute low that day on the same series was at or below 100, but that inference was not checked candle by candle on Binance SOL/USDT.",
+        "20 October 2026 is incomplete, and the window runs through 23:59 ET on 31 October 2026, so later sessions can still print a low of 100 or below.",
+        "The 21 October 2026 Alpenglow activation is still ahead and has not yet shown up in the October price series."
+      ]
+    },
+    "polymarket-5786298": {
+      "base_rate": "",
+      "facts": [
+        {
+          "fact": "On 17 October 2026 at 07:20 UTC, Coindaro read the official sale page as US$5,660,925 committed by 1,885 wallets against a US$3.9 million allocation.",
+          "source": 0
+        },
+        {
+          "fact": "On 16 October 2026, the @1win account said commitments were already at $5.5M after the $3.9M cap was hit in 8 minutes, and illustrated 5x oversubscription as $19.5M.",
+          "source": 1
+        },
+        {
+          "fact": "On 15 October 2026, @1winToken said the sale hit the $3.9M cap in 8 minutes.",
+          "source": 1
+        },
+        {
+          "fact": "Bitcoinist, last updated 16 October 2026, reported the sale opened at 18:00 on 15 October and crossed $3.9 million in USDC commitments by 18:08, with contributions continuing through 30 October.",
+          "source": 2
+        },
+        {
+          "fact": "ICO Drops, last updated 19 October 2026, still showed an oversubscription update dated 16 October 2026 of about $5.31M (1.36x), with the sale window ending 30 October 2026 at 16:00 UTC and the allocation capped at $3.9M.",
+          "source": 3
+        },
+        {
+          "fact": "Chainwire\u2019s 15 October 2026 release said 130 million tokens are sold at $0.03 USDC with no maximum contribution, TGE on 30 October, and unused USDC refunded after pro-rata allocation.",
+          "source": 4
+        },
+        {
+          "fact": "A 1win Forum announcement dated the sale opening to 15 October 2026 at 17:00 CEST, at $0.03 per token and a $30M fully diluted figure, on the official site.",
+          "source": 5
+        },
+        {
+          "fact": "Chainwire\u2019s 13 October 2026 announcement set the public sale start at 15 October 2026 at 4 pm BST and a fixed supply of 1 billion tokens.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "A live fetch of https://1wtoken.com/ on 20 October 2026 returned no readable headline pool total, so the current gross figure on the resolution page is unverified.",
+        "The latest dated pool readings found are about $5.31M on 16 October (ICO Drops), $5.5M on 16 October (@1win), and $5,660,925 on 17 October (Coindaro); no later official total was found.",
+        "The sale was still described as open through about 30 October 2026, with no deposit maximum, so further USDC can still be added before the 2 November 2026, 11:59 PM ET cutoff.",
+        "Coindaro noted a timing gap between a two-week sale in the terms (about 29 October) and a page countdown ending 30 October 2026 at 16:00 UTC; an extension, pause, or cancellation before a higher total is displayed would change what can be counted.",
+        "Country exclusions in the terms, including the United States and several EU states, may limit who can deposit."
+      ]
+    },
+    "polymarket-648383": {
+      "base_rate": "No prior California statewide one-time billionaire wealth tax is in the record.\nFor citizen initiatives generally, Ballotpedia\u2019s 1910\u20132025 inventory says legislatively referred measures were approved 69% of the time and ballot initiatives 36% of the time; of all 1,307 statewide measures in that span, 753 (57.6%) passed.",
+      "facts": [
+        {
+          "fact": "On June 17, 2026, the California Secretary of State said initiative 25-0024A1, a one-time tax of up to 5% on taxpayers and trusts with covered assets over $1 billion, became eligible for the November 3, 2026 ballot, with certification set for June 25, 2026 unless the proponent withdrew it.",
+          "source": 0
+        },
+        {
+          "fact": "As of the Secretary of State\u2019s qualified-measures list, Proposition 40 (\u201cImposes One-Time Tax on Certain Taxpayers\u201d) is a qualified initiative constitutional amendment and statute on the November 3, 2026 statewide ballot, alongside competing Propositions 41 and 42.",
+          "source": 1
+        },
+        {
+          "fact": "The Legislative Analyst\u2019s Office states Proposition 40 would impose a one-time 5% tax on the net worth of billionaires who were California residents on January 1, 2026, due in 2027, and that Propositions 41 or 42 could stop it from becoming law if they receive more yes votes even if Proposition 40 has a majority.",
+          "source": 2
+        },
+        {
+          "fact": "The official voter guide says county officials begin mailing ballots on or before October 5, 2026, and Election Day is November 3, 2026; as of October 20, 2026, the election has not been held and no official result exists.",
+          "source": 3
+        },
+        {
+          "fact": "CalMatters reports that if Proposition 41 or 42 receives more votes than Proposition 40, Proposition 40 would be nullified.",
+          "source": 4
+        },
+        {
+          "fact": "A Citrin-POLITICO poll published October 19, 2026 found 46% of likely voters in favor of Proposition 40 and 43% opposed, about unchanged from a month earlier.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "Votes are still being cast; the November 3, 2026 result is unknown and the October 19 poll was within the margin of a majority.",
+        "If Proposition 40 receives a majority but Proposition 41 or 42 receives more yes votes, the Legislative Analyst and CalMatters say the wealth tax could be stopped or nullified; whether that still counts as the proposition having \u201cpassed\u201d depends on how \u201cpasses\u201d is applied.",
+        "Courts could later find a conflict, or the reverse, between the measures; litigation is anticipated and is not resolved.",
+        "How many ballots already returned, late campaign spending, and turnout among groups that split on the tax are not in the official record used here."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-20T09:16:49+00:00",
+  "runs": 12,
+  "sources": {
+    "manifold-SyhgEZC68s": [
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "2026 NOVEMBER GENERAL ELECTION (Updated 10/14/2026 07:34 AM)",
+          "Polling Locations Reporting: 0%"
+        ],
+        "text": "2026 NOVEMBER GENERAL ELECTION (Updated 10/14/2026 07:34 AM)\nPolling Locations Reporting: 0%",
+        "title": "Election Results - Tuesday, November 3, 2026",
+        "url": "https://electionresults.sos.state.tx.us/results.html",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Tuesday, November 3, 2026 - Uniform Election Date",
+          "Last Day to Register to Vote Monday, October 5, 2026",
+          "First Day of Early Voting by Personal Appearance Monday, October 19, 2026"
+        ],
+        "text": "Tuesday, November 3, 2026 - Uniform Election Date\nLast Day to Register to Vote Monday, October 5, 2026\nFirst Day of Early Voting by Personal Appearance Monday, October 19, 2026",
+        "title": "Important Election Dates",
+        "url": "https://www.sos.texas.gov/elections/voter/important-election-dates.shtml",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Democrat Final Results\u00b7 2,319,187 ballots cast",
+          "JAMES TALARICO gained 1.0 percentage points on Election Day."
+        ],
+        "text": "Democrat Final Results\u00b7 2,319,187 ballots cast\nJAMES TALARICO gained 1.0 percentage points on Election Day.",
+        "title": "U.\nS.\nSENATOR \u2014 2026 Democratic Primary Election",
+        "url": "https://txelectionresults.com/2026-democratic-primary/races/484",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Side-by-side Republican & Democratic results\u00b7 254/254 counties",
+          "1,387,674 GOP Ballots"
+        ],
+        "text": "Side-by-side Republican & Democratic results\u00b7 254/254 counties\n1,387,674 GOP Ballots",
+        "title": "2026 Primary Runoffs \u2014 Combined Results",
+        "url": "https://txelectionresults.com/runoffs/2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Two points separate Talarico (47%) and Paxton (45%) among likely voters in the U.S.\nSenate race in Texas.",
+          "This Marist Poll Texas survey of 1,196 Texas registered voters was conducted October 8th through October 11th, 2026 by the Marist Poll."
+        ],
+        "text": "Two points separate Talarico (47%) and Paxton (45%) among likely voters in the U.S.\nSenate race in Texas.\nThis Marist Poll Texas survey of 1,196 Texas registered voters was conducted October 8th through October 11th, 2026 by the Marist Poll.",
+        "title": "2026 Midterm Elections in Texas",
+        "url": "https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-18",
+        "quotes": [
+          "On the eve of early voting in Texas, Democratic state Rep.\nJames Talarico maintains a slim lead over Republican Ken Paxton, the Texas attorney general, in the race for U.S.\nSenate.",
+          "Talarico raised $64 million in the third quarter, the most ever for a Senate candidate in the third quarter, according to his campaign.",
+          "Paxton raised $18 million in the third quarter, double the amount he raised in the second quarter."
+        ],
+        "text": "On the eve of early voting in Texas, Democratic state Rep.\nJames Talarico maintains a slim lead over Republican Ken Paxton, the Texas attorney general, in the race for U.S.\nSenate.\nTalarico raised $64 million in the third quarter, the most ever for a Senate candidate in the third quarter, according to his campaign.\nPaxton raised $18 million in the third quarter, double the amount he raised in the second quarter.",
+        "title": "Sizing up the Texas Senate race between James Talarico and Ken Paxton as early voting begins",
+        "url": "https://www.cbsnews.com/texas/news/texas-senate-race-early-voting-starts/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "Ted Brown, a Libertarian candidate, is also vying for the seat held by outgoing U.S.\nSen.\nJohn Cornyn, who lost the Republican primary to Paxton.",
+          "The U.S.\nSenate is currently made up of 53 Republicans and 47 Democrats, with Republican Vice President JD Vance able to cast tiebreaking votes."
+        ],
+        "text": "Ted Brown, a Libertarian candidate, is also vying for the seat held by outgoing U.S.\nSen.\nJohn Cornyn, who lost the Republican primary to Paxton.\nThe U.S.\nSenate is currently made up of 53 Republicans and 47 Democrats, with Republican Vice President JD Vance able to cast tiebreaking votes.",
+        "title": "On the issues: A Q&A with U.S.\nSenate candidates James Talarico, Ken Paxton and Ted Brown",
+        "url": "https://www.texastribune.org/2026/10/13/talarico-paxton-texas-us-senate-2026-election-q-and-a/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "As of 2026, this was the last time a Democrat won a U.S.\nSenate election in Texas."
+        ],
+        "text": "As of 2026, this was the last time a Democrat won a U.S.\nSenate election in Texas.",
+        "title": "1988 United States Senate election in Texas",
+        "url": "https://en.wikipedia.org/wiki/1988_United_States_Senate_election_in_Texas",
+        "verified": null
+      }
+    ],
+    "manifold-nngCdzg62E": [
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "\"updated\":\"Tue, 20 Oct 2026 09:15:50 +0000\"",
+          "\"name\":\"Capital One Mobile\"",
+          "\"name\":\"Muse from Meta\""
+        ],
+        "text": "\"updated\":\"Tue, 20 Oct 2026 09:15:50 +0000\"\n\"name\":\"Capital One Mobile\"\n\"name\":\"Muse from Meta\"",
+        "title": "Apple Top Free Apps (US) feed",
+        "url": "https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Updated Oct 20, 2026, 06:00 AM UTC.",
+          "Capital One Mobile holds the observed number-one position.",
+          "#3 Muse from Meta Meta Platforms, Inc."
+        ],
+        "text": "Updated Oct 20, 2026, 06:00 AM UTC.\nCapital One Mobile holds the observed number-one position.\n#3 Muse from Meta Meta Platforms, Inc.",
+        "title": "Top Apps in the US App Store: iPhone Rankings 2026",
+        "url": "https://appstorestatistics.com/charts/us/top-free",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "Muse from Meta held a position on the US Top Free chart on 35 of the last 35 days, peaking at #1 on 18 Sept.",
+          "It sits at #1 as of 19 Oct, up 1 place across the period."
+        ],
+        "text": "Muse from Meta held a position on the US Top Free chart on 35 of the last 35 days, peaking at #1 on 18 Sept.\nIt sits at #1 as of 19 Oct, up 1 place across the period.",
+        "title": "Muse from Meta by Meta Platforms, Inc.",
+        "url": "https://www.appstro.dev/apps/muse-from-meta-6760173601",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "Muse from Meta was in the top 10 of the Top Free Apps chart in the United States on every one of the last 30 days, reaching #1 on 30 days, most recently on 19 Oct 2026.",
+          "It stood at #1 on 19 Oct 2026, unchanged from a week earlier.",
+          "In the United States it holds a 4.86 average across 283,222 ratings, 68,512 more than a week earlier."
+        ],
+        "text": "Muse from Meta was in the top 10 of the Top Free Apps chart in the United States on every one of the last 30 days, reaching #1 on 30 days, most recently on 19 Oct 2026.\nIt stood at #1 on 19 Oct 2026, unchanged from a week earlier.\nIn the United States it holds a 4.86 average across 283,222 ratings, 68,512 more than a week earlier.",
+        "title": "Muse from Meta - App Store ranking & ratings history",
+        "url": "https://gamequant.io/app/ios/6760173601/muse-from-meta",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Window 90 days 2026-05-17 to 2026-10-20",
+          "Muse from Meta Meta Platforms, Inc.\n29 days",
+          "Average churn 9.5% Comparable days only"
+        ],
+        "text": "Window 90 days 2026-05-17 to 2026-10-20\nMuse from Meta Meta Platforms, Inc.\n29 days\nAverage churn 9.5% Comparable days only",
+        "title": "Top Free Apps history in United States",
+        "url": "https://top-apps.anerg.com/countries/us/top-free/history",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "According to BNP Paribas senior analyst Nick Jones, Meta\u2019s Muse AI app has surpassed 10.4 million downloads since its Sept.\n8 launch.",
+          "Downloads peaked on the 12th day before stabilizing through day 38.",
+          "Muse\u2019s mobile app open rate has stabilized below those of ChatGPT, Google and Meta\u2019s existing apps."
+        ],
+        "text": "According to BNP Paribas senior analyst Nick Jones, Meta\u2019s Muse AI app has surpassed 10.4 million downloads since its Sept.\n8 launch.\nDownloads peaked on the 12th day before stabilizing through day 38.\nMuse\u2019s mobile app open rate has stabilized below those of ChatGPT, Google and Meta\u2019s existing apps.",
+        "title": "Meta's Muse Racks up 10 Million Downloads, but Its Path to Profits Remains Unclear",
+        "url": "https://www.benzinga.com/markets/tech/26/10/62434096/metas-muse-racks-up-10-million-downloads-but-its-path-to-profits-remains-unclear",
+        "verified": null
+      }
+    ],
+    "manifold-tAzh2Qytdl": [
+      {
+        "published": "",
+        "quotes": [
+          "From $100",
+          "Choose 5x or 20x more usage than Pro*",
+          "$100 to $200/month in API credits to build on the Claude Platform"
+        ],
+        "text": "From $100\nChoose 5x or 20x more usage than Pro*\n$100 to $200/month in API credits to build on the Claude Platform",
+        "title": "Plans & pricing | Claude by Anthropic",
+        "url": "https://claude.com/pricing",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Max 5x: $100 per month",
+          "Max 20x: $200 per month",
+          "Price and plans are subject to change at Anthropic's discretion."
+        ],
+        "text": "Max 5x: $100 per month\nMax 20x: $200 per month\nPrice and plans are subject to change at Anthropic's discretion.",
+        "title": "What is the Max plan?\n| Claude Help Center",
+        "url": "https://support.claude.com/en/articles/11049741-what-is-the-max-plan",
+        "verified": null
+      },
+      {
+        "published": "2026-10-07",
+        "quotes": [
+          "Max 5x users will get $100 in credits per month, Max 20x users will get $200, and Team subscribers will receive up to $500, pooled across their users.",
+          "These credits are designed to allow our users to experiment with building tools, apps, and agents that call our API."
+        ],
+        "text": "Max 5x users will get $100 in credits per month, Max 20x users will get $200, and Team subscribers will receive up to $500, pooled across their users.\nThese credits are designed to allow our users to experiment with building tools, apps, and agents that call our API.",
+        "title": "Introducing Claude Haiku 5.5",
+        "url": "https://www.anthropic.com/claude-haiku-5-5",
+        "verified": null
+      },
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "For those who want even more usage and speed, the new Pro 500 plan offers our highest usage allowance at 25 times the ChatGPT Plus allowance and includes access to Ultrafast."
+        ],
+        "text": "For those who want even more usage and speed, the new Pro 500 plan offers our highest usage allowance at 25 times the ChatGPT Plus allowance and includes access to Ultrafast.",
+        "title": "DevDay 2026 Recap | OpenAI",
+        "url": "https://openai.com/index/devday-2026-recap/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "ChatGPT Pro now offers Pro 500, a new $500/month plan that includes GPT-6 Astra Ultrafast and GPT-6.1 Sol Ultrafast.",
+          "Pro 500 | $500 | Included"
+        ],
+        "text": "ChatGPT Pro now offers Pro 500, a new $500/month plan that includes GPT-6 Astra Ultrafast and GPT-6.1 Sol Ultrafast.\nPro 500 | $500 | Included",
+        "title": "About ChatGPT Pro tiers | OpenAI Help Center",
+        "url": "https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers",
+        "verified": null
+      },
+      {
+        "published": "2026-10-18",
+        "quotes": [
+          "Since October 7, 2026, Claude Max 5x includes $100 and Max 20x $200 of monthly API credits.",
+          "The credits pay for your own apps and agents on the Claude Platform, separate from chat usage in the Claude apps."
+        ],
+        "text": "Since October 7, 2026, Claude Max 5x includes $100 and Max 20x $200 of monthly API credits.\nThe credits pay for your own apps and agents on the Claude Platform, separate from chat usage in the Claude apps.",
+        "title": "Claude Max and Team plans now include $100 to $500 a month in API credits",
+        "url": "https://askgpu.com/updates/claude-max-and-team-plans-add-monthly-api-credits/",
+        "verified": null
+      }
+    ],
+    "manifold-uISNlAqC2E": [
+      {
+        "published": "2026-10-01",
+        "quotes": [
+          "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435."
+        ],
+        "text": "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435.",
+        "title": "Official List of Members, 119th Congress, Clerk of the House",
+        "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Please note this page will not be updated until member departures are read on the House floor.",
+          "*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.",
+          "*Rep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26."
+        ],
+        "text": "Please note this page will not be updated until member departures are read on the House floor.\n*Rep.\nTony Gonzales (R-TX) resigned 04/14/2026.\n*Rep.\nSheila Cherfilus-McCormick (D-FL) resigned 04/21/26.",
+        "title": "Party Breakdown, House Press Gallery, 119th Congress",
+        "url": "http://pressgallery.house.gov/member-data/party-breakdown",
+        "verified": null
+      },
+      {
+        "published": "2026-09-03",
+        "quotes": [
+          "Elections to the U.S.\nHouse of Representatives will happen on November 3, 2026.\nAll 435 districts are up for election.",
+          "Looking ahead at the 2026 general elections, Democrats need to gain a net of three districts to win a majority in the chamber.\nMeanwhile, Republicans can lose no more than two districts to retain a majority in the chamber.",
+          "As of July 26, 2026, six states \u2014 California, Florida, Missouri, North Carolina, Tennessee, and Texas \u2014 will use different congressional maps for the 2026 election than they did in 2024 because they voluntarily underwent mid-decade redistricting."
+        ],
+        "text": "Elections to the U.S.\nHouse of Representatives will happen on November 3, 2026.\nAll 435 districts are up for election.\nLooking ahead at the 2026 general elections, Democrats need to gain a net of three districts to win a majority in the chamber.\nMeanwhile, Republicans can lose no more than two districts to retain a majority in the chamber.\nAs of July 26, 2026, six states \u2014 California, Florida, Missouri, North Carolina, Tennessee, and Texas \u2014 will use different congressional maps for the 2026 election than they did in 2024 because they voluntarily underwent mid-decade redistricting.",
+        "title": "United States House of Representatives elections, 2026 - Ballotpedia",
+        "url": "https://ballotpedia.org/United_States_House_of_Representatives_elections,_2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-16",
+        "quotes": [
+          "SOLID SEATS D - 182 R - 168",
+          "LIKELY/LEAN SEATS D - 21 R - 24",
+          "TOSS-UP OR WORSE D - 10 R - 24"
+        ],
+        "text": "SOLID SEATS D - 182 R - 168\nLIKELY/LEAN SEATS D - 21 R - 24\nTOSS-UP OR WORSE D - 10 R - 24",
+        "title": "The Cook Political Report: 2026 House Race Ratings",
+        "url": "https://www.cookpolitical.com/print/ratings/races/house",
+        "verified": null
+      },
+      {
+        "published": "2026-10-18",
+        "quotes": [
+          "By an 8-percentage point margin, likely voters support the Democratic candidate in congressional district elections over the Republican candidate, 52% to 44%.",
+          "And Trump\u2019s approval rating has reached a record personal low of 33% percent in the ABC News/Washington Post/Ipsos poll, lower even than after the Jan.\n6, 2021, attacks on the U.S.\nCapitol when 38% approved.",
+          "This ABC News/Washington Post/Ipsos poll was conducted via the probability-based Ipsos KnowledgePanel Oct.\n9-13, 2026, among 2,545 U.S.\nadults including 2,032 registered and likely voters and has an error margin of +/- 2 percentage points overall and +/- 2.2 points among registered and likely voters."
+        ],
+        "text": "By an 8-percentage point margin, likely voters support the Democratic candidate in congressional district elections over the Republican candidate, 52% to 44%.\nAnd Trump\u2019s approval rating has reached a record personal low of 33% percent in the ABC News/Washington Post/Ipsos poll, lower even than after the Jan.\n6, 2021, attacks on the U.S.\nCapitol when 38% approved.\nThis ABC News/Washington Post/Ipsos poll was conducted via the probability-based Ipsos KnowledgePanel Oct.\n9-13, 2026, among 2,545 U.S.\nadults including 2,032 registered and likely voters and has an error margin of +/- 2 percentage points overall and +/- 2.2 points among registered and likely voters.",
+        "title": "Democrats lead Republicans in House vote choice as Trump's approval rating hits record low: ABC/Post/Ipsos poll",
+        "url": "https://abcnews.com/Politics/democrats-lead-republicans-house-vote-choice-trumps-approval/story?id=137322849",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "The Cook Political Report with Amy Walter predicts Democrats will gain a net of 10 to 20 House seats in the Nov.\n3 elections, Erin Covey, the top House analyst at CPR, said Monday during a panel discussion hosted by the Brookings Institution.",
+          "The party needs to pick up just three seats to gain control next year."
+        ],
+        "text": "The Cook Political Report with Amy Walter predicts Democrats will gain a net of 10 to 20 House seats in the Nov.\n3 elections, Erin Covey, the top House analyst at CPR, said Monday during a panel discussion hosted by the Brookings Institution.\nThe party needs to pick up just three seats to gain control next year.",
+        "title": "With 2 weeks until midterms, analysts say Dems still on track to win US House majority",
+        "url": "https://www.newsfromthestates.com/article/2-weeks-until-midterms-analysts-say-dems-still-track-win-us-house-majority",
+        "verified": null
+      },
+      {
+        "published": "2024-11-01",
+        "quotes": [
+          "Each entry is the difference between the number of seats won by the president's party in that midterm election and the number of seats won by that party in the preceding general election.",
+          "1998 D 4",
+          "2002 R 8"
+        ],
+        "text": "Each entry is the difference between the number of seats won by the president's party in that midterm election and the number of seats won by that party in the preceding general election.\n1998 D 4\n2002 R 8",
+        "title": "Brookings Vital Statistics, Table 2-4, Losses by the President's Party in Midterm Elections, 1862-2022",
+        "url": "https://www.brookings.edu/wp-content/uploads/2024/11/2-4-Full.pdf",
+        "verified": null
+      }
+    ],
+    "polymarket-3081958": [
+      {
+        "published": "2026-09-11",
+        "quotes": [
+          "On 11 September 2026, the Bank of Russia Board of Directors decided to keep the key rate at 14.00% per annum.",
+          "Proinflationary risks have increased and prevail over disinflationary ones on the medium-term horizon.",
+          "The Bank of Russia Board of Directors holds its next key rate meeting on 23 October 2026.\nThe press release on the Bank of Russia Board decision and the medium-term forecast are to be published at 13.30 Moscow time."
+        ],
+        "text": "On 11 September 2026, the Bank of Russia Board of Directors decided to keep the key rate at 14.00% per annum.\nProinflationary risks have increased and prevail over disinflationary ones on the medium-term horizon.\nThe Bank of Russia Board of Directors holds its next key rate meeting on 23 October 2026.\nThe press release on the Bank of Russia Board decision and the medium-term forecast are to be published at 13.30 Moscow time.",
+        "title": "Bank of Russia keeps the key rate at 14.00% p.a.",
+        "url": "https://www.cbr.ru/eng/press/keypr/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "20.10.2026 14.00",
+          "Data is available from 17.09.2013 to 20.10.2026, inclusive.",
+          "The key rate set by the Board of Directors of the Bank of Russia applies on every calendar day, including weekends and holidays."
+        ],
+        "text": "20.10.2026 14.00\nData is available from 17.09.2013 to 20.10.2026, inclusive.\nThe key rate set by the Board of Directors of the Bank of Russia applies on every calendar day, including weekends and holidays.",
+        "title": "Key Rate | Bank of Russia",
+        "url": "https://www.cbr.ru/eng/hd_base/KeyRate",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "11 September 2026 Bank of Russia keeps the key rate at 14.00% p.a.",
+          "24 July 2026 Bank of Russia cuts the key rate by 25 bp to 14.00% p.a.",
+          "19 June 2026 Bank of Russia cuts the key rate by 25 bp to 14.25% p.a."
+        ],
+        "text": "11 September 2026 Bank of Russia keeps the key rate at 14.00% p.a.\n24 July 2026 Bank of Russia cuts the key rate by 25 bp to 14.00% p.a.\n19 June 2026 Bank of Russia cuts the key rate by 25 bp to 14.25% p.a.",
+        "title": "Monetary policy decisions | Bank of Russia",
+        "url": "https://www.cbr.ru/eng/dkp/mp_dec/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Inflation September 2026 6.4%",
+          "Key rate from 27.07.2026 14.00%",
+          "Board of Directors\u2019 next key rate meeting 23.10.2026"
+        ],
+        "text": "Inflation September 2026 6.4%\nKey rate from 27.07.2026 14.00%\nBoard of Directors\u2019 next key rate meeting 23.10.2026",
+        "title": "The Central Bank of the Russian Federation | Bank of Russia",
+        "url": "https://www.cbr.ru/eng/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "In September, growth in seasonally adjusted consumer prices was slower relative to the summer months.\nHowever, it remained markedly above the Bank of Russia\u2019s target.",
+          "To deliver a steady slowdown in consumer price growth and return inflation to 4% in 2027, carefully calibrated decisions are needed as regards the further path of the key rate."
+        ],
+        "text": "In September, growth in seasonally adjusted consumer prices was slower relative to the summer months.\nHowever, it remained markedly above the Bank of Russia\u2019s target.\nTo deliver a steady slowdown in consumer price growth and return inflation to 4% in 2027, carefully calibrated decisions are needed as regards the further path of the key rate.",
+        "title": "Talking Trends: moderate growth continues | Bank of Russia",
+        "url": "https://www.cbr.ru/eng/press/event/?id=32912",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Survey Dates: 9 \u2013 13 October, 2026.",
+          "Key rate: Forecasts have been raised over the entire horizon: to 14.6% per annum (+0.1 pp) in 2026 (this implies that the key rate will average 14.0% per annum for the remainder of 2026), 12.8% per annum (+0.4 pp) in 2027 and 10.8% per annum (+0.8 pp) in 2028.",
+          "Inflation: Analysts have raised their forecast for 2026\u20132028 to 7.1% (+0.5 pp compared to the September survey), 5.0% (+0.4 pp) and 4.2% (+0.2 pp) respectively."
+        ],
+        "text": "Survey Dates: 9 \u2013 13 October, 2026.\nKey rate: Forecasts have been raised over the entire horizon: to 14.6% per annum (+0.1 pp) in 2026 (this implies that the key rate will average 14.0% per annum for the remainder of 2026), 12.8% per annum (+0.4 pp) in 2027 and 10.8% per annum (+0.8 pp) in 2028.\nInflation: Analysts have raised their forecast for 2026\u20132028 to 7.1% (+0.5 pp compared to the September survey), 5.0% (+0.4 pp) and 4.2% (+0.2 pp) respectively.",
+        "title": "Macroeconomic survey of the Bank of Russia",
+        "url": "https://www.cbr.ru/eng/statistics/ddkp/mo_br/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "09.2026 14,00 6,35 4,00",
+          "08.2026 14,00 6,33 4,00"
+        ],
+        "text": "09.2026 14,00 6,35 4,00\n08.2026 14,00 6,33 4,00",
+        "title": "\u041a\u043b\u044e\u0447\u0435\u0432\u0430\u044f \u0441\u0442\u0430\u0432\u043a\u0430 \u0411\u0430\u043d\u043a\u0430 \u0420\u043e\u0441\u0441\u0438\u0438 \u0438 \u0438\u043d\u0444\u043b\u044f\u0446\u0438\u044f",
+        "url": "https://www.cbr.ru/statistics/ddkp/infl/",
+        "verified": null
+      }
+    ],
+    "polymarket-3372768": [
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "Ukrainian forces struck Russian servicemembers in western Matyasheve and western Svitle (both south of Dobropillya), according to geolocated footage published on October 12, after what ISW assesses were both Russian infiltration missions.",
+          "ISW only observed evidence of limited Russian infiltration missions into southern Dobropillya."
+        ],
+        "text": "Ukrainian forces struck Russian servicemembers in western Matyasheve and western Svitle (both south of Dobropillya), according to geolocated footage published on October 12, after what ISW assesses were both Russian infiltration missions.\nISW only observed evidence of limited Russian infiltration missions into southern Dobropillya.",
+        "title": "Russian Offensive Campaign Assessment, October 13, 2026 | ISW",
+        "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-13-2026/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "Ukrainian forces recently advanced east of Dobropillya.\nUkrainian forces recently advanced northwest of Shakhove, according to geolocated footage published on October 18.",
+          "A Ukrainian brigade operating in the Dobropillya direction reported on October 19 that Russian forces have been trying to advance along the same route towards Dobropillya since mid-spring 2026 despite sustaining heavy losses."
+        ],
+        "text": "Ukrainian forces recently advanced east of Dobropillya.\nUkrainian forces recently advanced northwest of Shakhove, according to geolocated footage published on October 18.\nA Ukrainian brigade operating in the Dobropillya direction reported on October 19 that Russian forces have been trying to advance along the same route towards Dobropillya since mid-spring 2026 despite sustaining heavy losses.",
+        "title": "Russian Offensive Campaign Assessment, October 19, 2026 | Critical Threats",
+        "url": "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-19-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-16",
+        "quotes": [
+          "ISW has observed evidence to assess that Russian forces seized three settlements but suffered a net loss of -198.28 square kilometers in Donetsk Oblast since September 1, 2026 and that Ukrainian forces currently control 5,530 square kilometers, or 20.4 percent, of Donetsk Oblast.",
+          "ISW has not observed any evidence to suggest that Russian forces have advanced north of or into Dobropillya beyond limited infiltration efforts and Ukrainian forces have repeatedly refuted Russian claims that Russian forces have consolidated positions in Dobropillya."
+        ],
+        "text": "ISW has observed evidence to assess that Russian forces seized three settlements but suffered a net loss of -198.28 square kilometers in Donetsk Oblast since September 1, 2026 and that Ukrainian forces currently control 5,530 square kilometers, or 20.4 percent, of Donetsk Oblast.\nISW has not observed any evidence to suggest that Russian forces have advanced north of or into Dobropillya beyond limited infiltration efforts and Ukrainian forces have repeatedly refuted Russian claims that Russian forces have consolidated positions in Dobropillya.",
+        "title": "Russian Offensive Campaign Assessment, October 16, 2026 | ISW",
+        "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-16-2026/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-17",
+        "quotes": [
+          "\"\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u043e\u0433\u043e \u0442\u0430 \u0421\u0432\u0456\u0442\u043b\u043e\u0433\u043e\", \u2013 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u044f\u0454\u0442\u044c\u0441\u044f \u0432 \u0442\u0435\u043b\u0435\u0433\u0440\u0430\u043c-\u043a\u0430\u043d\u0430\u043b\u0456 \u043f\u0440\u043e\u0454\u043a\u0442\u0443 \u0432 \u0441\u0443\u0431\u043e\u0442\u0443 \u0432\u0440\u0430\u043d\u0446\u0456.",
+          "\u041f\u0440\u0438 \u0446\u044c\u043e\u043c\u0443 \u043f\u0440\u043e\u0441\u0443\u0432\u0430\u043d\u043d\u044f \u0432\u043e\u0440\u043e\u0433\u0430 \u0432\u0456\u0434\u0431\u0443\u043b\u043e\u0441\u044f \u0437\u0430 \u043c\u0435\u0436\u0430\u043c\u0438 \u043d\u0430\u0441\u0435\u043b\u0435\u043d\u0438\u0445 \u043f\u0443\u043d\u043a\u0442\u0456\u0432, \u0441\u0430\u043c\u0456 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u0435 \u0456 \u0421\u0432\u0456\u0442\u043b\u0435 \u043b\u0438\u0448\u0438\u043b\u0438\u0441\u044f \u0432 \u0440\u0430\u0439\u043e\u043d\u0456 \u043f\u0440\u043e\u043d\u0438\u043a\u043d\u0435\u043d\u043d\u044f, \u0442\u0430\u043a\u043e\u0436 \u0443 \u0441\u0456\u0440\u0456\u0439 \u0437\u043e\u043d\u0456 \u043e\u043f\u0438\u043d\u0438\u043b\u043e\u0441\u044f \u0441\u0443\u0441\u0456\u0434\u043d\u0454 \u0441\u0435\u043b\u043e \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u043b\u044f, \u044f\u043a\u0435 \u0437\u043d\u0430\u0445\u043e\u0434\u0438\u0442\u044c\u0441\u044f \u0432 \u043a\u0456\u043b\u044c\u043a\u043e\u0445 \u043a\u0456\u043b\u043e\u043c\u0435\u0442\u0440\u0430\u0445 \u0432\u0456\u0434 \u043e\u0434\u043d\u043e\u0439\u043c\u0435\u043d\u043d\u043e\u0433\u043e \u043c\u0456\u0441\u0442\u0430."
+        ],
+        "text": "\"\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u043e\u0433\u043e \u0442\u0430 \u0421\u0432\u0456\u0442\u043b\u043e\u0433\u043e\", \u2013 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u044f\u0454\u0442\u044c\u0441\u044f \u0432 \u0442\u0435\u043b\u0435\u0433\u0440\u0430\u043c-\u043a\u0430\u043d\u0430\u043b\u0456 \u043f\u0440\u043e\u0454\u043a\u0442\u0443 \u0432 \u0441\u0443\u0431\u043e\u0442\u0443 \u0432\u0440\u0430\u043d\u0446\u0456.\n\u041f\u0440\u0438 \u0446\u044c\u043e\u043c\u0443 \u043f\u0440\u043e\u0441\u0443\u0432\u0430\u043d\u043d\u044f \u0432\u043e\u0440\u043e\u0433\u0430 \u0432\u0456\u0434\u0431\u0443\u043b\u043e\u0441\u044f \u0437\u0430 \u043c\u0435\u0436\u0430\u043c\u0438 \u043d\u0430\u0441\u0435\u043b\u0435\u043d\u0438\u0445 \u043f\u0443\u043d\u043a\u0442\u0456\u0432, \u0441\u0430\u043c\u0456 \u041c\u0430\u0442\u044f\u0448\u0435\u0432\u0435 \u0456 \u0421\u0432\u0456\u0442\u043b\u0435 \u043b\u0438\u0448\u0438\u043b\u0438\u0441\u044f \u0432 \u0440\u0430\u0439\u043e\u043d\u0456 \u043f\u0440\u043e\u043d\u0438\u043a\u043d\u0435\u043d\u043d\u044f, \u0442\u0430\u043a\u043e\u0436 \u0443 \u0441\u0456\u0440\u0456\u0439 \u0437\u043e\u043d\u0456 \u043e\u043f\u0438\u043d\u0438\u043b\u043e\u0441\u044f \u0441\u0443\u0441\u0456\u0434\u043d\u0454 \u0441\u0435\u043b\u043e \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u043b\u044f, \u044f\u043a\u0435 \u0437\u043d\u0430\u0445\u043e\u0434\u0438\u0442\u044c\u0441\u044f \u0432 \u043a\u0456\u043b\u044c\u043a\u043e\u0445 \u043a\u0456\u043b\u043e\u043c\u0435\u0442\u0440\u0430\u0445 \u0432\u0456\u0434 \u043e\u0434\u043d\u043e\u0439\u043c\u0435\u043d\u043d\u043e\u0433\u043e \u043c\u0456\u0441\u0442\u0430.",
+        "title": "\u041e\u043a\u0443\u043f\u0430\u043d\u0442\u0438 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044c \u043c\u0456\u0436 \u0420\u043e\u0434\u0438\u043d\u0441\u044c\u043a\u0438\u043c \u0456 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u043b\u044f\u043c, \u0437\u0430\u0445\u043e\u043f\u0438\u0432\u0448\u0438 7 \u043a\u0432 \u043a\u043c \u2013 DeepState",
+        "url": "https://interfax.com.ua/news/general/1221814.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "These reports are consistent with ISW\u2019s assessment that Russian forces\u2019 current offensive tactics cannot enable any sudden and dramatic Russian breakthrough in the area, contrary to recent Russian Ministry of Defense (MoD) claims that Russian forces have encircled Dobropillya."
+        ],
+        "text": "These reports are consistent with ISW\u2019s assessment that Russian forces\u2019 current offensive tactics cannot enable any sudden and dramatic Russian breakthrough in the area, contrary to recent Russian Ministry of Defense (MoD) claims that Russian forces have encircled Dobropillya.",
+        "title": "Russian Offensive Campaign Assessment, October 8, 2026 | ISW",
+        "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-8-2026/",
+        "verified": null
+      }
+    ],
+    "polymarket-3554548": [
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "Oct 19, 2026 903,893 votes 149 models",
+          "1 | 1 1 | Claude Opus 5.5 (Max) Anthropic \u00b7 Proprietary | 1807+14/-14 | 2,925 | $4 / $20 | 1M",
+          "2 | 2 4 | GPT-6 Astra (Max) OpenAI \u00b7 Proprietary | 1774+10/-10 | 6,169 | $10 / $50 | 1.1M"
+        ],
+        "text": "Oct 19, 2026 903,893 votes 149 models\n1 | 1 1 | Claude Opus 5.5 (Max) Anthropic \u00b7 Proprietary | 1807+14/-14 | 2,925 | $4 / $20 | 1M\n2 | 2 4 | GPT-6 Astra (Max) OpenAI \u00b7 Proprietary | 1774+10/-10 | 6,169 | $10 / $50 | 1.1M",
+        "title": "WebDev Arena: Best AI for Web Development",
+        "url": "https://arena.ai/leaderboard/code/webdev",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "1 | Anthropic Claude Opus 5.5 (Max) \u00b7 Proprietary | 1807+14/-14 | 1 | 1 1",
+          "2 | OpenAI GPT-6 Astra (Max) \u00b7 Proprietary | 1774+10/-10 | 2 | 2 4",
+          "3 | Meta Muse Wonder Full (Max) \u00b7 Proprietary | 1726+16/-16 | 6 | 4 7"
+        ],
+        "text": "1 | Anthropic Claude Opus 5.5 (Max) \u00b7 Proprietary | 1807+14/-14 | 1 | 1 1\n2 | OpenAI GPT-6 Astra (Max) \u00b7 Proprietary | 1774+10/-10 | 2 | 2 4\n3 | Meta Muse Wonder Full (Max) \u00b7 Proprietary | 1726+16/-16 | 6 | 4 7",
+        "title": "WebDev Arena ranked by labs",
+        "url": "https://arena.ai/leaderboard/code/webdev?rankBy=labs",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [
+          "Oct 8, 2026 852,934 votes 142 models",
+          "1 | 1 1 | claude-opus-5.5-max Anthropic \u00b7 Proprietary | 1813+15/-15 | 2,294 | $4 / $20 | 1M",
+          "2 | 2 3 | gpt-6-astra-max OpenAI \u00b7 Proprietary | 1786+11/-11 | 5,189 | $10 / $50 | 1.1M"
+        ],
+        "text": "Oct 8, 2026 852,934 votes 142 models\n1 | 1 1 | claude-opus-5.5-max Anthropic \u00b7 Proprietary | 1813+15/-15 | 2,294 | $4 / $20 | 1M\n2 | 2 3 | gpt-6-astra-max OpenAI \u00b7 Proprietary | 1786+11/-11 | 5,189 | $10 / $50 | 1.1M",
+        "title": "Code Arena | WebDev Overall snapshot",
+        "url": "https://arena.ai/leaderboard/code/webdev/overall",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "October 19, 2026",
+          "Muse Wonder Full (Max) has been added to the Code Arena: WebDev leaderboards.",
+          "October 18, 2026 DeepSeek-V4.1-Flash-20261017 (Max) has been added to the Code Arena: WebDev leaderboards."
+        ],
+        "text": "October 19, 2026\nMuse Wonder Full (Max) has been added to the Code Arena: WebDev leaderboards.\nOctober 18, 2026 DeepSeek-V4.1-Flash-20261017 (Max) has been added to the Code Arena: WebDev leaderboards.",
+        "title": "Leaderboard Changelog | Arena",
+        "url": "https://arena.ai/company/leaderboard-changelog",
+        "verified": null
+      },
+      {
+        "published": "2026-09-22",
+        "quotes": [
+          "September 22, 2026",
+          "We\u2019re introducing Claude Opus 5.5, the first model in our new Claude 5.5 family.",
+          "On our benchmarks, Claude Opus 5.5 leads in agentic coding, computer use, and knowledge work."
+        ],
+        "text": "September 22, 2026\nWe\u2019re introducing Claude Opus 5.5, the first model in our new Claude 5.5 family.\nOn our benchmarks, Claude Opus 5.5 leads in agentic coding, computer use, and knowledge work.",
+        "title": "Introducing Claude Opus 5.5",
+        "url": "https://www.anthropic.com/claude-opus-5-5",
+        "verified": null
+      },
+      {
+        "published": "2026-07-30",
+        "quotes": [
+          "Scores are clearly labeled \u201cAutoEval,\u201d then updated once enough human votes arrive to validate them.",
+          "Arena AutoEval works across text, vision, image generation, and coding domains, supplementing our human evaluation with rapid, targeted automation where just human voting cannot scale quickly enough.",
+          "When models are within 5 points of each other, they are statistically indistinguishable under live evaluation due to overlapping confidence intervals."
+        ],
+        "text": "Scores are clearly labeled \u201cAutoEval,\u201d then updated once enough human votes arrive to validate them.\nArena AutoEval works across text, vision, image generation, and coding domains, supplementing our human evaluation with rapid, targeted automation where just human voting cannot scale quickly enough.\nWhen models are within 5 points of each other, they are statistically indistinguishable under live evaluation due to overlapping confidence intervals.",
+        "title": "Introducing AutoEval to the Arena leaderboards",
+        "url": "https://arena.ai/blog/autoeval-scores",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "Muse Wonder Full debuted in Arena.ai\u2019s Code Arena: WebDev ranking on October 19 at No.\n6 overall with 1,726 points, landing ahead of Claude Sonnet 5.5 and Gemini 4 Argon and lifting Meta to the No.\n3 lab spot on the leaderboard."
+        ],
+        "text": "Muse Wonder Full debuted in Arena.ai\u2019s Code Arena: WebDev ranking on October 19 at No.\n6 overall with 1,726 points, landing ahead of Claude Sonnet 5.5 and Gemini 4 Argon and lifting Meta to the No.\n3 lab spot on the leaderboard.",
+        "title": "Muse Wonder Full Debuts at No.\n6 in Arena's WebDev Benchmark",
+        "url": "https://www.allthingsmuse.com/articles/muse-wonder-full-webdev-arena-debut/",
+        "verified": null
+      }
+    ],
+    "polymarket-4951227": [
+      {
+        "published": "",
+        "quotes": [
+          "PYTH PRICE IN USD FOR WTI CRUDE 19 NOVEMBER 2026",
+          "Price : 99.91000",
+          "Expiry : Nov 19, 2026"
+        ],
+        "text": "PYTH PRICE IN USD FOR WTI CRUDE 19 NOVEMBER 2026\nPrice : 99.91000\nExpiry : Nov 19, 2026",
+        "title": "Pyth CLLZ6 \u2014 WTI crude 19 November 2026",
+        "url": "https://app.pyth.com/explore/Commodities.CLLZ6%2FUSD",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "PYTH PRICE IN USD FOR WTI CRUDE 19 OCTOBER 2026",
+          "Price : 103.57111",
+          "Status : Inactive"
+        ],
+        "text": "PYTH PRICE IN USD FOR WTI CRUDE 19 OCTOBER 2026\nPrice : 103.57111\nStatus : Inactive",
+        "title": "Pyth CLLX6 \u2014 WTI crude 19 October 2026",
+        "url": "https://app.pyth.com/explore/Commodities.CLLX6%2FUSD",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Open time for Monday morning/Sunday evening is: 23:00 London (local time) 18:00 New York 17:00 Chicago.",
+          "Trading shall cease at the end of the designated settlement period on the 4th US business day prior to the 25th calendar day of the month preceding the contract month."
+        ],
+        "text": "Open time for Monday morning/Sunday evening is: 23:00 London (local time) 18:00 New York 17:00 Chicago.\nTrading shall cease at the end of the designated settlement period on the 4th US business day prior to the 25th calendar day of the month preceding the contract month.",
+        "title": "ICE Futures Europe WTI Crude Futures contract specification",
+        "url": "https://www.ice.com/products/213/WTI-Crude-Futures",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Nov26 | 10/3/2018 | 10/19/2026 | 10/19/2026 | 10/19/2026",
+          "Dec26 | 11/21/2017 | 11/19/2026 | 11/19/2026 | 11/19/2026"
+        ],
+        "text": "Nov26 | 10/3/2018 | 10/19/2026 | 10/19/2026 | 10/19/2026\nDec26 | 11/21/2017 | 11/19/2026 | 11/19/2026 | 11/19/2026",
+        "title": "ICE WTI Crude Futures expiry calendar",
+        "url": "https://www.ice.com/products/213/WTI-Crude-Futures/expiry",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Today\u2019s trading range for Crude Oil WTI futures is between 98.07 and 100.73.",
+          "The 52-week price range for Crude Oil WTI futures spans from 54.98 to 117.63.",
+          "Highest: 99.71"
+        ],
+        "text": "Today\u2019s trading range for Crude Oil WTI futures is between 98.07 and 100.73.\nThe 52-week price range for Crude Oil WTI futures spans from 54.98 to 117.63.\nHighest: 99.71",
+        "title": "Crude Oil WTI Futures Historical Prices (CL1!) \u2014 Investing.com UK",
+        "url": "https://uk.investing.com/commodities/crude-oil-historical-data",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "West Texas Intermediate (WTI), the US crude oil benchmark, is trading around $99.15 during the early European trading hours on Tuesday.",
+          "Iran\u2019s Islamic Revolutionary Guard Corps (IRGC) said on Monday that Tehran has not yet completely closed the Strait of Hormuz and can expand the scope of the blockade to the Bab al-Mandeb Strait and the Suez Canal."
+        ],
+        "text": "West Texas Intermediate (WTI), the US crude oil benchmark, is trading around $99.15 during the early European trading hours on Tuesday.\nIran\u2019s Islamic Revolutionary Guard Corps (IRGC) said on Monday that Tehran has not yet completely closed the Strait of Hormuz and can expand the scope of the blockade to the Bab al-Mandeb Strait and the Suez Canal.",
+        "title": "WTI rises above $99.00 as Iran warns of wider blockade",
+        "url": "https://www.fxstreet.com/news/wti-rises-above-9900-as-iran-warns-of-wider-blockade-202610200615",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Commercial crude oil stocks excluding the Strategic Petroleum Reserve fell by 8.6 million barrels to 415.6 million barrels in the week ended Oct.\n9, and were about 3% below the five-year average for the time of year, the EIA said."
+        ],
+        "text": "Commercial crude oil stocks excluding the Strategic Petroleum Reserve fell by 8.6 million barrels to 415.6 million barrels in the week ended Oct.\n9, and were about 3% below the five-year average for the time of year, the EIA said.",
+        "title": "U.S.\nCrude Oil Stockpiles Post Large Weekly Drop",
+        "url": "https://www.wsj.com/business/energy-oil/u-s-crude-oil-stockpiles-post-large-weekly-drop-0a988c08",
+        "verified": null
+      }
+    ],
+    "polymarket-5170805": [
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Last update Oct 20, 9:09 AM UTC",
+          "Oct 18, 2026 | 103.46 | 104.79 | 100.43 | 104.11 | 0.63%",
+          "Oct 01, 2026 | 118.12 | 119.63 | 116.73 | 118.41 | 0.25%"
+        ],
+        "text": "Last update Oct 20, 9:09 AM UTC\nOct 18, 2026 | 103.46 | 104.79 | 100.43 | 104.11 | 0.63%\nOct 01, 2026 | 118.12 | 119.63 | 116.73 | 118.41 | 0.25%",
+        "title": "Solana to US Dollar (SOL/USD) \u2014 Binance Price, Charts, and Data",
+        "url": "https://twelvedata.com/markets/722279/crypto/binance/sol-usd/historical-data",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Get free historical data for SOL USD (Solana US Dollar Binance).",
+          "Oct 18, 2026 | 104.140 | 103.460 | 104.740 | 100.510 | 1.52M | +0.66%",
+          "Lowest: 100.510"
+        ],
+        "text": "Get free historical data for SOL USD (Solana US Dollar Binance).\nOct 18, 2026 | 104.140 | 103.460 | 104.740 | 100.510 | 1.52M | +0.66%\nLowest: 100.510",
+        "title": "SOL USD Binance Historical Data - Investing.com",
+        "url": "https://www.investing.com/crypto/solana/sol-usd-historical-data",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "$103.88 Down 1.47 percent 1.47%($1.55)",
+          "SOL-USDT SOLUSDT | binance | AA | 104.03 USDT | -1.37%",
+          "Solana-focused treasury firm SkyAI sold its entire SOL position and simultaneously launched a $201 million buyback program, signaling a major shift in institutional strategy and drawing attention to liquidity and treasury management practices within the Solana ecosystem."
+        ],
+        "text": "$103.88 Down 1.47 percent 1.47%($1.55)\nSOL-USDT SOLUSDT | binance | AA | 104.03 USDT | -1.37%\nSolana-focused treasury firm SkyAI sold its entire SOL position and simultaneously launched a $201 million buyback program, signaling a major shift in institutional strategy and drawing attention to liquidity and treasury management practices within the Solana ecosystem.",
+        "title": "Solana price today, SOL to USD live price, marketcap and chart | CoinDesk",
+        "url": "https://www.coindesk.com/price/solana",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "2026-10-18 | $103.31 | $104.58 | $100.51 | $104.02 | $1.99B",
+          "2026-10-01 | $118 | $119.51 | $116.83 | $118.4 | $3.16B",
+          "All the prices listed on this page are obtained from Bitget, a reliable source."
+        ],
+        "text": "2026-10-18 | $103.31 | $104.58 | $100.51 | $104.02 | $1.99B\n2026-10-01 | $118 | $119.51 | $116.83 | $118.4 | $3.16B\nAll the prices listed on this page are obtained from Bitget, a reliable source.",
+        "title": "Solana (SOL) Price History & Download Solana Historical Data in CSV For Free | Bitget",
+        "url": "https://www.bitget.com/price/solana/historical-data",
+        "verified": null
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [
+          "Latest value: 105.15 USD",
+          "Date of latest value: 20 October 2026",
+          "Daily Solana spot price in US dollars on Binance: each point is the calendar-day close."
+        ],
+        "text": "Latest value: 105.15 USD\nDate of latest value: 20 October 2026\nDaily Solana spot price in US dollars on Binance: each point is the calendar-day close.",
+        "title": "Solana (SOL/USD) \u2014 data and chart",
+        "url": "https://forecasteconomy.com/currencies/indicator/sol-usd",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [
+          "Solana has scheduled its Alpenglow upgrade for Oct.\n21, targeting transaction finality in about 150 milliseconds, though actual performance will depend on network conditions.",
+          "The migration is scheduled for epoch 1064, expected to begin around 15:00 UTC on Oct.\n21."
+        ],
+        "text": "Solana has scheduled its Alpenglow upgrade for Oct.\n21, targeting transaction finality in about 150 milliseconds, though actual performance will depend on network conditions.\nThe migration is scheduled for epoch 1064, expected to begin around 15:00 UTC on Oct.\n21.",
+        "title": "SOL news: Solana sets Oct.\n21 for Alpenglow upgrade targeting 150-millisecond finality",
+        "url": "https://www.coindesk.com/tech/2026/10/14/solana-sets-oct-21-for-alpenglow-upgrade-targeting-150-millisecond-finality",
+        "verified": null
+      }
+    ],
+    "polymarket-5786298": [
+      {
+        "published": "",
+        "quotes": [
+          "When we read that page at 07:20 UTC on 17 October 2026, 1,885 wallets had committed US$5,660,925 against a US$3.9 million target, 1.45 times what the sale needs.",
+          "Read at 07:20 UTC on 17 October, it reached zero at 16:00 UTC on 30 October 2026.",
+          "Buyers connect a non-custodial Solana wallet (no account is created) and deposit USDC on Solana, from 10 USDC with no maximum."
+        ],
+        "text": "When we read that page at 07:20 UTC on 17 October 2026, 1,885 wallets had committed US$5,660,925 against a US$3.9 million target, 1.45 times what the sale needs.\nRead at 07:20 UTC on 17 October, it reached zero at 16:00 UTC on 30 October 2026.\nBuyers connect a non-custodial Solana wallet (no account is created) and deposit USDC on Solana, from 10 USDC with no maximum.",
+        "title": "1win token sale ($1WIN): terms, unlocks, who is excluded \u2013 Coindaro",
+        "url": "https://www.coindaro.com/launchpad/1win-token-sale/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-16",
+        "quotes": [
+          "8 minutes - $3.9M Now we\u2019re already at $5.5M Our Token Sale uses an oversubscription model, which means you can keep participating throughout the full sale period - 13 days",
+          "If the sale reaches 5x oversubscription ($ 19.5M) and you contribute $1,000, you\u2019ll receive $200 worth of tokens, while the remaining $800 will be refunded to your wallet",
+          "Yoooo guys, we hit the $3.9M cap in just 8 minutes The 1win Token community is wild"
+        ],
+        "text": "8 minutes - $3.9M Now we\u2019re already at $5.5M Our Token Sale uses an oversubscription model, which means you can keep participating throughout the full sale period - 13 days\nIf the sale reaches 5x oversubscription ($ 19.5M) and you contribute $1,000, you\u2019ll receive $200 worth of tokens, while the remaining $800 will be refunded to your wallet\nYoooo guys, we hit the $3.9M cap in just 8 minutes The 1win Token community is wild",
+        "title": "1win (@1win) post, 16 October 2026",
+        "url": "https://nitter.rdrama.net/1win/status/2111060784776155408",
+        "verified": null
+      },
+      {
+        "published": "2026-10-16",
+        "quotes": [
+          "The public sale for $1WIN opened at 18:00 on October 15 and crossed $3.9 million in USDC commitments by 18:08, reaching enough demand to cover the full 130 million-token public allocation within 8 minutes.",
+          "The milestone arrived quickly, but contributions will continue through October 30.",
+          "At the sale price of $0.03, the 130 million tokens available to the public are worth $3.9 million."
+        ],
+        "text": "The public sale for $1WIN opened at 18:00 on October 15 and crossed $3.9 million in USDC commitments by 18:08, reaching enough demand to cover the full 130 million-token public allocation within 8 minutes.\nThe milestone arrived quickly, but contributions will continue through October 30.\nAt the sale price of $0.03, the 130 million tokens available to the public are worth $3.9 million.",
+        "title": "$1WIN Public Sale Hits $3.9 Million in Commitments Within Minutes",
+        "url": "https://bitcoinist.com/1win-public-sale-hits-3-9-million-in-commitments-within-minutes/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "The sale runs from October 15 at 15:00 UTC to October 30, 2026 at 16:00 UTC.",
+          "Oversubscription update (October 16, 2026): total commitments reached approximately $5.31M (1.36x oversubscribed).",
+          "The sale allocation is capped at $3.9M.\nExcess USDC will be refunded after pro-rata allocation."
+        ],
+        "text": "The sale runs from October 15 at 15:00 UTC to October 30, 2026 at 16:00 UTC.\nOversubscription update (October 16, 2026): total commitments reached approximately $5.31M (1.36x oversubscribed).\nThe sale allocation is capped at $3.9M.\nExcess USDC will be refunded after pro-rata allocation.",
+        "title": "1win Token (1WIN) \u2013 ICO Drops",
+        "url": "https://icodrops.com/1win-token/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The public sale is now live, with 130 million $1WIN available at $0.03 USDC per token through an oversubscription model, with the Token Generation Event (TGE) occurring on October 30th.",
+          "Participants can deposit USDC into the sale pool during the two-week sale window, with a minimum contribution of $10 and no maximum contribution.",
+          "If demand exceeds the number of tokens available, each participant will receive a proportional allocation based on their contribution, with any unused USDC refunded."
+        ],
+        "text": "The public sale is now live, with 130 million $1WIN available at $0.03 USDC per token through an oversubscription model, with the Token Generation Event (TGE) occurring on October 30th.\nParticipants can deposit USDC into the sale pool during the two-week sale window, with a minimum contribution of $10 and no maximum contribution.\nIf demand exceeds the number of tokens available, each participant will receive a proportional allocation based on their contribution, with any unused USDC refunded.",
+        "title": "1win Launches Two-Week Public Sale for $1WIN Token - Chainwire",
+        "url": "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The public sale of $1WIN, the digital asset of the 1win ecosystem, opened today, October 15, at 17:00 CEST.",
+          "Public Sale Price $0.03 per $1WIN \u00b7 $30M fully diluted",
+          "The sale runs only on the official site, 1wintoken.com"
+        ],
+        "text": "The public sale of $1WIN, the digital asset of the 1win ecosystem, opened today, October 15, at 17:00 CEST.\nPublic Sale Price $0.03 per $1WIN \u00b7 $30M fully diluted\nThe sale runs only on the official site, 1wintoken.com",
+        "title": "1win Token Public Sale Started Today \u2013 1win Forum",
+        "url": "https://forum.1win.com/topic/2199-%E2%80%8B%F0%9F%AA%99-1win-token-public-sale-started-today-%E2%80%8B/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "The token sale starts here on October 15th at 4 pm BST.",
+          "$1WIN will have a fixed total supply of 1 billion tokens, with no additional minting after TGE."
+        ],
+        "text": "The token sale starts here on October 15th at 4 pm BST.\n$1WIN will have a fixed total supply of 1 billion tokens, with no additional minting after TGE.",
+        "title": "1win Announces Upcoming Public Sale for $1WIN Token - Chainwire",
+        "url": "https://chainwire.org/2026/10/13/1win-announces-upcoming-public-sale-for-1win-token/",
+        "verified": null
+      }
+    ],
+    "polymarket-648383": [
+      {
+        "published": "2026-06-17",
+        "quotes": [
+          "California Secretary of State Shirley N.\nWeber, Ph.D.\nannounced that an initiative became eligible for the November 3, 2026, General Election ballot on June 17, 2026.",
+          "On June 25, 2026, the Secretary of State will certify the initiative as qualified for the November 3, 2026, General Election ballot, unless it is withdrawn by the proponent prior to certification pursuant to Elections Code section 9604(b).",
+          "Imposes one-time tax of up to 5% on taxpayers and trusts with covered assets valued over $1 billion; covered assets include businesses, securities, art, collectibles, and intellectual property, but exclude real property and some pensions and retirement accounts."
+        ],
+        "text": "California Secretary of State Shirley N.\nWeber, Ph.D.\nannounced that an initiative became eligible for the November 3, 2026, General Election ballot on June 17, 2026.\nOn June 25, 2026, the Secretary of State will certify the initiative as qualified for the November 3, 2026, General Election ballot, unless it is withdrawn by the proponent prior to certification pursuant to Elections Code section 9604(b).\nImposes one-time tax of up to 5% on taxpayers and trusts with covered assets valued over $1 billion; covered assets include businesses, securities, art, collectibles, and intellectual property, but exclude real property and some pensions and retirement accounts.",
+        "title": "California Secretary of State announces measure eligible for November 2026 ballot (one-time tax)",
+        "url": "https://www.sos.ca.gov/administration/news-releases-and-advisories/2026-news-releases-and-advisories/california-secretary-state-shirley-n-weber-phd-announces-new-measure-eligible-november-2026-general-election-ballot-imposes-one",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Proposition 40 Imposes One-Time Tax on Certain Taxpayers.\nInitiative Constitutional Amendment and Statute.",
+          "Proposition 41 Prohibits New State Taxes That Exclude Revenues from State Spending Limit.\nRequires Audits for New State Special Taxes.\nInitiative Constitutional Amendment.",
+          "Proposition 42 Prohibits New State Personal Property Taxes and Certain Retroactive State Taxes.\nInitiative Constitutional Amendment."
+        ],
+        "text": "Proposition 40 Imposes One-Time Tax on Certain Taxpayers.\nInitiative Constitutional Amendment and Statute.\nProposition 41 Prohibits New State Taxes That Exclude Revenues from State Spending Limit.\nRequires Audits for New State Special Taxes.\nInitiative Constitutional Amendment.\nProposition 42 Prohibits New State Personal Property Taxes and Certain Retroactive State Taxes.\nInitiative Constitutional Amendment.",
+        "title": "Qualified Statewide Ballot Measures, California Secretary of State",
+        "url": "https://www.sos.ca.gov/elections/ballot-measures/qualified-ballot-measures",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Under Proposition 40, billionaires who were residents of California on January 1, 2026 would have to pay a one-time state tax equal to 5 percent of their net worth.",
+          "If Proposition 41 or 42 on this same ballot receive more \u201cyes\u201d votes than Proposition 40, then Proposition 40 could be stopped from becoming law even if it gets yes votes from a majority of voters.",
+          "A YES vote on this measure means: The state would collect a one-time tax from billionaires equal to 5 percent of their wealth."
+        ],
+        "text": "Under Proposition 40, billionaires who were residents of California on January 1, 2026 would have to pay a one-time state tax equal to 5 percent of their net worth.\nIf Proposition 41 or 42 on this same ballot receive more \u201cyes\u201d votes than Proposition 40, then Proposition 40 could be stopped from becoming law even if it gets yes votes from a majority of voters.\nA YES vote on this measure means: The state would collect a one-time tax from billionaires equal to 5 percent of their wealth.",
+        "title": "Proposition 40, Legislative Analyst's Office ballot analysis",
+        "url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Imposes 5% tax on certain taxpayers with assets over $1 billion; revenue primarily for health care.",
+          "October 5, 2026 County elections officials will begin mailing ballots on or before this date.",
+          "November 3, 2026 Election Day!\nPolls are open 7:00 a.m.\n- 8:00 p.m."
+        ],
+        "text": "Imposes 5% tax on certain taxpayers with assets over $1 billion; revenue primarily for health care.\nOctober 5, 2026 County elections officials will begin mailing ballots on or before this date.\nNovember 3, 2026 Election Day!\nPolls are open 7:00 a.m.\n- 8:00 p.m.",
+        "title": "Proposition 40, Official Voter Information Guide, California Secretary of State",
+        "url": "https://voterguide.sos.ca.gov/propositions/40/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Proposition 40 would require the estimated 200 Californians whose net worth exceeded $1 billion at the start of this year to pay a one-time 5% tax.",
+          "If propositions 41 or 42 earn more votes than Proposition 40, this measure would be nullified.",
+          "Service Employees International Union-United Healthcare Workers West, the group that put the measure on the ballot, projects that it would raise roughly $100 billion over five years."
+        ],
+        "text": "Proposition 40 would require the estimated 200 Californians whose net worth exceeded $1 billion at the start of this year to pay a one-time 5% tax.\nIf propositions 41 or 42 earn more votes than Proposition 40, this measure would be nullified.\nService Employees International Union-United Healthcare Workers West, the group that put the measure on the ballot, projects that it would raise roughly $100 billion over five years.",
+        "title": "Voter guide to Proposition 40: Billionaire tax, CalMatters",
+        "url": "https://calmatters.org/california-voter-guide-2026/proposition-40-billionaire-tax/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [
+          "A proposed tax on billionaires remains short of majority support as Californians begin casting ballots, according to a new Citrin-POLITICO poll.",
+          "Likely voters are essentially where they were a month ago, the survey found, with 46% in favor of Proposition 40 and 43% opposed \u2014 despite a recent push by backers of the measure, including Sen.\nBernie Sanders, to rally support for the one-time, 5% tax on billionaires\u2019 assets."
+        ],
+        "text": "A proposed tax on billionaires remains short of majority support as Californians begin casting ballots, according to a new Citrin-POLITICO poll.\nLikely voters are essentially where they were a month ago, the survey found, with 46% in favor of Proposition 40 and 43% opposed \u2014 despite a recent push by backers of the measure, including Sen.\nBernie Sanders, to rally support for the one-time, 5% tax on billionaires\u2019 assets.",
+        "title": "California billionaire tax falling short of majority support, poll finds, POLITICO",
+        "url": "https://www.politico.com/news/2026/10/19/california-billionaire-tax-poll-01125462",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Californians decided on 1,307 ballot measures between 1910 and 2025.\nVoters approved 753 (57.6%) and rejected 554 (42.4%) measures.",
+          "Legislatively referred measures were approved 69% of the time, as compared to 36% for ballot initiatives."
+        ],
+        "text": "Californians decided on 1,307 ballot measures between 1910 and 2025.\nVoters approved 753 (57.6%) and rejected 554 (42.4%) measures.\nLegislatively referred measures were approved 69% of the time, as compared to 36% for ballot initiatives.",
+        "title": "California Ballot Measures: Historical Ballot Measures Factbook, Ballotpedia",
+        "url": "https://ballotpedia.org/California_Ballot_Measures:_Historical_Ballot_Measures_Factbook",
+        "verified": null
+      }
+    ]
+  }
+}
