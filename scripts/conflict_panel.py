@@ -16,6 +16,7 @@ summaries are written to ``artifacts/conflict_panel_v1``. See docs/CONFLICT_PANE
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import sys
@@ -29,7 +30,9 @@ from forecastlab.conflict.backtest import headline_table, run_backtest, summariz
 from forecastlab.conflict.forecaster import PanelConfig  # noqa: E402
 from forecastlab.conflict.ged import build_panel  # noqa: E402
 from forecastlab.conflict.live import (  # noqa: E402
+    COUNTRY_SCORE_FIELDS,
     code_identity,
+    country_score_rows,
     data_vintage,
     load_live_forecast,
     make_live_forecast,
@@ -308,6 +311,13 @@ def score(args: argparse.Namespace) -> dict[str, Any]:
         out = args.artifacts_dir / f"live_score_{payload['origin']}_data_{format_month(panel.last_month)}.json"
         _write_json(out, result)
         result["written"] = str(out)
+        country_rows = country_score_rows(payload, panel)
+        csv_out = out.with_name(out.name.replace("live_score_", "live_score_countries_h1_", 1).replace(".json", ".csv"))
+        with csv_out.open("w", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=COUNTRY_SCORE_FIELDS)
+            writer.writeheader()
+            writer.writerows(country_rows)
+        result["written_countries"] = str(csv_out)
     return result
 
 

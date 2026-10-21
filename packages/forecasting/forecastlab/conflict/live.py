@@ -255,6 +255,37 @@ def _model_atoms(rows: list[dict[str, Any]], model_info: Mapping[str, Any], thre
     return np.concatenate(atoms, axis=1), np.concatenate(weights, axis=1)
 
 
+COUNTRY_SCORE_FIELDS = (
+    "country", "iso3", "target_month", "threshold", "forecast_p", "base_rate_p", "outcome", "fatalities", "brier", "base_rate_brier",
+)
+
+
+def country_score_rows(payload: Mapping[str, Any], panel: Panel, horizon: str = "1") -> list[dict[str, Any]]:
+    """One row per country and threshold for a scored horizon: forecast, base rate, outcome and Brier contribution."""
+    target = parse_month(payload["horizons"][horizon])
+    if target > panel.last_month:
+        return []
+    series = panel.series(payload["config"].get("series", "total"))
+    position = {int(cid): i for i, cid in enumerate(panel.country_ids)}
+    rows: list[dict[str, Any]] = []
+    for row in payload["forecasts"]:
+        index = position.get(row["country_id"])
+        if str(row["horizon"]) != horizon or index is None or not panel.valid[index, target - panel.first_month]:
+            continue
+        fatalities = float(series[index, target - panel.first_month])
+        for threshold in (int(t) for t in payload["config"]["thresholds"]):
+            hit = int(fatalities >= threshold)
+            p, base = float(row[f"p_ge{threshold}"]), float(row[f"climatology_p_ge{threshold}"])
+            rows.append(
+                {
+                    "country": row["country"], "iso3": row["iso3"], "target_month": payload["horizons"][horizon],
+                    "threshold": threshold, "forecast_p": round(p, 6), "base_rate_p": round(base, 6), "outcome": hit,
+                    "fatalities": int(fatalities), "brier": round((p - hit) ** 2, 6), "base_rate_brier": round((base - hit) ** 2, 6),
+                }
+            )
+    return rows
+
+
 def score_live_forecasts(payload: Mapping[str, Any], panel: Panel) -> dict[str, Any]:
     """Score every stored forecast whose target month the (newer) panel now covers.
 
