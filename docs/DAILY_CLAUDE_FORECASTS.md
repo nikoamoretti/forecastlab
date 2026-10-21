@@ -64,6 +64,7 @@ A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, may have
 - **prepare** (steps 2 and 5) creates the branch from `grok/forecastlab-mvp` if needed and runs both `prepare` commands. It has no schedule: the Mac research job asks for it, and so does the routine if the Mac has not.
 - **download** (step 3) runs `research_download.py` on the listed directories after the Mac job pushes `research.json`: it downloads each cited page, checks the quotes against it and keeps the page text around them.
 - **research** is retired (Tavily search through `research_pack.py`); it is kept only for hand runs.
+- **conflict-score** runs `scripts/conflict_panel.py score --fetch` (UCDP's host is blocked in locked-down containers) and commits `artifacts/conflict_panel_v1/live_score_*.json`. It needs no secrets and logs a clear message, committing nothing, if UCDP has not published the target month yet.
 - **finish** (steps 7 and 8) runs the judge panel on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
 
 To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "finish", "dirs": ["artifacts/prospective_markets_<date>"]}`. The workflow removes the file when it is done. The order is prepare, research (on the Mac), download, then finish. Between steps, `git pull` the branch, read the digests, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.
