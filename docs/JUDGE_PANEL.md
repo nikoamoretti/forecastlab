@@ -14,15 +14,14 @@ Each panel member is a forecaster of its own. Its probability goes into the medi
 | Method | OpenRouter model | Cost (USD per million tokens, in / out, 2026-10-07) |
 | --- | --- | --- |
 | `judge_nemotron_ultra_v1` | `nvidia/nemotron-3-ultra-550b-a55b:free` | free |
-| `judge_nemotron_super_v1` | `nvidia/nemotron-3-super-120b-a12b:free` | free |
 | `judge_deepseek_v4_pro_v1` | `deepseek/deepseek-v4-pro` | 0.21 / 0.42 |
 | `judge_kimi_k26_v1` | `moonshotai/kimi-k2.6` | 0.47 / 2.45 |
 | `judge_qwen38_27b_v1` | `qwen/qwen3.8-27b` | 0.43 / 2.55 |
 | `judge_minimax_m3_v1` | `minimax/minimax-m3` | 0.30 / 1.20 |
 
-All six are open weights from five labs. The four paid members cost about a cent per question together; the $1 daily cap still bounds the worst case.
+All five are open weights from five labs. The four paid members cost about a cent per question together; the $1 daily cap still bounds the worst case.
 
-**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
+**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. `judge_nemotron_super_v1` (`nvidia/nemotron-3-super-120b-a12b:free`) was removed on 2026-10-21 because OpenRouter returned HTTP 404 for it on every run since at least 2026-10-19; its earlier forecasts stay on the record under its own method. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
 
 ## Rules
 

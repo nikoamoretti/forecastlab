@@ -5,7 +5,6 @@
   "max_tokens": 6000,
   "members": [
     {"method": "judge_nemotron_ultra_v1", "model": "nvidia/nemotron-3-ultra-550b-a55b:free"},
-    {"method": "judge_nemotron_super_v1", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
     {"method": "judge_deepseek_v4_pro_v1", "model": "deepseek/deepseek-v4-pro"},
     {"method": "judge_kimi_k26_v1", "model": "moonshotai/kimi-k2.6"},
     {"method": "judge_qwen38_27b_v1", "model": "qwen/qwen3.8-27b"},
