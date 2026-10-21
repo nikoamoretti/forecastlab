@@ -1,0 +1,677 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0575
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "On Binance USDT data compiled through 20 October, October's highest BTC session high was $87,220 on 2 October, and none of the 19 sessions of 1 to 20 October reached $90,000; the 19 and 20 October highs were about $83,160 and $83,440 (Trader Villa, source page not confirmed) and CoinDesk had Bitcoin near $83,000 on 21 October. A touch of $90,000 by the end of 25 October needs a rise of roughly 8% in about four and a half days, against a daily range of about $1,950 (2.3%), and the FOMC meets only on 27 and 28 October, after the window. A fat-tailed spike is possible but unlikely.",
+          "sources": [
+            "https://www.tradervilla.com/coin/btcusdt/month-summary/october-2026",
+            "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
+            "https://www.coindesk.com/markets/2026/10/20/bitcoin-drops-to-usd81-400-as-asian-chip-stocks-tumble-options-traders-seek-downside-protection"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.07,
+          "rationale": "Base rate: 0 of 19 October sessions on Binance reached $90,000, with the month's peak at $87,220 on Oct 2. Current price is ~$83,400, requiring an ~8% rally in the remaining ~4.5 days (Oct 21-25 ET). Realized daily volatility is only ~1.34%, making such a move a 6-sigma event under normal conditions. No major catalyst (Fed meeting is Oct 27-28, after the window) and recent trading has been range-bound $81k-$84k. A low-probability tail event (large ETF inflow, short squeeze) keeps the chance non-zero but small."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.07,
+          "rationale": "The base rate is 0 of 19 October sessions reaching $90,000, with the month's high at $87,220 on Oct 2. Current prices are around $83,000\u2013$83,500, requiring an ~8% rally in the remaining 4.5 days. While Bitcoin can move sharply, the recent range-bound action, lack of a clear catalyst before the Fed meeting, and the need to break above $84,000 first make a surge to $90,000 unlikely. A sudden positive shock (e.g., massive ETF inflow) could change this, but the evidence suggests low probability."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.1,
+          "rationale": "The base rate from October is zero $90,000 highs in nineteen sessions, with the monthly peak at $87,220. Bitcoin is currently rangebound near $83,500, needing roughly an 8% rally in under five days to hit the target, while options flow is bearish and no scheduled catalyst falls within the window. A surprise breakout above $83,500 could theoretically spark a quick run toward $90,000, but recent strong ETF inflows failed to produce even a $84,000 high, making such a sharp move unlikely."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate is low: no Binance BTC/USDT session from October 1-20 reached $90,000, the month's high was $87,220, and price is now around $83,000, so a 1-minute high at $90,000 requires an ~8% move in the remaining ~4.7 days. Recent realized volatility is modest and options skew bearish, which argues against a quick breakout. The main upside risk is a sharp catalyst-driven rally, such as large ETF inflows, risk-on tech/AI strength, or a short squeeze, that could push Binance above $90,000."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.06,
+          "rationale": "Bitcoin needs an ~8% rally from the current ~$83,000 level to reach $90,000 within roughly 4-5 remaining sessions. October 2026 has been range-bound ($79,800-$87,220) with daily volatility near 1.34%, and 0 of 19 sessions so far hit $90,000. The monthly high of $87,220 was set on Oct 2 and has not been retested. While an analyst flagged $83,500 as a trigger toward the mid-$90,000s and ETF inflows turned positive, the options market shows bearish skew and no major catalyst (Fed meeting is Oct 27-28, after the window) is lined up. A sharp short squeeze or surprise macro catalyst could push probability higher, but absent that, an 8% move in this compressed range is a low-probability outcome."
+        }
+      ],
+      "id": "polymarket-5912679",
+      "market_id": "5912679",
+      "outcome": null,
+      "question": "Will Bitcoin reach $90,000 October 19-25?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-10-26",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-19-25-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.565
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "Banxico held at 6.50% unanimously on 24 September 2026, its third straight hold (25 June, 6 August, 24 September), and the statement still said the balance of risks to inflation is biased to the upside (Banxico, 24 September). The September private-analyst survey (1 October) had a median end-2026 rate of 6.50%, and a Citi survey reported on 20 October had a majority expecting no change through the rest of 2026, with a minority (Bankaool, Finamex) calling a cut in November. The 8 October minutes show some members open to a later fine-tuning cut and September inflation was 3.45% (INEGI), so a November cut is a real minority risk, while a hike is very unlikely.",
+          "sources": [
+            "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/%7B7D0BDB6E-E519-9C69-04AA-ABD4D31E4850%7D.pdf",
+            "https://www.banxico.org.mx/publicaciones-y-prensa/minutas-de-las-decisiones-de-politica-monetaria/%7BF63C3DE2-0AEC-9BAE-A86E-FC59895F9702%7D.pdf",
+            "https://www.elfinanciero.com.mx/economia/2026/10/20/banxico-no-hara-cambios-a-tasa-en-2026-ni-en-2027-encuesta-citi/",
+            "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/inpc/inpc_2q2026_10.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.68,
+          "rationale": "Base rate: Banxico held rates at 6.50% at its last three meetings (June, August, September 2026). However, the October 8 minutes explicitly state that \"in the following decisions a one-off decrease in the reference rate may be evaluated\" and that \"there are elements to discuss the convenience of a fine-tuning adjustment downward\" if disinflation continues. September inflation came in at 3.45% annually with core monthly at 0.20%, supporting continued disinflation. The private-sector median expects no change by year-end, but a minority (including Bankaool and Finamex) sees a November cut. The October 22 biweekly inflation print and Fed policy trajectory are the key swing factors before the November 5 meeting."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for central bank meetings is often a hold, especially after three consecutive holds. The September minutes show some members open to a cut if disinflation continues, but the majority of analysts in the October 20 Citi survey expect no change. Inflation at 3.45% and upside risks, along with a recent Fed hike, support holding. However, a surprise downside inflation print on October 22 or a dovish Fed turn could trigger a cut, giving a roughly 20% chance of a change."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "The recent base rate is mixed but tilted toward holds: four of the last eight decisions were holds, and the last three were consecutive holds at 6.50%. The September statement and minutes emphasize upside inflation risks, a hawkish Fed, and only a possible later fine-tuning cut, while the Citi survey has a majority expecting no change in the remaining 2026 meetings. A soft October inflation print or a dovish Fed shift could raise the chance of a 25bp cut, but a hike is not discussed in the sources."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Banxico has held at 6.50% for three consecutive meetings (June, August, September 2026), and the September minutes show a unanimous hold with only some members discussing a possible fine-tuning cut at later decisions. The September analyst survey median for end-2026 is 6.50%, and a Citi survey shows a majority expecting no change through 2026. The upside risk bias in the September statement and the Fed's September hike argue against a cut, though a minority of analysts (Bankaool, Finamex) expect a November cut. The October inflation print (due 22 October) and Fed trajectory are the remaining swing factors, but no source discusses a hike. I assign ~78% to no change, with the residual reflecting the minority cut expectation and data uncertainty."
+        }
+      ],
+      "id": "polymarket-3388093",
+      "market_id": "3388093",
+      "outcome": null,
+      "question": "No change in Bank of Mexico\u2019s interest rates after November 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the target for the overnight interbank interest rate resulting from the November 2026 meeting of the Bank of Mexico, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Mexico, including the statement or release from its November 2026 meeting, scheduled for November 5, 2026, as listed on the official Bank of Mexico calendar (https://www.banxico.org.mx/viewers2/JSP/calendarioDifusion_es.jsp). This market may resolve as soon as the statement or release of the Bank of Mexico resulting from its November 2026 meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-11-05",
+      "resolution_source": "https://polymarket.com/event/bank-of-mexico-decision-in-november",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "No Democrat has won a Texas Senate seat since 1988, and Cruz (2024, 53.1% to 44.6%) and Cornyn (2020, 53.5% to 43.9%) won by single digits. Against that, the three most recent likely-voter polls all have Democrat James Talarico ahead of Republican Ken Paxton by about 2 points: Hobby School 48 to 46 (fielded 10 to 14 October, released 19 October), Marist 47 to 45 (8 to 11 October) and CBS/YouGov 51 to 49 (8 to 16 October), all within error, and 53% of Marist's likely voters expected Paxton to win. Treating the race as a toss-up (state lean and Texas polls that have tended to understate Republicans, against a Democratic-leaning environment and a weaker nominee) puts Republicans at about even.",
+          "sources": [
+            "https://www.uh.edu/news-events/stories/2026/october/10192026-hobby-texas-races.php",
+            "https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/",
+            "https://texaspolitics.utexas.edu/blog/texas-2026-u-s-senate-poll-tracker",
+            "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate strongly favors Republicans (no Democratic Senate win since 1988; 2024/2020 margins ~9 points). However, multiple high-quality October polls consistently show Democrat Talarico leading by 2-4 points (Hobby +2, CBS/YouGov +2, Marist +2, others +3 to +6), making this a genuine toss-up. Texas polls have historically underestimated Republicans at times, and 53% of voters expect Paxton to win despite trailing in polls. The Libertarian candidate (~3%) may slightly hurt Paxton. Early voting just began. Balancing the strong historical prior against consistent polling showing a narrow Democratic lead yields a slight Republican lean."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The base rate strongly favors Republicans, who have won every Texas Senate race since 1988, most recently by 8\u201310 points. However, all recent public polls show Democrat Talarico leading by about 2 points, within the margin of error. The Marist poll's generic ballot shows Republicans +5, and a majority of voters expect Paxton to win, suggesting potential polling error or late Republican shifts. The race is a toss-up, but the consistent Democratic lead in polls slightly outweighs the historical baseline, giving Republicans a slightly below-even chance."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.46,
+          "rationale": "Base rate: Republicans have won every Texas U.S. Senate race since 1988, and GOP candidates lead in other 2026 statewide races, suggesting a Republican-leaning environment. Evidence: Multiple high-quality October likely-voter polls show Democrat James Talarico narrowly ahead of Ken Paxton by about two points, though the margin has narrowed from earlier in the month and a majority of voters still expect Paxton to win. Uncertainty remains over whether Texas polls are understating Republican support, as has happened in some past cycles, and how late-deciding voters will break."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.45,
+          "rationale": "Texas Senate races have a strong Republican base rate, with no Democratic winner since 1988 and recent margins of about +9 to +10 for Republicans. However, the latest likely-voter polls consistently show Talarico ahead of Paxton by about two points, which would favor Democrats if accurate. The main uncertainty is polling error and possible undercounting of Republican voters in Texas, which could keep this race close enough that Republicans still have a meaningful chance."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate strongly favors Republicans: no Democrat has won a Texas Senate seat since 1988, and recent GOP margins were 8-10 points. However, every public poll since September shows Talarico leading by 2-6 points, with three October polls (Hobby, CBS/YouGov, Marist) all at Talarico +2, well within margins of error. Paxton's personal baggage (impeachment, scandals) and a potentially unfavorable national environment appear to have made this race genuinely competitive. The race is essentially a toss-up, with polls slightly favoring Democrats but historical Republican strength in Texas providing a meaningful floor for Paxton."
+        }
+      ],
+      "id": "polymarket-630964",
+      "market_id": "630964",
+      "outcome": null,
+      "question": "Will the Republicans win the Texas Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Texas U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/texas-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.225
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.67,
+          "rationale": "This asks whether no Fable 5.2 or later model is made generally available by 31 October, so Yes means no release. Anthropic's pages and release notes as of 21 October show Fable 5.1 (1 September) as the newest Fable, with the October section listing only Haiku 5.5 (7 October), and Fable launches have been 84 days apart (9 June, 1 September), which points to late November. Against that, three unconfirmed reports (testingcatalog 17 October, orcarouter 19 October, sandbase 20 October) describe a Fable 5.5 string on Azure, partner checkpoints from 18 October and an expectation of a launch 'next week'; the Azure entry was removed and Anthropic has confirmed nothing, and partner access would not count. I put a public release in the next ten days at about one in three.",
+          "sources": [
+            "https://www.anthropic.com/claude/fable",
+            "https://support.claude.com/en/articles/12138966-release-notes",
+            "https://www.testingcatalog.com/anthropic-several-models-coming-fable-5-5-reaches-partners/",
+            "https://www.orcarouter.ai/blog/claude-fable-5-5-second-checkpoint-leak",
+            "https://blog.sandbase.ai/claude-fable-5-5-leak-timeline-2026/"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.85,
+          "rationale": "Base rate: two Fable releases in 2026 spaced ~84 days apart (Jun 9 and Sep 1), with 50 days since the last. Official Anthropic channels (Fable page, models overview, release notes, newsroom) list only Fable 5.1 as current and show no announcement of a 5.2+ model. Third-party leaks describe partner-only checkpoints and a removed Azure catalog row, but no public model ID, rate card, or general availability. With only 10 days remaining and no official pre-announcement, a public launch by Oct 31 is unlikely."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate of Fable releases (84 days apart) suggests the next one would be due around late November, making a release by October 31 unlikely. However, the rapid cadence of the Claude 5.5 family (three models in 15 days) and unverified leaks about Fable 5.5 increase the chance of an imminent launch, but the leaks' predicted date (October 20) passed without an official announcement, and only 10 days remain. Without a confirmed public model ID or announcement, a release by the deadline is less likely than not."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.82,
+          "rationale": "Base rate from 2026 Fable releases shows an ~84-day gap between general-availability versions, and only 50 days have passed since Fable 5.1, making a late-October release earlier than the established cadence. Unverified leaks about partner checkpoints and a since-removed Azure catalog entry raise a small possibility of a surprise launch, but Anthropic has issued no official announcement and no public model ID is currently callable. With just ten days remaining, the absence of any confirmed public-access signal means a release by October 31 is unlikely."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "The base Fable cadence in 2026 (84 days between Fable 5 and 5.1, with 50 days already elapsed) favors no qualifying release in the remaining 10 days, but unconfirmed Fable 5.5 leaks and partner checkpoints raise the chance of a late public launch. As of October 21, Anthropic's official Fable page, models overview, release notes, and newsroom still show only Fable 5.1, and the rumored October 20 date has passed without a public model ID, rate card, or accessible endpoint. An official public announcement or callable public model ID before October 31 would flip the answer, so I assign about 70% to no qualifying release."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate: Anthropic ships models rapidly (5.5 family: Opus 9/22, Sonnet 9/28, Haiku 10/7), and multiple leaks (Azure catalog row, partner checkpoints, social media predictions) suggest Fable 5.5 is imminent. However, the predicted Tuesday launch date (October 20) already passed without an official release, only 10 days remain, and as of October 21 no qualifying model is accessible publicly. The question resolves to Yes if no release happens by Oct 31, so I'm assigning roughly 45% probability to 'no release' reflecting genuine uncertainty between imminent launch versus a delay beyond the resolution date."
+        }
+      ],
+      "id": "polymarket-5219332",
+      "market_id": "5219332",
+      "outcome": null,
+      "question": "Will there be no next Fable model (5.2+) release by October 31, 2026?",
+      "resolution_criteria": "This market will resolve according to the calendar date (ET) on which Anthropic's next Fable model (5.2+) is made available to the general public.\n\nA qualifying model must have a name or model identifier that includes \"Fable\" and be designated as version 5.2 or higher, regardless of capitalization or surrounding prefixes, suffixes, dates, or descriptors. For example, a version 5.2 or higher named in the same manner as Claude Fable 5 or Claude Fable 5.1 would qualify, including a new whole-number generation such as Claude Fable 6, while models whose name does not include \"Fable\" or which retain a version designation below 5.2, such as Claude Fable 5.1 or Claude Mythos 5.1, will not qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Anthropic as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Anthropic, with additional verification from a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/next-fable-model-5pt2-released-onptptpt-20261002",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.09
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "ISW's 20 October assessment coded only an infiltration flag-raising at the Almazna mine in the Dobropillya area, a layer that does not qualify, and on 17 October ISW had seen no evidence of Russian consolidation there. DeepState's 13 and 20 October updates say Russian forces advanced 'near' Novyi Donbas without saying the settlement or the intersection is held. Earlier episodes (the failed December 2025 attempt, the 26 January 2026 infiltration that changed no control, and Ukrainian forces present west and south of the village on 28 to 29 August) did not become assessed Russian control, and shading must also persist a full update cycle, so Yes within ten days is unlikely.",
+          "sources": [
+            "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-20-2026",
+            "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-17-2026/",
+            "https://realgazeta.com.ua/zmini-na-liniyi-frontu-rosiiani-prosunulisia-bilia-novogho-donbasu-v-pokrovskomu-raioni/",
+            "https://informator.ua/uk/vorog-prosunuvsya-u-bilickomu-a-takozh-poblizu-dorozhnogo-ta-novogo-donbasu-deepstate"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "Base rate is low given the historical pattern of failed Russian consolidation attempts at Novyi Donbas (Dec 2025, Jan 2026) and current ISW assessments showing only infiltration missions, not assessed control. DeepState reports partial advances near Novyi Donbas but not capture, and ISW daily texts Oct 14-20 do not mention Novyi Donbas. The 10-day window is short for a confirmed map change persisting through an ISW update cycle. Probability could increase if ISW map shading shifts to a qualifying layer at the intersection or a negotiated handover establishes actual control."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for capturing a specific settlement in a 10-day window is low, and historical Russian attempts at Novyi Donbas have failed to consolidate control. Recent DeepState reports indicate only partial advances, not captures, and ISW's October 20 assessment did not mention any change at the intersection, suggesting no qualifying shading yet. Given ISW's strict criteria and the short time frame, it is unlikely but not impossible that a sustained advance will be confirmed by the deadline."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a specific intersection being assessed as Russian-controlled within ten days is low, especially when ISW has not written up Novyi Donbas and recent reports describe only infiltration or partial advances. DeepState\u2019s Oct. 13 and Oct. 20 notes that Russian forces advanced near Novyi Donbas are the main evidence raising the probability, but they do not establish capture of the exact intersection or qualifying ISW shading. A Yes would require a persistent ISW map change under assessed control/advances, or actual negotiated control, and past failed attempts/infiltrations make that less likely."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for a small settlement like Novyi Donbas being captured within ~10 days is low, and the historical pattern shows three episodes (Dec 2025, Jan 2026, Sep 2026) where Russian infiltration or attempted seizure failed to translate into assessed control. Recent DeepState reports (13 and 20 Oct) describe only partial advances near Novyi Donbas, not capture, and ISW's 20 Oct assessment only coded an infiltration mission at the Almazna mine in Dobropillya, not control of Novyi Donbas. The intersection would need to be shaded as Russian-controlled or Russian advances (not infiltration) and persist through the next ISW update cycle, which is a higher bar than the recent activity suggests. A negotiated handover with actual control or a sudden ISW reassessment would be needed to push this to Yes."
+        }
+      ],
+      "id": "polymarket-3089558",
+      "market_id": "3089558",
+      "outcome": null,
+      "question": "Will Russia capture Novyi Donbas by October 31?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if, according to the ISW map, Russia captures the intersection at 48.450545\u00b0 N, 37.181493\u00b0 E in Novyi Donbas, Donetsk Oblast, between market creation and the specified date, 11:59 PM ET.\n\nThe intersection will be considered captured if any part of the intersection is shaded under a below specified layer on the ISW map (https://storymaps.arcgis.com/stories/36a7f6a6f5a9448496de641cf64bd375) by the resolution date. Otherwise, the market will resolve to \u201cNo\u201d.\n\nFor any change on the ISW map to qualify for this market\u2019s resolution, the relevant shading must persist through the next full ISW daily update cycle. If ISW skips a day, shading must persist until the next finalized ISW update is published, regardless of the date.\n\nAny continuous shading under the following layers will qualify:\n- Assessed Russian-Controlled Terrain\n- Assessed Russian Advances\n\nShading under the following layers will not qualify:\n- Assessed Russian Infiltration Areas\n- Claimed Russian Territory\n\nOnce a qualifying condition is met, any subsequent loss of control will not be considered towards the resolution of this market.\n\nIf Russia comes into control of the specified territory as a result of a negotiated settlement, this will qualify for a 'Yes' resolution, regardless of whether it is shaded under a qualifying layer on the ISW map. However, an announcement of a negotiated settlement that gives Russia de jure control will not qualify. Actual control must be established.\n\nIntersection Location in Novyi Donbas: https://polymarket-upload.s3.us-east-2.amazonaws.com/Novyi+Donbas1.png\n\nNovyi Donbas Location: https://polymarket-upload.s3.us-east-2.amazonaws.com/Novyi+Donbas2.png\n\nLocation on Google Maps: https://maps.app.goo.gl/fsRaQXJ6vikXNKYu9\n\nThe primary resolution source for this market will be the ISW Ukraine map. If the ISW map is rendered unavailable, information from DeepStateMap (https://deepstatemap.live/) may be used. If information from both the ISW and DeepStateMap are rendered permanently unavailable, a consensus of credible reporting may be used.\n\nNote: Any temporary glitches or errors in the map will not be considered.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/will-russia-capture-novyi-donbas-byptptpt-20260724163321934",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1255
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "On 21 October the Binance BTCUSDT 24-hour ticker showed a last price near $83,520 (high $83,714), and CoinDesk had Bitcoin just above $82,700 that morning; the 21-day moving average near $83,230 was acting as resistance (Cointelegraph, 20 October). Closing above $86,000 at noon ET on 23 October needs a gain of about 3% in roughly two days, with a daily ATR of about $1,950 (2.3%), so it is a roughly 1.4-sigma move. ETF flows were mixed (about $227M out the week to 17 October, then $527M in on 19 October) and the Fed meets only on 27 and 28 October, so there is no scheduled catalyst before the check.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
+            "https://cointelegraph.com/markets/bitcoin-price-spikes-to-833k-as-us-stocks-rise-on-q3-earnings-oil-falls",
+            "https://decrypt.co/381246/bitcoin-etfs-shed-nearly-1-billion-two-weeks-uptober-red",
+            "https://blockchain.news/news/20261021-price-prediction-btc-macd-flatlines-as-bitcoin-stalls-below"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "Current Binance BTC/USDT price is ~$83,500, requiring a ~3% rise to $86,000 in ~53 hours. Bitcoin's typical 2-day volatility (\u22483.5-5%) makes a 3% move a ~0.6-0.9 standard deviation event, giving a base-rate probability of 25-30%. Recent positive factors include strong ETF inflows ($526.7M on Oct 19) and a tech-stock rally from AI earnings, but the 21-day SMA at $83,230 is acting as resistance, oil above $110 and hot inflation prints support a hawkish Fed, and the 30-day trend is down 3.5%. The net evidence slightly favors the downside, keeping probability near the base rate."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "Bitcoin is currently around $83,500, needing a ~3% rise to exceed $86,000 by Oct 23 noon ET. The 30-day trend is down 3.5%, and the 21-day SMA at $83,230 is acting as resistance. While a 3% move in two days is within typical volatility (daily ATR ~$1,948), mixed ETF flows and macro headwinds (high oil, inflation) make a sustained breakout above $83,600 unlikely in the short term. I estimate a 25% chance."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "From ~$83,500, reaching $86,000 in about two days requires a ~2.5% move, roughly 1.5 daily ATRs, so the neutral base rate is modest. The evidence is mixed: recent ETF inflows and risk-on tech earnings support a bounce, but price is still below key resistance at $83,200-$83,600, the 30-day close near $86,600 is overhead, and hot inflation/oil/Fed concerns weigh on risk assets. A strong ETF inflow or risk rally could push it through, while rejection at resistance keeps the probability low."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for BTC moving ~3% higher in two days from current levels is low (~15-20%). Current price is ~$83,500, needing a move to above $86,000 by noon ET on Oct 23. The 21-day SMA at $83,230 is acting as resistance, ETF flows have been mixed (large outflows recently, one big inflow day), and the Fed meeting on Oct 27-28 creates uncertainty. A break above $83,600 with sustained ETF inflows could push toward $84,500 but reaching $86,000 requires a strong catalyst not currently evident."
+        }
+      ],
+      "id": "polymarket-5776854",
+      "market_id": "5776854",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $86,000 on October 23?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-23",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-october-23-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.105
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "Spot gold was about $4,126 on 20 October (Reuters via CNBC) and about $4,122 on the Pyth feed on 21 October, so $3,900 is roughly 5.5% below. In 15 sessions of October the lowest daily low was 4,066 on 7 October (Investing.com), and the lowest December-contract low was about 4,080 (Bullion World, 20 October). About seven sessions remain to 30 October, including the 27 to 28 October Fed meeting; gold fell 8.5% in September on a 10-year yield of 5.3% and renewed expectations of Fed tightening (World Gold Council), so a sharp drop is possible but would be a larger move than any seen this month.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html",
+            "https://bullionworld.in/comex-future-gold-prices-daily.php",
+            "https://www.gold.org/goldhub/gold-focus/2026/10/weekly-markets-monitor-bonds-back-room",
+            "https://www.investing.com/currencies/xau-usd-historical-data"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.08,
+          "rationale": "Base rate: 0 of 15 October sessions so far have seen a daily low at or below $3,900; the lowest was $4,066 on Oct 7, still $166 above the threshold. The World Gold Council's mid-year outlook gives a \u00b15% range around $4,100 for H2 2026, implying a lower bound near $3,895 \u2014 just touching $3,900 \u2014 but only if conditions don't change materially. With 9 trading sessions left (including the Oct 27\u201328 Fed meeting and PCE release), a hawkish surprise or yield spike could trigger a sharp intraday move, but current momentum and volatility are modest. The 52-week low of $3,886 is undated and not confirmed in October. Probability remains low but non-negligible due to event risk."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate is zero lows at or below $3,900 in the first 15 October sessions, with the lowest daily low at $4,066. Current spot is ~$4,120, requiring a >5% drop in the remaining 9 days. The World Gold Council's mid-year scenario of \u00b15% around $4,100 puts $3,900 at the lower bound, but upcoming Fed and PCE events are unlikely to trigger such a sharp decline given recent support near $4,000. The 52-week low of $3,886.49 shows it's possible, but the probability remains low."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "Base rate is low: no October low has reached $3,900, with the lowest daily low so far at $4,066.06 and current Pyth price around $4,121.69. The barrier is only about 4% below the month's low and sits near the lower edge of World Gold Council's \u00b15% around $4,100 scenario, so a hawkish Fed or hot PCE shock could push it there. Remaining sessions include the Fed meeting and PCE release, but a dovish hold or renewed safe-haven bid would keep it No. I assign about a 20% chance."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.04,
+          "rationale": "Base rate: in 15 October sessions through 21 Oct, the lowest daily low was $4,066 (7 Oct), with no session printing below $3,900. The WGC mid-year outlook puts gold at roughly \u00b15% around $4,100, implying a low end near $3,895, but the Fed is expected to hike further and yields are already elevated, which historically pressures gold. A hawkish Fed surprise on 27-28 Oct or a yield spike could push gold toward $3,900, but the remaining 9 sessions would need a ~5% drop from current $4,121, which is unlikely without a major shock. The 52-week low of $3,886.49 (undated) shows such levels are reachable but require significant catalysts not currently evident."
+        }
+      ],
+      "id": "polymarket-4936080",
+      "market_id": "4936080",
+      "outcome": null,
+      "question": "Will Gold (XAUUSD) hit (LOW) $3,900 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-xauusd-hit-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.645
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.54,
+          "rationale": "Democrat Troy Jackson, who replaced the withdrawn Graham Platner on 27 July, leads Susan Collins in both October polls: Marist 51 to 47 (1 to 4 October, 1,505 registered voters) and Rasmussen 49 to 47 (5 to 8 October, 804 likely voters), both within error, while 57% in Marist expected Collins to win. Cook rated the seat a Toss Up on 20 October. Collins has won five times since 1996, last with 51.0%, and has often run ahead of her polls, which offsets a Democratic-leaning national environment, so I put Democrats slightly ahead of even.",
+          "sources": [
+            "https://maristpoll.marist.edu/polls/midterm-elections-in-maine-october-2026/",
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_maine_senate",
+            "https://www.cookpolitical.com/ratings/senate-race-ratings",
+            "https://mainedems.org/mdp-announces-troy-jackson-as-democratic-nominee-for-u-s-senate/"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.53,
+          "rationale": "Base rate favors Collins given her five previous wins and strong incumbency advantage, but the 2026 midterm environment with an unpopular Republican president, two recent polls showing Jackson narrowly ahead (Marist +4, Rasmussen +2, both within MoE), Cook's Toss Up rating, and a D+9 generic ballot advantage shift the probability slightly toward Democrats. Ranked-choice voting and the late nominee change add uncertainty that keeps this near a coin flip."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The race is rated a Toss Up with polls showing Democrat Troy Jackson narrowly leading Republican incumbent Susan Collins, but within the margin of error. Maine's political environment leans Democratic (anti-Trump sentiment, generic ballot lead), yet Collins has a strong incumbency advantage and a history of winning close races. The probability reflects a slight Democratic edge given the polling and national mood, but high uncertainty remains."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: Incumbent senators win reelection most of the time, and Susan Collins has held this Maine seat since 1996. Evidence: Two October polls show Democrat Troy Jackson ahead by 2\u20134 points, and Maine\u2019s midterm environment is strongly favorable to Democrats, with anti-Trump sentiment and a D+9 generic congressional ballot. Uncertainty: Despite the horse-race numbers, 57% of voters expect Collins to win, indicating potential undecided movement toward the incumbent, and Cook rates the race a Toss Up. What could change it: Final polls showing Collins with a clear lead, or a shift in turnout or ranked-choice tabulation could flip the outcome."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.58,
+          "rationale": "The base rate favors an incumbent Senate candidate, but the 2026 midterm environment, anti-Trump sentiment, and strong Democratic down-ballot leads make this a genuine toss-up. Recent polls show the Democratic nominee leading by 2-4 points, which is enough to overcome the incumbent advantage in a close race, though the 57% who expect Collins to win and Maine's ranked-choice voting add uncertainty. A late surge for Collins, higher turnout among Republicans, or unfavorable transfer votes in the RCV process could flip the result."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.52,
+          "rationale": "Base rate: Collins has held this seat for five terms and won her last election with 51%, but Cook rates it a Toss Up and recent polls show Jackson narrowly ahead (Marist +4, Rasmussen +2). The evidence that moved me up from 50/50: two October polls show Jackson leading, independents breaking for him, and a strong anti-Trump environment in Maine. What could change it: Maine's ranked-choice voting complicates simple polling interpretation, 57% of voters think Collins will win (suggesting potential Bradley effect), and Collins' incumbency advantage plus her history of outperforming polls could still carry her. A late shift in the national environment or further nominee changes could also alter the outcome."
+        }
+      ],
+      "id": "polymarket-630772",
+      "market_id": "630772",
+      "outcome": null,
+      "question": "Will the Democrats win the Maine Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Maine U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/maine-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1334
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "The digest found no statistic or page for this market's trader count: the question never names the contract it refers to, and the CFTC and Dallas Fed items it cites are unrelated to Manifold's trader count, so there is no dated evidence on where the count stands. All that is known is that the market was selected with at least 15 traders and 1,000 mana traded, and its rule invites any bet of 'even M1'. Reaching 100 within about five days from an unknown starting count is possible for an engagement-seeking market, but a minority outcome is the better prior.",
+          "sources": [
+            "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+            "https://www.almanac.com/calendar/date/2026-10-25"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "The evidence provides no current trader count for this specific Manifold market, only that it had at least 15 traders and 1,000 units traded at selection. With 5 days until resolution and a low barrier to entry (M1 bets count), reaching 100 traders is possible but requires a 6.7x increase from the minimum starting point. No base rate exists for similar markets, and no momentum data is available. The probability reflects high uncertainty due to complete absence of current state information."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The market already had at least 15 traders when selected, but typical Manifold play-money markets seldom reach 100 unique traders, especially with only 5 days remaining. The evidence brief provides no current count or promotional signal, so a rapid surge to 100 is possible but not highly likely. I lean toward a low probability, around 0.15, based on general experience with similar obscure markets."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate is unknown, but 100 unique traders in about five days is a high bar for a small play-money market, especially when the only confirmed starting evidence is at least 15 traders and 1,000 units traded. The main upside is that even M1 bets count as new traders, so a short deadline and self-referential attention could trigger a rapid burst of unique accounts. The main downside is that no current count was found and the sources do not show the market has broad organic traction, so I keep the probability low but nonzero."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "The question refers to a specific Manifold market ('this market') that the researcher could not identify, so we lack direct evidence of its current trader count. The selection rule required at least 15 traders and M1,000 in volume, meaning the market already has at least 15 traders. With 5 days remaining and the ability for any bet (even M1) to add a trader, reaching 100 is plausible but uncertain. Without knowing the current count or the market's topic/visibility, I estimate slightly above 50% probability, leaning on the fact that markets selected under these criteria tend to attract enough attention to grow but not always to 100."
+        }
+      ],
+      "id": "manifold-y9thOUULZn",
+      "market_id": "y9thOUULZn",
+      "outcome": null,
+      "question": "Will this market reach 100 unique traders by October 26, 2026?",
+      "resolution_criteria": "Resolves YES if the trader count shown by Manifold on this market is at least 100 when the market closes (October 26, 2026, 00:59 Paris time, i.e. the night of Sunday to Monday). Resolves NO otherwise. You can bet any amount, even M1. The count is the one displayed by Manifold, with no other condition.",
+      "resolution_date": "2026-10-25",
+      "resolution_source": "https://manifold.markets/CheerForgeAdmin/will-this-market-reach-100-unique-t",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.26
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
+          "sources": [
+            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
+            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
+            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.52,
+          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.52,
+          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
+        }
+      ],
+      "id": "manifold-ULun8EOAAn",
+      "market_id": "ULun8EOAAn",
+      "outcome": null,
+      "question": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
+      "resolution_criteria": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2406
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "Anthropic's official model list, newsroom (21 October), Help Center release notes and platform release notes (20 October) show Fable 5.1 (1 September) as the newest Fable, and the last model launched was Haiku 5.5 on 7 October. Reports of a Fable 5.5 (testingcatalog 17 October; orcarouter 19 October; sandbase 20 October) describe partner checkpoints and a removed Azure catalog entry, and none is confirmed by Anthropic; partner-only access, leaks and hidden routing do not count. Fable launches have been 84 days apart, so a general release by the end of 25 October (four days) is possible on the leaks but less likely than not by a wide margin.",
+          "sources": [
+            "https://platform.claude.com/docs/en/release-notes/overview",
+            "https://www.anthropic.com/news/models",
+            "https://www.anthropic.com/claude/fable",
+            "https://www.testingcatalog.com/anthropic-several-models-coming-fable-5-5-reaches-partners/",
+            "https://www.orcarouter.ai/blog/claude-fable-5-5-second-checkpoint-leak"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.02,
+          "rationale": "Base rate from two Fable releases in 134 days suggests ~4.7% chance in any 4-day window, but releases are scheduled not Poisson. Fable 5.1 launched September 1 (50 days ago) with no newer version in model deprecations, release notes, or announcements. Other families (Opus, Sonnet, Haiku) have released more frequently, but Fable appears on a slower ~84-day cadence. With only 4 days remaining and no pre-announcement signals, probability is very low but non-zero due to possible documentation lag or surprise release."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for a new Fable in a four-day window is roughly 5% given two Fable releases in the past 134 days. Current official sources show no newer Fable model: release notes through Oct 20, the deprecations table, and the model news list only have Fable 5.1 as the latest, with other families getting updates. That discounts a planned release, though a surprise same-day launch or a lag in docs could still change the answer."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "Anthropic shipped two generally available Fable models over the past 4.5 months, suggesting a cadence of roughly one every 2.5 months, so a successor is likely still a few weeks out. As of October 20, official release notes, the model deprecations table, and the news index all show no sign of a newer Fable version launching in the next four days. Anthropic usually announces flagship models with at least minimal fanfare, making a surprise drop unlikely. An official release on October 22\u201325 would resolve YES, but the complete lack of signals in this very short window keeps the probability low."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate is low: Anthropic shipped two generally available Fable models in about four and a half months, with Fable 5.1 only 50 days old as of today. Official news, model pages, deprecation tables, and release notes through October 20 show no newer Fable model, while recent launches were Opus, Sonnet, and Haiku. A Yes would require a surprise official general-user release in the next four days, which is possible but not supported by the current evidence."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.04,
+          "rationale": "Base rate: two Fable models shipped in ~84 days, and the most recent (5.1) was released 50 days ago on Sept 1. The 4-day window (Oct 22-25) is short, and no announcement, release note, or model listing hints at a new Fable version. The latest Fable-related news is the Oct 6 Cyber Verification Program post, which still references Fable 5.1 as the current GA model. A surprise launch in the next 4 days is possible but unlikely given the cadence and lack of signals."
+        }
+      ],
+      "id": "manifold-AASsEh8ASz",
+      "market_id": "AASsEh8ASz",
+      "outcome": null,
+      "question": "Will Anthropic release a new Claude Fable model before October 26, 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before October 26, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "resolution_date": "2026-10-25",
+      "resolution_source": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-EC68R5O2Is",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.24
+        },
+        {
+          "created_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.41,
+          "rationale": "Republicans won eight of nine Ohio governor races from 1990 to 2022, and both open-seat races (1998, 2018). This year, though, Marist's 15 to 18 October likely-voter poll (released 20 October) has Democrat Amy Acton at 50% to Vivek Ramaswamy's 43% (margin of error 4.5), while 49% said they expect Ramaswamy to win; a separate ActiVote survey had him ahead. Republican-aligned groups hold a large spending edge, over $100 million spent or reserved against about $40 million (Ohio Capital Journal, 20 October), which partly offsets Acton's fundraising edge. Weighing the state's Republican lean against a seven-point deficit in the one high-quality poll, I put Ramaswamy somewhat below even.",
+          "sources": [
+            "https://maristpoll.marist.edu/polls/midterm-elections-in-ohio-october-2026/",
+            "https://ohiocapitaljournal.com/2026/10/20/outside-groups-pour-hundreds-of-millions-into-ohio-races-for-governor-u-s-senate/",
+            "https://www.ohiosos.gov/assets/dir2026-45-form-of-the-official-ballot-for-the-november%203-general-election.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "The historical base rate strongly favors Republicans in Ohio gubernatorial races (8 of 9 since 1990, including both recent open seats). However, the high-quality Marist poll (Oct 15-18) shows Democrat Amy Acton leading by 7 points (50-43) among likely voters, outside the \u00b14.5% margin of error. This is counterbalanced by a massive Republican advertising advantage (>$100M vs ~$40M from Democratic groups) and the striking finding that 49% of likely voters expect Ramaswamy to win vs 45% for Acton. A conflicting ActiVote poll reportedly shows Ramaswamy ahead, adding uncertainty. With only two weeks until Election Day and early voting underway, the race remains competitive but the structural advantages lean toward Ramaswamy."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Ohio's base rate strongly favors Republicans (8 of 9 governor races since 1990), and Ramaswamy benefits from a massive spending advantage ($100M+ vs. $40M). However, a recent Marist poll shows Democrat Acton leading by 7 points, though another survey has Ramaswamy ahead, creating uncertainty. The midterm environment under a Republican president may also pose headwinds, but the state's partisan lean and financial edge keep Ramaswamy favored."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.38,
+          "rationale": "Republicans have won eight of the last nine Ohio governor races, including both recent open seats, giving a GOP nominee strong fundamental odds in a red-trending state. However, the only public Marist likely-voter poll shows Democrat Amy Acton leading by seven points and winning independents by nineteen points, while an anti-Trump midterm environment and Acton\u2019s fundraising advantage suggest she is narrowly ahead. The race remains highly uncertain because a conflicting ActiVote survey showed Ramaswamy ahead, Republican-aligned groups have reserved more than double the Democratic ad spending, and voter expectations still favor Ramaswamy, so late polling or turnout surprises could easily change the result."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.38,
+          "rationale": "The base rate strongly favors Republicans in Ohio governor races, with eight of nine wins from 1990 to 2022 and both recent open-seat races going to Republicans. However, the latest Marist poll shows Amy Acton leading by seven points among likely voters, and the generic ballot and Senate race also lean Democratic, suggesting a midterm headwind for Ramaswamy. Large Republican-aligned outside spending and the fact that nearly half of likely voters expect Ramaswamy to win keep his chances meaningful, but the current polling makes a Democratic win more likely."
+        },
+        {
+          "created_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate strongly favors the Republican in an open Ohio governor race (8 of 9 since 1990), but the Marist poll shows Acton leading 50-43 with a 7-point margin among likely voters, and she leads 53-34 among independents. However, Republican-aligned outside spending ($100M+ vs $40M) dwarfs Democratic spending, and 49% of voters expect Ramaswamy to win despite the polling deficit, suggesting late movement is possible. Polling disagreement (an ActiVote survey had Ramaswamy ahead) and the remaining two weeks of advertising keep this genuinely uncertain, so I sit near a coin flip."
+        }
+      ],
+      "id": "manifold-a86n8pc6e3",
+      "market_id": "a86n8pc6e3",
+      "outcome": null,
+      "question": "Will Vivek Ramaswamy be the next Governor of Ohio?",
+      "resolution_criteria": "Resolves as the Manifold market resolves: https://manifold.markets/10thOfficial/will-vivek-ramaswamy-be-the-next-go",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://manifold.markets/10thOfficial/will-vivek-ramaswamy-be-the-next-go",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}

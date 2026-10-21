@@ -1,0 +1,102 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-10-26T04:00:00Z",
+      "id": "polymarket-5912679",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-19-25-2026",
+      "question": "Will Bitcoin reach $90,000 October 19-25?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-05T23:59:00Z",
+      "id": "polymarket-3388093",
+      "market_url": "https://polymarket.com/event/bank-of-mexico-decision-in-november",
+      "question": "No change in Bank of Mexico\u2019s interest rates after November 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the target for the overnight interbank interest rate resulting from the November 2026 meeting of the Bank of Mexico, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Mexico, including the statement or release from its November 2026 meeting, scheduled for November 5, 2026, as listed on the official Bank of Mexico calendar (https://www.banxico.org.mx/viewers2/JSP/calendarioDifusion_es.jsp). This market may resolve as soon as the statement or release of the Bank of Mexico resulting from its November 2026 meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-630964",
+      "market_url": "https://polymarket.com/event/texas-senate-election-winner",
+      "question": "Will the Republicans win the Texas Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Texas U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-5219332",
+      "market_url": "https://polymarket.com/event/next-fable-model-5pt2-released-onptptpt-20261002",
+      "question": "Will there be no next Fable model (5.2+) release by October 31, 2026?",
+      "resolution_criteria": "This market will resolve according to the calendar date (ET) on which Anthropic's next Fable model (5.2+) is made available to the general public.\n\nA qualifying model must have a name or model identifier that includes \"Fable\" and be designated as version 5.2 or higher, regardless of capitalization or surrounding prefixes, suffixes, dates, or descriptors. For example, a version 5.2 or higher named in the same manner as Claude Fable 5 or Claude Fable 5.1 would qualify, including a new whole-number generation such as Claude Fable 6, while models whose name does not include \"Fable\" or which retain a version designation below 5.2, such as Claude Fable 5.1 or Claude Mythos 5.1, will not qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Anthropic as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Anthropic, with additional verification from a consensus of credible reporting.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-3089558",
+      "market_url": "https://polymarket.com/event/will-russia-capture-novyi-donbas-byptptpt-20260724163321934",
+      "question": "Will Russia capture Novyi Donbas by October 31?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if, according to the ISW map, Russia captures the intersection at 48.450545\u00b0 N, 37.181493\u00b0 E in Novyi Donbas, Donetsk Oblast, between market creation and the specified date, 11:59 PM ET.\n\nThe intersection will be considered captured if any part of the intersection is shaded under a below specified layer on the ISW map (https://storymaps.arcgis.com/stories/36a7f6a6f5a9448496de641cf64bd375) by the resolution date. Otherwise, the market will resolve to \u201cNo\u201d.\n\nFor any change on the ISW map to qualify for this market\u2019s resolution, the relevant shading must persist through the next full ISW daily update cycle. If ISW skips a day, shading must persist until the next finalized ISW update is published, regardless of the date.\n\nAny continuous shading under the following layers will qualify:\n- Assessed Russian-Controlled Terrain\n- Assessed Russian Advances\n\nShading under the following layers will not qualify:\n- Assessed Russian Infiltration Areas\n- Claimed Russian Territory\n\nOnce a qualifying condition is met, any subsequent loss of control will not be considered towards the resolution of this market.\n\nIf Russia comes into control of the specified territory as a result of a negotiated settlement, this will qualify for a 'Yes' resolution, regardless of whether it is shaded under a qualifying layer on the ISW map. However, an announcement of a negotiated settlement that gives Russia de jure control will not qualify. Actual control must be established.\n\nIntersection Location in Novyi Donbas: https://polymarket-upload.s3.us-east-2.amazonaws.com/Novyi+Donbas1.png\n\nNovyi Donbas Location: https://polymarket-upload.s3.us-east-2.amazonaws.com/Novyi+Donbas2.png\n\nLocation on Google Maps: https://maps.app.goo.gl/fsRaQXJ6vikXNKYu9\n\nThe primary resolution source for this market will be the ISW Ukraine map. If the ISW map is rendered unavailable, information from DeepStateMap (https://deepstatemap.live/) may be used. If information from both the ISW and DeepStateMap are rendered permanently unavailable, a consensus of credible reporting may be used.\n\nNote: Any temporary glitches or errors in the map will not be considered.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-10-23T16:00:00Z",
+      "id": "polymarket-5776854",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-october-23-2026",
+      "question": "Will the price of Bitcoin be above $86,000 on October 23?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:59.999Z",
+      "id": "polymarket-4936080",
+      "market_url": "https://polymarket.com/event/what-price-will-xauusd-hit-in-october-2026",
+      "question": "Will Gold (XAUUSD) hit (LOW) $3,900 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-630772",
+      "market_url": "https://polymarket.com/event/maine-senate-election-winner",
+      "question": "Will the Democrats win the Maine Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Maine U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-25T23:59:00Z",
+      "id": "manifold-y9thOUULZn",
+      "market_url": "https://manifold.markets/CheerForgeAdmin/will-this-market-reach-100-unique-t",
+      "question": "Will this market reach 100 unique traders by October 26, 2026?",
+      "resolution_criteria": "Resolves YES if the trader count shown by Manifold on this market is at least 100 when the market closes (October 26, 2026, 00:59 Paris time, i.e. the night of Sunday to Monday). Resolves NO otherwise. You can bet any amount, even M1. The count is the one displayed by Manifold, with no other condition.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-ULun8EOAAn",
+      "market_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "question": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
+      "resolution_criteria": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-25T23:00:00Z",
+      "id": "manifold-AASsEh8ASz",
+      "market_url": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-EC68R5O2Is",
+      "question": "Will Anthropic release a new Claude Fable model before October 26, 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before October 26, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "manifold-a86n8pc6e3",
+      "market_url": "https://manifold.markets/10thOfficial/will-vivek-ramaswamy-be-the-next-go",
+      "question": "Will Vivek Ramaswamy be the next Governor of Ohio?",
+      "resolution_criteria": "Resolves as the Manifold market resolves: https://manifold.markets/10thOfficial/will-vivek-ramaswamy-be-the-next-go",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-10-21T09:17:28.572088+00:00",
+  "selection": "polymarket_selection_v2+manifold_selection_v1"
+}
