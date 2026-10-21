@@ -156,7 +156,7 @@ jobs:
       - name: Score the conflict panel
         if: env.STEP == 'conflict-score'
         run: |
-          uv sync --frozen
+          uv sync --frozen --extra conflict
           uv run --frozen python scripts/conflict_panel.py score --fetch > "$RUNNER_TEMP/conflict_score.json"
           if ls artifacts/conflict_panel_v1/live_score_*.json >/dev/null 2>&1 && grep -q '"written"' "$RUNNER_TEMP/conflict_score.json"; then
             grep '"written"' "$RUNNER_TEMP/conflict_score.json" | tee -a "$GITHUB_STEP_SUMMARY"
