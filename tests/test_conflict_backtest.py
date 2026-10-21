@@ -19,6 +19,7 @@ from forecastlab.conflict.forecaster import PanelConfig
 from forecastlab.conflict.ged import build_panel
 from forecastlab.conflict.live import (
     CSV_FIELDS,
+    country_score_rows,
     load_live_forecast,
     make_live_forecast,
     score_live_forecasts,
@@ -173,6 +174,11 @@ def test_live_forecasts_are_scored_once_outcomes_arrive(panel) -> None:
     assert scored["n"] == len(rows)
     assert scored["thresholds"]["1"]["brier"]["logit"] == pytest.approx(expected, rel=1e-5)
     assert scored["count_log1p"]["logit"]["crps"] >= 0
+    country_rows = country_score_rows(payload, panel)
+    ge1 = [r for r in country_rows if r["threshold"] == 1]
+    assert len(ge1) == len(rows)
+    assert np.mean([r["brier"] for r in ge1]) == pytest.approx(expected, rel=1e-4)
+    assert country_score_rows(payload, panel.truncated(origin)) == []
 
 
 def test_views_run_names_and_selection() -> None:
