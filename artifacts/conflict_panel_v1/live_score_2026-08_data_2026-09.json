@@ -1,0 +1,110 @@
+{
+ "kind": "conflict_panel_live_score",
+ "forecast_origin": "2026-08",
+ "scored_at": "2026-10-21T15:28:30+00:00",
+ "scoring_data_vintage": {
+  "last_month": "2026-09",
+  "built_at": "2026-10-21T15:28:29+00:00",
+  "candidate_status_policy": "all",
+  "releases": [
+   {
+    "first_month": "1989-01",
+    "kind": "ged_final",
+    "last_month": "2025-12",
+    "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667",
+    "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
+    "version": "26.1"
+   },
+   {
+    "first_month": "2026-01",
+    "kind": "candidate_cumulative",
+    "last_month": "2026-09",
+    "sha256": "134da9b3df08b65266802c4b662e572f396c70c92ab62297319be657540bcede",
+    "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_09.csv",
+    "version": "26.01.26.09"
+   }
+  ]
+ },
+ "scored_horizons": {
+  "1": {
+   "target_month": "2026-09",
+   "n": 130,
+   "thresholds": {
+    "1": {
+     "events": 43,
+     "brier": {
+      "logit": 0.0271198,
+      "climatology": 0.0976877,
+      "persistence": 0.107692
+     },
+     "log_loss": {
+      "logit": 0.120013,
+      "climatology": 0.299473,
+      "persistence": 0.991972
+     },
+     "brier_skill_vs_climatology": {
+      "logit": 0.722383,
+      "persistence": -0.102414
+     }
+    },
+    "25": {
+     "events": 27,
+     "brier": {
+      "logit": 0.0360841,
+      "climatology": 0.104633,
+      "persistence": 0.0461538
+     },
+     "log_loss": {
+      "logit": 0.139079,
+      "climatology": 0.315073,
+      "persistence": 0.425188
+     },
+     "brier_skill_vs_climatology": {
+      "logit": 0.655135,
+      "persistence": 0.558897
+     }
+    },
+    "100": {
+     "events": 14,
+     "brier": {
+      "logit": 0.0245747,
+      "climatology": 0.0555829,
+      "persistence": 0.0307692
+     },
+     "log_loss": {
+      "logit": 0.0823422,
+      "climatology": 0.166996,
+      "persistence": 0.283492
+     },
+     "brier_skill_vs_climatology": {
+      "logit": 0.557873,
+      "persistence": 0.446427
+     }
+    }
+   },
+   "count_log1p": {
+    "logit": {
+     "mae_median": 0.255035,
+     "mse_mean": 0.367527,
+     "crps": 0.206484
+    },
+    "climatology": {
+     "mae_median": 0.841547,
+     "mse_mean": 2.14502
+    },
+    "persistence": {
+     "mae_median": 0.331445,
+     "mse_mean": 0.518968,
+     "crps": 0.331445
+    }
+   }
+  }
+ },
+ "pending_target_months": [
+  "2026-11",
+  "2027-02",
+  "2027-08"
+ ],
+ "note": "Outcomes from UCDP Candidate files are preliminary and can change in the final GED release.",
+ "forecast_artifact": "live_forecast_2026-08.json"
+}
