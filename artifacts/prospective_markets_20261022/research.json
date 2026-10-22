@@ -1,0 +1,24 @@
+{
+  "failed": {
+    "manifold-5nLRAAdRt5": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "manifold-8tn2I8uRhA": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "manifold-RcL0Q9O0EU": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "manifold-g0zN5ghS90": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-3554471": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-4951229": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-5166884": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-5167211": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-5340069": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-5912693": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-5912729": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-630805": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 6 days. Buy credits to keep going now, or upgrade your plan for more weekly usage."
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-22T09:28:57+00:00",
+  "runs": 12,
+  "sources": {}
+}
