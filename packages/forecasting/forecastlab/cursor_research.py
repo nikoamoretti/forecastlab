@@ -255,3 +255,52 @@ def digest(data: dict[str, Any], qid: str) -> str:
         check = {True: "quotes checked", False: "quotes not found on page"}.get(s.get("verified"), "not checked")
         lines.append(f"[{n}] {s['title']} ({s['url']}{', ' + s['published'] if s['published'] else ''}; {check})")
     return "\n".join(lines)
+
+
+CONFIDENCE_BANDS = ((0.5, 0.6), (0.6, 0.75), (0.75, 0.9), (0.9, 1.01))
+
+
+def record_notes(track_record: dict[str, Any], method: str = "claude_code_forecaster_v1", misses: int = 5) -> str:
+    """What the forecaster's own results so far say, for the top of the digest.
+
+    How often it was right at each confidence level (calibration), by topic, and its latest misses
+    with what it said. Only decided, scored questions count; nothing here is about open questions.
+    """
+    rows = []
+    for question in track_record.get("questions", []):
+        if question.get("status") != "resolved" or question.get("scored") is False:
+            continue
+        mine = next((f for f in question.get("forecasts", []) if f["method"] == method), None)
+        if mine:
+            rows.append((question, mine["probability"], mine.get("rationale", "")))
+    if not rows:
+        return "Your record so far: nothing decided yet."
+    right = [(p > 0.5) == bool(q["outcome"]) for q, p, _ in rows if p != 0.5]
+    lines = [f"Your record so far: {sum(right)} right of {len(right)} decided calls "
+             f"(Brier {sum((p - q['outcome']) ** 2 for q, p, _ in rows) / len(rows):.3f}; always saying 50% scores 0.25)."]
+    for low, high in CONFIDENCE_BANDS:
+        band = [(q, p) for q, p, _ in rows if low <= max(p, 1 - p) < high and p != 0.5]
+        if band:
+            said = sum(max(p, 1 - p) for _, p in band) / len(band)
+            hit = sum((p > 0.5) == bool(q["outcome"]) for q, p in band) / len(band)
+            verdict = "overconfident" if hit < said - 0.1 else "underconfident" if hit > said + 0.1 else "about right"
+            lines.append(f"- When {round(low * 100)}-{min(round(high * 100), 100)}% sure: said {said:.0%} on average, "
+                         f"right {hit:.0%} of {len(band)} ({verdict}).")
+    topics: dict[str, list[bool]] = {}
+    for question, p, _ in rows:
+        if p != 0.5:
+            topics.setdefault(question.get("topic") or "Other", []).append((p > 0.5) == bool(question["outcome"]))
+    lines.append("- By topic: " + "; ".join(f"{topic} {sum(marks)} of {len(marks)}" for topic, marks in sorted(topics.items())) + ".")
+    wrong = [(q, p, r) for q, p, r in rows if p != 0.5 and (p > 0.5) != bool(q["outcome"])]
+    if wrong:
+        lines.append("Latest misses (what you said, what happened):")
+        for question, p, rationale in sorted(wrong, key=lambda row: row[0]["resolves_on"], reverse=True)[:misses]:
+            reason = rationale.split(". ")[0].strip().rstrip(".")
+            reason = reason if len(reason) <= 200 else reason[:200].rsplit(" ", 1)[0] + "…"
+            actual = f" ({question['actual']})" if question.get("actual") else ""
+            outcome = "yes" if question["outcome"] else "no"
+            lines.append(f"- {question['resolves_on']} {question['title']} You said {p:.0%} yes; it was {outcome}{actual}."
+                         + (f" Your reason: {reason}." if reason else ""))
+    lines.append("Use this to set how sure you are, not to change what the evidence says.")
+    return "\n".join(lines)
+

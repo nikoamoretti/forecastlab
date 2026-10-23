@@ -37,7 +37,8 @@ export default function QuestionPage() {
         <p className="font-mono text-xs uppercase tracking-widest text-copper">Our call</p>
         <p className="mt-2 font-serif text-4xl">{q.call ? callText(q.call.probability) : "No call"}</p>
         {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.members
-          ? `the middle (median) of ${q.call.members} forecaster${q.call.members === 1 ? "" : "s"}` : `by ${labels[q.call.method] ?? q.call.method}`}</p>}
+          ? `the middle (median) of ${q.call.members} forecaster${q.call.members === 1 ? "" : "s"}${q.call.weights ? ", better records counting more" : ""}`
+          : `by ${labels[q.call.method] ?? q.call.method}`}</p>}
       </div>
       <div className={`border p-5 ${q.status === "resolved" ? "border-ink/30 bg-white/70" : "border-dashed border-rule"}`}>
         <p className="font-mono text-xs uppercase tracking-widest text-copper">What happened</p>

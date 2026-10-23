@@ -18,7 +18,8 @@ instead of using up Nico's Cursor allowance; the CLI cannot read Cursor's own us
 ``--dry-run`` is a hand test: at most 3 questions from an existing ``--branch``, nothing pushed.
 ``fill`` researches with Claude (``fallback`` in configs/research.json) every question that still has no
 research on a daily branch, e.g. when Cursor's weekly limit is used up; the daily routine runs it.
-``digest`` prints each question's evidence the way the forecaster reads it.
+``digest`` prints the forecaster's own record so far (calibration, topics, latest misses), then each
+question's evidence the way the forecaster reads it.
 """
 
 from __future__ import annotations
@@ -42,6 +43,7 @@ from forecastlab.cursor_research import (  # noqa: E402
     cursor_agent,
     digest,
     load_settings,
+    record_notes,
     research,
     tasks,
 )
@@ -230,6 +232,9 @@ def fill(args: argparse.Namespace) -> None:
 
 
 def show_digest(directories: list[str]) -> None:
+    record = ROOT / "data" / "track_record.json"
+    if record.exists():
+        print(f"{record_notes(json.loads(record.read_text()))}\n")
     for name in directories:
         directory = ROOT / name
         data: dict[str, Any] = json.loads((directory / RESEARCH_FILE).read_text())

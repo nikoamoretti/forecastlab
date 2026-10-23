@@ -200,3 +200,26 @@ def test_research_settings_are_valid() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
     assert settings.model_family in settings.model and settings.mode in ("dry_run", "live")
     assert settings.families == (settings.model_family, "claude") and settings.fallback_model
+
+
+def test_record_notes_show_calibration_topics_and_latest_misses() -> None:
+    from forecastlab.cursor_research import record_notes
+
+    def question(qid: str, p: float, outcome: int, topic: str, day: str, **extra: object) -> dict:
+        return {"id": qid, "title": f"Question {qid}?", "status": "resolved", "outcome": outcome, "topic": topic,
+                "resolves_on": day, "forecasts": [{"method": "claude_code_forecaster_v1", "probability": p,
+                                                   "rationale": f"Reason for {qid}. More detail."}], **extra}
+
+    notes = record_notes({"questions": [
+        question("a", 0.55, 0, "Rates", "2026-10-10", actual="5.1%"), question("b", 0.56, 0, "Rates", "2026-10-11"),
+        question("c", 0.8, 1, "Crypto", "2026-10-12"), question("d", 0.3, 0, "Crypto", "2026-10-13"),
+        question("e", 0.9, 0, "Crypto", "2026-10-14", scored=False),
+        {"id": "open", "status": "pending", "forecasts": [{"method": "claude_code_forecaster_v1", "probability": 0.7}]}]})
+    assert notes.splitlines()[0].startswith("Your record so far: 2 right of 4 decided calls")
+    assert "When 50-60% sure: said 56% on average, right 0% of 2 (overconfident)." in notes
+    assert "By topic: Crypto 2 of 2; Rates 0 of 2." in notes
+    misses = notes.split("Latest misses")[1]
+    assert misses.index("Question b?") < misses.index("Question a?")  # newest first
+    assert "You said 55% yes; it was no (5.1%). Your reason: Reason for a." in misses
+    assert "Question e?" not in notes  # unscored questions teach nothing
+    assert record_notes({"questions": []}) == "Your record so far: nothing decided yet."
