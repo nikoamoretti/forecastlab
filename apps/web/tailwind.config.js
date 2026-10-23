@@ -1,17 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "media",
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      colors: {
-        ink: "#1c1916",
-        paper: "#f3efe6",
-        rule: "#d7cbb8",
-        copper: "#9a4b24",
-        pine: "#215c4b",
-        moss: "#3f6f5c",
-        brick: "#a3392b"
-      },
+      // Each color is a CSS variable (globals.css) so dark mode swaps the whole palette;
+      // "white" is the card surface, which turns dark too.
+      colors: Object.fromEntries(["ink", "paper", "rule", "copper", "pine", "moss", "brick", "white"]
+        .map(name => [name, `rgb(var(--${name}) / <alpha-value>)`])),
       fontFamily: {
         serif: ["Fraunces", "Iowan Old Style", "Palatino", "serif"],
         sans: ["IBM Plex Sans", "Source Sans 3", "system-ui", "sans-serif"],
