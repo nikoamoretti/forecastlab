@@ -2,97 +2,97 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.24455784374036957,
+      "brier": 0.22099070423384862,
       "coin_flip_brier": 0.25,
-      "forecasts": 124,
+      "forecasts": 111,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 21,
-      "right": 10,
+      "resolved": 28,
+      "right": 15,
       "toss_ups": 0,
-      "wrong": 11
+      "wrong": 13
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1977529411764706,
+      "brier": 0.17296250000000002,
       "coin_flip_brier": 0.25,
-      "forecasts": 120,
+      "forecasts": 107,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 17,
-      "right": 9,
+      "resolved": 24,
+      "right": 15,
       "toss_ups": 2,
-      "wrong": 6
+      "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.1986,
+      "brier": 0.18176666666666666,
       "coin_flip_brier": 0.25,
-      "forecasts": 77,
+      "forecasts": 64,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 3,
-      "right": 2,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.179975,
-      "coin_flip_brier": 0.25,
-      "forecasts": 57,
-      "label": "Nemotron Super (judge)",
-      "method": "judge_nemotron_super_v1",
-      "resolved": 4,
-      "right": 3,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.17572500000000002,
-      "coin_flip_brier": 0.25,
-      "forecasts": 83,
-      "label": "DeepSeek V4 Pro (judge)",
-      "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 4,
-      "right": 3,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.253825,
-      "coin_flip_brier": 0.25,
-      "forecasts": 62,
-      "label": "Kimi K2.6 (judge)",
-      "method": "judge_kimi_k26_v1",
-      "resolved": 4,
-      "right": 2,
+      "resolved": 6,
+      "right": 4,
       "toss_ups": 0,
       "wrong": 2
     },
     {
-      "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.16124999999999998,
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
+      "brier": 0.1454909090909091,
       "coin_flip_brier": 0.25,
-      "forecasts": 73,
+      "forecasts": 57,
+      "label": "Nemotron Super (judge)",
+      "method": "judge_nemotron_super_v1",
+      "resolved": 11,
+      "right": 8,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
+      "brier": 0.20615555555555556,
+      "coin_flip_brier": 0.25,
+      "forecasts": 71,
+      "label": "DeepSeek V4 Pro (judge)",
+      "method": "judge_deepseek_v4_pro_v1",
+      "resolved": 9,
+      "right": 6,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
+      "brier": 0.2187125,
+      "coin_flip_brier": 0.25,
+      "forecasts": 55,
+      "label": "Kimi K2.6 (judge)",
+      "method": "judge_kimi_k26_v1",
+      "resolved": 8,
+      "right": 5,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
+      "brier": 0.12714999999999999,
+      "coin_flip_brier": 0.25,
+      "forecasts": 63,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 4,
-      "right": 3,
+      "resolved": 8,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.18992500000000004,
+      "brier": 0.1368111111111111,
       "coin_flip_brier": 0.25,
-      "forecasts": 85,
+      "forecasts": 74,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 4,
-      "right": 3,
+      "resolved": 9,
+      "right": 8,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -148,7 +148,7 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2670423716387393,
       "coin_flip_brier": 0.25,
-      "forecasts": 24,
+      "forecasts": 23,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
       "resolved": 14,
@@ -158,21 +158,21 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": null,
+      "brier": 0.0654560357142857,
       "coin_flip_brier": 0.25,
-      "forecasts": 66,
+      "forecasts": 58,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 7,
+      "right": 6,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
       "brier": 0.10464630500000001,
       "coin_flip_brier": 0.25,
-      "forecasts": 26,
+      "forecasts": 22,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
       "resolved": 4,
@@ -209,6 +209,52 @@
       "status": "resolved",
       "title": "Will weekly U.S. jobless claims for the week ending Oct 17, 2026 come in above 199,000 claims?",
       "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.505
+      },
+      "detail": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
+          "sources": [
+            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
+            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
+            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
+            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        }
+      ],
+      "id": "polymarket-5008726",
+      "note": "Disclosed before resolution: a search result (a social-media post) cited prediction-market odds for a related, later date while Claude was researching. Claude says it ignored it; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-21",
+      "scored": false,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/openai-resumes-training-on",
+      "status": "resolved",
+      "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
+      "topic": "Tech",
       "verdict": "right"
     },
     {
@@ -318,6 +364,75 @@
       "status": "resolved",
       "title": "Will Trump win Nobel Piss Prize 2026? [Read description]",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.665
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
+          "sources": [
+            "https://www.profilenews.com/en/october-12-2026-daily-report/",
+            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
+            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
+          ]
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate of Israeli qualifying strikes on any given day is low, but recent evidence shows a pattern of continued air strikes despite a June truce, including confirmed warplane strikes on Oct\u202f12. This ongoing activity raises the likelihood of another strike on Oct\u202f15, though the truce and possible diplomatic pressure could suppress action, keeping probability below certainty."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for Israeli military action on any given day is elevated due to the ongoing, though reduced, conflict since the June 2026 truce. The evidence brief shows near-daily attacks in August and recent strikes on October 11-12, including air strikes that would qualify. Given the pattern of frequent qualifying actions, it is more likely than not that at least one such strike occurs on October 15, but the possibility of a lull or only non-qualifying actions (like artillery) keeps the probability from being higher."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Base rate of qualifying Israeli strikes fell after the June truce but remained non-zero, with warplane strikes confirmed on Oct 12. This recent activity and ongoing southern border violence make an Oct 15 air or missile strike plausible, though the compressed one-day window and truce framework mean a quiet day remains slightly more likely. The probability would shift lower if Oct 13-14 show no further air operations, or higher if diplomatic talks collapse or Hezbollah provocations escalate."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate is elevated because Israeli air operations have continued despite the truce, with near-daily attacks reported in August and a specific Oct 12 report of Israeli warplanes striking villages in southern Lebanon. The main uncertainty is whether the frequency has declined enough since June that a qualifying air or missile strike may not occur on Oct 15. New reports of strikes or confirmed interception failures on Oct 13-15 would move this sharply."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.8,
+          "rationale": "Despite a June 2026 Israel-Hezbollah truce, Israeli attacks on Lebanon have continued at a high rate, described as 'near-daily attacks' in August, with recent reports on Oct 12 specifically mentioning Israeli warplane strikes on Kfar Tibnit and Wadi al-Hujair (qualifying air strikes). This consistent pattern of air strikes against Lebanese territory strongly suggests a qualifying military action is likely on Oct 15. The base rate for any specific day in this ongoing low-intensity conflict pattern is high, though the truce may cause some day-to-day variability."
+        },
+        {
+          "made_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        }
+      ],
+      "id": "polymarket-5183416",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-16",
+      "scored": true,
+      "source": "prospective_markets_20261013",
+      "source_url": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
+      "status": "resolved",
+      "title": "Israel military action against Lebanon on October 15?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -848,6 +963,239 @@
       "verdict": "wrong"
     },
     {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
+            "https://www.coindesk.com/price/ethereum (2026-10-07)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.48,
+          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.455
+        }
+      ],
+      "id": "polymarket-5311923",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Ethereum dip to $2,500 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
+            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.32,
+          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.195
+        }
+      ],
+      "id": "polymarket-5311866",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Bitcoin dip to $80,000 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.55
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "ETH traded about $2,500 on the morning of Oct 9 (FXStreet, 09:09 GMT), after about $2,482 at 01:30 UTC, the lowest print seen this week, and an 8% weekly drop. Touching $2,400 on a Binance 1-minute low before 23:59 ET Oct 11 needs a fall of about 4% at some point in roughly 65 hours. With ETH daily volatility near 4% and downside momentum (four straight down days, heavy long liquidations), a barrier that close is touched a little more often than not, though weekends are usually calmer.",
+          "sources": [
+            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
+            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
+            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Base rate for a 4% ETH decline over a few days is roughly 30% given typical daily volatility. The price is already near the 50\u2011day EMA at $2,500 and has been falling each day since Oct\u202f4, with liquidations and rising Treasury yields adding downside pressure, which raises the chance of breaking through to $2,400. However, the $2,500 level could act as support and a bounce would keep the price above the threshold, so the probability is moderate, not extreme."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 6.6% intraday move in a week is moderate, but ETH is already near $2,500 with strong downward momentum, critical support at $2,500 breaking, and only a 4% drop needed to hit $2,400. Rising Treasury yields and heavy long liquidations add selling pressure, making a dip likely within the remaining 65 hours. However, if the $2,500 support holds or a sudden positive catalyst emerges, the probability would drop significantly."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for ETH dropping an additional ~4% from current levels ($2,500) within a week is moderate but not high. The evidence shows ETH has been declining steadily, with $2,500 identified as critical support; a break below could trigger further selling toward $2,330-$2,355. However, the question requires a specific Binance 1-minute low at or below $2,400, and with 65 hours remaining, the price would need to drop another ~4%. Rising yields and weak sentiment support downside risk, but the 50-day EMA at $2,500 may hold. I'd put this at roughly 18% probability."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "market_price_v1",
+          "probability": 0.2065
+        }
+      ],
+      "id": "polymarket-5311925",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Ethereum dip to $2,400 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.78
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.82,
+          "rationale": "Starting from the current ~$82,300, a drop to $78,000 requires a 5.2% decline over ~76 hours. With Bitcoin's typical daily volatility of 2\u20133%, the 3\u2011day volatility is roughly 3.5\u20135.2%, making a 5.2% drop a 1\u20131.5 standard deviation event, which historically occurs only 15\u201330% of the time. The bearish Fed minutes, high yields, and ETF outflows increase downside risk, but the short horizon limits the impact. Thus the probability of staying above $78,000 is in the low 80s."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Bitcoin's daily volatility is about 2-3%, so over three days the expected price movement is roughly \u00b14-5% (one\u2011sigma). To fall below $78,000 from the current $82,303 requires a ~5.2% drop, which is about 1.2\u03c3 below the mean, giving a roughly 12% chance of a breach under a symmetric random walk. Evidence points to bearish pressure from Fed minutes, rising Treasury yields and ETF outflows, which skews the distribution downward, reducing the chance of staying above the threshold. Adjusting for this bias yields an estimated probability of about 78% that the Binance BTC/USDT close at 12:00\u202fET on Oct\u202f11 will be above $78,000."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Bitcoin is currently around $82,300, about 5.2% above the $78,000 threshold. With typical daily volatility of 2-3%, a 5% drop over three days is roughly a 1-1.5 standard deviation move. Given negative news (Fed minutes, ETF outflows), there is some downward pressure, but the buffer is substantial. I estimate a ~75% chance it remains above $78,000 at the specified time."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.68,
+          "rationale": "Base rate from Bitcoin's typical 2\u20133% daily volatility suggests a ~5% decline over three days is roughly a one-sigma event, giving roughly 15\u201320% baseline odds of falling below $78,000. The current evidence\u2014hawkish Fed minutes, 24-year-high Treasury yields, and ongoing ETF outflows\u2014introduces meaningful negative momentum and downside skew, raising the chance of a breach. However, the ~5.2% buffer is still material, and much of the recent bearish news may already be partially reflected in today's 2.7% drop. Probability could shift materially if ETF outflows accelerate or if macro sentiment deteriorates further."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate: with BTC around $82,300 and only about 76 hours to the 12:00 ET close, a Yes outcome requires the price not to fall more than roughly 5.2%, which is less likely than not given typical 2-3% daily volatility. The negative Fed, high-yield, and ETF-outflow evidence raises downside tail risk and suggests a modest negative drift, so I trim from a neutral ~85-90% to about 82%. A sharp macro shock, continued ETF outflows, or a volatility spike could push it below $78,000, while stabilization or a relief bounce would make Yes more likely."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: BTC is currently around $82,300, which is about 5.5% above the $78,000 threshold, giving a reasonable buffer. Daily volatility of 2-3% means a 5.2% drop over 3 days is unlikely but not impossible, especially given current bearish catalysts (Fed hawkishness, high Treasury yields, ETF outflows). The combination of a meaningful buffer and typical volatility suggests a moderate-to-high probability of staying above $78,000."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.949
+        }
+      ],
+      "id": "polymarket-5286491",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-11",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $78,000 on October 11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
       "actual": "Manifold: No",
       "call": {
         "members": 7,
@@ -919,6 +1267,143 @@
       "status": "resolved",
       "title": "Will Anthropic release a new Claude Fable model before October 12, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.62
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "ETH was about $2,500 on Oct 9 morning. Staying above $2,400 at Binance's noon-ET close on Oct 11 (about 54 hours away) means not falling more than about 4%. With daily volatility near 4%, that is about 0.6 standard deviations of cushion, but momentum has been negative all week.",
+          "sources": [
+            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
+            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
+            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for ETH to remain above a level roughly 4% below its current price over a two\u2011day horizon is about 65% given typical daily volatility. ETH is currently trading near $2,500, which is above the 50\u2011day EMA support at $2,500, but the asset has been declining each day since Oct\u202f4 and faces downward pressure from rising Treasury yields. If the downtrend continues, a further ~4% drop could push the price below $2,400; however, the recent average daily decline (~1.1%) suggests a modest move, making a breach less likely than a hold. Overall, the evidence tilts the probability slightly above the base rate to around 68%."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a short-term price target is near 50%, but ETH is in a clear downtrend, down over 8% on the week and falling daily since Oct 4. It is currently near $2,500, with $2,400 only 4% below, but bearish momentum, large liquidations, and macro headwinds (rising yields) make a break below likely. A quick reversal is possible but less probable given the trend and only 54 hours remaining."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.56,
+          "rationale": "Base rate: With ETH near $2,500 and roughly 54 hours until resolution, a 4% decline to fall below $2,400 is well within typical short-term volatility but not guaranteed. Evidence: The market is in a multi-day downtrend with rising Treasury yields pressuring risk assets, and analysts highlight $2,500 as critical support, with the next support zone at $2,330\u2013$2,355, suggesting downside risk if the level fails. What could change it: A hold or bounce at the $2,500 support level would likely keep the price above $2,400, whereas a sustained break below $2,500 would sharply increase the odds of a sub-$2,400 close."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "A neutral two-day crypto base rate for staying above a threshold 4% below spot is fairly high, roughly 65-75%. The evidence of an 8% weekly decline, lower closes since Oct 4, and $2,500 as critical support suggests a real risk of a break toward $2,330-2,355, so I trim the probability. A bounce off support or continued macro-driven selling could materially change the outcome."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "Base rate for ETH closing above a round number 2 days out, given current price near $2,500, is moderate. Evidence: ETH is currently around $2,500, only ~$100 above the $2,400 threshold, and has been declining steadily for days with bearish catalysts (rising yields, long liquidations). The 50-day EMA at $2,500 is critical support; a break below could push price toward $2,330-$2,355, well under $2,400. However, $2,500 is still ~4% above the threshold, giving meaningful cushion. The main risk is continued downward momentum over the next 54 hours."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "market_price_v1",
+          "probability": 0.907
+        }
+      ],
+      "id": "polymarket-5286464",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-11",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-october-11-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,400 on October 11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.29000000000000004
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "Based on Ethereum's typical daily volatility of 3\u20114%, a two\u2011day window implies roughly a 5% standard deviation, giving about a 30% chance of a >2.8% rise if price movement were unbiased. However, the current price is down ~4\u20115% over the past day and week, and spot ETH ETFs experienced $161\u202fM of outflows, indicating bearish pressure that lowers the upward probability. Adjusting for this drift brings the estimate down to roughly 20%. A sudden positive catalyst (e.g., macro\u2011economic news or a major on\u2011chain upgrade) could raise the chance, while continued outflows or further price declines would push it lower."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a 2.8% gain over ~2 days in ETH is roughly 40-45% given typical daily volatility of 3-4%. However, the evidence shows ETH is in a short-term downtrend (down 4.1% over the week, 4.6% from Oct 7 open) with significant ETF outflows ($161M), suggesting bearish momentum. This lowers the probability below the base rate, though a reversal is still possible given crypto's volatility."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.28,
+          "rationale": "With ETH daily volatility around 3\u20134%, a ~2.8% gain over roughly two days is about a 0.5\u20130.7 standard-deviation move, giving a base-rate chance near 30%. However, the recent downtrend\u2014spot ETH down ~4% on the week and $161M in spot ETF outflows\u2014suggests modest negative short-term drift, lowering the odds slightly. The probability could rise if ETF flows reverse or crypto broadly rallies, or fall further if risk-off sentiment and outflows continue."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.27,
+          "rationale": "With 3-4% daily volatility, a 2.8% rise over roughly two days is about half a standard deviation, giving a zero-drift base rate near 30%. The recent 4-5% decline and $161M of ETF outflows suggest negative short-term drift, so I tilt below that base rate. A sharp volatility bounce or renewed ETF inflows could push it higher, while continued risk-off selling could keep it below $2,600."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for ETH being above a level ~3% above current price 2 days out is roughly 40-45% given typical 3-4% daily volatility. Current downtrend (down 4.6% on the day, $161M ETF outflows) makes a 2.8% recovery to $2,600 less likely than a coin in a neutral setup, but a 2-day bounce in a choppy market is not unusual. A meaningful shift in ETF flows or macro risk-on move could push this above 50%; continued outflows and weak risk appetite would push it well below."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.205
+        }
+      ],
+      "id": "polymarket-5238585",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-10",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,600 on October 10?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -1329,376 +1814,6 @@
     {
       "actual": null,
       "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.29000000000000004
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
-          "sources": [
-            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
-            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.2,
-          "rationale": "Based on Ethereum's typical daily volatility of 3\u20114%, a two\u2011day window implies roughly a 5% standard deviation, giving about a 30% chance of a >2.8% rise if price movement were unbiased. However, the current price is down ~4\u20115% over the past day and week, and spot ETH ETFs experienced $161\u202fM of outflows, indicating bearish pressure that lowers the upward probability. Adjusting for this drift brings the estimate down to roughly 20%. A sudden positive catalyst (e.g., macro\u2011economic news or a major on\u2011chain upgrade) could raise the chance, while continued outflows or further price declines would push it lower."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for a 2.8% gain over ~2 days in ETH is roughly 40-45% given typical daily volatility of 3-4%. However, the evidence shows ETH is in a short-term downtrend (down 4.1% over the week, 4.6% from Oct 7 open) with significant ETF outflows ($161M), suggesting bearish momentum. This lowers the probability below the base rate, though a reversal is still possible given crypto's volatility."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.28,
-          "rationale": "With ETH daily volatility around 3\u20134%, a ~2.8% gain over roughly two days is about a 0.5\u20130.7 standard-deviation move, giving a base-rate chance near 30%. However, the recent downtrend\u2014spot ETH down ~4% on the week and $161M in spot ETF outflows\u2014suggests modest negative short-term drift, lowering the odds slightly. The probability could rise if ETF flows reverse or crypto broadly rallies, or fall further if risk-off sentiment and outflows continue."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.27,
-          "rationale": "With 3-4% daily volatility, a 2.8% rise over roughly two days is about half a standard deviation, giving a zero-drift base rate near 30%. The recent 4-5% decline and $161M of ETF outflows suggest negative short-term drift, so I tilt below that base rate. A sharp volatility bounce or renewed ETF inflows could push it higher, while continued risk-off selling could keep it below $2,600."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate for ETH being above a level ~3% above current price 2 days out is roughly 40-45% given typical 3-4% daily volatility. Current downtrend (down 4.6% on the day, $161M ETF outflows) makes a 2.8% recovery to $2,600 less likely than a coin in a neutral setup, but a 2-day bounce in a choppy market is not unusual. A meaningful shift in ETF flows or macro risk-on move could push this above 50%; continued outflows and weak risk appetite would push it well below."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.205
-        }
-      ],
-      "id": "polymarket-5238585",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-10",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,600 on October 10?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.78
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.86,
-          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
-          "sources": [
-            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
-            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.82,
-          "rationale": "Starting from the current ~$82,300, a drop to $78,000 requires a 5.2% decline over ~76 hours. With Bitcoin's typical daily volatility of 2\u20133%, the 3\u2011day volatility is roughly 3.5\u20135.2%, making a 5.2% drop a 1\u20131.5 standard deviation event, which historically occurs only 15\u201330% of the time. The bearish Fed minutes, high yields, and ETF outflows increase downside risk, but the short horizon limits the impact. Thus the probability of staying above $78,000 is in the low 80s."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.78,
-          "rationale": "Base rate: Bitcoin's daily volatility is about 2-3%, so over three days the expected price movement is roughly \u00b14-5% (one\u2011sigma). To fall below $78,000 from the current $82,303 requires a ~5.2% drop, which is about 1.2\u03c3 below the mean, giving a roughly 12% chance of a breach under a symmetric random walk. Evidence points to bearish pressure from Fed minutes, rising Treasury yields and ETF outflows, which skews the distribution downward, reducing the chance of staying above the threshold. Adjusting for this bias yields an estimated probability of about 78% that the Binance BTC/USDT close at 12:00\u202fET on Oct\u202f11 will be above $78,000."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.75,
-          "rationale": "Bitcoin is currently around $82,300, about 5.2% above the $78,000 threshold. With typical daily volatility of 2-3%, a 5% drop over three days is roughly a 1-1.5 standard deviation move. Given negative news (Fed minutes, ETF outflows), there is some downward pressure, but the buffer is substantial. I estimate a ~75% chance it remains above $78,000 at the specified time."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.68,
-          "rationale": "Base rate from Bitcoin's typical 2\u20133% daily volatility suggests a ~5% decline over three days is roughly a one-sigma event, giving roughly 15\u201320% baseline odds of falling below $78,000. The current evidence\u2014hawkish Fed minutes, 24-year-high Treasury yields, and ongoing ETF outflows\u2014introduces meaningful negative momentum and downside skew, raising the chance of a breach. However, the ~5.2% buffer is still material, and much of the recent bearish news may already be partially reflected in today's 2.7% drop. Probability could shift materially if ETF outflows accelerate or if macro sentiment deteriorates further."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.82,
-          "rationale": "Base rate: with BTC around $82,300 and only about 76 hours to the 12:00 ET close, a Yes outcome requires the price not to fall more than roughly 5.2%, which is less likely than not given typical 2-3% daily volatility. The negative Fed, high-yield, and ETF-outflow evidence raises downside tail risk and suggests a modest negative drift, so I trim from a neutral ~85-90% to about 82%. A sharp macro shock, continued ETF outflows, or a volatility spike could push it below $78,000, while stabilization or a relief bounce would make Yes more likely."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "Base rate: BTC is currently around $82,300, which is about 5.5% above the $78,000 threshold, giving a reasonable buffer. Daily volatility of 2-3% means a 5.2% drop over 3 days is unlikely but not impossible, especially given current bearish catalysts (Fed hawkishness, high Treasury yields, ETF outflows). The combination of a meaningful buffer and typical volatility suggests a moderate-to-high probability of staying above $78,000."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.949
-        }
-      ],
-      "id": "polymarket-5286491",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-11",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $78,000 on October 11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.62
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "ETH was about $2,500 on Oct 9 morning. Staying above $2,400 at Binance's noon-ET close on Oct 11 (about 54 hours away) means not falling more than about 4%. With daily volatility near 4%, that is about 0.6 standard deviations of cushion, but momentum has been negative all week.",
-          "sources": [
-            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
-            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
-            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.68,
-          "rationale": "The base rate for ETH to remain above a level roughly 4% below its current price over a two\u2011day horizon is about 65% given typical daily volatility. ETH is currently trading near $2,500, which is above the 50\u2011day EMA support at $2,500, but the asset has been declining each day since Oct\u202f4 and faces downward pressure from rising Treasury yields. If the downtrend continues, a further ~4% drop could push the price below $2,400; however, the recent average daily decline (~1.1%) suggests a modest move, making a breach less likely than a hold. Overall, the evidence tilts the probability slightly above the base rate to around 68%."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for a short-term price target is near 50%, but ETH is in a clear downtrend, down over 8% on the week and falling daily since Oct 4. It is currently near $2,500, with $2,400 only 4% below, but bearish momentum, large liquidations, and macro headwinds (rising yields) make a break below likely. A quick reversal is possible but less probable given the trend and only 54 hours remaining."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.56,
-          "rationale": "Base rate: With ETH near $2,500 and roughly 54 hours until resolution, a 4% decline to fall below $2,400 is well within typical short-term volatility but not guaranteed. Evidence: The market is in a multi-day downtrend with rising Treasury yields pressuring risk assets, and analysts highlight $2,500 as critical support, with the next support zone at $2,330\u2013$2,355, suggesting downside risk if the level fails. What could change it: A hold or bounce at the $2,500 support level would likely keep the price above $2,400, whereas a sustained break below $2,500 would sharply increase the odds of a sub-$2,400 close."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.62,
-          "rationale": "A neutral two-day crypto base rate for staying above a threshold 4% below spot is fairly high, roughly 65-75%. The evidence of an 8% weekly decline, lower closes since Oct 4, and $2,500 as critical support suggests a real risk of a break toward $2,330-2,355, so I trim the probability. A bounce off support or continued macro-driven selling could materially change the outcome."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.62,
-          "rationale": "Base rate for ETH closing above a round number 2 days out, given current price near $2,500, is moderate. Evidence: ETH is currently around $2,500, only ~$100 above the $2,400 threshold, and has been declining steadily for days with bearish catalysts (rising yields, long liquidations). The 50-day EMA at $2,500 is critical support; a break below could push price toward $2,330-$2,355, well under $2,400. However, $2,500 is still ~4% above the threshold, giving meaningful cushion. The main risk is continued downward momentum over the next 54 hours."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "market_price_v1",
-          "probability": 0.907
-        }
-      ],
-      "id": "polymarket-5286464",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-11",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-october-11-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,400 on October 11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.48
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.58,
-          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
-          "sources": [
-            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
-            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
-            "https://www.coindesk.com/price/ethereum (2026-10-07)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.4,
-          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.48,
-          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.455
-        }
-      ],
-      "id": "polymarket-5311923",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Ethereum dip to $2,500 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.3
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
-          "sources": [
-            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
-            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
-            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.32,
-          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.12,
-          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.195
-        }
-      ],
-      "id": "polymarket-5311866",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Bitcoin dip to $80,000 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.55
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "ETH traded about $2,500 on the morning of Oct 9 (FXStreet, 09:09 GMT), after about $2,482 at 01:30 UTC, the lowest print seen this week, and an 8% weekly drop. Touching $2,400 on a Binance 1-minute low before 23:59 ET Oct 11 needs a fall of about 4% at some point in roughly 65 hours. With ETH daily volatility near 4% and downside momentum (four straight down days, heavy long liquidations), a barrier that close is touched a little more often than not, though weekends are usually calmer.",
-          "sources": [
-            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
-            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
-            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.55,
-          "rationale": "Base rate for a 4% ETH decline over a few days is roughly 30% given typical daily volatility. The price is already near the 50\u2011day EMA at $2,500 and has been falling each day since Oct\u202f4, with liquidations and rising Treasury yields adding downside pressure, which raises the chance of breaking through to $2,400. However, the $2,500 level could act as support and a bounce would keep the price above the threshold, so the probability is moderate, not extreme."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate for a 6.6% intraday move in a week is moderate, but ETH is already near $2,500 with strong downward momentum, critical support at $2,500 breaking, and only a 4% drop needed to hit $2,400. Rising Treasury yields and heavy long liquidations add selling pressure, making a dip likely within the remaining 65 hours. However, if the $2,500 support holds or a sudden positive catalyst emerges, the probability would drop significantly."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for ETH dropping an additional ~4% from current levels ($2,500) within a week is moderate but not high. The evidence shows ETH has been declining steadily, with $2,500 identified as critical support; a break below could trigger further selling toward $2,330-$2,355. However, the question requires a specific Binance 1-minute low at or below $2,400, and with 65 hours remaining, the price would need to drop another ~4%. Rising yields and weak sentiment support downside risk, but the 50-day EMA at $2,500 may hold. I'd put this at roughly 18% probability."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "market_price_v1",
-          "probability": 0.2065
-        }
-      ],
-      "id": "polymarket-5311925",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Ethereum dip to $2,400 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 2,
         "method": "combined_median_v1",
         "probability": 0.5602558635394457
@@ -1746,121 +1861,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.665
-      },
-      "detail": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-13T11:01:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.82,
-          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
-          "sources": [
-            "https://www.profilenews.com/en/october-12-2026-daily-report/",
-            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
-            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
-          ]
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.68,
-          "rationale": "The base rate of Israeli qualifying strikes on any given day is low, but recent evidence shows a pattern of continued air strikes despite a June truce, including confirmed warplane strikes on Oct\u202f12. This ongoing activity raises the likelihood of another strike on Oct\u202f15, though the truce and possible diplomatic pressure could suppress action, keeping probability below certainty."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate for Israeli military action on any given day is elevated due to the ongoing, though reduced, conflict since the June 2026 truce. The evidence brief shows near-daily attacks in August and recent strikes on October 11-12, including air strikes that would qualify. Given the pattern of frequent qualifying actions, it is more likely than not that at least one such strike occurs on October 15, but the possibility of a lull or only non-qualifying actions (like artillery) keeps the probability from being higher."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.4,
-          "rationale": "Base rate of qualifying Israeli strikes fell after the June truce but remained non-zero, with warplane strikes confirmed on Oct 12. This recent activity and ongoing southern border violence make an Oct 15 air or missile strike plausible, though the compressed one-day window and truce framework mean a quiet day remains slightly more likely. The probability would shift lower if Oct 13-14 show no further air operations, or higher if diplomatic talks collapse or Hezbollah provocations escalate."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.65,
-          "rationale": "The base rate is elevated because Israeli air operations have continued despite the truce, with near-daily attacks reported in August and a specific Oct 12 report of Israeli warplanes striking villages in southern Lebanon. The main uncertainty is whether the frequency has declined enough since June that a qualifying air or missile strike may not occur on Oct 15. New reports of strikes or confirmed interception failures on Oct 13-15 would move this sharply."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.8,
-          "rationale": "Despite a June 2026 Israel-Hezbollah truce, Israeli attacks on Lebanon have continued at a high rate, described as 'near-daily attacks' in August, with recent reports on Oct 12 specifically mentioning Israeli warplane strikes on Kfar Tibnit and Wadi al-Hujair (qualifying air strikes). This consistent pattern of air strikes against Lebanese territory strongly suggests a qualifying military action is likely on Oct 15. The base rate for any specific day in this ongoing low-intensity conflict pattern is high, though the truce may cause some day-to-day variability."
-        },
-        {
-          "made_at": "2026-10-13T10:54:44.534467+00:00",
-          "method": "market_price_v1",
-          "probability": 0.835
-        }
-      ],
-      "id": "polymarket-5183416",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-16",
-      "scored": true,
-      "source": "prospective_markets_20261013",
-      "source_url": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
-      "status": "pending",
-      "title": "Israel military action against Lebanon on October 15?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_median_v1",
-        "probability": 0.505
-      },
-      "detail": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.63,
-          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
-          "sources": [
-            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
-            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
-            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
-            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.38,
-          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.615
-        }
-      ],
-      "id": "polymarket-5008726",
-      "note": "Disclosed before resolution: a search result (a social-media post) cited prediction-market odds for a related, later date while Claude was researching. Claude says it ignored it; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-21",
-      "scored": false,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/openai-resumes-training-on",
-      "status": "pending",
-      "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -2598,120 +2598,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.385
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.42,
-          "rationale": "On Oct 23 BTC traded near $81,550-$81,700 (Fortune and CoinDesk) and the day's reported range was $81,118-$82,011 (ad-hoc-news, 2026-10-23, quotes checked), so $80,000 is only about 2% below spot with roughly 2.5 days left in the window ending 11:59 pm ET on Oct 25. With daily moves of 1-3%, that is roughly a one-in-three to one-in-two chance of a 1-minute low touching the level, and flows are negative ($635M ETF outflows reported Oct 23, a tech sell-off and Iran tensions). The Oct 12-16 low near $80,250 did not touch $80,000, and it is unverified whether Binance already printed $80,000 on Oct 19-22, which would make this Yes already.",
-          "sources": [
-            "https://www.ad-hoc-news.de/boerse/news/marktberichte/bitcoin-price-stands-at-81-625-40-usd-on-october-23-2026-as-etfs-added-524-8-million/70398819",
-            "https://www.cryptotimes.io/2026/10/23/crypto-price-today-bitcoin-price-falls-to-81668-as-635m-etf-outflows-drag-ethereum-xrp/",
-            "https://www.analyticsinsight.net/price-analysis/crypto-prices-today-bitcoin-steady-near-usd-81600-despite-iran-tensions-and-ai-selloff"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.35,
-          "rationale": "Bitcoin is trading ~$81,600, about 2% above the $80,000 threshold, with ~2.5 days left in the Oct 19-25 window. Recent daily ranges are 1-3%, and the prior week's low reached $80,250 without breaking $80k despite similar ETF outflow pressure. Analysts cite support at $79,700 and a potential $81k-$84k range before the Fed meeting, but geopolitical risks and continued outflows could drive a breach. The unverified status of Oct 19-22 Binance prints adds uncertainty; if $80k was already hit, probability would be 100%."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.72,
-          "rationale": "Bitcoin is currently around $81,600, about 2% above the $80,000 threshold, with 2.5 days left in the window. Recent daily ranges of 1-3% and a low of $80,250 last week suggest a touch is plausible. Downward pressure from $635M ETF outflows, Iran tensions, and weekend volatility increase the likelihood, though support near $79,700 and possible ETF inflows could prevent it. A simple barrier-touch model with 3% daily volatility gives ~68% probability, adjusted upward for negative drift and weekend conditions."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.28,
-          "rationale": "The threshold is only about 2% below the current ~$81,600 price, and with roughly 2.5 days left in the window a 2% intraday wick is plausible, especially given recent 1-3% daily ranges, ETF outflows, and risk-asset weakness. The main uncertainty is whether Binance already printed $80,000 on Oct 19-22; the available reports show prices around $81,100-$82,000 and no mention of an $80,000 low, which lowers the probability. A rebound toward $83,000 or continued ETF inflows would make a touch less likely, while weekend liquidity, Iran headlines, or further outflows could push it through."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.295
-        }
-      ],
-      "id": "polymarket-5912693",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-26",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-19-25-2026",
-      "status": "pending",
-      "title": "Will Bitcoin dip to $80,000 October 19-25?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.07
-      },
-      "detail": "The second round of the presidential election is scheduled to take place in Brazil on October 25, 2026.\n\nThis market will resolve according to the margin of victory between the top two candidates in the second round of the next Brazil Presidential Election.\n\nFor the purpose of this market, the \u201cmargin of victory\u201d is defined as the absolute difference between the percentages of valid votes received by the first- and second-place candidates. Percentages of the valid votes received by each candidate will be determined by dividing the total number of valid votes each of the top two candidates receives by the sum of all valid votes cast in the election.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf a candidate other than Fl\u00e1vio Bolsonaro or Luiz In\u00e1cio Lula da Silva receives the most valid votes in the second round, or if the top two candidates receive exactly the same number of valid votes, this market will resolve to \"Other\".\n\nThis market will resolve based on the official vote count once the vote count has been made official.\n\nIf a recount is initiated before the vote total has been made official, the market will remain open until the recount is completed and the vote is made official.\n\nIf the result of this election isn't known definitively by June 30, 2027, 11:59 PM ET, the market will resolve to \"Other\".\n\nThis market will resolve based on the result of the election, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Brazilian government, specifically the Superior Electoral Court (Tribunal Superior Eleitoral, TSE) (e.g., https://dadosabertos.tse.jus.br/).",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.07,
-          "rationale": "The question needs the winning margin in valid votes to fall between 8 and 12 points with Flavio Bolsonaro ahead. The latest polls show a near tie: Datafolha (Oct 22) 50-50 among valid votes, Quaest (Oct 21, quotes checked) 45% Flavio to 44% Lula, and the first round on Oct 4 was Flavio 47.03% to Lula 45.16%. Earlier October polls (PoderData 53-47, Ipespe 52.7-47.3) showed Flavio ahead by 5-6 points, and Brazilian polling error of a few points, which understated Bolsonaro in 2022, leaves a tail toward a wider Flavio win; 8-12 point margins were rare in recent runoffs (2022 was 1.8, 2014 was 3.3). With an expected margin of about 1-3 points and a spread of around 4-5 points, a result in the bracket is roughly a one-in-fourteen shot.",
-          "sources": [
-            "https://www.metropoles.com/brasil/quaest-flavio-bolsonaro-tem-45-e-lula-44-no-2o-turno",
-            "https://www.correiobraziliense.com.br/politica/2026/10/7525977-datafolha-flavio-bolsonaro-lula-segundo-turno.html",
-            "https://www.aljazeera.com/news/2026/9/25/brazils-lula-and-flavio-bolsonaro-still-essentially-tied-in-new-poll"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.08,
-          "rationale": "Historical base rate shows 2 of last 5 Brazilian runoffs had 8-12% margins, but none of the last 3. Current polls (Datafolha, Quaest, PoderData, Ipespe) center the race at a 0-6pp Fl\u00e1vio lead in valid votes, with most showing a technical tie. The 2022 polling error understated Bolsonaro by ~2-3pp, which would not bridge the gap to an 8-12% margin without an additional large shift or differential turnout effect. Final polls on Oct 24 could move the needle, but a jump to 8-12% would require a dramatic departure from the current tight race."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.05,
-          "rationale": "The current final-week polls are essentially tied or show only a 0\u20132 point Fl\u00e1vio lead, while the question requires an 8\u201312 point victory margin. Although 2 of Brazil's last 5 runoffs were in this range, that base rate is outweighed by present data, which would need a very large polling miss or late swing. Final Oct 24 polls showing a clear Fl\u00e1vio lead of 8+ points would raise this probability."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.07,
-          "rationale": "The historical base rate for an 8\u201312 point runoff margin is not high, and the most recent polls are far below that bracket: Datafolha has Fl\u00e1vio and Lula tied at 50\u201350 valid votes, Quaest is about 1 point apart, and the first-round margin was only 1.9 points. The main path to Yes is a late swing or underpolling of Fl\u00e1vio, especially if the Oct 24 final polls show a clear 8+ point lead, but with current estimates centered near 0\u20133 points and typical polling error of a few points, an 8\u201312 valid-vote victory remains unlikely."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.0695
-        }
-      ],
-      "id": "polymarket-5340069",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-26",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/brazil-presidential-election-second-round-margin-of-victory",
-      "status": "pending",
-      "title": "Will Fl\u00e1vio Bolsonaro win the second round of the 2026 Brazilian presidential election by 8\u201312%?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 7,
         "method": "combined_median_v1",
         "probability": 0.2
@@ -3225,63 +3111,6 @@
       "status": "pending",
       "title": "Will Likud win 30-34 seats in the 2026 Israeli legislative election?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.6
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-24 be above 194,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.63,
-          "rationale": "The 2026-10-17 first print was 194,000, the lowest since July, after first prints of 197,000 (Oct 3) and 199,000 (Oct 10) and a 4-week average of 197,750 (macrobullseye, 2026-10-22, quotes checked), so the 194,000 threshold sits at the bottom of the recent 194,000-200,000 range. A week-to-week move of 5,000-10,000 is common and a print at the lowest level in three months tends to be followed by a partial rebound; secondary-source consensus for the week ending Oct 24 is about 196,000 (Trading Economics, not confirmed). The statistical baseline (0.44) treats the latest value as the median, but the recent mean is higher, so I lean above it; the threshold is a strict 'above', so an exact 194,000 print resolves No.",
-          "sources": [
-            "https://macrobullseye.com/news/jobless-claims-week-ending-2026-10-17/",
-            "https://www.cnbc.com/2026/10/22/jobless-claims-record-low-weekly.html",
-            "https://tradingeconomics.com/united-states/jobless-claims"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "The base rate from the last three first prints (197k, 199k, 194k) shows 2/3 above 194k, but the latest print sits exactly at the threshold. The consensus forecast of ~196k and the 'lowest since July' characterization suggest mean reversion upward from a local low, while the persistent low-fire trend and narrow recent range (194k-200k) argue for stability. Typical week-to-week volatility of 5-10k makes a move above 194k slightly more likely than not, but confidence is limited by the downward trend and low volatility environment."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.6,
-          "rationale": "Recent first prints cluster between 194,000 and 200,000, and the consensus near 196,000 implies a central expectation slightly above the threshold. The latest print equals the threshold at 194,000, and weekly jobless claims are noisy enough that a repeat or dip below is plausible. I therefore estimate a modestly better-than-even chance."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.61,
-          "rationale": "The small recent reference class is mildly favorable: two of the last three first prints exceeded 194,000, and recent claims have generally clustered around 194,000\u2013200,000. The roughly 196,000 consensus and typical week-to-week variation put the estimate above 50%, although the latest print was exactly at the threshold and the low-fire trend limits confidence. Late-October seasonality, layoffs, or an economic shock could move the first estimate materially in either direction."
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.4391025641025641
-        }
-      ],
-      "id": "65da04edb811bf47",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-29",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261023",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Oct 24, 2026 come in above 194,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -4397,209 +4226,6 @@
       "status": "pending",
       "title": "Will Meta's Muse still be the #1 free iPhone app in the US on October 31, 2026?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.925
-      },
-      "detail": "This market will resolve according to the calendar date (ET) on which Google's next Gemini Pro model is made available to the general public.\n\nAny Gemini model released after market creation and labeled as \"Pro\" may qualify (e.g., gemini-3.2-pro, gemini-3.5-pro, or gemini-4.0-pro-preview). Gemini models labeled only as Flash, Flash-Lite, or another non-Pro variant will not qualify.\n\nProducts labeled as a GA promotion of an already-existing Preview model (e.g., gemini-3.1-pro-ga) may qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Google as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Google, with additional verification from a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.87,
-          "rationale": "Yes here means no qualifying Pro-labeled Gemini model is released to the public by Oct 31. Google's frontier model Gemini 4 Argon went public on Oct 13 with no 'Pro' label (Google on X, 2026-10-13, quotes checked), so it predates the window and does not look like the 'next' Pro model, and Gemini 3.5 Pro has slipped repeatedly with no official date as of August. Google ships Pro-labeled models every 2-4 months, so a given 8-day window holds one with about a 10% chance, and I found nothing scheduled; the open risks are a Pro variant of Argon, a 3.5 Pro launch or a GA promotion of a preview Pro model.",
-          "sources": [
-            "https://x.com/Google/status/2110041305925484716",
-            "https://9to5google.com/2026/10/15/gemini-4-argon-is-now-rolling-out-to-googles-antigravity-for-ai-pro-subscribers/",
-            "https://letsdatascience.com/news/gemini-35-pro-launch-remains-unconfirmed-a09db704"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.93,
-          "rationale": "The base rate suggests roughly a 10% chance of a Pro-labeled Gemini release in any 8-day window, but the Pro line has slipped repeatedly in 2026 and the latest frontier model (Gemini 4 Argon, released Oct 13) carries no Pro label. No evidence points to an imminent Pro variant, a GA promotion of a preview Pro model, or a surprise 3.5 Pro launch in the remaining 8 days. The main residual risk is an unannounced Pro variant of Argon or a sudden GA promotion, both of which appear unlikely in such a short horizon."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.95,
-          "rationale": "The base rate for a Pro release in an 8-day window is about 10%, but the recent launch of the non-Pro Gemini 4 Argon and the unconfirmed, delayed status of Gemini 3.5 Pro make a qualifying release very unlikely. No Pro variant or GA promotion is evident, though a surprise announcement remains a small possibility."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.94,
-          "rationale": "Google's historical cadence of Pro-labeled Gemini releases suggests only about a 10% base-rate chance that one lands in an arbitrary 8-day window. The recent October 13 launch of Gemini 4 Argon\u2014explicitly not labeled Pro\u2014and the indefinite delay of the anticipated 3.5 Pro mean there are currently no public signals of a qualifying Pro release before October 31. A surprise general-availability promotion of an existing preview Pro model or a sudden Pro-branded variant of Argon could still qualify, but such an unannounced drop in the next eight days is unlikely. Therefore, the probability that no qualifying Pro model is released by the deadline is very high."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.86,
-          "rationale": "The base rate for a Pro-labeled Gemini release in an 8-day window is roughly 10%, so no release is already likely. The specific evidence strengthens that: Gemini 4 Argon is not labeled Pro, Gemini 3.5 Pro has been repeatedly delayed with no official date, and there is no indication of a scheduled Pro variant or GA promotion. A surprise Pro release or a GA promotion of an existing preview Pro model before Oct 31 would be the main way this resolves No."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.92,
-          "rationale": "The historical 2\u20134 month cadence between Pro-model releases implies roughly a 10% chance of a release during the remaining eight-day window, or about 90% for no release. The repeated delay and lack of an official date for Gemini 3.5 Pro, combined with the non-Pro naming of Gemini 4 Argon, modestly raises the probability of no qualifying release to about 92%. A surprise Pro-labeled Argon variant, an overdue Gemini 3.5 Pro launch, or a public GA promotion of an existing Pro preview would make the answer No."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9415
-        }
-      ],
-      "id": "polymarket-4853905",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/next-gemini-pro-model-released-onptptpt-20260922131618444",
-      "status": "pending",
-      "title": "Will there be no next Google Gemini Pro model release by October 31, 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.63
-      },
-      "detail": "This market will resolve to \u201cYes\u201d if Saudi Arabia takes a qualifying military action against Yemen on the specified date, Yemen Standard Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Saudi Arabia, that directly impacts Yemen. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Saudi Arabia. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Saudi Arabia directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Yemen do not constitute a military action regardless of any damage incurred.\n\n\u201cYemen\u201d refers to the terrestrial territory of Yemen, including its internal waters. Yemen\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Yemen as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Yemen Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Saudi Arabia and Yemen, the Houthis, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.6,
-          "rationale": "Saudi-backed forces began Operation Dawn of Yemen on Oct 5 with about 100 Saudi aircraft (CNN, 2026-10-04), ending a four-year ceasefire; Houthi sources claimed about 300 Saudi airstrikes in one week in September, and a Saada strike on Oct 18-19 killed at least 9 and was blamed on Saudi Arabia (Washington Times, 2026-10-18). CBS live coverage (quotes checked) reports Saudis launching new strikes, so a strike on any given day looks more likely than not while the war continues. I discount for the strict rule that Saudi forces themselves must have conducted the strike (not the coalition or Yemeni forces), the heavy reliance on Houthi-run sources for attribution, a possible ceasefire before Oct 30 and the absence of reporting I found after about Oct 19.",
-          "sources": [
-            "https://www.cnn.com/2026/10/04/middleeast/yemen-offensive-houthis-intl",
-            "https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/",
-            "https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/",
-            "https://en.wikipedia.org/wiki/2026_Yemen_offensives"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.6,
-          "rationale": "The Saudi-backed offensive 'Dawn of Yemen' began Oct 3-4 with intense air operations (324 targets claimed at launch, ~300 strikes/week per Houthi claims) and strikes were reported through Oct 18, suggesting a high base rate of near-daily activity. However, the last specific reporting is from Oct 18 (5 days ago), attribution to Saudi armed forces (vs. coalition/proxy) is often unclear in sources, and a ceasefire or pause before Oct 30 would halt strikes. The 7-day horizon and ongoing offensive favor Yes, but attribution and reporting gaps create significant uncertainty."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.92,
-          "rationale": "The Saudi-led coalition has been conducting near-daily airstrikes since early September 2026 as part of Operation Dawn of Yemen, with direct Saudi involvement reported. Given the intensity and sustained nature of the campaign, a qualifying strike on October 30 is highly likely, but a small chance of a pause, ceasefire, or day without attributable strikes reduces certainty slightly."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.6,
-          "rationale": "The Saudi-led coalition has conducted near-daily air strikes since early September, and Saudi warplanes were explicitly identified in attacks through mid-October during the ongoing Operation Dawn of Yemen; however, no reports were found after about Oct 19, creating uncertainty about whether tempo will persist and whether any Oct 30 strike will be clearly attributed to Saudi armed forces rather than coalition partners. A confirmed ceasefire or pause before Oct 30 would push the probability toward zero, while renewed credible reporting of Saudi-conducted strikes in the immediate days before Oct 30 would raise it."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.72,
-          "rationale": "The base rate is elevated because the evidence describes an ongoing Saudi-led air campaign in Yemen through at least mid-October, with coalition-confirmed strikes and Houthi claims of frequent Saudi aircraft operations. Reports of Saudi F-15/Typhoon strikes from Saudi bases and coalition statements about 100 jets support the possibility of direct Saudi armed-force action, which is the key qualifying condition. I discounted the probability because attribution is often to the broader coalition, Houthi-run sources may overstate or misattribute strikes, and there is no confirmed reporting after about Oct 19, leaving open the chance of a pause, ceasefire, or non-qualifying action on Oct 30."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.66,
-          "rationale": "The base rate is favorable: Saudi aircraft reportedly carried out near-daily strikes during the September\u2013October campaign, and CNN/CBS reporting and a Saudi coalition spokesman\u2019s statement that 100 fighter jets participated support direct Saudi involvement. However, no reporting was found after about October 19, and some incidents are described only as Saudi-led coalition strikes, leaving meaningful uncertainty about a pause, a Yemeni-only operation, or clear attribution on October 30. The probability is therefore about two-thirds; confirmed continued Saudi strikes would raise it, while a ceasefire or shift to Yemeni-only strikes would lower it."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.64
-        }
-      ],
-      "id": "polymarket-5167211",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/saudi-arabia-military-action-against-yemen-on-october-2026",
-      "status": "pending",
-      "title": "Saudi Arabia military action against Yemen on October 30?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.55
-      },
-      "detail": "Resolves based on the \"Russian Net Monthly Advance\" report of Black Bird group (positive values resolve NO, negative resolve YES) - typically published at their X account (xcancel.com/Black_BirdGroup). Here is their assessment as of May 2026 (from https://xcancel.com/Black_BirdGroup/status/2062585511340916856):\n\n[image]For context some analysts like Mike Kofman (e.g. in https://podcasts.apple.com/us/podcast/the-long-game-with-jake-sullivan-and-jon-finer/id1850526014?i=1000771130026) believe that Ukraine has gained initiative on the battlefield and is likely to keep it for the next few months.\n\nIf the group does not publish a new assessment following the same methodology by December 1st, this resolves NA",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "Black Bird Group reported a Russian net change of -190 km2 for September, the first net Russian loss since June 2023, after +133 km2 in August (X posts, quotes checked). For October, ISW reported a Russian net loss of about 241 km2 since Sept 1 as of Oct 22 (with ISW's own September figure about -81), which implies a further loss of roughly 160 km2 so far in October, and the Economist estimated Ukraine regained 30 square miles in 30 days; DeepState, however, shows a near-zero net (about +3 square miles over the four weeks to Oct 19). Negative months are rare historically (about 1 in 39), but the trend has turned sharply and two trackers point negative, so I lean slightly to Yes; the sign depends on a few late-month moves and on Black Bird's own method, and the question resolves N/A if it does not publish.",
-          "sources": [
-            "https://x.com/Black_BirdGroup/status/2106482419201093855",
-            "https://x.com/Black_BirdGroup/status/2096083074240975038",
-            "https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026",
-            "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-22-2026"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.62,
-          "rationale": "Base rate shows Black Bird reported Russian net gains in ~38 of 39 months from mid-2023 through August 2026, but September broke this pattern with -190 km\u00b2. Multiple trackers (ISW, Russia Matters) show Russian gains collapsing to near-zero or negative in early October, suggesting a genuine momentum shift. However, the month is not over (today Oct 23), DeepState reports localized Russian advances in the last few days, and the final Black Bird figure could be revised or delayed, creating meaningful uncertainty around the sign of the October net change."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate of negative net Russian monthly advances is very low (about 1 in 39 months since mid-2023), but September 2026 saw a sharp reversal with -190 km\u00b2. Current October data from various trackers shows near-zero net change, with some sources indicating small Russian gains and others Ukrainian gains. Given the reported Ukrainian initiative and momentum, a negative October figure is more likely than not, but the month is not over and small territorial shifts could easily flip the sign, so confidence is moderate."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.42,
-          "rationale": "Black Bird\u2019s data shows Russian net territorial gains in roughly 38 of the last 39 months, giving a strong base rate for a positive (NO) reading. However, September 2026 broke that streak with a large -190 km\u00b2 net loss for Russia, and while some trackers suggest Ukraine continued to gain ground in early October, DeepState data through October 19 shows a near-zero net of +3 square miles for Russia, with small Russian advances reported in the final week. With only about eight days left in the month and the net balance effectively at the threshold, minor territorial shifts or the confirmation of disputed claims could easily flip the sign either way."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.41,
-          "rationale": "Black Bird's monthly figure was positive in nearly every month from mid-2023 through August 2026, so the historical base rate for a negative (Yes) result was only about 1 in 39. September's unusual -190 km\u00b2 result, ISW's reported net Russian loss since September 1, and evidence of sharply shrinking Russian gains raise the odds substantially, although DeepState's slight net Russian gain and continuing local Russian advances keep October close to even. Confirmed Russian captures of Kostiantynivka or Dobropillia could push the result to No, while stronger late Ukrainian counterattacks would support Yes; failure to publish by December 1 would instead yield N/A."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.4
-        }
-      ],
-      "id": "manifold-5nLRAAdRt5",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://manifold.markets/AIBear/will-ukraine-capture-more-territory-UcqQnuqpEL",
-      "status": "pending",
-      "title": "Will Ukraine capture more territory than it loses to Russia in October 2026?",
-      "topic": "World",
       "verdict": null
     },
     {
@@ -5805,259 +5431,6 @@
     {
       "actual": null,
       "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.1
-      },
-      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.06,
-          "rationale": "WTI settled near $99.47 on Oct 22 (CNBC, 2026-10-22, from a search summary) and $97.15 on Oct 21, so reaching $115 on the ICE Active Month needs a rise of about 16% in roughly six trading days to Oct 30/31. That is rare even in this war-driven 2026 regime (WTI went from about $70 in June to about $99 now over four months), and the Active Month is a backwardated Dec contract, which makes the target harder than the front-month spot price suggests. The residual comes from jump risk: renewed US strikes on Iran or a Hormuz or Saudi supply shock could spike prices, and the exact October high so far is unknown.",
-          "sources": [
-            "https://www.cnbc.com/2026/10/22/oil-prices-today-wti-brent-saudi-arabia.html",
-            "https://www.cnbc.com/2026/10/21/oil-price-today-wti-brent-rise-on-middle-east-worries.html",
-            "https://commodity-board.com/crude-oil-futures-surge-toward-100-as-war-risk-blows-out-brent-wti-spread"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.12,
-          "rationale": "Base rate for a 16% WTI rise in six trading days is extremely low (<1%), but the current war-risk regime with Iran mining the Strait of Hormuz, Houthi attacks on Saudi facilities, and active US strike planning creates a fat-tailed upside. The main catalyst (US strikes on Iran) is reportedly timed for after the November 3 midterms, limiting October probability, while the backwardated December contract and wide Brent-WTI spread (~$13.5) make a $115 print harder than the front-month quotes suggest. A sudden Hormuz closure or major Saudi outage could spike prices intraday, but with only ~6 sessions left and no such event yet, the chance remains modest."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.1,
-          "rationale": "A roughly 16% rise over the remaining six trading sessions would be rare under ordinary oil volatility, placing the base-rate probability low. The Iran/Hormuz and Saudi attacks, shipping disruptions, and possible renewed U.S. strikes materially raise the fat-tail risk. However, the active December WTI contract is near $99.5, so reaching $115 still likely requires a major new supply shock; continued tension without substantial further disruption would probably be insufficient."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.0765
-        }
-      ],
-      "id": "polymarket-4951229",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-october-2026",
-      "status": "pending",
-      "title": "Will WTI Crude Oil (WTI) hit (HIGH) $115 in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.095
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final High price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT High prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.05,
-          "rationale": "XRP traded near $1.30-1.31 on Oct 22, down about 4.6% in 24 hours after being rejected at $1.40 (CryptoPotato, 2026-10-22), and has declined from about $1.49 on Sep 29 (247wallst, quotes checked). Reaching $1.60 needs a rise of about 22% on Binance within about eight days, which is well beyond the recent range and against the prevailing downtrend; crypto.news frames $1.50 as the recovery target. The Oct 28 Fed decision or an ETF or regulatory catalyst could cause a spike, and it is unconfirmed that the month's high so far stayed below $1.60.",
-          "sources": [
-            "https://cryptopotato.com/important-ripple-news-and-xrp-price-update-october-22/",
-            "https://247wallst.com/investing/cryptocurrency/2026/09/29/xrp-price-prediction-for-october-2026/",
-            "https://crypto.news/xrp-price-prediction-etf-inflows-wallet-growth/"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.12,
-          "rationale": "Base rate for a 22% price surge in 8 days for a high-volatility asset like XRP is low (approximately 5-10% under fat-tailed distributions). Current price near $1.31 faces resistance at $1.40, and the $1.60 target is 14% above the recent rejection level. The October 28 Fed decision and modest ETF inflows provide potential catalysts, but technical momentum is negative and the month has trended downward from a $1.49 start. A sharp Bitcoin rally or unexpected regulatory news could increase odds, but the path to $1.60 requires multiple resistance breaks in a short window."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.15,
-          "rationale": "XRP is currently around $1.30\u2013$1.32, with recent rejections at $1.40 and a month-to-date high likely near $1.49 from early October. A move to $1.60 requires a ~22% spike in the remaining 8 days, which is possible given crypto volatility but not favored by the current downtrend and resistance. The base rate for such a sharp short-term rally is low, and no strong catalyst is evident, though the Oct 28 Fed decision could trigger a surprise move."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.1,
-          "rationale": "Base rate: a roughly 22% rally in about eight days is uncommon for XRP, particularly while momentum is negative and the price has just been rejected at $1.40. The evidence that moved me: analysts highlight $1.40\u2013$1.50 as the recovery zone, the daily RSI is 42 and MACD negative, and the upcoming Fed decision is framed as a threat to momentum rather than a clear bullish trigger, while ETF inflows are modest relative to market size. What could change it: a dovish Fed surprise on October 28, a major Ripple-specific catalyst, or a sharp Bitcoin-led risk-on rally could produce a sudden spike that tags $1.60 on a one-minute candle."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.09,
-          "rationale": "The base rate for a high-volatility crypto to print a +20% one-minute high in about eight days is low, especially after repeated rejection near $1.40 and with $1.50 framed as the near-term recovery target. Current evidence puts XRP around $1.30-$1.32, so $1.60 requires a sharp, sustained spike or a major catalyst such as a dovish Fed surprise or large ETF/regulatory news. Modest ETF inflows and record wallet activity provide some upside tail risk, but the lack of any confirmed October high near $1.60 and the downtrend make a Yes outcome unlikely."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.08,
-          "rationale": "The base rate for XRP to touch a threshold roughly 21% above its current level within the remaining eight days is low, especially after a sustained decline and with momentum indicators still weak. Reports put XRP near $1.30\u2013$1.32, recent resistance around $1.40, and $1.40\u2013$1.50 as the main recovery zone, so reaching $1.60 requires an unusually sharp move; the Oct. 28 Fed decision or an ETF/regulatory catalyst could nevertheless trigger such a spike."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.085
-        }
-      ],
-      "id": "polymarket-5170823",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/what-price-will-xrp-hit-in-october-2026",
-      "status": "pending",
-      "title": "Will XRP reach $1.60 in October?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.08
-      },
-      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.08,
-          "rationale": "Spot gold fell about 1.1% to roughly $4,095 on Oct 22, its lowest since Oct 14, on an oil rally and higher-for-longer rate expectations (CNBC, 2026-10-22, quotes checked); another source had $4,084 that day, and an unverified Oct 23 figure is about $4,021. Touching $3,800 on a Pyth 1-minute low needs a further fall of roughly 5.5-7% within about six trading days, which would be a large move for gold even in a year that has swung widely, with a hawkish Fed meeting the week of Oct 26 the main downside catalyst. I put the chance at a bit under one in ten.",
-          "sources": [
-            "https://www.cnbc.com/2026/10/22/gold-drops-over-1percent-as-oil-rally-reinforces-higher-for-longer-rate-outlook.html",
-            "https://www.usagold.com/daily-precious-metals-market-report-october-22-2026/",
-            "https://tradingeconomics.com/commodity/gold"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.08,
-          "rationale": "Current spot gold is around $4,020-$4,095, about 5-7% above the $3,800 threshold. A drop of that magnitude in the remaining 6 trading days of October would be a 2.5+ standard deviation move based on typical gold volatility, which has a base rate of roughly 1-2% for a weekly close. However, the upcoming Fed meeting (Oct 27-28), PCE data (Oct 29), and persistent oil-driven inflation fears create tail risk for a sharp, disorderly sell-off that could briefly pierce $3,800 on an intraday 1-minute candle. The key support at $4,073 (Oct 14 low) would need to break first, making the event unlikely but not impossible."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.05,
-          "rationale": "Gold is trading around $4,020\u2013$4,090 with six trading days left in October. A drop to $3,800 would require a 5\u20137% decline, which is a large move historically. The upcoming Fed meeting is expected to hold rates, and while higher oil prices and rate expectations weigh on gold, a sudden plunge of that magnitude is unlikely without a major shock. The base rate for such a sharp weekly drop is low, and current conditions do not suggest an imminent crash."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.14,
-          "rationale": "A 5.6% drop from roughly $4,025 to $3,800 over the remaining ~5 October sessions is a large but not rare move for volatile gold, with a base rate perhaps in the 5-15% range absent a major shock. The evidence shows gold already near three-month lows after a weekly ~3% decline, and the Fed meeting plus PCE data could push it lower, but markets expect a hold and there is no confirmed break below $4,000. The main thing that could raise the probability is a hawkish Fed/PCE surprise or an oil-driven rate shock that forces a sharp risk-off move."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.04,
-          "rationale": "Gold is currently trading around $4,020-$4,095, roughly 5-7% above the $3,800 threshold. A drop of that magnitude in the remaining 6-7 trading sessions of October would be an unusually large move, even with the Fed meeting and oil-driven inflation concerns. Historical gold daily moves rarely exceed 3-4%, and the current downtrend has been gradual. The probability is not zero given macro uncertainty, but a $3,800 low is far outside the recent trading range."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.078
-        }
-      ],
-      "id": "polymarket-4936081",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/what-price-will-xauusd-hit-in-october-2026",
-      "status": "pending",
-      "title": "Will Gold (XAUUSD) hit (LOW) $3,800 in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.19
-      },
-      "detail": "Resolves YES if, between market creation and October 31, 2026, 11:59 PM Pacific, DeepSeek publicly releases DeepSeek-V4.1-Pro, or any higher Pro/flagship tier that replaces it (e.g. V4.2-Pro, V5, V5-Pro).\n\nWhat counts as released: anyone can use it without an invitation, through DeepSeek's API, its official chat app/website, or as publicly downloadable open weights. An open public preview or beta counts, the way the \"DeepSeek-V4 Preview\" (April 24) would have. Closed betas, invite-only access, anonymous arena appearances and leaks do not count.\n\nWhat does NOT count: Flash, Lite, Mini, vision-experimental or distilled models. DeepSeek-V4.1-Flash came out on Sept 10, 2026 and does not count, and neither does any later Flash-tier model.\n\nSources, in order: DeepSeek's API changelog (https://api-docs.deepseek.com/updates), DeepSeek's news page (https://www.deepseek.com/en/news), then DeepSeek's official Hugging Face or X accounts. The release date is the date of the first qualifying public availability, in Pacific time.\n\nBackground: the API changelog shows V4-Flash (public beta, Jul 31), then V4-Pro going GA on Aug 13, 13 days later. V4.1-Flash shipped on Sept 10 and DeepSeek called it \"the smallest model in our new architecture family\". As of Oct 1, no Pro tier of V4.1 has appeared.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.13,
-          "rationale": "DeepSeek released V4.1-Flash on Sept 10 and has given no date for V4.1-Pro, though a third-party page (quotes checked) says DeepSeek has confirmed it is in development, and a Sept 28 report of limited testing pointed to an Oct 1 launch that did not happen. The earlier Flash-to-Pro gap was 13 days (V4-Flash Jul 31, V4-Pro Aug 13), and the current gap has already reached 43 days with nothing seen by about Oct 20, so the timing pattern gives little guide. With only about 8 days left, no official signal and a rule that closed or invite-only tests do not count, I put the chance of a public release at roughly one in eight, above a pure base rate because Pro is reported to be in testing.",
-          "sources": [
-            "https://www.ai-indeed.com/encyclopedia/31384.html",
-            "https://thenextweb.com/news/deepseek-v4-1-flash-launch-v4-pro-retired-price-cut",
-            "https://tech.ifeng.com/c/8wmuFrqSUPm",
-            "https://www.cometapi.com/deepseek-v4-1-pro-release-date/"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.2,
-          "rationale": "The base rate from V4 (13 days from Flash to Pro) suggests a quick follow-up, but V4.1-Flash launched 43 days ago on Sept 10 with no Pro tier yet, and the API routing plan to Flash was superseded, signaling V4.1-Pro is not imminent. Official sources confirm V4.1-Pro is in development but give no timeline, and a rumored Oct 1 launch passed without release. With only 8 days left and no public release candidates, teasers, or changelog hints, a surprise drop is possible but unlikely."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.2,
-          "rationale": "Base rate from V4-Flash to V4-Pro was 13 days, but V4.1-Flash released 43+ days ago without a Pro tier, and official sources confirm development with no date. The 8-day remaining window is very tight; an unannounced drop is possible but unlikely given DeepSeek's pattern of pre-announcing Flash-Pro pairings."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.18,
-          "rationale": "The only prior Flash-to-Pro gap was 13 days, but V4.1-Flash shipped 43 days ago with no Pro release, suggesting this cycle is different. DeepSeek has explicitly gained 'breathing room' because V4.1-Flash already outperforms the prior flagship, and the plan to retire V4-Pro was superseded, removing urgency. A late-September rumor of an October 1 launch failed to materialize, and by mid-October third-party sources still listed no date. While DeepSeek can surprise-release models and gray-scale testing was underway a month ago, the lack of any official date, the recent Oct 17 Flash update, and the short 8-day remaining window make a release by Oct 31 unlikely."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.15,
-          "rationale": "The only direct base rate is V4-Flash beta to V4-Pro GA in 13 days, but V4.1-Flash has already been out 43 days with no Pro, and the planned V4-Pro redirect was superseded, reducing urgency. Reports of limited V4.1-Pro testing and official confirmation that it exists keep a near-term launch plausible, but the missed National Day window and lack of official changelog/news evidence by Oct 23 make a release in the final 8 days less likely. A surprise public API, app, or open-weights announcement before Oct 31 would settle it Yes."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.24,
-          "rationale": "The only observed Flash-to-Pro sequence had a 13-day gap, but V4.1-Pro has now exceeded 43 days, so that precedent weakly supports an eight-day launch. Official acknowledgment and reported limited-account testing keep a real path open\u2014and a public beta or preview would count\u2014but the missed early-October target, lack of a release date, continued availability of V4-Pro, and no reported launch by about October 20 argue against imminent availability. DeepSeek can release without warning, so an official API, app, website, or Hugging Face release before the deadline would make this resolve Yes."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.2237
-        }
-      ],
-      "id": "manifold-8tn2I8uRhA",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://manifold.markets/Terminator2/will-deepseek-release-v41pro-or-a-h",
-      "status": "pending",
-      "title": "Will DeepSeek release V4.1-Pro (or a higher Pro tier) by October 31, 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.13
@@ -6464,69 +5837,6 @@
       "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
       "status": "pending",
       "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.5
-      },
-      "detail": "Resolves YES if the Democratic Party win the 2026 Maine United States Senate Election.\n\nThis means the winning candidate appears on the ballot as the Democratic Party candidate.\n\n2026 United States Senate election in Maine - Wikipedia \n\n[link preview]",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.5,
-          "rationale": "Sabato's Crystal Ball and Cook both rate the Maine Senate race a Toss-up, and the Democratic nominee (reportedly Troy Jackson after Graham Platner withdrew) leads in the polls reported by search summaries: Washington Post-Schar 50-46 and an average of 49% to 47.1% as of Oct 16 (The Hill), with Jackson reported to have out-raised Collins $20.4M to $5.2M in Q3. Against that, Susan Collins has won all five of her general elections, including 2020 when most polls had her behind, and the late nominee switch makes polling less settled; the poll lead of about 2 points and a likely favorable midterm environment for Democrats roughly offset her incumbent record. Most facts here come from unverified summaries.",
-          "sources": [
-            "https://centerforpolitics.org/crystalball/the-maine-senate-do-over-and-rating-changes-in-other-pine-tree-state-races/",
-            "https://thehill.com/homenews/campaign/6163811-colins-maine-senate-poll",
-            "https://www.cookpolitical.com/analysis/senate/maine-senate/generic-democrat-no-guarantee-maine"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.47,
-          "rationale": "Base rate: Senate incumbents in toss-up races win at somewhat better than even odds (~55-60%), and Susan Collins has won all five prior elections, including 2020 when polls showed her behind. Evidence: The race is rated Toss-up by both Sabato and Cook; Democrat Troy Jackson leads in recent polls (49-47% average) and has a large fundraising edge ($20.4M vs $5.2M), but the late nominee switch after Platner's withdrawal adds uncertainty and polls are within the margin of error. The polling lead and money advantage pull toward the Democrat, but Collins's historical overperformance and incumbent advantage in toss-ups pull toward the Republican, leaving the race near a coin flip with a slight lean to the incumbent."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.5,
-          "rationale": "The race is rated Toss-up by both Sabato's Crystal Ball and Cook Political Report. Polls show Democrat Troy Jackson with a narrow lead, but incumbent Susan Collins has a history of outperforming polls and winning close races. The late nominee switch and massive Democratic fundraising advantage add to the uncertainty. Without a clear polling shift, the outcome is essentially a coin flip."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.45,
-          "rationale": "Base rate: incumbents in toss-up Senate races win at somewhat better than even rates, and Maine has voted for Collins in all five Senate elections since 1996. The Jackson-era polls (50-46, 49-47.1) and large fundraising advantage ($20.4M vs $5.2M) push toward the Democrat, but the late nominee switch reduces confidence in those numbers and the incumbent advantage plus Maine's history pull back toward Collins. A new high-quality poll showing Collins ahead or a widening Democratic lead would shift this materially."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.52,
-          "rationale": "Base rate: Maine has voted for Susan Collins in all five of her Senate elections, but she has faced competitive races before (winning by narrow margins in 2008 and 2020). Evidence: The race is rated a Toss-up by both Sabato's Crystal Ball and Cook Political Report. Recent polls show Jackson (D) with a small lead (49% to 47.1% in the Oct 16 average, 50%-46% in WaPo/Schar), and Jackson has dramatically outraised Collins ($20.4M vs $5.2M). However, the late nominee switch from Platner to Jackson introduces uncertainty around name recognition and late-deciding voters, and Sabato notes the race would lean Republican had Platner stayed. A slight edge to Democrats given the polling and fundraising, but well within uncertainty."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.6684
-        }
-      ],
-      "id": "manifold-RcL0Q9O0EU",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://manifold.markets/Jack1/will-the-democratic-party-candidate-NQOPZAnOA8",
-      "status": "pending",
-      "title": "Will the Democratic Party Candidate win the 2026 Maine Senate Election?",
       "topic": "Politics",
       "verdict": null
     },
@@ -7122,145 +6432,6 @@
       "source_url": "https://manifold.markets/10thOfficial/will-vivek-ramaswamy-be-the-next-go",
       "status": "pending",
       "title": "Will Vivek Ramaswamy be the next Governor of Ohio?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.61
-      },
-      "detail": "This market will resolve according to the winner of the 2026 midterm Michigan U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.7,
-          "rationale": "The Marist poll of likely voters (Oct 15-18) had Democrat Abdul El-Sayed at 50% and Republican Mike Rogers at 48%, and the FiftyPlusOne average on Oct 22 was El-Sayed 48.1%, Rogers 45.1%, a 3-point Democratic lead. Michigan has not elected a Republican senator since 1994 and its last three Senate races (2018, 2020, 2024) were all won by Democrats, though 2024 by only 0.3 points. A 3-point lead with about 11 days left and normal polling error of several points is a clear but not safe edge; the sources are search summaries, so I shade the poll-implied figure down a little.",
-          "sources": [
-            "https://maristpoll.marist.edu/polls/midterm-elections-in-michigan-october-2026/",
-            "https://fiftyplusone.news/polls/senate/general/michigan",
-            "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: Democrats have won every Michigan Senate race since 1994 (2018 D+6.5, 2020 D+1.7, 2024 D+0.3), but midterms typically penalize the president's party (GOP holds White House). Evidence: Consistent polling shows El-Sayed ahead by 2-3 points on average (Marist LV +2, FiftyPlusOne +3, other polls +1 to +7), though all within margin of error; LV/RV gap (El-Sayed +6 RV) signals turnout sensitivity; Trump approval underwater in MI. Cook rates Toss-Up. Could change: Late-breaking events, turnout differentials, or polling error could flip this razor-thin race."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.63,
-          "rationale": "Michigan has a long Democratic Senate history, but this is an open seat and Mike Rogers is a strong Republican candidate. Current polling consistently shows Democrat Abdul El-Sayed slightly ahead among likely voters (about +2 to +3 points, with a wider registered-voter lead), and the 2026 midterm environment appears Democratic-leaning in Michigan. However, the race is rated a Toss-Up and the polls are within the margin of error, so late movement or turnout could still flip the outcome."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.62,
-          "rationale": "Democrats have won every Michigan Senate race since 1994, and the 2026 midterm environment\u2014with a Republican president whose approval is underwater in the state and a Democratic edge on the generic ballot\u2014favors their party. El-Sayed holds a consistent but narrow 2\u20133 point lead in high-quality October polls, and open-seat dynamics typically benefit the out-party. However, the race remains within the margin of error, Rogers is a proven statewide vote-getter who nearly won in 2024, and turnout or undecided voter swings could easily erase the small Democratic advantage."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.6,
-          "rationale": "The base rate favors Democrats in Michigan's Senate seat, but the 2024 race was nearly flipped and a midterm with a Republican president adds risk. The latest likely-voter polls and the FiftyPlusOne average show El-Sayed ahead by about 2-3 points, with a Democratic generic-ballot lead and low Trump approval, making Democrats a modest favorite. A late swing, turnout shift, or polling error in this toss-up could still let Rogers win."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: Michigan has not elected a Republican senator since 1994, and recent Senate races (2018 D+6.5, 2020 D+1.7, 2024 D+0.3) all went to Democrats, though margins have narrowed. Polling consistently shows El-Sayed with a small lead (Marist 50-48 LV, FiftyPlusOne 48.1-45.1 average), but the race is within margins of error and rated a Toss-Up by Cook. The likely-voter vs registered-voter gap is wide, and Rogers has Trump endorsement and a strong 2024 performance, so a narrow Democratic win is the most likely outcome but a Republican flip is plausible. I'd put the probability at roughly 58%."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.72
-        }
-      ],
-      "id": "polymarket-630805",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/michigan-senate-election-winner",
-      "status": "pending",
-      "title": "Will the Democrats win the Michigan Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.675
-      },
-      "detail": "2026 Wisconsin gubernatorial election - Wikipedia \n\n[link preview]",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.73,
-          "rationale": "As of Oct 22 the FiftyPlusOne average had Democrat David Crowley at 47.5% and Republican Tom Tiffany at 43.8%, 270toWin's average was 48-44, and recent polls (YouGov Oct 16 46-42, Z to A Oct 9 49-44, Marquette Sept 16-23 49-46 among likely voters) all show Crowley ahead. The race is an open seat in a midterm with a Republican in the White House, which usually helps the out-party; but Wisconsin governor races are decided narrowly (Evers +1.1 in 2018, +3.4 in 2022), Crowley's unfavorable rating rose from 29% to 44% in the Marquette poll, and registered-voter screens show only a 1-point lead. A consistent 3-4 point lead with 11 days left favors the Democrat without making it safe.",
-          "sources": [
-            "https://fiftyplusone.news/polls/governor/general/wisconsin",
-            "https://www.270towin.com/2026-governor-polls/wisconsin",
-            "https://fox6now.com/news/marquette-poll-wisconsin-governor-crowley-tiffany-093026",
-            "https://www.dailycardinal.com/article/2026/10/strong-party-loyalty-leaves-wisconsins-gubernatorial-race-uncertain"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "Polls consistently show Democrat David Crowley leading Republican Tom Tiffany by roughly 4 points across multiple pollsters and methodologies (FiftyPlusOne +3.7, 270toWin +4.0, Marquette LV +3, YouGov +4, Z to A +5). However, Wisconsin gubernatorial races have historically been decided by 1-3 points, the midterm environment favors the out-of-power party (Republicans), Crowley's unfavorable rating has risen sharply to 44%, independent support has dropped from 55% to 44%, and no high-quality Marquette poll exists after September 30. The race remains within the margin of error and could easily flip with turnout shifts or late-deciding independents."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.75,
-          "rationale": "Wisconsin governor races are usually close, but current polling averages show Democrat Crowley leading Republican Tiffany by about 4 points consistently across recent polls. That lead is modest and within typical polling error, and Crowley's rising unfavorable rating and uncertain independent turnout add downside risk. I therefore estimate Democrats are favored but not overwhelmingly."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.65,
-          "rationale": "Wisconsin gubernatorial races are historically tossups decided by narrow margins, so the base rate favors neither party heavily. Poll averages show Democrat David Crowley leading Republican Tom Tiffany by about four points, but Crowley\u2019s favorability swung sharply negative in September, his primary campaign struggled, and independent support has dropped, while the gold-standard Marquette poll has not released a post-October survey. A final Marquette poll showing a tied race, further erosion of Crowley\u2019s image, or a Republican edge among late-deciding independents could easily erase his modest lead in this volatile environment."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.62,
-          "rationale": "Wisconsin gubernatorial races have been narrow in recent cycles, so a small lead is not decisive. Current averages and recent polls show Crowley leading by about 4 points, but all results are within or near margins of error and Crowley's favorability and independent support have slipped. A new late poll, turnout shifts, or movement among undecideds could still flip the race."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.7,
-          "rationale": "Wisconsin gubernatorial races are usually close, although Democrats won in 2018 and 2022 while Republicans won the three preceding elections, giving Democrats a modest base-rate advantage. Crowley\u2019s consistent roughly four-point lead across several recent polls, plus a reported Democratic turnout advantage, moves the estimate clearly above 50%. The probability remains well short of certainty because the registered-voter contest is nearly tied, Crowley\u2019s favorability has deteriorated substantially, and a new Marquette poll or shifts among undecided and independent voters could erase the lead."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.8
-        }
-      ],
-      "id": "manifold-g0zN5ghS90",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://manifold.markets/Jack1/will-democrats-win-the-2026-wiscons",
-      "status": "pending",
-      "title": "Will Democrats win the 2026 Wisconsin Gubernatorial election?",
       "topic": "Politics",
       "verdict": null
     },
@@ -8087,16 +7258,16 @@
     }
   ],
   "summary": {
-    "brier": 0.24455784374036957,
+    "brier": 0.22099070423384862,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 102,
-    "resolved": 21,
-    "right": 10,
+    "pending": 81,
+    "resolved": 28,
+    "right": 15,
     "toss_ups": 0,
-    "total": 124,
+    "total": 111,
     "unscored": 2,
-    "wrong": 11
+    "wrong": 13
   },
   "version": "track_record_v2"
 }

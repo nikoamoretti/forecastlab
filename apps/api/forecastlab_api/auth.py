@@ -1,4 +1,4 @@
-"""Single-owner sessions; authorization applies at the API, including direct URLs."""
+"""Public reads, single-owner writes; authorization applies at the API, including direct URLs."""
 from __future__ import annotations
 
 import hashlib
@@ -68,11 +68,18 @@ def install_auth(app) -> None:
         if path in {"/api/auth/github", "/api/auth/github/callback", "/api/auth/code"}:
             return await call_next(request)
         from forecastlab_api.db import SessionLocal
+        read_only = request.method in {"GET", "HEAD", "OPTIONS"}
         with SessionLocal() as session:
             row = session.get(AuthSession, hashed(request.cookies.get(COOKIE, "")))
             if row is None or row.owner_id != settings.owner_github_id or as_utc(row.expires_at) <= utcnow():
+                if read_only:
+                    # The site is public to read; only the owner can change anything.
+                    request.state.owner_id = ""
+                    response = await call_next(request)
+                    response.headers["Cache-Control"] = "private, no-store"
+                    return response
                 return JSONResponse({"detail": "Sign in to ForecastLab", "code": "authentication_required"}, status_code=401)
-            if request.method not in {"GET", "HEAD", "OPTIONS"}:
+            if not read_only:
                 csrf = request.headers.get("x-csrf-token", "")
                 if (not matches(hashed(csrf), row.csrf_hash) or
                         request.headers.get("origin") != settings.web_origin.rstrip("/")):

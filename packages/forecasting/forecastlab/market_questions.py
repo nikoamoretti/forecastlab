@@ -31,7 +31,7 @@ import re
 import urllib.parse
 import urllib.request
 from collections.abc import Callable
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 SELECTION_VERSION = "polymarket_selection_v2"
@@ -127,14 +127,37 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT)
     return chosen
 
 
-def resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, Any]:
-    """{"status": "resolved", "outcome": 1|0} once final; "cancelled" for a 50/50 settlement; else pending."""
+PROPOSAL_SETTLED = timedelta(days=2)
+
+
+def _ended_before(end: Any, moment: datetime) -> bool:
+    try:
+        ended = _parse_time(str(end))
+        return ended.tzinfo is not None and ended <= moment
+    except ValueError:
+        return False
+
+
+def resolution(market_id: str, fetch: Fetch = fetch_json, now: datetime | None = None) -> dict[str, Any]:
+    """{"status": "resolved", "outcome": 1|0} once final; "cancelled" for a 50/50 settlement; else pending.
+
+    A closed market is final once its last UMA status is "resolved", or once it pays exactly 1 and 0 and
+    either carries no UMA statuses (settled automatically) or has had an undisputed proposal for more
+    than PROPOSAL_SETTLED after it ended: Gamma often leaves the status at "proposed" after UMA's two-hour
+    challenge window passes, and a dispute would add "disputed". A pending result says why, without
+    any price, for the run log.
+    """
     market = fetch(f"{GAMMA}/markets/{market_id}")
-    statuses = market.get("umaResolutionStatuses") or "[]"
-    final = (json.loads(statuses) if isinstance(statuses, str) else statuses or [])[-1:] == ["resolved"]
+    raw = market.get("umaResolutionStatuses") or "[]"
+    statuses = (json.loads(raw) if isinstance(raw, str) else raw) or []
     prices = [float(p) for p in json.loads(market.get("outcomePrices") or "[]")]
+    settled = prices in ([1.0, 0.0], [0.0, 1.0])
+    long_proposed = (statuses[-1:] == ["proposed"] and "disputed" not in statuses
+                     and _ended_before(market.get("endDate"), (now or datetime.now(UTC)) - PROPOSAL_SETTLED))
+    final = statuses[-1:] == ["resolved"] or (settled and (not statuses or long_proposed))
     if not (market.get("closed") and final and len(prices) == 2):
-        return {"status": "pending"}
+        return {"status": "pending", "closed": bool(market.get("closed")), "uma": statuses[-1] if statuses else "",
+                "settled_prices": settled}
     if prices == [1.0, 0.0]:
         return {"status": "resolved", "outcome": 1}
     if prices == [0.0, 1.0]:

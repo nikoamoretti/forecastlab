@@ -1,4 +1,4 @@
-"""Evidence gathered by cursor-agent on Nico's Mac, one headless run per question.
+"""Evidence gathered by cursor-agent on Nico's Mac (or Claude, for the gaps), one headless run per question.
 
 The Mac job (``scripts/mac_research.sh``) builds a task for each new question, asks cursor-agent
 (a non-Claude model, ``configs/research.json``) to search, read the primary sources and reply with
@@ -49,6 +49,15 @@ class Settings:
     weekly_run_cap: int
     window_utc: list[int]
     base_branch: str
+    # Claude fills the questions Cursor could not research (weekly limit hit, timeouts); see `fill`.
+    fallback_model: str = ""
+    fallback_family: str = ""
+    fallback_timeout_s: int = 600
+
+    @property
+    def families(self) -> tuple[str, ...]:
+        """Every model family that may have researched a question; none of them may judge."""
+        return tuple(f for f in (self.model_family, self.fallback_family) if f)
 
 
 def load_settings(path: Path) -> Settings:
@@ -57,10 +66,15 @@ def load_settings(path: Path) -> Settings:
         raise ValueError("configs/research.json: provider must be cursor")
     if data["mode"] not in ("dry_run", "live"):
         raise ValueError("configs/research.json: mode must be dry_run or live")
+    fallback = data.get("fallback") or {}
+    if fallback and fallback.get("provider") != "claude":
+        raise ValueError("configs/research.json: fallback provider must be claude")
     return Settings(mode=data["mode"], model=data["model"], model_family=data["model_family"].lower(),
                     parallel=int(data["parallel"]), timeout_s=int(data["timeout_s"]),
                     daily_run_cap=int(data["daily_run_cap"]), weekly_run_cap=int(data["weekly_run_cap"]),
-                    window_utc=list(data["window_utc"]), base_branch=data["base_branch"])
+                    window_utc=list(data["window_utc"]), base_branch=data["base_branch"],
+                    fallback_model=fallback.get("model", ""), fallback_family=fallback.get("model_family", "").lower(),
+                    fallback_timeout_s=int(fallback.get("timeout_s", 600)))
 
 
 def tasks(directory: Path) -> list[dict[str, str]]:
@@ -174,8 +188,21 @@ def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Ag
     return run
 
 
+def claude_agent(model: str, timeout_s: int, binary: str = "claude") -> Agent:
+    """A headless Claude Code run in an empty folder, allowed only its web search and fetch tools."""
+    def run(text: str) -> str:
+        with tempfile.TemporaryDirectory() as folder:
+            done = subprocess.run([binary, "-p", "--model", model, "--effort", "low", "--output-format", "text",
+                                   "--allowedTools", "WebSearch", "WebFetch"],
+                                  input=text, cwd=folder, capture_output=True, text=True, timeout=timeout_s)
+        if done.returncode != 0:
+            raise RuntimeError(f"claude exited {done.returncode}: {(done.stderr or done.stdout).strip()[-300:]}")
+        return done.stdout
+    return run
+
+
 def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget: int,
-             limit: int | None = None) -> dict[str, Any]:
+             limit: int | None = None, by: str = "") -> dict[str, Any]:
     """Research the directory's questions not yet in research.json, at most ``budget`` agent runs."""
     path = directory / RESEARCH_FILE
     saved = json.loads(path.read_text()) if path.exists() else {}
@@ -195,6 +222,7 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
     sources = dict(saved.get("sources", {}))
     findings = dict(saved.get("findings", {}))
     failed = dict(saved.get("failed", {}))
+    researched_by = dict(saved.get("researched_by", {}))
     for task, result in zip(todo, results):  # noqa: B905 -- equal lengths; strict= needs Python 3.10
         if isinstance(result, str):
             failed[task["id"]] = result
@@ -205,8 +233,12 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
                                for s in result["sources"]]
         findings[task["id"]] = {"facts": result["facts"], "base_rate": result["base_rate"],
                                 "uncertainties": result["uncertainties"]}
+        if by:
+            researched_by[task["id"]] = by
+    # "provider" names the file format (research_download.py reads it); researched_by names the model.
     return {"provider": "cursor", "researched_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
-            "runs": len(todo), "sources": sources, "findings": findings, "failed": failed}
+            "runs": len(todo), "sources": sources, "findings": findings, "failed": failed,
+            "researched_by": researched_by}
 
 
 def digest(data: dict[str, Any], qid: str) -> str:
