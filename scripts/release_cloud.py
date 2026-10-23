@@ -80,9 +80,9 @@ def release_with_clients(api_client, web_client, control_request=request):
         api = api_client.stage(ROOT, web=False)
         web = web_client.stage(ROOT, web=True)
         api_client.smoke(api, "/health", 200)
-        api_client.smoke(api, "/api/settings", 401)
+        api_client.smoke(api, "/api/settings", 401)  # direct API calls, without the web proxy's secret, stay refused
         web_client.smoke(web, "/login", 200)
-        web_client.smoke(web, "/api/settings", 401)
+        web_client.smoke(web, "/api/settings", 200)  # reads through the web app are public (PR #81); writes need the owner
         print("Staged checks passed; promoting API and web.", flush=True)
         api_client.promote(api)
         web_client.promote(web)
