@@ -302,7 +302,12 @@ def test_owner_auth_protects_direct_api_sessions_and_csrf(client, monkeypatch):
     monkeypatch.setattr(settings, "internal_secret", "test-internal-secret")
     assert client.get("/api/settings").status_code == 401
     headers = {"x-forecastlab-internal": "test-internal-secret"}
-    assert client.get("/api/settings", headers=headers).status_code == 401
+    # Reads through the web proxy are public; writes still need the owner session.
+    assert client.get("/api/settings", headers=headers).status_code == 200
+    assert client.get("/api/auth/session", headers=headers).json()["owner_id"] == ""
+    assert client.post("/api/autopilot/enable", json={"enabled": False}, headers=headers).status_code == 401
+    client.cookies.set("forecastlab_session", "stale-session")
+    assert client.get("/api/settings", headers=headers).status_code == 200
     with SessionLocal() as session:
         session.add(AuthSession(token_hash=hashed("owner-session"), owner_id="146488758", csrf_hash=hashed("csrf"), expires_at=NOW + timedelta(days=1000)))
         session.commit()
