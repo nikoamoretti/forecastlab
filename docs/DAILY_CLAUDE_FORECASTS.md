@@ -48,6 +48,8 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
 9. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
 10. **Notify.** Send the owner a short, verdict-first note only when something resolved or a run failed.
 
+**Results every day.** Scoring must not wait for a forecasting day. A separate scheduled check runs every evening (weekends included): it creates `claude/daily-forecasts-<date>-results` from the base, pushes `{"step":"finish","dirs":[]}` so Actions only re-scores, and merges the pull request if anything changed. A Polymarket market counts once it is closed and pays exactly 1 and 0, with no dispute and more than six hours past its end (UMA's challenge window is two hours). The site groups past-due questions under "Waiting for results" using today's date, not the date the record was built.
+
 ## Honesty rules
 
 - Never use information published after the forecast time.

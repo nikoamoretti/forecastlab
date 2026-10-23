@@ -37,7 +37,10 @@ export function shortDate(iso: string, withYear = false) {
   return noon(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: withYear ? "numeric" : undefined, timeZone: "UTC" });
 }
 
-// "Today", "Tomorrow", "Yesterday", or "Oct 14" relative to the day the record was built.
+// Today's date in UTC, from the clock: the record itself may be days old (weekends, skipped runs).
+export const todayUTC = () => new Date().toISOString().slice(0, 10);
+
+// "Today", "Tomorrow", "Yesterday", or "Oct 14" relative to today.
 export function relativeDay(iso: string, today: string) {
   const days = Math.round((noon(iso).getTime() - noon(today).getTime()) / 86_400_000);
   if (days === 0) return "Today";

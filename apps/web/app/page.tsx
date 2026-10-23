@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, callText, groupBySeries, relativeDay, shortDate, versusGuessing } from "@/lib/trackRecord";
+import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, callText, groupBySeries, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -17,10 +17,14 @@ function ResultRow({ q }: { q: Question }) {
   </Link></li>;
 }
 
+const settledBy = (q: Question) => q.source_url?.includes("polymarket.com") ? "Polymarket"
+  : q.source_url?.includes("manifold.markets") ? "Manifold" : "the official figure";
+
 function OpenRow({ q, today }: { q: Question; today: string }) {
+  const overdue = q.resolves_on < today;
   return <li><Link href={`/q/${q.id}`} className="grid gap-x-4 gap-y-1 py-4 hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center">
-    <span className="text-sm text-ink/60">{relativeDay(q.resolves_on, today)}</span>
-    <span>{q.title}</span>
+    <span className="text-sm text-ink/60">{overdue ? `Due ${shortDate(q.resolves_on)}` : relativeDay(q.resolves_on, today)}</span>
+    <span>{q.title}{overdue && <span className="mt-1 block text-sm text-ink/60">Waiting for {settledBy(q)}</span>}</span>
     {q.call && <span><CallPill probability={q.call.probability} /></span>}
   </Link></li>;
 }
@@ -63,9 +67,12 @@ export default function TrackRecordPage() {
   if (error) return <p role="alert">The track record could not be loaded: {error}</p>;
   if (!data) return <p className="text-ink/60">Loading your track record…</p>;
 
-  const s = data.summary, today = data.generated_on;
+  const s = data.summary, today = todayUTC();
   const resolved = data.questions.filter(q => q.status === "resolved");
-  const open = data.questions.filter(q => q.status === "pending");
+  const pending = data.questions.filter(q => q.status === "pending");
+  // Past-due questions wait for their source to publish; they are not "coming up".
+  const waiting = pending.filter(q => q.resolves_on < today);
+  const open = pending.filter(q => q.resolves_on >= today);
   const next = open[0];
   const dueThisWeek = open.filter(q => (new Date(q.resolves_on).getTime() - new Date(today).getTime()) / DAY <= 7).length;
   const calls = s.right + s.wrong;
@@ -106,6 +113,12 @@ export default function TrackRecordPage() {
         : <p className="mt-3 text-ink/70">Nothing has been decided yet.</p>}
     </section>
 
+    {waiting.length > 0 && <section>
+      <h3 className="font-serif text-3xl">Waiting for results <span className="text-ink/40">{waiting.length}</span></h3>
+      <p className="mt-1 text-sm text-ink/60">The date has passed; we score these as soon as the market settles or the official figure is out. Results are checked every day.</p>
+      <ul className="mt-4 divide-y divide-rule border-y border-rule">{waiting.map(q => <OpenRow key={q.id} q={q} today={today} />)}</ul>
+    </section>}
+
     <section>
       <h3 className="font-serif text-3xl">Coming up <span className="text-ink/40">{open.length}</span></h3>
       <p className="mt-1 text-sm text-ink/60">Our call on each open question, soonest first. Questions on the same figure are grouped.</p>
@@ -126,6 +139,6 @@ export default function TrackRecordPage() {
       </li>)}</ul>
     </section>
 
-    <p className="text-sm text-ink/50">Updated {shortDate(today, true)} from official first releases. Test runs and drafts don’t count; they’re under More › All runs.</p>
+    <p className="text-sm text-ink/50">Updated {shortDate(data.generated_on, true)} from official first releases. Test runs and drafts don’t count; they’re under More › All runs.</p>
   </div>;
 }

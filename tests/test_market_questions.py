@@ -75,10 +75,12 @@ def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None
     ({"closed": True, "outcomePrices": '["1", "0"]'}, {"status": "resolved", "outcome": 1}),
     ({"closed": True, "outcomePrices": '["0.97", "0.03"]', "umaResolutionStatuses": "[]"},
      {"status": "pending", "closed": True, "uma": "", "settled_prices": False}),
-    # Gamma often leaves an undisputed proposal at "proposed"; two days after the end it is final.
+    # Gamma often leaves an undisputed proposal at "proposed"; six hours after the end it is final.
     ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]', "endDate": "2026-10-10T16:00:00Z"},
      {"status": "resolved", "outcome": 0}),
     ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]', "endDate": "2026-10-22T16:00:00Z"},
+     {"status": "resolved", "outcome": 0}),
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]', "endDate": "2026-10-23T10:00:00Z"},
      {"status": "pending", "closed": True, "uma": "proposed", "settled_prices": True}),
     ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed", "disputed", "proposed"]',
       "endDate": "2026-10-10T16:00:00Z"}, {"status": "pending", "closed": True, "uma": "proposed", "settled_prices": True}),
