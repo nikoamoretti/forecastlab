@@ -75,10 +75,17 @@ def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None
     ({"closed": True, "outcomePrices": '["1", "0"]'}, {"status": "resolved", "outcome": 1}),
     ({"closed": True, "outcomePrices": '["0.97", "0.03"]', "umaResolutionStatuses": "[]"},
      {"status": "pending", "closed": True, "uma": "", "settled_prices": False}),
+    # Gamma often leaves an undisputed proposal at "proposed"; two days after the end it is final.
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]', "endDate": "2026-10-10T16:00:00Z"},
+     {"status": "resolved", "outcome": 0}),
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]', "endDate": "2026-10-22T16:00:00Z"},
+     {"status": "pending", "closed": True, "uma": "proposed", "settled_prices": True}),
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed", "disputed", "proposed"]',
+      "endDate": "2026-10-10T16:00:00Z"}, {"status": "pending", "closed": True, "uma": "proposed", "settled_prices": True}),
     ({"closed": True, "outcomePrices": '["0.5", "0.5"]', "umaResolutionStatuses": '["resolved"]'}, {"status": "cancelled"}),
 ])
 def test_only_final_polymarket_results_count(market: dict, expected: dict) -> None:
-    assert resolution("m1", lambda _url: market) == expected
+    assert resolution("m1", lambda _url: market, now=datetime(2026, 10, 23, 14, tzinfo=UTC)) == expected
 
 
 def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_path: Path) -> None:
