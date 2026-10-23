@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-23",
+  "note": "Questions the owner asked in the app, answered by Claude in the daily run with web research. Each id matches its question request. Outcomes are recorded after the resolution date.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-23T21:24:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Cook Political Report's ratings page (2026-10-16, counts approximate) puts about 200 seats at Solid, Likely or Lean Republican, 214 leaning Democratic and 21 toss-ups, so Republicans would need roughly 18 of the 21 toss-ups to reach 218. Cook moved 18 races toward Democrats on 2026-10-09 and its most likely outcome is a Democratic gain of 9 to 19 seats, and the president's party has lost House seats in about 18 of 20 midterms since WWII. Republicans start near 217-220 seats, so a net loss of three or more takes them below 218; rating errors can be correlated, which keeps this from being near zero, but none of the sources could be opened to check the quotes.",
+          "sources": [
+            "https://www.cookpolitical.com/ratings/house-race-ratings",
+            "https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/",
+            "https://pressgallery.house.gov/party-breakdown",
+            "https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker"
+          ]
+        }
+      ],
+      "id": "house-gop-218-jan-2027",
+      "outcome": null,
+      "question": "Will the Republican Party hold at least 218 voting seats in the U.S. House of Representatives when the 120th Congress convenes on January 3, 2027?",
+      "resolution_criteria": "Resolves Yes if, when the 120th Congress convenes on January 3, 2027, Republicans hold at least 218 of the 435 voting seats in the U.S. House of Representatives, as shown by the Clerk of the House's party breakdown on that day (members-elect sworn in that day count; non-voting delegates and vacant seats do not). Otherwise it resolves No. The November 3, 2026 midterm results, recounts, and any seat left vacant at the start are all reflected in that count.",
+      "resolution_date": "2027-01-03",
+      "resolution_source": "Clerk of the U.S. House party breakdown, https://clerk.house.gov/",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "owner_requests_v1"
+}
