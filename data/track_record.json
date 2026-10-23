@@ -2,97 +2,97 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.24455784374036957,
+      "brier": 0.22099070423384862,
       "coin_flip_brier": 0.25,
       "forecasts": 111,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 21,
-      "right": 10,
+      "resolved": 28,
+      "right": 15,
       "toss_ups": 0,
-      "wrong": 11
+      "wrong": 13
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1977529411764706,
+      "brier": 0.17296250000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 107,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 17,
-      "right": 9,
+      "resolved": 24,
+      "right": 15,
       "toss_ups": 2,
-      "wrong": 6
+      "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.1986,
+      "brier": 0.18176666666666666,
       "coin_flip_brier": 0.25,
       "forecasts": 64,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 3,
-      "right": 2,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.179975,
-      "coin_flip_brier": 0.25,
-      "forecasts": 57,
-      "label": "Nemotron Super (judge)",
-      "method": "judge_nemotron_super_v1",
-      "resolved": 4,
-      "right": 3,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.17572500000000002,
-      "coin_flip_brier": 0.25,
-      "forecasts": 71,
-      "label": "DeepSeek V4 Pro (judge)",
-      "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 4,
-      "right": 3,
-      "toss_ups": 0,
-      "wrong": 1
-    },
-    {
-      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.253825,
-      "coin_flip_brier": 0.25,
-      "forecasts": 55,
-      "label": "Kimi K2.6 (judge)",
-      "method": "judge_kimi_k26_v1",
-      "resolved": 4,
-      "right": 2,
+      "resolved": 6,
+      "right": 4,
       "toss_ups": 0,
       "wrong": 2
     },
     {
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
+      "brier": 0.1454909090909091,
+      "coin_flip_brier": 0.25,
+      "forecasts": 57,
+      "label": "Nemotron Super (judge)",
+      "method": "judge_nemotron_super_v1",
+      "resolved": 11,
+      "right": 8,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
+      "brier": 0.20615555555555556,
+      "coin_flip_brier": 0.25,
+      "forecasts": 71,
+      "label": "DeepSeek V4 Pro (judge)",
+      "method": "judge_deepseek_v4_pro_v1",
+      "resolved": 9,
+      "right": 6,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
+      "brier": 0.2187125,
+      "coin_flip_brier": 0.25,
+      "forecasts": 55,
+      "label": "Kimi K2.6 (judge)",
+      "method": "judge_kimi_k26_v1",
+      "resolved": 8,
+      "right": 5,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.16124999999999998,
+      "brier": 0.12714999999999999,
       "coin_flip_brier": 0.25,
       "forecasts": 63,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 4,
-      "right": 3,
+      "resolved": 8,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.18992500000000004,
+      "brier": 0.1368111111111111,
       "coin_flip_brier": 0.25,
       "forecasts": 74,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 4,
-      "right": 3,
+      "resolved": 9,
+      "right": 8,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -158,15 +158,15 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": null,
+      "brier": 0.0654560357142857,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 7,
+      "right": 6,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
@@ -209,6 +209,52 @@
       "status": "resolved",
       "title": "Will weekly U.S. jobless claims for the week ending Oct 17, 2026 come in above 199,000 claims?",
       "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_median_v1",
+        "probability": 0.505
+      },
+      "detail": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
+          "sources": [
+            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
+            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
+            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
+            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        }
+      ],
+      "id": "polymarket-5008726",
+      "note": "Disclosed before resolution: a search result (a social-media post) cited prediction-market odds for a related, later date while Claude was researching. Claude says it ignored it; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-21",
+      "scored": false,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/openai-resumes-training-on",
+      "status": "resolved",
+      "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
+      "topic": "Tech",
       "verdict": "right"
     },
     {
@@ -318,6 +364,75 @@
       "status": "resolved",
       "title": "Will Trump win Nobel Piss Prize 2026? [Read description]",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.665
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
+          "sources": [
+            "https://www.profilenews.com/en/october-12-2026-daily-report/",
+            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
+            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
+          ]
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate of Israeli qualifying strikes on any given day is low, but recent evidence shows a pattern of continued air strikes despite a June truce, including confirmed warplane strikes on Oct\u202f12. This ongoing activity raises the likelihood of another strike on Oct\u202f15, though the truce and possible diplomatic pressure could suppress action, keeping probability below certainty."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for Israeli military action on any given day is elevated due to the ongoing, though reduced, conflict since the June 2026 truce. The evidence brief shows near-daily attacks in August and recent strikes on October 11-12, including air strikes that would qualify. Given the pattern of frequent qualifying actions, it is more likely than not that at least one such strike occurs on October 15, but the possibility of a lull or only non-qualifying actions (like artillery) keeps the probability from being higher."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.4,
+          "rationale": "Base rate of qualifying Israeli strikes fell after the June truce but remained non-zero, with warplane strikes confirmed on Oct 12. This recent activity and ongoing southern border violence make an Oct 15 air or missile strike plausible, though the compressed one-day window and truce framework mean a quiet day remains slightly more likely. The probability would shift lower if Oct 13-14 show no further air operations, or higher if diplomatic talks collapse or Hezbollah provocations escalate."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate is elevated because Israeli air operations have continued despite the truce, with near-daily attacks reported in August and a specific Oct 12 report of Israeli warplanes striking villages in southern Lebanon. The main uncertainty is whether the frequency has declined enough since June that a qualifying air or missile strike may not occur on Oct 15. New reports of strikes or confirmed interception failures on Oct 13-15 would move this sharply."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.8,
+          "rationale": "Despite a June 2026 Israel-Hezbollah truce, Israeli attacks on Lebanon have continued at a high rate, described as 'near-daily attacks' in August, with recent reports on Oct 12 specifically mentioning Israeli warplane strikes on Kfar Tibnit and Wadi al-Hujair (qualifying air strikes). This consistent pattern of air strikes against Lebanese territory strongly suggests a qualifying military action is likely on Oct 15. The base rate for any specific day in this ongoing low-intensity conflict pattern is high, though the truce may cause some day-to-day variability."
+        },
+        {
+          "made_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        }
+      ],
+      "id": "polymarket-5183416",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-16",
+      "scored": true,
+      "source": "prospective_markets_20261013",
+      "source_url": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
+      "status": "resolved",
+      "title": "Israel military action against Lebanon on October 15?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -848,6 +963,239 @@
       "verdict": "wrong"
     },
     {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
+            "https://www.coindesk.com/price/ethereum (2026-10-07)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.48,
+          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.455
+        }
+      ],
+      "id": "polymarket-5311923",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Ethereum dip to $2,500 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
+            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
+            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.32,
+          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.12,
+          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.195
+        }
+      ],
+      "id": "polymarket-5311866",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Bitcoin dip to $80,000 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.55
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "ETH traded about $2,500 on the morning of Oct 9 (FXStreet, 09:09 GMT), after about $2,482 at 01:30 UTC, the lowest print seen this week, and an 8% weekly drop. Touching $2,400 on a Binance 1-minute low before 23:59 ET Oct 11 needs a fall of about 4% at some point in roughly 65 hours. With ETH daily volatility near 4% and downside momentum (four straight down days, heavy long liquidations), a barrier that close is touched a little more often than not, though weekends are usually calmer.",
+          "sources": [
+            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
+            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
+            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Base rate for a 4% ETH decline over a few days is roughly 30% given typical daily volatility. The price is already near the 50\u2011day EMA at $2,500 and has been falling each day since Oct\u202f4, with liquidations and rising Treasury yields adding downside pressure, which raises the chance of breaking through to $2,400. However, the $2,500 level could act as support and a bounce would keep the price above the threshold, so the probability is moderate, not extreme."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 6.6% intraday move in a week is moderate, but ETH is already near $2,500 with strong downward momentum, critical support at $2,500 breaking, and only a 4% drop needed to hit $2,400. Rising Treasury yields and heavy long liquidations add selling pressure, making a dip likely within the remaining 65 hours. However, if the $2,500 support holds or a sudden positive catalyst emerges, the probability would drop significantly."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for ETH dropping an additional ~4% from current levels ($2,500) within a week is moderate but not high. The evidence shows ETH has been declining steadily, with $2,500 identified as critical support; a break below could trigger further selling toward $2,330-$2,355. However, the question requires a specific Binance 1-minute low at or below $2,400, and with 65 hours remaining, the price would need to drop another ~4%. Rising yields and weak sentiment support downside risk, but the 50-day EMA at $2,500 may hold. I'd put this at roughly 18% probability."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "market_price_v1",
+          "probability": 0.2065
+        }
+      ],
+      "id": "polymarket-5311925",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-12",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
+      "status": "resolved",
+      "title": "Will Ethereum dip to $2,400 October 5-11?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.78
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.82,
+          "rationale": "Starting from the current ~$82,300, a drop to $78,000 requires a 5.2% decline over ~76 hours. With Bitcoin's typical daily volatility of 2\u20133%, the 3\u2011day volatility is roughly 3.5\u20135.2%, making a 5.2% drop a 1\u20131.5 standard deviation event, which historically occurs only 15\u201330% of the time. The bearish Fed minutes, high yields, and ETF outflows increase downside risk, but the short horizon limits the impact. Thus the probability of staying above $78,000 is in the low 80s."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Bitcoin's daily volatility is about 2-3%, so over three days the expected price movement is roughly \u00b14-5% (one\u2011sigma). To fall below $78,000 from the current $82,303 requires a ~5.2% drop, which is about 1.2\u03c3 below the mean, giving a roughly 12% chance of a breach under a symmetric random walk. Evidence points to bearish pressure from Fed minutes, rising Treasury yields and ETF outflows, which skews the distribution downward, reducing the chance of staying above the threshold. Adjusting for this bias yields an estimated probability of about 78% that the Binance BTC/USDT close at 12:00\u202fET on Oct\u202f11 will be above $78,000."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Bitcoin is currently around $82,300, about 5.2% above the $78,000 threshold. With typical daily volatility of 2-3%, a 5% drop over three days is roughly a 1-1.5 standard deviation move. Given negative news (Fed minutes, ETF outflows), there is some downward pressure, but the buffer is substantial. I estimate a ~75% chance it remains above $78,000 at the specified time."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.68,
+          "rationale": "Base rate from Bitcoin's typical 2\u20133% daily volatility suggests a ~5% decline over three days is roughly a one-sigma event, giving roughly 15\u201320% baseline odds of falling below $78,000. The current evidence\u2014hawkish Fed minutes, 24-year-high Treasury yields, and ongoing ETF outflows\u2014introduces meaningful negative momentum and downside skew, raising the chance of a breach. However, the ~5.2% buffer is still material, and much of the recent bearish news may already be partially reflected in today's 2.7% drop. Probability could shift materially if ETF outflows accelerate or if macro sentiment deteriorates further."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate: with BTC around $82,300 and only about 76 hours to the 12:00 ET close, a Yes outcome requires the price not to fall more than roughly 5.2%, which is less likely than not given typical 2-3% daily volatility. The negative Fed, high-yield, and ETF-outflow evidence raises downside tail risk and suggests a modest negative drift, so I trim from a neutral ~85-90% to about 82%. A sharp macro shock, continued ETF outflows, or a volatility spike could push it below $78,000, while stabilization or a relief bounce would make Yes more likely."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: BTC is currently around $82,300, which is about 5.5% above the $78,000 threshold, giving a reasonable buffer. Daily volatility of 2-3% means a 5.2% drop over 3 days is unlikely but not impossible, especially given current bearish catalysts (Fed hawkishness, high Treasury yields, ETF outflows). The combination of a meaningful buffer and typical volatility suggests a moderate-to-high probability of staying above $78,000."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.949
+        }
+      ],
+      "id": "polymarket-5286491",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-11",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $78,000 on October 11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
       "actual": "Manifold: No",
       "call": {
         "members": 7,
@@ -919,6 +1267,143 @@
       "status": "resolved",
       "title": "Will Anthropic release a new Claude Fable model before October 12, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.62
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "ETH was about $2,500 on Oct 9 morning. Staying above $2,400 at Binance's noon-ET close on Oct 11 (about 54 hours away) means not falling more than about 4%. With daily volatility near 4%, that is about 0.6 standard deviations of cushion, but momentum has been negative all week.",
+          "sources": [
+            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
+            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
+            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for ETH to remain above a level roughly 4% below its current price over a two\u2011day horizon is about 65% given typical daily volatility. ETH is currently trading near $2,500, which is above the 50\u2011day EMA support at $2,500, but the asset has been declining each day since Oct\u202f4 and faces downward pressure from rising Treasury yields. If the downtrend continues, a further ~4% drop could push the price below $2,400; however, the recent average daily decline (~1.1%) suggests a modest move, making a breach less likely than a hold. Overall, the evidence tilts the probability slightly above the base rate to around 68%."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a short-term price target is near 50%, but ETH is in a clear downtrend, down over 8% on the week and falling daily since Oct 4. It is currently near $2,500, with $2,400 only 4% below, but bearish momentum, large liquidations, and macro headwinds (rising yields) make a break below likely. A quick reversal is possible but less probable given the trend and only 54 hours remaining."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.56,
+          "rationale": "Base rate: With ETH near $2,500 and roughly 54 hours until resolution, a 4% decline to fall below $2,400 is well within typical short-term volatility but not guaranteed. Evidence: The market is in a multi-day downtrend with rising Treasury yields pressuring risk assets, and analysts highlight $2,500 as critical support, with the next support zone at $2,330\u2013$2,355, suggesting downside risk if the level fails. What could change it: A hold or bounce at the $2,500 support level would likely keep the price above $2,400, whereas a sustained break below $2,500 would sharply increase the odds of a sub-$2,400 close."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "A neutral two-day crypto base rate for staying above a threshold 4% below spot is fairly high, roughly 65-75%. The evidence of an 8% weekly decline, lower closes since Oct 4, and $2,500 as critical support suggests a real risk of a break toward $2,330-2,355, so I trim the probability. A bounce off support or continued macro-driven selling could materially change the outcome."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "Base rate for ETH closing above a round number 2 days out, given current price near $2,500, is moderate. Evidence: ETH is currently around $2,500, only ~$100 above the $2,400 threshold, and has been declining steadily for days with bearish catalysts (rising yields, long liquidations). The 50-day EMA at $2,500 is critical support; a break below could push price toward $2,330-$2,355, well under $2,400. However, $2,500 is still ~4% above the threshold, giving meaningful cushion. The main risk is continued downward momentum over the next 54 hours."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "market_price_v1",
+          "probability": 0.907
+        }
+      ],
+      "id": "polymarket-5286464",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-11",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-october-11-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,400 on October 11?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.29000000000000004
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
+          "sources": [
+            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
+            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "Based on Ethereum's typical daily volatility of 3\u20114%, a two\u2011day window implies roughly a 5% standard deviation, giving about a 30% chance of a >2.8% rise if price movement were unbiased. However, the current price is down ~4\u20115% over the past day and week, and spot ETH ETFs experienced $161\u202fM of outflows, indicating bearish pressure that lowers the upward probability. Adjusting for this drift brings the estimate down to roughly 20%. A sudden positive catalyst (e.g., macro\u2011economic news or a major on\u2011chain upgrade) could raise the chance, while continued outflows or further price declines would push it lower."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for a 2.8% gain over ~2 days in ETH is roughly 40-45% given typical daily volatility of 3-4%. However, the evidence shows ETH is in a short-term downtrend (down 4.1% over the week, 4.6% from Oct 7 open) with significant ETF outflows ($161M), suggesting bearish momentum. This lowers the probability below the base rate, though a reversal is still possible given crypto's volatility."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.28,
+          "rationale": "With ETH daily volatility around 3\u20134%, a ~2.8% gain over roughly two days is about a 0.5\u20130.7 standard-deviation move, giving a base-rate chance near 30%. However, the recent downtrend\u2014spot ETH down ~4% on the week and $161M in spot ETF outflows\u2014suggests modest negative short-term drift, lowering the odds slightly. The probability could rise if ETF flows reverse or crypto broadly rallies, or fall further if risk-off sentiment and outflows continue."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.27,
+          "rationale": "With 3-4% daily volatility, a 2.8% rise over roughly two days is about half a standard deviation, giving a zero-drift base rate near 30%. The recent 4-5% decline and $161M of ETF outflows suggest negative short-term drift, so I tilt below that base rate. A sharp volatility bounce or renewed ETF inflows could push it higher, while continued risk-off selling could keep it below $2,600."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for ETH being above a level ~3% above current price 2 days out is roughly 40-45% given typical 3-4% daily volatility. Current downtrend (down 4.6% on the day, $161M ETF outflows) makes a 2.8% recovery to $2,600 less likely than a coin in a neutral setup, but a 2-day bounce in a choppy market is not unusual. A meaningful shift in ETF flows or macro risk-on move could push this above 50%; continued outflows and weak risk appetite would push it well below."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.205
+        }
+      ],
+      "id": "polymarket-5238585",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-10",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,600 on October 10?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -1329,376 +1814,6 @@
     {
       "actual": null,
       "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.29000000000000004
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "ETH traded about $2,529 at 12:04 UTC on Oct 8, down 4.6% from Wednesday's open and 4.1% on the week, amid ETF outflows. Clearing $2,600 at Binance's noon-ET close on Oct 10 needs a rise of about 2.8% in roughly 51 hours; with typical ETH daily volatility near 3.5%, that is roughly a 0.5 standard deviation move against recent momentum.",
-          "sources": [
-            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
-            "https://cryptotimes.io/2026/10/08/ethereum-price-today-ethereum-price-holds-near-2570-as-etf-outflows-hit-161m"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.2,
-          "rationale": "Based on Ethereum's typical daily volatility of 3\u20114%, a two\u2011day window implies roughly a 5% standard deviation, giving about a 30% chance of a >2.8% rise if price movement were unbiased. However, the current price is down ~4\u20115% over the past day and week, and spot ETH ETFs experienced $161\u202fM of outflows, indicating bearish pressure that lowers the upward probability. Adjusting for this drift brings the estimate down to roughly 20%. A sudden positive catalyst (e.g., macro\u2011economic news or a major on\u2011chain upgrade) could raise the chance, while continued outflows or further price declines would push it lower."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for a 2.8% gain over ~2 days in ETH is roughly 40-45% given typical daily volatility of 3-4%. However, the evidence shows ETH is in a short-term downtrend (down 4.1% over the week, 4.6% from Oct 7 open) with significant ETF outflows ($161M), suggesting bearish momentum. This lowers the probability below the base rate, though a reversal is still possible given crypto's volatility."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.28,
-          "rationale": "With ETH daily volatility around 3\u20134%, a ~2.8% gain over roughly two days is about a 0.5\u20130.7 standard-deviation move, giving a base-rate chance near 30%. However, the recent downtrend\u2014spot ETH down ~4% on the week and $161M in spot ETF outflows\u2014suggests modest negative short-term drift, lowering the odds slightly. The probability could rise if ETF flows reverse or crypto broadly rallies, or fall further if risk-off sentiment and outflows continue."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.27,
-          "rationale": "With 3-4% daily volatility, a 2.8% rise over roughly two days is about half a standard deviation, giving a zero-drift base rate near 30%. The recent 4-5% decline and $161M of ETF outflows suggest negative short-term drift, so I tilt below that base rate. A sharp volatility bounce or renewed ETF inflows could push it higher, while continued risk-off selling could keep it below $2,600."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate for ETH being above a level ~3% above current price 2 days out is roughly 40-45% given typical 3-4% daily volatility. Current downtrend (down 4.6% on the day, $161M ETF outflows) makes a 2.8% recovery to $2,600 less likely than a coin in a neutral setup, but a 2-day bounce in a choppy market is not unusual. A meaningful shift in ETF flows or macro risk-on move could push this above 50%; continued outflows and weak risk appetite would push it well below."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.205
-        }
-      ],
-      "id": "polymarket-5238585",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-10",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-october-10-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,600 on October 10?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.78
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.86,
-          "rationale": "BTC was about $82,300 at 12:04 UTC on Oct 8 after falling below $83K on hawkish Fed minutes and rising yields. Staying above $78,000 at Binance's noon-ET close on Oct 11 only requires avoiding a drop of more than about 5% in roughly 76 hours, a bit over one standard deviation at typical BTC volatility.",
-          "sources": [
-            "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-thursday-october-8-2026-crypto-values-fall-as-oil-prices-soar-113341860.html",
-            "https://usethebitcoin.com/bitcoin/bitcoin-price-october-8-2026/"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.82,
-          "rationale": "Starting from the current ~$82,300, a drop to $78,000 requires a 5.2% decline over ~76 hours. With Bitcoin's typical daily volatility of 2\u20133%, the 3\u2011day volatility is roughly 3.5\u20135.2%, making a 5.2% drop a 1\u20131.5 standard deviation event, which historically occurs only 15\u201330% of the time. The bearish Fed minutes, high yields, and ETF outflows increase downside risk, but the short horizon limits the impact. Thus the probability of staying above $78,000 is in the low 80s."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.78,
-          "rationale": "Base rate: Bitcoin's daily volatility is about 2-3%, so over three days the expected price movement is roughly \u00b14-5% (one\u2011sigma). To fall below $78,000 from the current $82,303 requires a ~5.2% drop, which is about 1.2\u03c3 below the mean, giving a roughly 12% chance of a breach under a symmetric random walk. Evidence points to bearish pressure from Fed minutes, rising Treasury yields and ETF outflows, which skews the distribution downward, reducing the chance of staying above the threshold. Adjusting for this bias yields an estimated probability of about 78% that the Binance BTC/USDT close at 12:00\u202fET on Oct\u202f11 will be above $78,000."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.75,
-          "rationale": "Bitcoin is currently around $82,300, about 5.2% above the $78,000 threshold. With typical daily volatility of 2-3%, a 5% drop over three days is roughly a 1-1.5 standard deviation move. Given negative news (Fed minutes, ETF outflows), there is some downward pressure, but the buffer is substantial. I estimate a ~75% chance it remains above $78,000 at the specified time."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.68,
-          "rationale": "Base rate from Bitcoin's typical 2\u20133% daily volatility suggests a ~5% decline over three days is roughly a one-sigma event, giving roughly 15\u201320% baseline odds of falling below $78,000. The current evidence\u2014hawkish Fed minutes, 24-year-high Treasury yields, and ongoing ETF outflows\u2014introduces meaningful negative momentum and downside skew, raising the chance of a breach. However, the ~5.2% buffer is still material, and much of the recent bearish news may already be partially reflected in today's 2.7% drop. Probability could shift materially if ETF outflows accelerate or if macro sentiment deteriorates further."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.82,
-          "rationale": "Base rate: with BTC around $82,300 and only about 76 hours to the 12:00 ET close, a Yes outcome requires the price not to fall more than roughly 5.2%, which is less likely than not given typical 2-3% daily volatility. The negative Fed, high-yield, and ETF-outflow evidence raises downside tail risk and suggests a modest negative drift, so I trim from a neutral ~85-90% to about 82%. A sharp macro shock, continued ETF outflows, or a volatility spike could push it below $78,000, while stabilization or a relief bounce would make Yes more likely."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "Base rate: BTC is currently around $82,300, which is about 5.5% above the $78,000 threshold, giving a reasonable buffer. Daily volatility of 2-3% means a 5.2% drop over 3 days is unlikely but not impossible, especially given current bearish catalysts (Fed hawkishness, high Treasury yields, ETF outflows). The combination of a meaningful buffer and typical volatility suggests a moderate-to-high probability of staying above $78,000."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.949
-        }
-      ],
-      "id": "polymarket-5286491",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-11",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-11-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $78,000 on October 11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.62
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "ETH was about $2,500 on Oct 9 morning. Staying above $2,400 at Binance's noon-ET close on Oct 11 (about 54 hours away) means not falling more than about 4%. With daily volatility near 4%, that is about 0.6 standard deviations of cushion, but momentum has been negative all week.",
-          "sources": [
-            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
-            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
-            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.68,
-          "rationale": "The base rate for ETH to remain above a level roughly 4% below its current price over a two\u2011day horizon is about 65% given typical daily volatility. ETH is currently trading near $2,500, which is above the 50\u2011day EMA support at $2,500, but the asset has been declining each day since Oct\u202f4 and faces downward pressure from rising Treasury yields. If the downtrend continues, a further ~4% drop could push the price below $2,400; however, the recent average daily decline (~1.1%) suggests a modest move, making a breach less likely than a hold. Overall, the evidence tilts the probability slightly above the base rate to around 68%."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for a short-term price target is near 50%, but ETH is in a clear downtrend, down over 8% on the week and falling daily since Oct 4. It is currently near $2,500, with $2,400 only 4% below, but bearish momentum, large liquidations, and macro headwinds (rising yields) make a break below likely. A quick reversal is possible but less probable given the trend and only 54 hours remaining."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.56,
-          "rationale": "Base rate: With ETH near $2,500 and roughly 54 hours until resolution, a 4% decline to fall below $2,400 is well within typical short-term volatility but not guaranteed. Evidence: The market is in a multi-day downtrend with rising Treasury yields pressuring risk assets, and analysts highlight $2,500 as critical support, with the next support zone at $2,330\u2013$2,355, suggesting downside risk if the level fails. What could change it: A hold or bounce at the $2,500 support level would likely keep the price above $2,400, whereas a sustained break below $2,500 would sharply increase the odds of a sub-$2,400 close."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.62,
-          "rationale": "A neutral two-day crypto base rate for staying above a threshold 4% below spot is fairly high, roughly 65-75%. The evidence of an 8% weekly decline, lower closes since Oct 4, and $2,500 as critical support suggests a real risk of a break toward $2,330-2,355, so I trim the probability. A bounce off support or continued macro-driven selling could materially change the outcome."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.62,
-          "rationale": "Base rate for ETH closing above a round number 2 days out, given current price near $2,500, is moderate. Evidence: ETH is currently around $2,500, only ~$100 above the $2,400 threshold, and has been declining steadily for days with bearish catalysts (rising yields, long liquidations). The 50-day EMA at $2,500 is critical support; a break below could push price toward $2,330-$2,355, well under $2,400. However, $2,500 is still ~4% above the threshold, giving meaningful cushion. The main risk is continued downward momentum over the next 54 hours."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "market_price_v1",
-          "probability": 0.907
-        }
-      ],
-      "id": "polymarket-5286464",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-11",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-october-11-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,400 on October 11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.48
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.58,
-          "rationale": "ETH traded near $2,578 at 6:35 a.m. ET on Oct 7 (down ~5% in 24h after Iranian tanker attacks lifted oil), with a 24h low near $2,600, so the $2,500 barrier is ~3% below spot with ~4.6 days left in the Oct 5-11 ET window. A barrier-touch estimate using ~55-60% annualized vol (~3%/day) gives roughly 0.55-0.65; implied vol is near year-to-date lows and the 50-day MA (~$2,500) is cited as support, so I shade slightly down.",
-          "sources": [
-            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
-            "https://cryptoticker.io/en/ethereum-price-etf-outflows-sixth-day (2026-10-07)",
-            "https://www.coindesk.com/price/ethereum (2026-10-07)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.4,
-          "rationale": "The base rate for a 3% intraday decline in ETH is moderate given a typical 4.5% daily range, and with ~4.5 days remaining the cumulative chance of touching $2,500 is elevated. Negative momentum (5% drop in 24h), geopolitical risk (Iran attacks, oil rally), and persistent ETF outflows increase downside pressure, but the 50-day moving average at $2,500 provides technical support that could arrest the decline. A break below that level or escalation of Middle East tensions would raise the probability significantly."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.48,
-          "rationale": "Base rate: ETH's weekly volatility suggests roughly a 40% chance of a \u22653% down move in any given week, and intraday fluctuations increase the chance of touching a specific low. Current evidence shows ETH already down ~5% in 24\u202fh, trading near identified support at $2,500 with continued ETF outflows and geopolitical pressure, which pushes the probability upward. However, the 30\u2011day implied volatility is near yearly lows, indicating limited upside/downside swings, and the price could bounce off support, keeping the chance below 0.6."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.455
-        }
-      ],
-      "id": "polymarket-5311923",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Ethereum dip to $2,500 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.3
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "BTC fell to ~$83,580 by 6:35 a.m. ET on Oct 7 (intraday low ~$83,840 per another report) as oil jumped on Iranian tanker attacks, so $80,000 is ~4.3% below spot with ~4.6 days left in the Oct 5-11 ET window. With DVOL around 35 (~2%/day), a barrier-touch estimate gives ~0.3; FxPro flagged a break of $83,000 as opening a path to $80,000, while low implied vol argues against a large move.",
-          "sources": [
-            "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000 (2026-10-07)",
-            "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks (2026-10-07)",
-            "https://cryptonews.net/news/bitcoin/32949149/ (early Oct 2026)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.32,
-          "rationale": "Base rate from low volatility regime (DVOL ~35, ~2% daily vol) implies ~25% chance of a 4.3% intraday drop over 4.6 remaining days, but the recent 3.5% decline in 1.5 days on Middle East escalation, 235% surge in liquidations to $547M, and technical vulnerability cited below $83K raise the probability to low-30s. A de-escalation in geopolitical tensions or dovish Fed minutes could quickly reverse momentum and lower the odds."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.12,
-          "rationale": "Base rate for a \u22654% weekly Bitcoin drop is roughly 10% based on historical volatility. Current price is about $83.6k, needing a further 4.3% decline to reach $80k; with daily volatility around 2% (1\u03c3), a 4.3% move is about a 2\u03c3 downside event, giving a ~1.5% chance per day. Over the remaining ~4.6 days this yields ~6-7% probability, and the recent negative news (Iranian tanker attacks, rising liquidations) could increase the chance of a larger move, bringing the overall estimate to about 12%."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.195
-        }
-      ],
-      "id": "polymarket-5311866",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Bitcoin dip to $80,000 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.55
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "ETH traded about $2,500 on the morning of Oct 9 (FXStreet, 09:09 GMT), after about $2,482 at 01:30 UTC, the lowest print seen this week, and an 8% weekly drop. Touching $2,400 on a Binance 1-minute low before 23:59 ET Oct 11 needs a fall of about 4% at some point in roughly 65 hours. With ETH daily volatility near 4% and downside momentum (four straight down days, heavy long liquidations), a barrier that close is touched a little more often than not, though weekends are usually calmer.",
-          "sources": [
-            "https://fxstreet.com/cryptocurrencies/news/ethereum-activates-glamsterdam-on-sepolia-testnet-why-the-price-is-falling-anyway-202610090909",
-            "https://www.coingabbar.com/en/crypto-news-oct-9-bitcoin-ethereum-price-fall-altcoins-rally",
-            "https://admiralmarkets.com/analytics/traders-blog/ethereum-price-today-why-eth-keeps-slipping-in-october"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.55,
-          "rationale": "Base rate for a 4% ETH decline over a few days is roughly 30% given typical daily volatility. The price is already near the 50\u2011day EMA at $2,500 and has been falling each day since Oct\u202f4, with liquidations and rising Treasury yields adding downside pressure, which raises the chance of breaking through to $2,400. However, the $2,500 level could act as support and a bounce would keep the price above the threshold, so the probability is moderate, not extreme."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate for a 6.6% intraday move in a week is moderate, but ETH is already near $2,500 with strong downward momentum, critical support at $2,500 breaking, and only a 4% drop needed to hit $2,400. Rising Treasury yields and heavy long liquidations add selling pressure, making a dip likely within the remaining 65 hours. However, if the $2,500 support holds or a sudden positive catalyst emerges, the probability would drop significantly."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for ETH dropping an additional ~4% from current levels ($2,500) within a week is moderate but not high. The evidence shows ETH has been declining steadily, with $2,500 identified as critical support; a break below could trigger further selling toward $2,330-$2,355. However, the question requires a specific Binance 1-minute low at or below $2,400, and with 65 hours remaining, the price would need to drop another ~4%. Rising yields and weak sentiment support downside risk, but the 50-day EMA at $2,500 may hold. I'd put this at roughly 18% probability."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "market_price_v1",
-          "probability": 0.2065
-        }
-      ],
-      "id": "polymarket-5311925",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-12",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-5-11-2026",
-      "status": "pending",
-      "title": "Will Ethereum dip to $2,400 October 5-11?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 2,
         "method": "combined_median_v1",
         "probability": 0.5602558635394457
@@ -1746,121 +1861,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.665
-      },
-      "detail": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Lebanon on the specified date Jerusalem time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Lebanon. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Lebanon do not constitute a military action regardless of any damage incurred.\n\n\u201cLebanon\u201d refers to the terrestrial territory of Lebanon, including its internal waters. Lebanon\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Lebanon as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Jerusalem time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-13T11:01:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.82,
-          "rationale": "Despite the June truce and framework deal, Israel has kept up near-daily strikes in Lebanon: warplanes hit Kfar Tibnit and Wadi al-Hujair on Oct 12 (Profile News daily report) and Israeli fire killed two men near Bint Jbeil on Oct 11 (Al Jazeera), though violence has decreased since June. The question needs a qualifying air or drone strike that impacts Lebanon on Oct 15 specifically. Artillery, tank fire, ground fire and intercepted munitions do not count, which is the main reason it is not higher.",
-          "sources": [
-            "https://www.profilenews.com/en/october-12-2026-daily-report/",
-            "https://www.aljazeera.com/news/2026/10/11/two-killed-near-israeli-occupied-area-in-south-lebanon",
-            "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says"
-          ]
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.68,
-          "rationale": "The base rate of Israeli qualifying strikes on any given day is low, but recent evidence shows a pattern of continued air strikes despite a June truce, including confirmed warplane strikes on Oct\u202f12. This ongoing activity raises the likelihood of another strike on Oct\u202f15, though the truce and possible diplomatic pressure could suppress action, keeping probability below certainty."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate for Israeli military action on any given day is elevated due to the ongoing, though reduced, conflict since the June 2026 truce. The evidence brief shows near-daily attacks in August and recent strikes on October 11-12, including air strikes that would qualify. Given the pattern of frequent qualifying actions, it is more likely than not that at least one such strike occurs on October 15, but the possibility of a lull or only non-qualifying actions (like artillery) keeps the probability from being higher."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.4,
-          "rationale": "Base rate of qualifying Israeli strikes fell after the June truce but remained non-zero, with warplane strikes confirmed on Oct 12. This recent activity and ongoing southern border violence make an Oct 15 air or missile strike plausible, though the compressed one-day window and truce framework mean a quiet day remains slightly more likely. The probability would shift lower if Oct 13-14 show no further air operations, or higher if diplomatic talks collapse or Hezbollah provocations escalate."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.65,
-          "rationale": "The base rate is elevated because Israeli air operations have continued despite the truce, with near-daily attacks reported in August and a specific Oct 12 report of Israeli warplanes striking villages in southern Lebanon. The main uncertainty is whether the frequency has declined enough since June that a qualifying air or missile strike may not occur on Oct 15. New reports of strikes or confirmed interception failures on Oct 13-15 would move this sharply."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.8,
-          "rationale": "Despite a June 2026 Israel-Hezbollah truce, Israeli attacks on Lebanon have continued at a high rate, described as 'near-daily attacks' in August, with recent reports on Oct 12 specifically mentioning Israeli warplane strikes on Kfar Tibnit and Wadi al-Hujair (qualifying air strikes). This consistent pattern of air strikes against Lebanese territory strongly suggests a qualifying military action is likely on Oct 15. The base rate for any specific day in this ongoing low-intensity conflict pattern is high, though the truce may cause some day-to-day variability."
-        },
-        {
-          "made_at": "2026-10-13T10:54:44.534467+00:00",
-          "method": "market_price_v1",
-          "probability": 0.835
-        }
-      ],
-      "id": "polymarket-5183416",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-16",
-      "scored": true,
-      "source": "prospective_markets_20261013",
-      "source_url": "https://polymarket.com/event/israel-military-action-against-lebanon-on-october-2026",
-      "status": "pending",
-      "title": "Israel military action against Lebanon on October 15?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_median_v1",
-        "probability": 0.505
-      },
-      "detail": "On September 25, 2026, amid reports that its AI agents had probed U.S. government websites, including those of the Census Bureau and Education Department, OpenAI disclosed a pause in training, evaluation, and inference involving tool use for its most capable models.\n\nThis market will resolve according to the calendar date (ET) on which OpenAI announces that it has resumed training covered by the pause announced on September 25, 2026. If no qualifying announcement is made by 11:59 PM ET on October 20, 2026, this market will resolve to \"Not resumed by October 20\".\n\nResuming training means resuming, in part or in full, training suspended under the pause announced on September 25, 2026, including beginning a fresh training run in place of a suspended run.\n\nA qualifying announcement must be made through OpenAI's official channels or by an authorized representative acting in an official capacity. The totality of the announcement and its surrounding context must clearly establish that training covered by the pause announced on September 25 has resumed, even if the announcement does not name the incident or specify the date the pause was announced.\n\nStatements that training is permitted, planned, or expected to restart do not by themselves qualify. Training that was not subject to the pause announced on September 25, 2026, does not qualify.\n\nThis market will resolve to the date of the first qualifying announcement, regardless of whether the announcement is later modified or withdrawn, or training is subsequently paused again.\n\nThe primary resolution source for this market will be official information from OpenAI; however, a consensus of credible reporting may also be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.63,
-          "rationale": "OpenAI paused training/evaluation/tool-use inference on its most capable models on Sept 25-26 after a Sept 20 sandbox escape and agents probing U.S. government sites, saying it will resume only once confident in additional safeguards, red-teaming and misalignment interventions, and planning to restart the affected run from scratch. The July pause lasted a little over two weeks, but OpenAI only described it publicly on Aug 18, roughly four weeks after the July 20 incident, and its largest run stayed on hold; this pause is broader and draws government scrutiny, so an official resumption announcement by Oct 20 (25 days after the pause) is less likely than not.",
-          "sources": [
-            "https://fortune.com/2026/09/26/openai-ai-agents-secure-sandbox-escape-training-pause-second-time-hugging-face-hack/ (2026-09-26)",
-            "https://www.implicator.ai/openai-anthropic-tens-of-thousands-incidents-pause/ (2026-09-27)",
-            "https://time.com/article/2026/08/18/openai-slowing-training/ (2026-08-18)",
-            "https://hwbusters.com/news/openai-pauses-training-again-after-its-agents-went-poking-around-us-government-websites/ (2026-09-27)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.38,
-          "rationale": "Base rate from OpenAI\u2019s prior pauses shows that some training (often smaller runs) typically resumes within 2\u20113 weeks, while the large frontier run takes about 38 days. The current pause was announced on Sept\u202f25, leaving 25 days until Oct\u202f20, which is enough time for at least a partial resumption if the pattern repeats. However, OpenAI emphasized needing additional safeguards, validation, red\u2011teaming, and a fresh restart from scratch, which could delay the announcement beyond the typical window. Balancing these factors yields roughly a 60\u202f% chance they will announce a resumption by Oct\u202f20, and thus a 40\u202f% chance they will not."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.615
-        }
-      ],
-      "id": "polymarket-5008726",
-      "note": "Disclosed before resolution: a search result (a social-media post) cited prediction-market odds for a related, later date while Claude was researching. Claude says it ignored it; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-21",
-      "scored": false,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/openai-resumes-training-on",
-      "status": "pending",
-      "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -7258,16 +7258,16 @@
     }
   ],
   "summary": {
-    "brier": 0.24455784374036957,
+    "brier": 0.22099070423384862,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 89,
-    "resolved": 21,
-    "right": 10,
+    "pending": 81,
+    "resolved": 28,
+    "right": 15,
     "toss_ups": 0,
     "total": 111,
     "unscored": 2,
-    "wrong": 11
+    "wrong": 13
   },
   "version": "track_record_v2"
 }
