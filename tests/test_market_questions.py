@@ -66,8 +66,15 @@ def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None
     ({"closed": True, "outcomePrices": '["1", "0"]', "umaResolutionStatuses": '["proposed", "resolved"]'},
      {"status": "resolved", "outcome": 1}),
     ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["resolved"]'}, {"status": "resolved", "outcome": 0}),
-    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]'}, {"status": "pending"}),
-    ({"closed": False, "outcomePrices": '["0.4", "0.6"]', "umaResolutionStatuses": "[]"}, {"status": "pending"}),
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": '["proposed"]'},
+     {"status": "pending", "closed": True, "uma": "proposed", "settled_prices": True}),
+    ({"closed": False, "outcomePrices": '["0.4", "0.6"]', "umaResolutionStatuses": "[]"},
+     {"status": "pending", "closed": False, "uma": "", "settled_prices": False}),
+    # Automatically settled markets (daily crypto prices) have no UMA statuses at all.
+    ({"closed": True, "outcomePrices": '["0", "1"]', "umaResolutionStatuses": "[]"}, {"status": "resolved", "outcome": 0}),
+    ({"closed": True, "outcomePrices": '["1", "0"]'}, {"status": "resolved", "outcome": 1}),
+    ({"closed": True, "outcomePrices": '["0.97", "0.03"]', "umaResolutionStatuses": "[]"},
+     {"status": "pending", "closed": True, "uma": "", "settled_prices": False}),
     ({"closed": True, "outcomePrices": '["0.5", "0.5"]', "umaResolutionStatuses": '["resolved"]'}, {"status": "cancelled"}),
 ])
 def test_only_final_polymarket_results_count(market: dict, expected: dict) -> None:

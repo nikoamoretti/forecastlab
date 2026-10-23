@@ -166,6 +166,9 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
             elif result["status"] == "cancelled":
                 question |= {"cancelled": True, "outcome_note": "Manifold cancelled it" if manifold else "Polymarket settled it 50/50"}
                 changed += 1
+            elif not manifold:  # why a past-due market is still open; flags only, never a price
+                print(f"{question['id']}: pending (closed={result.get('closed')}, uma={result.get('uma') or 'none'}, "
+                      f"settled_prices={result.get('settled_prices')})")
         if changed > before:
             path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
     print(f"market questions: {changed} newly resolved")

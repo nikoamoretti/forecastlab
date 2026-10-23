@@ -128,13 +128,21 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT)
 
 
 def resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, Any]:
-    """{"status": "resolved", "outcome": 1|0} once final; "cancelled" for a 50/50 settlement; else pending."""
+    """{"status": "resolved", "outcome": 1|0} once final; "cancelled" for a 50/50 settlement; else pending.
+
+    Markets settled through UMA are final once their last UMA status is "resolved". Markets settled
+    automatically (the daily crypto price ones) carry no UMA statuses at all: for them a closed market
+    paying exactly 1 and 0 is final. A pending result says why, without any price, for the run log.
+    """
     market = fetch(f"{GAMMA}/markets/{market_id}")
-    statuses = market.get("umaResolutionStatuses") or "[]"
-    final = (json.loads(statuses) if isinstance(statuses, str) else statuses or [])[-1:] == ["resolved"]
+    raw = market.get("umaResolutionStatuses") or "[]"
+    statuses = (json.loads(raw) if isinstance(raw, str) else raw) or []
     prices = [float(p) for p in json.loads(market.get("outcomePrices") or "[]")]
+    settled = prices in ([1.0, 0.0], [0.0, 1.0])
+    final = statuses[-1:] == ["resolved"] or (not statuses and settled)
     if not (market.get("closed") and final and len(prices) == 2):
-        return {"status": "pending"}
+        return {"status": "pending", "closed": bool(market.get("closed")), "uma": statuses[-1] if statuses else "",
+                "settled_prices": settled}
     if prices == [1.0, 0.0]:
         return {"status": "resolved", "outcome": 1}
     if prices == [0.0, 1.0]:

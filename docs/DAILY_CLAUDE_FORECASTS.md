@@ -1,13 +1,13 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac, not in Claude's session. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
 1. **Merge yesterday's run.** Merge any open `claude/daily-forecasts-*` pull request whose CI is green.
 2. **Prepare questions.** Run `python scripts/daily_forecasts.py prepare`. It applies the current fast selection rule, `fast_fred_question_selection_v3` (at most one jobless claims question and one week-ahead 10-year yield question, thresholds at the latest observed value, none for an indicator that still has an unreleased question) and skips targets already in any artifact. It writes `artifacts/prospective_daily_<date>/` with the statistical baseline's forecasts and `questions.json`. If there is nothing new, skip to step 4.
 3. **Read the research, then forecast.** The research is not done in Claude's session and costs no Claude tokens. A LaunchAgent on the owner's Mac (`scripts/mac_research.sh`, see [CURSOR_RESEARCH.md](CURSOR_RESEARCH.md)) runs cursor-agent on a non-Claude model for every new question and pushes `research.json`; the **download** step then fetches every cited page and checks the quotes. Before forecasting any question set:
-   - Check that `research.json` is on the daily branch. If it is not there by 15:00 UTC, **skip the day**: forecast nothing, run no judges, and say so in one line. The questions stay and are researched on the next day with research. Never fall back to searching the web.
+   - Check that `research.json` is on the daily branch. If it is missing, or lists questions under `failed`, run `python scripts/cursor_research.py fill` (today's branch; `--branch` for another): a headless Claude Sonnet run with only web search and fetch researches every question still without research, pushes `research.json` and asks for **download**. Wait for that run, then pull. If there is still no research by 15:00 UTC, **skip the day**: forecast nothing, run no judges, and say so in one line. The forecaster itself never searches the web.
    - Run `python scripts/cursor_research.py digest <dir> ...` and read each question's evidence: dated facts with their source, the base rate and the open unknowns. Skip any question the digest says has no research (research failed for it), and the same for one where `research.json` lists it under `failed`. Do not forecast it; step 6 records it as skipped.
    - Do not search the web. Forecast from the digest alone.
 
@@ -41,7 +41,7 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - A brief is 8–15 sentences built from the digest: the dated facts that decide the question, each with its source; the base rate and how it was worked out; and what would change the answer. Prefer the primary source over a write-up of it.
    - The judges also read excerpts of the `research.json` sources, so a brief need not restate them word for word.
    - It contains no probability, no lean and no market odds.
-   - Judges never come from the research model's family (`configs/research.json`); `judge_panel.py` refuses to run if one does.
+   - Judges never come from a research model's family (`model_family` and `fallback.model_family` in `configs/research.json`); `judge_panel.py` refuses to run if one does.
    - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
 8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.

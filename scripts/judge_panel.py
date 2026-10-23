@@ -154,11 +154,12 @@ def write_forecasts(directory: Path, config: PanelConfig, attempts: list[dict[st
 
 
 def check_independent(config: PanelConfig) -> None:
-    """No judge may come from the model family that did the research (configs/research.json)."""
-    family = load_settings(ROOT / RESEARCH_CONFIG).model_family
-    clash = [m.model for m in config.members if family in m.model.lower()]
+    """No judge may come from a model family that did the research (configs/research.json)."""
+    families = load_settings(ROOT / RESEARCH_CONFIG).families
+    clash = [m.model for m in config.members if any(f in m.model.lower() for f in families)]
     if clash:
-        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {family} (configs/research.json)")
+        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {' and '.join(families)} "
+                         "(configs/research.json)")
 
 
 def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], now: datetime | None = None,
