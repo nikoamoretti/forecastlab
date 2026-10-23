@@ -1,0 +1,13 @@
+{
+ "questions": [
+  {
+   "id": "house-gop-218-jan-2027",
+   "topic": "Politics",
+   "closes_at": "2027-01-03T17:00:00Z",
+   "question": "Will the Republican Party hold at least 218 voting seats in the U.S. House of Representatives when the 120th Congress convenes on January 3, 2027?",
+   "resolution_criteria": "Resolves Yes if, when the 120th Congress convenes on January 3, 2027, Republicans hold at least 218 of the 435 voting seats in the U.S. House of Representatives, as shown by the Clerk of the House's party breakdown on that day (members-elect sworn in that day count; non-voting delegates and vacant seats do not). Otherwise it resolves No. The November 3, 2026 midterm results, recounts, and any seat left vacant at the start are all reflected in that count."
+  }
+ ],
+ "selected_at": "2026-10-23T21:20:00Z",
+ "selection": "Owner asked question (re-run of a failed September test forecast)"
+}
