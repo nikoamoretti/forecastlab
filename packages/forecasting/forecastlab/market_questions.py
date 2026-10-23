@@ -127,7 +127,8 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT)
     return chosen
 
 
-PROPOSAL_SETTLED = timedelta(days=2)
+# UMA's challenge window is two hours; six hours after the end with no dispute, the proposal stands.
+PROPOSAL_SETTLED = timedelta(hours=6)
 
 
 def _ended_before(end: Any, moment: datetime) -> bool:

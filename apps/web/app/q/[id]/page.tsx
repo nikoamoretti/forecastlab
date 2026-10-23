@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
 import { api, pct } from "@/lib/api";
-import { TrackRecord, callText, relativeDay, shortDate, sourceLabel, sourceUrl } from "@/lib/trackRecord";
+import { TrackRecord, callText, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
 export default function QuestionPage() {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +19,7 @@ export default function QuestionPage() {
   const labels = Object.fromEntries(data.forecasters.map(f => [f.method, f.label]));
   // Forecasters that wrote down their reasoning (Claude does); the first one is shown.
   const reasoning = q.forecasts.find(f => f.rationale) ?? null;
-  const overdue = q.status === "pending" && q.resolves_on < data.generated_on;
+  const overdue = q.status === "pending" && q.resolves_on < todayUTC();
   const marketName = q.source_url?.includes("polymarket.com") ? "Polymarket" : q.source_url?.includes("manifold.markets") ? "Manifold" : null;
   const market = marketName !== null;
 
@@ -28,7 +28,7 @@ export default function QuestionPage() {
 
     <header>
       <p className="text-sm text-ink/60">{q.topic} · {q.status === "resolved" ? `decided ${shortDate(q.resolves_on, true)}`
-        : q.status === "cancelled" ? "cancelled" : overdue ? "waiting for the result" : `result due ${relativeDay(q.resolves_on, data.generated_on).replace(/^(Today|Tomorrow|Yesterday)$/, day => day.toLowerCase())}`}</p>
+        : q.status === "cancelled" ? "cancelled" : overdue ? "waiting for the result" : `result due ${relativeDay(q.resolves_on, todayUTC()).replace(/^(Today|Tomorrow|Yesterday)$/, day => day.toLowerCase())}`}</p>
       <h2 className="mt-2 font-serif text-4xl leading-tight">{q.title}</h2>
     </header>
 

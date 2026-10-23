@@ -8,6 +8,7 @@ const question = (id: string, title: string, extra: object) => ({ id, title, det
   report_url: null, forecasts: [], call: null, verdict: null, ...extra });
 
 async function mockRecord(page: Page) {
+  await page.clock.setFixedTime(new Date("2026-10-07T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-07", forecasters,
     summary: { resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 3 },
     questions: [
@@ -40,6 +41,18 @@ test("the home page leads with the score, the next result and clickable question
   await expect(page.getByRole("heading", { name: "Will unemployment come in above 4.1%?" })).toBeVisible();
   await expect(page.getByText("✗ Wrong")).toBeVisible();
   await expect(page.getByText("Actual: 4.2%")).toBeVisible();
+});
+
+test("a question past its date waits for its result instead of showing as coming up", async ({ page }) => {
+  await mockRecord(page);
+  await page.clock.setFixedTime(new Date("2026-10-10T12:00:00Z"));
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /Waiting for results/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /10-year yield/ })).toContainText("Due Oct 8");
+  await expect(page.getByRole("link", { name: /10-year yield/ })).toContainText("Waiting for the official figure");
+  await expect(page.getByRole("link", { name: /Next result/ })).toHaveCount(0);
+  await page.goto("/q/q3");
+  await expect(page.getByText("waiting for the result")).toBeVisible();
 });
 
 test("an open question explains our call with its sources", async ({ page }) => {
