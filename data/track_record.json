@@ -2,37 +2,37 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.21888757650164695,
+      "brier": 0.21267132395159205,
       "coin_flip_brier": 0.25,
       "forecasts": 125,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 29,
-      "right": 16,
+      "resolved": 30,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 13
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.172444,
+      "brier": 0.1660576923076923,
       "coin_flip_brier": 0.25,
       "forecasts": 121,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 25,
-      "right": 16,
+      "resolved": 26,
+      "right": 17,
       "toss_ups": 2,
       "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.18100000000000002,
+      "brier": 0.169625,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 7,
-      "right": 5,
+      "resolved": 8,
+      "right": 6,
       "toss_ups": 0,
       "wrong": 2
     },
@@ -50,13 +50,13 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.19643000000000002,
+      "brier": 0.18425454545454548,
       "coin_flip_brier": 0.25,
       "forecasts": 84,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 10,
-      "right": 7,
+      "resolved": 11,
+      "right": 8,
       "toss_ups": 0,
       "wrong": 3
     },
@@ -74,25 +74,25 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.12586666666666668,
+      "brier": 0.11652,
       "coin_flip_brier": 0.25,
       "forecasts": 74,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 9,
-      "right": 8,
+      "resolved": 10,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.14338,
+      "brier": 0.1332909090909091,
       "coin_flip_brier": 0.25,
       "forecasts": 85,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 10,
-      "right": 9,
+      "resolved": 11,
+      "right": 10,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -158,13 +158,13 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.07047715624999999,
+      "brier": 0.06439638888888888,
       "coin_flip_brier": 0.25,
       "forecasts": 66,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 8,
-      "right": 7,
+      "resolved": 9,
+      "right": 8,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -183,6 +183,70 @@
   ],
   "generated_on": "2026-10-23",
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.18
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "On 21 October the Binance BTCUSDT 24-hour ticker showed a last price near $83,520 (high $83,714), and CoinDesk had Bitcoin just above $82,700 that morning; the 21-day moving average near $83,230 was acting as resistance (Cointelegraph, 20 October). Closing above $86,000 at noon ET on 23 October needs a gain of about 3% in roughly two days, with a daily ATR of about $1,950 (2.3%), so it is a roughly 1.4-sigma move. ETF flows were mixed (about $227M out the week to 17 October, then $527M in on 19 October) and the Fed meets only on 27 and 28 October, so there is no scheduled catalyst before the check.",
+          "sources": [
+            "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
+            "https://cointelegraph.com/markets/bitcoin-price-spikes-to-833k-as-us-stocks-rise-on-q3-earnings-oil-falls",
+            "https://decrypt.co/381246/bitcoin-etfs-shed-nearly-1-billion-two-weeks-uptober-red",
+            "https://blockchain.news/news/20261021-price-prediction-btc-macd-flatlines-as-bitcoin-stalls-below"
+          ]
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.3,
+          "rationale": "Current Binance BTC/USDT price is ~$83,500, requiring a ~3% rise to $86,000 in ~53 hours. Bitcoin's typical 2-day volatility (\u22483.5-5%) makes a 3% move a ~0.6-0.9 standard deviation event, giving a base-rate probability of 25-30%. Recent positive factors include strong ETF inflows ($526.7M on Oct 19) and a tech-stock rally from AI earnings, but the 21-day SMA at $83,230 is acting as resistance, oil above $110 and hot inflation prints support a hawkish Fed, and the 30-day trend is down 3.5%. The net evidence slightly favors the downside, keeping probability near the base rate."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "Bitcoin is currently around $83,500, needing a ~3% rise to exceed $86,000 by Oct 23 noon ET. The 30-day trend is down 3.5%, and the 21-day SMA at $83,230 is acting as resistance. While a 3% move in two days is within typical volatility (daily ATR ~$1,948), mixed ETF flows and macro headwinds (high oil, inflation) make a sustained breakout above $83,600 unlikely in the short term. I estimate a 25% chance."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "From ~$83,500, reaching $86,000 in about two days requires a ~2.5% move, roughly 1.5 daily ATRs, so the neutral base rate is modest. The evidence is mixed: recent ETF inflows and risk-on tech earnings support a bounce, but price is still below key resistance at $83,200-$83,600, the 30-day close near $86,600 is overhead, and hot inflation/oil/Fed concerns weigh on risk assets. A strong ETF inflow or risk rally could push it through, while rejection at resistance keeps the probability low."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for BTC moving ~3% higher in two days from current levels is low (~15-20%). Current price is ~$83,500, needing a move to above $86,000 by noon ET on Oct 23. The 21-day SMA at $83,230 is acting as resistance, ETF flows have been mixed (large outflows recently, one big inflow day), and the Fed meeting on Oct 27-28 creates uncertainty. A break above $83,600 with sustained ETF inflows could push toward $84,500 but reaching $86,000 requires a strong catalyst not currently evident."
+        },
+        {
+          "made_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1255
+        }
+      ],
+      "id": "polymarket-5776854",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-23",
+      "scored": true,
+      "source": "prospective_markets_20261021",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-23-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $86,000 on October 23?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
     {
       "actual": "194,000 claims",
       "call": {
@@ -1936,70 +2000,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.18
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-21T10:55:44+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.08,
-          "rationale": "On 21 October the Binance BTCUSDT 24-hour ticker showed a last price near $83,520 (high $83,714), and CoinDesk had Bitcoin just above $82,700 that morning; the 21-day moving average near $83,230 was acting as resistance (Cointelegraph, 20 October). Closing above $86,000 at noon ET on 23 October needs a gain of about 3% in roughly two days, with a daily ATR of about $1,950 (2.3%), so it is a roughly 1.4-sigma move. ETF flows were mixed (about $227M out the week to 17 October, then $527M in on 19 October) and the Fed meets only on 27 and 28 October, so there is no scheduled catalyst before the check.",
-          "sources": [
-            "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
-            "https://cointelegraph.com/markets/bitcoin-price-spikes-to-833k-as-us-stocks-rise-on-q3-earnings-oil-falls",
-            "https://decrypt.co/381246/bitcoin-etfs-shed-nearly-1-billion-two-weeks-uptober-red",
-            "https://blockchain.news/news/20261021-price-prediction-btc-macd-flatlines-as-bitcoin-stalls-below"
-          ]
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.3,
-          "rationale": "Current Binance BTC/USDT price is ~$83,500, requiring a ~3% rise to $86,000 in ~53 hours. Bitcoin's typical 2-day volatility (\u22483.5-5%) makes a 3% move a ~0.6-0.9 standard deviation event, giving a base-rate probability of 25-30%. Recent positive factors include strong ETF inflows ($526.7M on Oct 19) and a tech-stock rally from AI earnings, but the 21-day SMA at $83,230 is acting as resistance, oil above $110 and hot inflation prints support a hawkish Fed, and the 30-day trend is down 3.5%. The net evidence slightly favors the downside, keeping probability near the base rate."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "Bitcoin is currently around $83,500, needing a ~3% rise to exceed $86,000 by Oct 23 noon ET. The 30-day trend is down 3.5%, and the 21-day SMA at $83,230 is acting as resistance. While a 3% move in two days is within typical volatility (daily ATR ~$1,948), mixed ETF flows and macro headwinds (high oil, inflation) make a sustained breakout above $83,600 unlikely in the short term. I estimate a 25% chance."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.18,
-          "rationale": "From ~$83,500, reaching $86,000 in about two days requires a ~2.5% move, roughly 1.5 daily ATRs, so the neutral base rate is modest. The evidence is mixed: recent ETF inflows and risk-on tech earnings support a bounce, but price is still below key resistance at $83,200-$83,600, the 30-day close near $86,600 is overhead, and hot inflation/oil/Fed concerns weigh on risk assets. A strong ETF inflow or risk rally could push it through, while rejection at resistance keeps the probability low."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for BTC moving ~3% higher in two days from current levels is low (~15-20%). Current price is ~$83,500, needing a move to above $86,000 by noon ET on Oct 23. The 21-day SMA at $83,230 is acting as resistance, ETF flows have been mixed (large outflows recently, one big inflow day), and the Fed meeting on Oct 27-28 creates uncertainty. A break above $83,600 with sustained ETF inflows could push toward $84,500 but reaching $86,000 requires a strong catalyst not currently evident."
-        },
-        {
-          "made_at": "2026-10-21T09:17:28.572088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.1255
-        }
-      ],
-      "id": "polymarket-5776854",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-23",
-      "scored": true,
-      "source": "prospective_markets_20261021",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-23-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $86,000 on October 23?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -8140,12 +8140,12 @@
     }
   ],
   "summary": {
-    "brier": 0.21888757650164695,
+    "brier": 0.21267132395159205,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 94,
-    "resolved": 29,
-    "right": 16,
+    "pending": 93,
+    "resolved": 30,
+    "right": 17,
     "toss_ups": 0,
     "total": 125,
     "unscored": 2,

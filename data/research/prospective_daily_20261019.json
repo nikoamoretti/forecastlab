@@ -6,7 +6,9 @@
   "facts": [],
   "judges": [],
   "quotes_checked_at": "2026-10-19T09:20:28.949646+00:00",
+  "research_cost_usd": null,
   "research_failed": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nToday is 2026-10-19 (UTC).\\nQuestion: Will the first p",
+  "research_seconds": null,
   "researched_at": "2026-10-19T09:14:30+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [],
@@ -97,7 +99,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-19T09:20:28.949646+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-19T09:14:30+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
