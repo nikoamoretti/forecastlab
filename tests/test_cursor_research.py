@@ -138,6 +138,26 @@ def test_research_saves_evidence_skips_failures_and_respects_the_budget(tmp_path
     assert again["runs"] == 2  # only the failed and the unresearched questions are asked again
     assert set(again["findings"]) == {"polymarket-1", "polymarket-2", "polymarket-3"} and not again["failed"]
     assert again["researched_by"] == {"polymarket-2": "claude-sonnet", "polymarket-3": "claude-sonnet"}
+    assert set(again["seconds"]) == {"polymarket-1", "polymarket-2", "polymarket-3"}
+
+
+def test_research_stops_asking_once_the_usage_limit_is_hit_and_records_cost(tmp_path: Path) -> None:
+    directory = market_dir(tmp_path)
+    questions = [dict(MARKET, id=f"polymarket-{n}", question=f"Question {n}?") for n in range(1, 5)]
+    (directory / "forecasts.json").write_text(json.dumps({"questions": questions}))
+    asked: list[str] = []
+
+    def agent(text: str) -> tuple[str, float]:
+        asked.append(text)
+        if len(asked) > 1:
+            raise RuntimeError("cursor-agent exited 1: You've hit your weekly usage limit")
+        return answer(), 0.0123
+
+    result = cr.research(directory, agent, "2026-10-22", parallel=1, budget=10)
+    assert len(asked) == 2  # the first limit error stops the run; the rest are skipped, not sent
+    assert set(result["findings"]) == {"polymarket-1"} and result["cost_usd"] == {"polymarket-1": 0.0123}
+    assert "usage limit" in result["failed"]["polymarket-2"]
+    assert all(result["failed"][f"polymarket-{n}"].startswith("skipped") for n in (3, 4))
 
 
 def test_claude_agent_reads_the_prompt_on_stdin_with_only_web_tools(tmp_path: Path) -> None:
@@ -152,6 +172,10 @@ def test_claude_agent_reads_the_prompt_on_stdin_with_only_web_tools(tmp_path: Pa
     failing.chmod(0o755)
     with pytest.raises(RuntimeError, match="usage limit"):
         cr.claude_agent("sonnet", 30, binary=str(failing))("x")
+    envelope = tmp_path / "envelope"
+    envelope.write_text("#!/bin/sh\necho '{\"type\": \"result\", \"result\": \"{}\", \"total_cost_usd\": 0.21}'\n")
+    envelope.chmod(0o755)
+    assert cr.claude_agent("sonnet", 30, binary=str(envelope))("x") == ("{}", 0.21)
 
 
 def test_download_checks_quotes_against_the_page(tmp_path: Path) -> None:

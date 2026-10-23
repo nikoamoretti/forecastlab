@@ -3,9 +3,8 @@ import { test, expect } from "@playwright/test";
 test("mock happy path", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("ForecastLab")).toBeVisible();
-  await page.getByRole("link", { name: "Ask a question", exact: true }).first().click();
-  await expect(page.getByRole("heading", { name: "Ask a question" })).toBeVisible();
-  await page.getByRole("link", { name: "Run the full research pipeline" }).click();
+  // The old engine is retired from the menus (Oct 23) but still reachable directly for its tests.
+  await page.goto("/new");
   await expect(page.getByRole("heading", { name: "Run the full research pipeline" })).toBeVisible();
   await page.getByRole("button", { name: /Generate Forecast Contract/i }).click();
   await expect(page.getByRole("heading", { name: /Review the contract/i })).toBeVisible({

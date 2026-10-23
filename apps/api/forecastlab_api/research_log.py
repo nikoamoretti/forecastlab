@@ -45,6 +45,8 @@ def directory_research(directory: Path) -> dict[str, dict[str, Any]]:
         entry: dict[str, Any] = {
             "researched_by": _researcher(by) if research else None,
             "researched_at": research.get("researched_at"),
+            "research_seconds": research.get("seconds", {}).get(qid),
+            "research_cost_usd": research.get("cost_usd", {}).get(qid),
             "quotes_checked_at": research.get("downloaded_at"),
             "research_failed": research.get("failed", {}).get(qid),
             "facts": found.get("facts", []) if found else [],

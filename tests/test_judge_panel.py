@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from forecastlab import research
-from forecastlab.judge_panel import Budget, Price, load_config, parse_answer
+from forecastlab.judge_panel import Budget, PanelQuestion, Price, ask, load_config, parse_answer
 from forecastlab_api.track_record import FORECASTERS, build_track_record
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,6 +52,17 @@ def test_every_panel_member_has_a_label_on_the_track_record() -> None:
     assert {m.method for m in [*CONFIG.members, *LIVE.members]} <= set(FORECASTERS)
     assert LIVE.daily_budget_usd == 1.0
     assert len({m.method for m in LIVE.members}) == len({m.model for m in LIVE.members}) == len(LIVE.members)
+    # Judges that think past their token cap send back no answer; the thinking budget leaves room for one.
+    assert LIVE.reasoning_max_tokens is not None and LIVE.reasoning_max_tokens <= LIVE.max_tokens // 2
+
+
+def test_a_reasoning_budget_is_sent_only_when_set() -> None:
+    question = PanelQuestion(id="q", question="Q?", criteria="Yes if so.", resolves_on="2026-10-20", cutoff=NOW, brief="Facts.")
+    for budget, expected in ((None, None), (3000, {"max_tokens": 3000})):
+        calls: list[dict] = []
+        attempt = ask(CONFIG.members[0], question, now=NOW, post=fake_post(calls), max_tokens=6000,
+                      price=Price(0, 0), reasoning_max_tokens=budget)
+        assert attempt["ok"] and calls[0].get("reasoning") == expected
 
 
 @pytest.mark.parametrize("text", ['{"probability": 0.3, "reasoning": "x"}', 'Sure.\n{"probability": 0.3, "reasoning": "x"} done'])

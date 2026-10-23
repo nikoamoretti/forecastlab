@@ -19,12 +19,14 @@ import json
 import re
 import subprocess
 import tempfile
+import threading
+import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional, Tuple, Union  # noqa: UP035 -- the Mac may run Python 3.9
 
 from forecastlab.research import MARKET_WORDS, RESEARCH_FILE, clean, is_market_site
 
@@ -35,7 +37,10 @@ MIN_FACTS = 2
 MAX_SOURCES = 8
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
-Agent = Callable[[str], str]  # prompt -> the agent's reply text
+# prompt -> the agent's reply text, or the text and what the run cost in USD when the agent reports it
+Agent = Callable[[str], Union[str, Tuple[str, Optional[float]]]]  # noqa: UP006, UP007, UP045 -- Python 3.9
+# An agent error that will repeat for every question until the allowance resets, so the run stops asking.
+LIMIT_REACHED = re.compile(r"usage limit|limit reached|rate limit|quota", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -126,7 +131,10 @@ def prompt(task: dict[str, str], today: str) -> str:
         ' "base_rate": "how often comparable events happened: the reference class, the counts and the period; '
         'empty if none applies",\n'
         ' "uncertainties": ["what is still unknown and could change the answer"]}\n'
-        "Use 3 to 8 sources, each with 1 to 3 quotes that bear on the question."
+        "Use 3 to 8 sources, each with 1 to 3 quotes that bear on the question. Prefer official and primary "
+        "pages over aggregators and blogs. Copy quotes exactly from the page text you opened, never from a "
+        "search snippet or a summary; if you could not open a page, keep it only if it matters and leave its "
+        "quotes empty."
     )
 
 
@@ -190,14 +198,19 @@ def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Ag
 
 def claude_agent(model: str, timeout_s: int, binary: str = "claude") -> Agent:
     """A headless Claude Code run in an empty folder, allowed only its web search and fetch tools."""
-    def run(text: str) -> str:
+    def run(text: str) -> str | tuple[str, float | None]:
         with tempfile.TemporaryDirectory() as folder:
-            done = subprocess.run([binary, "-p", "--model", model, "--effort", "low", "--output-format", "text",
+            done = subprocess.run([binary, "-p", "--model", model, "--effort", "low", "--output-format", "json",
                                    "--allowedTools", "WebSearch", "WebFetch"],
                                   input=text, cwd=folder, capture_output=True, text=True, timeout=timeout_s)
         if done.returncode != 0:
             raise RuntimeError(f"claude exited {done.returncode}: {(done.stderr or done.stdout).strip()[-300:]}")
-        return done.stdout
+        try:  # the JSON envelope carries the reply and what the run cost
+            envelope = json.loads(done.stdout)
+        except ValueError:
+            return done.stdout
+        cost = envelope.get("total_cost_usd")
+        return str(envelope.get("result") or ""), float(cost) if isinstance(cost, (int, float)) else None
     return run
 
 
@@ -210,12 +223,22 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
         saved = {}  # an older search provider's file is replaced
     done = set(saved.get("findings", {}))
     todo = [t for t in tasks(directory) if t["id"] not in done][:max(0, min(budget, limit or budget))]
+    limit_hit = threading.Event()
 
-    def one(task: dict[str, str]) -> Any:
+    def one(task: dict[str, str]) -> tuple[Any, float | None, float | None]:
+        """The evidence or why there is none, the run's seconds, and its cost when the agent reports one."""
+        if limit_hit.is_set():
+            return "skipped: the research model's usage limit was reached earlier in this run", None, None
+        started, cost = time.monotonic(), None
         try:
-            return validate(agent(prompt(task, today)))
+            reply = agent(prompt(task, today))
+            if isinstance(reply, tuple):
+                reply, cost = reply
+            return validate(reply), round(time.monotonic() - started, 1), cost
         except Exception as error:  # a failed question is skipped, never the run
-            return f"{type(error).__name__}: {error}"[:300]
+            if LIMIT_REACHED.search(str(error)):
+                limit_hit.set()
+            return f"{type(error).__name__}: {error}"[:300], round(time.monotonic() - started, 1), cost
 
     with ThreadPoolExecutor(max_workers=max(1, parallel)) as pool:
         results = list(pool.map(one, todo))
@@ -223,7 +246,13 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
     findings = dict(saved.get("findings", {}))
     failed = dict(saved.get("failed", {}))
     researched_by = dict(saved.get("researched_by", {}))
-    for task, result in zip(todo, results):  # noqa: B905 -- equal lengths; strict= needs Python 3.10
+    seconds = dict(saved.get("seconds", {}))
+    costs = dict(saved.get("cost_usd", {}))
+    for task, (result, took, cost) in zip(todo, results):  # noqa: B905 -- equal lengths; strict= needs Python 3.10
+        if took is not None:
+            seconds[task["id"]] = took
+        if cost is not None:
+            costs[task["id"]] = round(cost, 4)
         if isinstance(result, str):
             failed[task["id"]] = result
             continue
@@ -238,7 +267,7 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
     # "provider" names the file format (research_download.py reads it); researched_by names the model.
     return {"provider": "cursor", "researched_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
             "runs": len(todo), "sources": sources, "findings": findings, "failed": failed,
-            "researched_by": researched_by}
+            "researched_by": researched_by, "seconds": seconds, "cost_usd": costs}
 
 
 def digest(data: dict[str, Any], qid: str) -> str:

@@ -32,8 +32,7 @@ export default function RunsPage() {
       <p className="font-mono text-xs uppercase tracking-widest text-copper">Advanced</p>
       <h2 className="mt-3 font-serif text-4xl">All runs</h2>
       <p className="mt-4 max-w-2xl text-ink/70">Every question and run in the database, including pipeline tests, drafts and failed runs. Your results are on the <Link className="underline" href="/">Track record</Link>.</p></div>
-      <div className="flex gap-3"><Link className="border border-ink px-4 py-2" href="/new">New forecast</Link>
-        <Link className="border border-ink bg-ink px-4 py-2 text-paper" href="/new?profile=root_event_ensemble_v1">Pick questions for me</Link></div></header>
+      </header>
     <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={fixtures} onChange={e => { setFixtures(e.target.checked); setOffset(0); }} />Include demo fixtures</label>
     {error && <p role="alert">{error}</p>}
     {!data ? <p>Loading board…</p> : <>

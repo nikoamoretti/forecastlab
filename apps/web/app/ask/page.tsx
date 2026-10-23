@@ -80,7 +80,5 @@ export default function AskPage() {
       <ul className="mt-3 divide-y divide-rule border-y border-rule">{answered.map(r => <li key={r.id}>
         <Link href={`/q/${r.id}`} className="flex items-center justify-between gap-4 py-3 hover:bg-white/50"><span>{r.text}</span><span aria-hidden className="text-ink/30">›</span></Link></li>)}</ul>
     </section>}
-
-    <p className="border-t border-rule pt-6 text-sm text-ink/60">Need an answer right now? <Link className="underline" href="/new">Run the full research pipeline</Link>. It uses the paid OpenAI API (about $0.50 per question) and is meant for U.S. economic data.</p>
   </div>;
 }

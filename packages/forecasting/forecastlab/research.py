@@ -28,8 +28,8 @@ TEXT_CHARS = 8000  # kept per source in research.json
 # Forecasters must never see market prices: no market sites, and no sentence that mentions one.
 MARKET_DOMAINS = ("polymarket.com", "kalshi.com", "manifold.markets", "metaculus.com", "predictit.org",
                   "betfair.com", "smarkets.com", "oddschecker.com")
-MARKET_WORDS = re.compile(r"polymarket|kalshi|manifold|metaculus|predictit|betting odds|implied probability",
-                          re.IGNORECASE)
+MARKET_WORDS = re.compile(r"polymarket|kalshi|manifold|metaculus|predictit|betting odds|implied probability"
+                          r"|prediction markets?|betting markets?|sportsbooks?|bookmakers?", re.IGNORECASE)
 SENTENCE = re.compile(r"(?<=[.!?])\s+|\n+")
 
 Search = Callable[[str], list[dict[str, Any]]]

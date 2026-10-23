@@ -196,7 +196,8 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
                         summary["skipped_budget"] += 1
                         continue
                     budget.charge(worst)  # held until the real cost is known
-                attempt = ask(member, question, now=now, post=post, max_tokens=config.max_tokens, price=price)
+                attempt = ask(member, question, now=now, post=post, max_tokens=config.max_tokens, price=price,
+                              reasoning_max_tokens=config.reasoning_max_tokens)
                 attempt |= {"brief_sha256": hashlib.sha256(question.brief.encode()).hexdigest()[:16],
                             "sources_sha256": hashlib.sha256(question.sources.encode()).hexdigest()[:16],
                             "prompt_version": config.prompt_version}
