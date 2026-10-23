@@ -1,14 +1,92 @@
 {
-  "downloaded_at": "2026-10-23T09:03:21.746518+00:00",
-  "failed": {
-    "65da04edb811bf47": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 5 days. Buy credits to keep going now, or upgrade your plan for more weekly usage."
+  "failed": {},
+  "findings": {
+    "65da04edb811bf47": {
+      "base_rate": "Recent first prints: 197K (Oct 3), 199K (Oct 10), 194K (Oct 17).\nThe 2026 low was 189K (Jul 18).\nThe threshold of 194,000 equals the latest print and sits near the bottom of the recent range.\nWeek-to-week changes of \u00b15-10K are common.\nWeekly revisions have recently been upward by 1-3K.\nI did not compute a full historical frequency.",
+      "facts": [
+        {
+          "fact": "Initial claims (seasonally adjusted) for the week ending 2026-10-17 were 194,000, below the roughly 200,000 expected.\nThis is the Labor Department release of 2026-10-22, which is the first print for that week.",
+          "source": 1
+        },
+        {
+          "fact": "The prior week (ending 2026-10-10) was revised up to 200,000.\nIt was first reported at 199,000.",
+          "source": 3
+        },
+        {
+          "fact": "The 4-week average fell to 197,750, the lowest since 2022.\nThe 194,000 print was the lowest since the week ending 2026-07-18, when claims were 189,000.",
+          "source": 3
+        },
+        {
+          "fact": "Trading Economics shows a consensus of about 196,000 for the week ending 2026-10-24, due 2026-10-29.\nThis is a forecast, not a result.",
+          "source": 2
+        },
+        {
+          "fact": "The week ending 2026-10-03 was 197,000 on first print (revised to 199,000).\nRecent first prints have clustered at 194,000-200,000.",
+          "source": 0
+        },
+        {
+          "fact": "Continuing claims were 1.728 million in the week ending 2026-10-10, up 25,000.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Seasonal adjustment factors around late October can shift the number.",
+        "The 194K print may be revised, which affects the comparison baseline but not the resolution, since only the first value for the week ending Oct 24 counts.",
+        "The consensus of about 196K is a secondary-source figure and is not confirmed.",
+        "Layoff announcements and any federal-government or other shocks are unknown.",
+        "I could not open the DOL page directly.\nThe figures come from search summaries and secondary outlets."
+      ]
+    }
   },
-  "findings": {},
   "mode": "live",
   "model": "grok-4.7-low",
   "model_family": "grok",
   "provider": "cursor",
-  "researched_at": "2026-10-23T09:01:47+00:00",
+  "researched_at": "2026-10-23T14:03:28+00:00",
+  "researched_by": {
+    "65da04edb811bf47": "claude-sonnet"
+  },
   "runs": 1,
-  "sources": {}
+  "sources": {
+    "65da04edb811bf47": [
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "Jobless claims near the lowest since the 1960s as low-fire trend continues"
+        ],
+        "text": "Jobless claims near the lowest since the 1960s as low-fire trend continues",
+        "title": "Jobless claims near the lowest since the 1960s as low-fire trend continues",
+        "url": "https://www.cnbc.com/2026/10/22/jobless-claims-record-low-weekly.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "US Initial Jobless Claims dropped to 194K last week"
+        ],
+        "text": "US Initial Jobless Claims dropped to 194K last week",
+        "title": "US Initial Jobless Claims dropped to 194K last week",
+        "url": "https://www.fxstreet.com/news/us-initial-jobless-claims-dropped-to-194k-last-week-202610221240",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "United States Initial Jobless Claims",
+        "url": "https://tradingeconomics.com/united-states/jobless-claims",
+        "verified": null
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "Initial jobless claims fell to 194,000 in the week ending Oct 17, the lowest since July"
+        ],
+        "text": "Initial jobless claims fell to 194,000 in the week ending Oct 17, the lowest since July",
+        "title": "Initial jobless claims fell to 194,000 in the week ending Oct 17, the lowest since July",
+        "url": "https://macrobullseye.com/news/jobless-claims-week-ending-2026-10-17/",
+        "verified": null
+      }
+    ]
+  }
 }
