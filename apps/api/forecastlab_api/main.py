@@ -540,6 +540,17 @@ def api_track_record() -> dict[str, Any]:
     return json.loads(path.read_text())
 
 
+@app.get("/api/research/{directory}/{question}")
+def api_question_research(directory: str, question: str) -> dict[str, Any]:
+    """The research, judge brief and judge calls behind one question; built by scripts/build_track_record.py."""
+    from forecastlab.paths import project_root
+    from forecastlab_api.research_log import question_research
+    found = question_research(project_root() / "data", directory, question)
+    if found is None:
+        raise HTTPException(404, "No research was saved for this question")
+    return found
+
+
 @app.get("/health/db")
 def health_db(db: Session = Depends(get_db)) -> dict[str, str]:
     db.scalar(select(Question.id).limit(1))

@@ -1,0 +1,1332 @@
+{
+ "polymarket-3247826": {
+  "base_rate": "Across the eight scheduled decisions from December 2025 through September 2026, Bank Rate was cut once, by 25 basis points from 4.00% to 3.75% on 18 December 2025, and then left unchanged at all seven meetings in 2026 through 17 September (5 February, 19 March, 30 April, 18 June, 30 July and 17 September, as well as the December hold after the cut is not double-counted: seven consecutive holds at 3.75% in 2026).\nNo Bank Rate increase occurred in that window.\nReuters reported on 15 October 2026 that a November rise would be the first increase in more than three years.",
+  "brief": "The question asks whether the Bank of England's Monetary Policy Committee raises Bank Rate by 25 basis points at its meeting announced on 2026-11-05. As of 2026-10-19 Bank Rate is 3.75% and the next announcement is due Thursday 5 November with the Monetary Policy Report (https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates). On 2026-09-17 the MPC voted 6-3 to hold at 3.75%; Megan Greene, Catherine Mann and Huw Pill voted for a 25 basis point rise to 4% (https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026). The September summary said CPI inflation was 3.1% in August, was likely to rise further, and that upside risks were greater than at the July report, with second-round effects so far limited. Governor Bailey's statement on the Bank Rate page says a longer period of energy-price volatility makes an increase more likely to return inflation to 2% (https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate). ONS reported on 2026-09-16 that CPI rose 3.1% in the year to August, up from 2.9% in July, led by motor fuels. A Reuters poll on 2026-10-12 to 14, reported on 2026-10-15, found 54 of 63 economists expecting a 25 basis point rise in November, reversing a September survey in which about 90% expected no change for the rest of 2026 (https://financialnewsletter.com/boe-to-raise-rates-2/). On 2026-10-15 Chief Economist Pill said a future hike should not be read as the start of a long series (https://squawknews.com/news/493378-update-1-boe-s-pill-says-a-rate-hike-need-not-be-start-of-long-series). Base rate: Bank Rate was cut once in December 2025 and has been held at all seven meetings in 2026, so no increase has occurred in more than three years. September CPI is due at 07:00 on 2026-10-21 and the 28 October budget and labour data are still ahead. A soft inflation print or an easing of energy prices would raise the chance of another hold; a hot print would make a rise more likely.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "As of 19 October 2026, the Bank of England lists Bank Rate at 3.75%, with the next MPC announcement scheduled for Thursday 5 November 2026, alongside the November Monetary Policy Report.",
+    "source": 0
+   },
+   {
+    "fact": "On 17 September 2026 the MPC voted 6\u20133 to keep Bank Rate at 3.75%; Megan Greene, Catherine L Mann and Huw Pill voted to raise it by 25 basis points to 4%.",
+    "source": 1
+   },
+   {
+    "fact": "The September 2026 summary said CPI inflation was 3.1% in August, was likely to rise further, and that upside risks to inflation were greater than at the July Monetary Policy Report, while second-round effects in prices and wages had so far been limited.",
+    "source": 1
+   },
+   {
+    "fact": "Governor Andrew Bailey\u2019s statement on the Bank Rate page says a longer period of energy-price volatility makes a Bank Rate increase more likely in order to return inflation to 2%.",
+    "source": 2
+   },
+   {
+    "fact": "ONS reported on 16 September 2026 that CPI rose 3.1% in the 12 months to August 2026, up from 2.9% in July, with motor fuels the largest upward contribution to the monthly change.",
+    "source": 3
+   },
+   {
+    "fact": "The ONS September 2026 CPI release, which would be the last inflation print before the November meeting, is scheduled for 07:00 on 21 October 2026 and had not been published as of 19 October 2026.",
+    "source": 4
+   },
+   {
+    "fact": "In a Reuters poll conducted 12\u201314 October 2026, 54 of 63 economists forecast a 25 basis point rise in Bank Rate at the November meeting, reversing a September survey in which about 90% expected no change for the rest of 2026.",
+    "source": 5
+   },
+   {
+    "fact": "On 15 October 2026, Chief Economist Huw Pill, who has voted for a higher rate since April, said a future hike should not be read as the start of a long series of increases, and noted the Bank had held rates since the US\u2013Iran war began in February.",
+    "source": 6
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.013298,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.016182,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.001039,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.004234,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Thursday 5 November | November MPC Summary and minutes and November Monetary Policy Report",
+     "Current Bank Rate 3.75%",
+     "Next due: 5 November 2026"
+    ],
+    "title": "Monetary Policy Committee dates for 2026 and 2027",
+    "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates",
+    "verified": false
+   },
+   {
+    "published": "2026-09-17",
+    "quotes": [
+     "At its meeting ending on 16 September 2026, the Monetary Policy Committee (MPC) voted by a majority of 6\u20133 to maintain Bank Rate at 3.75%.\nThree members voted to increase Bank Rate by 0.25 percentage points, to 4%.",
+     "UK CPI inflation increased to 3.1% in August and is likely to rise further over coming quarters.",
+     "The Committee judges that it is appropriate to maintain Bank Rate at this meeting.\nThe Committee stands ready to act as necessary to ensure that CPI inflation remains on track to meet the 2% target in the medium term."
+    ],
+    "title": "Bank rate maintained at 3.75% - September 2026 Monetary Policy Summary and Minutes",
+    "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "we have maintained Bank Rate at 3.75%",
+     "Today, we\u2019ve held Bank Rate at 3.75%.\nSo far, higher global energy costs have had a limited effect on price and wage setting in the UK.\nBut the longer this volatility persists, the bigger the impact it will have on inflation, and the more likely it is we will need to raise Bank Rate to ensure that inflation falls back to our 2% target."
+    ],
+    "title": "Interest rates and Bank Rate: our latest decision",
+    "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+    "verified": true
+   },
+   {
+    "published": "2026-09-16",
+    "quotes": [
+     "The Consumer Prices Index (CPI) rose by 3.1% in the 12 months to August 2026, up from 2.9% the previous month.",
+     "Transport, particularly motor fuels, made the largest upward contribution to the monthly change in both CPIH and CPI annual rates.",
+     "Next release: 21 October 2026"
+    ],
+    "title": "Consumer price inflation, UK: August 2026",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Release date: 21 October 2026 7:00am",
+     "This release is not yet published"
+    ],
+    "title": "Consumer price inflation, UK: September 2026",
+    "url": "https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026",
+    "verified": true
+   },
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "A strong majority \u2013 54 of 63 economists polled between October 12 and 14 \u2013 forecast the BoE would raise Bank Rate by 25 basis points next month, which coincides with the central bank\u2019s next set of quarterly forecasts.",
+     "In last month\u2019s survey, about 90% of respondents forecast rates to stay on hold for the remainder of the year.",
+     "British inflation is forecast to average 3.6% this quarter and 3.8% next, and 3.0% for calendar year 2027."
+    ],
+    "title": "BoE to raise rates to 4% in November, but economists narrowly expect hold from there",
+    "url": "https://financialnewsletter.com/boe-to-raise-rates-2/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "A future interest rate increase by the Bank of England should not be interpreted by investors as the start of a long series of increases, BoE Chief Economist Huw Pill said on Thursday.",
+     "\"We shouldn't give the impression that because we act now, we are on another staircase...\nlike we saw in 2022 and 2023.\nIt's a different shock,\" Pill said",
+     "Unlike the US Federal Reserve and the European Central Bank, the BoE has kept rates on hold since the outbreak of the US-Iran war in February"
+    ],
+    "title": "BoE's Pill says a rate hike need not be start of long series",
+    "url": "https://squawknews.com/news/493378-update-1-boe-s-pill-says-a-rate-hike-need-not-be-start-of-long-series",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The November 2026 decision has not been announced; the placeholder minutes page states publication is due at noon on 5 November 2026.",
+   "September CPI, due 21 October 2026, and any further energy-price or Middle East conflict news before 5 November could change the inflation outlook the MPC described as still able to change materially.",
+   "The October 28 budget and labour-market and wage data between now and the meeting are not yet in the September minutes.",
+   "A 25 basis point rise is the size three members already preferred in September, but the majority held; the meeting could instead hold, or move by a different amount that the resolution rules would round."
+  ]
+ },
+ "polymarket-3499789": {
+  "base_rate": "Of the six RBA Monetary Policy Board decisions in 2026 through 29 September 2026, the cash rate target was left unchanged at 2 meetings (June and August) and raised by 25 basis points at 4 meetings (February, March, May and September).",
+  "brief": "The question asks whether the RBA Monetary Policy Board leaves the cash rate target unchanged at its 2 to 3 November 2026 meeting. As of 2026-10-19 the target is 4.60%, effective 30 September, with the decision due at 2.30 pm on 3 November (https://www.rba.gov.au/cash-rate-target-overview.html). On 2026-09-29 the Board unanimously raised the target by 25 basis points to 4.60% and said it could increase it further if needed (https://www.rba.gov.au/media-releases/2026/mr-26-27.html). Base rate: of six 2026 decisions through 29 September, the rate was raised at four (February, March, May, September) and left unchanged at two (June and August). The ABS reported on 2026-09-30 that CPI rose 4.0% in the year to August, up from 3.5%, with trimmed-mean inflation unchanged at 3.6% (https://www.abs.gov.au/media-centre/media-releases/cpi-rose-40-year-august-2026). On 2026-10-15 the ABS reported unemployment rising 0.1 point to 4.7% in September, and cautioned about short-term changes (https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/latest-release). On 2026-10-19 Commonwealth Bank economists still expected the RBA to hold in November while saying the risk of further increases was building, with September-quarter trimmed-mean inflation of about 1.0% the condition for a hold (https://www.commbank.com.au/articles/newsroom/2026/10/rba-november-interest-rate-hold-risks-build.html). The same day Judo Bank moved its next expected rise from November to December after two soft labour-market months, while calling November a live meeting (https://www.judo.bank/economics-weekly-briefing-19-october-2026/). September-quarter CPI is due from the ABS on 2026-10-28, before the meeting. The RBA cited Middle East conflict, oil supply and domestic capacity pressure as upside inflation risks. A trimmed-mean print well above 1.0% would make another rise more likely; a soft print would support a hold.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "As of 19 October 2026 the RBA cash rate target is 4.60%, effective 30 September 2026, with the next update scheduled for 2.30 pm on 3 November 2026.",
+    "source": 0
+   },
+   {
+    "fact": "On 29 September 2026 the Monetary Policy Board unanimously raised the cash rate target by 25 basis points to 4.60% and said it could increase the target further if needed.",
+    "source": 1
+   },
+   {
+    "fact": "The November 2026 Monetary Policy Board meeting is scheduled for 2\u20133 November 2026, with the decision and the quarterly Statement on Monetary Policy due at 2.30 pm on the second day.",
+    "source": 2
+   },
+   {
+    "fact": "The ABS reported on 30 September 2026 that CPI rose 4.0% in the 12 months to August 2026, up from 3.5% to July, while trimmed-mean inflation was unchanged at 3.6%.",
+    "source": 3
+   },
+   {
+    "fact": "The ABS reported on 15 October 2026 that the seasonally adjusted unemployment rate increased 0.1 percentage point to 4.7% in September 2026, and advised caution in reading short-term changes.",
+    "source": 4
+   },
+   {
+    "fact": "On 19 October 2026 Commonwealth Bank\u2019s economists still expected the RBA to leave the cash rate unchanged in November, while saying the risk of further increases was building and citing September-quarter trimmed-mean inflation of about 1.0% as the condition for a hold.",
+    "source": 5
+   },
+   {
+    "fact": "On 19 October 2026 Judo Bank shifted its next expected 25 basis point rise from November to December, citing two soft labour-market months, while still describing November as a live meeting.",
+    "source": 6
+   },
+   {
+    "fact": "Of the six 2026 Monetary Policy Board decisions through 29 September, the cash rate target was unchanged at the June and August meetings and was raised 25 basis points at the February, March, May and September meetings.",
+    "source": 1
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.016464,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.011973,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.001435,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.005229,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "4.60 %",
+     "Effective date 30 September 2026",
+     "Next update 2.30 pm, 3 November 2026"
+    ],
+    "title": "Cash Rate Target Overview | RBA",
+    "url": "https://www.rba.gov.au/cash-rate-target-overview.html",
+    "verified": false
+   },
+   {
+    "published": "2026-09-29",
+    "quotes": [
+     "At its meeting today, the Board decided to increase the cash rate target by 25 basis points to 4.60 per cent.",
+     "The Board will continue to do what it considers necessary to bring inflation sustainably back to target, including increasing the cash rate target further if needed.",
+     "Today\u2019s policy decision was unanimous."
+    ],
+    "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+    "url": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+    "verified": true
+   },
+   {
+    "published": "2025-02-10",
+    "quotes": [
+     "The outcome of the meeting will be announced at 2.30 pm on the second day of the Board meeting, and the Governor will hold a media conference at 3.30 pm.",
+     "The quarterly Statement on Monetary Policy will be released at the same time as the outcome of the Board meeting in February, May, August and November.",
+     "2\u20133 November 2026"
+    ],
+    "title": "2026 Monetary Policy Board Meeting Dates",
+    "url": "https://www.rba.gov.au/media-releases/2025/mr-25-02.html",
+    "verified": true
+   },
+   {
+    "published": "2026-09-30",
+    "quotes": [
+     "The Consumer Price Index (CPI) rose 4.0 per cent in the 12 months to August 2026, up from 3.5 per cent in the 12 months to July, according to the latest data from the Australian Bureau of Statistics (ABS).",
+     "\u201cTrimmed mean annual inflation remained steady at 3.6 per cent for the third consecutive month in August,\u201d Ms McCririck said."
+    ],
+    "title": "CPI rose 4.0% in the year to August 2026",
+    "url": "https://www.abs.gov.au/media-centre/media-releases/cpi-rose-40-year-august-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "In seasonally adjusted terms, in September 2026:",
+     "the unemployment rate increased 0.1ppt to 4.7%.",
+     "The ABS recommends exercising a degree of caution in interpreting short-term changes."
+    ],
+    "title": "Labour Force, Australia, September 2026",
+    "url": "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/latest-release",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Commonwealth Bank\u2019s economics team is sticking with its forecast that the Reserve Bank of Australia (RBA) will leave interest rates unchanged in November, but CBA Chief Economist Luke Yeaman says the risks of further increases are building.",
+     "CommBank expects September-quarter trimmed mean inflation to come in at 1.0%.",
+     "\"We know monetary policy operates with long and variable lags,\" Kent said."
+    ],
+    "title": "CommBank economists stick with November RBA interest rates call",
+    "url": "https://www.commbank.com.au/articles/newsroom/2026/10/rba-november-interest-rate-hold-risks-build.html",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Unemployment held at 4.7% in September, a second soft month for the labour market.",
+     "We now expect the next hike in December rather than November.",
+     "We think it will keep the Board on the sidelines in November, waiting to see whether the softening in the labour market continues before its December meeting."
+    ],
+    "title": "Economics Weekly Briefing: 19 October 2026 - Judo Bank",
+    "url": "https://www.judo.bank/economics-weekly-briefing-19-october-2026/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The November 2026 decision has not been announced; the meeting is still scheduled for 2\u20133 November 2026.",
+   "September 2026 CPI, the last major inflation print before the meeting, is due from the ABS on 28 October 2026 and is not yet published.",
+   "The Board\u2019s 29 September statement left open a further increase if inflation does not return to the 2\u20133% target, while also noting lags from the four 2026 increases so far.",
+   "Middle East conflict, oil supply and domestic capacity pressures were cited by the RBA as upside inflation risks that could still change before 3 November.",
+   "The ABS flagged possible residual effects from labour-force survey changes, so the September unemployment rise to 4.7% may be revised in interpretation by later data."
+  ]
+ },
+ "polymarket-3554659": {
+  "base_rate": "On the overall text board tracked from 2024-08-28 through 2026-10-15, first place changed 25 times (about once every few weeks); the occupant as of the latest recorded change, 2026-10-15, is a Google model.",
+  "brief": "The question asks which company owns the top-ranked model on arena.ai Text Arena Overall (style control off, models only, AutoEval excluded) when checked at 12:00 PM ET on 2026-10-31. On the 2026-10-15 snapshot of the no-style-control board, Google's Gemini 4 Argon (High) was rank 1 at 1532 plus or minus 9, marked Preliminary, on 4,904 votes, with a rank spread of 1 to 1 (https://arena.ai/leaderboard/text/overall-no-style-control). The next model was Anthropic's Claude Opus 5.5 (High) at rank 2 with 1516 plus or minus 7, a 16-point gap. On 2026-10-08 the Overall table already had gemini-4-argon-high at 1525 ahead of claude-opus-5.5-high at 1507 (https://arena.ai/leaderboard/text/overall). Arena's changelog shows the model was added on 2026-09-30 and that new models were still being added through 2026-10-18, including muse-spark-1.3-max on 2026-10-13 (https://arena.ai/company/leaderboard-changelog). Arena says AutoEval scores are labeled until enough human votes arrive and pick the better model with over 90% accuracy when the live gap exceeds 10 points. A compilation dated 2026-10-17 says the overall text #1 changed 25 times between 2024-08-28 and 2026-10-15, about once every few weeks, with the latest change leaving Gemini 4 Argon (High) at #1 (https://kbgtools.com/en/ai-model-ranking). That is the base rate for a change of leader over a 12-day window. A secondary page quoted 1524 for the same model and date, which does not match 1532, so the table variant matters. A new frontier release from another company that reaches rank 1 with enough votes, or score drift on the preliminary Google model, would change the answer.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "On the 2026-10-15 snapshot of the Text Arena Overall board with style control off, Gemini 4 Argon (High), listed as Google, is rank 1 with score 1532\u00b19, marked Preliminary, on 4,904 votes; its rank spread is 1\u20131.",
+    "source": 0
+   },
+   {
+    "fact": "On that same 2026-10-15 no-style-control table, the next model is Anthropic\u2019s Claude Opus 5.5 (High) at rank 2 with score 1516\u00b17, a 16-point gap behind Gemini 4 Argon (High).",
+    "source": 0
+   },
+   {
+    "fact": "On the 2026-10-08 Text Arena Overall table, gemini-4-argon-high (Google) was already rank 1 at 1525\u00b19 Preliminary, ahead of claude-opus-5.5-high (Anthropic) at 1507\u00b18.",
+    "source": 1
+   },
+   {
+    "fact": "Arena\u2019s changelog dated 2026-09-30 says gemini-4-argon-high was added to the Text Arena leaderboard that day.",
+    "source": 2
+   },
+   {
+    "fact": "Arena\u2019s changelog entries from 2026-10-12 through 2026-10-18 record new models still being added to Arena boards, including Text Arena on 2026-10-13 (muse-spark-1.3-max).",
+    "source": 2
+   },
+   {
+    "fact": "Arena states that AutoEval scores are labeled \u201cAutoEval\u201d until enough human votes arrive, and that AutoEval picks the better model with >90% accuracy when the live gap exceeds 10 points.",
+    "source": 3
+   },
+   {
+    "fact": "A 2026-10-18 copy of the no-adjustment LMArena overall table, sourced to a 2026-10-15 publication, lists Gemini 4 Argon (High) / Google first at 1,532 on 4,904 votes.",
+    "source": 4
+   },
+   {
+    "fact": "A 2026-10-17 compilation of Arena history says overall-text #1 changed 25 times between 2024-08-28 and 2026-10-15, with the latest change on 2026-10-15 leaving Gemini 4 Argon (High) at #1.",
+    "source": 5
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.019264,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.022627,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.002545,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.01209,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "Oct 15, 2026 8,834,211 votes 416 models",
+     "1 | 1 1 | Gemini 4 Argon (High) Google \u00b7 Proprietary | 1532\u00b19 Preliminary | 4,904",
+     "2 | 2 5 | Claude Opus 5.5 (High) Anthropic \u00b7 Proprietary | 1516\u00b17 | 8,300"
+    ],
+    "title": "Text Arena Overall (no style control)",
+    "url": "https://arena.ai/leaderboard/text/overall-no-style-control",
+    "verified": null
+   },
+   {
+    "published": "2026-10-08",
+    "quotes": [
+     "Oct 8, 2026 8,734,330 votes 414 models",
+     "1 | 1 1 | gemini-4-argon-high Google \u00b7 Proprietary | 1525\u00b19 Preliminary | 4,892",
+     "2 | 2 10 | claude-opus-5.5-high Anthropic \u00b7 Proprietary | 1507\u00b18 | 6,272"
+    ],
+    "title": "Text Arena Overall",
+    "url": "https://arena.ai/leaderboard/text/overall",
+    "verified": null
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "gemini-4-argon-high has been added to Code Arena: WebDev, Agent Arena, and Text Arena leaderboards.",
+     "muse-spark-1.3-max has been added to the Code Arena: WebDev & Text Arena leaderboards.",
+     "DeepSeek-V4.1-Flash-20261017 (Max) has been added to the Code Arena: WebDev leaderboards."
+    ],
+    "title": "Leaderboard Changelog | Arena",
+    "url": "https://arena.ai/company/leaderboard-changelog",
+    "verified": true
+   },
+   {
+    "published": "2026-07-30",
+    "quotes": [
+     "AutoEval provides a Day-1 signal as soon as a model launches.\nScores are clearly labeled \u201cAutoEval,\u201d then updated once enough human votes arrive to validate them.",
+     "AutoEval achieves >90% accuracy when the true performance gap exceeds 10 points, and 100% accuracy beyond 15 points."
+    ],
+    "title": "Introducing AutoEval to the Arena leaderboards",
+    "url": "https://arena.ai/blog/autoeval-scores",
+    "verified": true
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "Gemini 4 Argon (High) from Google currently ranks first for general questions, writing, reasoning, ahead of Claude Opus 5.5 (High) from Anthropic.\nThe ranking comes from LMArena and was last published 2026-10-15.",
+     "Published by LMArena on 2026-10-15 \u00b7 copied here Oct 18, 2026 \u00b7 no adjustment applied",
+     "| 1 | Gemini 4 Argon (High) | Google | 1,532 | 4,904 |"
+    ],
+    "title": "Best overall chat model | AIVIO News",
+    "url": "https://aivionews.com/leaderboards/chat/",
+    "verified": false
+   },
+   {
+    "published": "2026-10-17",
+    "quotes": [
+     "As of October 15, 2026, the overall text leader is Gemini 4 Argon (High) (1524) and the coding leader is Gemini 4 Argon (High).",
+     "On the overall text board, #1 has changed 25 times since the history began on August 28, 2024; the latest change was on October 15, 2026, and Gemini 4 Argon (High) is #1 now."
+    ],
+    "title": "AI Model Rankings by Use Case (October 17, 2026)",
+    "url": "https://kbgtools.com/en/ai-model-ranking",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The resolving check is 2026-10-31 12:00 PM ET, twelve days after the latest board date of 2026-10-15, and new models are still being added to Arena boards.",
+   "Gemini 4 Argon (High) is marked Preliminary with only 4,904 votes and a \u00b19 interval, so more human votes can move its score before the check.",
+   "Models labeled AutoEval at check time are excluded even if they show a rank or score; it is unknown which new releases will still carry that label on October 31.",
+   "The resolution uses style control off and the Rank column first, then unrounded Arena score, then alphabetical company name; nearby models with wide rank spreads (for example Muse Wonder (Max) at 1501\u00b111) could reorder if scores move.",
+   "A secondary compilation quotes an overall-text score of 1524 for the same model and date, which does not match the 1532 on the no-style-control page, so which table variant a later snapshot uses matters."
+  ]
+ },
+ "polymarket-5167210": {
+  "base_rate": "In the active phase described as having resumed in July 2026, sources document Saudi or Saudi-led coalition airstrikes on Houthi-held Yemeni territory on at least 9, 13 and 18 October 2026, plus a coalition announcement of large-scale air operations reported on 10 October.\nA complete count of strike days from July through 19 October is not given in these sources.",
+  "brief": "The question asks whether Saudi Arabia's own armed forces carry out a qualifying air or surface-to-surface missile strike that impacts Yemen on 29 October 2026, Yemen Standard Time. Coalition strikes are counted only if Saudi forces directly conducted them, and intercepted munitions, artillery and short-range loitering munitions do not count. On 9 October 2026 AFP photographs showed smoke over Sanaa during a reported Saudi-led airstrike. By 10 October Arab News reported that the Coalition to Support Legitimacy in Yemen had announced large-scale operations against the Houthis, with air support provided around the clock (https://www.arabnews.com/saudi-arabia/coalition-carries-out-wide-scale-operations-against-yemens-houthis-3005537). On 13 October Saudi Arabia struck an oil depot near Sanaa and the coalition said it hit Houthi fuel sites in Sanaa, Hodeidah and Dhamar (https://www.theguardian.com/world/2026/oct/13/saudi-arabia-strikes-strategic-oil-depots-near-yemen-capital). On 18 October Houthi and Yemeni health sources reported a Saudi airstrike on a home in Saada killing at least nine people, which Al-Monitor labelled alleged (https://www.al-monitor.com/originals/2026/10/saudi-coalition-houthis-trade-strikes-disruption-spreads; https://en.ypagency.net/408888). Al-Monitor said the Saudi-Houthi war reignited in July with repeated coalition air raids. On 16 October a Saudi deputy foreign minister said a Saudi request for talks with the Houthis in Oman had been refused. Strikes are documented on at least 9, 10, 13 and 18 October, but the sources give no complete count of strike days since July, and no source says a strike is scheduled for 29 October. Reports differ on the date and casualties of the Saada strike, and coalition statements do not always separate Saudi aircraft from others. A diplomatic pause or ceasefire before 29 October would lower the chance of a qualifying strike; continued daily operations would raise it.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "On 9 October 2026, AFP photographs showed smoke over Sanaa during a reported Saudi-led coalition airstrike on the Houthi-controlled capital.",
+    "source": 0
+   },
+   {
+    "fact": "By 10 October 2026, Arab News reported that the Coalition to Support Legitimacy in Yemen had announced large-scale operations against the Houthis, and spokesman Turki Al-Maliki said coalition air support for Yemeni government forces was being provided around the clock.",
+    "source": 2
+   },
+   {
+    "fact": "On Tuesday 13 October 2026, Saudi Arabia struck an oil depot on the outskirts of Sanaa and the Saudi-led coalition said it had hit Houthi fuel sites in Sanaa, Hodeidah and Dhamar.",
+    "source": 0
+   },
+   {
+    "fact": "On 16 October 2026, Saudi Deputy Foreign Minister for Public Diplomacy Rayed Krimly said a Saudi request weeks earlier for talks with the Houthis in Oman had been refused.",
+    "source": 5
+   },
+   {
+    "fact": "On Sunday 18 October 2026, Houthi and Yemeni health sources reported a Saudi airstrike on a home in Sahar district, Saada, killing at least nine people; Al-Monitor described the strike as alleged and cited the Houthis\u2019 Saba agency.",
+    "source": 1
+   },
+   {
+    "fact": "Al-Monitor reported on 18 October 2026 that the Saudi-Houthi war had reignited in July and that the coalition had launched repeated air raids on Houthi-controlled Yemen.",
+    "source": 1
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.004776,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.009393,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.000882,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.005693,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-13",
+    "quotes": [
+     "Saudi Arabia has launched a series of strikes on a strategic oil depot on the outskirts of Yemen\u2019s capital, Sana\u2019a, while later on Tuesday it said it had intercepted missiles launched toward Dharan, location of the headquarters of the huge national energy company Saudi Aramco.",
+     "Smoke over Sana\u2019a during a reported Saudi-led coalition airstrike on the Houthi-controlled Yemeni capital on 9 October 2026.",
+     "The latest phase of the conflict between the Saudis and the Houthis began last month after the rebels seized key areas along the Bab el-Mandeb Strait, a critical waterway for the transportation of Gulf oil and other goods at the southern end of the Red Sea off Yemen."
+    ],
+    "title": "Saudi Arabia strikes oil depots in Yemen and says missiles launched toward location of Saudi Aramco HQ",
+    "url": "https://www.theguardian.com/world/2026/oct/13/saudi-arabia-strikes-strategic-oil-depots-near-yemen-capital",
+    "verified": false
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "Meanwhile the Saudi-led coalition backing the internationally recognised government has launched repeated air raids on Houthi-controlled regions of Yemen.",
+     "An alleged Saudi airstrike in northern Yemen's Saada governorate on Sunday killed at least nine people and wounded 16 others, the Houthis' Saba news agency reported.",
+     "The coalition blamed a \"technical malfunction\" for the incident, which inflicted its first military fatalities since the long-running war with the Houthis reignited in July."
+    ],
+    "title": "Saudi coalition, Houthis trade strikes as disruption spreads",
+    "url": "https://www.al-monitor.com/originals/2026/10/saudi-coalition-houthis-trade-strikes-disruption-spreads",
+    "verified": true
+   },
+   {
+    "published": "2026-10-10",
+    "quotes": [
+     "The Coalition to Support Legitimacy in Yemen announced on Friday that it had launched large-scale operations against the Houthi militia.",
+     "He said coalition forces were providing air support to the Yemeni Armed Forces \u201caround the clock, 24 hours a day.\u201d",
+     "\u201cThe Kingdom affirms that it will not allow Yemen to be turned into a staging ground for threats to its security or to the freedom of navigation in the Red Sea and Bab Al-Mandab Strait,\u201d he told the council."
+    ],
+    "title": "Coalition carries out wide-scale operations against Yemen\u2019s Houthis",
+    "url": "https://www.arabnews.com/saudi-arabia/coalition-carries-out-wide-scale-operations-against-yemens-houthis-3005537",
+    "verified": true
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "The Saudi-led coalition in Yemen said Tuesday it had carried out a targeted military operation against fuel storage and transport facilities used by the Iran-backed Houthi militia to support its war effort, including sites in Sanaa, Hodeidah and Dhamar.",
+     "Coalition spokesman Major General Turki al-Malki said the operation was aimed at cutting off vital resources used by the Houthis to sustain their military activities, including supplying their arsenal of missiles and drones."
+    ],
+    "title": "Saudi-led coalition says it carried out operation targeting Houthi war supplies",
+    "url": "https://english.alarabiya.net/News/saudi-arabia/2026/10/13/coalition-to-issue-warning-shortly-for-civilians-to-evacuate-site-in-yemen-s-sanaa-",
+    "verified": null
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "At least nine civilians, including five children and two women, were killed and 19 others injured\u2014some in critical condition\u2014in an initial casualty toll following a Saudi airstrike that targeted a residential home in Saada Governorate, northern Yemen, on Wednesday.",
+     "According to a statement issued by the Ministry of Public Health and Population, the airstrike struck the home of a local resident, Ali Al-Qahm, in the Sahar District."
+    ],
+    "title": "9 Civilians killed, 19 injured in Saudi airstrike on Saada",
+    "url": "https://en.ypagency.net/408888",
+    "verified": true
+   },
+   {
+    "published": "2026-10-16",
+    "quotes": [
+     "Krimly stated that weeks ago, Saudi Arabia had called for a meeting with the Houthis in the Sultanate of Oman with the aim of settling existing differences and ending the escalation; however, the group refused to participate in the meeting.",
+     "The Saudi official clarified that the Kingdom has not asked Iran to mediate with the Houthis, pointing out that Riyadh maintains direct communication channels with the group, while the role of the Sultanate of Oman is limited to facilitating talks rather than mediating between the two parties."
+    ],
+    "title": "Saudi Arabia: We Have Not Requested Any Iranian Mediation with the Houthis",
+    "url": "https://www.yemenmonitor.com/en/Details/ArtMID/908/ArticleID/184987",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "29 October 2026 has not occurred, and no source states that a Saudi strike is scheduled for that date.",
+   "Reports disagree on whether the 18 October Saada strike was on Wednesday or Sunday and on the casualty count, and Al-Monitor still labels that strike alleged.",
+   "Coalition statements do not always separate Royal Saudi Air Force crews from other coalition aircraft, which matters because only a strike directly conducted by Saudi armed forces qualifies.",
+   "Saudi and Houthi officials both described open diplomatic channels as of 16 October, so a pause before 29 October is possible.",
+   "Strikes that are intercepted before impact, or that are artillery, naval gunfire, or short-range loitering munitions, would not qualify even if fighting continues."
+  ]
+ },
+ "polymarket-5170806": {
+  "base_rate": "On Investing.com\u2019s Binance SOL/USD series, the 52-week range ending around 2026-10-19 runs from 60.190 to 205.220, so a print at or below 90 occurred at least once in that year.\nThese pages do not count how many calendar months in that year had a daily or 1-minute low at or below 90.",
+  "brief": "The question resolves Yes if any Binance SOL/USDT 1-minute candle in October 2026 (00:00 ET on the 1st to 23:59 ET on the 31st) has a low at or below $90. Twelve Data's Binance SOL/USD daily series, updated 2026-10-19 09:16 UTC, shows the lowest daily low from 1 to 18 October at 100.43 on 18 October, with a partial 19 October low of 103.77 (https://twelvedata.com/markets/722279/crypto/binance/sol-usd/historical-data). Investing.com's Binance table lists a period low of 100.510 on 18 October and a last price of 105.670 on 19 October, and a 52-week range of 60.190 to 205.220 (https://www.investing.com/crypto/solana/sol-usd-historical-data). Analytics Insight reported on 2026-10-18 that SOL was at 103.17 and US spot Solana ETFs had about $12.7 million of net outflows on 16 October, a tenth straight withdrawal session (https://www.analyticsinsight.net/news/solana-price-faces-usd-110-test-ahead-of-october-21-alpenglow-upgrade). CVJ.AI reported ETF outflows of $25.52 million in their worst week, with SOL dipping to about $101 to $102 (https://cvj.ai/briefing/crypto-news/xrp-etfs-end-13-week-green-streak-as-sol-funds-bleed-25-5m/). The Solana Foundation says the Alpenglow activation is at epoch 1064, starting about 15:00 UTC on 2026-10-21 (https://solana.com/upgrades/alpenglow). The base rate is thin: the 52-week range shows a print at or below 90 occurred at least once in the year, but the pages do not count how many months did. Reaching $90 from about $105.7 needs a fall of roughly 15 percent within the 12 days left. The published figures are daily SOL/USD lows, while resolution uses SOL/USDT 1-minute lows in Eastern Time, so intraday spikes can run lower than the tables show. Continued ETF outflows or a sell-off in the wider crypto market would raise the chance; a rally after Alpenglow would lower it.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "On Twelve Data\u2019s Binance SOL/USD daily series, updated 2026-10-19 09:16 UTC, the lowest listed daily low from 2026-10-01 through 2026-10-18 was 100.43 on 2026-10-18; the 2026-10-01 low was 116.73 and the partial 2026-10-19 low was 103.77.",
+    "source": 0
+   },
+   {
+    "fact": "Investing.com\u2019s Binance SOL/USD table for 2026-09-19 to 2026-10-19 lists a period low of 100.510, on 2026-10-18, and a 2026-10-19 low of 103.780, with the last price shown at 105.670.",
+    "source": 1
+   },
+   {
+    "fact": "Investing.com states the Binance SOL/USD 52-week range as 60.190 to 205.220.",
+    "source": 1
+   },
+   {
+    "fact": "Analytics Insight reported on 2026-10-18 that SOL was at 103.17, that US spot Solana ETFs had about $12.7 million of net outflows on 2026-10-16 (a tenth straight withdrawal session), and that a recent low was about 100.95.",
+    "source": 2
+   },
+   {
+    "fact": "CVJ.AI reported on 2026-10-18 that Solana ETFs had $25.52 million of outflows in their worst week and that SOL had dipped to $101\u2013$102 while remaining in three-digit territory.",
+    "source": 3
+   },
+   {
+    "fact": "The Solana Foundation page says Alpenglow mainnet activation is epoch 1064, starting Wednesday 2026-10-21 at about 15:00 UTC.",
+    "source": 4
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.01728,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.018769,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.002067,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.005478,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Last update Oct 19, 9:16 AM UTC",
+     "Oct 18, 2026 | 103.46 | 104.79 | 100.43 | 104.11 | 0.63%",
+     "Oct 01, 2026 | 118.12 | 119.63 | 116.73 | 118.41 | 0.25%"
+    ],
+    "title": "Solana to US Dollar (SOL/USD) \u2014 Binance historical data, Twelve Data",
+    "url": "https://twelvedata.com/markets/722279/crypto/binance/sol-usd/historical-data",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Oct 18, 2026 | 104.140 | 103.460 | 104.740 | 100.510 | 1.52M | +0.66%",
+     "Lowest: 100.510",
+     "The SOL/USD 52-week range spans from 60.190 to 205.220"
+    ],
+    "title": "SOL USD Binance Historical Data - Investing.com",
+    "url": "https://www.investing.com/crypto/solana/sol-usd-historical-data",
+    "verified": null
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "Solana slipped 1.66% to USD 103.17 in an October 18 market snapshot, trailing Bitcoin's nearly unchanged performance.",
+     "US spot Solana ETFs recorded approximately USD 12.7 million in net outflows on October 16, marking their tenth consecutive trading session of withdrawals.",
+     "Solana's immediate support area sits near USD 100\u2013101, including the recent low around USD 100.95."
+    ],
+    "title": "Solana Price Faces USD 110 Test Ahead of October 21 Alpenglow Upgrade",
+    "url": "https://www.analyticsinsight.net/news/solana-price-faces-usd-110-test-ahead-of-october-21-alpenglow-upgrade",
+    "verified": true
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "Solana ETFs posted their worst week ever, with $25.52 million leaving the funds and outflows extending to ten consecutive days.",
+     "The underlying asset has also suffered, with SOL rejected at $110 this week and dipping to $101-$102 on a couple of occasions.",
+     "Although it has remained within three-digit territory, the overall landscape has worsened substantially, and a dip below $100 might be just a matter of time."
+    ],
+    "title": "XRP ETFs End 13-Week Green Streak as SOL Funds Bleed $25.5M",
+    "url": "https://cvj.ai/briefing/crypto-news/xrp-etfs-end-13-week-green-streak-as-sol-funds-bleed-25-5m/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Alpenglow activates on mainnet in epoch 1064, which starts on Wednesday, October 21, 2026, at approximately 15:00 UTC.",
+     "Today that takes about 12.8 seconds.\nAlpenglow targets roughly 150 milliseconds."
+    ],
+    "title": "Alpenglow \u2014 Solana Foundation",
+    "url": "https://solana.com/upgrades/alpenglow",
+    "verified": true
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "Solana has scheduled Oct.\n21 for Alpenglow, a major upgrade aimed at making transactions irreversible in roughly 150 milliseconds by changing how the computers running the network agree on payments.",
+     "The migration is scheduled for epoch 1064, expected to begin around 15:00 UTC on Oct.\n21."
+    ],
+    "title": "Solana sets Oct.\n21 for Alpenglow upgrade targeting 150-millisecond finality",
+    "url": "https://www.coindesk.com/tech/2026/10/14/solana-sets-oct-21-for-alpenglow-upgrade-targeting-150-millisecond-finality",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "October 2026 is unfinished: the resolving window runs through 23:59 ET on 2026-10-31, and the direct Binance SOL/USDT 1-minute chart and API were not readable here (the API returned HTTP 451).",
+   "Published lows are daily Binance SOL/USD figures, while resolution uses Binance SOL/USDT 1-minute candle lows in US Eastern Time, so the pair, candle size, and timezone can differ from these tables.",
+   "Whether the 2026-10-21 Alpenglow activation or further ETF flows move the SOL/USDT low to 90 or below before month-end is not in the published record."
+  ]
+ },
+ "polymarket-562802": {
+  "base_rate": "In the 20 midterm elections from 1946 through 2022 tabulated by the American Presidency Project, the president's party lost House seats in 18 and gained seats in 2 (1998, +4; 2002, +8).\nThat series counts seat change, not how often the opposition took a House majority.",
+  "brief": "The question asks which party controls the US House after the 3 November 2026 election, under a rule where a majority of voting seats decides. The Clerk's 2026-10-01 list shows 218 Republicans, 214 Democrats, 1 independent and 2 vacancies (Florida 20 and Texas 23) (https://clerk.house.gov/member_info/olm-119.pdf). Ballotpedia reported on 2026-10-14 that the independent caucuses with Republicans, that Democrats need a net gain of three districts for a majority and that Republicans can lose only two and keep control (https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/). Ballotpedia also reported that maps adopted or ordered in nine states since 2024 could, on 2024 presidential results, produce a net Republican gain of nine districts. Cook Political Report's 2026-10-16 ratings placed 185 races in Solid Democrat, 171 in Solid Republican and 21 as toss-ups, with the rest in Likely and Lean categories (https://www.cookpolitical.com/ratings/house-race-ratings). The American Presidency Project records seat changes for the president's party of -41 in 2018 and -9 in 2022, and the president's party lost House seats in 18 of 20 midterms from 1946 to 2022, gaining only in 1998 and 2002 (https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections). Gallup presidential approval was 35 and 33 percent in early and late August 2026. That series counts seat change, not how often the opposition took a majority. No votes have been cast, and results, recounts and runoffs are ahead. A shift in the 21 toss-ups, or larger effects from the new maps, would change the picture.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "As of the Clerk's October 1, 2026 official list, the 119th House had 218 Republicans, 214 Democrats, 1 independent, and 2 vacancies (Florida 20 and Texas 23), for 435 voting seats.",
+    "source": 0
+   },
+   {
+    "fact": "The House Press Gallery lists the same 218-214-1 split and records the resignations of Republican Tony Gonzales of Texas on April 14, 2026, and Democrat Sheila Cherfilus-McCormick of Florida on April 21, 2026.",
+    "source": 1
+   },
+   {
+    "fact": "Federal law sets House elections for the Tuesday after the first Monday in November of even-numbered years, and CRS lists the next federal election as November 3, 2026, with the new Congress commencing January 3.",
+    "source": 2
+   },
+   {
+    "fact": "On October 14, 2026, Ballotpedia reported that the independent caucuses with Republicans and that Democrats need a net gain of three districts for a majority while Republicans can lose only two and still hold control.",
+    "source": 3
+   },
+   {
+    "fact": "Ballotpedia also reported that maps adopted or ordered in nine states between the 2024 and 2026 elections could, based on 2024 presidential results, produce a net Republican gain of nine districts.",
+    "source": 3
+   },
+   {
+    "fact": "Cook Political Report's October 16, 2026 ratings covered all 435 House races and placed 185 in Solid Democrat, 21 in Toss Up, and 171 in Solid Republican, with additional Likely and Lean categories on both sides.",
+    "source": 4
+   },
+   {
+    "fact": "The American Presidency Project records House seat changes for the president's party of -41 in the 2018 midterm under Trump and -9 in the 2022 midterm under Biden, and lists 220 House seats for Republicans to defend in 2026.",
+    "source": 5
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.024448,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.022523,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.000907,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.008245,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": false
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-01",
+    "quotes": [
+     "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435."
+    ],
+    "title": "Official List of Members of the House of Representatives, 119th Congress",
+    "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "218 Republicans",
+     "214 Democrats",
+     "1 Independent"
+    ],
+    "title": "Party Breakdown, House Press Gallery, 119th Congress",
+    "url": "https://pressgallery.house.gov/member-data/party-breakdown",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Upcoming federal elections are scheduled for November 5, 2024, and November 3, 2026.",
+     "Current law states that \"the Tuesday next after the 1st Monday in November, in every even-numbered year, is established as the day for the election, in each of the States and Territories of the United States, of Representatives and Delegates to the Congress commencing on the 3d day of January next thereafter.\""
+    ],
+    "title": "CRS R46413, Election Day: Frequently Asked Questions",
+    "url": "https://www.congress.gov/crs_external_products/R/HTML/R46413.web.html",
+    "verified": null
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "Ahead of this year's general elections, the U.S.\nHouse is made up of 218 Republicans, 214 Democrats, and one independent who caucuses with Republicans.",
+     "Democrats need a net gain of three districts to gain control of the chamber, while Republicans can afford to lose only two districts and still maintain control.",
+     "Based on the 2024 presidential election results, the new maps could result in Republicans gaining a net of nine districts."
+    ],
+    "title": "Republicans cannot lose more than two seats to keep control of the U.S.\nHouse, Democrats need to gain three for a majority",
+    "url": "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-16",
+    "quotes": [
+     "The CPR House Race Ratings assess the competitiveness of all 435 House elections.",
+     "Solid Democrat (185)",
+     "Toss Up (21)"
+    ],
+    "title": "2026 CPR House Race Ratings",
+    "url": "https://www.cookpolitical.com/ratings/house-race-ratings",
+    "verified": null
+   },
+   {
+    "published": "2026-07-13",
+    "quotes": [
+     "Seats held by Progressives or Independents are attributed to the major party with which they caucused.",
+     "2022 | Joseph R.\nBiden, Jr.\n| D | ...\n| House Seats | -9",
+     "2018 | Donald J.\nTrump-I | R | ...\n| House Seats | -41"
+    ],
+    "title": "Seats in Congress Gained/Lost by the President's Party in Mid-Term Elections",
+    "url": "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "No 2026 House votes have been cast; Election Day is November 3, 2026, and results, recounts, and any runoffs are still ahead.",
+   "A majority is 218 of 435 voting seats.\nWith the current 218-214 Republican edge, including one independent who caucuses with Republicans, and two vacancies, control turns on a net shift of a few seats.",
+   "Cook's October 16 ratings leave 21 races as toss-ups, so small shifts in those districts can change which party reaches 218.",
+   "Mid-decade maps in multiple states may move seats toward Republicans relative to 2024 lines, offsetting a typical midterm loss for the president's party.",
+   "Seats won by independents count only if their caucus or announced caucus intent is known by election day or, at latest, January 4, 2027; party switches or vacancies after election day do not change the party under which the member was elected."
+  ]
+ },
+ "polymarket-562831": {
+  "base_rate": "In the 23 U.S.\nmidterms from 1934 through 2022 (Brookings), the president\u2019s party lost House seats 20 times and gained them 3 times (1934, 1998, 2002), and lost Senate seats 15 times.\nThat is seat change for the White House party, not how often that party kept both chambers.",
+  "brief": "The question resolves Yes only if Republicans win control of both the Senate and the House in the 3 November 2026 election. On the House, the Clerk's 2026-10-01 list shows 218 Republicans, 214 Democrats, 1 independent and 2 vacancies among 435 voting seats (https://clerk.house.gov/member_info/olm-119.pdf). Ballotpedia reported on 2026-10-14 that Democrats need a net gain of three House districts and that nine states' new maps could be worth a net nine Republican seats on 2024 results (https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/). On the Senate, the Senate Historical Office lists the 119th Congress as 53 Republicans, 45 Democrats and 2 independents (https://www.senate.gov/history/partydiv.htm). The 2026 ballot covers 33 regular seats (13 Democratic-held, 20 Republican-held) plus two Republican-held special elections, and Ballotpedia says Democrats need a net gain of four for a majority. Fox News on 2026-10-18 rated the post-election Senate at 47 seats for each party with six toss-ups and three more leaning races (https://www.foxnews.com/politics/nine-key-races-could-decide-who-controls-senate-where-stand). The American Presidency Project shows the president's party defending 220 House seats and 20 Senate seats, with Gallup approval at 35 and 33 percent in August 2026 (https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections). Base rate: in 23 midterms from 1934 to 2022 the president's party lost House seats 20 times and Senate seats 15 times, which measures seat change, not how often the party kept both chambers. Neither chamber's result is known, and runoffs or independents' caucus choices can matter until 4 January 2027.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "As of the Clerk\u2019s October 1, 2026 official list, the House had 218 Republicans, 214 Democrats, 1 Independent, and 2 vacancies (FL-20 and TX-23) among 435 voting seats.",
+    "source": 0
+   },
+   {
+    "fact": "The Senate Historical Office lists the 119th Congress (2025\u20132027) as 53 Republicans, 45 Democrats, and 2 Independents, with Republicans the majority party.",
+    "source": 1
+   },
+   {
+    "fact": "Class II Senate terms end January 3, 2027; the Senate\u2019s Class II roster lists 13 Democrats and 20 Republicans.",
+    "source": 2
+   },
+   {
+    "fact": "The November 3, 2026 Senate ballot covers 33 regular seats (13 Democratic-held, 20 Republican-held) plus two Republican-held special elections, 35 seats in all.",
+    "source": 3
+   },
+   {
+    "fact": "Ballotpedia states that Democrats need a net gain of four Senate seats for a majority and that Republicans can lose only two seats and still retain a majority.",
+    "source": 3
+   },
+   {
+    "fact": "On October 18, 2026, Fox News described the current Senate majority as 53\u201347 Republican and rated the post-election map as 47 seats for each party with six toss-ups, plus three additional lean races.",
+    "source": 4
+   },
+   {
+    "fact": "The American Presidency Project lists Donald J.\nTrump\u2019s second term as Republican for the 2026 midterm and shows the president\u2019s party defending 220 House seats and 20 Senate seats, with early-August and late-August 2026 Gallup approval at 35 and 33.",
+    "source": 5
+   },
+   {
+    "fact": "In Brookings\u2019 table of the 23 midterms from 1934 through 2022, the president\u2019s party lost House seats in 20 elections and gained them only in 1934, 1998, and 2002; it lost Senate seats in 15 of those 23 elections.",
+    "source": 6
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.004936,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.026092,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.001191,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": "unusable reply: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.013996,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": false
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-01",
+    "quotes": [
+     "ONE HUNDRED NINETEENTH CONGRESS \u2022 OCTOBER 1, 2026",
+     "Republicans in roman (218); Democrats in italic (214); Independents underlined (1); vacancies (2) FL20, TX23; total 435."
+    ],
+    "title": "Official List of Members of the House of Representatives, 119th Congress",
+    "url": "https://clerk.house.gov/member_info/olm-119.pdf",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "119th Congress (2025\u20132027) Majority Party: Republicans (53 seats) Minority Party: Democrats (45 seats) Other Parties: 2 Independents Total Seats: 100"
+    ],
+    "title": "U.S.\nSenate: Party Division",
+    "url": "https://www.senate.gov/history/partydiv.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Class II terms run from the beginning of the 117th Congress on January 3, 2021, to the end of the 119th Congress on January 3, 2027.",
+     "Senators in Class II were elected to office in the November 2020 general election, unless they took their seat through appointment or special election."
+    ],
+    "title": "U.S.\nSenate: Class II - Senators Whose Terms of Service Expire in 2027",
+    "url": "https://www.senate.gov/senators/Class_II.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Elections to the U.S.\nSenate will happen on November 3, 2026.\nThirty-three of the 100 seats in the chamber are up for election and another two seats are up for special election.",
+     "There are 33 U.S.\nSenate seats up for regular election in 2026 \u2014 13 Democratic-held seats and 20 Republican-held seats.\nAdditionally, two Republican-held seats are up for special election.",
+     "In the 2026 general elections, Democrats need to gain a net of four seats to win a majority in the chamber.\nMeanwhile, Republicans can only lose two seats and retain a majority in the chamber."
+    ],
+    "title": "United States Senate elections, 2026 - Ballotpedia",
+    "url": "https://ballotpedia.org/United_States_Senate_elections,_2026",
+    "verified": null
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "But if Republicans out-perform the polls, they could hold their majority, which currently stands at 53-47.",
+     "The latest Power Rankings point to Democrats and Republicans each taking 47 seats in the midterms, leaving six races rated as true toss-ups.",
+     "These nine showdowns will likely determine whether the Democrats make a net gain of four seats to win control of the Senate or if the GOP holds the majority."
+    ],
+    "title": "Fox News Power Rankings show Senate race at 47-47 with 6 toss-ups",
+    "url": "https://www.foxnews.com/politics/nine-key-races-could-decide-who-controls-senate-where-stand",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "2026 | | Donald J.\nTrump-II | R | 35 | 33 | | | | | 220 | 20 | | |",
+     "Seats held by Progressives or Independents are attributed to the major party with which they caucused."
+    ],
+    "title": "Seats in Congress Gained/Lost by the President's Party in Mid-Term Elections",
+    "url": "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Each entry is the difference between the number of seats won by the president's party in that midterm election and the number of seats won by that party in the preceding general election.",
+     "Data reflects immediate election results."
+    ],
+    "title": "Losses by the President's Party in Midterm Elections, 1862 - 2022",
+    "url": "https://www.brookings.edu/wp-content/uploads/2024/11/2-4-Full.pdf",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "The November 3, 2026 election has not been held, so neither chamber\u2019s 120th Congress majority is known.",
+   "Fox rated six Senate races toss-ups and three more as lean, so a four-seat Democratic net gain and a Republican hold are both still open on that map.",
+   "Runoffs after November 2026, if any state requires them, decide those seats under the market rules.",
+   "Independents\u2019 caucus choices, including any new independents, can move the majority count through January 4, 2027.",
+   "A 50\u201350 Senate would be controlled by the party of the vice president; a House without a 218-seat majority would follow the first elected Speaker."
+  ]
+ },
+ "polymarket-5690022": {
+  "base_rate": "Of the 9 completed Binance BTCUSDT daily candles from 2026-10-10 through 2026-10-18 UTC, 5 closed above 82,000 USDT (82,988.36; 83,773.12; 83,169.00; 82,245.93; 82,116.00) and 4 closed below (81,850.00; 81,682.01; 81,615.64; 81,491.04).\nThose are UTC daily closes, not the noon ET 1-minute close that decides this question.",
+  "brief": "The question resolves on the close of the Binance BTC/USDT 1-minute candle at 12:00 ET on 2026-10-21, against a line of $82,000. On 2026-10-19 the Binance 24-hour ticker showed a last price of 82,830.01, a 24-hour high of 83,158.00 and a low of 80,684.36 (https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT). The daily candle that opened 2026-10-18 UTC closed at 82,116.00 with a low of 80,684.36, and the in-progress 2026-10-19 candle opened at 82,116.00 with a high of 83,158.00 (https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=10). On 2026-10-15 the daily candle traded as low as 79,800.00 and closed at 82,245.93. CoinDesk reported on 2026-10-19 that Bitcoin was near 82,500 to 83,000, up about 1% since midnight UTC, as China's third-quarter GDP beat estimates (https://www.coindesk.com/markets/2026/10/19/bitcoin-korea-s-kospi-and-nasdaq-futures-rally-as-china-gdp-beats-estimates). Investing.com noted declines of about 2% in each of the prior two weeks and a one-month range of 80,000 to 87,000. Of nine completed daily closes from 2026-10-10 to 2026-10-18 UTC, five were above 82,000 and four below, so the threshold sits in the middle of the recent range. Those are UTC closes, not the noon ET 1-minute close that decides the question. Daily ranges have been several thousand dollars wide, so two days of movement can easily cross a level that is about 1% from spot. Secondary pages gave slightly different Binance-linked prices within the same day. A move below 82,000 at noon ET on 2026-10-21 would settle No; a hold above it settles Yes.",
+  "brief_written_at": "2026-10-19T11:05:00Z",
+  "facts": [
+   {
+    "fact": "On 2026-10-19, the Binance BTCUSDT 24-hour ticker showed a last price of 82,830.01 USDT, a 24-hour high of 83,158.00 and a 24-hour low of 80,684.36.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance daily candle that opened 2026-10-18 UTC closed at 82,116.00; its low was 80,684.36 and its high was 82,295.47.",
+    "source": 1
+   },
+   {
+    "fact": "The in-progress Binance daily candle for 2026-10-19 UTC opened at 82,116.00, with a low of 82,010.58, a high of 83,158.00 and a latest close field of 82,830.01.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-10-15 UTC, the Binance daily candle traded as low as 79,800.00 and closed at 82,245.93.",
+    "source": 1
+   },
+   {
+    "fact": "A Binance-sourced page timestamped 2026-10-19 12:12 reported the BTC/USDT last trade at 82,780.01, with a 24-hour range of 80,684.36 to 83,158.00.",
+    "source": 2
+   },
+   {
+    "fact": "CoinDesk, updated 2026-10-19, reported Bitcoin near 82,500 and around 83,000 in early European trading, up about 1% since midnight UTC, alongside China third-quarter GDP growth of 4.5% year on year.",
+    "source": 3
+   },
+   {
+    "fact": "Investing.com reported on 2026-10-19 that Bitcoin was 82,783.1 at 02:00 ET after declines of about 2% in each of the prior two weeks, and that it had traded between 80,000 and 87,000 over the past month.",
+    "source": 4
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.015542,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.015909,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.001043,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-19T10:58:27.658930+00:00",
+    "cost_usd": 0.004106,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-19T09:20:56.328919+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-19T09:19:50+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "\"lastPrice\":\"82830.01000000\"",
+     "\"highPrice\":\"83158.00000000\",\"lowPrice\":\"80684.36000000\"",
+     "\"openPrice\":\"82021.32000000\",\"priceChangePercent\":\"0.986\""
+    ],
+    "title": "Binance BTCUSDT 24-hour ticker",
+    "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "[1792281600000,\"81491.04000000\",\"82295.47000000\",\"80684.36000000\",\"82116.00000000\"",
+     "[1792368000000,\"82116.00000000\",\"83158.00000000\",\"82010.58000000\",\"82830.01000000\"",
+     "[1792022400000,\"81682.02000000\",\"82634.30000000\",\"79800.00000000\",\"82245.93000000\""
+    ],
+    "title": "Binance BTCUSDT daily candles",
+    "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=10",
+    "verified": null
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "As of October 19, 2026, 12:12, 1 Bitcoin (BTC) trades at $82,780.01 on the Binance BTC/USDT pair; 24-hour change +1.01%.",
+     "Over the past 24 hours the low was $80,684.36 and the high was $83,158.00; trading volume was USDT 1.1B.",
+     "Last updated: October 19, 2026, 12:12 \u00b7 Source: Binance"
+    ],
+    "title": "Bitcoin (BTC) Price: BTC/USDT Live Chart",
+    "url": "https://yatirimci.ai/en/crypto/btc-usdt",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Bitcoin traded near $82,500, while Nasdaq futures gained more than 1% and major Asian stock indexes advanced after last week\u2019s technology-led losses.",
+     "The leading cryptocurrency by market value was trading around $83,000 during early European hours, up 1% since midnight UTC and 1.60% over the past 24 hours.",
+     "China\u2019s gross domestic product (GDP) grew 4.5% year on year in the third quarter, according to data from the National Bureau of Statistics released Monday."
+    ],
+    "title": "Bitcoin jumps to $83,000, stocks rise as China GDP beats estimates",
+    "url": "https://www.coindesk.com/markets/2026/10/19/bitcoin-korea-s-kospi-and-nasdaq-futures-rally-as-china-gdp-beats-estimates",
+    "verified": true
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "The world\u2019s largest crypto rose 1.3% to $82,783.1 by 02:00 ET (06:00 GMT), after falling about 2% respectively for the past two weeks.",
+     "Bitcoin has flitted between $80,000 and $87,000 for the past month, as a storm of negative factors, including soaring Treasury yields and a rout in technology stocks\u2013 dented sentiment towards crypto and spurred capital outflows.",
+     "But markets are still positioning for at least one more interest rate hike by the Federal Reserve later in the year, amid increasing signs of sticky U.S.\ninflation."
+    ],
+    "title": "Bitcoin rises to near $83k amid some relief from falling oil prices",
+    "url": "https://www.investing.com/news/cryptocurrency-news/bitcoin-rises-to-near-83k-amid-some-relief-from-falling-oil-prices-4956420",
+    "verified": null
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Latest value: 82,711.22 USD",
+     "Date of latest value: 19 October 2026",
+     "Change: versus the previous period (18 October 2026, 82,116 USD) \u2014 up 0.7 %."
+    ],
+    "title": "Bitcoin (BTC/USD) \u2014 data and chart",
+    "url": "https://forecasteconomy.com/currencies/indicator/btc-usd",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The resolving price is the Binance BTC/USDT 1-minute candle that closes at 12:00 ET on 2026-10-21, and that candle does not exist yet.",
+   "On 2026-10-19 the live last price was above 82,000 while the prior 24-hour low was 80,684.36, so the same session has already traded on both sides of the threshold.",
+   "Recent daily ranges have been several thousand dollars wide, including a 79,800.00 low on 2026-10-15, so a print two days away can differ from the 2026-10-19 last trade.",
+   "The 2026-10-19 daily candle is still open, and secondary pages published slightly different Binance-linked prices within the same day."
+  ]
+ }
+}
