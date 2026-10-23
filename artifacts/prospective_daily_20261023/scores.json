@@ -1,0 +1,99 @@
+{
+  "cells": [
+    {
+      "entry_id": "65da04edb811bf47",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.4391025641025641,
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "65da04edb811bf47",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.63,
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "65da04edb811bf47",
+      "method": "judge_deepseek_v4_pro_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.6,
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "65da04edb811bf47",
+      "method": "judge_minimax_m3_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.61,
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "65da04edb811bf47",
+      "method": "judge_nemotron_ultra_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.58,
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261023",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "818b1bbd7b5b3420c0cff48569a244ec72c9036cc3e61e692d68223caea789c2",
+  "methods": {
+    "claude_code_forecaster_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_deepseek_v4_pro_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_minimax_m3_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_nemotron_ultra_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "statistical_baseline_v1": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "65da04edb811bf47": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-23",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 1
+}

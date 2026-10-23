@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-23T14:12:19.590545+00:00",
+      "entry_id": "65da04edb811bf47",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "probability": 0.58,
+      "rationale": "The base rate from the last three first prints (197k, 199k, 194k) shows 2/3 above 194k, but the latest print sits exactly at the threshold. The consensus forecast of ~196k and the 'lowest since July' characterization suggest mean reversion upward from a local low, while the persistent low-fire trend and narrow recent range (194k-200k) argue for stability. Typical week-to-week volatility of 5-10k makes a move above 194k slightly more likely than not, but confidence is limited by the downward trend and low volatility environment.",
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261023",
+  "generated_at": "2026-10-23T14:12:19.590545+00:00",
+  "manifest_hash": "818b1bbd7b5b3420c0cff48569a244ec72c9036cc3e61e692d68223caea789c2",
+  "method": "judge_nemotron_ultra_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}

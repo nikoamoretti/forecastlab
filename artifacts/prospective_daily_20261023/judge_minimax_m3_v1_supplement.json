@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-23T14:12:19.590545+00:00",
+      "entry_id": "65da04edb811bf47",
+      "model": "minimax/minimax-m3",
+      "probability": 0.61,
+      "rationale": "The small recent reference class is mildly favorable: two of the last three first prints exceeded 194,000, and recent claims have generally clustered around 194,000\u2013200,000. The roughly 196,000 consensus and typical week-to-week variation put the estimate above 50%, although the latest print was exactly at the threshold and the low-fire trend limits confidence. Late-October seasonality, layoffs, or an economic shock could move the first estimate materially in either direction.",
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261023",
+  "generated_at": "2026-10-23T14:12:19.590545+00:00",
+  "manifest_hash": "818b1bbd7b5b3420c0cff48569a244ec72c9036cc3e61e692d68223caea789c2",
+  "method": "judge_minimax_m3_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}
