@@ -68,6 +68,30 @@ test("an open question explains our call with its sources", async ({ page }) => 
   await expect(page.getByRole("row").filter({ hasText: "Combined (our call)" })).toContainText("No, 52% sure");
 });
 
+test("a question page shows the research behind it, step by step", async ({ page }) => {
+  await mockRecord(page);
+  await page.route("**/api/research/**", route => route.fulfill({ json: {
+    researched_by: "Cursor (Grok 4.7)", researched_at: "2026-10-06T09:30:00Z", quotes_checked_at: "2026-10-06T09:45:00Z",
+    research_failed: null, base_rate: "The yield closed above the line on 6 of the last 10 days.", unknowns: ["Thursday's auction"],
+    facts: [{ fact: "The 10-year closed at 5.31% on Oct 5.", source: 0 }],
+    sources: [{ title: "Daily Treasury Par Yield Curve Rates", url: "https://home.treasury.gov/rates", published: "2026-10-05",
+      verified: true, quotes: ["10 Yr 5.31"] }],
+    brief: "The 10-year sits just above 5.28%.", brief_written_at: "2026-10-06T10:00:00Z",
+    judges: [{ method: "root_event_ensemble_v1", model: "a", at: "2026-10-06T10:05:00Z", ok: true, cost_usd: 0.01 },
+      { method: "judge_qwen38_27b_v1", model: "qwen/qwen3.8-27b", at: "2026-10-06T10:05:00Z", ok: false, error: "no JSON object in the reply", cost_usd: 0.002 }] } }));
+  await page.goto("/q/q3");
+  await expect(page.getByRole("heading", { name: "How this forecast was made" })).toBeVisible();
+  await expect(page.getByText("Cursor (Grok 4.7) researched the question on the web: 1 dated fact from 1 source")).toBeVisible();
+  await expect(page.getByText("confirmed on 1 of 1 source")).toBeVisible();
+  await expect(page.getByText("1 of 2 judge models answered")).toBeVisible();
+  await expect(page.getByText("no JSON object in the reply", { exact: false })).toBeVisible();
+  await expect(page.getByText("The 10-year closed at 5.31% on Oct 5.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Daily Treasury Par Yield Curve Rates" })).toBeVisible();
+  await expect(page.getByText("quotes checked on the page")).toBeVisible();
+  await page.getByText("The brief the judges read").click();
+  await expect(page.getByText("The 10-year sits just above 5.28%.")).toBeVisible();
+});
+
 test("asking a question queues it for Claude and can be withdrawn", async ({ page }) => {
   await page.goto("/ask");
   const ask = page.getByRole("button", { name: "Ask Claude" });

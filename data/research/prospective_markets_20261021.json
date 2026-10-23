@@ -1,0 +1,2017 @@
+{
+ "manifold-AASsEh8ASz": {
+  "base_rate": "From June 9, 2026 through October 21, 2026, Anthropic published two generally available Claude Fable models: Fable 5 on June 9 and Fable 5.1 on September 1, 84 days apart.\nIn that same span it also shipped generally available models in other families, including Opus 5 (July 24), Opus 5.5 (September 22), Sonnet 5.5 (September 28), and Haiku 5.5 (October 7).\nNo third generally available Fable version appears in the official model list or release notes after September 1.",
+  "brief": "The question is whether Anthropic officially releases a Claude Fable model newer than Fable 5.1, to general users through an official channel, before 26 October 2026; selected-partner or tester releases, rumors, leaks and hidden-routing reports do not count. Anthropic launched Fable 5 on 9 June 2026 (https://www.anthropic.com/news/claude-fable-5-mythos-5) and Fable 5.1 (claude-fable-5-1) on 1 September, available on the Claude API and the main cloud platforms (https://www.anthropic.com/claude-fable-and-mythos-5-1, quotes checked). The Fable page lists 1 September as the newest announcement (https://www.anthropic.com/claude/fable, quotes checked), and the model deprecations table shows claude-fable-5-1 as Active with no newer Fable ID (https://platform.claude.com/docs/en/about-claude/model-deprecations). On 6 October Anthropic described Fable 5.1 as generally available and Mythos 5.1 as a verification-program model (https://www.anthropic.com/news/cyber-verification-program, quotes checked). The Models news list shows Claude Haiku 5.5 on 7 October as the newest launch (https://www.anthropic.com/news/models, quotes checked). The Claude Platform release notes dated 20 October cover inference hooks and user profiles, and no new Fable model (https://platform.claude.com/docs/en/release-notes/overview, quotes checked). The base rate: from 9 June to 21 October two generally available Fable models shipped, 84 days apart, and other families shipped in between, including Opus 5 on 24 July, Opus 5.5 on 22 September, Sonnet 5.5 on 28 September and Haiku 5.5 on 7 October. No third Fable version appears in the official model list or release notes after 1 September. Documentation and the news index can lag a launch by hours. The window has four days, 22 to 25 October. An official announcement or a model appearing in the apps or API with a new Fable version would change the answer.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On June 9, 2026, Anthropic launched Claude Fable 5 for general use on the Claude API.",
+    "source": 6
+   },
+   {
+    "fact": "On September 1, 2026, Anthropic launched Claude Fable 5.1 (`claude-fable-5-1`) as the successor to Fable 5, available on the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry.",
+    "source": 1
+   },
+   {
+    "fact": "Anthropic\u2019s Fable product page lists September 1, 2026 as the newest Fable announcement and states Fable 5.1 is available to Pro, Max, Team, and Enterprise users.",
+    "source": 3
+   },
+   {
+    "fact": "As of the model-status table, `claude-fable-5-1` is Active with retirement not sooner than September 1, 2027, and no newer Fable model ID is listed.",
+    "source": 2
+   },
+   {
+    "fact": "On October 6, 2026, Anthropic described Claude Fable 5.1 as a generally available model and Claude Mythos 5.1 as a verification-program model.",
+    "source": 4
+   },
+   {
+    "fact": "The newest model launch on Anthropic\u2019s Models news list is Claude Haiku 5.5 on October 7, 2026; Fable 5.1 remains the latest Fable entry.",
+    "source": 5
+   },
+   {
+    "fact": "Claude Platform release notes dated October 20, 2026 cover inference hooks and user profiles and do not announce a Fable model newer than Fable 5.1.",
+    "source": 1
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.015859,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.012627,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001197,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.003012,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-09-01",
+    "quotes": [
+     "We\u2019re introducing Claude Fable 5.1 and Claude Mythos 5.1.",
+     "Fable 5.1 is generally available, while Mythos 5.1 is available only through our trusted access programs.",
+     "Claude Fable 5.1 is available today on all platforms, including Amazon Web Services, Google Cloud, and Microsoft Azure."
+    ],
+    "title": "Introducing Claude Fable 5.1 and Claude Mythos 5.1",
+    "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "We've launched Claude Fable 5.1 (`claude-fable-5-1`), the successor to Claude Fable 5 for long-running agentic coding, knowledge work, and research, alongside Claude Mythos 5.1 (`claude-mythos-5-1`) for Project Glasswing participants.",
+     "We've launched Claude Haiku 5.5 (`claude-haiku-5-5`), our most capable model tuned for high-volume and latency-sensitive work.",
+     "Inference hooks are out of beta for Claude Enterprise organizations."
+    ],
+    "title": "Claude Platform release notes",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "claude-fable-5-1 | Active | N/A | Not sooner than September 1, 2027",
+     "claude-fable-5 | Active | N/A | Not sooner than June 9, 2027",
+     "claude-haiku-5-5 | Active | N/A | Not sooner than October 7, 2027"
+    ],
+    "title": "Model deprecations",
+    "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+    "verified": false
+   },
+   {
+    "published": "2026-09-01",
+    "quotes": [
+     "Introducing Claude Fable 5.1",
+     "Our most capable model for coding and knowledge work, with research capabilities that offer an early glimpse of how AI will soon contribute to scientific progress.",
+     "Claude Fable 5.1 is available to Pro, Max, Team, and Enterprise users."
+    ],
+    "title": "Claude Fable",
+    "url": "https://www.anthropic.com/claude/fable",
+    "verified": true
+   },
+   {
+    "published": "2026-10-06",
+    "quotes": [
+     "We\u2019re launching a new, expanded version of our Cyber Verification Program (CVP), which makes advanced cyber capabilities and reduced blocking classifiers available to qualifying security professionals.",
+     "Each tier includes access to our most capable models, including Claude Opus 5.5, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.",
+     "our generally available models, such as Claude Opus 5.5, Claude Fable 5.1, and Claude Sonnet 5.5, have conservative cyber safeguards"
+    ],
+    "title": "Expanding the Cyber Verification Program",
+    "url": "https://www.anthropic.com/news/cyber-verification-program",
+    "verified": true
+   },
+   {
+    "published": "2026-10-07",
+    "quotes": [
+     "Introducing Claude Haiku 5.5",
+     "Claude Haiku 5.5 is our fastest, most capable small model.\nBuilt for high-volume work like summarization, subagents, and browser use.",
+     "Introducing Claude Mythos and Fable 5.1"
+    ],
+    "title": "Models",
+    "url": "https://www.anthropic.com/news/models",
+    "verified": true
+   },
+   {
+    "published": "2026-06-09",
+    "quotes": [
+     "Today we\u2019re launching Claude Fable 5: a Mythos-class model that we\u2019ve made safe for general use.",
+     "Claude Fable 5 is available everywhere today.",
+     "Developers can use claude-fable-5 via the Claude API."
+    ],
+    "title": "Claude Fable 5 and Claude Mythos 5",
+    "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "October 22 through October 25, 2026 remain before the resolution cutoff, so a general-availability Fable release could still be announced.",
+   "Documentation and the news index can lag a launch by hours, so a model that appears only in the product UI before those pages update would not yet be visible here.",
+   "Reports of silent routing or internal tests of a Fable 5.2 would not meet the resolution rule unless Anthropic officially releases that model to general users."
+  ]
+ },
+ "manifold-ULun8EOAAn": {
+  "base_rate": "Alaska last elected a Democrat to the U.S.\nSenate in 2008.\nIn the most recent election for this seat, on November 3, 2020, incumbent Republican Dan S.\nSullivan won with 53.9% (191,112 of 354,587 votes) under plurality voting.\nThis 2026 contest is his first Senate election under Alaska\u2019s ranked-choice general-election rules, which began with the 2022 cycle.",
+  "brief": "The question is whether Dan Sullivan wins the 3 November 2026 Alaska U.S. Senate election, as decided by the Alaska Division of Elections. In the 18 August primary, with 401 of 403 precincts reported, Mary Peltola (D) had 82,244 votes (49.54%) and Sullivan (R) 68,726 (41.40%) (https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf, not checked). The 2026 official pamphlet lists Sullivan as the Republican incumbent and says the Senate winner is chosen by ranked-choice voting (https://www.elections.alaska.gov/election/2026/General/OEPbooks/2026%20Alaska%20General%20VP_Region%201_ENG_web.pdf, not checked). NBC reported on 1 September that the ballot has four candidates, Peltola, Dan S. Sullivan, Daniel J. Sullivan and Gerald Heikes (https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617, quotes checked). Rasmussen's survey of 775 likely voters (12 to 15 October, published 19 October) found Peltola 44% and Sullivan 42% (margin 3 points) (https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate, quotes checked). The Cook Political Report listed the seat as a Toss Up on 20 October (https://www.cookpolitical.com/ratings/senate-race-ratings, not checked). The Washington Post reported on 6 October that the Senate Leadership Fund had spent more than $18 million in the race (https://www.washingtonpost.com/elections/2026/10/06/gop-sen-dan-sullivan-gets-major-national-help-tough-reelection-bid/, not checked). The Guardian reported on 14 October that polls were close, that a second Republican named Daniel Sullivan is on the ballot and that Alaska has not elected a Democrat to the Senate since 2008 (https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle, quotes checked). The base rate: Sullivan won in 2020 with 53.9% (191,112 of 354,587 votes) under plurality voting, and this is his first Senate election under ranked-choice rules (https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026, not checked). Ranked-choice transfers from the minor candidates, voter confusion over the two Sullivans, turnout and late spending are unresolved.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On August 18, 2026, official primary results listed Mary Peltola (Democrat) at 82,244 votes (49.54%) and Dan S.\nSullivan (Republican) at 68,726 votes (41.40%), with 401 of 403 precincts reported.",
+    "source": 0
+   },
+   {
+    "fact": "The Alaska Division of Elections\u2019 2026 general-election pamphlet, reflecting official candidates as of September 18, 2026, sets general election day as Tuesday, November 3, 2026, and lists Dan S.\nSullivan as the registered Republican incumbent for U.S.\nsenator.",
+    "source": 1
+   },
+   {
+    "fact": "The same pamphlet states that the U.S.\nSenate winner will be chosen by ranked-choice voting and that the candidate with the greatest number of votes will be elected.",
+    "source": 1
+   },
+   {
+    "fact": "On September 1, 2026, NBC News reported that the Division of Elections finalized a four-candidate Senate ballot of Mary Peltola, Dan S.\nSullivan, Daniel J.\nSullivan, and Gerald Heikes after Democrat David Leslie withdrew and fifth-place finisher Heikes advanced.",
+    "source": 3
+   },
+   {
+    "fact": "As of October 20, 2026, the Cook Political Report listed the Alaska Senate race (Sullivan) in its Toss Up category, which it defines as races in which either party has a good chance of winning.",
+    "source": 2
+   },
+   {
+    "fact": "A Rasmussen Reports survey of 775 likely Alaska voters, conducted October 12\u201315, 2026, and published October 19, found 44% for Peltola and 42% for Sullivan, with a margin of sampling error of plus or minus 3 percentage points.",
+    "source": 4
+   },
+   {
+    "fact": "The Washington Post reported on October 6, 2026, that the Senate Leadership Fund had spent more than $18 million in the Alaska Senate race between Sullivan and Peltola.",
+    "source": 5
+   },
+   {
+    "fact": "On October 14, 2026, The Guardian reported that recent polls showed a close race, that another Republican named Daniel Sullivan is on the November ballot, and that Alaska had not elected a Democrat to the Senate since 2008.",
+    "source": 6
+   },
+   {
+    "fact": "In the November 3, 2020, Alaska U.S.\nSenate general election, before ranked-choice voting applied to this seat, Dan S.\nSullivan received 53.9% (191,112 of 354,587 votes).",
+    "source": 7
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004281,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.026731,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001075,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.006412,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-08-18",
+    "quotes": [
+     "State of Alaska 2026 PRIMARY ELECTION Election Summary Report August 18, 2026 OFFICIAL RESULTS",
+     "Peltola, Mary DEM 82,244 49.54%",
+     "Sullivan, Dan S.\nREP 68,726 41.40%"
+    ],
+    "title": "State of Alaska 2026 Primary Election Summary Report",
+    "url": "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-09-18",
+    "quotes": [
+     "Candidates for Elected Office General Election Day is Tuesday, November 3, 2026",
+     "At the general election, each candidate will be selected through a ranked-choice voting process and the candidate with the greatest number of votes will be elected.",
+     "United States Senator Dan S.\nSullivan, Registered Republican"
+    ],
+    "title": "2026 Alaska Official Election Pamphlet, Region I",
+    "url": "https://www.elections.alaska.gov/election/2026/General/OEPbooks/2026%20Alaska%20General%20VP_Region%201_ENG_web.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "AK Sullivan",
+     "Toss Up: These races are the most competitive; either party has a good chance of winning."
+    ],
+    "title": "2026 CPR Senate Race Ratings",
+    "url": "https://www.cookpolitical.com/ratings/senate-race-ratings",
+    "verified": null
+   },
+   {
+    "published": "2026-09-01",
+    "quotes": [
+     "The Alaska Division of Elections on Tuesday named the four Senate candidates who will be on the ballot this fall in a closely watched race that will be decided by ranked choice voting.",
+     "Voters will make their selections among two Republicans named Dan Sullivan, another named Gerald Heikes and Democrat Mary Peltola, who finished first during the all-party primary in which the top four advance to the general election.",
+     "Democrat David Leslie had finished fourth, but he withdrew from the race Monday.\nHis withdrawal means fifth-place candidate Gerald Heikes, a Republican, will appear on the ballot."
+    ],
+    "title": "Alaska finalizes Senate race for November: 3 Republicans, including 2 named Dan Sullivan, and 1 Democrat",
+    "url": "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
+    "verified": true
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "The latest Rasmussen Reports national telephone and online survey finds that, if the election were held today, 44% of Likely Alaska voters would vote for Peltola, while 42% would vote for Sullivan, who formerly was the state\u2019s sole at-large representative in the U.S.\nHouse.",
+     "The survey of 775 Alaska Likely Voters was conducted on October 12-15, 2026 by Rasmussen Reports.\nThe margin of sampling error is +/- 3 percentage points with a 95% level of confidence."
+    ],
+    "title": "Election 2026: Alaska Senate",
+    "url": "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
+    "verified": true
+   },
+   {
+    "published": "2026-10-06",
+    "quotes": [
+     "National GOP groups and leaders are escalating support for Sen.\nDan Sullivan (R-Alaska) in his race against Democratic former congresswoman Mary Peltola.",
+     "The Senate Leadership Fund, a super PAC affiliated with Senate Republicans, has spent more than $18 million in the race, one of the most competitive battlegrounds to determine control of the Senate."
+    ],
+    "title": "National GOP groups pour into Alaska for competitive Senate race",
+    "url": "https://www.washingtonpost.com/elections/2026/10/06/gop-sen-dan-sullivan-gets-major-national-help-tough-reelection-bid/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "Though Alaska supported the president by a wide margin in the 2024 elections, recent polls have shown a close race between Peltola and Sullivan, who are joined on next month\u2019s ballot by another candidate named Daniel Sullivan, a retired schoolteacher also running as a Republican.",
+     "The election will be held under ranked-choice voting and Alaskans can rank up to five candidates.",
+     "Recent polls have the candidates neck-and-neck in a state that has not elected a Democrat to the Senate since 2008."
+    ],
+    "title": "Trump urges Alaskans to vote for the \u2018real\u2019 Dan Sullivan in tight midterms battle",
+    "url": "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The following candidates ran in the general election for U.S.\nSenate Alaska on November 3, 2020.",
+     "Dan S.\nSullivan (R) 53.9 191,112",
+     "Total votes: 354,587"
+    ],
+    "title": "United States Senate election in Alaska, 2026",
+    "url": "https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Official general-election results do not exist yet; the race is on November 3, 2026, and resolution depends on the Alaska Division of Elections.",
+   "Ranked-choice reallocations from Gerald Heikes and Daniel J.\nSullivan Jr.\nare unknown and can change who finishes with the most votes.",
+   "Recent public polls are within or near their margins of error and disagree on the size of any lead.",
+   "Confusion between two candidates named Dan or Daniel Sullivan, and any effect of the reported investigation into Daniel J.\nSullivan\u2019s campaign, could shift first-choice votes before Election Day.",
+   "Turnout and late campaign spending, including more than $18 million already reported from the Senate Leadership Fund, can still move a race Cook rated Toss Up as of October 20, 2026."
+  ]
+ },
+ "manifold-a86n8pc6e3": {
+  "base_rate": "In the nine Ohio gubernatorial elections from 1990 through 2022, the Republican nominee won eight (1990, 1994, 1998, 2002, 2010, 2014, 2018, 2022) and the Democratic nominee won one (2006).\nIn the two most recent elections with no incumbent on the ballot (1998 and 2018), the Republican nominee won both.",
+  "brief": "The question is whether Vivek Ramaswamy wins the 3 November 2026 Ohio governor election. On 25 August the Ohio Secretary of State certified the Republican ticket of Ramaswamy and Robert McColley, the Democratic ticket of Amy Acton and David Pepper, a Libertarian ticket and four write-in tickets (https://www.ohiosos.gov/assets/dir2026-45-form-of-the-official-ballot-for-the-november%203-general-election.pdf, not checked). Ramaswamy won the 5 May Republican primary, and incumbent Mike DeWine is term-limited (https://ballotpedia.org/Vivek_Ramaswamy, not checked). In Franklin County's canvass of that primary he received 40,190 votes (80.88%) to Casey Putsch's 7,236 (14.56%). Early and absentee voting was underway by 14 October (https://www.ohiosos.gov/office/media-center/categories/press-releases/2026-10-14). Marist's poll of Ohio likely voters, interviewed 15 to 18 October and released 20 October, found Acton 50% and Ramaswamy 43% (margin 4.5 points); 49% thought Ramaswamy would win and 45% Acton (https://maristpoll.marist.edu/polls/midterm-elections-in-ohio-october-2026/, quotes checked). The Ohio Capital Journal reported on 20 October that Acton's campaign out-raised Ramaswamy's, that the aligned super PAC V-PAC raised more than $18 million including $10 million from Jeff Yass, and that AdImpact counted more than $100 million spent or reserved by Republican-aligned groups against about $40 million by Democratic groups (https://ohiocapitaljournal.com/2026/10/20/outside-groups-pour-hundreds-of-millions-into-ohio-races-for-governor-u-s-senate/, not checked). The base rate: in the nine Ohio governor elections from 1990 to 2022 the Republican won eight and the Democrat won in 2006; the Republican also won both recent open-seat races, in 1998 and 2018. A separate October ActiVote survey had Ramaswamy ahead, so surveys disagree. Turnout, remaining advertising and any late ballot change are unresolved, and certification follows the election by about three weeks. A cluster of further polls showing Acton ahead by high single digits, or a Ramaswamy lead, would change the answer.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On August 25, 2026, the Ohio Secretary of State certified Vivek Ramaswamy and Robert A.\nMcColley as the Republican ticket for governor and lieutenant governor on the November 3, 2026 general-election ballot, with Amy Acton and David Pepper (Democratic) and Don Kissick and James L.\nMills (Libertarian) also certified.",
+    "source": 0
+   },
+   {
+    "fact": "The same August 25, 2026 directive lists four valid write-in governor and lieutenant governor tickets: Timothy Grady and Andrea Neutzling; Heather Hill and Patrick Manley; Renea Turner and Jalen Turner; and Ron Ula and Michael C.\nLehnerd.",
+    "source": 0
+   },
+   {
+    "fact": "Ramaswamy won the May 5, 2026 Republican primary and is the nominee for the November 3, 2026 election; incumbent Republican Mike DeWine is term-limited and is not a candidate.",
+    "source": 1
+   },
+   {
+    "fact": "In Franklin County\u2019s official canvass of the May 5, 2026 primary, Ramaswamy received 40,190 votes (80.88%) to Casey Putsch\u2019s 7,236 (14.56%) in the Republican governor contest.",
+    "source": 5
+   },
+   {
+    "fact": "As of October 14, 2026, early and absentee voting for the November 3, 2026 general election was already underway, and the election had not yet been held.",
+    "source": 4
+   },
+   {
+    "fact": "A Marist Poll of Ohio likely voters, interviewed October 15\u201318, 2026 and released October 20, 2026, found Amy Acton at 50% and Vivek Ramaswamy at 43% (margin of error \u00b14.5 points); 49% of those likely voters said they thought Ramaswamy would win and 45% said Acton.",
+    "source": 2
+   },
+   {
+    "fact": "Ohio Capital Journal reported on October 20, 2026 that Acton\u2019s campaign had out-raised Ramaswamy\u2019s campaign, while the Ramaswamy-aligned super PAC V-PAC raised more than $18 million in its latest quarterly report, including a $10 million contribution from Jeff Yass, and that AdImpact counted more than $100 million spent or reserved by Republican-aligned groups in the governor\u2019s race versus about $40 million by Democratic groups.",
+    "source": 3
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004092,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.015252,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.000795,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.003419,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-08-25",
+    "quotes": [
+     "This Directive provides the certified forms of the official ballots to be used in the November 3, 2026, General Election.",
+     "Republican Party \u2022 Vivek Ramaswamy and Robert A.\nMcColley",
+     "Democratic Party \u2022 Amy Acton and David Pepper Libertarian Party \u2022 Don Kissick and James L.\nMills"
+    ],
+    "title": "Directive 2026-45: Form of the Official Ballot for the November 3, 2026, General Election",
+    "url": "https://www.ohiosos.gov/assets/dir2026-45-form-of-the-official-ballot-for-the-november%203-general-election.pdf",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Vivek Ramaswamy (Republican Party) is running for election for Governor of Ohio.\nHe is on the ballot on a joint ticket with Robert McColley in the general election on November 3, 2026.\nHe advanced from the Republican primary on May 5, 2026.",
+     "Amy Acton (D), Vivek Ramaswamy (R), and Don Kissick (L) are running in the general election for governor of Ohio on November 3, 2026.\nIncumbent Mike DeWine (R) is term-limited.",
+     "Vivek Ramaswamy defeated Casey Putsch in the Republican primary for Governor of Ohio on May 5, 2026."
+    ],
+    "title": "Vivek Ramaswamy - Ballotpedia",
+    "url": "https://ballotpedia.org/Vivek_Ramaswamy",
+    "verified": null
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "In the race for governor, Acton (50%) leads Ramaswamy (43%) by seven points among Ohio likely voters.",
+     "However, nearly half of Ohio likely voters (49%) think Ramaswamy will win the election, not Acton (45%).",
+     "Results for likely voters are statistically significant within \u00b14.5 percentage points."
+    ],
+    "title": "Midterm Elections in Ohio, October 2026 - Marist Poll",
+    "url": "https://maristpoll.marist.edu/polls/midterm-elections-in-ohio-october-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "In Ohio\u2019s governor\u2019s race, Democrat Dr.\nAmy Acton has repeatedly out-raised her Republican opponent Vivek Ramaswamy, but that advantage vanishes when you factor in the Super PACs supporting Ramaswamy\u2019s bid.",
+     "In its most recent quarterly report, the Ramaswamy aligned Super PAC, V-PAC, raised more than $18 million.\nA single donor, Pennsylvania billionaire Jeff Yass wrote Ramaswamy a check for $10 million \u2014 doubling his previous contributions.",
+     "AdImpact reported earlier this month that Republican aligned groups have spent or reserved more than $100 million in ads in the governor\u2019s race, compared with about $40 million from Democratic groups."
+    ],
+    "title": "Outside groups pour hundreds of millions into Ohio races for governor, U.S.\nSenate",
+    "url": "https://ohiocapitaljournal.com/2026/10/20/outside-groups-pour-hundreds-of-millions-into-ohio-races-for-governor-u-s-senate/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "With early voting underway and Election Day approaching, the new PSA encourages Ohioans to make a voting plan and reminds them that there are three convenient ways to cast their ballot: absentee by mail, early in person, or on Election Day.",
+     "As part of the statewide voter education campaign announced last month, the \u201cGet in the Game\u201d PSA will run statewide ahead of the November 3 General Election, helping direct voters to trusted election information at VoteOhio.gov."
+    ],
+    "title": "New PSA Highlights Three Convenient & Secure Ways Ohioans Can Vote",
+    "url": "https://www.ohiosos.gov/office/media-center/categories/press-releases/2026-10-14",
+    "verified": null
+   },
+   {
+    "published": "2026-05-05",
+    "quotes": [
+     "OFFICIAL RESULTS 2026 Primary Election May 5, 2026 Franklin County Only",
+     "Vivek Ramaswamy 40,190 80.88%",
+     "Casey Putsch 7,236 14.56%"
+    ],
+    "title": "Franklin County Official Canvass, May 5, 2026 Primary",
+    "url": "https://www.vote.franklincountyohio.gov/getmedia/8f366b7c-bc97-4f5c-8d15-659b0e35283d/Franklin-s-Official-Canvass-Summary-with-Group-Detail",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "The November 3, 2026 election has not been held, so no general-election vote totals or certified winner exist as of October 21, 2026.",
+   "Recent surveys do not agree, and the Marist likely-voter gap of 7 points sits near a \u00b14.5-point margin of error; a separate October ActiVote survey had Ramaswamy ahead.",
+   "Turnout, remaining advertising, and any late candidate withdrawal or ballot change before Election Day are unresolved.",
+   "Official statewide certification typically follows the election by about three weeks, and taking office as governor is a later step than winning the election."
+  ]
+ },
+ "manifold-y9thOUULZn": {
+  "base_rate": "",
+  "brief": "The question asks whether an online play-money market that refers to itself as \"this market\" reaches 100 unique traders by 26 October 2026, with the count taken as displayed by the platform at the close at 00:59 Paris time on the night of Sunday 25 to Monday 26 October. The research could not identify an official page that publishes such a count, and the question never names the contract or series in the title. The sources it found concern unrelated trader statistics. The CFTC says Commitments of Traders reports cover a futures or options market only when 20 or more traders hold positions at or above reporting levels (https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm, quotes checked). The CFTC release schedule lists October dates of the 2nd, 9th, 16th, 23rd and 30th (https://www.cftc.gov/MarketReports/CommitmentsofTraders/ReleaseSchedule/index.htm, quotes checked). The Chicago Board of Trade wheat futures-only report dated 13 October lists 401 traders (https://www.cftc.gov/dea/futures/deacbtlf.htm, quotes checked), and the Dallas Fed lists its October Texas Manufacturing Outlook Survey for Monday 26 October (https://www.dallasfed.org/research/surveys/tmos). None of these decides the question, and the digest shows no starting count. October 25 is a Sunday and 26 October a Monday (https://www.almanac.com/calendar/date/2026-10-25, quotes checked). The base rate is unknown, because no count of how often markets of this kind reach a trader target could be found. The selection rule for these questions required at least 15 traders and 1,000 units of play money traded at selection. The rule says any bet of any amount, even M1, adds a trader, which makes a rapid rise possible. The answer would change with the displayed trader count at any later reading, which the research did not obtain.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "As of the CFTC page current on 2026-10-21, Commitments of Traders reports cover futures and options markets only when 20 or more traders hold positions at or above CFTC reporting levels, and a market is dropped when reportable large traders fall below 20.",
+    "source": 0
+   },
+   {
+    "fact": "The CFTC\u2019s 2026 Commitments of Traders release schedule lists October dates of the 2nd, 9th, 16th, 23rd, and 30th, usually at 3:30 p.m.\nEastern time with data from the previous Tuesday.",
+    "source": 1
+   },
+   {
+    "fact": "The Chicago Board of Trade wheat futures-only report dated October 13, 2026, and compared with October 6, 2026, lists 401 traders in the All row under Number of Traders.",
+    "source": 2
+   },
+   {
+    "fact": "The Dallas Fed lists the October 2026 Texas Manufacturing Outlook Survey release for Monday, October 26, with publishing beginning at 9:30 a.m.\nCT.",
+    "source": 3
+   },
+   {
+    "fact": "October 25, 2026 is a Sunday, and October 26, 2026 is the following Monday; the stated resolution date of 2026-10-25 is that Sunday.",
+    "source": 4
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.008135,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.026709,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001035,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004057,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Specifically, the COT reports provide a breakdown of each Tuesday\u2019s open interest for futures and options on futures markets in which 20 or more traders hold positions equal to or above the reporting levels established by the CFTC.",
+     "Specifically, when the number of reportable Large Traders drops below 20 for a commodity or contract market, it no longer appears in the COT report.",
+     "The COT Report is generally published each Friday at 3:30 pm Eastern Time (US), using the data from the immediately preceding Tuesday of that week."
+    ],
+    "title": "Commitments of Traders | CFTC",
+    "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The Commitments of Traders reports are released at 3:30 p.m.\nEastern time.",
+     "The following is a tentative schedule of releases through 2026.",
+     "Federal holidays may delay release by one or two days."
+    ],
+    "title": "Release Schedule | CFTC",
+    "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/ReleaseSchedule/index.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Commitments of Traders - Futures Only, October 13, 2026",
+     "Changes in Commitments from: October 6, 2026",
+     "All : 401: 140 100 131 97 115 310 287:"
+    ],
+    "title": "CFTC Commitments of Traders Long Report - CBT (Futures Only)",
+    "url": "https://www.cftc.gov/dea/futures/deacbtlf.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The Dallas Fed conducts the Texas Manufacturing Outlook Survey monthly to obtain a timely assessment of the state\u2019s factory activity.",
+     "The publishing process begins at 9:30 a.m.\nCT.",
+     "October | Monday, October 26"
+    ],
+    "title": "Texas Manufacturing Outlook Survey - Dallasfed.org",
+    "url": "https://www.dallasfed.org/research/surveys/tmos",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Daily Calendar for Sunday, October 25, 2026"
+    ],
+    "title": "Daily Calendar for Sunday, October 25, 2026 | Almanac.com",
+    "url": "https://www.almanac.com/calendar/date/2026-10-25",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Calendar for October 2026 (United States)",
+     "Holidays and Observances: 12: Columbus Day, 31: Halloween."
+    ],
+    "title": "October 2026 Calendar",
+    "url": "https://www.timeanddate.com/calendar/monthly.html?year=2026&month=10",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The question says \u201cthis market\u201d but never names the contract, venue, or series whose unique-trader count would be checked.",
+   "The resolution rule is incomplete after \u201cthe night of Sunday to Monday,\u201d so it is unknown what observation, timestamp, and definition of a unique trader would decide yes.",
+   "No official page located publishes a statistic called \u201c100 unique traders\u201d for an unnamed market by 2026-10-26; the CFTC count is reportable large traders, with a 20-trader listing threshold, and the latest futures report read is dated 2026-10-13.",
+   "A further CFTC release is scheduled for Friday, 2026-10-23, before the Sunday-to-Monday window, and another for Friday, 2026-10-30, after 2026-10-26, so the trader count that would exist on the deadline is not yet published.",
+   "The October 26 Dallas Fed survey is a factory-activity release, not a count of traders."
+  ]
+ },
+ "polymarket-3089558": {
+  "base_rate": "For this same settlement, documented attempts to hold it did not become assessed enduring control: a December 2025 seizure attempt failed and forces retreated (reported in the January 26, 2026 ISW assessment); the January 26, 2026 infiltration was assessed not to change the front line; and August 28\u201329, 2026 geolocated footage showed Ukrainian forces west and south of Novyi Donbas contrary to Russian claims.\nThat is three recorded episodes from December 2025 through August 2026 in which claimed or attempted presence did not produce ISW-assessed consolidated control.\nNo count of how often ISW h",
+  "brief": "The question is whether, by 11:59 PM ET on 31 October 2026, the intersection at 48.450545 N, 37.181493 E in Novyi Donbas is shaded on the ISW map as Assessed Russian-Controlled Terrain or Assessed Russian Advances, with the shading persisting through the next full ISW update. Infiltration areas and claimed territory do not count. ISW's 20 October assessment coded only one new Dobropillya-area event from 19 October footage, a flag-raising at the DTEK Almazna mine classified as an infiltration mission (https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-20-2026, quotes checked). On 17 October ISW reported the Ukrainian General Staff saying Ukrainian forces control Dobropillya, and ISW had not seen evidence Russian forces had consolidated there (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-17-2026/, not checked). DeepState said on 13 October that the enemy advanced in Bilytske and near Dorozhnie and Novyi Donbas (https://informator.ua/uk/vorog-prosunuvsya-u-bilickomu-a-takozh-poblizu-dorozhnogo-ta-novogo-donbasu-deepstate, quotes checked) and repeated an advance near Novyi Donbas on 20 October, described as a partial success and not a capture (https://realgazeta.com.ua/zmini-na-liniyi-frontu-rosiiani-prosunulisia-bilia-novogho-donbasu-v-pokrovskomu-raioni/, quotes checked). Earlier ISW assessments show a pattern for this settlement: a December 2025 seizure attempt failed and Russian forces retreated, and the 26 January 2026 infiltration did not change control (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-january-26-2026/, not checked); on 28 and 29 August Ukrainian forces were present west and south of the village (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-29-2026/, not checked). That is three episodes in which claimed or attempted presence did not become assessed control. The live ISW story map could not be read, and no ISW daily text from 14 to 20 October names Novyi Donbas, so a map change might exist without being written up. A report that ISW has moved shading at the intersection to a qualifying layer, or a negotiated handover with actual control, would change the answer.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "As of the October 20, 2026 ISW assessment, the only new Dobropillya-area event ISW coded from October 19 footage was a flag-raising at the DTEK Almazna mine that ISW classified as an infiltration mission, a layer that does not qualify for this resolution.",
+    "source": 0
+   },
+   {
+    "fact": "On October 17, 2026, ISW reported that the Ukrainian General Staff said Ukrainian forces control Dobropillya and that ISW had not seen evidence Russian forces had consolidated there.",
+    "source": 1
+   },
+   {
+    "fact": "On October 20, 2026, Ukrainian outlet Realna Gazeta reported that DeepState updated its map with the statement that the enemy advanced near Novyi Donbas, describing a partial success rather than capture of the settlement.",
+    "source": 2
+   },
+   {
+    "fact": "On October 13, 2026, DeepState said its map was updated and that the enemy advanced in Bilytske and near Dorozhnie and Novyi Donbas, without giving the scale of the advance.",
+    "source": 3
+   },
+   {
+    "fact": "On September 9, 2026, ISW assessed a recent Russian infiltration southeast of Novyi Donbas from September 8 geolocated footage of a Ukrainian strike on a Russian position along the railway.",
+    "source": 4
+   },
+   {
+    "fact": "On August 29, 2026, ISW assessed from August 28\u201329 geolocated footage that Ukrainian forces were present west and south of Novyi Donbas, contrary to Russian claims.",
+    "source": 5
+   },
+   {
+    "fact": "On January 26, 2026, ISW assessed that a Russian infiltration into Novyi Donbas did not change control of terrain or the forward edge of the battle area, and cited a milblogger report that a December 2025 attempt to seize the settlement failed and Russian forces retreated.",
+    "source": 6
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.00588,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.023501,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001053,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001965,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Russian forces recently conducted an infiltration mission in Dobropillya.",
+     "Russian forces conducted a flag-raising mission at the DTEK Almazna Coal Mine in central Dobropillya, according to geolocated footage published on October 19, after what ISW assesses was a Russian infiltration mission."
+    ],
+    "title": "Russian Offensive Campaign Assessment, October 20, 2026",
+    "url": "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-20-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-10-17",
+    "quotes": [
+     "Kovalev stated that Ukrainian forces control Dobropillya, Oleksiievo-Druzhkivka (northeast of Kostyantynivka), and Velykomykhailivka (east of Oleksandrivka) and maintain defensive positions in Kostyantynivka, contrary to Gerasimov\u2019s October 16 claims that Russian forces seized all of these locations.",
+     "ISW has not observed any evidence to suggest that Russian forces have consolidated positions in Dobropillya, Oleksiievo-Druzhkivka, or Velykomykhailivka.",
+     "A Kremlin-affiliated Russian milblogger acknowledged on October 17 that there is no confirmation that Russian forces have advanced in central Dobropillya or on the town\u2019s western outskirts."
+    ],
+    "title": "Russian Offensive Campaign Assessment, October 17, 2026",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-17-2026/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "\u00ab\u041c\u0430\u043f\u0443 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043e.\n\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443\u00bb, \u2014 \u0439\u0434\u0435\u0442\u044c\u0441\u044f \u0443 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u0456 DeepState.",
+     "\u0417\u0430 \u0434\u0430\u043d\u0438\u043c\u0438 \u0430\u043d\u0430\u043b\u0456\u0442\u0438\u043a\u0456\u0432, \u0440\u043e\u0441\u0456\u0439\u0441\u044c\u043a\u0456 \u043f\u0456\u0434\u0440\u043e\u0437\u0434\u0456\u043b\u0438 \u043c\u0430\u043b\u0438 \u0447\u0430\u0441\u0442\u043a\u043e\u0432\u0438\u0439 \u0443\u0441\u043f\u0456\u0445 \u0443 \u0440\u0430\u0439\u043e\u043d\u0456 \u0441\u0435\u043b\u0438\u0449\u0430 \u041d\u043e\u0432\u0438\u0439 \u0414\u043e\u043d\u0431\u0430\u0441, \u0449\u043e \u0432\u0445\u043e\u0434\u0438\u0442\u044c \u0434\u043e \u0441\u043a\u043b\u0430\u0434\u0443 \u0414\u043e\u0431\u0440\u043e\u043f\u0456\u043b\u044c\u0441\u044c\u043a\u043e\u0457 \u043c\u0456\u0441\u044c\u043a\u043e\u0457 \u0433\u0440\u043e\u043c\u0430\u0434\u0438 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u0433\u043e \u0440\u0430\u0439\u043e\u043d\u0443."
+    ],
+    "title": "\u0417\u043c\u0456\u043d\u0438 \u043d\u0430 \u043b\u0456\u043d\u0456\u0457 \u0444\u0440\u043e\u043d\u0442\u0443: \u0440\u043e\u0441\u0456\u044f\u043d\u0438 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u043b\u0438\u0441\u044f \u0431\u0456\u043b\u044f \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443 \u0432 \u041f\u043e\u043a\u0440\u043e\u0432\u0441\u044c\u043a\u043e\u043c\u0443 \u0440\u0430\u0439\u043e\u043d\u0456",
+    "url": "https://realgazeta.com.ua/zmini-na-liniyi-frontu-rosiiani-prosunulisia-bilia-novogho-donbasu-v-pokrovskomu-raioni/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-13",
+    "quotes": [
+     "\"\u041c\u0430\u043f\u0443 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043e.\n\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443\", - \u0439\u0434\u0435\u0442\u044c\u0441\u044f \u0443 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u0456 \u043a\u0430\u043d\u0430\u043b\u0443.",
+     "\u0414\u0435\u0442\u0430\u043b\u044c\u043d\u0456\u0448\u0438\u0445 \u0434\u0430\u043d\u0438\u0445 \u043f\u0440\u043e \u043c\u0430\u0441\u0448\u0442\u0430\u0431 \u043f\u0440\u043e\u0441\u0443\u0432\u0430\u043d\u043d\u044f \u0447\u0438 \u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0437\u0430\u0434\u0456\u044f\u043d\u0438\u0445 \u043f\u0456\u0434\u0440\u043e\u0437\u0434\u0456\u043b\u0456\u0432 \u0430\u043d\u0430\u043b\u0456\u0442\u0438\u043a\u0438 \u043f\u0440\u043e\u0454\u043a\u0442\u0443 \u043d\u0435 \u043d\u0430\u0432\u0435\u043b\u0438."
+    ],
+    "title": "\u0412\u043e\u0440\u043e\u0433 \u043f\u0440\u043e\u0441\u0443\u043d\u0443\u0432\u0441\u044f \u0443 \u0411\u0456\u043b\u0438\u0446\u044c\u043a\u043e\u043c\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u043f\u043e\u0431\u043b\u0438\u0437\u0443 \u0414\u043e\u0440\u043e\u0436\u043d\u044c\u043e\u0433\u043e \u0442\u0430 \u041d\u043e\u0432\u043e\u0433\u043e \u0414\u043e\u043d\u0431\u0430\u0441\u0443 - DeepState",
+    "url": "https://informator.ua/uk/vorog-prosunuvsya-u-bilickomu-a-takozh-poblizu-dorozhnogo-ta-novogo-donbasu-deepstate",
+    "verified": true
+   },
+   {
+    "published": "2026-09-09",
+    "quotes": [
+     "Russian forces likely recently infiltrated southeast of Novyi Donbas (east of Dobropillya), based on geolocated footage published on September 8 showing Ukrainian forces striking a Russian position along the railway in the area."
+    ],
+    "title": "Russian Offensive Campaign Assessment, September 9, 2026",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-9-2026/",
+    "verified": null
+   },
+   {
+    "published": "2026-08-29",
+    "quotes": [
+     "Ukrainian forces also either maintained positions or advanced west and south of Novyi Donbas, given that Ukrainian forces are present in these areas according to geolocated footage published on August 28 and 29, contrary to Russian claims."
+    ],
+    "title": "Russian Offensive Campaign Assessment, August 29, 2026",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-29-2026/",
+    "verified": null
+   },
+   {
+    "published": "2026-01-26",
+    "quotes": [
+     "The geolocated footage published on January 26 indicates that Russian forces also recently conducted an infiltration mission into Novyi Donbas that ISW assesses did not change the control of terrain or FEBA at this time.",
+     "The milblogger noted that Russian forces previously attempted to seized Novyi Donbas in December 2025 but were unable to consolidate positions and retreated from the settlement."
+    ],
+    "title": "Russian Offensive Campaign Assessment, January 26, 2026",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-january-26-2026/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The live ISW story map was not readable here, so it is unknown whether any part of 48.450545 N, 37.181493 E is currently shaded as Assessed Russian-Controlled Terrain or Assessed Russian Advances, or only as infiltration or claimed territory.",
+   "DeepState\u2019s October 13 and October 20 updates say Russian forces advanced near Novyi Donbas and do not say the intersection itself is occupied; DeepState is a fallback source only if the ISW map is unavailable.",
+   "No ISW daily text from October 14\u201320, 2026 names Novyi Donbas, so a map-layer change at the intersection could exist without appearing in the written assessments.",
+   "Any new shading would still have to persist through the next full ISW daily update, and the resolution window runs through 11:59 p.m.\nET on the date specified for October 31, 2026.",
+   "No credible report of a negotiated transfer that has produced actual control of this intersection was found."
+  ]
+ },
+ "polymarket-3388093": {
+  "base_rate": "Of the eight scheduled overnight-rate decisions from 6 November 2025 through 24 September 2026, four were cuts and four were holds.\nThe three latest decisions, on 25 June, 6 August and 24 September 2026, were consecutive holds at 6.50%.\nEarlier in that window, 6 November 2025, 18 December 2025, 26 March 2026 and 7 May 2026 were 25-basis-point cuts, and 5 February 2026 was a hold at 7.00%.",
+  "brief": "The question is whether Banco de Mexico leaves its overnight interbank target unchanged at its 5 November 2026 meeting. Banxico's 2026 calendar lists eight announcements, with the November one on 5 November (https://www.banxico.org.mx/politica-monetaria/d/%7B3B4BDA5B-E7E8-E414-2066-DA0CB3F7C36F%7D.pdf, quotes checked). On 24 September 2026 the Governing Board unanimously held the target at 6.50%, the same level as on 25 June and 6 August (https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/%7B7D0BDB6E-E519-9C69-04AA-ABD4D31E4850%7D.pdf, quotes checked). That statement said the balance of risks to inflation remains biased to the upside and that policy need not react mechanically to the federal funds rate. The minutes published on 8 October record a unanimous hold, with some members discussing a possible one-off or fine-tuning cut at later decisions if disinflation continues (https://www.banxico.org.mx/publicaciones-y-prensa/minutas-de-las-decisiones-de-politica-monetaria/%7BF63C3DE2-0AEC-9BAE-A86E-FC59895F9702%7D.pdf, quotes checked). Banxico's September private-analyst survey, released 1 October, had a median end-2026 rate of 6.50% (https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/%7BEEFA3879-4DED-3362-C8CD-9F292BFF772E%7D.pdf, quotes checked). INEGI reported September annual inflation of 3.45%, with monthly core up 0.20% (https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/inpc/inpc_2q2026_10.pdf, quotes checked). A Citi survey reported on 20 October had a majority expecting no change in the remaining 2026 meetings and a minority, including Bankaool and Finamex, expecting a cut as soon as November (https://www.elfinanciero.com.mx/economia/2026/10/20/banxico-no-hara-cambios-a-tasa-en-2026-ni-en-2027-encuesta-citi/, quotes checked). The base rate: of the eight decisions from 6 November 2025 to 24 September 2026, four were 25-basis-point cuts and four were holds, but the last three were consecutive holds. The first-half October inflation print on 22 October and the Federal Reserve's course are the data that could still move the board. A surprise downside inflation reading or a dovish turn in the Fed would raise the chance of a cut; a hike is not discussed in any source.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "Banco de M\u00e9xico\u2019s 2026 calendar lists eight monetary-policy announcements, with the November announcement dated 5 November 2026 and publication set for Thursdays at 13:00.",
+    "source": 0
+   },
+   {
+    "fact": "On 24 September 2026 the Governing Board unanimously kept the overnight interbank rate target at 6.50%, the same level it had held on 25 June and 6 August 2026.",
+    "source": 1
+   },
+   {
+    "fact": "The 24 September 2026 statement said the balance of risks to the inflation forecast remains biased to the upside and that future decisions will depend on disinflation and its determinants, and that policy need not react mechanically to expected changes in the federal funds rate.",
+    "source": 1
+   },
+   {
+    "fact": "Minutes of the 23 September 2026 meeting, published 8 October 2026, record a unanimous vote to hold at 6.50% and show individual members discussing a possible one-off or fine-tuning cut at later decisions if disinflation continues.",
+    "source": 2
+   },
+   {
+    "fact": "In Banxico\u2019s September 2026 private-analyst survey, collected 15\u201328 September from 42 groups and released 1 October 2026, the median expected interbank funding rate at end-2026 and end-2027 was 6.50%.",
+    "source": 3
+   },
+   {
+    "fact": "INEGI reported on 8 October 2026 that annual headline inflation was 3.45% in September 2026, with the monthly CPI up 0.42% and monthly core inflation up 0.20%.",
+    "source": 4
+   },
+   {
+    "fact": "In the eight scheduled decisions from 6 November 2025 through 24 September 2026, the target was cut at four meetings and left unchanged at four; the last three decisions were holds at 6.50%.",
+    "source": 1
+   },
+   {
+    "fact": "Reporting on 20 October 2026 on the Citi expectations survey said a majority of respondents expected the policy rate to stay unchanged through the remaining 2026 meetings, while a minority, including Bankaool and Finamex, expected a cut as soon as the November meeting.",
+    "source": 5
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.00647,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.028405,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001107,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.002929,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "El calendario considera ocho fechas para los anuncios de las decisiones de pol\u00edtica monetaria en 2026.",
+     "La publicaci\u00f3n de las decisiones de pol\u00edtica monetaria seguir\u00e1 siendo en jueves a las 13:00 horas como en el 2025.",
+     "Sin embargo, como en a\u00f1os anteriores, el Banco de M\u00e9xico se reserva la facultad de modificar la postura de pol\u00edtica monetaria en fechas distintas a las preestablecidas, en caso de que se presentaran eventos extraordinarios que hicieran necesaria la intervenci\u00f3n del Banco Central."
+    ],
+    "title": "Calendario 2026 de anuncios de pol\u00edtica monetaria del Banco de M\u00e9xico",
+    "url": "https://www.banxico.org.mx/politica-monetaria/d/%7B3B4BDA5B-E7E8-E414-2066-DA0CB3F7C36F%7D.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-09-24",
+    "quotes": [
+     "La Junta de Gobierno del Banco de M\u00e9xico decidi\u00f3 mantener el objetivo para la Tasa de Inter\u00e9s Interbancaria a un d\u00eda en 6.50%.",
+     "Se considera que el balance de riesgos respecto de la trayectoria prevista para la inflaci\u00f3n en el horizonte de pron\u00f3stico mantiene un sesgo al alza.",
+     "Hacia delante, la Junta de Gobierno tomar\u00e1 sus decisiones considerando la continuaci\u00f3n del proceso desinflacionario y el comportamiento esperado de sus determinantes, incluyendo el traspaso del tipo de cambio a los precios del consumidor, las condiciones de holgura y las expectativas de inflaci\u00f3n."
+    ],
+    "title": "Anuncio de Pol\u00edtica Monetaria, 24 de septiembre de 2026",
+    "url": "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/%7B7D0BDB6E-E519-9C69-04AA-ABD4D31E4850%7D.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-08",
+    "quotes": [
+     "Victoria Rodr\u00edguez Ceja, Galia Borja G\u00f3mez, Jos\u00e9 Gabriel Cuadra Garc\u00eda, Jonathan Ernest Heath Constable y Omar Mej\u00eda Castelazo votaron a favor de mantener el objetivo para la Tasa de Inter\u00e9s Interbancaria a un d\u00eda en 6.50%.",
+     "Estim\u00f3 que, dada la evoluci\u00f3n reciente de la inflaci\u00f3n, y en la medida en que sus determinantes contin\u00faen apoyando el proceso desinflacionario, en las siguientes decisiones se podr\u00e1 evaluar una disminuci\u00f3n puntual en la tasa de referencia.",
+     "As\u00ed, consider\u00f3 que existen elementos para discutir la conveniencia de realizar un ajuste fino a la baja de la tasa de referencia."
+    ],
+    "title": "Minuta n\u00famero 127, decisi\u00f3n anunciada el 24 de septiembre de 2026",
+    "url": "https://www.banxico.org.mx/publicaciones-y-prensa/minutas-de-las-decisiones-de-politica-monetaria/%7BF63C3DE2-0AEC-9BAE-A86E-FC59895F9702%7D.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-01",
+    "quotes": [
+     "Dicha encuesta fue recabada por el Banco de M\u00e9xico entre 42 grupos de an\u00e1lisis y consultor\u00eda econ\u00f3mica del sector privado nacional y extranjero.",
+     "Las respuestas se recibieron entre los d\u00edas 15 y 28 de septiembre.",
+     "Las expectativas de inflaci\u00f3n general para los cierres de 2026 y 2027 se mantuvieron en niveles similares a los de la encuesta de agosto."
+    ],
+    "title": "Encuesta sobre las Expectativas de los Especialistas en Econom\u00eda del Sector Privado: Septiembre de 2026",
+    "url": "https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/%7BEEFA3879-4DED-3362-C8CD-9F292BFF772E%7D.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-08",
+    "quotes": [
+     "La inflaci\u00f3n anual fue de 3.45 % en septiembre de 2026",
+     "En septiembre de 2026, el INPC present\u00f3 un nivel de 146.075 puntos: aument\u00f3 0.42 % respecto al mes anterior.",
+     "El \u00edndice de precios subyacente, que excluye bienes y servicios con alta volatilidad o cuyos precios no responden a condiciones de mercado, increment\u00f3 0.20 % a tasa mensual."
+    ],
+    "title": "INEGI, \u00cdndice Nacional de Precios al Consumidor, septiembre de 2026",
+    "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/inpc/inpc_2q2026_10.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "La mayor\u00eda de los analistas, 25 de los 36 consultados, pronostica que la tasa de inter\u00e9s se quedar\u00e1 \u2018congelada\u2019 en las reuniones de este y el siguiente a\u00f1o.",
+     "De los 11 especialistas que s\u00ed ven un cambio en la tasa del Banxico, dos esperan que ocurra este a\u00f1o; ocho pronostican que se materializar\u00e1 en el primer semestre de 2027, y uno m\u00e1s prev\u00e9 que suceda hasta el segundo semestre.",
+     "Bankaool y Finamex prev\u00e9n que la Junta de Gobierno baje el referencial en su reuni\u00f3n de noviembre."
+    ],
+    "title": "Ya est\u00e1 cerrada la \u2018puerta negra\u2019 del Banxico: Tasa de inter\u00e9s no tendr\u00e1 cambios en 2026 ni 2027",
+    "url": "https://www.elfinanciero.com.mx/economia/2026/10/20/banxico-no-hara-cambios-a-tasa-en-2026-ni-en-2027-encuesta-citi/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "El consenso de los analistas sigue esperando que Banxico dejar\u00e1 la tasa de inter\u00e9s en 6,50% hasta finales de 2027, es decir, no esperan movimiento en el referencial en la reuni\u00f3n de pol\u00edtica monetaria del 5 de noviembre.",
+     "De los 37 especialistas consultados para la Encuesta Citi de Expectativas, 25 esperan que no haya cambios en la tasa de referencia el resto de 2026 y durante 2027, mientras que hay tres especialistas que s\u00ed anticipan un movimiento de la tasa este 2026 y hay 9 analistas que ven alg\u00fan ajuste en el referencial en 2027.",
+     "Bankaool, Finamex y UBS son las instituciones financieras cuyos analistas esperan que Banxico recorte la tasa de inter\u00e9s en 25 puntos base tan pronto como en la decisi\u00f3n monetaria de noviembre."
+    ],
+    "title": "Analistas prev\u00e9n tasa de inter\u00e9s sin cambios aun con miembros de Banxico abiertos a recortes",
+    "url": "https://www.bloomberglinea.com/latinoamerica/mexico/analistas-preven-tasa-de-interes-sin-cambios-aun-con-miembros-de-banxico-abiertos-a-recortes/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The 5 November 2026 decision has not been announced, so the change relative to the pre-meeting 6.50% target is still unknown.",
+   "The first-half October CPI is scheduled for 22 October 2026 and the October monthly CPI for 9 November 2026, so inflation data that could affect the 5 November vote are not all in yet.",
+   "September minutes show members willing to discuss a later cut even after a unanimous hold, and the statement dropped a fixed hold signal in favor of data-dependent decisions.",
+   "Two 20 October 2026 accounts of the same Citi survey disagree on the sample (36 versus 37) and on whether two or three houses expect a November cut.",
+   "The September minutes said the Federal Reserve\u2019s projections included another 25-basis-point increase in 2026, and energy and geopolitical risks were cited as upside inflation risks."
+  ]
+ },
+ "polymarket-4936080": {
+  "base_rate": "In the 15 October 2026 XAU/USD sessions tabulated by Investing.com from 1 October through 21 October, 0 daily lows were at or below 3,900; the month\u2019s lowest tabulated daily low was 4,066.06 on 7 October.\nThe nearest recent large monthly decline in the World Gold Council series is September 2026, when gold fell 8.5% to US$4,176/oz.\nA World Gold Council mid-2026 scenario, not a frequency count, put unchanged conditions at about \u00b15% around US$4,100/oz in the second half of 2026.",
+  "brief": "The question is whether any one-minute candle for XAU/USD on the Pyth feed prints a low at or below $3,900 during a trading session in October 2026. On 21 October the Pyth feed showed 4121.685, though the page did not show October candle lows (https://pythdata.app/explore/Metal.XAU%2FUSD). Investing.com's daily table from 1 to 21 October shows a lowest daily low of 4,066.06 on 7 October and a 21 October session low of 4,106.52, with every listed October low above 3,900 (https://www.investing.com/currencies/xau-usd-historical-data, not checked). Bullion World's COMEX table through 20 October shows a lowest daily low of 4,091.2 on 7 October and a December contract low of 4,080.7 on 14 October for the October contract (https://bullionworld.in/comex-future-gold-prices-daily.php, quotes checked). Reuters via CNBC reported on 20 October spot gold at $4,125.90 and December futures settled at $4,142.60, about 26% below the January 2026 record of $5,594.82 (https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html, quotes checked). The World Gold Council said gold ended September at $4,176 an ounce, down 8.5% on the month, with the U.S. 10-year yield up 53 basis points to 5.3% (https://www.gold.org/goldhub/research/gold-market-commentary-september-2026). Its 19 October note said firmer September consumer and producer inflation revived expectations of further Fed tightening (https://www.gold.org/goldhub/gold-focus/2026/10/weekly-markets-monitor-bonds-back-room, quotes checked). The base rate: in 15 October sessions, 0 daily lows were at or below 3,900, and the lowest was 4,066 on 7 October. A World Gold Council scenario put unchanged conditions at about plus or minus 5% around $4,100 in the second half of 2026 (https://www.gold.org/goldhub/research/gold-mid-year-outlook-2026, quotes checked). Sessions remain through 5:00 PM ET on 30 October, including the 27 and 28 October Fed meeting and the PCE release. Investing.com lists a 52-week low of 3,886.49 that is not dated inside October. A hawkish Fed surprise or a further yield spike would raise the answer; a Pyth outage could shift resolution to COMEX highs and lows.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On 2026-10-21 the Pyth XAU/USD spot feed showed 4121.685, well above 3,900; the page did not display October 1-minute candle lows.",
+    "source": 0
+   },
+   {
+    "fact": "Investing.com\u2019s XAU/USD daily table for 2026-10-01 through 2026-10-21 shows a lowest daily low of 4,066.06 on 2026-10-07, and a 2026-10-21 session low of 4,106.52 as of the page read; every listed October daily low is above 3,900.",
+    "source": 1
+   },
+   {
+    "fact": "COMEX Gold December 2026\u2019s lowest daily low in the Bullion World table for October through 2026-10-20 was 4,091.2 on 2026-10-07; the October 2026 contract\u2019s low on 2026-10-14 was 4,080.7.",
+    "source": 2
+   },
+   {
+    "fact": "Reuters, via CNBC on 2026-10-20, reported spot gold at $4,125.90 at 2:05 p.m.\nEDT and December futures settled at $4,142.60, about 26% below a January 2026 record of $5,594.82.",
+    "source": 3
+   },
+   {
+    "fact": "World Gold Council said gold ended September 2026 at US$4,176/oz, down 8.5% on the month, with the US 10-year yield up 53 basis points to 5.3%.",
+    "source": 4
+   },
+   {
+    "fact": "World Gold Council\u2019s 2026-10-19 note said September US consumer and producer inflation firmed and that this revived expectations of further Fed tightening.",
+    "source": 5
+   },
+   {
+    "fact": "Under the stated session rules, October 2026 gold trading still has sessions after 2026-10-21 through the Friday 2026-10-30 close (5:00 p.m.\nET), including the Federal Reserve meeting of 2026-10-27 to 2026-10-28.",
+    "source": 3
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.005391,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.028179,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.001543,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.008397,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Price: 4121.685",
+     "Instrument Type: Spot",
+     "GOLD PYTH PRICE IN USD FOR GOLD 24/7"
+    ],
+    "title": "Pyth: GOLD / US DOLLAR (XAUUSD)",
+    "url": "https://pythdata.app/explore/Metal.XAU%2FUSD",
+    "verified": false
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Oct 07, 2026 4,111.05 4,164.65 4,170.12 4,066.06 -1.28%",
+     "Oct 21, 2026 4,122.05 4,113.87 4,129.45 4,106.52 +0.19%",
+     "Lowest: 4,066.06"
+    ],
+    "title": "XAU USD Historical Data - Investing.com",
+    "url": "https://www.investing.com/currencies/xau-usd-historical-data",
+    "verified": null
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "07/10/2026 COMEX Gold Dec 26 4195 4197.8 4091.2 4140.7 157784",
+     "14/10/2026 COMEX Gold Oct 26 4093.6 4099 4080.7 4084.8 21",
+     "20/10/2026 COMEX Gold Dec 26 4162.4 4174.9 4130.1 4142.6 153429"
+    ],
+    "title": "Comex Future Gold Prices - Bullion World",
+    "url": "https://bullionworld.in/comex-future-gold-prices-daily.php",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Spot gold was down 0.3% at $4,125.90 per ounce by 02:05 p.m.\nEDT (1805 GMT).",
+     "US gold futures for December delivery settled 0.4% lower at $4,142.60 per ounce.",
+     "Gold is still down about 26% from its record high of $5,594.82 in January."
+    ],
+    "title": "Gold edges lower as investors weigh Fed rate signals",
+    "url": "https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html",
+    "verified": true
+   },
+   {
+    "published": "2026-10-07",
+    "quotes": [
+     "Gold finished September at US$4,176/oz, 8.5% lower m/m, with similar declines across all the major currencies we track (Table 1).",
+     "a rise in yields and a stronger US dollar were major contributors to September\u2019s drop in prices as the US 10-year Treasury yield climbed 53bps to 5.3% and the DXY index rose 2%.",
+     "At the centre is the upcoming Fed meeting: recent US data no longer support the case for an imminent hike."
+    ],
+    "title": "Gold Market Commentary: Go with the flow | World Gold Council",
+    "url": "https://www.gold.org/goldhub/research/gold-market-commentary-september-2026",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "On the macro front, US consumer and producer inflation picked up in September, reviving expectations of further Fed tightening.",
+     "For gold it sends a mixed message: renewed bond demand might compete for safe-haven flows, but falling yields reduce gold\u2019s opportunity cost and could provide support if the equity rout worsens."
+    ],
+    "title": "Weekly Markets Monitor - Bonds back in the room | World Gold Council",
+    "url": "https://www.gold.org/goldhub/gold-focus/2026/10/weekly-markets-monitor-bonds-back-room",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "if current conditions do not materially change, gold may trade \u00b15% around US$4,100/oz during the second half of the year."
+    ],
+    "title": "Gold Mid-Year Outlook 2026: Point break | World Gold Council",
+    "url": "https://www.gold.org/goldhub/research/gold-mid-year-outlook-2026",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Pyth 1-minute High/Low candles for October have not been checked candle by candle, so a brief print at or below 3,900 could differ from daily lows on other vendors.",
+   "Sessions from the evening of 2026-10-21 through 5:00 p.m.\nET on 2026-10-30 are still open, including the 27\u201328 October Fed meeting and the following PCE release.",
+   "If Pyth data cannot be verified, resolution can switch to CME COMEX Gold (GC) official daily highs and lows, which are not the same series as XAUUSD spot.",
+   "Investing.com lists a 52-week XAU/USD low of 3,886.49, but the October daily table does not date that print inside October 2026."
+  ]
+ },
+ "polymarket-5219332": {
+  "base_rate": "In 2026 Anthropic has publicly launched two Fable models: Claude Fable 5 on June 9, 2026, and Claude Fable 5.1 on September 1, 2026, an 84-day gap and the only numbered Fable step so far.\nFrom September 1 through October 21, 2026 (50 days) no further public Fable version has been announced.\nA separate reference class, the Claude 5.5 family, shipped three public models in 15 days: Opus 5.5 on September 22, Sonnet 5.5 on September 28, and Haiku 5.5 on October 7.",
+  "brief": "The question is whether Anthropic does not make a Fable model of version 5.2 or higher generally available by 31 October 2026 (ET); a release means a model with Fable in its name, at 5.2 or above, accessible to the public, not a closed beta. Anthropic's Fable page lists Claude Fable 5.1 (1 September 2026, claude-fable-5-1) as the newest Fable announcement (https://www.anthropic.com/claude/fable, quotes checked). The Claude Help Center release notes record Fable 5 on 9 June, Fable 5.1 and Mythos 5.1 on 1 September and Haiku 5.5 on 7 October, with no later Fable launch in the October section (https://support.claude.com/en/articles/12138966-release-notes, quotes checked). The newsroom dated 21 October lists Haiku 5.5 as the latest model introduction and no Fable 5.2, 5.5 or 6 (https://www.anthropic.com/news). The models overview lists Fable 5.1 as current and Fable 5 as legacy (https://platform.claude.com/docs/en/about-claude/models/overview). Third-party reports dated 17 to 20 October describe a Fable 5.5 string in an Azure catalog that was later removed, a second checkpoint delivered to partners on 18 October, and a developer check on 20 October in which an anthropic/claude-fable-5.5 request returned model_not_available (https://www.testingcatalog.com/anthropic-several-models-coming-fable-5-5-reaches-partners/, https://www.orcarouter.ai/blog/claude-fable-5-5-second-checkpoint-leak and https://blog.sandbase.ai/claude-fable-5-5-leak-timeline-2026/, all quotes checked). None of these is confirmed by Anthropic. The base rate: two Fable models in 2026, 84 days apart, with 50 days elapsed since the last, while the Claude 5.5 family shipped three models in 15 days (Opus 5.5 on 22 September, Sonnet 5.5 on 28 September, Haiku 5.5 on 7 October). Ten days remain. An official announcement or a callable public model ID would change the answer; partner-only access, placeholder catalog rows or dead documentation URLs would not.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "As of the Anthropic Fable product page, the newest Fable announcement is Claude Fable 5.1 on September 1, 2026, and the publicly named API identifier is claude-fable-5-1, offered to Pro, Max, Team, and Enterprise users and on the Claude API.",
+    "source": 0
+   },
+   {
+    "fact": "Anthropic\u2019s current models overview lists four current models\u2014Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5\u2014with API IDs claude-fable-5-1, claude-opus-5-5, claude-sonnet-5-5, and claude-haiku-5-5.\nClaude Fable 5 is listed only as a legacy model.",
+    "source": 1
+   },
+   {
+    "fact": "Claude Help Center release notes record Claude Fable 5 as launched June 9, 2026, Claude Fable 5.1 and Claude Mythos 5.1 as launched September 1, 2026, and Claude Haiku 5.5 as launched October 7, 2026.\nThe October 2026 section contains no Fable 5.2 or later launch.",
+    "source": 2
+   },
+   {
+    "fact": "Anthropic\u2019s newsroom, dated October 21, 2026, lists Claude Haiku 5.5 (October 7, 2026) as the latest model introduction and lists Introducing Claude Mythos and Fable 5.1 as a September 15, 2026 news item.\nNo Fable 5.2, 5.5, or 6 announcement appears.",
+    "source": 3
+   },
+   {
+    "fact": "On October 20, 2026, a developer-site check reported Anthropic still had not announced Claude Fable 5.5, that an October 13 Azure catalog string claude-fable-5-5 was later removed from LiteLLM, and that a request to anthropic/claude-fable-5.5 returned model_not_available.",
+    "source": 4
+   },
+   {
+    "fact": "On October 19, 2026, reporting said a social-media claim described a second Fable 5.5 checkpoint delivered to unnamed partners on October 18, while Anthropic\u2019s models overview, docs, and release notes still had no public Fable 5.5 model ID, price, or launch note.\nThe newest model launch those notes recorded for October was Claude Haiku 5.5 on October 7.",
+    "source": 5
+   },
+   {
+    "fact": "An October 17, 2026 report said third-party leaks placed a Fable 5.5 string in an Azure catalog and early-access codenames in other tools, that the Azure entry was removed after empty Azure queries, and that Anthropic had not confirmed a release.",
+    "source": 6
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.005864,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.020307,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.002086,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.005108,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Our most capable model for coding and knowledge work, with research capabilities that offer an early glimpse of how AI will soon contribute to scientific progress.",
+     "For individuals and organizations taking on their hardest knowledge and coding work, Claude Fable 5.1 is available to Pro, Max, Team, and Enterprise users.",
+     "To get started, use claude-fable-5-1 via the Claude API."
+    ],
+    "title": "Claude Fable | Anthropic",
+    "url": "https://www.anthropic.com/claude/fable",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "If you're unsure which model to use, start with Claude Opus 5.5 for most workloads.\nUse Claude Fable 5.1 for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short.",
+     "Legacy models (still available): Claude Fable 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Opus 4.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Haiku 4.5."
+    ],
+    "title": "Models overview",
+    "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "We just launched Claude Haiku 5.5, the cheapest, fastest, and most capable small model we\u2019ve released, designed for high-volume, cost-sensitive tasks.",
+     "We just launched Claude Fable 5.1 and Claude Mythos 5.1, the world\u2019s most advanced models for coding and knowledge work.",
+     "We launched Claude Fable 5, a Mythos-class model that we\u2019ve made safe for general use."
+    ],
+    "title": "Release notes | Claude Help Center",
+    "url": "https://support.claude.com/en/articles/12138966-release-notes",
+    "verified": true
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Claude Haiku 5.5 is our fastest, most capable small model.\nBuilt for high-volume work like summarization, subagents, and browser use.",
+     "They\u2019re the world\u2019s most advanced models for coding and knowledge work\u2014and their research capabilities offer an early glimpse of how AI models will contribute to scientific progress."
+    ],
+    "title": "Newsroom | Anthropic",
+    "url": "https://www.anthropic.com/news",
+    "verified": false
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "As of 03:13 UTC on October 20, 2026, Anthropic has not announced Claude Fable 5.5.\nIts models overview still lists four current models: Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5.",
+     "The strongest leak, an Azure catalog row named `claude-fable-5-5` that showed up on October 13, was later deleted from LiteLLM.",
+     "No.\nAs of October 20, 2026 (03:13 UTC), Anthropic has not announced it."
+    ],
+    "title": "Claude Fable 5.5 Leaks: Azure Row, Onigiri, Checkpoints",
+    "url": "https://blog.sandbase.ai/claude-fable-5-5-leak-timeline-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Nobody has published a model ID, a rate card, a context window or a benchmark row for either checkpoint.",
+     "The model you can actually call at the frontier tier remains Claude Fable 5.1, released 1 September 2026 at $10 per million input tokens and $50 per million output tokens with a 1M-token context window.",
+     "Models overview \u2014 read today, it lists four current models: Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5.\nClaude Fable 5.5 has no row."
+    ],
+    "title": "Claude Fable 5.5: Two Checkpoints, Still No Vendor Page",
+    "url": "https://www.orcarouter.ai/blog/claude-fable-5-5-second-checkpoint-leak",
+    "verified": true
+   },
+   {
+    "published": "2026-10-17",
+    "quotes": [
+     "That said, we'd take it with a grain of salt, since most of those values appear to have been carried over from Fable 5.1, and LiteLLM removed the entry a day later when Azure queries came back empty.",
+     "Of course, it's hard to match the codenames to the models since Anthropic hasn't made anything official yet.",
+     "Anthropic hasn't confirmed anything."
+    ],
+    "title": "Anthropic prepares to release Claude Fable 5.5 next week",
+    "url": "https://www.testingcatalog.com/anthropic-several-models-coming-fable-5-5-reaches-partners/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Ten calendar days remain before October 31, 2026 (ET), and Anthropic has not published a date or denial for a later Fable model.",
+   "October 13\u201319 reports of partner checkpoints, an Azure catalog string, and client codenames are unverified by Anthropic; partner or closed access would not count as general-public availability, and a later public launch still could.",
+   "A qualifying release could use a name other than 5.2, such as Fable 5.5 or Fable 6, if it includes Fable and is version 5.2 or higher and is actually accessible to the general public.",
+   "Placeholder IDs, catalog rows, and documentation URLs that do not resolve to a callable public model would not qualify even if they appear before the deadline."
+  ]
+ },
+ "polymarket-5776854": {
+  "base_rate": "",
+  "brief": "The question is whether the Binance BTC/USDT one-minute candle closing at 12:00 ET (noon) on 23 October 2026 has a close above $86,000. On 21 October the Binance BTCUSDT 24-hour ticker showed a last price of 83,523.51, a high of 83,713.91 and a low of 81,322.22 (https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT, not checked). A Binance-sourced page listed the last trade at $83,560 and said Bitcoin was down 3.53% over 30 days, with the close 30 days earlier at $86,620 (https://yatirimci.ai/en/crypto/btc-usdt). CoinDesk reported on 21 October that Bitcoin was just above $82,700 in Asian morning hours and that the Federal Reserve meets on 27 and 28 October (https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11, quotes checked). Cointelegraph reported on 20 October that Bitcoin reached its highest level since 14 October and fell back toward $82,000, with the 21-day simple moving average at $83,230 acting as resistance (https://cointelegraph.com/markets/bitcoin-price-spikes-to-833k-as-us-stocks-rise-on-q3-earnings-oil-falls, quotes checked). Decrypt on 18 October reported U.S. spot Bitcoin ETFs lost $228.6 million that week after $681.1 million the week before, with a Friday close near $81,590 (https://decrypt.co/381246/bitcoin-etfs-shed-nearly-1-billion-two-weeks-uptober-red, quotes checked). Moneycontrol reported ETF inflows of about $526.7 million on 19 October (https://www.moneycontrol.com/news/business/personal-finance/bitcoin-surges-over-1-percent-as-oil-prices-ease-inflation-worries-keep-markets-on-edge-14056376.html, quotes checked). A 21 October report cited a daily ATR(14) of $1,948 and a session range of $81,322 to $83,439 (https://blockchain.news/news/20261021-price-prediction-btc-macd-flatlines-as-bitcoin-stalls-below, quotes checked). So a move of about 3%, roughly 1.5 daily ranges, is needed in about two days. Oil near $100 to $110, the September inflation prints and ETF flows could move the price before noon on 23 October. A break above $83,600 with strong ETF inflows would raise the answer; failure at the 21-day average keeps it low.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On 2026-10-21 the Binance BTCUSDT 24-hour ticker showed a last price of 83,523.51 USDT, a high of 83,713.91, and a low of 81,322.22, all below 86,000.",
+    "source": 0
+   },
+   {
+    "fact": "A Binance-sourced page updated 2026-10-21 at 12:16 listed the BTC/USDT last trade at $83,560.16, with a 24-hour high of $83,713.91.",
+    "source": 1
+   },
+   {
+    "fact": "That same page said Bitcoin was down 3.53% over 30 days and that the close 30 days earlier was $86,620.00.",
+    "source": 1
+   },
+   {
+    "fact": "CoinDesk reported on 2026-10-21 that Bitcoin was just above $82,700 in Asian morning hours and that the Federal Reserve meets on October 27 and 28.",
+    "source": 2
+   },
+   {
+    "fact": "Cointelegraph reported on 2026-10-20 that BTC/USD reached its highest levels since October 14, then fell back toward $82,000, and that the 21-day simple moving average at $83,230 was acting as resistance.",
+    "source": 3
+   },
+   {
+    "fact": "Decrypt reported on 2026-10-18 that U.S.\nspot Bitcoin ETFs lost a net $228.6 million that week after $681.1 million the week before, and that Bitcoin closed that Friday near $81,590 after briefly trading below $80,000 on Thursday.",
+    "source": 4
+   },
+   {
+    "fact": "Moneycontrol reported on 2026-10-21 that Bitcoin was just above $82,763 at 09:05 IST, up 1.07% in 24 hours and down 1.32% in a week, and that U.S.\nspot Bitcoin ETFs took in about $526.7 million on October 19 after outflows on October 14 and 16.",
+    "source": 5
+   },
+   {
+    "fact": "A 2026-10-21 report using Binance spot data put the session low at $81,322.22 and high at $83,439.00, and cited a daily ATR(14) of $1,948.47.",
+    "source": 6
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004316,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.023318,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.000995,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.003194,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1979.50000000\",\"priceChangePercent\":\"2.428\",\"lastPrice\":\"83523.51000000\",\"openPrice\":\"81544.01000000\",\"highPrice\":\"83713.91000000\",\"lowPrice\":\"81322.22000000\"}"
+    ],
+    "title": "Binance spot 24hr ticker BTCUSDT",
+    "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "As of October 21, 2026, 12:16, 1 Bitcoin (BTC) trades at $83,560.16 on the Binance BTC/USDT pair; 24-hour change +2.63%.",
+     "Over the past 24 hours the low was $81,322.22 and the high was $83,713.91; trading volume was USDT 1.1B.",
+     "Bitcoin (BTC) fell 3.53% over 30 days; the close 30 days ago was $86,620.00."
+    ],
+    "title": "Bitcoin (BTC) Price: BTC/USDT",
+    "url": "https://yatirimci.ai/en/crypto/btc-usdt",
+    "verified": false
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Bitcoin rose 1.3% to just above $82,700 as of Wednesday Asian morning hours, hovering around the $83,000 mark after strong earnings from SpaceX and Super Micro Computer revived the AI trade and sent tech stocks across Asia higher.",
+     "The Fed meets on Oct.\n27 and 28.",
+     "Oil kept climbing.\nBrent rose above $110 a barrel as attacks on ships around the Strait of Hormuz threatened shipments and U.S.\nindustry data pointed to another drop in stockpiles."
+    ],
+    "title": "Bitcoin hovers around $83,000 as AI earnings revive tech, ZEC jumps 11%",
+    "url": "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Data from TradingView showed BTC/USD gaining 1.5% to reach its highest levels since Oct.\n14 before dropping back toward $82,000.",
+     "Oil prices hit $101 per barrel early on Tuesday before dropping nearly 5% in hours as equities gained.",
+     "Alan noted that the 21-day SMA at $83,230 was now acting as low-time frame resistance."
+    ],
+    "title": "Bitcoin price spikes to $83.3K as US stocks rise on Q3 earnings, oil falls",
+    "url": "https://cointelegraph.com/markets/bitcoin-price-spikes-to-833k-as-us-stocks-rise-on-q3-earnings-oil-falls",
+    "verified": true
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "The funds lost a net $228.6 million for the week, according to SoSoValue, following a $681.1 million drain the week before.",
+     "Bitcoin briefly slipped below $80,000 on Thursday, and nearly $950 million in leveraged crypto positions were liquidated over 24 hours, about 90% of them bullish longs, according to CoinGlass.",
+     "Bitcoin closed Friday near $81,590, down from about $82,337 a week earlier."
+    ],
+    "title": "Bitcoin ETFs Shed Nearly $1 Billion in Two Weeks as Uptober Stays Red",
+    "url": "https://decrypt.co/381246/bitcoin-etfs-shed-nearly-1-billion-two-weeks-uptober-red",
+    "verified": true
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Bitcoin surged near $83,128 in early trade on October 21, but quickly trimmed some gains to trade just above $82,763 (09:05 IST), though representing a 1.07 percent increase over the past 24 hours and down 1.32 percent in a week.",
+     "After net outflows on October 14 and 16, US spot Bitcoin ETFs attracted approximately $526.7 million on October 19, their strongest daily inflow since September 22."
+    ],
+    "title": "Bitcoin surges over 1 percent as oil prices ease; inflation worries keep markets on edge",
+    "url": "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-surges-over-1-percent-as-oil-prices-ease-inflation-worries-keep-markets-on-edge-14056376.html",
+    "verified": true
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Bitcoin gained 1.22% over the 24 hours captured in the supplied Binance spot data, with the session range printing $81,322.22 at the low and $83,439.00 at the high before settling at $82,812.85.",
+     "The daily ATR(14) of $1,948.47 anchors expectations: a one-session move of roughly $1,950 is within entirely normal volatility parameters."
+    ],
+    "title": "BTC Price Prediction: MACD Flatlines as Bitcoin Stalls Below the $83,600 Trigger",
+    "url": "https://blockchain.news/news/20261021-price-prediction-btc-macd-flatlines-as-bitcoin-stalls-below",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The Binance BTC/USDT 1-minute candle that closes at 12:00 ET on 2026-10-23 does not exist yet, so the resolving Close price is unknown.",
+   "Intraday ranges already exceeded $2,000 on 2026-10-21, and a cited daily ATR near $1,950 means a move through $86,000 before that candle is possible without any new information.",
+   "Oil around or above $100\u2013$110, the September inflation prints, and shifting U.S.\nspot Bitcoin ETF flows can still move the spot price before noon ET on October 23.",
+   "The resolution uses the Binance BTC/USDT Close with source decimal precision, which can differ from BTC/USD index prints used in news articles."
+  ]
+ },
+ "polymarket-5912679": {
+  "base_rate": "Of the 19 Binance BTCUSDT sessions dated Oct.\n1\u201320, 2026 in the Trader Villa table, 0 had a session high at or above $90,000; the highest was $87,220 on Oct.\n2.",
+  "brief": "The question is whether any Binance BTC/USDT one-minute candle between 12:00 AM ET on 19 October and 11:59 PM ET on 25 October 2026 has a high of $90,000 or more. A Binance-USDT daily table compiled through 20 October lists October's highest session high as $87,220 on 2 October, and of the 19 sessions from 1 to 20 October none reached $90,000 (https://www.tradervilla.com/coin/btcusdt/month-summary/october-2026; the quotes could not be matched on the downloaded page). The same table shows highs of $83,158 on 19 October and $83,439 on 20 October. Yahoo Finance's BTC-USD series, read at 9:18 UTC on 21 October, showed highs of $83,072 on 19 October, $83,288 on 20 October and $83,487 so far on 21 October (https://finance.yahoo.com/quote/BTC-USD/history/). CoinDesk reported on 21 October that Bitcoin was hovering around $83,000 (https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11, quotes checked) and on 20 October that it had slipped to about $81,400 (https://www.coindesk.com/markets/2026/10/20/bitcoin-drops-to-usd81-400-as-asian-chip-stocks-tumble-options-traders-seek-downside-protection, quotes checked). Benzinga on 20 October described $83,500 as the level that would need to break before a move toward the mid-$90,000s (https://www.benzinga.com/crypto/cryptocurrency/26/10/62463484/bitcoin-stuck-at-81000-but-analyst-says-hold-on-before-run-to-90000, not checked). The base rate is that 0 of 19 sessions in October reached $90,000, and the peak came in the first days of the month; reaching it now needs a gain of about 8% from roughly $83,500 within about four and a half days. Binance's own chart and API could not be read (HTTP 451), the Yahoo and CoinDesk prices are not the Binance pair, and a UTC candle does not align exactly with the Eastern Time window. The Fed meeting falls on 27 and 28 October, after the window ends. A sharp rally on an unexpected catalyst, such as a large ETF inflow or a short squeeze, would raise the answer; continued trading in the $81,000 to $84,000 band keeps it a No.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On Binance USDT data compiled through Oct.\n20, 2026, October\u2019s highest BTC session high was $87,220.00 on Oct.\n2, below $90,000.",
+    "source": 0
+   },
+   {
+    "fact": "The same Binance USDT daily table lists an Oct.\n19, 2026 high of $83,158.00 and an Oct.\n20, 2026 high of $83,439.00, and shows no completed sessions yet for Oct.\n21\u201325.",
+    "source": 0
+   },
+   {
+    "fact": "Yahoo Finance\u2019s BTC-USD series, as of 9:18:54 AM UTC on Oct.\n21, 2026, showed highs of $83,072.47 on Oct.\n19, $83,287.80 on Oct.\n20, and $83,486.89 so far on Oct.\n21.",
+    "source": 1
+   },
+   {
+    "fact": "CoinDesk reported on Oct.\n21, 2026 that Bitcoin was just above $82,700 in Wednesday Asian morning hours and hovering around $83,000.",
+    "source": 2
+   },
+   {
+    "fact": "CoinDesk reported on Oct.\n20, 2026 that Bitcoin slipped to around $81,400, down 0.5% since midnight UTC.",
+    "source": 3
+   },
+   {
+    "fact": "Benzinga reported on Oct.\n20, 2026 that Bitcoin was trading just above $81,000, with $83,500 described as a level that would need to break before a move toward the mid-$90,000s.",
+    "source": 4
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004826,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.021159,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.002026,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.00683,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "In October 2026, Bitcoin (BTC) declined 0.71% on Binance USDT markets, moving from an open of $83,623.5900 to a close of $83,028.1500.",
+     "The month's high printed at $87,220.0000 while the low sat at $79,800.0000.",
+     "Oct 19, 2026 high $83,158.0000 and Oct 20, 2026 high $83,439.0000, with Oct 21 through Oct 25 left blank in the calendar."
+    ],
+    "title": "BTC Monthly Summary - October 2026 | Trader Villa",
+    "url": "https://www.tradervilla.com/coin/btcusdt/month-summary/october-2026",
+    "verified": false
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "As of 9:18:54 AM UTC.\nMarket Open.",
+     "Oct 21, 2026 high 83,486.89.",
+     "Oct 20, 2026 high 83,287.80 and Oct 19, 2026 high 83,072.47."
+    ],
+    "title": "Bitcoin USD (BTC-USD) Price History & Historical Data - Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/BTC-USD/history/",
+    "verified": false
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Bitcoin rose 1.3% to just above $82,700 as of Wednesday Asian morning hours, hovering around the $83,000 mark after strong earnings from SpaceX and Super Micro Computer revived the AI trade and sent tech stocks across Asia higher.",
+     "Bitcoin would need to climb back above $84,000 before then to show it\u2019s ready for that test."
+    ],
+    "title": "Bitcoin hovers around $83,000 as AI earnings revive tech, ZEC jumps 11%",
+    "url": "https://www.coindesk.com/markets/2026/10/21/bitcoin-hovers-around-usd83-000-as-ai-earnings-revive-tech-zec-jumps-11",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Bitcoin BTC$82,687.80 slipped to around $81,400 on Tuesday, down 0.5% since midnight UTC, even after U.S.\nspot bitcoin exchange-traded funds attracted $526.6 million on Monday, their largest daily inflow in nearly a month."
+    ],
+    "title": "Bitcoin drops to $81,400 as Asian chip stocks tumble, options traders seek downside protection",
+    "url": "https://www.coindesk.com/markets/2026/10/20/bitcoin-drops-to-usd81-400-as-asian-chip-stocks-tumble-options-traders-seek-downside-protection",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Bitcoin (CRYPTO: BTC) trades just above $81,000 as Milk Road analyst John Decoded says a break above $83,500 could trigger a run toward the mid-$90,000s.",
+     "Decoded said on the Milk Road Show that bulls have defended $81,000 while bears haven\u2019t managed to break Bitcoin below $80,000, even as broader risk assets unwind leverage."
+    ],
+    "title": "Bitcoin Stuck at $81,000 but Analyst Says 'Hold On' Before Run to $90,000",
+    "url": "https://www.benzinga.com/crypto/cryptocurrency/26/10/62463484/bitcoin-stuck-at-81000-but-analyst-says-hold-on-before-run-to-90000",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The resolution window runs through 11:59 p.m.\nET on Oct.\n25, 2026, and Oct.\n21 is only partly elapsed, so later 1-minute highs are not yet known.",
+   "Binance\u2019s own BTC/USDT 1-minute chart and public kline API were not retrieved (the API returned HTTP 451), so the session highs above come from a Binance-USDT compiler and from non-Binance BTC-USD indexes.",
+   "Yahoo Finance and CoinDesk prices are not the Binance BTC/USDT pair the rules use, and a UTC daily candle does not line up exactly with the Eastern Time window."
+  ]
+ },
+ "polymarket-630772": {
+  "base_rate": "Susan Collins has held this Maine Senate seat since winning it in 1996 and was reelected in 2002, 2008, and 2014; her last general-election share listed by Cook is 51.0%.\nIn Cook\u2019s October 20, 2026 Senate ratings, 7 of the seats on the ballot were Toss Ups (1 Democratic-held, 6 Republican-held), including Maine.",
+  "brief": "The question is whether the Democratic nominee wins the 3 November 2026 Maine U.S. Senate election. Maine's Secretary of State confirmed Graham Platner's withdrawal on 10 July (https://www.maine.gov/sos/news/secretary-states-office-confirms-receipt-official-withdrawal-us-senate-candidate-graham), the Democratic convention nominated Troy Jackson on 25 July with 566 votes (https://mainedems.org/mdp-announces-troy-jackson-as-democratic-nominee-for-u-s-senate/), and the replacement list updated 22 September records Jackson as the replacement received on 27 July. Marist's survey of 1,505 registered voters (1 to 4 October, released 6 October) found Jackson 51% and Susan Collins 47% (margin of error 3.8 points), and 57% said they thought Collins would win (https://maristpoll.marist.edu/polls/midterm-elections-in-maine-october-2026/, quotes checked). Rasmussen's survey of 804 likely voters (5 to 8 October) found Jackson 49% and Collins 47% (margin 3 points) (https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_maine_senate, quotes checked). The Cook Political Report listed the Maine seat among seven Senate Toss Ups on 20 October (https://www.cookpolitical.com/ratings/senate-race-ratings, not checked). Cook's race page records Collins as first elected in 1996 and reelected in 2002, 2008 and 2014, with 51.0% in her last general election (https://www.cookpolitical.com/senate/race/488601, not checked). The base rate is that Collins has held the seat for five terms. Maine uses ranked-choice voting, so a first-round plurality does not settle the race if nobody has a majority. The race resolves when the Associated Press, Fox News and NBC call the same winner, otherwise on certification. Turnout, undecided voters and the national environment can still move a race rated a Toss Up. A further nominee change, or polls showing Collins ahead by more than a few points, would change the answer.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "On July 10, 2026, Maine\u2019s Secretary of State confirmed Graham Platner\u2019s written withdrawal from the U.S.\nSenate race in time for his name to be removed and for Democrats to name a replacement by July 27, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "On July 25, 2026, Maine Democratic convention delegates nominated Troy Jackson for U.S.\nSenate with 566 votes.",
+    "source": 1
+   },
+   {
+    "fact": "As of September 22, 2026, the Secretary of State\u2019s replacement list recorded Graham C.\nPlatner (D) withdrawn on 7/10/2026 and Troy D.\nJackson of Allagash received as the replacement on 7/27/2026.",
+    "source": 6
+   },
+   {
+    "fact": "A Marist survey of 1,505 Maine registered voters conducted October 1\u20134, 2026, and released October 6, found Jackson at 51% and Collins at 47% (margin of error \u00b13.8 points), while 57% said they thought Collins would win.",
+    "source": 2
+   },
+   {
+    "fact": "A Rasmussen survey of 804 likely Maine voters conducted October 5\u20138, 2026, found Jackson at 49% and Collins at 47% (margin of error \u00b13 points); Collins is seeking a sixth term.",
+    "source": 3
+   },
+   {
+    "fact": "On October 20, 2026, the Cook Political Report listed the Maine seat held by Collins among seven Senate Toss Up races.",
+    "source": 4
+   },
+   {
+    "fact": "Cook\u2019s Maine Senate page records Collins as first elected in 1996 and reelected in 2002, 2008, and 2014, with a last general-election share of 51.0%.",
+    "source": 5
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004207,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.013369,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0009,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.003122,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-07-10",
+    "quotes": [
+     "The Secretary of State\u2019s Office today confirmed that a formal notice has been received from U.S.\nSenate candidate Graham Platner.",
+     "Because the candidate officially withdrew before 5 p.m.\nof the 2 nd Monday in July (July 13, 2026), his name will not appear on the ballot, and his political party may replace him."
+    ],
+    "title": "Secretary of State\u2019s Office confirms receipt of official withdrawal by US Senate candidate Graham Platner",
+    "url": "https://www.maine.gov/sos/news/secretary-states-office-confirms-receipt-official-withdrawal-us-senate-candidate-graham",
+    "verified": null
+   },
+   {
+    "published": "2026-07-25",
+    "quotes": [
+     "Today, the Maine Democratic Party announced that delegates at its U.S.\nSenate Nominating Convention selected Troy Jackson as the Democratic nominee for U.S.\nSenate.",
+     "Jackson secured the nomination after receiving the support of 566 votes from across Maine."
+    ],
+    "title": "MDP Announces Troy Jackson as Democratic Nominee for U.S.\nSenate",
+    "url": "https://mainedems.org/mdp-announces-troy-jackson-as-democratic-nominee-for-u-s-senate/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-06",
+    "quotes": [
+     "Jackson (51%) is +4 points against Collins (47%) among registered voters in the U.S.\nSenate race in Maine.",
+     "Among the Maine electorate, 57% think Collins will actually win the Senate contest against Jackson (41%)."
+    ],
+    "title": "Midterm Elections in Maine, October 2026",
+    "url": "https://maristpoll.marist.edu/polls/midterm-elections-in-maine-october-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-09",
+    "quotes": [
+     "Democrat challenger Troy Jackson has a two-point lead over Maine Republican Sen.\nSusan Collins, who is seeking her sixth term in the Senate.",
+     "The latest Rasmussen Reports national telephone and online survey finds that, if the election were held today, 49% of Likely Maine voters would vote for Jackson, while 47% would vote for Collins."
+    ],
+    "title": "Election 2026: Maine Senate",
+    "url": "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_maine_senate",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "Toss Up: These races are the most competitive; either party has a good chance of winning."
+    ],
+    "title": "2026 CPR Senate Race Ratings",
+    "url": "https://www.cookpolitical.com/ratings/senate-race-ratings",
+    "verified": null
+   },
+   {
+    "published": "2026-09-23",
+    "quotes": [
+     "Democrats believe that, despite a late candidate switcheroo, former state Senate President Troy Jackson is a generic enough Democrat to take advantage of Sen.\nSusan Collins\u2019 and Trump\u2019s even more acute unpopularity in the state.",
+     "elected as a Republican to the United States Senate in 1996; reelected in 2002, 2008, and again in 2014 for the term ending January 3, 2021"
+    ],
+    "title": "Maine Senate 2026",
+    "url": "https://www.cookpolitical.com/senate/race/488601",
+    "verified": null
+   },
+   {
+    "published": "2026-09-22",
+    "quotes": [
+     "Candidate Withdrawals and Replacement Candidate Nominations after the June 9, 2026 Primary Prepared by the Office of the Secretary of State As of September 22, 2026"
+    ],
+    "title": "Candidate Withdrawals and Replacement Candidate Nominations after the June 9, 2026 Primary",
+    "url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2026%20Post%20Primary%20Withdrawals%20%26%20Replacement%20Candidates%20-%20Updated%209.22.26_0.pdf",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The general election is November 3, 2026, and has not been called by the Associated Press, Fox News, and NBC or certified.",
+   "October polls show Jackson ahead by about 2 to 4 points, inside or near the margins of error, and the Marist sample also had a majority expecting Collins to win.",
+   "Maine uses ranked-choice voting, so a first-round plurality does not decide the race if no candidate has a majority.",
+   "Turnout, undecided voters, and the national environment can still move a race Cook rates Toss Up.",
+   "A further pre-election replacement of either party nominee would change who the party option follows; independents and write-ins do not count as the Democratic nominee."
+  ]
+ },
+ "polymarket-630964": {
+  "base_rate": "No Democrat has been elected to the U.S.\nSenate from Texas since Lloyd Bentsen in 1988.\nThe two most recent Senate elections were Republican wins by single-digit margins: Cruz 53.1%\u201344.6% in 2024 and Cornyn 53.5%\u201343.9% in 2020.",
+  "brief": "The question is whether the Republican nominee wins the 3 November 2026 Texas U.S. Senate election. Ken Paxton beat incumbent John Cornyn in the 26 May Republican runoff, 63.8% to 36.2% (https://civictexas.com/elections/results/2026-05-26-primary_runoff-rep/us-senate, not checked), and faces Democrat James Talarico and Libertarian Ted Brown on the ballot (https://electionresults.sos.state.tx.us/results.html). The University of Houston Hobby School poll of 2,000 likely voters, fielded 10 to 14 October and released 19 October, found Talarico 48%, Paxton 46%, Brown 3% (margin of error 2.19 points) (https://www.uh.edu/news-events/stories/2026/october/10192026-hobby-texas-races.php, quotes checked). Marist's poll of 8 to 11 October found Talarico 47% and Paxton 45% among likely voters (margin 4.9 points), and 53% of those voters thought Paxton would win (https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/, quotes checked). The Texas Politics Project tracker, updated 18 October, lists a CBS/YouGov survey of 1,343 likely voters (8 to 16 October) at Talarico 51%, Paxton 49% (https://texaspolitics.utexas.edu/blog/texas-2026-u-s-senate-poll-tracker, quotes checked). Early voting began on 19 October. The base rate is that no Democrat has been elected to the Senate from Texas since Lloyd Bentsen in 1988, and Cruz won 53.1% to 44.6% in 2024 and Cornyn 53.5% to 43.9% in 2020 (https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026, not checked). Those margins are single-digit, so a favorable environment for Democrats could close them. Public polls now put Talarico about 2 points ahead, inside or near the margins of error. The race resolves when the Associated Press, Fox News and NBC call the same winner, otherwise on certification. Early-vote composition, turnout, undecided voters and whether polls understate Republicans, as Texas polls have at times, are the main swing factors.",
+  "brief_written_at": "2026-10-21T10:56:59+00:00",
+  "facts": [
+   {
+    "fact": "As of the Texas Secretary of State page updated October 14, 2026, the November 3, 2026 general-election ballot for U.S.\nSenator lists Republican Ken Paxton, Democrat James Talarico, Libertarian Ted Brown, and four write-in candidates, with 0% of polling locations reporting.",
+    "source": 0
+   },
+   {
+    "fact": "On May 26, 2026, Ken Paxton won the Republican primary runoff for U.S.\nSenate with 888,196 votes (63.8%) to incumbent John Cornyn\u2019s 503,438 (36.2%), out of 1,391,634 votes cast.",
+    "source": 5
+   },
+   {
+    "fact": "The University of Houston Hobby School survey of 2,000 likely voters, fielded October 10\u201314, 2026 (margin of error +/\u2212 2.19 percentage points) and released October 19, 2026, found James Talarico at 48% and Ken Paxton at 46%, with Ted Brown at 3% and 3% unsure.",
+    "source": 1
+   },
+   {
+    "fact": "The Marist Poll, conducted October 8\u201311, 2026, and released October 14, 2026, found Talarico at 47% and Paxton at 45% among likely voters (margin of error +/\u2212 4.9 points); 53% of likely voters said they thought Paxton would win.",
+    "source": 2
+   },
+   {
+    "fact": "The University of Texas Texas Politics Project poll tracker, updated October 18, 2026, recorded a CBS/YouGov survey of 1,343 likely voters fielded October 8\u201316, 2026, at Talarico 51% and Paxton 49%.",
+    "source": 4
+   },
+   {
+    "fact": "Early voting for the November 3, 2026 election began October 19, 2026, so it was underway as of October 21, 2026.",
+    "source": 1
+   },
+   {
+    "fact": "The last Democrat elected to the U.S.\nSenate from Texas was Lloyd Bentsen in 1988; Ted Cruz won the 2024 Senate race 53.1%\u201344.6%, and John Cornyn won in 2020 53.5%\u201343.9%.",
+    "source": 3
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.004758,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.02298,
+    "error": null,
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.00096,
+    "error": null,
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": "RuntimeError: OpenRouter returned HTTP 404: Provider returned error",
+    "method": "judge_nemotron_super_v1",
+    "model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "ok": false
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-21T10:57:13.952713+00:00",
+    "cost_usd": 0.003241,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-21T09:28:02.708369+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-21T09:25:48+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "2026 NOVEMBER GENERAL ELECTION (Updated 10/14/2026 07:34 AM)",
+     "Polling Locations Reporting: 0%",
+     "REPUBLICAN KEN PAXTON"
+    ],
+    "title": "Election Results - Tuesday, November 3, 2026",
+    "url": "https://electionresults.sos.state.tx.us/results.html",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Democrat James Talarico holds a two-point lead in the race for U.S.\nSenate with 48% of the vote, compared with 46% for Republican Ken Paxton.",
+     "A survey of likely Texas voters by the University of Houston Hobby School of Public Affairs found Talarico with a two-point lead, supported by 48% of voters, compared with 46% for Paxton.\nLibertarian Ted Brown drew 3%, and 3% were unsure.",
+     "Early voting starts Oct.\n19, with the election set for Nov.\n3."
+    ],
+    "title": "Hobby School Survey: Talarico Holds Narrow Lead Over Paxton in Race for U.S.\nSenate",
+    "url": "https://www.uh.edu/news-events/stories/2026/october/10192026-hobby-texas-races.php",
+    "verified": true
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "Two points separate Talarico (47%) and Paxton (45%) among likely voters in the U.S.\nSenate race in Texas.",
+     "A majority (53%) of likely voters statewide think, regardless of whom they support, Paxton will win the Senate seat.",
+     "This Marist Poll Texas survey of 1,196 Texas registered voters was conducted October 8th through October 11th, 2026 by the Marist Poll."
+    ],
+    "title": "Talarico & Paxton Competitive in U.S.\nSenate Race in Texas...\nAbbott Edges Hinojosa in Governor's Contest",
+    "url": "https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "James Talarico (D), Ken Paxton (R), and five other candidates are running in the general election for U.S.\nSenate in Texas on November 3, 2026.",
+     "Ken Paxton (R) defeated incumbent John Cornyn (R) in the Republican primary runoff.\nPaxton received 63.8% of the vote and Cornyn received 36.2%.",
+     "The last Democrat to win election to the U.S.\nSenate from Texas was Lloyd Bentsen (D) in 1988.\nIn 2024, incumbent Ted Cruz (R) defeated Colin Allred (D) 53.1%\u201344.6%.\nIn 2020, Cornyn defeated M.J.\nHegar (D) 53.5%\u201343.9%."
+    ],
+    "title": "United States Senate election in Texas, 2026",
+    "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
+    "verified": null
+   },
+   {
+    "published": "2026-10-18",
+    "quotes": [
+     "The table compiles non-partisan public polling in the U.S.\nSenate race in Texas being contested by Republican Ken Paxton, Democrat Jame Talarico, and Libertarian Ted Brown since the conclusion of the Republican primary in late May.",
+     "Updated October 18, 2026: Added CBS/YouGover poll released October 18",
+     "CBS/YouGov 10/8 - 10/16 1343 LV 3.5% 49 51 N/A Talarico +2"
+    ],
+    "title": "Texas 2026 U.S.\nSenate Poll Tracker",
+    "url": "https://texaspolitics.utexas.edu/blog/texas-2026-u-s-senate-poll-tracker",
+    "verified": true
+   },
+   {
+    "published": "2026-05-26",
+    "quotes": [
+     "May 26, 2026 \u00b7 1,391,634 votes cast \u00b7 254 counties",
+     "KEN PAXTON REP 888,196 63.8%",
+     "JOHN CORNYN(i) REP 503,438 36.2%"
+    ],
+    "title": "U.S.\nSenator \u2014 May 26, 2026",
+    "url": "https://civictexas.com/elections/results/2026-05-26-primary_runoff-rep/us-senate",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No general-election ballots have been reported; the Secretary of State page still shows 0% of polling locations reporting.",
+   "Recent public polls of likely voters put Talarico ahead by about 2 points, inside or near the polls\u2019 margins of error, and one October reading (Marist) found a majority of likely voters expecting Paxton to win.",
+   "Libertarian Ted Brown and four certified write-ins are on the ballot and are not counted as the Republican or Democratic nominee.",
+   "Early voting began October 19, 2026, and its partisan composition is not yet known; the race resolves only after AP, Fox News, and NBC call the same winner, or by official certification if they do not.",
+   "A nominee change before Election Day would reassign the party option to the replacement nominee."
+  ]
+ }
+}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
+import { ResearchTrail } from "@/components/ResearchTrail";
 import { api, pct } from "@/lib/api";
 import { TrackRecord, callText, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
@@ -67,8 +68,10 @@ export default function QuestionPage() {
     <section>
       <h3 className="font-serif text-2xl">What each forecaster said</h3>
       <table className="mt-3 w-full text-left">
-        <tbody>{q.forecasts.map(f => <tr key={f.method} className="border-b border-rule/60">
-          <td className="py-2 pr-4">{labels[f.method] ?? f.method}</td>
+        <tbody>{q.forecasts.map(f => <tr key={f.method} className="border-b border-rule/60 align-top">
+          <td className="py-2 pr-4">{labels[f.method] ?? f.method}
+            {f.rationale && f !== reasoning && <details className="mt-1 text-sm text-ink/70"><summary className="cursor-pointer text-ink/60">Reasoning</summary>
+              <p className="mt-1 whitespace-pre-line leading-relaxed [overflow-wrap:anywhere]">{f.rationale}</p></details>}</td>
           <td className="py-2 pr-4 font-medium tabular-nums">{callText(f.probability)}</td>
           <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(f.probability)} yes</td></tr>)}
           {q.call && q.forecasts.length > 1 && <tr className="border-t-2 border-ink/20">
@@ -77,6 +80,8 @@ export default function QuestionPage() {
             <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(q.call.probability)} yes</td></tr>}</tbody>
       </table>
     </section>
+
+    <ResearchTrail q={q} labels={labels} />
 
     <section className="border-t border-rule pt-6 text-sm text-ink/70">
       <h3 className="font-medium text-ink">How it’s decided</h3>

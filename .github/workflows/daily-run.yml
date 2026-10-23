@@ -168,8 +168,8 @@ jobs:
         if: env.STEP == 'prepare' || env.STEP == 'research' || env.STEP == 'download' || env.STEP == 'finish' || env.STEP == 'conflict-score'
         run: |
           git rm -q --ignore-unmatch daily-run-request.json
-          git add artifacts data/track_record.json
-          if [ "$STEP" = conflict-score ]; then git reset -q artifacts data/track_record.json; git add artifacts/conflict_panel_v1/live_score_*.json artifacts/conflict_panel_v1/live_score_countries_*.csv 2>/dev/null || true; fi
+          git add artifacts data/track_record.json data/research
+          if [ "$STEP" = conflict-score ]; then git reset -q artifacts data/track_record.json data/research; git add artifacts/conflict_panel_v1/live_score_*.json artifacts/conflict_panel_v1/live_score_countries_*.csv 2>/dev/null || true; fi
           if ! git diff --cached --quiet; then git commit -m "Daily run: $STEP"; fi
           git push origin "HEAD:$BRANCH"
       - name: Run CI on the branch
