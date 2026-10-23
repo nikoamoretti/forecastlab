@@ -1,0 +1,959 @@
+{
+  "downloaded_at": "2026-10-23T14:07:43.591886+00:00",
+  "failed": {},
+  "findings": {
+    "manifold-5nLRAAdRt5": {
+      "base_rate": "Black Bird's monthly Russian net gains were positive in nearly every month from mid-2023 through August 2026 (e.g.\n+133 km\u00b2 in August 2026).\nSeptember 2026 at -190 km\u00b2 was the first month of net Russian loss since June 2023, so negative months are rare (about 1 in roughly 39).\nThe latest trend, however, shows Russian gains shrinking sharply.",
+      "facts": [
+        {
+          "fact": "Black Bird Group reported Russian net gains of about -190 km\u00b2 for September 2026, the biggest monthly net Russian loss in its dataset since June 2023 (posted about Oct 3, 2026).",
+          "source": 0
+        },
+        {
+          "fact": "Black Bird Group reported Russian net gains of about +133 km\u00b2 for August 2026.",
+          "source": 1
+        },
+        {
+          "fact": "Per DeepState data cited by Russia Matters on Oct 21, 2026, Russia had a net gain of about 3 square miles over the four weeks to about Oct 19.\nThe prior four-week period was about 37 square miles.\nThe Economist estimated Ukraine regained 30 square miles in 30 days.",
+          "source": 2
+        },
+        {
+          "fact": "As of Oct 22, 2026, ISW reported a Russian net loss of about 241 km\u00b2 since Sept 1, 2026.\nIt also reported Ukrainian advances south of Vovchansk and in southern Kostiantynivka.\nDeepState reported Russian advances near Krynychne, Rai-Oleksandrivka and Zaporizhzhia villages on Oct 21-23.",
+          "source": 3
+        },
+        {
+          "fact": "Trackers differ for September: ISW about -81 km\u00b2, Black Bird -190 km\u00b2.\nOne RussiaMatters chart reading gave -406 km\u00b2, unreconciled.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "Black Bird's October figure is not yet published, and the month is not over.",
+        "Different trackers (DeepState, ISW, Black Bird) give different sizes and sometimes different signs for the same period.",
+        "Early October data (DeepState net about +3 sq mi over four weeks to Oct 19) suggests a near-zero net, so small changes in the last week decide the sign.",
+        "Russian claims of capturing Kostiantynivka or Dobropillia are disputed and would shift the figures if confirmed.",
+        "Black Bird may revise or delay its report.\nIf it does not publish by Dec 1, the question resolves NA."
+      ]
+    },
+    "manifold-8tn2I8uRhA": {
+      "base_rate": "In the API changelog, V4-Flash (public beta, Jul 31) was followed by V4-Pro GA 13 days later (Aug 13).\nV4.1-Flash shipped Sept 10, and no V4.1-Pro had appeared in the 43 days to Oct 23, so the Flash-to-Pro gap has already run well past the earlier one.\nI counted only these two Flash/Pro pairings.",
+      "facts": [
+        {
+          "fact": "DeepSeek released V4.1-Flash on Sept 10, 2026, with weights on Hugging Face under the MIT licence.",
+          "source": 0
+        },
+        {
+          "fact": "V4-Pro requests were planned to be routed to Flash from Sept 14, until a V4.1-Pro arrives.\nDeepSeek gave no date for V4.1-Pro.\nA later search summary said this redirect plan was superseded and V4-Pro stays on the API.",
+          "source": 0
+        },
+        {
+          "fact": "A Sept 28 report, citing \u5feb\u79d1\u6280, said V4.1 Pro was in testing with limited accounts and might launch around National Day (Oct 1).\nNo official confirmation was found, and by about Oct 20 no launch had been seen.",
+          "source": 1
+        },
+        {
+          "fact": "A third-party page reviewed around Oct 14 says DeepSeek has officially confirmed V4.1 Pro is in development, with no date.",
+          "source": 2
+        },
+        {
+          "fact": "A third-party aggregator (CometAPI) lists a 'DeepSeek-V4.1-Flash-1017' build, which suggests a Flash update around Oct 17.\nA Flash tier does not count.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not load the official API changelog, news page, Hugging Face or X pages (proxy refusals), so I did not confirm directly that nothing was released by Oct 23.",
+        "The Sept 28 report of testing is unconfirmed, and its National Day target has passed with no launch seen.",
+        "No official date exists for V4.1-Pro.\nA limited or invite-only test would not count.",
+        "DeepSeek could release without warning, and the Oct 31 deadline leaves about 8 days."
+      ]
+    },
+    "manifold-RcL0Q9O0EU": {
+      "base_rate": "Maine has voted for Susan Collins in all five of her Senate general elections since 1996.\nHer 2020 win came despite most polls showing her behind.\nIncumbents in toss-up Senate races usually win at somewhat better than even rates, but I did not count this and have no figures.",
+      "facts": [
+        {
+          "fact": "Search summaries report that Graham Platner ended his campaign after a sexual assault allegation (which he denied), and Troy Jackson replaced him as the Democratic nominee against Republican incumbent Susan Collins.\nI could not open the pages to confirm this, and it conflicts with the question's framing only in that the nominee is still a Democrat.",
+          "source": 0
+        },
+        {
+          "fact": "Sabato's Crystal Ball rates the race Toss-up.\nIts article says it would probably have moved the race to Leans Republican had Platner stayed in.",
+          "source": 0
+        },
+        {
+          "fact": "Cook Political Report rates the race Toss Up as of about 2026-10-06 (per search summary, unverified).",
+          "source": 2
+        },
+        {
+          "fact": "A Washington Post-Schar School poll reportedly shows Jackson ahead of Collins 50% to 46%.\nA polling average reported for 2026-10-16 shows Jackson at 49% and Collins at 47.1%.\nBoth come from search summaries and I could not check them against the pages.",
+          "source": 1
+        },
+        {
+          "fact": "Jackson reportedly raised $20.4M from July through September, against $5.2M for Collins (per search summary).",
+          "source": 1
+        },
+        {
+          "fact": "Before Platner left the race, polls mostly had him ahead.\nNYT/Siena (June 19-26) had Platner 49%, Collins 47%, with a margin of error of \u00b14.8 points.\nA Pan Atlantic poll had Platner 48%, Collins 41%.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "The WebFetch tool failed on every page, so I could not read any page directly.\nThe facts above come from search-result summaries, and the quotes are weak.",
+        "I could not confirm the dates of the Jackson-era polls or the details of the Platner withdrawal.",
+        "The last-minute switch of Democratic nominee may mean ballots, name recognition and polling are less settled than usual.\nLate deciders and turnout could move the result.",
+        "Collins has outperformed her polls before.",
+        "Whether the Democratic nominee's name appears on the ballot as a Democrat, given the replacement, should be checked against the Maine Secretary of State's certified ballot."
+      ]
+    },
+    "manifold-g0zN5ghS90": {
+      "base_rate": "Wisconsin gubernatorial elections have been decided by narrow margins in recent cycles, and the incumbent party's candidate faces a midterm headwind when the other party holds the White House.\nEvers won in 2018 (+1.1) and 2022 (+3.4), and Walker won in 2010, 2012 and 2014.\nIn midterms, the party out of the White House has usually done better, but I did not verify exact counts.",
+      "facts": [
+        {
+          "fact": "As of Oct 22, 2026 the FiftyPlusOne poll average showed Democrat David Crowley 47.5%, Republican Tom Tiffany 43.8%.",
+          "source": 0
+        },
+        {
+          "fact": "270toWin's average of three polls showed Crowley 48.0%, Tiffany 44.0%.",
+          "source": 1
+        },
+        {
+          "fact": "Marquette poll (Sept 16-23, released Sept 30): Crowley 49%, Tiffany 46% among likely voters; 46-45 among registered voters; margin of error 4.8 points for likely voters.",
+          "source": 2
+        },
+        {
+          "fact": "Crowley's unfavorable rating among registered voters rose from 29% in August to 44% in September, and many voters still have no opinion of him.",
+          "source": 3
+        },
+        {
+          "fact": "A City Forward Collection/CFC Action Fund poll found Crowley 46%, Tiffany 42%.\nA YouGov poll (10/16) had the same 46-42 split, and Z to A Research (10/09) had 49-44.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "Polls are within the margin of error, and likely-voter versus registered-voter screens give different leads.",
+        "Crowley's favorability fell sharply, and many voters still have no opinion of him.",
+        "No Marquette poll after September 30 was found.",
+        "Election Day is Nov 3, 2026, and the final turnout and late-deciding independents are unknown.",
+        "The sources are search snippets that I did not open, and the publication dates for some are approximate."
+      ]
+    },
+    "polymarket-4853905": {
+      "base_rate": "Google shipped Pro-labeled Gemini models roughly every 2-4 months in 2025-26 (for example 2.5 Pro and 3 Pro, with 3.1 Pro later).\nA given 8-day window therefore has roughly a 10% chance of containing one.\nIn 2026 the 3.5 Pro slot slipped repeatedly, and the frontier release became Argon, which has no Pro label.",
+      "facts": [
+        {
+          "fact": "Google's frontier model Gemini 4 Argon became publicly available on 2026-10-13 via the Gemini app, AI Mode, Antigravity and the Gemini API.\nThe name carries no 'Pro' label.",
+          "source": 0
+        },
+        {
+          "fact": "As of Oct 15, 2026, Argon was still rolling out to Antigravity for AI Pro subscribers.\n'Pro' there is a subscription tier, not a model name.",
+          "source": 1
+        },
+        {
+          "fact": "Gemini 3.5 Pro was announced at I/O on May 19, 2026, then delayed.\nBloomberg reported on July 16 that it fell short of internal goals.\nGoogle's July 21 post said it was 'testing with partners'.\nAs of Aug 12 it had no official date and was not in the API model list.",
+          "source": 2
+        },
+        {
+          "fact": "CNBC covered 'Gemini 4' on 2026-10-01, which fits an announcement on Sep 30 followed by a public release on Oct 13.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Whether a Pro-labeled variant of Argon (such as gemini-4-argon-pro) or a 3.5 Pro will ship by Oct 31.\nI found no evidence either is scheduled.",
+        "Whether Argon is treated as the 'Pro' tier model.\nIt was released Oct 13, before the question's creation date, so it likely does not count as 'next'.",
+        "I could not fetch Google's release notes or the Cloud model-versions page, so I did not confirm the exact model IDs or any listed upcoming models.",
+        "Whether a GA promotion of an existing preview Pro model could land before Oct 31."
+      ]
+    },
+    "polymarket-4936081": {
+      "base_rate": "Not computed.\nA drop of roughly 5% from about $4,020-4,090 to $3,800 within the 6 remaining trading days (Oct 23 to Oct 30 or 31) would be a large move for gold.\nIn 2026 gold has swung widely (about $4,540 in mid-May, about $4,060 in an undated report).",
+      "facts": [
+        {
+          "fact": "On 2026-10-22 spot gold fell about 1.1% to roughly $4,095/oz, its lowest since Oct 14, on an oil rally and higher-for-longer rate expectations.",
+          "source": 0
+        },
+        {
+          "fact": "Spot gold traded at $4,084 on Oct 22, down $56.40 (-1.36%) on the day; silver near $55.94.",
+          "source": 1
+        },
+        {
+          "fact": "Trading Economics snippet showed a gold close of about $4,021 on Oct 23 (unverified, search-summary only), roughly 5.4% above $3,800.",
+          "source": 2
+        },
+        {
+          "fact": "On Oct 20 spot gold was about $4,120-4,124.",
+          "source": 3
+        },
+        {
+          "fact": "Brent was reported near $108-110 and a Federal Reserve meeting is due the week of Oct 26.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "Exact current XAUUSD price and the October low so far are unverified; the Oct 23 figure comes from a search summary.",
+        "Fed meeting outcome next week and the oil/inflation shock could cause sharp moves.",
+        "Pyth 1-minute candle lows may differ slightly from other spot sources.",
+        "I could not open the Pyth page or the primary articles directly."
+      ]
+    },
+    "polymarket-4951229": {
+      "base_rate": "Not computed.\nA roughly 16% rise within about 6 trading days is rare in ordinary conditions, but 2026 has been a high-volatility war-driven regime.\nWTI went from about $70 at the end of June to about $93 in early September to about $99 now.",
+      "facts": [
+        {
+          "fact": "WTI settled near $99.47 on Oct 22, 2026 (a search summary of CNBC's report; the page itself could not be fetched).\nBrent rose about 4% to near $113, its highest since May, on fears of Middle East escalation and reported US plans to resume strikes on Iran.",
+          "source": 0
+        },
+        {
+          "fact": "On Oct 21, WTI fell 67 cents to settle at $97.15 and Brent settled at $108.82.\nTanker attacks near the Strait of Hormuz and attacks on Saudi energy facilities were in the news (search summary, not verified on the page).",
+          "source": 2
+        },
+        {
+          "fact": "On Oct 15, US crude was near $98 as Iran stepped up attacks in the Strait of Hormuz, so WTI has stayed in the high $90s for about a week.",
+          "source": 1
+        },
+        {
+          "fact": "A commodity analysis dated Oct 23 puts the Brent\u2013WTI spread at about $13\u201314 and describes the crude curve as deeply backwardated.\nA technical note on the December WTI contract gives $101.37 as the breakout level and $95.25 as the reversal-confirmation level (search summary).",
+          "source": 3
+        },
+        {
+          "fact": "The Active Month on Oct 23 should be the December 2026 contract.\nThe Pyth 'CLL' feed is the ICE WTI contract, which can trade at a different level from NYMEX CL.\nAbout $15.5 (roughly 16%) above the $99.47 settle is needed to reach $115 before the Oct 30/31 end of the month's trading.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "The exact WTI/CLL high so far this month and the intraday range on Oct 23 are unknown.",
+        "Whether the US resumes strikes on Iran, or escalation or de-escalation in Hormuz or Saudi Arabia, could move prices sharply either way.",
+        "The ICE WTI (CLL) level may differ from the NYMEX settlement figures found.",
+        "Roll timing: December becomes the Active Month in the final three sessions of the November contract, which has already passed.\nThe Active Month price is deeply backwardated, so any contract roll matters.",
+        "I could not open the primary pages (CNBC, Pyth, ICE), so the figures come from search summaries and the page quotes are only headlines."
+      ]
+    },
+    "polymarket-5167211": {
+      "base_rate": "The Saudi air campaign was reportedly near-daily in Sep-Oct 2026, with Houthi claims of about 300 strikes in a week and about 100 aircraft supporting the Oct 5 launch.\nI found no tally of days with an attributable Saudi-conducted strike.\nResolution also requires Saudi forces themselves to have conducted the strike, as opposed to the wider coalition or Yemeni forces.\nReporting often attributes strikes to the 'Saudi-led coalition'.",
+      "facts": [
+        {
+          "fact": "On 5 Oct 2026 the Saudi-backed Yemeni government announced Operation Dawn of Yemen to retake Sanaa, with about 100 Saudi aircraft reportedly supporting it, ending a roughly four-year ceasefire (search-summary, not verified on the page).",
+          "source": 0
+        },
+        {
+          "fact": "The coalition said it destroyed 324 high-value targets at the launch of the operation.",
+          "source": 0
+        },
+        {
+          "fact": "Around 18-19 Oct 2026 an airstrike on a house in Saada killed at least 9, according to Houthi-run health officials.\nA Houthi-aligned official blamed Saudi Arabia.\nThe Saudi government had not immediately commented.",
+          "source": 1
+        },
+        {
+          "fact": "Houthi-linked Al-Masirah reported Saudi-led airstrikes on oil facilities west of Sanaa on 13 Oct 2026, without evidence.\nThe coalition had earlier warned some Sanaa residents to evacuate.",
+          "source": 2
+        },
+        {
+          "fact": "The Houthi-run Health Ministry says at least 83 civilians have been killed and 146 wounded since the offensive began.\nThese figures are unverified.",
+          "source": 2
+        },
+        {
+          "fact": "CBS live coverage reports Saudi forces launching new strikes on the Houthis.\nThe Houthis threaten the US if it joins in.\nHouthi strikes have also hit Saudi territory, including airports and Najran.",
+          "source": 3
+        },
+        {
+          "fact": "The Houthis claimed about 300 Saudi airstrikes across nine provinces in one week, reported around 19 Sep 2026.\nThe date is uncertain and Saudi authorities did not comment.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "Page fetches failed, so most facts rest on search-result summaries and I could not check them on the pages.\nOnly the 324-targets quote and the headlines are verbatim.",
+        "I found no reporting after about 19 Oct.\nA ceasefire, de-escalation talks or a pause by Oct 30 is unknown.",
+        "Strikes by the coalition, UAE or Yemeni government forces may not count as Saudi-conducted.",
+        "Houthi-run sources are the main evidence of individual strikes.\nSaudi Arabia often does not confirm them, and exact Yemen-time dating is uncertain.",
+        "Strikes on Saudi-border areas, maritime targets or intercepted munitions would not qualify."
+      ]
+    },
+    "polymarket-5170823": {
+      "base_rate": "No count was computed.\nXRP needing roughly +22% from about $1.31 within about 8 days is a large move for that window.\nXRP's realized volatility is high, and it moved about +40% over 60 days into late September.",
+      "facts": [
+        {
+          "fact": "On Oct 22, 2026 XRP traded around $1.30-1.31, down about 4.6-4.7% in 24 hours, per search summaries of crypto news.",
+          "source": 0
+        },
+        {
+          "fact": "On Oct 22, 2026 XRP was rejected at $1.40 and held $1.30 support, so the recent upper range is about $1.40, roughly 14% below $1.60.",
+          "source": 0
+        },
+        {
+          "fact": "On Oct 22, 2026 spot XRP ETFs had a $3.55M net inflow.\nCumulative inflows are about $1.8B since launch.",
+          "source": 1
+        },
+        {
+          "fact": "On Sep 29, 2026 XRP was about $1.49, so October has declined from the start of the month.\nA Fed decision is flagged for Oct 28.",
+          "source": 2
+        },
+        {
+          "fact": "A crypto.news headline frames $1.50 as the recovery target after October's decline.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Exact current price and the month's high so far were not confirmed from Binance data.\nAggregator figures differ.",
+        "The Fed decision on Oct 28 and broader crypto or bitcoin moves could shift prices sharply.",
+        "A news catalyst such as an ETF or regulatory event could produce a spike.\nThe page dates for some sources are unverified."
+      ]
+    },
+    "polymarket-5340069": {
+      "base_rate": "Recent Brazilian runoffs were close.\nLula beat Jair Bolsonaro by 50.9% to 49.1% in 2022, a margin of 1.8 points.\nDilma Rousseff won by 3.3 points in 2014 and 12.0 points in 2010.\nJair Bolsonaro won by 10.8 points in 2018, and Dilma beat A\u00e9cio Neves by 3.3 points in 2014.\nRunoff margins of 8\u201312 points are uncommon in the recent reference class: 2 of the last 5 runoffs (2010 and 2018) fell in that range, and none of the last 3 did (from memory).",
+      "facts": [
+        {
+          "fact": "Datafolha, released Oct 22, 2026, put the runoff at 50% Fl\u00e1vio Bolsonaro and 50% Lula among valid votes.\nTotal votes were Fl\u00e1vio 47% and Lula 46%.\nThis comes from a search summary and I did not open the page.",
+          "source": 0
+        },
+        {
+          "fact": "Quaest, released Oct 21, 2026, had Fl\u00e1vio at 45% and Lula at 44% in the runoff.\nFl\u00e1vio was at 46% in Quaest's Oct 14 poll.",
+          "source": 1
+        },
+        {
+          "fact": "Quaest and Datafolha were due to release their final pre-runoff polls on Oct 24, after today's date.\nThe runoff is Oct 25.",
+          "source": 2
+        },
+        {
+          "fact": "The first round on Oct 4 had Fl\u00e1vio at 47.03% and Lula at 45.16% of valid votes.\nPoderData (released Oct 8) had the runoff at 53\u201347 for Fl\u00e1vio, and Ipespe (released Oct 10) at 52.7\u201347.3.\nThese come from a search summary and I did not open the pages.",
+          "source": 0
+        },
+        {
+          "fact": "A late-September Datafolha poll had Lula at 47% and Fl\u00e1vio at 45%.\nAl Jazeera described the pair as essentially tied on Sep 25.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "The final Oct 24 polls had not been released when I searched.",
+        "The polls disagree on the margin.\nDatafolha and Quaest show a tie, while early-October polls showed Fl\u00e1vio ahead by 5 to 6 points.",
+        "Polling error in Brazilian elections has been a few points in both directions, and 2022 polls understated Bolsonaro.",
+        "Turnout and abstention, and the share of blank and null votes, could shift the valid-vote margin.",
+        "The market defines the margin as the difference in percentage of valid votes.\nWhether the denominator includes blank votes is ambiguous, and TSE counts valid votes without blanks.\nThis affects the margin only slightly."
+      ]
+    },
+    "polymarket-5912693": {
+      "base_rate": "Not computed from data.\nContext: BTC is about 2% above the $80,000 threshold with about 2.5 days (Oct 23 to 11:59pm ET Oct 25) left.\nRecent daily ranges are roughly 1-3%, and the Oct 12-16 low was near $80,250 without touching $80,000.\nWhether BTC already hit $80,000 on Oct 19-22 is unverified.",
+      "facts": [
+        {
+          "fact": "On Oct 23, 2026 BTC traded about $81,500-$81,700 across several aggregators (Coindesk ~$81,706 at 5:12am EDT; Fortune ~$81,546 at 7:15am ET).",
+          "source": 1
+        },
+        {
+          "fact": "The Oct 23 daily range per Investing.com data was a high of $82,011 and low of $81,118 at time of report; headline said BTC fell ~2.8% on the day.",
+          "source": 2
+        },
+        {
+          "fact": "A push toward $85,000 reportedly lost steam; BTC steady near $81,600 amid Iran tensions and an AI-related stock sell-off (Nasdaq fell Oct 23).",
+          "source": 1
+        },
+        {
+          "fact": "Oct 12-16 US spot BTC ETFs had $409.2M net outflows; BTC fell below $81,000 to a low near $80,250 that week (Coinpedia, Oct 17).\nBrent near $106 and 10-yr yield 5.25% cited.",
+          "source": 3
+        },
+        {
+          "fact": "Week of Oct 5-11, BTC fell ~3.2% from about $85,767 to $83,031.",
+          "source": 4
+        },
+        {
+          "fact": "Crypto Times reports $635M ETF outflows on Oct 23 and traders positioning for next week's Federal Reserve decision (likely Oct 28-29, after the window closes Oct 25).",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "Exact Binance 1m low for Oct 19-23 not found; could $80,000 have already been touched earlier in the window (the Oct 17 low of ~$80,250 was before the window)",
+        "Weekend liquidity and geopolitical (Iran) shocks, oil and yield moves",
+        "Continued ETF outflows and tech/AI equity sell-off spillover",
+        "Fed decision lands after the window but positioning beforehand may add volatility",
+        "Different aggregators' prices differ slightly from Binance BTC/USDT; search snippets were secondary and quotes are only headlines"
+      ]
+    },
+    "polymarket-630805": {
+      "base_rate": "Michigan has not elected a Republican U.S.\nsenator since 1994 (Spencer Abraham), so Democrats have won every Senate race there for about 30 years.\nClose Michigan Senate races (2018 D+6.5, 2020 D+1.7, 2024 D+0.3) have all gone Democratic.\nIn midterms the president's party usually loses seats, and Republicans currently hold the presidency.",
+      "facts": [
+        {
+          "fact": "Marist poll of 1,185 likely voters (Oct 15-18, 2026) had Democrat Abdul El-Sayed 50%, Republican Mike Rogers 48%; among registered voters El-Sayed led by 7.",
+          "source": 0
+        },
+        {
+          "fact": "FiftyPlusOne polling average as of Oct 22, 2026 showed El-Sayed 48.1%, Rogers 45.1% (D+3).",
+          "source": 1
+        },
+        {
+          "fact": "Other October polls (search-summary figures, not verified on the pages): InsiderAdvantage Oct 9-10 El-Sayed 48-46; Mitchell Oct 1 El-Sayed 46-41; YouGov Sep 22-Oct 4 49-48; a Rogers-allied Tyson Group poll had Rogers 46-44.",
+          "source": 1
+        },
+        {
+          "fact": "Semafor (Aug 5, 2026) reported Democrats refocusing on Rogers after the Aug 4 primary; El-Sayed was described as the likely/apparent Democratic nominee.",
+          "source": 2
+        },
+        {
+          "fact": "The seat is open (Democrat Gary Peters retiring); Newsweek frames it as a potential GOP flip, which would be the first Democratic loss of the seat in nearly 50 years.",
+          "source": 3
+        },
+        {
+          "fact": "The general election is Nov 3, 2026.\nRogers lost the 2024 Senate race to Slotkin by fewer than 20,000 votes.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "My access to the primary pages failed (proxy refused), so the poll figures come from search summaries and the quotes are fragments, not full sentences.",
+        "I could not confirm the official primary result, or the current Cook, Sabato or Inside Elections ratings.",
+        "Polls are within the margin of error, with a possible likely-voter versus registered-voter gap.",
+        "Turnout, late campaign spending and events, and polling error are unknown.",
+        "Resolution needs AP, Fox and NBC to agree.\nA very close result could delay calls and push resolution to certification."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-23T14:07:07+00:00",
+  "researched_by": {
+    "manifold-5nLRAAdRt5": "claude-sonnet",
+    "manifold-8tn2I8uRhA": "claude-sonnet",
+    "manifold-RcL0Q9O0EU": "claude-sonnet",
+    "manifold-g0zN5ghS90": "claude-sonnet",
+    "polymarket-4853905": "claude-sonnet",
+    "polymarket-4936081": "claude-sonnet",
+    "polymarket-4951229": "claude-sonnet",
+    "polymarket-5167211": "claude-sonnet",
+    "polymarket-5170823": "claude-sonnet",
+    "polymarket-5340069": "claude-sonnet",
+    "polymarket-5912693": "claude-sonnet",
+    "polymarket-630805": "claude-sonnet"
+  },
+  "runs": 12,
+  "sources": {
+    "manifold-5nLRAAdRt5": [
+      {
+        "published": "2026-10-03",
+        "quotes": [
+          "Over the month of September, the Russian net gains were negative 190 km2.\nThis marks the greatest monthly net territorial loss for Russia in our dataset since the June of 2023."
+        ],
+        "text": "Over the month of September, the Russian net gains were negative 190 km2.\nThis marks the greatest monthly net territorial loss for Russia in our dataset since the June of 2023.\n\nBlack Bird Group on X: \"Over the month of September, the Russian net gains were negative 190 km2.\nThis marks the greatest monthly net territorial loss for Russia in our dataset since the June of 2023.\n(1/12)\"\nOver the month of September, the Russian net gains were negative 190 km2.\nThis marks the greatest monthly net territorial loss for Russia in our dataset since the June of 2023.\n(1/12)\nOver the month of September, the Russian net gains were negative 190 km2.\nThis marks the greatest monthly net territorial loss for Russia in our dataset since the June of 2023.\n(1/12)\nThe majority of these territorial changes were the result of Ukrainian counterattacks around Lyman and towards Komar in West Donetsk.\nMeanwhile, the Russian advance towards Kramatorsk and Slovyansk slowed down.\n(2/12)\nBoth of these Ukrainian operations should be considered succesful.\nThey highlight the increasingly dynamic nature the frontline has taken throughout 2026.\nUkraine and Russia are now both conducting relatively slow offensive operations in a drone-contested environment.\n(3/12)\nOver this year Russian advance has been extremely limited in all directions, finding small scale success towards Kramatorsk, while largely stalling on ",
+        "title": "Black Bird Group on X: September net gains",
+        "url": "https://x.com/Black_BirdGroup/status/2106482419201093855",
+        "verified": true
+      },
+      {
+        "published": "",
+        "quotes": [
+          "According to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited."
+        ],
+        "text": "According to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited.\n\nBlack Bird Group on X: \"According to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited.\nRussian gains are a far cry of those from last year.\n1/\" / X\nBlack Bird Group on X: \"According to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited.\nRussian gains are a far cry of those from last year.\n1/\"\nAccording to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited.\nRussian gains are a far cry of those from last year.\n1/\nAccording to our data, in August the net gains of the Russian armed forces in Ukraine were approximately 133km\u00b2.\nRussian gains are slowly increasing again, but their gains remain extremely limited.\nRussian gains are a far cry of those from last year.\n1/\nRussian advance was concentrated both in Northern Donetsk, especially on the Druzhkivka sector, as well as on cross-border actions in the Sumy and Khark",
+        "title": "Black Bird Group on X: August net gains",
+        "url": "https://x.com/Black_BirdGroup/status/2096083074240975038",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026'\nFor more information check: https:/",
+        "published": "2026-10-21",
+        "quotes": [
+          "Russia has gained a net of 3 square miles of Ukrainian territory in the past four weeks."
+        ],
+        "text": "Russia has gained a net of 3 square miles of Ukrainian territory in the past four weeks.",
+        "title": "The Russia-Ukraine War Report Card, Oct.\n21, 2026",
+        "url": "https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [],
+        "text": "{{currentView.title}}\n12 hours ago\nRussian Offensive Campaign Assessment, October 22, 2026\nAssessment as of: 7:45 PM ET\nData Cutoff: 11:30 AM ET\nClick here to see ISW\u2019s interactive map of the Russian invasion of Ukraine.\nThis map is updated daily alongside the static maps present in this report.\nClick here to see ISW\u2019s 3D control of terrain topographic map of Ukraine.\nUse of a computer (not a mobile device) is strongly recommended for using this data-heavy tool.\nClick here to access ISW\u2019s archive of interactive time-lapse maps of the Russian invasion of Ukraine.\nThese maps complement the static control-of-terrain map that ISW produces daily by showing a dynamic frontline.\nISW will update this time-lapse map archive monthly.\nFor more information on ISW\u2019s map methodology, please view our statement here.\nThe Kremlin's seeming interest in negotiations aims not to end the war in Ukraine but rather to secure economic concessions from the United States such that Russia can continue funding its war.\nVarious Russian officials tried to present the October 21 meeting between US Special Representative to the Middle East Steve Witkoff and Russian President Vladimir Putin as evidence that Russia is willing to engage in meaningful negotiations to end the war while simultaneously attempting to extract economic concessions from the United States so that Russia can continue funding the war.[i] Russian Direct Investment Fund (RDIF) CEO Kirill Dmitriev, for example, claimed on October 21 that Witkoff and Putin used the October 21 meeting to agree to expand Russian-US economic cooperation and to \u201ccontinue communicating.\u201d[ii] A Kremlin domestic policy official told Russian opposition source Verstka that the Kremlin does not expect negotiations to resolve the war in Ukraine but that Russian officials hope to extract economic concessions, which could boost Russia\u2019s budget and give Russia a military advantage.[iii]\nOther Russian officials meanwhile demonstrated Russia\u2019s unwillingness to make any meaningful concessions toward ending the war in Ukraine.\nKremlin Spokesperson Dmitry Peskov stated on October 22 that Putin did not present any Russian peace proposal to Witkoff during their meeting and that Putin has not considered the composition of a potential Russian delegation for a future Russia-US-Ukraine trilateral meeting.[iv] Russian State Duma deputies expressed skepticism on October 21 and 22 that negotiations could end the war and reiterated claims that freezing the current frontlines would be detrimental to Russia's own efforts to end the war.[v] A source close to the Russian Ministry of Foreign Affairs (MFA) told Verstka on October 22 that the Kremlin has been working for over 1.5 years to try to sway the Trump administration to Russia's side and that the Kremlin's current negotiation efforts are emphasizing Ukraine's alleged hopelessness.\nThese are similar to the Kremlin's earlier negotiation tactics which tried to convince the United States and the West generally that Ukrainian defenses were going to collapse such that Ukraine should preemptively capitulate.[vi]\nThe Kremlin is fundamentally only interested in buying time to resolve the war on the battlefield while Russia simultaneously reaps the benefits of economic cooperation with the United States.\nState Duma Defense Committee First Deputy Chairperson Alexei Zhuravlyov stated on October 21 that Russia must \"press\" Ukrainian President Volodymyr Zelensky on the battlefield and force Ukraine to \"capitulate.\"[vii] Zhuravlyov added that Russia should not rely on diplomacy with the United States because Russian \"successes on the ground\u201d will strengthen Russia\u2019s negotiating position.[viii] Russian Presidential Aide Yuriy Ushakov similarly claimed that Russian forces maintain the \"complete strategic initiative\u201d and are conducting a \"relentless offensive\u201d in all key areas of the frontline.[ix]\nRussian forces are not winning on the battlefield, however, particularly as Ukrainian forces have stymied the planned Russian offensive to seize Donetsk Oblast.\nISW has observed evidence that Russian forces suffered a net loss of 241 square kilometers of territory in Ukraine since September 1, 2026.\nThe average rate of daily Russian advances has significantly declined since 2025, with an average of 0.25 square kilometers per day so far in 2026.\nUkrainian forces have, comparatively, been contesting and seizing the operational initiative across several sectors of the frontline throughout 2026, including most recently in the Lyman direction with Ukraine's Operation Vivaldi which liberated over 270 square kilometers of territory and thwarted the Russian military command\u2019s plan to encircle the Fortress Belt.[x] Russian forces are also facing mounting monthly casualties while the Russian recruitment rate continues to fall short of its loss rate.[xi] Russian forces have suffered almost 37,000 casualties thus far in October 2026 \u2014 much higher than the 31,270 casualties for all of October 2025.[xii] The Kremlin may face mounting challenges in the coming months, should Ukraine continue to contest the operational initiative and disrupt Russian offensive plans, potentially further pushing Russian commanders to urge Putin to conduct a mobilization in some form.[xiii]\nThe Kremlin is likely actively seeking economic cooperation with the United States as Russia faces significant financial strain.\nSources familiar with the matter told Bloomberg on October 22 that even a few more months of continued war could exact lasting financial damage on Russian state-owned oil company Rosneft, as Ukrainian strikes against Rosneft's oil refineries have significantly reduced the company's profits and increased its debt.[xiv] Bloomberg added that repeated Ukrainian strikes have prevented Rosneft from completing repairs and restarting refinery operations and that strikes against complex secondary units that often include Western-sourced parts, like catalytic crackers, reformers, and hydrocrackers, are particularly difficult to repair.\nRussia remains highly susceptible to international sanctions that restrict its access to the technologically advanced components needed to repair the equipment damaged after Ukraine\u2019s strikes.[xv] The Kremlin is therefore pushing the United States for various forms of economic relief, so that Russia can continue funding its war against Ukraine.[xvi] The Kremlin has continuously sought to extract economic concessions during negotiations to alleviate the pressure on its oil industry \u2014 including restrictions on Ukrainian strikes against refineries and the relaxation of US sanctions against diesel exports \u2014 while expressing little real interest in ending the war.[xvii]\nRussian forces conducted a massive missile and drone strike against Ukraine overnight on October 21 to 22 following the October 21 meeting between Witkoff and Putin \u2014 a continuation of Russia\u2019s pattern of launching large strike packages in the days before and after major peace talks.\nThe Ukrainian Air Force reported that Russian forces conducted a massive combined missile and drone strike primarily targeting Kyiv City and using an unspecified number of Iskander-M, S-400, Zircon, and Onyx missiles and 210 long-range drones, 110 of which were jet-powered.[xviii] Ukrainian President Volodymyr Zelensky stated that Russian forces conducted three waves of ballistic missile strikes against Kyiv City using 21 missiles, damaging residential, energy, railway, and commercial infrastructure.[xix] Zelensky stated that Russian strikes targeted 12 Ukrainian oblasts, killing at least two people and injuring at least 34 people.\nRussian forces regularly conduct massive strikes in the days right before and after bilateral and trilateral talks, such as the August 2025 US-Russia Alaska summit, the November 2025 US-Ukraine talks in Geneva, the November 2025 US-Russia talks in Moscow, the December 2025 US-Ukrainian-European and US-Russian talks, and the January-February 2026 US-Ukrainian-Russian",
+        "title": "Russian Offensive Campaign Assessment, October 22, 2026",
+        "url": "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-22-2026",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://odessa-journal.com/osint-ukrainian-counterattacks-produce-russias-largest-monthly-territorial-loss'\nFor more information check: https://d",
+        "published": "",
+        "quotes": [
+          "Ukrainian counterattacks cut Russian-controlled territory by around 190 sq km in September, the largest monthly net loss since June 2023."
+        ],
+        "text": "Ukrainian counterattacks cut Russian-controlled territory by around 190 sq km in September, the largest monthly net loss since June 2023.",
+        "title": "Ukrainian counterattacks cut Russian-controlled territory by around 190 sq km in September",
+        "url": "https://odessa-journal.com/osint-ukrainian-counterattacks-produce-russias-largest-monthly-territorial-loss",
+        "verified": null
+      }
+    ],
+    "manifold-8tn2I8uRhA": [
+      {
+        "published": "",
+        "quotes": [
+          "Requests to V4-Pro were set to move to Flash from September 14, and that arrangement runs until a V4.1-Pro arrives."
+        ],
+        "text": "Requests to V4-Pro were set to move to Flash from September 14, and that arrangement runs until a V4.1-Pro arrives.\n\nDeepSeek released V4.1-Flash on Thursday.\nIt is a smaller model that the company says beats its own flagship on coding and agent tasks, at a lower price.\nThe Hangzhou lab announced it in a thread on X and published the weights on Hugging Face under the MIT licence.\nThat lets anyone download, modify and run it.\nThe launch comes with a notable retirement.\nFrom 04:00 UTC on 14 September, DeepSeek will send every request made to V4-Pro, its top model, to V4.1-Flash instead.\nThose requests will be billed at the cheaper Flash rates.\nThat arrangement runs until a V4.1-Pro arrives.\nDeepSeek gave no date for it.\nA big model that works like a small one\nV4.1-Flash has 552 billion parameters in total.\nIt uses only a small slice of them for each piece of text.\nDeepSeek calls the design a \u201ccausal encoder-decoder\u201d and describes it as the smallest model in a new architecture family.\nIt activates 8 billion parameters per token when reading input and 16 billion when writing output.\nThat split is aimed at AI agents.\nAn agent that calls tools repeatedly spends much of its time reading fresh input, so cheaper reading means cheaper agents.\nThe model handles up to 1 million tokens of context and understands images natively, according to its model card.\nDeepSeek says it pre-trained the model on 45 trillion tokens.\nThe bigger engineering claim concerns memory.\nModels keep a cache of what they have already processed, known as the KV cache.\nIt saves them recomputing everything at every step.\nFor long agent sessions, that cache eats expensive high-bandwidth memory.\nDeepSeek says V4.1-Flash needs 890 bytes per token for it.\nThat is about a quarter of what V4-Flash needed, and roughly 437 times less than its first model in 2023.\nWhere it wins, and where it does not\nDeepSeek\u2019s own benchmark table puts V4.1-Flash level with the best closed models on some coding tests.\nOn DeepSWE v1.1, a software engineering benchmark, it scores 74.2.\nAnthropic\u2019s Claude Opus 5 scores 74.0 and OpenAI\u2019s GPT-5.6 Sol 73.0.\nOn CyberGym, a cybersecurity test, it scores 88.1, ahead of every rival with a listed score.\nThe same table shows clear gaps.\nOn Humanity\u2019s Last Exam, a hard academic test, it scores 36.8 to Opus 5\u2019s 56.3.\nOn ProgramBench it reaches 20.3 against 37.0 for Opus 5.\nOn Terminal-Bench 3.0 it trails both US models.\nThese are DeepSeek\u2019s figures.\nTNW has not independently verified them.\nIts closest Chinese rival looks weaker by DeepSeek\u2019s count.\nThe table puts V4.1-Flash ahead of Moonshot\u2019s Kimi K3 on every agent and coding test where both have scores.\nKimi K3 still leads on GPQA Diamond and Humanity\u2019s Last Exam.\nIn August, TNW covered an experimental multimodal model that DeepSeek pitched against Anthropic.\nV4.1-Flash replaces it.\nThe Decoder\u2019s Jonathan Kemper, who read the technical report, flagged a less flattering part of it.\nDeepSeek describes reward hacking during training, with agents occasionally using newly published vulnerabilities or wiping important system files in their test environments.\nIt also admits the model lags the best closed systems at reading complicated images.\nA price cut, a month after a price rise\nDeepSeek says the cheaper architecture lets it serve more users at lower cost.\nIt says it is \u201cpassing the savings on\u201d to customers.\nThe new rates took effect at 04:00 UTC on Thursday.\nOff-peak, one million tokens of output cost $0.60, and cached input costs $0.003.\nPeak rates, which apply on weekday mornings UTC, are double.\nBloomberg Intelligence analysts put the cut at as much as 32%.\nThe move reverses the direction of travel from August, when DeepSeek launched a Claude Code rival and quadrupled its prices.\nCustomers still on V4-Pro will now pay Flash rates for what DeepSeek says is a better model.\nCheap Chinese models have squeezed rivals for months, in what analysts have called a \u2018death zone\u2019 for US model makers.\nIn early August, TNW reported that V4-Flash was already the cheapest well-known model to run.\nRivals and investors react\nThe pressure landed on Chinese competitors first.\nShares in MiniMax and Z.ai fell more than 8% in Hong Kong on Thursday.\nAlibaba slid more than 2%, Bloomberg\u2019s Saritha Rai reported.\nThe timing matters for DeepSeek\u2019s own plans.\nReuters reported that the company has begun preparing for a listing on Shanghai\u2019s STAR Market.\nThat follows the IPO preparations TNW covered in July.\nDeepSeek is also courting operators directly.\nIt says it will work with the open-source community on inference support, and invited anyone planning a deployment of 2,000 GPUs with a storage cluster to get in touch.\nCoding tools WorkBuddy and OpenCode already support the model.\nThe open question is whether DeepSeek\u2019s benchmarks hold up in independent testing, and what V4.1-Pro costs when it arrives.\nUntil then, every V4-Pro customer becomes a V4.1-Flash customer on Monday.\nGet the TNW newsletter\nGet the most important tech news in your inbox each week.",
+        "title": "DeepSeek launches V4.1-Flash and retires V4-Pro, its flagship model",
+        "url": "https://thenextweb.com/news/deepseek-v4-1-flash-launch-v4-pro-retired-price-cut",
+        "verified": false
+      },
+      {
+        "published": "2026-09-28",
+        "quotes": [
+          "V4.1 Pro was reportedly in testing and could launch around National Day."
+        ],
+        "text": "V4.1 Pro was reportedly in testing and could launch around National Day.\n\n\u6709\u671b\u56fd\u5e86\u53d1\u5e03 DeepSeek V4.1 Pro\u5df2\u5f00\u59cb\u6d4b\u8bd5\uff1a\u6027\u80fd\u503c\u5f97\u671f\u5f85\n\u5feb\u79d1\u62809\u670828\u65e5\u6d88\u606f\uff0c9\u670810\u65e5\u53d1\u5e03DeepSeek V4.1 Flash\u4e4b\u540e\uff0cDeepSeek\u63d0\u5230\u540e\u7eed\u8fd8\u6709V4.1 Pro\uff0c\u4f46\u6ca1\u6709\u7ed9\u51fa\u660e\u786e\u7684\u65e5\u671f\uff0c\u73b0\u5728\u9a6c\u4e0a\u56fd\u5e86\u8282\u4e86\uff0cV4.1 Pro\u5df2\u66dd\u51fa\u6b63\u5728\u6d4b\u8bd5\u4e2d\u3002\n\u4ece\u7f51\u53cb\u5206\u6790\u51fa\u6765\u7684\u7ed3\u679c\u770b\uff0cV4.1 Pro\u76ee\u524d\u7684\u72b6\u6001\u8fd8\u662fEarly access\uff0c\u4e5f\u5c31\u662f\u65e9\u671f\u63a5\u5165\uff0c\u9ed8\u8ba4High\u7ea7\u522b\u63a8\u7406\u5f3a\u5ea6\u3002\n\u76ee\u524d\u662f\u6309\u8d26\u53f7\u7070\u5ea6\u6d4b\u8bd5\uff0c\u5927\u90e8\u5206\u4eba\u8fd8\u770b\u4e0d\u5230\u5217\u8868\uff0c\u4e0d\u8fc7\u4e00\u65e6\u6709\u4e86\u6743\u9650\u5c31\u80fd\u4e00\u76f4\u7528\u3002\n\u5de7\u5408\u7684\u662f\uff0c\u5728V4.1 Pro\u5373\u5c06\u53d1\u5e03\u7684\u65f6\u5019\uff0cDeepSeek\u5b98\u65b9\u8fd8\u5728\u5b98\u65b9\u7684\u7fa4\u91cc\u63d0\u5230\u4e86\u4e00\u4e2a\u6d88\u606f\uff0c\u8bf4\u662f\u5468\u4e00\u5468\u4e8c\u7684\u65f6\u5019\u4f1a\u53d1\u5e03DeepSeek Harness\u76840.2.0\u7248\uff0c\u800c\u4e14\u8fd9\u662f\u5b98\u65b9\u53d1\u5e03\u684c\u9762\u7248\u2014\u2014\u6b64\u524d\u867d\u7136\u5927\u5bb6\u90fd\u5df2\u7ecf\u4e0b\u8f7d\u5b89\u88c5\u4e86\u684c\u9762\u7248\uff0c\u4f46\u5b98\u65b9\u786e\u5b9e\u6ca1\u6709\u516c\u5f00\u53d1\u5e03\u8fc7\uff0c\u8fd9\u6b21\u662f\u7b49\u5230\u5b98\u5ba3\u4e86\u3002\nDeepSeek Harness\u7684\u9996\u6b21\u5b98\u5ba3\u4e5f\u8ba9\u7f51\u53cb\u6355\u6349\u5230\u4e86\u5173\u952e\uff0c\u8ba4\u4e3a0.2.0\u7248\u53d1\u5e03\u7684\u65f6\u5019V4.1 Pro\u6b63\u5f0f\u7248\u4e5f\u4f1a\u53d1\u5e03\uff0c\u4f46\u8fd9\u4e2a\u731c\u6d4b\u4e5f\u88abDSH\u7684\u8d1f\u8d23\u4eba\u5d14\u6dfb\u7ffc\u7ed9\u5426\u8ba4\u4e86\uff0c\u8868\u793a\u6ca1\u6709V4.1 Pro\u548cDSH\u5b98\u65b9\u4e00\u8d77\u53d1\u5e03\u7684\u610f\u601d\u3002\n\u4e24\u4e2a\u6d88\u606f\u7ed3\u5408\u6765\u8bf4\uff0c\u5468\u4e00\u5468\u4e8c\u53d1\u5e03DSH\u5b98\u65b9\u7248\u662f\u6bd4\u8f83\u786e\u5b9a\u7684\uff0c\u800cV4.1 Pro\u5df2\u7ecf\u5f00\u59cb\u6d4b\u8bd5\u4e5f\u662f\u771f\u7684\uff0c\u5c31\u662f\u65f6\u95f4\u70b9\u4e0d\u786e\u5b9a\uff0c\u56fd\u5e86\u8282\u5047\u671f\u4e4b\u524d\u53ea\u80fd\u8bf4\u662f\u6709\u5e0c\u671b\uff0c\u4f46\u6881\u5386\u672c\u6765\u5c31\u662f\u4e0d\u53ef\u786e\u5b9a\u7684\u3002\n\u6700\u540e\u5c31\u662fV4.1 Pro\u7684\u6027\u80fd\u6c34\u5e73\uff0c\u8003\u8651\u5230V4 Pro\u6b63\u5f0f\u7248\u7684\u60c5\u51b5\uff0c\u5927\u5bb6\u4e0d\u8981\u628a\u9884\u671f\u62c9\u7684\u592a\u9ad8\uff0c\u8fbe\u5230\u4ec0\u4e48Fable\u3001Mythos\u7ea7\u522b\u7684\u53ef\u80fd\u6027\u4e0d\u5927\uff0c\u5b9e\u9645\u80fd\u529b\u80fd\u5230GPT-6 Sol\u7ea7\u522b\u5c31\u662f\u975e\u5e38\u597d\u4e86\u3002\n\u5f53\u7136\uff0c\u5982\u679c\u80fd\u63a5\u8fd1Opus 5.5\u90a3\u79cd\u5e72\u6d3b\u7684\u80fd\u529b\u5c31\u66f4\u597d\u4e86\uff0c\u5927\u5bb6\u9700\u8981\u7684\u662f\u5b9e\u6218\u80fd\u529b\u5f88\u5f3a\u7684\uff0c\u8dd1\u5206\u62ff\u5230\u591a\u5c11\u699c\u5355\u7b2c\u4e00\u6ca1\u5565\u610f\u4e49\u3002\n\u201c\u7279\u522b\u58f0\u660e\uff1a\u4ee5\u4e0a\u4f5c\u54c1\u5185\u5bb9(\u5305\u62ec\u5728\u5185\u7684\u89c6\u9891\u3001\u56fe\u7247\u6216\u97f3\u9891)\u4e3a\u51e4\u51f0\u7f51\u65d7\u4e0b\u81ea\u5a92\u4f53\u5e73\u53f0\u201c\u5927\u98ce\u53f7\u201d\u7528\u6237\u4e0a\u4f20\u5e76\u53d1\u5e03\uff0c\u672c\u5e73\u53f0\u4ec5\u63d0\u4f9b\u4fe1\u606f\u5b58\u50a8\u7a7a\u95f4\u670d\u52a1\u3002\nNotice: The content above (including the videos, pictures and audios if any) is uploaded and posted by the user of Dafeng Hao, which is a social media platform and merely provides information storage space services.\u201d",
+        "title": "\u6709\u671b\u56fd\u5e86\u53d1\u5e03 DeepSeek V4.1 Pro\u5df2\u5f00\u59cb\u6d4b\u8bd5:\u6027\u80fd\u503c\u5f97\u671f\u5f85",
+        "url": "https://tech.ifeng.com/c/8wmuFrqSUPm",
+        "verified": false
+      },
+      {
+        "published": "",
+        "quotes": [
+          "DeepSeek V4.1 Pro \u4ec0\u4e48\u65f6\u5019\u53d1\u5e03?\u5b98\u65b9\u5df2\u786e\u8ba4\u5728\u5f00\u53d1\u4e2d,\u65f6\u95f4\u5f85\u5b9a"
+        ],
+        "text": "DeepSeek V4.1 Pro \u4ec0\u4e48\u65f6\u5019\u53d1\u5e03?\u5b98\u65b9\u5df2\u786e\u8ba4\u5728\u5f00\u53d1\u4e2d,\u65f6\u95f4\u5f85\u5b9a\n\nDeepSeek V4.1 Pro \u4ec0\u4e48\u65f6\u5019\u53d1\u5e03\uff1f\u5b98\u65b9\u5df2\u786e\u8ba4\u5728\u5f00\u53d1\u4e2d\uff0c\u65f6\u95f4\u5f85\u5b9a\nDeepSeek V4.1 Pro \u662f DeepSeek \u6b63\u5728\u5f00\u53d1\u4e2d\u7684\u4e0b\u4e00\u4ee3\u65d7\u8230\u6a21\u578b\u3002\u5173\u4e8e\u53d1\u5e03\u65f6\u95f4\uff0c\u6838\u5fc3\u7ed3\u8bba\u662f\uff1aDeepSeek \u5b98\u65b9\u5df2\u786e\u8ba4\u5176\u5b58\u5728\uff0c\u4f46\u5c1a\u672a\u516c\u5e03\u4efb\u4f55\u5177\u4f53\u7684\u53d1\u5e03\u65e5\u671f\u3001\u53c2\u6570\u89c4\u6a21\u6216\u6280\u672f\u7ec6\u8282\u3002 \u5b83\u76ee\u524d\u4ecd\u5904\u4e8e\u5f00\u53d1\u9636\u6bb5\uff0c\u4e0a\u7ebf\u65f6\u95f4\u5f85\u5b9a\u3002\n\u4e00\u3001\u5b98\u65b9\u5982\u4f55\u786e\u8ba4 V4.1 Pro \u7684\u5b58\u5728\n2026 \u5e74 9 \u6708 9 \u65e5\uff0cDeepSeek \u6280\u672f\u56e2\u961f\u6210\u5458\u5d14\u5929\u7ffc\uff08@tianyi\uff09\u5728 X \u5e73\u53f0\u53d1\u5e03\u901a\u77e5\uff1a\u4e00\u65e6 V4.1 Flash \u6b63\u5f0f\u4e0a\u7ebf\uff0c\u6240\u6709\u6307\u5411 DeepSeek V4 Pro \u7684 API \u8bf7\u6c42\u5c06\u88ab\u8def\u7531\u81f3 V4.1 Flash \u5e76\u6309 Flash \u8d39\u7387\u8ba1\u8d39\uff0c\u201c\u8fd9\u4e00\u5b89\u6392\u5c06\u6301\u7eed\u5230 DeepSeek V4.1 Pro \u672c\u8eab\u4e0a\u7ebf\u4e3a\u6b62\u201d\u3002\n\u8fd9\u53e5\u8bdd\u4e2d\u7684\u201c\u76f4\u5230 V4.1 Pro \u4e0a\u7ebf\u4e3a\u6b62\u201d\uff0c\u662f DeepSeek \u5b98\u65b9\u9996\u6b21\u5728\u5185\u90e8\u6c9f\u901a\u4e2d\u660e\u786e\u627f\u8ba4\u8fd9\u6b3e\u65d7\u8230\u4ea7\u54c1\u7684\u5b58\u5728\u3002\u968f\u540e\uff0c\u591a\u5bb6\u4e2d\u56fd\u5a92\u4f53\u5bf9\u6b64\u8fdb\u884c\u4e86\u62a5\u9053\u548c\u4f50\u8bc1\u3002\n\u4e8c\u3001\u5f53\u524d\u72b6\u6001\uff1a\u6ca1\u6709\u4efb\u4f55\u6280\u672f\u7ec6\u8282\u516c\u5e03\n\u622a\u81f3 2026 \u5e74 9 \u6708 11 \u65e5\uff0c\u5173\u4e8e DeepSeek V4.1 Pro \u7684\u4fe1\u606f\u6781\u4e3a\u6709\u9650\uff1a\n- \u6ca1\u6709\u53d1\u5e03\u65e5\u671f\uff1a\u5b98\u65b9\u672a\u7ed9\u51fa\u4efb\u4f55\u65f6\u95f4\u7a97\u53e3\u6216\u8def\u7ebf\u56fe\n- \u6ca1\u6709\u6280\u672f\u62a5\u544a\uff1a\u6ca1\u6709\u53c2\u6570\u89c4\u6a21\u3001\u67b6\u6784\u8bbe\u8ba1\u3001\u8bad\u7ec3\u6570\u636e\u7b49\u4efb\u4f55\u6280\u672f\u6587\u6863\n- \u6ca1\u6709\u6a21\u578b\u5361\uff1a\u5728 Hugging Face \u6216 DeepSeek \u5f00\u653e\u5e73\u53f0\u4e0a\u5747\u65e0\u6a21\u578b\u9875\u9762\n- \u65e0\u6cd5\u8c03\u7528\uff1a\u6ca1\u6709\u4efb\u4f55 API \u7aef\u70b9\u54cd\u5e94 deepseek-v4.1-pro \u8fd9\u4e2a\u540d\u79f0\n\u76ee\u524d\u6240\u6709\u5173\u4e8e V4.1 Pro \u7684\u4fe1\u606f\uff0c\u90fd\u5efa\u7acb\u5728\u4e00\u6761\u56e2\u961f\u6210\u5458\u7684\u793e\u4ea4\u5e16\u5b50\u53ca\u5176\u88ab\u5a92\u4f53\u5f15\u7528\u7684\u57fa\u7840\u4e4b\u4e0a\u3002\u201c\u67b6\u6784\u5df2\u89e3\u51b3\u201d\u7b49\u8bf4\u6cd5\u5c5e\u4e8e\u5916\u90e8\u89c2\u5bdf\u8005\u7684\u63a8\u65ad\uff0c\u5e76\u975e\u5b98\u65b9\u786e\u8ba4\u3002\n\u4e09\u3001\u4e3a\u4ec0\u4e48 V4.1 Pro \u5c1a\u672a\u53d1\u5e03\n\u8d44\u6e90\u8c03\u914d\u662f\u4e3b\u8981\u539f\u56e0\u4e4b\u4e00\u3002DeepSeek \u5c06 V4 Pro \u7684\u8bf7\u6c42\u8def\u7531\u81f3 V4.1 Flash \u540e\uff0c\u53ef\u4ee5\u91ca\u653e\u51fa\u539f\u672c\u7528\u4e8e\u670d\u52a1 V4 Pro \u7684\u7b97\u529b\u8d44\u6e90\uff0c\u7528\u4e8e V4.1 Pro \u7684\u7814\u53d1\u3002V4 Pro \u672c\u8eab\u662f\u4e00\u4e2a 1.6 \u4e07\u4ebf\u53c2\u6570\u7684\u65d7\u8230\u6a21\u578b\uff0c\u5176\u4e0b\u7ebf\u91ca\u653e\u7684 GPU \u8d44\u6e90\u76f8\u5f53\u53ef\u89c2\u3002\nV4.1 Flash \u7684\u201c\u8d8a\u7ea7\u201d\u8868\u73b0\u4e5f\u7ed9\u4e86 DeepSeek \u5598\u606f\u7a7a\u95f4\u3002\u5b98\u65b9\u79f0 V4.1 Flash \u5728\u6027\u80fd\u3001\u6210\u672c\u3001\u901f\u5ea6\u548c\u603b\u7528\u65f6\u4e0a\u5168\u9762\u8d85\u8d8a V4 Pro\uff0c\u8fd9\u610f\u5473\u7740\u5728 V4.1 Pro \u5c31\u7eea\u4e4b\u524d\uff0c\u7528\u6237\u4ecd\u80fd\u83b7\u5f97\u6bd4\u524d\u4ee3\u65d7\u8230\u66f4\u597d\u7684\u670d\u52a1\u3002\n\u56db\u3001\u5982\u4f55\u83b7\u53d6\u6700\u65b0\u8fdb\u5c55\n\u7531\u4e8e V4.1 Pro \u5c1a\u672a\u53d1\u5e03\uff0c\u5efa\u8bae\u5173\u6ce8\u4ee5\u4e0b\u6e20\u9053\u83b7\u53d6\u7b2c\u4e00\u624b\u4fe1\u606f\uff1a\n- DeepSeek \u5f00\u653e\u5e73\u53f0\uff08platform.deepseek.com \uff09\uff1a\u65b0\u6a21\u578b\u4e0a\u7ebf\u65f6\u901a\u5e38\u4f1a\u5728\u6b64\u66f4\u65b0 API \u6587\u6863\u548c\u5b9a\u4ef7\u9875\u9762\n- DeepSeek \u5b98\u65b9\u516c\u4f17\u53f7/\u5b98\u7f51\uff1aV4 Pro \u6b63\u5f0f\u7248\u53d1\u5e03\u65f6\uff0c\u5b98\u65b9\u901a\u8fc7\u516c\u4f17\u53f7\u8fdb\u884c\u4e86\u516c\u544a\n- DeepSeek \u6280\u672f\u56e2\u961f\u6210\u5458\u793e\u4ea4\u8d26\u53f7\uff1aV4.1 Pro \u7684\u5b58\u5728\u6700\u521d\u5c31\u662f\u901a\u8fc7\u56e2\u961f\u6210\u5458\u7684\u793e\u4ea4\u5e16",
+        "title": "DeepSeek V4.1 Pro \u4ec0\u4e48\u65f6\u5019\u53d1\u5e03?\u5b98\u65b9\u5df2\u786e\u8ba4\u5728\u5f00\u53d1\u4e2d,\u65f6\u95f4\u5f85\u5b9a",
+        "url": "https://www.ai-indeed.com/encyclopedia/31384.html",
+        "verified": true
+      },
+      {
+        "published": "",
+        "quotes": [
+          "MiniMax-M3.1-Flash and DeepSeek-V4.1-Flash-1017 are now live on CometAPI"
+        ],
+        "text": "MiniMax-M3.1-Flash and DeepSeek-V4.1-Flash-1017 are now live on CometAPI\n\nTL;DR\nDeepSeek V4.1 Pro is a referenced future successor to V4 Pro, with no release date established by the official sources reviewed on October 14, 2026.\nThe September 10 Flash announcement provides the clearest release clue.\nAvailable Flash specifications and evaluations help developers prepare, but they do not establish Pro capabilities.\nDeepSeek has clarified that V4 Pro remains available in response to user demand.\nBenchmark figures below describe the original Flash release, not the October 17 Flash-1017 update; integrations should verify provider-specific model versions before deployment.\nKey Takeaways\n- Release status: V4.1 Pro has been referenced officially, but no specific launch date is confirmed.\n- Most important clue: The V4.1 Flash announcement connected a future V4.1 Pro to an API transition plan.\n- API status: DeepSeek confirmed continued V4 Pro service with unchanged billing in response to user demand; the earlier plan to redirect Pro requests to Flash is superseded.\n- Technical foundation: V4.1 Flash discloses a 552B-parameter backbone, asymmetric processing and a 1M-token context.\n- Preparation: Benchmark existing models and keep API model identifiers configurable.\nWhen Will DeepSeek V4.1 Pro Be Released?\nAs of October 14, 2026, the official sources reviewed for this article do not establish a release date for DeepSeek V4.1 Pro.\nIts name appears in DeepSeek\u2019s product communication, but a future-product reference is not a launch schedule.\nOn September 10, 2026, DeepSeek introduced V4.1 Flash as the smallest member of a new architecture family.\nIts official launch announcement described an initial plan to redirect the older V4 Pro API to V4.1 Flash until the future V4.1 Pro release.\nThe statement ties the successor to a concrete migration policy, but does not establish a launch date, training status or final specifications.\nDeepSeek V4.1 Pro Release Timeline\n| Date | Development | Implication |\n|---|---|---|\n| April 24, 2026 | V4 preview family released | Previous generation baseline |\n| August 13, 2026 | V4 Pro general-availability update | Known flagship baseline |\n| September 10, 2026 | V4.1 Flash announced; V4.1 Pro referenced | New architecture family introduced, with a future Pro successor referenced but no release date confirmed |\n| September 14, 2026 | Original V4 Pro migration target | Subsequently revised |\n| V4.1 Pro release | No announced date | Timing remains unconfirmed |\nThe official news archive dates the V4 preview release to April 24 and the V4 Pro general release to August 13.\nThe September migration date was a service-transition target, not a V4.1 Pro release date.\nThe September announcement proposed redirecting V4 Pro requests to Flash from September 14 until a future Pro release.\nHowever, the current API documentation lists V4 Pro as a separate model with its own rates.\nDeepSeek subsequently clarified in its official September 10 changelog entry that it would continue providing V4 Pro API service after September 14 in response to user demand, with billing unchanged.\nThe earlier redirection proposal should therefore be treated as a superseded plan, not the current V4 Pro routing policy.\nThe current model table lists deepseek-v4-pro as V4-Pro-0813 and deepseek-flash as V4.1-Flash-1017; verify each provider\u2019s model mapping before deployment.\nFuture confirmation should come from a dedicated DeepSeek announcement, a supported API identifier, and published Pro evaluations and pricing.\nWhat Has DeepSeek Officially Confirmed About V4.1 Pro?\nConfirmed Information\nThe distinction between official statements and technical speculation is essential before launch.\nV4.1 Flash disclosures provide substantial evidence about the architecture family, but do not automatically become V4.1 Pro specifications.\nDeepSeek has referenced V4.1 Pro as a future member of the V4.1 family, but the sources reviewed do not establish its release date, public model identifier, parameter count, context window, vision support, reasoning controls, benchmark results or API pricing.\nThe available V4.1 Flash specifications provide context for the architecture family, not confirmed V4.1 Pro specifications.\nDeepSeek describes V4.1 Flash as the smallest member of a new family designed for scaling.\nThis supports a larger future architecture but does not prove V4.1 Pro will simply be a bigger copy.\nTraining, active parameter budgets, attention schemes and post-training methods remain unconfirmed.\nCommunity Reports / Leaks\nIn a September 27, 2026 X post, @NFT_Chen claimed that DeepSeek V4.1 Pro had appeared in internal testing with account-gated early access.\n@NFT_Chen\u2019s post is an unverified community report, not an official DeepSeek announcement.\nThe screenshot visibly shows the V4.1 Pro name, an early-access label and several configuration fields, but it does not establish the screenshot\u2019s source, deployment environment, connection to a live model, public API availability or final product specifications.\nTreat it as a lead for further verification rather than as evidence of a confirmed release.\nThe attached configuration screenshot displays the name DeepSeek V4.1 Pro, an Early access tagline, high reasoning effort, and flags for training data use, non-premium access and no multimodal support.\nIt also contains a FREEBUFF_AI_TRAINING_NOTICE identifier.\nIf authentic and tied to an active integration, the entry could be an early-access clue.\nAn availability flag is not a service guarantee, and the near-launch prediction by the author is not a confirmed release window.\nTreat the screenshot as a lead for further verification, not as a Pro specification.\nWhat Is Known About DeepSeek V4.1 Pro?\nV4.1 Flash offers the clearest technical foundation for the upcoming family.\nV4.1 Flash uses a Causal Encoder-Decoder architecture with different computation paths for prefill and decoding.\nAccording to the technical model card, the released model contains 40 Transformer layers across a 20-layer encoder and 20-layer decoder.\n| Specification | DeepSeek V4 Pro | V4.1 Flash | V4.1 Pro |\n|---|---|---|---|\n| Backbone parameters | 1.6T | 552B | Unannounced |\n| Activated parameters | 49B | 8B input / 16B output | Unannounced |\n| Architecture | MoE | Causal Encoder-Decoder MoE | Unannounced |\n| Context window | 1M | 1M | Unannounced |\n| Max output | 384K | 384K | Unannounced |\n| Native image input | Not in listed configuration | Supported | Unannounced |\n| KV cache footprint | Not directly comparable | ~890 bytes/token | Unannounced |\n| Reasoning control | Low / high / max | Continuous 1\u2013100 | Unannounced |\n| Availability | API | API and open weights | Not announced |\nAlthough V4.1 Flash contains 552B backbone parameters, only about 8B parameters are activated per input token and 16B during output.\nCausal Encoder-Decoder Scaling Potential\nThe separation between prefill and decoding may make it possible for future family members to increase representation capacity while managing inference costs.\nV4.1 Flash also features Compressed Sparse Attention 2 and FP4 KV caching.\nWhether and how V4.1 Pro inherits these characteristics remains unknown.\nDeepSeek reports a global KV-cache footprint of approximately 890 bytes per token for V4.1 Flash, compared with 3,514 bytes for V4 Flash.\nThis is a global KV-cache comparison, not a measure of total serving memory.\nThe two original graphics reproduced in this article are published in DeepSeek\u2019s official model card; neither graphic is a V4.1 Pro result.\nDeepSeek V4.1 Pro vs V4 Pro vs V4.1 Flash\nA useful starting point is the observed difference between existing models, not an invented Pro benchmark.\nThe table below compares the released V4 Pro 0813 model with the initial September V4.1 Flash release.\nDeepSeek benchmark comparison\n| Benchmark (metric) | V4 Pro 0813 | V4.1 Flash | Flash \u2212 Pro (percentage points) |\n|---|---|---|---|\n| GPQA Diamond (Pass@1) | 92.4 | 90.9 | \u22121.5 ",
+        "title": "MiniMax-M3.1-Flash and DeepSeek-V4.1-Flash-1017 are now live on CometAPI",
+        "url": "https://www.cometapi.com/deepseek-v4-1-pro-release-date/",
+        "verified": false
+      }
+    ],
+    "manifold-RcL0Q9O0EU": [
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://centerforpolitics.org/crystalball/the-maine-senate-do-over-and-rating-changes-in-other-pine-tree-state-races/'\nFor more information check",
+        "published": "",
+        "quotes": [
+          "if Platner had remained in the race into this week, we would probably be moving our rating for the race to Leans Republican"
+        ],
+        "text": "if Platner had remained in the race into this week, we would probably be moving our rating for the race to Leans Republican",
+        "title": "The Maine Senate Do-Over, and Rating Changes in Other Pine Tree State Races - Sabato's Crystal Ball",
+        "url": "https://centerforpolitics.org/crystalball/the-maine-senate-do-over-and-rating-changes-in-other-pine-tree-state-races/",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://thehill.com/homenews/campaign/6163811-colins-maine-senate-poll'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/",
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Joe Manchin slams Chuck Schumer for targeting Susan Collins (The Hill)",
+        "url": "https://thehill.com/homenews/campaign/6163811-colins-maine-senate-poll",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.cookpolitical.com/analysis/senate/maine-senate/generic-democrat-no-guarantee-maine'\nFor more information check: https://developer.moz",
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "A Generic Democrat Is No Guarantee in Maine - Cook Political Report",
+        "url": "https://www.cookpolitical.com/analysis/senate/maine-senate/generic-democrat-no-guarantee-maine",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.realclearpolling.com/polls/senate/general/2026/maine/collins-vs-platner'\nFor more information check: https://developer.mozilla.org/en",
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "2026 Maine Senate - Collins vs.\nPlatner - RealClearPolling",
+        "url": "https://www.realclearpolling.com/polls/senate/general/2026/maine/collins-vs-platner",
+        "verified": null
+      }
+    ],
+    "manifold-g0zN5ghS90": [
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "Crowley +4, with Crowley at 47.5% and Tiffany at 43.8%"
+        ],
+        "text": "Crowley +4, with Crowley at 47.5% and Tiffany at 43.8%\n\nHorse race polls are weighted by quality and recency.\nAverages adjust for pollster house effects, survey mode effects, partisanship, and population.\nThe shaded areas represent the 95% confidence intervals for each estimate.",
+        "title": "FiftyPlusOne - Wisconsin General Governor Election Polls and Average",
+        "url": "https://fiftyplusone.news/polls/governor/general/wisconsin",
+        "verified": false
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Crowley 48.0% and Tiffany 44.0%"
+        ],
+        "text": "Crowley 48.0% and Tiffany 44.0%\n\n2026 Polls: Wisconsin Governor\nGeneral Election \u2013 November 3\nCrowley vs.\nTiffany\n| Source | | Date | Sample | Crowley | Tiffany | Other |\n|---|---|---|---|---|---|---|\n| Average of 3 Polls\u2020 | | | | 48.0% | 44.0% | - |\n| | YouGov | 10/16/2026 | 1,715 RV | 46% | 42% | 12% |\n| | Z to A Research | 10/09/2026 | 662 LV | 49% | 44% | 7% |\n| | Marquette Law School | 9/30/2026 | 692 LV \u00b7 Margin of error \u00b14.8% | 49% | 46% | 5% |\n| | Marquette Law School | 8/26/2026 | 738 LV \u00b7 Margin of error \u00b14.5% | 49% | 44% | 7% |\n| | TIPP | 8/21/2026 | 1,199 LV \u00b7 Margin of error \u00b13.1% | 47% | 43% | 10% |\n| | Badger Battleground | 8/16/2026 | 500 LV | 48% | 44% | 8% |\n| | RMG Research | 7/30/2026 | 800 RV \u00b7 Margin of error \u00b13.5% | 46% | 43% | 11% |\n| | TIPP | 3/23/2026 | 1,175 LV \u00b7 Margin of error \u00b12.9% | 42% | 41% | 17% |\nPrimary Election \u2013 August 11\nDemocratic Primary\n| Source | | Date | Sample | Hong | Crowley | Barnes | Roys | Brennan | Rodriguez | Other |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Average of 2 Polls\u2020 | | | | 45.0% | 16.5% | 13.5% | 7.5% | 4.5% | 3.0% | - |\n| | State Navigate | 8/07/2026 | 1,473 LV \u00b7 Margin of error \u00b12.3% | 44% | 22% | 6% | 11% | 5% | 3% | 9% |\n| | Marquette Law School | 7/29/2026 | 407 RV \u00b7 Margin of error \u00b16.6% | 46% | 11% | 21% | 4% | 4% | - | 14% |\n| | State Navigate | 7/28/2026 | 1,085 LV \u00b7 Margin of error \u00b13% | 44% | 15% | 14% | 4% | 4% | 4% | 15% |\n| | Marquette Law School | 7/22/2026 | 430 RV \u00b7 Margin of error \u00b16.1% | 26% | - | 15% | 1% | 2% | 11% | 45% |\n| | Marquette Law School | 3/24/2026 | 393 RV \u00b7 Margin of error \u00b16.7% | 14% | 3% | 11% | 1% | 2% | 3% | 66% |\n| | Marquette Law School | 2/25/2026 | 394 RV \u00b7 Margin of error \u00b16.3% | 11% | 3% | 10% | 1% | 2% | 6% | 67% |\n| | TIPP | 2/17/2026 | 646 RV | 5% | 7% | 28% | 2% | 0% | 20% | 38% |\nRepublican Primary\n| Source | | Date | Sample | Tiffany | Manske | Other |\n|---|---|---|---|---|---|---|\n| | Marquette Law School | 7/22/2026 | 399 RV \u00b7 Margin of error \u00b16.5% | 67% | 2% | 31% |\n| | Marquette Law School | 3/24/2026 | 396 RV \u00b7 Margin of error \u00b16.3% | 40% | 6% | 54% |\n| | Marquette Law School | 2/25/2026 | 371 RV \u00b7 Margin of error \u00b16.4% | 35% | 2% | 63% |\n\u2020 An average is calculated when there are multiple qualifying polls.\nThe average includes all polls within seven days of the date of the most recent poll, limited to one poll from any source.\nIf there are fewer than five, the window is expanded to 30 days or five polls, whichever comes first.\nIn the latter scenario, if there are multiple qualifying polls on the same calendar date as the oldest poll used, those will also be included.",
+        "title": "2026 Polls: Wisconsin Governor - 270toWin",
+        "url": "https://www.270towin.com/2026-governor-polls/wisconsin",
+        "verified": false
+      },
+      {
+        "published": "2026-09-30",
+        "quotes": [
+          "Among likely voters, Crowley led 49% to 46%, with 5% undecided."
+        ],
+        "text": "Among likely voters, Crowley led 49% to 46%, with 5% undecided.\n\nMarquette poll: Crowley leads Tiffany in Wisconsin governor's race\nMILWAUKEE - The latest Marquette University Law School poll, released Wednesday, found Democrat David Crowley leads Republican Tom Tiffany in the race for Wisconsin governor.\nWisconsin governor's race\nBy the numbers:\nForty-six percent of registered voters backed Crowley, compared to 45% for Tiffany.\nNine percent of registered voters were undecided.\nThe two were tied among registered voters in the last poll.\nFREE DOWNLOAD: Get breaking news alerts in the FOX LOCAL Mobile app for iOS or Android\nCrowley's lead over Tiffany was wider among likely voters, the poll found, with 49% support for Crowley versus 46% for Tiffany with 5% undecided.\nHowever, the number of likely voters who back Tiffany is up two points compared to the last poll.\nThe poll also found Crowley's favorability among voters swung from favorable to unfavorable since last month's poll, a 17-point swing from +4 to -13.\nTiffany's favorability dropped from -3 to -6.\nMethodology:\nThe survey was conducted Sept.\n16\u201323.\nPollsters interviewed 843 Wisconsin registered voters, with a margin of error of +/- 4.3%.\nFor likely voters, the sample size was 692 with a margin of error of +/- 4.8%.\nThe backstory:\nMarquette's last poll in the race for governor was conducted in the days after the August primaries, and the results were released on Aug.\n26.\nThe race between Crowley and Tiffany was tied at 44% each among registered voters with 12% undecided.\nBut among likely voters, the poll found Crowley took the lead \u2013 49% to 44% \u2013 over Tiffany.\nSeven percent were undecided.\nKey issues\nBy the numbers:\nThe Marquette University Law School poll asked voters about a number of key issues.\nWhat is the most important issue for registered voters?\nThe poll found more than half said it was some sort of financial or economic issue:\n- Inflation/cost of living: 45%\n- Illegal immigration/border security: 11%\n- Health insurance: 9%\n- Jobs/economy: 9%\n- Property taxes: 7%\n- Data centers: 5%\n- Abortion policy: 5%\n- Housing affordability: 4%\n- Public schools: 4%\n- Crime: 2%\nThe poll also asked voters about Flock cameras, specifically, and found 63% of those surveyed consider them an \"unacceptable violation of privacy rights.\" Thirty-seven percent said the cameras are an important tool for police investigations.\nWhen is the election?\nWhat's next:\nWisconsin's general election will take place on Tuesday, Nov.\n3.\nThe next Marquette poll will be released on Wednesday, Oct.\n28.\nThe Source: The Marquette University Law School Poll released its results and methodology on Sept.\n30.\nFOX6 News also referenced prior coverage of the gubernatorial race, including prior polls.",
+        "title": "Marquette poll: Crowley leads Tiffany in Wisconsin governor's race",
+        "url": "https://fox6now.com/news/marquette-poll-wisconsin-governor-crowley-tiffany-093026",
+        "verified": false
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Crowley's unfavorable rating among registered voters rose from 29% in August to 44% in September"
+        ],
+        "text": "Crowley's unfavorable rating among registered voters rose from 29% in August to 44% in September\n\nhad incredibly thin margins, split nearly 50/50 between the two parties.\n\u201cFor all registered voters, there are about 4% more Republicans in the state than there are Democrats,\u201d Franklin said.\n\u201cBut among likely voters, it's dead even at about 45% for each party.\nSo if both parties are getting 45% and almost perfect party loyalty, you can only get 50% of the vote from independents.\u201d\nFranklin talked about the importance of independent voters in determining the results of the election.\nCurrently, the polls are showing 44% of independent voters supporting Crowley, while 18% support Tiffany.\nIn the September poll, independent voters showed 55% support for Crowley and 16% for Tiffany.\nFranklin recognized the necessity of independent voters, saying they are \u201cpivotal for how you get from 45% to over 50% of the vote.\u201d\nTurnout presents another uncertainty.\nIn the September poll, 61% of independent respondents said they were absolutely certain to vote, compared with 85% of Democrats and 78% of Republicans.\nFranklin said Democrats currently have a turnout advantage, although that could change by November.\nFranklin also discussed the challenges candidates face in establishing their public images.\nCrowley\u2019s unfavorable rating among registered voters rose from 29% in August to 44% in September, but the respondents who said they had not heard enough about him to form an opinion fell from 38% to 25%.\nFranklin said he believes this is essential.\nHe talked about the difficulties for turnout in this year\u2019s midterm, particularly facing the Crowley campaign.\nCrowley briefly suspended his campaign in July 2026 after struggling in early polling, and then re-entering 10 days later with endorsement from Gov.\nTony Evers.\n\u201cHe is still not very well known across any of the three partisan camps,\u201d Franklin said.\n\u201cOver 20% of Republicans and 24% of Democrats haven\u2019t developed an opinion about him.\nIt's a problem for his campaign that he has failed to communicate to his own base voters who he is and why they should like him a lot.\u201d\nAmong his own base, Tiffany\u2019s favorability ratings have changed less over the same period \u2014 42% to 45%, while 15% of respondents said they had not heard enough about him to form an opinion.\nHowever, compared to Crowley\u2019s support among independents, Tiffany has lower ratings.\nFranklin also discussed the potential implications of President Donald Trump\u2019s job approva",
+        "title": "Strong party loyalty leaves Wisconsin's gubernatorial race uncertain - The Daily Cardinal",
+        "url": "https://www.dailycardinal.com/article/2026/10/strong-party-loyalty-leaves-wisconsins-gubernatorial-race-uncertain",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.wispolitics.com/2026/city-forward-collection-cfc-action-fund-new-wisconsin-poll-crowley-leads-tiffany-46-to-42-in-governors-race/'\nFo",
+        "published": "",
+        "quotes": [
+          "Crowley leads Tiffany 46% to 42% in governor's race"
+        ],
+        "text": "Crowley leads Tiffany 46% to 42% in governor's race",
+        "title": "New Wisconsin poll: Crowley leads Tiffany 46% to 42% in governor's race",
+        "url": "https://www.wispolitics.com/2026/city-forward-collection-cfc-action-fund-new-wisconsin-poll-crowley-leads-tiffany-46-to-42-in-governors-race/",
+        "verified": null
+      }
+    ],
+    "polymarket-4853905": [
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "Gemini 4 Argon is available now for Google AI Ultra and Pro subscribers in @GeminiApp and AI Mode in Search, Ultra subscribers in @Antigravity, and to developers and enterprises via the Gemini API in @GoogleAIStudio and the Gemini platform."
+        ],
+        "text": "Gemini 4 Argon is available now for Google AI Ultra and Pro subscribers in @GeminiApp and AI Mode in Search, Ultra subscribers in @Antigravity, and to developers and enterprises via the Gemini API in @GoogleAIStudio and the Gemini platform.\n\nGoogle on X: \"Gemini 4 Argon is available now for Google AI Ultra and Pro subscribers in @GeminiApp and AI Mode in Search, Ultra subscribers in @Antigravity, and to developers and enterprises via the Gemini API in @GoogleAIStudio and the Gemini platform.\nArgon will launch at an introductory price\u2026 / X\nGoogle on X: \"Gemini 4 Argon is available now for Google AI Ultra and Pro subscribers in @GeminiApp and AI Mode in Search, Ultra subscribers in @Antigravity, and to developers and enterprises via the Gemini API in @GoogleAIStudio and the Gemini platform.\nArgon will launch at an introductory price of $2 per million input tokens and $10 per million output tokens, with cached input tokens priced at 95% off input token price.\"\nGemini 4 Argon is available now for Google AI Ultra and Pro subscribers in @GeminiApp and AI Mode in Search, Ultra subscribers in @Antigravity, and to developers and enterprises via the Gemini API in @GoogleAIStudio and the Gemini platform.\nArgon will launch at an introductory price of $2 per million input tokens and $10 per million output tokens, with cached input tokens priced at 95% off input token price.\nArgon brings major improvements in spatial reasoning, mathematical pre",
+        "title": "Google on X: Gemini 4 Argon is available now",
+        "url": "https://x.com/Google/status/2110041305925484716",
+        "verified": true
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "Google is now rolling out support for Gemini 4 Argon to Antigravity, its AI coding tool.\nGemini 4 Argon is Google\u2019s latest flagship AI model, announced at the end of September and having widely rolled out to users earlier this week.\nNow, it\u2019s also available within Antigravity.\nAntigravity is an agentic development platform, as Google describes it, which leverages AI and agents to assist in coding and building apps.\nGoogle announced that Argon would be available in Antigravity earlier this week, and it\u2019s now actively rolling out to AI Pro and AI Ultra subscribers \u2013 we\u2019re seeing it live on our end, too.\nIn a post on Twitter/X, Google adds that there\u2019s \u201ca separate weekly-only Argon quota\u201d on top of the existing quota for Gemini 3.8 Flash, meaning you\u2019ll be able to use the model that best suits your needs.\nGoogle says that Argon is \u201cdesigned to tackle your hardest problems.\u201d\nGoogle also provided a host of examples of how Argon in Antigravity has been used internally, including:\n- YouTube comment optimization: Argon in Antigravity helped the team cut the CPU footprint of YouTube\u2019s comments frontend in half.\nBy tracing production profile data, Argon identified that redundant emoji rendering alone accounted for nearly 45% of server overhead, leading to 12 targeted optimizations.\nThe updates reduced server comment-load latency by 30 ms and dropped client end-to-end latency by 20 ms.\n- Debugging Wing drone physics simulator: Argon in Antigravity reviewed Wing\u2019s proprietary internal drone physics simulator, reasoning through the underlying physics and math rather than just the structure of the code.\nIt highlighted areas for improved physics simulations and proposed 18 targeted modelling improvements across aerodynamics, propulsion, and structural dynamics to resolve long-standing legacy issues.\n- Burning down the backlog: Argon in Antigravity took an aging queue of 134 open bug reports spanning multiple services, and ran agents to work out which were still real, cross-referencing commit histories, checking whether candidate fixes actually reached production, and inspecting live telemetry for whether the error still occurs.\nIn under 3 hours it closed 97 stale or duplicate bugs with documented commit proof (a 72.4% queue reduction) and sorted the remaining 37 by owner with no unassigned tickets left.\n- Migrating legacy code: For decades, vital scientific research has been locked inside fragile legacy codebases like Fortran.\nUsing a custom skill within Antigravity, a team deployed Argon to map and execute a complete rewrite into modern Rust.\nArgon autonomously delivered the modernized codebase, achieving a 1.8x performance boost and memory safety while giving scientists a robust foundation for future work.\n- Performing security audits: Argon in Antigravity was used to audit a batch of access-control changes.\nArgon traced how permissions actually flowed at runtime rather than just reading the code diff, and found four critical security bugs.\nTwo earlier frontier models had audited the identical code and both concluded there were zero security holes.\n- Triaging production support tickets: Argon in Antigravity batch-processes dozens of tickets from an on-call rotation.\nIt sorts them by issue type, tracing root causes through the code and logs, proposing fixes and drafting the replies for human approval.\nThis has freed up 2-3 hours per shift, enabling the team to focus on resolving issues faster.\n- Marketing website localization: The Antigravity DevRel team used Argon in Antigravity to localize hundreds of pages of developer documentation into 17 languages in a matter of hours.\nThis improved the accessibility and UX of the website by shrinking a multi-week process down to hours and shifting human effort exclusively to high-quality review.\n- Accelerating data center pipeline modernization: Demonstrating how AI-augmented execution helps teams do more with less, a Data Science Technical Program Manager leveraged Argon in Antigravity to fast-track development of a 3,200-line Google Data Center fleet analytics pipeline (Python, SQL, and dashboards) into production in days.\nPairing with Argon to rapidly resolve complex multi-system edge cases, eliminate hardcoded legacy assets, and optimize timeseries queries against timeouts drove end-to-end efficiency \u2014 delivering a clean, production-grade, and extensible architecture for fleet-scale analytics.\n- Vetting sales prospects: Argon in Antigravity built an automated qualification workflow for an account executive in Ads sales that checks prospective company website traffic, confirms the site has clear conversion funnels, and cross-references the sales database to see whether the account is a qualified prospect.\nThis reduced research time by 90%, saving the account executive upwards of 10 hours of manual work each week so they can spend time on direct client outreach instead.\n- Financial planning and analysis: With custom finance plugins, a finance lead used Argon in Antigravity for end-to-end financial reconciliations, budget tracking, contract extraction, and daily executive briefings across 80 separate workflows.\nOver seven business days, 15.5 hours of human direction produced about 335 human-equivalent hours of validated financial output, saving more than eight weeks of manual work.\nMore on Gemini:\n- Google Antigravity Googlebook app hits the Play Store\n- Google rolling out Universal Cart that lets you shop the web and find deals with Gemini, Search\n- Gemini AI Plus subscribers will lose access to Pro models next month\nFollow Ben: Twitter/X, Threads, Bluesky, and Instagram\nKyle Bradshaw contributed to this article.\nFTC: We use income earning auto affiliate links.\nMore.\nComments",
+        "title": "Gemini 4 Argon is now rolling out to Google's Antigravity for AI Pro subscribers",
+        "url": "https://9to5google.com/2026/10/15/gemini-4-argon-is-now-rolling-out-to-googles-antigravity-for-ai-pro-subscribers/",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://letsdatascience.com/news/gemini-35-pro-launch-remains-unconfirmed-a09db704'\nFor more information check: https://developer.mozilla.org/en-",
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Gemini 3.5 Pro Launch Remains Unconfirmed",
+        "url": "https://letsdatascience.com/news/gemini-35-pro-launch-remains-unconfirmed-a09db704",
+        "verified": null
+      },
+      {
+        "published": "2026-10-01",
+        "quotes": [],
+        "text": "Google may be back at the frontier of artificial intelligence, but investors and consumers are increasingly focusing on what people can build with the technology as personal agents surge in popularity.\nThe company unveiled its long-awaited Gemini 4 Argon model on Wednesday, promising major advances in coding, cybersecurity, and complex tasks.\nAccording to industry benchmarks, Argon ties OpenAI on a key cybersecurity test and posts leading results in software engineering.\nArgon's introductory pricing of $2 per million input tokens and $10 per million output tokens also matches OpenAI's newly discounted GPT-6.1 Sol model.\nA token is equivalent to about three-quarters of one word.\nWhile Google is stepping up its game in the model battle, rival Meta is racking up millions of downloads for its Muse app, which launched last month and soared to the top of Apple's App Store, topping ChatGPT.\nEarlier this week, OpenAI rolled out Dots, its personal agent offering, capitalizing on demand from businesses and consumers for tools that can carry out tasks \u2014 like scouring emails, booking travel and organizing expenses \u2014 on a user's behalf.\nMeanwhile, the attention at the frontier model level has turned to safety, with Anthropic CEO Dario Amodei sparking a firestorm three weeks ago by urging the top AI labs to slow the pace of development as concerns intensify about their potential dangers.\nOver the past three months, Alphabet's stock is down about 6%, while Meta is up 19% over that stretch, sparked by September's rally, which was the sharpest for any month since 2022.\nAnalysts at JPMorgan Chase wrote in a note on Thursday that Google needs a significant advance in its personal agent offerings to generate consumer enthusiasm.\nBank of America identified the potential for Gemini 4 to strengthen Google's cloud business and existing products, while providing a foundation for a future personal agent.\nIn the consumer market, Google has a massive home-court advantage.\nBillions of people use Google products, including Gmail, Calendar, Chrome, and Search.\nTheir messages and schedules are already stored within Google's ecosystem, potentially giving the company a substantial edge in developing an assistant capable of working across those services.\nYet Google's personal agent, Spark, remains limited to paying subscribers, while Muse is free with usage caps.\nAs of Sept.\n30, Muse had reached more than 5 million downloads, according to Sensor Tower.\nIn a background briefing with CNBC, members of Google's agent team outlined Spark's existing capabilities and the company's approach to expanding access, and acknowledged that Muse's free availability has helped consumers discover and experiment with it.\nLaunched in May at Google's I/O developers conference, Spark can work across Gmail and Calendar, navigate websites through Chrome, and complete tasks such as filling out online forms.\nIt's also available through Google's mobile and desktop apps.\nBut unlike Muse, Spark can't make outbound phone calls or complete purchases on a user's behalf.\nInstead, it takes users through the purchasing process before handing control back to them for final approval.\nCan Argon help Spark?\nMeta's approach has also introduced complications.\nReuters reported in September that the company had experimented with a human concierge system in which contractors handled some phone calls when Muse couldn't complete them autonomously.\nInternal privacy concerns prompted Meta to suspend the experiment, while its automated phone-calling feature remains in beta.\nThe episode has raised privacy concerns associated with granting AI assistants access to so much sensitive personal information.\nA Meta spokesperson said in an email that internal testing \"is core to the product development process\" and is being done to get feedback on safety and privacy protections needed for a broader release.\n\"We're working with merchants to continue improving this potential calling feature, and will only roll it out when it's ready and with the proper disclosures,\" the spokesperson said.\nGoogle is now evaluating whether its latest frontier model could strengthen Spark.\nIn an interview with CNBC, Tulsee Doshi, head of product for Gemini, highlighted Argon's ability to tackle complicated assignments that require multiple steps and can run for extended periods.\nShe said Google is still evaluating where Argon can be deployed most effectively.\nPersonal agents don't need the most powerful frontier models to complete everyday tasks.\nAnd prior to Argon, Google spent much of the summer releasing cheaper, lighter models designed to handle routine requests at scale.\nDoshi said those models remain essential for everyday agents, while more powerful frontier models can provide the additional reasoning capabilities required for complex assignments.\nThere's also the money.\nRunning powerful AI models is expensive, particularly for agents that operate continuously and perform multiple tasks.\nGoogle's introductory Argon pricing is competitive, but the company said its published rates will eventually double to $4 per million input tokens and $20 per million output tokens.\nOne challenge for Google is determining how to combine its models into an agent that can handle increasingly sophisticated tasks without making the service prohibitively expensive to operate.\nArgon also isn't broadly available yet.\nGoogle is participating in a voluntary U.S.\ngovernment safety-testing process and initially restricting access to select cybersecurity defenders and enterprise cloud customers.\nThe company plans to expand availability to developers, enterprise customers and consumers, but hasn't announced a public release date.\nThat's limiting the independent testing of Argon's capabilities.\nBloomberg reported Wednesday that some Google employees had questioned the model's real-world coding performance despite strong benchmark results.\nGoogle disputes that characterization, and told CNBC that employees across the company have been testing versions of Gemini 4 for weeks, with some receiving unlimited access.\nBut the greater urgency is on the agent side, as other companies race to bring AI to the masses.\nAs JPMorgan analysts wrote, \"Google has struggled to translate ongoing product velocity into splashy releases that resonate with consumers, capture sustained mindshare, & meaningfully drive sentiment around AI leadership.\"\n\u2014CNBC's Jonathan Vanian contributed to this report.\nWATCH: Google announces new frontier model called Gemini 4 Argon",
+        "title": "Google Gemini 4 arrives as Wall Street shifts to personal agents",
+        "url": "https://www.cnbc.com/2026/10/01/google-gemini-4-arrives-as-wall-street-shifts-to-personal-agents.html",
+        "verified": false
+      }
+    ],
+    "polymarket-4936081": [
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "Gold fell more than 1% on Thursday as rising oil prices stoked inflation concerns and reinforced expectations that interest rates could stay higher for longer.",
+          "Resistance is at $4,135"
+        ],
+        "text": "Gold fell more than 1% on Thursday as rising oil prices stoked inflation concerns and reinforced expectations that interest rates could stay higher for longer.\nResistance is at $4,135\n\nGold fell more than 1% on Thursday as rising oil prices stoked inflation concerns and reinforced expectations that interest rates could stay higher for longer, while investors awaited next week's Federal Reserve meeting for clues on the policy outlook.\nSpot gold slid 1.1% to $4,094.90 per ounce by 0333 GMT, hitting its lowest since October 14.\nUS gold futures for December delivery dropped 0.9% to $4,111.40.\nIf oil prices continue to rise, inflation expectations could increase, raising the likelihood of higher interest rates over the longer term and weighing on gold, said Kelvin Wong, a senior market analyst at OANDA.\nOil prices rose on Thursday as more attacks by the Houthis in Saudi Arabia prompted the US to order some diplomats and family members to leave its missions in the Kingdom.\nThough stubborn inflation, largely driven by high energy prices, has bolstered the case for tighter monetary policy, Fed policymakers are expected to remain patient for now.\nTraders see just a 16% chance of a rate hike at the Fed's October 27-28 policy meeting next week, but are pricing in a 90% likelihood of an increase in December, according to CME's FedWatch Tool.\nMarkets await next week's Personal Consumption Expenditures (PCE) data, a key gauge closely watched by the central bank as it targets a 2% inflation rate.\nInvestors anticipate elevated interest rates at both the short and long ends of the curve, reducing gold's appeal by increasing the opportunity cost of holding the non-yielding asset, Wong said.\nSpot gold still targets the October 14 low of $4,073 per ounce, as suggested by a wedge.\nResistance is at $4,135, a break above which could lead to a gain into the $4,150-$4,169 range, according to Reuters technical analyst Wang Tao.\nAmong other metals, spot silver dropped 2.6% to $56.44 per ounce, platinum slid 2.1% to $1,594.25 and palladium fell 2.6% to $1,059.05.",
+        "title": "Gold drops over 1% as oil rally reinforces higher-for-longer rate outlook",
+        "url": "https://www.cnbc.com/2026/10/22/gold-drops-over-1percent-as-oil-rally-reinforces-higher-for-longer-rate-outlook.html",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.usagold.com/daily-precious-metals-market-report-october-22-2026/'\nFor more information check: https://developer.mozilla.org/en-US/doc",
+        "published": "2026-10-22",
+        "quotes": [
+          "Gold spot price is trading at $4,084.00 per ounce, down $56.40 (-1.36%) on the day."
+        ],
+        "text": "Gold spot price is trading at $4,084.00 per ounce, down $56.40 (-1.36%) on the day.",
+        "title": "Silver Tumbles To $55.94 As Oil's Surge Revives Rate-Hike Bets; Gold Eases To $4,084",
+        "url": "https://www.usagold.com/daily-precious-metals-market-report-october-22-2026/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "Gold prices stabilized around $4,030 an ounce on Friday, hovering near three-month lows and leaving the precious metal down around 3% for the week, as rising oil prices have fueled expectations that US interest rates will remain higher for longer.\nBrent crude climbed to a more than five-month high after Houthi attacks in Saudi Arabia heightened concerns over further disruptions to energy supplies.\nMeanwhile, US consumer and producer inflation data released last week came in hotter than expected, largely reflecting rising energy costs and reinforcing the case for tighter monetary policy.\nHowever, Fed officials are still widely expected to leave rates unchanged at their October 27\u201328 meeting.\nMarkets currently assign just a 9% probability to a rate hike next week, compared with more than 80% for December, according to CME\u2019s FedWatch Tool.\nInvestors also await US PCE inflation data on October 29 for further clues on progress towards the Fed\u2019s 2% target.\nGold traded flat at 4,024.64 USD/t.oz on October 23, 2026.\nOver the past month, Gold's price has fallen 5.85%, and is down 2.12% compared to the same time last year, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity.\nHistorically, Gold reached an all time high of 5608.35 in January of 2026.\nGold - data, forecasts, historical chart - was last updated on October 23 of 2026.\nGold traded flat at 4,024.64 USD/t.oz on October 23, 2026.\nOver the past month, Gold's price has fallen 5.85%, and is down 2.12% compared to the same time last year, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity.\nGold is expected to trade at 4083.76 USD/t oz.\nby the end of this quarter, according to Trading Economics global macro models and analysts expectations.\nLooking forward, we estimate it to trade at 3783.50 in 12 months time.",
+        "title": "Gold - Price - Chart - Historical Data - News",
+        "url": "https://tradingeconomics.com/commodity/gold",
+        "verified": false
+      },
+      {
+        "published": "2026-10-20",
+        "quotes": [],
+        "text": "Gold prices moved lower on Tuesday, October 20, as rising oil prices heightened inflation concerns and investors assessed the outlook for Federal Reserve policy.\nKitco reported a spot-gold bid of $4,123.60 per troy ounce at 7:57 a.m.\nEastern Daylight Time, down $16.30, or 0.39%, from its reference price.\nReuters separately reported spot gold at $4,120.87 an ounce at 11:03 GMT, equivalent to 7:03 a.m.\nEDT.\nThe readings were close but were recorded at different times.\nTL;DR: Gold Price Today\n- Spot gold: $4,123.60 per troy ounce at 7:57 a.m.\nEDT, according to Kitco.\nKITCO\n- Price per gram: approximately $132.58, calculated from the ounce price.\n- Price per 10 grams: approximately $1,325.77, calculated from the ounce price.\n- Daily change: down $16.30, or 0.39%, according to Kitco.\nKITCO\n- Market focus: higher oil prices, inflation risks and the Federal Reserve\u2019s October 27\u201328 meeting.\nKitco News+1\nGold Price Today in USD: Latest Market Data\nPrimary reference: Kitco spot bid, reported October 20, 2026, at 7:57 a.m.\nEDT.\nThe gram and 10-gram figures are calculated equivalents.\n| Measurement | Price in USD | Daily change |\n|---|---|---|\n| 1 troy ounce | $4,123.60 | \u2212$16.30 |\n| 1 gram | $132.58 | \u2014 |\n| 10 grams | $1,325.77 | \u2014 |\nThe conversions use 1 troy ounce = 31.1034768 grams.\nThese values represent the mathematical equivalent of the reported spot bid; they are not guaranteed retail prices for jewelry, coins or bars.\nPhysical gold can carry dealer premiums, manufacturing costs and other charges.\nKitco itself distinguishes the estimated metal value from retail prices.\nHistorical Gold Prices\nA directly verifiable historical series from Alpha Vantage was not obtained for this report.\nConsequently, the article does not include weekly, monthly or yearly comparisons, or a 52-week high and low.\nIncluding numbers from an unverified series would create an avoidable attribution and accuracy problem.\nAlpha Vantage\u2019s official documentation confirms that it offers a spot-price endpoint and daily, weekly and monthly historical data for gold.\nHowever, the existence of those endpoints does not establish that the data were queried successfully for this article.\ntage\nWhy Is Gold Down Today?\nReuters reported that gold edged lower as rising oil prices stoked inflation concerns.\nBrent crude reached $111.75 a barrel, its highest level in five months, amid heightened geopolitical risks involving attacks on Saudi targets and vessels in the Gulf.\nHigher energy prices can add to inflationary pressure and complicate the outlook for interest rates.\nBecause gold does not pay interest, expectations of tighter monetary policy can make interest-bearing assets more attractive by comparison.\nReuters quoted Ricardo Evangelista, chief executive of ActivTrades, discussing inflationary pressure from energy prices and the prospect of further Federal Reserve tightening.\nThis is an attributed market interpretation, not proof that oil prices alone caused the decline.\nEconomic and Market Context\nThe Federal Open Market Committee\u2019s next scheduled meeting was October 27\u201328, according to the Federal Reserve\u2019s calendar.\nInvestors were also watching the upcoming U.S.\nPersonal Consumption Expenditures price index, or PCE, for further clues about inflation and the interest-rate outlook.\nReuters reported that traders saw a 92% chance of a December rate hike according to CME FedWatch.\nThat figure is a time-specific market expectation reported by Reuters, not an official Federal Reserve forecast or decision.\nBecause the exact probability can change, this article does not use it as a current live estimate.\nSpot Gold vs.\nGold Futures\nSpot gold is a market reference for gold for immediate delivery.\nFutures are exchange-traded contracts tied to a specified future delivery period, so their prices can differ from spot quotations.\nReuters reported U.S.\ngold futures for December delivery at $4,139.90 an ounce at 11:03 GMT, down 0.5%.\nThat futures quote should not be substituted for Kitco\u2019s $4,123.60 spot bid, which was recorded at a later time.\nFAQ: Frequently Asked Questions\nWhat is the gold price today in the United States?\nKitco reported a spot bid of $4,123.60 per troy ounce at 7:57 a.m.\nEDT on October 20, 2026.\nThis is a timestamped reading, not a guaranteed price for the entire day.\nHow much is one gram of gold today?\nUsing Kitco\u2019s reported ounce price, one gram was worth approximately $132.58.\nThis is a calculated spot-price equivalent, not a retail quote for a specific gold item.\nWhy is gold falling today?\nReuters attributed part of the decline to rising oil prices and concerns about inflation and future monetary policy.\nThe available reporting does not establish that oil prices were the sole cause.\nWhat is the difference between spot gold and gold futures?\nSpot gold refers to the market price for immediate delivery.\nGold futures are exchange-traded contracts for a specified future period and can have a different price.\nWhat does XAU/USD mean?\nXAU/USD is a market quotation for gold against the U.S.\ndollar, commonly expressed in dollars per troy ounce.\nWhen comparing quotes, check the provider, timestamp and instrument.\nSources and Methodology\n- Kitco \u2014 Live Gold Price: primary spot-price reference and timestamp.\n- Reuters \u2014 Gold eases as higher oil prices stoke inflation concerns: Reuters reporting republished by Kitco News; used for the separate spot and futures readings and market context.\n- Reuters \u2014 Oil market report: additional context on oil prices and supply concerns.\n- Federal Reserve \u2014 Calendar: official FOMC meeting schedule.\n- Alpha Vantage \u2014 API Documentation: documentation for gold spot and historical-data endpoints.\nMethodology: Kitco\u2019s reported $4,123.60 spot bid at 7:57 a.m.\nEDT is the primary quote.\nGram and 10-gram equivalents were calculated using 31.1034768 grams per troy ounce.\nReuters\u2019 earlier spot quote provides a separate reference, while its December futures price is treated as a different instrument.\nAlpha Vantage\u2019s documentation was reviewed, but its API was not queried directly for this report.",
+        "title": "Gold Price Today, October 20, 2026: Price per Ounce and Gram in USD",
+        "url": "https://depor.com/en/us-local/gold-price-today-october-20-2026-price-per-ounce-and-gram-in-usd-nnda-nnrt-noticia/?outputType=amp",
+        "verified": false
+      }
+    ],
+    "polymarket-4951229": [
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "Oil prices today: WTI, Brent, Saudi Arabia"
+        ],
+        "text": "Oil prices today: WTI, Brent, Saudi Arabia\n\nOil prices spiked Thursday as investors fear escalation in the Middle East with the U.S.\nreportedly planning to resume strikes against Iran.\nBrent crude futures gained 4% to close at $113.17 per barrel, the highest level for the international benchmark since May 4.\nU.S.\nWest Texas Intermediate gained 2.4% to settle at $99.47.\nThe U.S.\nand Israeli militaries have drawn up specific plans for renewed strikes on Iran after next month's midterm elections, unnamed U.S.\nofficials told The New York Times.\nPlanning for a \"short but intensive\" operation is progressing, the officials said.\nPresident Donald Trump subsequently said the U.S.\nis not negotiating with Iran when asked by a reporter late Wednesday.\nTrump said \"something one way or the other\" will \"happen fairly soon\" on Iran without elaborating.\n\"Most people seem to think it's after the election,\" Trump said.\n\"We're going to see what happens.\"\nThe U.S.\nhas also ordered non-emergency government employees and their families to leave Saudi Arabia.\nState Department spokesman Tommy Pigott in a post on X said the order applies only to Saudi Arabia, dismissing reports that the U.S.\nhad directed some staff in the wider Gulf region to leave.\nPigott pointed to escalating attacks by Iran-allied Houthis on civilian targets in Saudi Arabia as the reason for the order.\nAt least two people were killed and eight injured in an attack on King Fahd International Airport in Dammam on Saudi Arabia's east coast Wednesday, according to Saudi state media.\nMeanwhile, oil giant Saudi Aramco has told staff to evacuate its headquarters in Dhahran and work remotely, people familiar with the matter told Reuters Thursday.\nAramco facilities have repeatedly come under attack by the Houthis.\nThe economic fallout from elevated oil prices, however, may be less severe than in previous decades, as consumers have become less vulnerable to energy shocks, according to David Wagner, head of equity and portfolio manager at Aptus Capital Advisors.\n\"$100 oil today is very different than $100 oil, you know, 20, 30 years ago,\" Wagner said, noting that crude prices remain well below their inflation-adjusted historical highs.\nHe pointed to U.S.\ngovernment data showing that gasoline accounted for roughly 5% of the average American's disposable income a decade ago, compared with about half that today, suggesting households may be better positioned to withstand elevated energy costs.\n\"I think we can hold that umbrella over our head ...\nfrom the rainstorm of oil,\" he said.\n\u2014 CNBC's Anniek Bao contributed to this report.",
+        "title": "Oil prices today: WTI, Brent, Saudi Arabia",
+        "url": "https://www.cnbc.com/2026/10/22/oil-prices-today-wti-brent-saudi-arabia.html",
+        "verified": false
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "U.S.\ncrude oil near $98 as Iran steps up attacks in Strait of Hormuz"
+        ],
+        "text": "U.S.\ncrude oil near $98 as Iran steps up attacks in Strait of Hormuz\n\nU.S.\ncrude oil prices rose Thursday as traders assessed potential supply disruptions following attacks on ships passing through the Strait of Hormuz.\nU.S.\nWest Texas Intermediate futures for November gained about 3%, or $2.88, to close at $97.97 per barrel.\nFutures for international benchmark Brent crude for December delivery fell 14 cents to settle at $105.92.\nU.S.\ncrude prices were also supported by a large inventory draw of 8 million barrels during the week ended Oct.\n9, according to data released by the Energy Information Administration.\nAnd the U.S.\nmilitary has drawn up plans for new strikes on Iran that include the mother of all bombs, the largest non-nuclear explosive device in U.S.\narsenal, CNN reported.\nPresident Donald Trump has previously said he will not restart strikes before the U.S.\nmidterm elections on Nov.\n3.\nA Singapore registered ship was sunk in the critical Strait of Hormuz, which raised worries of a prolonged Mideast conflict.\n\"Such attacks are unprovoked, unjustifiable and a breach of international law,\" the Singapore maritime authority said in a statement Wednesday.\nIran, meanwhile, has said it is \"counting the moments\" until it can start striking U.S.\nwarships.\nThe International Energy Agency in its oil report for October out Wednesday cautioned that constraints on diesel markets could continue well into the next year, with fresh attacks on Saudi Arabia threatening to derail a recovery in oil supply.\nTo help ease prices, the Trump administration is considering to ease sanctions on \"shadow fleet\" vessels which transports oil and petroleum products from countries such as Russia, Reuters reported.\nThe lack of progress between U.S.-Iran diplomatic track \"leaves little immediate prospect of a full reopening of the waterway,\" said Firas Bechwaty, head of business development at online trading platform ICM late Wednesday.\n\"At the same time, Saudi crude continues to reach international buyers through alternative routes, while accelerated emergency stock releases by IEA members provide an additional buffer, preventing a sharp rise in prices, even as tensions remain elevated,\" Bechwaty noted.\n\u2014 CNBC's Spencer Kimball contributed to this report.",
+        "title": "U.S.\ncrude oil near $98 as Iran steps up attacks in Strait of Hormuz",
+        "url": "https://www.cnbc.com/2026/10/15/oil-prices-today-brent-wti.html",
+        "verified": false
+      },
+      {
+        "published": "2026-10-21",
+        "quotes": [
+          "Oil price today: WTI, Brent rise on Middle East worries"
+        ],
+        "text": "Oil price today: WTI, Brent rise on Middle East worries\n\nOil prices were mixed Wednesday as worries over Middle East supply disruptions keep the market on edge, with attacks on tankers near the Strait of Hormuz and Saudi energy facilities denting sentiment.\nBrent crude futures added 3 cents to close at $108.82 a barrel, while U.S.\nWest Texas Intermediate crude fell 67 cents to settle at $97.15 a barrel.\nIran's Revolutionary Guards said Tuesday that naval mines had prevented three tankers attempting to pass through the Strait of Hormuz using routes Tehran deemed unauthorized.\n\"Two violating oil tankers were set ablaze and halted due to the explosion of mines planted by the brave sailors of the IRGC Navy at an illegal crossing point in the southern part of the Strait of Hormuz,\" IRGC said in a statement published on their official Sepah News website.\nAdding to regional worries, Yemen's Houthi militants claimed responsibility on Monday for strikes targeting Saudi Aramco facilities in Yanbu, the Shaybah oilfield and airports in Riyadh and Abha.\nThe escalating tensions have also sent global oil shipping costs soaring, adding another layer of pressure to energy markets.\nThe global average crude freight rate has surged above $20 per barrel, compared with just $3 a year earlier, according to a Goldman Sachs report published Tuesday.\nWhile rates have eased slightly in recent days, they remain roughly seven times higher than a year ago.\nGoldman estimated that war-risk premiums associated with crossing the Strait of Hormuz accounted for about $7 of the $20 year-on-year increase in average crude freight rates, while ship-to-ship transfers outside the Persian Gulf contributed another $4.\nThe investment bank warned that elevated shipping costs could widen price differences between crude grades, squeeze refiners' profit margins and ultimately push up refined fuel prices.\n\"High freight costs have weighed particularly heavily on Asian refineries' net margins, threatening their refined product output, which could then raise global refined product prices,\" Goldman Sachs analysts wrote.",
+        "title": "Oil price today: WTI, Brent rise on Middle East worries",
+        "url": "https://www.cnbc.com/2026/10/21/oil-price-today-wti-brent-rise-on-middle-east-worries.html",
+        "verified": false
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [
+          "Crude Oil Near $100, Brent\u2013WTI Spread Widens on War and Inventory Draws"
+        ],
+        "text": "Crude Oil Near $100, Brent\u2013WTI Spread Widens on War and Inventory Draws\n\nWTI nears $100 and Brent above $110 amid Iran war, tanker attacks and U.S.\nstock draws.\nBackwardation steepens and diesel cracks stay firm, supporting prices.\nPrices & Curve Structure\nNYMEX WTI futures show a very steep backwardation from December 2026 at 99.08 USD/bbl to mid\u20112030s contracts around the low\u201150s USD/bbl, with the Dec 26\u2013Dec 27 spread at roughly 18 USD/bbl.\nThe first few contracts recorded strong daily gains on 22 October, with Dec 26 up 1.93 USD/bbl (+1.95%) and Jan 27 up 2.06 USD/bbl (+2.11%), highlighting concentrated strength at the front end of the curve.\nICE Brent mirrors this structure at a higher absolute level: Dec 26 settled at 113.05 USD/bbl, gaining 4.23 USD/bbl (+3.74%) on the day, while Dec 27 trades around 86.56 USD/bbl and longer\u2011dated 2030\u20132032 maturities slip into the low\u201170s and high\u201160s USD/bbl area.\nThe Brent\u2013WTI spread is currently around 13\u201314 USD/bbl, with independent quotes putting Brent at 112.66 USD/bbl and WTI at 99.54\u201399.47 USD/bbl on 22 October, and a spread future near -13.7 USD/bbl (WTI minus Brent).\nRefined products are amplifying the move: front\u2011month ICE low\u2011sulfur gasoil (diesel) stands at 1477.50 USD/t for November 2026, up 46.00 USD/t (+3.11%) on the day, with a similarly backwardated structure out through 2032.\nDiesel cracks, although off their peak, remain historically elevated according to the latest IEA oil market update, sustaining strong refinery margins for middle distillates even as crude feedstock becomes more expensive.\nSupply, Demand & Geopolitics\nOn the supply side, the key driver is the Iran war and escalating disruption risk through the Strait of Hormuz.\nThe latest reports confirm that seven oil tankers were damaged or set on fire in the area overnight, the highest tempo of attacks since the early weeks of the conflict, stoking fears of a broader closure or self\u2011sanctioning by shipowners.\nDespite attacks, crude exports via Hormuz have so far held above pre\u2011war levels on a rolling basis thanks to workarounds such as ship\u2011to\u2011ship transfers off the UAE coast.\nStill, the cost of moving each barrel has risen sharply, feeding directly into delivered prices and contributing to the growing seaborne premium embedded in Brent.\nGlobal fundamentals remain tight.\nOPEC\u2019s latest outlook points to demand rising from 105.7 million b/d in 2026 to 108.3 million b/d in 2027, implying another robust year of consumption growth layered on top of already strained logistics and moderate non\u2011OPEC supply additions.\nThe IEA highlights counter\u2011seasonal draws in OECD gasoil stocks to multi\u2011year lows, underlining that refined product inventories, not just crude, are anchoring strength in the complex.\nInventories & Fundamentals\nIn the U.S., the latest Weekly Petroleum Status Report for the week ending 16 October shows commercial crude stocks falling by 3.1 million barrels to around 412.5 million barrels, roughly 10 million barrels below last year and slightly under the five\u2011year average.\nThis reinforces the signal from the futures curve that prompt physical availability is tightening even in inland hubs, despite high outright prices.\nGlobally, crude and product stocks continue to trend below pre\u2011conflict norms.\nEarlier this quarter, EIA data still showed total crude plus product inventories in the OECD hovering near the bottom of their 2021\u20132025 range, while the IEA notes OECD gasoil stocks in July were 5% below pre\u2011war levels and at their lowest since late 2023.\nLow stocks, alongside persistent demand, limit the system\u2019s shock\u2011absorption capacity and magnify the price impact of every new disruption headline.\nFreight, Diesel & Macro Links\nFreight markets are a key transmission channel from geopolitics to fundamentals.\nThe IEA underscores that surging crude tanker rates in September sharply lifted delivered crude costs and compressed refining margins, especially in Europe, where diesel cracks fell from around 100 USD/bbl to near 60 USD/bbl by early October.\nHowever, with Hormuz risk premiums and war\u2011related insurance surcharges rising again, freight costs are back under upward pressure, with likely renewed pass\u2011through into diesel and jet prices in the coming weeks.\nDownstream, consumers are increasingly feeling the squeeze.\nBrent has risen more than 70% since the start of 2026, with prices moving from the low\u201170s in early March to above 109 USD/bbl in October, translating into sharply higher gasoline and home\u2011heating oil bills.\nThis feeds into broader inflation, as reflected in higher food and logistics costs noted by recent macro analyses, and keeps central banks cautious even as growth headwinds emerge.\nShort\u2011Term Outlook & Trading Views\nOver the next few sessions, market direction will hinge on three interlocking factors: (1) the intensity and geographic spread of tanker attacks in and around Hormuz; (2) weekly inventory signals from the U.S.\nEIA, particularly at Cushing and the Gulf Coast; and (3) any incremental policy moves from OPEC+ and key consuming countries, such as SPR releases or new sanctions.\nTrading outlook (1\u20133 week horizon)\n- Bias: Price risks remain skewed to the upside as long as Hormuz shipping attacks continue and U.S.\ncrude and gasoil inventories trend sideways to lower.\n- Curve trades: The pronounced backwardation (WTI Dec 26 near 99 USD/bbl vs.\nmid\u20112030s in the low\u201150s) offers attractive roll yield for length in the front third of the curve; however, volatility and margin requirements are elevated.\n- Brent\u2013WTI spread: With the spread near 13\u201314 USD/bbl and coastal logistics under strain, further widening is possible if inland U.S.\nstocks rebuild while seaborne availability tightens; conversely, any de\u2011escalation in Hormuz would likely compress the spread.\n- Products: ICE gasoil\u2019s stronger percentage gains vs.\ncrude, coupled with low OECD gasoil stocks, support maintaining constructive exposure to middle\u2011distillate cracks, particularly into Northern Hemisphere winter.\n3\u2011Day Directional View\n| Benchmark | Front\u2011Month Level* | 3\u2011Day Bias | Key Drivers |\n|---|---|---|---|\n| NYMEX WTI | Dec 26: 99.08 USD/bbl | Mildly bullish | Hormuz risk, U.S.\nstock data follow\u2011through, speculative length |\n| ICE Brent | Dec 26: 113.05 USD/bbl | Moderately bullish | War premium in seaborne barrels, elevated freight and insurance |\n| ICE Gasoil | Nov 26: 1477.50 USD/t | Firm | Low inventories, freight costs, seasonal demand |\n*Settlement and curve structure as of 22 October 2026.",
+        "title": "Crude Oil Near $100, Brent\u2013WTI Spread Widens on War and Inventory Draws \u2014 CMB News",
+        "url": "https://commodity-board.com/crude-oil-futures-surge-toward-100-as-war-risk-blows-out-brent-wti-spread",
+        "verified": false
+      }
+    ],
+    "polymarket-5167211": [
+      {
+        "published": "2026-10-04",
+        "quotes": [
+          "Saudi-backed Yemeni forces attack Houthis near key global trade route",
+          "We destroyed 324 high-value targets at the launch of operation \"Dawn of Yemen,\""
+        ],
+        "text": "Saudi-backed Yemeni forces attack Houthis near key global trade route\nWe destroyed 324 high-value targets at the launch of operation \"Dawn of Yemen,\"\n\n Saudi airstrikes against Houthi positions and further Houthi gains in southern Yemen.\nThe renewed fighting has already forced tens of thousands of people from their homes, and what happens next could shift the balance of power in Yemen and further exacerbate an already bleak humanitarian crisis.\nThree out of every four families in parts of Yemen are going hungry because of the surge in fighting, the World Food Program said last week.\nThe Houthi-run Health Ministry said Tuesday that at least 83 civilians have been killed and 146 wounded since the offensive began.\nMinistry spokesperson Anas al-Asbahi said 60% of those killed and wounded were children.\nCNN could not independently verify the figures.\nAl-Alimi said the decision to launch operations followed \u201cthe Houthi militias\u2019 continued mobilization, escalation and attacks, as well as their threats against civilians, facilities, neighboring countries and international shipping lanes.\u201d\nSaudi Maj.\nGen.\nTurki al-Maliki, a spokesman for the coalition, said over the weekend that it will continue providing \u201cfull operational support\u201d to Yemeni government forces in what he described as efforts to restore state institutions and end \u201cthe Houthi coup.\u201d\n\u201cWe destroyed 324 high-value targets at the launch of operation \u201cDawn of Yemen,\u201d al-Maliki said, adding that 100 fighter jets participated in the operation.\nAl-Maliki also accused the Houthis of continuing attacks against Saudi Arabia and international shipping in the Red Sea and Bab al-Mandeb Strait.\nHouthi-controlled forces said Sunday that Saudi Arabia had carried out 106 air and missile strikes over the previous 24 hours targeting Sanaa and other areas of the country.\nA video circulating on social media appeared to show Yemeni government-aligned forces driving over several Houthi fighters during clashes near the Bab al-Mandeb Strait.\nThe footage was shared Monday by Habib al-Radi\u2019i, who identified himself as an officer in the Yemeni National Army, alongside a message stating that \u201cthe crushing of the Houthi terrorist militia\u2019s lackeys continues.\u201d\nLater Monday, Ahmed al-Ashwal, a Yemeni military and security adviser, said on X that those shown in the video \u201cwere not prisoners\u201d and had not surrendered.\nCNN independently verified that the footage was filmed along the Bab al-Mandeb Strait on Yemen\u2019s western coast, but the exact date and circumstances of the incident remain",
+        "title": "Saudi-backed Yemeni forces attack Houthis near key global trade route",
+        "url": "https://www.cnn.com/2026/10/04/middleeast/yemen-offensive-houthis-intl",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/'\nFor more information check: https://deve",
+        "published": "2026-10-18",
+        "quotes": [
+          "Airstrike kills at least 9 in rebel-held Yemen, and other Mideast news"
+        ],
+        "text": "Airstrike kills at least 9 in rebel-held Yemen, and other Mideast news",
+        "title": "Airstrike kills at least 9 in rebel-held Yemen, and other Mideast news",
+        "url": "https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "2026 Yemen offensives"
+        ],
+        "text": "2026 Yemen offensives\n\n2026 Yemen offensives\n| 2026 Yemen offensives | |\n|---|---|\n| Part of the Houthi\u2013Saudi conflict, the Saudi-led intervention in the Yemeni civil war, and the spillover of the 2026 Iran war | |\n| (For a detailed map of the military situation in Yemen and border areas in Saudi Arabia, see here.) | |\n| Belligerents | |\n| | |\n| Commanders and leaders | |\n| Abdul-Malik al-Houthi Mahdi al-Mashat Muhammad al-Atifi Yusuf al-Madani[18] Muhammad Miftah Firaq Mohsen al-Assar \u2020[19] Sa'ad bin Atef al-Awlaki Ibrahim al-Banna | Rashad al-Alimi Abdullah Bawazir Taher al-Aqili[c] Sagheer Aziz Tareq Saleh Abu Zara'a Ahmed al-Qubba[c] Hadi al-Awlaqi[c] Wajdi al-Zubaidi[c] Farouk al-Kholani (POW)[22] Salman Mohammed bin Salman Khalid bin Salman Turki al-Maliki |\n| Units involved | |\n| | \u00a0Yemeni Armed Forces (PLC) |\n| Casualties and losses | |\n| 1,282 killed in Yemen[57] 5,890+ injured in Yemen[57] 26 killed in Saudi Arabia[e][60][61] 450+ injured in Saudi Arabia[62][63][64] 1 Italian Air Force Eurofighter Typhoon damaged[65] 201,217 displaced in Yemen[66] | |\n| Date | 3 September 2026 \u2013 present (1 month, 2 weeks and 6 days) |\n|---|---|\n| Location | |\n| Status | Ongoing |\n| Territorial changes | |\nOn 3 ",
+        "title": "2026 Yemen offensives",
+        "url": "https://en.wikipedia.org/wiki/2026_Yemen_offensives",
+        "verified": true
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Saudis launch new strikes on Houthis; Iran-backed group threatens U.S.\nif it joins in"
+        ],
+        "text": "Saudis launch new strikes on Houthis; Iran-backed group threatens U.S.\nif it joins in\n\nSaudis launch new strikes on Houthis; Iran-backed group threatens U.S.\nif it joins in\nFollow updates on the war in the Middle East for Wednesday, Oct.\n14, here.\nSee earlier developments below.\nWhat to know about the Iran war:\n- The Saudi-led coalition confirmed it struck oil sites across western Yemen on Tuesday, including in the capital Sanaa, and earlier said it intercepted and destroyed two Houthi ballistic missiles fired at the kingdom's east.\nDebris from two intercepted missiles fell on residential parts of Riyadh, the Saudi Civil Defense said, and four people were injured.\n- The new strikes come after at least 20 people, including a U.S.\nnational, were killed in a week of Houthi attacks on Saudi Arabia's main airport, which pushed oil prices back up and prompted President Trump to consider joining the Saudi-led battle against the Houthis in Yemen as it becomes the epicenter of the Middle East war.\n- A Houthi official said Monday there would be a \"swift and painful\" response if the U.S.\njoins Saudi Arabia's strikes against the Iran-backed group.\nIntercepted missiles over Riyadh injure at least 4 people, officials say\nSaudi Arabia's Civil Defense said debris from two intercepte",
+        "title": "Saudis launch new strikes on Houthis; Iran-backed group threatens U.S.\nif it joins in",
+        "url": "https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/",
+        "verified": true
+      },
+      {
+        "published": "2026-09-19",
+        "quotes": [
+          "Houthis claim 300 Saudi airstrikes across Yemen this week"
+        ],
+        "text": "Houthis claim 300 Saudi airstrikes across Yemen this week\n\nSanaa: Yemen\u2019s Houthi group has said that Saudi warplanes launched 26 airstrikes on the southwestern province of Taiz over the past 24 hours, bringing the total number of strikes across Yemen this week to 300 as air operations intensified alongside ongoing ground battles on several fronts.\nHouthi military spokesperson Yahya Sarea said in a statement on social media platform X on Friday (local time) that Saudi F-15 fighter jets carried out the 26 strikes on Taiz after taking off from Khamis Mushait Air Base in southwestern Saudi Arabia.\nSarea added that this week\u2019s 300 airstrikes across nine Yemeni provinces involved F-15 and Typhoon fighter jets operating from Saudi air bases of Khamis Mushait and King Fahd, reports Xinhua news agency.\nSaudi authorities had no immediate comment.\nThe reported strikes came as heavy fighting continued Friday around the Kahbub mountain range in the southern province of Lahj, near the strategic Bab al-Mandab Strait, while clashes persisted across southwestern Taiz and in oil-rich Marib farther northeast.\nThe latest escalation follows significant Houthi advances along Yemen\u2019s southwestern Red Sea coast earlier this month.\nYemen\u2019s conflict erupted in late 2014 when the Houthis seized the capital Sanaa and much of northern Yemen, prompting a Saudi-led coalition to intervene in March 2015 in support of the internationally recognised Yemeni government.\nMeanwhile, explosions were heard in the Saudi capital Riyadh early Saturday.\nLocal residents received air defence alerts via mobile apps.\nThe Saudi Directorate of Civil Defence later issued a statement on X saying the danger has passed in Riyadh and Al-Kharj and urged residents to continue following its instructions and avoid gathering or filming.\nEarlier, it had warned: \u201cAn alert has been issued by the National Early Warning Platform for Emergency Cases in Al-Kharj Governorate to warn of a danger.\u201d",
+        "title": "Houthis claim 300 Saudi airstrikes across Yemen this week",
+        "url": "https://siasat.com/houthis-claim-300-saudi-airstrikes-across-yemen-this-week-3544736",
+        "verified": false
+      }
+    ],
+    "polymarket-5170823": [
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "XRP was rejected once again at $1.40, but it has defended the $1.30 support."
+        ],
+        "text": "XRP was rejected once again at $1.40, but it has defended the $1.30 support.\n\nImportant Ripple News and XRP Price Update: October 22\nIn this article, we will review some of the most important news, partnerships, and developments around the broader Ripple ecosystem, including the company\u2019s ongoing effort to expand its regulatory and institutional footprint.\nWe will also check to see what has happened with the XRP ETFs, as there\u2019s finally some good news, but in a very modest manner, and we will talk about the underlying asset\u2019s price.\nRipple and XRPL\nLet\u2019s begin with a report from earlier this week, which informed that Ripple has backed the proposed Regulation Crypto Assets framework made by the US Securities and Exchange Commission.\nThe company argued that the industry needs clear legislation instead of case-by-case enforcement.\nRipple was particularly supportive of the principle that the investment contract, rather than the token itself, should determine whether the asset is a security.\nIt also pushed back against several classifications it believes could recreate regulatory uncertainty.\nThe firm also expanded its institutional presence through 24/7 RWA perpetual swaps via its own prime brokerage, Ripple Prime.\nAdditionally, Cross River Bank partnered with Ripple to bring the latter\u2019s stablecoin, RLUSD, into its banking platform.\nThere are also some new developments on the latest XRP Ledger upgrade.\nAs reported recently, the fixCleanup3_4_0 amendment was expected to be activated on Friday, October 23, provided validator support remains above the required 80% threshold.\nHowever, the threshold briefly dropped below that percentage yesterday, just two days before implementation, delaying it until November.\nOn the adoption front, Ripple\u2019s cross-border token finally got its own official X account.\nIt attracted almost 50,000 followers in just a couple of hours after launching, but the number is above 150,000 as of press time.\nSome of the first major official accounts that welcomed it included Ripple\u2019s CEO, Brad Garlinghouse, Gemini, Uphold, Flare, MoonPay, and others.\nYou may also like:\n- XRP and DOGE Look Undervalued by MVRV Measures, but Will Traders Take Notice?\n- Why XRP May Retest $1 Before Its Next Major Rally: Analyst\n- Ripple Backs SEC\u2019s Proposed Crypto Regulation, Calls for End to Case-by-Case Enforcement\nXRP ETFs Broke Their Streak\nCryptoPotato reported over the weekend that one of the longest crypto ETF weekly streaks finally came to an end.\nAfter 13 consecutive green weeks, in which net inflows dominated, the spot XRP ETFs recorded minor outflows of less than $2 million in the week that ended on October 15.\nThis was a sharp contrast to the massive $75 million in net inflows recorded just a few weeks earlier.\nThe reversal didn\u2019t erase the strong run the products enjoyed beforehand, but it signaled that institutional appetite cooled alongside the broader market\u2019s stagnation.\nThe beginning of the current business week solidified this belief, as the XRP ETFs saw two days with no reportable flows.\nThe first green day was October 21, which was the good news, but the bad news was that the actual inflow was less than $1 million.\nXRP Price Rejected Again\nThe native token of the Ripple ecosystem tried to break out yesterday alongside the rest of the market.\nWhile BTC headed toward $85,000 and ETH briefly exceeded $2,500, XRP jumped to almost $1.40 for the first time in ten days.\nHowever, the market\u2019s weakness translated into another rejection for XRP, which is down to $1.33 as of press time.\nThe asset\u2019s current price setup remains quite mixed.\nSantiment\u2019s latest 365-day MVRV data puts XRP around 0.92, meaning the average buyer over the past year is sitting at a loss.\nHistorically, that places the token in a comparatively more favorable, lower-risk zone, although MVRV alone does not guarantee a rebound.\nExchange activity, though, is less encouraging, as smaller Binance withdrawals have surged to their highest share since October 2024, while the relative share of whale-sized transfers has declined.\nOverall, the combined XRP reserves across Binance, Upbit, and Bithumb have increased by roughly $120 million.\nOn the technical side, $1.33 remains a crucial level, especially after the latest rejection.\nAnalyst ChartNerd warned that continued weekly closes below the 20-week EMA could expose a retest of $1.00, while reclaiming $1.33 could reopen the path toward $1.50-$1.55, and potentially up to $2.00.",
+        "title": "Important Ripple News and XRP Price Update: October 22",
+        "url": "https://cryptopotato.com/important-ripple-news-and-xrp-price-update-october-22/",
+        "verified": false
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "XRP spot ETF recorded a net inflow of $3.5464 million"
+        ],
+        "text": "XRP spot ETF recorded a net inflow of $3.5464 million\n\nOdaily Planet Daily reports, according to SoSoValue data, XRP spot ETFs recorded a total net inflow of $3.5464 million on yesterday (Eastern Time, October 22).\nYesterday, only the Franklin XRP ETF (XRPZ) saw net inflows, with a single-day net inflow of $3.5464 million, bringing its total historical net inflow to $519 million.\nAs of the time of publication, the total net asset value of XRP spot ETFs is $1.488 billion, with an XRP net asset ratio of 1.81%, and cumulative net inflows since inception have reached $1.804 billion.",
+        "title": "XRP Spot ETF Records $3.5464M Net Inflow on October 22",
+        "url": "https://www.kucoin.com/news/flash/xrp-spot-etf-sees-3-5464m-net-inflow-on-october-22",
+        "verified": false
+      },
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "Currently, XRP is priced at $1.49, down 2.5% today, but it has grown 40% over 60 days."
+        ],
+        "text": "Currently, XRP is priced at $1.49, down 2.5% today, but it has grown 40% over 60 days.\n\nXRP Price Prediction for October 2026\nXRP has surged 46% in 90 days, but a looming Federal Reserve decision on October 28 threatens to reverse every bit of that momentum.\nFind out what the key price levels are and why billions in unreleased tokens could complicate\u2026\nThis post may contain links from our sponsors and affiliates, and Flywheel Publishing may receive compensation for actions taken through them.\nAs we head into October 2026, XRP (CRYPTO: XRP) has risen 46% over the last 90 days.\nHowever, the outcome of the Federal Reserve\u2019s meeting on October 28 could greatly influence our XRP price prediction for the month.\nCurrently, XRP is priced at $1.49, down 2.5% today, but it has grown 40% over 60 days, climbing from a low of around $1.09 in August.\nWhile this rebound is notable, it hasn\u2019t completely recovered the losses XRP has seen this year.\nThe token is down 17.6% for 2026, while Bitcoin (CRYPTO: BTC) has fallen only 3.5% and Ethereum (CRYPTO: ETH) by 9.5%.\nThis raises an important question for October: will XRP\u2019s recent rally continue amid a possible interest rate hike, or will it falter under that pressure?\nXRP\u2019s 46% Rebound Still Leaves It 59% Below Its Record\nOver the past month, XRP has generally trended alongside the overall market rather than leading it.\nIn the last 30 days, XRP gained 8.5%, which is slightly ahead of Bitcoin\u2019s 7.9% but behind Ethereum\u2019s 9.2%.\nThis suggests that recent buying activity has boosted multiple cryptocurrencies, rather than specifically benefiting XRP.\nLooking at the bigger picture, XRP still has a long way to go to recover.\nIt has dropped 47.2% over the past year, compared to 24.7% for Bitcoin and 35.2% for Ethereum.\nAdditionally, it\u2019s trading 59% below its all-time peak of $3.65, reached on July 17, 2025.\nTo return to that price, XRP would need to climb by 145",
+        "title": "XRP Price Prediction for October 2026",
+        "url": "https://247wallst.com/investing/cryptocurrency/2026/09/29/xrp-price-prediction-for-october-2026/",
+        "verified": true
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Can XRP recover to $1.50 after October's decline?"
+        ],
+        "text": "Can XRP recover to $1.50 after October's decline?\n\nXRP price prediction: Can XRP recover to $1.50 after October\u2019s decline?\nXRP price has struggled to recover above $1.32 on October 23 despite renewed ETF inflows and record wallet growth, as selling pressure continues to weigh on the cryptocurrency following its October decline.\n- XRP price traded near $1.32 on October 23, struggling to recover from October\u2019s losses.\n- U.S.\nspot XRP ETFs reportedly attracted $3.55 million on October 22, led by Franklin Templeton.\n- Santiment reported a record 8.24 million non-empty XRP Ledger wallets and 4,772 new daily addresses.\n- The daily RSI stood at 42.05, while the MACD remained negative despite easing selling momentum.\n- Analysts identified $1.30 as immediate support, with $1.40\u2013$1.50 remaining the main recovery zone.\nAccording to crypto.news market data, the token traded around $1.32 at the time of writing, with its market capitalization near $83.18 billion and daily trading volume of approximately $1.39 billion in the earlier market snapshot.\nThe weakness comes as Bitcoin and Ethereum face selling pressure, leaving XRP struggling to reclaim the $1.40 level.\nWhy is XRP price down today?\nXRP\u2019s latest decline follows another unsuccessful attempt to recover above ",
+        "title": "XRP price prediction: Can XRP recover to $1.50 after October's decline?",
+        "url": "https://crypto.news/xrp-price-prediction-etf-inflows-wallet-growth/",
+        "verified": true
+      }
+    ],
+    "polymarket-5340069": [
+      {
+        "published": "2026-10-22",
+        "quotes": [],
+        "text": "O Datafolha divulgou, no come\u00e7o da noite desta quinta-feira (22/10), uma nova pesquisa de inten\u00e7\u00e3o de voto para o segundo turno da elei\u00e7\u00e3o presidencial de 2026.\nO levantamento mostra o senador Fl\u00e1vio Bolsonaro (PL) com 50% dos votos v\u00e1lidos, contra 50% do presidente Luiz In\u00e1cio Lula da Silva (PT).\nCom o resultado, os candidatos est\u00e3o em empate nos votos v\u00e1lidos.\nFique por dentro das not\u00edcias que importam para voc\u00ea!\nNos votos totais, que incluem brancos, nulos e, no caso do Datafolha, os indecisos, Fl\u00e1vio Bolsonaro tem 47% e o presidente, 46%.\nOs que dizem que v\u00e3o votar branco ou nulo s\u00e3o 5% e os indecisos somam 2%.\nA margem tamb\u00e9m \u00e9 de dois pontos.\nLeia mais\n-\nDatafolha divulga nova pesquisa sobre disputa no segundo turno\n-\nQuaest: Fl\u00e1vio Bolsonaro tem 46% e Lula 44% em votos totais; h\u00e1 empate t\u00e9cnico\n-\nIpespe divulga neste s\u00e1bado levantamento do 2\u00ba turno entre Lula e Fl\u00e1vio\nNa pesquisa anterior, divulgada em 15 de outubro, Fl\u00e1vio tinha 51% dos votos v\u00e1lidos, ante 49% de Lula.\nA diferen\u00e7a era de dois pontos percentuais.\nSobre a pesquisa\nO Datafolha entrevistou 2.520 eleitores entre 20 e 22 de outubro.\nA margem de erro \u00e9 de dois pontos percentuais, para mais ou para menos.\nA pesquisa est\u00e1 registrada no Tribunal Superior Eleitoral (TSE) sob o protocolo BR-09709/2026.\nComo foi a \u00faltima pesquisa\nNa pesquisa divulgada em 15 de outubro, Fl\u00e1vio Bolsonaro tinha 51% dos votos v\u00e1lidos, ante 49% de Lula.\nNos votos totais, o senador registrou 47%, enquanto o presidente apareceu com 45%.\nBrancos e nulos somaram 6%, e 2% n\u00e3o souberam responder.\nO levantamento ouviu 2.520 eleitores e tinha margem de erro de dois pontos percentuais.\nA pesquisa foi registrada no TSE sob o protocolo BR-00466/2026.",
+        "title": "Datafolha Fl\u00e1vio Bolsonaro Lula segundo turno",
+        "url": "https://www.correiobraziliense.com.br/politica/2026/10/7525977-datafolha-flavio-bolsonaro-lula-segundo-turno.html",
+        "verified": false
+      },
+      {
+        "published": "2026-10-21",
+        "quotes": [
+          "Quaest: Fl\u00e1vio Bolsonaro tem 45% e Lula, 44%, no 2\u00ba turno"
+        ],
+        "text": "Quaest: Fl\u00e1vio Bolsonaro tem 45% e Lula, 44%, no 2\u00ba turno\n\nQuaest: Fl\u00e1vio Bolsonaro tem 45% e Lula, 44%, no 2\u00ba turno\nNa pesquisa anterior, Fl\u00e1vio Bolsonaro (PL) registrava 46% das inten\u00e7\u00f5es de voto, enquanto Lula (PT) aparecia com 44%\nNova pesquisa Quaest divulgada nesta quarta-feira (21/10) mostra o senador Fl\u00e1vio Bolsonaro (PL) com 45% das inten\u00e7\u00f5es de voto no segundo turno, enquanto o presidente Luiz In\u00e1cio Lula da Silva (PT) tem 44%.\nComo a margem de erro da pesquisa \u00e9 de dois pontos percentuais para mais ou menos, os dois candidatos est\u00e3o tecnicamente empatados.\nVeja os resultados:\n- Fl\u00e1vio Bolsonaro (PL): 45%\n- Lula (PT): 44%\n- Branco ou nulo: 9%\n- Indecisos: 2%\nO candidato do PL oscilou um ponto percentual para baixo em rela\u00e7\u00e3o \u00e0 pesquisa anterior, divulgada em 14 de outubro, quando tinha 46% das inten\u00e7\u00f5es de voto.\nLula manteve o mesmo percentual, de 44%.\nEssa \u00e9 a primeira pesquisa do instituto sobre o segundo turno ap\u00f3s Fl\u00e1vio e Lula se enfrentarem no debate da TV Band, no domingo (18/10).\nEntre no canal de WhatsApp do Metr\u00f3poles\nReceba no seu email as not\u00edcias de Boletim Metr\u00f3poles\nFrequ\u00eancia de envio: Di\u00e1rio\nVer todas\nO levantamento foi encomendado pelo Grupo Globo e ouviu 2.154 pessoas com 16 anos ou mais entre os dias 17 e 20 d",
+        "title": "Quaest: Fl\u00e1vio Bolsonaro tem 45% e Lula, 44%, no 2\u00ba turno",
+        "url": "https://www.metropoles.com/brasil/quaest-flavio-bolsonaro-tem-45-e-lula-44-no-2o-turno",
+        "verified": true
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Quaest e Datafolha: saiba quando saem \u00faltimas pesquisas antes do 2\u00b0 turno"
+        ],
+        "text": "Quaest e Datafolha: saiba quando saem \u00faltimas pesquisas antes do 2\u00b0 turno\n\nQuaest e Datafolha: saiba quando saem \u00faltimas pesquisas antes do 2\u00b0 turno\nInstitutos divulgaram pesquisas semanais ao longo do segundo turno.\nElei\u00e7\u00e3o \u00e9 no domingo (25/10)\n\u00c0s v\u00e9speras do segundo turno das elei\u00e7\u00f5es, marcado para domingo (25/10), a Quaest e o Instituto Datafolha v\u00e3o divulgar as \u00faltimas rodadas da pesquisa de inten\u00e7\u00f5es de voto para a Presid\u00eancia da Rep\u00fablica neste s\u00e1bado (24/10).\nO levantamento da Quaest deve ouvir 3.702 entrevistados com 16 anos ou mais.\nO n\u00edvel de confian\u00e7a das estimativas \u00e9 de 95% e a margem de erro m\u00e1xima prevista \u00e9 de cerca de 2 pontos percentuais para mais ou para menos.\nA pesquisa est\u00e1 registrada no Tribunal Superior Eleitoral (TSE) sob o c\u00f3digo BR-09158/2026.\nJ\u00e1 o Instituto Datafolha deve ouvir 4.050 brasileiros.\nA margem de erro m\u00e1xima prevista \u00e9 de 2 pontos percentuais para mais ou para menos, com n\u00edvel de confian\u00e7a de 95%.\nA pesquisa est\u00e1 registrada no TSE sob o c\u00f3digo BR-09540/2026.\nReceba no seu email as not\u00edcias de Boletim Metr\u00f3poles\nFrequ\u00eancia de envio: Di\u00e1rio\nVer todas\nRelembre as \u00faltimas edi\u00e7\u00f5es das pesquisas\nNo segundo turno, a Quaest divulgou duas edi\u00e7\u00f5es de sua pesquisa.\nO primeiro levantamento, publicado em 14 de outubro, mostrava ",
+        "title": "Quaest e Datafolha: saiba quando saem \u00faltimas pesquisas antes do 2\u00b0 turno",
+        "url": "https://www.metropoles.com/brasil/quaest-e-datafolha-saiba-quando-saem-ultimas-pesquisas-antes-do-2-turno",
+        "verified": true
+      },
+      {
+        "published": "2026-09-25",
+        "quotes": [
+          "Brazil's Lula and Flavio Bolsonaro still essentially tied in new poll"
+        ],
+        "text": "Brazil's Lula and Flavio Bolsonaro still essentially tied in new poll\n\nBrazil\u2019s Lula and Flavio Bolsonaro still essentially tied in new poll\nLuiz Inacio Lula da Silva is up 2 points, but that\u2019s still within the poll\u2019s margin of error.\nBrazilian President Luiz Inacio Lula da Silva has maintained a two-percentage-point lead over Senator Flavio Bolsonaro, his main challenger, in a potential run-off ahead of October\u2019s presidential election, a Datafolha poll has shown.\nIn poll results released Thursday, Lula would receive 47 percent of the vote compared with 45 percent for Bolsonaro in a simulated run-off.\nA previous Datafolha poll last week had Lula leading Bolsonaro by 46 percent to 44 percent.\nThe result also represents a technical tie as it falls within the poll\u2019s margin of error of 2 percentage points.\nIn a first-round scenario, Lula leads with 40 percent of the vote, followed by Bolsonaro (36 percent), Augusto Cury (5 percent), Ronaldo Caiado (4 percent) and Renan Santos (3 percent).\nThe previous poll showed the leftist president with 39 percent against the right-wing senator\u2019s 36 percent.\nSenator Bolsonaro is the eldest son of former President Jair Bolsonaro, who is serving a 27-year prison sentence for attempting to overturn his 2022 election defea",
+        "title": "Brazil's Lula and Flavio Bolsonaro still essentially tied in new poll",
+        "url": "https://www.aljazeera.com/news/2026/9/25/brazils-lula-and-flavio-bolsonaro-still-essentially-tied-in-new-poll",
+        "verified": true
+      }
+    ],
+    "polymarket-5912693": [
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.cryptotimes.io/2026/10/23/crypto-price-today-bitcoin-price-falls-to-81668-as-635m-etf-outflows-drag-ethereum-xrp/'\nFor more informati",
+        "published": "2026-10-23",
+        "quotes": [
+          "Bitcoin Price Falls to $81,668 as $635M ETF Outflows Drag Ethereum & XRP"
+        ],
+        "text": "Bitcoin Price Falls to $81,668 as $635M ETF Outflows Drag Ethereum & XRP",
+        "title": "Crypto Price Today: Bitcoin Price Falls to $81,668 as $635M ETF Outflows Drag Ethereum & XRP",
+        "url": "https://www.cryptotimes.io/2026/10/23/crypto-price-today-bitcoin-price-falls-to-81668-as-635m-etf-outflows-drag-ethereum-xrp/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [
+          "Crypto Prices Today: Bitcoin Steady Near USD 81,600 Despite Iran Tensions and AI Selloff"
+        ],
+        "text": "Crypto Prices Today: Bitcoin Steady Near USD 81,600 Despite Iran Tensions and AI Selloff\n\nBitcoin retreats from USD 85,000 as tech stocks weaken, oil prices rise and geopolitical tensions pressure investor sentiment.\nSpot Bitcoin ETF inflows provide support, while traders monitor USD 79,700 and USD 83,700 as key price levels.\nZcash leads major crypto losses as Ethereum, XRP and AI-linked tokens face selling pressure ahead of the Fed meeting.\nBitcoin trades near USD 81,600 on October 23 after a push toward USD 85,000 lost steam.\nChip stocks and oil set the tone across risk assets as the Nasdaq fell 2.6% on Thursday.\nSpot Bitcoin ETFs still drew over USD 1 billion across three sessions, which cushioned deeper dips.\nTraders now turn to the October 27 to 28 Fed meeting for the next directional cue.\nBitcoin trades at USD 81,616.48, down 1.7% in the past 24 hours, according to CoinGecko.\nIts market capitalization stands near USD 1.64 trillion, while 24-hour volume reached USD 30.41 billion.\nPrateek Gupta, Head of Business at Mudrex, said Bitcoin retreated near USD 81,500 after nearing USD 85,000.\nSpot ETFs drew USD 524.8 million on Wednesday, while leveraged liquidations reached about USD 455 million.\nUSD 83,700 remains a key hurdle, and support has moved to USD 79,700.\nCoinSwitch Markets Desk said Bitcoin briefly touched USD 81,200 as US-Iran tensions and weak tech stocks hit sentiment.\nSustained ETF inflows could support upward momentum, while geopolitics and rate expectations stay key drivers.\nBitcoin may trade between USD 81,000 and USD 84,000 before the Fed meeting on October 28.\nPurvang Mashru, Lead Analyst at BitDelta India, said Bitcoin fell 3.4% to about USD 81,374.\nEthereum lost 3.5%, while Cardano and Avalanche led the retreat with losses near 6% each.\nSupport sits near USD 80,790, with resistance at USD 82,000 and USD 84,281.\nNischal Shetty, Founder of WazirX, said the VIX rose 14.09% to 19.03, signaling stronger demand for protection.\nSpot Bitcoin ETFs drew about USD 525 million on October 21, turning October flows positive.\nBitcoin must reclaim USD 81,500 to signal recovery, while Ether must retake USD 2,400.\nAlso Read: Tesla Holds 11,509 Bitcoin as Meta Reports Mixed Q3 Earnings\nSource: CoinGecko, prices as of today's session.\nNone of the top 12 posted a clear gain today, with USDC flat at 0.0%.\nZcash led the losers with a 6.1% drop, followed by Ethereum at 2.1% and XRP at 2.0%.\nBitcoin fell about 4% toward USD 81,130 during Thursday's US session as the Nasdaq dropped 2.6% and chip stocks sold off.\nThe Philadelphia Semiconductor Index lost 6.7%, while crypto futures liquidations reached roughly USD 474 million, per CoinGlass.\nBrent crude climbed 3.7% to USD 112 per barrel as Middle East concerns grew, lifting inflation worries.\nThe 10-year Treasury yield slipped below 5% as investors sought safer assets, leaving crypto buyers cautious ahead of the Fed.\nPresident Donald Trump said Washington is not negotiating with Iran, which sent US stocks lower on Thursday.\nBitcoin slipped to USD 81,256 on Bitstamp near the Wall Street open.\nThe decline followed a run toward USD 85,000 on Wednesday.\nPrice action now circles USD 81,500, the estimated cost basis of US spot Bitcoin ETFs.\nBitfinex Alpha expects a range between USD 81,300 and USD 84,400 until the Fed meeting.\nA close below USD 81,300 would expose lower supports.\nAI-linked tokens fell harder than the broader market as tech weakness spread across assets.\nNEAR Protocol dropped 9%, Bittensor lost 8% and Render slid 7% over 24 hours.\nInvestors questioned the financing needs behind large AI infrastructure projects.\nMeta shares fell 7% despite stronger revenue, as the company plans new share issuance to fund expansion.\nNvidia dipped 4.4% as investors weighed spending risks.\nThe selloff suggests strong AI demand alone no longer reassures investors.\nZcash fell sharply after gaining about 15% earlier this week.\nZEC trades near USD 1,223.92, down 6.1% over 24 hours, according to CoinGecko.\nThe retreat ended three straight days of recovery, after ZEC traded above USD 1,300 on Thursday.\nETF inflows topped USD 15 million on Wednesday, while futures open interest reached a 30-day high of USD 2.89 billion.\nThe NU7 upgrade is still expected around November 5, while traders watch the USD 1,200 zone for support.\nHyperliquid's share of real-world asset perpetual trading fell from 80% in July to 26%, according to Artemis data.\nCentralized exchanges now control 64% of the market.\nBinance climbed from 3% to 30% within two weeks, while OKX reached 14%.\nHYPE trades near USD 77.94, down 1.4%, after bouncing from the 100-day EMA near USD 76.\nImmediate support sits at USD 75.69, with resistance near USD 82.10.\nHyperliquid still handled USD 208.07 billion in 30-day perpetual volume.\nAlso Read: The First Wave of AI Crypto Trading: Companies, Strategies and Lessons\nBitcoin trades near USD 81,600, with USD 80,790 and USD 79,700 as key supports.\nA reclaim of USD 82,000 would open USD 83,700, while ETF flows and the Fed set direction.\nInvestors should favor staggered entries, modest sizing and low leverage.\n1.What is the Bitcoin price today?\nBitcoin trades at USD 81,616.48, down 1.7% over the past 24 hours, per CoinGecko.\nIts market capitalization stands near USD 1.64 trillion, while 24-hour trading volume reached USD 30.41 billion.\n2.Why did Bitcoin pull back from USD 85,000?\nBitcoin reversed after chip stocks plunged and the Nasdaq lost 2.6%.\nBrent crude rose toward USD 112, and Trump said the US is not negotiating with Iran, which hurt risk appetite.\n3.Which coins moved the most today?\nAmong the top 12 coins, Zcash fell 6.1%, Ethereum lost 2.1% and XRP dropped 2.0%.\nSolana also slipped 1.5%, while stablecoins Tether and USDC held steady close to USD 1.\n4.What should investors watch this week?\nTrack Bitcoin support near USD 80,790 and the October 27 to 28 Fed meeting, where markets expect a hold.\nSteady ETF inflows and a reclaim of USD 82,000 would strengthen any recovery attempt.\nJoin our WhatsApp Channel to get the latest news, exclusives and videos on WhatsApp\n_____________\nDisclaimer: Analytics Insight does not provide financial advice or guidance on cryptocurrencies and stocks.\nAlso note that the cryptocurrencies mentioned/listed on the website could potentially be risky, i.e.\ndesigned to induce you to invest financial resources that may be lost forever and not be recoverable once investments are made.\nThis article is provided for informational purposes and does not constitute investment advice.\nYou are responsible for conducting your own research (DYOR) before making any investments.\nRead more about the financial risks involved here.",
+        "title": "Crypto Prices Today: Bitcoin Steady Near USD 81,600 Despite Iran Tensions and AI Selloff",
+        "url": "https://www.analyticsinsight.net/price-analysis/crypto-prices-today-bitcoin-steady-near-usd-81600-despite-iran-tensions-and-ai-selloff",
+        "verified": false
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [
+          "Bitcoin price stands at 81,625.40 USD on October 23, 2026 as ETFs added 524.8 million"
+        ],
+        "text": "Bitcoin price stands at 81,625.40 USD on October 23, 2026 as ETFs added 524.8 million\n\nBitcoin price stands at 81,625.40 USD on October 23, 2026 as ETFs added 524.8 million\nPublished on 10/23/2026 at 13:28 | Editorial responsibility: Rafael M\u00fcller, Editor-in-Chief AD HOC NEWS\nETF flows and market data\n- On October 21, US spot Bitcoin ETFs received 524.8 million USD, according to Farside Investors data reported by TradingView.\n- Combined inflows reached 1.08 billion USD from October 19 through October 21.\n- The Bitcoin price stands at 81,625.40 USD as of October 23, 2026, 0.14 percent below the UTC daily close of October 22, 2026.\n- US spot Bitcoin ETFs recorded 635.49 million USD in outflows on October 22, according to SoSoValue data reported by Yahoo Finance.\nBitcoin (BTC) spot ETFs drew 524.8 million USD on October 21, 2026, according to TradingView.\nThe Bitcoin price stands at 81,625.40 USD as of October 23, 2026, down 0.14 percent compared with the UTC daily close of October 22, 2026, according to Investing.com.\nBitcoin ETFs draw 524.8 million USD\nThe October 21 inflow followed 526.7 million USD on October 19 and 23.2 million USD on October 20, according to TradingView.\nThe three sessions brought combined net inflows of 1.0747 billion USD.\nBlackRock's IBIT receiv",
+        "title": "Bitcoin price stands at 81,625.40 USD on October 23, 2026 as ETFs added 524.8 million",
+        "url": "https://www.ad-hoc-news.de/boerse/news/marktberichte/bitcoin-price-stands-at-81-625-40-usd-on-october-23-2026-as-etfs-added-524-8-million/70398819",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://alpha-maven.com/story/crypto/bitcoin-etf-news-spot-bitcoin-outflows-push-btc-below-81k-coinpedia'\nFor more information check: https://dev",
+        "published": "2026-10-17",
+        "quotes": [
+          "spot Bitcoin outflows push BTC below 81k"
+        ],
+        "text": "spot Bitcoin outflows push BTC below 81k",
+        "title": "Bitcoin ETF news: spot Bitcoin outflows push BTC below $81K (Coinpedia via AlphaMaven)",
+        "url": "https://alpha-maven.com/story/crypto/bitcoin-etf-news-spot-bitcoin-outflows-push-btc-below-81k-coinpedia",
+        "verified": null
+      },
+      {
+        "published": "2026-10-11",
+        "quotes": [],
+        "text": "Bitcoin Weekly Report\nKey metrics \u2014 11 Oct 2026\n| Date | Price | NUPL | Zone | SOPR | SOPR LTH | SOPR STH | MVRV | MVRV Z | VDD\u00d7 | Res.Risk | CDD 90dma |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n| 05-10-2026 | $85,767 | 0.3776 | Hope | 1.0089 | 1.3462 | 1.0047 | 1.607 | 1.065 | 0.802 | 0.000653 | 11133721 |\n| 06-10-2026 | \u25bc $85,583 | 0.3772 | Hope | 1.0055 | 1.2466 | 1.0035 | 1.606 | 1.061 | 0.804 | 0.000652 | 11191842 |\n| 07-10-2026 | \u25bc $83,314 | 0.3588 | Hope | 1.0064 | 1.3307 | 0.9986 | 1.560 | 0.982 | 0.876 | 0.000634 | 11489833 |\n| 08-10-2026 | \u25bc $81,746 | 0.3464 | Hope | 1.0001 | 1.1330 | 0.9969 | 1.530 | 0.930 | 0.928 | 0.000622 | 11649205 |\n| 09-10-2026 | \u25b2 $82,628 | 0.3533 | Hope | 1.0022 | 1.0089 | 1.0020 | 1.546 | 0.959 | 0.941 | 0.000628 | 11753249 |\n| 10-10-2026 | \u25b2 $83,031 | 0.3566 | Hope | 1.0049 | 1.4227 | 1.0019 | 1.554 | 0.971 | 0.937 | 0.000631 | 11675928 |\nGenerated by BGeometrics \u00b7 Data from Bitcoin full node on bitcoin-data.com \u00b7 View all charts",
+        "title": "Weekly Reports (week to Oct 11)",
+        "url": "https://bgeometrics.com/reports/weekly/2026-10-11.html",
+        "verified": false
+      }
+    ],
+    "polymarket-630805": [
+      {
+        "published": "2026-10-21",
+        "quotes": [
+          "El-Sayed ahead of Rogers by 2 points, 50 percent to 48 percent, among 1,185 likely voters surveyed October 15 to 18."
+        ],
+        "text": "El-Sayed ahead of Rogers by 2 points, 50 percent to 48 percent, among 1,185 likely voters surveyed October 15 to 18.\n\nOctober 21, 2026\nMidterm Elections in Michigan, October 2026\nTwo Points Separate El-Sayed and Rogers in Michigan Senate Race...\nBenson Up by 6 in Governor's Contest\nIn the race for U.S.\nSenate in Michigan, Democrat Abdul El-Sayed and Republican Mike Rogers are competitive with only two points separating the two candidates among likely voters statewide.\nAmong registered voters in Michigan, El-Sayed is up by seven points against Rogers, maintaining the lead he held in September.\nLooking to the governor\u2019s race in Michigan, Democrat Jocelyn Benson has a six-point lead, among likely voters, against Republican John James.\nBenson\u2019s lead widens to 11 points among registered voters, in line with her 12-point lead in September.\nThe Democrats have a six-point advantage against the Republicans on the generic congressional ballot question among Michigan likely voters.\nThat leads opens up to 10 points among registered voters, little changed from the nine-point lead the Democrats had in September.\nPresident Donald Trump\u2019s approval rating is upside down in Michigan, and a plurality of likely voters express worry about their personal finances.\n- In the U.S.\nSenate race in Michigan, El-Sayed (50%) and Rogers (48%) are competitive among likely voters in the state.\nEl-Sayed (50%) has a six-point lead against Rogers (44%) among independents who are likely to vote.\nA majority of Michigan likely voters (51%) also think El-Sayed will be victorious in his U.S.\nSenate bid.\n- The Democrats running for Congress (52%) are +6 points against the Republicans (46%) on the ballot among Michigan likely voters.\nA majority of independents (54%) report they are supporting the Democrat on the ballot.\nLikely voters statewide (52%) also think the Democrat on the ballot will actually win the election, not the Republican (44%).\n- A plurality of likely voters (44%) say their congressional vote is mainly a vote against President Trump.\n18% report their ballot is mainly a vote for the president, and 37% say their congressional vote is not impacted much by President Trump.\nAmong those who say the president is having little influence on their congressional ballot, a majority say they approve of the job President Trump is doing.\n- Benson (51%) has a 6-point advantage against James, among Michigan likely voters, in the state's governor's contest.\nBenson has a similar seven-point lead among independents.\nMore than six in ten likely voters statewide (61%) also think Benson will actually win the election.\n- President Trump's job approval rating among Michigan likely voters is 42%.\n57% of likely voters statewide disapprove of how the president is doing his job.\n- 43% of likely voters say their personal family finances have gotten worse during the last year.\n40% report they have stayed about the same, and 16% think they have gotten better.\nDemocrats (61%) are more likely than Republicans (23%) to report a worsening in their financial picture.\nMethodology\nThis Marist Poll Michigan survey of 1,185 Michigan registered voters was conducted October 15th through October 18th, 2026 by the Marist Poll.\nRegistered voters 18 years of age and older residing in Michigan were contacted through a multi-mode design: By phone using live interviewers, by text, or online.\nResults for registered voters are statistically significant within \u00b14.0 percentage points.\nResults for likely voters are statistically significant within \u00b14.3 percentage points.",
+        "title": "Marist Poll: Midterm Elections in Michigan, October 2026",
+        "url": "https://maristpoll.marist.edu/polls/midterm-elections-in-michigan-october-2026/",
+        "verified": false
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [
+          "El-Sayed +3, at 48.1% to 45.1%."
+        ],
+        "text": "El-Sayed +3, at 48.1% to 45.1%.\n\nHorse race polls are weighted by quality and recency.\nAverages adjust for pollster house effects, survey mode effects, partisanship, and population.\nThe shaded areas represent the 95% confidence intervals for each estimate.",
+        "title": "FiftyPlusOne - Michigan General Senate Election Polls and Average for the 2026 General Election",
+        "url": "https://fiftyplusone.news/polls/senate/general/michigan",
+        "verified": false
+      },
+      {
+        "published": "2026-08-05",
+        "quotes": [
+          "after tough michigan primary democrats set sights on rogers"
+        ],
+        "text": "after tough michigan primary democrats set sights on rogers\n\nThe News\nWith the brutal Michigan primary behind them and Abdul El-Sayed looking likely to be their nominee, Senate Democrats are immediately refocusing on Republican nominee Mike Rogers, according to new details shared first with Semafor.\nThe Democratic Senatorial Campaign Committee is out with a six-figure ad buy starting Wednesday that hits Rogers for taking money from the drug industry and insurance companies, deeming him \u201cthe biggest name in corruption.\u201d\nDemocrats also have new polling from GQR making the case that their nominee has \u201ckey advantages\u201d over Rogers.\nThat new polling, conducted in June, found President Donald Trump way underwater at 58% unfavorability and Rogers trailing a generic Democrat 50%-42%.\nThe poll showed Rogers himself at 29% favorable and 32% unfavorable.\nEl-Sayed may have run his primary against the Democratic establishment, but if he wins, that establishment will be prepared to help him beat back a guaranteed barrage of GOP attacks.\nKnow More\nRogers is a consensus GOP candidate, with backing from Trump and party leaders, who has run a general election campaign for more than a year.\nIn a recent interview with Semafor, he previewed what could become a favorite attack line against El-Sayed.\n\u201cThis guy can\u2019t tell the truth.\nI would get used to and buckle up for a guy that is going to be the most untruthful candidate that we probably have ever seen in Michigan,\u201d Rogers said.\nHe narrowly lost in 2024 to Sen.\nElissa Slotkin, D-Mich., even as Trump won the state \u2014 and given Trump\u2019s nationwide swoon in approval ratings, Democrats see a path to defeating him again.\nThe polling memo finds Rogers is vulnerable because of his \u201crecord of taking contributions from corporate interests, voting in their favor, and then being rewarded by the same corporate interests with high-paying jobs after leaving Congress.\u201d That portrayal, the Democratic pollsters found, is \u201ca devastating narrative that drives voters away from him.\u201d\nMaeve Coyle, a spokesperson for the DSCC, said \u201cRogers is a flawed candidate with a bad record, and his baggage is going to sink him again in 2026 just like it did in 2024.\u201d\nNicholas Wu contributed to this report.",
+        "title": "After tough Michigan primary, Democrats set sights on Rogers",
+        "url": "https://www.semafor.com/article/08/05/2026/after-tough-michigan-primary-democrats-set-sights-on-rogers",
+        "verified": false
+      },
+      {
+        "published": "",
+        "quotes": [
+          "GOP Could Flip Michigan Senate Seat for First Time in Nearly 50 Years"
+        ],
+        "text": "GOP Could Flip Michigan Senate Seat for First Time in Nearly 50 Years\n\nRepublicans have a shot at a Michigan Senate seat that Democrats have held since 1979, and three weeks before Election Day on November 3 the race between former Representative Mike Rogers and Democrat Abdul El-Sayed is close.\nThe seat is open because Democratic Senator Gary Peters decided not to seek a third term.\nDemocrats have held it since Carl Levin defeated Republican Senator Robert Griffin in 1978.\nLevin served for 36 years before Peters succeeded him in 2015.\nA Rogers victory would also end a longer losing streak for Republicans.\nThe party has not won a Senate race in Michigan since 1994, when Spencer Abraham captured the state's other seat in the upper chamber of Congress.\nEl-Sayed holds a slight lead in polls released this month, mostly within the margin of error.\nThe Cook Political Report rates the race a Toss-Up, and strategists in both parties count it among the handful of contests likely to determine who controls the chamber in January.\nRogers came within 20,000 votes of beating now-Senator Elissa Slotkin in 2024.\nHe had no primary opponent this time and carries President Donald Trump's endorsement.\nEl-Sayed, a progressive and former public health official backed by independent Vermont Senator Bernie Sanders, edged Michigan Representative Haley Stevens in the August 4 Democratic primary by less than a percentage point.\nNewsweek reached out to the Rogers and El-Sayed campaigns for comment via email on Monday.\nMike Rogers vs.\nAbdul El-Sayed: Latest Polls\nSix polls taken between late September and this past weekend have El-Sayed ahead, from 1 point to 7 percentage points.\nThe newest, an InsiderAdvantage survey of 1,200 likely voters conducted October 9-10, put El-Sayed at 48 percent and Rogers at 46 percent, with 5 percent undecided.\nOther recent surveys showed a race inside the margin of error.\nQuantus Insights found El-Sayed up 48 percent to 47 percent among 744 likely voters polled October 5-6.\nYouGov, working with a much larger sample of 3,947 likely voters September 22-October 4, also landed on a one-point gap, 49 percent to 48 percent.\nMitchell Research & Communications polled 682 likely voters on October 1 and had El-Sayed at 46 percent to Rogers' 41 percent, with third-party candidates splitting about 7 percent and 6 percent unsure.\nEl-Sayed's biggest lead, 49 percent to 42 percent, came from Z to A Research in a poll sponsored by Rust Belt Rising, a Democratic group.\nSummer looked different.\nA poll taken a week before the primary for the Michigan Education Association and Business Leaders for Michigan had Rogers up 48 percent to 41 percent over El-Sayed among voters certain to cast a ballot, while Stevens led Rogers by 2.\nIndependents broke for Rogers over El-Sayed 47 percent to 19 percent in that survey.\nDemocrats Have Held Michigan Senate Seat Since 1979\nAt the presidential level, Michigan bounces around.\nIt went for Trump in 2016 and 2024 and for Joe Biden in 2020.\nSenate races have been another story, with Democrats winning every one for nearly three decades.\nRogers nearly broke that run two years ago in his loss to Slotkin.\nRepublicans took the result as proof he could win, and Trump, Senate Majority Leader John Thune, a South Dakota Republican, and the national party got behind him early, clearing the field.\nThe Democratic primary handed the GOP a second opening.\nStevens had much of the party establishment on her side, Michigan Governor Gretchen Whitmer among them, and El-Sayed's win left a split coalition.\nSome members of the state's Jewish community have voiced concern over his past remarks on Israel.\nNational Republicans went straight at it.\nAn ad from the National Republican Senatorial Committee calls El-Sayed the most radical candidate in the country, and the committee has taken to using his full name, Abdulrahman Mohamed El-Sayed.\nIn a statement released with the ad, South Carolina Senator Tim Scott, who chairs the committee, said El-Sayed's record makes him \"dangerous and ultimately disqualified from serving.\"\nTrump weighed in on October 7, the night before the candidates' first debate, calling El-Sayed \"Mohammed\" in a Truth Social post and writing that he \"goes back to the days of the Jihad.\"\n\"He's not just attacking me.\nHe's attacking all of us,\" El-Sayed wrote back.\nBorn in the U.S.\nto Egyptian immigrant parents, he also noted that the president clearly knows his name, since he says it every day.\nSanders jumped in on X.\nWith healthcare, groceries, housing and childcare out of reach for so many families, he wrote that \"the best they can do is attack Abdul's Muslim faith.\"\nRogers has spent the past few weeks stepping away from the White House on a couple of big issues.\nIn September, he said the war with Iran (which is now 7 1/2 months old) had to \"end quickly.\" Then, on October 7, his campaign put out an ad going after Trump's tariffs on Canada.\n\"Canada is not our enemy,\" Rogers said in it.\nEl-Sayed keeps tying Rogers to Trump, hammering him on prices, housing costs and what the administration's trade fights have done to Michigan's economy.\nLatest Developments in Michigan Senate Race\nRogers and El-Sayed debated for the first time on October 8, at WOOD-TV in Grand Rapids.\nIt got personal fast.\nThe two talked over each other for much of the hour and kept going during a commercial break.\n\"In 30 years of doing debates, I've never seen it continue during the commercial,\" moderator Rick Albin said.\nOn Iran and Canada, Rogers held his ground.\nAfter the debate, he told reporters that he had called the White House that week to push for a deal on the tariffs.\nHe went further on immigration, saying the administration's enforcement surge in Minnesota earlier this year, when two protesters were shot and killed, \"were probably not appropriate.\"\nMuch of the questioning aimed at El-Sayed was about Israel.\nWould he back sending weapons if another country attacked it?\nHe answered that he did not want U.S.\ntax dollars going \"to subsidize war abroad.\" A follow-up asked whether Iran or Israel was the bigger threat, and he dismissed it as a \"ridiculous question,\" adding that both had proven dangerous in their own way.\nReporters also pressed him afterward on his ties to Hasan Piker, a streamer with a record of inflammatory comments.\nComparing the most powerful man in the world to a streamer in California, El-Sayed said, was \"silly.\"\nAs his poll numbers have slipped, Rogers has gotten sharper, too.\nSpeaking to conservative commentator Ben Shapiro, he called El-Sayed \"the most anti-American candidate in the race, in the country.\"\nMoney is on Rogers' side.\nEl-Sayed has been outspent close to 2-to-1 on ads, the Associated Press reported, and is trying to make up for it with a packed travel schedule and interviews everywhere from Fox News to The New York Times.\nRogers has kept a lighter public calendar while outside groups pour money into the state for him.\nDemocratic leaders are starting to close ranks.\nWhitmer campaigned with El-Sayed on debate day, her first appearance with him since backing Stevens in the primary, and Representative Alexandria Ocasio-Cortez of New York will join the campaign this week.\nFormer President Barack Obama is expected to rally in Detroit with El-Sayed and Michigan Secretary of State Jocelyn Benson, the Democratic nominee for governor, on Saturday.\nA second debate is expected before the end of the month.\nWhy Is Michigan Race Important in 2026 Midterms?\nRepublicans control the Senate 53-47.\nVice President JD Vance breaks ties, so Democrats need a net gain of four seats to take over.\nThe party has targets.\nCook rates Republican-held seats in Maine and Ohio as Toss-Ups and North Carolina as Lean Democratic, and Democrats are also spending in Alaska and Texas.\nMichigan is where that math gets harder.\nIt is the most vulnerable seat Democrats are defending this cycle, and losing it would require flipping five Republican seats instead of four.\nA Rogers",
+        "title": "GOP Could Flip Michigan Senate Seat for First Time in Nearly 50 Years - Newsweek",
+        "url": "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776",
+        "verified": false
+      }
+    ]
+  }
+}

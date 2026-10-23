@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-23T14:12:19.590545+00:00",
+      "entry_id": "65da04edb811bf47",
+      "model": "deepseek/deepseek-v4-pro",
+      "probability": 0.6,
+      "rationale": "Recent first prints cluster between 194,000 and 200,000, and the consensus near 196,000 implies a central expectation slightly above the threshold. The latest print equals the threshold at 194,000, and weekly jobless claims are noisy enough that a repeat or dip below is plausible. I therefore estimate a modestly better-than-even chance.",
+      "release_event": "claims-2026-10-29",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261023",
+  "generated_at": "2026-10-23T14:12:19.590545+00:00",
+  "manifest_hash": "818b1bbd7b5b3420c0cff48569a244ec72c9036cc3e61e692d68223caea789c2",
+  "method": "judge_deepseek_v4_pro_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v2"
+}
