@@ -1,0 +1,119 @@
+{
+ "house-gop-218-jan-2027": {
+  "base_rate": "The president's party has lost House seats in most midterms since WWII (about 18 of 20).\nLosses were 40 or more seats in 2018 (-41), 2010 (-63) and 2006 (-30).\nA Republican net loss of 3 or more would drop them below 218, and the current Republican count is already near 217-220.",
+  "brief": "The question asks whether Republicans hold at least 218 of the 435 voting House seats when the 120th Congress convenes on January 3, 2027, by the Clerk of the House's party breakdown that day; delegates and vacant seats do not count. The House Press Gallery breakdown of 2026-03-18 showed 217 Republicans, 214 Democrats, 1 independent (Kevin Kiley, who caucuses with Republicans) and 3 vacancies (https://pressgallery.house.gov/party-breakdown, not checked). Ballotpedia reported 217-214 with 4 vacancies on 2026-04-20, after the resignations in CA-14, TX-23 and FL-20 and the death of the GA-13 member; as of 2026-09-01 CA-14, FL-20 and TX-23 were still unfilled (Cook open-seat tracker, https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker, not checked). The seats that matter, though, are the ones decided in the November 3, 2026 midterm election. Cook Political Report moved 18 House races toward Democrats on 2026-10-09, and one outlet summarizes Cook's most likely outcome as a Democratic gain of 9 to 19 seats (https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/, quotes not found on the page). Cook's ratings page dated 2026-10-16 reportedly shows about 185 Solid D, 17 Likely D, 12 Lean D, 21 Toss Up, 13 Lean R, 16 Likely R and 171 Solid R; the snippet was garbled, so the counts are approximate (https://www.cookpolitical.com/ratings/house-race-ratings, not checked). On those counts about 200 seats lean Republican or better and 214 lean Democratic, so Republicans would need roughly 18 of the 21 toss-ups. The base rate is that the president's party has lost House seats in about 18 of 20 midterms since World War II, with losses of 30 or more in 2006, 2010 and 2018. Republicans start near 217-220 seats, so a net loss of three or more would put them below 218. The research could not open any page, so every fact comes from search summaries and none of the quotes is confirmed. What would change the answer: polling errors that run in the same direction across many races, court rulings or mid-decade redistricting that change district maps, recounts or contested results still open on January 3, and whether special elections fill the vacant seats before then.",
+  "brief_written_at": "2026-10-23T21:25:00+00:00",
+  "facts": [
+   {
+    "fact": "On 2026-10-09 Cook Political Report moved 18 House races toward Democrats.\nOne outlet says Cook's most likely outcome is a Democratic gain of 9 to 19 seats.\nI could not open the page, so this comes from a search summary.",
+    "source": 0
+   },
+   {
+    "fact": "Cook's ratings page dated 2026-10-16 reportedly shows about 185 Solid D, 17 Likely D, 12 Lean D, 21 Toss Up, 13 Lean R, 16 Likely R and 171 Solid R.\nThe snippet was garbled, so these counts are approximate.",
+    "source": 1
+   },
+   {
+    "fact": "The House Press Gallery breakdown of 2026-03-18 showed 217 Republicans, 214 Democrats, 1 independent (Kevin Kiley, who caucuses with Republicans) and 3 vacancies.\nBallotpedia reported 217-214 with 4 vacancies on 2026-04-20.",
+    "source": 2
+   },
+   {
+    "fact": "Cook's open-seat tracker lists CA-14 (D, Swalwell resigned 4/14), TX-23 (R, Gonzales resigned 4/14), FL-20 (D, Cherfilus-McCormick resigned 4/21) and GA-13 (D, Scott died 4/22) as vacated.\nAs of 2026-09-01 Ballotpedia said CA-14, FL-20 and TX-23 were still unfilled.",
+    "source": 3
+   },
+   {
+    "fact": "Ballotpedia reported the FL-20 vacancy on 2026-04-22, the same month as the other vacancies.",
+    "source": 4
+   }
+  ],
+  "judges": [
+   {
+    "at": "2026-10-23T21:13:56.558650+00:00",
+    "cost_usd": 0.002571,
+    "error": null,
+    "method": "judge_deepseek_v4_pro_v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "ok": true
+   },
+   {
+    "at": "2026-10-23T21:13:56.558650+00:00",
+    "cost_usd": 0.022545,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_kimi_k26_v1",
+    "model": "moonshotai/kimi-k2.6",
+    "ok": false
+   },
+   {
+    "at": "2026-10-23T21:13:56.558650+00:00",
+    "cost_usd": 0.007824,
+    "error": "unusable reply: no JSON object in the reply",
+    "method": "judge_minimax_m3_v1",
+    "model": "minimax/minimax-m3",
+    "ok": false
+   },
+   {
+    "at": "2026-10-23T21:13:56.558650+00:00",
+    "cost_usd": 0.0,
+    "error": null,
+    "method": "judge_nemotron_ultra_v1",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "ok": true
+   },
+   {
+    "at": "2026-10-23T21:13:56.558650+00:00",
+    "cost_usd": 0.012941,
+    "error": null,
+    "method": "judge_qwen38_27b_v1",
+    "model": "qwen/qwen3.8-27b",
+    "ok": true
+   }
+  ],
+  "quotes_checked_at": "2026-10-23T21:12:06.241845+00:00",
+  "research_failed": null,
+  "researched_at": "2026-10-23T21:11:45+00:00",
+  "researched_by": "Claude Sonnet",
+  "sources": [
+   {
+    "published": "2026-10-09",
+    "quotes": [],
+    "title": "Cook Political Report shifts 18 House races toward Democrats as GOP midterm outlook darkens",
+    "url": "https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/",
+    "verified": false
+   },
+   {
+    "published": "2026-10-16",
+    "quotes": [],
+    "title": "Cook Political Report House Race Ratings",
+    "url": "https://www.cookpolitical.com/ratings/house-race-ratings",
+    "verified": null
+   },
+   {
+    "published": "2026-03-18",
+    "quotes": [],
+    "title": "House Press Gallery party breakdown",
+    "url": "https://pressgallery.house.gov/party-breakdown",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Cook 2026 House open seat tracker",
+    "url": "https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker",
+    "verified": null
+   },
+   {
+    "published": "2026-04-22",
+    "quotes": [],
+    "title": "Cherfilus-McCormick's resignation leaves Florida's 20th Congressional District vacant (Ballotpedia)",
+    "url": "https://news.ballotpedia.org/2026/04/22/sheila-cherfilus-mccormicks-resignation-leaves-floridas-20th-congressional-district-vacant/",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "I could not open any page, so none of the facts is verified against the page text.\nAll come from search-result summaries, and the quotes arrays are empty for that reason.",
+   "The Clerk's current party breakdown for October 2026 was not found; the vacancy count and partisan split are unverified.",
+   "The November 3 results and any recounts are unknown.",
+   "Special elections for TX-23, FL-20, CA-14 and GA-13 may be held before or after January 3.",
+   "Mid-decade redistricting and court rulings on maps (Texas, California and others) could change seat outcomes."
+  ]
+ }
+}

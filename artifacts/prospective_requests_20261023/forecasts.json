@@ -15,6 +15,24 @@
             "https://pressgallery.house.gov/party-breakdown",
             "https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker"
           ]
+        },
+        {
+          "created_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "The base rate shows the president's party loses House seats in ~90% of midterms since WWII, often by 20+ seats. Cook Political Report's October 2026 ratings project a Democratic net gain of 9-19 seats (median ~14), which would leave Republicans with roughly 200-210 seats \u2014 well below the 218 threshold. Republicans would need to win ~18 of 21 toss-up races plus hold all Lean/Likely/Solid R seats, a historically difficult feat. The 15% probability accounts for possible systematic polling errors favoring Republicans, late campaign shifts, or Cook's model overstating the Democratic wave, but the evidence strongly points to a Democratic majority."
+        },
+        {
+          "created_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The president's party has lost House seats in about 18 of 20 midterms since WWII (base rate). Republicans hold a razor-thin 217-seat effective majority now, and the most recent Cook Political Report projection (October 2026) estimates a Democratic net gain of 9\u201319 seats, which would leave Republicans at 201\u2013211 seats\u2014well below 218. While forecast errors and late-breaking events are always possible, the combination of historical pattern and expert handicapping points strongly toward a Democratic majority, making the likelihood that Republicans hold at least 218 seats very low."
+        },
+        {
+          "created_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.11,
+          "rationale": "The base rate favors Democratic gains in a midterm, and Republicans appear to start around 217 seats, so they need at least a net gain or favorable vacancy fills to reach 218. Cook's late-October ratings project a Democratic net gain of 9 to 19 seats, implying Republicans would have roughly 201 to 211 seats, well below the threshold. The main uncertainty is a large polling miss, special-election or vacancy outcomes, recounts, or court/redistricting changes that could swing at least seven seats to Republicans."
         }
       ],
       "id": "house-gop-218-jan-2027",
