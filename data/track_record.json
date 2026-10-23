@@ -2,97 +2,97 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.22099070423384862,
+      "brier": 0.21888757650164695,
       "coin_flip_brier": 0.25,
       "forecasts": 124,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 28,
-      "right": 15,
+      "resolved": 29,
+      "right": 16,
       "toss_ups": 0,
       "wrong": 13
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.17296250000000002,
+      "brier": 0.172444,
       "coin_flip_brier": 0.25,
       "forecasts": 120,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 24,
-      "right": 15,
+      "resolved": 25,
+      "right": 16,
       "toss_ups": 2,
       "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.18176666666666666,
+      "brier": 0.18100000000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 77,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 6,
-      "right": 4,
+      "resolved": 7,
+      "right": 5,
       "toss_ups": 0,
       "wrong": 2
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.1454909090909091,
+      "brier": 0.143575,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 11,
-      "right": 8,
+      "resolved": 12,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.20615555555555556,
+      "brier": 0.19643000000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 83,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
+      "resolved": 10,
+      "right": 7,
+      "toss_ups": 0,
+      "wrong": 3
+    },
+    {
+      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
+      "brier": 0.21401111111111112,
+      "coin_flip_brier": 0.25,
+      "forecasts": 62,
+      "label": "Kimi K2.6 (judge)",
+      "method": "judge_kimi_k26_v1",
       "resolved": 9,
       "right": 6,
       "toss_ups": 0,
       "wrong": 3
     },
     {
-      "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.2187125,
-      "coin_flip_brier": 0.25,
-      "forecasts": 62,
-      "label": "Kimi K2.6 (judge)",
-      "method": "judge_kimi_k26_v1",
-      "resolved": 8,
-      "right": 5,
-      "toss_ups": 0,
-      "wrong": 3
-    },
-    {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.12714999999999999,
+      "brier": 0.12586666666666668,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 8,
-      "right": 7,
+      "resolved": 9,
+      "right": 8,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.1368111111111111,
+      "brier": 0.14338,
       "coin_flip_brier": 0.25,
       "forecasts": 85,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 9,
-      "right": 8,
+      "resolved": 10,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -158,13 +158,13 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.0654560357142857,
+      "brier": 0.07047715624999999,
       "coin_flip_brier": 0.25,
       "forecasts": 66,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 7,
-      "right": 6,
+      "resolved": 8,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -255,6 +255,81 @@
       "status": "resolved",
       "title": "Will OpenAI not announce that it has resumed training by October 20, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.6
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.6,
+          "rationale": "Binance BTC/USDT last traded 82,830 on 2026-10-19, about 1% above the 82,000 line, after a 24-hour low of 80,684 (Binance 24h ticker, 2026-10-19). Five of the last nine daily closes were above 82,000. The resolving candle is noon ET on 2026-10-21, about two days away, and daily ranges of several thousand dollars (79,800 low on 2026-10-15) mean a roughly 0.3 standard deviation cushion, which gives a modest edge to Yes.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=10",
+            "https://www.coindesk.com/markets/2026/10/19/bitcoin-korea-s-kospi-and-nasdaq-futures-rally-as-china-gdp-beats-estimates"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate is near 50% because the $82,000 threshold sits in the middle of recent daily closes (5 of 9 above). Current spot ~$82,830 is only ~1% above the line with two days (~53 hours) until the 12:00 ET resolution, and Bitcoin's typical daily range of 2-3% means a cross in either direction is very plausible. The China GDP beat and risk-on tone provide modest upside bias, but the prior two-week downtrend (~2% weekly declines) and Fed hike expectations keep downside risk alive. The specific 1-minute candle at noon ET adds microstructure noise that could flip the outcome near the boundary."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.65,
+          "rationale": "Base rate: over the past month Bitcoin has spent roughly 60% of its time above $82,000 given its 80k\u201187k range. As of Oct\u202f19 the price is around $82,800, up ~1% from the prior close and within a 2.4k daily range, suggesting upward momentum. However, intraday volatility of several thousand dollars means a pullback below $82,000 by noon ET on Oct\u202f21 is plausible, so the probability is adjusted modestly above the base rate but not extreme."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.67,
+          "rationale": "Recent daily closes are mixed around 82k (5 of last 9 above), but current Binance BTC/USDT is about 82,830, roughly 1% above the threshold, and today's low was 82,010, suggesting short-term support. Two days of typical BTC volatility make a drop below 82k plausible but less likely than holding above. I estimate a two-in-three chance."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.58,
+          "rationale": "Base rate from the past nine daily closes is roughly a coin flip around $82,000. Spot currently sits near $82,800, about 1% above the threshold, which tilts the odds slightly upward, but Bitcoin\u2019s wide daily ranges and mixed macro cues\u2014China\u2019s GDP beat supporting risk appetite versus lingering Fed hike fears\u2014mean a dip below $82,000 remains easily possible. A decisive break under $80,000 or a rally toward $85,000+ in the next two days would materially shift the outlook."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.66,
+          "rationale": "The base rate for a two-day binary price question is near 50/50, but spot is already about 1% above the $82,000 strike at roughly $82,830. Recent daily ranges of $1,000-$3,000 imply enough volatility that a 1% drop over two days is plausible, but not more likely than holding above the level. The main risk to Yes is renewed risk-off or a continuation of the prior two-week downtrend; the main support is today's risk-on move and the price sitting above the threshold."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "Base rate: Bitcoin is currently trading around $82,800 on Binance, just above the $82,000 threshold. The recent 30-day range of $80,000-$87,000 straddles the threshold, and daily ranges have been several thousand dollars wide, so a 1% move in either direction over two days is plausible. Of the last nine daily closes, five were above $82,000 and four below, suggesting roughly even odds. The slight upward bias from today's positive China GDP news and risk-on sentiment nudges the probability modestly above 50%, but the high volatility and proximity to the threshold keep this close to a coin flip."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.675
+        }
+      ],
+      "id": "polymarket-5690022",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-21",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-21-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $82,000 on October 21?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -1861,81 +1936,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.6
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.6,
-          "rationale": "Binance BTC/USDT last traded 82,830 on 2026-10-19, about 1% above the 82,000 line, after a 24-hour low of 80,684 (Binance 24h ticker, 2026-10-19). Five of the last nine daily closes were above 82,000. The resolving candle is noon ET on 2026-10-21, about two days away, and daily ranges of several thousand dollars (79,800 low on 2026-10-15) mean a roughly 0.3 standard deviation cushion, which gives a modest edge to Yes.",
-          "sources": [
-            "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=10",
-            "https://www.coindesk.com/markets/2026/10/19/bitcoin-korea-s-kospi-and-nasdaq-futures-rally-as-china-gdp-beats-estimates"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "Base rate is near 50% because the $82,000 threshold sits in the middle of recent daily closes (5 of 9 above). Current spot ~$82,830 is only ~1% above the line with two days (~53 hours) until the 12:00 ET resolution, and Bitcoin's typical daily range of 2-3% means a cross in either direction is very plausible. The China GDP beat and risk-on tone provide modest upside bias, but the prior two-week downtrend (~2% weekly declines) and Fed hike expectations keep downside risk alive. The specific 1-minute candle at noon ET adds microstructure noise that could flip the outcome near the boundary."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.65,
-          "rationale": "Base rate: over the past month Bitcoin has spent roughly 60% of its time above $82,000 given its 80k\u201187k range. As of Oct\u202f19 the price is around $82,800, up ~1% from the prior close and within a 2.4k daily range, suggesting upward momentum. However, intraday volatility of several thousand dollars means a pullback below $82,000 by noon ET on Oct\u202f21 is plausible, so the probability is adjusted modestly above the base rate but not extreme."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.67,
-          "rationale": "Recent daily closes are mixed around 82k (5 of last 9 above), but current Binance BTC/USDT is about 82,830, roughly 1% above the threshold, and today's low was 82,010, suggesting short-term support. Two days of typical BTC volatility make a drop below 82k plausible but less likely than holding above. I estimate a two-in-three chance."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.58,
-          "rationale": "Base rate from the past nine daily closes is roughly a coin flip around $82,000. Spot currently sits near $82,800, about 1% above the threshold, which tilts the odds slightly upward, but Bitcoin\u2019s wide daily ranges and mixed macro cues\u2014China\u2019s GDP beat supporting risk appetite versus lingering Fed hike fears\u2014mean a dip below $82,000 remains easily possible. A decisive break under $80,000 or a rally toward $85,000+ in the next two days would materially shift the outlook."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.66,
-          "rationale": "The base rate for a two-day binary price question is near 50/50, but spot is already about 1% above the $82,000 strike at roughly $82,830. Recent daily ranges of $1,000-$3,000 imply enough volatility that a 1% drop over two days is plausible, but not more likely than holding above the level. The main risk to Yes is renewed risk-off or a continuation of the prior two-week downtrend; the main support is today's risk-on move and the price sitting above the threshold."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.55,
-          "rationale": "Base rate: Bitcoin is currently trading around $82,800 on Binance, just above the $82,000 threshold. The recent 30-day range of $80,000-$87,000 straddles the threshold, and daily ranges have been several thousand dollars wide, so a 1% move in either direction over two days is plausible. Of the last nine daily closes, five were above $82,000 and four below, suggesting roughly even odds. The slight upward bias from today's positive China GDP news and risk-on sentiment nudges the probability modestly above 50%, but the high volatility and proximity to the threshold keep this close to a coin flip."
-        },
-        {
-          "made_at": "2026-10-19T09:10:12.136876+00:00",
-          "method": "market_price_v1",
-          "probability": 0.675
-        }
-      ],
-      "id": "polymarket-5690022",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-21",
-      "scored": true,
-      "source": "prospective_markets_20261019",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-21-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $82,000 on October 21?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -8087,12 +8087,12 @@
     }
   ],
   "summary": {
-    "brier": 0.22099070423384862,
+    "brier": 0.21888757650164695,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 94,
-    "resolved": 28,
-    "right": 15,
+    "pending": 93,
+    "resolved": 29,
+    "right": 16,
     "toss_ups": 0,
     "total": 124,
     "unscored": 2,
