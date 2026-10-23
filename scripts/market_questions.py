@@ -155,7 +155,8 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
                 continue
             manifold = question["id"].startswith("manifold-")
             try:
-                result = (manifold_resolution if manifold else resolution)(question["market_id"], fetch)
+                result = (manifold_resolution(question["market_id"], fetch) if manifold
+                          else resolution(question["market_id"], fetch, now=today))
             except Exception as exc:  # noqa: BLE001 - one unreachable market must not stop the others
                 print(f"{question['id']}: still open ({type(exc).__name__})")
                 continue
