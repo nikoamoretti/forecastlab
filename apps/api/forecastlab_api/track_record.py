@@ -8,7 +8,11 @@ questions the owner asked Claude, whose ids match their ``question_requests`` en
 
 "Our call" for a question is the median of every forecaster's probability on it (the
 ``combined_median_v1`` rule, adopted 2026-10-07 in place of "Claude first"; it gives the
-same call on all four questions decided by then). A call is right when it put more than
+same call on all four questions decided by then). Questions first forecast on or after
+WEIGHTED_FROM use ``combined_weighted_v1`` instead: a weighted median in which each forecaster
+counts by its record on the questions decided so far (see ``_weights``). That call is computed
+once, from the record as it stood then, and frozen in the question's directory as ``calls.json``,
+so later results never rewrite an earlier call. A call is right when it put more than
 50% on what happened; an exact 50% is a toss-up and counts in the accuracy score but not
 in the right/wrong tally. Each forecaster keeps its own record, so the page shows whether
 the combination beats its members.
@@ -25,7 +29,8 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import date
+from datetime import date, datetime
+from itertools import accumulate
 from pathlib import Path
 from statistics import median
 from typing import Any
@@ -37,6 +42,12 @@ from forecastlab.timeutil import utcnow
 
 TRACK_RECORD_VERSION = "track_record_v2"
 COMBINED = "combined_median_v1"
+WEIGHTED = "combined_weighted_v1"
+WEIGHTED_FROM = date(2026, 10, 24)
+CALLS_FILE = "calls.json"
+# A forecaster's Brier score is pulled toward a coin flip's as if it had this many extra
+# coin-flip-quality results, so a short lucky or unlucky streak moves its weight only a little.
+PRIOR_RESULTS = 10
 SUPPLEMENT_SUFFIX = " (post-freeze supplement)"
 COIN_FLIP_BRIER = 0.25
 FORECASTERS: dict[str, dict[str, str]] = {
@@ -83,7 +94,8 @@ def _forecaster(method: str) -> str:
 
 
 COMBINED_INFO = {"label": "Combined forecast",
-                 "about": "The median of every forecaster's probability on the question. This is our call."}
+                 "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with "
+                          "better records count for more."}
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -92,6 +104,41 @@ def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
     if not members:
         return None
     return {"method": COMBINED, "probability": median(members), "members": len(members)}
+
+
+def _weights(resolved: list[dict[str, Any]]) -> dict[str, float]:
+    """Each forecaster's weight from its record so far: 1 / (shrunk Brier score) squared.
+
+    The Brier score is shrunk toward a coin flip's 0.25 by PRIOR_RESULTS, so a forecaster with no
+    record weighs 16, one with a long record at 0.15 about 40, and one no better than guessing 16 or less.
+    """
+    totals: dict[str, list[float]] = {}
+    for question in resolved:
+        for forecast in question["forecasts"]:
+            total = totals.setdefault(forecast["method"], [0, 0.0])
+            total[0] += 1
+            total[1] += _brier(forecast["probability"], question["outcome"])
+    return {method: 1 / ((brier + PRIOR_RESULTS * COIN_FLIP_BRIER) / (count + PRIOR_RESULTS)) ** 2
+            for method, (count, brier) in totals.items()}
+
+
+def _weighted_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> dict[str, Any] | None:
+    """The weighted median: the probability where half the members' total weight lies on each side."""
+    default = 1 / COIN_FLIP_BRIER ** 2
+    members = sorted((f["probability"], round(weights.get(f["method"], default), 2), f["method"])
+                     for f in forecasts if f["method"] not in BENCHMARKS)
+    if not members:
+        return None
+    half = sum(w for _, w, _ in members) / 2
+    probability = next(p for (p, _, _), total in zip(members, accumulate(w for _, w, _ in members), strict=True) if total >= half)
+    return {"method": WEIGHTED, "probability": probability, "members": len(members),
+            "weights": {method: weight for _, weight, method in members}}
+
+
+def _forecast_day(question: dict[str, Any]) -> date | None:
+    """The day a question was first forecast, from its directory name (prospective_<kind>_YYYYMMDD)."""
+    found = re.search(r"_(\d{8})$", question["source"])
+    return datetime.strptime(found.group(1), "%Y%m%d").date() if found else None
 
 
 def verdict(probability: float, outcome: int | None) -> str | None:
@@ -184,17 +231,37 @@ def _tally(rows: list[tuple[float, int]]) -> dict[str, Any]:
             "brier": sum(briers) / len(briers) if briers else None, "coin_flip_brier": COIN_FLIP_BRIER}
 
 
-def build_track_record(artifacts: Path, *, today: date | None = None) -> dict[str, Any]:
+def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bool = False) -> dict[str, Any]:
+    """The track record; with ``freeze``, new weighted calls are saved so they never change later."""
     questions: list[dict[str, Any]] = []
     for directory in sorted(artifacts.glob("prospective_*")):
         if (directory / "scores.json").exists() and (directory / "frozen_manifest.json").exists():
             questions += _macro_questions(directory)
         elif (directory / "forecasts.json").exists():
             questions += _general_questions(directory / "forecasts.json")
+    frozen: dict[str, dict[str, dict[str, Any]]] = {}
     for question in questions:
-        call = _call(question["forecasts"])
+        path = artifacts / question["source"] / CALLS_FILE
+        if question["source"] not in frozen:
+            frozen[question["source"]] = json.loads(path.read_text()) if path.exists() else {}
+    record_so_far = [q for q in questions if q["status"] == "resolved" and q["scored"]]
+    weights = _weights(record_so_far)
+    for question in questions:
+        day = _forecast_day(question)
+        if day is None or day < WEIGHTED_FROM:
+            call = _call(question["forecasts"])
+        else:
+            calls = frozen[question["source"]]
+            if question["id"] not in calls and (fresh := _weighted_call(question["forecasts"], weights)):
+                calls[question["id"]] = fresh
+            call = calls.get(question["id"])
         question["call"] = call
         question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
+    if freeze:
+        for source, calls in frozen.items():
+            path = artifacts / source / CALLS_FILE
+            if calls and (not path.exists() or json.loads(path.read_text()) != calls):
+                path.write_text(json.dumps(calls, indent=2, sort_keys=True) + "\n")
     resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),

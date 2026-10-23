@@ -109,3 +109,44 @@ def test_track_record_endpoint_serves_the_built_file(client) -> None:
     body = response.json()
     assert {"summary", "forecasters", "questions"} <= set(body)
     assert body["summary"]["resolved"] == body["summary"]["right"] + body["summary"]["wrong"] + body["summary"]["toss_ups"]
+
+
+def _markets(directory: Path, questions: list[dict]) -> None:
+    directory.mkdir()
+    (directory / "forecasts.json").write_text(json.dumps({"questions": [
+        {"question": q["id"], "resolution_criteria": "Rules.", "resolution_date": q.get("date", "2026-10-30"),
+         "outcome": q.get("outcome"), **q} for q in questions]}))
+
+
+def test_from_oct_24_better_records_count_for_more_and_the_call_is_frozen(tmp_path: Path) -> None:
+    good, bad = "claude_code_forecaster_v1", "statistical_baseline_v1"
+    # Before the switch: the plain median, and a record where one forecaster is much better.
+    _markets(tmp_path / "prospective_markets_20261020", [
+        {"id": f"old{n}", "date": "2026-10-21", "outcome": n % 2,
+         "forecasts": [{"method": good, "probability": 0.9 if n % 2 else 0.1},
+                       {"method": bad, "probability": 0.2 if n % 2 else 0.8}]} for n in range(10)])
+    _markets(tmp_path / "prospective_markets_20261024", [
+        {"id": "new", "forecasts": [{"method": good, "probability": 0.7}, {"method": bad, "probability": 0.3},
+                                    {"method": "market_price_v1", "probability": 0.1}]}])
+
+    record = build_track_record(tmp_path, today=date(2026, 10, 24), freeze=True)
+    by_id = {q["id"]: q for q in record["questions"]}
+    assert by_id["old0"]["call"]["method"] == "combined_median_v1"
+    call = by_id["new"]["call"]
+    assert (call["method"], call["probability"], call["members"]) == ("combined_weighted_v1", 0.7, 2)
+    assert call["weights"][good] > 2 * call["weights"][bad]  # the market is a benchmark, never a member
+    frozen = json.loads((tmp_path / "prospective_markets_20261024" / "calls.json").read_text())
+    assert frozen == {"new": call}
+
+    # Later results that would change the weights do not rewrite a call already made.
+    (tmp_path / "prospective_markets_20261024" / "calls.json").write_text(json.dumps({"new": call | {"probability": 0.3}}))
+    assert {q["id"]: q for q in build_track_record(tmp_path, freeze=True)["questions"]}["new"]["call"]["probability"] == 0.3
+
+
+def test_weighted_call_without_any_record_is_the_plain_median_of_the_middle_member(tmp_path: Path) -> None:
+    _markets(tmp_path / "prospective_markets_20261025", [
+        {"id": "q", "forecasts": [{"method": m, "probability": p} for m, p in
+                                  [("claude_code_forecaster_v1", 0.2), ("judge_kimi_k26_v1", 0.5), ("judge_qwen38_27b_v1", 0.9)]]}])
+    call = build_track_record(tmp_path)["questions"][0]["call"]
+    assert (call["method"], call["probability"]) == ("combined_weighted_v1", 0.5)
+    assert not (tmp_path / "prospective_markets_20261025" / "calls.json").exists()  # only saved with freeze

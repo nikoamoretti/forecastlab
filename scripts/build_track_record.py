@@ -23,7 +23,7 @@ OUTPUT = ROOT / "data" / "track_record.json"
 
 
 def main() -> int:
-    record = build_track_record(ROOT / "artifacts")
+    record = build_track_record(ROOT / "artifacts", freeze=True)
     OUTPUT.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
     s = record["summary"]
     print(f"track record: {s['right']} right, {s['wrong']} wrong of {s['resolved']} resolved; "
