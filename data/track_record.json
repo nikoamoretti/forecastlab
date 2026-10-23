@@ -2,13 +2,13 @@
   "forecasters": [
     {
       "about": "The median of every forecaster's probability on the question. This is our call.",
-      "brier": 0.2468616522653236,
+      "brier": 0.24455784374036957,
       "coin_flip_brier": 0.25,
       "forecasts": 111,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 20,
-      "right": 9,
+      "resolved": 21,
+      "right": 10,
       "toss_ups": 0,
       "wrong": 11
     },
@@ -146,13 +146,13 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2723162715154663,
+      "brier": 0.2670423716387393,
       "coin_flip_brier": 0.25,
       "forecasts": 23,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 13,
-      "right": 4,
+      "resolved": 14,
+      "right": 5,
       "toss_ups": 0,
       "wrong": 9
     },
@@ -181,8 +181,36 @@
       "wrong": 1
     }
   ],
-  "generated_on": "2026-10-21",
+  "generated_on": "2026-10-23",
   "questions": [
+    {
+      "actual": "194,000 claims",
+      "call": {
+        "members": 1,
+        "method": "combined_median_v1",
+        "probability": 0.44551282051282054
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-17 be above 199,000 claims?",
+      "forecasts": [
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.44551282051282054
+        }
+      ],
+      "id": "a81bb32960e43a67",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-22",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261019",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 17, 2026 come in above 199,000 claims?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
     {
       "actual": "5.10%",
       "call": {
@@ -1908,34 +1936,6 @@
       "status": "pending",
       "title": "Will the price of Bitcoin be above $82,000 on October 21?",
       "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_median_v1",
-        "probability": 0.44551282051282054
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-17 be above 199,000 claims?",
-      "forecasts": [
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.44551282051282054
-        }
-      ],
-      "id": "a81bb32960e43a67",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-22",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261019",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Oct 17, 2026 come in above 199,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -7258,12 +7258,12 @@
     }
   ],
   "summary": {
-    "brier": 0.2468616522653236,
+    "brier": 0.24455784374036957,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 90,
-    "resolved": 20,
-    "right": 9,
+    "pending": 89,
+    "resolved": 21,
+    "right": 10,
     "toss_ups": 0,
     "total": 111,
     "unscored": 2,
