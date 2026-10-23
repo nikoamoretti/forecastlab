@@ -6,17 +6,41 @@
 
 :root {
   color-scheme: light;
+  --ink: 28 25 22;
+  --paper: 243 239 230;
+  --rule: 215 203 184;
+  --copper: 154 75 36;
+  --pine: 33 92 75;
+  --moss: 63 111 92;
+  --brick: 163 57 43;
+  --white: 255 255 255;
+  --glow: rgba(154, 75, 36, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --ink: 237 230 218;
+    --paper: 23 20 17;
+    --rule: 66 58 49;
+    --copper: 222 142 98;
+    --pine: 111 191 163;
+    --moss: 143 191 169;
+    --brick: 232 128 112;
+    --white: 38 34 30;
+    --glow: rgba(222, 142, 98, 0.07);
+  }
 }
 
 html,
 body {
-  background: #f3efe6;
-  color: #1c1916;
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
 }
 
 body {
   font-family: "IBM Plex Sans", sans-serif;
-  background-image: radial-gradient(circle at top, rgba(154, 75, 36, 0.06), transparent 28%);
+  background-image: radial-gradient(circle at top, var(--glow), transparent 28%);
 }
 
 a {
@@ -24,6 +48,6 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid #9a4b24;
+  outline: 3px solid rgb(var(--copper));
   outline-offset: 3px;
 }

@@ -238,7 +238,7 @@ export default function ForecastPage() {
                 input {evidenceSufficiency.assessment_input_hash}
               </p>
               {evidenceSufficiency.reasons?.length ? (
-                <ul className="mt-3 list-disc space-y-1 pl-5 text-red-800">
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-red-800 dark:text-red-300">
                   {evidenceSufficiency.reasons.map((reason: string) => <li key={reason}>{reason}</li>)}
                 </ul>
               ) : null}
@@ -270,7 +270,7 @@ export default function ForecastPage() {
                     {" · "}frontier ties {(materialPlanAudit.frontier_tie_skipped_node_ids || []).join(", ") || "none"}
                   </p>
                   {materialPlanAudit.reasons?.length ? (
-                    <p className="mt-1 text-red-800">{materialPlanAudit.reasons.join(", ")}</p>
+                    <p className="mt-1 text-red-800 dark:text-red-300">{materialPlanAudit.reasons.join(", ")}</p>
                   ) : null}
                 </div>
               ) : null}
@@ -289,10 +289,10 @@ export default function ForecastPage() {
                     input {materialAssessment.assessment_input_hash}
                   </p>
                   {materialAssessment.reasons?.length ? (
-                    <p className="mt-1 text-red-800">{materialAssessment.reasons.join(", ")}</p>
+                    <p className="mt-1 text-red-800 dark:text-red-300">{materialAssessment.reasons.join(", ")}</p>
                   ) : null}
                   {materialAssessment.warnings?.length ? (
-                    <p className="mt-1 text-amber-800">{materialAssessment.warnings.join(", ")}</p>
+                    <p className="mt-1 text-amber-800 dark:text-amber-300">{materialAssessment.warnings.join(", ")}</p>
                   ) : null}
                 </div>
               ) : null}
@@ -681,7 +681,7 @@ export default function ForecastPage() {
                     </p>
                     <h4 className="mt-2 font-serif text-xl">{node.question}</h4>
                     {node.failures?.length ? (
-                      <ul className="mt-3 space-y-1 text-sm text-red-800">
+                      <ul className="mt-3 space-y-1 text-sm text-red-800 dark:text-red-300">
                         {node.failures.map((failure: any) => (
                           <li key={failure.id || `${failure.stage}-${failure.error_code}`}>
                             {failure.stage}: {failure.error_code}. {failure.error_message}
@@ -706,7 +706,7 @@ export default function ForecastPage() {
                       </p>
                     ) : null}
                     {node.missing_parent_relationships?.length || node.missing_dependency_relationships?.length ? (
-                      <p className="mt-1 text-xs text-amber-800">
+                      <p className="mt-1 text-xs text-amber-800 dark:text-amber-300">
                         Relationship warning: excluded parents {node.missing_parent_relationships?.length || 0}; excluded dependencies {node.missing_dependency_relationships?.length || 0}
                       </p>
                     ) : null}
@@ -956,7 +956,7 @@ export default function ForecastPage() {
           Accepted evidence can enter the normal extraction path only on a fresh explicit rerun with matching mode and cutoff.
         </p>
         {!manualEvidenceModeSupported ? (
-          <p className="mt-2 text-sm text-amber-800">
+          <p className="mt-2 text-sm text-amber-800 dark:text-amber-300">
             Manual external evidence is available for live and backtest questions. Demo runs remain fixture-only.
           </p>
         ) : null}
@@ -1018,7 +1018,7 @@ export default function ForecastPage() {
                     )}
                     <p className="text-xs text-ink/60">{item.publisher || "Publisher unavailable"}</p>
                   </div>
-                  <p className={item.accepted ? "text-emerald-800" : "text-red-800"}>
+                  <p className={item.accepted ? "text-emerald-800 dark:text-emerald-300" : "text-red-800 dark:text-red-300"}>
                     {item.accepted ? "accepted" : "rejected"}
                   </p>
                 </div>
