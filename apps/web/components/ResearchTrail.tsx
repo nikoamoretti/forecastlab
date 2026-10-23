@@ -8,6 +8,7 @@ type Source = { title: string; url: string; published?: string; verified?: boole
 type Judge = { method: string; model: string; at?: string; ok: boolean; error?: string | null; cost_usd?: number | null };
 export type Research = {
   researched_by: string | null; researched_at: string | null; quotes_checked_at: string | null; research_failed: string | null;
+  research_seconds?: number | null; research_cost_usd?: number | null;
   facts: { fact: string; source: number }[]; base_rate: string | null; unknowns: string[]; sources: Source[];
   brief: string | null; brief_written_at: string | null; judges: Judge[];
 };
@@ -15,6 +16,11 @@ export type Research = {
 const when = (iso?: string | null) => iso
   ? `${shortDate(iso)}, ${new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC" })} UTC` : null;
 const count = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+const effort = (r: Research) => {
+  const parts = [r.research_seconds != null && `${Math.max(1, Math.round(r.research_seconds))} seconds`,
+    r.research_cost_usd != null && `$${r.research_cost_usd.toFixed(2)}`].filter(Boolean);
+  return parts.length ? ` (${parts.join(", ")})` : "";
+};
 const checkLabel = (s: Source) => s.verified === true ? "quotes checked on the page" : s.verified === false ? "quotes not found on the page" : "not checked";
 
 function Step({ at, children }: { at?: string | null; children: React.ReactNode }) {
@@ -42,7 +48,7 @@ export function ResearchTrail({ q, labels }: { q: Question; labels: Record<strin
         {!research && <Step>No research log was saved for this question; it predates the research pipeline (Oct 14). Claude searched the web itself, and its sources are listed above.</Step>}
         {research?.researched_by && (research.research_failed
           ? <Step at={research.researched_at}>Research by {research.researched_by} failed: {research.research_failed}. No forecast was made from it.</Step>
-          : research.facts.length > 0 && <Step at={research.researched_at}>{research.researched_by} researched the question on the web: {count(research.facts.length, "dated fact")} from {count(research.sources.length, "source")}, plus a base rate and open questions. It never sees market odds.</Step>)}
+          : research.facts.length > 0 && <Step at={research.researched_at}>{research.researched_by} researched the question on the web: {count(research.facts.length, "dated fact")} from {count(research.sources.length, "source")}, plus a base rate and open questions{effort(research)}. It never sees market odds.</Step>)}
         {research?.quotes_checked_at && research.sources.length > 0 && <Step at={research.quotes_checked_at}>Every cited page was downloaded and the quoted lines looked up on it: confirmed on {checked} of {count(research.sources.length, "source")}.</Step>}
         {claude && <Step at={claude.made_at}>{research
           ? `Claude read the research${(claude.made_at ?? "") >= "2026-10-24" ? " and its own record so far" : ""} and made its forecast: ${Math.round(claude.probability * 100)}% yes. It does not search the web itself.`

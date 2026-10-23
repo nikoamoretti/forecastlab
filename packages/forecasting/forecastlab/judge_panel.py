@@ -42,6 +42,8 @@ class PanelConfig(BaseModel):
     prompt_version: str
     daily_budget_usd: float = Field(gt=0, le=5)
     max_tokens: int = Field(gt=0, le=20_000)
+    # Thinking budget inside max_tokens, so a reasoning model still has room left for its JSON answer.
+    reasoning_max_tokens: int | None = Field(default=None, gt=0)
     members: list[Member]
 
 
@@ -131,12 +133,14 @@ class Budget:
 
 
 def ask(member: Member, question: PanelQuestion, *, now: datetime, post: Post, max_tokens: int,
-        price: Price) -> dict[str, Any]:
+        price: Price, reasoning_max_tokens: int | None = None) -> dict[str, Any]:
     """One judge call. Returns an attempt record with the forecast or the error, and its cost."""
     user = prompt(question, now)
     body = {"model": member.model, "max_tokens": max_tokens, "temperature": 0,
             "response_format": {"type": "json_object"}, "usage": {"include": True},
             "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}]}
+    if reasoning_max_tokens:
+        body["reasoning"] = {"max_tokens": reasoning_max_tokens}
     attempt: dict[str, Any] = {"id": question.id, "method": member.method, "model": member.model,
                                "at": now.isoformat(), "ok": False, "cost_usd": 0.0}
     try:

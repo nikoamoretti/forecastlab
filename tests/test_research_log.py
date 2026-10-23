@@ -12,6 +12,7 @@ def test_each_question_gets_its_research_brief_and_judge_calls_without_page_text
     (directory / "research.json").write_text(json.dumps({
         "researched_at": "2026-10-23T14:07:07+00:00", "downloaded_at": "2026-10-23T14:07:43+00:00", "model": "grok-4.7-low",
         "researched_by": {"q1": "claude-sonnet"}, "failed": {"q2": "cursor-agent timed out"},
+        "seconds": {"q1": 48.2}, "cost_usd": {"q1": 0.21},
         "findings": {"q1": {"facts": [{"fact": "BTC was $81,600 on Oct 23.", "source": 0}], "base_rate": "Rare.",
                             "uncertainties": ["Weekend moves"]}},
         "sources": {"q1": [{"title": "Price", "url": "https://example.com/p", "published": "2026-10-23", "verified": True,
@@ -29,6 +30,7 @@ def test_each_question_gets_its_research_brief_and_judge_calls_without_page_text
     q1 = question_research(tmp_path / "data", "prospective_markets_20261023", "q1")
     assert q1 is not None
     assert (q1["researched_by"], q1["brief"], q1["base_rate"]) == ("Claude Sonnet", "Brief.", "Rare.")
+    assert (q1["research_seconds"], q1["research_cost_usd"]) == (48.2, 0.21)
     assert q1["sources"] == [{"title": "Price", "url": "https://example.com/p", "published": "2026-10-23", "verified": True,
                               "quotes": ["$81,600"]}]
     assert q1["judges"][0] == {"method": "judge_kimi_k26_v1", "model": "moonshotai/kimi-k2.6", "ok": False,

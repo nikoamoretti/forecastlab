@@ -65,6 +65,7 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
         ? <div className="mt-5"><VerdictHeadline probability={result.probability} /></div>
         : <p className="mt-5 font-serif text-5xl">{run.status === "failed" ? "Forecast failed" : terminal ? "No forecast: not enough evidence" : "Research in progress"}</p>}
       {!terminal && <p className="mt-3" aria-live="polite">{run.progress_message}</p>}
+      {run.status === "failed" && run.mode === "live" && <p className="mt-3 max-w-2xl text-ink/70">This was a run of the first forecasting engine, which was retired in October. It broke before producing a forecast{run.error_stage === "node_research" ? " while reading its sources" : ""}, so it is not on the track record.</p>}
       {run.error_message && <p role="alert" className="mt-2 text-copper">{run.error_message}</p>}
     </header>
     <section className="border-y border-rule py-5"><h3 className="font-serif text-2xl">What resolves this question</h3>
@@ -83,8 +84,8 @@ export default function PersonalReport({ data, rerun }: { data: any; rerun: () =
       {result.aggregation?.spread != null && <p className="mt-2 text-sm">Estimate spread: {(result.aggregation.spread * 100).toFixed(1)} percentage points.</p>}
       <div className="mt-4 grid gap-4 md:grid-cols-3">{result.estimates.map((e: any) => <div className="border border-rule p-4" key={e.role}><p>{e.role.replaceAll("_", " ")}</p><p className="mt-2 font-serif text-3xl">{pct(e.probability)}</p><p className="mt-3 text-sm">{e.reasoning}</p></div>)}</div></section>}
     {!isBaseline && (result.developments_to_watch || []).length > 0 && <section><h3 className="font-serif text-2xl">Developments to watch</h3><ul className="mt-3 list-disc space-y-2 pl-5">{(result.developments_to_watch || []).map((s: string) => <li key={s}>{s}</li>)}</ul></section>}
-    {terminal && !data.is_benchmark && !data.is_historical_view && <button disabled={busy} onClick={async () => { setBusy(true); setMessage(""); try { await rerun(); } catch (e) { setMessage(e instanceof Error ? e.message : "Rerun failed"); } finally { setBusy(false); } }} className="border border-ink px-4 py-2">Run a fresh forecast</button>}
-    {run.mode !== "demo" && <details><summary className="cursor-pointer">Add evidence for a future rerun</summary>
+    {terminal && run.mode !== "live" && !data.is_benchmark && !data.is_historical_view && <button disabled={busy} onClick={async () => { setBusy(true); setMessage(""); try { await rerun(); } catch (e) { setMessage(e instanceof Error ? e.message : "Rerun failed"); } finally { setBusy(false); } }} className="border border-ink px-4 py-2">Run a fresh forecast</button>}
+    {run.mode === "backtest" && <details><summary className="cursor-pointer">Add evidence for a future rerun</summary>
       <form className="mt-3 flex flex-wrap items-end gap-3" onSubmit={async event => { event.preventDefault(); setBusy(true); setMessage("");
         try { const receipt = await api<any>(`/api/questions/${data.id}/evidence-urls`, { method: "POST", body: JSON.stringify({ url: evidenceUrl, intended_use: "general_question_evidence", mode: run.mode, as_of: run.mode === "backtest" ? run.as_of : undefined }) });
           setMessage(receipt.accepted ? "Evidence accepted. Run a fresh forecast to include it." : `Evidence rejected: ${receipt.rejection_reason}`); setEvidenceUrl("");

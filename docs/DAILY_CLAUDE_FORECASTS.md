@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day and currently made to free models ([JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day (about $0.40 a day in practice; one free and three paid open-weights models, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
