@@ -134,9 +134,24 @@ def test_research_saves_evidence_skips_failures_and_respects_the_budget(tmp_path
     assert "CPI rose 2.9%" in cr.digest(result, "polymarket-1")
 
     (directory / "research.json").write_text(json.dumps(result))
-    again = cr.research(directory, lambda text: answer(), "2026-10-14", parallel=1, budget=10)
+    again = cr.research(directory, lambda text: answer(), "2026-10-14", parallel=1, budget=10, by="claude-sonnet")
     assert again["runs"] == 2  # only the failed and the unresearched questions are asked again
     assert set(again["findings"]) == {"polymarket-1", "polymarket-2", "polymarket-3"} and not again["failed"]
+    assert again["researched_by"] == {"polymarket-2": "claude-sonnet", "polymarket-3": "claude-sonnet"}
+
+
+def test_claude_agent_reads_the_prompt_on_stdin_with_only_web_tools(tmp_path: Path) -> None:
+    fake = tmp_path / "claude"
+    fake.write_text("#!/bin/sh\nprintf '%s\\n' \"$@\" > \"$(dirname \"$0\")/args\"\ncat\n")
+    fake.chmod(0o755)
+    assert cr.claude_agent("sonnet", 30, binary=str(fake))("evidence please") == "evidence please"
+    args = (tmp_path / "args").read_text().split()
+    assert args[:3] == ["-p", "--model", "sonnet"] and args[-3:] == ["--allowedTools", "WebSearch", "WebFetch"]
+    failing = tmp_path / "broken"
+    failing.write_text("#!/bin/sh\necho 'usage limit' >&2\nexit 1\n")
+    failing.chmod(0o755)
+    with pytest.raises(RuntimeError, match="usage limit"):
+        cr.claude_agent("sonnet", 30, binary=str(failing))("x")
 
 
 def test_download_checks_quotes_against_the_page(tmp_path: Path) -> None:
@@ -175,8 +190,13 @@ def test_the_research_model_family_cannot_judge() -> None:
     with_grok = PanelConfig(**{**live.model_dump(), "members": [*live.members, Member(method="judge_grok", model="x-ai/grok-4.7")]})
     with pytest.raises(SystemExit, match="cannot judge"):
         panel_script.check_independent(with_grok)
+    with_claude = PanelConfig(**{**live.model_dump(),
+                                 "members": [*live.members, Member(method="judge_claude", model="anthropic/claude-haiku-5.5")]})
+    with pytest.raises(SystemExit, match="cannot judge"):  # Claude fills research gaps, so it may not judge either
+        panel_script.check_independent(with_claude)
 
 
 def test_research_settings_are_valid() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
     assert settings.model_family in settings.model and settings.mode in ("dry_run", "live")
+    assert settings.families == (settings.model_family, "claude") and settings.fallback_model

@@ -8,5 +8,6 @@
   "daily_run_cap": 120,
   "weekly_run_cap": 1000,
   "window_utc": [9, 15],
-  "base_branch": "grok/forecastlab-mvp"
+  "base_branch": "grok/forecastlab-mvp",
+  "fallback": {"provider": "claude", "model": "sonnet", "model_family": "claude", "timeout_s": 600}
 }
