@@ -1,0 +1,94 @@
+{
+  "downloaded_at": "2026-10-23T21:12:06.241845+00:00",
+  "failed": {},
+  "findings": {
+    "house-gop-218-jan-2027": {
+      "base_rate": "The president's party has lost House seats in most midterms since WWII (about 18 of 20).\nLosses were 40 or more seats in 2018 (-41), 2010 (-63) and 2006 (-30).\nA Republican net loss of 3 or more would drop them below 218, and the current Republican count is already near 217-220.",
+      "facts": [
+        {
+          "fact": "On 2026-10-09 Cook Political Report moved 18 House races toward Democrats.\nOne outlet says Cook's most likely outcome is a Democratic gain of 9 to 19 seats.\nI could not open the page, so this comes from a search summary.",
+          "source": 0
+        },
+        {
+          "fact": "Cook's ratings page dated 2026-10-16 reportedly shows about 185 Solid D, 17 Likely D, 12 Lean D, 21 Toss Up, 13 Lean R, 16 Likely R and 171 Solid R.\nThe snippet was garbled, so these counts are approximate.",
+          "source": 1
+        },
+        {
+          "fact": "The House Press Gallery breakdown of 2026-03-18 showed 217 Republicans, 214 Democrats, 1 independent (Kevin Kiley, who caucuses with Republicans) and 3 vacancies.\nBallotpedia reported 217-214 with 4 vacancies on 2026-04-20.",
+          "source": 2
+        },
+        {
+          "fact": "Cook's open-seat tracker lists CA-14 (D, Swalwell resigned 4/14), TX-23 (R, Gonzales resigned 4/14), FL-20 (D, Cherfilus-McCormick resigned 4/21) and GA-13 (D, Scott died 4/22) as vacated.\nAs of 2026-09-01 Ballotpedia said CA-14, FL-20 and TX-23 were still unfilled.",
+          "source": 3
+        },
+        {
+          "fact": "Ballotpedia reported the FL-20 vacancy on 2026-04-22, the same month as the other vacancies.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "I could not open any page, so none of the facts is verified against the page text.\nAll come from search-result summaries, and the quotes arrays are empty for that reason.",
+        "The Clerk's current party breakdown for October 2026 was not found; the vacancy count and partisan split are unverified.",
+        "The November 3 results and any recounts are unknown.",
+        "Special elections for TX-23, FL-20, CA-14 and GA-13 may be held before or after January 3.",
+        "Mid-decade redistricting and court rulings on maps (Texas, California and others) could change seat outcomes."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-23T21:11:45+00:00",
+  "researched_by": {
+    "house-gop-218-jan-2027": "claude-sonnet"
+  },
+  "runs": 1,
+  "sources": {
+    "house-gop-218-jan-2027": [
+      {
+        "published": "2026-10-09",
+        "quotes": [],
+        "text": "The nonpartisan election handicapper the Cook Political Report moved 18 House race ratings toward Democrats on Friday, October 9, 2026, less than four weeks before the November 3, 2026 midterm elections.\nThe shifts push Cook\u2019s projected outcome to a Democratic net gain of nine to 19 seats, which would give the party between 224 and 234 seats \u2014 comfortably above the 218 needed for a majority.\n\u25c9 Key Facts\n- \u25baCook moved 18 House race ratings toward Democrats on Friday, October 9, 2026, roughly 25 days before the November 3, 2026 midterms.\n- \u25baCook now projects a Democratic net gain of nine to 19 seats, putting the party\u2019s likely House total between 224 and 234 seats \u2014 above the 218 needed for control.\n- \u25baNine Republican incumbents saw their races shift toward Democrats, including Reps.\nMariannette Miller-Meeks and Zach Nunn of Iowa, Ryan Mackenzie, Scott Perry and Brian Fitzpatrick of Pennsylvania, Bill Huizenga of Michigan, Rob Wittman of Virginia, French Hill of Arkansas and Victoria Spartz of Indiana.\n- \u25baFive Democratic incumbents \u2014 Reps.\nSusie Lee (Nev.), Tom Suozzi and Laura Gillen (N.Y.), Marie Gluesenkamp Perez (Wash.) and Don Davis (N.C.) \u2014 saw their races tighten further in Democrats\u2019 favor, along with four open seats in Nebraska\u2019s 2nd, Iowa\u2019s 2nd, Kentucky\u2019s 6th and Maine\u2019s 2nd districts.\n- \u25baCook House editor Erin Covey wrote that Democrats now need to win only about 20% of the Toss Up races to reach a majority, assuming the seats that favor Democrats in Cook\u2019s ratings all break their way.\nThe Cook Political Report, widely regarded as one of the most closely watched nonpartisan election forecasters in Washington, cited mounting headwinds for Republican candidates tied to the ongoing conflict involving Iran, rising energy prices and broader economic uncertainty.\nCook\u2019s U.S.\nHouse of Representatives editor Erin Covey wrote in her analysis, \u201cWith these new moves, we\u2019re also adjusting our range: the most likely outcome is now that Democrats will pick up nine to 19 seats,\u201d adding that \u201cAt this point, Democrats only need to win 20 percent of the Toss Ups to get to a majority, assuming the seats that favor Democrats in our ratings all break their way.\u201d Of the races Cook currently classifies as toss-ups, Cook currently labels 21 House contests as \u201cToss Up,\u201d including 15 Republican-held seats and six Democrat-held districts.\nThat imbalance means Republicans are defending far more of the most competitive turf than Democrats are, a structural disadvantage that becomes more consequential the longer unfavorable political conditions persist.\nThe ratings shift arrives despite an aggressive Republican effort to blunt Democratic momentum through advertising.\nAccording to reporting on the shift, Cook Political\u2019s Erin Covey wrote that \u201cIn the final weeks of the election, Republicans have hoped that a massive ad campaign effort could dent Democratic candidates\u2019 images and shore up Republicans struggling to free themselves of the anchor of President Donald Trump,\u201d but \u201cWith less than four weeks to go, that heavy spending has yet to move the needle.\u201d The scale of the broader shift across forecasters has also drawn attention: according to the Democratic Congressional Campaign Committee, just since Labor Day, Cook Political, Inside Elections, Sabato\u2019s Crystal Ball, and Fox News have made 101 rating changes in Democrats\u2019 favor.\nRepublicans have pushed back on the characterization that the race is slipping away.\nNRCC spokesman Mike Marinella said in a statement that \u201cHouse races are won in the districts, one by one, with battle-tested candidates and messages that work,\u201d adding that \u201cPundits in D.C.\ncan keep guessing, but voters on the ground have a clear contrast between common sense and crazy,\u201d and predicting that \u201cin November, we\u2019re going to win.\u201d\n| Category | Districts/Races |\n|---|---|\n| GOP incumbents shifted toward Democrats | Miller-Meeks & Nunn (Iowa), Mackenzie, Perry & Fitzpatrick (Pa.), Huizenga (Mich.), Wittman (Va.), Hill (Ark.), Spartz (Ind.) |\n| Democratic incumbents strengthened | Lee (Nev.), Suozzi & Gillen (N.Y.), Gluesenkamp Perez (Wash.), Davis (N.C.) |\n| Open seats shifted toward Democrats | Nebraska\u2019s 2nd, Iowa\u2019s 2nd, Kentucky\u2019s 6th, Maine\u2019s 2nd |\n| New projected House outcome | Democrats: 224-234 seats (net gain of 9-19) |\n\ud83d\udcda Background & Context\nThe Cook Political Report is one of several nonpartisan handicappers, alongside Inside Elections and Sabato\u2019s Crystal Ball, that political strategists, donors and journalists use to gauge the competitiveness of individual House, Senate and gubernatorial races.\nThe party that does not control the White House has historically gained House seats in midterm elections in most cycles since World War II, a pattern rooted in lower turnout among the president\u2019s supporters and backlash against the incumbent administration\u2019s record.\nRating changes are forecasts based on polling, fundraising, candidate quality and political environment \u2014 not predictions of certain outcomes, and Cook and other handicappers routinely revise their ratings again before Election Day as new data emerges.\nWith roughly three and a half weeks remaining until the November 3, 2026 midterms, both parties are expected to pour additional resources into the newly competitive districts, and further ratings movement from Cook and rival forecasters is likely as early voting begins and more polling is released.\nThe ultimate test of these projections will come when votes are counted on Election Day, when the accuracy of this cycle\u2019s forecasting models \u2014 and the political environment they are attempting to capture \u2014 will be fully revealed.\n\ud83d\udcac What People Are Saying\nBased on public reaction across social media and news platforms, here is the general consensus on this story:\n- \ud83d\udd34Republican voices argue the ratings reflect Washington punditry rather than conditions on the ground, with GOP operatives insisting local candidates and messaging will carry races that national forecasters are writing off prematurely.\n- \ud83d\udd35Democratic strategists and committees are pointing to the shift as validation of a building wave, citing voter anger over the economy and the ongoing Iran conflict as evidence the party is positioned to retake the House majority.\n- \ud83d\udfe0Political observers across the spectrum note that while the ratings shift is a meaningful signal, it remains a projection rather than a result, and both parties are bracing for a volatile final stretch before the November 3, 2026 election.\nNote: Social reactions represent general public sentiment and do not reflect Political.org\u2019s editorial position.\nPolitical.org\nNonpartisan political news and analysis.\nFact-based reporting for informed citizens.\nLeave a comment",
+        "title": "Cook Political Report shifts 18 House races toward Democrats as GOP midterm outlook darkens",
+        "url": "https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.cookpolitical.com/ratings/house-race-ratings'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/40",
+        "published": "2026-10-16",
+        "quotes": [],
+        "text": "",
+        "title": "Cook Political Report House Race Ratings",
+        "url": "https://www.cookpolitical.com/ratings/house-race-ratings",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "published": "2026-03-18",
+        "quotes": [],
+        "text": "",
+        "title": "House Press Gallery party breakdown",
+        "url": "https://pressgallery.house.gov/party-breakdown",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker'\nFor more information check: https://developer.mozilla.org",
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Cook 2026 House open seat tracker",
+        "url": "https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker",
+        "verified": null
+      },
+      {
+        "published": "2026-04-22",
+        "quotes": [],
+        "text": "On April 21, 2026, Rep.\nSheila Cherfilus-McCormick (D-Fla.) resigned, leaving Florida's 20th Congressional District vacant.\nCherfilus-McCormick\u2019s resignation came after the U.S.\nHouse of Representatives Ethics Committee announced on March 27 that it had determined that she violated the chamber\u2019s campaign finance rules, finding that she had misappropriated disaster relief funds for campaign purposes.\nA hearing was scheduled for April 21 to discuss possible sanctions.\nAs of April 21, 2026, Republicans have a 217 to 213 majority in the U.S.\nHouse, with four vacancies.\nAdditionally, Rep.\nKevin Kiley (I-Calif.) is an independent who caucuses with Republicans.\nCherfilus-McCormick\u2019s electoral history\nIn 2022, Cherfilus-McCormick ran for the U.S.\nHouse in Florida\u2019s 20th Congressional District, after then-incumbent Rep.\nAlcee Hastings (D-Fla.) died.\nIn the special general election, Cherfilus-McCormick defeated Jason Mariner (R) 79% to 19.4%.\nCherfilus-McCormick won re-election in the 2022 regular general election by 44.6 percentage points.\nIn the 2024 general election, she ran unopposed.\nVacancies in the 119th Congress\nSo far in the 119th Congress, there have been 12 in the U.S.\nHouse and four in the U.S.\nSenate.\nOf those vacancies:\n- Three in the U.S.\nSenate were filled via appointment.\n- One in the U.S.\nSenate was filled when Sen.\nJim Justice (R-W.Va.) was sworn into office 11 days after the start of the 119th Congress.\nJustice delayed his swearing-in in order to fulfill the remainder of his term as governor of West Virginia.\n- Eight in the U.S.\nHouse were filled after special election winners were sworn in.\nAs of April 21, 2026, the vacancies in Florida's 20th Congressional District, California's 1st Congressional District, California's 14th Congressional District, and Texas' 23rd Congressional District have not been filled.\nOf the 16 vacancies, the longest was in Texas' 18th Congressional District, which became vacant on March 5, 2025, following the death of Rep.\nSylvester Turner (D-Texas).\nThe vacancy ended on Feb.\n2, 2026, after 334 days.\nCongressional vacancies since the 113th Congress\nDuring the 113th through 118th Congresses, there were 88 vacancies in the U.S.\nHouse and 16 in the U.S.\nSenate.\nThe average length of a vacancy in the U.S.\nSenate during that period was seven days.\nThe average length of a vacancy in the U.S.\nHouse during that period was 138 days.\nThe longest vacancy in the U.S.\nSenate during that period was in New Jersey.\nThe vacancy occurred during the 118th Congress, when Sen.\nBob Menendez (D-N.J.) resigned on Aug.\n20, 2024.\nFollowing Menendez's resignation, the seat was vacant for 20 days.\nThe longest vacancy in the U.S.\nHouse during that period was in Michigan's 13th Congressional District.\nThe vacancy occurred during the 115th Congress, when Rep.\nJohn Conyers, Jr.\n(D-Mich.) resigned on Dec.\n5, 2017.\nFollowing Conyers' resignation, the seat was vacant for 359 days.",
+        "title": "Cherfilus-McCormick's resignation leaves Florida's 20th Congressional District vacant (Ballotpedia)",
+        "url": "https://news.ballotpedia.org/2026/04/22/sheila-cherfilus-mccormicks-resignation-leaves-floridas-20th-congressional-district-vacant/",
+        "verified": false
+      }
+    ]
+  }
+}

@@ -1,10 +1,10 @@
 {
   "forecasters": [
     {
-      "about": "The median of every forecaster's probability on the question. This is our call.",
+      "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
       "brier": 0.21888757650164695,
       "coin_flip_brier": 0.25,
-      "forecasts": 124,
+      "forecasts": 125,
       "label": "Combined forecast",
       "method": "combined_median_v1",
       "resolved": 29,
@@ -16,7 +16,7 @@
       "about": "Claude researches each question on the web and states a probability.",
       "brier": 0.172444,
       "coin_flip_brier": 0.25,
-      "forecasts": 120,
+      "forecasts": 121,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
       "resolved": 25,
@@ -28,7 +28,7 @@
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
       "brier": 0.18100000000000002,
       "coin_flip_brier": 0.25,
-      "forecasts": 77,
+      "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
       "resolved": 7,
@@ -52,7 +52,7 @@
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
       "brier": 0.19643000000000002,
       "coin_flip_brier": 0.25,
-      "forecasts": 83,
+      "forecasts": 84,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
       "resolved": 10,
@@ -76,7 +76,7 @@
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
       "brier": 0.12586666666666668,
       "coin_flip_brier": 0.25,
-      "forecasts": 73,
+      "forecasts": 74,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
       "resolved": 9,
@@ -7929,6 +7929,59 @@
     {
       "actual": null,
       "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.10500000000000001
+      },
+      "detail": "Resolves Yes if, when the 120th Congress convenes on January 3, 2027, Republicans hold at least 218 of the 435 voting seats in the U.S. House of Representatives, as shown by the Clerk of the House's party breakdown on that day (members-elect sworn in that day count; non-voting delegates and vacant seats do not). Otherwise it resolves No. The November 3, 2026 midterm results, recounts, and any seat left vacant at the start are all reflected in that count.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-23T21:24:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Cook Political Report's ratings page (2026-10-16, counts approximate) puts about 200 seats at Solid, Likely or Lean Republican, 214 leaning Democratic and 21 toss-ups, so Republicans would need roughly 18 of the 21 toss-ups to reach 218. Cook moved 18 races toward Democrats on 2026-10-09 and its most likely outcome is a Democratic gain of 9 to 19 seats, and the president's party has lost House seats in about 18 of 20 midterms since WWII. Republicans start near 217-220 seats, so a net loss of three or more takes them below 218; rating errors can be correlated, which keeps this from being near zero, but none of the sources could be opened to check the quotes.",
+          "sources": [
+            "https://www.cookpolitical.com/ratings/house-race-ratings",
+            "https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/",
+            "https://pressgallery.house.gov/party-breakdown",
+            "https://www.cookpolitical.com/analysis/house/house-charts/2026-house-open-seat-tracker"
+          ]
+        },
+        {
+          "made_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "The base rate shows the president's party loses House seats in ~90% of midterms since WWII, often by 20+ seats. Cook Political Report's October 2026 ratings project a Democratic net gain of 9-19 seats (median ~14), which would leave Republicans with roughly 200-210 seats \u2014 well below the 218 threshold. Republicans would need to win ~18 of 21 toss-up races plus hold all Lean/Likely/Solid R seats, a historically difficult feat. The 15% probability accounts for possible systematic polling errors favoring Republicans, late campaign shifts, or Cook's model overstating the Democratic wave, but the evidence strongly points to a Democratic majority."
+        },
+        {
+          "made_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The president's party has lost House seats in about 18 of 20 midterms since WWII (base rate). Republicans hold a razor-thin 217-seat effective majority now, and the most recent Cook Political Report projection (October 2026) estimates a Democratic net gain of 9\u201319 seats, which would leave Republicans at 201\u2013211 seats\u2014well below 218. While forecast errors and late-breaking events are always possible, the combination of historical pattern and expert handicapping points strongly toward a Democratic majority, making the likelihood that Republicans hold at least 218 seats very low."
+        },
+        {
+          "made_at": "2026-10-23T21:13:56.558650+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.11,
+          "rationale": "The base rate favors Democratic gains in a midterm, and Republicans appear to start around 217 seats, so they need at least a net gain or favorable vacancy fills to reach 218. Cook's late-October ratings project a Democratic net gain of 9 to 19 seats, implying Republicans would have roughly 201 to 211 seats, well below the threshold. The main uncertainty is a large polling miss, special-election or vacancy outcomes, recounts, or court/redistricting changes that could swing at least seven seats to Republicans."
+        }
+      ],
+      "id": "house-gop-218-jan-2027",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2027-01-03",
+      "scored": true,
+      "source": "prospective_requests_20261023",
+      "source_url": "https://clerk.house.gov/",
+      "status": "pending",
+      "title": "Will the Republican Party hold at least 218 voting seats in the U.S. House of Representatives when the 120th Congress convenes on January 3, 2027?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.2
@@ -8090,11 +8143,11 @@
     "brier": 0.21888757650164695,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 93,
+    "pending": 94,
     "resolved": 29,
     "right": 16,
     "toss_ups": 0,
-    "total": 124,
+    "total": 125,
     "unscored": 2,
     "wrong": 13
   },
