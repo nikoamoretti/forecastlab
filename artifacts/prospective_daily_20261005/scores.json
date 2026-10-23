@@ -40,9 +40,8 @@
   },
   "outcomes": {
     "bb0f3a1c023cd9de": {
-      "reason": "fred_initial_release_value_missing",
-      "status": "cancelled",
-      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-09-28&coed=2026-10-12&vintage_date=2026-10-14"
+      "reason": "official_fred_vintage_unavailable",
+      "status": "exception"
     }
   },
   "resolved_entries": 0,

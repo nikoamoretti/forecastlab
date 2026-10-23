@@ -88,7 +88,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -263,7 +265,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -421,7 +425,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -583,7 +589,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -751,7 +759,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -914,7 +924,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -1064,7 +1076,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -1233,7 +1247,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -1399,7 +1415,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -1484,7 +1502,9 @@
   "facts": [],
   "judges": [],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nToday is 2026-10-20 (UTC).\\nQuestion: Will the Democra",
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [],
@@ -1579,7 +1599,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
@@ -1749,7 +1771,9 @@
    }
   ],
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
+  "research_cost_usd": null,
   "research_failed": null,
+  "research_seconds": null,
   "researched_at": "2026-10-20T09:16:49+00:00",
   "researched_by": "Cursor (Grok 4.7)",
   "sources": [
