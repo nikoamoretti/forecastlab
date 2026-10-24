@@ -5,7 +5,12 @@
 Runs as the "download" step of the "Daily run steps" workflow, after the Mac job pushes
 research.json. Each source gets the page's own text (HTML or PDF) around its quotes, cleaned of
 market names and odds, and ``verified``: True when every quote is on the page, False when the page
-was read but a quote is not on it, None when the page could not be downloaded (the quotes stay).
+was read but a quote is not on it, None when the page could not be downloaded (the quotes stay) or
+the source came with no quotes to check.
+
+Many sites refuse requests from cloud machines. A page that answers 401, 403, 429, 451 or 503 is
+asked again as a browser would ask, and then read from its latest Internet Archive copy; such a
+source says ``checked_via: "archive"`` and the snapshot it was checked against.
 """
 
 from __future__ import annotations
@@ -30,7 +35,13 @@ from forecastlab.timeutil import utcnow  # noqa: E402
 
 AGENT = "ForecastLab research check (+https://github.com/nikoamoretti/forecastlab)"
 WINDOW = 1200  # characters kept on each side of a quote
-Fetch = Callable[[str], tuple[str, bytes]]  # url -> (content type, body)
+# url -> (content type, body), or (content type, body, where the page was read when not the site itself)
+Fetch = Callable[[str], tuple[Any, ...]]
+BROWSER = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
+                         "Chrome/130.0.0.0 Safari/537.36",
+           "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9"}
+REFUSED = {401, 403, 429, 451, 503}
+ARCHIVE = "https://archive.org/wayback/available"
 
 
 def normal(text: str) -> str:
@@ -69,15 +80,20 @@ def excerpt(text: str, quotes: list[str]) -> tuple[str, bool]:
 
 def check_source(source: dict[str, Any], fetch: Fetch) -> dict[str, Any]:
     try:
-        content_type, body = fetch(source["url"])
-        text = clean(page_text(content_type, body))
+        content_type, body, *via = fetch(source["url"])
+        text = clean(page_text(str(content_type), bytes(body)))
     except Exception as error:  # an unreadable page keeps its quotes, marked unchecked
         return {**source, "verified": None, "download_error": f"{type(error).__name__}: {error}"[:200]}
     if len(text) < 200:
         return {**source, "verified": None, "download_error": "no readable text on the page"}
-    around, verified = excerpt(text, source.get("quotes", []))
-    quoted = "\n".join(source.get("quotes", []))
-    return {**source, "verified": verified, "text": (quoted + "\n\n" + around if quoted else around)[:TEXT_CHARS]}
+    quotes = source.get("quotes", [])
+    around, verified = excerpt(text, quotes)
+    quoted = "\n".join(quotes)
+    checked = {**source, "verified": verified if quotes else None,
+               "text": (quoted + "\n\n" + around if quoted else around)[:TEXT_CHARS]}
+    if via:
+        checked |= {"checked_via": "archive", "snapshot": via[0]}
+    return checked
 
 
 def run(directories: list[Path], fetch: Fetch) -> None:
@@ -96,10 +112,28 @@ def run(directories: list[Path], fetch: Fetch) -> None:
 
 
 def http_fetch(client: httpx.Client) -> Fetch:
-    def fetch(url: str) -> tuple[str, bytes]:
-        response = client.get(url)
+    def get(url: str, headers: dict[str, str] | None = None) -> tuple[str, bytes]:
+        response = client.get(url, headers=headers)
         response.raise_for_status()
         return response.headers.get("content-type", ""), response.content
+
+    def fetch(url: str) -> tuple[Any, ...]:
+        try:
+            return get(url)
+        except httpx.HTTPStatusError as error:
+            if error.response.status_code not in REFUSED:
+                raise
+        try:  # some sites turn away anything that does not look like a browser
+            return get(url, BROWSER)
+        except httpx.HTTPStatusError as error:
+            if error.response.status_code not in REFUSED:
+                raise
+            refused = error
+        found = client.get(ARCHIVE, params={"url": url}).json().get("archived_snapshots", {}).get("closest") or {}
+        if not found.get("available") or not str(found.get("status", "200")).startswith("2"):
+            raise refused
+        snapshot = f"https://web.archive.org/web/{found['timestamp']}id_/{url}"  # id_: the page as archived
+        return (*get(snapshot), snapshot)
     return fetch
 
 
