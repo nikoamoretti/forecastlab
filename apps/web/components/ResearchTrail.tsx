@@ -9,7 +9,7 @@ type Judge = { method: string; model: string; at?: string; ok: boolean; error?: 
 export type Research = {
   researched_by: string | null; researched_at: string | null; quotes_checked_at: string | null; research_failed: string | null;
   research_seconds?: number | null; research_cost_usd?: number | null;
-  facts: { fact: string; source: number }[]; base_rate: string | null; unknowns: string[]; sources: Source[];
+  facts: { fact: string; source: number }[]; base_rate: string | null; different_now?: string | null; unknowns: string[]; sources: Source[];
   brief: string | null; brief_written_at: string | null; judges: Judge[];
 };
 
@@ -68,6 +68,7 @@ export function ResearchTrail({ q, labels }: { q: Question; labels: Record<strin
       {research.facts.length > 0 && <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed [overflow-wrap:anywhere]">{research.facts.map((f, n) =>
         <li key={n} className="whitespace-pre-line">{f.fact} <a className="text-sm text-copper underline" href={`#source-${f.source + 1}`}>[{f.source + 1}]</a></li>)}</ul>}
       {research.base_rate && <p className="mt-4 whitespace-pre-line leading-relaxed"><span className="font-medium">Base rate: </span>{research.base_rate}</p>}
+      {research.different_now && <p className="mt-2 whitespace-pre-line leading-relaxed"><span className="font-medium">Different this time: </span>{research.different_now}</p>}
       {research.unknowns.length > 0 && <div className="mt-4"><p className="font-medium">Still unknown</p>
         <ul className="mt-1 list-disc space-y-1 pl-5">{research.unknowns.map((u, n) => <li key={n}>{u}</li>)}</ul></div>}
       {research.sources.length > 0 && <div className="mt-5"><p className="text-sm text-ink/60">Sources</p>

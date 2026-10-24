@@ -119,7 +119,11 @@ def prompt(task: dict[str, str], today: str) -> str:
         f"How it resolves: {task['criteria']}\n"
         f"Resolution date: {task['resolves_on']}\n"
         + (f"Topic: {task['topic']}\n" if task.get("topic") else "")
-        + "\nSearch the web and read the primary sources that decide this question first (official data and "
+        + "\nWork in two steps. First the outside view: find the reference class of comparable past cases "
+        "(earlier releases of the same statistic, earlier votes, launches or rulings of the same kind) and count "
+        "how often the outcome happened. Then the inside view: find what is specific to this case now that "
+        "makes it more or less likely than that base rate.\n"
+        "Search the web and read the primary sources that decide this question first (official data and "
         "releases, government and agency pages, court and legislative records, filings, schedules, company "
         "announcements), then reporting from the last 7 days. Use only information published before now. "
         "Never use or mention prediction markets, betting sites or odds (Polymarket, Kalshi, Manifold, "
@@ -130,6 +134,8 @@ def prompt(task: dict[str, str], today: str) -> str:
         ' "facts": [{"fact": "one specific, dated fact", "source": <index of its source in sources, from 0>}],\n'
         ' "base_rate": "how often comparable events happened: the reference class, the counts and the period; '
         'empty if none applies",\n'
+        ' "different_now": "what is specific to this case now, compared with the reference class, and which way '
+        'it pushes; empty if nothing stands out",\n'
         ' "uncertainties": ["what is still unknown and could change the answer"]}\n'
         "Use 3 to 8 sources, each with 1 to 3 quotes that bear on the question. Prefer official and primary "
         "pages over aggregators and blogs. Copy quotes exactly from the page text you opened, never from a "
@@ -181,7 +187,7 @@ def validate(reply: str) -> dict[str, Any]:
         raise ValueError(f"only {len(facts)} usable facts")
     uncertainties = [u for u in (_text(u, 300) for u in data.get("uncertainties") or [] if isinstance(u, str)) if u]
     return {"sources": sources, "facts": facts, "base_rate": _text(data.get("base_rate"), 600),
-            "uncertainties": uncertainties[:5]}
+            "different_now": _text(data.get("different_now"), 600), "uncertainties": uncertainties[:5]}
 
 
 def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Agent:
@@ -261,7 +267,7 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
                                 "quotes": s["quotes"], "text": "\n".join(s["quotes"]), "verified": None}
                                for s in result["sources"]]
         findings[task["id"]] = {"facts": result["facts"], "base_rate": result["base_rate"],
-                                "uncertainties": result["uncertainties"]}
+                                "different_now": result["different_now"], "uncertainties": result["uncertainties"]}
         if by:
             researched_by[task["id"]] = by
     # "provider" names the file format (research_download.py reads it); researched_by names the model.
@@ -271,7 +277,7 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
 
 
 def digest(data: dict[str, Any], qid: str) -> str:
-    """The evidence for one question as a short text for the forecaster: facts, base rate, gaps, sources."""
+    """The evidence for one question as a short text for the forecaster: facts, base rate, what differs now, gaps, sources."""
     sources = data.get("sources", {}).get(qid, [])
     found = data.get("findings", {}).get(qid)
     if not found:
@@ -279,6 +285,8 @@ def digest(data: dict[str, Any], qid: str) -> str:
     lines = [f"- {f['fact']} [{f['source'] + 1}]" for f in found["facts"]]
     if found.get("base_rate"):
         lines.append(f"Base rate: {found['base_rate']}")
+    if found.get("different_now"):
+        lines.append(f"Different this time: {found['different_now']}")
     lines += [f"Unknown: {u}" for u in found.get("uncertainties", [])]
     for n, s in enumerate(sources, 1):
         check = {True: "quotes checked", False: "quotes not found on page"}.get(s.get("verified"), "not checked")

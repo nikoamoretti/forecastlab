@@ -101,6 +101,21 @@ def test_validate_drops_market_sources_and_odds_and_reindexes_facts() -> None:
     assert "42" not in json.dumps(evidence)
 
 
+def test_research_asks_for_the_outside_view_then_the_inside_view_and_passes_both_on() -> None:
+    task = {"id": "q", "question": "Will CPI rise?", "criteria": "BLS.", "resolves_on": "2026-10-15"}
+    text = cr.prompt(task, "2026-10-14")
+    assert text.index("outside view") < text.index("inside view") and '"different_now"' in text
+    evidence = cr.validate(answer(different_now="Gasoline fell 8% in September, which pulls CPI down."))
+    assert evidence["different_now"].startswith("Gasoline fell 8%")
+    assert cr.validate(answer())["different_now"] == ""  # older replies without it still pass
+    data = {"sources": {"q": []}, "findings": {"q": {"facts": [], "base_rate": "14 of 24 months.",
+                                                    "different_now": evidence["different_now"],
+                                                    "uncertainties": []}}}
+    lines = cr.digest(data, "q").splitlines()
+    assert lines == ["Base rate: 14 of 24 months.",
+                     "Different this time: Gasoline fell 8% in September, which pulls CPI down."]
+
+
 @pytest.mark.parametrize("reply, reason", [
     ("no json here", "no JSON object"),
     ("{not json}", "not valid JSON"),
