@@ -112,6 +112,7 @@ test("navigation keeps two main links and moves the rest under More", async ({ p
   const nav = page.getByRole("navigation", { name: "Main" });
   await expect(nav.getByRole("link")).toHaveCount(2);
   await nav.getByRole("button", { name: "More ▾" }).click();
-  await page.getByRole("menuitem", { name: "Autopilot" }).click();
-  await expect(page).toHaveURL(/\/autopilot$/);
+  await expect(page.getByRole("menuitem", { name: "Autopilot" })).toHaveCount(0);
+  await page.getByRole("menuitem", { name: "All runs" }).click();
+  await expect(page).toHaveURL(/\/runs$/);
 });

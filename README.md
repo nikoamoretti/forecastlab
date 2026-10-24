@@ -4,7 +4,7 @@ Local-first laboratory for **binary** questions. Mock mode runs with no API keys
 
 ## Autopilot on Vercel
 
-The private cloud mode selects and monitors U.S. macro questions under a frozen policy and spending limits. It starts paused and requires qualified live runs before enablement. See [Autopilot operations](docs/AUTOPILOT_OPERATIONS.md) for hosting, login, migration, restore, and release instructions.
+Autopilot was the September 2026 cloud mode that would select and monitor U.S. macro questions under a frozen policy and spending limits. It never passed qualification, its spending stayed disabled, and its page was removed from the site on 2026-10-24; the daily routine ([DAILY_CLAUDE_FORECASTS.md](docs/DAILY_CLAUDE_FORECASTS.md)) does that job. Its three September forecasts stay on the track record. The 15-minute cloud cron still runs backups, queued jobs and official outcome checks. See [Autopilot operations](docs/AUTOPILOT_OPERATIONS.md) for hosting, login, migration, restore, and release instructions.
 
 ## Run on a Mac
 
