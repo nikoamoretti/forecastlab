@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 from forecastlab import cursor_research as cr
-from forecastlab.judge_panel import Member, PanelConfig, load_config
+from forecastlab.judge_panel import Member, PanelConfig, Price, load_config
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -229,10 +231,32 @@ def test_the_research_model_family_cannot_judge() -> None:
     with_grok = PanelConfig(**{**live.model_dump(), "members": [*live.members, Member(method="judge_grok", model="x-ai/grok-4.7")]})
     with pytest.raises(SystemExit, match="cannot judge"):
         panel_script.check_independent(with_grok)
-    with_claude = PanelConfig(**{**live.model_dump(),
-                                 "members": [*live.members, Member(method="judge_claude", model="anthropic/claude-haiku-5.5")]})
-    with pytest.raises(SystemExit, match="cannot judge"):  # Claude fills research gaps, so it may not judge either
-        panel_script.check_independent(with_claude)
+    assert any("claude" in m.model for m in live.members)  # Claude only fills gaps, so it sits out per question
+
+
+def test_a_judge_sits_out_the_questions_its_own_family_researched(tmp_path: Path) -> None:
+    directory = market_dir(tmp_path)
+    second = dict(MARKET, id="polymarket-2", question="Will payrolls rise?")
+    (directory / "forecasts.json").write_text(json.dumps({"questions": [MARKET, second]}))
+    research = cr.research(directory, lambda text: answer(), "2026-10-14", parallel=1, budget=5, by="grok-4.7-low")
+    research["researched_by"]["polymarket-2"] = "claude-sonnet"
+    (directory / "research.json").write_text(json.dumps(research))
+    assert panel_script.researched_by(directory) == {"polymarket-1": "grok", "polymarket-2": "claude"}
+    (directory / "briefs.json").write_text(json.dumps({"briefs": {
+        "polymarket-1": "CPI rose 2.9% through August.", "polymarket-2": "Payrolls rose 50,000 in August."}}))
+    config = PanelConfig(version="t", prompt_version="t", daily_budget_usd=1.0, max_tokens=500, members=[
+        Member(method="judge_a", model="open/a"), Member(method="judge_claude", model="anthropic/claude-sonnet-5.5")])
+    asked: list[str] = []
+
+    def post(body: dict[str, Any]) -> dict[str, Any]:
+        asked.append(body["model"])
+        return {"model": body["model"], "usage": {"prompt_tokens": 10, "completion_tokens": 10},
+                "choices": [{"message": {"content": '{"probability": 0.4, "reasoning": "Base rate."}'}}]}
+
+    summary = panel_script.run([directory], post=post, price_list={m.model: Price(0.0, 0.0) for m in config.members},
+                               now=datetime(2026, 10, 14, 12, tzinfo=UTC), config=config, artifacts=tmp_path)
+    assert sorted(asked) == ["anthropic/claude-sonnet-5.5", "open/a", "open/a"]
+    assert summary["skipped_own_research"] == 1
 
 
 def test_research_settings_are_valid() -> None:

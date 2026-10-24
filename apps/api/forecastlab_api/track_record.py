@@ -65,8 +65,8 @@ FORECASTERS: dict[str, dict[str, str]] = {
         "label": "Qwen 3.8 27B (judge)", "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes."},
     "judge_minimax_m3_v1": {
         "label": "MiniMax M3 (judge)", "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes."},
-    "judge_gemini38_flash_v1": {
-        "label": "Gemini 3.8 Flash (judge)", "about": "Google's Gemini 3.8 Flash, a model from a different lab, that forecasts from Claude's research notes."},
+    "judge_claude_sonnet55_v1": {
+        "label": "Claude Sonnet 5.5 (judge)", "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched."},
     "judge_gemma_v1": {
         "label": "Gemma (judge)", "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes."},
     "root_event_ensemble_v1": {
