@@ -61,7 +61,7 @@ class Settings:
 
     @property
     def families(self) -> tuple[str, ...]:
-        """Every model family that may have researched a question; none of them may judge."""
+        """Every model family that may have researched a question; a judge of one sits out what it researched."""
         return tuple(f for f in (self.model_family, self.fallback_family) if f)
 
 

@@ -154,12 +154,21 @@ def write_forecasts(directory: Path, config: PanelConfig, attempts: list[dict[st
 
 
 def check_independent(config: PanelConfig) -> None:
-    """No judge may come from a model family that did the research (configs/research.json)."""
-    families = load_settings(ROOT / RESEARCH_CONFIG).families
-    clash = [m.model for m in config.members if any(f in m.model.lower() for f in families)]
+    """No judge may come from the model family that does the research (configs/research.json)."""
+    family = load_settings(ROOT / RESEARCH_CONFIG).model_family
+    clash = [m.model for m in config.members if family in m.model.lower()]
     if clash:
-        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {' and '.join(families)} "
-                         "(configs/research.json)")
+        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {family} (configs/research.json)")
+
+
+def researched_by(directory: Path) -> dict[str, str]:
+    """The family of the model that researched each question, for questions the backup model filled."""
+    path = directory / RESEARCH_FILE
+    if not path.exists():
+        return {}
+    by = json.loads(path.read_text()).get("researched_by") or {}
+    families = load_settings(ROOT / RESEARCH_CONFIG).families
+    return {qid: family for qid, model in by.items() for family in families if family in str(model).lower()}
 
 
 def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], now: datetime | None = None,
@@ -168,7 +177,8 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
     check_independent(config)
     now = as_utc(now or utcnow())
     budget = Budget(config.daily_budget_usd, spent_on(artifacts, now.date().isoformat()))
-    summary: dict[str, Any] = {"asked": 0, "answered": 0, "skipped_budget": 0, "spent_before_usd": round(budget.spent, 4)}
+    summary: dict[str, Any] = {"asked": 0, "answered": 0, "skipped_budget": 0, "skipped_own_research": 0,
+                               "spent_before_usd": round(budget.spent, 4)}
     lock = threading.Lock()
     for directory in directories:
         log_path = directory / LOG
@@ -177,9 +187,10 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
         done = {(a["id"], a["method"]) for a in log["attempts"] if a["ok"]}
         tried_today = {(a["id"], a["method"]) for a in log["attempts"] if a["at"][:10] == now.date().isoformat()}
         questions = [q for q in load_questions(directory) if now < q.cutoff]
+        families = researched_by(directory)
 
         def ask_all(member: Member, questions: list[PanelQuestion], log: dict[str, Any], log_path: Path,
-                    skip: set[tuple[str, str]]) -> None:
+                    skip: set[tuple[str, str]], families: dict[str, str]) -> None:
             """One member's questions, in order. Members run side by side; the log is saved after every call."""
             price = price_list.get(member.model)
             if price is None:
@@ -189,6 +200,12 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
                 key = (question.id, member.method)
                 # One attempt per member and question per day; a failed one may be retried on a later day.
                 if key in skip:
+                    continue
+                # A judge never grades evidence its own model family gathered (Claude fills Cursor's gaps).
+                family = families.get(question.id)
+                if family and family in member.model.lower():
+                    with lock:
+                        summary["skipped_own_research"] += 1
                     continue
                 worst = worst_case_cost(len(prompt(question, now)) + 1000, config.max_tokens, price)
                 with lock:
@@ -211,7 +228,7 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
                       + ("answered" if attempt["ok"] else attempt["error"]), flush=True)
 
         with ThreadPoolExecutor(max_workers=max(1, len(config.members))) as pool:
-            for future in [pool.submit(ask_all, m, questions, log, log_path, done | tried_today) for m in config.members]:
+            for future in [pool.submit(ask_all, m, questions, log, log_path, done | tried_today, families) for m in config.members]:
                 future.result()
         log["attempts"].sort(key=lambda a: (a["at"], a["id"], a["method"]))
         _write(log_path, log)

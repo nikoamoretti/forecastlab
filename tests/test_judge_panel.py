@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from forecastlab import research
-from forecastlab.judge_panel import Budget, PanelQuestion, Price, ask, load_config, parse_answer
+from forecastlab.judge_panel import Budget, Member, PanelQuestion, Price, ask, load_config, parse_answer
 from forecastlab_api.track_record import FORECASTERS, build_track_record
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +63,11 @@ def test_a_reasoning_budget_is_sent_only_when_set() -> None:
         attempt = ask(CONFIG.members[0], question, now=NOW, post=fake_post(calls), max_tokens=6000,
                       price=Price(0, 0), reasoning_max_tokens=budget)
         assert attempt["ok"] and calls[0].get("reasoning") == expected
+    calls = []
+    ask(Member(method="judge_claude", model="anthropic/claude-sonnet-5.5", temperature=None), question, now=NOW,
+        post=fake_post(calls), max_tokens=6000, price=Price(0, 0), reasoning_max_tokens=3000)
+    assert "temperature" not in calls[0]  # Anthropic refuses temperature 0 while thinking
+    assert LIVE.members[0].temperature == 0.0  # every other judge keeps answering at temperature 0
 
 
 @pytest.mark.parametrize("text", ['{"probability": 0.3, "reasoning": "x"}', 'Sure.\n{"probability": 0.3, "reasoning": "x"} done'])

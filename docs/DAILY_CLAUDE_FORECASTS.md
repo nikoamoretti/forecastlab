@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day (about $0.40 a day in practice; one free and three paid open-weights models, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day (about $0.65 a day in practice; one free and three paid open-weights models plus Claude Sonnet 5.5, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
@@ -11,8 +11,8 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - Run `python scripts/cursor_research.py digest <dir> ...` and read each question's evidence: dated facts with their source, the base rate and the open unknowns. Skip any question the digest says has no research (research failed for it), and the same for one where `research.json` lists it under `failed`. Do not forecast it; step 6 records it as skipped.
    - Do not search the web. Forecast from the digest alone.
 
-   Claude then forecasts every researched question in `questions.json`.
-   - Start with the base rate in the digest: the reference class and counts, then the baseline probability and recent history.
+   Claude then forecasts every researched question in `questions.json`, once per question at high reasoning effort (owner's call, 2026-10-24: reasoning effort is the best-supported accuracy gain in the published AI forecasting results).
+   - Start with the base rate in the digest: the reference class and counts, then the baseline probability and recent history, then what the digest says is different this time.
    - Adjust only for evidence in the digest, and prefer sources whose quotes were checked.
    - Keep probabilities coherent across nested thresholds and within [0.02, 0.98].
    - Write a 2–4 sentence rationale for each forecast, with dated source URLs from the digest.

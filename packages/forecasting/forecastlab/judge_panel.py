@@ -35,6 +35,8 @@ Post = Callable[[dict[str, Any]], dict[str, Any]]
 class Member(BaseModel):
     method: str  # its label and description live in forecastlab_api.track_record.FORECASTERS
     model: str  # OpenRouter model id
+    # None sends no temperature: Anthropic models refuse one other than 1 while they think.
+    temperature: float | None = 0.0
 
 
 class PanelConfig(BaseModel):
@@ -136,9 +138,11 @@ def ask(member: Member, question: PanelQuestion, *, now: datetime, post: Post, m
         price: Price, reasoning_max_tokens: int | None = None) -> dict[str, Any]:
     """One judge call. Returns an attempt record with the forecast or the error, and its cost."""
     user = prompt(question, now)
-    body = {"model": member.model, "max_tokens": max_tokens, "temperature": 0,
-            "response_format": {"type": "json_object"}, "usage": {"include": True},
-            "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}]}
+    body: dict[str, Any] = {"model": member.model, "max_tokens": max_tokens,
+                            "response_format": {"type": "json_object"}, "usage": {"include": True},
+                            "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}]}
+    if member.temperature is not None:
+        body["temperature"] = member.temperature
     if reasoning_max_tokens:
         body["reasoning"] = {"max_tokens": reasoning_max_tokens}
     attempt: dict[str, Any] = {"id": question.id, "method": member.method, "model": member.model,

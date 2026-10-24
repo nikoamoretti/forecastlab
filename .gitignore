@@ -48,3 +48,6 @@ tmp/
 .vercel
 .env*
 !.env.example
+
+# The daily routine saves research digests here between its steps; never committed
+digests/
