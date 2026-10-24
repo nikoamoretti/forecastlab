@@ -71,7 +71,7 @@ export default function SettingsPage() {
         Default provider posture: {data.mode || "unknown"}. Mode is chosen per question. API keys are write-only after
         save. Model cost may be estimated.
       </p>
-      {data.secrets_managed_externally ? <p>Production keys are managed in Vercel environment settings. Changing the method requires a new Autopilot policy approval and qualification.</p> : null}
+      {data.secrets_managed_externally ? <p>Production keys are managed in Vercel environment settings.</p> : null}
       <section className="border border-rule p-4 text-sm">
         <p>Live ready: {ready?.live?.ready ? "yes" : "no"}</p>
         {ready?.live?.reasons?.length ? <p>Live missing: {ready.live.reasons.join(", ")}</p> : null}

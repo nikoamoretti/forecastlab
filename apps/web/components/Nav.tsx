@@ -11,7 +11,6 @@ const links = [
   ["Ask a question", "/ask"]
 ];
 const more = [
-  ["Autopilot", "/autopilot"],
   ["All runs", "/runs"],
   ["Lab", "/lab"],
   ["Settings", "/settings"]
