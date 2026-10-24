@@ -9,7 +9,7 @@ Each panel member is a forecaster of its own. Its probability goes into the medi
 
 ## Members
 
-`configs/judge_panel.json` lists the members (`judge_panel_v3` since 2026-10-23). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
+`configs/judge_panel.json` lists the members (`judge_panel_v4` since 2026-10-24). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
 
 | Method | OpenRouter model | Cost (USD per million tokens, in / out, 2026-10-07) |
 | --- | --- | --- |
@@ -17,10 +17,11 @@ Each panel member is a forecaster of its own. Its probability goes into the medi
 | `judge_deepseek_v4_pro_v1` | `deepseek/deepseek-v4-pro` | 0.21 / 0.42 |
 | `judge_qwen38_27b_v1` | `qwen/qwen3.8-27b` | 0.43 / 2.55 |
 | `judge_minimax_m3_v1` | `minimax/minimax-m3` | 0.30 / 1.20 |
+| `judge_gemini38_flash_v1` | `google/gemini-3.8-flash` | 0.75 / 3.75 (2026-10-24) |
 
-All four are open weights from four labs. The three paid members cost about a cent per question together; the $1 daily cap still bounds the worst case. `reasoning_max_tokens` (3000) caps each member's thinking inside `max_tokens` (6000): before it, reasoning models often used the whole budget thinking and sent back no answer.
+The first four are open weights from four labs. Gemini 3.8 Flash is a closed frontier model from a fifth lab (Google), added because the strongest AI forecasting teams combine models that make different mistakes. It costs one to two cents per question; the paid members together cost about two to three cents per question, and the $1 daily cap still bounds the worst case. `reasoning_max_tokens` (3000) caps each member's thinking inside `max_tokens` (6000): before it, reasoning models often used the whole budget thinking and sent back no answer.
 
-**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. `judge_nemotron_super_v1` (`nvidia/nemotron-3-super-120b-a12b:free`) was removed on 2026-10-21 because OpenRouter returned HTTP 404 for it on every run since at least 2026-10-19; its earlier forecasts stay on the record under its own method. `judge_panel_v3` (2026-10-23) dropped `judge_kimi_k26_v1` (`moonshotai/kimi-k2.6`): 25 of its 87 calls ran out of tokens before answering, 40% of its spend bought nothing, and it was the panel's most expensive member per answer. Its earlier forecasts stay on the record. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
+**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. `judge_nemotron_super_v1` (`nvidia/nemotron-3-super-120b-a12b:free`) was removed on 2026-10-21 because OpenRouter returned HTTP 404 for it on every run since at least 2026-10-19; its earlier forecasts stay on the record under its own method. `judge_panel_v3` (2026-10-23) dropped `judge_kimi_k26_v1` (`moonshotai/kimi-k2.6`): 25 of its 87 calls ran out of tokens before answering, 40% of its spend bought nothing, and it was the panel's most expensive member per answer. Its earlier forecasts stay on the record. `judge_panel_v4` (2026-10-24) added `judge_gemini38_flash_v1` for a view from a different lab. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
 
 ## Rules
 
