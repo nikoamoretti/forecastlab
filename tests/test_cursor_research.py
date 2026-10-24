@@ -262,3 +262,36 @@ def test_record_notes_show_calibration_topics_and_latest_misses() -> None:
     assert "You said 55% yes; it was no (5.1%). Your reason: Reason for a." in misses
     assert "Question e?" not in notes  # unscored questions teach nothing
     assert record_notes({"questions": []}) == "Your record so far: nothing decided yet."
+
+
+def test_refused_pages_are_asked_as_a_browser_then_read_from_the_archive() -> None:
+    import httpx
+
+    page = b"<html><body><article><p>" + b"Ballot measures on the November ballot. " * 20 + b"</p></article></body></html>"
+    seen: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(f"{request.url.host} {request.headers['user-agent'][:7]}")
+        if request.url.host == "archive.org":
+            return httpx.Response(200, json={"archived_snapshots": {"closest": {
+                "available": True, "status": "200", "timestamp": "20261020120000"}}})
+        if request.url.host == "web.archive.org":
+            return httpx.Response(200, headers={"content-type": "text/html"}, content=page)
+        if "browser-ok" in request.url.path and request.headers["user-agent"].startswith("Mozilla"):
+            return httpx.Response(200, headers={"content-type": "text/html"}, content=page)
+        return httpx.Response(403)
+
+    with httpx.Client(transport=httpx.MockTransport(handler), headers={"User-Agent": research_download.AGENT}) as client:
+        fetch = research_download.http_fetch(client)
+        assert fetch("https://example.org/browser-ok")[1] == page and len(fetch("https://example.org/browser-ok")) == 2
+        seen.clear()
+        got = fetch("https://ballotpedia.org/x")
+    assert got[2] == "https://web.archive.org/web/20261020120000id_/https://ballotpedia.org/x"
+    assert [s.split()[0] for s in seen] == ["ballotpedia.org", "ballotpedia.org", "archive.org", "web.archive.org"]
+    source = {"url": "https://ballotpedia.org/x", "quotes": ["ballot measures on the November ballot"]}
+    checked = research_download.check_source(source, lambda url: got)
+    assert checked["verified"] is True and checked["checked_via"] == "archive"
+    unquoted = research_download.check_source({"url": "https://ballotpedia.org/x", "quotes": []}, lambda url: got)
+    assert unquoted["verified"] is None and "November ballot" in unquoted["text"]  # nothing to check, page still read
+    stale = research_download.check_source({**source, "published": "2026-10-22"}, lambda url: got)
+    assert stale["verified"] is None and "predates" in stale["download_error"]  # the Oct 20 copy cannot hold it
