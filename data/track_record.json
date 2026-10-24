@@ -2,37 +2,37 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.21267132395159205,
+      "brier": 0.2065367651144439,
       "coin_flip_brier": 0.25,
       "forecasts": 125,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 30,
-      "right": 17,
+      "resolved": 31,
+      "right": 18,
       "toss_ups": 0,
       "wrong": 13
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1660576923076923,
+      "brier": 0.1602777777777778,
       "coin_flip_brier": 0.25,
       "forecasts": 121,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 26,
-      "right": 17,
+      "resolved": 27,
+      "right": 18,
       "toss_ups": 2,
       "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.169625,
+      "brier": 0.15327777777777776,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 8,
-      "right": 6,
+      "resolved": 9,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 2
     },
@@ -50,49 +50,49 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.18425454545454548,
+      "brier": 0.16910833333333333,
       "coin_flip_brier": 0.25,
       "forecasts": 84,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 11,
-      "right": 8,
+      "resolved": 12,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.21401111111111112,
+      "brier": 0.19486,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 9,
-      "right": 6,
+      "resolved": 10,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.11652,
+      "brier": 0.10797272727272728,
       "coin_flip_brier": 0.25,
       "forecasts": 74,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 10,
-      "right": 9,
+      "resolved": 11,
+      "right": 10,
       "toss_ups": 0,
       "wrong": 1
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.1332909090909091,
+      "brier": 0.12488333333333333,
       "coin_flip_brier": 0.25,
       "forecasts": 85,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 11,
-      "right": 10,
+      "resolved": 12,
+      "right": 11,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -158,13 +158,13 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.06439638888888888,
+      "brier": 0.05851924999999999,
       "coin_flip_brier": 0.25,
       "forecasts": 66,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 9,
-      "right": 8,
+      "resolved": 10,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -181,8 +181,78 @@
       "wrong": 1
     }
   ],
-  "generated_on": "2026-10-23",
+  "generated_on": "2026-10-24",
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.15
+      },
+      "detail": "This market will resolve according to the change in the key rate resulting from the Bank of Russia\u2019s October meeting, relative to the level it was prior to this meeting.\n\nThe resolution source for this market is information released by the Bank of Russia after its October 23, 2026 meeting as listed on the official Bank of Russia calendar: https://www.cbr.ru/eng/dkp/cal_mp/#t13\n\nThis market may resolve as soon as the Bank of Russia\u2019s press release for their October 2026 meeting with relevant data is issued. If no decision on the key rate is issued by the end date of the next scheduled meeting, this market will resolve to the \"No Change\" bracket.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-20T10:57:55+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The Bank of Russia held its key rate at 14.00% on 11 September after cuts at five of its first six 2026 meetings (and nine of the ten decisions since 25 July 2025), but annual inflation was still 6.4% against a 4% target and its September statement warned a larger budget deficit could require a tighter stance, with new budget numbers reflected only in the October forecast. The analyst survey of 9 to 13 October (published 14 October) has the median average key rate for the rest of 2026 at 14.0%, which implies a hold on 23 October. The streak of cuts keeps a small chance of a cut alive.",
+          "sources": [
+            "https://www.cbr.ru/eng/press/keypr/",
+            "https://www.cbr.ru/eng/press/event/?id=32912",
+            "https://www.cbr.ru/eng/statistics/ddkp/mo_br/",
+            "https://www.cbr.ru/eng/dkp/mp_dec/"
+          ]
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.15,
+          "rationale": "Base rate: after a long easing cycle (9 cuts in 14 months), the Bank paused in September citing increased proinflationary risks and underlying inflation accelerating to 5-6%. Evidence: September inflation at 6.4% vs 4% target, October 14 communication notes price growth 'markedly above' target, analyst survey expects key rate to average 14% for rest of 2026 (implying no cuts), and baseline forecast sees 6-7% inflation for 2026. The Bank's language emphasizes 'carefully calibrated decisions' rather than imminent easing. A cut would require a clear disinflation signal not present in the data."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a rate cut at a meeting following a pause with inflation well above target is very low. The Bank of Russia's September statement highlighted increased proinflationary risks and elevated price pressures, and the October 14 bulletin noted inflation remains markedly above target. The analyst survey median expects the key rate to stay at 14.0% through year-end, and there is no signal of an imminent cut. A decrease would require a sharp unexpected drop in inflation or a much smaller budget deficit, which current data do not support."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "The Bank of Russia cut rates at nine of its last ten meetings, but the September pause reflected prevailing proinflationary risks with inflation at 6.4%, well above the 4% target. The October analyst survey implies the key rate will average 14.00% for the remainder of 2026, and the Bank\u2019s 14 October bulletin stressed that inflation remains markedly above target, making a resumption of easing unlikely. However, the October meeting will incorporate updated budget projections, and a smaller-than-expected deficit or markedly weaker inflation data could prompt a surprise cut. The probability would rise if the Bank signals before the meeting that it intends to lower rates."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The 2026 easing cycle makes cuts a plausible base case, but the September hold and the Bank's warning that proinflationary risks now prevail argue against an immediate cut. September inflation at 6.4% and the analyst survey implying a 14.0% average key rate for the rest of 2026 both point to a hold. A decrease would require a clear pre-meeting signal of weaker inflation or a smaller fiscal deficit, which is not present in the evidence."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The Bank of Russia paused its easing cycle in September after inflation accelerated to 6.4% (well above the 4% target), with underlying inflation at 5-6% annualized. The October 14 Talking Trends bulletin noted that while seasonally adjusted price growth slowed, it remained 'markedly above' target, and the analyst survey raised the 2026 year-end inflation forecast to 7.1% with the median key rate forecast implying 14.0% for the remainder of 2026. Given the hawkish tone, elevated inflation, and analyst consensus pointing to no change, a cut is unlikely but not impossible if the October statement shows a more favorable budget outlook or sharper disinflation."
+        },
+        {
+          "made_at": "2026-10-20T09:09:56.684000+00:00",
+          "method": "market_price_v1",
+          "probability": 0.075
+        }
+      ],
+      "id": "polymarket-3081958",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-24",
+      "scored": true,
+      "source": "prospective_markets_20261020",
+      "source_url": "https://polymarket.com/event/bank-of-russia-decision-in-october-20260724021538830",
+      "status": "resolved",
+      "title": "Will the Bank of Russia decrease the key rate after the October Meeting?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -2000,76 +2070,6 @@
       "status": "cancelled",
       "title": "Will the 10-year U.S. Treasury yield on Oct 12, 2026 be above 5.24%?",
       "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.15
-      },
-      "detail": "This market will resolve according to the change in the key rate resulting from the Bank of Russia\u2019s October meeting, relative to the level it was prior to this meeting.\n\nThe resolution source for this market is information released by the Bank of Russia after its October 23, 2026 meeting as listed on the official Bank of Russia calendar: https://www.cbr.ru/eng/dkp/cal_mp/#t13\n\nThis market may resolve as soon as the Bank of Russia\u2019s press release for their October 2026 meeting with relevant data is issued. If no decision on the key rate is issued by the end date of the next scheduled meeting, this market will resolve to the \"No Change\" bracket.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-20T10:57:55+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.1,
-          "rationale": "The Bank of Russia held its key rate at 14.00% on 11 September after cuts at five of its first six 2026 meetings (and nine of the ten decisions since 25 July 2025), but annual inflation was still 6.4% against a 4% target and its September statement warned a larger budget deficit could require a tighter stance, with new budget numbers reflected only in the October forecast. The analyst survey of 9 to 13 October (published 14 October) has the median average key rate for the rest of 2026 at 14.0%, which implies a hold on 23 October. The streak of cuts keeps a small chance of a cut alive.",
-          "sources": [
-            "https://www.cbr.ru/eng/press/keypr/",
-            "https://www.cbr.ru/eng/press/event/?id=32912",
-            "https://www.cbr.ru/eng/statistics/ddkp/mo_br/",
-            "https://www.cbr.ru/eng/dkp/mp_dec/"
-          ]
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.15,
-          "rationale": "Base rate: after a long easing cycle (9 cuts in 14 months), the Bank paused in September citing increased proinflationary risks and underlying inflation accelerating to 5-6%. Evidence: September inflation at 6.4% vs 4% target, October 14 communication notes price growth 'markedly above' target, analyst survey expects key rate to average 14% for rest of 2026 (implying no cuts), and baseline forecast sees 6-7% inflation for 2026. The Bank's language emphasizes 'carefully calibrated decisions' rather than imminent easing. A cut would require a clear disinflation signal not present in the data."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.05,
-          "rationale": "The base rate for a rate cut at a meeting following a pause with inflation well above target is very low. The Bank of Russia's September statement highlighted increased proinflationary risks and elevated price pressures, and the October 14 bulletin noted inflation remains markedly above target. The analyst survey median expects the key rate to stay at 14.0% through year-end, and there is no signal of an imminent cut. A decrease would require a sharp unexpected drop in inflation or a much smaller budget deficit, which current data do not support."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.15,
-          "rationale": "The Bank of Russia cut rates at nine of its last ten meetings, but the September pause reflected prevailing proinflationary risks with inflation at 6.4%, well above the 4% target. The October analyst survey implies the key rate will average 14.00% for the remainder of 2026, and the Bank\u2019s 14 October bulletin stressed that inflation remains markedly above target, making a resumption of easing unlikely. However, the October meeting will incorporate updated budget projections, and a smaller-than-expected deficit or markedly weaker inflation data could prompt a surprise cut. The probability would rise if the Bank signals before the meeting that it intends to lower rates."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.15,
-          "rationale": "The 2026 easing cycle makes cuts a plausible base case, but the September hold and the Bank's warning that proinflationary risks now prevail argue against an immediate cut. September inflation at 6.4% and the analyst survey implying a 14.0% average key rate for the rest of 2026 both point to a hold. A decrease would require a clear pre-meeting signal of weaker inflation or a smaller fiscal deficit, which is not present in the evidence."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "The Bank of Russia paused its easing cycle in September after inflation accelerated to 6.4% (well above the 4% target), with underlying inflation at 5-6% annualized. The October 14 Talking Trends bulletin noted that while seasonally adjusted price growth slowed, it remained 'markedly above' target, and the analyst survey raised the 2026 year-end inflation forecast to 7.1% with the median key rate forecast implying 14.0% for the remainder of 2026. Given the hawkish tone, elevated inflation, and analyst consensus pointing to no change, a cut is unlikely but not impossible if the October statement shows a more favorable budget outlook or sharper disinflation."
-        },
-        {
-          "made_at": "2026-10-20T09:09:56.684000+00:00",
-          "method": "market_price_v1",
-          "probability": 0.075
-        }
-      ],
-      "id": "polymarket-3081958",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-24",
-      "scored": true,
-      "source": "prospective_markets_20261020",
-      "source_url": "https://polymarket.com/event/bank-of-russia-decision-in-october-20260724021538830",
-      "status": "pending",
-      "title": "Will the Bank of Russia decrease the key rate after the October Meeting?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -8140,12 +8140,12 @@
     }
   ],
   "summary": {
-    "brier": 0.21267132395159205,
+    "brier": 0.2065367651144439,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 93,
-    "resolved": 30,
-    "right": 17,
+    "pending": 92,
+    "resolved": 31,
+    "right": 18,
     "toss_ups": 0,
     "total": 125,
     "unscored": 2,

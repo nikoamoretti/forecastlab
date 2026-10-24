@@ -3,6 +3,7 @@
   "base_rate": null,
   "brief": null,
   "brief_written_at": "2026-10-19T11:05:00Z",
+  "different_now": null,
   "facts": [],
   "judges": [],
   "quotes_checked_at": "2026-10-19T09:20:28.949646+00:00",
@@ -18,6 +19,7 @@
   "base_rate": "Reference class: published U.S.\nTreasury 10-year constant-maturity (CMT) business-day closes in October 2026 through 2026-10-16, the series H.15 and FRED DGS10 reprint.\nCount: 9 of 11 prints were strictly above 5.10 percent; 2026-10-15 was 5.10 and 2026-10-16 was 5.09.\nEarlier in that same window the rate was as high as 5.31 on 2026-10-05.",
   "brief": "The question asks whether the first published FRED DGS10 value for Friday 2026-10-23 will be strictly above 5.1 percent. As of 2026-10-19 the latest FRED observation was 5.10 for 2026-10-15, and the Federal Reserve H.15 release of 2026-10-16 lists the 10-year constant maturity at 5.24 (Oct 9), 5.21 (Oct 13), 5.19 (Oct 14) and 5.10 (Oct 15), with Oct 12 blank for the holiday (https://www.federalreserve.gov/releases/h15/). Treasury's October 2026 par yield curve, the series H.15 reprints, shows 5.24 on Oct 1, 5.28 on Oct 2, 5.31 on Oct 5, 5.27 on Oct 6, 5.28 on Oct 7, 5.22 on Oct 8, 5.24 on Oct 9, 5.21 on Oct 13, 5.19 on Oct 14, 5.10 on Oct 15 and 5.09 on Oct 16 (https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610). Of those 11 prints, nine were strictly above 5.10, but the last two were 5.10 and 5.09, so the base rate for the month and the latest level point in different directions. Reuters reported on 2026-10-16 that the 10-year yield was unchanged at 5.087 percent after an intraday high of 5.1334, following a week that ranged from 5.329 to 5.037 and the biggest weekly fall in more than a year (https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year). On 2026-10-13 Fed Governor Waller said the rise in 10-year yields to 24-year highs reflected growth, debt and AI investment more than inflation expectations (https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html). The next FOMC meeting is October 27-28, after the observation date. The series is reported to two decimals, so a print of exactly 5.10 resolves No and a few basis points decide the question. Four trading days (Oct 19 to 22) plus Friday's session remain, and the recent weekly range of about 29 basis points is large relative to the distance from the threshold. The answer would change with a sharp move in yields on inflation, growth or geopolitical news before the 2026-10-23 close; the first published value is expected with the H.15 release of 2026-10-26, and later revisions are ignored.",
   "brief_written_at": "2026-10-19T11:05:00Z",
+  "different_now": null,
   "facts": [
    {
     "fact": "As of the FRED page retrieved on 2026-10-19, the latest published DGS10 observation is 5.10 percent for 2026-10-15, updated 2026-10-16, with the next FRED release dated 2026-10-19; no DGS10 value for 2026-10-23 exists yet.",
