@@ -10,7 +10,8 @@ the source came with no quotes to check.
 
 Many sites refuse requests from cloud machines. A page that answers 401, 403, 429, 451 or 503 is
 asked again as a browser would ask, and then read from its latest Internet Archive copy; such a
-source says ``checked_via: "archive"`` and the snapshot it was checked against.
+source says ``checked_via: "archive"`` and the snapshot it was checked against. A copy saved before
+the source's publication date leaves the source unchecked.
 """
 
 from __future__ import annotations
@@ -86,6 +87,9 @@ def check_source(source: dict[str, Any], fetch: Fetch) -> dict[str, Any]:
         return {**source, "verified": None, "download_error": f"{type(error).__name__}: {error}"[:200]}
     if len(text) < 200:
         return {**source, "verified": None, "download_error": "no readable text on the page"}
+    if via and source.get("published") and via[0].split("/")[4][:8] < source["published"].replace("-", ""):
+        # Checking a page against a copy saved before it was published would wrongly fail its quotes.
+        return {**source, "verified": None, "download_error": "the only archive copy predates the page"}
     quotes = source.get("quotes", [])
     around, verified = excerpt(text, quotes)
     quoted = "\n".join(quotes)

@@ -278,3 +278,5 @@ def test_refused_pages_are_asked_as_a_browser_then_read_from_the_archive() -> No
     assert checked["verified"] is True and checked["checked_via"] == "archive"
     unquoted = research_download.check_source({"url": "https://ballotpedia.org/x", "quotes": []}, lambda url: got)
     assert unquoted["verified"] is None and "November ballot" in unquoted["text"]  # nothing to check, page still read
+    stale = research_download.check_source({**source, "published": "2026-10-22"}, lambda url: got)
+    assert stale["verified"] is None and "predates" in stale["download_error"]  # the Oct 20 copy cannot hold it
