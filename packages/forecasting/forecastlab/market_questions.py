@@ -1,7 +1,7 @@
 """Questions borrowed from Polymarket, resolved by Polymarket.
 
 Selection is a fixed rule (``SELECTION_VERSION``): yes/no markets on economics, finance,
-politics, geopolitics, world affairs, technology and crypto; closing in 2 to 21 days; at
+politics, geopolitics, world affairs, technology and crypto; closing in 2 to 10 days; at
 least $10,000 traded; a price between 5% and 95% (near-certain questions say nothing
 about skill); one market per Polymarket event, so siblings such as "who will be prime
 minister" do not crowd the sample; topics taken in turn, at most ``TOPIC_LIMIT`` per topic
@@ -11,7 +11,11 @@ v2 (2026-10-07) also skips "who will be the next prime minister/president" marke
 trading closes on election day, but they settle only when someone takes office, often
 months later, so they would sit unresolved long past their listed date.
 
-Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07) adds up to ``MANIFOLD_DAILY_LIMIT``
+v3 (2026-10-25, owner's call) takes more questions that settle sooner, so results build up
+faster: up to 18 a day (was 8), up to 4 per topic (was 2), closing within 10 days (was 21).
+
+Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
+from 4 to 10 under the v3 window and topic cap) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
 the same window, price band and topic cap. Manifold trades play money, so it needs at least
 ``MANIFOLD_MIN_BETTORS`` traders and ``MANIFOLD_MIN_VOLUME`` mana traded, and skips personal
@@ -34,28 +38,28 @@ from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v2"
+SELECTION_VERSION = "polymarket_selection_v3"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
 TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "geopolitics": "World",
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
-MIN_DAYS, MAX_DAYS = 2, 21
+MIN_DAYS, MAX_DAYS = 2, 10
 MIN_VOLUME = 10_000
 MIN_PRICE, MAX_PRICE = 0.05, 0.95
-DAILY_LIMIT = 8
+DAILY_LIMIT = 18
 # Markets that settle when someone takes office, not when trading closes.
 SLOW_SETTLING = re.compile(r"\bnext (prime minister|president|chancellor|premier|pm|leader|speaker)\b", re.IGNORECASE)
-TOPIC_LIMIT = 2
+TOPIC_LIMIT = 4
 
-MANIFOLD_SELECTION_VERSION = "manifold_selection_v1"
+MANIFOLD_SELECTION_VERSION = "manifold_selection_v2"
 MANIFOLD_METHOD = "manifold_price_v1"
 MANIFOLD = "https://api.manifold.markets/v0"
 MANIFOLD_TOPICS = {"economics-default": "Economy", "politics-default": "Politics", "technology-default": "Tech",
                    "world-default": "World"}
 MANIFOLD_MIN_BETTORS = 15
 MANIFOLD_MIN_VOLUME = 1_000
-MANIFOLD_DAILY_LIMIT = 4
+MANIFOLD_DAILY_LIMIT = 10
 # Markets about the creator themselves ("Will I get the job?"), which the creator resolves.
 PERSONAL = re.compile(r"\b(I|I'm|I'll|me|my)\b")
 

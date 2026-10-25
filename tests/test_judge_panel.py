@@ -50,7 +50,7 @@ def _general(directory: Path) -> Path:
 
 def test_every_panel_member_has_a_label_on_the_track_record() -> None:
     assert {m.method for m in [*CONFIG.members, *LIVE.members]} <= set(FORECASTERS)
-    assert LIVE.daily_budget_usd == 1.0
+    assert LIVE.daily_budget_usd == 2.0
     assert len({m.method for m in LIVE.members}) == len({m.model for m in LIVE.members}) == len(LIVE.members)
     # Judges that think past their token cap send back no answer; the thinking budget leaves room for one.
     assert LIVE.reasoning_max_tokens is not None and LIVE.reasoning_max_tokens <= LIVE.max_tokens // 2

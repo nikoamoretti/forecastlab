@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $1 a day (about $0.65 a day in practice; one free and three paid open-weights models plus Claude Sonnet 5.5, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $2 a day (about $1.30 a day expected with the larger daily set from 2026-10-26; one free and three paid open-weights models plus Claude Sonnet 5.5, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
@@ -21,13 +21,13 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - Save the answers as `{"forecast_made_at", "answers": [{"id", "question", "topic", "resolution_criteria", "resolution_date", "resolution_source", "probability", "rationale", "sources"}]}` and run `python scripts/question_requests.py record <file>`. The ids must be the request ids.
    - After the pull request is pushed, run `python scripts/question_requests.py answered <id> ...`.
    - For an asked question whose resolution date has passed, check the named source and run `python scripts/question_requests.py outcome <artifact_dir> <id> yes|no --note "<what happened>" --source <url>`.
-5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v2` and writes `artifacts/prospective_markets_<date>/`, with up to 8 Polymarket questions:
-   - closing in 2–21 days, and not a "next prime minister/president" market, which settles only when someone takes office;
+5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v3` and writes `artifacts/prospective_markets_<date>/`, with up to 18 Polymarket questions:
+   - closing in 2–10 days, so results come in quickly, and not a "next prime minister/president" market, which settles only when someone takes office;
    - at least $10,000 traded;
    - priced between 5% and 95%;
-   - one per event and at most two per topic.
+   - one per event and at most four per topic.
 
-   It also adds up to 4 Manifold questions (`manifold_selection_v1`) from the economics, politics, technology and world topics, under the same window, price band and topic cap. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
+   It also adds up to 10 Manifold questions (`manifold_selection_v2`) from the economics, politics, technology and world topics, under the same window, price band and topic cap. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
 
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
    - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.
