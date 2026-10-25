@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
+import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, relativeDay, shortDate, todayUTC, trend, versusGuessing, weeksSince } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -63,33 +63,39 @@ const span = (g: QuestionGroup) => {
 // The score so far after each week, against always answering 50% (0.25). Lower is better.
 function OverTime({ weeks, coinFlip }: { weeks: Week[]; coinFlip: number }) {
   const w = 360, h = 170, left = 34, right = 12, top = 14, bottom = 26;
-  const values = [coinFlip, ...weeks.map(wk => wk.runningBrier)];
+  const fit = trend(weeks)!, span = weeksSince(weeks[0].start, weeks[weeks.length - 1].start);
+  const values = [coinFlip, fit.start, fit.end, ...weeks.map(wk => wk.brier)];
   const lo = Math.max(0, Math.floor((Math.min(...values) - 0.03) * 20) / 20), hi = Math.ceil((Math.max(...values) + 0.03) * 20) / 20;
-  const x = (i: number) => left + i * (w - left - right) / (weeks.length - 1);
+  const x = (day: string) => left + weeksSince(weeks[0].start, day) / span * (w - left - right);
   const y = (v: number) => top + (hi - v) / (hi - lo) * (h - top - bottom);
   const ticks = Array.from({ length: Math.round((hi - lo) / 0.05) + 1 }, (_, i) => lo + i * 0.05);
-  const line = weeks.map((wk, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(wk.runningBrier).toFixed(1)}`).join(" ");
+  const perMonth = fit.perWeek * 52 / 12;
+  const direction = Math.abs(perMonth) < 0.005 ? "flat" : perMonth < 0 ? "improving" : "getting worse";
+  const summary = direction === "flat"
+    ? `Trend: flat, about ${fit.end.toFixed(2)}.`
+    : `Trend: ${direction}, from ${fit.start.toFixed(2)} to ${fit.end.toFixed(2)}, about ${Math.abs(perMonth).toFixed(2)} a month.`;
   return <section aria-label="How we've done over time">
     <h3 className="font-serif text-3xl">Over time</h3>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call&rsquo;s accuracy score so far, after each week of results. The dashed line is always answering 50% (0.25). Lower is better, so the line staying under the dashes means we beat guessing.</p>
-    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
-      aria-label={`Accuracy score so far: ${weeks.map(wk => `${shortDate(wk.start)} ${wk.runningBrier.toFixed(2)}`).join(", ")}`}>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each dot is one week&rsquo;s accuracy score; bigger dots had more questions decided. The solid line is the trend and the dashed line is always answering 50% (0.25). Lower is better.</p>
+    <p className="mt-3 font-medium">{summary}</p>
+    <svg viewBox={`0 0 ${w} ${h}`} className="mt-2 w-full max-w-xl" role="img"
+      aria-label={`Weekly accuracy score: ${weeks.map(wk => `${shortDate(wk.start)} ${wk.brier.toFixed(2)}`).join(", ")}. ${summary}`}>
       {ticks.map(t => <g key={t}>
         <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className="stroke-rule" />
         <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{t.toFixed(2)}</text>
       </g>)}
       <line x1={left} x2={w - right} y1={y(coinFlip)} y2={y(coinFlip)} className="stroke-copper" strokeDasharray="4 4" />
-      <path d={line} fill="none" className="stroke-pine" strokeWidth={2} />
+      <line x1={left} x2={w - right} y1={y(fit.start)} y2={y(fit.end)} className="stroke-pine" strokeWidth={2} />
       {weeks.map((wk, i) => <g key={wk.start}>
-        <circle cx={x(i)} cy={y(wk.runningBrier)} r={3} className="fill-pine" />
-        <text x={x(i)} y={h - 8} textAnchor={i === 0 ? "start" : i === weeks.length - 1 ? "end" : "middle"}
+        <circle cx={x(wk.start)} cy={y(wk.brier)} r={2.5 + Math.sqrt(wk.count)} className="fill-pine/25 stroke-pine" />
+        <text x={x(wk.start)} y={h - 8} textAnchor={i === 0 ? "start" : i === weeks.length - 1 ? "end" : "middle"}
           className="fill-ink/60 text-[9px]">{shortDate(wk.start)}</text>
       </g>)}
     </svg>
     <ul className="mt-4 max-w-xl divide-y divide-rule border-y border-rule text-sm">{[...weeks].reverse().map(wk =>
       <li key={wk.start} className="flex flex-wrap justify-between gap-x-4 py-2">
         <span><span className="font-medium">Week of {shortDate(wk.start)}</span> · {wk.right} of {wk.right + wk.wrong} right</span>
-        <span className="tabular-nums text-ink/70">week {wk.brier.toFixed(2)} · so far {wk.runningBrier.toFixed(2)}</span>
+        <span className="tabular-nums text-ink/70">that week {wk.brier.toFixed(2)} · overall by then {wk.runningBrier.toFixed(2)}</span>
       </li>)}</ul>
   </section>;
 }
