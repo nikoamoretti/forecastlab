@@ -117,7 +117,7 @@ test("navigation keeps two main links and moves the rest under More", async ({ p
   await expect(page).toHaveURL(/\/runs$/);
 });
 
-test("the over-time section shows the score so far after each week of results", async ({ page }) => {
+test("the over-time section shows each week's score and the trend through them", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-10-20T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-20", forecasters,
     summary: { resolved: 3, right: 2, wrong: 1, toss_ups: 0, brier: .2, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 3 },
@@ -128,9 +128,11 @@ test("the over-time section shows the score so far after each week of results", 
       question("w4", "Not scored", { resolves_on: "2026-10-15", outcome: 1, scored: false, call: { method: "combined_median_v1", probability: .9 }, verdict: "right" })] } }));
   await page.goto("/");
   const section = page.getByRole("region", { name: "How we've done over time" });
-  await expect(section.getByRole("img")).toHaveAttribute("aria-label", "Accuracy score so far: Oct 5 0.20, Oct 12 0.14");
+  await expect(section.getByRole("img")).toHaveAttribute("aria-label",
+    "Weekly accuracy score: Oct 5 0.20, Oct 12 0.01. Trend: improving, from 0.20 to 0.01, about 0.82 a month.");
+  await expect(section).toContainText("Trend: improving");
   await expect(section.getByRole("listitem").first()).toContainText("Week of Oct 12");
   await expect(section.getByRole("listitem").first()).toContainText("1 of 1 right");
   await expect(section.getByRole("listitem").last()).toContainText("1 of 2 right");
-  await expect(section.getByRole("listitem").last()).toContainText("week 0.20 · so far 0.20");
+  await expect(section.getByRole("listitem").last()).toContainText("that week 0.20 · overall by then 0.20");
 });
