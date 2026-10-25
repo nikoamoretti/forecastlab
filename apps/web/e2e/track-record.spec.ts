@@ -117,7 +117,7 @@ test("navigation keeps two main links and moves the rest under More", async ({ p
   await expect(page).toHaveURL(/\/runs$/);
 });
 
-test("the over-time section shows each week against guessing and the trend through them", async ({ page }) => {
+test("the over-time section shows the share of calls right each week and the trend", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-10-20T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-20", forecasters,
     summary: { resolved: 3, right: 2, wrong: 1, toss_ups: 0, brier: .2, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 3 },
@@ -128,7 +128,7 @@ test("the over-time section shows each week against guessing and the trend throu
       question("w4", "Not scored", { resolves_on: "2026-10-15", outcome: 1, scored: false, call: { method: "combined_median_v1", probability: .9 }, verdict: "right" })] } }));
   await page.goto("/");
   const section = page.getByRole("region", { name: "How we've done over time" });
-  await expect(section).toContainText("Getting better: from 20% to 96% better than guessing.");
+  await expect(section).toContainText("Getting better: from about 50% to 100% of calls right.");
   await expect(section.getByRole("img")).toHaveAttribute("aria-label",
-    "By week: Oct 5 +20% (1 of 2 right), Oct 12 +96% (1 of 1 right). Getting better: from 20% to 96% better than guessing.");
+    "By week: Oct 5 50% (1 of 2 right), Oct 12 100% (1 of 1 right). Getting better: from about 50% to 100% of calls right.");
 });

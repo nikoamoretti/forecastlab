@@ -61,40 +61,36 @@ const span = (g: QuestionGroup) => {
 };
 
 // The score so far after each week, against always answering 50% (0.25). Lower is better.
-const pctOff = (v: number) => `${Math.abs(Math.round(v * 100))}%`;
-const better = (v: number) => (Math.round(v * 100) < 0 ? "worse" : "better");
-
-function OverTime({ weeks: all, coinFlip }: { weeks: Week[]; coinFlip: number }) {
-  const weeks = all.slice(-8);
-  const skill = (wk: Week) => 1 - wk.brier / coinFlip;
-  const fit = trend(weeks, skill)!;
+function OverTime({ weeks: all }: { weeks: Week[] }) {
+  const weeks = all.filter(wk => wk.right + wk.wrong > 0).slice(-8);
+  if (weeks.length < 2) return null;
+  const hit = (wk: Week) => wk.right / (wk.right + wk.wrong);
+  const fit = trend(weeks, hit)!;
   const w = 360, h = 200, left = 36, right = 8, top = 18, bottom = 40;
-  const values = [fit.start, fit.end, ...weeks.map(skill)];
-  const lo = Math.min(...values) < -0.05 ? Math.floor((Math.min(...values) - 0.05) * 4) / 4 : 0, hi = Math.max(0.25, Math.ceil((Math.max(...values) + 0.05) * 4) / 4);
   const slot = (w - left - right) / weeks.length, bar = Math.min(36, slot * 0.6);
   const x = (i: number) => left + slot * (i + 0.5);
-  const y = (v: number) => top + (hi - v) / (hi - lo) * (h - top - bottom);
-  const ticks = Array.from({ length: Math.round((hi - lo) / 0.25) + 1 }, (_, i) => lo + i * 0.25);
-  const pct = (v: number) => `${v > 0 ? "+" : ""}${Math.round(v * 100)}%`;
+  const y = (v: number) => top + (1 - Math.min(1, Math.max(0, v))) * (h - top - bottom);
+  const pct = (v: number) => `${Math.round(v * 100)}%`;
   const change = fit.end - fit.start;
-  const from = better(fit.start) === better(fit.end) ? pctOff(fit.start) : `${pctOff(fit.start)} ${better(fit.start)}`;
-  const summary = Math.abs(change) < 0.05 ? `Holding steady at about ${pctOff(fit.end)} ${better(fit.end)} than guessing.`
-    : `${change > 0 ? "Getting better" : "Slipping"}: from ${from} to ${pctOff(fit.end)} ${better(fit.end)} than guessing.`;
+  const summary = Math.abs(change) < 0.05 ? `Holding steady at about ${pct(fit.end)} of calls right.`
+    : `${change > 0 ? "Getting better" : "Slipping"}: from about ${pct(fit.start)} to ${pct(fit.end)} of calls right.`;
   return <section aria-label="How we've done over time">
     <h3 className="font-serif text-3xl">Over time</h3>
     <p className="mt-3 text-lg font-medium">{summary}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each bar is one week of results: how much better our calls scored than always answering 50%. Taller is better, and a bar below 0% was worse than guessing. The copper line is the trend.</p>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each bar is the share of calls we got right in the week the questions were decided. The dashed line is a coin flip (50%). The copper line is the trend, with busier weeks counting for more.</p>
     <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
-      aria-label={`By week: ${weeks.map(wk => `${shortDate(wk.start)} ${pct(skill(wk))} (${wk.right} of ${wk.right + wk.wrong} right)`).join(", ")}. ${summary}`}>
-      {ticks.map(t => <g key={t}>
-        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className={Math.abs(t) < 1e-9 ? "stroke-ink/40" : "stroke-rule"} />
+      aria-label={`By week: ${weeks.map(wk => `${shortDate(wk.start)} ${pct(hit(wk))} (${wk.right} of ${wk.right + wk.wrong} right)`).join(", ")}. ${summary}`}>
+      {[0, 0.25, 0.75, 1].map(t => <g key={t}>
+        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className={t === 0 ? "stroke-ink/40" : "stroke-rule"} />
         <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{pct(t)}</text>
       </g>)}
+      <line x1={left} x2={w - right} y1={y(0.5)} y2={y(0.5)} className="stroke-ink/50" strokeDasharray="4 4" />
+      <text x={left - 6} y={y(0.5) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">50%</text>
       {weeks.map((wk, i) => {
-        const v = skill(wk);
+        const v = hit(wk);
         return <g key={wk.start}>
-          <rect x={x(i) - bar / 2} width={bar} y={Math.min(y(v), y(0))} height={Math.abs(y(v) - y(0))} className={v < 0 ? "fill-brick/70" : "fill-pine/70"} />
-          <text x={x(i)} y={v < -0.05 ? y(v) + 11 : Math.min(y(v), y(0)) - 4} textAnchor="middle" className="fill-ink text-[10px] font-medium">{pct(v)}</text>
+          <rect x={x(i) - bar / 2} width={bar} y={y(v)} height={y(0) - y(v)} className={v < 0.5 ? "fill-brick/70" : "fill-pine/70"} />
+          <text x={x(i)} y={y(v) - 4} textAnchor="middle" className="fill-ink text-[10px] font-medium">{pct(v)}</text>
           <text x={x(i)} y={h - 24} textAnchor="middle" className="fill-ink/70 text-[10px]">{shortDate(wk.start)}</text>
           <text x={x(i)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.right} of {wk.right + wk.wrong} right</text>
         </g>;
@@ -149,7 +145,7 @@ export default function TrackRecordPage() {
       </Link>}
     </section>
 
-    {weeks.length > 1 && <OverTime weeks={weeks} coinFlip={s.coin_flip_brier} />}
+    {weeks.length > 1 && <OverTime weeks={weeks} />}
 
     <section>
       <h3 className="font-serif text-3xl">Latest results</h3>
