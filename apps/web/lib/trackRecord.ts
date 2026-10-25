@@ -71,7 +71,7 @@ export function sourceLabel(source: Source) {
 }
 
 // One week of decided questions (weeks start on Monday, by result date) and the score so far at its end.
-export type Week = { start: string; right: number; wrong: number; count: number; brier: number; runningBrier: number };
+export type Week = { start: string; right: number; wrong: number; brier: number; runningBrier: number };
 
 // Scored results by the week they were decided, oldest first; toss-ups count in the score but not as right or wrong.
 export function byWeek(questions: Question[]): Week[] {
@@ -88,15 +88,15 @@ export function byWeek(questions: Question[]): Week[] {
     const sum = these.reduce((s, r) => s + r.brier, 0);
     total += sum; count += these.length;
     weeks.push({ start, right: these.filter(r => r.verdict === "right").length, wrong: these.filter(r => r.verdict === "wrong").length,
-      count: these.length, brier: sum / these.length, runningBrier: total / count });
+      brier: sum / these.length, runningBrier: total / count });
   }
   return weeks;
 }
 
-// Straight-line fit through the weeks in order, each week weighted by how many questions it decided.
+// Straight-line fit through the weeks in order, each week weighted by how many calls it decided.
 export function trend(weeks: Week[], value: (wk: Week) => number): { start: number; end: number } | null {
   if (weeks.length < 2) return null;
-  const pts = weeks.map((wk, x) => ({ x, y: value(wk), n: wk.count }));
+  const pts = weeks.map((wk, x) => ({ x, y: value(wk), n: wk.right + wk.wrong }));
   const n = pts.reduce((s, p) => s + p.n, 0);
   const mx = pts.reduce((s, p) => s + p.x * p.n, 0) / n, my = pts.reduce((s, p) => s + p.y * p.n, 0) / n;
   const sxx = pts.reduce((s, p) => s + p.n * (p.x - mx) ** 2, 0);
