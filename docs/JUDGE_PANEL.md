@@ -35,7 +35,7 @@ The first four are open weights from four labs. Claude Sonnet 5.5 (Anthropic) is
   - An answer, once recorded, is final.
 - **Probability clamp.** Probabilities are clamped to [0.02, 0.98], the range every recorded forecast uses. The raw answer stays in the log.
 - **Budget.**
-  - `daily_budget_usd` (1.00) caps spending per UTC day.
+  - `daily_budget_usd` (2.00 since 2026-10-25, when the daily question set roughly doubled; was 1.00) caps spending per UTC day.
   - A call starts only if its worst case fits in what is left today. The worst case comes from OpenRouter's published prices, the prompt length and `max_tokens`.
   - The amount OpenRouter reports for the call is what gets charged against the cap.
   - Free models cost 0.

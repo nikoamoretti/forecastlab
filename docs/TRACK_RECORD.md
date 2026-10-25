@@ -14,7 +14,7 @@ Inputs:
   - `prospective_requests_<date>`: questions the owner asked on **Ask a question**, answered by Claude in the daily run. Their ids match the request ids, so an answered request links to `/q/<id>`.
 
   These stay open until an outcome is recorded in the file with `scripts/question_requests.py outcome`.
-- `prospective_markets_<date>/forecasts.json`: questions borrowed from Polymarket by `scripts/market_questions.py` under `polymarket_selection_v2` (v1 for the 2026-10-07 batch). v2 also skips "next prime minister/president" markets, which settle only when someone takes office. Polymarket decides them. `scripts/score_prospective_artifacts.py` records the result once the market is closed, its UMA resolution is final, and one side pays 1. A 50/50 settlement is cancelled.
+- `prospective_markets_<date>/forecasts.json`: questions borrowed from Polymarket by `scripts/market_questions.py` under `polymarket_selection_v3` (v2 until 2026-10-25, v1 for the 2026-10-07 batch). v3 takes up to 18 a day, closing within 10 days. v2 also skips "next prime minister/president" markets, which settle only when someone takes office. Polymarket decides them. `scripts/score_prospective_artifacts.py` records the result once the market is closed, its UMA resolution is final, and one side pays 1. A 50/50 settlement is cancelled.
 
 `prospective_autopilot_pilot_202609` holds the first three Autopilot forecasts, made on 2026-09-05 in the live database. They were exported unchanged on 2026-10-07 so that they are scored with the same first-release rules. Pipeline smoke tests, drafts and failed runs are not part of the record. They remain under **All runs**.
 

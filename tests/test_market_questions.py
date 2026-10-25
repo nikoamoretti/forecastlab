@@ -58,8 +58,8 @@ def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None
     chosen = select(list(pool.values()), seen={"polymarket-m8"}, limit=2)
     assert [c["market_id"] for c in chosen] == ["m1", "m5"]  # topics in turn, Tech already tracked
 
-    crowded = [{"id": f"c{i}", "topic": "Crypto", "volume": 100 - i} for i in range(5)]
-    assert [c["id"] for c in select(crowded, seen=set())] == ["c0", "c1"]  # at most two per topic a day
+    crowded = [{"id": f"c{i}", "topic": "Crypto", "volume": 100 - i} for i in range(6)]
+    assert [c["id"] for c in select(crowded, seen=set())] == ["c0", "c1", "c2", "c3"]  # at most four per topic a day
 
 
 @pytest.mark.parametrize(("market", "expected"), [
@@ -191,7 +191,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v2+manifold_selection_v1"
+    assert selected["selection"] == "polymarket_selection_v3+manifold_selection_v2"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
