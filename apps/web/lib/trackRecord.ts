@@ -93,16 +93,13 @@ export function byWeek(questions: Question[]): Week[] {
   return weeks;
 }
 
-export const weeksSince = (from: string, day: string) => (noon(day).getTime() - noon(from).getTime()) / (7 * 86_400_000);
-
-// Straight-line fit of each question's score against when it was decided (weeks weighted by how many questions they hold).
-export function trend(weeks: Week[]): { start: number; end: number; perWeek: number } | null {
+// Straight-line fit through the weeks in order, each week weighted by how many questions it decided.
+export function trend(weeks: Week[], value: (wk: Week) => number): { start: number; end: number } | null {
   if (weeks.length < 2) return null;
-  const pts = weeks.map(wk => ({ x: weeksSince(weeks[0].start, wk.start), y: wk.brier, n: wk.count }));
+  const pts = weeks.map((wk, x) => ({ x, y: value(wk), n: wk.count }));
   const n = pts.reduce((s, p) => s + p.n, 0);
   const mx = pts.reduce((s, p) => s + p.x * p.n, 0) / n, my = pts.reduce((s, p) => s + p.y * p.n, 0) / n;
   const sxx = pts.reduce((s, p) => s + p.n * (p.x - mx) ** 2, 0);
-  const perWeek = sxx ? pts.reduce((s, p) => s + p.n * (p.x - mx) * (p.y - my), 0) / sxx : 0;
-  const at = (x: number) => my + perWeek * (x - mx);
-  return { start: at(0), end: at(pts[pts.length - 1].x), perWeek };
+  const slope = sxx ? pts.reduce((s, p) => s + p.n * (p.x - mx) * (p.y - my), 0) / sxx : 0;
+  return { start: my - slope * mx, end: my + slope * (pts.length - 1 - mx) };
 }
