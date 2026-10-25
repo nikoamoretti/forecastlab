@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, callText, groupBySeries, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
+import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -60,6 +60,40 @@ const span = (g: QuestionGroup) => {
   return first === last ? first : `${first} to ${last}`;
 };
 
+// The score so far after each week, against always answering 50% (0.25). Lower is better.
+function OverTime({ weeks, coinFlip }: { weeks: Week[]; coinFlip: number }) {
+  const w = 360, h = 170, left = 34, right = 12, top = 14, bottom = 26;
+  const values = [coinFlip, ...weeks.map(wk => wk.runningBrier)];
+  const lo = Math.max(0, Math.floor((Math.min(...values) - 0.03) * 20) / 20), hi = Math.ceil((Math.max(...values) + 0.03) * 20) / 20;
+  const x = (i: number) => left + i * (w - left - right) / (weeks.length - 1);
+  const y = (v: number) => top + (hi - v) / (hi - lo) * (h - top - bottom);
+  const ticks = Array.from({ length: Math.round((hi - lo) / 0.05) + 1 }, (_, i) => lo + i * 0.05);
+  const line = weeks.map((wk, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(wk.runningBrier).toFixed(1)}`).join(" ");
+  return <section aria-label="How we've done over time">
+    <h3 className="font-serif text-3xl">Over time</h3>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call&rsquo;s accuracy score so far, after each week of results. The dashed line is always answering 50% (0.25). Lower is better, so the line staying under the dashes means we beat guessing.</p>
+    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
+      aria-label={`Accuracy score so far: ${weeks.map(wk => `${shortDate(wk.start)} ${wk.runningBrier.toFixed(2)}`).join(", ")}`}>
+      {ticks.map(t => <g key={t}>
+        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className="stroke-rule" />
+        <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{t.toFixed(2)}</text>
+      </g>)}
+      <line x1={left} x2={w - right} y1={y(coinFlip)} y2={y(coinFlip)} className="stroke-copper" strokeDasharray="4 4" />
+      <path d={line} fill="none" className="stroke-pine" strokeWidth={2} />
+      {weeks.map((wk, i) => <g key={wk.start}>
+        <circle cx={x(i)} cy={y(wk.runningBrier)} r={3} className="fill-pine" />
+        <text x={x(i)} y={h - 8} textAnchor={i === 0 ? "start" : i === weeks.length - 1 ? "end" : "middle"}
+          className="fill-ink/60 text-[9px]">{shortDate(wk.start)}</text>
+      </g>)}
+    </svg>
+    <ul className="mt-4 max-w-xl divide-y divide-rule border-y border-rule text-sm">{[...weeks].reverse().map(wk =>
+      <li key={wk.start} className="flex flex-wrap justify-between gap-x-4 py-2">
+        <span><span className="font-medium">Week of {shortDate(wk.start)}</span> · {wk.right} of {wk.right + wk.wrong} right</span>
+        <span className="tabular-nums text-ink/70">week {wk.brier.toFixed(2)} · so far {wk.runningBrier.toFixed(2)}</span>
+      </li>)}</ul>
+  </section>;
+}
+
 export default function TrackRecordPage() {
   const [data, setData] = useState<TrackRecord | null>(null);
   const [error, setError] = useState("");
@@ -77,6 +111,7 @@ export default function TrackRecordPage() {
   const dueThisWeek = open.filter(q => (new Date(q.resolves_on).getTime() - new Date(today).getTime()) / DAY <= 7).length;
   const calls = s.right + s.wrong;
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
+  const weeks = byWeek(resolved);
 
   return <div className="space-y-12">
     <header className="flex flex-wrap items-end justify-between gap-6">
@@ -103,6 +138,8 @@ export default function TrackRecordPage() {
         {next.call && <p className="mt-2 text-sm"><span className="text-ink/60">Our call: </span><strong>{callText(next.call.probability)}</strong></p>}
       </Link>}
     </section>
+
+    {weeks.length > 1 && <OverTime weeks={weeks} coinFlip={s.coin_flip_brier} />}
 
     <section>
       <h3 className="font-serif text-3xl">Latest results</h3>

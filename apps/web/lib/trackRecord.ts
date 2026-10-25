@@ -69,3 +69,26 @@ export function sourceLabel(source: Source) {
   try { host = new URL(url).hostname.replace(/^www\./, ""); } catch { /* keep the raw text */ }
   return typeof source === "string" || !source.published ? host : `${host}, ${shortDate(source.published, true)}`;
 }
+
+// One week of decided questions (weeks start on Monday, by result date) and the score so far at its end.
+export type Week = { start: string; right: number; wrong: number; brier: number; runningBrier: number };
+
+// Scored results by the week they were decided, oldest first; toss-ups count in the score but not as right or wrong.
+export function byWeek(questions: Question[]): Week[] {
+  const rows = questions.filter(q => q.status === "resolved" && q.scored !== false && q.call && q.outcome != null)
+    .map(q => {
+      const day = noon(q.resolves_on);
+      day.setUTCDate(day.getUTCDate() - ((day.getUTCDay() + 6) % 7));
+      return { start: day.toISOString().slice(0, 10), verdict: q.verdict, brier: (q.call!.probability - q.outcome!) ** 2 };
+    }).sort((a, b) => a.start.localeCompare(b.start));
+  const weeks: Week[] = [];
+  let total = 0, count = 0;
+  for (const start of [...new Set(rows.map(r => r.start))]) {
+    const these = rows.filter(r => r.start === start);
+    const sum = these.reduce((s, r) => s + r.brier, 0);
+    total += sum; count += these.length;
+    weeks.push({ start, right: these.filter(r => r.verdict === "right").length, wrong: these.filter(r => r.verdict === "wrong").length,
+      brier: sum / these.length, runningBrier: total / count });
+  }
+  return weeks;
+}
