@@ -88,12 +88,12 @@
   },
   "outcomes": {
     "65da04edb811bf47": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "reason": "official_fred_vintage_unavailable",
+      "status": "exception"
     }
   },
   "resolved_entries": 0,
-  "scored_on": "2026-10-24",
+  "scored_on": "2026-10-25",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 1
 }
