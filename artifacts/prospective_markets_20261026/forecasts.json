@@ -18,6 +18,24 @@
             "https://www.mexc.com/news/687185",
             "https://thedefiant.io/news/press-releases/1win-launches-two-week-public-sale-for-1win-token"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "The sale had a strong start at $3.9M in minutes, but the latest reported total is only about $5.31M, so it needs roughly 88% more commitments in about four days. Uncapped pro-rata sales can see late surges or large single deposits, which keeps the probability non-trivial, but the slow middle-period growth makes exceeding $10M less likely than not."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for uncapped pro-rata token sales is that most commitments arrive in the initial burst, and the evidence here strongly supports that pattern: $3.9M in 8 minutes, then only ~$5.3M total by some later point in the sale. Reaching $10M would require nearly doubling the last reported figure in the remaining days, which is a significant late surge. While a single large deposit or final-day FOMO spike is possible in an uncapped sale, the slow mid-sale growth makes this unlikely. The main uncertainty is the exact date of the $5.31M figure and whether a late surge occurs in the final 1-2 days before the Oct 30 close."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.36,
+          "rationale": "Public-sale commitment curves are typically front-loaded, and with no clean reference class, nearly doubling in the roughly four days remaining is less likely than not. Filling the $3.9M allocation within eight minutes shows genuine demand, but the reported total of about $5.31M represents only 1.36x oversubscription and suggests slowing growth, leaving a substantial $4.69M needed. An uncapped final-hours surge, whale deposit, or sale extension keeps the chance materially above negligible, although the unconfirmed report date and unseen current official total add uncertainty; a total already above $7\u20138M would raise the probability sharply, while remaining near $5\u20136M would lower it."
         }
       ],
       "id": "polymarket-5786291",
@@ -46,6 +64,24 @@
             "https://companiesmarketcap.com/apple/marketcap/",
             "https://www.aljazeera.com/amp/economy/2026/7/17/apple-regains-top-spot-as-worlds-most-valuable-company"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "As of October 25, Apple is the second-largest company by market cap, behind Nvidia, with a small margin. The top ranks have swapped frequently in 2026, making a reversal plausible, but the short time horizon (5 days) and typical persistence of recent ranks slightly favor the status quo. Upcoming earnings (especially Apple's) could shift the order, introducing substantial uncertainty, so the probability remains close to even with a moderate edge toward 'Yes'."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.85,
+          "rationale": "The companiesmarketcap.com source (source [3]) explicitly states Apple is the world's 2nd most valuable company as of late October 2026 at $5.074T, with the 1-day change being only -0.14%, suggesting stability. The capital.com table (source [4]) is internally inconsistent (Amazon at $6.85T ranked 5th, Apple at $5.15T ranked 3rd), but its Nvidia figure of $5.13T is close to Apple's $5.074T, confirming they are the top two with Nvidia slightly ahead. The main risk is that Apple and Nvidia are within ~1-2% of each other, so a single bad day for Nvidia or a good day for Apple before the Oct 30 close could flip the ranking, but the current evidence points to Apple being second."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "The evidence is mixed and somewhat contradictory. The capital.com table (as of Oct 25, 2026) shows Apple at $5.15T (rank 3 in their list but actually 2nd highest), Nvidia at $5.13T, with Apple slightly ahead. The companiesmarketcap.com data shows Apple at $5.074T. The two are very close, within ~1-2% of each other. With 5 trading days remaining (Oct 26-30), small moves could flip the ranking. Apple's earnings (Oct 29 or Nov 2) could be a catalyst. Given the closeness and volatility, I'd put this near 50/50, slightly favoring Apple being second (i.e., Nvidia ahead) given recent trends showing Nvidia has been leading, but the data shows Apple slightly ahead as of Oct 25."
         }
       ],
       "id": "polymarket-5180406",
@@ -74,6 +110,24 @@
             "https://www.aljazeera.com/news/2026/10/15/us-iran-stalemate-what-are-trumps-next-military-options",
             "https://www.france24.com/en/middle-east/20261004-iran-us-military-middle-east-war-peace-talks"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.88,
+          "rationale": "The base rate for a US strike on Iran in an 8-day window was roughly 10-20%, but Trump has publicly ruled out attacks before the November 3 midterms and recent weeks have been relatively quiet, reducing the near-term risk. Talks continue indirectly and the US has favored economic pressure, though stalled negotiations, Iranian provocations in the Strait of Hormuz, or a sudden retaliation could still trigger a qualifying US strike before the deadline."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "Trump has explicitly and repeatedly stated he will not attack Iran before the November 3 midterms (confirmed by WSJ, CBS, and Al Jazeera), which is a strong political commitment that reduces the probability of a qualifying strike in the remaining 8 days. However, his 'maybe before the election' comment, escalating Iranian attacks on shipping in the Strait of Hormuz, and the volatile situation create meaningful tail risk. The base rate from the post-ceasefire period suggests roughly 10-20% for an 8-day window, but the explicit political constraint of the midterms pushes the probability of a strike below that baseline, yielding roughly 20-25% chance of a qualifying strike and 75-80% chance the ceasefire holds."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.86,
+          "rationale": "The post-ceasefire reference class of roughly three strike episodes in 28 weeks implies a baseline No risk of around 10-15% over this eight-day window. The balance of evidence supports Yes: Trump said on Oct. 15 that he would not attack before the Nov. 3 midterms, and reporting said he expected renewed bombing only afterward, while negotiations continue. Stalled talks, intensifying attacks on shipping, his \u201cmaybe before\u201d language, and the possibility of limited strikes framed as self-defense nevertheless leave a meaningful No risk."
         }
       ],
       "id": "polymarket-5447182",
@@ -102,6 +156,24 @@
             "https://shattered.io/kimi-k3-coding-leaderboard-2026/",
             "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for Alibaba holding the top Chinese model spot on the Arena text leaderboard is low, as the lead has rotated among several labs and Alibaba has only occasionally been first. Recent evidence (July 2026) points to Moonshot's Kimi K3 as the highest Chinese model, with Baidu leading in April, and no reports suggest Alibaba has since taken the lead. With the check just five days away and no indication of an imminent Qwen release that could rank in time, the probability remains low, though a surprise launch could alter the outcome."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "The base rate from historical rotation shows the top Chinese slot has shifted among at least 5-6 labs with no stable majority, and Alibaba held it only occasionally. The October 2026 evidence points to Xiaomi MiMo-V2.6-Pro (1491, highest openly licensed model) and Moonshot Kimi K3 (topped coding arena in October, was #1 Chinese in July) as the most likely leaders, with Baidu ERNIE-5.1-Preview having held the spot in April. The brief's note that no reports of Alibaba leading were found, combined with Qwen 3.7 Max being described as within ~50 Elo of Kimi K3 (implying it trails), makes Alibaba the least likely candidate among the top contenders, though a late Qwen release or tie-breaking by unrounded score could shift the outcome."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The base rate for any single Chinese lab holding the top Chinese slot is low given the rotation among Alibaba, Baidu, Moonshot, DeepSeek, and others. Evidence suggests Moonshot's Kimi K3 and Xiaomi's MiMo are currently competitive or leading among Chinese models, with Alibaba's Qwen close but not clearly ahead. A late Qwen release before Oct 31 could shift this, but absent strong evidence of Alibaba leading, I assign a low probability."
         }
       ],
       "id": "polymarket-3554471",
@@ -132,6 +204,24 @@
             "https://www.cnbc.com/2026/08/12/us-iran-war-trump-hormuz-houthi-attack-blockade-.html",
             "https://www.globalsecurity.org/military/library/news/2023/11/mil-231119-voa02.htm"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate of Houthi seizures is extremely low: only one seizure of a non-oil tanker (car carrier) in roughly three years of maritime operations, and no oil tanker has been seized. Current evidence shows Houthis continue to rely on missile and drone strikes, with no reports of recent boarding attempts or oil tanker seizures despite an announced blockade. The 5-day window further reduces the likelihood of such a rare event occurring."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.04,
+          "rationale": "The base rate is very low: in roughly three years of Houthi maritime operations, they have seized only one vessel (the Galaxy Leader car carrier in Nov 2023), and their method is overwhelmingly missile and drone strikes rather than boarding operations. The 2026 escalation (Red Sea blockade, attacks on Saudi tankers) has increased general risk but the reported pattern remains kinetic strikes, not seizures. The Seamull tanker seizure in August 2026 was attributed to Somali piracy, not Houthis, and no October 2026 reports of a Houthi boarding were found. The five-day window (Oct 26-31) makes this a very low-frequency event, though the active blockade and war context provide a slight upward nudge from the near-zero baseline."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.04,
+          "rationale": "The base rate for a Houthi boarding and seizure within five days is very low, and the July\u2013August 2026 evidence shows missile and drone attacks rather than seizures; the August 20 tanker seizure was reported as Somali piracy and is not attributable to the Houthis. The Red Sea blockade and wider war raise risk above that base rate, but there is no evidence of renewed Houthi boarding operations or a recent Houthi seizure of an oil tanker. A credible confirmed Houthi boarding or forced diversion of an oil-carrying vessel would sharply increase the probability, while continued strike-only activity would leave it in the low single digits."
         }
       ],
       "id": "polymarket-4618741",
@@ -160,6 +250,24 @@
             "https://www.coinbase.com/price/bitcoin",
             "https://www.coingecko.com/en/coins/bitcoin"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.72,
+          "rationale": "Current Binance BTC/USDT is about $80,400, so the $78,000 threshold is only ~3% below spot. With two days to the noon ET resolution and typical daily volatility of 2-3%, a similar-sized move is fairly common; starting near 75% for a roughly 3% buffer. The recent downtrend and potential event-driven swings from upcoming US data/FOMC/liquidation cascades add downside risk, so I adjust slightly down to 72%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "BTC is currently at ~$80,400 on Binance, giving a ~3.1% buffer above the $78,000 threshold with 2 days remaining. Typical 2-day volatility of ~3-3.5% means the threshold is roughly one standard deviation below spot, suggesting a base rate around 75-80% of staying above. I'm discounting to ~72% due to the noted downtrend (36% below ATH), the false breakout on Oct 25, and potential macro catalysts (FOMC, US data) on Oct 27-28 that could push price below the threshold."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.73,
+          "rationale": "With BTC near $80,400 on Binance, the $78,000 threshold is about 3% below spot; given roughly 2\u20133% daily volatility over the next 2.2 days, that implies a preliminary Yes probability around 70\u201375%. The recent failed breakout and downtrend, along with event and liquidation risk, pull the estimate toward the lower end, while $78,000 may also act as support. A sustained move below $78,000 on October 27 would sharply reduce the probability, whereas a rebound above $82,000 would raise it substantially."
         }
       ],
       "id": "polymarket-6015145",
@@ -189,6 +297,24 @@
             "https://www.withinnigeria.com/2026/10/04/iran-currency-crisis-rial-hits-record-low-despite-2bn-dollar-sale/",
             "https://shafaq.com/en/Economy/US-Dollar-nears-record-190K-toman-in-Iran"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The free-market USD/IRR rate has surged from ~1.9M in August to ~2.7M in late October, but reaching 2.8M requires a ~4.7% rise in five days from the latest Artesh quote (2.675M), a move larger than typical daily swings. Today's 1.4% drop hints at a pullback, and central bank dollar sales could limit further gains. Thus, a 35% chance seems reasonable."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "The current rate (Oct 26) is approximately 2,675,000 IRR per artesh.com, down 1.4% from the prior day, indicating a pullback from the Oct 22 high of ~2,730,000. Reaching 2,800,000 by Oct 31 requires a ~4.7% gain over 5 days, or roughly 0.9% per day sustained, which is at the upper end of typical daily moves (0.2-1%). The strong longer-term uptrend (43% in two months, 30-day gain of +13.5%) supports the possibility, but the recent pullback and the need for above-average sustained gains make this moderately unlikely, placing it around 30%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.32,
+          "rationale": "Over a five-day horizon, a rate roughly 3-5% below a threshold in a volatile, depreciating currency has a base-rate chance of around one-quarter to one-third. The Oct. 26 open-market print of 2.675M rials, down 1.4%, means a roughly 4.7% rise is needed, lowering the odds, while the Oct. 22 2.723M quote, repeated record lows, high inflation, and geopolitical stress preserve substantial upside risk. Uncertainty about Bonbast\u2019s exact current print and the possibility of a sharp news-driven move argue against a lower estimate; a Bonbast print above 2.77M would raise the probability materially, while intervention, dollar sales, or diplomatic easing would reduce it."
         }
       ],
       "id": "polymarket-5166884",
@@ -217,6 +343,24 @@
             "https://politicalwire.com/2026/10/06/sherrod-brown-leads-in-ohio-senate-race-2/",
             "https://www.cookpolitical.com/senate/race/488651"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for Democrats winning federal statewide races in Ohio since 2018 is low, with Trump winning by 11 points in 2024 and Brown losing his seat. Recent October polls show a tight race with a small Brown lead, but Ohio polls have historically overstated Democrats. Cook Political Report's April rating was Lean Republican, and without a later update, the race is competitive but still favors the GOP. These factors suggest a roughly 35% chance for Democrats."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The base rate strongly favors Republicans: Ohio has been a solidly red state since 2016, Trump won by 11 points in 2024, and no Democrat has won a statewide federal race there since Brown's 2018 re-election. The October polls show Brown with a small 4-6 point lead, but these are within or near margins of error, and the BGSU poll called it a dead heat; late polling in Ohio has historically overstated Democrats. The Cook rating of Lean Republican (even after Brown's entry) and the presence of third-party candidates who could split the vote further tilt toward the Republican side, though Brown's name recognition and the polls do give Democrats a non-trivial chance, putting this around 35%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.4,
+          "rationale": ":"
         }
       ],
       "id": "polymarket-631057",
@@ -245,6 +389,24 @@
             "https://www.developersdigest.tech/benchmarks/lmarena",
             "https://arena.ai/leaderboard/text/math-no-style-control?rankBy=labs"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "Without current Math leaderboard data, the base rate is uncertain. Anecdotally, top math labs include Alibaba, Google, Anthropic, and OpenAI, with Alibaba's Qwen often strong in math. Google's Gemini 4 Argon leads the overall text board, but math-specific rankings may differ. Given the competitive field, Google has a moderate chance of being exactly second, but could easily be first or third."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "Google's Gemini 4 Argon (High) is #1 on the overall Text board as of Oct 17 (preliminary), which makes it likely they are also #1 on the Math-specific board, which would make the answer No. However, Math rankings can diverge from overall rankings (Alibaba was #1 on Math in August while not clearly #1 overall), so there's a meaningful chance another lab (Alibaba or Anthropic) edges them out on Math specifically, placing Google at #2. The lack of verified current Math leaderboard data and the preliminary nature of the scores introduce significant uncertainty, but the overall #1 position tilts the probability below 50% for being specifically second."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: Google has historically been a top-3 Math lab but rarely second-best, with Anthropic, OpenAI, and Alibaba frequently occupying the top spots. Evidence: The aggregator shows Google (Gemini 4 Argon) first on the overall Text board as of Oct 17, 2026, with Anthropic's Claude Opus 5.5 third and Meta's Muse Wonder second; if Google is first overall, it likely is also first or near-first on Math, making 'second' less likely. The Math board specifically could differ, but Google's strong overall position suggests it is more likely to be first than second. Uncertainty: The Math-specific lab ranking is unverified, and Alibaba's qwen models have historically been very strong on Math benchmarks, potentially pushing Google to second or lower."
         }
       ],
       "id": "polymarket-3554404",
@@ -273,6 +435,24 @@
             "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
             "https://alaskabeacon.com/2026/06/11/repub/strong-candidates-in-alaska-ohio-seen-as-moving-us-senate-races-toward-dems/"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.59,
+          "rationale": "The Hormuz agreement deadline (Oct 23) has passed with no qualifying announcement, making that condition almost certain (\u224899%). The Senate outcome is the main uncertainty: Democrats need to net 4 seats in a 53-47 chamber, with multiple toss-up races in red states. Forecasters slightly favor Republicans, and the map requires Democrats to win most close races, so I estimate a 60% chance Republicans hold the Senate. Combined, the probability is about 0.59."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The Hormuz component is nearly resolved: the Oct 23 deadline has passed with no qualifying US-Iran agreement announced, and reporting through Oct 25 confirms diplomatic deadlock, giving ~92% confidence in 'no agreement.' The Senate component is the main uncertainty: Democrats need exactly 4 net seats from a 53-47 Republican base, Cook's Oct 15 projection of 2-6 Democratic gains centers right on that threshold, and Trump's low approval is a headwind, but the map still requires Democrats to win most of 6 Republican-held toss-ups. Combining ~92% \u00d7 ~52% yields roughly 48%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.56,
+          "rationale": "The Hormuz condition appears very likely because the deadline has passed with no reported finalized U.S.-Iran agreement accepting the specified terms, although an earlier memorandum could create some ambiguity. Republicans begin with a 53-47 Senate advantage and remain favored by some forecasts, but Democrats need four net gains and recent projections and polling make several Republican-held toss-ups genuinely competitive. The main downside risk is a late shift producing Democratic Senate control, while a confirmed earlier qualifying Hormuz agreement would also reverse the answer."
         }
       ],
       "id": "polymarket-5567008",
@@ -302,6 +482,24 @@
             "https://www.bcb.gov.br/en/pressdetail/2680/nota",
             "https://www.dgabc.com.br/Noticia/4353509/expectativa-para-a-selic-no-fim-de-2026-continua-em-13-25-no-focus-do-bc"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "The last five Copom meetings have delivered consecutive 25 bp cuts, and the latest Focus survey median for end-2026 Selic is 13.25%, implying two more cuts. However, the September statement warned of uncertainty and de-anchored expectations, signaling caution that could lead to a pause."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate is strongly supported by five consecutive 25 bp cuts and the Focus consensus pointing to 13.50% after November, implying a 25 bp cut. However, the September statement's explicit warning about 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and its call for 'serenity and caution' introduces meaningful risk of a pause. The end-2026 Focus median of 13.25% implies cuts in both November and December, but the cautionary tone could lead the committee to hold and cut in December instead. I estimate roughly 65% probability of a 25 bp cut, with the main risk being a pause driven by the de-anchoring concerns flagged in September."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: Copom has cut 25 bp at each of its last five meetings (March\u2013September 2026), establishing a strong pattern. The Focus survey median for end-2026 Selic remains 13.25%, implying roughly 50 bp of additional cuts across the November and December meetings, consistent with two more 25 bp steps. However, the September statement was notably hawkish, warning of 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and calling for 'serenity and caution,' which raises the probability of a pause. A 50 bp cut or hike appears unlikely. The probability could shift higher if the October Focus survey and IPCA-15 confirm disinflation, or lower if the real weakens further or October minutes signal a pause."
         }
       ],
       "id": "polymarket-3347919",
@@ -329,6 +527,24 @@
             "https://politicalwire.com/2026/10/20/three-tight-races-in-alaska/",
             "https://www.newsweek.com/mary-peltola-is-pulling-ahead-in-the-final-stretch-against-dan-sullivan-12592675"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is very low, as no Democrat has won since 2008 and Trump carried the state by double digits in 2024. However, multiple October polls consistently show Peltola with a narrow lead over Sullivan, typically within the margin of error, making the race a toss-up. Given this polling, I adjust slightly toward Peltola but remain cautious due to historical GOP strength and potential polling error, landing at a 55% probability."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The base rate is strongly against Peltola\u2014Alaska hasn't elected a Democrat to the Senate since 2008 and hasn't backed a Democrat for president since 1964. However, multiple independent October polls consistently show her leading by 2-5 points, which is historically unusual for this state, and the national environment (sliding Trump approval, economic concerns) appears favorable to Democrats. The thin margins (within or near MOE) and the strong historical Republican lean keep this from being higher, but the convergence of polling data pointing the same direction in a state that has been reliably red makes a Peltola win more likely than not."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.5,
+          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is low (~15-20%) given the state has elected a Republican senator in every cycle since 2008 and Trump won it by double digits in 2024. However, multiple October polls from different pollsters (Data for Progress, Rasmussen, InsiderAdvantage, Alaska Survey Research, NYT/Siena) consistently show Peltola tied or slightly ahead, which is unusual and suggests genuine competitiveness. The Newsweek report cites a 'blue wave' environment and Trump's declining approval as tailwinds. I land near 50% because the polling consistency is striking but Alaska's structural Republican lean and history of polling errors (e.g., Sullivan's 2020 race) make a Peltola win still a coin-flip; a late move toward Sullivan or confirmation of a Peltola lead of 5+ points would shift this estimate."
         }
       ],
       "id": "polymarket-634976",
@@ -357,6 +573,24 @@
             "https://sophon.at/leaderboards/lmarena-text",
             "https://www.versusapps.com/blog/lmarena-leaderboard-september-2026"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "Google's Gemini 4 Argon (High) leads the leaderboard by ~8 points with style control on (1524 vs. 1516 for Anthropic's Claude Opus 5.5) as of October 20. The gap is small and within overlapping confidence intervals, but historically the #1 spot rarely changes over a 5-day window without a major release. No Anthropic release is expected, and Google would win any tiebreakers. Sampling error or a last-minute model could reverse this, but the low probability reflects the short remaining time and current clear lead."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The most recent data (Oct 20) shows Google's Gemini 4 Argon (High) leading with style control on at 1524, ahead of Anthropic's Claude Opus 5.5 (High) at 1516, an 8-point gap. While this gap is within the 'noise' threshold of 25 points, no new Anthropic model release was found for late October, and the leader has been stable over recent days. The 11-day window to the check time allows for some drift, and the overlapping confidence intervals from earlier snapshots suggest the ranking could flip, but the current trajectory favors Google. I estimate roughly a 20% chance Anthropic overtakes or ties by Oct 31."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The five-day horizon strongly favors the current leader: secondary snapshots from October 20 put Google\u2019s Gemini 4 Argon first at 1524 with style control on, versus 1516 for Anthropic\u2019s best model. Google\u2019s eight-point lead and the lack of a scheduled Anthropic release keep Anthropic\u2019s chance low, although the lead was larger on October 8 and Anthropic previously held first place in August. An unexpected Anthropic release, enough score drift, or a major competing release could change the result, while the lack of a checked primary leaderboard adds uncertainty."
         }
       ],
       "id": "polymarket-3554762",
@@ -385,6 +619,24 @@
             "https://today.lorientlejour.com/article/1550811/katz-threatens-to-strike-beiruts-southern-suburb-and-expand-israeli-occupation-if-hezbollah-and-iran-attack-israel.html",
             "https://www.nbcnews.com/world/lebanon/israel-continues-strikes-beiruts-southern-suburbs-rcna349995"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The last reported Israeli strike on Greater Beirut was on June 14, 2026, over four months ago, and a fragile ceasefire has held since then. Israeli Defence Minister Katz's recent threats are conditional on Hezbollah or Iranian attacks, and no such triggering event has been reported in the final days before the deadline. While a sudden escalation remains possible, the 5-day window and the pattern of rare, retaliation-based strikes suggest a low probability, around 5%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for Beirut strikes during a ceasefire is low: only 2 strikes in ~4 months (June 7 and 14), both triggered by specific Hezbollah rocket fire. The 4-month gap, active US-mediated diplomacy, and absence of any reported escalation in the final days before the deadline strongly favor No. However, Katz's repeated explicit conditional threats (Oct 14 and 21) signal elevated readiness and a lower threshold for action if a triggering event occurs in the remaining 5 days, which pushes the probability modestly above the pure base rate."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: Israel has struck Greater Beirut only twice since the April 2026 ceasefire (June 7 and June 14), both in response to Hezbollah fire, and none since early June\u2014a ~4.5 month gap. The current ceasefire is holding with active US-mediated diplomacy, and Katz's threats are conditional on Hezbollah/Iran attacks. However, heightened rhetoric and the risk of an Iran-related escalation in the remaining 5 days keep the probability non-trivial. A Hezbollah rocket attack on northern Israel or a major Iran escalation would sharply raise the odds."
         }
       ],
       "id": "polymarket-4119722",
@@ -414,6 +666,24 @@
             "https://www.fool.com/research/largest-companies-by-market-cap/",
             "https://www.google.com/finance/quote/MSFT:NASDAQ"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "As of October 25, 2026, companiesmarketcap.com ranks Microsoft 3rd with a market cap of $3.895T, just ahead of Alphabet. However, earlier October sources had Alphabet 3rd, and both companies have earnings reports just before the October 31 reference date, which could easily shift the ranking given the narrow gap. The most recent data slightly favors Microsoft, but the earnings uncertainty keeps the probability moderate."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.58,
+          "rationale": "CompaniesMarketCap, the most current source, explicitly ranks Microsoft 3rd at $3.894T, but the gap with Alphabet (~$3.90T) is under 1%, making the ranking essentially a coin flip. Microsoft's Oct 28 earnings (which haven't occurred yet as of today, Oct 26) could move the stock 5-10% in either direction, potentially reversing the ranking. The FinanceCharts screener from Oct 22 had Microsoft outside the top three, and the Motley Fool from Oct 2 had it 4th, showing the ranking has been unstable. The most current explicit ranking says 3rd, but the extreme proximity and pending earnings make this close to a coin flip with a slight edge to Yes."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "The evidence is mixed and conflicting. Companiesmarketcap.com currently ranks Microsoft 3rd at $3.894T, but Motley Fool (Oct 2) and financecharts.com (Oct 22) both show Alphabet ahead of Microsoft, with Alphabet at ~$4.20T and Microsoft at ~$3.9T. The gap between Microsoft and Alphabet is small (well under 1%), and both report earnings the week of Oct 27-28, which could easily flip the ranking. Given the conflicting sources and the earnings volatility risk, I estimate roughly 45% probability that Microsoft ends up third at the Oct 30/31 close."
         }
       ],
       "id": "polymarket-5166967",
@@ -442,6 +712,24 @@
             "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
             "https://www.aljazeera.com/news/2026/8/5/iran-oman-us-close-to-hormuz-deal-what-do-they-all-want"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.9,
+          "rationale": "Historically, US-Iran Hormuz arrangements occurred about twice in 30 weeks (~7% per week), but current conditions are less favorable: the US rejected Iran's late-September proposal, set new demands, and fundamental disagreements on sequencing persist. The August near-deal collapsed, and October saw increased attacks. While Pakistani mediation and White House comments leave some chance, the short time frame and conflicting signals make an agreement unlikely. A joint announcement or Pakistani statement of mutual acceptance would be needed to change the outcome."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "The base rate from the conflict pattern is roughly 2 actual Hormuz agreements in ~30 weeks, but most 'close to deal' reports (like August's) produced nothing, suggesting a low per-week probability of a new deal (~7%). The specific evidence strongly supports 'No Agreement': as of Oct 25, talks are deadlocked on sequencing, Iran is sending conflicting signals, Trump is threatening strikes, and October has seen the most shipping attacks since March. With only 7 days remaining and no indication of a breakthrough, the probability of no qualifying agreement by Nov 2 is high. A sudden joint announcement or a Pakistani-mediated breakthrough could flip this, but the current trajectory points toward no deal."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "The base rate from the brief suggests roughly 7% weekly probability of a deal announcement, but with only ~7 days remaining until the deadline, the cumulative probability is modest. However, the evidence shows active negotiations through Pakistani and Russian mediators, with Iran's conditional offer to reopen the strait if the US lifts its blockade, and the sides disagree on sequencing. The August 'close to deal' report produced nothing, and October has seen the most shipping attacks since March, with Trump raising the prospect of strikes. Given the short time window, fundamental disagreements on sequencing, and recent escalation, I estimate a relatively high probability of no agreement being announced by November 2."
         }
       ],
       "id": "polymarket-5572739",
@@ -470,6 +758,24 @@
             "https://www.datalearner.com/en/leaderboards/external/text-generation-math",
             "https://www.swfte.com/lmarena"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "Among major AI labs, the base rate for any single company holding the #1 Math spot at a given moment is roughly 20-25%. The limited evidence shows Alibaba led in August and was third in March, suggesting they are strong competitors, while Anthropic's Claude Opus 5.5 was a close second overall on October 20, indicating it remains highly competitive. Without current Math-specific leaderboard data, Anthropic's chance is plausible but not dominant."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "The Math leaderboard top spot has rotated among Anthropic, OpenAI, and Alibaba during 2026, with Alibaba's qwen3.8-max leading as of August 2026. The most recent overall text data (Oct 20) shows Google #1 and Anthropic #2, but that's not the Math-specific board. Anthropic is a strong contender given their proximity on the overall board, but the Math-specific evidence points more toward Alibaba or Google holding the top spot, making a ~30% probability reasonable."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.27,
+          "rationale": "A reasonable base rate is roughly 20\u201330% for any one frontier lab to lead a specialist Arena category; Anthropic is competitive but not the default favorite. Claude Opus 5.5 was reportedly only about eight points behind Google on the overall text board, and Anthropic apparently contended for the Math lead during 2026, but an unverified August snapshot instead put Alibaba\u2019s qwen3.8-max first. The missing live Math table, possible releases before October 31, and AutoEval exclusions leave substantial uncertainty."
         }
       ],
       "id": "polymarket-3554355",
@@ -498,6 +804,24 @@
             "https://statisticsoftheworld.com/news/2026-09-06",
             "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-1-october-2026"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The most recent IMF PortWatch 7-day average (week to 20 Sep 2026) was 24.7, well below the 30\u201334 range, and earlier August\u2013September readings were similarly around 25. The ongoing Houthi blockade and US-Iran conflict continue to suppress transits, with no clear de-escalation. While Lloyd's List reported a weekly increase in late September, its methodology differs and the gap to PortWatch is unknown, making a rise to 30+ by 31 October unlikely without a major positive shift."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The PortWatch 7-day moving average has been consistently in the 24-26 range through August and September 2026 (24.7 for week to 20 Sep, 25.4 for week to 6 Sep, 25.1 for week to 9 Aug), well below the 30-34 target range. Lloyd's List shows a modest uptick in late September (290 vs 264 weekly transits), but their counts run significantly higher than PortWatch's (41/day vs 24.7/day), so even the uptick likely keeps PortWatch in the mid-20s. The Houthi blockade and ongoing security concerns provide a structural headwind to traffic recovery, making a jump to 30-34 by October 31 unlikely without a major de-escalation event."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "PortWatch\u2019s recent 7-day average was consistently around 24.7\u201325.4, making 30\u201334 a rebound scenario rather than the continuation of the August\u2013September regime. The late-September Lloyd\u2019s List increase is a positive signal, but its counts are not directly comparable to PortWatch, and there is no evidence of de-escalation or an October PortWatch reading near 30. An October PortWatch average above 28 or a clear reduction in attacks would raise the probability materially, while readings remaining near 25 would make Yes unlikely."
         }
       ],
       "id": "polymarket-5166820",
@@ -526,6 +850,24 @@
             "https://indepthnh.org/2026/08/27/ayottes-approval-improves-lead-over-warmington-grows-in-new-hampshire-gubernatorial-race/",
             "https://www.wcax.com/2026/10/07/campaign-countdown-candidates-nh-governor/"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "Incumbent Republican Gov. Kelly Ayotte has led in every poll by 5-10 points, with the most recent (August 2026) showing 49% to 39%. Her approval is net positive (49-42). The base rate for incumbent governors winning re-election is high (~80-90%), and New Hampshire has elected Republicans in most recent gubernatorial races despite voting Democratic for president. The midterm environment under a Republican president may help Democrats modestly, but without evidence of a late surge or a closer race, a Democratic win is unlikely."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "Base rate for incumbent gubernatorial re-election is roughly 80-90%, giving Democrats a starting point around 10-20%. The consistent UNH polling showing Ayotte leading by 9-10 points (and the lead growing through the year from 4-5 to 9-10) strongly supports the incumbent, though New Hampshire's Democratic lean (Harris 2024, all-Dem congressional delegation) and a Republican-president midterm provide a modest tailwind for Warmington. A late-breaking Democratic wave or a significant drop in Ayotte's approval in the final weeks could close the gap, but the evidence points to a comfortable Republican hold."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: incumbent governors win re-election roughly 80-90% of the time, and Democrats have only won the NH governorship twice in the last ~11 elections. Evidence: Every UNH Granite State Poll this year shows Ayotte leading by 8-10 points (49-39 in August, with improving approval), and an early-October poll also showed a nine-point lead. Warmington is less known and the race is in a state with a Republican trifecta despite voting Democratic federally. A modest national tailwind for Democrats in a midterm under a Republican president could narrow the margin but is unlikely to overcome a double-digit deficit with less than two weeks to go."
         }
       ],
       "id": "manifold-pZpEqPAq5U",
@@ -554,6 +896,24 @@
             "https://www.inc.com/amaya-nichole/daves-hot-chicken-meta-muse-app-store/91420381",
             "https://cryptobriefing.com/meta-muse-app-store-retention/"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "Base rate for an app holding #1 on the iPhone free chart at a specific future time is moderate, around 30%. Muse has just regained #1, which indicates current momentum, but it already lost #1 once to a promo-driven app and its open rates/retention are weak. A rival giveaway, new viral app, or Halloween-related download spike could displace it by the Nov 1 10am PT check."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.45,
+          "rationale": "Base rate for a free app holding #1 for 6+ days is moderate (roughly 50-60% for established apps, lower for viral launches). Muse is currently #1 as of today and held the spot for ~3 weeks during its initial launch surge, which is favorable. However, retention is weak (700K DAU vs 5M downloads), the launch hype has faded, and the Dave's Hot Chicken precedent shows a single giveaway can displace it within days. The 6-day window to Nov 1 is within the range it held before, but without knowing what drove the re-climb to #1, and with Halloween/early-November promotions as potential disruptors, I'd place this slightly below 50%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate for a #1 free app holding its position for 6+ days is moderate, but Muse has already demonstrated vulnerability: it lost #1 to Dave's Hot Chicken's promotional giveaway after roughly three weeks, and retention metrics (5M downloads vs ~700K DAU, open rates well below ChatGPT/Instagram) suggest weak staying power. The question text implies Muse has just reclaimed #1, which provides some near-term momentum, but Halloween (Oct 31) and any rival giveaways or viral launches could easily displace it again before the Nov 1 check. A Meta promotion or sustained re-engagement campaign would raise this; a new viral app or competitor giveaway would lower it."
         }
       ],
       "id": "manifold-QlhzLRNdsL",
@@ -582,6 +942,18 @@
             "https://www.newsweek.com/ashley-moody-sounds-alarm-as-second-poll-shows-dead-heat-with-angie-nixon-12465288",
             "https://en.wikipedia.org/wiki/2026_United_States_Senate_special_election_in_Florida"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.28,
+          "rationale": "Base rate: Democrats lost Miami-Dade in 2022 and 2024 after winning it in prior cycles, reflecting a rightward shift, especially among Hispanic voters. No Miami-Dade-specific poll exists, but the Mason-Dixon statewide poll (Moody +10) and its Southeast Florida sub-region lead for Nixon (+6) suggest the county is competitive but likely leaning Moody given the region includes more Democratic Broward. Conflicting polls (one tie, one +10 Moody) create uncertainty, but the overall trend and Moody\u2019s incumbency make her the favorite statewide; Nixon would need a very close statewide race or a specific local reversal to carry the county. A 28% chance reflects a plausible but not likely outcome."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.25,
+          "rationale": "The base rate favors Moody: Republicans won Miami-Dade in both 2022 and 2024, and the most recent poll (Mason-Dixon, Oct 6) shows Moody leading statewide by 10 points, which would almost certainly carry Miami-Dade. The key swing factor is Hispanic voters, who favor Moody 47-40 in the Mason-Dixon poll, and the county's leftward tilt has been narrowing sharply. Even in the dead-heat scenario from the St. Pete Polls, the 2024 precedent (Trump won statewide by ~3 and Miami-Dade by ~11) suggests the county can go Republican even in close races. A Nixon win in Miami-Dade would require either a statewide Democratic victory or a very narrow Moody win combined with a significant Democratic turnout surge in the county."
         }
       ],
       "id": "manifold-QC80ENZPh5",
@@ -609,6 +981,24 @@
             "https://www.wcax.com/2026/10/12/chuck-schumer-has-broad-support-his-caucus-midterms-could-decide-his-future-leader/",
             "https://abcnews.com/amp/US/wireStory/chuck-schumer-broad-support-caucus-midterms-decide-future-137189528"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate for a sitting Senate party leader being re-elected when their party wins a majority is near 100%, with no historical case of a leader being dropped. Schumer has broad caucus support and no challenger as of mid-October 2026, and insiders say another term is 'nearly assured' if Democrats win the majority. A few nominees oppose him, but they are too few to block him unless a major rebellion emerges, which is unlikely given the secret ballot and the credit he would get for the win."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.85,
+          "rationale": "The base rate is very strong: no sitting Senate party leader has been dropped in a leadership vote right after winning a majority, and the evidence shows Schumer has broad caucus support with no formal challenger as of Oct 12. The main risks are that several Democratic candidates (Stratton, El-Sayed, Flanagan, Jackson) have publicly opposed him, the 2025 shutdown vote left him vulnerable with the base, and the leadership vote likely occurs the week after Election Day\u2014after the Nov 3 resolution date\u2014creating some timing uncertainty. These factors pull the probability down from near-certain to high confidence."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate: sitting Senate party leaders who win a majority are almost always re-elected as leader (Reid 2006, McConnell 2014, Schumer 2020-21). Evidence: AP reports Schumer has broad caucus support, no challenger has emerged, and if Democrats win a majority another term would be 'nearly assured.' However, several Democratic nominees have publicly refused to back him, the leadership vote occurs after the resolution date, and Schumer is unusually weak for a leader about to win a majority due to the 2025 shutdown backlash. A challenger emerging or a bloc of dissenters could change the answer, but conditional on Democrats winning the Senate, Schumer remaining leader is the most likely outcome."
         }
       ],
       "id": "manifold-9ZLpqZRtyl",
@@ -638,6 +1028,24 @@
             "https://www.wnd.com/2026/10/who-needs-press-secretary-trump-no-hurry-address/",
             "https://en.wikipedia.org/wiki/Anna_Kelly_(spokesperson)"
           ]
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.1,
+          "rationale": "Trump is in 'no rush' to name a replacement and has been acting as his own press secretary, making an appointment by the October 31 resolution date unlikely. If an appointment does occur, Trump's strong historical preference for blonde women (5 of his 6 press secretaries) suggests a high conditional probability, but the short timeline and lack of urgency reduce the overall chance to about 10%."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a blonde woman press secretary is roughly 30-35% based on modern history, but the critical constraint is the 15-day window before the October 31 resolution date. Trump is explicitly in 'no rush' to name a replacement, has been handling press questions himself, and no official appointment has been confirmed as of the evidence date. Even if Anna Kelly (the most-cited candidate) is named, her hair color is unconfirmed. The combination of the short timeframe, stated lack of urgency, and uncertainty about the most likely candidate's appearance makes a Yes resolution unlikely."
+        },
+        {
+          "created_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.15,
+          "rationale": "The base rate of blonde women being named press secretary is moderate given recent history (Sanders, Grisham, McEnany, Leavitt, Perino, Zacharia were all blonde/light-haired), but Trump is in 'no rush' to name a replacement with only 5 days until resolution. The leading candidate Anna Kelly's hair color is unverified, and the position could remain vacant or be filled by a man (Jennings, Cheung, Boyle are named candidates). The short timeframe and lack of urgency significantly lower the probability of a blonde woman being named before Oct 31."
         }
       ],
       "id": "manifold-Iz5sI5n8q9",
