@@ -1,43 +1,1466 @@
 {
-  "cost_usd": {},
-  "downloaded_at": "2026-10-26T09:11:17.334881+00:00",
-  "failed": {
-    "manifold-9ZLpqZRtyl": "skipped: the research model's usage limit was reached earlier in this run",
-    "manifold-Iz5sI5n8q9": "skipped: the research model's usage limit was reached earlier in this run",
-    "manifold-QC80ENZPh5": "skipped: the research model's usage limit was reached earlier in this run",
-    "manifold-QlhzLRNdsL": "skipped: the research model's usage limit was reached earlier in this run",
-    "manifold-pZpEqPAq5U": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-3347919": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-3554355": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-3554404": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-3554471": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-3554762": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-4119722": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-4618741": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5166820": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5166884": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5166967": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5180406": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 2 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
-    "polymarket-5447182": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 2 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
-    "polymarket-5567008": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5572739": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-5786291": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 2 days. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
-    "polymarket-6015145": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-631057": "skipped: the research model's usage limit was reached earlier in this run",
-    "polymarket-634976": "skipped: the research model's usage limit was reached earlier in this run"
+  "cost_usd": {
+    "manifold-9ZLpqZRtyl": 0.1381,
+    "manifold-Iz5sI5n8q9": 0.1955,
+    "manifold-QC80ENZPh5": 0.1317,
+    "manifold-QlhzLRNdsL": 0.1339,
+    "manifold-pZpEqPAq5U": 0.1421,
+    "polymarket-3347919": 0.1462,
+    "polymarket-3554355": 0.1167,
+    "polymarket-3554404": 0.1144,
+    "polymarket-3554471": 0.1508,
+    "polymarket-3554762": 0.123,
+    "polymarket-4119722": 0.1795,
+    "polymarket-4618741": 0.1478,
+    "polymarket-5166820": 0.1359,
+    "polymarket-5166884": 0.1465,
+    "polymarket-5166967": 0.1631,
+    "polymarket-5180406": 0.2325,
+    "polymarket-5447182": 0.2179,
+    "polymarket-5567008": 0.172,
+    "polymarket-5572739": 0.153,
+    "polymarket-5786291": 0.2142,
+    "polymarket-6015145": 0.1224,
+    "polymarket-631057": 0.1386,
+    "polymarket-634976": 0.1202
   },
-  "findings": {},
+  "failed": {},
+  "findings": {
+    "manifold-9ZLpqZRtyl": {
+      "base_rate": "Reference class: sitting Senate party leaders from the party that gains or wins a majority in a midterm.\nAlmost all have been re-elected as leader, and I did not count them for this research.\nReid (2006), McConnell (2014) and Schumer (2020-21) each became majority leader as the existing party leader.\nI did not find a case where a sitting leader was dropped in the leadership election right after winning a majority.\nNote that the question resolves on who is the first Democratic leader after the 2026 elections, and the vote is likely the week after Election Day.",
+      "different_now": "Schumer is unusually weak for a leader who has just won a majority.\nIn 2025 the party base was angry at him over the shutdown/continuing resolution vote, and several nominees have pledged not to back him.\nA majority win would likely strengthen his position, and the sources say no challenger has emerged.\nSome colleagues are pressing him to say this is his last term.\nBecause the vote falls after Nov 3, it is possible the question has no resolution by its date.",
+      "facts": [
+        {
+          "fact": "AP reported on 2026-10-12, after interviews with more than a dozen Democratic senators, that Schumer has regained standing with his caucus.\nSchumer told AP he is running for another term as leader.",
+          "source": 0
+        },
+        {
+          "fact": "AP reported that Senate Democratic insiders expect Schumer, 75, to stay as leader.\nIf Democrats win a majority, another term would be nearly assured, many said.\nThe closed-door leadership vote is likely the week after Election Day.",
+          "source": 0
+        },
+        {
+          "fact": "As of 2026-10-12 no Democrat had stepped up to challenge Schumer, but that could change quickly if the party suffers unexpectedly large losses.",
+          "source": 1
+        },
+        {
+          "fact": "Several Democratic Senate nominees have said they won't back Schumer as leader: Juliana Stratton (IL), Abdul El-Sayed (MI), Peggy Flanagan (MN) and Troy Jackson (ME).\nOthers, such as Adam Hamilton (KS), are noncommittal.",
+          "source": 1
+        },
+        {
+          "fact": "Some colleagues want Schumer to announce that this is his last term as leader and to commit to helping a transition to a successor.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "Whether Democrats win the Senate at all (the question resolves n/a if they don't)",
+        "How many of the nominees who oppose Schumer win, and whether they hold together to block him",
+        "Whether a challenger emerges after the election results",
+        "Whether Schumer announces a transition or a last term",
+        "The exact date of the leadership vote, which could fall after the resolution date"
+      ]
+    },
+    "manifold-Iz5sI5n8q9": {
+      "base_rate": "Modern press secretaries, 1990s to 2026: Dee Dee Myers, Mike McCurry, Joe Lockhart, Ari Fleischer, Scott McClellan, Tony Snow, Dana Perino, Robert Gibbs, Jay Carney, Josh Earnest, Sean Spicer, Sarah Sanders, Stephanie Grisham, Kayleigh McEnany, Jen Psaki, Karine Jean-Pierre, Karoline Leavitt, Zacharia.\nRoughly 6 of these were women who were blonde or dyed blonde at the start (Fleischer is male; Sanders, Grisham, McEnany, Leavitt, Perino and Zacharia appear blonde or light-haired).\nI did not verify hair colour for each person.\nFor the Trump administration alone, the women press secretaries (San",
+      "different_now": "The post has been vacant since 2026-10-16 and Trump says there is no rush.\nThe question resolves 2026-10-31, so it only resolves YES if a blonde woman is named, or takes an acting role, within about 5 days.\nWithout an appointment by then, the outcome is probably NO or unresolved.\nPer the question's updates, acting or interim appointments count.\nThe leading candidate, Anna Kelly, has not been confirmed as blonde.\nI found no source on her hair colour.",
+      "facts": [
+        {
+          "fact": "Trump announced Katie Zacharia as the next press secretary on 2026-10-09, replacing Karoline Leavitt.\nLeavitt left in late August after giving birth.",
+          "source": 0
+        },
+        {
+          "fact": "Zacharia was ousted on 2026-10-16 after about five days in the job.\nThis is reported as the shortest tenure in modern history.",
+          "source": 0
+        },
+        {
+          "fact": "Fox's Peter Doocy reported that Trump is in 'no rush' to name a replacement.\nCabinet-level officials such as Rubio, Vance, Bessent and Oz have been used to field press questions in the meantime.",
+          "source": 4
+        },
+        {
+          "fact": "Anna Kelly, the principal deputy press secretary since February 2026, is the most-cited internal candidate.\nOthers named in earlier reporting include Scott Jennings, Alina Habba, Katie Miller, Steven Cheung and Matthew Boyle.\nMaria Bartiromo reportedly declined.",
+          "source": 3
+        },
+        {
+          "fact": "Wikipedia's press secretary page lists the office as vacant since 2026-10-16.\nAn unverified X post dated 2026-10-22 claimed Kelly was officially named.\nI found no official confirmation.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "Whether any appointment or acting designation is made before 2026-10-31",
+        "Whether the 2026-10-22 X post about Kelly has any basis",
+        "The hair colour of Kelly and of other candidates, and what counts as 'primarily blonde'",
+        "How the question resolves if no one is named by the resolution date",
+        "Whether the fetch failures kept me from verifying the latest news (Oct 22-26).\nQuotes could not be copied from opened pages, so the quote lists are empty."
+      ]
+    },
+    "manifold-QC80ENZPh5": {
+      "base_rate": "Recent Florida statewide races: Democrats carried Miami-Dade in 2018 (Nelson, Gillum), 2020 (Biden by about 7) and 2022 (Val Demings narrowly lost it?\nDeSantis and Rubio won it by double digits in 2022).\nIn 2024 Trump won Miami-Dade by about 11 points and Rick Scott won it narrowly, so the Democratic county win rate was 2 of the last 4 cycles (2018 and 2020), and 0 of 2 in the last two.\nThese are from memory and I could not open sources to verify them.",
+      "different_now": "Democrats lost Miami-Dade in 2022 and 2024, driven by Hispanic shifts toward Republicans.\nMason-Dixon shows Moody up 10 statewide, but Nixon ahead in the Southeast Florida region and trailing among Hispanics by only 7.\nThe St.\nPete poll shows a near tie.\nNixon needs to win a county that her party lost by double digits in the last two cycles.\nThe Southeast Florida region result is a mild push toward Nixon, while the statewide polling lead and the 2022-2024 county trend push against.",
+      "facts": [
+        {
+          "fact": "Mason-Dixon poll for NBC6/Telemundo 51 (released about Oct 6, 2026) had Moody 50%, Nixon 40%, independent Neil Gillespie 2%, 8% undecided, statewide.",
+          "source": 0
+        },
+        {
+          "fact": "The same Mason-Dixon poll reported Southeast Florida (a broader region than Miami-Dade) favoring Nixon 48% to 42%, and Hispanic voters favoring Moody 47% to 40%.\nA county-level crosstab was not found.",
+          "source": 0
+        },
+        {
+          "fact": "St.\nPete Polls (Sept 15-17, 2026, 913 likely voters) had Moody 45.2%, Nixon 44.8%, per Moody's campaign-cited 'dead heat' reporting.",
+          "source": 2
+        },
+        {
+          "fact": "The general election is Nov 3, 2026.\nMoody is the appointed Republican incumbent and Nixon is the Democratic nominee.\nNo Democrat has won statewide in Florida since 2018.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "No Miami-Dade-specific poll was found.",
+        "County results for 2022 and 2024 are from memory and were not verified.",
+        "Polls conflict (tie vs +10 for Moody).",
+        "Early-vote and turnout patterns in Miami-Dade are unknown.",
+        "I could not open any page, so the quotes are empty and the facts rest on search summaries."
+      ]
+    },
+    "manifold-QlhzLRNdsL": {
+      "base_rate": "No formal reference class was found.\nIn general, a #1 free-app position on the US App Store is held for days to a few weeks.\nViral launches usually decay, and promo-driven apps or new launches often displace them.\nMuse held #1 for roughly 3 weeks after its early-September launch and then lost it.\nThe question says it has just regained #1, and the check is a single moment (Nov 1, 10am PST), six days away.",
+      "different_now": "Muse has just retaken #1 (per the question), possibly through a new surge such as a feature, promotion or news event.\nI did not find what caused it.\nIt has already lost the spot once, to a promotion-driven competitor, and has weak retention.\nHalloween and early-November launches, promotions and giveaways by other apps could displace it.\nNov 1 is a Sunday.\nThat pushes toward not holding, though recent momentum pushes toward holding.",
+      "facts": [
+        {
+          "fact": "Meta's Muse AI agent app reached #1 on the US iPhone free chart around Sept 18, 2026, about 10 days after launch, overtaking ChatGPT (per search summary of 9to5Mac/Sensor Tower).",
+          "source": 0
+        },
+        {
+          "fact": "Search summaries say Dave's Hot Chicken, helped by a giveaway that required an app download, displaced Muse at #1 on a Tuesday, ending Muse's streak at the top since launch.\nThe article's date was not confirmed, but the summary placed it about 10 days before Oct 26.",
+          "source": 1
+        },
+        {
+          "fact": "Analysis cited by Crypto Briefing says Muse's open rates are well below ChatGPT's and Instagram's, so retention is weak.",
+          "source": 2
+        },
+        {
+          "fact": "Sensor Tower figures reported by CNBC on Sept 21 showed Muse downloads surging, with over 900K in the first six days according to Bloomberg.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Why Muse is #1 again as of Oct 26, and whether the cause is durable or a one-off",
+        "Current rankings of ChatGPT, Gemini, Threads, Dave's Hot Chicken and any new viral apps",
+        "Whether Meta has scheduled launches, promotions or updates around Nov 1",
+        "The search summaries could not be verified against the full pages, and no live chart data was found",
+        "Which chart (free iPhone, US) the resolver will use and how ties between sources are handled"
+      ]
+    },
+    "manifold-pZpEqPAq5U": {
+      "base_rate": "Incumbent governors seeking re-election win most of the time, roughly 80-90% in recent cycles.\nNew Hampshire has a 2-year gubernatorial term and the incumbent party has often held the seat.\nDemocrats won the governorship only in 2004 and 2012-2016 (Lynch, Hassan) out of the last ~11 elections.\nI did not count these from a source I opened.",
+      "different_now": "Ayotte (R) is an incumbent with improving approval and a high-single-digit to ten-point lead in every UNH poll this year.\nWarmington is less known (43% had no opinion in July).\n2026 is a midterm under a Republican president, which usually helps the out-party, a modest push toward Democrats.\nThe net effect favors Ayotte.",
+      "facts": [
+        {
+          "fact": "UNH Granite State Poll (Aug 20-24, 2026) had incumbent Republican Gov.\nKelly Ayotte ahead of Democrat Cinde Warmington 49% to 39%, 9% undecided; Ayotte approval 49% approve, 42% disapprove.",
+          "source": 0
+        },
+        {
+          "fact": "Earlier UNH polls: July 2026 Ayotte 44%, Warmington 39%; April 2026 Ayotte 47%, Warmington 39%.",
+          "source": 1
+        },
+        {
+          "fact": "A search summary of an early-October poll said Ayotte led Warmington by nine points (sponsor and numbers unverified); the general election is Nov 3, 2026.",
+          "source": 2
+        },
+        {
+          "fact": "Warmington, an Executive Councilor, was the presumptive Democratic nominee ahead of the Sept 8 primary; I did not confirm the primary result.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not open any page, so every quote field is empty and the fact details come from search summaries.",
+        "Final Sept 8 primary result not verified.",
+        "Late-October polls not verified; the early-October poll's details are unknown.",
+        "National midterm environment could narrow the margin.",
+        "Forecaster ratings (Cook, Sabato) not checked."
+      ]
+    },
+    "polymarket-3347919": {
+      "base_rate": "Copom has cut 25 bps at each of its last five meetings (about April-September 2026).\nI did not verify the earlier cycle history.\nThe reference class is a streak of unchanged 25 bps steps within an easing cycle, and the streak has continued each time.",
+      "different_now": "The September statement reportedly warned of rising uncertainty, de-anchored expectations and elevated risks, and called for caution.\nThat raises the chance of a pause.\nAgainst that, the Focus median still implies further cuts by year-end, which supports continued 25 bps steps.\nA 50 bps cut or a hike looks unlikely.",
+      "facts": [
+        {
+          "fact": "The Selic target is 13.75% a year, set on 16 September 2026 (a 25 bps cut from 14.00%, reported as the fifth straight cut).",
+          "source": 0
+        },
+        {
+          "fact": "The next Copom decision is Wednesday 4 November 2026 (meeting 3-4 November).\nThe last 2026 meeting is 8-9 December.",
+          "source": 0
+        },
+        {
+          "fact": "A Focus-based summary says the consensus points to a cut at the November meeting, leaving the rate at 13.50%.",
+          "source": 1
+        },
+        {
+          "fact": "The BCB announced an earlier 25 bps cut to 14.00%, the fourth straight cut.",
+          "source": 2
+        },
+        {
+          "fact": "After the September meeting, the Focus median for the end-2026 Selic was 13.25%.\nThat implies about 50 bps of further cuts across the November and December meetings.\nOne snippet gave 13.50%, so the sources disagree.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not open any primary page, including the BCB statement, so none of this is checked against the official text.",
+        "I did not confirm the September vote split or the exact guidance wording.",
+        "I did not see the latest Focus survey (October) or the October IPCA-15 inflation reading.",
+        "The sources disagree on the Focus year-end median (13.25% vs 13.50%).",
+        "Exchange-rate moves, fiscal news and US rates before 4 November could change the committee's view."
+      ]
+    },
+    "polymarket-3554355": {
+      "base_rate": "I could not establish a base rate.\nThe reference class would be which company held rank 1 on Arena Text Math at each month-end in 2026, and I found no month-by-month data.\nA search snippet implies the top spot rotated between labs (Anthropic, OpenAI, Alibaba) during 2026.",
+      "different_now": "I could not open the live leaderboard.\nThe only recent data point, a snippet from an aggregator, shows an Alibaba model at #1 in early August 2026.\nThat would push against Anthropic.\nRank ties are decided by unrounded score, so the #1 label can go to a model that is statistically tied with others.",
+      "facts": [
+        {
+          "fact": "A search summary of Arena's March 2026 update put Alibaba's Qwen 3.5 Max Preview at #3 in Text Arena Math.\nI could not open the page, so this is from a snippet.",
+          "source": 0
+        },
+        {
+          "fact": "A search summary of the DataLearner aggregator listed qwen3.8-max as the top Math model, with a score of 1517 and a data version dated 2026-08-06.\nI could not open the page, so this is unverified.\nIf correct, an Alibaba model led the Math table in August.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "Which company holds rank 1 on arena.ai Text Math (style control off) as of Oct 26, 2026.",
+        "Whether any new model is due to be released or ranked between now and Oct 31, 2026 (for example from Anthropic, OpenAI, Google, Alibaba or xAI).",
+        "How big the gap is between the top models, and whether ties on rank are broken by score.",
+        "Whether the top entries are marked AutoEval, which would exclude them.",
+        "Whether the aggregator's August data reflects the live Arena ranking."
+      ]
+    },
+    "polymarket-3554404": {
+      "base_rate": "Not established.\nI found no history of Math Lab Rank positions to count.\nAnecdotally, from search summaries, the top two Math labs have been a mix of Anthropic, Google, OpenAI and Alibaba, and the top of the board changes with each new model release.\nLab rank is by best model, so second place depends on which labs have strong frontier models on the board.",
+      "different_now": "Google appears to have just released a new frontier model, Gemini 4 Argon.\nIt was reported #1 overall on 2026-10-17 as a preliminary result.\nIf it is also strong in Math, that pushes Google toward first or second place.\nAnthropic's Claude 5.5 family leads the overall board and likely sits near the top of Math.\nPreliminary scores can shift as votes accumulate, and models marked AutoEval are excluded.",
+      "facts": [
+        {
+          "fact": "A third-party mirror of the Arena Math leaderboard, with data from about 2026-08-06, lists qwen3.8-max (Alibaba) first at 1517.\nThis comes from a search summary and I could not open the page, so it is unverified.",
+          "source": 1
+        },
+        {
+          "fact": "A search summary says a listing dated 2026-10-17 shows Gemini 4 Argon (High) from Google ranked first on the overall Text Arena at 1524, marked preliminary.\nThis is the overall board, not the Math board.\nI could not open the page, so it is unverified.",
+          "source": 2
+        },
+        {
+          "fact": "This is also the overall board and unverified.",
+          "source": 2
+        },
+        {
+          "fact": "I could not open the arena.ai leaderboard page: the fetch failed with 'proxy refused the connection'.\nI have no verified current Math Lab Rank table.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "The actual Math Lab Rank table as of 2026-10-26 is unknown: which labs hold first and second, and the score gaps.",
+        "Whether Gemini 4 Argon is listed on the Math board and whether it is preliminary or marked AutoEval.",
+        "Whether Alibaba (qwen), OpenAI, Anthropic or SpaceXAI is ahead of Google in Math.",
+        "New model releases before 2026-10-31 12:00 ET could reorder the labs.",
+        "The Arena Math board may use a different default view than the style-control-off view named in the resolution rules."
+      ]
+    },
+    "polymarket-3554471": {
+      "base_rate": "Reference class: which Chinese lab held the top Chinese slot on the Arena text leaderboard at past monthly checks in 2025-26.\nThe lead has rotated among Alibaba (Qwen3-max-preview, 6th in 2025), Baidu (ERNIE 5.0 in Jan 2026, 5.1-Preview in Apr 2026), Moonshot (Kimi K3 in Jul 2026) and possibly Xiaomi, DeepSeek and Z.ai.\nI could not count the exact months.\nAlibaba appears to have held the slot only occasionally, so no single lab has a stable majority.",
+      "different_now": "Late-October 2026 evidence suggests Xiaomi MiMo, Moonshot Kimi K3 and DeepSeek V4 Pro contend for the top Chinese slot, with Qwen 3.7/3.8 Max close behind or near them.\nI could not open the live leaderboard, so no current ranks are confirmed.\nIf Alibaba were leading, I would expect to have seen reports of it.\nThe evidence available leans against Alibaba, but weakly.",
+      "facts": [
+        {
+          "fact": "Search summaries (not opened pages) say a July 2026 tracker had Moonshot's Kimi K3 as the highest Chinese model on the Arena text board, provisionally top five, with US closed models holding the top four.",
+          "source": 1
+        },
+        {
+          "fact": "Search summaries say BenchLM's 2026-10 snapshot lists Xiaomi MiMo-V2.6-Pro at 1491 as the highest-rated openly licensed model, 35 points behind the top model.\nThe sources conflict on this, and BenchLM is not the Arena resolution table.",
+          "source": 0
+        },
+        {
+          "fact": "Search summaries say DeepSeek V4 Pro and Alibaba's Qwen 3.7 Max score within roughly 50 Elo of Kimi K3.\nA separate October guide reportedly has Qwen3.8-Max second in the vision arena, which is not the text arena.",
+          "source": 1
+        },
+        {
+          "fact": "Baidu announced ERNIE-5.1-Preview as the No.1 Chinese model on the LMArena text leaderboard (blog URL dated 0430, so about April 30 2026), and an earlier ERNIE-5.0 post made the same claim in January 2026.\nBaidu has held the top Chinese slot at various points.",
+          "source": 2
+        },
+        {
+          "fact": "The resolution market page lists Xiaomi as the favourite, per the search summary.\nI did not use this as evidence.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "The actual current Arena text (no style control) ranks and scores of every Chinese model are unverified, since arena.ai was unreachable.",
+        "Whether Alibaba has released or will release a new Qwen model (for example Qwen3.8-Max) that lands on the text board before Oct 31.",
+        "Which models are marked AutoEval or are preliminary, and so would be excluded.",
+        "Close ties on rank, which would be settled by unrounded score.",
+        "The aggregator sources are low-quality and inconsistent, and I did not open any page, so every quote list is empty."
+      ]
+    },
+    "polymarket-3554762": {
+      "base_rate": "I could not count this from primary data.\nThe reports I found indicate that the #1 spot on the LMArena text leaderboard changed hands between Anthropic (August 2026) and Google (October 2026).\nThat suggests the top spot has moved only between those labs over the past few months.\nAcross a 5-day window, the leader has usually stayed the same unless a major new model was released.",
+      "different_now": "Google's Gemini 4 Argon (High) reportedly leads Anthropic's best model (Opus 5.5) by about 8 points in a 20 Oct snapshot.\nThat is within the confidence intervals, which are about \u00b18\u20139, but still a lead.\nAnthropic would need a new release, or a score shift, to retake first place by Oct 31.\nThe market's rank and tie rules mean that overlapping intervals could produce a shared rank 1.\nIn that case, the unrounded score would decide the order, and Google would also win any exact tie alphabetically.\nI found no evidence of an Anthropic release scheduled for the last week of October.",
+      "facts": [
+        {
+          "fact": "A search summary of a page updated 2026-10-20 puts Google's Gemini 4 Argon (High) first on the LMArena text leaderboard, at 1532 with style control off and 1524 with it on.\nThe same summary lists Claude Opus 5.5 (High) second at 1516 and Claude Fable 5.1 (Max) third at 1512.\nThis is a secondary aggregator that I could not open, and I could not tell whether the 1516 and 1512 figures are style-control on or off.",
+          "source": 0
+        },
+        {
+          "fact": "The Sophon listing was reported to show the same top score of 1532 for Gemini 4 Argon.\nI could not open the page to confirm.",
+          "source": 1
+        },
+        {
+          "fact": "An earlier October snapshot (reported as 2026-10-08) was reported to have gemini-4-argon-high at 1525 (\u00b19) and claude-opus-5.5-high at 1507 (\u00b18).\nThe confidence intervals overlap, and I could not open the page to confirm.",
+          "source": 2
+        },
+        {
+          "fact": "In August 2026, Claude Fable 5 was reported to be first at about 1525.\nGoogle has since taken the lead.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "I could not open arena.ai or any leaderboard page directly because of proxy errors.\nAll scores come from search summaries.",
+        "It is unclear whether the 1516 and 1512 scores for the Anthropic models are on the style-control-on view, which the market uses.",
+        "A new Anthropic, Google, OpenAI or xAI model could be released and rated before Oct 31.",
+        "Rank could be shared between models because of overlapping confidence intervals.\nThe market resolves ties by unrounded score and then alphabetically.",
+        "Models marked AutoEval are excluded, and the leaderboard could be unavailable at the check time."
+      ]
+    },
+    "polymarket-4119722": {
+      "base_rate": "Since the April 17, 2026 ceasefire, Israel has struck Beirut only a few times: June 7 and June 14.\nL'Orient reported none from early June to Oct 14, so roughly 4 months with no Beirut strike.\nBefore that, Israel struck Dahiyeh in March and April 2025 after the Nov 2024 ceasefire, and only occasionally after that.\nBeirut strikes during truces are rare and tend to follow Hezbollah fire at Israel.\nDaily strikes in south Lebanon do not count for this question.",
+      "different_now": "Katz's repeated threats on Oct 14 and Oct 21 are conditional on Hezbollah or Iran firing at Israel.\nThey signal heightened tension and a possible Iran flare-up, which pushes toward Yes.\nAgainst that, Israel has avoided Beirut for about 4.5 months, and the US and Lebanon are engaged in diplomacy, which pushes toward No.\nI found no reporting of Beirut strikes after Oct 21.",
+      "facts": [
+        {
+          "fact": "Israel struck Beirut's southern suburbs (Ghobeiry, Dahiyeh) on June 7, 2026 and June 14, 2026; the June 14 strike killed 3 and followed Hezbollah rocket fire into northern Israel.\nThese are the most recent Beirut strikes I found.",
+          "source": 2
+        },
+        {
+          "fact": "On Oct 14, 2026, L'Orient-Le Jour reported that Israel has not struck Beirut since early June, after a fragile ceasefire and international pressure.\nThis comes from a search summary, not a page I opened.",
+          "source": 1
+        },
+        {
+          "fact": "On Oct 21, 2026, Defence Minister Katz said any rocket or drone fire at Israel would bring strikes on the southern suburbs.\nHe also said Israel could expand its occupation toward Nabatieh and the Litani if Hezbollah joins an Iranian attack.\nThis also comes from a search summary.",
+          "source": 0
+        },
+        {
+          "fact": "On Aug 16, 2026, Israeli strikes in south Lebanon killed 11, the deadliest since the June truce.\nStrikes in the south continued into September despite the truce.\nIsrael and Lebanon have held direct talks (seven rounds by August).",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not open any page, so no quotes are verified.\nAll facts come from search summaries.",
+        "I found no reporting from Oct 22-26.\nAny new Hezbollah or Iran escalation, or an Israeli targeted assassination in Dahiyeh, is unknown.",
+        "Whether the Iran-US/Israel tension Katz refers to is escalating this week.",
+        "Whether a strike location would fall inside the Greater Beirut definition, and whether sources would agree on it."
+      ]
+    },
+    "polymarket-4618741": {
+      "base_rate": "Houthi seizures of ships have been rare.\nThe Galaxy Leader (Nov 2023) is the one well-known case, and it was not a tanker.\nAcross roughly 3 years of Houthi maritime campaigns (2023-2026), I know of 1 clear Houthi ship seizure and none of an oil tanker.\nTheir method is overwhelmingly missile, drone and boat attacks, which do not count for this question.\nA seizure within any given 5-day window is therefore a very low-frequency event.",
+      "different_now": "A new Houthi blockade has been in force since 22 July 2026 amid a US-Iran war, with attacks on Saudi tankers and lethal strikes in August.\nThat raises general risk to tankers.\nEven so, the reported pattern remains strikes rather than boarding and seizure.\nThe one tanker seizure near Yemen (August) was attributed to Somali pirates.\nI found no October reporting showing continued Houthi activity, so the current tempo is unclear.",
+      "facts": [
+        {
+          "fact": "The Houthis seized the cargo ship Galaxy Leader in the southern Red Sea on 19 Nov 2023.\nIt was a car carrier, not a tanker.",
+          "source": 4
+        },
+        {
+          "fact": "The Houthis announced a Red Sea blockade on 22 July 2026 and claimed missile and drone attacks on Saudi tankers (Encelia, Layla, Wafa) in late July.\nThese were strikes, not seizures.",
+          "source": 3
+        },
+        {
+          "fact": "On 12 Aug 2026 CNBC reported a Houthi attack that killed six on a cargo ship in Bab el-Mandeb.\nThe report called these the first fatalities from Red Sea shipping attacks in over a year, in the context of a US-Iran war.",
+          "source": 1
+        },
+        {
+          "fact": "On about 20 Aug 2026 armed men seized the tanker Seamull (SIBU 1) off Yemen and diverted it toward Somalia.\nThe reporting framed this as Somali piracy, not Houthi action.",
+          "source": 0
+        },
+        {
+          "fact": "I found no reports dated October 2026 of any Houthi seizure.\nMy searches returned nothing from the past week on Houthi ship incidents.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "Current October 2026 tempo of Houthi attacks and whether the blockade is still active",
+        "Whether a ceasefire or de-escalation has occurred since August",
+        "Attribution risk: a seizure near Yemen could be by Somali pirates or Iran-linked actors rather than the Houthis",
+        "Whether any Houthi detention of a vessel (e.g., rerouting to Hodeidah or Ras Isa) has occurred without being found in my searches",
+        "I did not open the pages in full, so the quotes are empty and details come from search summaries"
+      ]
+    },
+    "polymarket-5166820": {
+      "base_rate": "The PortWatch 7-day average sat around 24\u201326 in August and September 2026, with a reported low of 23.71 on 6 Aug.\nThe 90-day mean to 20 Sep was 30.8.\nI found no counted frequency of values in the 30\u201334 range.\nFrom the figures above, recent weeks fall mostly below 30.",
+      "different_now": "The latest weekly values I found (about 25) are below the 30\u201334 band.\nLloyd's List shows a rise in late September, which could push PortWatch up, but the two measures differ.\nOne unverified forum comment says Houthi forces took the port of Mokha and were moving toward the strait.\nIf true, that would depress transits.\nI found no October PortWatch figures.",
+      "facts": [
+        {
+          "fact": "The IMF PortWatch 7-day average of daily transit calls through Bab El Mandeb was 24.7 for the week to 20 Sep 2026, against 30.8 over the prior 90 days (search-result summary; I could not open the page).",
+          "source": 0
+        },
+        {
+          "fact": "The PortWatch 7-day average was about 25.4 for the week to 6 Sep 2026 and about 25.1 for the week to 9 Aug 2026 (search-result summary).",
+          "source": 1
+        },
+        {
+          "fact": "Lloyd's List counted 290 preliminary Bab el-Mandeb transits for 21\u201327 Sep 2026, up from 264 the week before.\nThat is roughly 41 and 38 a day.\nIt uses a different AIS monitor, so it is not comparable to PortWatch.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "I could not open the PortWatch page, so I have no October 2026 values.",
+        "The size of the gap between Lloyd's List counts and PortWatch counts is unknown.",
+        "Whether the late-September rise in traffic carried into October is unknown.",
+        "The Houthi and Mokha escalation claim is unconfirmed.",
+        "PortWatch data is revised and published with a lag, and it can have gaps."
+      ]
+    },
+    "polymarket-5166884": {
+      "base_rate": "No fixed reference class applies.\nThe rate moved from about 190k toman in August to about 272k by Oct 22, a rise of roughly 43% in two months, with higher records set repeatedly.\nOver that period the rial has mostly kept weakening, with occasional pullbacks, for example from 191k in July to 153k in June and back, and a central-bank dollar sale in October.\nA move of 2.8M rials needs about +2.8% from the 2.723M quote of Oct 22, over about 9 days.\nDaily moves of 0.2-1% have been typical.\nI could not compute a count of past 9-day windows with a rise of 3% or more.",
+      "different_now": "The rial has been in a persistent depreciation trend with record lows, and the rate sits about 3% below the 2.8M threshold.\nCentral bank intervention, such as the announced $2B in dollar sales, could push the rate back.\nRising geopolitical or economic stress, the post-war situation and talks with Washington could push it higher.\nBonbast's figure may differ from other trackers by tens of thousands of rials, which matters near the threshold.",
+      "facts": [
+        {
+          "fact": "Pashizi listed the Tehran free-market USD at 2,723,000 IRR (about 272,300 toman) on Oct 22, 2026, up 0.85% that day.\nIts weekly high of 2,730,000 was also set that day.\nI read this in a search summary only, because the page would not open.",
+          "source": 0
+        },
+        {
+          "fact": "The artesh.com tracker's title quoted 2,613,700 rials on the open market.\nThe date is unknown and may be earlier than Oct 22.",
+          "source": 1
+        },
+        {
+          "fact": "In early October the rial hit a record low near 2.69M per dollar, even though the central bank governor pledged to sell $2B.\nTrackers such as Bonbast and Alanchand gave slightly different figures.",
+          "source": 2
+        },
+        {
+          "fact": "On Aug 20, 2026 the free-market dollar was near 189,700 toman, up about 0.21% that day.\nIt had been about 153,000 toman in June and passed 191,000 in July.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not open Bonbast, so I have no direct Bonbast figure for Oct 24-26.",
+        "Tracker quotes differ: 2.61M on one site and 2.72M on another.",
+        "The central bank's intervention or a political or diplomatic event could cause a sharp move either way.",
+        "It is unclear whether Bonbast's Oct 31 value is the sell or buy rate, or what 'finalized' means for the daily figure.",
+        "Oct 31 falls on a Saturday, a normal Iranian working day, but Friday market closures could affect the data."
+      ]
+    },
+    "polymarket-5166967": {
+      "base_rate": "No clean reference class.\nRank changes among the top five usually take weeks.\nA large earnings move of \u00b15-10% (Microsoft fell about 10% after one past report, wiping out $357B) can close or widen a gap of this size within days.",
+      "different_now": "Microsoft earnings (Oct 28) and Alphabet earnings (reported the same week) fall just before the Oct 31 close, so a gap of roughly 5-7% to Alphabet could change.\nOne source lists Microsoft as 3rd, but the better-dated sources suggest Nvidia, Apple and Alphabet are ahead of it, which points against Microsoft being 3rd.\nApple and Nvidia are near each other at about $5T, and Amazon's cap is unclear.",
+      "facts": [
+        {
+          "fact": "A companiesmarketcap listing put Microsoft's market cap at about $3.894T in October 2026 and ranked it 3rd (search snippet; page not opened, and the ranking conflicts with other sources).",
+          "source": 0
+        },
+        {
+          "fact": "A screener updated 2026-10-22 listed Nvidia at about $5.109T, followed by Apple and Alphabet (snippet only).\nMicrosoft is not named in the top three in that listing.",
+          "source": 1
+        },
+        {
+          "fact": "A Motley Fool list as of 2026-10-02 had Nvidia at $5.65T, Apple at $4.87T and Alphabet at $4.20T (snippet only).\nIf Microsoft was at about $3.9T, it ranked fourth.",
+          "source": 2
+        },
+        {
+          "fact": "Google Finance showed MSFT at about $524.51 at Friday's close (Oct 23) and listed the Oct 28, 2026 earnings date (snippet only).",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Sources disagree on whether Microsoft or Alphabet is 3rd; none of the figures were verified on opened pages.",
+        "Microsoft's Oct 28 earnings reaction.",
+        "Alphabet's earnings reaction and how Amazon and Broadcom move.",
+        "Which source counts as the 'consensus of credible reporting' for the resolution, and whether it uses the Oct 30 or Oct 31 close, since Oct 31 is a Saturday."
+      ]
+    },
+    "polymarket-5180406": {
+      "base_rate": "The top three (Nvidia, Apple, Alphabet) have swapped ranks several times in 2026: Alphabet passed Apple in January, and Apple passed Nvidia in July and again in late October.\nA rank held for a few days has often held through the next few trading days, but Apple and Nvidia have been near-tied at the top.\nI did not count week-by-week ranks, so this is qualitative only.",
+      "different_now": "Apple is reportedly at the top or tied for first with Nvidia (about $5.07T), and well ahead of Alphabet (about $3.9T).\nThe question is therefore whether Apple will be second, which means Nvidia must be ahead of it on Oct 31.\nIf Apple stays first, the answer is no.\nIf Nvidia retakes first and Apple stays ahead of Alphabet, Apple is second.\nAlphabet would need a gap of about $1T to close, which is unlikely.\nApple's earnings (Oct 29 or Nov 2, unconfirmed) and Alphabet's earnings this week could move caps before Oct 31.",
+      "facts": [
+        {
+          "fact": "Alphabet passed Apple on Jan 7, 2026 to become second-largest behind Nvidia ($3.89T vs $3.85T), the first time since 2019.",
+          "source": 1
+        },
+        {
+          "fact": "In mid-July 2026 Apple briefly passed Nvidia as the most valuable company (about $4.88T vs $4.86T) and the lead swapped several times; reports at the end of July put Apple at about $4.94T and Nvidia at about $4.83T.\nSearch summaries of these pages; I could not open the pages themselves.",
+          "source": 0
+        },
+        {
+          "fact": "A search summary of late-October aggregator data puts Apple at about $5.07T (stock about $347.73 at the Oct 23 close) and Alphabet at about $3.90T (down about 22% from its year-high).\nApple reportedly overtook Nvidia at roughly $5.11T intraday.\nNvidia's current cap was not found.",
+          "source": 2
+        },
+        {
+          "fact": "A Sept 7, 2026 table lists Nvidia $5.59T, Apple $4.75T, Alphabet $4.09T and Microsoft $3.71T; the same page's Amazon figure looks wrong, per the search summary.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Nvidia's current market cap and whether Apple or Nvidia is first as of Oct 26",
+        "Apple's earnings date (Oct 29 vs Nov 2) and the market reaction",
+        "Different outlets report different caps, and the resolution is a consensus of credible reporting",
+        "Figures come from search summaries of aggregator pages; I could not open them (proxy refused)",
+        "Microsoft and Amazon figures are inconsistent across sources"
+      ]
+    },
+    "polymarket-5447182": {
+      "base_rate": "Reference class: the 2026 US-Iran ceasefire period.\nIn roughly 6.5 months after the April 8 ceasefire (about 28 weeks), US strikes on Iran are reported in at least three episodes: early/mid June, June 28 and July 30.\nThat is about 3 episodes in 28 weeks, or roughly 10% per week.\nGiven that, the chance of at least one strike in any given 8-day window is about 10-20%.\nAll were clustered in June-July.\nBy my read of the sources, August to late October looks quiet on US strikes, though I did not verify this.\nThe quiet stretch of about 12 weeks suggests a lower recent rate.\nSome of the earlier episo",
+      "different_now": "Pushes toward Yes (strike occurs): Trump rejected the ceasefire proposal.\nWSJ reports he expects to resume bombing after the midterms.\nThe talks are stalled, the blockade continues and Hormuz stays closed.\nPushes toward No: the reported timing is after Nov 3, so the stated plan falls outside the window.\nOfficials say he is reluctant to resume major combat.\nIndirect talks via Pakistan and Qatar continue.\nThere seem to have been no US strikes on Iranian territory for months.\nOnly about 8 days remain (Oct 26 to Nov 3).",
+      "facts": [
+        {
+          "fact": "WSJ (via Times of Israel, about Sept 26, 2026) reported that Trump rejected Iran's seven-day ceasefire proposal and told aides he expects to resume bombing Iran after the November midterms.\nOfficials said he is reluctant to resume major combat and could change his mind.",
+          "source": 0
+        },
+        {
+          "fact": "Search summaries of CBS reporting around Oct 21 say Araghchi told reporters that indirect US-Iran talks via Pakistan and Qatar continue, and that the US wants to add clauses to Iran's proposal.\nTrump says he has offered Iran nothing.\nThe Strait of Hormuz is still effectively closed and a US naval blockade of Iranian ports continues.\nI could not open the page to verify this.",
+          "source": 1
+        },
+        {
+          "fact": "Al Jazeera on Oct 15 framed the situation as a US-Iran stalemate with Trump weighing military options.\nI could not open the page.",
+          "source": 2
+        },
+        {
+          "fact": "France 24 reported on Oct 4 that Iran said there is no military solution and that peace talks with the US had stalled.",
+          "source": 3
+        },
+        {
+          "fact": "The 2026 timeline from search summaries: the war began Feb 28 with US and Israeli strikes.\nA ceasefire was agreed on April 8.\nUS strikes in June led Iran to call the ceasefire 'virtually meaningless'.\nA June 17 memorandum collapsed.\nThe US and Iran traded strikes on June 28 and the US struck the IRGC on July 30.\nI found no confirmed US strikes on Iranian territory since the late-July episode, but I did not search for this specifically.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "Whether any US strikes on Iranian territory occurred in Aug-Oct 2026.\nI did not confirm this.",
+        "Whether 'after the midterms' means after Nov 3 or could include a pre-election strike.",
+        "Whether a limited retaliatory strike, for example after Iranian attacks on ships, could occur, and whether it would be on Iranian land rather than at sea or in airspace.",
+        "Whether the indirect talks produce a short ceasefire deal or collapse.",
+        "I could not open the key pages, so the quotes are empty and the details come from search summaries."
+      ]
+    },
+    "polymarket-5567008": {
+      "base_rate": "Not tightly applicable.\nSince the 2026 Iran war began, the US and Iran have announced interim ceasefires or MOUs a few times (e.g.\nJune 17 ceasefire).\nReports of a 'close' Hormuz deal in August did not finalize.\nFor the Senate, the president's party has typically lost seats in midterms, but the 53-47 map forces Democrats to net four seats.",
+      "different_now": "The Hormuz component looks likely to be met as 'no agreement' because the Oct 23 deadline has passed and I found no qualifying announcement.\nThis is from search summaries only, and I could not open the pages.\nThe Senate component is a competitive contest with Cook showing seven toss-ups and a Democratic-leaning movement in the polls.\nThe question therefore turns mostly on the Senate result on Nov 3.",
+      "facts": [
+        {
+          "fact": "As of about Oct 24-25, 2026, search reporting showed no finalized US-Iran Hormuz deal.\nIran said it would reopen the strait if the US lifted its blockade, an IRGC-affiliated outlet rejected that exchange, and Trump raised the prospect of strikes.",
+          "source": 0
+        },
+        {
+          "fact": "In early October 2026 Trump reportedly rejected an Iranian late-September proposal to reopen the strait after seven days and lift the blockade and oil sanctions.\nThe US also set new demands.",
+          "source": 1
+        },
+        {
+          "fact": "As of Oct 15, 2026, the Cook Political Report projected Democratic Senate gains of 2-6 seats, with four needed for control, and seven Toss Up races (six Republican-held, one Democratic-held).\nThe Senate is currently 53-47 Republican.",
+          "source": 2
+        },
+        {
+          "fact": "In June 2026, Sabato's Crystal Ball still favored Republicans to keep the Senate.\nIt listed Alaska, Ohio, Maine and Michigan as toss-ups.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "I could not open the pages to confirm that no qualifying US-Iran announcement was made by Oct 23, and the ambiguity rules for joint announcements could matter",
+        "The outcomes of the toss-up Senate races (AK, OH, ME, MI, NC, TX, IA and others) and any runoffs, such as in Georgia or Louisiana",
+        "Whether independents caucus with a party, and the timing of the final control call"
+      ]
+    },
+    "polymarket-5572739": {
+      "base_rate": "Within this 2026 conflict, US-Iran arrangements touching Hormuz were announced about twice in roughly 7 months (April two-week ceasefire with safe passage; June MOU).\nOver the same period there were several 'close to a deal' reports that did not produce one (August).\nThat is roughly 2 in about 30 weeks, or about 7% for a given week.",
+      "different_now": "As of Oct 25, talks run through Pakistani mediators and the sides disagree on sequencing (blockade lifting versus strait reopening).\nTrump has threatened strikes, and the IRGC rejects the exchange.\nOctober has had the most shipping attacks since March.\nAll of this points against an agreement in the one week left.\nIran's conditional offer and the 'positive conversations' the White House reported leave some chance of a fast deal.",
+      "facts": [
+        {
+          "fact": "Around Oct 25, 2026, Iran's ambassador to Pakistan said Tehran told Pakistani mediators it would reopen the strait if the US ends its blockade of Iranian ports; an IRGC-affiliated outlet rejected that, and Trump raised the possibility of strikes.",
+          "source": 0
+        },
+        {
+          "fact": "Around Oct 7, 2026, Trump rejected an Iranian late-September proposal (lifting the blockade and oil sanctions, releasing frozen assets), and the US set new demands.",
+          "source": 1
+        },
+        {
+          "fact": "In August 2026, the US, Iran and Oman were reported close to an interim Hormuz deal; no later report found saying it was finalized.",
+          "source": 2
+        },
+        {
+          "fact": "A June 2026 MOU signed by Trump and Pezeshkian reportedly reopened the strait for 60 days; fighting and a second US blockade resumed in July (blockade from July 14).",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Whether Pakistani mediators can close a blockade-for-reopening swap before Nov 2",
+        "Whether Trump actually strikes, which would end the talks",
+        "Whether a partial or interim announcement would meet the 'both countries accept the same agreement' test",
+        "Exact dates and wording of the sources were not verified, since the pages could not be opened and the quotes are empty"
+      ]
+    },
+    "polymarket-5786291": {
+      "base_rate": "No clean reference class found.\nUncapped, oversubscription-style pro-rata sales usually take most of their commitments at the open and at the close.\nHere the base allocation is only $3.9M, and the reported total was ~$5.31M about a week or less into the sale.\nI did not count comparable past sales.",
+      "different_now": "Reaching more than $10M needs about 1.9x the last reported total (~$5.31M) in the remaining days (as of Oct 26, about 4 days).\nThe $3.9M-in-8-minutes start followed by only ~$5.3M suggests growth has slowed.\nA final-day surge is possible in uncapped sales.\nPushes toward No unless the latest total is much higher than the snippet shows.",
+      "facts": [
+        {
+          "fact": "The 1win public sale sells 130M $1WIN, 13% of a 1B fixed supply, at $0.03.\nThat implies a $30M FDV and a $3.9M base allocation.\nContributions are in USDC on Solana with a $10 minimum, and commitments are uncapped.\nPer search snippets only; I could not open the pages.",
+          "source": 0
+        },
+        {
+          "fact": "The sale opened Oct 15, 2026 at 18:00 and passed $3.9M in USDC commitments by 18:08, per search snippets.",
+          "source": 0
+        },
+        {
+          "fact": "A later snippet says total commitments reached about $5.31M (1.36x oversubscribed).\nThe date of that figure is unknown, and the snippet is probably from mid-to-late October.",
+          "source": 1
+        },
+        {
+          "fact": "The sale window runs through about Oct 30, 2026, with claims around Oct 31.\nThat is before the Nov 2 deadline, so no extension is needed for the question's window.",
+          "source": 2
+        },
+        {
+          "fact": "Allocation is pro rata, and unused USDC is refunded.\nThe question counts the gross pool.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "Current figure on 1wtoken.com is unknown; I could not fetch the page and the $5.31M figure is undated.",
+        "Whether the $5.31M figure is gross commitments or something else.",
+        "Whether the sale gets extended, or a late surge or whale deposit lifts the total.",
+        "Whether 1wtoken.com is the same project as the 1win $1WIN sale; the 1win sale is the likely match.",
+        "Quotes are empty because the pages could not be opened; the facts rest on search-result snippets."
+      ]
+    },
+    "polymarket-6015145": {
+      "base_rate": "Not computed, because the Binance API was blocked and I found no historical data.\nThe $78,000 threshold is about 2\u20133% below the roughly $80,000 spot price on Oct 26.\nThe noon-ET candle on Oct 28 is about 2 days ahead.\nBTC's typical daily volatility is about 2\u20133%, so a 2-day move of 2\u20133% or more is common.\nSpot would need to fall roughly that far to resolve No.",
+      "different_now": "BTC is in a downtrend: down about 3% on the week and below $80k after a weekly close under $83k, with the broader crypto market down about 5% on the week.\nThat makes a drop below $78k more plausible than in a calm market.\nThe gap is only about 2.5% and the horizon about 2 days.\nThe market is about 36% below its Oct 2025 all-time high of about $126k.",
+      "facts": [
+        {
+          "fact": "On 2026-10-26, BTC traded at roughly $79,500 to $80,700 across aggregators.\nCoinDesk showed about $80,380 at 6:10 am EDT, Coinbase about $79,858, and CoinGecko about $80,665.\nThese came from search-result summaries; I did not open the pages.",
+          "source": 0
+        },
+        {
+          "fact": "Coinbase's page showed BTC down about 3% over the week, against a broader crypto market drop of about 5%.\nThis is also from a search summary.",
+          "source": 1
+        },
+        {
+          "fact": "A TradingView summary said BTCUSD fell below $80,000 after a weekly close under $83,000 and a false breakout on Oct 25.\nI did not open that page.",
+          "source": 2
+        }
+      ],
+      "uncertainties": [
+        "Exact Binance BTC/USDT price at the time of writing is unverified; aggregator prices differ by a few hundred dollars.",
+        "Macro events and data releases on Oct 27\u201328 (FOMC timing, US data) and liquidation cascades could move the price sharply.",
+        "Whether the downtrend continues or the price rebounds above $80k.",
+        "The figures come from search summaries, not from pages I opened, so they are unverified."
+      ]
+    },
+    "polymarket-631057": {
+      "base_rate": "I did not count anything.\nBackground from memory: Trump won Ohio by about 11 points in 2024, and Ohio has leaned Republican in federal races since 2016.\nBrown lost his 2024 seat to Bernie Moreno.\nA Democrat has not won a statewide federal race in Ohio since Brown's own 2018 re-election.\nThe reference class would be the Senate and presidential results in Ohio over 2016-2024.",
+      "different_now": "Brown is a well-known former three-term senator, and the Oct.\n2026 polls reviewed (CNN, YouGov, InsiderAdvantage, BGSU) show him tied or slightly ahead.\nThat pushes toward Democrats compared with the state's fundamentals.\nHusted is an appointed incumbent in a special election.\nThe environment may favor Democrats, but I did not verify that.\nLate polling has historically overstated Democrats in Ohio, which pushes the other way.",
+      "facts": [
+        {
+          "fact": "A CNN poll released Oct.\n8, 2026 had Sherrod Brown (D) ahead of Sen.\nJon Husted (R) 49% to 43% among likely voters (margin of error \u00b14.5), according to search-result text.\nI could not open the page.",
+          "source": 0
+        },
+        {
+          "fact": "A YouGov Ohio poll reported Oct.\n6, 2026 had Brown ahead 49% to 45% (margin of error \u00b12.5), according to search-result text.\nI could not open the page.",
+          "source": 2
+        },
+        {
+          "fact": "An InsiderAdvantage poll on Oct.\n1, 2026 had Brown at 44% and Husted at 43%, with Libertarian William Redpath at 4% and independent Greg Levy at 2%.\nThis comes from search-result text only.",
+          "source": 0
+        },
+        {
+          "fact": "A Bowling Green State University poll (fieldwork Oct.\n2-14, 800 registered voters) described the race as an essential dead heat.\nThis is from search-result text only.",
+          "source": 0
+        },
+        {
+          "fact": "Cook Political Report's rating was Lean Republican as of an April 13, 2026 update.\nIt had moved the race from Likely R to Lean R when Brown entered.\nI did not see a later rating.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "I could not open any primary page, so the poll figures are unverified search snippets.",
+        "I did not find the current ratings from Cook, Sabato or Inside Elections.",
+        "I did not check for polls published in the last week, or for early-vote data.",
+        "Polling error in Ohio has favored Republicans in recent cycles.",
+        "Third-party candidates (Libertarian, independent) could split the vote."
+      ]
+    },
+    "polymarket-634976": {
+      "base_rate": "Not researched, because the fetches failed.\nBackground: Alaska has elected a Republican to the US Senate in every cycle since 2008, and Republican presidential candidates have carried the state in every election since 1964.\nPeltola won the 2022 special House election and lost the 2024 House race to Nick Begich.\nAlaska uses top-four primaries and ranked-choice voting, so the Nov 3 result may need tabulation rounds.\nThis background comes from my own knowledge, not from sources I opened.",
+      "different_now": "Peltola is the Democratic nominee against incumbent Republican Dan Sullivan.\nNearly all October 2026 polls show a roughly tied race, with Peltola narrowly ahead in most, which is unusual for a state of this lean.\nPolling in Alaska has missed before, including in Sullivan's 2020 race.\nThis comes from search summaries only.",
+      "facts": [
+        {
+          "fact": "Data for Progress (D) poll of likely voters, reported 2026-10-20, had Peltola 51%, Sullivan 49%, margin of error \u00b14.\nThis comes from a search summary; I could not open the page.",
+          "source": 0
+        },
+        {
+          "fact": "Rasmussen poll, Oct 12-15, had Peltola 44%, Sullivan 42%, margin of error \u00b13, as reported by Newsweek.\nThis is from a search summary; I could not open the page.",
+          "source": 1
+        },
+        {
+          "fact": "InsiderAdvantage poll, Oct 9-10, had Peltola 48%, Sullivan 43% in a four-way ballot of 1,200 likely voters.\nThis is from a search summary; I could not open the page.",
+          "source": 1
+        },
+        {
+          "fact": "Alaska Survey Research poll, Oct 1-3, had Peltola ahead 51% to 49% after the final ranked-choice round.\nQuantus Insights polls showed a tie or a narrow Sullivan lead in late September and early October.\nNYT/Siena, Sept 24-Oct 1, had Peltola ahead 50% to 43% among 504 likely voters.\nAll of this is from search summaries; I could not open the pages.",
+          "source": 1
+        }
+      ],
+      "uncertainties": [
+        "Alaska polling is historically unreliable, and the polling error could favor either candidate.",
+        "A ranked-choice tabulation could delay the call past Nov 4.\nResolution requires AP, Fox and NBC to agree, otherwise it falls back to certification.",
+        "I could not open any primary source (Alaska Division of Elections, AP, polling pages), so all poll figures are unverified.",
+        "I did not check late news from the past week on turnout, spending or the state of the national environment."
+      ]
+    }
+  },
   "mode": "live",
   "model": "grok-4.7-low",
   "model_family": "grok",
   "provider": "cursor",
-  "researched_at": "2026-10-26T09:10:58+00:00",
-  "researched_by": {},
+  "researched_at": "2026-10-26T11:03:01+00:00",
+  "researched_by": {
+    "manifold-9ZLpqZRtyl": "claude-sonnet",
+    "manifold-Iz5sI5n8q9": "claude-sonnet",
+    "manifold-QC80ENZPh5": "claude-sonnet",
+    "manifold-QlhzLRNdsL": "claude-sonnet",
+    "manifold-pZpEqPAq5U": "claude-sonnet",
+    "polymarket-3347919": "claude-sonnet",
+    "polymarket-3554355": "claude-sonnet",
+    "polymarket-3554404": "claude-sonnet",
+    "polymarket-3554471": "claude-sonnet",
+    "polymarket-3554762": "claude-sonnet",
+    "polymarket-4119722": "claude-sonnet",
+    "polymarket-4618741": "claude-sonnet",
+    "polymarket-5166820": "claude-sonnet",
+    "polymarket-5166884": "claude-sonnet",
+    "polymarket-5166967": "claude-sonnet",
+    "polymarket-5180406": "claude-sonnet",
+    "polymarket-5447182": "claude-sonnet",
+    "polymarket-5567008": "claude-sonnet",
+    "polymarket-5572739": "claude-sonnet",
+    "polymarket-5786291": "claude-sonnet",
+    "polymarket-6015145": "claude-sonnet",
+    "polymarket-631057": "claude-sonnet",
+    "polymarket-634976": "claude-sonnet"
+  },
   "runs": 23,
   "seconds": {
-    "polymarket-5180406": 51.4,
-    "polymarket-5447182": 51.4,
-    "polymarket-5786291": 51.4
+    "manifold-9ZLpqZRtyl": 34.4,
+    "manifold-Iz5sI5n8q9": 63.3,
+    "manifold-QC80ENZPh5": 39.6,
+    "manifold-QlhzLRNdsL": 46.6,
+    "manifold-pZpEqPAq5U": 49.3,
+    "polymarket-3347919": 30.3,
+    "polymarket-3554355": 34.5,
+    "polymarket-3554404": 28.5,
+    "polymarket-3554471": 45.7,
+    "polymarket-3554762": 40.7,
+    "polymarket-4119722": 45.7,
+    "polymarket-4618741": 34.6,
+    "polymarket-5166820": 37.4,
+    "polymarket-5166884": 45.5,
+    "polymarket-5166967": 49.5,
+    "polymarket-5180406": 58.1,
+    "polymarket-5447182": 48.0,
+    "polymarket-5567008": 43.4,
+    "polymarket-5572739": 50.0,
+    "polymarket-5786291": 55.5,
+    "polymarket-6015145": 35.1,
+    "polymarket-631057": 35.0,
+    "polymarket-634976": 27.8
   },
-  "sources": {}
+  "sources": {
+    "manifold-9ZLpqZRtyl": [
+      {
+        "published": "2026-10-12",
+        "quotes": [],
+        "text": "",
+        "title": "Chuck Schumer has broad support from his caucus, but midterms could decide his future as leader (AP)",
+        "url": "https://www.wcax.com/2026/10/12/chuck-schumer-has-broad-support-his-caucus-midterms-could-decide-his-future-leader/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-12",
+        "quotes": [],
+        "text": "",
+        "title": "Chuck Schumer has broad support from his caucus, but midterms could decide his future as leader (AP via ABC News)",
+        "url": "https://abcnews.com/amp/US/wireStory/chuck-schumer-broad-support-caucus-midterms-decide-future-137189528",
+        "verified": null
+      }
+    ],
+    "manifold-Iz5sI5n8q9": [
+      {
+        "published": "2026-10-16",
+        "quotes": [],
+        "text": "",
+        "title": "Katie Zacharia ousted as White House press secretary",
+        "url": "https://www.axios.com/2026/10/16/trump-katie-zacharia-press-secretary",
+        "verified": null
+      },
+      {
+        "published": "2026-10-16",
+        "quotes": [],
+        "text": "",
+        "title": "Katie Zacharia out as Trump's White House press secretary",
+        "url": "https://www.cnbc.com/2026/10/16/trump-katie-zacharia-white-house.html",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "White House Press Secretary (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/White_House_Press_Secretary",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Anna Kelly (spokesperson) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Anna_Kelly_(spokesperson)",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Who needs a press secretary?\nTrump in no hurry to address exit of short-term spokeswoman",
+        "url": "https://www.wnd.com/2026/10/who-needs-press-secretary-trump-no-hurry-address/",
+        "verified": null
+      }
+    ],
+    "manifold-QC80ENZPh5": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "2026 Florida Poll (NBC6/Telemundo 51, Mason-Dixon)",
+        "url": "https://www.nbcmiami.com/elections/poll-shows-ashley-moody-leading-angie-nixon-in-floridas-u-s-senate-race/3869181/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "2026 United States Senate special election in Florida",
+        "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_special_election_in_Florida",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Ashley Moody sounds alarm as second poll shows dead heat with Angie Nixon",
+        "url": "https://www.newsweek.com/ashley-moody-sounds-alarm-as-second-poll-shows-dead-heat-with-angie-nixon-12465288",
+        "verified": null
+      }
+    ],
+    "manifold-QlhzLRNdsL": [
+      {
+        "published": "2026-09-18",
+        "quotes": [],
+        "text": "",
+        "title": "Meta's new Muse AI agent app overtakes ChatGPT as top iPhone app - 9to5Mac",
+        "url": "https://9to5mac.com/2026/09/18/metas-new-muse-ai-agent-app-overtakes-chatgpt-as-top-iphone-app/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Dave's Hot Chicken Took Muse's No.\n1 App Store Spot.\nIts Winning Move Had Nothing to Do With Tech",
+        "url": "https://www.inc.com/amaya-nichole/daves-hot-chicken-meta-muse-app-store/91420381",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Meta's Muse hits No.\n1 on the App Store, but daily habits are harder to win",
+        "url": "https://cryptobriefing.com/meta-muse-app-store-retention/",
+        "verified": null
+      },
+      {
+        "published": "2026-09-21",
+        "quotes": [],
+        "text": "",
+        "title": "Meta's Muse AI agent downloads are surging.\nHere's how it compares to ChatGPT, Grok and Claude",
+        "url": "https://www.cnbc.com/2026/09/21/meta-muse-personal-ai-agent-downloads.html",
+        "verified": null
+      }
+    ],
+    "manifold-pZpEqPAq5U": [
+      {
+        "published": "2026-08-28",
+        "quotes": [],
+        "text": "",
+        "title": "UNH poll shows Ayotte leads Warmington in NH governor's race",
+        "url": "https://www.wcax.com/2026/08/28/unh-poll-shows-ayotte-leads-warmington-nh-governors-race/",
+        "verified": null
+      },
+      {
+        "published": "2026-08-27",
+        "quotes": [],
+        "text": "",
+        "title": "Ayotte's Approval Improves, Lead Over Warmington Grows in NH Gubernatorial Race",
+        "url": "https://indepthnh.org/2026/08/27/ayottes-approval-improves-lead-over-warmington-grows-in-new-hampshire-gubernatorial-race/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-07",
+        "quotes": [],
+        "text": "",
+        "title": "Campaign Countdown: The candidates for NH governor",
+        "url": "https://www.wcax.com/2026/10/07/campaign-countdown-candidates-nh-governor/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "2026 New Hampshire gubernatorial election",
+        "url": "https://en.wikipedia.org/wiki/2026_New_Hampshire_gubernatorial_election",
+        "verified": null
+      }
+    ],
+    "polymarket-3347919": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Brazil Interest Rate: Selic Today, Next Copom and Forecast",
+        "url": "https://www.riotimesonline.com/selic-rate-brazil-foreign-investors-guide/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Brazil Selic rate today: 13.75% a year \u2014 next Copom meeting on Nov 4, 2026",
+        "url": "https://ricoaospoucos.com.br/en/interest-rate/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Copom reduces the Selic rate to 14.00% p.a.",
+        "url": "https://www.bcb.gov.br/en/pressdetail/2680/nota",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Expectativa para a Selic no fim de 2026 continua em 13,25% no Focus do BC",
+        "url": "https://www.dgabc.com.br/Noticia/4353509/expectativa-para-a-selic-no-fim-de-2026-continua-em-13-25-no-focus-do-bc",
+        "verified": null
+      }
+    ],
+    "polymarket-3554355": [
+      {
+        "published": "2026-03-31",
+        "quotes": [],
+        "text": "",
+        "title": "March 2026: Arena Updates across Product, Leaderboard Rankings & Research",
+        "url": "https://arena.ai/blog/march-2026-arena-updates/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "LMArena Math Arena Leaderboard (DataLearner)",
+        "url": "https://www.datalearner.com/en/leaderboards/external/text-generation-math",
+        "verified": null
+      }
+    ],
+    "polymarket-3554404": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Arena Text Leaderboard, Math, Labs view (resolution source)",
+        "url": "https://arena.ai/leaderboard/text/math-no-style-control?rankBy=labs",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "LMArena Math Arena Leaderboard (third-party mirror)",
+        "url": "https://www.datalearner.com/en/leaderboards/external/text-generation-math?isChina=1",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Benchmark leaderboard, LMArena (aggregator)",
+        "url": "https://www.developersdigest.tech/benchmarks/lmarena",
+        "verified": null
+      }
+    ],
+    "polymarket-3554471": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "LLM Leaderboard History: Arena Rankings 2023\u20132026 (October 2026)",
+        "url": "https://benchlm.ai/llm-leaderboard-history",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Kimi K3 Beats GPT-6.1 Sol by 61 Elo Points [2026]",
+        "url": "https://shattered.io/kimi-k3-coding-leaderboard-2026/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "ERNIE-5.1-Preview Tops LMArena Text Leaderboard as No.1 Chinese Model!",
+        "url": "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Which Chinese AI company will lead Arena in October 2026?",
+        "url": "https://cryptoslate.com/predictions/market/which-chinese-ai-company-will-lead-arena-in-october-2026/",
+        "verified": null
+      }
+    ],
+    "polymarket-3554762": [
+      {
+        "published": "2026-10-20",
+        "quotes": [],
+        "text": "",
+        "title": "LMArena Leaderboard October 2026",
+        "url": "https://www.swfte.com/lmarena",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Arena - Text leaderboard by LMArena \u00b7 Sophon",
+        "url": "https://sophon.at/leaderboards/lmarena-text",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "LMArena Leaderboard October 2026: Where the Top Text Scores Stand",
+        "url": "https://www.versusapps.com/blog/lmarena-leaderboard-september-2026",
+        "verified": null
+      }
+    ],
+    "polymarket-4119722": [
+      {
+        "published": "2026-10-21",
+        "quotes": [],
+        "text": "",
+        "title": "Israel's Katz vows to strike Beirut's southern suburbs over any rocket or drone fire",
+        "url": "https://tribune.com.pk/story/2636087/israels-katz-vows-to-strike-beiruts-southern-suburbs-over-any-rocket-or-drone-fire",
+        "verified": null
+      },
+      {
+        "published": "2026-10-14",
+        "quotes": [],
+        "text": "",
+        "title": "Katz threatens to strike Beirut's southern suburbs and expand Israel's occupation if Hezbollah and Iran attack Israel - L'Orient Today",
+        "url": "https://today.lorientlejour.com/article/1550811/katz-threatens-to-strike-beiruts-southern-suburb-and-expand-israeli-occupation-if-hezbollah-and-iran-attack-israel.html",
+        "verified": null
+      },
+      {
+        "published": "2026-06-14",
+        "quotes": [],
+        "text": "",
+        "title": "Israel continues strikes in Beirut's southern suburbs, killing 3",
+        "url": "https://www.nbcnews.com/world/lebanon/israel-continues-strikes-beiruts-southern-suburbs-rcna349995",
+        "verified": null
+      },
+      {
+        "published": "2026-08-16",
+        "quotes": [],
+        "text": "",
+        "title": "Israeli airstrikes on southern Lebanon kill 11 people in another test to truce",
+        "url": "https://www.pbs.org/newshour/world/israeli-airstrikes-on-southern-lebanon-kill-11-people-health-ministry-says",
+        "verified": null
+      }
+    ],
+    "polymarket-4618741": [
+      {
+        "published": "2026-08-20",
+        "quotes": [],
+        "text": "",
+        "title": "Gunmen seize tanker off Yemen amid resurgence of Somali piracy",
+        "url": "https://www.aljazeera.com/news/2026/8/20/gunmen-seize-tanker-off-yemen-amid-resurgence-of-somali-piracy",
+        "verified": null
+      },
+      {
+        "published": "2026-08-12",
+        "quotes": [],
+        "text": "",
+        "title": "Houthi attack kills six in Red Sea; Trump slams Iran as hopes for Hormuz Strait deal dim",
+        "url": "https://www.cnbc.com/2026/08/12/us-iran-war-trump-hormuz-houthi-attack-blockade-.html",
+        "verified": null
+      },
+      {
+        "published": "2026-07-22",
+        "quotes": [],
+        "text": "",
+        "title": "Houthis deploy missiles and drones to attack ships in southern Red Sea, naval group says",
+        "url": "https://www.cnbc.com/2026/07/22/houthis-red-sea-bab-el-mandeb-saudi-oil-iran.html",
+        "verified": null
+      },
+      {
+        "published": "2026-07-28",
+        "quotes": [],
+        "text": "",
+        "title": "Yemen's Houthis claim missile attack on Saudi Arabia oil tanker",
+        "url": "https://www.aljazeera.com/news/2026/7/28/yemens-houthis-claim-missile-attack-on-saudi-arabia-oil-tanker",
+        "verified": null
+      },
+      {
+        "published": "2023-11-19",
+        "quotes": [],
+        "text": "",
+        "title": "Yemen's Houthi Rebels Seize Cargo Ship in Red Sea",
+        "url": "https://www.globalsecurity.org/military/library/news/2023/11/mil-231119-voa02.htm",
+        "verified": null
+      }
+    ],
+    "polymarket-5166820": [
+      {
+        "published": "2026-09-20",
+        "quotes": [],
+        "text": "",
+        "title": "News 20 September 2026 (statisticsoftheworld)",
+        "url": "https://statisticsoftheworld.com/news/2026-09-20",
+        "verified": null
+      },
+      {
+        "published": "2026-09-06",
+        "quotes": [],
+        "text": "",
+        "title": "News 6 September 2026 (statisticsoftheworld)",
+        "url": "https://statisticsoftheworld.com/news/2026-09-06",
+        "verified": null
+      },
+      {
+        "published": "2026-10-01",
+        "quotes": [],
+        "text": "",
+        "title": "Red Sea Brief - 1 October 2026",
+        "url": "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-1-october-2026",
+        "verified": null
+      }
+    ],
+    "polymarket-5166884": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "USD Price Today: 2,723,000 IRR",
+        "url": "https://www.pashizi.com/en/currency/usd",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "1 USD to IRR Today: 2,613,700 Rials (Open Market) \u2014 Dollar to Iranian Rial",
+        "url": "https://artesh.com/markets/rial/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-04",
+        "quotes": [],
+        "text": "",
+        "title": "Iran Currency Crisis: Rial Hits Record Low Despite $2bn Dollar Sale",
+        "url": "https://www.withinnigeria.com/2026/10/04/iran-currency-crisis-rial-hits-record-low-despite-2bn-dollar-sale/",
+        "verified": null
+      },
+      {
+        "published": "2026-08-20",
+        "quotes": [],
+        "text": "",
+        "title": "US dollar nears record 190K toman in Iran",
+        "url": "https://shafaq.com/en/Economy/US-Dollar-nears-record-190K-toman-in-Iran",
+        "verified": null
+      }
+    ],
+    "polymarket-5166967": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Microsoft (MSFT) - Market capitalization",
+        "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-22",
+        "quotes": [],
+        "text": "",
+        "title": "Biggest Companies in the World by Market Cap for Oct 2026",
+        "url": "https://www.financecharts.com/screener/biggest",
+        "verified": null
+      },
+      {
+        "published": "2026-10-02",
+        "quotes": [],
+        "text": "",
+        "title": "Largest Companies by Market Cap in 2026 (Motley Fool)",
+        "url": "https://www.fool.com/research/largest-companies-by-market-cap/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Microsoft Corp (MSFT) Stock Price & News - Google Finance",
+        "url": "https://www.google.com/finance/quote/MSFT:NASDAQ",
+        "verified": null
+      }
+    ],
+    "polymarket-5180406": [
+      {
+        "published": "2026-07-17",
+        "quotes": [],
+        "text": "",
+        "title": "Apple regains top spot as world's most valuable company",
+        "url": "https://www.aljazeera.com/amp/economy/2026/7/17/apple-regains-top-spot-as-worlds-most-valuable-company",
+        "verified": null
+      },
+      {
+        "published": "2026-01-08",
+        "quotes": [],
+        "text": "",
+        "title": "Alphabet Overtakes Apple, Becoming Second to Nvidia in Size",
+        "url": "https://www.advisorperspectives.com/articles/2026/01/08/alphabet-overtakes-apple-second-to-nvidia",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Apple (AAPL) - Market capitalization",
+        "url": "https://companiesmarketcap.com/apple/marketcap/",
+        "verified": null
+      },
+      {
+        "published": "2026-09-07",
+        "quotes": [],
+        "text": "",
+        "title": "largest companies by market cap",
+        "url": "https://capital.com/en-ke/markets/shares/largest-companies-by-market-cap",
+        "verified": null
+      }
+    ],
+    "polymarket-5447182": [
+      {
+        "published": "2026-09-26",
+        "quotes": [],
+        "text": "",
+        "title": "Trump rejects Iran ceasefire proposal, expects to renew strikes after midterms \u2014 WSJ",
+        "url": "https://timesofisrael.com/liveblog_entry/trump-rejects-iran-ceasefire-proposal-expects-to-renew-strikes-after-midterms-wsj/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump says Iran ready to fold up, after threatening post-midterm attacks",
+        "url": "https://www.cbsnews.com/live-updates/iran-war-us-negotiations-strait-of-hormuz-oil/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "US-Iran stalemate: What are Trump's next military options?",
+        "url": "https://www.aljazeera.com/news/2026/10/15/us-iran-stalemate-what-are-trumps-next-military-options",
+        "verified": null
+      },
+      {
+        "published": "2026-10-04",
+        "quotes": [],
+        "text": "",
+        "title": "Iran says no military solution to war as peace talks with US stall",
+        "url": "https://www.france24.com/en/middle-east/20261004-iran-us-military-middle-east-war-peace-talks",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "US carries out new round of strikes on Iran amid fragile ceasefire",
+        "url": "https://thenationaldesk.com/news/americas-news-now/us-carries-out-new-round-of-strikes-on-iran-amid-fragile-ceasefire-reports-military-strait-hormuz-naval-blockade",
+        "verified": null
+      }
+    ],
+    "polymarket-5567008": [
+      {
+        "published": "2026-10-25",
+        "quotes": [],
+        "text": "",
+        "title": "Iran sends conflicting signals on US deal as Trump raises prospect of strikes",
+        "url": "https://www.iranintl.com/en/202610252197",
+        "verified": null
+      },
+      {
+        "published": "2026-10-07",
+        "quotes": [],
+        "text": "",
+        "title": "US sets new demands for Iran deal: What are they?",
+        "url": "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "",
+        "url": "https://www.actionnetwork.com/politics/2026-midterm-predictions-what-prediction-markets-say-vs-the-polls",
+        "verified": null
+      },
+      {
+        "published": "2026-06-11",
+        "quotes": [],
+        "text": "",
+        "title": "Strong candidates in Alaska, Ohio seen as moving US Senate races toward Dems",
+        "url": "https://alaskabeacon.com/2026/06/11/repub/strong-candidates-in-alaska-ohio-seen-as-moving-us-senate-races-toward-dems/",
+        "verified": null
+      }
+    ],
+    "polymarket-5572739": [
+      {
+        "published": "2026-10-25",
+        "quotes": [],
+        "text": "",
+        "title": "Iran sends conflicting signals on US deal as Trump raises prospect of strikes",
+        "url": "https://www.iranintl.com/en/202610252197",
+        "verified": null
+      },
+      {
+        "published": "2026-10-07",
+        "quotes": [],
+        "text": "",
+        "title": "US sets new demands for Iran deal: What are they?",
+        "url": "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
+        "verified": null
+      },
+      {
+        "published": "2026-08-05",
+        "quotes": [],
+        "text": "",
+        "title": "Iran, Oman, US 'close' to Hormuz deal: What do they all want?",
+        "url": "https://www.aljazeera.com/news/2026/8/5/iran-oman-us-close-to-hormuz-deal-what-do-they-all-want",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump and Iran's president sign initial deal to end war, open Strait of Hormuz and ease sanctions",
+        "url": "https://www.nbcnews.com/world/iran/strait-hormuz-reopen-us-lift-iran-sanctions-14-point-deal-seeking-end-rcna350513",
+        "verified": null
+      }
+    ],
+    "polymarket-5786291": [
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "$1WIN Public Sale Attracts Over $3.9M in USDC Commitments Within Eight Minutes - AMBCrypto",
+        "url": "https://ambcrypto.com/1win-public-sale-attracts-over-3-9m-in-usdc-commitments-within-eight-minutes/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "MEXC news on the 1win public sale (reports ~$5.31M, 1.36x oversubscribed)",
+        "url": "https://www.mexc.com/news/687185",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [],
+        "text": "",
+        "title": "1win launches two-week public sale for 1win token",
+        "url": "https://thedefiant.io/news/press-releases/1win-launches-two-week-public-sale-for-1win-token",
+        "verified": null
+      }
+    ],
+    "polymarket-6015145": [
+      {
+        "published": "2026-10-26",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin price today, BTC to USD live price, marketcap and chart (CoinDesk)",
+        "url": "https://www.coindesk.com/price/bitcoin",
+        "verified": null
+      },
+      {
+        "published": "2026-10-26",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin (BTC) Price USD Today, News, Charts, Market Cap (Coinbase)",
+        "url": "https://www.coinbase.com/price/bitcoin",
+        "verified": null
+      },
+      {
+        "published": "2026-10-26",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin Price: BTC/USD Live Price Chart (CoinGecko)",
+        "url": "https://www.coingecko.com/en/coins/bitcoin",
+        "verified": null
+      }
+    ],
+    "polymarket-631057": [
+      {
+        "published": "2026-10-08",
+        "quotes": [],
+        "text": "",
+        "title": "Political Wire: Sherrod Brown leads in Ohio Senate race",
+        "url": "https://politicalwire.com/2026/10/08/sherrod-brown-leads-in-ohio-senate-race-3/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Cook Political Report: Ohio Senate race",
+        "url": "https://www.cookpolitical.com/senate/race/488651",
+        "verified": null
+      },
+      {
+        "published": "2026-10-06",
+        "quotes": [],
+        "text": "",
+        "title": "Political Wire: Sherrod Brown leads in Ohio Senate race (YouGov)",
+        "url": "https://politicalwire.com/2026/10/06/sherrod-brown-leads-in-ohio-senate-race-2/",
+        "verified": null
+      }
+    ],
+    "polymarket-634976": [
+      {
+        "published": "2026-10-20",
+        "quotes": [],
+        "text": "",
+        "title": "Three tight races in Alaska (Political Wire)",
+        "url": "https://politicalwire.com/2026/10/20/three-tight-races-in-alaska/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Mary Peltola is pulling ahead in the final stretch against Dan Sullivan (Newsweek)",
+        "url": "https://www.newsweek.com/mary-peltola-is-pulling-ahead-in-the-final-stretch-against-dan-sullivan-12592675",
+        "verified": null
+      }
+    ]
+  }
 }
