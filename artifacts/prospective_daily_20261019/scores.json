@@ -11,49 +11,61 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.27730307831598006,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.7478055930978093,
       "method": "statistical_baseline_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.526595744680851,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
     },
     {
+      "brier": 0.2116,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.616186139423817,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.46,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
     },
     {
+      "brier": 0.2025,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.5978370007556204,
       "method": "judge_deepseek_v4_pro_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.45,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
     },
     {
+      "brier": 0.12249999999999998,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.4307829160924542,
       "method": "judge_minimax_m3_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.35,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
     },
     {
+      "brier": 0.17639999999999997,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.5447271754416719,
       "method": "judge_nemotron_super_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.42,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
     },
     {
+      "brier": 0.2025,
       "entry_id": "cfd7541436306b33",
+      "log_loss": 0.5978370007556204,
       "method": "judge_nemotron_ultra_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.45,
       "release_event": "dgs10-2026-10-23",
       "status": "forecasted"
@@ -66,49 +78,49 @@
     "claude_code_forecaster_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.2116,
+      "mean_log_loss": 0.616186139423817,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "judge_deepseek_v4_pro_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.2025,
+      "mean_log_loss": 0.5978370007556204,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "judge_minimax_m3_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.12249999999999998,
+      "mean_log_loss": 0.4307829160924542,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "judge_nemotron_super_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.17639999999999997,
+      "mean_log_loss": 0.5447271754416719,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "judge_nemotron_ultra_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.2025,
+      "mean_log_loss": 0.5978370007556204,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "statistical_baseline_v1": {
       "assigned": 2,
       "forecasted": 2,
-      "mean_brier": 0.19848167324128865,
-      "mean_log_loss": 0.5897115933117033,
-      "resolved_forecasts": 1,
+      "mean_brier": 0.23789237577863437,
+      "mean_log_loss": 0.6687585932047563,
+      "resolved_forecasts": 2,
       "uninformed_50pct_brier": 0.25
     }
   },
@@ -123,11 +135,16 @@
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=ICSA&cosd=2026-10-03&coed=2026-10-17&vintage_date=2026-10-22"
     },
     "cfd7541436306b33": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "basis": "alfred_initial_vintage",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-10-09&coed=2026-10-23&vintage_date=2026-10-25",
+      "status": "resolved",
+      "value": "5.00",
+      "vintage_date": "2026-10-26",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DGS10&cosd=2026-10-09&coed=2026-10-23&vintage_date=2026-10-26"
     }
   },
-  "resolved_entries": 1,
+  "resolved_entries": 2,
   "scored_on": "2026-10-26",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 2

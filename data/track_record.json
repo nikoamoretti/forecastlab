@@ -2,61 +2,61 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.20062337077156112,
+      "brier": 0.20067275575125687,
       "coin_flip_brier": 0.25,
       "forecasts": 148,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 37,
-      "right": 22,
+      "resolved": 38,
+      "right": 23,
       "toss_ups": 0,
       "wrong": 15
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.15773030303030305,
+      "brier": 0.15931470588235297,
       "coin_flip_brier": 0.25,
       "forecasts": 144,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 33,
-      "right": 22,
+      "resolved": 34,
+      "right": 23,
       "toss_ups": 2,
       "wrong": 9
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.17121333333333333,
+      "brier": 0.17316875,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
+      "resolved": 16,
+      "right": 12,
+      "toss_ups": 0,
+      "wrong": 4
+    },
+    {
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
+      "brier": 0.18092,
+      "coin_flip_brier": 0.25,
+      "forecasts": 57,
+      "label": "Nemotron Super (judge)",
+      "method": "judge_nemotron_super_v1",
       "resolved": 15,
       "right": 11,
       "toss_ups": 0,
       "wrong": 4
     },
     {
-      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.18124285714285712,
-      "coin_flip_brier": 0.25,
-      "forecasts": 57,
-      "label": "Nemotron Super (judge)",
-      "method": "judge_nemotron_super_v1",
-      "resolved": 14,
-      "right": 10,
-      "toss_ups": 0,
-      "wrong": 4
-    },
-    {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.15059411764705885,
+      "brier": 0.1534777777777778,
       "coin_flip_brier": 0.25,
       "forecasts": 107,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 17,
-      "right": 13,
+      "resolved": 18,
+      "right": 14,
       "toss_ups": 0,
       "wrong": 4
     },
@@ -86,13 +86,13 @@
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.156075,
+      "brier": 0.1541,
       "coin_flip_brier": 0.25,
       "forecasts": 107,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 16,
-      "right": 13,
+      "resolved": 17,
+      "right": 14,
       "toss_ups": 0,
       "wrong": 3
     },
@@ -146,15 +146,15 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2670423716387393,
+      "brier": 0.26772641875055536,
       "coin_flip_brier": 0.25,
       "forecasts": 24,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 14,
+      "resolved": 15,
       "right": 5,
       "toss_ups": 0,
-      "wrong": 9
+      "wrong": 10
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
@@ -183,6 +183,70 @@
   ],
   "generated_on": "2026-10-26",
   "questions": [
+    {
+      "actual": "5.00%",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.45
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-23 be above 5.1 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.46,
+          "rationale": "Treasury's par curve had the 10-year CMT at 5.10 on 2026-10-15 and 5.09 on 2026-10-16, down from 5.31 on 2026-10-05, so the series sits right on the 5.1 threshold (a print of exactly 5.10 resolves No). Nine of 11 October prints were above 5.10 and the statistical baseline is 0.53, but the latest two prints and a week of falling yields (Reuters, 2026-10-16: 5.087 percent, biggest weekly loss in over a year) put the starting point a basis point below the line. With about five trading days left and a weekly range near 29 basis points, the outcome is close to a coin flip, shaded slightly below even.",
+          "sources": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
+            "https://www.federalreserve.gov/releases/h15/",
+            "https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year",
+            "https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.45,
+          "rationale": "The latest 10-year yield (Oct 16) is 5.09%, just below the 5.10% threshold. With five trading days remaining until Oct 23, recent volatility (weekly range ~29 bps) makes a move of a few basis points likely, but the slight downtrend and market pricing of a Fed pause (83% chance) tilt the odds modestly toward staying at or below 5.10%. The base rate for October shows 9 of 11 prints above 5.10%, but the last two were 5.10% and 5.09%, indicating a recent shift. A sharp move on inflation, growth, or geopolitical news could easily flip the outcome."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.42,
+          "rationale": "Base rate from the first half of October shows about 82% of observations above 5.10%, but the last two days have been at or below the threshold and the yield has been falling over the week, putting the current level around 5.09\u20115.10%. The distance to the 5.10% cutoff is only about one basis point, while the recent weekly range is roughly 29 basis points, so modest moves in either direction could decide the outcome. With no major policy event before the Oct\u202f23 close (the next FOMC meeting is Oct\u202f27\u201128) and markets already pricing in a pause, the drift is slightly downward, leading to a modestly sub\u201150% chance of finishing above 5.10%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The base rate from October so far is mostly above 5.10 (9 of 11 prints), but the most recent yields have fallen to 5.10 and 5.09, indicating a downward trend. The 10-year yield closed at 5.087% on October 16, just below the threshold, and the recent weekly range of ~29 bps shows high volatility, so a small move could push it above 5.10. However, with no major catalysts before October 23 and the FOMC meeting after that date, the balance of recent momentum slightly favors a yield at or below 5.10."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: October 2026 10-year yields have averaged around 5.20, with 9 of 11 prints above 5.10, but the most recent two prints (5.10 on Oct 15, 5.09 on Oct 16) show a sharp downward trend after the weekly low of 5.037. The series is reported to two decimals, so a print of exactly 5.10 resolves No, and the question hinges on a few basis points. Given the recent momentum lower, the Fed on hold, and the FOMC meeting after the observation date, I lean slightly below 50% but keep meaningful probability for a bounce back above 5.10."
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.526595744680851
+        }
+      ],
+      "id": "cfd7541436306b33",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-26",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261019",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 23, 2026 be above 5.10%?",
+      "topic": "Interest rates",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -2575,70 +2639,6 @@
       "status": "pending",
       "title": "Will Anthropic release a new Claude Fable model before October 26, 2026?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.45
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-23 be above 5.1 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.46,
-          "rationale": "Treasury's par curve had the 10-year CMT at 5.10 on 2026-10-15 and 5.09 on 2026-10-16, down from 5.31 on 2026-10-05, so the series sits right on the 5.1 threshold (a print of exactly 5.10 resolves No). Nine of 11 October prints were above 5.10 and the statistical baseline is 0.53, but the latest two prints and a week of falling yields (Reuters, 2026-10-16: 5.087 percent, biggest weekly loss in over a year) put the starting point a basis point below the line. With about five trading days left and a weekly range near 29 basis points, the outcome is close to a coin flip, shaded slightly below even.",
-          "sources": [
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
-            "https://www.federalreserve.gov/releases/h15/",
-            "https://www.brecorder.com/news/40444850/us-treasuries-ten-year-yields-set-for-biggest-weekly-loss-in-more-than-a-year",
-            "https://www.streetinsider.com/Reuters/US+inflation+expectations+are+well+anchored%2C+Feds+Waller+says/27176744.html"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.45,
-          "rationale": "The latest 10-year yield (Oct 16) is 5.09%, just below the 5.10% threshold. With five trading days remaining until Oct 23, recent volatility (weekly range ~29 bps) makes a move of a few basis points likely, but the slight downtrend and market pricing of a Fed pause (83% chance) tilt the odds modestly toward staying at or below 5.10%. The base rate for October shows 9 of 11 prints above 5.10%, but the last two were 5.10% and 5.09%, indicating a recent shift. A sharp move on inflation, growth, or geopolitical news could easily flip the outcome."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.42,
-          "rationale": "Base rate from the first half of October shows about 82% of observations above 5.10%, but the last two days have been at or below the threshold and the yield has been falling over the week, putting the current level around 5.09\u20115.10%. The distance to the 5.10% cutoff is only about one basis point, while the recent weekly range is roughly 29 basis points, so modest moves in either direction could decide the outcome. With no major policy event before the Oct\u202f23 close (the next FOMC meeting is Oct\u202f27\u201128) and markets already pricing in a pause, the drift is slightly downward, leading to a modestly sub\u201150% chance of finishing above 5.10%."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.45,
-          "rationale": "The base rate from October so far is mostly above 5.10 (9 of 11 prints), but the most recent yields have fallen to 5.10 and 5.09, indicating a downward trend. The 10-year yield closed at 5.087% on October 16, just below the threshold, and the recent weekly range of ~29 bps shows high volatility, so a small move could push it above 5.10. However, with no major catalysts before October 23 and the FOMC meeting after that date, the balance of recent momentum slightly favors a yield at or below 5.10."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.35,
-          "rationale": "Base rate: October 2026 10-year yields have averaged around 5.20, with 9 of 11 prints above 5.10, but the most recent two prints (5.10 on Oct 15, 5.09 on Oct 16) show a sharp downward trend after the weekly low of 5.037. The series is reported to two decimals, so a print of exactly 5.10 resolves No, and the question hinges on a few basis points. Given the recent momentum lower, the Fed on hold, and the FOMC meeting after the observation date, I lean slightly below 50% but keep meaningful probability for a bounce back above 5.10."
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.526595744680851
-        }
-      ],
-      "id": "cfd7541436306b33",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-26",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261019",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 23, 2026 be above 5.10%?",
-      "topic": "Interest rates",
       "verdict": null
     },
     {
@@ -9584,12 +9584,12 @@
     }
   ],
   "summary": {
-    "brier": 0.20062337077156112,
+    "brier": 0.20067275575125687,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 109,
-    "resolved": 37,
-    "right": 22,
+    "pending": 108,
+    "resolved": 38,
+    "right": 23,
     "toss_ups": 0,
     "total": 148,
     "unscored": 3,
