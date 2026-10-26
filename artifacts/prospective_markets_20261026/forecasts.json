@@ -1,0 +1,655 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9315
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "The 1win public sale sells 130M tokens at $0.03 (a $3.9M base allocation) with uncapped USDC commitments; it passed $3.9M within eight minutes of opening on Oct 15 (AMBCrypto, 2026-10-15), and a later undated snippet put commitments near $5.31M (1.36x oversubscribed). Exceeding $10M needs roughly 1.9x that last reported total in the remaining ~4 days, and the slow growth after the fast start suggests a flat middle. A final-day surge or a whale deposit is the main route to Yes, and the figures rest on search snippets only.",
+          "sources": [
+            "https://ambcrypto.com/1win-public-sale-attracts-over-3-9m-in-usdc-commitments-within-eight-minutes/",
+            "https://www.mexc.com/news/687185",
+            "https://thedefiant.io/news/press-releases/1win-launches-two-week-public-sale-for-1win-token"
+          ]
+        }
+      ],
+      "id": "polymarket-5786291",
+      "market_id": "5786291",
+      "outcome": null,
+      "question": "Will commitments to the 1W public sale exceed $10M?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.745
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "Alphabet passed Apple in January 2026 but Apple regained ground, and a late-October aggregator summary puts Apple near $5.07T (about $347.73 on Oct 23) against Alphabet near $3.90T, so Alphabet is far from second. The real contest is Apple versus Nvidia: a screener updated 2026-10-22 listed Nvidia at about $5.109T first with Apple next, while another summary says Apple overtook Nvidia at roughly $5.11T intraday. With the two within about 1% of each other, Apple earnings (Oct 29 or Nov 2, unconfirmed) and the Oct 30 close decide it, so I stay near even.",
+          "sources": [
+            "https://www.financecharts.com/screener/biggest",
+            "https://companiesmarketcap.com/apple/marketcap/",
+            "https://www.aljazeera.com/amp/economy/2026/7/17/apple-regains-top-spot-as-worlds-most-valuable-company"
+          ]
+        }
+      ],
+      "id": "polymarket-5180406",
+      "market_id": "5180406",
+      "outcome": null,
+      "question": "Will Apple be the second-largest company in the world by market cap on October 31, 2026?",
+      "resolution_criteria": "This market will resolve to the second-largest company in the world by market cap on October 31, 2026, as of market close.\n\nThe resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/2nd-largest-company-end-of-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.815
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.87,
+          "rationale": "The question resolves No only if the US carries out a qualifying air or long-range missile strike on Iranian territory by Nov 3. Reporting suggests the last US strikes were in the June-July episodes (about three episodes in 28 weeks since the April 8 ceasefire, roughly 10-20% for an 8-day window at the average rate), and about 12 weeks since then look quiet. WSJ (2026-09-26) said Trump expects to resume bombing after the midterms, which falls outside the window, and indirect talks via Pakistan and Qatar continue, though the blockade and Hormuz closure add tail risk.",
+          "sources": [
+            "https://timesofisrael.com/liveblog_entry/trump-rejects-iran-ceasefire-proposal-expects-to-renew-strikes-after-midterms-wsj/",
+            "https://www.aljazeera.com/news/2026/10/15/us-iran-stalemate-what-are-trumps-next-military-options",
+            "https://www.france24.com/en/middle-east/20261004-iran-us-military-middle-east-war-peace-talks"
+          ]
+        }
+      ],
+      "id": "polymarket-5447182",
+      "market_id": "5447182",
+      "outcome": null,
+      "question": "US-Iran ceasefire continues through the midterms?",
+      "resolution_criteria": "This market will resolve to \u201cNo\u201d if the United States takes a qualifying military action against Iran by November 3, 2026, 11:59 PM ET. Otherwise this market will resolve to \u201cYes.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by the United States, that directly impacts Iran. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Iran do not constitute a military action regardless of any damage incurred.\n\n\u201cIran\u201d refers to the terrestrial territory of Iran, including its internal waters. Iran\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Iran as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Iran Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of the United States and Iran and a consensus of credible reporting.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/us-iran-ceasefire-continues-through-the-midterms",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.075
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The top Chinese slot on the Arena text board has rotated among Baidu (ERNIE 5.0 in January and 5.1-Preview in April), Moonshot (Kimi K3 in July) and others, and Alibaba seems to have held it only occasionally. Late-October summaries point to Xiaomi MiMo, Kimi K3 and DeepSeek V4 Pro as contenders, with Alibaba's Qwen 3.7/3.8 Max within about 50 Elo and a vision-board rank that does not count. With no confirmed text-board data and several close rivals, Alibaba is a long shot.",
+          "sources": [
+            "https://benchlm.ai/llm-leaderboard-history",
+            "https://shattered.io/kimi-k3-coding-leaderboard-2026/",
+            "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/"
+          ]
+        }
+      ],
+      "id": "polymarket-3554471",
+      "integrity_note": "The research digest mentioned that a market page lists another lab as favourite for this question. I did not use it and forecast from the leaderboard evidence only.",
+      "market_id": "3554471",
+      "outcome": null,
+      "question": "Will Alibaba have the best Chinese AI model at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
+      "topic": "Tech",
+      "unscored": true
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.055
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Houthi seizures of ships are rare: the one clear case is the car carrier Galaxy Leader on 19 Nov 2023, and none of an oil tanker in about three years of the campaign. The July 2026 blockade and the lethal August attack (CNBC, 2026-08-12) raise tanker risk, but the pattern remains missile and drone strikes, and the one August tanker seizure off Yemen was attributed to Somali pirates (Al Jazeera, 2026-08-20). No October seizure was found, so a seizure attributed to the Houthis in a 5-day window is a very low-frequency event.",
+          "sources": [
+            "https://www.aljazeera.com/news/2026/8/20/gunmen-seize-tanker-off-yemen-amid-resurgence-of-somali-piracy",
+            "https://www.cnbc.com/2026/08/12/us-iran-war-trump-hormuz-houthi-attack-blockade-.html",
+            "https://www.globalsecurity.org/military/library/news/2023/11/mil-231119-voa02.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-4618741",
+      "market_id": "4618741",
+      "outcome": null,
+      "question": "Houthis seize an oil tanker by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if Houthi forces seize control of an oil tanker or a commercial vessel transporting oil as cargo between market creation and the specified date, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\n\"Houthi forces\" refers to the military forces of the Houthi movement (Ansar Allah), including any armed force operating under its direction or on its behalf.\n\nSeize control refers to Houthi forces taking custody of or asserting operational control over a commercial ship, including boarding and taking control of the ship, holding or detaining it for an indefinite period, or forcefully rerouting it to a location selected or controlled by the perpetrators. Attacks on military vessels will not be considered. Once a qualifying seizure has occured, any subsequent abandonment, release, rescue, recapture, or other loss of control will not affect the resolution of this market.\n\nMissile/drone strikes or any other form of kinetic attack not resulting in the seizure of the targeted ship will not be considered, regardless of any damage that occurs.\n\nA qualifying seizure must be attributed to Houthi forces.\n\nThe primary resolution source for this market will be a consensus of credible reporting.\n\nThe occurrence, attribution, and timing of a qualifying seizure will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence of the incident, whether the incident qualifies as a seizure, whether the ship was an oil tanker or commercial vessel transporting oil as cargo, or the attribution of the seizure to Houthi forces, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the seizure, and of the ship's status as an oil tanker or commercial vessel transporting oil as cargo, based on a consensus of information available from the resolution sources or ii) 3 full calendar days (ET) from the date of the first credibly reported evidence of the seizure. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. If, at the end of the third calendar day, conflicting reports remain as to the occurrence, attribution, or timing of the seizure, or as to the ship's status, the incident will be judged based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/houthis-seize-an-oil-tanker-by",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8615
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "On 2026-10-26 BTC traded at roughly $79,500-$80,700 across CoinDesk, Coinbase and CoinGecko (search summaries), so the $78,000 threshold is about 2.5% below spot with about two days to the Oct 28 noon ET candle. With daily moves of 2-3% the two-day standard deviation is roughly 3.2-3.6%, which gives about a 75-79% chance of ending above $78,000 before allowing for the downtrend (down about 3% on the week, weekly close under $83,000). I shade a little for the downtrend and for the Binance-versus-aggregator gap of a few hundred dollars.",
+          "sources": [
+            "https://www.coindesk.com/price/bitcoin",
+            "https://www.coinbase.com/price/bitcoin",
+            "https://www.coingecko.com/en/coins/bitcoin"
+          ]
+        }
+      ],
+      "id": "polymarket-6015145",
+      "market_id": "6015145",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $78,000 on October 28?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-10-28",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-october-28-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.365
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.37,
+          "rationale": "Pashizi listed the Tehran free-market dollar at 2,723,000 rials on Oct 22, 2026, with a weekly high of 2,730,000, so 2.8M needs about +2.8% in nine days; another tracker quoted 2,613,700 (undated). The rial rose from about 1.9M in August to 2.72M by Oct 22 with repeated record lows, but a $2B central-bank dollar sale and pullbacks are also in the record. With daily moves of 0.2-1%, a persistent depreciation trend and tracker differences of tens of thousands of rials near the threshold, I put it somewhat below even.",
+          "sources": [
+            "https://www.pashizi.com/en/currency/usd",
+            "https://artesh.com/markets/rial/",
+            "https://www.withinnigeria.com/2026/10/04/iran-currency-crisis-rial-hits-record-low-despite-2bn-dollar-sale/",
+            "https://shafaq.com/en/Economy/US-Dollar-nears-record-190K-toman-in-Iran"
+          ]
+        }
+      ],
+      "id": "polymarket-5166884",
+      "market_id": "5166884",
+      "outcome": null,
+      "question": "Will USD be at least 2.8M Iranian rials on October 31?",
+      "resolution_criteria": "This market will resolve according to the finalized USD exchange rate on Bonbast for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThis market will resolve according to the finalized free-market USD exchange rate for the specified date as displayed on Bonbast (https://www.bonbast.com/graph/usd), which publishes prices in Iranian toman, where 1 Iranian toman equals 10 Iranian rials (IRR).\n\nA daily figure will be considered finalized once the following day\u2019s figure is released.\n\nResolution will occur once the specified exchange rate data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.\n\nIf Iran redenominates the rial, or Bonbast changes the unit in which it displays the USD exchange rate, before the relevant figure has been finalized, the displayed figure will be converted into current Iranian rials at the official conversion ratio between the new unit and the current rial (for example, 1 new rial equals 10,000 current rials), and the converted figure will be used for resolution.\n\nThe resolution source for this market will be Bonbast (https://www.bonbast.com/graph/usd). If the resolution source becomes permanently unavailable, another resolution source will be chosen.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/usd-x-iranian-rials-end-of-october",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.685
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "Four October polls show Brown (D) tied or ahead of Husted (R): CNN 49-43 (2026-10-08), YouGov 49-45 (2026-10-06), InsiderAdvantage 44-43 (2026-10-01) and a BGSU dead heat, an average lead of roughly 3 points (all from search snippets). Against that, Ohio went to Trump by about 11 points in 2024, Cook rated the race Lean Republican as of April, and late polls have overstated Democrats in Ohio. A modest poll lead offset by those fundamentals and polling-bias risk leaves it a little under even.",
+          "sources": [
+            "https://politicalwire.com/2026/10/08/sherrod-brown-leads-in-ohio-senate-race-3/",
+            "https://politicalwire.com/2026/10/06/sherrod-brown-leads-in-ohio-senate-race-2/",
+            "https://www.cookpolitical.com/senate/race/488651"
+          ]
+        }
+      ],
+      "id": "polymarket-631057",
+      "market_id": "631057",
+      "outcome": null,
+      "question": "Will the Democrats win the Ohio Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Ohio U.S. Senate special election currently scheduled for November 3, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/ohio-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.19
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "No verified Math lab table was found. A third-party mirror dated about 2026-08-06 listed Alibaba's qwen3.8-max first on Math at 1517, and Google's Gemini 4 Argon (High) is reported first on the overall text board at 1524 on 2026-10-17 (preliminary), which suggests Google is strong but may be first rather than second in Math. With roughly four or five labs (Google, Anthropic, OpenAI, Alibaba, xAI) in contention and unknown gaps, I give Google about a 30% chance of exactly second.",
+          "sources": [
+            "https://www.datalearner.com/en/leaderboards/external/text-generation-math?isChina=1",
+            "https://www.developersdigest.tech/benchmarks/lmarena",
+            "https://arena.ai/leaderboard/text/math-no-style-control?rankBy=labs"
+          ]
+        }
+      ],
+      "id": "polymarket-3554404",
+      "market_id": "3554404",
+      "outcome": null,
+      "question": "Will Google be the second-best Math AI lab at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the second-highest ranked Company based on the arena.ai Text Arena (Math) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Math\" Leaderboard tab at https://arena.ai/leaderboard/text/math-no-style-control?rankBy=labs with style control off (Adjustments: None) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Math). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/second-best-text-arena-math-ai-lab-end-of-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.31
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "Two parts must both hold: no qualifying Hormuz agreement announced by Oct 23, which looks met since reporting through Oct 25 shows no finalized deal (Iran International, 2026-10-25), and Republicans keeping the Senate. For the Senate, Cook (as of Oct 15) projected Democratic gains of 2-6 seats with four needed, seven toss-up races (six Republican-held), and October polls show Democrats ahead or tied in Ohio and Alaska. That makes control close to a coin flip, and the Hormuz component reduces it slightly.",
+          "sources": [
+            "https://www.iranintl.com/en/202610252197",
+            "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
+            "https://alaskabeacon.com/2026/06/11/repub/strong-candidates-in-alaska-ohio-seen-as-moving-us-senate-races-toward-dems/"
+          ]
+        }
+      ],
+      "id": "polymarket-5567008",
+      "market_id": "5567008",
+      "outcome": null,
+      "question": "Will there be no Hormuz agreement and the Republicans win the Senate?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if no Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nIf a Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, this market will resolve to \"No\" immediately.\n\nHormuz Agreement: A \"Hormuz Agreement\" will be considered to have occurred if a diplomatic agreement between the United States and Iran over traffic in the Strait of Hormuz is announced by October 23, 2026, 11:59 PM ET.\n\nA diplomatic agreement refers to an official agreement, treaty, deal, or substantially similar diplomatic instrument that establishes agreed actions, policies, obligations, or commitments between the United States and Iran.\n\nA qualifying diplomatic agreement must establish Iranian policies, obligations, or commitments aimed at permitting, restoring, or increasing vessel or shipping traffic through the Strait of Hormuz.\n\nAll listed countries must announce their acceptance of the same qualifying diplomatic agreement for the Hormuz Agreement component to be met. A joint announcement will qualify, as will separate announcements from each entity of its own acceptance of an agreement which, taken together, directly indicate that all the listed countries accepted the same agreement. Separate announcements of individual policies will not qualify if the policies are not announced as part of a diplomatic agreement.\n\nEach announcement must be a declarative statement that clearly and unambiguously communicates acceptance of an agreement. Statements that reference ongoing negotiations or a prospective agreement, or that allude to or express support for an agreement without confirming acceptance of the agreement, do not qualify. A qualifying announcement need not reference the agreement by name or use specific terminology, provided it clearly communicates acceptance of an agreement.\n\nWhether announcements from the listed countries represent a diplomatic agreement and whether such an agreement qualifies will be primarily determined through the announcements themselves. Where an announcement is made by all listed countries but, based on the announcements, it remains ambiguous whether the announcements represent a qualifying diplomatic agreement between the countries, the Hormuz Agreement component will remain undetermined until either i) definitive confirmation that the announcements represent a qualifying diplomatic agreement between the listed entities is achieved through further announcements from the listed countries or a consensus of credible reporting or ii) 14 calendar days (ET) have passed after the date that the last country made their first potentially qualifying announcement. If, at the end of the fourteenth calendar day, no definitive confirmation has been achieved, the Hormuz Agreement component will be determined based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for the Hormuz Agreement component will be official information from the governments of the United States and Iran and a consensus of credible reporting.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/republicans-win-the-senate-pending-hormuz-agreement",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.24
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "The Selic target is 13.75% after a 25 bp cut on 16 September 2026, the fifth straight 25 bp cut, and Copom has cut by exactly 25 bp at each of its last five meetings. A Focus-based summary says consensus points to a cut at the Nov 3-4 meeting, taking the rate to 13.50%, and the Focus end-2026 median of 13.25% implies further cuts at November and December. The September statement warned of uncertainty and de-anchored expectations, so a pause is the main risk.",
+          "sources": [
+            "https://www.riotimesonline.com/selic-rate-brazil-foreign-investors-guide/",
+            "https://ricoaospoucos.com.br/en/interest-rate/",
+            "https://www.bcb.gov.br/en/pressdetail/2680/nota",
+            "https://www.dgabc.com.br/Noticia/4353509/expectativa-para-a-selic-no-fim-de-2026-continua-em-13-25-no-focus-do-bc"
+          ]
+        }
+      ],
+      "id": "polymarket-3347919",
+      "market_id": "3347919",
+      "outcome": null,
+      "question": "Will the Bank of Brazil decrease the target for the Selic rate by 25 bps at the November meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the target for the Selic rate resulting from the November 2026 meeting of the Bank of Brazil\u2019s Monetary Policy Committee (COPOM), relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Brazil, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 3-4, 2026, as listed on the official Bank of Brazil calendar (https://www.bcb.gov.br/en/about/bcb-calendar?categoria=Monetary%20Policy%20Committee%20(Copom)). This market may resolve as soon as the statement or release of the Bank of Brazil's November 2026 Monetary Policy Committee meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/bank-of-brazil-decision-in-november-1785878499354",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.745
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.48,
+          "rationale": "Nearly every October poll has Peltola (D) narrowly ahead of Sullivan (R): Data for Progress 51-49 (2026-10-20), Rasmussen 44-42 (Oct 12-15), InsiderAdvantage 48-43 (Oct 9-10), Alaska Survey Research 51-49 (Oct 1-3) and NYT/Siena 50-43 (Sept 24-Oct 1), while Quantus showed a tie or a narrow Sullivan lead. Against a Republican state (every Senate cycle since 2008) and a record of Alaska polls missing, including Sullivan's 2020 race, I treat the poll lead as only a slight edge, which the snippet-only sourcing weakens further.",
+          "sources": [
+            "https://politicalwire.com/2026/10/20/three-tight-races-in-alaska/",
+            "https://www.newsweek.com/mary-peltola-is-pulling-ahead-in-the-final-stretch-against-dan-sullivan-12592675"
+          ]
+        }
+      ],
+      "id": "polymarket-634976",
+      "market_id": "634976",
+      "outcome": null,
+      "question": "Will Mary Peltola win the Alaska Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Alaska U.S. Senate election, inclusive of any run-offs, currently scheduled for November 3, 2026.\n\nIf the results of the election are not confirmed by July 31, 2027, this market will resolve to \"Other\".\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/alaska-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0515
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.13,
+          "rationale": "A summary of an aggregator page updated 2026-10-20 puts Google's Gemini 4 Argon (High) first on the text board at 1532 with style control off and 1524 with it on, with Claude Opus 5.5 (High) second at 1516 and Claude Fable 5.1 (Max) third at 1512; an Oct 8 snapshot had 1525 versus 1507. Anthropic trails by about 8 points, inside the roughly 8-9 point intervals, and ties on rank are broken by score, where Google leads. Anthropic would need a new release or a score shift by Oct 31, and no release was found for the final week of October.",
+          "sources": [
+            "https://www.swfte.com/lmarena",
+            "https://sophon.at/leaderboards/lmarena-text",
+            "https://www.versusapps.com/blog/lmarena-leaderboard-september-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-3554762",
+      "market_id": "3554762",
+      "outcome": null,
+      "question": "Will Anthropic have the #1 AI model at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) (Style Control On) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall with style control on (Adjustments: Style Control) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/which-company-has-1-ai-model-end-of-october-style-control-on",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.06
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "Israel struck Beirut's southern suburbs on June 7 and June 14, 2026, and L'Orient-Le Jour reported on Oct 14 that it has not struck Beirut since early June, about four and a half months. Katz's threats on Oct 14 and Oct 21 are conditional on Hezbollah or Iran firing at Israel, and strikes in south Lebanon do not count, so the base rate of roughly two Beirut strikes in six months implies a few percent for a six-day window. I add some weight for the heightened Iran-related tension.",
+          "sources": [
+            "https://tribune.com.pk/story/2636087/israels-katz-vows-to-strike-beiruts-southern-suburbs-over-any-rocket-or-drone-fire",
+            "https://today.lorientlejour.com/article/1550811/katz-threatens-to-strike-beiruts-southern-suburb-and-expand-israeli-occupation-if-hezbollah-and-iran-attack-israel.html",
+            "https://www.nbcnews.com/world/lebanon/israel-continues-strikes-beiruts-southern-suburbs-rcna349995"
+          ]
+        }
+      ],
+      "id": "polymarket-4119722",
+      "market_id": "4119722",
+      "outcome": null,
+      "question": "Israel military action against Greater Beirut by October 31?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if Israel takes a qualifying military action against Greater Beirut by the specified date, 11:59 PM Israel Daylight Time (IDT). Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Israel, that directly impacts Greater Beirut. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Greater Beirut do not constitute a military action regardless of any damage incurred.\n\n\u201cGreater Beirut\u201d refers to the continuous urbanized zone that encompasses all of the Beirut Governorate and the adjacent coastal and suburban municipalities of the Mount Lebanon Governorate. For this market, the geographic boundaries as defined in the map \u201cLocation of the Greater Beirut Area\u201d (https://polymarket-upload.s3.us-east-2.amazonaws.com/Beirut-3ffb23044f.png) from Faour & Mhawej (2014), Mapping Urban Transitions in the Greater Beirut Area Using Different Space Platforms (https://www.mdpi.com/2073-445X/3/3/941) will be used. If the precise location of a strike cannot be clearly attributed to the defined territory based on the referenced map, it will not qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (IDT) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. If, at the end of the third calendar day, conflicting reports remain as to the occurrence, attribution, or timing of the action, this market will resolve based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Israel and Lebanon and credible reporting.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/israel-military-action-against-beirut-byptptpt-20260708221422557",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.475
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "Microsoft was about $3.894T in October on companiesmarketcap (which ranks it third), and $524.51 at the Oct 23 close, while Alphabet is about $3.90T, so the two are nearly tied for third. A screener updated 2026-10-22 lists Nvidia, Apple and Alphabet ahead of Microsoft, and the sources conflict on the ranking. Microsoft reports on Oct 28 and Alphabet reports the same week, so a post-earnings move of 5-10% can reverse the order before the Oct 30 close, and Amazon's cap is unclear; I put it somewhat below even because the better-dated source has Alphabet ahead.",
+          "sources": [
+            "https://companiesmarketcap.com/microsoft/marketcap/",
+            "https://www.financecharts.com/screener/biggest",
+            "https://www.fool.com/research/largest-companies-by-market-cap/",
+            "https://www.google.com/finance/quote/MSFT:NASDAQ"
+          ]
+        }
+      ],
+      "id": "polymarket-5166967",
+      "market_id": "5166967",
+      "outcome": null,
+      "question": "Will Microsoft be the third-largest company in the world by market cap on October 31?",
+      "resolution_criteria": "This market will resolve to the third-largest company in the world by market cap on October 31, 2026, as of market close.\n\nThe resolution source for this market will be a consensus of credible reporting.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/3rd-largest-company-end-of-october",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.919
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "This resolves Yes if no qualifying US-Iran Hormuz agreement is announced by Nov 2. Around Oct 25, Iran told Pakistani mediators it would reopen the strait if the US ends its blockade, an IRGC-affiliated outlet rejected that, and Trump raised the possibility of strikes; on Oct 7 Trump rejected an Iranian proposal and the US set new demands. Only about two arrangements were announced in roughly 30 weeks (April, June) and August's 'close to a deal' reports did not finalize, so about 7% per week, with a high bar that both countries announce acceptance of the same agreement.",
+          "sources": [
+            "https://www.iranintl.com/en/202610252197",
+            "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
+            "https://www.aljazeera.com/news/2026/8/5/iran-oman-us-close-to-hormuz-deal-what-do-they-all-want"
+          ]
+        }
+      ],
+      "id": "polymarket-5572739",
+      "market_id": "5572739",
+      "outcome": null,
+      "question": "Will there be no Hormuz agreement?",
+      "resolution_criteria": "This market will resolve to \"Hormuz Agreement; R Senate\" if a Hormuz Agreement is announced by November 2, 2026, 11:59 PM ET, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Hormuz Agreement; D Senate\" if a Hormuz Agreement is announced by November 2, 2026, 11:59 PM ET, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"No Hormuz Agreement\" immediately if a Hormuz Agreement is not announced by November 2, 2026, 11:59 PM ET.\n\nHormuz Agreement: A \"Hormuz Agreement\" will be considered to have occurred if a diplomatic agreement between the United States and Iran over traffic in the Strait of Hormuz is announced by November 2, 2026, 11:59 PM ET.\n\nA diplomatic agreement refers to an official agreement, treaty, deal, or substantially similar diplomatic instrument that establishes agreed actions, policies, obligations, or commitments between the United States and Iran.\n\nA qualifying diplomatic agreement must establish Iranian policies, obligations, or commitments aimed at permitting, restoring, or increasing vessel or shipping traffic through the Strait of Hormuz.\n\nAll listed countries must announce their acceptance of the same qualifying diplomatic agreement for the Hormuz Agreement component to be met. A joint announcement will qualify, as will separate announcements from each entity of its own acceptance of an agreement which, taken together, directly indicate that all the listed countries accepted the same agreement. Separate announcements of individual policies will not qualify if the policies are not announced as part of a diplomatic agreement.\n\nEach announcement must be a declarative statement that clearly and unambiguously communicates acceptance of an agreement. Statements that reference ongoing negotiations or a prospective agreement, or that allude to or express support for an agreement without confirming acceptance of the agreement, do not qualify. A qualifying announcement need not reference the agreement by name or use specific terminology, provided it clearly communicates acceptance of an agreement.\n\nWhether announcements from the listed countries represent a diplomatic agreement and whether such an agreement qualifies will be primarily determined through the announcements themselves. Where an announcement is made by all listed countries but, based on the announcements, it remains ambiguous whether the announcements represent a qualifying diplomatic agreement between the countries, the Hormuz Agreement component will remain undetermined until either i) definitive confirmation that the announcements represent a qualifying diplomatic agreement between the listed entities is achieved through further announcements from the listed countries or a consensus of credible reporting or ii) 14 calendar days (ET) have passed after the date that the last country made their first potentially qualifying announcement. If, at the end of the fourteenth calendar day, no definitive confirmation has been achieved, the Hormuz Agreement component will be determined based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for the Hormuz Agreement component will be official information from the governments of the United States and Iran and a consensus of credible reporting.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/who-wins-the-senate-pending-hormuz-agreement-before-the-midterms",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.13,
+          "rationale": "The only recent Math data point is an aggregator snippet (data version 2026-08-06) listing Alibaba's qwen3.8-max first at 1517, and an Arena March 2026 update had Qwen 3.5 Max Preview third on Math. Anthropic's best model sits second on the overall board behind Google's Gemini 4 Argon (reported 2026-10-20), and Math is unlikely to be easier for Anthropic than the overall board. With the top spot rotating among Anthropic, OpenAI, Alibaba and Google and a tie settled by unrounded score, I give Anthropic a modest chance.",
+          "sources": [
+            "https://arena.ai/blog/march-2026-arena-updates/",
+            "https://www.datalearner.com/en/leaderboards/external/text-generation-math",
+            "https://www.swfte.com/lmarena"
+          ]
+        }
+      ],
+      "id": "polymarket-3554355",
+      "market_id": "3554355",
+      "outcome": null,
+      "question": "Will Anthropic have the best Math AI model at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company that owns the model that has the highest arena rank based on the arena.ai Text Arena (Math) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Math\" Leaderboard tab at https://arena.ai/leaderboard/text/math-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Math). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/which-company-has-the-best-text-arena-math-ai-model-end-of-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.12
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The IMF PortWatch 7-day average of Bab el-Mandeb transit calls was 24.7 for the week to 20 Sep 2026, about 25.4 for the week to 6 Sep and 25.1 for the week to 9 Aug, with a reported low of 23.71 on 6 Aug, all well below the 30-34 band, and the 90-day mean to 20 Sep was 30.8. Lloyd's List counted 290 preliminary transits for Sept 21-27 (up from 264), but on a different, higher-reading monitor. No October PortWatch values were found and an unverified report of Houthi advances near the strait would depress traffic, so landing in 30-34 would take a sizeable rebound.",
+          "sources": [
+            "https://statisticsoftheworld.com/news/2026-09-20",
+            "https://statisticsoftheworld.com/news/2026-09-06",
+            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-1-october-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-5166820",
+      "market_id": "5166820",
+      "outcome": null,
+      "question": "Will there be between 30 and 34 average daily transits of the Bab el-Mandeb Strait on October 31?",
+      "resolution_criteria": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.06
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The UNH Granite State Poll (Aug 20-24, 2026) had incumbent Republican Gov. Kelly Ayotte ahead of Democrat Cinde Warmington 49% to 39% with 9% undecided and a 49-42 approval, and earlier UNH polls had her ahead by 5 to 8 points; a summary of an early-October poll also put her up nine. Incumbent governors win roughly 80-90% of the time, and Democrats have won only in 2004 and 2012-2016 out of the last ~11 elections. A midterm under a Republican president helps Democrats somewhat, but a roughly ten-point lead against a lesser-known challenger outweighs that.",
+          "sources": [
+            "https://www.wcax.com/2026/08/28/unh-poll-shows-ayotte-leads-warmington-nh-governors-race/",
+            "https://indepthnh.org/2026/08/27/ayottes-approval-improves-lead-over-warmington-grows-in-new-hampshire-gubernatorial-race/",
+            "https://www.wcax.com/2026/10/07/campaign-countdown-candidates-nh-governor/"
+          ]
+        }
+      ],
+      "id": "manifold-pZpEqPAq5U",
+      "market_id": "pZpEqPAq5U",
+      "outcome": null,
+      "question": "Will Democrats win the 2026 New Hampshire Governor election? (Kalshi)",
+      "resolution_criteria": "Resolves the same as the Democratic Party answer: https://kalshi.com/markets/govpartynh/new-hampshire-governor/govpartynh-28\n\nIf a representative of the Democratic party is inaugurated as the governor of New Hampshire pursuant to the 2026 election, then the market resolves to Yes. Outcome verified from US State Governments.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/will-democrats-win-the-2026-new-ham",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2326
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Meta's Muse app reached #1 on the US iPhone free chart around Sept 18, 2026 (9to5Mac) and held it about three weeks, then a search summary says Dave's Hot Chicken, helped by a giveaway that required an app download, displaced it around Oct 16. Retention is weak, since open rates are well below ChatGPT's (Crypto Briefing), and no source shows why Muse would be #1 again on Nov 1, which is a single check at 10am PST on a Sunday. Viral apps usually decay and promotions by rivals can take the spot, so I put it clearly below even.",
+          "sources": [
+            "https://9to5mac.com/2026/09/18/metas-new-muse-ai-agent-app-overtakes-chatgpt-as-top-iphone-app/",
+            "https://www.inc.com/amaya-nichole/daves-hot-chicken-meta-muse-app-store/91420381",
+            "https://cryptobriefing.com/meta-muse-app-store-retention/"
+          ]
+        }
+      ],
+      "id": "manifold-QlhzLRNdsL",
+      "market_id": "QlhzLRNdsL",
+      "outcome": null,
+      "question": "Will Muse rank #1 in App Store (iPhone) on November 1st 2026",
+      "resolution_criteria": "It just reached #1 under free apps, will it stay this way? I will check at 10am PST, if muse is #1 on November 1st, resolves YES. \n\nLosing #1 prior to the checkpoint will not cause a NO resolution as long as it is #1 at 10:00 AM.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://manifold.markets/Mochi/will-muse-rank-1-in-app-store-iphon-0dAdQUQZyA",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.42
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Mason-Dixon for NBC6/Telemundo 51 (about Oct 6, 2026) had Moody 50%, Nixon 40% statewide, but Nixon ahead 48-42 in the broader Southeast Florida region and Hispanic voters favoring Moody 47-40; St. Pete Polls (Sept 15-17) had a 45.2 to 44.8 dead heat. Democrats carried Miami-Dade in 2018 and 2020 but lost it in 2022 and 2024 (from memory, unverified), and in 2022 and 2024 the county ran about 2 to 9 points to the left of the state. If the statewide race ends near Moody +5 to +8, the county would be close to even or lean Republican, so I put Nixon somewhat below even but well above a long shot.",
+          "sources": [
+            "https://www.nbcmiami.com/elections/poll-shows-ashley-moody-leading-angie-nixon-in-floridas-u-s-senate-race/3869181/",
+            "https://www.newsweek.com/ashley-moody-sounds-alarm-as-second-poll-shows-dead-heat-with-angie-nixon-12465288",
+            "https://en.wikipedia.org/wiki/2026_United_States_Senate_special_election_in_Florida"
+          ]
+        }
+      ],
+      "id": "manifold-QC80ENZPh5",
+      "market_id": "QC80ENZPh5",
+      "outcome": null,
+      "question": "Will Democrat Angie Nixon win Miami Dade County in the Florida Senate Election?",
+      "resolution_criteria": "2026 United States Senate special election in Florida - Wikipedia",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/will-democrat-angie-nixon-win-miami",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.6303
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "AP reported on 2026-10-12, after interviews with more than a dozen Democratic senators, that Schumer has regained standing in his caucus, that Senate Democratic insiders expect him to stay as leader, and that if Democrats win a majority another term would be nearly assured. No Democrat had stepped up to challenge him as of that date, and the leadership vote is likely the week after Election Day. The risks are nominees who say they will not back him (Stratton, El-Sayed, Flanagan, Jackson), colleagues pressing him to announce a last term, and a challenger emerging after the results; the question resolves n/a if Democrats do not win the Senate.",
+          "sources": [
+            "https://www.wcax.com/2026/10/12/chuck-schumer-has-broad-support-his-caucus-midterms-could-decide-his-future-leader/",
+            "https://abcnews.com/amp/US/wireStory/chuck-schumer-broad-support-caucus-midterms-decide-future-137189528"
+          ]
+        }
+      ],
+      "id": "manifold-9ZLpqZRtyl",
+      "market_id": "9ZLpqZRtyl",
+      "outcome": null,
+      "question": "IF Democrats win the senate, will Chuck Schumer be their leader?",
+      "resolution_criteria": "Resolves n/a if democrats do not control the senate after the 2026 elections.\n\nResolves yes if chuck schumer is the first senate democratic leader after the 2026 elections\n\nResolves no if anyone else is the first senate democratic leader after the 2026 elections",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/if-democrats-win-the-senate-will-ch",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4405
+        },
+        {
+          "created_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Trump named Katie Zacharia on 2026-10-09 and she was ousted on 2026-10-16 after about five days; Fox's Peter Doocy reported Trump is in 'no rush' to name a replacement, and cabinet officials are fielding press questions meanwhile. The resolution date is Oct 31, so a Yes needs a blonde woman named, or serving in an acting role, within roughly five days. The leading internal candidate, Anna Kelly, has no confirmed hair colour and an unverified 2026-10-22 X post claiming she was named has no official confirmation; the base rate of blonde women among recent press secretaries is meaningful but the timing is the main obstacle.",
+          "sources": [
+            "https://www.axios.com/2026/10/16/trump-katie-zacharia-press-secretary",
+            "https://www.cnbc.com/2026/10/16/trump-katie-zacharia-white-house.html",
+            "https://www.wnd.com/2026/10/who-needs-press-secretary-trump-no-hurry-address/",
+            "https://en.wikipedia.org/wiki/Anna_Kelly_(spokesperson)"
+          ]
+        }
+      ],
+      "id": "manifold-Iz5sI5n8q9",
+      "market_id": "Iz5sI5n8q9",
+      "outcome": null,
+      "question": "Will the next White House Press Secretary after Katie Zachariah be a blonde woman?",
+      "resolution_criteria": "Dyed blonde counts, as long as she is blonde as of taking the position.\n\nUpdate 2026-10-20 (PST) (AI summary of creator comment): - Blonde highlights only count for a YES resolution if the hair is primarily blonde.\n\nUpdate 2026-10-20 (PST) (AI summary of creator comment): - Acting or interim press secretaries count.\n\nUpdate 2026-10-25 (PST) (AI summary of creator comment): - Resolves NO if a naturally blonde woman's hair is dyed non-blonde as of taking the position.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://manifold.markets/Tetraspace/will-the-next-white-house-press-sec",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v3+manifold_selection_v2"
+}
