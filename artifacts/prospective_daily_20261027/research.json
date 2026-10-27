@@ -1,5 +1,6 @@
 {
   "cost_usd": {},
+  "downloaded_at": "2026-10-27T09:24:37.607582+00:00",
   "failed": {
     "4c014bd2f44640a3": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 1 day. Buy credits to keep going now, or upgrade your plan for more weekly usage."
   },
