@@ -14,6 +14,12 @@ months later, so they would sit unresolved long past their listed date.
 v3 (2026-10-25, owner's call) takes more questions that settle sooner, so results build up
 faster: up to 18 a day (was 8), up to 4 per topic (was 2), closing within 10 days (was 21).
 
+v4 (2026-10-27) also skips markets whose rules allow settling much later than trading
+closes: if the rules name a deadline more than ``LATE_SETTLING`` after the listed end
+date ("the result isn't known by December 31, 2027"), the market can sit unsettled for
+months, like the Bulgarian presidential election market that closed on election day but
+waits for any runoff.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
@@ -38,7 +44,7 @@ from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v3"
+SELECTION_VERSION = "polymarket_selection_v4"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -50,6 +56,10 @@ MIN_PRICE, MAX_PRICE = 0.05, 0.95
 DAILY_LIMIT = 18
 # Markets that settle when someone takes office, not when trading closes.
 SLOW_SETTLING = re.compile(r"\bnext (prime minister|president|chancellor|premier|pm|leader|speaker)\b", re.IGNORECASE)
+# Rules that allow settling this long after the listed end date mark a slow-settling market.
+LATE_SETTLING = timedelta(days=30)
+RULES_DATE = re.compile(r"\b(January|February|March|April|May|June|July|August|September|October|November|December)"
+                        r" (\d{1,2}),? (\d{4})\b")
 TOPIC_LIMIT = 4
 
 MANIFOLD_SELECTION_VERSION = "manifold_selection_v2"
@@ -80,6 +90,12 @@ def _parse_time(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
+def settles_late(rules: str, closes: datetime) -> bool:
+    """Whether the rules name a deadline well after the listed end date."""
+    dates = [datetime.strptime(" ".join(m), "%B %d %Y").replace(tzinfo=UTC) for m in RULES_DATE.findall(rules)]
+    return any(date > closes + LATE_SETTLING for date in dates)
+
+
 def _yes_price(market: dict[str, Any]) -> float | None:
     outcomes, prices = json.loads(market.get("outcomes") or "[]"), json.loads(market.get("outcomePrices") or "[]")
     if outcomes != ["Yes", "No"] or len(prices) != 2:
@@ -105,6 +121,8 @@ def candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]
                         or not MIN_PRICE <= price <= MAX_PRICE or SLOW_SETTLING.search(market.get("question") or "")):
                     continue
                 if not now + timedelta(days=MIN_DAYS) <= _parse_time(closes) <= now + timedelta(days=MAX_DAYS):
+                    continue
+                if settles_late(market.get("description") or "", _parse_time(closes)):
                     continue
                 eligible.append((volume, market, price))
             if eligible:

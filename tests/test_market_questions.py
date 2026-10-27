@@ -7,7 +7,14 @@ from pathlib import Path
 
 import pytest
 
-from forecastlab.market_questions import candidates, manifold_candidates, manifold_resolution, resolution, select
+from forecastlab.market_questions import (
+    candidates,
+    manifold_candidates,
+    manifold_resolution,
+    resolution,
+    select,
+    settles_late,
+)
 from forecastlab_api.track_record import build_track_record
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -34,6 +41,8 @@ EVENTS = {
     "politics": [
         {"id": "e4", "slug": "israel-pm", "markets": [_market("m5", "Will the Knesset pass the 2027 budget?", 0.36, 6_000_000)]},
         {"id": "e8", "slug": "next-pm", "markets": [_market("m9", "Will Ana Brnabić be the next Prime Minister of Serbia?", 0.4, 900_000)]},  # settles at swearing-in
+        {"id": "e9", "slug": "bulgaria", "markets": [{**_market("m10", "Will Iliana Iotova win the Bulgarian presidential election?", 0.6, 700_000),
+            "description": "Includes any second round. If the result isn't known by December 31, 2027, 11:59 PM ET, resolves Other."}]},
         {"id": "e5", "slug": "far-future", "markets": [_market("m6", "Too far out?", 0.5, 80_000, ends="2026-12-31T00:00:00Z")]},
         {"id": "e6", "slug": "multi", "markets": [_market("m7", "Team A or B?", 0.5, 80_000, outcomes=("A", "B"))]},
     ],
@@ -47,6 +56,13 @@ def fake_fetch(url: str):
         tag = url.split("tag_slug=")[1].split("&")[0]
         return EVENTS.get(tag, [])
     raise AssertionError(url)
+
+
+def test_rules_with_a_deadline_long_after_the_end_date_settle_late() -> None:
+    closes = datetime(2026, 10, 25, 23, 59, tzinfo=UTC)
+    assert settles_late("by June 30, 2028, 11:59 PM ET", closes)
+    assert not settles_late("Resolves Yes if announced by October 31, 2026, 11:59 PM ET.", closes)
+    assert not settles_late("No dates here.", closes)
 
 
 def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None:
@@ -191,7 +207,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v3+manifold_selection_v2"
+    assert selected["selection"] == "polymarket_selection_v4+manifold_selection_v2"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)

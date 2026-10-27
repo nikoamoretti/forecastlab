@@ -132,3 +132,35 @@ test("the over-time section shows the share of calls right each week and the tre
   await expect(section.getByRole("img")).toHaveAttribute("aria-label",
     "By week: Oct 5 50% (1 of 2 right), Oct 12 100% (1 of 1 right). Getting better: from about 50% to 100% of calls right.");
 });
+
+test("past 30 results the progress box moves on to the next milestone", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-10-27T12:00:00Z"));
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-27", forecasters,
+    summary: { resolved: 38, right: 23, wrong: 15, toss_ups: 0, brier: .2, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 38 },
+    questions: [] } }));
+  await page.goto("/");
+  await expect(page.getByText("38 of 50 results")).toBeVisible();
+  await expect(page.getByText(/Past 30, so the score now means something/)).toBeVisible();
+  await expect(page.getByRole("progressbar", { name: "Decided questions" })).toHaveAttribute("aria-valuemax", "50");
+});
+
+test("a market whose rules allow a much later settlement says so instead of looking missed", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-10-27T12:00:00Z"));
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-27", forecasters,
+    summary: { resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 2 },
+    questions: [
+      question("pm", "Will Aleksandar Vučić be the next Prime Minister of Serbia?", { status: "pending", outcome: null, actual: null,
+        resolves_on: "2026-10-25", source_url: "https://polymarket.com/event/next-pm", call: { method: "combined_median_v1", probability: .57 },
+        detail: "Resolves to whoever takes office by June 30, 2028, 11:59 PM ET." }),
+      question("fable", "Will a new Fable model ship before October 26?", { status: "pending", outcome: null, actual: null,
+        resolves_on: "2026-10-25", source_url: "https://manifold.markets/x/fable", call: { method: "combined_median_v1", probability: .3 },
+        detail: "Resolves YES if released before October 26, 2026." })] } }));
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: /Prime Minister of Serbia/ })).toContainText("Waiting for Polymarket; its rules allow until Jun 30, 2028");
+  await expect(page.getByRole("link", { name: /Fable model/ })).toContainText("Waiting for Manifold");
+  await expect(page.getByRole("link", { name: /Fable model/ })).not.toContainText("rules allow");
+  await page.goto("/q/pm");
+  await expect(page.getByText("Polymarket listed Oct 25, 2026, but its rules let it settle as late as Jun 30, 2028")).toBeVisible();
+  await page.goto("/q/fable");
+  await expect(page.getByText("It was due Oct 25, 2026, but Manifold hasn’t settled it yet. We check every evening.")).toBeVisible();
+});

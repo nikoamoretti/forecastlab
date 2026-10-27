@@ -28,10 +28,30 @@ export function groupBySeries(questions: Question[]): QuestionGroup[] {
   return [...groups.values()];
 }
 
-// Results this many decided questions in, a score starts to reflect skill more than luck.
-export const MEANINGFUL_RESULTS = 30;
+// Milestones for the progress box: each says what that many decided questions buys us.
+const MILESTONES = [
+  { at: 30, why: "At about 30 decided questions the score starts to show skill rather than luck." },
+  { at: 50, why: "Past 30, so the score now means something. At 50 we can check whether our 70% calls come true about 70% of the time." },
+  { at: 100, why: "Past 50. At 100 the score is solid enough to tell which forecasters are really better." },
+];
+
+// The next milestone ahead of `resolved`, or null once every milestone is passed.
+export function nextMilestone(resolved: number) {
+  return MILESTONES.find(m => resolved < m.at) ?? null;
+}
 
 const noon = (iso: string) => new Date(`${iso.slice(0, 10)}T12:00:00Z`);
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+// The latest deadline a market's rules name, if it is more than a month after the listed date:
+// such a market can stay unsettled long after it closes (an election runoff, a new government).
+export function lateDeadline(rules: string, listed: string): string | null {
+  const dates = [...rules.matchAll(new RegExp(`\\b(${MONTHS.join("|")}) (\\d{1,2}),? (\\d{4})\\b`, "g"))]
+    .map(([, month, day, year]) => new Date(Date.UTC(+year, MONTHS.indexOf(month), +day, 12)).toISOString().slice(0, 10));
+  const latest = dates.sort().at(-1);
+  return latest && (noon(latest).getTime() - noon(listed).getTime()) / 86_400_000 > 30 ? latest : null;
+}
 
 export function shortDate(iso: string, withYear = false) {
   return noon(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: withYear ? "numeric" : undefined, timeZone: "UTC" });
