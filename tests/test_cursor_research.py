@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -13,6 +14,7 @@ from forecastlab.judge_panel import Member, PanelConfig, Price, load_config
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+import cursor_research as research_script  # noqa: E402
 import judge_panel as panel_script  # noqa: E402
 import research_download  # noqa: E402
 
@@ -319,3 +321,16 @@ def test_refused_pages_are_asked_as_a_browser_then_read_from_the_archive() -> No
     assert unquoted["verified"] is None and "November ballot" in unquoted["text"]  # nothing to check, page still read
     stale = research_download.check_source({**source, "published": "2026-10-22"}, lambda url: got)
     assert stale["verified"] is None and "predates" in stale["download_error"]  # the Oct 20 copy cannot hold it
+
+
+def test_checkout_replaces_a_worktree_left_by_another_clone(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    repo, stale = tmp_path / "repo", tmp_path / "work"
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty",
+                    "-m", "x"], check=True)
+    stale.mkdir()  # a worktree from yesterday's clone, which this repo doesn't know about
+    (stale / ".git").write_text("gitdir: /gone/.git/worktrees/work\n")
+    monkeypatch.setattr(research_script, "WORK", stale)
+    monkeypatch.setattr(research_script.git, "__kwdefaults__", {"cwd": repo, "check": True})
+    assert research_script.checkout("HEAD") == stale
+    assert "/gone/" not in (stale / ".git").read_text()
