@@ -1,0 +1,18 @@
+{
+  "cost_usd": {},
+  "failed": {
+    "4c014bd2f44640a3": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 1 day. Buy credits to keep going now, or upgrade your plan for more weekly usage."
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-27T09:24:09+00:00",
+  "researched_by": {},
+  "runs": 1,
+  "seconds": {
+    "4c014bd2f44640a3": 30.7
+  },
+  "sources": {}
+}

@@ -1,0 +1,40 @@
+{
+  "cost_usd": {},
+  "failed": {
+    "manifold-A9hC8NPQnn": "skipped: the research model's usage limit was reached earlier in this run",
+    "manifold-AnP5hddcLL": "skipped: the research model's usage limit was reached earlier in this run",
+    "manifold-dNytldIuNO": "skipped: the research model's usage limit was reached earlier in this run",
+    "manifold-plsdPpp9Iz": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-3251556": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-3554472": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-3554497": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-3554950": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-3572806": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-4096541": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-4424725": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-4470027": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 1 day. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-4936036": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-4936096": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-5166819": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-5166953": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-5170739": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 1 day. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-629691": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-630733": "skipped: the research model's usage limit was reached earlier in this run",
+    "polymarket-630747": "RuntimeError: cursor-agent exited 1: ActionRequiredError: Weekly usage limit reached. It resets in 1 day. Buy credits to keep going now, or upgrade your plan for more weekly usage.",
+    "polymarket-630924": "skipped: the research model's usage limit was reached earlier in this run"
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-27T09:24:23+00:00",
+  "researched_by": {},
+  "runs": 21,
+  "seconds": {
+    "polymarket-4470027": 13.6,
+    "polymarket-5170739": 12.6,
+    "polymarket-630747": 12.6
+  },
+  "sources": {}
+}
