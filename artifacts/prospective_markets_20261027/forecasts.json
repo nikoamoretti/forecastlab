@@ -1,0 +1,549 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.24,
+          "rationale": "Search snippets put Bitcoin near $82-84k (KuCoin flash article, undated, about $82,423 after a 2% fall; Changelly page about $84k on 2026-10-27), so $77,500 is roughly 6-8% below spot with about 4.5 days left. A driftless move of that size within that window happens roughly 15-20% of the time for BTC, and there is some extra chance that October already printed a low at or under $77,500 earlier in the month, which the digest could not rule out (the dip to $80,000 in Oct 19-25 shows the market was close to the area). I lean a little higher than the pure touch estimate because my recent crypto dip calls were too low.",
+          "sources": [
+            "https://www.kucoin.com/news/flash/bitcoin-falls-2-amid-uncertainty-over-october-2026-performance",
+            "https://changelly.com/blog/what-affects-the-price-of-1-bitcoin/"
+          ]
+        }
+      ],
+      "id": "polymarket-5170739",
+      "market_id": "5170739",
+      "outcome": null,
+      "question": "Will Bitcoin dip to $77,500 in October?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for BTC/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT Low prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-october-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.455
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.28,
+          "rationale": "On 2026-09-30 the board raised the rate 25 bp to 12.25% on a 4-2-1 vote (four for +25, two for a hold, one for +50), with inflation near 6.24% against a 3% target, so five of seven members already favoured tightening more (vanguardia.com, 2026-09-30). The only survey found, from Anif via a search summary, has 68.4% expecting another 25 bp hike to 12.50% on Oct 30 and 31.6% expecting a hold, and Grupo Cibest also expects 12.50%. Surprises have gone both ways this year (a hold in July, a hike in September when most analysts expected a hold), and a new government could add pressure to pause, so I keep a meaningful chance of no change but lean to a hike.",
+          "sources": [
+            "https://www.vanguardia.com/economia/2026/09/30/tasa-de-interes-subio-al-1225-tras-decision-de-la-junta-directiva-del-banco-de-la-republica/",
+            "https://www.financecolombia.com/grupo-cibest-expects-colombia-to-raise-rates-to-12-50-and-the-fed-to-hold/",
+            "https://www.focus-economics.com/countries/colombia/news/monetary-policy/colombia-central-bank-meeting-31-07-2026-central-bank-unexpectedly-holds-rates/"
+          ]
+        }
+      ],
+      "id": "polymarket-4470027",
+      "market_id": "4470027",
+      "outcome": null,
+      "question": "Will the Central Bank of Colombia make no change to the monetary policy interest rate at the October meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the monetary policy interest rate resulting from the October 2026 meeting of the Central Bank of Colombia (Banco de la Republica), relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Central Bank of Colombia, including the statement or release from its October 2026 meeting, scheduled for October 30, 2026, as listed on the official Central Bank of Colombia calendar (https://www.banrep.gov.co/es/calendario-eventos). This market may resolve as soon as the statement or release of the Central Bank of Colombia resulting from its October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://polymarket.com/event/central-bank-of-colombia-decision-in-october",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.62
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.62,
+          "rationale": "Kansas has not elected a Democratic senator since 1932, and Republican incumbent Roger Marshall is on the ballot, which is a strong prior for the Republican. Against that, independent polls are close: Emerson Sept 15-16 Hamilton 45, Marshall 43; Trafalgar Sept 29-Oct 1 Hamilton 44.4, Marshall 43.5; co/efficient Sept 8-10 Marshall 49, Hamilton 44, and Hamilton has out-raised Marshall with a $5M outside buy (Newsweek, Political Wire). I found nothing newer than Oct 1, the environment looks Democratic-leaning, and state polling in red states has tended to overstate Democrats, so I keep the Republican a clear but not large favourite.",
+          "sources": [
+            "https://politicalwire.com/2026/09/18/hamilton-leads-marshall-in-kansas-senate-race/",
+            "https://www.newsweek.com/adam-hamilton-roger-marshall-kansas-senate-race-odds-polls-12460819",
+            "https://www.newsweek.com/democrats-may-flip-longest-held-gop-senate-seat-for-first-time-in-107-years-12527334"
+          ]
+        }
+      ],
+      "id": "polymarket-630747",
+      "market_id": "630747",
+      "outcome": null,
+      "question": "Will the Republicans win the Kansas Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Kansas U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/kansas-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.74
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The only recent level is about 26 transits a day for the week ending 2026-10-18, from a secondary tracker citing IMF PortWatch (elestrechodigital.com), up from about 11 in June and below the high 30s earlier in 2026. The bracket of 25-29 is about five wide and sits right on that figure, but the number is secondhand, I have no data after Oct 18, and the series swings by several calls over two weeks in both directions (continued recovery above 29, or a Houthi escalation below 25; one headline claims transits are down 47%). That makes this the single most likely bracket but still well short of even odds.",
+          "sources": [
+            "https://www.elestrechodigital.com/en/indicators/ship-traffic-through-the-bab-el-mandeb-strait",
+            "https://redanalysis.org/2026/10/08/houthis-bab-el-mandeb-maritime-transport/",
+            "https://houseofsaud.com/houthi-bab-el-mandeb-chokepoint/"
+          ]
+        }
+      ],
+      "id": "polymarket-5166819",
+      "market_id": "5166819",
+      "outcome": null,
+      "question": "Will there be between 25 and 29 average daily transits of the Bab el-Mandeb Strait on October 31?",
+      "resolution_criteria": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.53
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Destatis put Q2 2026 GDP at +0.3% on the quarter and +1.0% on the year (final, 2026-08-25). The Q3 year-on-year rate is roughly 1.0% plus Q3 2026 growth minus Q3 2025 growth; from memory (not verified) Q3 2025 was about 0.0 to 0.1%, so flat growth gives about 0.9-1.0%, +0.2% gives about 1.1-1.2%, and +0.3% or more gives 1.2% or above. Deutsche Bank (2026-08-26) warned Q3 could stall, so I centre near 1.0% with a spread of a few tenths; the 1.0-1.2% bracket covers three prints near the centre but misses a stall or a contraction on one side and a solid rebound on the other. Revisions to earlier quarters in the flash release add noise.",
+          "sources": [
+            "https://static.poder360.com.br/uploads/2026/08/pib-alemanha-destatis-2otri2026.pdf",
+            "https://trade.gov.tr/news/germanys-gdp-increased-by-0-2-qoq-in-the-second-quarter-of-2026",
+            "https://www.tmgm.com/es/analysis/market-news/article/germany-gdp-recovery-strengthens-outlook-deutsche-bank-202608261347"
+          ]
+        }
+      ],
+      "id": "polymarket-3251556",
+      "market_id": "3251556",
+      "outcome": null,
+      "question": "Will Germany GDP growth in Q3 2026 be between 1.0% and 1.2%?",
+      "resolution_criteria": "This market will resolve according to the German GDP growth rate (% change) on the same quarter a year earlier, price adjusted, as reported in the first release of the Destatis Gross Domestic Product press release for Q3 of 2026, expected to be released on October 30, 2026.\n\nThe GDP release will be made available here: https://www.destatis.de/EN/Themes/Economy/National-Accounts-Domestic-Product/_node.html\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nThe resolution source for this market reports GDP growth rates to only one decimal point (e.g. 0.3%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter, or as a part of the next estimate's publication; however, any revisions to GDP report data made after the initial release of the specified report will not be considered for this market's resolution.",
+      "resolution_date": "2026-10-30",
+      "resolution_source": "https://polymarket.com/event/germany-gdp-growth-in-q3-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "South Carolina has not elected a Democratic senator since 1998 and polling there has tended to overstate Democrats (Harrison 2020 polled close and lost by about 10). This year is unusual: the incumbent, Darline Graham, was appointed after her brother's death, and polls are tight (Trafalgar Sept 23-25 Graham 43.4 to Andrews 42.3; InsiderAdvantage Sept 28-29 Graham 46 to Andrews 45), while Cook moved the race from Likely to Lean Republican on 2026-10-20. But an Abacus poll (Aug 26-28) had Graham up 13, the best Democratic number is an internal, Trump has endorsed Graham, and I found no October polls, so the Republican remains a solid favourite.",
+          "sources": [
+            "https://political.org/2026/10/20/cook-political-report-shifts-minnesota-senate-race-toward-gop-south-carolina-toward-democrats/",
+            "https://www.foxcarolina.com/2026/09/10/new-polls-give-insight-into-us-senate-races-carolinas/",
+            "https://wrdw.com/2026/08/26/4-candidates-set-south-carolinas-us-senate-race-november",
+            "https://mediaite.com/politics/democrat-annie-andrews-releases-internal-poll-of-sc-senate-race-with-surprising-numbers"
+          ]
+        }
+      ],
+      "id": "polymarket-630924",
+      "market_id": "630924",
+      "outcome": null,
+      "question": "Will the Democrats win the South Carolina Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm South Carolina U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/south-carolina-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.882
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.62,
+          "rationale": "A search summary of BenchLM's LiveBench table (undated, not opened) lists Claude Fable 5.1 first at 83.4%, Claude Fable 5 second at 83.0% and OpenAI's GPT-6 Astra third at 82.2%, so an Anthropic model leads by about 1.2 points and holds two of the top three places. The page is undated, another aggregator on the same search showed clear errors, and a new release from OpenAI, Google or xAI before Oct 31 (or a new LiveBench version that reshuffles the board) could take first place. I did not find a base rate for who held first on this board, so I lean to Anthropic on the small lead without going past about 60%.",
+          "sources": [
+            "https://benchlm.ai/md/benchmarks/livebench.md",
+            "https://llmrun.dev/benchmark/livebench-coding?show=all"
+          ]
+        }
+      ],
+      "id": "polymarket-3554950",
+      "market_id": "3554950",
+      "outcome": null,
+      "question": "Will Anthropic have the best AI model on LiveBench (Overall) at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company which owns the model with the highest Overall score on LiveBench.ai when the leaderboard is checked on October 31, 2026, at 12:00 PM ET.\n\nResults from the \u201cOverall\u201d column of the leaderboard at https://livebench.ai/, with the latest available LiveBench release selected and the category set to \u201cAll,\u201d will be used to resolve this market.\n\nModels will be ranked according to the specified score, with higher scores ranked ahead of lower scores. If two or more models have exactly the same score as displayed on the leaderboard, the model with the lower listed \"cost per successful task\" will be ranked ahead. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact score and cost per successful task, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the LiveBench leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \u201cOther.\u201d",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/which-company-has-the-best-ai-model-on-livebench-overall-end-of-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.925
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.7,
+          "rationale": "Search text citing IMF PortWatch put Hormuz transits at 2 on Oct 11, 4 on Oct 4 and 4 on Oct 18, about 5% of a normal 85 a day, and the IRGC declared the strait closed around 2026-10-26 (straits.live, houseofsaud.com). The resolving figure is the 7-day average of transit calls on Oct 31, not a single day, and I saw no values for Oct 19-27, so an average of 5 or slightly above is possible, particularly if a convoy or some vessels without transponders get through; a value exactly on 5 would go to the higher bracket. With the closure just reaffirmed and counts low for weeks, I expect the average to stay in the 0-5 bracket more likely than not.",
+          "sources": [
+            "https://straits.live/briefs/2026-10-27",
+            "https://houseofsaud.com/iran-declares-hormuz-closed-oct26/"
+          ]
+        }
+      ],
+      "id": "polymarket-5166953",
+      "market_id": "5166953",
+      "outcome": null,
+      "question": "Will there be between 0 and 5 average daily transits of the Strait of Hormuz on October 31?",
+      "resolution_criteria": "This market will resolve according to the finalized 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Strait of Hormuz that IMF Portwatch reports for October 31, 2026.\n\nIf the reported value falls exactly between two brackets, this market will resolve to the higher range bracket.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nData for a specific date must be finalized before it is considered for this market (namely, once the next date's data point is available, the previous one is finalized).\n\nThis market will resolve as soon as the relevant data has been finalized. If the data for the specified date has not been finalized by the end of the third calendar day (ET) after the day on which such data is released, this market will resolve based on data published up to that point. Additionally, if the relevant data is not released and finalized within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nOnly revisions to previously published data points made before the applicable resolution time will be considered.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Strait of Hormuz at https://portwatch.imf.org/pages/cb5856222a5b4105adc6ee7e880a1730, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/avgpt-of-ships-transiting-strait-of-hormuz-end-of-october",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.295
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "The S&P 500 closed at 7,676.77 on 2026-10-26 (CNBC and Yahoo Finance summaries), which puts SPY around $765-770, about 2-2.5% above the $750 trigger; the trigger needs a regular-hours 1-minute low in the four sessions from Oct 27 to Oct 30. With typical daily moves near 0.8-1%, touching a level 2% below spot in four days happens about 15-25% of the time, and this week has a Fed meeting and big-tech earnings plus two straight weekly losses and an RBC warning of a 5-10% pullback. The Oct 26 rebound moved away from the trigger and my SPY level is an estimate rather than a published number, so I stay below one in five.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/25/stock-market-today-live-updates.html",
+            "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-oct-26-215000106.html",
+            "https://stockhub.kr/en/news/news_d3f95cf4f058"
+          ]
+        }
+      ],
+      "id": "polymarket-4936036",
+      "market_id": "4936036",
+      "outcome": null,
+      "question": "Will S&P 500 (SPY) hit (LOW) $750 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during October 2026, any 1-minute candle for S&P 500 (SPY) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the S&P 500 (SPY) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.SPY%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.SPY%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-spy-hit-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.685
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "Republicans have won every Texas governor race since 1994, by 10.9 points in 2022 and 13 in 2018 (from background knowledge). Polls this year are much closer but mostly favour Abbott: Texas Public Opinion Research Oct 15-18 Abbott 51, Hinojosa 48 (his lead had been 7, then 4, then 3); University of Houston Oct 10-14 Abbott 49, Hinojosa 46 (fox7austin.com, 2026-10-21; fox26houston.com, 2026-10-23); ReconMR had it 48-47, and a few polls had Hinojosa narrowly ahead earlier. A lead of about 3 points three weeks out, in a state where polls have more often overstated Democrats, gives Abbott roughly a three-in-four to four-in-five chance.",
+          "sources": [
+            "https://www.fox26houston.com/news/texas-governor-poll-abbott-hinojosa",
+            "https://www.fox7austin.com/news/texas-governors-race-abbott-holds-narrow-lead-over-hinojosa-latest-poll",
+            "https://www.newsweek.com/greg-abbott-chances-gina-hinojosa-flip-texas-poll-12559858"
+          ]
+        }
+      ],
+      "id": "polymarket-629691",
+      "market_id": "629691",
+      "outcome": null,
+      "question": "Will the Republicans win the Texas governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Texas gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \"Democrat\" or \"Republican\" options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven't called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/texas-governor-winner-2026",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.815
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "Every snapshot found had Google's Gemini Omni at rank 1 of the arena.ai text-to-video board: 2026-07-05 at 1527 ahead of Seedance 2.0 at 1482, 2026-08-24 at 1511.6, and a mirror of the 2026-09-22 board (retrieved about Oct 17) at 1516 (llmreference.com, benchmarklist.com). That is about four of four snapshots over roughly 3.5 months, and the tie-break (alphabetical, listed higher first) also favours Google over most rivals. The live page could not be opened, the margin over second place is reported anywhere from 3 to 45 points, and a rival release (ByteDance, Kling, Meta, OpenAI, Alibaba) or an AutoEval flag on Google's model before Oct 31 could change the answer.",
+          "sources": [
+            "https://www.llmreference.com/benchmark/lmarena-text-to-video",
+            "https://benchmarklist.com/arenas/arena_ai_text_to_video/",
+            "https://arena.ai/leaderboard/video/text-to-video"
+          ]
+        }
+      ],
+      "id": "polymarket-3572806",
+      "market_id": "3572806",
+      "outcome": null,
+      "question": "Will Google have the best Text-to-Video AI at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company that owns the model that has the highest rank based on the arena.ai Text-to-Video Leaderboard when the table under \"Text-to-Video Arena\" filtered for \"Models\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text-to-Video Arena\" Leaderboard tab at https://arena.ai/leaderboard/text-to-video filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by which model is listed higher on the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text-to-Video Arena Leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/which-company-has-the-best-text-to-video-ai-end-of-october",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.132
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Iran struck Jordan in clusters tied to US-Iran exchanges in 2026 (early March, five days in June, 2026-07-17, and rounds in late August to early September), so a random five-day window carries maybe a 10-15% chance. The most recent attack I could find was about seven weeks ago, no October attack was found, and as of Oct 25-26 Trump was reported to be weighing a deal, with regional leaders meeting Pezeshkian in Tehran and one single-source report that no strikes would come before the Nov 3 midterms (foxnews.com, 2026-10-26). Hormuz was declared closed and no ceasefire is in force, and a US strike order would sharply raise the risk of retaliation on US bases in Jordan, so I stay low but not at the floor.",
+          "sources": [
+            "https://en.wikipedia.org/wiki/2026_Iranian_strikes_on_Jordan",
+            "https://www.foxnews.com/live-news/iran-war-news-trump-israel-saudi-october-26",
+            "https://www.arabnews.com/middle-east/jordan-army-shoots-down-missiles-from-iran-3001001"
+          ]
+        }
+      ],
+      "id": "polymarket-4424725",
+      "market_id": "4424725",
+      "outcome": null,
+      "question": "Will Iran target Jordan by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if Iran targets Jordan through a qualifying military action between market creation and the listed date, Amman time. Otherwise, this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Iran, directed at Jordan. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nMilitary action that consists primarily or exclusively of munitions that are intercepted before impact will still qualify if they constitute a qualifying military action during the specified timeframe; whether the munitions were intercepted, where the munitions landed, and whether damage resulted will not be considered.\n\nA military action will be considered directed at Jordan if it is directed at the terrestrial territory of Jordan, including any internal waters.\n\nOnly military actions by Iranian forces explicitly claimed by the Islamic Republic of Iran, or confirmed to have originated from Iranian territory will count toward the resolution of this market. Attacks by proxy forces (i.e. Hezbollah, Houthis, etc.) will not count toward the resolution of this market.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Amman time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Iran and Jordan and a consensus of credible reporting.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/will-iran-target-jordan-by-20260909",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.61
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "Spot silver was about $53.18 on 2026-10-27 (FXStreet, down 1.5% from $53.97) and about $52.85 at 02:30 ET (TradingKey, down 2.0% on the day and about 8.8% over seven days), so the $52 trigger is only about 1.6% below spot with roughly five sessions left until Friday's 5pm ET close. Recent daily moves of 1.5-3% are as large as that gap, and the metal is in a sharp downtrend near multi-month lows (RoboForex, Oct 27) with yields rising and a Fed meeting this week; a driftless touch estimate is about 70-75%. The Pyth feed can differ slightly from these quotes and a rebound from the lows would end it, so I do not go higher.",
+          "sources": [
+            "https://www.fxstreet.com/news/silver-price-today-silver-falls-according-to-fxstreet-data-202610270930",
+            "https://tradingkey.com/news/market-movers/262241304-market-movers-xagusd-20261027",
+            "https://roboforex.com/beginners/analytics/forex-forecast/gold/xag-usd-silver-forecast-2026-10-27",
+            "https://tradingeconomics.com/commodity/silver/news/590213"
+          ]
+        }
+      ],
+      "id": "polymarket-4936096",
+      "market_id": "4936096",
+      "outcome": null,
+      "question": "Will Silver (XAGUSD) hit (LOW) $52 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of October 2026, any 1-minute candle for Silver (XAGUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Silver (XAGUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Silver (XAGUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAG%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Silver Futures (SI)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-xagusd-hit-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.42
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.46,
+          "rationale": "Iowa has voted Republican in every Senate race since 2014 and Trump won it by about 13 points in 2020 and 2024 (from memory), and Republicans beat the polls there in both years, which argues for a Republican lean. But this is an open seat (Ernst is retiring) and the polls are tied: Suffolk Oct 1-4 Turek 48, Hinson 44; Fox News Sept 24-28 Turek 49, Hinson 47; NYT/Siena Sept 22-Oct 1 Hinson 48, Turek 47; Quantus Sept 28-29 Hinson 47.1, Turek 45.8 (fox13news.com). Cook moved it to Toss-up on 2026-08-20 and a WOWT review on Oct 22 says it is tightening with no clear leader, so I put it slightly below even given the state's lean.",
+          "sources": [
+            "https://www.fox13news.com/news/iowa-2026-senate-josh-turek-ashley-hinson",
+            "https://www.wowt.com/2026/10/22/iowa-senate-race-tightens-with-less-than-two-weeks-election-day/",
+            "https://news.bgov.com/bloomberg-government-news/senate-races-in-texas-iowa-are-toss-ups-cook-report-says-1"
+          ]
+        }
+      ],
+      "id": "polymarket-630733",
+      "market_id": "630733",
+      "outcome": null,
+      "question": "Will the Democrats win the Iowa Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Iowa U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/iowa-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.07
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.09,
+          "rationale": "Qualifying Israel-Syria rounds were sporadic: roughly six to eight in about 15 months (Baku, Paris, London, Paris in Jan 2026, and Jordan on 2026-08-24), which is about a 5% chance for any five-day window. Syria said the security talks were frozen after the Iran war began and should resume (timesofisrael.com), US envoy Tom Barrack met Sharaa and Shaibani in Damascus on about Oct 21 and 23 but that was shuttle diplomacy with Syria alone, and I found no announced date or venue for a new round before Oct 31 (longwarjournal.org, Oct 2026). Rising tension and protests, plus the US push to restart talks, make it somewhat more likely than the base rate, though a mediated round on short notice is still unlikely.",
+          "sources": [
+            "https://www.aljazeera.com/news/2026/8/24/syria-israel-hold-us-mediated-talks-in-jordan-to-de-escalate-tensions",
+            "https://www.timesofisrael.com/liveblog_entry/syria-says-talks-with-israel-on-security-deal-frozen-but-should-resume-soon/",
+            "https://www.longwarjournal.org/archives/2026/10/syria-increases-criticism-of-israeli-actions-continues-diplomatic-outreach.php"
+          ]
+        }
+      ],
+      "id": "polymarket-4096541",
+      "market_id": "4096541",
+      "outcome": null,
+      "question": "Israel x Syria diplomatic meeting by October 31, 2026?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if there is a direct or indirect diplomatic meeting between Israel and Syria by the listed date, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nA diplomatic meeting occurs when representatives of both listed countries who are acting in an official capacity and are authorized to engage in diplomacy on behalf of their respective governments or governing authorities deliberately meet for the purpose of diplomacy or negotiation. A qualifying meeting need not result in any agreement, joint statement, or further engagement.\n\nA direct meeting refers to a diplomatic meeting where the representatives of both countries directly interact with each other in person. Meetings conducted through translators qualify, provided direct, face-to-face communication occurs. An indirect meeting refers to a meeting conducted indirectly through designated mediators or facilitators. A qualifying indirect meeting must meet both of the following criteria (i) the designated intermediaries act with the knowledge and authorization of both entities; (ii) representatives of both entities are physically present in the same facility, venue, or city as part of a single organized round of talks convened for the purpose of diplomatic engagement, with the intermediary conveying communications between the representatives or delegations on the same day. \u201cThe same day\u201d means the same calendar day local time at the meeting location.\n\nSessions, proceedings, or convenings of standing international organizations, treaty bodies, or recurring multilateral summits or conferences (e.g., the United Nations General Assembly, G7, and G20 summits) do not qualify, unless a qualifying and deliberate diplomatic meeting between representatives of the listed countries separately held alongside such a convening.\n\nThe following do not qualify as either a direct or indirect diplomatic meeting: chance encounters; standalone exchanges limited to greetings, courtesies, or photo opportunities; meetings conducted remotely, by telephone, or by any other means where the relevant representatives are not physically present at the same facility, venue, or city on the same day; discussions involving persons not authorized to engage in diplomacy or negotiation on behalf of their respective governments.\n\nThe occurrence of a qualifying meeting must be confirmed by the resolution sources by the resolution date.\n\nThe resolution sources for this market will be official information from the governments of Israel and Syria and a consensus of credible reporting.",
+      "resolution_date": "2026-10-31",
+      "resolution_source": "https://polymarket.com/event/israel-x-syria-diplomatic-meeting-byptptpt",
+      "topic": "World"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.76
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.4,
+          "rationale": "Cook's House ratings dated 2026-10-16 show 214 seats solid, likely or lean Democratic, 21 Toss Ups and 200 Republican (my tally from a search summary), so passing 230 needs about 17 of the 21 toss-ups, or fewer if some Lean and Likely Republican seats also flip. Political.org (2026-10-09) read Cook's moves as implying 224-234 Democratic seats, and Brookings (2026-09-08) projected 237-242, with Trump's approval near 38-40% and a generic ballot of D+4-7 resembling 2006 and 2018. Mid-decade Republican redistricting in Texas, Missouri, North Carolina and Ohio, only partly offset by California and Utah, makes the map less elastic than in 2018, so I centre near 228-232 and put the chance of more than 230 a little below even.",
+          "sources": [
+            "https://www.cookpolitical.com/ratings/house-race-ratings",
+            "https://political.org/2026/10/09/cook-political-report-shifts-18-house-races-toward-democrats-as-gop-midterm-outlook-darkens/",
+            "https://www.brookings.edu/articles/democrats-on-track-to-outperform-2026-house-forecasts/",
+            "https://axios.com/2026/07/26/midterm-election-outlook-100-days"
+          ]
+        }
+      ],
+      "id": "manifold-plsdPpp9Iz",
+      "market_id": "plsdPpp9Iz",
+      "outcome": null,
+      "question": "Will Democrats win more than 230 seats in the House in the 2026 midterms?",
+      "resolution_criteria": "Resolves to a consensus of media sources.\n\nUpdate 2026-09-22 (PST) (AI summary of creator comment): - An independent who caucuses with Democrats will count as a Democrat.\n\nThe total sum of Democrats and Republicans must equal 435.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://manifold.markets/BillClintonBubba/will-democrats-win-more-than-230-se",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4833
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.28,
+          "rationale": "The question needs El-Sayed to win and to win by 3 points or more. He won the Aug 4 primary narrowly (48.5% to 47.5%) and the polls are mixed: Glengariff on Jul 28 had Rogers 49, El-Sayed 39, AARP on Aug 20 had El-Sayed 48, Rogers 47, and the 270toWin average of five polls was El-Sayed 45.8, Rogers 45.0; a single Rosetta Stone poll from Oct 23-25 reportedly had Rogers up 14 (all via search summaries). A Democratic-leaning national environment helps him, but the weak, unverified recent polling and his progressive profile make a clear win of 3+ points less likely than a close race, so I put it well under a third.",
+          "sources": [
+            "https://www.newsweek.com/michigan-senate-race-abdul-el-sayed-polls-mike-rogers-11910192",
+            "https://www.270towin.com/2026-senate-polls/michigan",
+            "https://watershedvoice.com/?p=17875"
+          ]
+        }
+      ],
+      "id": "manifold-AnP5hddcLL",
+      "market_id": "AnP5hddcLL",
+      "outcome": null,
+      "question": "Will Abdul El Sayed win the 2026 Michigan Election by 3% or more?",
+      "resolution_criteria": "Resolves yes if Abdul el sayeds wins the 2026 us senate election in Michigan and his winning margin is 3% or more.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/will-abdul-el-sayed-win-the-2026-mi",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.3525
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.22,
+          "rationale": "No Democrat has won the Texas governorship since 1990 and Abbott won by about 13 points in 2018 and 2022 (background knowledge). Polls are far closer this cycle but mostly lean to Abbott: Texas Public Opinion Research Oct 15-18 had him up 51-48, and a Univision poll on Sept 9 had it 47-47 and a YouGov poll of registered voters had Hinojosa up 48-47 (fox7austin.com, cbsaustin.com). Rice's Mark Jones puts Abbott's lead at about 2-5 points, early voting began Oct 19, and Texas polls have often overstated Democrats, so I keep the chance of a Democratic win at a bit over one in five, consistent with my forecast for the Republican side of the same race.",
+          "sources": [
+            "https://www.fox7austin.com/election/abbott-hinojosa-governor-race-texas-poll-2026",
+            "https://cbsaustin.com/news/local/early-voting-could-decide-close-texas-governor-and-us-senate-races",
+            "https://www.fox7austin.com/election/texas-governors-race-greg-abbott-gina-hinojosa-poll"
+          ]
+        }
+      ],
+      "id": "manifold-A9hC8NPQnn",
+      "market_id": "A9hC8NPQnn",
+      "outcome": null,
+      "question": "Will Democrats win the Texas Gubernatorial election?",
+      "resolution_criteria": "Resolves yes if democrats win the Texas gubernatorial (governor) election\n\nRepublican candidate is Greg Abbott\n\nDemocratic candidate is Gina Hinojosa",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/will-democrats-win-the-texas-gubern",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0862
+        },
+        {
+          "created_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Martial law has never been declared during a US federal election, and the talk of it is hypothetical and tied to a 'rigged' result that would come after voting, not before (Axios, 2026-10-16). Trump allies have discussed martial law and Trump has mentioned the Insurrection Act, but per the digest no official step toward a declaration had followed by late October, advisers were steering Trump away from fraud claims (The Atlantic, Sept 23), and legal and practical barriers to sending troops to polling places are significant (Votebeat, Jan 2026). A Guard deployment or Insurrection Act invocation would not by itself count as martial law, and the declaration must be active during voting hours, so I stay near the floor with some room for a loose resolution.",
+          "sources": [
+            "https://axios.com/2026/10/16/trumps-maga-allies-openly-discuss-martial-law",
+            "https://www.votebeat.org/2026/01/20/trump-national-guard-troops-polling-places-2026-election-insurrection-act",
+            "https://www.kunc.org/2026-09-17/fears-grow-that-trump-could-use-military-to-influence-the-upcoming-election"
+          ]
+        }
+      ],
+      "id": "manifold-dNytldIuNO",
+      "market_id": "dNytldIuNO",
+      "outcome": null,
+      "question": "Will any part of America be under martial law during midterm elections?",
+      "resolution_criteria": "Update 2026-01-20 (PST) (AI summary of creator comment): The market will resolve YES if:\n\nMartial law is active during voting hours\n\nIt has been declared by someone with authority to do so\n\nThis applies to any part of America\n\nThe declaration can be for any reason",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://manifold.markets/SpeaksForTrees/will-any-part-of-america-be-under-m",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v3+manifold_selection_v2",
+  "skipped": [
+    {
+      "id": "polymarket-3554472",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-3554497",
+      "reason": "research failed or timed out"
+    }
+  ]
+}

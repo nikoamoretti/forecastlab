@@ -1,0 +1,22 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-27T11:14:12+00:00",
+      "entry_id": "4c014bd2f44640a3",
+      "probability": 0.45,
+      "rationale": "The 10-year sat almost exactly on the line: 4.96% on 2026-10-22 (govspending.org, H.15), 5.00% on 2026-10-23 (Treasury par curve via spotthemoney.com) and about 4.99% on 2026-10-26 (Trading Economics), so the question is nearly a coin flip over the 3-4 trading days left, with a typical move of 10-15 bp. An exact 5.00% print resolves No, which shaves a little off 50%, and the yield has drifted down about 25 bp from early-October highs; my earlier 'above X' yield calls at 55-56% were all wrong, so I stay slightly under even. FOMC, GDP and refunding news this week are unverified but add variance without a clear direction.",
+      "release_event": "dgs10-2026-10-30",
+      "sources": [
+        "https://tradingeconomics.com/united-states/government-bond-yield",
+        "https://spotthemoney.com/rates/treasury-yields/",
+        "https://govspending.org/series/DGS10/"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261027",
+  "generated_at": "2026-10-27T11:14:12+00:00",
+  "manifest_hash": "391c4cf770507e6754dbb1ac18da34cf1fbc1e0532b7f8c2da732010fef44e79",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
