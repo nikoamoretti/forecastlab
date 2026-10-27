@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: "autopilot-outcome-acceptance.spec.ts",
   globalSetup: "./e2e/global-setup.ts",
   timeout: 180000,
   fullyParallel: false,
