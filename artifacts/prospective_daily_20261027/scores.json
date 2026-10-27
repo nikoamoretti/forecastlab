@@ -1,0 +1,99 @@
+{
+  "cells": [
+    {
+      "entry_id": "4c014bd2f44640a3",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.5180084745762712,
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "4c014bd2f44640a3",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.45,
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "4c014bd2f44640a3",
+      "method": "judge_deepseek_v4_pro_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.45,
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "4c014bd2f44640a3",
+      "method": "judge_minimax_m3_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.18,
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "4c014bd2f44640a3",
+      "method": "judge_qwen38_27b_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.35,
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261027",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "391c4cf770507e6754dbb1ac18da34cf1fbc1e0532b7f8c2da732010fef44e79",
+  "methods": {
+    "claude_code_forecaster_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_deepseek_v4_pro_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_minimax_m3_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "judge_qwen38_27b_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "statistical_baseline_v1": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "4c014bd2f44640a3": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-27",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 1
+}

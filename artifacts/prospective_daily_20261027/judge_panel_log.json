@@ -1,0 +1,66 @@
+{
+  "attempts": [
+    {
+      "at": "2026-10-27T11:16:34.265757+00:00",
+      "brief_sha256": "13ddd1f761f06f76",
+      "completion_tokens": 1062,
+      "cost_usd": 0.003809,
+      "id": "4c014bd2f44640a3",
+      "method": "judge_deepseek_v4_pro_v1",
+      "model": "deepseek/deepseek-v4-pro",
+      "ok": true,
+      "probability": 0.45,
+      "prompt_tokens": 2462,
+      "prompt_version": "judge_prompt_v2",
+      "reasoning": "The 10-year yield is hovering just below 5% (4.99% on Oct 27) after a three-week decline from above 5.3%. The downward trend and lack of a clear catalyst for a sharp reversal make a move above 5% by Oct 30 less likely, though the FOMC decision and data releases this week could trigger a surprise. With a typical 3-day standard deviation of 10\u201315 bp, the outcome is close to even but slightly favors staying below 5%.",
+      "served_model": "deepseek/deepseek-v4-pro",
+      "sources_sha256": "c4f3fa32dbf164c5"
+    },
+    {
+      "at": "2026-10-27T11:16:34.265757+00:00",
+      "brief_sha256": "13ddd1f761f06f76",
+      "completion_tokens": 134,
+      "cost_usd": 0.000914,
+      "id": "4c014bd2f44640a3",
+      "method": "judge_minimax_m3_v1",
+      "model": "minimax/minimax-m3",
+      "ok": true,
+      "probability": 0.18,
+      "prompt_tokens": 2613,
+      "prompt_version": "judge_prompt_v2",
+      "reasoning": "The 10-year yield has been trending down from early-October highs above 5.3% and closed at 4.986% on Oct 26, with the latest reading at 4.99% on Oct 27. The yield is currently just below 5.00% and has fallen about 30 bp over the past month. With a busy week of Fed, GDP, and PCE data ahead, but the prevailing trend pointing lower, the probability of a print above 5.00% on Oct 30 is modest but not negligible given potential event-driven volatility.",
+      "served_model": "minimax/minimax-m3",
+      "sources_sha256": "c4f3fa32dbf164c5"
+    },
+    {
+      "at": "2026-10-27T11:16:34.265757+00:00",
+      "brief_sha256": "13ddd1f761f06f76",
+      "cost_usd": 0.0,
+      "error": "RuntimeError: OpenRouter error: Upstream error from Nvidia: Internal server error",
+      "id": "4c014bd2f44640a3",
+      "method": "judge_nemotron_ultra_v1",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "ok": false,
+      "prompt_version": "judge_prompt_v2",
+      "sources_sha256": "c4f3fa32dbf164c5"
+    },
+    {
+      "at": "2026-10-27T11:16:34.265757+00:00",
+      "brief_sha256": "13ddd1f761f06f76",
+      "completion_tokens": 954,
+      "cost_usd": 0.002503,
+      "id": "4c014bd2f44640a3",
+      "method": "judge_qwen38_27b_v1",
+      "model": "qwen/qwen3.8-27b",
+      "ok": true,
+      "probability": 0.35,
+      "prompt_tokens": 2955,
+      "prompt_version": "judge_prompt_v2",
+      "reasoning": "The 10-year yield was at 4.99% on Oct 27 and 4.986% on Oct 26, on a three-week declining trend from above 5.3% in early October, making it currently below the 5.00% threshold. For the Oct 30 print to exceed 5.00%, it would need to rally at least 1 bp from current levels, which is within normal 3-day volatility (10-15 bp std dev), but the downward momentum argues against it. The FOMC meeting and GDP/PCE releases in the window are the main wildcards\u2014a hawkish surprise could push it above 5%, but the market expects no change and the base case is continued stability or slight decline below 5%.",
+      "served_model": "qwen/qwen3.8-27b",
+      "sources_sha256": "c4f3fa32dbf164c5"
+    }
+  ],
+  "panel": "judge_panel_v5",
+  "prompt_version": "judge_prompt_v2"
+}

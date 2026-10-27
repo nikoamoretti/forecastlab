@@ -1,0 +1,14 @@
+{
+  "4c014bd2f44640a3": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.45,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34,
+      "statistical_baseline_v1": 14.72
+    }
+  }
+}

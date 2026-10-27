@@ -1,0 +1,207 @@
+{
+  "manifold-A9hC8NPQnn": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "manifold-AnP5hddcLL": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.3,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "manifold-dNytldIuNO": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.03,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "manifold-plsdPpp9Iz": {
+    "members": 3,
+    "method": "combined_weighted_v1",
+    "probability": 0.4,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-3251556": {
+    "members": 3,
+    "method": "combined_weighted_v1",
+    "probability": 0.45,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-3554950": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.6,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-3572806": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.8,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-4096541": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.07,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-4424725": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.1,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-4470027": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.3,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-4936036": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.22,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-4936096": {
+    "members": 3,
+    "method": "combined_weighted_v1",
+    "probability": 0.72,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-5166819": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.7,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-5166953": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.92,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-5170739": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.25,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-629691": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.72,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-630733": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.45,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-630747": {
+    "members": 3,
+    "method": "combined_weighted_v1",
+    "probability": 0.62,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  },
+  "polymarket-630924": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 32.08,
+      "judge_deepseek_v4_pro_v1": 30.34,
+      "judge_minimax_m3_v1": 29.89,
+      "judge_qwen38_27b_v1": 34.34
+    }
+  }
+}
