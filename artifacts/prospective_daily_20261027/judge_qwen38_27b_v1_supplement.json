@@ -1,0 +1,19 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-10-27T11:16:34.265757+00:00",
+      "entry_id": "4c014bd2f44640a3",
+      "model": "qwen/qwen3.8-27b",
+      "probability": 0.35,
+      "rationale": "The 10-year yield was at 4.99% on Oct 27 and 4.986% on Oct 26, on a three-week declining trend from above 5.3% in early October, making it currently below the 5.00% threshold. For the Oct 30 print to exceed 5.00%, it would need to rally at least 1 bp from current levels, which is within normal 3-day volatility (10-15 bp std dev), but the downward momentum argues against it. The FOMC meeting and GDP/PCE releases in the window are the main wildcards\u2014a hawkish surprise could push it above 5%, but the market expects no change and the base case is continued stability or slight decline below 5%.",
+      "release_event": "dgs10-2026-10-30",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261027",
+  "generated_at": "2026-10-27T11:16:34.265757+00:00",
+  "manifest_hash": "391c4cf770507e6754dbb1ac18da34cf1fbc1e0532b7f8c2da732010fef44e79",
+  "method": "judge_qwen38_27b_v1",
+  "note": "Judge panel member forecasting from Claude's evidence brief before each cutoff; scored as a separate method.",
+  "panel": "judge_panel_v5"
+}
