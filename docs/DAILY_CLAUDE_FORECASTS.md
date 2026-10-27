@@ -21,7 +21,7 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - Save the answers as `{"forecast_made_at", "answers": [{"id", "question", "topic", "resolution_criteria", "resolution_date", "resolution_source", "probability", "rationale", "sources"}]}` and run `python scripts/question_requests.py record <file>`. The ids must be the request ids.
    - After the pull request is pushed, run `python scripts/question_requests.py answered <id> ...`.
    - For an asked question whose resolution date has passed, check the named source and run `python scripts/question_requests.py outcome <artifact_dir> <id> yes|no --note "<what happened>" --source <url>`.
-5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v3` and writes `artifacts/prospective_markets_<date>/`, with up to 18 Polymarket questions:
+5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v4` (v3 plus: skip markets whose rules allow settling more than 30 days after trading closes) and writes `artifacts/prospective_markets_<date>/`, with up to 18 Polymarket questions:
    - closing in 2–10 days, so results come in quickly, and not a "next prime minister/president" market, which settles only when someone takes office;
    - at least $10,000 traded;
    - priced between 5% and 95%;

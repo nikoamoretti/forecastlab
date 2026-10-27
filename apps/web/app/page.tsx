@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { MEANINGFUL_RESULTS, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
+import { Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -22,9 +22,10 @@ const settledBy = (q: Question) => q.source_url?.includes("polymarket.com") ? "P
 
 function OpenRow({ q, today }: { q: Question; today: string }) {
   const overdue = q.resolves_on < today;
+  const late = overdue && settledBy(q) !== "the official figure" ? lateDeadline(q.detail ?? "", q.resolves_on) : null;
   return <li><Link href={`/q/${q.id}`} className="grid gap-x-4 gap-y-1 py-4 hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center">
     <span className="text-sm text-ink/60">{overdue ? `Due ${shortDate(q.resolves_on)}` : relativeDay(q.resolves_on, today)}</span>
-    <span>{q.title}{overdue && <span className="mt-1 block text-sm text-ink/60">Waiting for {settledBy(q)}</span>}</span>
+    <span>{q.title}{overdue && <span className="mt-1 block text-sm text-ink/60">Waiting for {settledBy(q)}{late && `; its rules allow until ${shortDate(late, true)}`}</span>}</span>
     {q.call && <span><CallPill probability={q.call.probability} /></span>}
   </Link></li>;
 }
@@ -118,6 +119,8 @@ export default function TrackRecordPage() {
   const calls = s.right + s.wrong;
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
   const weeks = byWeek(resolved);
+  const goal = nextMilestone(s.resolved);
+  const due = dueThisWeek > 0 ? ` ${dueThisWeek} more ${dueThisWeek === 1 ? "is" : "are"} due this week.` : "";
 
   return <div className="space-y-12">
     <header className="flex flex-wrap items-end justify-between gap-6">
@@ -132,11 +135,16 @@ export default function TrackRecordPage() {
 
     <section aria-label="Progress and next result" className="grid gap-4 md:grid-cols-2">
       <div className="border border-rule bg-white/40 p-5">
-        <p className="font-medium">{s.resolved} of {MEANINGFUL_RESULTS} results</p>
-        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-ink/10" role="progressbar" aria-label="Decided questions"
-          aria-valuenow={s.resolved} aria-valuemin={0} aria-valuemax={MEANINGFUL_RESULTS}>
-          <div className="h-full rounded-full bg-pine" style={{ width: `${Math.max(Math.min(1, s.resolved / MEANINGFUL_RESULTS) * 100, 2)}%` }} /></div>
-        <p className="mt-3 text-sm text-ink/70">At about {MEANINGFUL_RESULTS} decided questions the score starts to show skill rather than luck.{dueThisWeek > 0 && ` ${dueThisWeek} more ${dueThisWeek === 1 ? "is" : "are"} due this week.`}</p>
+        {goal ? <>
+          <p className="font-medium">{s.resolved} of {goal.at} results</p>
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-ink/10" role="progressbar" aria-label="Decided questions"
+            aria-valuenow={s.resolved} aria-valuemin={0} aria-valuemax={goal.at}>
+            <div className="h-full rounded-full bg-pine" style={{ width: `${Math.max(s.resolved / goal.at * 100, 2)}%` }} /></div>
+          <p className="mt-3 text-sm text-ink/70">{goal.why}{due}</p>
+        </> : <>
+          <p className="font-medium">{s.resolved} results</p>
+          <p className="mt-3 text-sm text-ink/70">Enough decided questions for the score to be reliable.{due}</p>
+        </>}
       </div>
       {next && <Link href={`/q/${next.id}`} className="block border-2 border-copper bg-white/60 p-5 hover:bg-white">
         <p className="font-mono text-xs uppercase tracking-widest text-copper">Next result · {relativeDay(next.resolves_on, today)}</p>

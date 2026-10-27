@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
 import { ResearchTrail } from "@/components/ResearchTrail";
 import { api, pct } from "@/lib/api";
-import { TrackRecord, callText, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
+import { TrackRecord, callText, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
 export default function QuestionPage() {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +23,7 @@ export default function QuestionPage() {
   const overdue = q.status === "pending" && q.resolves_on < todayUTC();
   const marketName = q.source_url?.includes("polymarket.com") ? "Polymarket" : q.source_url?.includes("manifold.markets") ? "Manifold" : null;
   const market = marketName !== null;
+  const settlesBy = overdue && market ? lateDeadline(q.detail ?? "", q.resolves_on) : null;
 
   return <article className="mx-auto max-w-3xl space-y-10">
     <Link href="/" className="inline-block py-1 text-sm text-ink/70 hover:text-ink">‹ Track record</Link>
@@ -48,7 +49,8 @@ export default function QuestionPage() {
           <p className="mt-2 flex flex-wrap items-center gap-3 text-sm">{q.actual && <span className="text-ink/60">Actual: {q.actual}</span>}<ResultMark verdict={q.verdict} scored={q.scored !== false} /></p>
         </> : q.status === "cancelled"
           ? <p className="mt-2 text-ink/70">Cancelled: {q.actual ?? "no official value was published (market holiday)"}. It doesn’t count.</p>
-          : <p className="mt-2 text-ink/70">Not decided yet. {overdue ? `Due ${shortDate(q.resolves_on, true)}; waiting for ${market ? `${marketName} to settle it` : "the official figure"}.`
+          : <p className="mt-2 text-ink/70">Not decided yet. {settlesBy ? `${marketName} listed ${shortDate(q.resolves_on, true)}, but its rules let it settle as late as ${shortDate(settlesBy, true)}, so this one can take a while. We check every evening.`
+            : overdue ? `It was due ${shortDate(q.resolves_on, true)}, but ${market ? `${marketName} hasn’t settled it` : "the official figure isn’t out"} yet. We check every evening.`
             : `${market ? `${marketName} settles it after` : "The official figure is due"} ${shortDate(q.resolves_on, true)}.`}</p>}
       </div>
     </section>
