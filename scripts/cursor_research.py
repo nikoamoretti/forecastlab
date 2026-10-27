@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -77,6 +78,8 @@ def checkout(ref: str) -> Path:
     """A fresh detached worktree of ``ref`` at WORK."""
     git("worktree", "remove", "--force", str(WORK), check=False)
     git("worktree", "prune")
+    if WORK.exists():  # left by another clone (each cloud session clones afresh); only this script writes there
+        shutil.rmtree(WORK)
     git("worktree", "add", "--detach", str(WORK), ref)
     return WORK
 
