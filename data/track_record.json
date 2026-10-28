@@ -2,99 +2,111 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.19559140303968617,
+      "brier": 0.2005491599654229,
       "coin_flip_brier": 0.25,
-      "forecasts": 168,
+      "forecasts": 191,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 39,
-      "right": 24,
-      "toss_ups": 0,
-      "wrong": 15
+      "resolved": 42,
+      "right": 25,
+      "toss_ups": 1,
+      "wrong": 16
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.15558857142857144,
+      "brier": 0.1737763157894737,
       "coin_flip_brier": 0.25,
-      "forecasts": 164,
+      "forecasts": 187,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 35,
-      "right": 24,
+      "resolved": 38,
+      "right": 25,
       "toss_ups": 2,
-      "wrong": 9
+      "wrong": 11
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.1630058823529412,
+      "brier": 0.16157894736842107,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 17,
-      "right": 13,
-      "toss_ups": 0,
-      "wrong": 4
-    },
-    {
-      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.18092,
-      "coin_flip_brier": 0.25,
-      "forecasts": 57,
-      "label": "Nemotron Super (judge)",
-      "method": "judge_nemotron_super_v1",
-      "resolved": 15,
-      "right": 11,
-      "toss_ups": 0,
-      "wrong": 4
-    },
-    {
-      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.14553157894736843,
-      "coin_flip_brier": 0.25,
-      "forecasts": 126,
-      "label": "DeepSeek V4 Pro (judge)",
-      "method": "judge_deepseek_v4_pro_v1",
       "resolved": 19,
       "right": 15,
       "toss_ups": 0,
       "wrong": 4
     },
     {
+      "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
+      "brier": 0.19281666666666666,
+      "coin_flip_brier": 0.25,
+      "forecasts": 57,
+      "label": "Nemotron Super (judge)",
+      "method": "judge_nemotron_super_v1",
+      "resolved": 18,
+      "right": 12,
+      "toss_ups": 1,
+      "wrong": 5
+    },
+    {
+      "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
+      "brier": 0.1642904761904762,
+      "coin_flip_brier": 0.25,
+      "forecasts": 146,
+      "label": "DeepSeek V4 Pro (judge)",
+      "method": "judge_deepseek_v4_pro_v1",
+      "resolved": 21,
+      "right": 16,
+      "toss_ups": 0,
+      "wrong": 5
+    },
+    {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.18854615384615384,
+      "brier": 0.2157,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 13,
-      "right": 9,
+      "resolved": 15,
+      "right": 10,
       "toss_ups": 0,
-      "wrong": 4
+      "wrong": 5
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.12654444444444446,
+      "brier": 0.12633157894736843,
       "coin_flip_brier": 0.25,
-      "forecasts": 117,
+      "forecasts": 140,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 18,
-      "right": 15,
+      "resolved": 19,
+      "right": 16,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.1456277777777778,
+      "brier": 0.15801,
       "coin_flip_brier": 0.25,
-      "forecasts": 124,
+      "forecasts": 146,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 18,
-      "right": 15,
+      "resolved": 20,
+      "right": 16,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
+    },
+    {
+      "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 23,
+      "label": "Claude Sonnet 5.5 (judge)",
+      "method": "judge_claude_sonnet55_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -158,31 +170,222 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.1065186,
+      "brier": 0.142187,
       "coin_flip_brier": 0.25,
-      "forecasts": 99,
+      "forecasts": 117,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 15,
+      "resolved": 17,
       "right": 12,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 5
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.08237819,
+      "brier": 0.17140987714285713,
       "coin_flip_brier": 0.25,
-      "forecasts": 35,
+      "forecasts": 40,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 6,
+      "resolved": 7,
       "right": 5,
       "toss_ups": 0,
-      "wrong": 1
+      "wrong": 2
     }
   ],
-  "generated_on": "2026-10-27",
+  "generated_on": "2026-10-28",
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.5
+      },
+      "detail": "This market will resolve according to South Korea's real Gross Domestic Product (GDP) growth rate (Year-on-Year, %) in Q3 of 2026, as reported in the Bank of Korea\u2019s Real Gross Domestic Product (Advance Estimate) release for Q3 of 2026, scheduled for release on October 27, 2026.\n\nThe GDP release will be made available here: https://www.bok.or.kr/eng/singl/newsDataEng/list.do?pageIndex=&targetDepth=3&menuNo=400423&syncMenuChekKey=1&searchCnd=1&searchKwd=&depth2=400417&depth3=400423&date=&sdate=&edate=&sort=1&pageUnit=10\n\nThe relevant figure may be found in the table titled \u201cGrowth Rates by Type of Economic Activity and Component of Expenditure (original series, percentage change over previous year)\u201d in the row \u201cGross Domestic Product\u201d and the column for the specified quarter. Changes in South Korea\u2019s GDP reporting format will not disqualify a published figure from counting.\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: the resolution source for this market reports year-on-year GDP growth rates to only one decimal point (e.g. 0.3%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359&date=2026-01",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Q2 2026 real GDP grew 0.6% q/q and 3.7% y/y (Q1: 1.7% q/q, 3.6% y/y), but Q3 2025 is a tough base (+1.3% q/q), so Q3 2026 y/y is roughly 2.4% plus Q3 q/q growth, and Chuseok falling in September 2026 (2.5 fewer working days than Sept 2025) depresses the original-series y/y. The BOK's 3.3% full-year forecast implies H2 near 3.0% with Q3 below Q4, but chip exports hit records in September and the BOK has underestimated recent quarters; my central estimate is ~2.8% with wide uncertainty, so the 3.0-3.4 bucket gets about a quarter.",
+          "sources": [
+            "https://www.bok.or.kr/eng/bbs/E0000634/view.do?nttId=11063106&menuNo=400423&relate=Y&depth=400423&programType=newsDataEng (2026-07-23)",
+            "https://www.koreatimes.co.kr/economy/20260423/koreas-q1-gdp-grows-17-nearly-double-forecast-on-surging-chip-exports (2026-04-23)",
+            "https://www.koreajoongangdaily.com/business/bok-raises-korea-growth-outlook-to-33-on-strong-chip-exports/12847113 (2026-08-27)",
+            "https://www.koreatimes.co.kr/economy/20261001/koreas-sept-exports-hit-record-1209-bil-on-robust-chip-sales (2026-10-01)",
+            "https://www.koreatimes.co.kr/economy/20251203/korea-posts-13-q3-gdp-growth-faster-than-initial-estimate-bok (2025-12-03)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: The BOK's 3.3% full-year 2026 forecast sits at the midpoint of the 3.0-3.4% range, and Q1/Q2 both exceeded expectations (3.6% and 3.7% y/y). Evidence moving me up: Record September exports ($120.9B, semiconductors +263% y/y) and the approximation Q3 y/y \u2248 2.4% + Q3 q/q suggest that even modest Q3 q/q growth of 0.6-1.0% (similar to Q2's 0.6%) would land in the target range. Evidence moving me down: The high Q3 2025 base (1.3% q/q) and Chuseok calendar effect (21.5 vs 24 working days in September) depress the original-series q/q figure. Net assessment: Slightly above 50% given export strength and forecast upgrades, but calendar effects and base effects create meaningful downside risk."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.5,
+          "rationale": "Historically, South Korea's quarterly YoY GDP growth has fallen in the 3.0\u20113.4% band only about 15\u201120% of the time (base rate). Recent Q1\u2011Q2 2026 outturns were 3.6% and 3.7% YoY, the BOK raised its 2026 forecast to 3.3%, and September 2026 exports surged, suggesting Q3 2026 q/q growth could be around 0.6\u20111.0%. Using the approximation YoY \u2248 Q2 YoY + Q3 q/q \u2013 Q3 2025 q/q (1.3%), this yields a YoY range of roughly 3.0% to 3.4% for plausible q/q outcomes, shifting the probability upward to about one\u2011half. A weaker q/q print or a larger base\u2011year effect could push the result below 3.0%, while stronger growth could exceed 3.4%."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.37
+        }
+      ],
+      "id": "polymarket-3083657",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": true,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/south-korea-gdp-growth-yoy-in-q3-2026-20260723231127764",
+      "status": "resolved",
+      "title": "Will South Korea GDP growth in Q3 2026 be between 3.0% and 3.4%?",
+      "topic": "Economy",
+      "verdict": "toss_up"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.35
+      },
+      "detail": "This market will resolve according to the change in basis points in the official cash rate (OCR) resulting from the October 2026 meeting of the Reserve Bank of New Zealand, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of New Zealand, including the statement or release from its October 2026 meeting, scheduled for October 28, 2026, as listed on the official RBNZ calendar (https://www.rbnz.govt.nz/news-and-events/events). This market may resolve as soon as the statement or release of the Reserve Bank of New Zealand resulting from its October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "The RBNZ hiked in July and Sept 2 to 2.75%, saying the OCR 'may need to increase further' but its published track had October as a pause. ANZ and ASB call an October hike (higher oil, weaker NZD, stronger GDP); Westpac, BNZ and Kiwibank expect a hold until December. Q3 CPI on Oct 21 will decide it, so this is close to even with a slight lean to a hold.",
+          "sources": [
+            "https://www.interest.co.nz/economy/140090/bank-economists-split-october-rate-hike-rbnz%E2%80%99s-dovish-shift-signals-potential-cash",
+            "https://www.interest.co.nz/economy/140345/anz-nz-economists-now-expect-reserve-bank-increase-ocr-350-rather-3",
+            "https://www.fxstreet.com/news/the-new-zealand-dollar-holds-near-its-lows-while-business-confidence-jumps-202610052300"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.35,
+          "rationale": "The RBNZ's own September policy track signaled a pause in October, and only about one-third of a hike was priced in swaps as of early September, with most banks (Westpac, BNZ, Kiwibank) expecting a hold. However, upside inflation risks have intensified since the September meeting\u2014Dubai crude >40% above RBNZ assumptions, a weaker NZD, and strong 2.6% y/y Q2 GDP\u2014making a hike plausible if the October 21 Q3 CPI prints hot. The decision remains data-dependent and finely balanced."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: historically the RBNZ changes the OCR in about one\u2011quarter of its meetings, and of those changes roughly half are increases, giving a ~25% prior for a 25\u202fbp hike. Recent evidence pushes the probability up \u2013 the RBNZ delivered two consecutive 25\u202fbp hikes in July and September and signaled that further increases may be needed, while several banks (ASB, ANZ) now expect an October hike and ANZ reaffirmed this view on Sept\u202f21. Offsetting this, the September policy track indicated a pause in October, Westpac and BNZ expect a hold, and a hike was only about one\u2011third priced in swaps earlier in September. The upcoming Q3 CPI release on Oct\u202f21 could sway the decision, but the mixed signals lead to a modest upward adjustment from the base rate to roughly a 35% chance of a 25\u202fbp increase."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The RBNZ's September projections indicated a pause in October, but they stressed the path is not pre-determined. Since then, data has been hawkish: GDP growth strong, oil prices up, NZD weaker. Economists are split, with ANZ expecting a hike and others a hold. Market pricing in early September implied about a one-third chance. The Q3 CPI on Oct 21 will be critical; currently, the probability is around 35%."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.38,
+          "rationale": "The base rate favors a pause: the RBNZ\u2019s own September forecast track explicitly pointed to no change in October, and only about one-third of a hike was priced into swaps in early September. However, ANZ and ASB still expect a 25 bp increase, citing upside inflation risks from Dubai crude running more than 40% above the RBNZ\u2019s assumption, a weaker NZD, and solid Q2 GDP growth, which nudges the probability modestly above the base rate. The outcome likely hinges on the Q3 CPI report due October 21; a strong print could cement a hike, while a soft reading would reinforce the pause signaled in the bank\u2019s track."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The base rate is around one-third, matching the early swap pricing after RBNZ's hawkish September statement that the OCR may need to rise further. The split economist forecasts and the September track showing an October pause argue against a higher probability, while ANZ's reaffirmed hike and oil, weak-NZD, and GDP pressures push it modestly above the initial market price. Q3 CPI on October 21 is the main remaining swing factor."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate for an RBNZ hike at any given meeting is roughly 50%, but the RBNZ's own September track signaled a pause in October, which pulls the probability down. However, ANZ's late-September call for an October hike, citing oil prices well above RBNZ assumptions, a weak NZD, and strong Q2 GDP, suggests upside risk, and swaps priced only about a one-third chance. The Q3 CPI print on Oct 21 is the key swing factor: a hot print would likely tip the balance toward a 25bp hike, while a soft print would reinforce the pause signal."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.65
+        }
+      ],
+      "id": "polymarket-3212218",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/reserve-bank-of-new-zealand-decision-in-october-20260729164521631",
+      "status": "resolved",
+      "title": "Reserve Bank of New Zealand increases interest rates by 25 bps at the October 2026 meeting?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.35
+      },
+      "detail": "This is one of 25 props in the 11th annual Narcissist Forecasting Contest, as described here:\n\nhttps://braff.co/advice/f/announcing-the-2026-narcissist-forecasting-contest\n\nThe prop and any ambiguities will be resolved by a panel of human judges, as described in the fine print of the entry form:\n\nhttps://forms.gle/nDDxdxyYSNheY9FV7\n\nThis means that the prop may resolve differently from how other, similar-looking Manifold props resolve. Do not bet on this market if that is going to bother you.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "Fl\u00e1vio Bolsonaro led the Oct 4 first round 47.0% to 45.2%. The remaining ~7.6% went mostly to right or centre-right candidates (Cury, Renan Santos, Caiado, Zema), which favours Fl\u00e1vio in the Oct 25 runoff. Lula led pre-election polls, so polling error cuts both ways, but he starts behind.",
+          "sources": [
+            "https://www.riotimesonline.com/brazil-election-first-round-results-lula-flavio-2026/",
+            "https://www.cnn.com/2026/10/04/americas/brazil-president-elections-2026-latam-intl",
+            "https://www.aljazeera.com/news/2026/10/5/brazils-presidential-race-three-key-takeaways-from-the-first-round"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.38,
+          "rationale": "Base rate for a candidate trailing in the first round of a Brazilian presidential runoff is roughly 40-45% to win, given historical comebacks. Lula trails Fl\u00e1vio Bolsonaro by 1.9 percentage points, and the remaining ~5.5% of votes came from right-leaning or centrist candidates who are likely to shift mostly to Bolsonaro, making a comeback difficult unless Lula can attract a substantial share of those voters or Bolsonaro loses support. If Lula secures about 40% of the undecided/other vote, he could overturn the deficit, but that seems uncertain, leading to a probability below 0.5."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The first-round leader in Brazilian presidential elections has historically won the runoff, and Fl\u00e1vio Bolsonaro's 47.03% combined with other right-wing candidates' votes (totaling 51.7%) suggests a majority if they consolidate. However, Lula is a strong incumbent with a loyal base, and the 1.9-point gap is small enough that shifts in turnout or centrist support could still flip the result, though polls underestimated Fl\u00e1vio, indicating hidden anti-Lula sentiment."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.2,
+          "rationale": "In Brazil\u2019s democratic era, the first-round leader has won every presidential runoff, giving a strong base rate against a trailing incumbent. Fl\u00e1vio Bolsonaro leads Lula by about 1.9 percentage points and can likely consolidate most of the roughly 4.7% of votes that went to eliminated right-wing candidates, putting him over 50%. Lula\u2019s path requires winning an overwhelming share of centrist voters and a major shift in the campaign\u2019s final weeks, which is possible but unlikely."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for an incumbent or leading challenger winning a runoff after losing the first round is roughly 40-45% historically in Brazil. Fl\u00e1vio Bolsonaro outperformed polls by ~5 points in round one, suggesting momentum and a stronger-than-expected right-wing coalition, which slightly hurts Lula. However, runoff dynamics in Brazil typically favor the left due to broader coalition-building (Ciro Gomes, Simone Tebet, and other eliminated candidates' voters), and Lula has won runoffs before. The narrow 1.87-point gap is within typical runoff swing margins, making this a close call leaning slightly toward Fl\u00e1vio."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.16
+        }
+      ],
+      "id": "manifold-qUIpIulZcs",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://manifold.markets/AdamBraff/will-luiz-inacio-lula-da-silva-win",
+      "status": "resolved",
+      "title": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
     {
       "actual": "5.00%",
       "call": {
@@ -2903,134 +3106,6 @@
     {
       "actual": null,
       "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.5
-      },
-      "detail": "This market will resolve according to South Korea's real Gross Domestic Product (GDP) growth rate (Year-on-Year, %) in Q3 of 2026, as reported in the Bank of Korea\u2019s Real Gross Domestic Product (Advance Estimate) release for Q3 of 2026, scheduled for release on October 27, 2026.\n\nThe GDP release will be made available here: https://www.bok.or.kr/eng/singl/newsDataEng/list.do?pageIndex=&targetDepth=3&menuNo=400423&syncMenuChekKey=1&searchCnd=1&searchKwd=&depth2=400417&depth3=400423&date=&sdate=&edate=&sort=1&pageUnit=10\n\nThe relevant figure may be found in the table titled \u201cGrowth Rates by Type of Economic Activity and Component of Expenditure (original series, percentage change over previous year)\u201d in the row \u201cGross Domestic Product\u201d and the column for the specified quarter. Changes in South Korea\u2019s GDP reporting format will not disqualify a published figure from counting.\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: the resolution source for this market reports year-on-year GDP growth rates to only one decimal point (e.g. 0.3%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359&date=2026-01",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.27,
-          "rationale": "Q2 2026 real GDP grew 0.6% q/q and 3.7% y/y (Q1: 1.7% q/q, 3.6% y/y), but Q3 2025 is a tough base (+1.3% q/q), so Q3 2026 y/y is roughly 2.4% plus Q3 q/q growth, and Chuseok falling in September 2026 (2.5 fewer working days than Sept 2025) depresses the original-series y/y. The BOK's 3.3% full-year forecast implies H2 near 3.0% with Q3 below Q4, but chip exports hit records in September and the BOK has underestimated recent quarters; my central estimate is ~2.8% with wide uncertainty, so the 3.0-3.4 bucket gets about a quarter.",
-          "sources": [
-            "https://www.bok.or.kr/eng/bbs/E0000634/view.do?nttId=11063106&menuNo=400423&relate=Y&depth=400423&programType=newsDataEng (2026-07-23)",
-            "https://www.koreatimes.co.kr/economy/20260423/koreas-q1-gdp-grows-17-nearly-double-forecast-on-surging-chip-exports (2026-04-23)",
-            "https://www.koreajoongangdaily.com/business/bok-raises-korea-growth-outlook-to-33-on-strong-chip-exports/12847113 (2026-08-27)",
-            "https://www.koreatimes.co.kr/economy/20261001/koreas-sept-exports-hit-record-1209-bil-on-robust-chip-sales (2026-10-01)",
-            "https://www.koreatimes.co.kr/economy/20251203/korea-posts-13-q3-gdp-growth-faster-than-initial-estimate-bok (2025-12-03)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: The BOK's 3.3% full-year 2026 forecast sits at the midpoint of the 3.0-3.4% range, and Q1/Q2 both exceeded expectations (3.6% and 3.7% y/y). Evidence moving me up: Record September exports ($120.9B, semiconductors +263% y/y) and the approximation Q3 y/y \u2248 2.4% + Q3 q/q suggest that even modest Q3 q/q growth of 0.6-1.0% (similar to Q2's 0.6%) would land in the target range. Evidence moving me down: The high Q3 2025 base (1.3% q/q) and Chuseok calendar effect (21.5 vs 24 working days in September) depress the original-series q/q figure. Net assessment: Slightly above 50% given export strength and forecast upgrades, but calendar effects and base effects create meaningful downside risk."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.5,
-          "rationale": "Historically, South Korea's quarterly YoY GDP growth has fallen in the 3.0\u20113.4% band only about 15\u201120% of the time (base rate). Recent Q1\u2011Q2 2026 outturns were 3.6% and 3.7% YoY, the BOK raised its 2026 forecast to 3.3%, and September 2026 exports surged, suggesting Q3 2026 q/q growth could be around 0.6\u20111.0%. Using the approximation YoY \u2248 Q2 YoY + Q3 q/q \u2013 Q3 2025 q/q (1.3%), this yields a YoY range of roughly 3.0% to 3.4% for plausible q/q outcomes, shifting the probability upward to about one\u2011half. A weaker q/q print or a larger base\u2011year effect could push the result below 3.0%, while stronger growth could exceed 3.4%."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.37
-        }
-      ],
-      "id": "polymarket-3083657",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": true,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/south-korea-gdp-growth-yoy-in-q3-2026-20260723231127764",
-      "status": "pending",
-      "title": "Will South Korea GDP growth in Q3 2026 be between 3.0% and 3.4%?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.35
-      },
-      "detail": "This market will resolve according to the change in basis points in the official cash rate (OCR) resulting from the October 2026 meeting of the Reserve Bank of New Zealand, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of New Zealand, including the statement or release from its October 2026 meeting, scheduled for October 28, 2026, as listed on the official RBNZ calendar (https://www.rbnz.govt.nz/news-and-events/events). This market may resolve as soon as the statement or release of the Reserve Bank of New Zealand resulting from its October 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "The RBNZ hiked in July and Sept 2 to 2.75%, saying the OCR 'may need to increase further' but its published track had October as a pause. ANZ and ASB call an October hike (higher oil, weaker NZD, stronger GDP); Westpac, BNZ and Kiwibank expect a hold until December. Q3 CPI on Oct 21 will decide it, so this is close to even with a slight lean to a hold.",
-          "sources": [
-            "https://www.interest.co.nz/economy/140090/bank-economists-split-october-rate-hike-rbnz%E2%80%99s-dovish-shift-signals-potential-cash",
-            "https://www.interest.co.nz/economy/140345/anz-nz-economists-now-expect-reserve-bank-increase-ocr-350-rather-3",
-            "https://www.fxstreet.com/news/the-new-zealand-dollar-holds-near-its-lows-while-business-confidence-jumps-202610052300"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.35,
-          "rationale": "The RBNZ's own September policy track signaled a pause in October, and only about one-third of a hike was priced in swaps as of early September, with most banks (Westpac, BNZ, Kiwibank) expecting a hold. However, upside inflation risks have intensified since the September meeting\u2014Dubai crude >40% above RBNZ assumptions, a weaker NZD, and strong 2.6% y/y Q2 GDP\u2014making a hike plausible if the October 21 Q3 CPI prints hot. The decision remains data-dependent and finely balanced."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.35,
-          "rationale": "Base rate: historically the RBNZ changes the OCR in about one\u2011quarter of its meetings, and of those changes roughly half are increases, giving a ~25% prior for a 25\u202fbp hike. Recent evidence pushes the probability up \u2013 the RBNZ delivered two consecutive 25\u202fbp hikes in July and September and signaled that further increases may be needed, while several banks (ASB, ANZ) now expect an October hike and ANZ reaffirmed this view on Sept\u202f21. Offsetting this, the September policy track indicated a pause in October, Westpac and BNZ expect a hold, and a hike was only about one\u2011third priced in swaps earlier in September. The upcoming Q3 CPI release on Oct\u202f21 could sway the decision, but the mixed signals lead to a modest upward adjustment from the base rate to roughly a 35% chance of a 25\u202fbp increase."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The RBNZ's September projections indicated a pause in October, but they stressed the path is not pre-determined. Since then, data has been hawkish: GDP growth strong, oil prices up, NZD weaker. Economists are split, with ANZ expecting a hike and others a hold. Market pricing in early September implied about a one-third chance. The Q3 CPI on Oct 21 will be critical; currently, the probability is around 35%."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.38,
-          "rationale": "The base rate favors a pause: the RBNZ\u2019s own September forecast track explicitly pointed to no change in October, and only about one-third of a hike was priced into swaps in early September. However, ANZ and ASB still expect a 25 bp increase, citing upside inflation risks from Dubai crude running more than 40% above the RBNZ\u2019s assumption, a weaker NZD, and solid Q2 GDP growth, which nudges the probability modestly above the base rate. The outcome likely hinges on the Q3 CPI report due October 21; a strong print could cement a hike, while a soft reading would reinforce the pause signaled in the bank\u2019s track."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.35,
-          "rationale": "The base rate is around one-third, matching the early swap pricing after RBNZ's hawkish September statement that the OCR may need to rise further. The split economist forecasts and the September track showing an October pause argue against a higher probability, while ANZ's reaffirmed hike and oil, weak-NZD, and GDP pressures push it modestly above the initial market price. Q3 CPI on October 21 is the main remaining swing factor."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.45,
-          "rationale": "Base rate for an RBNZ hike at any given meeting is roughly 50%, but the RBNZ's own September track signaled a pause in October, which pulls the probability down. However, ANZ's late-September call for an October hike, citing oil prices well above RBNZ assumptions, a weak NZD, and strong Q2 GDP, suggests upside risk, and swaps priced only about a one-third chance. The Q3 CPI print on Oct 21 is the key swing factor: a hot print would likely tip the balance toward a 25bp hike, while a soft print would reinforce the pause signal."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.65
-        }
-      ],
-      "id": "polymarket-3212218",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/reserve-bank-of-new-zealand-decision-in-october-20260729164521631",
-      "status": "pending",
-      "title": "Reserve Bank of New Zealand increases interest rates by 25 bps at the October 2026 meeting?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.32
@@ -3087,69 +3162,6 @@
       "source_url": "https://polymarket.com/event/israeli-legislative-election-winner",
       "status": "pending",
       "title": "Will Likud win the most seats in the 2026 Israeli legislative election?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.35
-      },
-      "detail": "This is one of 25 props in the 11th annual Narcissist Forecasting Contest, as described here:\n\nhttps://braff.co/advice/f/announcing-the-2026-narcissist-forecasting-contest\n\nThe prop and any ambiguities will be resolved by a panel of human judges, as described in the fine print of the entry form:\n\nhttps://forms.gle/nDDxdxyYSNheY9FV7\n\nThis means that the prop may resolve differently from how other, similar-looking Manifold props resolve. Do not bet on this market if that is going to bother you.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.35,
-          "rationale": "Fl\u00e1vio Bolsonaro led the Oct 4 first round 47.0% to 45.2%. The remaining ~7.6% went mostly to right or centre-right candidates (Cury, Renan Santos, Caiado, Zema), which favours Fl\u00e1vio in the Oct 25 runoff. Lula led pre-election polls, so polling error cuts both ways, but he starts behind.",
-          "sources": [
-            "https://www.riotimesonline.com/brazil-election-first-round-results-lula-flavio-2026/",
-            "https://www.cnn.com/2026/10/04/americas/brazil-president-elections-2026-latam-intl",
-            "https://www.aljazeera.com/news/2026/10/5/brazils-presidential-race-three-key-takeaways-from-the-first-round"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.38,
-          "rationale": "Base rate for a candidate trailing in the first round of a Brazilian presidential runoff is roughly 40-45% to win, given historical comebacks. Lula trails Fl\u00e1vio Bolsonaro by 1.9 percentage points, and the remaining ~5.5% of votes came from right-leaning or centrist candidates who are likely to shift mostly to Bolsonaro, making a comeback difficult unless Lula can attract a substantial share of those voters or Bolsonaro loses support. If Lula secures about 40% of the undecided/other vote, he could overturn the deficit, but that seems uncertain, leading to a probability below 0.5."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "The first-round leader in Brazilian presidential elections has historically won the runoff, and Fl\u00e1vio Bolsonaro's 47.03% combined with other right-wing candidates' votes (totaling 51.7%) suggests a majority if they consolidate. However, Lula is a strong incumbent with a loyal base, and the 1.9-point gap is small enough that shifts in turnout or centrist support could still flip the result, though polls underestimated Fl\u00e1vio, indicating hidden anti-Lula sentiment."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.2,
-          "rationale": "In Brazil\u2019s democratic era, the first-round leader has won every presidential runoff, giving a strong base rate against a trailing incumbent. Fl\u00e1vio Bolsonaro leads Lula by about 1.9 percentage points and can likely consolidate most of the roughly 4.7% of votes that went to eliminated right-wing candidates, putting him over 50%. Lula\u2019s path requires winning an overwhelming share of centrist voters and a major shift in the campaign\u2019s final weeks, which is possible but unlikely."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate for an incumbent or leading challenger winning a runoff after losing the first round is roughly 40-45% historically in Brazil. Fl\u00e1vio Bolsonaro outperformed polls by ~5 points in round one, suggesting momentum and a stronger-than-expected right-wing coalition, which slightly hurts Lula. However, runoff dynamics in Brazil typically favor the left due to broader coalition-building (Ciro Gomes, Simone Tebet, and other eliminated candidates' voters), and Lula has won runoffs before. The narrow 1.87-point gap is within typical runoff swing margins, making this a close call leaning slightly toward Fl\u00e1vio."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.16
-        }
-      ],
-      "id": "manifold-qUIpIulZcs",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://manifold.markets/AdamBraff/will-luiz-inacio-lula-da-silva-win",
-      "status": "pending",
-      "title": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?",
       "topic": "Politics",
       "verdict": null
     },
@@ -3957,6 +3969,146 @@
       "status": "pending",
       "title": "Will Germany GDP growth in Q3 2026 be between 1.0% and 1.2%?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.25,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to Canada\u2019s gross domestic product growth rate over the one-month period ending August 2026 (Real GDP monthly change, %), as reported by Statistics Canada\u2019s (StatCan) \u201cGross domestic product by industry\u201d release for August 2026, scheduled for release on October 30, 2026.\n\nThe GDP release and relevant statistics are expected to be made available here: https://www150.statcan.gc.ca/n1/dai-quo/ind1-eng.htm\n\nIf the specified release is not published, this market will resolve based on the first published figure for the specified month\u2019s GDP growth rate compared to the prior month. If no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports GDP growth rates compared to the prior month to only one decimal point (e.g. 0.8%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following month or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm?sk=3569.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "StatCan's own advance estimate (Sept 29) put August real GDP at +0.2%, outside the 0.0-0.1 band. Advance-to-official gaps in 2026 were +0.2 for May and +0.1 for June (the July advance matched), so an official 0.0 or 0.1 needs a downward revision of 0.1 or more; August retail volumes (+1.2%) support the advance, while constant-dollar manufacturing (flat) and wholesale volumes (-1.8%) argue for some softness. I put roughly a quarter on a first print of 0.0 or 0.1.",
+          "sources": [
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/260929/dq260929a-eng.htm",
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/261023/dq261023a-eng.htm",
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/261015/dq261015a-eng.htm"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The advance estimate for August is 0.2%, and in the three prior months with advance estimates, the official figure was equal to or above the advance. While mixed August indicators (strong retail, weak wholesale) introduce some downside risk, a downward revision of at least 0.1 pp to 0.1% or 0.0% appears less likely than the official number staying at 0.2% or higher. The base rate of 0.0-0.1% prints in 2026 is 2/6, but conditional on a 0.2% advance, the probability is lower."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The advance estimate for August 2026 real GDP was 0.2%, and the question requires the official first-release to be 0.0% or 0.1% (inclusive interpretation of 'between 0.0% and 0.1%' at one decimal precision). In all three comparable 2026 cases (May, June, July), the official print was equal to or above the advance estimate\u2014never revised down. A downward revision of at least 0.1 percentage points would be needed, which contradicts the observed pattern. The strong retail sales (+1.2%) and mining gains noted in the advance further support the 0.2% figure holding or being revised up, making a Yes resolution unlikely but not impossible given the oil and gas extraction drag."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "The advance estimate for August 2026 is +0.2%, and in recent months the official print has been equal to or above the advance (May +0.1\u2192+0.3, June +0.2\u2192+0.3, July unchanged\u2192unchanged). For the official number to fall in the 0.0-0.1% band, it would need to be revised down by 0.1-0.2 percentage points. August sectoral data is mixed: retail sales rose 1.2% in volume (bullish), manufacturing sales were unchanged in constant dollars (neutral), and wholesale sales fell 1.8% in volume (bearish). The advance estimate has historically been a reasonable predictor, so a downward revision of 0.1-0.2pp is plausible but not the most likely outcome. I assign roughly 30% probability to landing in the 0.0-0.1% band."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.28,
+          "rationale": "The advance estimate is +0.2%, and in 2026 the official print has equaled or exceeded the advance every time. A landing at 0.0-0.1 requires a downward revision of 0.1 or more. Retail volume was strong (+1.2%), manufacturing volume was flat, and wholesale was weak, so the data are mixed against an advance that likely already included much of this. The 0.1 outcome is plausible, but 0.2 or higher is more likely."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.38
+        }
+      ],
+      "id": "polymarket-5155512",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-30",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/canada-gdp-august-2026-mom",
+      "status": "pending",
+      "title": "Will Canada's GDP growth rate MoM in August 2026 be between 0.0% and 0.1%?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.18,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "Binance BTCUSDT was about 81,400 on 2026-10-28, roughly 3.2% under 84,000, with the Oct 30 noon ET close about 2.3 days away. October's largest two-session gain was 2.63% and none of 25 windows rose 3.2% or more; with daily volatility around 1.3% the move is about 1.5 standard deviations, and the FOMC decision adds some tail risk. I give it about 8%, consistent with the 78,000 dip being roughly twice as likely over a longer window.",
+          "sources": [
+            "https://tradervilla.com/public/coin/btcusdt/month-summary/october-2026",
+            "https://www.coindesk.com/markets/2026/10/22/bitcoin-slides-below-usd82-000-as-ai-doubts-return-with-defi-tokens-leading-declines",
+            "https://www.tradingkey.com/news/market-movers/262245835-market-movers-btcusd-20261028"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: historically, when BTC closed below $82,000, it closed above $84,000 two sessions later only 1 in 10 times. Current price ~$81,400, needing a ~3.2% gain. The FOMC decision today adds event risk that could cause a larger move, but direction is uncertain. Recent trend is slightly bearish, and a 3.2% two-day gain hasn't occurred in October's 25 overlapping windows. I estimate a slightly higher probability than the historical base rate due to the potential for a dovish surprise, but overall still unlikely."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "The base rate from October's own data is low: of 10 sessions closing under $82,000, only 1 had a close above $84,000 two sessions later (10%), and no 2-day window in the month gained the required 3.2%. The FOMC decision on Oct 28 is a meaningful wildcard that could push the probability a few points higher if the Fed is dovish, and the current slight uptick (+1.08%) provides a small tailwind. However, the overall October trend is downward (-3.25% MTD), realized volatility (~1.32%/day) makes a 3.2% two-day move roughly 1.6 standard deviations, and the Oct 22 surge to $84,800 that reversed quickly illustrates how fragile such moves are in this regime."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "BTC is currently around $81,400, needing a ~3.2% rise to clear $84,000 in about 2.25 days. October's realized daily volatility is only ~1.32%, and the largest two-session gain in the month was 2.63%\u2014both below the required move. Of 10 sessions closing under $82,000, only one saw a close above $84,000 two sessions later. A dovish FOMC surprise with strong ETF inflows could push it higher, but the base rate from historical patterns suggests this is unlikely."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.08,
+          "rationale": "BTC is near 81,400 and needs a gain of about 3.2% to pass 84,000 in roughly 2.2 days. With daily volatility around 1.3-1.5%, that is about 1.5 sigma, or roughly 6-7%. Fat tails and the FOMC decision add a little, and the October sample shows 1 of 10 comparable setups reaching the level. A dovish Fed surprise with strong ETF inflows is the main upside risk."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.135
+        }
+      ],
+      "id": "polymarket-6084526",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-30",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-30-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $84,000 on October 30?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -5223,6 +5375,349 @@
       "source_url": "https://polymarket.com/event/israel-x-syria-diplomatic-meeting-byptptpt",
       "status": "pending",
       "title": "Israel x Syria diplomatic meeting by October 31, 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.88,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the calendar date (ET) on which Meta's next Muse Spark model (1.4+) is made available to the general public.\n\nA qualifying model must have a name or model identifier that includes \"Muse Spark\" and be designated as version 1.4 or higher, regardless of capitalization, hyphenation, spacing, or surrounding prefixes, suffixes, dates, or descriptors. For example, a version 1.4 or higher named in the same manner as Muse Spark 1.2 or Muse Spark 1.3 would qualify, including a new whole-number generation such as Muse Spark 2, while models whose name does not include \"Muse Spark\" or which retain a version designation below 1.4, such as Muse Spark 1.3 (released September 2, 2026, including any of its reasoning modes, open-weight re-releases, rollouts, promotions, or snapshots), Muse Glimmer, or Muse Image, will not qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Meta as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Meta, with additional verification from a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.89,
+          "rationale": "The only sources show Muse Spark 1.3 (2026-09-02) as the latest on Meta's own models page as of 2026-10-28, and an Oct 23 report still concerns 1.3. The summer cadence was about 4 weeks (27 and 28 days), so the current 59-day gap already breaks it, but nothing official points to a 1.4 or 2 within the three days left; a third-party identifier resembling 1.4 is unverified. A 1.4+ launch in the final three days is possible but not signalled, so no release is the likelier outcome.",
+          "sources": [
+            "https://dev.meta.ai/docs/models",
+            "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            "https://research.meta.ai/static/muse-spark-1-3-evaluation-report"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.88,
+          "rationale": "The historical release cadence (gaps of 27, 28, and 92 days) suggests a new version could be overdue after 56 days, but the lack of any official announcement, the recent October 23 evaluation report still focused on 1.3, and the API page listing 1.3 as latest make a release in the next 3 days unlikely. The unconfirmed third-party tool catalog hint of 'muse-spark-1.4-contributor' is weak evidence of an imminent public launch. Thus, there is a high probability of no release by October 31, with a small chance of a surprise drop."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.75,
+          "rationale": "The recent release cadence was 27-28 days between versions, and 59 days have already elapsed since 1.3, which is well beyond that pattern and raises the possibility of an imminent release. However, as of Oct 28 the Meta Model API page still lists 1.3 as the latest version, the Oct 23 preparedness report concerns only 1.3, and no official announcement or public accessibility signal has appeared in the 3 days remaining. The 'muse-spark-1.4-contributor' identifier in a third-party catalog is suggestive but not evidence of public availability, and 'contributor' appears to be a usage mode rather than a version designation. The absence of any official signal in the final 3 days makes a release before Oct 31 unlikely but not impossible."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.85,
+          "rationale": "Base rate: Meta has released Muse Spark versions on a roughly monthly cadence (1.1 in July, 1.2 in August, 1.3 in September), but the gap from 1.3 (Sep 2) to Oct 31 is 59 days, longer than the recent gaps. Evidence: As of Oct 28, the official Meta Model API page still lists 1.3 as the latest version, and the Oct 23 preparedness report concerns 1.3, with no announcement of 1.4 or 2. Only 3 days remain. A third-party catalog shows a 1.4-contributor identifier, but it's not publicly accessible. The lack of any official announcement or API listing of 1.4+ in the final days makes a release by Oct 31 unlikely, though not impossible given Meta's rapid iteration pace."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.9,
+          "rationale": "Muse Spark 1.3 launched Sep 2, so 56 days have passed. The earlier gaps were 92, 27 and 28 days, so a release is overdue by the recent cadence, but only three days remain. Meta's models page on Oct 28 still calls 1.3 the latest, and Muse Wonder is now positioned as the most capable model, which suggests the flagship focus may have moved away from Muse Spark. The leaked muse-spark-1.4-contributor identifier hints that 1.4 exists internally, but it is not known to be public. I put roughly a 10% chance on a public 1.4+ release in the window."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.915
+        }
+      ],
+      "id": "polymarket-4869280",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/next-muse-spark-model-1pt4-released-onptptpt-20260922133617102",
+      "status": "pending",
+      "title": "Will there be no next Meta Muse Spark model release by October 31, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.85,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the finalized Ornn A100 Index price for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is Ornnai.com (ornnai.com), specifically, the A100 Index chart data available at https://dashboard.ornnai.com. The specified finalized daily value shown on the chart will be used for resolution. Daily data will be considered finalized once the following day\u2019s data point is published.\n\nResolution will occur once the specified data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.88,
+          "rationale": "The A100 SXM4 index settled at 1.08 on 2026-10-27 after six straight prints of 1.08-1.09, and has been at or above 1.00 on every day since Oct 19; no print in the 92-day history exceeded 1.25 (high 1.21). The risk is a drop back below 1.00: it sat below 1.00 for 23 days before Oct 19, so a regime reversal of about 0.08 in four days is possible but recent daily moves are about a cent. Methodology notes that settled prints are rarely restated.",
+          "sources": [
+            "https://api.ornnai.com/api/gpu/A100%20SXM4/index-history?startDate=2026-07-28&endDate=2026-10-28",
+            "https://data.ornn.com/markets/a100-sxm4",
+            "https://data.ornn.com/methodology"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.88,
+          "rationale": "The index is currently $1.08, well within the $1.00\u2013$1.25 range, and has been stable between $1.08 and $1.09 for the past six days. Although it fell below $1.00 for 23 days in September\u2013October, the recent trend is upward and daily moves have been small (under 1%). A drop below $1.00 in the next four days would require an unusually large negative shock, while a rise above $1.25 is unprecedented. The base rate over the 92-day history is 67% in-range, but current conditions and momentum suggest a higher probability, tempered by the risk of a sudden reversal or thin-volume carry-forward."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate from the 92-print window is 67% in range, but the recent 9-day streak above $1.00 (Oct 19-27) with values tightly clustered at $1.08-$1.09 suggests the recovery is holding. The upper bound of $1.25 is essentially not a risk (max observed was $1.21), so the question reduces to whether the index drops below $1.00 in the next 4 days. The main risk is a reversal of the recovery, but the stability of the last week and the methodology's carry-forward rule (holding last value if no volume) make a sharp drop less likely, though not impossible given the 23-day sub-$1.00 stretch earlier."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: of 92 historical prints, 67% fell in the $1.00\u2013$1.25 bracket, and the recent 9-day run (Oct 19\u201327) has all been in that range, with the latest at $1.08. The index is $0.08 above the lower edge and $0.17 below the upper edge, so a modest move in either direction could push it out. The main risk is a reversion below $1.00 (as happened for 23 consecutive days Sep 26\u2013Oct 18) or a thin-volume carry-forward, but the recent trend is stable around $1.08\u2013$1.09. I assign ~78% probability the Oct 31 print lands in the bracket."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.85,
+          "rationale": "The index was $1.08 on Oct 27 and has been stable at $1.08-$1.09 for six days. The bracket is $1.00-$1.25, and 62 of 92 prints fell inside it with none above. The main risk is a fall below $1.00 within 4 days, as happened for 23 days earlier this autumn. An exit above $1.25 is very unlikely. Mean reversion toward the roughly $0.95 recent median is possible but would need a drop of about 7.5% or more."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.77
+        }
+      ],
+      "id": "polymarket-3528584",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/gpu-rental-prices-a100-end-of-october",
+      "status": "pending",
+      "title": "Will the Ornn A100 Index be between $1.00 and $1.25 on October 31, 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.78,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the second-highest ranked Company based on the arena.ai Agent Arena Leaderboard when the table under \"Agent Arena\" filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Agent Arena\" Leaderboard tab at https://arena.ai/leaderboard/agent filtered for \"Labs\" will be used to resolve this market.\n\nModels marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by which model is listed higher on the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Agent Arena Leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "On the Agent Arena Labs table dated Oct 23, OpenAI is rank 2 (13.96%), ahead of Google (11.75%) and Meta (10.74%), and an Oct 13 post also listed OpenAI second; the latest model added through Oct 27 (Kimi K3.1 Pro) belongs to a rank-5 lab. The rank spreads of OpenAI and Google overlap (2-4), so a reshuffle is possible, and a new lab-best model before Oct 31 could move it, but the raw gap is over two points with three days left. The board is five days old, so I keep some room for change.",
+          "sources": [
+            "https://arena.ai/leaderboard/agent?rankBy=labs",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://arena.ai/blog/ranking-method"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.78,
+          "rationale": "As of Oct 23, OpenAI ranks 2nd on the Labs leaderboard with a raw rank of 2, though its confidence interval overlaps with Google's, indicating a statistical tie. The short time to resolution (3 days) and lack of recent high-ranking model additions from competitors make a rank change unlikely, but the overlapping spreads and dynamic nature of the leaderboard introduce some uncertainty."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "OpenAI is currently ranked 2nd in the Labs table as of Oct 23, with a ~2.2pp lead over Google, but both have overlapping rank spreads (2-4), meaning they are statistically tied. The resolution uses the raw Rank column (no ties), which currently favors OpenAI, and OpenAI has been consistently 2nd in both available snapshots. The main risk is that 5 more days of live data could shift the raw rank, especially given the statistical tie, but no new top-tier model from Google or another lab has been announced that would likely overtake OpenAI in that window."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "OpenAI has held the #2 lab rank in both October snapshots (Oct 13 LinkedIn post and Oct 23 leaderboard), with Anthropic firmly at #1 and Google at #3-5 with overlapping CIs. The Oct 23 data shows OpenAI at 13.96%\u00b12.08% vs Google at 11.75%\u00b10.91%, a meaningful gap. However, the leaderboard is dynamic, new models from Google or Meta could shift rankings, and the check is 3 days away. Base rate for a stable #2 holder remaining #2 over a week is moderate-high, adjusted up given the consistent evidence but capped below 0.8 due to volatility risk."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "OpenAI was rank 2 on the Oct 23 Labs table and second in the Oct 13 LinkedIn snapshot, so it has held the spot across both October observations. Google is third (11.75%, against OpenAI's 13.96%) and Meta is close behind. Their intervals overlap, and OpenAI's lab rank spread is 2-4, so a reshuffle is possible. Three days remain, and a new top model from Google or Meta, or a rescoring, could flip it. The GPT-6.1 Terra release hints that OpenAI may add a new model, which would help it. Anthropic taking rank 2 is unlikely given its lead. I put the chance OpenAI is second at about 80%."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.925
+        }
+      ],
+      "id": "polymarket-3572142",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/second-best-ai-agent-lab-end-of-october-20260812152901709",
+      "status": "pending",
+      "title": "Will OpenAI be the second-best AI Agent Lab at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.08,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the company which owns the model with the highest Mathematics score on LiveBench.ai when the leaderboard is checked on October 31, 2026, at 12:00 PM ET.\n\nResults from the \u201cMathematics\u201d column of the leaderboard at https://livebench.ai/#/?cats=Mathematics, with the latest available LiveBench release selected and the category set to \u201cMathematics,\u201d will be used to resolve this market.\n\nModels will be ranked according to the specified score, with higher scores ranked ahead of lower scores. If two or more models have exactly the same score as displayed on the leaderboard, the model with the lower listed \"cost per successful task\" will be ranked ahead. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact score and cost per successful task, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the LiveBench leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \u201cOther.\u201d",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "The latest LiveBench release (2.0, 2026-10-25) shows no Mathematics category, and in its table Google's gemini-4-argon leads reasoning at 95.1 over Claude Opus 5.5 at 92.2. On the older v1 math tasks (2026-06-25) an OpenAI model led Anthropic's best, and in the paper's table OpenAI also led. Anthropic would need the resolver to use a source where a Claude model tops math, which no opened source shows.",
+          "sources": [
+            "https://livebench.ai/",
+            "https://livebench.ai/data/20261025/table.csv",
+            "https://raw.githubusercontent.com/LiveBench/livebench.github.io/refs/heads/main/public/table_2026_06_25.csv"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The LiveBench 2.0 release (2026-10-25) has no Mathematics category\u2014only Agentic, Design, Coding, Browser Use, Data Analysis, Research, and Reasoning. In the last v1 release that did include math columns (2026-06-25), OpenAI's gpt-5.5-xhigh led on math_comp (96.078 vs 97.059 for Claude) and integrals_with_game (99.0 vs 95.0), while Claude led on AMPS_Hard (98.0 vs 97.0) and was slightly behind on olympiad (91.207 vs 91.351). The resolution requires selecting the 'latest available LiveBench release' with category set to 'Mathematics'\u2014if no such category exists in the latest release, the market likely resolves to 'Other' or the resolver falls back to an older release where OpenAI led. For Anthropic to win, either a new release with a Mathematics category must appear by Oct 31 with a Claude model on top, or the resolver must interpret 'Mathematics' as mapping to 'Reasoning' (where Gemini leads at 95.1 vs Claude's 92.2). Both scenarios are unlikely, giving roughly 5%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.15,
+          "rationale": "The base rate is low because in both historical snapshots with math scores (2026-06-25 v1 and the LiveBench paper), OpenAI models led the math category, not Anthropic. The current LiveBench 2.0 (2026-10-25) has dropped the Mathematics category entirely, replacing it with 'Reasoning' where Gemini leads (95.1) and Claude is second (92.2). The resolution criteria specifically require a 'Mathematics' column, which may not exist in the latest release, creating ambiguity. If the resolver falls back to v1 or uses reasoning as a proxy, Anthropic is unlikely to lead. A new release with a Mathematics category where Claude leads would be needed for Yes."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.09,
+          "rationale": "The official LiveBench 2.0 release (2026-10-25) has no Mathematics category. Only the older v1 table from 2026-06-25 has math tasks. In that table, averaging the four math tasks gives gpt-5.5-xhigh about 95.9 and claude-opus-4-8 about 95.3, so OpenAI leads Anthropic. The resolver might fall back to v1, treat the category as unavailable (likely \"Other\"), or use a proxy such as the reasoning column, where Gemini leads. All of these paths favor non-Anthropic outcomes. A Claude win would need a new release with a math category where a Claude model leads, which looks unlikely in the three days left."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.845
+        }
+      ],
+      "id": "polymarket-3554982",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-on-livebench-mathematics-end-of-october",
+      "status": "pending",
+      "title": "Will Anthropic have the best AI model on LiveBench (Mathematics) at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.14,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "Context: the first big \"vie chere\" protest day, on Saturday Oct 17, 2026, drew 550,000 protesters according to the French Ministry of the Interior (800,000 according to organizers). Resolves YES if the Ministry of the Interior (or, if it publishes no national figure, police figures reported by AFP) reports more than 500,000 protesters nationwide on Saturday Oct 24, 2026 or on Saturday Oct 31, 2026 (at least one of the two), in protests against the cost of living (vie chere) or the related social movement. Organizers' or unions' figures do not count. The Oct 17 day does not count. Resolves NO otherwise, including if no protest takes place. The market closes before the first of these figures is public.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "The Interior Ministry counted 410,000 on Oct 24, so only Oct 31 can make this resolve yes, and it must exceed 500,000. The count fell from 550,000 to 410,000 in one week, organizers are shifting to sit-ins rather than marches, routes are being kept out of city centres, and the union general strike is set for Nov 5, not Oct 31. Interior Minister Nu\u00f1ez expects a large turnout, so a rebound cannot be ruled out, but a rise of about 90,000 over the previous Saturday is a stretch.",
+          "sources": [
+            "https://www.afp.com/en/france-protests-latest-developments",
+            "https://www.franceinfo.fr/societe/manifestations/pres-de-410-000-personnes-ont-manifeste-en-france-d-apres-le-ministere-de-l-interieur-800-000-selon-la-cgt-des-tensions-dans-plusieurs-grandes-villes_8252440.html",
+            "https://actu.fr/societe/acte-iii-des-gilets-jaunes-plus-de-400-rassemblements-partout-en-france-samedi-31-octobre-la-carte-des-mobilisations_64979604.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.1,
+          "rationale": "The Oct 24 figure is already known at 410,000, below the threshold, so only Oct 31 can resolve Yes. The trend fell from 550,000 to 410,000 in one week, and the Oct 31 mobilisation is mostly sit-ins (355) with only 61 marches compared with 360 marches on Oct 24, during school holidays and before the larger Nov 5 strike. These factors make a rebound above 500,000 plausible but fairly unlikely, around 10%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "Oct 24 is already confirmed below threshold at 410,000 per the Interior Ministry. For Oct 31, the format shifts dramatically from 360 marches to only 61 marches plus 355 sit-ins, and the Interior Ministry's counting methodology typically focuses on cort\u00e8ges (marches), making it unlikely that sit-ins would be counted at the same scale. The trend is declining (550k\u2192410k), the main mobilization energy is directed toward the Nov 5 general strike, and government restrictions (routes outside city centers, curfews) further suppress turnout. A 500k+ count on Oct 31 would require either a significant surge in per-event attendance or the Ministry counting sit-ins aggressively, both of which seem unlikely given the evidence."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Oct. 24 is already ruled out by the Interior Ministry's 410,000 count, so the outcome depends entirely on Oct. 31. Given the decline from 550,000 to 410,000, the base rate for rebounding above 500,000 within a week is low, and the shift from 360 marches to only 61 marches\u2014along with dispersed sit-ins and security restrictions\u2014makes the threshold harder to reach. A large Paris turnout, inclusion of sit-ins in official totals, or strong mobilization ahead of the Nov. 5 strike could still produce a substantial rebound."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Oct 24 came in at 410,000 per the Interior Ministry, below the threshold, so only Oct 31 can resolve Yes. The ministry count is declining (550k to 410k). Oct 31 is a sit-in format rather than marches, falls in a holiday period, and sits just before the Nov 5 strike. A police figure above 500k is unlikely, though momentum from the repression could still produce a surprise."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.17
+        }
+      ],
+      "id": "manifold-Z9n5SgcU0y",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/CheerForgeAdmin/-will-france-report-300000-proteste",
+      "status": "pending",
+      "title": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
       "topic": "World",
       "verdict": null
     },
@@ -7559,6 +8054,356 @@
       "call": {
         "members": 5,
         "method": "combined_weighted_v1",
+        "probability": 0.95,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the finalized Ornn RTX 5090 Index price for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is Ornnai.com (ornnai.com), specifically, the RTX 5090 Index chart data available at https://dashboard.ornnai.com. The specified finalized daily value shown on the chart will be used for resolution. Daily data will be considered finalized once the following day\u2019s data point is published.\n\nResolution will occur once the specified data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.95,
+          "rationale": "The Ornn RTX 5090 daily index printed 0.71 on 2026-10-27 and the live hourly value was 0.71 on 2026-10-28; 56 of 57 prints since 2026-09-01 were at least 0.60, the only miss being 0.59 on Oct 5. The largest one-day fall in the 92-day history is 0.03 and the largest four-session fall is 0.05, far short of the 0.11 needed. Residual risk is a regime break, a methodology correction or a different chart series being used at resolution.",
+          "sources": [
+            "https://api.ornnai.com/api/gpu/RTX%205090/index-history?startDate=2026-07-28&endDate=2026-10-28",
+            "https://data.ornn.com/methodology"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.98,
+          "rationale": "The base rate is strongly favorable: 56 of 57 daily prints since September 1 have been \u2265$0.60, and the current value is $0.71. The largest one-day decline in the 92-day history is $0.03, and the largest four-session drop is $0.05, making an $0.11 fall to $0.60 in three days extremely unlikely. The index methodology resists restatements, and only an unprecedented market shock or data falsification could cause a miss, both of which are low-probability events."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.95,
+          "rationale": "The current value is 0.71 and the threshold is 0.60, requiring a 0.11 drop over 4 sessions. The largest 4-session decline in the entire 92-day history is only 0.05, less than half the required drop. Since Sep 1, 56 of 57 daily prints were at or above 0.60 (98.2% base rate), and even the current modest downward trend (~0.02/day) would only bring the index to roughly 0.63 by Oct 31. The main risk is an unprecedented market shock or structural break, but the historical evidence makes that very unlikely."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Since Sep 1, 56 of 57 daily prints were at least 0.60 (98.2%), with the only miss being 0.59 on Oct 5. The current value is 0.71, and the largest four-session decline in the 92-day history is 0.05, well short of the 0.11 gap to 0.60. The recent trend has been downward (0.76 \u2192 0.74 \u2192 0.73 \u2192 0.71), but the decline rate is gradual. A drop of 0.11+ in three sessions would be unprecedented. I estimate ~78% probability the index stays at or above 0.60, with the main risks being an unusual demand shock or methodology correction."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.95,
+          "rationale": "The index is at 0.71, 0.11 above the threshold, with three days to go. Since September, 56 of 57 prints were at least 0.60, and the largest historical four-session drop is only 0.05. The mild downtrend from the 0.76 peak would still leave it around 0.65-0.67; the main risks are a sudden regime shift, a data error, or a series change."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9105
+        }
+      ],
+      "id": "polymarket-3528499",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/gpu-rental-prices-rtx-5090-end-of-october",
+      "status": "pending",
+      "title": "Will the Ornn RTX 5090 Index be at least $0.60 on October 31, 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.05,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if, according to the ISW map, Russia captures the intersection at 48.508104\u00b0 N, 37.278884\u00b0 E in Kucheriv Yar, Donetsk Oblast, between market creation and the specified date, 11:59 PM ET.\n\nThe intersection will be considered captured if any part of the intersection is shaded under a below specified layer on the ISW map (https://storymaps.arcgis.com/stories/36a7f6a6f5a9448496de641cf64bd375) by the resolution date. Otherwise, the market will resolve to \u201cNo\u201d.\n\nFor any change on the ISW map to qualify for this market\u2019s resolution, the relevant shading must persist through the next full ISW daily update cycle. If ISW skips a day, shading must persist until the next finalized ISW update is published, regardless of the date.\n\nAny continuous shading under the following layers will qualify:\n- Assessed Russian-Controlled Terrain\n- Assessed Russian Advances\n\nShading under the following layers will not qualify:\n- Assessed Russian Infiltration Areas\n- Claimed Russian Territory\n\nOnce a qualifying condition is met, any subsequent loss of control will not be considered towards the resolution of this market.\n\nIf Russia comes into control of the specified territory as a result of a negotiated settlement, this will qualify for a 'Yes' resolution, regardless of whether it is shaded under a qualifying layer on the ISW map. However, an announcement of a negotiated settlement that gives Russia de jure control will not qualify. Actual control must be established.\n\nIntersection Location in Kucheriv Yar: https://polymarket-upload.s3.us-east-2.amazonaws.com/Kucheriv+Yar1.png\n\nKucheriv Yar Location: https://polymarket-upload.s3.us-east-2.amazonaws.com/Kucheriv+Yar2.png\n\nLocation on Google Maps: https://maps.app.goo.gl/RE7mStop1xTdzpaDA\n\nThe primary resolution source for this market will be the ISW Ukraine map. If the ISW map is rendered unavailable, information from DeepStateMap (https://deepstatemap.live/) may be used. If information from both the ISW and DeepStateMap are rendered permanently unavailable, a consensus of credible reporting may be used.\n\nNote: Any temporary glitches or errors in the map will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Every ISW assessment that names Kucheriv Yar (Sept 20, Oct 8, Oct 21) describes it as Ukrainian-held or unconsolidated, and ISW's Oct 27 update recorded no confirmed advances near Dobropillya. Qualifying shading must be Assessed Russian-Controlled Terrain or Advances and persist through the next full daily update, and infiltration does not count; with three days left that is unlikely. The ISW story map itself was not inspected, which leaves some residual uncertainty.",
+          "sources": [
+            "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-21-2026/",
+            "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-27-2026/",
+            "https://novynarnia.com/2026/10/28/henshtab-perepoviv-sytuatsiiu-na-napriamkakh-za-mynulu-dobu-vsoho-191/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for a Russian capture of a well-defended settlement in a few days is very low. Recent ISW assessments (Oct 27) report no confirmed advances near Dobropillya/Kucheriv Yar, and multiple prior updates describe only infiltration attempts without consolidation. With only 3 days remaining and the requirement for persistent shading on the ISW map, a sudden successful capture is highly improbable absent major unreported shifts."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for capturing a specific intersection in a heavily contested area within 3 days, when the same forces have been attempting infiltration for over a month without success, is very low. Multiple independent sources (Mashovets via ISW on Oct 21, ISW's Oct 27 assessment of no confirmed advances, and the Ukrainian General Staff on Oct 28) all confirm Ukrainian forces still hold Kucheriv Yar, and ISW explicitly assessed that current Russian tactics cannot produce a sudden breakthrough. The only thing that could change this is a sudden, unanticipated breakthrough in the final 3 days, which contradicts the established pattern of slow infiltration and Ukrainian resistance."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "Base rate for a small settlement being captured in 3 days given ongoing infiltration attempts is low (~5-10%). Evidence consistently shows Ukraine still controls Kucheriv Yar as of Oct 21-27, with Russian forces only attempting infiltration rather than confirmed advances, and Mashovets explicitly stating Russia has not consolidated positions there. The Ukrainian General Staff's Oct 28 report still lists Kucheriv Yar as a target of attempted advances, not a captured settlement. A sudden ISW-confirmed capture by Oct 31 would require a rapid breakthrough that ISW has assessed as implausible given current Russian tactics."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "As of Oct 21, ISW (citing Mashovets) said Russian forces had not consolidated positions in Kucheriv Yar. The Oct 27 update recorded no confirmed advances near Dobropillya, and Ukrainian forces are still reported as repelling attacks toward Kucheriv Yar as of Oct 28. Only about three days remain, and any shading change would also have to persist through the next ISW update. The main risk is that the intersection is already shaded as an advance area, or that ISW suddenly assesses an advance there. I could not inspect the map, so some uncertainty remains."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.18
+        }
+      ],
+      "id": "polymarket-3089567",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/will-russia-capture-kucheriv-yar-byptptpt-20260724165221452",
+      "status": "pending",
+      "title": "Will Russia capture Kucheriv Yar by October 31?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.25,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to the number of calendar days on which North Korea (DPRK) conducts a missile launch during October 2026, Pyongyang Time.\n\nIf a single test event spans multiple calendar days, it will count only for the day on which it began.\n\nOnly test launches of ballistic missiles, cruise missiles, and anti-ship missiles will qualify.\n\nTest launches of other systems, including surface-to-air missiles (SAMs), multiple launch rocket systems (MLRS)/rocket artillery, torpedoes, or similar systems, will not qualify.\n\nResolution will be based on publicly available information from reliable sources such as official government statements, reports from international monitoring bodies like the United Nations, or reports from reputable international media.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "October 2026 already has three qualifying launch days (Oct 3 ballistic, Oct 12 ballistic, Oct 14 cruise), so one more on Oct 28-31 Pyongyang time (or an unreported Oct 27) reaches four. The 2026 pace is far above 2024-2025, but no month in 2024-2026 had four days, the latest reports through Oct 26 show nothing after Oct 14, and a typical launch-day rate of roughly 0.05-0.1 a day over the remaining 4-5 days gives about 20-35%. I weight the lower side because the last two weeks were quiet.",
+          "sources": [
+            "https://en.yna.co.kr/view/AEN20261012002751315",
+            "https://news.usni.org/2026/10/15/north-korea-tests-first-submarine-launched-cruise-missile-in-nearly-3-years",
+            "https://www.koreatimes.co.kr/southkorea/defense/20261024/north-koreas-diversifying-missile-arsenal-complicates-souths-defense",
+            "https://savenorthkorea.org/missiles/list"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for a month having 4+ distinct launch days is low (6 of 57 months since Jan 2022, none since March 2023). October 2026 already has three qualifying days (Oct 3, 12, 14), but there have been no launches reported in the 12 days since Oct 14 through Oct 26, suggesting a lull. While Kim Jong Un's Oct 3 statement implied continued drills, the remaining window (Oct 28\u201331) is short, and historical October activity is typically low (one launch each in 2024 and 2025). A sudden launch is possible but not highly likely."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.25,
+          "rationale": "Three qualifying launch days are confirmed (Oct 3, 12, 14), so only one more is needed in the remaining 4 days (Oct 28-31). The historical base rate for 4+ launch days in a month is about 10%, but 2026 is an unusually active year (16 launches through mid-October vs 6 in all of 2025), which pushes the probability up. However, the 12-day gap since Oct 14 with no reported launch is a meaningful signal of a lull, and with only 4 days left the window is narrow. The 'nonstop' rhetoric and active-year context prevent the probability from dropping to the historical base rate, but the recent silence makes a 4th day unlikely."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: Only 6 of 57 months from Jan 2022 to Sep 2026 had 4+ launch days, and none since March 2023. October 2024 and 2025 each had just one. Current evidence shows 3 qualifying days (Oct 3, 12, 14), with no launches reported Oct 15-26. With 5 days remaining (Oct 27-31), one additional launch would reach 4. Kim Jong Un's 'nonstop' rhetoric and the elevated 2026 tempo (16 ballistic launches YTD vs 6 in all 2025) raise the probability somewhat above the base rate, but the historical rarity of 4+ days in a month and the quiet final stretch keep it well below 50%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.12,
+          "rationale": "Three qualifying days already occurred (Oct 3, 12, 14), so one more launch day in Oct 27-31 would make four. With about 11 launch events by mid-October, the 2026 rate is roughly 1-1.5 per month, which gives around 4-5% per day. Over about 4 remaining days that comes to roughly 12-18%. No launch has been reported since Oct 14, and any Oct 27 launch would likely already be known. Kim's 'nonstop' drill comment and the high tensions keep the chance from being lower."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.34
+        }
+      ],
+      "id": "polymarket-5166965",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/number-of-north-korea-missile-tests-in-october-2026",
+      "status": "pending",
+      "title": "Will there be 4 or more North Korea tests in October 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.12,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if there is a diplomatic meeting between representatives of the United States and Cuba between market creation and the listed date, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nA diplomatic meeting refers to a deliberate meeting between representatives of the listed countries who are acting in an official capacity and are authorized to engage in negotiation or diplomacy regarding US-Cuba relations on behalf of their governments. Meetings conducted indirectly, for example, through designated mediators, facilitators, or interlocutors acting with the knowledge and authorization of the relevant governments, will qualify. \n\nBrief greetings, chance encounters, or talks otherwise not deliberately aimed at diplomacy or negotiation will not count.\n\nThe meeting must be in-person and must be publicly acknowledged by either government or reported by a consensus of credible media. Remote meetings, phone calls, or other meetings where the relevant parties are not present will not count.\n\nThe resolution sources for this market will be official information from the governments of the United States and Cuba, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "The only confirmed bilateral in-person meeting in 2026 was in Havana in April; Cuba said talks were at a standstill on June 30, and on Oct 5-6 its charg\u00e9 spoke of contacts but no negotiating agenda, giving no dates or participants. The Oct 27 UN General Assembly clash between Rodriguez and Waltz is multilateral floor debate, unlikely to count as a deliberate diplomatic meeting. A newly acknowledged in-person meeting in the last three days is possible but nothing scheduled was found, and the window start date is unknown.",
+          "sources": [
+            "https://www.pbs.org/newshour/world/cuban-official-says-talks-with-the-u-s-are-at-a-standstill-despite-recent-free-market-reforms",
+            "https://news.un.org/en/story/2026/10/1168686",
+            "https://www.telesurenglish.net/cuba-us-contacts-no-formal-negotiations/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for in-person US-Cuba diplomatic meetings is low, but a confirmed high-level meeting occurred in April 2026. The main uncertainty is whether the market was created before that meeting; given typical prediction market timeframes, it likely was, so the meeting would qualify. No other qualifying meetings have been reported since, and the remaining days are unlikely to produce one given current tensions and the lack of scheduled talks."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The April 20 in-person meeting between State Department assistant secretaries and Cuban deputy foreign minister-level officials clearly qualifies as a diplomatic meeting, but the market creation date is unknown, so it's uncertain whether it falls within the resolution window. The October 5-6 statement from Cuba's charg\u00e9 d'affaires acknowledges ongoing 'meetings' as part of bilateral contacts, providing some support for a Yes, but she gave no specifics on timing or participants. The UN General Assembly debate on October 27-28 is multilateral and does not qualify. The main uncertainty is whether the market was created before or after the April meeting; if before, the answer is clearly Yes, if after, the evidence for a qualifying meeting in the window is weaker."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for a publicly acknowledged, qualifying in-person bilateral meeting within roughly four days is low, though the presence of both countries\u2019 officials at the UN General Assembly raises the opportunity for a meeting on the margins. Evidence that formal talks are stalled, no bilateral meeting has been reported since April, and the October 27 point-of-order exchange was part of a multilateral debate rather than deliberate diplomacy pushes the probability down. The April meeting would make the outcome Yes if market creation predates April 20, while an official announcement of a new bilateral or authorized indirect meeting by October 31 would sharply increase it."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.12,
+          "rationale": "The market was probably created recently, so the April meeting likely falls outside the window. The evidence shows no dated bilateral in-person meeting after April. In October, the charg\u00e9 d'affaires said contacts include meetings, but gave no specifics, and said there were no formal talks. The UN debate is multilateral and ends Oct 28, so it likely doesn't count. Trump has claimed Rubio is in 'full negotiations' with Havana, so an unreported or newly reported meeting in the last three days is possible. That, plus the chance the market was created earlier and an acknowledged meeting falls inside the window, keeps the probability low but not negligible."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.06
+        }
+      ],
+      "id": "polymarket-3017686",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/us-x-cuba-diplomatic-meeting-byptptpt-20260616212816384",
+      "status": "pending",
+      "title": "US x Cuba diplomatic meeting by October 31?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.13,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during October 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.16,
+          "rationale": "NVDA closed at 217.94 on 2026-10-27, 4.6% above 208, with only three regular sessions left (Oct 28-30). No October session has printed a low at or below 208 (month low 210.18 on Oct 23), and the next earnings date is Nov 17. A volatility-based touch estimate for a ~4.6% drop over three sessions is about 20-25%, but the stock has held above 208 since mid-September and has just bounced, so I shade it down.",
+          "sources": [
+            "https://finance.yahoo.com/quote/NVDA/history/",
+            "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
+            "https://investor.nvidia.com/stock-info/stock-quote-and-chart/default.aspx"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.22,
+          "rationale": "With only Oct 28-30 left, NVDA must fall about 4.6% from Tuesday's $217.94 close to reach $208. A two-day drop of similar size already occurred this month (Oct21 close 221.97 to Oct23 low 210.18), and FOMC today adds event risk, but the premarket is up and no negative catalyst is evident; I treat a 3-day 4.6% flush as possible but less likely than not."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.13,
+          "rationale": "NVDA closed at $217.94 on Oct 27 and needs to drop ~4.5% to hit $208, with only 3 trading sessions remaining (Oct 28-30). The lowest October low so far is $210.18 (Oct 23), still $2.18 above the target. The FOMC decision today adds some tail risk, and the stock did experience a ~4% two-day decline on Oct 22-23, but reaching $208 would require a somewhat larger move without an identified company-specific catalyst. A broader market selloff or hawkish FOMC surprise could push it there, but the base case is that the stock holds above $210."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a stock hitting a specific price level 4.6% below current levels in 3 remaining sessions is low. Every completed October session has a low above $208, with the lowest at $210.18. While $208 was reached in August, the stock has been trending higher and is now ~$218. A 5% drop in 3 sessions would require a significant negative catalyst, but the FOMC decision on Oct 28 introduces some uncertainty. The probability is low but not negligible given potential macro volatility."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.09,
+          "rationale": "NVDA closed at 217.94 on Oct 27 with pre-market near 219.5, so $208 is about 5% below, with only three sessions left (Oct 28-30). With roughly 2% daily vol and a 3-day sigma near 3.5%, the barrier-touch probability is roughly 8-14%. No earnings fall in the window; the FOMC decision or a broad selloff is the main risk."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.13
+        }
+      ],
+      "id": "polymarket-4935840",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/what-price-will-nvda-hit-in-october-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) hit (LOW) $208 in October?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
         "probability": 0.45,
         "weights": {
           "claude_code_forecaster_v1": 32.08,
@@ -7894,6 +8739,209 @@
       "status": "pending",
       "title": "Will Trump declare a national emergency before the midterms?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.15,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "Binance BTCUSDT was near 81,400-81,500 on 2026-10-28, about 4.3% above 78,000; the completed Oct 26 and Oct 27 days bottomed at 79,368.67 and 79,506 and did not touch it. Daily volatility near 1.3% gives a touch of a level 4.3% away over the remaining ~4.5 days at roughly 12-16%, and the digest's own count (4 of 27 comparable starts reached 78,000 within four days) agrees; the FOMC decision on Oct 28 adds some fat-tail risk. I stay near that base rate rather than pricing it like the earlier, closer 80,000 dip.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&startTime=1767225600000&limit=1000",
+            "https://www.federalreserve.gov/newsevents/2026-october.htm",
+            "https://farside.co.uk/btc/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for a 4.3% drop within 4.5 days given current volatility is about 6% under normal distribution, but historical fat tails and FOMC event risk increase it slightly. The price has risen since the window start, making the required drop larger, and no dip has occurred yet."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.17,
+          "rationale": "The base rate for a 4%+ drop from an 80-83k close within 4 days is about 15% (4/27 historical instances), and we've already consumed 2 of those 4 days without hitting the level. The FOMC decision on Oct 28 is a meaningful catalyst that could push prices down sharply if hawkish, but ETF flows have turned positive and the current price is 4.3% above the strike (~1.5 daily vol standard deviations over the remaining window). The closest recent low was $79,369 on Oct 26, still $1,369 above the target, suggesting the market hasn't been under extreme stress."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: a 4.3% drop from current ~$81,500 to $78,000 within ~4.5 days is roughly a 1.5-sigma multi-day move, historically occurring about 10-15% of the time. Evidence: Oct 26-27 daily lows were 79,369 and 79,506, both above $78,000, and the incomplete Oct 28 candle has a low of 80,621. ETF flows turned positive on Oct 26-27, and the FOMC decision is already today (Oct 28) with no hawkish surprise evident. A break below the Oct 26 low near 79,200 or a renewed outflow streak would raise the probability; a clean rally toward 84,000 would lower it."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.11,
+          "rationale": "BTC is ~81,500, so 78,000 is 4.3% below. With ~1.3% daily vol over ~4.5 days (about 2.8% sigma), the barrier is ~1.5 sigma and the touch probability is about 12%. The empirical base rate was ~15% but clustered. The FOMC decision later today adds some tail risk, but the last two days held above 79,300 and ETF flows turned positive."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.215
+        }
+      ],
+      "id": "polymarket-6236215",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-26-november-1-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $78,000 October 26-November 1?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.2,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Binance ETHUSDT was about 2,369 on 2026-10-28 (day high 2,387.50), about 5.5% below 2,500, and Oct 26 and 27 highs were 2,344.72 and 2,364.35; only 1 of the last 13 sessions printed a high of 2,500 or more (Oct 21). With ETH daily volatility near 2-2.5%, a touch of a level 5.5% away over ~4.5 days is roughly 20-25%, trimmed because ETF flows were negative and highs have been failing, and raised slightly for the FOMC event. This is a touch question where being close to the strike has hurt before, so I do not go higher; it is also consistent with the BTC thresholds.",
+          "sources": [
+            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
+            "https://www.coindesk.com/markets/2026/10/28/bitcoin-nears-usd81-000-ahead-of-fed-decision-as-zec-jumps-8",
+            "https://farside.co.uk/eth/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "Over the past 13 days only one session reached $2,500, giving a daily base rate near 7.7% for recent conditions. With about 4.5 days left, the simple binomial chance of at least one hit is ~30%. The FOMC decision today adds volatility, and a bullish crypto reaction could lift ETH, but ETF outflows and the 5.5% gap to $2,500 keep the probability moderate. A hawkish Fed or continued sub-$2,400 price action would likely prevent a $2,500 high."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "ETH is ~5.5% below the $2,500 target at ~$2,370, with roughly 4.5 trading days remaining in the window. The strong October downtrend (-12.5%), negative ETF flows (-$88.6M and -$60.2M on Oct 26-27), and the fact that only 1 of 13 sessions since Oct 15 reached $2,500 all point against a rally. The FOMC decision today is a potential catalyst that could push prices higher if dovish, but the market is watching for hints of a December rate hike, making a hawkish outcome more likely. A 5.5% move in 4.5 days is roughly 3 daily standard deviations, which is uncommon but not impossible, especially with a catalyst event."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "ETH is currently around $2,370, about 5.5% below the $2,500 strike. Recent daily highs have been capped near $2,390-$2,420, and only 1 of the last 13 sessions reached $2,500. ETF outflows and a bearish technical summary (sell on 22 indicators) argue against a sharp rally, though the FOMC decision today could trigger volatility. A move of ~$130 in 4.5 days is possible but unlikely given the downtrend; I'd put this around 15-20%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.14,
+          "rationale": "ETH is about 2,370 against a 2,500 strike, roughly 5.5% away, with about 4.5 days left. At about 1.8% daily volatility, the chance of touching that level is roughly 13-17%. The FOMC decision adds some upside tail risk, but ETF outflows and the weak trend since Oct 22 limit it. A strong post-Fed rally or bitcoin pushing toward 85k would raise it."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.265
+        }
+      ],
+      "id": "polymarket-6236248",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-26-november-1-2026",
+      "status": "pending",
+      "title": "Will Ethereum reach $2,500 October 26-November 1?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.8,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.89,
+          "rationale": "Binance ETHUSDT was about 2,369 on 2026-10-28, about 7% above 2,200; every daily close in October was above 2,200 (monthly low 2,282.46 on Oct 24) and the biggest one-day October fall was 4.57%. Roughly 5% volatility over the five days to the Nov 2 noon ET candle gives about a 7-10% chance of finishing below 2,200, nudged up by October's downtrend, the FOMC decision and a weekend gap risk. This is coherent with the 2,500 touch question being clearly less likely than this one.",
+          "sources": [
+            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
+            "https://chartrow.com/ethereum/weekly-returns",
+            "https://www.coindesk.com/markets/2026/10/28/bitcoin-nears-usd81-000-ahead-of-fed-decision-as-zec-jumps-8"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "ETH is currently at ~$2,369, requiring a 7.1% drop over ~5 days to fall below $2,200. The October low was $2,282.46 (still $82 above the threshold), and the largest single-day drop was 4.57%, making a 7.1% five-day decline possible but not the base case. The downward trend (three consecutive negative weeks, 12.5% monthly decline) and upcoming catalysts (FOMC today, SEC decision Oct 30) create tail risk, but the substantial buffer and mostly bullish technical signals (16 of 25 indicators) favor a Yes resolution."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "ETH is currently around $2,369 on Binance, about 7.7% above the $2,200 threshold. Over 5 days, a 7%+ decline is uncommon but not rare (about 16% of weeks historically). The October trend has been bearish (-12.5% MTD), with recent weekly returns of -6.9%, -5.0%, and -3.4%, suggesting continued downside pressure. However, the technical summary shows a net buy signal, and the price is well above key support at $2,232. A hawkish FOMC surprise or negative SEC ETF decision on Oct 30 could push it lower, but the current cushion and mean-reversion tendency suggest ETH is more likely than not to remain above $2,200 by Nov 2."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "ETH is about 2,370, so the 2,200 threshold is roughly 7.2% below spot with about 5 days to go. With realized daily volatility near 1.8%, the five-day standard deviation is about 4.1%, making the threshold about 1.75 sigma away and implying a roughly 4% chance of a close below it. I widened that to about 7% for fat tails and event risk (FOMC, SEC ruling, ETF flows), since the 16% weekly-fall frequency comes from a higher-volatility regime."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.92
+        }
+      ],
+      "id": "polymarket-6255210",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-2-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $2,200 on November 2?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -8460,6 +9508,211 @@
       "source_url": "https://manifold.markets/Jack1/will-democrats-win-the-texas-gubern",
       "status": "pending",
       "title": "Will Democrats win the Texas Gubernatorial election?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.35,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "Resolves yes if democrats win the 2026 Wisconsin gubernatorial election and their winning margin is 5.000% or higher.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "A Democratic win by 5.00 points or more needs both a win and a margin that exceeded 5 only in 2006 (7.39) among the three recent races (2018: 1.10, 2022: 3.40). The latest Marquette likely-voter poll is only +3 for Crowley, but the national environment is strongly Democratic (generic ballot +8 to +9) and the seat is open. I set the margin centred near 4-5 points with a wide spread, so the 5-point mark is somewhat less likely than a Democratic win and coherent with it.",
+          "sources": [
+            "https://law.marquette.edu/poll/2026/09/30/mlsp91-press-release/",
+            "https://elections.wi.gov/media/9401/download",
+            "https://elections.wi.gov/sites/default/files/documents/Statewide%20Summary%20Results_1.pdf",
+            "https://maristpoll.marist.edu/polls/u-s-midterm-elections-october-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate of 5+ point Democratic wins in recent Wisconsin governor races is 1 in 3 (2006, 2018, 2022). The latest poll (Sep 16-23) shows a 3-point lead for Crowley among likely voters, with a 4.8-point margin of error, making a 5-point win plausible but not certain. A favorable national environment (Democrats +8-9 on generic ballot) could boost the margin, but Wisconsin's history of close races and the poll's undecided voters add uncertainty. I estimate a 35% chance, reflecting a tight race with a slight Democratic edge."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "Wisconsin gubernatorial races have been historically tight (2018: +1.1, 2022: +3.4 for Democrats; only 2006 exceeded 5 points), giving a low base rate for a 5+ point margin. The current Marquette poll shows Crowley +3 among likely voters with 5% undecided, suggesting a likely 2-4 point margin at best. The national Democratic tailwind (generic ballot +8-9, Trump approval 38%) and Crowley's late fundraising surge could push the margin slightly higher, but a 5+ point outcome would require the race to be notably more favorable to Democrats than current polling indicates."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: Wisconsin has been a close swing state, with recent gubernatorial margins of 3.4 points (2022) and 1.1 points (2018); only 2006 saw a 5+ point Democratic win. The Marquette poll shows Crowley leading by just 3 points among likely voters (49-46), well within the 4.8-point margin of error, and the race has tightened from August. While national environment favors Democrats and Crowley has a late fundraising edge, Wisconsin's structural competitiveness and the open-seat nature of the race make a 5+ point Democratic victory unlikely. A new Marquette poll due this week could shift this estimate."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.42,
+          "rationale": "Marquette likely-voter polls show Crowley up 3 to 5 points, and the generic ballot is D+8-9 with Trump approval at 38%. Wisconsin runs a few points more Republican than the nation, so the expected margin is roughly D+4 to D+5 with a standard deviation of about 4.5, which puts the chance of a margin of 5 or more just under even. A late poll showing a clearer lead or a tighter race would move this."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4488
+        }
+      ],
+      "id": "manifold-EttIsglNlL",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/Jack1/will-democrats-win-the-2026-wiscons-8z6npS9Rqn",
+      "status": "pending",
+      "title": "Will Democrats win the 2026 Wisconsin Gubernatorial election by 5.00% or more?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.45,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "Resolves yes if the Democrats win more than 235 house seats in 2026. \n\nUpdate 2026-09-22 (PST) (AI summary of creator comment): * Independents (or other non-Democrats) who caucus, or plan to caucus, with the Democrats will count as Democrats for the seat total.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.4,
+          "rationale": "Democrats start from about 214-215 seats and need 236 or more, a net gain of about 21. Cook's Oct 23 ratings have 220 seats Solid/Likely/Lean Democratic, 198 Republican and 17 toss-ups with a projected Democratic gain of 12-22 seats, while generic-ballot leads of 8-9 points (Marist, Ipsos) are close to 2018's, which produced exactly 235. Waves tend to break toward the winning party and the maps changed since 2018, so the threshold sits near the middle of the plausible range; I put it slightly below even.",
+          "sources": [
+            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+            "https://www.ipsos.com/en-us/democrats-hold-9-point-edge-midterm-congressional-ballot",
+            "https://maristpoll.marist.edu/polls/u-s-midterm-elections-october-2026/",
+            "https://clerk.house.gov/member_info/olm-119.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.62,
+          "rationale": "In the ten midterms under a Republican president since 1954, Democrats won more than 235 seats six times (base rate ~60%). Current conditions resemble 2018, when Democrats won exactly 235 seats with a similar generic ballot margin (~9 points) but an even lower presidential approval rating (32% vs ~40%). The Cook Political Report projects a likely Democratic gain of 12\u201322 seats from their current 215, which puts the upper bound at 237 seats\u2014just above the 235 threshold\u2014but the central estimate is likely below that. With several toss-up races and potential late shifts, the outcome is genuinely uncertain, leaning slightly toward exceeding 235."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.45,
+          "rationale": "Base rate: in 10 midterms under a Republican president (1954-2018), Democrats exceeded 235 seats in 6 of 10 (60%). The strong 9-point generic ballot lead and 32% Trump approval support a significant Democratic wave, and Cook rates 220 seats as Solid/Likely/Lean Democrat. However, Democrats need to flip at least 21 seats from their current 215 to reach 236, which is at the very top of Cook's projected range of 12-22 flips; the median of that range (~17 flips) yields only 232 seats. The different district maps from 2018 and the fact that the threshold sits at the upper bound of the likeliest outcome make this a close call slightly below 50%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.28,
+          "rationale": "Democrats need 236 seats or more, a net gain of about 21 from 215. Cook's Oct 23 ratings have 220 seats at Lean Democratic or better, 198 Republican and 17 toss-ups. Its likeliest range of 12-22 flips implies about 227-237 seats, so 236 sits near the top of that range. Cook itself calls beating 2018 the best-case scenario. The generic ballot at D+8 to D+9 and Trump's approval of 32-40% resemble 2018, and waves often break past ratings, with toss-ups and some Lean Republican seats going Democratic. Against that, the redistricting maps differ from 2018, and Democrats would need nearly all toss-ups plus several Lean Republican upsets. A bigger-than-expected wave on Nov 3 would push this up, and an ordinary split of the toss-ups would leave Democrats around 230-234."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4878
+        }
+      ],
+      "id": "manifold-8zNC2tNlnt",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/HillaryClinton/will-the-democrats-outperform-their",
+      "status": "pending",
+      "title": "Will the Democrats Outperform their 2018 Midterm Results? [Win more than 235 seats in 2026]",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.15,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "Resolves yes if democrats win.\n\nAngie Nixon for dems and Ashley moody for republicans",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "Republicans won the last three Florida Senate races (2018 by 0.2 points, 2022 by 16, 2024 by 13), Florida's Republican registration edge is about 1.55 million, and appointed incumbent Moody led by 4 in a University of North Florida poll of Oct 21. Democrat Nixon out-raised Moody from July 30 to Sept 30 and the national environment favours Democrats, so the race is closer than 2022 and 2024, but a win would need a larger swing than one poll shows. A third candidate, Gillespie, is also on the ballot.",
+          "sources": [
+            "https://www.usatoday.com/story/news/politics/elections/2026/10/26/angie-nixons-senate-surge-puts-dsa-democrat/92248170007/",
+            "https://results.elections.myflorida.com/DetailRpt.Asp?ELECTIONDATE=11%2F5%2F2024&RACE=USS",
+            "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.18,
+          "rationale": "Florida's voter registration gap (1.55M more Republicans) and recent Senate results (GOP wins by 15+ points in 2022 and 2024) establish a strong Republican base rate. The only poll shows Moody ahead by 4, and while national generic ballot leans Democratic, Florida has repeatedly bucked national trends. Without evidence of strong Democratic early voting or additional polls showing a Nixon lead, a Democratic victory is unlikely but possible given the close poll margin."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for a Democrat winning a Florida Senate race in the current era is very low: Republicans won the last three by margins of 0.2, 16.4, and 12.8 points, and the voter registration gap has flipped from a ~257K Dem lead in 2018 to a ~1.55M Rep lead in 2026. The single UNF poll showing Moody +4 is consistent with this registration advantage and recent trends, and Nixon's DSA affiliation is a likely liability in Florida. The main factors that could push this higher are the national generic-ballot Dem tailwind (+8-9), Nixon's strong recent fundraising, and the volatility inherent in special elections, but none of these appear sufficient to overcome the structural Republican advantage in the state."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "Florida's structural environment is heavily Republican: GOP leads Democrats by ~1.55M in active registration (vs. Democrats leading by ~257K in 2018), and Republicans have won the last three Senate races by 13-16 points. The only available poll (UNF, Oct 21) shows Moody +4, consistent with the structural baseline. While Nixon has shown fundraising momentum and the national generic ballot favors Democrats, a DSA candidate in Florida faces steep headwinds, and the registration gap alone makes a Democratic win a long shot."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.15,
+          "rationale": "Florida has voted Republican by double digits in 2022 and 2024, and Republicans lead registration by about 1.55 million. The one recent poll (UNF, Oct 21) has Moody up 4, and Florida polls have tended to understate Republicans. A strong national Democratic environment and Nixon's fundraising edge keep it competitive, so an upset is possible but unlikely. More polls showing Nixon ahead or very strong Democratic early-vote returns would raise the estimate."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1
+        }
+      ],
+      "id": "manifold-CqdgAg2zsU",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/Jack1/democrats-win-the-2026-special-elec",
+      "status": "pending",
+      "title": "Democrats win the 2026 Special Election for Senate in Florida?",
       "topic": "Politics",
       "verdict": null
     },
@@ -9944,6 +11197,280 @@
     {
       "actual": null,
       "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.75,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm Nebraska U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "Republican incumbent Ricketts faces independent Dan Osborn (no Democratic nominee); Republicans have won all 7 Nebraska Senate races since 2006, and the one Oct 15-18 NPA Polling survey has Ricketts 46%, Osborn 43%, inside its margin. Osborn lost to Fischer by about 6.8 points in 2024 despite Nebraska's strong Republican lean, and the national environment now favours Democrats, so the race is closer than the base rate but Ricketts still has the structural edge. Evidence is thin (no quote-checked poll), so I keep the probability moderate.",
+          "sources": [
+            "https://backend.natpublicaffairs.com/media/NE_Tracker_R2_Trend_Memo_102226.7.pdf",
+            "https://nebraskapublicmedia.org/en/news/news-articles/us-senate-voter-guide-rollercoaster-race-features-four-candidates/",
+            "https://sos.nebraska.gov/sites/default/files/doc/elections/2024/2024%20General%20Canvass%20Book.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.68,
+          "rationale": "Republicans have won every Nebraska Senate race since 2006, and the state leans strongly Republican. However, the 2026 race is unusual: no Democrat is on the ballot, and independent Dan Osborn is consolidating Democratic support, making the race competitive. The only recent poll shows incumbent Pete Ricketts leading 46% to 43%, within the margin of error, but with a sample slightly more Republican than voter registration. Given incumbency and historical trends, Republicans are favored, but the tight polling and unique circumstances introduce significant uncertainty."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.63,
+          "rationale": "The base rate strongly favors Republicans: they've won 7 of 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. However, the specific dynamics are unusual\u2014there is no Democratic nominee, so all Democratic voters consolidate behind independent Dan Osborn, making this a genuine two-horse race. The latest NPA poll shows Ricketts leading 46% to 43% on the full ballot (50% to 47% head-to-head), within margin of error, with Osborn underwater (44% favorable vs 50% unfavorable) which helps Ricketts. The 2024 result (Fischer beat Osborn by ~7 points) and Ricketts's incumbency edge suggest he's more likely to win, but the tight polling and absence of a Democratic nominee make this considerably closer than a typical Nebraska Senate race."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.75,
+          "rationale": "The base rate strongly favors Republicans, who have won all 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. Ricketts leads the only polling (NPA, Oct 15-18) by 3 points on both the full ballot (46-43) and head-to-head (50-47), though within the \u00b14.0% margin of error. The absence of a Democratic nominee on the ballot means Osborn (independent) is the sole challenger, and while he came within 7 points of beating Fischer in 2024, Ricketts's structural advantages and consistent polling lead make a Republican win the most likely outcome. A late shift toward Osborn, strong independent turnout, or polling errors could change this."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Republicans have won every Nebraska Senate race since 2006, and Ricketts is the incumbent. In 2024 Fischer beat Osborn by about 7 points in a state that Trump won by about 20. The only recent poll (NPA, Ricketts 46-43, in a sample 55% Republican by registration) shows a closer race. NPA's polling quality is unknown, and the brief says only one source had its quotes checked. A 2026 midterm with a Republican president could produce a Democratic-leaning environment, and Osborn now has the field to himself with no Democratic nominee. Even so, a 3-point lead for a Republican incumbent in Nebraska with a few days left suggests an 78-82% chance he wins. Resolution on the Republican nominee is straightforward."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.72
+        }
+      ],
+      "id": "polymarket-634892",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/nebraska-senate-election-winner",
+      "status": "pending",
+      "title": "Will the Republicans win the Nebraska Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.57,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Ohio gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Republicans won 8 of 9 Ohio governor races from 1990 to 2022, but this is an open seat and the late polls split: Echelon (Oct 16-23) has Ramaswamy 47%, Acton 45%, while a Democratic-aligned RedBox poll (Oct 20-23) has Acton 48.2% to 43.8%. The national environment (Trump approval in the 30s, Democratic generic-ballot leads of 8-9 points) and the Ramaswamy ad row pull toward Acton, while Ohio's strong Republican lean and DeWine's continued endorsement pull toward Ramaswamy. I land slightly on the Republican side, close to even.",
+          "sources": [
+            "https://abc6onyourside.com/news/local/vivek-ramaswamy-holds-narrowest-of-leads-over-amy-acton-one-week-from-election-day",
+            "https://afightworthhaving.com/polling/2026/ohio",
+            "https://en.wikipedia.org/wiki/Ohio_gubernatorial_elections",
+            "https://www.nbcnews.com/politics/2026-election/ohio-mike-dewine-vivek-ramaswamy-take-down-ad-amy-acton-mom-rcna605006"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The base rate strongly favors Republicans (8 of 9 Ohio gubernatorial elections since 1990), but the current evidence pulls this down substantially: the larger and more recent RedBox poll (n=2998) shows Acton ahead 48.2% to 43.8%, the national environment is very negative for Republicans (generic ballot -8 to -9, presidential approval in the 30s), and the DeWine ad controversy is a potential liability. The 2006 race is the most analogous historical case (term-limited GOP governor, negative national environment) and Democrats won that one. The race is essentially a coin flip with a slight edge to Republicans based on Ohio's structural lean, but the polling and environment make this much closer than the base rate alone would suggest."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "Base rate strongly favors Republicans: Ohio has elected a Republican governor in 8 of the last 9 elections, and the GOP won the open-seat 2018 race after a term-limited Republican left. However, the race is a genuine toss-up: two recent polls show Ramaswamy +2 (Echelon, MOE 5.2) and Acton +4.4 (RedBox, MOE 4.6), both within margins of error, with the national environment modestly favoring Democrats. The controversial Ramaswamy ad featuring Acton's estranged mother could move undecided voters against him, but DeWine's continued endorsement limits the damage. A clear lead in a non-partisan high-quality poll or further ad fallout could shift this materially."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.6,
+          "rationale": "Ohio has leaned Republican in gubernatorial races (8 of the last 9), and Ramaswamy leads slightly in the one independent-ish poll (Echelon 47-45, with a large margin of error). The national environment looks strongly Democratic (generic ballot D+8-9, presidential approval in the 30s), and a Democratic-aligned poll shows Acton ahead by 4.4. The controversy over the ad with Acton's estranged mother adds uncertainty and could hurt Ramaswamy. Ohio's R lean of roughly 8-10 points in recent cycles partly offsets a D+8 environment, so this looks close to a tossup with a modest Republican edge. Sherrod Brown's strength in the Senate race suggests a competitive state."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.215
+        }
+      ],
+      "id": "polymarket-629558",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/ohio-governor-winner-2026",
+      "status": "pending",
+      "title": "Will the Republicans win the Ohio governor race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.52,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Nevada gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.54,
+          "rationale": "Nevada has elected a Republican governor in every race since 1998 except 2018, and Republican incumbent Lombardo has a large cash and ad advantage, but both late polls have Democrat Aaron Ford ahead (DGA-backed Hart: 49-45; RedBox: 45.6-42.6), each from a Democratic-aligned sponsor and inside the margin of error. Trump's approval is deeply negative in the state, which favours Ford, while a GOP-tied PAC is promoting same-surname nonpartisan Danielle Ford to split the vote. I land close to a coin flip, slightly toward the Democrat.",
+          "sources": [
+            "https://democraticgovernors.org/updates/new-poll-from-dga-backed-group-shows-aaron-ford-leading-joe-lombardo-in-nevada-governors-race/",
+            "https://afightworthhaving.com/polling/2026/nevada/governor",
+            "https://thenevadaindependent.com/article/pac-boosting-third-party-nv-governor-candidate-as-aoc-of-nevada-has-gop-ties"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: Republicans won 6 of last 7 Nevada governor races, but the state is purple. Current polls (DGA-backed and RedBox) show Democrat Aaron Ford leading by 3-4 points, within margins of error. Polls may have Democratic lean, and GOP has financial advantage. Race is a toss-up with slight Democratic edge."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.42,
+          "rationale": "The base rate strongly favors Republicans (6 of 7 Nevada governor races since 1998), and Lombardo holds a significant funding advantage ($29.3M vs $14.1M in PAC spending). However, both available polls\u2014though from Democratic-aligned sponsors\u2014show Aaron Ford leading by 3-4 points, and Trump's deeply negative favorability (-18, 55.8% disapproval) is a meaningful tailwind for the challenger. The third-party candidate Danielle Ford (2.4%, with Republican-linked PAC support and a shared surname) adds uncertainty that could cut either way, and the narrow margins mean this is essentially a coin-flip race with a slight edge to the incumbent given the base rate and resources."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.52,
+          "rationale": "The base rate favors Republicans: Democrats won only one of Nevada's seven gubernatorial elections from 1998 through 2022, and Lombardo has incumbency plus a large financial advantage. Ford's leads of 49%-45% and 45.6%-42.6%, together with Trump's -18 favorability, shift the race from a Republican favorite to a close contest with a modest Democratic edge. But both polls have margins of error that include a tie and are Democratic-aligned, while Danielle Ford's vote share and early voting are unknown, so the evidence warrants only a slight probability above 50%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.52,
+          "rationale": "Base rate favors Republicans in Nevada governor races, and incumbents usually do well. Against that, 2026 looks like a Democratic-leaning midterm: Trump is a Republican president with a favorability of about -18, and approval in the RedBox poll is 42.6% against 55.8% disapproving. Both available polls show Aaron Ford up 3-4 points, but both come from Democratic-aligned sponsors, so I discount them by a point or two. Lombardo has a financial edge in outside spending, and the Danielle Ford spoiler could pull a small number of votes from the Democrat. Overall it is roughly a toss-up with a slight lean to the Democrat, given the national environment."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-629505",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/nevada-governor-winner-2026",
+      "status": "pending",
+      "title": "Will the Democrats win the Nevada governor race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.72,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Wisconsin gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \"Democrat\" or \"Republican\" options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven't called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "Wisconsin's governor race is an open seat; Democrats won 4 of the last 6 contests, though the one open race (2010) went Republican. The Marquette poll (Sept 16-23) had Democrat Crowley at 49% and Tiffany at 46% among likely voters, Trump's approval there is 38%, early voting is running well ahead of 2022, and Crowley out-raised Tiffany from July to October even though Tiffany leads for the year. The national environment (Democratic generic-ballot leads of 8-9 points) points the same way, so Democrats are favoured but not safe.",
+          "sources": [
+            "https://law.marquette.edu/poll/2026/09/30/mlsp91-press-release/",
+            "https://www.wpr.org/news/david-crowley-tom-tiffany-2026-governor-fundraising",
+            "https://elections.wi.gov/sites/default/files/documents/Candidates%20on%20Ballot%20By%20Election_November%203%202026%20General%20Election.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "Wisconsin governor races are historically competitive, with Democrats winning 4 of the last 6. The 2026 open-seat race features Democrat David Crowley leading Republican Tom Tiffany 49% to 46% in the only recent poll (Marquette, Sep 16\u201323, MOE \u00b14.8). Crucially, President Trump's approval is just 38% in the same poll, signaling a strong anti-incumbent national environment that typically hurts the president's party in midterms. Crowley's late fundraising surge and higher primary turnout for Democrats further suggest enthusiasm, though a tight race and lack of the scheduled Oct 28 poll leaves some uncertainty."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.53,
+          "rationale": "Base rate from 2002-2022 shows Democrats winning 4 of 6 Wisconsin gubernatorial races, but the only open-seat race (2010) went Republican, which is a headwind for Crowley. The most recent Marquette poll (Sep 16-23) shows Crowley leading 49-46 among likely voters (within MoE), with Trump's 38% approval and a Democratic turnout advantage favoring Crowley, but 38% of independents remain undecided and Tiffany gained 4 points from August to September, keeping the race genuinely competitive. The late fundraising surge for Crowley and the open-seat historical pattern pull in opposite directions, making this a coin-flip with a slight edge to the Democrat."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "Wisconsin is a swing state where Democrats have won 4 of the last 6 gubernatorial elections, and the incumbent Evers is not running, making this an open race. The most recent Marquette poll (Sep 16-23) shows Crowley leading Tiffany 49% to 46% among likely voters, with 5% undecided, and Trump underwater at 38% approval. Crowley also has a recent fundraising edge, though Tiffany has raised more overall. The race is tight and within margins of error, but the polling lead and favorable environment for Democrats give Crowley a modest edge."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.72,
+          "rationale": "Wisconsin is a swing state, and the open-seat base rate is roughly a coin flip. In a midterm with a Republican president, the environment favors Democrats: Trump approval is 38/60 in Marquette's September poll. Crowley led Tiffany 49-46 among likely voters in September, and 49-44 in August. Democrats also have a late fundraising edge, a turnout advantage, and strong early voting. The lead is within the margin of error, and about 5% were undecided, with independents heavily undecided. Marquette's Oct 28 poll was not available. Polls in Wisconsin have sometimes overstated Democrats, but the national environment points the same way, so I put Crowley at about 72%."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-629720",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/wisconsin-governor-winner-2026",
+      "status": "pending",
+      "title": "Will the Democrats win the Wisconsin governor race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 7,
         "method": "combined_median_v1",
         "probability": 0.78
@@ -10080,6 +11607,75 @@
       "status": "pending",
       "title": "No change in Bank of Mexico\u2019s interest rates after November 2026 meeting?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.02,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "As confirmed by Wikipedia. The last one as of question writing was Melissa Hortman. On or before 2026-11-02, local time.\n\nPreviously: @/mattyb/will-there-be-an-assassination-of-a-f2msv73wj7",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Wikipedia's list shows 13 separate incidents from 2000 through June 2025, the latest being Melissa Hortman, roughly one every two years. The window is only about five days (through Nov 2), and the last case's attacker has been sentenced. The Oct 22 report of a thwarted plot against Rep. Self ended in an arrest before any attack, and the broad list definition and an elevated threat climate add a little to the tiny base rate.",
+          "sources": [
+            "https://en.wikipedia.org/wiki/List_of_assassinated_American_politicians",
+            "https://www.cbsnews.com/texas/news/keith-self-assassination-plot-mckinney-teen-fbi-october-2026/"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The historical rate of assassinations of US politicians is roughly 0.5 per year (13 incidents in 25 years), implying a ~0.7% chance in any 5-day window. The recent foiled plot against Rep. Keith Self indicates heightened threat activity but also effective interdiction, and no actual fatal attack has occurred in the current window. Given the short time remaining and lack of specific imminent evidence, the probability remains very low."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.02,
+          "rationale": "The base rate is roughly 13 assassinations over 25 years (~0.5/year), or about 0.14% per day. Over the 5-day window (Oct 28\u2013Nov 2), that gives roughly 0.7%. The recent uptick (one per year from 2022\u20132025) and elevated political tension could push this toward ~1.5%, but 5 days is an extremely short window and no active plot is known to be in motion. The foiled Keith Self plot and Maxwell Frost assault show the environment is tense but don't indicate an imminent assassination."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.02,
+          "rationale": "The base rate from the Wikipedia list is roughly 13 assassinations in 25 years (~0.5/year), giving ~0.7% probability over a 5-day window. The recent clustering (2022-2025 saw 5 incidents) suggests an elevated rate, pushing the estimate slightly higher to ~1.5%. The foiled Keith Self plot shows threats are occurring but being intercepted, and the Hortman assassination likely heightened security around politicians. A successful assassination in the remaining 5 days would require both an active plot and a security failure, which is unlikely but not negligible given current political tensions."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.02,
+          "rationale": "The Wikipedia list shows 13 incidents in about 25 years, roughly one every two years, which works out to about 0.7% over a five-day window. Incidents have been somewhat more frequent recently and the election period raises the risk a little. Wikipedia would also need to add the incident to the list in time, and the list's boundaries are loose. Today's evidence shows no new assassination since Hortman and only a foiled plot against Rep. Keith Self. The question may also count the period since Hortman, but the brief says none has been added since, and 4+ months of nothing known after Oct 28 is mostly past. A fatal attack in the next five days that Wikipedia lists is the only route to Yes."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0918
+        }
+      ],
+      "id": "manifold-8PndhEPC9O",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/EvanDaniel/will-there-be-another-assassination-StRlcEuPUp",
+      "status": "pending",
+      "title": "Will there be another assassination of a US politician before the 2026 midterms?",
+      "topic": "Politics",
       "verdict": null
     },
     {
@@ -10817,16 +12413,16 @@
     }
   ],
   "summary": {
-    "brier": 0.19559140303968617,
+    "brier": 0.2005491599654229,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 127,
-    "resolved": 39,
-    "right": 24,
-    "toss_ups": 0,
-    "total": 168,
+    "pending": 147,
+    "resolved": 42,
+    "right": 25,
+    "toss_ups": 1,
+    "total": 191,
     "unscored": 3,
-    "wrong": 15
+    "wrong": 16
   },
   "version": "track_record_v2"
 }

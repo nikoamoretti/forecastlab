@@ -1,0 +1,190 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-02T05:00:00Z",
+      "id": "polymarket-6236215",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-26-november-1-2026",
+      "question": "Will Bitcoin dip to $78,000 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-3528499",
+      "market_url": "https://polymarket.com/event/gpu-rental-prices-rtx-5090-end-of-october",
+      "question": "Will the Ornn RTX 5090 Index be at least $0.60 on October 31, 2026?",
+      "resolution_criteria": "This market will resolve according to the finalized Ornn RTX 5090 Index price for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is Ornnai.com (ornnai.com), specifically, the RTX 5090 Index chart data available at https://dashboard.ornnai.com. The specified finalized daily value shown on the chart will be used for resolution. Daily data will be considered finalized once the following day\u2019s data point is published.\n\nResolution will occur once the specified data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-634892",
+      "market_url": "https://polymarket.com/event/nebraska-senate-election-winner",
+      "question": "Will the Republicans win the Nebraska Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Nebraska U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-31T23:59:00Z",
+      "id": "polymarket-4869280",
+      "market_url": "https://polymarket.com/event/next-muse-spark-model-1pt4-released-onptptpt-20260922133617102",
+      "question": "Will there be no next Meta Muse Spark model release by October 31, 2026?",
+      "resolution_criteria": "This market will resolve according to the calendar date (ET) on which Meta's next Muse Spark model (1.4+) is made available to the general public.\n\nA qualifying model must have a name or model identifier that includes \"Muse Spark\" and be designated as version 1.4 or higher, regardless of capitalization, hyphenation, spacing, or surrounding prefixes, suffixes, dates, or descriptors. For example, a version 1.4 or higher named in the same manner as Muse Spark 1.2 or Muse Spark 1.3 would qualify, including a new whole-number generation such as Muse Spark 2, while models whose name does not include \"Muse Spark\" or which retain a version designation below 1.4, such as Muse Spark 1.3 (released September 2, 2026, including any of its reasoning modes, open-weight re-releases, rollouts, promotions, or snapshots), Muse Glimmer, or Muse Image, will not qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Meta as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Meta, with additional verification from a consensus of credible reporting.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-3089567",
+      "market_url": "https://polymarket.com/event/will-russia-capture-kucheriv-yar-byptptpt-20260724165221452",
+      "question": "Will Russia capture Kucheriv Yar by October 31?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if, according to the ISW map, Russia captures the intersection at 48.508104\u00b0 N, 37.278884\u00b0 E in Kucheriv Yar, Donetsk Oblast, between market creation and the specified date, 11:59 PM ET.\n\nThe intersection will be considered captured if any part of the intersection is shaded under a below specified layer on the ISW map (https://storymaps.arcgis.com/stories/36a7f6a6f5a9448496de641cf64bd375) by the resolution date. Otherwise, the market will resolve to \u201cNo\u201d.\n\nFor any change on the ISW map to qualify for this market\u2019s resolution, the relevant shading must persist through the next full ISW daily update cycle. If ISW skips a day, shading must persist until the next finalized ISW update is published, regardless of the date.\n\nAny continuous shading under the following layers will qualify:\n- Assessed Russian-Controlled Terrain\n- Assessed Russian Advances\n\nShading under the following layers will not qualify:\n- Assessed Russian Infiltration Areas\n- Claimed Russian Territory\n\nOnce a qualifying condition is met, any subsequent loss of control will not be considered towards the resolution of this market.\n\nIf Russia comes into control of the specified territory as a result of a negotiated settlement, this will qualify for a 'Yes' resolution, regardless of whether it is shaded under a qualifying layer on the ISW map. However, an announcement of a negotiated settlement that gives Russia de jure control will not qualify. Actual control must be established.\n\nIntersection Location in Kucheriv Yar: https://polymarket-upload.s3.us-east-2.amazonaws.com/Kucheriv+Yar1.png\n\nKucheriv Yar Location: https://polymarket-upload.s3.us-east-2.amazonaws.com/Kucheriv+Yar2.png\n\nLocation on Google Maps: https://maps.app.goo.gl/RE7mStop1xTdzpaDA\n\nThe primary resolution source for this market will be the ISW Ukraine map. If the ISW map is rendered unavailable, information from DeepStateMap (https://deepstatemap.live/) may be used. If information from both the ISW and DeepStateMap are rendered permanently unavailable, a consensus of credible reporting may be used.\n\nNote: Any temporary glitches or errors in the map will not be considered.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-11-02T05:00:00Z",
+      "id": "polymarket-6236248",
+      "market_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-26-november-1-2026",
+      "question": "Will Ethereum reach $2,500 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-10-31T23:59:00Z",
+      "id": "polymarket-3528584",
+      "market_url": "https://polymarket.com/event/gpu-rental-prices-a100-end-of-october",
+      "question": "Will the Ornn A100 Index be between $1.00 and $1.25 on October 31, 2026?",
+      "resolution_criteria": "This market will resolve according to the finalized Ornn A100 Index price for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is Ornnai.com (ornnai.com), specifically, the A100 Index chart data available at https://dashboard.ornnai.com. The specified finalized daily value shown on the chart will be used for resolution. Daily data will be considered finalized once the following day\u2019s data point is published.\n\nResolution will occur once the specified data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-629558",
+      "market_url": "https://polymarket.com/event/ohio-governor-winner-2026",
+      "question": "Will the Republicans win the Ohio governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Ohio gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-31T16:00:00Z",
+      "id": "polymarket-3572142",
+      "market_url": "https://polymarket.com/event/second-best-ai-agent-lab-end-of-october-20260812152901709",
+      "question": "Will OpenAI be the second-best AI Agent Lab at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the second-highest ranked Company based on the arena.ai Agent Arena Leaderboard when the table under \"Agent Arena\" filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Agent Arena\" Leaderboard tab at https://arena.ai/leaderboard/agent filtered for \"Labs\" will be used to resolve this market.\n\nModels marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by which model is listed higher on the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Agent Arena Leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-5166965",
+      "market_url": "https://polymarket.com/event/number-of-north-korea-missile-tests-in-october-2026",
+      "question": "Will there be 4 or more North Korea tests in October 2026?",
+      "resolution_criteria": "This market will resolve to the number of calendar days on which North Korea (DPRK) conducts a missile launch during October 2026, Pyongyang Time.\n\nIf a single test event spans multiple calendar days, it will count only for the day on which it began.\n\nOnly test launches of ballistic missiles, cruise missiles, and anti-ship missiles will qualify.\n\nTest launches of other systems, including surface-to-air missiles (SAMs), multiple launch rocket systems (MLRS)/rocket artillery, torpedoes, or similar systems, will not qualify.\n\nResolution will be based on publicly available information from reliable sources such as official government statements, reports from international monitoring bodies like the United Nations, or reports from reputable international media.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-11-02T17:00:00Z",
+      "id": "polymarket-6255210",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-2-2026",
+      "question": "Will the price of Ethereum be above $2,200 on November 2?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-10-30T12:30:00Z",
+      "id": "polymarket-5155512",
+      "market_url": "https://polymarket.com/event/canada-gdp-august-2026-mom",
+      "question": "Will Canada's GDP growth rate MoM in August 2026 be between 0.0% and 0.1%?",
+      "resolution_criteria": "This market will resolve according to Canada\u2019s gross domestic product growth rate over the one-month period ending August 2026 (Real GDP monthly change, %), as reported by Statistics Canada\u2019s (StatCan) \u201cGross domestic product by industry\u201d release for August 2026, scheduled for release on October 30, 2026.\n\nThe GDP release and relevant statistics are expected to be made available here: https://www150.statcan.gc.ca/n1/dai-quo/ind1-eng.htm\n\nIf the specified release is not published, this market will resolve based on the first published figure for the specified month\u2019s GDP growth rate compared to the prior month. If no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports GDP growth rates compared to the prior month to only one decimal point (e.g. 0.8%). Thus, this is the level of precision that will be used when resolving the market.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following month or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution. For the full release schedule, see: https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm?sk=3569.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-629505",
+      "market_url": "https://polymarket.com/event/nevada-governor-winner-2026",
+      "question": "Will the Democrats win the Nevada governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Nevada gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-31T16:00:00Z",
+      "id": "polymarket-3554982",
+      "market_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-on-livebench-mathematics-end-of-october",
+      "question": "Will Anthropic have the best AI model on LiveBench (Mathematics) at the end of October 2026?",
+      "resolution_criteria": "This market will resolve according to the company which owns the model with the highest Mathematics score on LiveBench.ai when the leaderboard is checked on October 31, 2026, at 12:00 PM ET.\n\nResults from the \u201cMathematics\u201d column of the leaderboard at https://livebench.ai/#/?cats=Mathematics, with the latest available LiveBench release selected and the category set to \u201cMathematics,\u201d will be used to resolve this market.\n\nModels will be ranked according to the specified score, with higher scores ranked ahead of lower scores. If two or more models have exactly the same score as displayed on the leaderboard, the model with the lower listed \"cost per successful task\" will be ranked ahead. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact score and cost per successful task, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the LiveBench leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \u201cOther.\u201d",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:00Z",
+      "id": "polymarket-3017686",
+      "market_url": "https://polymarket.com/event/us-x-cuba-diplomatic-meeting-byptptpt-20260616212816384",
+      "question": "US x Cuba diplomatic meeting by October 31?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if there is a diplomatic meeting between representatives of the United States and Cuba between market creation and the listed date, 11:59 PM ET. Otherwise, this market will resolve to \u201cNo\u201d.\n\nA diplomatic meeting refers to a deliberate meeting between representatives of the listed countries who are acting in an official capacity and are authorized to engage in negotiation or diplomacy regarding US-Cuba relations on behalf of their governments. Meetings conducted indirectly, for example, through designated mediators, facilitators, or interlocutors acting with the knowledge and authorization of the relevant governments, will qualify. \n\nBrief greetings, chance encounters, or talks otherwise not deliberately aimed at diplomacy or negotiation will not count.\n\nThe meeting must be in-person and must be publicly acknowledged by either government or reported by a consensus of credible media. Remote meetings, phone calls, or other meetings where the relevant parties are not present will not count.\n\nThe resolution sources for this market will be official information from the governments of the United States and Cuba, and a consensus of credible reporting.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-10-30T16:00:00Z",
+      "id": "polymarket-6084526",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-october-30-2026",
+      "question": "Will the price of Bitcoin be above $84,000 on October 30?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-01T03:59:59.999Z",
+      "id": "polymarket-4935840",
+      "market_url": "https://polymarket.com/event/what-price-will-nvda-hit-in-october-2026",
+      "question": "Will NVIDIA (NVDA) hit (LOW) $208 in October?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during October 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-629720",
+      "market_url": "https://polymarket.com/event/wisconsin-governor-winner-2026",
+      "question": "Will the Democrats win the Wisconsin governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Wisconsin gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \"Democrat\" or \"Republican\" options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven't called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-EttIsglNlL",
+      "market_url": "https://manifold.markets/Jack1/will-democrats-win-the-2026-wiscons-8z6npS9Rqn",
+      "question": "Will Democrats win the 2026 Wisconsin Gubernatorial election by 5.00% or more?",
+      "resolution_criteria": "Resolves yes if democrats win the 2026 Wisconsin gubernatorial election and their winning margin is 5.000% or higher.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-10-31T11:00:00Z",
+      "id": "manifold-Z9n5SgcU0y",
+      "market_url": "https://manifold.markets/CheerForgeAdmin/-will-france-report-300000-proteste",
+      "question": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
+      "resolution_criteria": "Context: the first big \"vie chere\" protest day, on Saturday Oct 17, 2026, drew 550,000 protesters according to the French Ministry of the Interior (800,000 according to organizers). Resolves YES if the Ministry of the Interior (or, if it publishes no national figure, police figures reported by AFP) reports more than 500,000 protesters nationwide on Saturday Oct 24, 2026 or on Saturday Oct 31, 2026 (at least one of the two), in protests against the cost of living (vie chere) or the related social movement. Organizers' or unions' figures do not count. The Oct 17 day does not count. Resolves NO otherwise, including if no protest takes place. The market closes before the first of these figures is public.",
+      "topic": "World"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-8zNC2tNlnt",
+      "market_url": "https://manifold.markets/HillaryClinton/will-the-democrats-outperform-their",
+      "question": "Will the Democrats Outperform their 2018 Midterm Results? [Win more than 235 seats in 2026]",
+      "resolution_criteria": "Resolves yes if the Democrats win more than 235 house seats in 2026. \n\nUpdate 2026-09-22 (PST) (AI summary of creator comment): * Independents (or other non-Democrats) who caucus, or plan to caucus, with the Democrats will count as Democrats for the seat total.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-05T01:10:00Z",
+      "id": "manifold-8PndhEPC9O",
+      "market_url": "https://manifold.markets/EvanDaniel/will-there-be-another-assassination-StRlcEuPUp",
+      "question": "Will there be another assassination of a US politician before the 2026 midterms?",
+      "resolution_criteria": "As confirmed by Wikipedia. The last one as of question writing was Melissa Hortman. On or before 2026-11-02, local time.\n\nPreviously: @/mattyb/will-there-be-an-assassination-of-a-f2msv73wj7",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-CqdgAg2zsU",
+      "market_url": "https://manifold.markets/Jack1/democrats-win-the-2026-special-elec",
+      "question": "Democrats win the 2026 Special Election for Senate in Florida?",
+      "resolution_criteria": "Resolves yes if democrats win.\n\nAngie Nixon for dems and Ashley moody for republicans",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-10-28T09:27:10.477747+00:00",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}
