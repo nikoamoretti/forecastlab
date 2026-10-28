@@ -1,0 +1,274 @@
+{
+  "manifold-8PndhEPC9O": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.02,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "manifold-8zNC2tNlnt": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.45,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "manifold-CqdgAg2zsU": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "manifold-EttIsglNlL": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.35,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "manifold-Z9n5SgcU0y": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.14,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3017686": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.12,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3089567": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.05,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3528499": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.95,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3528584": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.85,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3554982": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.08,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-3572142": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.78,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-4869280": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.88,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-4935840": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.13,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-5155512": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.25,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-5166965": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.25,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-6084526": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.18,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-6236215": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-6236248": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.2,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-6255210": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.8,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-629505": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.52,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-629558": {
+    "members": 4,
+    "method": "combined_weighted_v1",
+    "probability": 0.57,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-629720": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.72,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  },
+  "polymarket-634892": {
+    "members": 5,
+    "method": "combined_weighted_v1",
+    "probability": 0.75,
+    "weights": {
+      "claude_code_forecaster_v1": 27.8,
+      "judge_claude_sonnet55_v1": 16.0,
+      "judge_deepseek_v4_pro_v1": 27.14,
+      "judge_minimax_m3_v1": 28.09,
+      "judge_qwen38_27b_v1": 35.02
+    }
+  }
+}
