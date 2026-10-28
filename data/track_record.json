@@ -2,25 +2,25 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.2005491599654229,
+      "brier": 0.19770848182669215,
       "coin_flip_brier": 0.25,
       "forecasts": 191,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 42,
-      "right": 25,
+      "resolved": 43,
+      "right": 26,
       "toss_ups": 1,
       "wrong": 16
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1737763157894737,
+      "brier": 0.1706769230769231,
       "coin_flip_brier": 0.25,
       "forecasts": 187,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 38,
-      "right": 25,
+      "resolved": 39,
+      "right": 26,
       "toss_ups": 2,
       "wrong": 11
     },
@@ -50,13 +50,13 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.1642904761904762,
+      "brier": 0.16038636363636363,
       "coin_flip_brier": 0.25,
       "forecasts": 146,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 21,
-      "right": 16,
+      "resolved": 22,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 5
     },
@@ -74,25 +74,25 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.12633157894736843,
+      "brier": 0.12393499999999999,
       "coin_flip_brier": 0.25,
       "forecasts": 140,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 19,
-      "right": 16,
+      "resolved": 20,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.15801,
+      "brier": 0.15395714285714288,
       "coin_flip_brier": 0.25,
       "forecasts": 146,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 20,
-      "right": 16,
+      "resolved": 21,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 4
     },
@@ -170,13 +170,13 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.142187,
+      "brier": 0.13535340277777777,
       "coin_flip_brier": 0.25,
       "forecasts": 117,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 17,
-      "right": 12,
+      "resolved": 18,
+      "right": 13,
       "toss_ups": 0,
       "wrong": 5
     },
@@ -195,6 +195,65 @@
   ],
   "generated_on": "2026-10-28",
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.635
+      },
+      "detail": "This market will resolve according to the change in basis points in the target for the overnight rate resulting from the October 2026 interest rate announcement of the Bank of Canada, relative to the level it was prior to this announcement.\n\nThe resolution source will be official information from the Bank of Canada, including the statement or release from its October 2026 interest rate announcement, scheduled for October 28, 2026, as listed on the official Bank of Canada calendar (https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/#target-dates). This market may resolve as soon as the statement or release of the Bank of Canada resulting from its October 2026 interest rate decision with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified announcement is postponed to a date and time before the start of the next scheduled announcement, this market will resolve based on the outcome of that postponed announcement.  If the specified announcement is cancelled, or postponed such that no decision is announced by the start of the next scheduled announcement, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified announcement will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-07T12:42:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.67,
+          "rationale": "The BoC has held at 2.25% for seven straight decisions (latest Sept 2, 2026), and its preferred core measures (CPI-trim 1.9%, CPI-median 2.0% in August) are at target even though headline CPI is 3.0% on gasoline. Macklem (Sept 21) said the Bank does not want to be late to hike, overnight swaps priced a meaningful hike chance in mid/late September, and the Fed just hiked, but RBC, Desjardins and Capital Economics all expect a hold in October; a cut is very unlikely.",
+          "sources": [
+            "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/ (2026-09-02)",
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/260914/dq260914a-eng.pdf (2026-09-14)",
+            "https://www.bloomberg.com/news/articles/2026-09-21/macklem-flags-risk-of-delaying-rate-hike-too-long (2026-09-21)",
+            "https://www.theglobeandmail.com/business/economy/article-bank-of-canada-next-rate-decision-market-expectations/ (late Sept 2026)",
+            "https://www.canadianmortgagetrends.com/2026/10/canadians-expect-higher-inflation-as-bank-of-canada-weighs-hikes/ (2026-10-06)"
+          ]
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Base rate favors holds (7 consecutive), and core inflation (CPI-trim 1.9%, median 2.0%) is at target, with RBC/Desjardins forecasting hold through 2026. However, headline CPI at 3.0%, Macklem's hawkish tilt, Fed tightening, $101 oil, and rising inflation expectations make this a close call per Capital Economics, keeping hike probability meaningful."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.58,
+          "rationale": "The base rate for a BoC meeting resulting in no change is roughly 60% given recent holding streaks. Evidence points to a hold: seven consecutive holds, core inflation near target, analyst consensus for no October hike, and the Bank's cautious stance. Countervailing factors\u2014headline CPI at 3%, rising inflation expectations, and a recent Fed rate hike\u2014could push toward a hike, keeping the outcome uncertain but slightly favoring no change."
+        },
+        {
+          "made_at": "2026-10-07T12:46:33.785831+00:00",
+          "method": "judge_gemma_v1",
+          "probability": 0.65,
+          "rationale": "The base rate for a 'hold' is generally high during stable periods, and the Bank of Canada has held rates for seven consecutive meetings. While Governor Macklem has flagged the risk of being too slow to hike and the US Fed recently raised rates, major analysts (RBC, Desjardins, Capital Economics) expect a hold through 2026. The primary risks that could trigger a hike are the upcoming Oct 19 surveys or a significant spike in inflation data, but the current core inflation measures remain near the 2% target."
+        },
+        {
+          "made_at": "2026-10-07T12:35:19.386841+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7825
+        }
+      ],
+      "id": "polymarket-2941850",
+      "note": "Disclosed before resolution: a web-search summary quoted this market's price while Claude was researching. Claude says its estimate was already formed from economists' calls and core inflation and was kept unchanged; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": false,
+      "source": "prospective_markets_20261007",
+      "source_url": "https://polymarket.com/event/bank-of-canada-decision-in-october-20260715203359314",
+      "status": "resolved",
+      "title": "Will the Bank of Canada make no change to the target for the overnight rate at the October interest rate announcement?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -385,6 +444,69 @@
       "title": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?",
       "topic": "Politics",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.72,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "On 2026-10-26 BTC traded at roughly $79,500-$80,700 across CoinDesk, Coinbase and CoinGecko (search summaries), so the $78,000 threshold is about 2.5% below spot with about two days to the Oct 28 noon ET candle. With daily moves of 2-3% the two-day standard deviation is roughly 3.2-3.6%, which gives about a 75-79% chance of ending above $78,000 before allowing for the downtrend (down about 3% on the week, weekly close under $83,000). I shade a little for the downtrend and for the Binance-versus-aggregator gap of a few hundred dollars.",
+          "sources": [
+            "https://www.coindesk.com/price/bitcoin",
+            "https://www.coinbase.com/price/bitcoin",
+            "https://www.coingecko.com/en/coins/bitcoin"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.72,
+          "rationale": "Current Binance BTC/USDT is about $80,400, so the $78,000 threshold is only ~3% below spot. With two days to the noon ET resolution and typical daily volatility of 2-3%, a similar-sized move is fairly common; starting near 75% for a roughly 3% buffer. The recent downtrend and potential event-driven swings from upcoming US data/FOMC/liquidation cascades add downside risk, so I adjust slightly down to 72%."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "BTC is currently at ~$80,400 on Binance, giving a ~3.1% buffer above the $78,000 threshold with 2 days remaining. Typical 2-day volatility of ~3-3.5% means the threshold is roughly one standard deviation below spot, suggesting a base rate around 75-80% of staying above. I'm discounting to ~72% due to the noted downtrend (36% below ATH), the false breakout on Oct 25, and potential macro catalysts (FOMC, US data) on Oct 27-28 that could push price below the threshold."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.73,
+          "rationale": "With BTC near $80,400 on Binance, the $78,000 threshold is about 3% below spot; given roughly 2\u20133% daily volatility over the next 2.2 days, that implies a preliminary Yes probability around 70\u201375%. The recent failed breakout and downtrend, along with event and liquidation risk, pull the estimate toward the lower end, while $78,000 may also act as support. A sustained move below $78,000 on October 27 would sharply reduce the probability, whereas a rebound above $82,000 would raise it substantially."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8615
+        }
+      ],
+      "id": "polymarket-6015145",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-28-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $78,000 on October 28?",
+      "topic": "Crypto",
+      "verdict": "right"
     },
     {
       "actual": "5.00%",
@@ -2991,65 +3113,6 @@
       "call": {
         "members": 4,
         "method": "combined_median_v1",
-        "probability": 0.635
-      },
-      "detail": "This market will resolve according to the change in basis points in the target for the overnight rate resulting from the October 2026 interest rate announcement of the Bank of Canada, relative to the level it was prior to this announcement.\n\nThe resolution source will be official information from the Bank of Canada, including the statement or release from its October 2026 interest rate announcement, scheduled for October 28, 2026, as listed on the official Bank of Canada calendar (https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/#target-dates). This market may resolve as soon as the statement or release of the Bank of Canada resulting from its October 2026 interest rate decision with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified announcement is postponed to a date and time before the start of the next scheduled announcement, this market will resolve based on the outcome of that postponed announcement.  If the specified announcement is cancelled, or postponed such that no decision is announced by the start of the next scheduled announcement, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified announcement will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-07T12:42:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.67,
-          "rationale": "The BoC has held at 2.25% for seven straight decisions (latest Sept 2, 2026), and its preferred core measures (CPI-trim 1.9%, CPI-median 2.0% in August) are at target even though headline CPI is 3.0% on gasoline. Macklem (Sept 21) said the Bank does not want to be late to hike, overnight swaps priced a meaningful hike chance in mid/late September, and the Fed just hiked, but RBC, Desjardins and Capital Economics all expect a hold in October; a cut is very unlikely.",
-          "sources": [
-            "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/ (2026-09-02)",
-            "https://www150.statcan.gc.ca/n1/daily-quotidien/260914/dq260914a-eng.pdf (2026-09-14)",
-            "https://www.bloomberg.com/news/articles/2026-09-21/macklem-flags-risk-of-delaying-rate-hike-too-long (2026-09-21)",
-            "https://www.theglobeandmail.com/business/economy/article-bank-of-canada-next-rate-decision-market-expectations/ (late Sept 2026)",
-            "https://www.canadianmortgagetrends.com/2026/10/canadians-expect-higher-inflation-as-bank-of-canada-weighs-hikes/ (2026-10-06)"
-          ]
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.62,
-          "rationale": "Base rate favors holds (7 consecutive), and core inflation (CPI-trim 1.9%, median 2.0%) is at target, with RBC/Desjardins forecasting hold through 2026. However, headline CPI at 3.0%, Macklem's hawkish tilt, Fed tightening, $101 oil, and rising inflation expectations make this a close call per Capital Economics, keeping hike probability meaningful."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.58,
-          "rationale": "The base rate for a BoC meeting resulting in no change is roughly 60% given recent holding streaks. Evidence points to a hold: seven consecutive holds, core inflation near target, analyst consensus for no October hike, and the Bank's cautious stance. Countervailing factors\u2014headline CPI at 3%, rising inflation expectations, and a recent Fed rate hike\u2014could push toward a hike, keeping the outcome uncertain but slightly favoring no change."
-        },
-        {
-          "made_at": "2026-10-07T12:46:33.785831+00:00",
-          "method": "judge_gemma_v1",
-          "probability": 0.65,
-          "rationale": "The base rate for a 'hold' is generally high during stable periods, and the Bank of Canada has held rates for seven consecutive meetings. While Governor Macklem has flagged the risk of being too slow to hike and the US Fed recently raised rates, major analysts (RBC, Desjardins, Capital Economics) expect a hold through 2026. The primary risks that could trigger a hike are the upcoming Oct 19 surveys or a significant spike in inflation data, but the current core inflation measures remain near the 2% target."
-        },
-        {
-          "made_at": "2026-10-07T12:35:19.386841+00:00",
-          "method": "market_price_v1",
-          "probability": 0.7825
-        }
-      ],
-      "id": "polymarket-2941850",
-      "note": "Disclosed before resolution: a web-search summary quoted this market's price while Claude was researching. Claude says its estimate was already formed from economists' calls and core inflation and was kept unchanged; this cannot be verified, so this question is shown but not counted in any score (decided 2026-10-07, before the result).",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": false,
-      "source": "prospective_markets_20261007",
-      "source_url": "https://polymarket.com/event/bank-of-canada-decision-in-october-20260715203359314",
-      "status": "pending",
-      "title": "Will the Bank of Canada make no change to the target for the overnight rate at the October interest rate announcement?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
         "probability": 0.4
       },
       "detail": "Legislative elections are schedule to be held in Israel on October 27, 2026. \n\nThis market will resolve to the next individual who is officially appointed and sworn in as Prime Minister of Israel following the 2026 parliamentary election. If an election is called early, this market will immediately resolve to the individual who is officially appointed and sworn in after that election.\n\nTo count for resolution, the individual must be formally sworn in. Any interim or caretaker Prime Minister will not count toward the resolution of this market.\n\nIf no such Prime Minister is sworn in by December 31, 2027, 11:59 PM ET, this market will resolve to \u201cOther\u201d.\n\nThe primary resolution source for this market will be official information from the Government of Israel; however, a consensus of credible reporting may also be used.",
@@ -3237,69 +3300,6 @@
       "status": "pending",
       "title": "Will Likud win 30-34 seats in the 2026 Israeli legislative election?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.72,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.77,
-          "rationale": "On 2026-10-26 BTC traded at roughly $79,500-$80,700 across CoinDesk, Coinbase and CoinGecko (search summaries), so the $78,000 threshold is about 2.5% below spot with about two days to the Oct 28 noon ET candle. With daily moves of 2-3% the two-day standard deviation is roughly 3.2-3.6%, which gives about a 75-79% chance of ending above $78,000 before allowing for the downtrend (down about 3% on the week, weekly close under $83,000). I shade a little for the downtrend and for the Binance-versus-aggregator gap of a few hundred dollars.",
-          "sources": [
-            "https://www.coindesk.com/price/bitcoin",
-            "https://www.coinbase.com/price/bitcoin",
-            "https://www.coingecko.com/en/coins/bitcoin"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.72,
-          "rationale": "Current Binance BTC/USDT is about $80,400, so the $78,000 threshold is only ~3% below spot. With two days to the noon ET resolution and typical daily volatility of 2-3%, a similar-sized move is fairly common; starting near 75% for a roughly 3% buffer. The recent downtrend and potential event-driven swings from upcoming US data/FOMC/liquidation cascades add downside risk, so I adjust slightly down to 72%."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.72,
-          "rationale": "BTC is currently at ~$80,400 on Binance, giving a ~3.1% buffer above the $78,000 threshold with 2 days remaining. Typical 2-day volatility of ~3-3.5% means the threshold is roughly one standard deviation below spot, suggesting a base rate around 75-80% of staying above. I'm discounting to ~72% due to the noted downtrend (36% below ATH), the false breakout on Oct 25, and potential macro catalysts (FOMC, US data) on Oct 27-28 that could push price below the threshold."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.73,
-          "rationale": "With BTC near $80,400 on Binance, the $78,000 threshold is about 3% below spot; given roughly 2\u20133% daily volatility over the next 2.2 days, that implies a preliminary Yes probability around 70\u201375%. The recent failed breakout and downtrend, along with event and liquidation risk, pull the estimate toward the lower end, while $78,000 may also act as support. A sustained move below $78,000 on October 27 would sharply reduce the probability, whereas a rebound above $82,000 would raise it substantially."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.8615
-        }
-      ],
-      "id": "polymarket-6015145",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-october-28-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $78,000 on October 28?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -12413,12 +12413,12 @@
     }
   ],
   "summary": {
-    "brier": 0.2005491599654229,
+    "brier": 0.19770848182669215,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 147,
-    "resolved": 42,
-    "right": 25,
+    "pending": 145,
+    "resolved": 43,
+    "right": 26,
     "toss_ups": 1,
     "total": 191,
     "unscored": 3,
