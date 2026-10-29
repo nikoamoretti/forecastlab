@@ -18,6 +18,24 @@
             "https://swolecharts.com/price-history/eth/2026",
             "https://www.trade2spike.com/news/ether-fell-to-2282-saturday-ether-etfs-lost-220-million-week-glamsterdam-hoodi-fork-delayed-chainsecurity"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for months opening above $2,400 to hit $2,200 is about 23%, but with 28 days already passed and the lowest print at $2,282, the conditional probability is much lower. The current price is ~$2,315, requiring a ~5% drop in the remaining 2.5 days; the largest single-day decline this month was 4.57%, making such a move possible but unlikely. A sudden negative catalyst could still trigger it, but the odds are low given the limited time."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for months opening above $2,400 hitting a $2,200 low is about 23%, but 28 of 31 days are already recorded with a low of $2,282.46, leaving only ~2.5 days to cover a ~5% gap from current spot (~$2,315). Daily realized volatility is ~1.78%, making a 5% move in 2.5 days roughly 1.8 standard deviations\u2014possible but not the most likely outcome, especially given the range-bound $2,280\u2013$2,360 behavior over the past four days. A sudden risk-off event, large ETF outflow, or geopolitical shock could push it through, but absent such a catalyst the probability is modest."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.06,
+          "rationale": "Spot is about $2,315, so $2,200 is roughly 5% below with about 2.5 days left. With daily volatility near 1.8%, that is about 1.75 sigma, and a reflection-principle barrier estimate gives roughly 8%. The 24 October low of $2,282 held, and the base rate for the remainder of a month with no touch is low, so I shade down to about 6%. A risk-off shock or a large ETF outflow could push it higher."
         }
       ],
       "id": "polymarket-5170789",
@@ -46,6 +64,30 @@
             "https://api.ornnai.com/api/gpu/H100%20SXM/index-history?startDate=2026-07-29&endDate=2026-10-29",
             "https://data.ornn.com/faq"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The base rate of daily settles at or above $3.00 is 36% over the last 30 days, but the current settle ($2.96) and October average ($2.93) are below the threshold. Daily moves are large enough to cross $3.00, but the recent drop from a transient spike suggests a reversion toward the mean, making a close at or above $3.00 slightly less likely than not."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The current settled value is $2.96, just $0.04 below the $3.00 threshold, and daily volatility has been 12-17%, making the gap trivially small relative to typical moves. In the last 7 prints, 6 were at or above $3.00, and the prior weekend (Oct 24-25) settled at $3.02-3.03, suggesting a slight weekend bias above the line. However, October's average is $2.93, the most recent print is below $3.00, and the $3.57 spike appears to have been a transient that mean-reverted, so the base case is roughly a coin flip with a slight edge toward Yes given proximity and recent frequency above the threshold."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.5,
+          "rationale": "The current settle is $2.96, just $0.04 below the $3.00 threshold. Recent trend favors above $3.00 (6 of last 7 prints were at or above), but the most recent print is below and volatility is high (daily moves of \u00b115%). The spike to $3.57 on Oct 27 followed by a pullback to $2.96 suggests mean reversion around $3.00. With three more settles remaining and the level right at the boundary, this is essentially a coin flip."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.45,
+          "rationale": "The latest settle is $2.96, 4 cents below the threshold, and daily moves of 12-17% dwarf that gap, so the outcome is close to a coin flip. The series looks mean-reverting around $2.9-3.0 after the $3.57 spike, with recent weekend settles at $3.02-3.03 but a 30-day median of $2.86. I lean slightly below 50% because of the lower medians and the September close of $2.71."
         }
       ],
       "id": "polymarket-3529066",
@@ -74,6 +116,30 @@
             "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation",
             "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.62,
+          "rationale": "Republicans have won the last 7 Florida governor races and hold a 1.55 million voter registration advantage, suggesting a strong base rate. However, the only recent poll shows a narrow 2-point lead within the margin of error, and the national environment is reportedly unfavorable to Republicans. Early voting returns are close, with a slight Republican edge, but the race remains competitive, so the probability is moderately above 0.5."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "The base rate is strongly Republican (7-0 streak since 1998), and the R+8 registration advantage (~1.55M) provides a structural edge that typically manifests in Election Day turnout. However, the St. Pete Polls shows only a 2-point lead within margin of error, Jolly leads independents 56-34 (a large pool of 3.35M no-party voters), and the VBM data shows Democrats ahead in returned mail ballots, suggesting a closer race than typical. The unfavorable national environment and the fact that early/VBM totals are roughly even (slightly Democratic) mean the Republican win depends on their usual Election Day turnout surge materializing, which is likely but not guaranteed."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.68,
+          "rationale": "Base rate is very favorable: Republicans have won 7 consecutive Florida governor races and hold an R+8 registration advantage (5.68M vs 4.13M), far larger than 2022. However, the evidence has moved me toward uncertainty: the final St. Pete Polls shows only a 48-46 Donalds lead inside the 3.2-point margin of error, and Jolly leads 58-38 among those who already voted. Early voting data shows Democrats actually leading in VBM returns (685K vs 561K) and closing the gap in early voting, with 55% of Democratic likely voters having voted versus only 39% of Republicans. This Democratic early-voting edge, combined with an unfavorable national environment for Republicans, creates meaningful risk that the structural GOP advantage could be overcome, though Republicans' typical Election Day turnout surge still makes them the favorite."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.83,
+          "rationale": "Republicans have won all seven governor races from 1998 to 2022, and their registration lead has grown to about 1.55M (R+8), up from about 384K in 2022. Returned ballots are nearly even, with about 1.41M Republican versus 1.38M Democratic. Republicans usually dominate Election Day voting, which should add to Donalds's margin. The final St. Pete Polls survey has Donalds up only 48-46, and Jolly leads independents 56-34 and leads among those who have already voted. The national environment is also unfavorable to Republicans. A late poll showing Jolly ahead, or a weaker Republican Election Day turnout than usual, would lower my estimate."
         }
       ],
       "id": "polymarket-629325",
@@ -102,6 +168,24 @@
             "https://arena.ai/company/leaderboard-changelog",
             "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.6,
+          "rationale": "Xiaomi currently leads among Chinese models by 8 points (1491 vs 1483) on the Text Arena, but with only 4,037 votes versus Alibaba's 31,915, the score is vulnerable to downward drift as votes accumulate over the remaining 4 days. The 8-point gap is above the 5-point indistinguishability threshold but within Xiaomi's \u00b19 confidence interval, meaning the true scores could overlap. No new Chinese models are expected on the Text Arena before the check date (Kimi K3.1 Pro hasn't been added there yet, and its full weights aren't due until Nov 4), so the main risk is score drift rather than a new entrant."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.38,
+          "rationale": ":"
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "On the 27 October board, Xiaomi's MiMo-V2.6-Pro (rank 12, 1491) leads the next Chinese model, Alibaba's Qwen3.8-Max (rank 16, 1483), by 8 points. The check is only about 4 days away. Kimi K3.1 Pro has not been added to the Text Arena, and the changelog shows it only on the Agent and Code arenas. A new Chinese model could still be added and beat Xiaomi by the check. Xiaomi's score could also drift down on thin votes, and the confidence intervals overlap. Even so, the lead is real and the window is short, so Xiaomi is the likely winner."
         }
       ],
       "id": "polymarket-3554475",
@@ -130,6 +214,30 @@
             "https://www.rte.ie/news/middle-east/2026/1028/1597087-yemen-houthi-saudi/",
             "https://www.aljazeera.com/news/2026/10/26/saudi-led-coalition-says-it-struck-houthi-missile-facilities"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate of reported qualifying strikes over the last 20 days is approximately 0.3 per day, with recent escalation (strikes on Oct 24, 26, 28) suggesting a higher current tempo. The Houthi ballistic missile launch on Oct 29 increases the likelihood of a retaliatory Saudi strike, but specific timing on Oct 31 is uncertain, and strict attribution rules add caution. No ceasefire or de-escalation signals are present."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.45,
+          "rationale": "The base rate from the evidence is high: strikes were confirmed on at least 6 of 20 days in October, the coalition explicitly stated it will 'continue to implement deterrent operational measures,' and operations are described as 'around the clock.' The Houthi ballistic missile toward Saudi's Eastern Region on October 29 is a fresh provocation that historically triggers retaliatory strikes within 24-48 hours, increasing the probability for October 31 specifically. However, strikes don't appear to occur on every single day, and the strict attribution requirement (Saudi armed forces specifically, not just coalition) introduces some uncertainty, though the Saudi SPA and Saudi-led coalition spokesman make attribution to Saudi forces well-supported. A ceasefire or de-escalation would lower this, but none is in place."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Saudi or coalition strikes were reported on at least six dates from 9\u201328 October, and the recent tempo\u2014strikes or a destructive operation on 24, 26 and 28 October\u2014along with the coalition\u2019s promise of continued deterrent operations supports a well-above-even chance of another strike on 31 October. The main uncertainties are strict Saudi attribution, since some incidents are described only as coalition strikes or asserted by the Houthis, and no new strike was announced on 29 October. A confirmed additional Saudi strike before 31 October would raise the probability, while a ceasefire or evidence of non-Saudi responsibility for recent attacks would lower it."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.86,
+          "rationale": "Active war since the truce collapsed in September, with Saudi or coalition strikes reported on at least six dates in October and a stated policy of round-the-clock air support and continued deterrent operations. The Houthis are still attacking Saudi territory, so strikes on 31 October are very likely. Remaining risks are a sudden ceasefire or de-escalation, strict Saudi-only attribution, and no clearly dated report for that specific day."
         }
       ],
       "id": "polymarket-5167212",
@@ -158,6 +266,30 @@
             "https://www.coindaro.com/it/launchpad/token-1win-vendita-pubblica-italia/",
             "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for token sales exceeding $20M is low, and the 1W sale has only reached ~$6.1M as of October 22 with slow growth (~$92k/day). With one day left and no evidence of a surge, a jump to over $20M is highly unlikely, especially given geographic restrictions. A sudden influx of large deposits could change this, but current data suggests minimal chance."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.03,
+          "rationale": "The pool was at ~$6.1M as of October 22, with growth of only ~$10,800 in the last 16 hours and the 94 largest wallets (holding 85% of the pool) showing no new activity. To exceed $20M before the October 30 close, the pool would need to more than triple in roughly 8 days, which is inconsistent with the observed decelerating growth pattern driven by small wallets under $10,000. The only scenario that changes this is a sudden multi-million-dollar deposit from a new or existing large wallet in the final days, but no evidence points to that occurring."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a small-cap token sale exceeding $20M is low, and the evidence shows the pool was only ~$6.1M as of October 22, with growth slowing (only ~$10,800 added in ~16 hours from small wallets). The sale closes October 30 at 16:00 UTC, leaving only about 8 days from the last reading, and the pool would need to more than triple with no evidence of large late-stage commitments. The 94 wallets holding 85% of the pool have not added meaningfully, and geographic restrictions (US, UK, much of EU excluded) limit the addressable market. A late surge from large wallets or a reported total near $15M+ would be needed to shift this estimate upward."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.05,
+          "rationale": "The pool was about $6.1M on 22 October and growing very slowly, with the top wallets unchanged. Passing $20M would need about $14M more in the last week, which would take a major late whale surge. Pro-rata dilution discourages that, though last-minute deposits do happen. Nothing after 22 October is verified, so some residual chance remains."
         }
       ],
       "id": "polymarket-5786294",
@@ -186,6 +318,24 @@
             "https://stockanalysis.com/stocks/spcx/market-cap/",
             "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066880/spcx-20260930.htm"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate from four month-ends since IPO is 1 in the band, but the current market cap of $1.97T is inside the band with two trading days left. The stock is volatile (recent daily moves of 2-9%), and a small ~1.5% rise would push it above $2.00T, while an ~11% drop would exit below. Given elevated volatility and potential merger news, the probability of staying within $1.75T-$2.00T is estimated at 55%."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "At the October 28 close, SpaceX's market cap was ~$1.97T, placing it within the $1.75T\u2013$2.00T band but only ~1.4% below the upper boundary. With two trading days remaining and recent daily volatility of 2\u20134%, there is a meaningful (~35\u201340%) probability the stock rises enough to exceed $2.00T, while the probability of falling below $1.75T (requiring an ~11% drop) is very low. The pre-market drift lower and broader tech weakness slightly favor staying in the band, but the Tesla/SpaceX merger speculation and the stock's proximity to the upper edge make this a close call, yielding roughly a 60\u201365% probability of resolution in the band."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.62,
+          "rationale": "Total shares are about 13.58B (8.247B Class A plus 5.335B Class B, with Class B converting one-to-one). The $145.23 close on 28 October implies about $1.97T. The band needs a price between roughly $128.9 and $147.3. Pre-market on 29 October was $143.89, about $1.95T, so the stock would need to rise about 2.4% to leave the band at the top. A fall of about 10% would be needed to leave it at the bottom. With two sessions left and daily moves of 3-4%, I estimate roughly a 65% chance it stays below $2.00T and about 2% that it falls below $1.75T. Merger headlines or a different share count used for resolution add some risk, so I shade the figure down slightly."
         }
       ],
       "id": "polymarket-3862012",
@@ -214,6 +364,30 @@
             "https://rollcall.com/2026/10/28/most-vulnerable-senators-midterm-elections/",
             "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.44,
+          "rationale": "Oil is very likely to close at or above $85 on Nov 2 given current spot prices above $100 and EIA's Q4 forecast of $97, with only a small chance of a sudden geopolitical deal causing a drop below $85 in the next few days. Democrats need a net gain of four Senate seats, which is plausible but not favored given the Republican-leaning map and historical midterm trends; I estimate their chances around 45%. The joint probability is slightly below the Senate probability due to the small oil downside risk, with positive correlation between high oil and Democratic gains."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.26,
+          "rationale": "Oil is very likely \u2265$85 on Nov 2 (~87%): current WTI spot is ~$103-105, EIA forecasts Q4 average at $97, and even a significant geopolitical de-escalation would need to produce an ~$18-20 drop in one week to break below $85. Democrats winning the Senate is much less likely (~30%): they need a net gain of 4 seats from a 53-45 deficit, the top 4 vulnerable incumbents are all Republicans (Husted, Collins, Sullivan, Marshall), and the base rate favors the incumbent party holding the chamber (5 of 8 midterms 1994-2022). The combined probability is the product of these roughly independent events, yielding ~26%."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.13,
+          "rationale": "Oil is currently around $103-105 and the EIA forecasts Q4 2026 WTI at $97, making \u2265$85 on Nov 2 fairly likely (~75%), though the June 2026 precedent shows a $20 drop in two weeks is possible if geopolitical tensions ease. Democrats need a net gain of 4 seats to flip a 53-47 chamber, and CQ Roll Call explicitly states this 'looked highly unlikely for much of the cycle' with only 4 named vulnerable Republican incumbents (~18%). The combined probability is roughly 0.75 \u00d7 0.18 \u2248 0.13, with the main upside risk being a Democratic wave that flips more than the 4 most vulnerable seats, and the main downside being a sharp oil sell-off on a US-Iran deal."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.38,
+          "rationale": "Oil is very likely at or above $85: EIA spot was $103\u2013105 on 26\u201327 October and has not been below $85.23 since 21 September. Futures differ from spot and a US-Iran deal could cause a sharp drop, but I put P(oil \u2265 $85) at about 95%. For the Senate, Democrats need a net gain of four seats against a 53-47 Republican majority. A weak Republican environment, with high oil prices, Republicans defending Ohio, Alaska and Kansas, and Ossoff safe, makes a flip plausible but still less likely than not. I estimate about 40% for a Democratic Senate, and treat the two events as roughly independent."
         }
       ],
       "id": "polymarket-5611882",
@@ -242,6 +416,24 @@
             "https://status.claude.com/incidents/lqhknfdjrcst",
             "https://status.claude.com/incidents/h101vcmhnfky"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The incidents feed shows claude.ai left operational status on 9 distinct days in October (5, 6, 21, 22, 23, 24, 25, 27, 28), which already exceeds the 5-7 range. For the answer to be Yes, at least 3 of those 9 days would need to not display as non-green on the uptime page, which is unlikely given confirmed component status changes. Days 29-31 are not yet finalized and can only add to the count, further pushing it above 7. The main uncertainty is whether the uptime page's color mapping perfectly aligns with the incidents feed, but the base rate (9 days) strongly suggests the final count will be 8 or more."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "The base rate from recent months shows 7 days with downtime in September and 12 in August, so 5-7 is plausible but not the norm. October already has at least 9 days where claude.ai left operational status (5, 6, 21, 22, 23, 24, 25, 27, 28), and 3 more days remain (29-31) that could only add to the count. With 9 days already recorded and 3 days left, the probability of finishing in the 5-7 range is very low unless several of those days show as green on the uptime page, which seems unlikely given the documented incidents."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.1,
+          "rationale": "The incidents feed shows claude.ai leaving operational status on 9 October days (5, 6, 21\u201325, 27, 28), and days 29\u201331 can only add more. For the answer to land at 5\u20137, at least 2\u20134 of those days would need to show green on the uptime page. That is possible if some component changes were very brief or only appear as notes, but Statuspage usually colors any day with a component status change. The mapping is inferred and unchecked, so I leave some probability for it, but the count is most likely 9 or more."
         }
       ],
       "id": "polymarket-5166925",
@@ -270,6 +462,24 @@
             "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
             "https://www.investing.com/news/politics-news/factboxthe-races-that-will-decide-control-of-the-us-senate-4971841"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.58,
+          "rationale": "Oil is currently ~$100.66, and a drop below $80 in four days would require an extreme sell-off; the US-Iran peace talks face hurdles and are unlikely to cause a >20% decline so quickly, making the oil condition very likely (~95%). For the Senate, Republicans hold 53 seats and can afford a net loss of three; Democrats need to flip four seats, which is possible given competitive races in several red states but historically difficult in midterms, so I estimate a ~60% chance Republicans retain control. The joint probability is thus around 0.58."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.38,
+          "rationale": "The oil leg is very likely to resolve Yes: WTI is around $100 and would need to crash ~20% in 4 days to fall below $80, which has not happened even during the June Iran-settlement dip that took ~2 weeks to drop from $95 to $70. I estimate P(oil \u2265 $80) at ~95%. The Senate leg is the binding constraint: Republicans are the president's party in a midterm, and historically the president's party has lost the Senate in most midterms (losing in 1942, 1946, 1950, 1954, 1958, 1966, 1974, 1978, 1986, 1990, 1994, 2006, 2010, 2014, 2018, 2022 \u2014 only gaining or holding in 1962, 1970, 1982, 1998, 2002). Democrats need a net gain of 4, and are competitive in multiple states including Trump-won states, but Republicans can afford to lose 3 seats. I estimate P(Republicans keep Senate) at ~40-45%, giving a combined probability of roughly 0.95 \u00d7 0.42 \u2248 0.40, adjusted slightly down for uncertainty to ~0.38."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.48,
+          "rationale": "WTI is about $100, so the oil leg at or above $80 on Nov 2 is very likely (~97%) even allowing for a peace-deal drop. The Senate leg is close to a toss-up: Republicans hold 53 seats and keep control with 50, but the environment is poor for them (Iran war, prices, Democrats competitive in Trump states). I put Republican control at roughly 50%, giving a combined probability near 0.48."
         }
       ],
       "id": "polymarket-5567025",
@@ -298,6 +508,30 @@
             "https://www.cryptodatadownload.com/cdd/Binance_XRPUSDT_d.csv",
             "https://cryptobriefing.com/us-spot-xrp-etfs-4-million-inflows/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a monthly low \u2264$1.20 is around 18%, but with only three days left in October and the current monthly low at $1.2546 (4.5% above the strike), a sudden drop would be needed. Historically, only 3 of 94 months saw a >4.35% decline in the final days to undercut the existing low. Current market conditions show no imminent sell-off catalyst, with ETF inflows suggesting stability, so the probability is low but non-negligible due to crypto's potential for sharp intraday moves."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate is low: only 4 of 22 completed months (Dec 2024\u2013Sep 2026) saw a daily low at or below $1.20, and in 94 completed months the last days undercut the day 1\u201328 low by 4.35% or more in only 3 cases. The current month's low is $1.2546 (Oct 24), requiring a further ~4.5% drop from that low (or ~7% from the current ~$1.29) in just 3 remaining trading days, with no obvious catalyst and ETF flows modestly positive. A broad crypto sell-off could push it there, but the evidence points strongly toward No."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "The recent unconditional base rate is 4 of 22 months (18%) touching $1.20, but that is poorly conditioned on nearly a full month having elapsed without a hit. XRP's Binance month low is $1.2546 and it is around $1.29, so another roughly 7% decline is needed; the closest analogue\u2014final days undercutting the day-1-to-28 low by at least 4.35%\u2014occurred in only 3 of 94 months (3.2%). Modest ETF inflows and continued range trading favor No, while a sharp broad crypto selloff or continuation of the month's downside momentum could still produce a Yes."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Through 28 October the lowest Binance daily low is 1.2546, and price is about 1.29-1.33 on 29 October, roughly 7% above $1.20, with about 2.5 days left. At about 2% daily volatility that is a roughly 2-sigma touch, which comes to about 3-5% allowing for fat tails. Historically, late-month undercuts of 4.35% or more below the earlier low are rare (3 of 94 months). A sudden broad crypto sell-off could change this."
         }
       ],
       "id": "polymarket-5170825",
@@ -326,6 +560,24 @@
             "https://stockanalysis.com/stocks/goog/market-cap/",
             "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate of Alphabet's month-end market cap being in the $4.00T\u2013$4.50T range is 5 out of 9 months in 2026, but the Q3 earnings miss and >10% after-hours drop on October 28 pushed the pre-market indication to ~$291.65 (market cap ~$3.55T). A recovery of over 12% in the two remaining sessions (Oct 29\u201330) is needed to reach $4.00T, which is unlikely given negative free cash flow and capex concerns, though a strong reversal or broader market rally could change the outcome."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "Alphabet closed at $324.89 on Oct 28 with a market cap of ~$3.96-3.97T, just below the $4.00T threshold. After a 10% post-earnings drop (premarket Oct 29 at ~$291.65), the stock would need to gain roughly 12% over two remaining sessions (Oct 29-30) to reach ~$325+ and push market cap back above $4.00T. A full recovery of a 10% earnings-driven selloff in just two sessions for a mega-cap stock is highly unlikely; even a strong partial recovery to $300-310 would leave market cap around $3.70-3.80T, well below the threshold. The only scenario that changes this is an extraordinary two-day reversal, which is rare for a stock of this size after a fundamental (not just sentiment) sell-off."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.03,
+          "rationale": "Alphabet closed 28 Oct near $3.96-3.99T, already just under the $4.00T floor. After the Q3 earnings miss and negative free cash flow, premarket indications are down about 10%, implying roughly $3.55-3.58T. Re-entering the band would take a rally of about 12% in two sessions, which is very unlikely; only a sharp reversal of the premarket drop or a different share-count method would change that."
         }
       ],
       "id": "polymarket-3861994",
@@ -354,6 +606,30 @@
             "https://www.startribune.com/what-to-know-about-polling-as-the-election-draws-near/601906269",
             "https://mn.electionarchives.lib.umn.edu/office/us-senate/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The DFL has won eight consecutive Minnesota Senate races since 2002, with the closest margin being 5.24 points in 2020. In this open-seat race, Democrat Peggy Flanagan leads in all polls, including a recent Rasmussen survey at +3, and the state's partisan lean (Harris +4 in 2024) favors Democrats. However, the midterm environment and tighter polling than in past races introduce some uncertainty, preventing a higher probability."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "The base rate is extremely strong: 8 consecutive DFL Senate wins in Minnesota since 2002. However, this is the first open seat since 2006, and the polling consensus (excluding the likely-inflated Siena +14) puts Flanagan ahead by only 3-5 points, well within margin of error. The state went +4 for Harris in 2024, and Flanagan's 91% of Democrats plus 43% of independents gives her a structural advantage, but the narrow polls and open-seat dynamics make this less certain than Klobuchar's 2024 race. A late surge for Tafoya or a polling miss could flip this, but the weight of evidence favors Flanagan."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.88,
+          "rationale": "The DFL has won eight consecutive Minnesota Senate elections, and its nominee Peggy Flanagan leads every cited poll, with most clustering at a 3\u20134 point advantage. This supports a high-80s probability despite the New York Times/Siena poll showing an unusual 14-point lead. The open seat, potential third-party vote, polling error, and a late break toward Michele Tafoya leave some meaningful upset risk."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.9,
+          "rationale": "Minnesota has elected a DFL senator in every Senate race since 2002, and the DFL nominee Flanagan leads in every poll cited, by 3 to 14 points. The Rasmussen result of +3, with 7% unsure, is the tightest of the independent polls. The Tafoya internal still shows her trailing by 3.4. The 2026 national environment appears to favor Democrats, since the midterm is under a Republican president. Polling misses of 3 to 4 points are possible, and a high-profile Republican candidate could narrow the race, so I stay short of extreme confidence. A delayed call would not change the winner, since certification is the fallback."
         }
       ],
       "id": "polymarket-630818",
@@ -382,6 +658,30 @@
             "https://arena.ai/company/leaderboard-changelog",
             "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Meta is currently #3 with a 2-point gap to Anthropic's #2, within statistical noise. A flip between 2nd and 3rd is quite possible over 2 days, but the large gap to 4th makes a drop unlikely. New model releases are rare, so the probability of a disruptive release is low. I estimate a 60% chance Meta remains #3."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.75,
+          "rationale": "Meta is currently ranked #3 in the Labs view with a 2-point gap to Anthropic above it (1507 vs 1509), and the 19-point gap to Moonshot below makes falling to #4 very unlikely. The main risk is a reversal between Anthropic and Meta, but the gap has been widening slightly (Muse Wonder dropped from 1509 to 1507 between Oct 22 and 27 while Opus 5.5 held steady), and no new competing models are expected in the next few days. The 2-point margin is within confidence intervals but the raw rank is determined by actual score, and with ~9M votes accumulated the scores appear relatively stable over the remaining 4 days."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.68,
+          "rationale": "The limited base rate is favorable: Meta was third in both dated snapshots, and the October 27 Labs table has Google first, Anthropic second at 1509, and Meta third at 1507, with the next lab at 1488. However, the two-point gap between Anthropic and Meta is narrow enough for additional votes or a new release to move Meta into second place. Falling to fourth is less likely given the 19-point gap to Moonshot, though new models and uncertainty about the style-control snapshot prevent a higher probability."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.73,
+          "rationale": "On the 27 October labs table with style control on, Meta (Muse Wonder (Max), 1507) is third. It sits just behind Anthropic (Opus 5.5, 1509) and well ahead of Moonshot (1488) and OpenAI (1485). The 28 October report confirms the same ordering. The main risk is the 2-point gap to Anthropic reversing in the next few days, which would make Meta second and Anthropic third. I put that at roughly 15-20%. A new Anthropic or OpenAI release or other score shifts, and the unconfirmed style-control toggle on the scraped page, add a little more risk. Falling to fourth looks unlikely given the 19-point gap behind Meta."
         }
       ],
       "id": "polymarket-3572775",
@@ -410,6 +710,24 @@
             "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
             "https://www.coingabbar.com/en/ethereum-eth-tests-2300-support-bears-eye-trendline-fed-holds"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.87,
+          "rationale": "The base rate is extremely strong: all 28 daily sessions in October closed above $2,200, and the lowest intraday low was $2,282.46, still well above the threshold. ETH is currently near $2,315, requiring roughly a 5% drop over 2.5 days to close below $2,200, which is about 1.8 standard deviations given the ~1.78% daily realized volatility. Negative catalysts (ETF outflows, zkLink exploit, hawkish Fed dissent, weak RSI) create tail risk, but breaking the October low would likely require a major new shock; the weekend timing adds some uncertainty due to thinner liquidity."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.86,
+          "rationale": "All 28 October daily closes on Binance ETH/USDT were above $2,200, with the lowest daily low at $2,282.46. Current price is ~$2,315, about 5% above the $2,200 threshold, with a key support zone at $2,280-$2,250 that has held. The bearish momentum (RSI 34.92, ongoing ETF outflows, hawkish Fed dissent) and weekend liquidity on Nov 1 (Sunday) create some downside risk, but a 5% drop in 2.5 days that breaks through the $2,250 support is unlikely. The main risk is a cascade through $2,250 support toward $2,200."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.9,
+          "rationale": "ETH is about $2,320 versus the $2,200 threshold, so it needs a drop of about 5.3% in roughly 3.2 days. Realized daily volatility near 1.8% implies about 3.2% sigma over the horizon, so the threshold is about 1.5 sigma away, giving roughly 7% for a drop. I add a bit for fat tails, weak momentum, ETF outflows and geopolitical risk, which brings the chance of falling below to about 10%."
         }
       ],
       "id": "polymarket-6205303",
@@ -438,6 +756,30 @@
             "https://www.business-standard.com/world-news/elon-musk-is-a-trillionaire-again-as-spacex-claws-back-post-ipo-slump-126100600140_1.html",
             "https://www.cnbc.com/2026/10/23/spacex-tesla-merger-chatter-takes-center-stage-after-earnings.html"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Musk's net worth is currently ~$921B per Bloomberg, near the lower bound of $900B. Over two trading days, a 2.3% decline\u2014within recent volatility\u2014would push it below the range, while an 8.7% rally to $1T is far less likely. Given the negative drift and potential for further tech sell-offs, I estimate a 75% chance of remaining in the $900B\u2013$1T range."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "Musk's current Bloomberg net worth is ~$921B, comfortably within the $900B\u2013$1.00T range, with a $21B (~2.3%) downside buffer to $900B and a $79B (~8.6%) upside buffer to $1.00T. Given the recent downward momentum (SpaceX fell 9% on Oct 22 on merger concerns, and he's been trending lower from early-October highs), a 2.3% two-day decline to break below $900B is plausible but not the most likely outcome, while an 8.6% two-day rally to break above $1.00T is less likely given the negative sentiment. The main risk is continued selling on merger uncertainty or a broader tech selloff, but the current level provides a reasonable cushion on both sides."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.56,
+          "rationale": "Elon Musk\u2019s wealth was mostly below $1T during October, and Bloomberg currently shows $921B. From there, exceeding the upper boundary requires roughly an 8.6% gain, while falling below $900B requires only about a 2.3% decline; given recent 8\u201310% moves in SpaceX and volatility in Tesla, that nearer downside threshold is a material risk. Merger-related developments or a broad technology-market move on October 29\u201330 could change the result, leaving Yes with only a modest edge."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.62,
+          "rationale": "The Bloomberg profile shows $921B (last change -$18.5B), which looks like the 28 October close. Forbes agrees at $924B. Only the 29 and 30 October sessions remain, since 31 October is a Saturday. A fall of about 2.3% would take him under $900B, and a gain of about 8.6% would be needed to reach $1.00T. SpaceX and Tesla have been volatile, so I assume a two-day standard deviation of roughly 5%. That gives about a 30-33% chance of dropping below $900B and about 4% of exceeding $1T, leaving roughly 62-64% for the $900B-$1.00T bracket. Merger news or a tech sell-off could move it either way."
         }
       ],
       "id": "polymarket-5166888",
@@ -466,6 +808,30 @@
             "https://www.uml.edu/news/press-releases/2026/102826-new-england-polls.aspx",
             "https://news.ballotpedia.org/2026/10/07/new-hampshire-u-s-senate-race-between-chris-pappas-d-and-john-sununu-r-will-help-determine-control-of-the-chamber/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "Democrats have won the last four New Hampshire Senate races, and recent polls show Chris Pappas leading John Sununu by 7 points (outside the margin of error). Trump's low approval (38%) and the state's federal Democratic lean favor Pappas, though Sununu's name recognition and the open seat introduce some risk of a late shift."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "The base rate is strongly Democratic: NH has gone Democratic in all four Senate races since 2010 (4/4). Two recent polls (Saint Anselm 50-43, UMass Lowell 48-41) show Pappas leading by 6-7 points, well above their margins of error, and Trump's 62% disapproval rate creates a favorable environment for the Democrat. The main factors keeping this below 0.90 are that this is an open seat (the one prior open-seat race in 2010 went Republican), Sununu is a well-known former senator, and the state has been a Republican trifecta since 2020, which could provide organizational advantages on election day."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.84,
+          "rationale": "Democrats have won New Hampshire\u2019s last four Senate elections, although the sole open-seat election in that stretch went Republican in 2010, so this is not a routine Democratic hold. Two recent polls put Pappas ahead by 6\u20137 points, supported by the state\u2019s consistent Democratic presidential voting and Trump\u2019s 62% disapproval in one survey. The Republican trifecta, Sununu\u2019s name recognition, and possible late tightening or polling error keep the race meaningfully uncertain."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.85,
+          "rationale": "New Hampshire leans modestly Democratic, and Democrats have won every Senate race there since 2010. Two late-October polls show Pappas ahead: Saint Anselm 50-43 and UMass Lowell/YouGov 48-41. The national environment looks bad for Republicans, with Trump at 38% approval in the state. Sununu has name recognition and the state is open-seat and independent-minded, and polls can miss by several points, so some uncertainty remains. A 7-point lead a week out typically converts to roughly 85-90% odds, and I shade down slightly for polling error."
         }
       ],
       "id": "polymarket-630844",
@@ -494,6 +860,24 @@
             "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html",
             "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/newly-released-models"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "As of October 27, Alibaba is second among Chinese labs (Xiaomi 1491\u00b19, Alibaba 1483\u00b15, Moonshot 1476\u00b14), and this order has held since at least October 8. The main risks are: (1) Xiaomi's \u00b19 margin means its true score could dip below 1483, making Alibaba first (answer No), and (2) Moonshot's new Kimi K3.1 Pro (launched Oct 26, scored 4th on AA index, 11 points above predecessor) could accumulate enough votes by Oct 31 to score above 1483 and overtake Alibaba, making it third (answer No). Alibaba's own score is well-established at 31,915 votes with no new text flagship expected, so it's the most stable of the three. The 4-day window for Kimi K3.1 Pro to build votes is the key uncertainty; if it doesn't get listed or scores below 1483, and Xiaomi stays above 1483, Alibaba remains second."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.6,
+          "rationale": "Alibaba is currently the #2 Chinese lab on the Arena Text Arena Labs leaderboard (rank 5, 1483\u00b15), behind Xiaomi (1491\u00b19) and ahead of Moonshot (1476\u00b14) and Z.ai (1474\u00b15). The base rate is that Alibaba holds this position. The main risk is Moonshot's newly launched Kimi K3.1 Pro (scored 55 on Artificial Analysis, up 11 from predecessor), which could overtake Alibaba if it accumulates enough Arena votes by Oct 31\u2014uncertain given only 4 days and it wasn't on the Oct 27 models table. A secondary risk is Xiaomi's volatile \u00b19 interval allowing it to drop below Alibaba, which would make Alibaba #1 rather than #2. I estimate ~60% probability Alibaba remains exactly #2."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.52,
+          "rationale": "On 27 October the Chinese labs were ordered Xiaomi (1491\u00b19), Alibaba (1483\u00b15), Moonshot (1476), Z.ai (1474), and the 8 October crawl showed the same top three order. Alibaba is second if that holds. The main risks are that Xiaomi's score, based on only about 4k votes, drifts below Alibaba, which would make Alibaba first, or that Kimi K3.1 Pro gets listed above 1483 while Xiaomi stays ahead, which would make Alibaba third. I put roughly 60% on Xiaomi staying ahead and about 20% on Moonshot passing Alibaba in time, and Alibaba would also be second if Moonshot passes it and Xiaomi falls behind it."
         }
       ],
       "id": "polymarket-3554496",
@@ -522,6 +906,18 @@
             "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
             "https://www.cookpolitical.com/ratings/senate-race-ratings"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.73,
+          "rationale": "The gas price condition is already satisfied (AAA reported $4.564 on May 21, 2026). The question reduces to whether Democrats win both chambers. Historically, the president's party loses both chambers in about 4 of 11 midterms when starting with both, but current conditions differ. Cook rates 7 Senate toss-ups (6 GOP-held, 1 Dem-held) with NC and GA Likely Democratic, meaning Democrats have a plausible path to net +4. The House is very close, with Democrats needing a net gain of 3-4 seats. Given Trump's low approval (33-35%), a strong Democratic performance is likely, but uncertainty remains. I estimate a 73% chance."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.45,
+          "rationale": "The gas condition is already met: AAA reported a $4.564 national average on 21 May 2026, which is inside the window. The question therefore reduces to whether Democrats win both chambers on 3 November. The base rate for the opposition winning both chambers is about 4 of 11 midterms, but this environment is much stronger than usual for Democrats: Trump's approval is in the low-to-mid 30s and gas prices are high. The House needs only a net gain of 3 seats, which looks likely (about 85-90%). The Senate needs a net gain of 4. North Carolina and Georgia are rated Likely Democratic, so Democrats would still need about 3 of the 6 Republican-held toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas) while also holding Michigan. That is roughly a coin flip, perhaps slightly better given the wave-like conditions. Some risk remains that close races, such as Alaska, are not called by the 5 November resolution date."
         }
       ],
       "id": "manifold-npRtO25zAZ",
@@ -550,6 +946,24 @@
             "https://www.vermontpublic.org/local-news/2026-10-21/phil-scott-amanda-janoo-vermont-governor-debate",
             "https://outside.vermont.gov/dept/sos/Elections_Division/election_info_resources/elections_results_data/2024_general_election_official_report_canvassing_committee_united_states_vermont_statewide_offices.pdf"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "Scott won 71% in 2024, but 2026 polls show a much tighter race, with one poll having Janoo within 10 points and others suggesting a statistical dead heat. His broad coalition is fracturing, and midterm dynamics may hurt, but his incumbency, name recognition, and heavy outside spending ($930k) still give him an edge. The lack of a clear Janoo lead and Scott's history of winning five times support a moderate favorite status, though uncertainty is high."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.52,
+          "rationale": "Scott's 71.45% win in 2024 establishes a strong incumbent base rate, but the 2026 race is dramatically different: polls show a statistical dead heat or Janoo within 10 points, his coalition is fracturing, approval ratings are sagging, and it's a midterm year with a negative national environment for Republicans. Offsetting factors include his five prior wins, name recognition, $930K+ in outside spending, and a friendly debate performance that may reinforce his moderate image. The evidence points to a genuinely close race where the incumbent edge is real but thin, giving Scott a slight advantage over 50%."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Scott won 71% in 2024 and has won five terms, and Vermont incumbents with his personal popularity are hard to unseat. This cycle is tighter: a late-September Vermont Public poll had Janoo within 10 points, other surveys suggest a dead heat, his approval is sagging, and the national environment favors Democrats. Vermont's strong Democratic lean makes an upset plausible, but he still looks like the clear favorite. A poll showing Janoo ahead or a late shift among independents would lower this."
         }
       ],
       "id": "manifold-Uc2n2NnE6I",
@@ -578,6 +992,30 @@
             "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
             "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate for Democrats reaching 225 seats in midterms under a Republican president is 2 of the last 3 (2006, 2018). Cook Political Report's latest ratings already favor Democrats in 220 seats, with a projected gain of 12-22 seats from their current 215 (yielding 227+), and a generic ballot lead of 8.5 points mirrors the 2018 wave that produced 235 seats. The main risk is a polling overestimation or an upset in toss-up races, but the evidence points overwhelmingly to a Democratic majority exceeding 225."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate for Democrats reaching 225 in a midterm under a Republican president is 2/3 (2006, 2018), but the current environment is unusually favorable: Cook's ratings already show 220 Democratic-favored seats (only 5 short of 225), the generic ballot averages +8.5% for Democrats, and Cook's own stated range of 12-22 flips from 215 puts the minimum at 227. The main risks are a narrowing generic ballot on Election Day, the structural headwind from new maps favoring Republicans by ~9 districts, and 60 open seats adding volatility, but reaching 225 requires Democrats to win only 5 of 17 toss-ups on top of their 220 favored seats, which an +8.5% environment makes highly probable."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate from 1994-2024 shows Democrats hit 225+ in only 3 of 16 elections, but in midterms under a Republican president (2002, 2006, 2018) they did so in 2 of 3. Current evidence is strong: Cook rates 220 seats as Solid/Likely/Lean Democratic with 17 toss-ups, and the generic ballot shows Democrats +8.5, suggesting they win enough toss-ups and Lean seats to clear 225. Cook's projected flip range of 12-22 seats from 215 puts the most likely outcome above 225. Risks include Republican-favoring new maps, a narrower generic ballot, or underperformance in toss-ups, but the overall environment strongly favors Democrats reaching 225."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.76,
+          "rationale": "Democrats reached 225 in only 3 of 16 elections since 1994, but 2 of 3 midterms under a Republican president. Cook already rates 220 seats Solid, Likely or Lean Democratic, so Democrats need only 5 of 17 toss-ups, and the generic ballot lead of about 8.5 points is close to 2018's, when they won 235. Cook's own range of 12 to 22 flips implies roughly 227 to 237 seats. The main risks are that the new Republican-favoring maps hold up better than the ratings suggest, that toss-ups break toward Republicans, and that some Lean Democratic seats are lost."
         }
       ],
       "id": "manifold-QtntARQCu9",
@@ -606,6 +1044,30 @@
             "https://www.eia.gov/outlooks/steo/report/petro_prod.php",
             "https://www.cnbc.com/2026/10/29/oil-price-today-wti-brent.html"
           ]
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The current AAA diesel price is $6.3347, about 1% below the $6.40 threshold, with 5 days until Election Day. Historically, weekly EIA diesel prices have rarely exceeded $6.40, but the current environment is near all-time highs. The EIA forecasts a gradual decline, and crude oil prices fell on renewed US-Iran peace talks, though geopolitical risks remain. Given the small gap and daily volatility, a move above $6.40 is plausible but not favored, with a roughly 35% chance."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "The AAA diesel average is $6.3347 on 10/29, about 6.5 cents below the $6.40 threshold, and has been trending down from its September 22 peak of $6.5276. Oil prices are falling (Brent -1.73%, WTI -2.06%) on US-Iran peace talks, and the EIA forecasts gradual decline after October, making a sustained 5-day rally to $6.40 unlikely under current conditions. However, the gap is within the range of a single-day geopolitical shock (e.g., post-election US military action against Iran), and the EIA weekly series has been rising from $6.179 to $6.352 over three weeks, so a surprise spike could close the gap."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "AAA's national diesel average is $6.3347, about 6.5 cents (1.0%) below the $6.4000 threshold, and it was above $6.40 within the past month ($6.4391 a month ago, record $6.5276 on 22 September), so the target is within normal fluctuation for this elevated-price regime even though only one of 1,702 weekly EIA observations ever printed at or above $6.40. Recent weekly gains of $0.076 and $0.097, below-average distillate inventories, and elevated crack spreads keep a 5-day rise of 6.5 cents quite plausible, but EIA expects prices to decline gradually as crude eases, and today's ~2% fall in Brent and WTI on U.S.-Iran peace efforts pushes in the opposite direction. A collapse in peace talks, Houthi attacks, or a fresh crude spike before November 3 would lift the average over the line, while a sustained crude selloff would make it very unlikely; I put this near 30%."
+        },
+        {
+          "created_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.09,
+          "rationale": "AAA diesel is $6.3347, about 6.5 cents below the $6.40 line with 5 days left. Daily moves are typically 1-2 cents, crude and NY Harbor ULSD were falling, and retail tends to follow wholesale with a lag, so a decline or flat trend is more likely. A sudden Iran-driven spike could push it over, but military action is flagged as coming after the election."
         }
       ],
       "id": "manifold-8cRNsgCScS",
