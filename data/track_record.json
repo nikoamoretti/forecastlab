@@ -2,39 +2,39 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.19069921596772804,
+      "brier": 0.19437966779451657,
       "coin_flip_brier": 0.25,
       "forecasts": 213,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 45,
+      "resolved": 46,
       "right": 28,
       "toss_ups": 1,
-      "wrong": 16
+      "wrong": 17
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1643219512195122,
+      "brier": 0.16985952380952382,
       "coin_flip_brier": 0.25,
       "forecasts": 209,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 41,
+      "resolved": 42,
       "right": 28,
       "toss_ups": 2,
-      "wrong": 11
+      "wrong": 12
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.14963809523809526,
+      "brier": 0.15812727272727273,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 21,
+      "resolved": 22,
       "right": 17,
       "toss_ups": 0,
-      "wrong": 4
+      "wrong": 5
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -50,15 +50,15 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.15035416666666668,
+      "brier": 0.15874,
       "coin_flip_brier": 0.25,
       "forecasts": 164,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 24,
+      "resolved": 25,
       "right": 19,
       "toss_ups": 0,
-      "wrong": 5
+      "wrong": 6
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -86,15 +86,15 @@
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.1444130434782609,
+      "brier": 0.1539,
       "coin_flip_brier": 0.25,
       "forecasts": 162,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 23,
+      "resolved": 24,
       "right": 19,
       "toss_ups": 0,
-      "wrong": 4
+      "wrong": 5
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
@@ -158,13 +158,13 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.26772641875055536,
+      "brier": 0.26304420894123604,
       "coin_flip_brier": 0.25,
       "forecasts": 25,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 15,
-      "right": 5,
+      "resolved": 16,
+      "right": 6,
       "toss_ups": 0,
       "wrong": 10
     },
@@ -195,6 +195,63 @@
   ],
   "generated_on": "2026-10-29",
   "questions": [
+    {
+      "actual": "194,000 claims",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.6
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-24 be above 194,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-23T14:10:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "The 2026-10-17 first print was 194,000, the lowest since July, after first prints of 197,000 (Oct 3) and 199,000 (Oct 10) and a 4-week average of 197,750 (macrobullseye, 2026-10-22, quotes checked), so the 194,000 threshold sits at the bottom of the recent 194,000-200,000 range. A week-to-week move of 5,000-10,000 is common and a print at the lowest level in three months tends to be followed by a partial rebound; secondary-source consensus for the week ending Oct 24 is about 196,000 (Trading Economics, not confirmed). The statistical baseline (0.44) treats the latest value as the median, but the recent mean is higher, so I lean above it; the threshold is a strict 'above', so an exact 194,000 print resolves No.",
+          "sources": [
+            "https://macrobullseye.com/news/jobless-claims-week-ending-2026-10-17/",
+            "https://www.cnbc.com/2026/10/22/jobless-claims-record-low-weekly.html",
+            "https://tradingeconomics.com/united-states/jobless-claims"
+          ]
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "The base rate from the last three first prints (197k, 199k, 194k) shows 2/3 above 194k, but the latest print sits exactly at the threshold. The consensus forecast of ~196k and the 'lowest since July' characterization suggest mean reversion upward from a local low, while the persistent low-fire trend and narrow recent range (194k-200k) argue for stability. Typical week-to-week volatility of 5-10k makes a move above 194k slightly more likely than not, but confidence is limited by the downward trend and low volatility environment."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Recent first prints cluster between 194,000 and 200,000, and the consensus near 196,000 implies a central expectation slightly above the threshold. The latest print equals the threshold at 194,000, and weekly jobless claims are noisy enough that a repeat or dip below is plausible. I therefore estimate a modestly better-than-even chance."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.61,
+          "rationale": "The small recent reference class is mildly favorable: two of the last three first prints exceeded 194,000, and recent claims have generally clustered around 194,000\u2013200,000. The roughly 196,000 consensus and typical week-to-week variation put the estimate above 50%, although the latest print was exactly at the threshold and the low-fire trend limits confidence. Late-October seasonality, layoffs, or an economic shock could move the first estimate materially in either direction."
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4391025641025641
+        }
+      ],
+      "id": "65da04edb811bf47",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-29",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261023",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 24, 2026 come in above 194,000 claims?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -3374,63 +3431,6 @@
       "status": "pending",
       "title": "Will Likud win 30-34 seats in the 2026 Israeli legislative election?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.6
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-24 be above 194,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.63,
-          "rationale": "The 2026-10-17 first print was 194,000, the lowest since July, after first prints of 197,000 (Oct 3) and 199,000 (Oct 10) and a 4-week average of 197,750 (macrobullseye, 2026-10-22, quotes checked), so the 194,000 threshold sits at the bottom of the recent 194,000-200,000 range. A week-to-week move of 5,000-10,000 is common and a print at the lowest level in three months tends to be followed by a partial rebound; secondary-source consensus for the week ending Oct 24 is about 196,000 (Trading Economics, not confirmed). The statistical baseline (0.44) treats the latest value as the median, but the recent mean is higher, so I lean above it; the threshold is a strict 'above', so an exact 194,000 print resolves No.",
-          "sources": [
-            "https://macrobullseye.com/news/jobless-claims-week-ending-2026-10-17/",
-            "https://www.cnbc.com/2026/10/22/jobless-claims-record-low-weekly.html",
-            "https://tradingeconomics.com/united-states/jobless-claims"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "The base rate from the last three first prints (197k, 199k, 194k) shows 2/3 above 194k, but the latest print sits exactly at the threshold. The consensus forecast of ~196k and the 'lowest since July' characterization suggest mean reversion upward from a local low, while the persistent low-fire trend and narrow recent range (194k-200k) argue for stability. Typical week-to-week volatility of 5-10k makes a move above 194k slightly more likely than not, but confidence is limited by the downward trend and low volatility environment."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.6,
-          "rationale": "Recent first prints cluster between 194,000 and 200,000, and the consensus near 196,000 implies a central expectation slightly above the threshold. The latest print equals the threshold at 194,000, and weekly jobless claims are noisy enough that a repeat or dip below is plausible. I therefore estimate a modestly better-than-even chance."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.61,
-          "rationale": "The small recent reference class is mildly favorable: two of the last three first prints exceeded 194,000, and recent claims have generally clustered around 194,000\u2013200,000. The roughly 196,000 consensus and typical week-to-week variation put the estimate above 50%, although the latest print was exactly at the threshold and the low-fire trend limits confidence. Late-October seasonality, layoffs, or an economic shock could move the first estimate materially in either direction."
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.4391025641025641
-        }
-      ],
-      "id": "65da04edb811bf47",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-29",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261023",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Oct 24, 2026 come in above 194,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -13876,16 +13876,16 @@
     }
   ],
   "summary": {
-    "brier": 0.19069921596772804,
+    "brier": 0.19437966779451657,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 165,
-    "resolved": 45,
+    "pending": 164,
+    "resolved": 46,
     "right": 28,
     "toss_ups": 1,
     "total": 213,
     "unscored": 3,
-    "wrong": 16
+    "wrong": 17
   },
   "version": "track_record_v2"
 }
