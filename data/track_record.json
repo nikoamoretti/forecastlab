@@ -2,97 +2,97 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.19770848182669215,
+      "brier": 0.19069921596772804,
       "coin_flip_brier": 0.25,
-      "forecasts": 191,
+      "forecasts": 213,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 43,
-      "right": 26,
+      "resolved": 45,
+      "right": 28,
       "toss_ups": 1,
       "wrong": 16
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1706769230769231,
+      "brier": 0.1643219512195122,
       "coin_flip_brier": 0.25,
-      "forecasts": 187,
+      "forecasts": 209,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 39,
-      "right": 26,
+      "resolved": 41,
+      "right": 28,
       "toss_ups": 2,
       "wrong": 11
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.16157894736842107,
+      "brier": 0.14963809523809526,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 19,
-      "right": 15,
+      "resolved": 21,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 4
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.19281666666666666,
+      "brier": 0.177535,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 18,
-      "right": 12,
+      "resolved": 20,
+      "right": 14,
       "toss_ups": 1,
       "wrong": 5
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.16038636363636363,
+      "brier": 0.15035416666666668,
       "coin_flip_brier": 0.25,
-      "forecasts": 146,
+      "forecasts": 164,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 22,
-      "right": 17,
+      "resolved": 24,
+      "right": 19,
       "toss_ups": 0,
       "wrong": 5
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.2157,
+      "brier": 0.19590588235294118,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 15,
-      "right": 10,
+      "resolved": 17,
+      "right": 12,
       "toss_ups": 0,
       "wrong": 5
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.12393499999999999,
+      "brier": 0.11630454545454545,
       "coin_flip_brier": 0.25,
-      "forecasts": 140,
+      "forecasts": 161,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 20,
-      "right": 17,
+      "resolved": 22,
+      "right": 19,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.15395714285714288,
+      "brier": 0.1444130434782609,
       "coin_flip_brier": 0.25,
-      "forecasts": 146,
+      "forecasts": 162,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 21,
-      "right": 17,
+      "resolved": 23,
+      "right": 19,
       "toss_ups": 0,
       "wrong": 4
     },
@@ -100,7 +100,7 @@
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 23,
+      "forecasts": 45,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
       "resolved": 0,
@@ -170,31 +170,105 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.13535340277777777,
+      "brier": 0.1296624342105263,
       "coin_flip_brier": 0.25,
-      "forecasts": 117,
+      "forecasts": 135,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 18,
-      "right": 13,
+      "resolved": 19,
+      "right": 14,
       "toss_ups": 0,
       "wrong": 5
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.17140987714285713,
+      "brier": 0.1544961425,
       "coin_flip_brier": 0.25,
-      "forecasts": 40,
+      "forecasts": 44,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 7,
-      "right": 5,
+      "resolved": 8,
+      "right": 6,
       "toss_ups": 0,
       "wrong": 2
     }
   ],
-  "generated_on": "2026-10-28",
+  "generated_on": "2026-10-29",
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.8
+      },
+      "detail": "The FED interest rates are defined in this market by the upper bound of the target federal funds range. The decisions on the target federal funds range are made by the Federal Open Market Committee (FOMC) meetings.\n\nThis market will resolve to the amount of basis points the upper bound of the target federal funds rate is changed by versus the level it was prior to the Federal Reserve's October 2026 meeting.\n\nIf the target federal funds rate is changed to a level not expressed in the displayed options, the change will be rounded up to the nearest 25 and will resolve to the relevant bracket. (e.g. if there's a cut/increase of 12.5 bps it will be considered to be 25 bps)\n\nThe resolution source for this market is the FOMC\u2019s statement after its meeting scheduled for October 27-28, 2026 according to the official calendar: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.\n\nThe level and change of the target federal funds rate is also published at the official website of the Federal Reserve at https://www.federalreserve.gov/monetarypolicy/openmarket.htm.\n\nThis market may resolve as soon as the FOMC\u2019s statement for their October meeting with relevant data is issued. If no statement is released by the end date of the next scheduled meeting, this market will resolve to the \"No change\" bracket.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "The Fed hiked a quarter point to 3.75-4.00% on Sept 16 (unanimous). The Oct 7 minutes say most officials see another hike as likely by year end, but Jefferson and Williams signalled patience, and CME FedWatch (futures, not a betting market) showed about 80% pricing a hold for Oct 27-28. December is the more likely hike meeting, with a new SEP.",
+          "sources": [
+            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
+            "https://kaohooninternational.com/economics/592288"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.8,
+          "rationale": "Base rate: In a tightening cycle the Fed often hikes at consecutive meetings, but pauses are common when data is mixed. Evidence: Fed funds futures price an 80% chance of a hold at the October 27-28 meeting, while the October 7 minutes show most officials expect another hike by year-end, pointing to a possible December move instead. This probability could shift if upcoming inflation or employment data materially alters expectations before the meeting."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.8,
+          "rationale": "Historically, the Fed holds rates about 30% of the time at any given meeting (base rate). After the September 25\u2011bp hike, minutes showed most officials favor another hike, but Fed funds futures priced an 80% chance of a hold at the October meeting, reflecting market expectations. This shifts the probability toward a hold, though unexpected inflation or labor data could prompt a hike, lowering the chance."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for no change is around 50%, but the evidence strongly favors a hold. The FOMC hiked in September, and minutes indicate most expect another hike by year-end, but not necessarily in October. Fed funds futures price an 80% chance of a hold, and some officials suggest waiting for more data. This supports a high probability of no change at the October meeting."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.75,
+          "rationale": "Fed funds futures price roughly an 80% chance of a hold at the October meeting, providing a strong base rate. While the September minutes revealed 16 of 18 officials project at least one more 2026 hike, influential policymakers Vice Chair Jefferson and NY Fed President Williams advocated waiting for more data, tilting the balance toward a pause in October. Unexpectedly strong inflation or labor-market reports before the October 27\u201328 meeting could still prompt the Committee to hike earlier than futures currently imply."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for a given FOMC meeting is usually a hold, but the September 2026 hike and hawkish dot projections make a change more plausible than in a normal cycle. The strongest specific evidence is that Fed funds futures priced about an 80% chance of a hold for October, with the remaining hike likely deferred to December. Incoming inflation or labor data, or a more hawkish statement, could push the probability lower."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate for FOMC holds at any given meeting is roughly 60-70% historically, but recent evidence strongly favors a hold: the Sept 16 hike was unanimous, minutes show most officials expect only one more hike by year-end (likely December, which carries new projections), and FedWatch prices ~80% chance of a hold at the Oct 27-28 meeting. The October meeting is a non-Sep/Dec meeting without new SEP projections, making a hold more likely as the Fed saves action for December. A surprise hike remains possible given inflation persistence, but the evidence tilts clearly toward no change."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.835
+        }
+      ],
+      "id": "polymarket-2589812",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-29",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
+      "status": "resolved",
+      "title": "Will there be no change in Fed interest rates after the October 2026 meeting?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -506,6 +580,80 @@
       "status": "resolved",
       "title": "Will the price of Bitcoin be above $78,000 on October 28?",
       "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.2
+      },
+      "detail": "Resolve YES if the Federal Open Market Committee increases the target range for the federal funds rate at its October 27\u201328, 2026 meeting relative to the target range in effect immediately before the meeting.\n\nResolve NO if the FOMC leaves the target range unchanged or lowers it.\n\nResolution will be based on the first official Federal Reserve monetary policy statement issued for the October 27\u201328, 2026 FOMC meeting.\n\nThe size of the increase does not matter. Any increase in the target range counts as YES.\n\nChanges to forward guidance, the balance sheet, quantitative tightening, Treasury operations, or any other policy measure do not count unless the target range for the federal funds rate is also increased.\n\nIf the September FOMC decision is delayed beyond the market\u2019s scheduled closing time, the market will remain closed to trading but unresolved until the Federal Reserve publishes the official decision, at which point it will resolve based on that decision",
+      "forecasts": [
+        {
+          "made_at": "2026-10-09T10:57:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.18,
+          "rationale": "The Fed hiked to 3.75-4.00% on Sept 16. The Oct 7 minutes show most officials see another hike by year end, but Jefferson and Williams signalled patience, recent US core PCE was softer, and FedWatch futures priced about 80% for a hold at the Oct 27-28 meeting as of Oct 8. December, with new projections, is the likelier hike meeting.",
+          "sources": [
+            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
+            "https://www.fxstreet.com/analysis/ecb-october-hike-looks-unlikely-lagarde-strikes-a-surprisingly-dovish-tone-202610080843"
+          ]
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.18,
+          "rationale": "Base rate from CME FedWatch futures implies ~20% chance of a hike at the October meeting. The September minutes indicated most officials see another increase likely by year-end, but Governor Jefferson and NY Fed President Williams explicitly signaled patience, and the softer-than-expected core PCE print on October 8 reduces near-term pressure. The December meeting includes a new Summary of Economic Projections, making it a more natural venue for a next hike if needed. Probability could rise if upcoming inflation or labor data surprise to the upside, or if FOMC communication shifts more hawkish before the meeting."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a Fed rate hike at any given meeting is roughly 30% based on historical frequency of tightening cycles. The September 2026 hike to 3.75\u20114.00% and FOMC minutes indicating most officials see another increase likely by year\u2011end push the probability upward, but softer-than\u2011expected core PCE inflation and CME FedWatch futures pricing ~80% for no change at the October meeting strongly suggest a dovish bias. Taking these factors together, the probability of an October hike is adjusted down to about 20%. This could change if inflation data surprise to the upside or if Fed officials shift to a more hawkish tone before the meeting."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a hike at any given FOMC meeting is moderate, and an immediate follow-up after a September hike is less likely. Minutes show most officials expect another increase by year-end, but soft core PCE and dovish signals from Jefferson and Williams suggest patience; CME FedWatch prices about 80% no change for October. I therefore estimate a roughly 20% chance of an October hike, with December more likely if data firm."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.18,
+          "rationale": "Fed funds futures as of October 8 price roughly a 20% chance of a hike at the October meeting, providing a well-informed market base rate. While the September FOMC minutes showed most officials expect another increase by year-end, subsequent signals of patience from Governor Jefferson and President Williams alongside softer core PCE inflation suggest the next move is more likely to occur in December. With no Summary of Economic Projections scheduled for October and the Fed having just raised rates in September, the bar for a back-to-back hike appears high."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for a consecutive Fed hike after a recent 25bp increase is modest, and the market is pricing about an 80% chance of no change at the October meeting. The October 7 minutes showing many officials expect another hike by year-end supports some tail risk, but the softer core PCE print and dovish signals from Jefferson and Williams make an October hike less likely. A stronger inflation surprise or hawkish Fed communication before the meeting could push the probability higher."
+        },
+        {
+          "made_at": "2026-10-09T10:58:16.620898+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "CME FedWatch futures priced approximately 80% for no change at the October 27-28 meeting, implying about 20% odds of a hike. The FOMC minutes suggest 'most officials' saw another increase as likely by year-end, but the pending December SEP and softer-than-expected core PCE inflation reduce urgency for an October move, with some officials (Jefferson, Williams) signaling patience. A surprise hawkish data print or shift in Fed rhetoric could push this higher, but market pricing is the strongest available signal."
+        },
+        {
+          "made_at": "2026-10-09T10:54:01.601597+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.19
+        }
+      ],
+      "id": "manifold-OqEUCA9tCN",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-27",
+      "scored": true,
+      "source": "prospective_markets_20261009",
+      "source_url": "https://manifold.markets/MAKER/-will-the-fed-raise-interest-rates-Z62t6ZhEy5",
+      "status": "resolved",
+      "title": "\ud83c\uddfa\ud83c\uddf8 Will the Fed raise interest rates in October 2026?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -3037,80 +3185,6 @@
     {
       "actual": null,
       "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.2
-      },
-      "detail": "Resolve YES if the Federal Open Market Committee increases the target range for the federal funds rate at its October 27\u201328, 2026 meeting relative to the target range in effect immediately before the meeting.\n\nResolve NO if the FOMC leaves the target range unchanged or lowers it.\n\nResolution will be based on the first official Federal Reserve monetary policy statement issued for the October 27\u201328, 2026 FOMC meeting.\n\nThe size of the increase does not matter. Any increase in the target range counts as YES.\n\nChanges to forward guidance, the balance sheet, quantitative tightening, Treasury operations, or any other policy measure do not count unless the target range for the federal funds rate is also increased.\n\nIf the September FOMC decision is delayed beyond the market\u2019s scheduled closing time, the market will remain closed to trading but unresolved until the Federal Reserve publishes the official decision, at which point it will resolve based on that decision",
-      "forecasts": [
-        {
-          "made_at": "2026-10-09T10:57:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.18,
-          "rationale": "The Fed hiked to 3.75-4.00% on Sept 16. The Oct 7 minutes show most officials see another hike by year end, but Jefferson and Williams signalled patience, recent US core PCE was softer, and FedWatch futures priced about 80% for a hold at the Oct 27-28 meeting as of Oct 8. December, with new projections, is the likelier hike meeting.",
-          "sources": [
-            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
-            "https://www.fxstreet.com/analysis/ecb-october-hike-looks-unlikely-lagarde-strikes-a-surprisingly-dovish-tone-202610080843"
-          ]
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.18,
-          "rationale": "Base rate from CME FedWatch futures implies ~20% chance of a hike at the October meeting. The September minutes indicated most officials see another increase likely by year-end, but Governor Jefferson and NY Fed President Williams explicitly signaled patience, and the softer-than-expected core PCE print on October 8 reduces near-term pressure. The December meeting includes a new Summary of Economic Projections, making it a more natural venue for a next hike if needed. Probability could rise if upcoming inflation or labor data surprise to the upside, or if FOMC communication shifts more hawkish before the meeting."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.2,
-          "rationale": "The base rate for a Fed rate hike at any given meeting is roughly 30% based on historical frequency of tightening cycles. The September 2026 hike to 3.75\u20114.00% and FOMC minutes indicating most officials see another increase likely by year\u2011end push the probability upward, but softer-than\u2011expected core PCE inflation and CME FedWatch futures pricing ~80% for no change at the October meeting strongly suggest a dovish bias. Taking these factors together, the probability of an October hike is adjusted down to about 20%. This could change if inflation data surprise to the upside or if Fed officials shift to a more hawkish tone before the meeting."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.2,
-          "rationale": "The base rate for a hike at any given FOMC meeting is moderate, and an immediate follow-up after a September hike is less likely. Minutes show most officials expect another increase by year-end, but soft core PCE and dovish signals from Jefferson and Williams suggest patience; CME FedWatch prices about 80% no change for October. I therefore estimate a roughly 20% chance of an October hike, with December more likely if data firm."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.18,
-          "rationale": "Fed funds futures as of October 8 price roughly a 20% chance of a hike at the October meeting, providing a well-informed market base rate. While the September FOMC minutes showed most officials expect another increase by year-end, subsequent signals of patience from Governor Jefferson and President Williams alongside softer core PCE inflation suggest the next move is more likely to occur in December. With no Summary of Economic Projections scheduled for October and the Fed having just raised rates in September, the bar for a back-to-back hike appears high."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.2,
-          "rationale": "The base rate for a consecutive Fed hike after a recent 25bp increase is modest, and the market is pricing about an 80% chance of no change at the October meeting. The October 7 minutes showing many officials expect another hike by year-end supports some tail risk, but the softer core PCE print and dovish signals from Jefferson and Williams make an October hike less likely. A stronger inflation surprise or hawkish Fed communication before the meeting could push the probability higher."
-        },
-        {
-          "made_at": "2026-10-09T10:58:16.620898+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.2,
-          "rationale": "CME FedWatch futures priced approximately 80% for no change at the October 27-28 meeting, implying about 20% odds of a hike. The FOMC minutes suggest 'most officials' saw another increase as likely by year-end, but the pending December SEP and softer-than-expected core PCE inflation reduce urgency for an October move, with some officials (Jefferson, Williams) signaling patience. A surprise hawkish data print or shift in Fed rhetoric could push this higher, but market pricing is the strongest available signal."
-        },
-        {
-          "made_at": "2026-10-09T10:54:01.601597+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.19
-        }
-      ],
-      "id": "manifold-OqEUCA9tCN",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-27",
-      "scored": true,
-      "source": "prospective_markets_20261009",
-      "source_url": "https://manifold.markets/MAKER/-will-the-fed-raise-interest-rates-Z62t6ZhEy5",
-      "status": "pending",
-      "title": "\ud83c\uddfa\ud83c\uddf8 Will the Fed raise interest rates in October 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_median_v1",
         "probability": 0.4
@@ -3357,80 +3431,6 @@
       "status": "pending",
       "title": "Will weekly U.S. jobless claims for the week ending Oct 24, 2026 come in above 194,000 claims?",
       "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.8
-      },
-      "detail": "The FED interest rates are defined in this market by the upper bound of the target federal funds range. The decisions on the target federal funds range are made by the Federal Open Market Committee (FOMC) meetings.\n\nThis market will resolve to the amount of basis points the upper bound of the target federal funds rate is changed by versus the level it was prior to the Federal Reserve's October 2026 meeting.\n\nIf the target federal funds rate is changed to a level not expressed in the displayed options, the change will be rounded up to the nearest 25 and will resolve to the relevant bracket. (e.g. if there's a cut/increase of 12.5 bps it will be considered to be 25 bps)\n\nThe resolution source for this market is the FOMC\u2019s statement after its meeting scheduled for October 27-28, 2026 according to the official calendar: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.\n\nThe level and change of the target federal funds rate is also published at the official website of the Federal Reserve at https://www.federalreserve.gov/monetarypolicy/openmarket.htm.\n\nThis market may resolve as soon as the FOMC\u2019s statement for their October meeting with relevant data is issued. If no statement is released by the end date of the next scheduled meeting, this market will resolve to the \"No change\" bracket.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.78,
-          "rationale": "The Fed hiked a quarter point to 3.75-4.00% on Sept 16 (unanimous). The Oct 7 minutes say most officials see another hike as likely by year end, but Jefferson and Williams signalled patience, and CME FedWatch (futures, not a betting market) showed about 80% pricing a hold for Oct 27-28. December is the more likely hike meeting, with a new SEP.",
-          "sources": [
-            "https://thehill.com/business/6135206-fed-officials-project-future-increases/amp",
-            "https://kaohooninternational.com/economics/592288"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.8,
-          "rationale": "Base rate: In a tightening cycle the Fed often hikes at consecutive meetings, but pauses are common when data is mixed. Evidence: Fed funds futures price an 80% chance of a hold at the October 27-28 meeting, while the October 7 minutes show most officials expect another hike by year-end, pointing to a possible December move instead. This probability could shift if upcoming inflation or employment data materially alters expectations before the meeting."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.8,
-          "rationale": "Historically, the Fed holds rates about 30% of the time at any given meeting (base rate). After the September 25\u2011bp hike, minutes showed most officials favor another hike, but Fed funds futures priced an 80% chance of a hold at the October meeting, reflecting market expectations. This shifts the probability toward a hold, though unexpected inflation or labor data could prompt a hike, lowering the chance."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.8,
-          "rationale": "The base rate for no change is around 50%, but the evidence strongly favors a hold. The FOMC hiked in September, and minutes indicate most expect another hike by year-end, but not necessarily in October. Fed funds futures price an 80% chance of a hold, and some officials suggest waiting for more data. This supports a high probability of no change at the October meeting."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.75,
-          "rationale": "Fed funds futures price roughly an 80% chance of a hold at the October meeting, providing a strong base rate. While the September minutes revealed 16 of 18 officials project at least one more 2026 hike, influential policymakers Vice Chair Jefferson and NY Fed President Williams advocated waiting for more data, tilting the balance toward a pause in October. Unexpectedly strong inflation or labor-market reports before the October 27\u201328 meeting could still prompt the Committee to hike earlier than futures currently imply."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.8,
-          "rationale": "The base rate for a given FOMC meeting is usually a hold, but the September 2026 hike and hawkish dot projections make a change more plausible than in a normal cycle. The strongest specific evidence is that Fed funds futures priced about an 80% chance of a hold for October, with the remaining hike likely deferred to December. Incoming inflation or labor data, or a more hawkish statement, could push the probability lower."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.78,
-          "rationale": "Base rate for FOMC holds at any given meeting is roughly 60-70% historically, but recent evidence strongly favors a hold: the Sept 16 hike was unanimous, minutes show most officials expect only one more hike by year-end (likely December, which carries new projections), and FedWatch prices ~80% chance of a hold at the Oct 27-28 meeting. The October meeting is a non-Sep/Dec meeting without new SEP projections, making a hold more likely as the Fed saves action for December. A surprise hike remains possible given inflation persistence, but the evidence tilts clearly toward no change."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.835
-        }
-      ],
-      "id": "polymarket-2589812",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-29",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
-      "status": "pending",
-      "title": "Will there be no change in Fed interest rates after the October 2026 meeting?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -5719,6 +5719,258 @@
       "status": "pending",
       "title": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
       "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.6,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "On the 27 Oct Text Arena Overall board (style control off) Xiaomi's MiMo-V2.6-Pro (1491, rank 12) was the top Chinese model, 8 points ahead of Alibaba's Qwen3.8-Max (1483, rank 16), and it led on both snapshots seen (8 Oct and 27 Oct). The main risks are Moonshot's newly launched Kimi K3.1 Pro or another new Chinese model being listed above 1491 before 31 Oct, or MiMo's thinly voted score (4,037 votes, +/-9) slipping below Qwen's; both are plausible but not the base case.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.6,
+          "rationale": "Xiaomi currently leads among Chinese models by 8 points (1491 vs 1483) on the Text Arena, but with only 4,037 votes versus Alibaba's 31,915, the score is vulnerable to downward drift as votes accumulate over the remaining 4 days. The 8-point gap is above the 5-point indistinguishability threshold but within Xiaomi's \u00b19 confidence interval, meaning the true scores could overlap. No new Chinese models are expected on the Text Arena before the check date (Kimi K3.1 Pro hasn't been added there yet, and its full weights aren't due until Nov 4), so the main risk is score drift rather than a new entrant."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.38,
+          "rationale": ":"
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "On the 27 October board, Xiaomi's MiMo-V2.6-Pro (rank 12, 1491) leads the next Chinese model, Alibaba's Qwen3.8-Max (rank 16, 1483), by 8 points. The check is only about 4 days away. Kimi K3.1 Pro has not been added to the Text Arena, and the changelog shows it only on the Agent and Code arenas. A new Chinese model could still be added and beat Xiaomi by the check. Xiaomi's score could also drift down on thin votes, and the confidence intervals overlap. Even so, the lead is real and the window is short, so Xiaomi is the likely winner."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9055
+        }
+      ],
+      "id": "polymarket-3554475",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
+      "status": "pending",
+      "title": "Will Xiaomi have the best Chinese AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.55,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to Space Exploration Technologies' public market capitalization at the close of regular trading on the final trading day of the specified month.\n\nIf the determined value falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nPublic market capitalization will be determined through appropriate calculation using the final official regular-hours closing prices published for the company's listed equities on its primary exchange for the last trading day of the specified month, multiplied by the company's total number of shares outstanding at the relevant time. If necessary, to accurately capture the company\u2019s total market capitalization, rather than a stock-class-specific market capitalization, the calculation will include all outstanding share classes and apply any stated conversion ratios to the publicly traded class. Where no conversion right exists, such shares will be counted at their stated outstanding amount without discount, unless official filings explicitly specify differently. The number of outstanding shares will be determined from official company filings or disclosures (e.g., SEC filings).\n\nIf the listed company merges with or acquires another entity and remains the parent company, no change to resolution methodology applies.\n\nIf the listed company is acquired, merges into another entity and is no longer the surviving parent company, or otherwise ceases to exist as an independent entity prior to the end of the period, the public market capitalizations achieved prior to completion of the transaction will be considered for resolution. No transaction, acquisition, or merger consideration will be considered for resolution.\n\nThe resolution source for this market is official exchange trading data and publicly reported share counts.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "SPCX closed at $145.23 on 28 Oct, which times the 15 Oct share count (13.58 billion Class A plus B) is about $1.97T, just inside the band and 1.4% under the $2.00T cap. The $1.75T floor is about 11% below, so the main risk is a rise over the top: with two sessions left and recent daily moves of 8-9%, the close on 30 Oct is a little better than even to stay below $2.00T, and different share counts across data vendors add upside-side uncertainty.",
+          "sources": [
+            "https://www.google.com/finance/quote/SPCX:NASDAQ",
+            "https://stockanalysis.com/stocks/spcx/market-cap/",
+            "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066880/spcx-20260930.htm"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate from four month-ends since IPO is 1 in the band, but the current market cap of $1.97T is inside the band with two trading days left. The stock is volatile (recent daily moves of 2-9%), and a small ~1.5% rise would push it above $2.00T, while an ~11% drop would exit below. Given elevated volatility and potential merger news, the probability of staying within $1.75T-$2.00T is estimated at 55%."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "At the October 28 close, SpaceX's market cap was ~$1.97T, placing it within the $1.75T\u2013$2.00T band but only ~1.4% below the upper boundary. With two trading days remaining and recent daily volatility of 2\u20134%, there is a meaningful (~35\u201340%) probability the stock rises enough to exceed $2.00T, while the probability of falling below $1.75T (requiring an ~11% drop) is very low. The pre-market drift lower and broader tech weakness slightly favor staying in the band, but the Tesla/SpaceX merger speculation and the stock's proximity to the upper edge make this a close call, yielding roughly a 60\u201365% probability of resolution in the band."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.62,
+          "rationale": "Total shares are about 13.58B (8.247B Class A plus 5.335B Class B, with Class B converting one-to-one). The $145.23 close on 28 October implies about $1.97T. The band needs a price between roughly $128.9 and $147.3. Pre-market on 29 October was $143.89, about $1.95T, so the stock would need to rise about 2.4% to leave the band at the top. A fall of about 10% would be needed to leave it at the bottom. With two sessions left and daily moves of 3-4%, I estimate roughly a 65% chance it stays below $2.00T and about 2% that it falls below $1.75T. Merger headlines or a different share count used for resolution add some risk, so I shade the figure down slightly."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.588
+        }
+      ],
+      "id": "polymarket-3862012",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/spacex-market-cap-end-of-october-2026",
+      "status": "pending",
+      "title": "Will Space Exploration Technologies\u2019 market capitalization be between $1.75T and $2.00T at the end of October 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.05,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to Alphabet's public market capitalization at the close of regular trading on the final trading day of the specified month.\n\nIf the determined value falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nPublic market capitalization will be determined through appropriate calculation using the final official regular-hours closing prices published for the company's listed equities on its primary exchange for the last trading day of the specified month, multiplied by the company's total number of shares outstanding at the relevant time. If necessary, to accurately capture the company\u2019s total market capitalization, rather than a stock-class-specific market capitalization, the calculation will include all outstanding share classes and apply any stated conversion ratios to the publicly traded class. Where no conversion right exists, such shares will be counted at their stated outstanding amount without discount, unless official filings explicitly specify differently. The number of outstanding shares will be determined from official company filings or disclosures (e.g., SEC filings).\n\nIf the listed company merges with or acquires another entity and remains the parent company, no change to resolution methodology applies.\n\nIf the listed company is acquired, merges into another entity and is no longer the surviving parent company, or otherwise ceases to exist as an independent entity prior to the end of the period, the public market capitalizations achieved prior to completion of the transaction will be considered for resolution. No transaction, acquisition, or merger consideration will be considered for resolution.\n\nThe resolution source for this market is official exchange trading data and publicly reported share counts.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Alphabet's market cap was about $3.96-3.97T at the 28 Oct close, already under the $4.00T floor, and after Q3 results (negative free cash flow of $9.1B, capex to rise further in 2027) the 29 Oct premarket indication was about 10% lower, near $3.55T. Getting back inside $4.00-4.50T by the 30 Oct close would need a rebound of more than 12% from the premarket level in two sessions; the premarket price is not a close and share-count definitions differ, so I leave a small chance.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+            "https://stockanalysis.com/stocks/goog/market-cap/",
+            "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate of Alphabet's month-end market cap being in the $4.00T\u2013$4.50T range is 5 out of 9 months in 2026, but the Q3 earnings miss and >10% after-hours drop on October 28 pushed the pre-market indication to ~$291.65 (market cap ~$3.55T). A recovery of over 12% in the two remaining sessions (Oct 29\u201330) is needed to reach $4.00T, which is unlikely given negative free cash flow and capex concerns, though a strong reversal or broader market rally could change the outcome."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "Alphabet closed at $324.89 on Oct 28 with a market cap of ~$3.96-3.97T, just below the $4.00T threshold. After a 10% post-earnings drop (premarket Oct 29 at ~$291.65), the stock would need to gain roughly 12% over two remaining sessions (Oct 29-30) to reach ~$325+ and push market cap back above $4.00T. A full recovery of a 10% earnings-driven selloff in just two sessions for a mega-cap stock is highly unlikely; even a strong partial recovery to $300-310 would leave market cap around $3.70-3.80T, well below the threshold. The only scenario that changes this is an extraordinary two-day reversal, which is rare for a stock of this size after a fundamental (not just sentiment) sell-off."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.03,
+          "rationale": "Alphabet closed 28 Oct near $3.96-3.99T, already just under the $4.00T floor. After the Q3 earnings miss and negative free cash flow, premarket indications are down about 10%, implying roughly $3.55-3.58T. Re-entering the band would take a rally of about 12% in two sessions, which is very unlikely; only a sharp reversal of the premarket drop or a different share-count method would change that."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.095
+        }
+      ],
+      "id": "polymarket-3861994",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/alphabets-market-cap-end-of-october-2026",
+      "status": "pending",
+      "title": "Will Alphabet\u2019s market capitalization be between $4.00T and $4.50T at the end of October 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.55,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the second-highest ranked primarily Chinese company based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs with style control off (Adjustments: None) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese AI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant qualifying Chinese AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "On the 27 Oct Text Arena labs table (style control off) the Chinese labs ranked Xiaomi (1491), Alibaba (1483), Moonshot (1476), Z.ai (1474), the same order as on 8 Oct, so Alibaba is second now. Alibaba's flagship is still the 2 Sep Qwen3.8-Max snapshot, while Moonshot's Kimi K3.1 Pro launched 26-27 Oct and could be listed above 1483 before the 31 Oct check, and Xiaomi's thinly voted 1491 (4,037 votes) could drop below Alibaba, so the middle position is exposed to movement from both sides.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs",
+            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html",
+            "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/newly-released-models"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "As of October 27, Alibaba is second among Chinese labs (Xiaomi 1491\u00b19, Alibaba 1483\u00b15, Moonshot 1476\u00b14), and this order has held since at least October 8. The main risks are: (1) Xiaomi's \u00b19 margin means its true score could dip below 1483, making Alibaba first (answer No), and (2) Moonshot's new Kimi K3.1 Pro (launched Oct 26, scored 4th on AA index, 11 points above predecessor) could accumulate enough votes by Oct 31 to score above 1483 and overtake Alibaba, making it third (answer No). Alibaba's own score is well-established at 31,915 votes with no new text flagship expected, so it's the most stable of the three. The 4-day window for Kimi K3.1 Pro to build votes is the key uncertainty; if it doesn't get listed or scores below 1483, and Xiaomi stays above 1483, Alibaba remains second."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.6,
+          "rationale": "Alibaba is currently the #2 Chinese lab on the Arena Text Arena Labs leaderboard (rank 5, 1483\u00b15), behind Xiaomi (1491\u00b19) and ahead of Moonshot (1476\u00b14) and Z.ai (1474\u00b15). The base rate is that Alibaba holds this position. The main risk is Moonshot's newly launched Kimi K3.1 Pro (scored 55 on Artificial Analysis, up 11 from predecessor), which could overtake Alibaba if it accumulates enough Arena votes by Oct 31\u2014uncertain given only 4 days and it wasn't on the Oct 27 models table. A secondary risk is Xiaomi's volatile \u00b19 interval allowing it to drop below Alibaba, which would make Alibaba #1 rather than #2. I estimate ~60% probability Alibaba remains exactly #2."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.52,
+          "rationale": "On 27 October the Chinese labs were ordered Xiaomi (1491\u00b19), Alibaba (1483\u00b15), Moonshot (1476), Z.ai (1474), and the 8 October crawl showed the same top three order. Alibaba is second if that holds. The main risks are that Xiaomi's score, based on only about 4k votes, drifts below Alibaba, which would make Alibaba first, or that Kimi K3.1 Pro gets listed above 1483 while Xiaomi stays ahead, which would make Alibaba third. I put roughly 60% on Xiaomi staying ahead and about 20% on Moonshot passing Alibaba in time, and Alibaba would also be second if Moonshot passes it and Xiaomi falls behind it."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.805
+        }
+      ],
+      "id": "polymarket-3554496",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/second-best-chinese-ai-company-end-of-october",
+      "status": "pending",
+      "title": "Will Alibaba be the second-best Chinese AI company at the end of October 2026?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -8402,6 +8654,545 @@
     {
       "actual": null,
       "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.12,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for ETH/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT Low prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.19,
+          "rationale": "Binance ETHUSDT's October low is $2,282.46 (24 Oct) and the 24-28 Oct lows all held above it; ETH was about $2,315-2,320 on 29 Oct, roughly 5% above $2,200, with about 2.7 days left in the window. A 5% touch in that time is roughly a one-sigma move at ETH's typical volatility (a bit less at the calmer recent pace), and the class base rate (5 of 22 months opening at or above $2,400 later printed a low at or under $2,200) points the same way. ETF outflows and the delayed Glamsterdam upgrade add some downside risk, but the 24 Oct selloff stopped at $2,282 and was retested without breaking.",
+          "sources": [
+            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
+            "https://swolecharts.com/price-history/eth/2026",
+            "https://www.trade2spike.com/news/ether-fell-to-2282-saturday-ether-etfs-lost-220-million-week-glamsterdam-hoodi-fork-delayed-chainsecurity"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for months opening above $2,400 to hit $2,200 is about 23%, but with 28 days already passed and the lowest print at $2,282, the conditional probability is much lower. The current price is ~$2,315, requiring a ~5% drop in the remaining 2.5 days; the largest single-day decline this month was 4.57%, making such a move possible but unlikely. A sudden negative catalyst could still trigger it, but the odds are low given the limited time."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for months opening above $2,400 hitting a $2,200 low is about 23%, but 28 of 31 days are already recorded with a low of $2,282.46, leaving only ~2.5 days to cover a ~5% gap from current spot (~$2,315). Daily realized volatility is ~1.78%, making a 5% move in 2.5 days roughly 1.8 standard deviations\u2014possible but not the most likely outcome, especially given the range-bound $2,280\u2013$2,360 behavior over the past four days. A sudden risk-off event, large ETF outflow, or geopolitical shock could push it through, but absent such a catalyst the probability is modest."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.06,
+          "rationale": "Spot is about $2,315, so $2,200 is roughly 5% below with about 2.5 days left. With daily volatility near 1.8%, that is about 1.75 sigma, and a reflection-principle barrier estimate gives roughly 8%. The 24 October low of $2,282 held, and the base rate for the remainder of a month with no touch is low, so I shade down to about 6%. A risk-off shock or a large ETF outflow could push it higher."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.125
+        }
+      ],
+      "id": "polymarket-5170789",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-in-october-2026",
+      "status": "pending",
+      "title": "Will Ethereum dip to $2,200 in October?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.45,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the finalized Ornn H100 Index price for October 31, 2026.\n\nIf the recorded data falls exactly between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is Ornnai.com (ornnai.com), specifically, the H100 Index chart data available at https://dashboard.ornnai.com. The specified finalized daily value shown on the chart will be used for resolution. Daily data will be considered finalized once the following day\u2019s data point is published.\n\nResolution will occur once the specified data point is finalized. If the relevant data is not finalized by the end of the 7th calendar day after the specified date (ET), this market will resolve according to the latest data available at that time. Revisions made after the relevant figure has been finalized will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.44,
+          "rationale": "The Ornn OCPI-H100 daily settle was $2.96 on 28 Oct after a one-day drop from $3.57, four cents under the $3.00 line. In the trailing 92 days only 20 settles were at or above $3.00, but 6 of the last 7 were, and October's average to date is $2.93; the series moves more than four cents a day, so the 31 Oct settle is close to a coin flip with a slight lean below because the latest print and the monthly average sit under the line.",
+          "sources": [
+            "https://data.ornn.com/markets/h100-sxm",
+            "https://api.ornnai.com/api/gpu/H100%20SXM/index-history?startDate=2026-07-29&endDate=2026-10-29",
+            "https://data.ornn.com/faq"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The base rate of daily settles at or above $3.00 is 36% over the last 30 days, but the current settle ($2.96) and October average ($2.93) are below the threshold. Daily moves are large enough to cross $3.00, but the recent drop from a transient spike suggests a reversion toward the mean, making a close at or above $3.00 slightly less likely than not."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The current settled value is $2.96, just $0.04 below the $3.00 threshold, and daily volatility has been 12-17%, making the gap trivially small relative to typical moves. In the last 7 prints, 6 were at or above $3.00, and the prior weekend (Oct 24-25) settled at $3.02-3.03, suggesting a slight weekend bias above the line. However, October's average is $2.93, the most recent print is below $3.00, and the $3.57 spike appears to have been a transient that mean-reverted, so the base case is roughly a coin flip with a slight edge toward Yes given proximity and recent frequency above the threshold."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.5,
+          "rationale": "The current settle is $2.96, just $0.04 below the $3.00 threshold. Recent trend favors above $3.00 (6 of last 7 prints were at or above), but the most recent print is below and volatility is high (daily moves of \u00b115%). The spike to $3.57 on Oct 27 followed by a pullback to $2.96 suggests mean reversion around $3.00. With three more settles remaining and the level right at the boundary, this is essentially a coin flip."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.45,
+          "rationale": "The latest settle is $2.96, 4 cents below the threshold, and daily moves of 12-17% dwarf that gap, so the outcome is close to a coin flip. The series looks mean-reverting around $2.9-3.0 after the $3.57 spike, with recent weekend settles at $3.02-3.03 but a 30-day median of $2.86. I lean slightly below 50% because of the lower medians and the September close of $2.71."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.24
+        }
+      ],
+      "id": "polymarket-3529066",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/gpu-rental-prices-h100-end-of-october",
+      "status": "pending",
+      "title": "Will the Ornn H100 Index be at least $3.00 on October 31, 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.72,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Saudi Arabia takes a qualifying military action against Yemen on the specified date, Yemen Standard Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Saudi Arabia, that directly impacts Yemen. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Saudi Arabia. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Saudi Arabia directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Yemen do not constitute a military action regardless of any damage incurred.\n\n\u201cYemen\u201d refers to the terrestrial territory of Yemen, including its internal waters. Yemen\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Yemen as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Yemen Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Saudi Arabia and Yemen, the Houthis, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "The Saudi-led coalition has been in an active air campaign against Houthi areas: reported Saudi strikes on 9, 10, 13, 24, 26 and 28 Oct, the coalition said on 26 Oct it would keep up deterrent operations, and Houthi missile launches at Saudi territory continued on 29 Oct. A strike on any given day is therefore more likely than not, but the count of documented days is only about 6 of 20 and the rule needs Saudi armed forces (not other coalition members) and a strike rather than interception, so I stop short of high confidence.",
+          "sources": [
+            "https://www.spa.gov.sa/en/N2713108",
+            "https://www.rte.ie/news/middle-east/2026/1028/1597087-yemen-houthi-saudi/",
+            "https://www.aljazeera.com/news/2026/10/26/saudi-led-coalition-says-it-struck-houthi-missile-facilities"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate of reported qualifying strikes over the last 20 days is approximately 0.3 per day, with recent escalation (strikes on Oct 24, 26, 28) suggesting a higher current tempo. The Houthi ballistic missile launch on Oct 29 increases the likelihood of a retaliatory Saudi strike, but specific timing on Oct 31 is uncertain, and strict attribution rules add caution. No ceasefire or de-escalation signals are present."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.45,
+          "rationale": "The base rate from the evidence is high: strikes were confirmed on at least 6 of 20 days in October, the coalition explicitly stated it will 'continue to implement deterrent operational measures,' and operations are described as 'around the clock.' The Houthi ballistic missile toward Saudi's Eastern Region on October 29 is a fresh provocation that historically triggers retaliatory strikes within 24-48 hours, increasing the probability for October 31 specifically. However, strikes don't appear to occur on every single day, and the strict attribution requirement (Saudi armed forces specifically, not just coalition) introduces some uncertainty, though the Saudi SPA and Saudi-led coalition spokesman make attribution to Saudi forces well-supported. A ceasefire or de-escalation would lower this, but none is in place."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Saudi or coalition strikes were reported on at least six dates from 9\u201328 October, and the recent tempo\u2014strikes or a destructive operation on 24, 26 and 28 October\u2014along with the coalition\u2019s promise of continued deterrent operations supports a well-above-even chance of another strike on 31 October. The main uncertainties are strict Saudi attribution, since some incidents are described only as coalition strikes or asserted by the Houthis, and no new strike was announced on 29 October. A confirmed additional Saudi strike before 31 October would raise the probability, while a ceasefire or evidence of non-Saudi responsibility for recent attacks would lower it."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.86,
+          "rationale": "Active war since the truce collapsed in September, with Saudi or coalition strikes reported on at least six dates in October and a stated policy of round-the-clock air support and continued deterrent operations. The Houthis are still attacking Saudi territory, so strikes on 31 October are very likely. Remaining risks are a sudden ceasefire or de-escalation, strict Saudi-only attribution, and no clearly dated report for that specific day."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.93
+        }
+      ],
+      "id": "polymarket-5167212",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/saudi-arabia-military-action-against-yemen-on-october-2026",
+      "status": "pending",
+      "title": "Saudi Arabia military action against Yemen on October 31?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.05,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the number of days in October 2026 during which Claude (claude.ai) experiences any downtime.\n\nClaude will be considered to have experienced downtime on a given day if the Claude Status historical uptime page for the claude.ai component (https://status.claude.com/uptime/) displays that day\u2019s status box as any color other than green once the day\u2019s status box is finalized. Daily status boxes for Claude components other than claude.ai will not impact this market\u2019s resolution.\n\nA day will be considered finalized once the following day\u2019s status box has a display color other than the grey color used for days that have not yet begun.\n\nThis market will resolve once the final day of the specified month is finalized. If the final day of the specified month has not been finalized by the end of the 7th calendar date after the specified month (ET), this market will resolve based on the days that have been finalized up to that time.\n\nThe primary resolution source for this market will be the Claude Status historical uptime page for the claude.ai component (https://status.claude.com/uptime/).",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "The Claude status incidents feed shows claude.ai leaving operational status on 9 distinct UTC days in October already (5, 6, 21, 22, 23, 24, 25, 27, 28), above the 5-7 range, and no day can be removed once it has been marked non-operational. For the answer to be 5-7, at least two of those nine days would have to show a green box on the uptime page, which is unlikely, because Statuspage colours a day by the component's status changes; I could not see the box colours directly, hence not the minimum.",
+          "sources": [
+            "https://status.claude.com/api/v2/incidents.json",
+            "https://status.claude.com/incidents/lqhknfdjrcst",
+            "https://status.claude.com/incidents/h101vcmhnfky"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.12,
+          "rationale": "The incidents feed shows claude.ai left operational status on 9 distinct days in October (5, 6, 21, 22, 23, 24, 25, 27, 28), which already exceeds the 5-7 range. For the answer to be Yes, at least 3 of those 9 days would need to not display as non-green on the uptime page, which is unlikely given confirmed component status changes. Days 29-31 are not yet finalized and can only add to the count, further pushing it above 7. The main uncertainty is whether the uptime page's color mapping perfectly aligns with the incidents feed, but the base rate (9 days) strongly suggests the final count will be 8 or more."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "The base rate from recent months shows 7 days with downtime in September and 12 in August, so 5-7 is plausible but not the norm. October already has at least 9 days where claude.ai left operational status (5, 6, 21, 22, 23, 24, 25, 27, 28), and 3 more days remain (29-31) that could only add to the count. With 9 days already recorded and 3 days left, the probability of finishing in the 5-7 range is very low unless several of those days show as green on the uptime page, which seems unlikely given the documented incidents."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.1,
+          "rationale": "The incidents feed shows claude.ai leaving operational status on 9 October days (5, 6, 21\u201325, 27, 28), and days 29\u201331 can only add more. For the answer to land at 5\u20137, at least 2\u20134 of those days would need to show green on the uptime page. That is possible if some component changes were very brief or only appear as notes, but Statuspage usually colors any day with a component status change. The mapping is inferred and unchecked, so I leave some probability for it, but the count is most likely 9 or more."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.805
+        }
+      ],
+      "id": "polymarket-5166925",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/will-claude-go-down-on-days-in-october",
+      "status": "pending",
+      "title": "Will Claude go down 5-7 times in October?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.05,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT Low prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "Binance XRPUSDT's October low is 1.2546 (24 Oct) and Oct 28's low was 1.3078; XRP was about $1.29 on 29 Oct, so $1.20 is roughly 7% below spot with about 2.7 days left. That is a bit over one sigma at XRP's usual volatility but the recent range has been tight (1.25-1.36), a late-month undercut of the earlier low by 4.35% or more has happened in only 3 of 94 months, and the 24 Oct selloff stopped well short. It is correlated with the Ethereum dip question and priced a little below it because the distance is larger.",
+          "sources": [
+            "https://tradervilla.com/public/coin/xrpusdt/month-summary/october-2026",
+            "https://www.cryptodatadownload.com/cdd/Binance_XRPUSDT_d.csv",
+            "https://cryptobriefing.com/us-spot-xrp-etfs-4-million-inflows/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a monthly low \u2264$1.20 is around 18%, but with only three days left in October and the current monthly low at $1.2546 (4.5% above the strike), a sudden drop would be needed. Historically, only 3 of 94 months saw a >4.35% decline in the final days to undercut the existing low. Current market conditions show no imminent sell-off catalyst, with ETF inflows suggesting stability, so the probability is low but non-negligible due to crypto's potential for sharp intraday moves."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate is low: only 4 of 22 completed months (Dec 2024\u2013Sep 2026) saw a daily low at or below $1.20, and in 94 completed months the last days undercut the day 1\u201328 low by 4.35% or more in only 3 cases. The current month's low is $1.2546 (Oct 24), requiring a further ~4.5% drop from that low (or ~7% from the current ~$1.29) in just 3 remaining trading days, with no obvious catalyst and ETF flows modestly positive. A broad crypto sell-off could push it there, but the evidence points strongly toward No."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.05,
+          "rationale": "The recent unconditional base rate is 4 of 22 months (18%) touching $1.20, but that is poorly conditioned on nearly a full month having elapsed without a hit. XRP's Binance month low is $1.2546 and it is around $1.29, so another roughly 7% decline is needed; the closest analogue\u2014final days undercutting the day-1-to-28 low by at least 4.35%\u2014occurred in only 3 of 94 months (3.2%). Modest ETF inflows and continued range trading favor No, while a sharp broad crypto selloff or continuation of the month's downside momentum could still produce a Yes."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Through 28 October the lowest Binance daily low is 1.2546, and price is about 1.29-1.33 on 29 October, roughly 7% above $1.20, with about 2.5 days left. At about 2% daily volatility that is a roughly 2-sigma touch, which comes to about 3-5% allowing for fat tails. Historically, late-month undercuts of 4.35% or more below the earlier low are rare (3 of 94 months). A sudden broad crypto sell-off could change this."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.125
+        }
+      ],
+      "id": "polymarket-5170825",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/what-price-will-xrp-hit-in-october-2026",
+      "status": "pending",
+      "title": "Will XRP dip to $1.20 in October?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.68,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the third-highest ranked Company based on the arena.ai Text Arena (Overall) (Style Control On) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall?rankBy=labs with style control on (Adjustments: Style Control) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies third place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.62,
+          "rationale": "On the 27 Oct Text Arena labs table with style control on, Meta (Muse Wonder, 1507) was lab rank 3 behind Google (1528) and Anthropic (1509) and about 19 points above Moonshot at fourth, and Meta was also third on the 22 Oct models table. The risk is mostly a swap with Anthropic (2 points apart, overlapping intervals), which would put Meta second rather than third, with Meta's score drifting down while Anthropic's holds, plus a small chance of a new model from another lab passing 1507.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall?rankBy=labs&styleControl=true",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.6,
+          "rationale": "Meta is currently #3 with a 2-point gap to Anthropic's #2, within statistical noise. A flip between 2nd and 3rd is quite possible over 2 days, but the large gap to 4th makes a drop unlikely. New model releases are rare, so the probability of a disruptive release is low. I estimate a 60% chance Meta remains #3."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.75,
+          "rationale": "Meta is currently ranked #3 in the Labs view with a 2-point gap to Anthropic above it (1507 vs 1509), and the 19-point gap to Moonshot below makes falling to #4 very unlikely. The main risk is a reversal between Anthropic and Meta, but the gap has been widening slightly (Muse Wonder dropped from 1509 to 1507 between Oct 22 and 27 while Opus 5.5 held steady), and no new competing models are expected in the next few days. The 2-point margin is within confidence intervals but the raw rank is determined by actual score, and with ~9M votes accumulated the scores appear relatively stable over the remaining 4 days."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.68,
+          "rationale": "The limited base rate is favorable: Meta was third in both dated snapshots, and the October 27 Labs table has Google first, Anthropic second at 1509, and Meta third at 1507, with the next lab at 1488. However, the two-point gap between Anthropic and Meta is narrow enough for additional votes or a new release to move Meta into second place. Falling to fourth is less likely given the 19-point gap to Moonshot, though new models and uncertainty about the style-control snapshot prevent a higher probability."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.73,
+          "rationale": "On the 27 October labs table with style control on, Meta (Muse Wonder (Max), 1507) is third. It sits just behind Anthropic (Opus 5.5, 1509) and well ahead of Moonshot (1488) and OpenAI (1485). The 28 October report confirms the same ordering. The main risk is the 2-point gap to Anthropic reversing in the next few days, which would make Meta second and Anthropic third. I put that at roughly 15-20%. A new Anthropic or OpenAI release or other score shifts, and the unconfirmed style-control toggle on the scraped page, add a little more risk. Falling to fourth looks unlikely given the 19-point gap behind Meta."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8795
+        }
+      ],
+      "id": "polymarket-3572775",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/3-ai-lab-end-of-october-style-control-on",
+      "status": "pending",
+      "title": "Will Meta be the #3 AI Lab at the end of October 2026 (Style Control On)?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.87,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.87,
+          "rationale": "ETH traded about $2,315-2,321 on 29 Oct, roughly 5% above $2,200, with all 28 October daily closes above $2,200 and the month's lowest low at $2,282. The question is the Binance 1-minute close at noon ET on Saturday 1 Nov, about 2.9 days away, so a close below $2,200 needs a drop of more than 5% from here, about a one-sigma move at typical ETH volatility, or somewhat more at the recent calmer pace. Ether ETF outflows and the 28 Oct Fed hold with two hawkish dissents are mild negatives, so I stay under 90%.",
+          "sources": [
+            "https://www.coingecko.com/en/coins/ethereum",
+            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
+            "https://www.coingabbar.com/en/ethereum-eth-tests-2300-support-bears-eye-trendline-fed-holds"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.87,
+          "rationale": "The base rate is extremely strong: all 28 daily sessions in October closed above $2,200, and the lowest intraday low was $2,282.46, still well above the threshold. ETH is currently near $2,315, requiring roughly a 5% drop over 2.5 days to close below $2,200, which is about 1.8 standard deviations given the ~1.78% daily realized volatility. Negative catalysts (ETF outflows, zkLink exploit, hawkish Fed dissent, weak RSI) create tail risk, but breaking the October low would likely require a major new shock; the weekend timing adds some uncertainty due to thinner liquidity."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.86,
+          "rationale": "All 28 October daily closes on Binance ETH/USDT were above $2,200, with the lowest daily low at $2,282.46. Current price is ~$2,315, about 5% above the $2,200 threshold, with a key support zone at $2,280-$2,250 that has held. The bearish momentum (RSI 34.92, ongoing ETF outflows, hawkish Fed dissent) and weekend liquidity on Nov 1 (Sunday) create some downside risk, but a 5% drop in 2.5 days that breaks through the $2,250 support is unlikely. The main risk is a cascade through $2,250 support toward $2,200."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.9,
+          "rationale": "ETH is about $2,320 versus the $2,200 threshold, so it needs a drop of about 5.3% in roughly 3.2 days. Realized daily volatility near 1.8% implies about 3.2% sigma over the horizon, so the threshold is about 1.5 sigma away, giving roughly 7% for a drop. I add a bit for fat tails, weak momentum, ETF outflows and geopolitical risk, which brings the chance of falling below to about 10%."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9365
+        }
+      ],
+      "id": "polymarket-6205303",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-1-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $2,200 on November 1?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.62,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the value of Elon Musk's net worth on October 31, 2026.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nThe resolution source for this market will be the Bloomberg Billionaires Index Elon Musk Profile (https://www.bloomberg.com/billionaires/profiles/elon-r-musk/), specifically the datapoint for the specified date, once the data is finalized. If this resolution source is not available, another credible resolution source will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "Forbes had Musk at $924B before the 29 Oct open, about $24B above the $900B floor and $76B below $1T; his fortune is over 98% SpaceX and Tesla stock and recent daily swings were large (SpaceX -9% on 22 Oct, +$64B on 21 Oct). With two sessions left before the Saturday date, a fall of about 2.6% would leave the band while a rise of 8% would be needed to exceed it, so the lower side is the bigger risk. The resolution is Bloomberg's index, which I could not confirm and may differ from Forbes by a few percent.",
+          "sources": [
+            "https://www.forbes.com/real-time-billionaires/",
+            "https://www.business-standard.com/world-news/elon-musk-is-a-trillionaire-again-as-spacex-claws-back-post-ipo-slump-126100600140_1.html",
+            "https://www.cnbc.com/2026/10/23/spacex-tesla-merger-chatter-takes-center-stage-after-earnings.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.75,
+          "rationale": "Musk's net worth is currently ~$921B per Bloomberg, near the lower bound of $900B. Over two trading days, a 2.3% decline\u2014within recent volatility\u2014would push it below the range, while an 8.7% rally to $1T is far less likely. Given the negative drift and potential for further tech sell-offs, I estimate a 75% chance of remaining in the $900B\u2013$1T range."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "Musk's current Bloomberg net worth is ~$921B, comfortably within the $900B\u2013$1.00T range, with a $21B (~2.3%) downside buffer to $900B and a $79B (~8.6%) upside buffer to $1.00T. Given the recent downward momentum (SpaceX fell 9% on Oct 22 on merger concerns, and he's been trending lower from early-October highs), a 2.3% two-day decline to break below $900B is plausible but not the most likely outcome, while an 8.6% two-day rally to break above $1.00T is less likely given the negative sentiment. The main risk is continued selling on merger uncertainty or a broader tech selloff, but the current level provides a reasonable cushion on both sides."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.56,
+          "rationale": "Elon Musk\u2019s wealth was mostly below $1T during October, and Bloomberg currently shows $921B. From there, exceeding the upper boundary requires roughly an 8.6% gain, while falling below $900B requires only about a 2.3% decline; given recent 8\u201310% moves in SpaceX and volatility in Tesla, that nearer downside threshold is a material risk. Merger-related developments or a broad technology-market move on October 29\u201330 could change the result, leaving Yes with only a modest edge."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.62,
+          "rationale": "The Bloomberg profile shows $921B (last change -$18.5B), which looks like the 28 October close. Forbes agrees at $924B. Only the 29 and 30 October sessions remain, since 31 October is a Saturday. A fall of about 2.3% would take him under $900B, and a gain of about 8.6% would be needed to reach $1.00T. SpaceX and Tesla have been volatile, so I assume a two-day standard deviation of roughly 5%. That gives about a 30-33% chance of dropping below $900B and about 4% of exceeding $1T, leaving roughly 62-64% for the $900B-$1.00T bracket. Merger news or a tech sell-off could move it either way."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.59
+        }
+      ],
+      "id": "polymarket-5166888",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/elon-musk-net-worth-on-october-31-2026",
+      "status": "pending",
+      "title": "Will Elon Musk\u2019s net worth be between $900B and $1.00T on October 31?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.45,
@@ -9713,6 +10504,279 @@
       "source_url": "https://manifold.markets/Jack1/democrats-win-the-2026-special-elec",
       "status": "pending",
       "title": "Democrats win the 2026 Special Election for Senate in Florida?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.03,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "The 1W token sale pool was $5.66M on 17 Oct, $6.08M on 21 Oct and $6.12M on 22 Oct, with only about $10,800 added in the 16 hours before the last reading and 94 wallets providing 85% of the total. Reaching $20M by the 30 Oct 16:00 UTC close would need more than a threefold rise in the final week, and the comparable Shuffle sale only reached $20M because that was its hard cap. I could not verify any figure after 22 Oct, so a late rush keeps this above the floor.",
+          "sources": [
+            "https://gamblefihub.com/post/1win-sale-onchain-94-wallets-85-percent-usdc/",
+            "https://www.coindaro.com/it/launchpad/token-1win-vendita-pubblica-italia/",
+            "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for token sales exceeding $20M is low, and the 1W sale has only reached ~$6.1M as of October 22 with slow growth (~$92k/day). With one day left and no evidence of a surge, a jump to over $20M is highly unlikely, especially given geographic restrictions. A sudden influx of large deposits could change this, but current data suggests minimal chance."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.03,
+          "rationale": "The pool was at ~$6.1M as of October 22, with growth of only ~$10,800 in the last 16 hours and the 94 largest wallets (holding 85% of the pool) showing no new activity. To exceed $20M before the October 30 close, the pool would need to more than triple in roughly 8 days, which is inconsistent with the observed decelerating growth pattern driven by small wallets under $10,000. The only scenario that changes this is a sudden multi-million-dollar deposit from a new or existing large wallet in the final days, but no evidence points to that occurring."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a small-cap token sale exceeding $20M is low, and the evidence shows the pool was only ~$6.1M as of October 22, with growth slowing (only ~$10,800 added in ~16 hours from small wallets). The sale closes October 30 at 16:00 UTC, leaving only about 8 days from the last reading, and the pool would need to more than triple with no evidence of large late-stage commitments. The 94 wallets holding 85% of the pool have not added meaningfully, and geographic restrictions (US, UK, much of EU excluded) limit the addressable market. A late surge from large wallets or a reported total near $15M+ would be needed to shift this estimate upward."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.05,
+          "rationale": "The pool was about $6.1M on 22 October and growing very slowly, with the top wallets unchanged. Passing $20M would need about $14M more in the last week, which would take a major late whale surge. Pro-rata dilution discourages that, though last-minute deposits do happen. Nothing after 22 October is verified, so some residual chance remains."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.905
+        }
+      ],
+      "id": "polymarket-5786294",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
+      "status": "pending",
+      "title": "Will commitments to the 1W public sale exceed $20M?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.7,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "Resolves YES if Phil Scott (R) wins \n\n2026 Vermont gubernatorial election - Wikipedia \n\n[link preview]",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.73,
+          "rationale": "Phil Scott won 71.45% in 2024, was renominated with 93% in August and is seeking a sixth term, but Vermont Public (28 Oct) describes a tighter race: a late-September poll had Democrat Amanda Janoo within 10 points and other surveys suggested a dead heat, with a Republican-funded super PAC spending over $930,000 against her. A lead of that size for a long-serving incumbent in a blue state still wins more often than not, though the Democratic national environment, a midterm electorate and the reported cracks in his coalition leave a real chance of an upset.",
+          "sources": [
+            "https://www.vermontpublic.org/local-news/2026-10-28/phil-scott-built-broad-coalition-now-showing-cracks",
+            "https://www.vermontpublic.org/local-news/2026-10-21/phil-scott-amanda-janoo-vermont-governor-debate",
+            "https://outside.vermont.gov/dept/sos/Elections_Division/election_info_resources/elections_results_data/2024_general_election_official_report_canvassing_committee_united_states_vermont_statewide_offices.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "Scott won 71% in 2024, but 2026 polls show a much tighter race, with one poll having Janoo within 10 points and others suggesting a statistical dead heat. His broad coalition is fracturing, and midterm dynamics may hurt, but his incumbency, name recognition, and heavy outside spending ($930k) still give him an edge. The lack of a clear Janoo lead and Scott's history of winning five times support a moderate favorite status, though uncertainty is high."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.52,
+          "rationale": "Scott's 71.45% win in 2024 establishes a strong incumbent base rate, but the 2026 race is dramatically different: polls show a statistical dead heat or Janoo within 10 points, his coalition is fracturing, approval ratings are sagging, and it's a midterm year with a negative national environment for Republicans. Offsetting factors include his five prior wins, name recognition, $930K+ in outside spending, and a friendly debate performance that may reinforce his moderate image. The evidence points to a genuinely close race where the incumbent edge is real but thin, giving Scott a slight advantage over 50%."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Scott won 71% in 2024 and has won five terms, and Vermont incumbents with his personal popularity are hard to unseat. This cycle is tighter: a late-September Vermont Public poll had Janoo within 10 points, other surveys suggest a dead heat, his approval is sagging, and the national environment favors Democrats. Vermont's strong Democratic lean makes an upset plausible, but he still looks like the clear favorite. A poll showing Janoo ahead or a late shift among independents would lower this."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.76
+        }
+      ],
+      "id": "manifold-Uc2n2NnE6I",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/Jack1/will-phil-scott-win-the-2026-vermon",
+      "status": "pending",
+      "title": "Will Phil Scott win the 2026 Vermont Gubernatorial Election?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.76,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve YES if, following the 2026 United States House of Representatives elections, the Democratic Party wins at least 225 seats.\n\nDefinition of \"Democratic Seat\": Any seat won by a candidate who ran on the Democratic ballot line. Independents who caucus with Democrats do not count toward this total unless they were elected as Democrats.\n\nResolution Source: This market will resolve based on the \"Partisan Breakdown\" table provided by Ballotpedia (link below).\n\nTiming: Resolution will occur once Ballotpedia has called all 435 races. If any race is subject to a recount or legal challenge, resolution will be delayed until a winner is certified or conceded.\n\nSpecial Case: If a seat is vacant on Election Day, it is not counted until the 2026 general election result for that district is finalized.\n\nResolution Link: https://ballotpedia.org/United_States_House_of_Representatives_elections,_2026",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "Democrats started the cycle at 215 seats, so 225 needs a net gain of 10, but Cook's 23 Oct ratings already have 220 seats Solid/Likely/Lean Democratic with 17 toss-ups, so Democrats need only five of 17 toss-ups (or some Republican-rated seats), and the generic ballot averages about D+8.5. A wave of that size typically breaks most toss-ups the same way, and Cook's own flip range of 12 to 22 seats lands at 227-237, but new Republican-drawn maps, the narrow cushion over 225 and a possible late recount or call delay keep this from being near-certain.",
+          "sources": [
+            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate for Democrats reaching 225 seats in midterms under a Republican president is 2 of the last 3 (2006, 2018). Cook Political Report's latest ratings already favor Democrats in 220 seats, with a projected gain of 12-22 seats from their current 215 (yielding 227+), and a generic ballot lead of 8.5 points mirrors the 2018 wave that produced 235 seats. The main risk is a polling overestimation or an upset in toss-up races, but the evidence points overwhelmingly to a Democratic majority exceeding 225."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate for Democrats reaching 225 in a midterm under a Republican president is 2/3 (2006, 2018), but the current environment is unusually favorable: Cook's ratings already show 220 Democratic-favored seats (only 5 short of 225), the generic ballot averages +8.5% for Democrats, and Cook's own stated range of 12-22 flips from 215 puts the minimum at 227. The main risks are a narrowing generic ballot on Election Day, the structural headwind from new maps favoring Republicans by ~9 districts, and 60 open seats adding volatility, but reaching 225 requires Democrats to win only 5 of 17 toss-ups on top of their 220 favored seats, which an +8.5% environment makes highly probable."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate from 1994-2024 shows Democrats hit 225+ in only 3 of 16 elections, but in midterms under a Republican president (2002, 2006, 2018) they did so in 2 of 3. Current evidence is strong: Cook rates 220 seats as Solid/Likely/Lean Democratic with 17 toss-ups, and the generic ballot shows Democrats +8.5, suggesting they win enough toss-ups and Lean seats to clear 225. Cook's projected flip range of 12-22 seats from 215 puts the most likely outcome above 225. Risks include Republican-favoring new maps, a narrower generic ballot, or underperformance in toss-ups, but the overall environment strongly favors Democrats reaching 225."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.76,
+          "rationale": "Democrats reached 225 in only 3 of 16 elections since 1994, but 2 of 3 midterms under a Republican president. Cook already rates 220 seats Solid, Likely or Lean Democratic, so Democrats need only 5 of 17 toss-ups, and the generic ballot lead of about 8.5 points is close to 2018's, when they won 235. Cook's own range of 12 to 22 flips implies roughly 227 to 237 seats. The main risks are that the new Republican-favoring maps hold up better than the ratings suggest, that toss-ups break toward Republicans, and that some Lean Democratic seats are lost."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.8687
+        }
+      ],
+      "id": "manifold-QtntARQCu9",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/ShaneBo/will-democrats-have-225-or-more-sea",
+      "status": "pending",
+      "title": "Will Democrats have 225 or more seats after the 2026 House Elections?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.3,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "https://gasprices.aaa.com/\n\n[link preview]regular, current DIESEL avg on ELECTION DAY, Tuesday November 3, 2026.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.16,
+          "rationale": "AAA's national diesel average was $6.3347 on 29 Oct, 6.5 cents under $6.40 and down from $6.3499 a day earlier and $6.4391 a month ago (record $6.5276 on 22 Sep). Election Day is 5 days away; weekly EIA moves have been 8-18 cents, so a rise of 6.5 cents is possible, but crude fell about 2% on 29 Oct on renewed US-Iran peace contacts and EIA expects retail distillate to ease gradually after October. The Iran risk after the election and upside spikes in diesel keep this above the floor.",
+          "sources": [
+            "https://gasprices.aaa.com/",
+            "https://www.eia.gov/outlooks/steo/report/petro_prod.php",
+            "https://www.cnbc.com/2026/10/29/oil-price-today-wti-brent.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The current AAA diesel price is $6.3347, about 1% below the $6.40 threshold, with 5 days until Election Day. Historically, weekly EIA diesel prices have rarely exceeded $6.40, but the current environment is near all-time highs. The EIA forecasts a gradual decline, and crude oil prices fell on renewed US-Iran peace talks, though geopolitical risks remain. Given the small gap and daily volatility, a move above $6.40 is plausible but not favored, with a roughly 35% chance."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "The AAA diesel average is $6.3347 on 10/29, about 6.5 cents below the $6.40 threshold, and has been trending down from its September 22 peak of $6.5276. Oil prices are falling (Brent -1.73%, WTI -2.06%) on US-Iran peace talks, and the EIA forecasts gradual decline after October, making a sustained 5-day rally to $6.40 unlikely under current conditions. However, the gap is within the range of a single-day geopolitical shock (e.g., post-election US military action against Iran), and the EIA weekly series has been rising from $6.179 to $6.352 over three weeks, so a surprise spike could close the gap."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "AAA's national diesel average is $6.3347, about 6.5 cents (1.0%) below the $6.4000 threshold, and it was above $6.40 within the past month ($6.4391 a month ago, record $6.5276 on 22 September), so the target is within normal fluctuation for this elevated-price regime even though only one of 1,702 weekly EIA observations ever printed at or above $6.40. Recent weekly gains of $0.076 and $0.097, below-average distillate inventories, and elevated crack spreads keep a 5-day rise of 6.5 cents quite plausible, but EIA expects prices to decline gradually as crude eases, and today's ~2% fall in Brent and WTI on U.S.-Iran peace efforts pushes in the opposite direction. A collapse in peace talks, Houthi attacks, or a fresh crude spike before November 3 would lift the average over the line, while a sustained crude selloff would make it very unlikely; I put this near 30%."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.09,
+          "rationale": "AAA diesel is $6.3347, about 6.5 cents below the $6.40 line with 5 days left. Daily moves are typically 1-2 cents, crude and NY Harbor ULSD were falling, and retail tends to follow wholesale with a lag, so a decline or flat trend is more likely. A sudden Iran-driven spike could push it over, but military action is flagged as coming after the election."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.22
+        }
+      ],
+      "id": "manifold-8cRNsgCScS",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/Jack1/us-average-diesel-price-is-6400-or",
+      "status": "pending",
+      "title": "US Average DIESEL Price Is $6.4000 or more on Election Day 2026?",
       "topic": "Politics",
       "verdict": null
     },
@@ -11471,6 +12535,349 @@
     {
       "actual": null,
       "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.68,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Florida gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "Republicans won all seven Florida governor races from 1998 to 2022 and now hold a 1.55 million active-voter registration lead (Division of Elections, 30 Sep 2026). The final St. Pete Polls survey (25-27 Oct, 916 likely voters) had Donalds 48%, Jolly 46%, within its margin, and returned ballots so far are much closer by party than registration, so this is a real contest. The registration edge, Florida's rightward drift, and polling that has tended to understate Republicans there keep Donalds a clear favorite despite a national environment that favors Democrats.",
+          "sources": [
+            "https://floridapolitics.com/archives/827487-final-st-pete-polls-byron-donalds-leads-david-jolly-48-to-46-as-long-as-republicans-show-up/",
+            "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation",
+            "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.62,
+          "rationale": "Republicans have won the last 7 Florida governor races and hold a 1.55 million voter registration advantage, suggesting a strong base rate. However, the only recent poll shows a narrow 2-point lead within the margin of error, and the national environment is reportedly unfavorable to Republicans. Early voting returns are close, with a slight Republican edge, but the race remains competitive, so the probability is moderately above 0.5."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.62,
+          "rationale": "The base rate is strongly Republican (7-0 streak since 1998), and the R+8 registration advantage (~1.55M) provides a structural edge that typically manifests in Election Day turnout. However, the St. Pete Polls shows only a 2-point lead within margin of error, Jolly leads independents 56-34 (a large pool of 3.35M no-party voters), and the VBM data shows Democrats ahead in returned mail ballots, suggesting a closer race than typical. The unfavorable national environment and the fact that early/VBM totals are roughly even (slightly Democratic) mean the Republican win depends on their usual Election Day turnout surge materializing, which is likely but not guaranteed."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.68,
+          "rationale": "Base rate is very favorable: Republicans have won 7 consecutive Florida governor races and hold an R+8 registration advantage (5.68M vs 4.13M), far larger than 2022. However, the evidence has moved me toward uncertainty: the final St. Pete Polls shows only a 48-46 Donalds lead inside the 3.2-point margin of error, and Jolly leads 58-38 among those who already voted. Early voting data shows Democrats actually leading in VBM returns (685K vs 561K) and closing the gap in early voting, with 55% of Democratic likely voters having voted versus only 39% of Republicans. This Democratic early-voting edge, combined with an unfavorable national environment for Republicans, creates meaningful risk that the structural GOP advantage could be overcome, though Republicans' typical Election Day turnout surge still makes them the favorite."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.83,
+          "rationale": "Republicans have won all seven governor races from 1998 to 2022, and their registration lead has grown to about 1.55M (R+8), up from about 384K in 2022. Returned ballots are nearly even, with about 1.41M Republican versus 1.38M Democratic. Republicans usually dominate Election Day voting, which should add to Donalds's margin. The final St. Pete Polls survey has Donalds up only 48-46, and Jolly leads independents 56-34 and leads among those who have already voted. The national environment is also unfavorable to Republicans. A late poll showing Jolly ahead, or a weaker Republican Election Day turnout than usual, would lower my estimate."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.715
+        }
+      ],
+      "id": "polymarket-629325",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/florida-governor-winner-2026",
+      "status": "pending",
+      "title": "Will the Republicans win the Florida governor race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.38,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Oil < $85; R Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil < $85; D Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; R Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; D Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nOil price: The oil price component will be determined based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the oil price component will be determined based on the Close price for the most recent prior trading day.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for the oil price component will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.49,
+          "rationale": "Oil is not the binding leg: EIA Cushing WTI spot was $103-105 on 26-27 Oct and WTI futures were about $100.7 on 29 Oct, so a close of at least $85 on 2 Nov needs a roughly 15% fall in two sessions, which has a precedent only in the June 2026 peace-driven drop (about 94% likely to stay above). The Senate leg is close to a coin flip: Republicans hold 53 seats, but Democrats are competitive in seven toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas, plus Michigan to hold) in a strongly Democratic environment, so I put Democratic control a little above even and combine it with the oil leg.",
+          "sources": [
+            "https://www.eia.gov/dnav/pet/hist/rwtcd.htm",
+            "https://rollcall.com/2026/10/28/most-vulnerable-senators-midterm-elections/",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.44,
+          "rationale": "Oil is very likely to close at or above $85 on Nov 2 given current spot prices above $100 and EIA's Q4 forecast of $97, with only a small chance of a sudden geopolitical deal causing a drop below $85 in the next few days. Democrats need a net gain of four Senate seats, which is plausible but not favored given the Republican-leaning map and historical midterm trends; I estimate their chances around 45%. The joint probability is slightly below the Senate probability due to the small oil downside risk, with positive correlation between high oil and Democratic gains."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.26,
+          "rationale": "Oil is very likely \u2265$85 on Nov 2 (~87%): current WTI spot is ~$103-105, EIA forecasts Q4 average at $97, and even a significant geopolitical de-escalation would need to produce an ~$18-20 drop in one week to break below $85. Democrats winning the Senate is much less likely (~30%): they need a net gain of 4 seats from a 53-45 deficit, the top 4 vulnerable incumbents are all Republicans (Husted, Collins, Sullivan, Marshall), and the base rate favors the incumbent party holding the chamber (5 of 8 midterms 1994-2022). The combined probability is the product of these roughly independent events, yielding ~26%."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.13,
+          "rationale": "Oil is currently around $103-105 and the EIA forecasts Q4 2026 WTI at $97, making \u2265$85 on Nov 2 fairly likely (~75%), though the June 2026 precedent shows a $20 drop in two weeks is possible if geopolitical tensions ease. Democrats need a net gain of 4 seats to flip a 53-47 chamber, and CQ Roll Call explicitly states this 'looked highly unlikely for much of the cycle' with only 4 named vulnerable Republican incumbents (~18%). The combined probability is roughly 0.75 \u00d7 0.18 \u2248 0.13, with the main upside risk being a Democratic wave that flips more than the 4 most vulnerable seats, and the main downside being a sharp oil sell-off on a US-Iran deal."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.38,
+          "rationale": "Oil is very likely at or above $85: EIA spot was $103\u2013105 on 26\u201327 October and has not been below $85.23 since 21 September. Futures differ from spot and a US-Iran deal could cause a sharp drop, but I put P(oil \u2265 $85) at about 95%. For the Senate, Democrats need a net gain of four seats against a 53-47 Republican majority. A weak Republican environment, with high oil prices, Republicans defending Ohio, Alaska and Kansas, and Ossoff safe, makes a flip plausible but still less likely than not. I estimate about 40% for a Democratic Senate, and treat the two events as roughly independent."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.6475
+        }
+      ],
+      "id": "polymarket-5611882",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/who-wins-the-senate-pending-oil-below-85-before-the-midterms",
+      "status": "pending",
+      "title": "Will oil be at least $85 on November 2 and the Democrats win the Senate?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.46,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if oil is greater than or equal to $80 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nOil price: This market will resolve based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the market will resolve 50-50.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.46,
+          "rationale": "Oil is almost certainly at or above $80: WTI futures were about $100.7 on 29 Oct and EIA spot $103-105 on 26-27 Oct, so the 2 Nov close would need a 20% fall in two sessions (about 97% yes), and 143 of 163 daily prints since 6 March were at least $80. The deciding leg is Republican Senate control, which I put slightly below even: Republicans hold 53 seats and need to lose a net of three to hold only through the vice president's tiebreak, but Democrats are competitive in several Trump-won states in a strongly Democratic environment.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/29/oil-price-today-wti-brent.html",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
+            "https://www.investing.com/news/politics-news/factboxthe-races-that-will-decide-control-of-the-us-senate-4971841"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.58,
+          "rationale": "Oil is currently ~$100.66, and a drop below $80 in four days would require an extreme sell-off; the US-Iran peace talks face hurdles and are unlikely to cause a >20% decline so quickly, making the oil condition very likely (~95%). For the Senate, Republicans hold 53 seats and can afford a net loss of three; Democrats need to flip four seats, which is possible given competitive races in several red states but historically difficult in midterms, so I estimate a ~60% chance Republicans retain control. The joint probability is thus around 0.58."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.38,
+          "rationale": "The oil leg is very likely to resolve Yes: WTI is around $100 and would need to crash ~20% in 4 days to fall below $80, which has not happened even during the June Iran-settlement dip that took ~2 weeks to drop from $95 to $70. I estimate P(oil \u2265 $80) at ~95%. The Senate leg is the binding constraint: Republicans are the president's party in a midterm, and historically the president's party has lost the Senate in most midterms (losing in 1942, 1946, 1950, 1954, 1958, 1966, 1974, 1978, 1986, 1990, 1994, 2006, 2010, 2014, 2018, 2022 \u2014 only gaining or holding in 1962, 1970, 1982, 1998, 2002). Democrats need a net gain of 4, and are competitive in multiple states including Trump-won states, but Republicans can afford to lose 3 seats. I estimate P(Republicans keep Senate) at ~40-45%, giving a combined probability of roughly 0.95 \u00d7 0.42 \u2248 0.40, adjusted slightly down for uncertainty to ~0.38."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.48,
+          "rationale": "WTI is about $100, so the oil leg at or above $80 on Nov 2 is very likely (~97%) even allowing for a peace-deal drop. The Senate leg is close to a toss-up: Republicans hold 53 seats and keep control with 50, but the environment is poor for them (Iran war, prices, Democrats competitive in Trump states). I put Republican control at roughly 50%, giving a combined probability near 0.48."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.3525
+        }
+      ],
+      "id": "polymarket-5567025",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/republicans-win-the-senate-pending-oil-above-or-below-80",
+      "status": "pending",
+      "title": "Will oil be at least $80 on November 2 and the Republicans win the Senate?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.88,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm Minnesota U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Minnesota has elected Democrats (DFL) to the Senate in eight straight contests since 2002, and the 2026 DFL nominee Peggy Flanagan led Republican Michele Tafoya 48-45 in a Rasmussen survey (20-21 Oct) and by 3-4 points in other late-October polls, with NYT/Siena at +14 (that sample leaned further Democratic than 2024). With a Democratic-leaning national environment and an unpopular president, a narrow but consistent lead in a state that leans Democratic gives a high probability, tempered by the open seat and the close majority of polls.",
+          "sources": [
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_minnesota_senate",
+            "https://www.startribune.com/what-to-know-about-polling-as-the-election-draws-near/601906269",
+            "https://mn.electionarchives.lib.umn.edu/office/us-senate/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The DFL has won eight consecutive Minnesota Senate races since 2002, with the closest margin being 5.24 points in 2020. In this open-seat race, Democrat Peggy Flanagan leads in all polls, including a recent Rasmussen survey at +3, and the state's partisan lean (Harris +4 in 2024) favors Democrats. However, the midterm environment and tighter polling than in past races introduce some uncertainty, preventing a higher probability."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "The base rate is extremely strong: 8 consecutive DFL Senate wins in Minnesota since 2002. However, this is the first open seat since 2006, and the polling consensus (excluding the likely-inflated Siena +14) puts Flanagan ahead by only 3-5 points, well within margin of error. The state went +4 for Harris in 2024, and Flanagan's 91% of Democrats plus 43% of independents gives her a structural advantage, but the narrow polls and open-seat dynamics make this less certain than Klobuchar's 2024 race. A late surge for Tafoya or a polling miss could flip this, but the weight of evidence favors Flanagan."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.88,
+          "rationale": "The DFL has won eight consecutive Minnesota Senate elections, and its nominee Peggy Flanagan leads every cited poll, with most clustering at a 3\u20134 point advantage. This supports a high-80s probability despite the New York Times/Siena poll showing an unusual 14-point lead. The open seat, potential third-party vote, polling error, and a late break toward Michele Tafoya leave some meaningful upset risk."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.9,
+          "rationale": "Minnesota has elected a DFL senator in every Senate race since 2002, and the DFL nominee Flanagan leads in every poll cited, by 3 to 14 points. The Rasmussen result of +3, with 7% unsure, is the tightest of the independent polls. The Tafoya internal still shows her trailing by 3.4. The 2026 national environment appears to favor Democrats, since the midterm is under a Republican president. Polling misses of 3 to 4 points are possible, and a high-profile Republican candidate could narrow the race, so I stay short of extreme confidence. A delayed call would not change the winner, since certification is the fallback."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.915
+        }
+      ],
+      "id": "polymarket-630818",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/minnesota-senate-election-winner",
+      "status": "pending",
+      "title": "Will the Democrats win the Minnesota Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.85,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm New Hampshire U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Democrats have won New Hampshire's Senate seat in the last four cycles (2014-2022), and Democrat Chris Pappas led Republican John Sununu 50-43 (Saint Anselm, 19-20 Oct, 1,672 likely voters) and 48-41 (UMass Lowell/YouGov, fielded 2-19 Oct), with Trump at 38% approval in the state. The open seat and Sununu's name recognition (the 2010 open seat went Republican) leave some risk, as does a UMass Lowell lead inside its stated margin, but a 7-point lead in two polls in a Democratic-leaning environment makes Pappas a strong favorite.",
+          "sources": [
+            "https://www.anselm.edu/about/anselmian-hub/news/new-saint-anselm-college-poll-finds-democrats-leading-congressional-races-affordability-concerns-shape-election-landscape",
+            "https://www.uml.edu/news/press-releases/2026/102826-new-england-polls.aspx",
+            "https://news.ballotpedia.org/2026/10/07/new-hampshire-u-s-senate-race-between-chris-pappas-d-and-john-sununu-r-will-help-determine-control-of-the-chamber/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "Democrats have won the last four New Hampshire Senate races, and recent polls show Chris Pappas leading John Sununu by 7 points (outside the margin of error). Trump's low approval (38%) and the state's federal Democratic lean favor Pappas, though Sununu's name recognition and the open seat introduce some risk of a late shift."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "The base rate is strongly Democratic: NH has gone Democratic in all four Senate races since 2010 (4/4). Two recent polls (Saint Anselm 50-43, UMass Lowell 48-41) show Pappas leading by 6-7 points, well above their margins of error, and Trump's 62% disapproval rate creates a favorable environment for the Democrat. The main factors keeping this below 0.90 are that this is an open seat (the one prior open-seat race in 2010 went Republican), Sununu is a well-known former senator, and the state has been a Republican trifecta since 2020, which could provide organizational advantages on election day."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.84,
+          "rationale": "Democrats have won New Hampshire\u2019s last four Senate elections, although the sole open-seat election in that stretch went Republican in 2010, so this is not a routine Democratic hold. Two recent polls put Pappas ahead by 6\u20137 points, supported by the state\u2019s consistent Democratic presidential voting and Trump\u2019s 62% disapproval in one survey. The Republican trifecta, Sununu\u2019s name recognition, and possible late tightening or polling error keep the race meaningfully uncertain."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.85,
+          "rationale": "New Hampshire leans modestly Democratic, and Democrats have won every Senate race there since 2010. Two late-October polls show Pappas ahead: Saint Anselm 50-43 and UMass Lowell/YouGov 48-41. The national environment looks bad for Republicans, with Trump at 38% approval in the state. Sununu has name recognition and the state is open-seat and independent-minded, and polls can miss by several points, so some uncertainty remains. A 7-point lead a week out typically converts to roughly 85-90% odds, and I shade down slightly for polling error."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.915
+        }
+      ],
+      "id": "polymarket-630844",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/new-hampshire-senate-election-winner",
+      "status": "pending",
+      "title": "Will the Democrats win the New Hampshire Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 7,
         "method": "combined_median_v1",
         "probability": 0.78
@@ -11675,6 +13082,62 @@
       "source_url": "https://manifold.markets/EvanDaniel/will-there-be-another-assassination-StRlcEuPUp",
       "status": "pending",
       "title": "Will there be another assassination of a US politician before the 2026 midterms?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 3,
+        "method": "combined_weighted_v1",
+        "probability": 0.47,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98
+        }
+      },
+      "detail": "Resolution criteria\n\nThis market resolves to \"YES\" if both of the following conditions are met:\n\nThe national average price of a gallon of regular gasoline reaches or exceeds $4.50 at any point between April 5, 2026, and the date of the 2026 midterm elections. This data will be verified using the AAA Gas Prices national average tracker.\n\nThe Democratic Party holds a majority of seats in both the U.S. House of Representatives and the U.S. Senate following the results of the 2026 midterm elections.\n\nThe market resolves to \"NO\" if gasoline prices do not reach or exceed $4.50 during the specified timeframe, or if the Democratic Party fails to secure control of either chamber of Congress. If official election results are contested, the market will resolve based on the certified results provided by the Federal Election Commission (FEC).\n\nBackground\n\nThe 2026 midterm elections will determine the composition of the 120th U.S. Congress. Historically, the party of the sitting president often faces challenges in midterm elections, which can impact the legislative agenda and the party's ability to maintain control of the House and Senate.\n\nGasoline prices are a significant economic indicator often cited in political discourse regarding inflation and voter sentiment. Traders should consider the historical correlation between energy prices and incumbent performance, alongside current polling data and projections for the 2026 election cycle as they become available.\n\nThis description was generated by AI.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "The gasoline leg is already met: AAA reported the national regular average at $4.564 on 21 May 2026, above $4.50 inside the 5 Apr to election window, so the question reduces to whether Democrats win both chambers. Democrats need a net gain of three House seats (Cook rates 220 seats Solid/Likely/Lean Democratic, with a generic ballot near D+8.5) and a net gain of four in the Senate where Republicans hold 53; I put the House near 90% and the Senate near 52%, with a wave making the two positively correlated, and a small deduction for resolver risk on the gas leg and timing.",
+          "sources": [
+            "https://gasprices.aaa.com/memorial-day-weekend-gas-prices-reach-four-year-highs/",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
+            "https://www.cookpolitical.com/ratings/senate-race-ratings"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.73,
+          "rationale": "The gas price condition is already satisfied (AAA reported $4.564 on May 21, 2026). The question reduces to whether Democrats win both chambers. Historically, the president's party loses both chambers in about 4 of 11 midterms when starting with both, but current conditions differ. Cook rates 7 Senate toss-ups (6 GOP-held, 1 Dem-held) with NC and GA Likely Democratic, meaning Democrats have a plausible path to net +4. The House is very close, with Democrats needing a net gain of 3-4 seats. Given Trump's low approval (33-35%), a strong Democratic performance is likely, but uncertainty remains. I estimate a 73% chance."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.45,
+          "rationale": "The gas condition is already met: AAA reported a $4.564 national average on 21 May 2026, which is inside the window. The question therefore reduces to whether Democrats win both chambers on 3 November. The base rate for the opposition winning both chambers is about 4 of 11 midterms, but this environment is much stronger than usual for Democrats: Trump's approval is in the low-to-mid 30s and gas prices are high. The House needs only a net gain of 3 seats, which looks likely (about 85-90%). The Senate needs a net gain of 4. North Carolina and Georgia are rated Likely Democratic, so Democrats would still need about 3 of the 6 Republican-held toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas) while also holding Michigan. That is roughly a coin flip, perhaps slightly better given the wave-like conditions. Some risk remains that close races, such as Alaska, are not called by the 5 November resolution date."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.5327
+        }
+      ],
+      "id": "manifold-npRtO25zAZ",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/vdb/gas-exceeds-450-and-democrats-contr",
+      "status": "pending",
+      "title": "Gas exceeds $4.50, and democrats control both House and Senate?",
       "topic": "Politics",
       "verdict": null
     },
@@ -12413,14 +13876,14 @@
     }
   ],
   "summary": {
-    "brier": 0.19770848182669215,
+    "brier": 0.19069921596772804,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 145,
-    "resolved": 43,
-    "right": 26,
+    "pending": 165,
+    "resolved": 45,
+    "right": 28,
     "toss_ups": 1,
-    "total": 191,
+    "total": 213,
     "unscored": 3,
     "wrong": 16
   },
