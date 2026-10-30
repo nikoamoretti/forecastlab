@@ -1,0 +1,1808 @@
+{
+  "cost_usd": {},
+  "failed": {
+    "polymarket-629183": "ValueError: the reply is not valid JSON: Extra data"
+  },
+  "findings": {
+    "manifold-9ChtPnQ598": {
+      "base_rate": "Reference class: U.S.\nsenators appointed since 1990 who then ran to keep the seat, counted by Pew Research Center from Senate Historical Office records through August 6, 2026.\nOf 43 appointees, 27 ran; of 24 whose elections were already decided, 17 won and 7 lost.\nAmong those 7 losses, 2 were primary defeats, 3 were general-election losses after winning the nomination, and 2 were losses in a blanket-primary runoff.\nThe earlier 1960\u20131989 class was weaker: 11 wins among 29 appointees who sought election.\nSibling succession is rare in that set; the two post-1990 father-to-child appointees who ran",
+      "different_now": "As of October 30, 2026, the primary and withdrawal paths are closed: the State Board of Canvassers certified Graham as the Republican nominee on August 28 after a 52.45% runoff win, so only the November 3 general remains.\nThat already puts her past the primary-loss slice of the post-1990 record.\nWhat differs from a typical successful appointee general is the current polling: late-October surveys put her 1 to 4 points ahead of Annie Andrews, inside the stated error margins, while the same Policy Council survey showed a double-digit Republican lead in the governor\u2019s race.\nECU also reported Andre",
+      "facts": [
+        {
+          "fact": "On July 13, 2026, Gov.\nHenry McMaster appointed Darline Graham to the U.S.\nSenate vacancy caused by Lindsey O.\nGraham\u2019s death; the certificate was laid before the Senate on July 14, 2026.",
+          "source": 2
+        },
+        {
+          "fact": "State law set a special Republican primary for August 11, 2026, a runoff if needed on August 25, and kept the general election on November 3, 2026; her appointment runs until January 3, 2027.",
+          "source": 1
+        },
+        {
+          "fact": "On August 28, 2026, the South Carolina State Board of Canvassers unanimously certified Darline Graham as the Republican nominee after she received 52.45% in the special primary runoff.",
+          "source": 0
+        },
+        {
+          "fact": "Pew Research Center, using Senate Historical Office data current through August 6, 2026, found that of 24 appointed senators since 1990 whose elections were decided, 17 won and 7 lost; 3 of those losses came after winning a party nomination and then losing the general election.",
+          "source": 3
+        },
+        {
+          "fact": "Between 1960 and 1989, Pew reported 29 appointees sought election and 11 won (38%), a weaker record than the post-1990 period.",
+          "source": 3
+        },
+        {
+          "fact": "Since 1990, the two appointed senators who succeeded a father, Lincoln Chafee and Lisa Murkowski, both later won election; Jean Carnahan, appointed after her husband\u2019s death, lost a 2002 special election, and Jocelyn Burdick did not run.",
+          "source": 3
+        },
+        {
+          "fact": "An ECU poll of 955 likely South Carolina voters, fielded October 19\u201324, 2026, and released October 29, had Darline Graham at 51% and Annie Andrews at 47%, inside a \u00b13.7 point credibility interval.",
+          "source": 4
+        },
+        {
+          "fact": "A South Carolina Policy Council/Targoz poll of 895 likely or already-voted voters, conducted October 16\u201325 and reported October 26, had Graham at 47% and Andrews at 46%, with Kasie Whitener at 2%, Mark Hackett at 1%, and 4% undecided; the same poll had Republican Alan Wilson leading the governor\u2019s race 51% to 41%.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "No official general-election results exist; Election Day is November 3, 2026, and the South Carolina State Election Commission has not published a canvass.",
+        "Early voting continues through October 31, 2026, so the composition of the electorate is still changing.",
+        "The two late-October polls disagree on the size of Graham\u2019s lead (51\u201347 versus 47\u201346) and both gaps sit inside their margins of error.",
+        "Libertarian Kasie Whitener and Constitution Party candidate Mark Hackett are on the measured ballot and drew a combined 3% in the Policy Council poll; their final share is unknown.",
+        "Pew\u2019s appointed-senator counts stop at August 6, 2026, before this runoff was certified, and they mix special and full-term elections across states, so they are not a South Carolina-only baseline."
+      ]
+    },
+    "manifold-IPth6E2ZRI": {
+      "base_rate": "Reference class: U.S.\nmidterm House elections, 1938\u20132022 (22 elections), from the American Presidency Project seat-change table.\nThe president\u2019s party lost House seats in 20 and gained seats in 2 (1998 and 2002).\nEvery loss was at least 4 seats.\nA second count, using the House Historian\u2019s initial party divisions for the Congress sitting before each of those midterms: the president\u2019s party started with a House majority in 14 of the 22 (1938, 1942, 1946, 1950, 1954, 1962, 1966, 1978, 1994, 2002, 2006, 2010, 2018, 2022) and lost that majority in 7 of those 14 (1946, 1954, 1994, 2006, 2010, 2018, ",
+      "different_now": "Republicans\u2019 post-2024 majority was 220\u2013215, so a net loss of 3 seats would put Democrats at 218.\nThat cushion is smaller than in most of the 14 midterms above in which the president\u2019s party held the House, which pushes toward a change of majority if the usual seat loss occurs.\nOffsetting that, the 2026 map has fewer presidential-marginal Republican seats than 2018 (33 versus 43; only 8 seats Trump lost), which pushes toward smaller Democratic gains than a typical midterm wave.\nTrump\u2019s listed adult approval in mid-October 2026 polls is in the low-to-mid 30s, below the late-October Gallup readi",
+      "facts": [
+        {
+          "fact": "The 2026 House elections for all 435 voting seats are scheduled for November 3, 2026, and 218 seats are a majority.",
+          "source": 6
+        },
+        {
+          "fact": "Initial election results for the 119th Congress (2025\u20132027) were 215 Democrats and 220 Republicans.",
+          "source": 1
+        },
+        {
+          "fact": "The House Press Gallery lists the 119th Congress as 218 Republicans, 214 Democrats, and 1 Independent.",
+          "source": 2
+        },
+        {
+          "fact": "The American Presidency Project\u2019s midterm table, last updated July 13, 2026, lists the president\u2019s party in 2026 as Republican, with 220 House seats to defend, and leaves the 2026 House seat change blank.",
+          "source": 0
+        },
+        {
+          "fact": "On that same table, from 1938 through 2022 the president\u2019s party lost House seats in 20 midterms and gained seats in two: 1998 (+4) and 2002 (+8).\nThe smallest loss in that span was 4 seats (1962).",
+          "source": 0
+        },
+        {
+          "fact": "On October 23, 2026, the Cook Political Report rated 220 House seats Solid, Likely, or Lean Democrat, 198 Solid, Likely, or Lean Republican, and 17 Toss Ups.",
+          "source": 3
+        },
+        {
+          "fact": "University of Virginia Center for Politics calculations reported by CNN on February 15, 2026, put Republicans defending 8 seats Trump lost in 2024 and 25 he carried by no more than 4 points above his national vote share (33 such seats, versus 43 in 2018).",
+          "source": 4
+        },
+        {
+          "fact": "The American Presidency Project\u2019s adult-approval series lists an AP-NORC poll of October 8\u201312, 2026, at 35% approve and 64% disapprove, and a Reuters/Ipsos poll of October 16\u201319, 2026, at 31% approve and 66% disapprove.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "Ballots for November 3, 2026, have not been counted, and the House Clerk has not published official 2026 election results.",
+        "Seventeen House races were still rated toss-ups by Cook on October 23, 2026, so those seats can move the majority either way.",
+        "Late turnout, undecided voters, and any recounts or contested certificates can change the seat total after Election Day.",
+        "The Clerk\u2019s official list of members is dated October 1, 2026, and the Press Gallery counts reflect vacancies and one independent, which is not the same figure as the 435 seats that will be filled by the election."
+      ]
+    },
+    "manifold-IdOgSACPIz": {
+      "base_rate": "Reference class used here: the two Los Angeles mayoral general elections whose official canvasses were opened for this note, May 21, 2013 and November 8, 2022.\nThe primary leader won the 2013 general (Garcetti, 54.23%).\nIn 2022 the general was won by Karen Bass, who had finished second in that year\u2019s primary and was not the incumbent (509,944 to Caruso\u2019s 420,030).\nThat is 1 of 2 generals won by the primary runner-up.\nNeither opened case was an incumbent forced into a runoff, so that narrower class has no counted outcomes in these sources.",
+      "different_now": "Both candidates are on the November 3, 2026 ballot, so a non-advance (n/a) outcome is already closed.\nBass led the June 2, 2026 primary but with 34.26%, and Pratt\u2019s 25.52% exceeds the Bass\u2013Raman gap.\nThe late-October Berkeley/Times poll is a 40\u201340 tie after Raman led 39\u201328 in September, with Bass gaining among Pratt voters (41% to 14%) while 45% of those voters and 19% overall remain undecided.\nBass\u2019s 65% unfavorable rating and Raman\u2019s new net-negative image make this unlike an uncompetitive incumbent reelection.\nEarly returns cut the other way: voters over 65, where Bass is stronger, have ret",
+      "facts": [
+        {
+          "fact": "On the June 2, 2026 Los Angeles primary final summary, Karen Ruth Bass received 292,593 votes (34.26%), Nithya Raman 247,781 (29.01%), and Spencer Pratt 217,977 (25.52%).",
+          "source": 0
+        },
+        {
+          "fact": "The City Clerk certified list for the November 3, 2026 general municipal election names Nithya Raman and Karen Ruth Bass as the two candidates for mayor.",
+          "source": 1
+        },
+        {
+          "fact": "A Berkeley IGS/Los Angeles Times poll of 2,197 likely city voters, fielded October 19\u201325, 2026, showed Bass and Raman each at 40% with 19% undecided, and a margin of error of about three points.",
+          "source": 2
+        },
+        {
+          "fact": "In that October poll, 41% of June Pratt voters favored Bass, 14% favored Raman, and 45% were undecided, compared with 22% Bass, 16% Raman, and 63% undecided in the September poll.",
+          "source": 2
+        },
+        {
+          "fact": "The same October poll put Bass\u2019s image at 32% favorable and 65% unfavorable, and Raman\u2019s at 42% favorable and 49% unfavorable.",
+          "source": 2
+        },
+        {
+          "fact": "The Times reported on October 28, 2026 that Pratt\u2019s primary vote was nearly five times the roughly 44,800-vote gap between Bass and Raman, and that Rick Caruso said he would vote for Bass.",
+          "source": 3
+        },
+        {
+          "fact": "As of the October 29, 2026 Times report, 13% of eligible Los Angeles voters ages 18\u201334 had returned ballots, compared with 47% of those over 65, while the poll had Raman ahead 74% to 16% among voters ages 30\u201339.",
+          "source": 4
+        },
+        {
+          "fact": "In the November 8, 2022 Los Angeles mayoral general, the county final canvass listed 509,944 votes and 420,030 votes beside Karen Ruth Bass and Rick J.\nCaruso, with 952,389 ballots cast in the city contest.",
+          "source": 5
+        },
+        {
+          "fact": "In the May 21, 2013 Los Angeles mayoral general, certified June 7, 2013, Eric Garcetti received 222,300 votes (54.23%) and Wendy J.\nGreuel 187,609 (45.76%).",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "No official results exist yet for the November 3, 2026 election.",
+        "About 19% of likely voters, and 45% of Pratt primary voters, were still undecided in the October 19\u201325 poll, which has a margin of error of about three points.",
+        "Most ballots were still outstanding as of October 28\u201329, and the age gap in returns may or may not persist through Election Day.",
+        "The 2013 and 2022 canvasses do not include a counted series of incumbent Los Angeles mayors forced into a runoff, so the historical rate for that exact situation was not established from the pages opened here."
+      ]
+    },
+    "manifold-uODgxBgIoHZWqFqHGPbe": {
+      "base_rate": "Reference class: the two most recent Florida gubernatorial general elections with official Division of Elections totals reviewed here, 2018 and 2022.\nThe Republican nominee won both (2 of 2): DeSantis by 49.6% to 49.2% in 2018, and DeSantis by 59.4% to 40.0% in 2022.\nA longer official series was not recompiled from one opened primary table in this pass.",
+      "different_now": "This is an open seat under the consecutive-term limit, with Byron Donalds as the Republican nominee and David Jolly as the Democratic nominee, plus several minor-party, no-party, and write-in tickets.\nActive registration as of September 30, 2026 still favors Republicans by about 1.55 million (5,678,755 to 4,133,397), which points the same way as the recent Republican wins.\nLate October surveys put Donalds ahead by 2 points, inside the margin of error, and party-of-registration early and mail ballots were nearly even (a Republican edge of 12,766 out of 3.15 million), which makes this contest lo",
+      "facts": [
+        {
+          "fact": "Florida elects its governor at the statewide general election in even-numbered years that are not multiples of four, for a four-year term, so 2026 is a scheduled gubernatorial election year.",
+          "source": 0
+        },
+        {
+          "fact": "The Florida Constitution bars anyone who has served, or but for resignation would have served, more than six years as governor or acting governor in two consecutive terms from being elected governor for the succeeding term.",
+          "source": 0
+        },
+        {
+          "fact": "On the Division of Elections listing for the November 3, 2026 general election, Byron Donalds (REP), with running mate Bryan Avila, is marked Qualified and Won in the primary, and David Jolly (DEM), with Gwen Graham, is marked Qualified and Won.",
+          "source": 1
+        },
+        {
+          "fact": "The same listing shows additional qualified general-election tickets, including Libertarian Scott Eckhard Jewett (unopposed in the primary) and several no-party and write-in tickets.",
+          "source": 1
+        },
+        {
+          "fact": "As of September 30, 2026, Florida had 13,672,122 active registered voters: 5,678,755 Republican, 4,133,397 Democratic, 514,782 minor-party, and 3,345,188 no party affiliation.",
+          "source": 2
+        },
+        {
+          "fact": "In the November 6, 2018 general election, official results listed Ron DeSantis (REP) with 4,076,186 votes (49.6%) and Andrew Gillum (DEM) with 4,043,723 (49.2%).",
+          "source": 3
+        },
+        {
+          "fact": "In the November 8, 2022 general election, official results listed DeSantis / Nu\u00f1ez (REP) with 4,614,210 votes (59.4%) and Crist / Hernandez (DEM) with 3,106,313 (40.0%).",
+          "source": 4
+        },
+        {
+          "fact": "A University of North Florida Public Opinion Research Lab telephone survey of 1,471 likely voters, conducted October 12\u201319, 2026, and reported October 21, found Donalds at 49% and Jolly at 47%, with 4% undecided and a margin of error of plus or minus 2.81 points.",
+          "source": 5
+        },
+        {
+          "fact": "A St.\nPete Polls survey of 916 likely voters conducted October 25\u201327, 2026, and reported by Florida Politics on October 28, found Donalds at 48% and Jolly at 46%, inside a plus or minus 3.2-point margin of error.",
+          "source": 6
+        },
+        {
+          "fact": "Florida Politics, citing the Division of Elections, reported that as of Tuesday morning, October 27, 2026, 1,257,198 registered Republicans and 1,244,432 registered Democrats had cast mail or early ballots, a Republican edge of 12,766 ballots out of 3.15 million cast.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "How the remaining Election Day vote splits, and whether registered Republicans turn out at a higher rate than the near-tie in ballots already cast.",
+        "How no-party and minor-party voters break; both late polls showed Jolly ahead among independents.",
+        "Whether votes for the Libertarian, no-party, and write-in tickets change the major-party margin.",
+        "The polls\u2019 leads are inside their margins of error and depend on turnout models that assume a more Republican electorate than current early-ballot party registration.",
+        "Party of registration on a returned ballot does not show which candidate that voter chose."
+      ]
+    },
+    "polymarket-3499790": {
+      "base_rate": "On the RBA cash-rate table, the six 2026 meetings through September produced a 25 basis point rise four times (February, March, May, September) and no change twice (June, August).\nIn the 2022\u201323 hiking phase plus 2026 to date, of the 11 completed meetings that immediately followed a 25 basis point rise (October 2022 through May 2026), the next meeting was another 25 basis point rise seven times and unchanged four times (April 2023, July 2023, December 2023 and June 2026).\nNo move in that set was larger than 25 basis points except earlier 50 basis point steps in June\u2013September 2022, which were ",
+      "different_now": "Compared with the pauses in June and August 2026, the September Board has already restarted tightening and said it would raise again if needed, and the 28 October CPI left both headline inflation (4.3%) and trimmed mean (3.6%) above the 2\u20133% target, with the quarterly trimmed mean at 1.0%.\nBullock and Hauser, speaking in the last ten days, said inflation is likely above the August forecast and that oil and domestic capacity pressures have worsened, which pushes toward another rise.\nOffsetting that, both also stressed lags from the 100 basis points already delivered this year, slowing demand, a",
+      "facts": [
+        {
+          "fact": "The cash rate target is 4.60%, effective 30 September 2026, after a 25 basis point increase decided on 29 September 2026; the next official update is scheduled for 2.30 pm on 3 November 2026.",
+          "source": 3
+        },
+        {
+          "fact": "The 2026 Monetary Policy Board meeting dates include 2\u20133 November, and the September decision was a unanimous 25 basis point rise, with members saying they would increase the cash rate further if required.",
+          "source": 1
+        },
+        {
+          "fact": "In 2026 before November, the cash rate target rose 25 basis points effective 4 February, 18 March, 6 May and 30 September, and was unchanged effective 17 June and 12 August.",
+          "source": 2
+        },
+        {
+          "fact": "On 28 October 2026 the ABS reported CPI inflation of 4.3% in the 12 months to September 2026, up from 4.0% to August, with trimmed-mean annual inflation at 3.6% and a September-quarter trimmed-mean rise of 1.0%.",
+          "source": 4
+        },
+        {
+          "fact": "On 28 October 2026 Governor Bullock said inflation would likely be higher than the August base case, that the cash rate had risen 100 basis points in 2026, and that the Board meeting the following week would ask whether tightening so far was enough to return inflation to target in a reasonable time.",
+          "source": 5
+        },
+        {
+          "fact": "On 21 October 2026 Deputy Governor Hauser said the inflation outlook looked materially worse than in August, that oil prices were about a third higher than assumed then, and that the Board faced a choice between further tightening and holding given a dual mandate and mixed activity.",
+          "source": 6
+        },
+        {
+          "fact": "The September statement said the three earlier 2026 increases had tightened conditions and the economy appeared to be slowing, but inflation was still too high and a further tightening was warranted.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "The November decision has not been announced; the Board meets 2\u20133 November 2026 and the statement is due at 2.30 pm on 3 November.",
+        "The new Statement on Monetary Policy forecasts, also due 3 November, are not yet published, so it is unknown how far the staff have marked up the inflation path.",
+        "It is unknown whether any move would be exactly 25 basis points or a different size; September\u2019s minutes record that members considered a 25 basis point option, not a larger step.",
+        "The Middle East conflict and oil prices can still change before the meeting, and the Board has previously paused after hikes to wait for lags, as in June and August 2026."
+      ]
+    },
+    "polymarket-5194745": {
+      "base_rate": "Reference class: prior monthly ISM Manufacturing PMI headlines.\nIn the 12 months ISM itself lists, October 2025\u2013September 2026, 0 of 12 readings were between 56.0 and 56.9 (high 55.6, low 47.9, average 52.3).\nIn the compiled monthly series displayed for September 2023\u2013September 2026, 0 of 37 readings were in that one-decimal band; the highest shown is 55.6 in July 2026.\nOver the long sample, Trading Economics puts the average at 52.82 from 1948 through 2026, so a 56-handle is above the historical mean, but that source does not give the count of months inside 56.0\u201356.9.",
+      "different_now": "October 2026 ISM has not been published; the latest official print is 54.5, 1.5 points under the bottom of 56.0\u201356.9, and the past year\u2019s peak, 55.6, is still below that band.\nRecent month-to-month moves were small (August \u22121.0 from July, September \u22120.1).\nWhat is specific now and points toward a firmer reading is the 23 October S&P Global flash manufacturing PMI at 56.0, a 53-month high, plus the Empire State index jumping to 25.5, the highest since December 2021.\nWhat points the other way is that S&P Global is not the resolving series, the Philadelphia Fed general-activity index slowed to 20.",
+      "facts": [
+        {
+          "fact": "The latest released ISM Manufacturing PMI, for September 2026, was 54.5, down 0.1 point from 54.6 in August, the ninth straight month of manufacturing expansion.",
+          "source": 0
+        },
+        {
+          "fact": "On ISM\u2019s own last-12-months table, October 2025 through September 2026 prints were 48.8, 48.0, 47.9, 52.6, 52.4, 52.7, 52.7, 54.0, 53.3, 55.6, 54.6 and 54.5; the high was 55.6 and the 12-month average was 52.3.",
+          "source": 0
+        },
+        {
+          "fact": "September 2026 subindexes that enter the PMI included new orders 55.3, production 56.7, employment 52.7, supplier deliveries 59.0 and inventories 48.6; prices were 77.9.",
+          "source": 0
+        },
+        {
+          "fact": "S&P Global\u2019s flash US Manufacturing PMI, a different survey from ISM, was 56.0 in October 2026 versus 55.9 in September, a 53-month high; data were collected 9\u201322 October and the flash was embargoed until 09:45 EDT on 23 October 2026, with final manufacturing data set for 2 November.",
+          "source": 1
+        },
+        {
+          "fact": "The Philadelphia Fed current general activity index fell from 37.8 in September to 20.9 in October 2026, and new orders fell 25 points to 4.3; responses were collected 5\u201312 October and released 15 October 2026.",
+          "source": 2
+        },
+        {
+          "fact": "The New York Fed Empire State general business conditions index rose 18 points to 25.5 in October 2026, its highest since December 2021; responses were collected 2\u20139 October.",
+          "source": 3
+        },
+        {
+          "fact": "A compiled ISM manufacturing series updated 5 October 2026 shows September 2026 at 54.5 and, in the displayed September 2023\u2013September 2026 window, no monthly headline in the 56.0\u201356.9 range; the highest value in that window is 55.6.",
+          "source": 4
+        },
+        {
+          "fact": "Trading Economics lists the September 2026 ISM manufacturing reading at 54.50 after 54.60 in August and states a 1948\u20132026 average of 52.82, with a high of 77.50 in July 1950 and a low of 29.40 in May 1980.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "The October 2026 ISM Manufacturing PMI is not out; the stated release is 2 November 2026 at 10:00 a.m.\nET, and the ISM calendar page did not load when opened.",
+        "S&P Global\u2019s October manufacturing figure is a flash estimate and can be revised when the final is published on 2 November; it uses a different panel and weighting from ISM.",
+        "The New York and Philadelphia Fed surveys cover only those districts and use a zero-centered diffusion index, so they do not map one-for-one onto a national ISM level.",
+        "If ISM does not release October figures by the next report\u2019s scheduled time, the stated fallback is the latest prior month with data, which is September\u2019s 54.5 and is outside 56.0\u201356.9.",
+        "A full count of 56.0\u201356.9 prints back to 1948 was not available from a page that opened; only the 1948\u20132026 average, high and low were."
+      ]
+    },
+    "polymarket-5211630": {
+      "base_rate": "Reference class: latest-vintage seasonally adjusted one-month change in total nonfarm payroll employment (BLS CES0000000001), the same statistic the Employment Situation reports.\nFrom January 2024 through September 2026 (33 months), 11 months were at least +100,000: 6 of 12 in 2024 (175, 206, 228, 155, 134, 237 thousand), 1 of 12 in 2025 (April, +108,000), and 4 of 9 in January\u2013September 2026 (January +160,000, March +214,000, April +148,000, August +133,000).\nThese figures are the October 30, 2026 vintage, including revisions, not each month\u2019s first print.",
+      "different_now": "The latest official month, September 2026, was +29,000, and BLS put the prior 12-month average at +45,000, both under 100,000, so the recent run rate is below the 2024\u20132026 share of months that cleared +100,000.\nADP\u2019s private-sector pulse through the four weeks ending October 10, 2026, which overlaps the payroll reference period around the 12th, was 16,750 jobs a week and slowing, a pace on the order of roughly 70,000 a month if it continued.\nInitial claims at 194,000 for the week ending October 24 show layoffs still very low, which argues against a collapse from separations but does not by it",
+      "facts": [
+        {
+          "fact": "On October 2, 2026, BLS reported seasonally adjusted total nonfarm payroll employment rose by 29,000 in September 2026, after an average monthly gain of 45,000 over the prior 12 months.",
+          "source": 0
+        },
+        {
+          "fact": "In that same October 2 release, BLS revised July 2026 nonfarm payrolls from +21,000 to -10,000 and August 2026 from +162,000 to +133,000, a combined 60,000 downward revision.",
+          "source": 0
+        },
+        {
+          "fact": "The Employment Situation for October 2026 is on the BLS release schedule for November 6, 2026, at 8:30 a.m., and the November 2026 report is scheduled for December 4, 2026, at 8:30 a.m.",
+          "source": 1
+        },
+        {
+          "fact": "The latest BLS vintage of CES0000000001, extracted October 30, 2026, shows seasonally adjusted one-month total nonfarm changes for January 2024 through September 2026; October 2026 is blank, and August and September 2026 are marked preliminary.",
+          "source": 2
+        },
+        {
+          "fact": "For the week ending October 24, 2026, seasonally adjusted initial unemployment claims were 194,000, and insured unemployment for the week ending October 17 was 1,701,000.",
+          "source": 3
+        },
+        {
+          "fact": "ADP reported on October 27, 2026, that for the four weeks ending October 10, 2026, private employers added an average of 16,750 jobs per week and that hiring slowed for a second week.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "The October 2026 Employment Situation has not been published; the scheduled release is November 6, 2026, at 8:30 a.m.\nET.",
+        "Resolution uses the change reported in that release.\nLater revisions can differ, as July\u2019s first reported +21,000 became -10,000 and August\u2019s +162,000 became +133,000.",
+        "If no October figure is out by the date the November report is scheduled (December 4, 2026), the stated rule uses the last available month, which is currently September\u2019s +29,000.",
+        "ADP covers private payrolls only, is preliminary, and is not the BLS total nonfarm series.",
+        "Seasonal adjustment, strikes, weather, and late survey responses can move the October change by tens of thousands and are not yet in the official release."
+      ]
+    },
+    "polymarket-5211634": {
+      "base_rate": "Reference class: first, monthly seasonally adjusted U-3 in the current BLS vintage, January 2016 through September 2026, excluding October 2025 (no release).\nExactly 4.1 percent occurred in 10 of 128 published months.\nSecond, tighter class: a month that itself printed 4.2 percent, July 2024 through June 2026 (seven such months).\nThe following published month was exactly 4.1 percent in 3 of those 7 cases.\nFrom March through September 2026, the published rate was inside 4.1 to 4.3 percent, and it was exactly 4.1 percent in 2 of those 7 months.",
+      "different_now": "September 2026 already printed 4.2 percent, so October must fall by one tenth to resolve at 4.1.\nThe St.\nLouis Fed's unrounded September rate, 4.1754 percent, sits about 0.025 point above 4.15, the usual one-decimal boundary between 4.1 and 4.2, so a small decline would print 4.1 and a small rise would stay at 4.2 or higher.\nThat is closer to 4.1 than the long-run count of exact 4.1 prints, and it matches the recent 4.1-to-4.3 band.\nInitial claims of 194,000 and a 1.1 percent insured unemployment rate in mid-to-late October point to low layoffs, which leans against a jump well above that band,",
+      "facts": [
+        {
+          "fact": "On October 2, 2026, BLS reported the seasonally adjusted unemployment rate for September 2026 at 4.2 percent, with 7.1 million unemployed, and said the rate had stayed between 4.1 and 4.3 percent since March 2026.",
+          "source": 0
+        },
+        {
+          "fact": "Table A-15 for September 2026 lists seasonally adjusted U-3 at 4.3 percent in May 2026, 4.2 in June, 4.1 in July, 4.1 in August, and 4.2 in September.",
+          "source": 1
+        },
+        {
+          "fact": "The BLS LNS14000000 extract dated October 30, 2026 shows seasonally adjusted unemployment of 4.3, 4.4, 4.3, 4.3, 4.3, 4.2, 4.1, 4.1, and 4.2 percent for January through September 2026, and no October 2026 value; October 2025 is marked unavailable because of the 2025 lapse in appropriations.",
+          "source": 2
+        },
+        {
+          "fact": "In that same current vintage, from January 2016 through September 2026, 10 of 128 published months equal 4.1 percent (December 2017, February 2018, November 2021, June, September, October, and December 2024, June 2025, and July and August 2026).\nOctober 2025 is the missing month.",
+          "source": 2
+        },
+        {
+          "fact": "In that vintage, seven months from July 2024 through June 2026 printed 4.2 percent.\nThe next published month was 4.1 percent in three of those seven cases (September 2024, December 2024, and July 2026), 4.2 percent in three, and 4.3 percent in one.",
+          "source": 2
+        },
+        {
+          "fact": "BLS lists the Employment Situation for October 2026 for November 6, 2026, at 8:30 a.m., and the November 2026 report for December 4, 2026, at 8:30 a.m.",
+          "source": 3
+        },
+        {
+          "fact": "The St.\nLouis Fed, using BLS data, put the unrounded unemployment rate at 4.1413 percent in August 2026 and 4.1754 percent in September 2026.",
+          "source": 4
+        },
+        {
+          "fact": "On October 29, 2026, the Labor Department reported seasonally adjusted initial claims of 194,000 for the week ending October 24 and an insured unemployment rate of 1.1 percent, with 1,701,000 insured unemployed, for the week ending October 17.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "The October 2026 U-3 figure has not been published; the scheduled first release is November 6, 2026, and later revisions do not count.",
+        "If October data are not out by the December 4, 2026 November release, the stated rule uses the last available month, which is September 2026 at 4.2 percent.",
+        "The historical 4.1 counts use the revised October 30, 2026 vintage, not each month's first print.",
+        "The unrounded 4.1754 percent figure is a St.\nLouis Fed calculation; the resolution source reports one decimal place.",
+        "Weekly claims cover insured unemployment and are not the household-survey U-3 rate; the October survey week has passed, but the published rate can still differ by a tenth from September without a large change in layoffs."
+      ]
+    },
+    "polymarket-6236213": {
+      "base_rate": "Reference class: completed Binance USDT daily sessions in October 2026 (Oct 1\u2013Oct 29) on the opened day-by-day high table.\nIn 22 of those 29 sessions the daily high was at least $82,000.\nEvery completed 7-day stretch in that sample, from Oct 1\u2013Oct 7 through Oct 23\u2013Oct 29 (23 windows), included at least one session high of at least $82,000, because Oct 23\u2019s high was $82,060.88 and earlier October highs were higher.\nNo completed 7-day window in that October sample failed to print $82,000; Oct 24\u2013Oct 29 is only six sessions, all below $82,000.",
+      "different_now": "The title window is Oct 26\u2013Nov 1, 12:00 a.m.\nto 11:59 p.m.\nET, and only Binance BTC/USDT 1-minute highs count.\nFour of those dates are complete on the Binance daily table and all four highs were under $82,000, topping out at $81,971 on Oct 29 before that session closed at $77,991.89, the month\u2019s weakest day (\u22124.12%).\nThat selloff coincided with reporting of a Binance security breach and followed the Oct 28 Fed hold with two votes for a hike.\nBy about 9:35 a.m.\nUTC on Oct 30, a non-Binance BTC-USD series was near $77,500 with a day high near $78,565, several thousand dollars under $82,000, whil",
+      "facts": [
+        {
+          "fact": "On the Binance USDT daily series compiled for October 2026, the Oct 26, Oct 27, Oct 28, and Oct 29 session highs were $80,844.7000, $81,300.0000, $81,823.0000, and $81,971.0000, and the Oct 29 close was $77,991.8900 after a -4.12% session.",
+          "source": 0
+        },
+        {
+          "fact": "The same October Binance USDT table shows 22 of 29 completed sessions from Oct 1 through Oct 29 with a daily high of at least $82,000; the last such session was Oct 23 at a high of $82,060.8800, and Oct 24 through Oct 29 were all below $82,000.",
+          "source": 0
+        },
+        {
+          "fact": "That October page lists realized daily volatility near 1.48%, a month high of $87,220.0000, and a month low of $77,910.0000, and it leaves Oct 30 and Oct 31 blank.",
+          "source": 0
+        },
+        {
+          "fact": "Yahoo Finance BTC-USD history, a composite rather than Binance BTC/USDT, showed on the morning of Oct 30, 2026 a last price of 77,502.32 as of 9:35:11 AM UTC, with the Oct 30 row high at 78,564.94 and the Oct 29 high at 81,889.95.",
+          "source": 1
+        },
+        {
+          "fact": "CoinDesk's Oct 29, 2026 live coverage, which ended at 11:50 p.m.\nEDT, reported bitcoin near $77,800 and just under $77,000, down about 5% in 24 hours, after it had challenged $82,000 and then traded back to $80,600 earlier that day, alongside a reported Binance security incident described as north of $5 billion stolen with about $2.5 billion frozen.",
+          "source": 2
+        },
+        {
+          "fact": "On Oct 28, 2026, the FOMC held the federal funds target range at 3-3/4 to 4 percent by a 10-2 vote, said inflation remains elevated, and recorded dissents from Lisa D.\nCook and Beth M.\nHammack in favor of a quarter-point increase.",
+          "source": 3
+        }
+      ],
+      "uncertainties": [
+        "Binance\u2019s own kline API was blocked from this location, so the Oct 26\u2013Oct 29 highs are from a third-party Binance USDT daily table, not from the 1-minute chart named as the resolution source.",
+        "A daily high below $82,000 would mean no 1-minute high reached $82,000 inside that exchange day, but the table days are not labeled as Eastern Time, so the ET window edges on Oct 26 and Nov 1 could fall in a neighboring session.",
+        "CoinDesk reported bitcoin challenging $82,000 on Oct 29 while the Binance-attributed daily high was $81,971, so venue and print differences are unresolved.",
+        "Oct 30 was still in progress at the last opened timestamp, and Oct 31 and Nov 1 had not printed; the window runs through 11:59 p.m.\nET on Nov 1, including the U.S.\nclock change that night.",
+        "Further news on the reported Binance incident, withdrawals, or equity and rates markets could still move the Binance BTC/USDT high before the window ends."
+      ]
+    },
+    "polymarket-6236258": {
+      "base_rate": "Reference class: Binance ETHUSDT UTC daily candles from 2026-08-01 through 2026-10-29 (90 sessions; 89 completed next-day lows, 2026-08-02 through 2026-10-29).\nA low at least 3.4% under the prior close \u2014 the gap from the 2026-10-30 kline low of 2174.08 to 2100 \u2014 occurred in 13 of those 89 sessions.\nA low at least 6.8% under the prior close \u2014 the gap from the 2026-10-29 close of 2253.13 to 2100 \u2014 occurred in 0 of those 89 sessions.\nThe largest close-to-next-low drop in that set was about 6.5% (2574.15 to 2406.11).",
+      "different_now": "Inside the Oct 26\u2013Nov 1 ET window, Binance daily lows already printed 2293.09 (Oct 26 UTC), 2233.00 (Oct 29 UTC) and 2174.08 (Oct 30 UTC, candle not closed), so 2100 has not printed in those daily lows, and the remaining gap from 2174.08 is about 3.4% with part of Oct 30 plus Oct 31 and Nov 1 still ahead.\nThat 3.4% one-session close-to-low move showed up 13 times in the 89-session set, which pushes toward a touch relative to a quiet day.\nReaching 2100 from the Oct 29 close would be a 6.8% close-to-low break, which did not occur once in those 89 sessions, and much of today's range is already us",
+      "facts": [
+        {
+          "fact": "On the Binance ETHUSDT daily kline that opened 2026-10-26 00:00 UTC, the low was 2293.09 and the close was 2324.55.",
+          "source": 0
+        },
+        {
+          "fact": "On the Binance ETHUSDT daily kline that opened 2026-10-29 00:00 UTC, the low was 2233.00 and the close was 2253.13.",
+          "source": 0
+        },
+        {
+          "fact": "On the still-open Binance ETHUSDT daily kline that opened 2026-10-30 00:00 UTC, the low read in this pull was 2174.08, with the last price in that same record at 2229.04.",
+          "source": 0
+        },
+        {
+          "fact": "Across the 89 completed Binance ETHUSDT sessions from 2026-08-02 through 2026-10-29 in this kline file, 13 sessions had a low at least 3.4% below the prior session close, and none had a low at least 6.8% below the prior close.",
+          "source": 0
+        },
+        {
+          "fact": "BEA released the September 2026 Personal Income and Outlays report at 8:30 a.m.\nEDT on 2026-10-29; the PCE price index rose 0.5% from August and 3.6% from September 2025.",
+          "source": 1
+        },
+        {
+          "fact": "The Block reported on the evening of 2026-10-29 that Ethereum had slid 5.2% to $2,190 as a Binance exploit, which Chainalysis then estimated at roughly $5.9 billion stolen, intensified a sell-off, and that Binance co-CEO Yi He said the exchange would cover user losses.",
+          "source": 2
+        },
+        {
+          "fact": "FXStreet reported on 2026-10-29 that ETH was down 4.8% and below $2,300, with $224.5 million of ETH liquidations in 24 hours, $187.6 million of them longs.",
+          "source": 3
+        },
+        {
+          "fact": "Investing.com's Binance ETH/USD page, read on 2026-10-30, showed a live day range low of 2,174.08 and a selected-range lowest price of 2,178.71, both above 2,100, while listing a last price of 2,228.86.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "The Oct 30 UTC daily candle was still open in the kline pull, and Oct 31 and Nov 1 ET have not occurred, so later 1-minute lows are unknown.",
+        "Resolution uses the final Low of Binance ETHUSDT 1-minute candles from 00:00 ET on Oct 26 through 23:59 ET on Nov 1; the evidence here is UTC daily lows from data-api.binance.vision, not the binance.com 1m chart.\nThe main api.binance.com endpoint returned a location block.",
+        "Investing.com's Binance history table does not match the vision lows (it showed an Oct 30 low of 2,178.71 in the table and 2,174.08 in the day-range text).",
+        "The Binance support page for the security incident did not load, so whether deposits and withdrawals were still suspended on Oct 30, and how much of the reported theft remained unfrozen, was not confirmed from Binance's own text.",
+        "The Oct 26 UTC candle includes four hours before 00:00 ET.\nIts low of 2293.09 is above 2100, so that overlap does not by itself show a qualifying print."
+      ]
+    },
+    "polymarket-629465": {
+      "base_rate": "Among the three Michigan gubernatorial elections that were open because the incumbent was barred by the two-term limit applying to terms beginning on or after January 1, 1993 (2002, 2010, and 2018), the Republican nominee won 1 of 3, and the party that did not already hold the office won 3 of 3.\nAcross all nine gubernatorial elections from 1990 through 2022, the Republican nominee won 5 and the Democratic nominee won 4.",
+      "different_now": "2026 is the next open seat after two Democratic terms by Gretchen Whitmer, so the three-case open-seat record points toward the party out of office, the Republicans.\nLate-October 2026 surveys point the other way: Mitchell had the Democratic nominee ahead 49% to 44% (inside a 3.9-point margin of error) and MSU/YouGov had her ahead 53.3% to 40.9%.\nThe same MSU release described Trump's standing in Michigan as a headwind for Republicans.\nThe ballot also includes Libertarian, U.S.\nTaxpayers, and Green tickets, and CBS reported that 28% of Mitchell's late-October respondents had already voted.",
+      "facts": [
+        {
+          "fact": "The Michigan Department of State general-election candidate listing for Tuesday, November 3, 2026 lists Jocelyn Benson and Winnie Brinks as the Democratic ticket, filed April 16, 2026, and John James and Jay DeBoyer as the Republican ticket, filed April 20, 2026, with Libertarian, U.S.\nTaxpayers, and Green tickets also listed.",
+          "source": 0
+        },
+        {
+          "fact": "Article V, Section 30 of the Michigan Constitution bars election more than two times as governor for terms beginning on or after January 1, 1993.",
+          "source": 2
+        },
+        {
+          "fact": "In the three open gubernatorial elections after that limit took effect, the Michigan Manual records a Democratic win in 2002 (Jennifer Granholm, 1,633,796 votes), a Republican win in 2010 (Rick Snyder, 1,874,834), and a Democratic win in 2018 (Gretchen Whitmer, 2,266,193).",
+          "source": 1
+        },
+        {
+          "fact": "The official 2022 state general canvass, dated November 8, 2022 and updated January 1, 2024, shows Democrat Gretchen Whitmer with 2,430,505 votes (54.47%) and Republican Tudor Dixon with 1,960,635 (43.94%).",
+          "source": 3
+        },
+        {
+          "fact": "A Mitchell Research survey of 636 likely voters conducted October 26-27, 2026, reported by CBS Detroit on October 29, 2026, had Benson at 49% and James at 44%, with a stated margin of error of 3.9 percentage points.",
+          "source": 4
+        },
+        {
+          "fact": "MSU IPPSR reported on October 26, 2026 that its YouGov survey, interviewed October 2-19, 2026, had Benson leading James 53.3% to 40.9% among likely voters, and that 35% rated Donald Trump's performance excellent or good.",
+          "source": 5
+        }
+      ],
+      "uncertainties": [
+        "The November 3, 2026 election has not been called by the Associated Press, Fox News, and NBC, and official certification is the fallback if those three sources do not agree.",
+        "The Mitchell lead of 5 points sits inside the poll's stated 3.9-point margin of error, and the MSU lead is much larger, so the polls do not agree on the size of the gap.",
+        "Votes still to be cast, early and absentee ballots not yet counted, and the Libertarian, U.S.\nTaxpayers, and Green tickets could change the Republican-versus-Democratic margin.",
+        "A nominee could still be replaced before election day; the listing is current as of the Department of State candidate report, which itself carries no publication date."
+      ]
+    },
+    "polymarket-6301274": {
+      "base_rate": "Reference class: ETHUSDT composite daily closes between $2,200 and $2,300, and whether the close four calendar days later was still above $2,200.\nIn the ChartExchange series from 2025-10-26 to 2026-10-29, that happened in 10 of 15 eligible cases (the closes in that band run from 2026-02-01 to 2026-10-29).\nA wider band of $2,150\u2013$2,300 was 12 of 24.\nOver the same series, a four-day decline larger than about 1.3% (the gap from about $2,229 to $2,200) occurred in 148 of 366 windows, and 158 of 370 daily closes were under $2,200.",
+      "different_now": "The resolution venue is Binance itself, and Binance has withdrawals disabled after a reported $6.3 billion security incident, with resumption expected within 48 hours of Friday's statements, which falls before noon ET on Monday 2026-11-03.\nSpot is only about $30 above $2,200, and the 2026-10-30 session low already printed $2,174.\nThat is a live exchange-security shock sitting inside the resolution window, which the quiet four-day counts above do not include; the pledge to cover user losses and the freeze of roughly $3 billion pull the other way by limiting the direct loss to customers.",
+      "facts": [
+        {
+          "fact": "On 2026-10-30 at 5:57 a.m.\nEDT, ChartExchange showed a composite ETHUSDT last of 2,228.56 and the same last on its Binance field.",
+          "source": 0
+        },
+        {
+          "fact": "The 2026-10-30 ETHUSDT composite session, still open at that print, had a low of 2,174.00 and a high of 2,270.64, so the day had already traded below 2,200.",
+          "source": 0
+        },
+        {
+          "fact": "CoinGecko showed ETH at $2,225.96 with a 24-hour range of $2,178.62 to $2,373.22 and a 7-day range down to $2,178.62.",
+          "source": 1
+        },
+        {
+          "fact": "Binance said on Thursday that $6.3bn of digital assets were impacted and that withdrawals were disabled until the environment was confirmed secure.",
+          "source": 2
+        },
+        {
+          "fact": "On Friday 2026-10-30 reporting, Binance put the incident at about $6.3 billion with about $3 billion frozen, said it would cover losses, and expected to begin resuming withdrawals within 48 hours.",
+          "source": 3
+        },
+        {
+          "fact": "Binance spot ETH/USDT was $2,245 at 00:10 UTC on 2026-10-30, down from $2,311 four hours earlier.",
+          "source": 4
+        },
+        {
+          "fact": "On the ChartExchange ETHUSDT composite daily series from 2025-10-26 through 2026-10-29, of 15 completed days whose close was between 2,200 and 2,300, the close four calendar days later was above 2,200 in 10 cases and at or below 2,200 in 5.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "Binance's public kline API was unavailable from this location, so the Binance price is the ChartExchange Binance field, not the 1-minute ETH/USDT candle the market uses.",
+        "Whether withdrawals actually restart before noon ET on 2026-11-03, and whether more breach details or frozen-fund updates move the price before that candle.",
+        "The base rate uses daily composite closes, while resolution is one Binance 1-minute close at noon ET on 2026-11-03, including weekend liquidity."
+      ]
+    },
+    "polymarket-6301347": {
+      "base_rate": "Reference class: Binance BTC/USDT daily closes from 2026-07-03 through 2026-10-29, not the noon-ET 1-minute close used for resolution.\nThe close was above $82,000 on 25 of 119 days.\nWhen a session already closed below $82,000, the close four days later was above $82,000 in 7 of 90 cases.\nA four-day rise of at least 5.6% occurred in 10 of 115 overlapping windows.",
+      "different_now": "On 2026-10-30 Binance BTC/USDT was still trading in the mid-to-high $77,000s after an October 29 close of $77,991.89 and an intraday low of $76,500.11, about 5.6% under $82,000, with roughly three days until noon Eastern on November 3 (clocks move back to EST on November 1, so that print is 17:00 UTC).\nThat gap is larger than most recent days spent just under $82,000.\nTwo shocks dated October 28\u201330 are not in most of the July\u2013October sample: the FOMC hold at 3.75%\u20134% with two members preferring a hike, and a Binance security incident with deposits and withdrawals suspended.\nBoth line up with t",
+      "facts": [
+        {
+          "fact": "On the Binance BTC/USDT daily candle timestamped 2026-10-29, the open was 81343.51, the high 81971.00, the low 77910.00, and the close 77991.89.",
+          "source": 0
+        },
+        {
+          "fact": "The in-progress Binance BTC/USDT daily candle for 2026-10-30, in a snapshot taken that day, showed an open of 77991.89, a high of 78804.01, a low of 76500.11, and a last price of 77651.15.",
+          "source": 0
+        },
+        {
+          "fact": "Across completed Binance BTC/USDT daily candles from 2026-07-03 through 2026-10-29 (119 sessions), the close was above 82000 on 25 days.",
+          "source": 0
+        },
+        {
+          "fact": "In that same July 3\u2013October 29, 2026 Binance daily series, of 90 sessions that closed below 82000 and had a close four days later, that later close was above 82000 in 7 cases.",
+          "source": 0
+        },
+        {
+          "fact": "In 115 overlapping four-day windows in that series, the later close was at least 5.6% higher than the earlier close in 10 windows.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-28 the FOMC kept the federal funds target range at 3-3/4 to 4 percent by a 10\u20132 vote; Cook and Hammack preferred a quarter-point increase.",
+          "source": 1
+        },
+        {
+          "fact": "Binance BTC/USDT\u2019s October 2026 session series, through the October 29 close of 77991.89, was down 6.73% from the October 1 open of 83623.59, with October 29 the weakest day at \u22124.12%.",
+          "source": 2
+        },
+        {
+          "fact": "CoinDesk\u2019s October 29\u201330, 2026 live coverage said Binance had suspended deposits and withdrawals while investigating an exploit, and that bitcoin was just under $77,000, down about 5% over 24 hours.",
+          "source": 3
+        },
+        {
+          "fact": "A Moneycontrol report timestamped 2026-10-30 10:33 IST said bitcoin traded near $77,266 after a low near $76,148, and that Binance had suspended deposits and withdrawals during the security investigation.",
+          "source": 4
+        }
+      ],
+      "uncertainties": [
+        "The resolution price is the Binance BTC/USDT 1-minute close at noon ET on 2026-11-03, which is not yet printed; daily closes only approximate it.",
+        "The October 30 daily candle was still forming when these figures were taken, so the latest trade can differ from $77,651.15.",
+        "It is unknown whether Binance will restore deposits and withdrawals before November 3, or whether the incident\u2019s estimated loss and frozen-fund figures will be revised.",
+        "US equity earnings and the path of yields over the weekend and on November 2\u20133 are not known.",
+        "Reported loss sizes differ across outlets (CoinDesk said north of $5 billion stolen; Moneycontrol described a suspected billion-dollar hack), and the Binance announcement page itself did not load."
+      ]
+    },
+    "polymarket-631018": {
+      "base_rate": "Reference class: the two most recent regular Mississippi U.S.\nSenate general elections with official statewide totals (Nov.\n3, 2020 and Nov.\n5, 2024).\nThe Republican nominee won both: Hyde-Smith 709,511 (54.11%) to Espy 578,691 (44.13%) in 2020, and Wicker 763,420 to Pinkins 451,981 in 2024.\nA candidate\u2019s claim of \u201c15 straight losses\u201d back to 1982 was not rebuilt here from a full official series.",
+      "different_now": "This ballot is a three-candidate plurality race: Republican incumbent and nominee Hyde-Smith, Democratic nominee Scott Colom, and independent Ty Pinkins, who was the 2024 Democratic Senate nominee and who on Oct.\n29 said he will not withdraw after ballots were printed.\nBecause a regular federal general election has no runoff, votes for Pinkins cannot force a second round; this week\u2019s reporting treats that split as a possible drag on Colom, while also describing gas and food prices, conflicting polls (a reported 3-point Hyde-Smith lead versus larger leads), and late Trump and Clinton campaign s",
+      "facts": [
+        {
+          "fact": "As of the Secretary of State qualifying list, the Nov.\n3, 2026 general-election ballot for U.S.\nSenate lists Scott Colom (Democratic), Ty Pinkins (Independent), and Cindy Hyde-Smith (Republican).",
+          "source": 0
+        },
+        {
+          "fact": "In the March 10, 2026 Republican federal primary, the official statewide recapitulation total is 127,852 votes for Cindy Hyde-Smith and 30,344 for Sarah Adlakha.",
+          "source": 1
+        },
+        {
+          "fact": "The amended certification of the Nov.\n3, 2020 general election states Cindy Hyde-Smith received 709,511 votes (54.11%) to Mike Espy\u2019s 578,691 (44.13%) and was elected.",
+          "source": 2
+        },
+        {
+          "fact": "The official Nov.\n5, 2024 statewide recapitulation lists 763,420 votes for Republican Roger F.\nWicker and 451,981 for Democrat Ty Pinkins in the U.S.\nSenate race.",
+          "source": 3
+        },
+        {
+          "fact": "On Sept.\n15, 2026, Mississippi Today reported Secretary of State Michael Watson\u2019s reminder that regular federal general elections, including this Senate race, are decided by plurality and do not go to a runoff.",
+          "source": 4
+        },
+        {
+          "fact": "On Oct.\n29, 2026, Ty Pinkins said he would not leave the race; WLBT reported ballots were already printed with Hyde-Smith, Colom, and Pinkins for Nov.\n3.",
+          "source": 5
+        },
+        {
+          "fact": "WAPT reported on Oct.\n29, 2026 that President Trump had campaigned for Hyde-Smith in Corinth and that Bill Clinton was scheduled to campaign for Colom in Tupelo.",
+          "source": 6
+        },
+        {
+          "fact": "WLOX reported on Oct.\n27, 2026 that the three general-election candidates are incumbent Republican Cindy Hyde-Smith, Democrat Scott Colom, and independent Ty Pinkins, with polls open Nov.\n3 from 7 a.m.\nto 7 p.m.",
+          "source": 7
+        }
+      ],
+      "uncertainties": [
+        "The Nov.\n3, 2026 election has not been held, and neither an Associated Press, Fox News, and NBC consensus call nor official certification exists yet.",
+        "How many votes Pinkins receives, and whether they would otherwise have gone to Colom, Hyde-Smith, or nonvoters, is unknown.",
+        "Reported polls disagree on the margin, and turnout under high gas and food prices is unmeasured.",
+        "Campaign events still scheduled before Election Day, including Clinton\u2019s planned Tupelo stop, have not yet shown up in votes."
+      ]
+    },
+    "polymarket-631045": {
+      "base_rate": "In the two most recent Florida U.S.\nSenate general elections with official Division of Elections statewide results opened here, the Republican nominee won both: Rubio 57.7%\u201341.3% on November 8, 2022, and Scott 55.6%\u201342.8% on November 5, 2024 (2 of 2).",
+      "different_now": "This is a special election for the remainder of the term, with appointed incumbent Ashley Moody as the Republican nominee against Angie Nixon and NPA candidate Neil Gillespie, and Election Day is still November 3, 2026.\nLate October polls put Moody ahead by about 4 to 6 points, but one reweight of the tighter poll nearly erased the lead, and ballots already cast through October 28 were much closer by party than the September 30 registration gap (Republicans ahead by roughly 1.55 million registrants).\nMail returns were running Democratic; in-person early voting was running Republican.\nThat comb",
+      "facts": [
+        {
+          "fact": "On the Florida Division of Elections candidate list for the November 3, 2026 general election, Ashley Moody (REP), marked incumbent, and Angie Nixon (DEM) are both listed as Qualified and as having Won their primaries; Neil J.\nGillespie (NPA) is listed as Qualified.",
+          "source": 0
+        },
+        {
+          "fact": "As of September 30, 2026, Florida had 5,678,755 active registered Republicans and 4,133,397 active registered Democrats (13,672,122 total).\nOn the same series, Democrats still led on September 30, 2020 (5,315,954 to 5,218,739).",
+          "source": 1
+        },
+        {
+          "fact": "The Division of Elections compilation timestamped 1:03 p.m.\non October 29, 2026, for the November 3, 2026 general election, and cumulative only through the prior day, showed 594,296 Republican and 727,616 Democratic voted mail ballots, and the statewide early-vote row showed 972,753 Republican and 788,137 Democratic early ballots (early total 2,210,593).",
+          "source": 2
+        },
+        {
+          "fact": "In the official November 5, 2024 Florida results, Republican Rick Scott received 5,977,706 votes (55.6%) and Democrat Debbie Mucarsel-Powell 4,603,077 (42.8%) for U.S.\nSenate.",
+          "source": 3
+        },
+        {
+          "fact": "In the official November 8, 2022 Florida results, Republican Marco Rubio received 4,474,847 votes (57.7%) and Democrat Val Demings 3,201,522 (41.3%) for U.S.\nSenate.",
+          "source": 4
+        },
+        {
+          "fact": "A St.\nPete Polls survey of 916 likely voters fielded October 25\u201327, 2026, and published October 28, had Moody at 49% and Nixon at 45% (margin of error \u00b13.2 points); the same story said reweighting to the registration split produced 47% to 46%.",
+          "source": 5
+        },
+        {
+          "fact": "A New York Times/Siena poll of 813 Florida voters conducted October 19\u201326, 2026, published October 28, had Moody at 50% and Nixon at 44%, with a reported margin of error of 3.9 points.",
+          "source": 6
+        }
+      ],
+      "uncertainties": [
+        "No votes from October 29 onward, including the rest of early voting and Election Day, are in the October 29 compilation, and Republicans have historically cast a larger share of their votes on Election Day than in the mail.",
+        "The latest public polls disagree on the margin, and the 49\u201345 and 47\u201346 readings sit inside or near the margin of error.",
+        "Gillespie\u2019s share and the remaining undecided voters are not fixed, and mail ballots still out can be returned through 7 p.m.\non November 3.",
+        "The race is unresolved: Associated Press, Fox News, and NBC have not called it, and if they do not agree the result waits on official certification."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "provider": "cursor",
+  "researched_at": "2026-10-30T10:03:05+00:00",
+  "researched_by": {
+    "manifold-9ChtPnQ598": "grok-4.7-low",
+    "manifold-IPth6E2ZRI": "grok-4.7-low",
+    "manifold-IdOgSACPIz": "grok-4.7-low",
+    "manifold-uODgxBgIoHZWqFqHGPbe": "grok-4.7-low",
+    "polymarket-3499790": "grok-4.7-low",
+    "polymarket-5194745": "grok-4.7-low",
+    "polymarket-5211630": "grok-4.7-low",
+    "polymarket-5211634": "grok-4.7-low",
+    "polymarket-6236213": "grok-4.7-low",
+    "polymarket-6236258": "grok-4.7-low",
+    "polymarket-629465": "grok-4.7-low",
+    "polymarket-6301274": "grok-4.7-low",
+    "polymarket-6301347": "grok-4.7-low",
+    "polymarket-631018": "grok-4.7-low",
+    "polymarket-631045": "grok-4.7-low"
+  },
+  "runs": 16,
+  "seconds": {
+    "manifold-9ChtPnQ598": 99.0,
+    "manifold-IPth6E2ZRI": 135.4,
+    "manifold-IdOgSACPIz": 139.8,
+    "manifold-uODgxBgIoHZWqFqHGPbe": 135.5,
+    "polymarket-3499790": 100.7,
+    "polymarket-5194745": 166.9,
+    "polymarket-5211630": 107.8,
+    "polymarket-5211634": 131.0,
+    "polymarket-6236213": 180.9,
+    "polymarket-6236258": 221.6,
+    "polymarket-629183": 122.5,
+    "polymarket-629465": 133.6,
+    "polymarket-6301274": 141.1,
+    "polymarket-6301347": 167.6,
+    "polymarket-631018": 160.4,
+    "polymarket-631045": 132.2
+  },
+  "sources": {
+    "manifold-9ChtPnQ598": [
+      {
+        "published": "2026-08-28",
+        "quotes": [
+          "The U.S.\nSenate Special Republican Party Primary Runoff results were presented for certification, with Darline Graham becoming the nominee with 52.45% of the vote.",
+          "The Republican Primary Runoff results were unanimously approved."
+        ],
+        "text": "The U.S.\nSenate Special Republican Party Primary Runoff results were presented for certification, with Darline Graham becoming the nominee with 52.45% of the vote.\nThe Republican Primary Runoff results were unanimously approved.",
+        "title": "State Board of Canvassers Meeting Minutes, August 28, 2026",
+        "url": "https://scvotes.gov/wp-content/uploads/2026/10/SBC-Meeting-Minutes-08.28.2026_FINAL.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-07-13",
+        "quotes": [
+          "Governor Henry McMaster today announced the appointment of Darline Graham to the United States Senate to fill the vacancy created by the passing of U.S.\nSenator Lindsey Graham.",
+          "Filing for the special primary election will be open from July 21 through July 28, 2026.\nThe special primary will be held August 11, with a runoff, if necessary, on August 25.\nThe general election will proceed as scheduled on November 3, 2026.",
+          "Ms.\nGraham will serve until January 3, 2027, when the new Congress convenes following the November 2026 general election."
+        ],
+        "text": "Governor Henry McMaster today announced the appointment of Darline Graham to the United States Senate to fill the vacancy created by the passing of U.S.\nSenator Lindsey Graham.\nFiling for the special primary election will be open from July 21 through July 28, 2026.\nThe special primary will be held August 11, with a runoff, if necessary, on August 25.\nThe general election will proceed as scheduled on November 3, 2026.\nMs.\nGraham will serve until January 3, 2027, when the new Congress convenes following the November 2026 general election.",
+        "title": "Gov.\nMcMaster Appoints Darline Graham to the U.S.\nSenate",
+        "url": "https://www.governor.sc.gov/news/2026-07/gov-mcmaster-appoints-darline-graham-us-senate",
+        "verified": null
+      },
+      {
+        "published": "2026-07-14",
+        "quotes": [
+          "The Chair lays before the Senate the certificate of appointment to fill the vacancy created by the death of Lindsey O.\nGraham of South Carolina.",
+          "I, Henry Dargan McMaster, the governor of said State, do hereby appoint Darline Graham a Senator from said State to represent said State in the Senate of the United States until the vacancy therein caused by the death of Lindsey O.\nGraham, is filled by election as provided by law."
+        ],
+        "text": "The Chair lays before the Senate the certificate of appointment to fill the vacancy created by the death of Lindsey O.\nGraham of South Carolina.\nI, Henry Dargan McMaster, the governor of said State, do hereby appoint Darline Graham a Senator from said State to represent said State in the Senate of the United States until the vacancy therein caused by the death of Lindsey O.\nGraham, is filled by election as provided by law.",
+        "title": "Congressional Record: Certificate of Appointment",
+        "url": "https://www.govinfo.gov/content/pkg/CREC-2026-07-14/html/CREC-2026-07-14-pt1-PgS3918-4.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-08-06",
+        "quotes": [
+          "Of the 24 whose elections have been decided, 17 won and seven lost (71% vs.\n29%).",
+          "Two of those who lost were defeated in a primary; three won their party\u2019s nomination but lost in the general election; and two others advanced as top vote-getters in an all-candidate \u201cblanket\u201d primary but lost the resulting runoff.",
+          "Both Sen.\nLincoln Chafee of Rhode Island (who replaced the late John Chafee in 1999) and Sen.\nLisa Murkowski of Alaska (who replaced the retiring Frank Murkowski in 2002) subsequently ran for election and won."
+        ],
+        "text": "Of the 24 whose elections have been decided, 17 won and seven lost (71% vs.\n29%).\nTwo of those who lost were defeated in a primary; three won their party\u2019s nomination but lost in the general election; and two others advanced as top vote-getters in an all-candidate \u201cblanket\u201d primary but lost the resulting runoff.\nBoth Sen.\nLincoln Chafee of Rhode Island (who replaced the late John Chafee in 1999) and Sen.\nLisa Murkowski of Alaska (who replaced the retiring Frank Murkowski in 2002) subsequently ran for election and won.",
+        "title": "Most U.S.\nsenators appointed since 1990 have run to keep their seat \u2013 and most have won",
+        "url": "https://www.pewresearch.org/short-reads/2026/08/06/most-us-senators-appointed-since-1990-have-run-to-keep-their-seat-and-most-have-won/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "The latest ECU Poll of South Carolina\u2019s U.S.\nSenate race, conducted October 19\u201324, shows former Republican Senator Darline Graham leading Democratic challenger Annie Andrews by four percentage points among likely voters, 51% to 47%.",
+          "The poll has a credibility interval of \u00b13.7 percentage points, comparable to a margin of error.",
+          "South Carolina\u2019s U.S.\nSenate race was once widely expected to be a Republican win.\nIt is now a very competitive election."
+        ],
+        "text": "The latest ECU Poll of South Carolina\u2019s U.S.\nSenate race, conducted October 19\u201324, shows former Republican Senator Darline Graham leading Democratic challenger Annie Andrews by four percentage points among likely voters, 51% to 47%.\nThe poll has a credibility interval of \u00b13.7 percentage points, comparable to a margin of error.\nSouth Carolina\u2019s U.S.\nSenate race was once widely expected to be a Republican win.\nIt is now a very competitive election.",
+        "title": "ECU Poll Finds Graham Leading Andrews by Four Points",
+        "url": "https://surveyresearch-ecu.reportablenews.com/pr/ecu-poll-finds-graham-leading-andrews-by-four-points",
+        "verified": null
+      },
+      {
+        "published": "2026-10-26",
+        "quotes": [
+          "A new poll released Monday shows a neck-and-neck race for U.S.\nSenate and a double-digit lead for Republicans in the governor\u2019s race eight days out from the midterms.",
+          "Organizers said the one-point gap is well inside the margin of error.",
+          "Election Day is Tuesday, Nov.\n3.\nEarly voting in South Carolina runs through Saturday, Oct.\n31."
+        ],
+        "text": "A new poll released Monday shows a neck-and-neck race for U.S.\nSenate and a double-digit lead for Republicans in the governor\u2019s race eight days out from the midterms.\nOrganizers said the one-point gap is well inside the margin of error.\nElection Day is Tuesday, Nov.\n3.\nEarly voting in South Carolina runs through Saturday, Oct.\n31.",
+        "title": "New poll shows neck-and-neck Senate race, double-digit lead for governor in SC midterms",
+        "url": "https://www.foxcarolina.com/2026/10/26/new-poll-shows-neck-and-neck-senate-race-double-digit-lead-governor-sc-midterms/",
+        "verified": null
+      }
+    ],
+    "manifold-IPth6E2ZRI": [
+      {
+        "published": "2026-07-13",
+        "quotes": [
+          "House seat gain or loss calculated from \"Party Divisions of the House of Representatives, 1789 to Present\" https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+          "Note that both of these pages report party divisions immediately following an election.",
+          "2026 | | Donald J.\nTrump-II | R | 35 | 33 | | | | | 220 | 20 | | |"
+        ],
+        "text": "House seat gain or loss calculated from \"Party Divisions of the House of Representatives, 1789 to Present\" https://history.house.gov/Institution/Party-Divisions/Party-Divisions/\nNote that both of these pages report party divisions immediately following an election.\n2026 | | Donald J.\nTrump-II | R | 35 | 33 | | | | | 220 | 20 | | |",
+        "title": "Seats in Congress Gained/Lost by the President's Party in Mid-Term Elections",
+        "url": "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+          "119th (2025\u20132027) | 435 | 215 | 220 | 0 | 5/1",
+          "118th (2023\u20132025) | 435 | 213 | 222 | 0 | 5/1"
+        ],
+        "text": "The figures presented are the House party divisions as of the initial election results for a particular Congress.\n119th (2025\u20132027) | 435 | 215 | 220 | 0 | 5/1\n118th (2023\u20132025) | 435 | 213 | 222 | 0 | 5/1",
+        "title": "Party Divisions of the House of Representatives, 1789 to Present",
+        "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "218 Republicans",
+          "214 Democrats",
+          "1 Independent"
+        ],
+        "text": "218 Republicans\n214 Democrats\n1 Independent",
+        "title": "Party Breakdown | House Press Gallery",
+        "url": "http://pressgallery.house.gov/member-data/party-breakdown",
+        "verified": null
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [
+          "Following this latest round of ratings changes, Democrats now are favored outright in the 218 seats they need to win control of the House.",
+          "In other words, 220 seats are rated either Solid, Likely or Lean Democrat.",
+          "Republicans, meanwhile, are favored in 198 seats, rated Solid, Likely, or Lean Republican.\nThat leaves 17 races rated as pure Toss Ups."
+        ],
+        "text": "Following this latest round of ratings changes, Democrats now are favored outright in the 218 seats they need to win control of the House.\nIn other words, 220 seats are rated either Solid, Likely or Lean Democrat.\nRepublicans, meanwhile, are favored in 198 seats, rated Solid, Likely, or Lean Republican.\nThat leaves 17 races rated as pure Toss Ups.",
+        "title": "Democrats\u2019 Projected Majority Grows as 19 More House Races Shift Away From the GOP",
+        "url": "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+        "verified": null
+      },
+      {
+        "published": "2026-02-15",
+        "quotes": [
+          "After the latest redistricting maneuvers, Kondik calculates, House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.",
+          "In all, Republicans are defending 10 fewer seats this year (33) than in 2018 (43) where Trump in the previous presidential election either ran behind his national vote total or just slightly above it, according to the Center\u2019s analysis.",
+          "Democrats (and most independent analysts) continue to believe the party remains favored to regain the House majority, especially because to do so they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president\u2019s job approval rating is as weak as Trump\u2019s is now."
+        ],
+        "text": "After the latest redistricting maneuvers, Kondik calculates, House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.\nIn all, Republicans are defending 10 fewer seats this year (33) than in 2018 (43) where Trump in the previous presidential election either ran behind his national vote total or just slightly above it, according to the Center\u2019s analysis.\nDemocrats (and most independent analysts) continue to believe the party remains favored to regain the House majority, especially because to do so they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president\u2019s job approval rating is as weak as Trump\u2019s is now.",
+        "title": "These are the districts that will decide House control",
+        "url": "https://www.cnn.com/2026/02/15/politics/house-control-districts-vis",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "All approval graphs are based on the Gallup Poll through January 2026.\nAfter that date, we have multiple polling sources--all noted in the table below.",
+          "10/08/2026 | 10/12/2026 | 35 | 64 | 1 | | | | AP/norc",
+          "10/16/2026 | 10/19/2026 | 31 | 66 | 3 | 77 | 20 | 5 | ipsos/reuters"
+        ],
+        "text": "All approval graphs are based on the Gallup Poll through January 2026.\nAfter that date, we have multiple polling sources--all noted in the table below.\n10/08/2026 | 10/12/2026 | 35 | 64 | 1 | | | | AP/norc\n10/16/2026 | 10/19/2026 | 31 | 66 | 3 | 77 | 20 | 5 | ipsos/reuters",
+        "title": "Donald J.\nTrump (2nd Term) Public Approval",
+        "url": "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "The 2026 United States House of Representatives elections are scheduled to be held on Tuesday, November 3, 2026, as part of the 2026 midterm elections during President Donald Trump's second nonconsecutive term.",
+          "All 435 seats in the United States House of Representatives",
+          "218 seats needed for a majority"
+        ],
+        "text": "The 2026 United States House of Representatives elections are scheduled to be held on Tuesday, November 3, 2026, as part of the 2026 midterm elections during President Donald Trump's second nonconsecutive term.\nAll 435 seats in the United States House of Representatives\n218 seats needed for a majority",
+        "title": "2026 United States House of Representatives elections",
+        "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections",
+        "verified": null
+      }
+    ],
+    "manifold-IdOgSACPIz": [
+      {
+        "published": "2026-06-02",
+        "quotes": [
+          "PRIMARY NOMINATING ELECTION - JUNE 2, 2026 FINAL SUMMARY OF RETURNS",
+          "BASS, Karen Ruth 42,743 249,850 292,593 34.26%",
+          "RAMAN, Nithya 38,819 208,962 247,781 29.01%"
+        ],
+        "text": "PRIMARY NOMINATING ELECTION - JUNE 2, 2026 FINAL SUMMARY OF RETURNS\nBASS, Karen Ruth 42,743 249,850 292,593 34.26%\nRAMAN, Nithya 38,819 208,962 247,781 29.01%",
+        "title": "Primary Nominating Election - June 2, 2026 Final Summary of Returns",
+        "url": "http://ens.lacity.org/clk/elections/clkelections3736198839_06022026.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "2026 GENERAL MUNICIPAL ELECTION NOVEMBER 3, 2026 CERTIFIED LIST OF CANDIDATES",
+          "NITHYA RAMAN Councilmember/Urban Planner",
+          "KAREN RUTH BASS Mayor, City of Los Angeles"
+        ],
+        "text": "2026 GENERAL MUNICIPAL ELECTION NOVEMBER 3, 2026 CERTIFIED LIST OF CANDIDATES\nNITHYA RAMAN Councilmember/Urban Planner\nKAREN RUTH BASS Mayor, City of Los Angeles",
+        "title": "2026 General Municipal Election November 3, 2026 Certified List of Candidates",
+        "url": "https://cityclerk.lacity.org/election/2026_General_Municipal_Election_List_of_Certified_Candidates.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "Raman and Bass now each have 40% of likely L.A.\nvoters in their camps, with 19% still undecided ahead of the Nov.\n3 election, according to the UC Berkeley Institute of Governmental Studies poll, co-sponsored by The Times.",
+          "The survey released Wednesday was conducted online in English and Spanish with a sample of 2,197 likely city voters between Oct.\n19 and Oct.\n25.\nIt has a margin of error of about three percentage points.",
+          "In the new poll, Bass shot up to 41% of the Pratt vote, while Raman dropped to 14% and 45% were still undecided."
+        ],
+        "text": "Raman and Bass now each have 40% of likely L.A.\nvoters in their camps, with 19% still undecided ahead of the Nov.\n3 election, according to the UC Berkeley Institute of Governmental Studies poll, co-sponsored by The Times.\nThe survey released Wednesday was conducted online in English and Spanish with a sample of 2,197 likely city voters between Oct.\n19 and Oct.\n25.\nIt has a margin of error of about three percentage points.\nIn the new poll, Bass shot up to 41% of the Pratt vote, while Raman dropped to 14% and 45% were still undecided.",
+        "title": "Bass comes from behind, now in dead heat with Raman in mayor's race, new poll shows",
+        "url": "https://www.latimes.com/california/story/2026-10-28/bass-comes-from-behind-now-in-dead-heat-with-raman-in-mayors-race-new-poll-shows",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "In the June 2 primary, Bass earned more than a third of the vote, while Raman was close with 29%.\nReality television personality Pratt finished third with 25.5%.",
+          "The votes for him are nearly five times the 44,800-vote gap between Bass and Raman.",
+          "This week, Caruso said he will vote for Bass."
+        ],
+        "text": "In the June 2 primary, Bass earned more than a third of the vote, while Raman was close with 29%.\nReality television personality Pratt finished third with 25.5%.\nThe votes for him are nearly five times the 44,800-vote gap between Bass and Raman.\nThis week, Caruso said he will vote for Bass.",
+        "title": "Here's where Bass and Raman need to win over Pratt voters",
+        "url": "https://www.latimes.com/politics/story/2026-10-28/heres-where-bass-raman-need-to-win-over-pratt-voters",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Among voters ages 30 to 39, the gap is even wider: 74% for Raman compared with 16% for Bass, the poll found.",
+          "As of Wednesday, only 13% of eligible voters between ages 18 and 34 have submitted their ballots, compared with 47% of those over 65, according to Political Data Intelligence, a research firm."
+        ],
+        "text": "Among voters ages 30 to 39, the gap is even wider: 74% for Raman compared with 16% for Bass, the poll found.\nAs of Wednesday, only 13% of eligible voters between ages 18 and 34 have submitted their ballots, compared with 47% of those over 65, according to Political Data Intelligence, a research firm.",
+        "title": "Raman leads among younger voters, polls show, but Bass isn't conceding any ground",
+        "url": "https://www.latimes.com/california/story/2026-10-29/raman-leads-among-younger-voters-polls-show-but-bass-isnt-conceding-any-ground",
+        "verified": null
+      },
+      {
+        "published": "2022-11-08",
+        "quotes": [
+          "LOS ANGELES CITY GEN MUNI MAYOR",
+          "FINAL OFFICIAL STATEMENT OF VOTES CAST",
+          "TOTAL 2120515 952389 509944 420030"
+        ],
+        "text": "LOS ANGELES CITY GEN MUNI MAYOR\nFINAL OFFICIAL STATEMENT OF VOTES CAST\nTOTAL 2120515 952389 509944 420030",
+        "title": "County of Los Angeles General Election 11/08/22 Final Official Statement of Votes Cast",
+        "url": "https://content.lavote.gov/docs/rrcc/svc/4300_final_svc_countywide.pdf?v=2",
+        "verified": null
+      },
+      {
+        "published": "2013-06-07",
+        "quotes": [
+          "CERTIFIED RESULTS 2013 GENERAL MUNICIPAL AND SPECIAL ELECTIONS",
+          "MAYOR Votes Percent ERIC GARCETTI 222,300 54.23% WENDY J.\nGREUEL 187,609 45.76%"
+        ],
+        "text": "CERTIFIED RESULTS 2013 GENERAL MUNICIPAL AND SPECIAL ELECTIONS\nMAYOR Votes Percent ERIC GARCETTI 222,300 54.23% WENDY J.\nGREUEL 187,609 45.76%",
+        "title": "Certified Results 2013 General Municipal and Special Elections",
+        "url": "https://ens.lacity.org/clk/elections/clkelections52482780_06072013.pdf",
+        "verified": null
+      }
+    ],
+    "manifold-uODgxBgIoHZWqFqHGPbe": [
+      {
+        "published": "",
+        "quotes": [
+          "At a state-wide general election in each calendar year the number of which is even but not a multiple of four, the electors shall choose a governor and a lieutenant governor and members of the cabinet each for a term of four years beginning on the first Tuesday after the first Monday in January of the succeeding year.",
+          "No person who has, or but for resignation would have, served as governor or acting governor for more than six years in two consecutive terms shall be elected governor for the succeeding term."
+        ],
+        "text": "At a state-wide general election in each calendar year the number of which is even but not a multiple of four, the electors shall choose a governor and a lieutenant governor and members of the cabinet each for a term of four years beginning on the first Tuesday after the first Monday in January of the succeeding year.\nNo person who has, or but for resignation would have, served as governor or acting governor for more than six years in two consecutive terms shall be elected governor for the succeeding term.",
+        "title": "The Florida Constitution, Article IV, Section 5",
+        "url": "https://www.flsenate.gov/Laws/Constitution#A4S05",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Donalds, Byron (REP) / Avila, Bryan | Qualified | Won |",
+          "Jolly, David (DEM) / Graham, Gwen | Qualified | Won |",
+          "Jewett, Scott Eckhard (LPF) / Skelly, Nicole | Qualified | Unopposed |"
+        ],
+        "text": "Donalds, Byron (REP) / Avila, Bryan | Qualified | Won |\nJolly, David (DEM) / Graham, Gwen | Qualified | Won |\nJewett, Scott Eckhard (LPF) / Skelly, Nicole | Qualified | Unopposed |",
+        "title": "Candidate Listing, Governor, 2026 General Election, Florida Division of Elections",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?OfficeCode=GOV&elecid=20261103-GEN",
+        "verified": null
+      },
+      {
+        "published": "2026-10-12",
+        "quotes": [
+          "Webpage last updated: October 12, 2026",
+          "Totals reflect the number of active registered voters in the State of Florida.\nData as of September 30, 2026.",
+          "2026 | 5,678,755 | 4,133,397 | 514,782 | 3,345,188 | 13,672,122 |"
+        ],
+        "text": "Webpage last updated: October 12, 2026\nTotals reflect the number of active registered voters in the State of Florida.\nData as of September 30, 2026.\n2026 | 5,678,755 | 4,133,397 | 514,782 | 3,345,188 | 13,672,122 |",
+        "title": "Voter Registration - By Party Affiliation, Florida Division of Elections",
+        "url": "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Florida Department of State Division of Elections November 6, 2018 General Election",
+          "Official Results",
+          "Total | 4,076,186 | 4,043,723 | 47,140 | 24,310 | 14,630 | 14,505 | 6 | 61 |"
+        ],
+        "text": "Florida Department of State Division of Elections November 6, 2018 General Election\nOfficial Results\nTotal | 4,076,186 | 4,043,723 | 47,140 | 24,310 | 14,630 | 14,505 | 6 | 61 |",
+        "title": "November 6, 2018 General Election, Governor, Florida Division of Elections",
+        "url": "https://results.elections.myflorida.com/DetailRpt.Asp?ELECTIONDATE=11%2F6%2F2018&RACE=GOV",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Official Results",
+          "Total | 4,614,210 | 3,106,313 | 19,299 | 31,577 |",
+          "% Votes | 59.4% | 40.0% | 0.2% | 0.4% |"
+        ],
+        "text": "Official Results\nTotal | 4,614,210 | 3,106,313 | 19,299 | 31,577 |\n% Votes | 59.4% | 40.0% | 0.2% | 0.4% |",
+        "title": "November 8, 2022 General Election, Governor, Florida Division of Elections",
+        "url": "https://results.elections.myflorida.com/DetailRpt.Asp?DATAMODE=&DIST=&ELECTIONDATE=11%2F8%2F2022&GRP=&PARTY=&RACE=GOV",
+        "verified": null
+      },
+      {
+        "published": "2026-10-21",
+        "quotes": [
+          "In the gubernatorial contest, Republican Byron Donalds leads Democrat David Jolly by two percentage points, 49% to 47%, with 4% undecided.",
+          "The survey was conducted October 12\u201319, 2026, via telephone using a random sample of 1,471 likely midterm election voters.\nThe overall margin of sampling error is +/- 2.81 percentage points.",
+          "Jolly holds a 16-point advantage over Donalds among independents, pulling 11% of registered Republicans compared to Donalds\u2019 5% among Democrats."
+        ],
+        "text": "In the gubernatorial contest, Republican Byron Donalds leads Democrat David Jolly by two percentage points, 49% to 47%, with 4% undecided.\nThe survey was conducted October 12\u201319, 2026, via telephone using a random sample of 1,471 likely midterm election voters.\nThe overall margin of sampling error is +/- 2.81 percentage points.\nJolly holds a 16-point advantage over Donalds among independents, pulling 11% of registered Republicans compared to Donalds\u2019 5% among Democrats.",
+        "title": "Republicans Donalds, Moody hold slim leads in tightening governor, US Senate races, UNF polls finds",
+        "url": "https://www.wlrn.org/government-politics/2026-10-21/republicans-donalds-moody-hold-slim-leads-in-tightening-governor-us-senate-races-unf-polls-finds",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "Republican Byron Donalds leads Democrat David Jolly 48% to 46% in a new St.\nPete Polls survey of the Governor\u2019s race for Florida Politics.",
+          "The margin of error is plus or minus 3.2 percentage points, and Donalds\u2019 lead is inside it.",
+          "As of Tuesday morning, 1,257,198 Republicans and 1,244,432 Democrats had cast ballots by mail or at early voting sites, per the Division of Elections.\nThat is a Republican edge of 12,766 votes out of 3.15 million cast, four-tenths of a point."
+        ],
+        "text": "Republican Byron Donalds leads Democrat David Jolly 48% to 46% in a new St.\nPete Polls survey of the Governor\u2019s race for Florida Politics.\nThe margin of error is plus or minus 3.2 percentage points, and Donalds\u2019 lead is inside it.\nAs of Tuesday morning, 1,257,198 Republicans and 1,244,432 Democrats had cast ballots by mail or at early voting sites, per the Division of Elections.\nThat is a Republican edge of 12,766 votes out of 3.15 million cast, four-tenths of a point.",
+        "title": "Final St.\nPete Polls: Byron Donalds leads David Jolly 48% to 46%, as long as Republicans show up",
+        "url": "https://floridapolitics.com/archives/827487-final-st-pete-polls-byron-donalds-leads-david-jolly-48-to-46-as-long-as-republicans-show-up/",
+        "verified": null
+      }
+    ],
+    "polymarket-3499790": [
+      {
+        "published": "2026-09-29",
+        "quotes": [
+          "At its meeting today, the Board decided to increase the cash rate target by 25 basis points to 4.60 per cent.",
+          "But inflation is still too high and the Board judged that, in light of recent developments, a further tightening in financial conditions is warranted to support a return of inflation to target in a reasonable period.",
+          "The Board will continue to do what it considers necessary to bring inflation sustainably back to target, including increasing the cash rate target further if needed."
+        ],
+        "text": "At its meeting today, the Board decided to increase the cash rate target by 25 basis points to 4.60 per cent.\nBut inflation is still too high and the Board judged that, in light of recent developments, a further tightening in financial conditions is warranted to support a return of inflation to target in a reasonable period.\nThe Board will continue to do what it considers necessary to bring inflation sustainably back to target, including increasing the cash rate target further if needed.",
+        "title": "Statement by the Monetary Policy Board: Monetary Policy Decision, 29 September 2026",
+        "url": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-13",
+        "quotes": [
+          "In light of these observations, members considered whether to raise the cash rate target by 25 basis points.",
+          "Having considered these arguments, all members judged that it was appropriate to increase the cash rate target by 25 basis points at this meeting.",
+          "The Board decided unanimously to raise the cash rate target by 25 basis points to 4.60 per cent."
+        ],
+        "text": "In light of these observations, members considered whether to raise the cash rate target by 25 basis points.\nHaving considered these arguments, all members judged that it was appropriate to increase the cash rate target by 25 basis points at this meeting.\nThe Board decided unanimously to raise the cash rate target by 25 basis points to 4.60 per cent.",
+        "title": "Minutes of the Monetary Policy Board Meeting, 28\u201329 September 2026",
+        "url": "https://www.rba.gov.au/monetary-policy/rba-board-minutes/2026/2026-09-29.html",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "A media release is issued at 2.30 pm after each Monetary Policy Board meeting, with any change in the cash rate target taking effect the following day.",
+          "30 Sep 2026 | +0.25 | 4.60",
+          "12 Aug 2026 | 0.00 | 4.35"
+        ],
+        "text": "A media release is issued at 2.30 pm after each Monetary Policy Board meeting, with any change in the cash rate target taking effect the following day.\n30 Sep 2026 | +0.25 | 4.60\n12 Aug 2026 | 0.00 | 4.35",
+        "title": "Cash Rate Target",
+        "url": "https://www.rba.gov.au/statistics/cash-rate/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "4.60 %",
+          "Effective date 30 September 2026",
+          "Next update 2.30 pm, 3 November 2026"
+        ],
+        "text": "4.60 %\nEffective date 30 September 2026\nNext update 2.30 pm, 3 November 2026",
+        "title": "Cash Rate Target Overview",
+        "url": "https://www.rba.gov.au/cash-rate-target-overview.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "The Consumer Price Index (CPI) rose 4.3 per cent in the 12 months to September 2026, up from 4.0 per cent in the 12 months to August, according to the latest data from the Australian Bureau of Statistics (ABS).",
+          "Trimmed mean annual inflation was 3.6 per cent in September.",
+          "The quarterly movement for the CPI was 1.3 per cent and for the Trimmed mean (pre-October 2025 basis) was 1.0 per cent."
+        ],
+        "text": "The Consumer Price Index (CPI) rose 4.3 per cent in the 12 months to September 2026, up from 4.0 per cent in the 12 months to August, according to the latest data from the Australian Bureau of Statistics (ABS).\nTrimmed mean annual inflation was 3.6 per cent in September.\nThe quarterly movement for the CPI was 1.3 per cent and for the Trimmed mean (pre-October 2025 basis) was 1.0 per cent.",
+        "title": "CPI rose 4.3% in the year to September 2026",
+        "url": "https://www.abs.gov.au/media-centre/media-releases/cpi-rose-43-year-september-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "Since the Committee\u2019s previous hearing with the RBA in June, the Monetary Policy Board has increased the cash rate target by 25 basis points.\nIt did this with the goal of returning inflation to target.\nThis has taken the cumulative increase in the cash rate target this year to 100 basis points.",
+          "Inflation will therefore likely be higher than was our base case in August.",
+          "The Monetary Policy Board will meet next week.\nWe\u2019ll discuss our assessment of the flow of data and how the risks are unfolding.\nA key question is whether the tightening in monetary policy to date will be sufficient to bring inflation back to target in a reasonable time."
+        ],
+        "text": "Since the Committee\u2019s previous hearing with the RBA in June, the Monetary Policy Board has increased the cash rate target by 25 basis points.\nIt did this with the goal of returning inflation to target.\nThis has taken the cumulative increase in the cash rate target this year to 100 basis points.\nInflation will therefore likely be higher than was our base case in August.\nThe Monetary Policy Board will meet next week.\nWe\u2019ll discuss our assessment of the flow of data and how the risks are unfolding.\nA key question is whether the tightening in monetary policy to date will be sufficient to bring inflation back to target in a reasonable time.",
+        "title": "Opening Statement to the Senate Economics Legislation Committee, Michele Bullock",
+        "url": "https://www.rba.gov.au/speeches/2026/sp-gov-2026-10-28.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-21",
+        "quotes": [
+          "The inflation outlook looks materially worse than we projected in the August report.",
+          "On the Middle East, oil prices are even higher, about a third higher than we assumed in the August projection.",
+          "The challenge that\u2019s facing the Board, it has done for some time, is do you do more to tackle higher inflation, recognising that that means weaker activity, weaker labour market?"
+        ],
+        "text": "The inflation outlook looks materially worse than we projected in the August report.\nOn the Middle East, oil prices are even higher, about a third higher than we assumed in the August projection.\nThe challenge that\u2019s facing the Board, it has done for some time, is do you do more to tackle higher inflation, recognising that that means weaker activity, weaker labour market?",
+        "title": "Fireside Chat by Andrew Hauser, Deputy Governor, 21 October 2026",
+        "url": "https://www.rba.gov.au/speeches/2026/sp-dg-2026-10-21.html",
+        "verified": null
+      }
+    ],
+    "polymarket-5194745": [
+      {
+        "published": "",
+        "quotes": [
+          "The Manufacturing PMI \u00ae registered 54.5 percent in September, 0.1 percentage point below the August figure of 54.6 percent.",
+          "Economic activity in the manufacturing sector expanded in September for the ninth consecutive month, say the nation\u2019s supply executives in the latest ISM \u00ae Manufacturing PMI \u00ae Report.",
+          "Average for 12 months - 52.3 High - 55.6 Low - 47.9"
+        ],
+        "text": "The Manufacturing PMI \u00ae registered 54.5 percent in September, 0.1 percentage point below the August figure of 54.6 percent.\nEconomic activity in the manufacturing sector expanded in September for the ninth consecutive month, say the nation\u2019s supply executives in the latest ISM \u00ae Manufacturing PMI \u00ae Report.\nAverage for 12 months - 52.3 High - 55.6 Low - 47.9",
+        "title": "ISM Manufacturing PMI Report, September 2026",
+        "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [
+          "Flash US Manufacturing PMI: 56.0 (September: 55.9).\n53-month high.",
+          "The S&P Global US Manufacturing PMI rose from 55.9 in September to 56.0 in October, according to the flash reading, registering the strongest improvement in operating conditions since May 2022.",
+          "Final October data are published on 2 November for manufacturing and 4 November for services and composite indicators."
+        ],
+        "text": "Flash US Manufacturing PMI: 56.0 (September: 55.9).\n53-month high.\nThe S&P Global US Manufacturing PMI rose from 55.9 in September to 56.0 in October, according to the flash reading, registering the strongest improvement in operating conditions since May 2022.\nFinal October data are published on 2 November for manufacturing and 4 November for services and composite indicators.",
+        "title": "S&P Global Flash US PMI, October 2026",
+        "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "The diffusion index for current general activity declined for the second consecutive month, falling from 37.8 in September to 20.9 in October (see Chart 1).",
+          "The new orders index fell 25 points to 4.3 this month.",
+          "Survey results reflect data received through October 12, 2026.\nFederal Reserve Bank of Philadelphia Manufacturing Business Outlook Survey Released: October 15, 2026, at 8:30 a.m.\nET."
+        ],
+        "text": "The diffusion index for current general activity declined for the second consecutive month, falling from 37.8 in September to 20.9 in October (see Chart 1).\nThe new orders index fell 25 points to 4.3 this month.\nSurvey results reflect data received through October 12, 2026.\nFederal Reserve Bank of Philadelphia Manufacturing Business Outlook Survey Released: October 15, 2026, at 8:30 a.m.\nET.",
+        "title": "Philadelphia Fed Manufacturing Business Outlook Survey, October 2026",
+        "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-10",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [
+          "Business activity rose sharply in New York State in October, according to firms responding to the Empire State Manufacturing Survey.",
+          "The headline general business conditions index climbed eighteen points to 25.5, its highest level in nearly five years.",
+          "Note: Survey responses were collected between October 2 and October 9."
+        ],
+        "text": "Business activity rose sharply in New York State in October, according to firms responding to the Empire State Manufacturing Survey.\nThe headline general business conditions index climbed eighteen points to 25.5, its highest level in nearly five years.\nNote: Survey responses were collected between October 2 and October 9.",
+        "title": "Empire State Manufacturing Survey, October 2026",
+        "url": "https://www.newyorkfed.org/survey/empire/empiresurvey_overview",
+        "verified": null
+      },
+      {
+        "published": "2026-10-05",
+        "quotes": [
+          "Manufacturing PMI (ISM) stood at 54.5 in Sep 2026.",
+          "The series on this page is monthly and runs from Jan 2020 to Sep 2026.",
+          "A reading above 50 indicates that the sector is expanding compared to the previous month, while a reading below 50 indicates contraction."
+        ],
+        "text": "Manufacturing PMI (ISM) stood at 54.5 in Sep 2026.\nThe series on this page is monthly and runs from Jan 2020 to Sep 2026.\nA reading above 50 indicates that the sector is expanding compared to the previous month, while a reading below 50 indicates contraction.",
+        "title": "US ISM Manufacturing and Services PMI \u2014 Data Since 2020",
+        "url": "https://macrodatahub.com/data/us-ism-manufacturing-and-services-pmi-604",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Business Confidence in the United States decreased to 54.50 points in September from 54.60 points in August of 2026.",
+          "Business Confidence in the United States averaged 52.82 points from 1948 until 2026, reaching an all time high of 77.50 points in July of 1950 and a record low of 29.40 points in May of 1980."
+        ],
+        "text": "Business Confidence in the United States decreased to 54.50 points in September from 54.60 points in August of 2026.\nBusiness Confidence in the United States averaged 52.82 points from 1948 until 2026, reaching an all time high of 77.50 points in July of 1950 and a record low of 29.40 points in May of 1980.",
+        "title": "United States ISM Manufacturing PMI",
+        "url": "https://tradingeconomics.com/united-states/business-confidence",
+        "verified": null
+      }
+    ],
+    "polymarket-5211630": [
+      {
+        "published": "2026-10-02",
+        "quotes": [
+          "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S.\nBureau of Labor Statistics reported today.",
+          "Total nonfarm payroll employment changed little in September (+29,000), following an average monthly gain of 45,000 over the prior 12 months.",
+          "The change in total nonfarm payroll employment for July was revised down by 31,000, from +21,000 to -10,000, and the change for August was revised down by 29,000, from +162,000 to +133,000."
+        ],
+        "text": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S.\nBureau of Labor Statistics reported today.\nTotal nonfarm payroll employment changed little in September (+29,000), following an average monthly gain of 45,000 over the prior 12 months.\nThe change in total nonfarm payroll employment for July was revised down by 31,000, from +21,000 to -10,000, and the change for August was revised down by 29,000, from +162,000 to +133,000.",
+        "title": "Employment Situation Summary - September 2026",
+        "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "The BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months."
+        ],
+        "text": "The BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.",
+        "title": "Schedule of Releases for the Employment Situation",
+        "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-30",
+        "quotes": [
+          "Data extracted on: October 30, 2026 (5:53:02 AM)",
+          "Series Title: All employees, thousands, total nonfarm, seasonally adjusted"
+        ],
+        "text": "Data extracted on: October 30, 2026 (5:53:02 AM)\nSeries Title: All employees, thousands, total nonfarm, seasonally adjusted",
+        "title": "CES0000000001 All employees, thousands, total nonfarm, seasonally adjusted, 1-month net change",
+        "url": "https://data.bls.gov/timeseries/CES0000000001?output_view=net_1mth",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "In the week ending October 24, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 1,000 from the previous week's revised level.",
+          "The advance number for seasonally adjusted insured unemployment during the week ending October 17 was 1,701,000, a decrease of 21,000 from the previous week's revised level."
+        ],
+        "text": "In the week ending October 24, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 1,000 from the previous week's revised level.\nThe advance number for seasonally adjusted insured unemployment during the week ending October 17 was 1,701,000, a decrease of 21,000 from the previous week's revised level.",
+        "title": "Unemployment Insurance Weekly Claims",
+        "url": "https://www.dol.gov/ui/data.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-10-27",
+        "quotes": [
+          "For the four weeks ending October 10, 2026, U.S.\nprivate employers added an average of 16,750 jobs per week, according to the NER Pulse, a weekly update of the monthly ADP National Employment Report (NER).",
+          "Hiring slowed for the second week.\nThese numbers are preliminary and could change as new data is added."
+        ],
+        "text": "For the four weeks ending October 10, 2026, U.S.\nprivate employers added an average of 16,750 jobs per week, according to the NER Pulse, a weekly update of the monthly ADP National Employment Report (NER).\nHiring slowed for the second week.\nThese numbers are preliminary and could change as new data is added.",
+        "title": "ADP National Employment Report Preliminary Estimate for October 10, 2026",
+        "url": "https://mediacenter.adp.com/2026-10-27-ADP-National-Employment-Report-Preliminary-Estimate-for-October-10,-2026",
+        "verified": null
+      }
+    ],
+    "polymarket-5211634": [
+      {
+        "published": "2026-10-02",
+        "quotes": [
+          "Both the unemployment rate, at 4.2 percent, and the number of unemployed people, at 7.1 million, changed little in September.",
+          "The unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March.",
+          "The Employment Situation for October 2026 is scheduled to be published on Friday, November 6, 2026, at 8:30 a.m.\n(ET)."
+        ],
+        "text": "Both the unemployment rate, at 4.2 percent, and the number of unemployed people, at 7.1 million, changed little in September.\nThe unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March.\nThe Employment Situation for October 2026 is scheduled to be published on Friday, November 6, 2026, at 8:30 a.m.\n(ET).",
+        "title": "Employment Situation Summary - September 2026",
+        "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-02",
+        "quotes": [
+          "U-3 Total unemployed, as a percent of the civilian labor force (official unemployment rate)",
+          "Updated population controls are introduced annually with the release of January data."
+        ],
+        "text": "U-3 Total unemployed, as a percent of the civilian labor force (official unemployment rate)\nUpdated population controls are introduced annually with the release of January data.",
+        "title": "Table A-15.\nAlternative measures of labor underutilization - September 2026",
+        "url": "https://www.bls.gov/news.release/empsit.t15.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-30",
+        "quotes": [
+          "Series title: (Seas) Unemployment Rate",
+          "9 : Data unavailable due to the 2025 lapse in appropriations.",
+          "12 : January 2026 estimates were revised to incorporate updated population controls."
+        ],
+        "text": "Series title: (Seas) Unemployment Rate\n9 : Data unavailable due to the 2025 lapse in appropriations.\n12 : January 2026 estimates were revised to incorporate updated population controls.",
+        "title": "BLS series LNS14000000, seasonally adjusted unemployment rate",
+        "url": "https://data.bls.gov/timeseries/LNS14000000",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "October 2026",
+          "Nov.\n06, 2026",
+          "08:30 AM"
+        ],
+        "text": "October 2026\nNov.\n06, 2026\n08:30 AM",
+        "title": "Schedule of Releases for the Employment Situation",
+        "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "verified": null
+      },
+      {
+        "published": "2026-10-02",
+        "quotes": [
+          "The U.S.\nunemployment rate rose from 4.1% in August to 4.2% in September, a value similar to its 12-month average.\nMore precise data show the rate increased slightly from 4.141% to 4.175%.",
+          "The overall change is based on the precise unemployment rate for these periods; for example, the unemployment rates were 4.1754% in September and 4.1413% in August."
+        ],
+        "text": "The U.S.\nunemployment rate rose from 4.1% in August to 4.2% in September, a value similar to its 12-month average.\nMore precise data show the rate increased slightly from 4.141% to 4.175%.\nThe overall change is based on the precise unemployment rate for these periods; for example, the unemployment rates were 4.1754% in September and 4.1413% in August.",
+        "title": "Flash Report: Unemployment Rises Slightly, Job Growth Slows in September",
+        "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "In the week ending October 24, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 1,000 from the previous week's revised level.",
+          "The advance seasonally adjusted insured unemployment rate was 1.1 percent for the week ending October 17, unchanged from the previous week's unrevised rate.",
+          "The advance number for seasonally adjusted insured unemployment during the week ending October 17 was 1,701,000, a decrease of 21,000 from the previous week's revised level."
+        ],
+        "text": "In the week ending October 24, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 1,000 from the previous week's revised level.\nThe advance seasonally adjusted insured unemployment rate was 1.1 percent for the week ending October 17, unchanged from the previous week's unrevised rate.\nThe advance number for seasonally adjusted insured unemployment during the week ending October 17 was 1,701,000, a decrease of 21,000 from the previous week's revised level.",
+        "title": "Unemployment Insurance Weekly Claims, week ending October 24, 2026",
+        "url": "https://www.dol.gov/ui/data.pdf",
+        "verified": null
+      }
+    ],
+    "polymarket-6236213": [
+      {
+        "published": "",
+        "quotes": [
+          "In October 2026, Bitcoin (BTC) declined 6.73% on Binance USDT markets, moving from an open of $83,623.5900 to a close of $77,991.8900.",
+          "The month's high printed at $87,220.0000 while the low sat at $77,910.0000.",
+          "The strongest session was Oct 4 (+2.10%), and the weakest was Oct 29 (-4.12%)."
+        ],
+        "text": "In October 2026, Bitcoin (BTC) declined 6.73% on Binance USDT markets, moving from an open of $83,623.5900 to a close of $77,991.8900.\nThe month's high printed at $87,220.0000 while the low sat at $77,910.0000.\nThe strongest session was Oct 4 (+2.10%), and the weakest was Oct 29 (-4.12%).",
+        "title": "BTC Monthly Summary - October 2026",
+        "url": "https://tradervilla.com/public/coin/btcusdt/month-summary/october-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-30",
+        "quotes": [
+          "As of 9:35:11 AM UTC.\nMarket Open."
+        ],
+        "text": "As of 9:35:11 AM UTC.\nMarket Open.",
+        "title": "Bitcoin USD (BTC-USD) Price History & Historical Data - Yahoo Finance",
+        "url": "https://finance.yahoo.com/quote/BTC-USD/history/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "North of $5 billion appears to have been stolen from the world's biggest crypto exchange, Binance, of which some $2.5 billion has been frozen.",
+          "It\u2019s session lows across the board, with bitcoin BTC$77,799.85 now down 5% over the past 24 hours to just under $77,000, its weakest level in more than one month.",
+          "After challenging $82,000 just two hours ago, bitcoin has quickly retreated back to $80,600, little changed over the past 24 hours."
+        ],
+        "text": "North of $5 billion appears to have been stolen from the world's biggest crypto exchange, Binance, of which some $2.5 billion has been frozen.\nIt\u2019s session lows across the board, with bitcoin BTC$77,799.85 now down 5% over the past 24 hours to just under $77,000, its weakest level in more than one month.\nAfter challenging $82,000 just two hours ago, bitcoin has quickly retreated back to $80,600, little changed over the past 24 hours.",
+        "title": "Live updates: Binance says exploit is likely due to 'compromised DevOps engineer\u2019s laptop'",
+        "url": "https://www.coindesk.com/business/2026/10/29/live-updates-bitcoin-clings-to-usd80-000-as-strategy-s-cushion-thins-before-earnings",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "Inflation remains elevated.",
+          "Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting."
+        ],
+        "text": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\nInflation remains elevated.\nVoting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "title": "Federal Reserve issues FOMC statement",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "verified": null
+      }
+    ],
+    "polymarket-6236258": [
+      {
+        "published": "",
+        "quotes": [
+          "[1792972800000,\"2329.86000000\",\"2344.72000000\",\"2293.09000000\",\"2324.55000000\"",
+          "[1793232000000,\"2359.69000000\",\"2379.55000000\",\"2233.00000000\",\"2253.13000000\"",
+          "[1793318400000,\"2253.13000000\",\"2259.02000000\",\"2174.08000000\",\"2229.04000000\""
+        ],
+        "text": "[1792972800000,\"2329.86000000\",\"2344.72000000\",\"2293.09000000\",\"2324.55000000\"\n[1793232000000,\"2359.69000000\",\"2379.55000000\",\"2233.00000000\",\"2253.13000000\"\n[1793318400000,\"2253.13000000\",\"2259.02000000\",\"2174.08000000\",\"2229.04000000\"",
+        "title": "Binance market-data klines, ETHUSDT, 1d",
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&startTime=1785542400000&limit=100",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "EMBARGOED UNTIL RELEASE AT 8:30 a.m.\nEDT, Thursday, October 29, 2026",
+          "From the preceding month, the PCE price index for September increased 0.5 percent.",
+          "From the same month one year ago, the PCE price index for September increased 3.6 percent."
+        ],
+        "text": "EMBARGOED UNTIL RELEASE AT 8:30 a.m.\nEDT, Thursday, October 29, 2026\nFrom the preceding month, the PCE price index for September increased 0.5 percent.\nFrom the same month one year ago, the PCE price index for September increased 3.6 percent.",
+        "title": "Personal Income and Outlays, September 2026",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Ethereum slid 5.2% to $2,190, while XRP fell 7% to $1.21.",
+          "Blockchain analytics firm Chainalysis estimated that roughly $5.9 billion was stolen at the time of the theft.",
+          "Binance Co-CEO Yi He also said that the exchange will cover all user losses resulting from the hack."
+        ],
+        "text": "Ethereum slid 5.2% to $2,190, while XRP fell 7% to $1.21.\nBlockchain analytics firm Chainalysis estimated that roughly $5.9 billion was stolen at the time of the theft.\nBinance Co-CEO Yi He also said that the exchange will cover all user losses resulting from the hack.",
+        "title": "Bitcoin slides below $77,000, BNB drops amid Binance hack",
+        "url": "https://www.theblock.co/news/markets/2026-10-29-bitcoin-slides-below-77000-binance-hack-432183",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Ethereum (ETH) fell below $2,300, down 4.8% on Thursday following a rise in US Personal Consumption Expenditure (PCE) inflation.",
+          "Ethereum has seen $224.5 million in liquidations over the past 24 hours, driven by $187.6 million in long liquidations.",
+          "On the downside, immediate support is at $2,205 if it fails to recover the 200-day EMA at $2,310."
+        ],
+        "text": "Ethereum (ETH) fell below $2,300, down 4.8% on Thursday following a rise in US Personal Consumption Expenditure (PCE) inflation.\nEthereum has seen $224.5 million in liquidations over the past 24 hours, driven by $187.6 million in long liquidations.\nOn the downside, immediate support is at $2,205 if it fails to recover the 200-day EMA at $2,310.",
+        "title": "Ethereum Price Forecast: ETH dips as US PCE inflation reinforces December rate hike",
+        "url": "https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-eth-dips-as-us-pce-inflation-reinforces-december-rate-hike-202610292241",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "ETH/USD has fluctuated within a day range of 2,174.08 to 2,379.55.",
+          "The ETH/USD price today is 2,228.86, with a previous close of 2,321.58.",
+          "Lowest: 2,178.71"
+        ],
+        "text": "ETH/USD has fluctuated within a day range of 2,174.08 to 2,379.55.\nThe ETH/USD price today is 2,228.86, with a previous close of 2,321.58.\nLowest: 2,178.71",
+        "title": "ETH USD Binance Historical Data",
+        "url": "https://www.investing.com/crypto/ethereum/eth-usd-historical-data",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [],
+        "text": "",
+        "title": "Security Incident Update",
+        "url": "https://www.binance.com/en/support/announcement/detail/c5a8729a97ac486d963784d96c5642d7",
+        "verified": null
+      }
+    ],
+    "polymarket-629465": [
+      {
+        "published": "",
+        "quotes": [
+          "Tuesday, November 3, 2026",
+          "Democratic Party Benson, Jocelyn / Brinks, Winnie 04/16/2026 Petitions",
+          "Republican Party James, John / DeBoyer, Jay 04/20/2026 Petitions"
+        ],
+        "text": "Tuesday, November 3, 2026\nDemocratic Party Benson, Jocelyn / Brinks, Winnie 04/16/2026 Petitions\nRepublican Party James, John / DeBoyer, Jay 04/20/2026 Petitions",
+        "title": "Michigan Department of State Official Candidate Listing, General Election",
+        "url": "https://mi-boe.entellitrak.com/etk-mi-boe-prod/page.request.do?electionType=GEN&electionYear=2026&page=page.miboePublicReport",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "2002 Granholm, Democrat .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n1,633,796",
+          "2010 Snyder, Republican .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n1,874,834",
+          "2018 Whitmer, Democrat .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n2,266,193"
+        ],
+        "text": "2002 Granholm, Democrat .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n1,633,796\n2010 Snyder, Republican .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n1,874,834\n2018 Whitmer, Democrat .\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n2,266,193",
+        "title": "Michigan Manual 2023-2024, Summary of Vote for Governor, 1835-2022",
+        "url": "https://legislature.mi.gov/documents/2023-2024/michiganmanual/2023-MM-P0817-p0822.pdf",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "No person shall be elected more than two times to each office of the executive branch of government: governor, lieutenant governor, secretary of state or attorney general.",
+          "This limitation on the number of times a person shall be elected to office shall apply to terms of office beginning on or after January 1, 1993."
+        ],
+        "text": "No person shall be elected more than two times to each office of the executive branch of government: governor, lieutenant governor, secretary of state or attorney general.\nThis limitation on the number of times a person shall be elected to office shall apply to terms of office beginning on or after January 1, 1993.",
+        "title": "Michigan Constitution, Article V, Section 30",
+        "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=MCL-ARTICLE-V-30",
+        "verified": null
+      },
+      {
+        "published": "2024-01-01",
+        "quotes": [
+          "Date: 11/8/2022 Type: STATE GENERAL, OFFICIAL",
+          "Whitmer, Gretchen 2,430,505 54.47%",
+          "Dixon, Tudor M.\n1,960,635 43.94%"
+        ],
+        "text": "Date: 11/8/2022 Type: STATE GENERAL, OFFICIAL\nWhitmer, Gretchen 2,430,505 54.47%\nDixon, Tudor M.\n1,960,635 43.94%",
+        "title": "2022 Michigan Election Results, State General, Official",
+        "url": "https://mvic.sos.state.mi.us/votehistory/Index?electionDate=11-8-2022&type=C",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "The research company said Benson appears to be the choice of 49% of likely voters, with James at 44% in the late October survey.",
+          "The late October survey has a margin of error of 3.9%, the research company said, at the 95%+ confidence level.",
+          "The race is open because current Gov.\nGretchen Whitmer, a Democrat, is term-limited."
+        ],
+        "text": "The research company said Benson appears to be the choice of 49% of likely voters, with James at 44% in the late October survey.\nThe late October survey has a margin of error of 3.9%, the research company said, at the 95%+ confidence level.\nThe race is open because current Gov.\nGretchen Whitmer, a Democrat, is term-limited.",
+        "title": "Jocelyn Benson continues to lead over John James in new Michigan gubernatorial poll",
+        "url": "https://www.cbsnews.com/detroit/news/jocelyn-benson-john-james-october-michigan-gubernatorial-poll/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-26",
+        "quotes": [
+          "East Lansing, Mich., October 26, 2026 \u2013 The Institute for Public Policy and Social Research (IPPSR) at Michigan State University released its new State of the State Survey today, showing Jocelyn Benson now leads John James 53.3% to 40.9% among likely voters in the race for governor.",
+          "Trump's unpopularity is a headwind for Republicans.",
+          "Only 35% of voters rate his performance as excellent or good, and 52% say a Trump endorsement makes them less likely to support a candidate."
+        ],
+        "text": "East Lansing, Mich., October 26, 2026 \u2013 The Institute for Public Policy and Social Research (IPPSR) at Michigan State University released its new State of the State Survey today, showing Jocelyn Benson now leads John James 53.3% to 40.9% among likely voters in the race for governor.\nTrump's unpopularity is a headwind for Republicans.\nOnly 35% of voters rate his performance as excellent or good, and 52% say a Trump endorsement makes them less likely to support a candidate.",
+        "title": "MSU Poll Shows Benson with large lead while El-Sayed/Roger race tight",
+        "url": "https://ippsr.msu.edu/news/msu-poll-shows-benson-large-lead-while-el-sayed-roger-race-tight",
+        "verified": null
+      }
+    ],
+    "polymarket-6301274": [
+      {
+        "published": "2026-10-30",
+        "quotes": [
+          "Real-time Oct 30, 2026 5:57:38 AM EDT",
+          "Composite 2,228.560 Binance 2,228.560 OKX 2,228.230 Huobi 2,228.110 HitBTC 2,227.509 Bitfinex 2,227.300 Coinbase 2,229.090 Binance.US 2,316.170 Bitstamp 2,228.080 Gemini 2,223.680",
+          "| 2026-10-30 | 2,253.13 | 2,270.64 | 2,174.00 | 2,228.56 | -1.090% | 433,858 | 0.000% |"
+        ],
+        "text": "Real-time Oct 30, 2026 5:57:38 AM EDT\nComposite 2,228.560 Binance 2,228.560 OKX 2,228.230 Huobi 2,228.110 HitBTC 2,227.509 Bitfinex 2,227.300 Coinbase 2,229.090 Binance.US 2,316.170 Bitstamp 2,228.080 Gemini 2,223.680\n| 2026-10-30 | 2,253.13 | 2,270.64 | 2,174.00 | 2,228.56 | -1.090% | 433,858 | 0.000% |",
+        "title": "ETHUSDT Historical Prices | ChartExchange",
+        "url": "https://chartexchange.com/symbol/crypto-ethusdt/historical/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "ETH $2,225.96",
+          "$2,178.62 24h Range $2,373.22",
+          "7d Range $2,178.62 \u2013 $2,413.74"
+        ],
+        "text": "ETH $2,225.96\n$2,178.62 24h Range $2,373.22\n7d Range $2,178.62 \u2013 $2,413.74",
+        "title": "Ethereum Price: ETH/USD Live Price Chart, Market Cap & News Today | CoinGecko",
+        "url": "https://www.coingecko.com/en/coins/ethereum",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "Cryptocurrency giant Binance said on Thursday that $6.3bn (\u00a34.7bn) of digital assets have been impacted by what is thought to be the biggest crypto hack on record.",
+          "\"Safety first: withdrawals are currently disabled until the environment is confirmed to be secure,\" she said.",
+          "The price of other major cryptocurrencies including Ethereum and Solana also fell sharply."
+        ],
+        "text": "Cryptocurrency giant Binance said on Thursday that $6.3bn (\u00a34.7bn) of digital assets have been impacted by what is thought to be the biggest crypto hack on record.\n\"Safety first: withdrawals are currently disabled until the environment is confirmed to be secure,\" she said.\nThe price of other major cryptocurrencies including Ethereum and Solana also fell sharply.",
+        "title": "Crypto giant Binance hit by $6.3bn hack suspected to be largest in history",
+        "url": "https://www.bbc.com/news/articles/cwg7xp8kx4v5o",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Binance said Friday that a security incident had an estimated impact of $6.3 billion, with around $3 billion in cryptocurrency assets frozen so far, and pledged to cover all losses.",
+          "It expects to begin resuming withdrawal services within the next 48 hours.",
+          "Bitcoin fell more than 4% to $77,994.96 on Friday as the hack weighed on crypto markets."
+        ],
+        "text": "Binance said Friday that a security incident had an estimated impact of $6.3 billion, with around $3 billion in cryptocurrency assets frozen so far, and pledged to cover all losses.\nIt expects to begin resuming withdrawal services within the next 48 hours.\nBitcoin fell more than 4% to $77,994.96 on Friday as the hack weighed on crypto markets.",
+        "title": "Biggest-ever crypto hack impacts $6.3 billion as Binance works to contain fallout",
+        "url": "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Ether (ETH) fell 2.88% in four hours to $2,245 on Binance spot at 8:10 p.m.\nET Oct.\n29 (00:10 UTC Oct.\n30), as one-hour ETH long liquidations across three exchanges reached $10.01 million.",
+          "The Binance spot ETH/USDT pair was at $2,245 at that time.\nFour hours earlier, the same pair traded at $2,311, a $66 difference."
+        ],
+        "text": "Ether (ETH) fell 2.88% in four hours to $2,245 on Binance spot at 8:10 p.m.\nET Oct.\n29 (00:10 UTC Oct.\n30), as one-hour ETH long liquidations across three exchanges reached $10.01 million.\nThe Binance spot ETH/USDT pair was at $2,245 at that time.\nFour hours earlier, the same pair traded at $2,311, a $66 difference.",
+        "title": "Ether (ETH) Drops 2.88% in Four Hours to $2,245 on Binance Spot",
+        "url": "https://www.tokenpost.com/news/investing/44062",
+        "verified": null
+      }
+    ],
+    "polymarket-6301347": [
+      {
+        "published": "",
+        "quotes": [
+          "1793232000000,\"81343.51000000\",\"81971.00000000\",\"77910.00000000\",\"77991.89000000\"",
+          "1793318400000,\"77991.89000000\",\"78804.01000000\",\"76500.11000000\",\"77651.15000000\""
+        ],
+        "text": "1793232000000,\"81343.51000000\",\"81971.00000000\",\"77910.00000000\",\"77991.89000000\"\n1793318400000,\"77991.89000000\",\"78804.01000000\",\"76500.11000000\",\"77651.15000000\"",
+        "title": "Binance market data: BTCUSDT daily klines",
+        "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=15",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "Inflation remains elevated.",
+          "Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting."
+        ],
+        "text": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\nInflation remains elevated.\nVoting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "title": "Federal Reserve issues FOMC statement",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [
+          "In October 2026, Bitcoin (BTC) declined 6.73% on Binance USDT markets, moving from an open of $83,623.5900 to a close of $77,991.8900.",
+          "The strongest session was Oct 4 (+2.10%), and the weakest was Oct 29 (-4.12%)."
+        ],
+        "text": "In October 2026, Bitcoin (BTC) declined 6.73% on Binance USDT markets, moving from an open of $83,623.5900 to a close of $77,991.8900.\nThe strongest session was Oct 4 (+2.10%), and the weakest was Oct 29 (-4.12%).",
+        "title": "BTC Monthly Summary - October 2026",
+        "url": "https://www.tradervilla.com/coin/btcusdt/month-summary/october-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "North of $5 billion appears to have been stolen from the world's biggest crypto exchange, Binance, of which some $2.5 billion has been frozen.",
+          "It\u2019s session lows across the board, with bitcoin BTC$77,799.85 now down 5% over the past 24 hours to just under $77,000, its weakest level in more than one month.",
+          "\u201cAs a precaution, all deposits and withdrawals are temporarily suspended while our team conducts security checks, freezes funds, and works with law enforcement,\u201d she noted."
+        ],
+        "text": "North of $5 billion appears to have been stolen from the world's biggest crypto exchange, Binance, of which some $2.5 billion has been frozen.\nIt\u2019s session lows across the board, with bitcoin BTC$77,799.85 now down 5% over the past 24 hours to just under $77,000, its weakest level in more than one month.\n\u201cAs a precaution, all deposits and withdrawals are temporarily suspended while our team conducts security checks, freezes funds, and works with law enforcement,\u201d she noted.",
+        "title": "Live updates: Binance says exploit is likely due to 'compromised DevOps engineer\u2019s laptop'",
+        "url": "https://www.coindesk.com/business/2026/10/29/live-updates-bitcoin-clings-to-usd80-000-as-strategy-s-cushion-thins-before-earnings",
+        "verified": null
+      },
+      {
+        "published": "2026-10-30",
+        "quotes": [
+          "Bitcoin fell to a low of near $76,148 in early trading on October 30 from $80,000 levels, and later recovered some gains to trade at $77,266 (08:54 IST), though representing a 3.13 percent decline over the past 24 hours and 5.35 percent in a week, as crypto markets came under sharp selling pressure after a security breach incident at Binance.",
+          "Following the suspected billion-dollar hack, Binance, the world\u2019s largest crypto exchange, suspended all deposits and withdrawals as it investigates a security incident that has frozen billions of dollars in assets, Bloomberg reported."
+        ],
+        "text": "Bitcoin fell to a low of near $76,148 in early trading on October 30 from $80,000 levels, and later recovered some gains to trade at $77,266 (08:54 IST), though representing a 3.13 percent decline over the past 24 hours and 5.35 percent in a week, as crypto markets came under sharp selling pressure after a security breach incident at Binance.\nFollowing the suspected billion-dollar hack, Binance, the world\u2019s largest crypto exchange, suspended all deposits and withdrawals as it investigates a security incident that has frozen billions of dollars in assets, Bloomberg reported.",
+        "title": "Bitcoin falls 6-week low near $77,266 as Binance security scare rattles crypto markets",
+        "url": "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-falls-6-week-low-near-77-266-as-binance-security-scare-rattles-crypto-markets-14064131.html",
+        "verified": null
+      }
+    ],
+    "polymarket-631018": [
+      {
+        "published": "",
+        "quotes": [
+          "Candidates for United States Senate",
+          "Primary Election: March 10, 2026 General Election: November 3, 2026",
+          "Cindy Hyde-Smith | Republican"
+        ],
+        "text": "Candidates for United States Senate\nPrimary Election: March 10, 2026 General Election: November 3, 2026\nCindy Hyde-Smith | Republican",
+        "title": "Candidate Qualifying List",
+        "url": "https://www.sos.ms.gov/content/CandidateQualifying/default.aspx",
+        "verified": null
+      },
+      {
+        "published": "2026-03-10",
+        "quotes": [
+          "Official Results",
+          "Date of Election: 3/10/2026",
+          "Cindy Hyde-Smith | Republican | 809 | 240 | 972 | 633 | 1039 | 127852"
+        ],
+        "text": "Official Results\nDate of Election: 3/10/2026\nCindy Hyde-Smith | Republican | 809 | 240 | 972 | 633 | 1039 | 127852",
+        "title": "Total Votes Reported by Counties for FEDERAL PRIMARY ELECTION",
+        "url": "https://www.sos.ms.gov/content/documents/elections/2026/republican%20primary%202026.pdf",
+        "verified": null
+      },
+      {
+        "published": "2020-12-07",
+        "quotes": [
+          "HEREBY CERTIFY THAT CINDY HYDE-SMITH RECEIVED THE MAJORITY OF VOTES AND WAS ELECTED TO THIS POSITION.",
+          "Cindy Hyde-Smith | 709,511 | 54.11%",
+          "Mike Espy | 578,691 | 44.13%"
+        ],
+        "text": "HEREBY CERTIFY THAT CINDY HYDE-SMITH RECEIVED THE MAJORITY OF VOTES AND WAS ELECTED TO THIS POSITION.\nCindy Hyde-Smith | 709,511 | 54.11%\nMike Espy | 578,691 | 44.13%",
+        "title": "Amended Certification of Vote for United States Senate",
+        "url": "https://sos.ms.gov/elections/electionresults/2020General/Statewide%20Certified%20Results/US%20Senate_AMENDED.pdf",
+        "verified": null
+      },
+      {
+        "published": "2024-11-05",
+        "quotes": [
+          "Date of Election: 11/5/2024",
+          "Ty Pinkins | Democrat | 854 | 1710 | 3439 | 2243 | 4223 | 451981",
+          "Roger F.\nWicker | Republican | 4203 | 1136 | 4937 | 3609 | 4702 | 763420"
+        ],
+        "text": "Date of Election: 11/5/2024\nTy Pinkins | Democrat | 854 | 1710 | 3439 | 2243 | 4223 | 451981\nRoger F.\nWicker | Republican | 4203 | 1136 | 4937 | 3609 | 4702 | 763420",
+        "title": "2024 Official Statewide Results",
+        "url": "https://www.sos.ms.gov/elections/electionresults/2024General/Statewide%20Results/2024%20Official%20Statewide%20Results.pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-09-15",
+        "quotes": [
+          "But it\u2019s long been the law in Mississippi that there are no runoff elections for general elections in federal races.\nThe winner is required to win only a plurality of the votes, not a majority.",
+          "Watson\u2019s clarification comes amid a high-profile Senate race, with Republican Sen.\nCindy Hyde-Smith facing two challengers: Democratic nominee Scott Colom and independent opponent Ty Pinkins.",
+          "In 2018, a runoff between Hyde-Smith and Mike Espy occurred after the two received more votes than former state Sen.\nChris McDaniel.\nThis was a special election after longtime Sen.\nThad Cochran\u2019s resignation."
+        ],
+        "text": "But it\u2019s long been the law in Mississippi that there are no runoff elections for general elections in federal races.\nThe winner is required to win only a plurality of the votes, not a majority.\nWatson\u2019s clarification comes amid a high-profile Senate race, with Republican Sen.\nCindy Hyde-Smith facing two challengers: Democratic nominee Scott Colom and independent opponent Ty Pinkins.\nIn 2018, a runoff between Hyde-Smith and Mike Espy occurred after the two received more votes than former state Sen.\nChris McDaniel.\nThis was a special election after longtime Sen.\nThad Cochran\u2019s resignation.",
+        "title": "Secretary of state: No runoff elections for Mississippi\u2019s federal midterm races",
+        "url": "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "Independent candidate Ty Pinkins said he will stay in the race for Mississippi\u2019s U.S.\nSenate seat after some Democratic supporters urged him to step aside.",
+          "Under Mississippi law, official ballots are already printed.\nPinkins\u2019 name will appear on the ballot with Hyde-Smith and Colom on Nov.\n3, regardless of any calls to step down.",
+          "\u201cI think that\u2019s the most illogical thing that someone can tell someone \u2014 that every vote that I have is guaranteed to go to the Democrat if I get out of the race, refusing to see what just happened in 2020, 2018, all the way back to 1982,\u201d Pinkins said.\n\u201c15 straight losses.\u201d"
+        ],
+        "text": "Independent candidate Ty Pinkins said he will stay in the race for Mississippi\u2019s U.S.\nSenate seat after some Democratic supporters urged him to step aside.\nUnder Mississippi law, official ballots are already printed.\nPinkins\u2019 name will appear on the ballot with Hyde-Smith and Colom on Nov.\n3, regardless of any calls to step down.\n\u201cI think that\u2019s the most illogical thing that someone can tell someone \u2014 that every vote that I have is guaranteed to go to the Democrat if I get out of the race, refusing to see what just happened in 2020, 2018, all the way back to 1982,\u201d Pinkins said.\n\u201c15 straight losses.\u201d",
+        "title": "Independent Ty Pinkins says he is staying in Mississippi US Senate race",
+        "url": "https://www.wlbt.com/2026/10/30/independent-ty-pinkins-says-he-is-staying-mississippi-us-senate-race/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "President Donald Trump visited Corinth on Monday to campaign for Hyde-Smith, while former President Bill Clinton is scheduled to visit Tupelo later this week to support Colom.",
+          "\u201cI think the race is close.\nThe race is close because of the economic conditions.\nI mean, folks may not vote Democrat.\nWe're in a red state, deep red state, and folks may not vote Democrat,\u201d Orey said.",
+          "One recent poll showed Hyde-Smith leading Colom by just three points, while other surveys indicate Hyde-Smith is ahead by a larger margin."
+        ],
+        "text": "President Donald Trump visited Corinth on Monday to campaign for Hyde-Smith, while former President Bill Clinton is scheduled to visit Tupelo later this week to support Colom.\n\u201cI think the race is close.\nThe race is close because of the economic conditions.\nI mean, folks may not vote Democrat.\nWe're in a red state, deep red state, and folks may not vote Democrat,\u201d Orey said.\nOne recent poll showed Hyde-Smith leading Colom by just three points, while other surveys indicate Hyde-Smith is ahead by a larger margin.",
+        "title": "Mississippi Senate race draws Trump, Clinton stops",
+        "url": "https://www.wapt.com/article/mississippi-senate-race-trump-clinton-campaign-stops/74286829",
+        "verified": null
+      },
+      {
+        "published": "2026-10-27",
+        "quotes": [
+          "Voters will choose among Republican incumbent U.S.\nSen.\nCindy Hyde-Smith, Democrat Scott Colom, and Independent Ty Pinkins.",
+          "The election is Tuesday, Nov.\n3, and the polls will be open from 7 a.m.\nto 7 p.m.",
+          "Pinkins, who is running as an independent, said neither political party aligns with him \u201cmorally.\u201d"
+        ],
+        "text": "Voters will choose among Republican incumbent U.S.\nSen.\nCindy Hyde-Smith, Democrat Scott Colom, and Independent Ty Pinkins.\nThe election is Tuesday, Nov.\n3, and the polls will be open from 7 a.m.\nto 7 p.m.\nPinkins, who is running as an independent, said neither political party aligns with him \u201cmorally.\u201d",
+        "title": "Get to know the candidates running for U.S.\nSenate in Mississippi",
+        "url": "https://www.wlox.com/2026/10/27/get-know-candidates-running-us-senate-mississippi/",
+        "verified": null
+      }
+    ],
+    "polymarket-631045": [
+      {
+        "published": "",
+        "quotes": [
+          "Candidate Listing for 2026 General Election",
+          "Moody, Ashley (REP) *Incumbent",
+          "Nixon, Angie (DEM)"
+        ],
+        "text": "Candidate Listing for 2026 General Election\nMoody, Ashley (REP) *Incumbent\nNixon, Angie (DEM)",
+        "title": "Candidate Listing for 2026 General Election \u2014 Florida Division of Elections",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?OfficeCode=USS&elecID=20261103-GEN",
+        "verified": null
+      },
+      {
+        "published": "2026-10-12",
+        "quotes": [
+          "Totals reflect the number of active registered voters in the State of Florida.\nData as of September 30, 2026.",
+          "2026 | 5,678,755 | 4,133,397 | 514,782 | 3,345,188 | 13,672,122",
+          "2020 | 5,218,739 | 5,315,954 | 231,246 | 3,799,799 | 14,565,738"
+        ],
+        "text": "Totals reflect the number of active registered voters in the State of Florida.\nData as of September 30, 2026.\n2026 | 5,678,755 | 4,133,397 | 514,782 | 3,345,188 | 13,672,122\n2020 | 5,218,739 | 5,315,954 | 231,246 | 3,799,799 | 14,565,738",
+        "title": "Voter Registration - By Party Affiliation - Florida Division of Elections",
+        "url": "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation",
+        "verified": null
+      },
+      {
+        "published": "2026-10-29",
+        "quotes": [
+          "2026 General Election Number - 49894 Election Date - 11/03/2026",
+          "The reports are cumulative up through the prior day\u2019s vote-by-mail and early voting activity.",
+          "Voted Vote-by-Mail | 594,296 | 727,616 | 41,020 | 323,269 | 1,686,201 | 10/29/2026 1:03PM"
+        ],
+        "text": "2026 General Election Number - 49894 Election Date - 11/03/2026\nThe reports are cumulative up through the prior day\u2019s vote-by-mail and early voting activity.\nVoted Vote-by-Mail | 594,296 | 727,616 | 41,020 | 323,269 | 1,686,201 | 10/29/2026 1:03PM",
+        "title": "Vote-by-Mail Request & Early Voting Statistics \u2014 2026 General Election",
+        "url": "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
+        "verified": null
+      },
+      {
+        "published": "2024-11-05",
+        "quotes": [
+          "Official Results",
+          "Rick Scott (REP) | Debbie Mucarsel-Powell (DEM)",
+          "5,977,706 | 4,603,077"
+        ],
+        "text": "Official Results\nRick Scott (REP) | Debbie Mucarsel-Powell (DEM)\n5,977,706 | 4,603,077",
+        "title": "November 5, 2024 General Election Official Results \u2014 Florida Division of Elections",
+        "url": "https://results.elections.myflorida.com/SummaryRpt.asp?DATAMODE=&ElectionDate=11%2F5%2F2024&Race=FED",
+        "verified": null
+      },
+      {
+        "published": "2022-11-08",
+        "quotes": [
+          "Official Results",
+          "Marco Rubio (REP) | Val Demings (DEM)",
+          "4,474,847 | 3,201,522"
+        ],
+        "text": "Official Results\nMarco Rubio (REP) | Val Demings (DEM)\n4,474,847 | 3,201,522",
+        "title": "November 8, 2022 General Election Official Results \u2014 Florida Division of Elections",
+        "url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=11%2F8%2F2022&Race=FED",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "U.S.\nSen.\nAshley Moody leads Democrat Angie Nixon 49% to 45% in a new St.\nPete Polls survey for Florida Politics, her widest lead in three surveys by the pollster.",
+          "St.\nPete Polls surveyed 916 likely voters Oct.\n25-27 for Florida Politics",
+          "At the registration split, it is 47% to 46%."
+        ],
+        "text": "U.S.\nSen.\nAshley Moody leads Democrat Angie Nixon 49% to 45% in a new St.\nPete Polls survey for Florida Politics, her widest lead in three surveys by the pollster.\nSt.\nPete Polls surveyed 916 likely voters Oct.\n25-27 for Florida Politics\nAt the registration split, it is 47% to 46%.",
+        "title": "Final St.\nPete Polls: Ashley Moody holds 49% to 45% over Angie Nixon",
+        "url": "https://floridapolitics.com/archives/827489-final-st-pete-polls-ashley-moody-holds-49-to-45-over-angie-nixon-with-a-cushion-that-shrinks-if-republicans-stay-home/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-28",
+        "quotes": [
+          "That survey shows the Plant City Republican as the preference of 50% of likely voters, while 44% favor the Democratic challenger.",
+          "The poll of 813 Florida voters was conducted from Oct.\n19-26, and pollsters report a 3.9-percentage-point margin of error.",
+          "Of note, the same pollsters in early October 2024 found Republican U.S.\nSen.\nRick Scott leading Democrat Debbie Mucarsel-Powell 49% to 40%, a wider margin than Moody currently enjoys but still putting the incumbent under 50%."
+        ],
+        "text": "That survey shows the Plant City Republican as the preference of 50% of likely voters, while 44% favor the Democratic challenger.\nThe poll of 813 Florida voters was conducted from Oct.\n19-26, and pollsters report a 3.9-percentage-point margin of error.\nOf note, the same pollsters in early October 2024 found Republican U.S.\nSen.\nRick Scott leading Democrat Debbie Mucarsel-Powell 49% to 40%, a wider margin than Moody currently enjoys but still putting the incumbent under 50%.",
+        "title": "NYT poll shows Ashley Moody crossing 50% line, Byron Donalds with narrow lead",
+        "url": "https://floridapolitics.com/archives/827512-nyt-poll-shows-ashley-moody-crossing-50-line-byron-donalds-with-narrow-lead/",
+        "verified": null
+      }
+    ]
+  }
+}
