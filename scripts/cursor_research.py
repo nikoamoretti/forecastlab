@@ -5,7 +5,7 @@
     cursor_research.py digest artifacts/<dir> [...]
 
 ``daily`` is what the LaunchAgent ai.forecastlab.research runs every 30 minutes through
-scripts/mac_research.sh. On weekdays inside the configured UTC window, once per day, it:
+scripts/mac_research.sh. On weekdays inside the configured window (Pacific time), once per day, it:
 
 1. creates today's branch and has Actions prepare the questions, if that has not happened yet;
 2. researches each new question with cursor-agent and saves research.json next to it;
@@ -126,8 +126,7 @@ def daily(args: argparse.Namespace) -> None:
     if args.branch:
         branch = args.branch
     else:
-        start, end = settings.window_utc
-        if now.weekday() >= 5 or not start <= now.hour < end:
+        if not settings.in_window(now):
             return  # the LaunchAgent fires every 30 minutes; outside the window there is nothing to do
         branch = f"claude/daily-forecasts-{now:%Y%m%d}" + ("-dryrun" if settings.mode == "dry_run" else "")
     found = re.search(r"claude/daily-forecasts-(\d{8})", branch)

@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional, Tuple, Union  # noqa: UP035 -- the Mac may run Python 3.9
+from zoneinfo import ZoneInfo
 
 from forecastlab.research import MARKET_WORDS, RESEARCH_FILE, clean, is_market_site
 
@@ -52,7 +53,8 @@ class Settings:
     timeout_s: int
     daily_run_cap: int
     weekly_run_cap: int
-    window_utc: list[int]
+    window_hours: list[int]  # [start, end): hours of the day, read in window_tz
+    window_tz: str  # IANA zone of the window; a US zone moves it with daylight saving time
     base_branch: str
     # Claude fills the questions Cursor could not research (weekly limit hit, timeouts); see `fill`.
     fallback_model: str = ""
@@ -64,6 +66,12 @@ class Settings:
         """Every model family that may have researched a question; a judge of one sits out what it researched."""
         return tuple(f for f in (self.model_family, self.fallback_family) if f)
 
+    def in_window(self, now: datetime) -> bool:
+        """True on a weekday, in the window's own time zone, when the hour there is inside the window."""
+        local = now.astimezone(ZoneInfo(self.window_tz))
+        start, end = self.window_hours
+        return local.weekday() < 5 and start <= local.hour < end
+
 
 def load_settings(path: Path) -> Settings:
     data = json.loads(path.read_text())
@@ -74,10 +82,13 @@ def load_settings(path: Path) -> Settings:
     fallback = data.get("fallback") or {}
     if fallback and fallback.get("provider") != "claude":
         raise ValueError("configs/research.json: fallback provider must be claude")
+    zone = data.get("window_tz") or "UTC"
+    ZoneInfo(zone)  # a mistyped zone fails here, loudly, not silently at the next run
     return Settings(mode=data["mode"], model=data["model"], model_family=data["model_family"].lower(),
                     parallel=int(data["parallel"]), timeout_s=int(data["timeout_s"]),
                     daily_run_cap=int(data["daily_run_cap"]), weekly_run_cap=int(data["weekly_run_cap"]),
-                    window_utc=list(data["window_utc"]), base_branch=data["base_branch"],
+                    window_hours=list(data.get("window_hours") or data["window_utc"]), window_tz=zone,
+                    base_branch=data["base_branch"],
                     fallback_model=fallback.get("model", ""), fallback_family=fallback.get("model_family", "").lower(),
                     fallback_timeout_s=int(fallback.get("timeout_s", 600)))
 

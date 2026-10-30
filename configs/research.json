@@ -7,7 +7,8 @@
   "timeout_s": 240,
   "daily_run_cap": 120,
   "weekly_run_cap": 1000,
-  "window_utc": [9, 15],
+  "window_hours": [2, 8],
+  "window_tz": "America/Los_Angeles",
   "base_branch": "grok/forecastlab-mvp",
   "fallback": {"provider": "claude", "model": "sonnet", "model_family": "claude", "timeout_s": 600}
 }
