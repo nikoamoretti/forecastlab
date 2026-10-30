@@ -267,6 +267,43 @@ def test_research_settings_are_valid() -> None:
     assert settings.families == (settings.model_family, "claude") and settings.fallback_model
 
 
+@pytest.mark.parametrize(("when", "inside"), [
+    (datetime(2026, 10, 30, 9, 30, tzinfo=UTC), True),     # Friday, daylight time: 02:30 Pacific
+    (datetime(2026, 10, 30, 8, 59, tzinfo=UTC), False),    # 01:59 Pacific
+    (datetime(2026, 10, 30, 15, 0, tzinfo=UTC), False),    # 08:00 Pacific
+    (datetime(2026, 10, 31, 10, 30, tzinfo=UTC), False),   # Saturday
+    (datetime(2026, 11, 2, 9, 30, tzinfo=UTC), False),     # Monday after the clocks change: 01:30 Pacific
+    (datetime(2026, 11, 2, 10, 30, tzinfo=UTC), True),     # 02:30 Pacific
+    (datetime(2026, 11, 2, 15, 59, tzinfo=UTC), True),     # 07:59 Pacific
+    (datetime(2026, 11, 2, 16, 0, tzinfo=UTC), False),     # 08:00 Pacific
+])
+def test_research_window_follows_pacific_time_through_the_daylight_saving_change(when: datetime, inside: bool) -> None:
+    settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
+    assert settings.window_tz == "America/Los_Angeles"
+    assert settings.in_window(when) is inside
+
+
+def test_the_old_window_utc_key_still_reads_as_utc(tmp_path: Path) -> None:
+    data = json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    data.pop("window_hours"), data.pop("window_tz")
+    data["window_utc"] = [9, 15]
+    path = tmp_path / "research.json"
+    path.write_text(json.dumps(data))
+    settings = cr.load_settings(path)
+    assert settings.window_tz == "UTC"
+    assert settings.in_window(datetime(2026, 11, 2, 9, 30, tzinfo=UTC))
+    assert not settings.in_window(datetime(2026, 11, 2, 15, 0, tzinfo=UTC))
+
+
+def test_a_mistyped_window_zone_fails_when_the_settings_load(tmp_path: Path) -> None:
+    data = json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    data["window_tz"] = "America/Los_Angelez"
+    path = tmp_path / "research.json"
+    path.write_text(json.dumps(data))
+    with pytest.raises(Exception):  # noqa: B017, PT011 -- ZoneInfoNotFoundError
+        cr.load_settings(path)
+
+
 def test_record_notes_show_calibration_topics_and_latest_misses() -> None:
     from forecastlab.cursor_research import record_notes
 
