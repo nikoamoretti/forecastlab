@@ -1,0 +1,16 @@
+[
+  {
+    "cutoff": "2026-10-30T15:45:00+00:00",
+    "entry_id": "bdddde8088e754fd",
+    "macro": {
+      "comparison": "gt",
+      "indicator": "jobless_claims",
+      "observation_period": "2026-10-31",
+      "release_at": "2026-11-05T13:30:00Z",
+      "revision_policy": "first_release",
+      "threshold": 194000.0
+    },
+    "question": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-31 be above 194,000 claims?",
+    "release_at": "2026-11-05T13:30:00Z"
+  }
+]
