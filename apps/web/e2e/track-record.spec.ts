@@ -10,7 +10,8 @@ const question = (id: string, title: string, extra: object) => ({ id, title, det
 async function mockRecord(page: Page) {
   await page.clock.setFixedTime(new Date("2026-10-07T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-07", forecasters,
-    summary: { resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 3 },
+    summary: { resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 3,
+      vs_market: { questions: 2, ours: .1683, market: .1518 } },
     questions: [
       question("q1", "Will unemployment come in above 4.1%?", { forecasts: [{ method: "root_event_ensemble_v1", probability: .37 }],
         call: { method: "root_event_ensemble_v1", probability: .37 }, verdict: "wrong" }),
@@ -26,8 +27,11 @@ async function mockRecord(page: Page) {
 test("the home page leads with the score, the next result and clickable questions", async ({ page }) => {
   await mockRecord(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "1 of 2 calls right" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Score 0.24 on all 2 decided questions" })).toBeVisible();
   await expect(page.getByText("About the same as guessing so far")).toBeVisible();
+  await expect(page.getByText("lower is better; always saying 50% scores 0.25")).toBeVisible();
+  await expect(page.getByText("On the 2 questions the market also priced: us 0.17, market 0.15.")).toBeVisible();
+  await expect(page.getByText("1 of 2 calls right", { exact: true })).toBeVisible();
   await expect(page.getByText("2 of 30 results")).toBeVisible();
   const next = page.getByRole("link", { name: /Next result · Tomorrow/ });
   await expect(next).toContainText("Our call: No, 52% sure");
@@ -163,4 +167,43 @@ test("a market whose rules allow a much later settlement says so instead of look
   await expect(page.getByText("Polymarket listed Oct 25, 2026, but its rules let it settle as late as Jun 30, 2028")).toBeVisible();
   await page.goto("/q/fable");
   await expect(page.getByText("It was due Oct 25, 2026, but Manifold hasn’t settled it yet. We check every evening.")).toBeVisible();
+});
+
+test("the headline score covers every decided question, and the market comparison uses our call on the questions it priced", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-10-31T12:00:00Z"));
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-31", forecasters,
+    summary: { resolved: 56, right: 35, wrong: 20, toss_ups: 1, brier: .2007, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 56,
+      vs_market: { questions: 37, ours: .1683, market: .1518 } },
+    questions: [] } }));
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Score 0.20 on all 56 decided questions" })).toBeVisible();
+  await expect(page.getByText("Better than guessing so far")).toBeVisible();
+  await expect(page.getByText("lower is better; always saying 50% scores 0.25")).toBeVisible();
+  await expect(page.getByText("On the 37 questions the market also priced: us 0.17, market 0.15.")).toBeVisible();
+  await expect(page.getByText("35 of 55 calls right · 1 toss-up isn’t counted as right or wrong")).toBeVisible();
+  // Every forecaster row says which questions its score covers.
+  await expect(page.getByRole("listitem").filter({ hasText: "Research pipeline" })).toContainText("score 0.24 on 2 decided questions");
+});
+
+test("a question page shows Claude's raw and confidence-corrected probability only when a frozen value exists", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-10-31T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .72, rationale: "Strong base rate.", made_at: "2026-10-31T09:00:00Z" };
+  const open = { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-04", topic: "Tech" };
+  const corrected = { method: "claude_calibrated_v1", label: "Claude, confidence-corrected", about: "Shown for comparison.", forecasts: 1,
+    resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25 };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-31", forecasters: [...forecasters, corrected],
+    summary: { resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 2 },
+    questions: [
+      question("fixed", "Will the corrected question resolve yes?", { ...open, call: { method: "claude_code_forecaster_v1", probability: .72 },
+        forecasts: [claude, { method: "claude_calibrated_v1", probability: .78, raw: .72, slope: 1.17, intercept: .22, results: 52, as_of: "2026-10-31" }] }),
+      question("older", "Will the older question resolve yes?", { ...open, call: { method: "claude_code_forecaster_v1", probability: .6 },
+        forecasts: [{ ...claude, probability: .6 }] })] } }));
+  await page.goto("/q/fixed");
+  await expect(page.getByText("Claude said 72%. Corrected for its track record: 78%.")).toBeVisible();
+  await expect(page.getByText(/how Claude’s 52 earlier decided calls turned out/)).toBeVisible();
+  await expect(page.getByText(/not part of our call/)).toBeVisible();
+  await expect(page.getByRole("row").filter({ hasText: "Claude, confidence-corrected" })).toContainText("78.0% yes");
+  await page.goto("/q/older");
+  await expect(page.getByRole("heading", { name: "Will the older question resolve yes?" })).toBeVisible();
+  await expect(page.getByText(/Corrected for its track record/)).toHaveCount(0);
 });

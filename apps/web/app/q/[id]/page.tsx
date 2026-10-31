@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
 import { ResearchTrail } from "@/components/ResearchTrail";
 import { api, pct } from "@/lib/api";
-import { TrackRecord, callText, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
+import { TrackRecord, callText, percent, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
 export default function QuestionPage() {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +23,8 @@ export default function QuestionPage() {
   const overdue = q.status === "pending" && q.resolves_on < todayUTC();
   const marketName = q.source_url?.includes("polymarket.com") ? "Polymarket" : q.source_url?.includes("manifold.markets") ? "Manifold" : null;
   const market = marketName !== null;
+  // Claude's probability corrected for how its earlier calls at each confidence level turned out; frozen when the question was built.
+  const corrected = q.forecasts.find(f => f.method === "claude_calibrated_v1" && f.raw != null) ?? null;
   const settlesBy = overdue && market ? lateDeadline(q.detail ?? "", q.resolves_on) : null;
 
   return <article className="mx-auto max-w-3xl space-y-10">
@@ -54,6 +56,11 @@ export default function QuestionPage() {
             : `${market ? `${marketName} settles it after` : "The official figure is due"} ${shortDate(q.resolves_on, true)}.`}</p>}
       </div>
     </section>
+
+    {corrected && <aside className="border-l-4 border-rule bg-white/60 p-4 text-sm" aria-label="Confidence correction">
+      <p className="text-base">Claude said {percent(corrected.raw!)}. Corrected for its track record: <strong>{percent(corrected.probability)}</strong>.</p>
+      <p className="mt-1 text-ink/70">Both are chances of yes. The correction comes from how Claude’s {corrected.results} earlier decided calls turned out at each confidence level.
+        Shown for comparison; it is not part of our call.</p></aside>}
 
     {q.note && <aside className="border-l-4 border-copper bg-white/60 p-4 text-sm" aria-label="Integrity note">
       <p className="font-medium">Integrity note{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
