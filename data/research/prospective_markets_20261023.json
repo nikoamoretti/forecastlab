@@ -1,5 +1,6 @@
 {
  "manifold-5nLRAAdRt5": {
+  "against": null,
   "base_rate": "Black Bird's monthly Russian net gains were positive in nearly every month from mid-2023 through August 2026 (e.g.\n+133 km\u00b2 in August 2026).\nSeptember 2026 at -190 km\u00b2 was the first month of net Russian loss since June 2023, so negative months are rare (about 1 in roughly 39).\nThe latest trend, however, shows Russian gains shrinking sharply.",
   "brief": "The question resolves by Black Bird Group's 'Russian Net Monthly Advance' for October 2026: a negative value resolves yes and a positive value resolves no, and it resolves N/A if no new assessment with the same methodology is published by Dec 1. Black Bird reported Russian net gains of about -190 km2 for September 2026, the first monthly net Russian loss in its dataset since June 2023 (https://x.com/Black_BirdGroup/status/2106482419201093855, posted about Oct 3, quotes checked), after about +133 km2 for August (https://x.com/Black_BirdGroup/status/2096083074240975038, quotes checked). Per DeepState data cited by Russia Matters on Oct 21, Russia had a net gain of about 3 square miles over the four weeks to about Oct 19, against about 37 square miles in the prior four-week period, and the Economist estimated Ukraine regained 30 square miles in 30 days (https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026, 2026-10-21, not checked). As of Oct 22, ISW reported a Russian net loss of about 241 km2 since Sept 1, 2026, with Ukrainian advances south of Vovchansk and in southern Kostiantynivka, while DeepState reported Russian advances near Krynychne, Rai-Oleksandrivka and Zaporizhzhia villages on Oct 21-23 (https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-22-2026, 2026-10-22, quotes not found on page). The trackers differ for September: ISW about -81 km2, Black Bird -190 km2, and one RussiaMatters chart reading gave -406 km2, unreconciled (https://odessa-journal.com/osint-ukrainian-counterattacks-produce-russias-largest-monthly-territorial-loss). The base rate is that Black Bird's monthly Russian net gains were positive in nearly every month from mid-2023 through August 2026, so negative months are rare (about 1 in roughly 39), but the latest trend shows Russian gains shrinking sharply. Black Bird's October figure is not yet published, the month is not over, and DeepState's near-zero net for the four weeks to Oct 19 means small changes in the last week decide the sign. Russian claims of capturing Kostiantynivka or Dobropillia are disputed and would shift the figures if confirmed, and a delayed or revised Black Bird report could change or void the result.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -68,6 +69,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -128,6 +130,7 @@
   ]
  },
  "manifold-8tn2I8uRhA": {
+  "against": null,
   "base_rate": "In the API changelog, V4-Flash (public beta, Jul 31) was followed by V4-Pro GA 13 days later (Aug 13).\nV4.1-Flash shipped Sept 10, and no V4.1-Pro had appeared in the 43 days to Oct 23, so the Flash-to-Pro gap has already run well past the earlier one.\nI counted only these two Flash/Pro pairings.",
   "brief": "The question resolves yes if DeepSeek publicly releases V4.1-Pro, or a higher Pro or flagship tier replacing it, by Oct 31, 2026 11:59 PM Pacific; Flash tiers, closed betas, invite-only access and leaks do not count. DeepSeek released V4.1-Flash on Sept 10, 2026 with weights on Hugging Face under the MIT licence, and V4-Pro requests were planned to be routed to Flash from Sept 14 until a V4.1-Pro arrives, with no date given (https://thenextweb.com/news/deepseek-v4-1-flash-launch-v4-pro-retired-price-cut, quotes not found on page); a later summary said that redirect plan was superseded and V4-Pro stays on the API. A Sept 28 report said V4.1 Pro was in testing with limited accounts and might launch around National Day on Oct 1, without official confirmation, and by about Oct 20 no launch had been seen (https://tech.ifeng.com/c/8wmuFrqSUPm, 2026-09-28, quotes not found on page). A third-party page reviewed around Oct 14 says DeepSeek has officially confirmed V4.1 Pro is in development, with no date (https://www.ai-indeed.com/encyclopedia/31384.html, quotes checked). An aggregator lists a 'DeepSeek-V4.1-Flash-1017' build, suggesting a Flash update around Oct 17, which does not count (https://www.cometapi.com/deepseek-v4-1-pro-release-date/, quotes not found on page). The base rate from the API changelog is that V4-Flash (public beta, Jul 31) was followed by V4-Pro GA 13 days later (Aug 13); V4.1-Flash shipped Sept 10 and no V4.1-Pro had appeared in the 43 days to Oct 23, so the gap has run well beyond the earlier one. Only these two Flash/Pro pairings were counted. The official API changelog, news page, Hugging Face and X pages could not be loaded, so the absence of a release by Oct 23 is not confirmed directly. DeepSeek can release without warning, so an official announcement, a changelog entry or Hugging Face weights before Oct 31 would settle it, while continued silence leaves about 8 days for it to happen.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -196,6 +199,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -248,6 +252,7 @@
   ]
  },
  "manifold-RcL0Q9O0EU": {
+  "against": null,
   "base_rate": "Maine has voted for Susan Collins in all five of her Senate general elections since 1996.\nHer 2020 win came despite most polls showing her behind.\nIncumbents in toss-up Senate races usually win at somewhat better than even rates, but I did not count this and have no figures.",
   "brief": "The question resolves yes if the winner of the Nov 3, 2026 Maine U.S. Senate election appears on the ballot as the Democratic Party candidate. Search summaries report that Graham Platner ended his campaign after a sexual assault allegation, which he denied, and Troy Jackson replaced him as the Democratic nominee against Republican incumbent Susan Collins (https://centerforpolitics.org/crystalball/the-maine-senate-do-over-and-rating-changes-in-other-pine-tree-state-races/, not checked). Sabato's Crystal Ball rates the race a Toss-up and says it would have moved it one step toward the Republicans had Platner stayed in; Cook Political Report rated it a Toss Up as of about Oct 6 (https://www.cookpolitical.com/analysis/senate/maine-senate/generic-democrat-no-guarantee-maine, not checked). A Washington Post-Schar School poll reportedly shows Jackson ahead 50% to 46%, and a polling average reported for Oct 16 shows Jackson at 49% and Collins at 47.1%; Jackson reportedly raised $20.4M from July through September against $5.2M for Collins (https://thehill.com/homenews/campaign/6163811-colins-maine-senate-poll, not checked). Before Platner left, polls mostly had him ahead: NYT/Siena (June 19-26) had Platner 49% and Collins 47%, and a Pan Atlantic poll had Platner 48% and Collins 41% (https://www.realclearpolling.com/polls/senate/general/2026/maine/collins-vs-platner, not checked). The base rate is that Maine has voted for Susan Collins in all five of her Senate general elections since 1996, and her 2020 win came despite most polls showing her behind; incumbents in toss-up Senate races usually win at somewhat better than even rates, though no count was done. The facts here come from search summaries and the quotes are weak, so the dates of the Jackson-era polls and the details of the withdrawal are not confirmed. The late switch of nominee may make name recognition and polling less settled than usual, and turnout and late deciders could move the result. A new high-quality poll showing Collins ahead, or a Democratic lead widening beyond the margin of error, would change the answer.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -320,6 +325,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -367,6 +373,7 @@
   ]
  },
  "manifold-g0zN5ghS90": {
+  "against": null,
   "base_rate": "Wisconsin gubernatorial elections have been decided by narrow margins in recent cycles, and the incumbent party's candidate faces a midterm headwind when the other party holds the White House.\nEvers won in 2018 (+1.1) and 2022 (+3.4), and Walker won in 2010, 2012 and 2014.\nIn midterms, the party out of the White House has usually done better, but I did not verify exact counts.",
   "brief": "The question resolves yes if the Democratic candidate wins the Nov 3, 2026 Wisconsin governor's election. As of Oct 22, the FiftyPlusOne poll average showed Democrat David Crowley at 47.5% and Republican Tom Tiffany at 43.8% (https://fiftyplusone.news/polls/governor/general/wisconsin, 2026-10-22, quotes not found on page), and 270toWin's average of three polls showed Crowley 48.0% and Tiffany 44.0% (https://www.270towin.com/2026-governor-polls/wisconsin). The Marquette poll (Sept 16-23, released Sept 30) had Crowley 49% and Tiffany 46% among likely voters and 46-45 among registered voters, with a margin of error of 4.8 points for likely voters (https://fox6now.com/news/marquette-poll-wisconsin-governor-crowley-tiffany-093026, 2026-09-30). A City Forward Collection/CFC Action Fund poll found Crowley 46% to Tiffany 42%, a YouGov poll (Oct 16) had the same 46-42 split, and Z to A Research (Oct 9) had 49-44 (https://www.wispolitics.com/2026/city-forward-collection-cfc-action-fund-new-wisconsin-poll-crowley-leads-tiffany-46-to-42-in-governors-race/, not checked). Crowley's unfavorable rating among registered voters rose from 29% in August to 44% in September, and many voters still have no opinion of him (https://www.dailycardinal.com/article/2026/10/strong-party-loyalty-leaves-wisconsins-gubernatorial-race-uncertain, quotes checked). The base rate is that Wisconsin governor elections have been decided narrowly in recent cycles: Evers won in 2018 by 1.1 points and in 2022 by 3.4, and Walker won in 2010, 2012 and 2014. The party out of the White House has usually done better in midterms, although the exact counts were not verified. All polls shown are within or near the margin of error, likely-voter and registered-voter screens give different leads, and no Marquette poll after Sept 30 was found. The sources are search snippets that were not opened and some dates are approximate. A new Marquette poll, further erosion of Crowley's favorability, turnout and late-deciding independents are the main things that could change the answer.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -435,6 +442,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -497,6 +505,7 @@
   ]
  },
  "polymarket-4853905": {
+  "against": null,
   "base_rate": "Google shipped Pro-labeled Gemini models roughly every 2-4 months in 2025-26 (for example 2.5 Pro and 3 Pro, with 3.1 Pro later).\nA given 8-day window therefore has roughly a 10% chance of containing one.\nIn 2026 the 3.5 Pro slot slipped repeatedly, and the frontier release became Argon, which has no Pro label.",
   "brief": "The question asks whether Google makes no qualifying 'Pro' Gemini model available to the general public between market creation and Oct 31, 2026 (Yes means no release). Google's frontier model Gemini 4 Argon became publicly available on Oct 13, 2026 through the Gemini app, AI Mode, Antigravity and the Gemini API, and its name carries no 'Pro' label (https://x.com/Google/status/2110041305925484716, 2026-10-13, quotes checked). As of Oct 15 Argon was still rolling out to Antigravity for AI Pro subscribers, where 'Pro' is a subscription tier and not a model name (https://9to5google.com/2026/10/15/gemini-4-argon-is-now-rolling-out-to-googles-antigravity-for-ai-pro-subscribers/, 2026-10-15). CNBC covered Gemini 4 on 2026-10-01, which fits an announcement on Sep 30 followed by the public release on Oct 13 (https://www.cnbc.com/2026/10/01/google-gemini-4-arrives-as-wall-street-shifts-to-personal-agents.html). Gemini 3.5 Pro was announced at I/O on May 19, 2026 and then delayed; Bloomberg reported on July 16 that it fell short of internal goals, Google said on July 21 it was testing with partners, and as of Aug 12 it had no official date and was not in the API model list (https://letsdatascience.com/news/gemini-35-pro-launch-remains-unconfirmed-a09db704). The base rate is that Google shipped Pro-labeled Gemini models roughly every 2-4 months in 2025-26, for example 2.5 Pro, 3 Pro and later 3.1 Pro, so an 8-day window contains one about 10% of the time. In 2026 the 3.5 Pro slot slipped repeatedly and the frontier release became Argon, which has no Pro label. I found no evidence that a Pro-labeled Argon variant or 3.5 Pro is scheduled. It is unclear whether Argon could be treated as the Pro tier, though its Oct 13 release was before the question's creation, so it most likely does not count as the next model. A surprise release, a Pro variant of Argon or a general-availability promotion of an existing preview Pro model before Oct 31 would change the answer.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -561,6 +570,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -607,6 +617,7 @@
   ]
  },
  "polymarket-4936081": {
+  "against": null,
   "base_rate": "Not computed.\nA drop of roughly 5% from about $4,020-4,090 to $3,800 within the 6 remaining trading days (Oct 23 to Oct 30 or 31) would be a large move for gold.\nIn 2026 gold has swung widely (about $4,540 in mid-May, about $4,060 in an undated report).",
   "brief": "The question asks whether any 1-minute candle for spot gold (XAUUSD, Pyth feed) has a low at or below $3,800 during an October 2026 trading session. On Oct 22, 2026 spot gold fell about 1.1% to roughly $4,095 an ounce, its lowest since Oct 14, on an oil rally and higher-for-longer rate expectations, with Brent near $108-110 and a Federal Reserve meeting due the week of Oct 26 (https://www.cnbc.com/2026/10/22/gold-drops-over-1percent-as-oil-rally-reinforces-higher-for-longer-rate-outlook.html, quotes checked). Another report had spot gold at $4,084 on Oct 22, down $56.40 (-1.36%), with silver near $55.94 (https://www.usagold.com/daily-precious-metals-market-report-october-22-2026/, not checked). A Trading Economics snippet showed a gold close of about $4,021 on Oct 23, unverified and from a search summary, which is roughly 5.4% above $3,800 (https://tradingeconomics.com/commodity/gold). On Oct 20 spot gold was about $4,120-4,124 (https://depor.com/en/us-local/gold-price-today-october-20-2026-price-per-ounce-and-gram-in-usd-nnda-nnrt-noticia/, 2026-10-20). A fall of roughly 5-7% from about $4,020-4,090 to $3,800 within the six remaining trading days (to Oct 30 or 31) would be a large move for gold. No base rate was computed from data, but in 2026 gold has swung widely, from about $4,540 in mid-May to about $4,060 in an undated report. The exact current XAUUSD price and the October low so far are unverified, and Pyth 1-minute lows may differ slightly from other spot sources. The Fed meeting outcome, the oil and inflation shock and rate-hike expectations could cause a sharp fall, while a stabilisation near $4,000-4,100 would keep the threshold untouched.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -675,6 +686,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -724,6 +736,7 @@
   ]
  },
  "polymarket-4951229": {
+  "against": null,
   "base_rate": "Not computed.\nA roughly 16% rise within about 6 trading days is rare in ordinary conditions, but 2026 has been a high-volatility war-driven regime.\nWTI went from about $70 at the end of June to about $93 in early September to about $99 now.",
   "brief": "The question asks whether any Pyth 1-minute candle for the Active Month of ICE WTI crude futures (feed CLL) reaches a high of $115 or more during an October 2026 trading session. WTI settled near $99.47 on Oct 22 and Brent rose about 4% to near $113, its highest since May, on fears of Middle East escalation and reported US plans to resume strikes on Iran (https://www.cnbc.com/2026/10/22/oil-prices-today-wti-brent-saudi-arabia.html, 2026-10-22, quotes not found on page; the figures come from a search summary). On Oct 21 WTI fell 67 cents to settle at $97.15 and Brent settled at $108.82, with tanker attacks near the Strait of Hormuz and attacks on Saudi energy facilities in the news (https://www.cnbc.com/2026/10/21/oil-price-today-wti-brent-rise-on-middle-east-worries.html, 2026-10-21). On Oct 15 US crude was near $98 as Iran stepped up attacks in the Strait of Hormuz, so WTI has stayed in the high $90s for about a week (https://www.cnbc.com/2026/10/15/oil-prices-today-brent-wti.html, 2026-10-15). A commodity note dated Oct 23 puts the Brent-WTI spread at about $13-14 and describes the curve as deeply backwardated, with the December WTI contract's breakout level at $101.37 (https://commodity-board.com/crude-oil-futures-surge-toward-100-as-war-risk-blows-out-brent-wti-spread, 2026-10-23). A rise of about $15.5, roughly 16%, from the $99.47 settle is needed before the end of the month's trading on Oct 30/31, about six trading days. No base rate was computed; such a rise in six days is rare in ordinary conditions, but 2026 has been a high-volatility war-driven regime in which WTI went from about $70 at the end of June to about $93 in early September to about $99 now. The exact October high so far, the Oct 23 intraday range and the level of the ICE feed relative to the NYMEX settlements are unknown. Renewed US strikes on Iran, a closure or attack in Hormuz or a Saudi supply outage could move prices sharply up, while de-escalation would move them down; because the Active Month is a backwardated December contract, the feed can sit below the front-month figures quoted.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -792,6 +805,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -845,6 +859,7 @@
   ]
  },
  "polymarket-5167211": {
+  "against": null,
   "base_rate": "The Saudi air campaign was reportedly near-daily in Sep-Oct 2026, with Houthi claims of about 300 strikes in a week and about 100 aircraft supporting the Oct 5 launch.\nI found no tally of days with an attributable Saudi-conducted strike.\nResolution also requires Saudi forces themselves to have conducted the strike, as opposed to the wider coalition or Yemeni forces.\nReporting often attributes strikes to the 'Saudi-led coalition'.",
   "brief": "The question asks whether the armed forces of Saudi Arabia directly conduct an air strike or surface-to-surface missile strike that impacts Yemen's territory on Oct 30, 2026, Yemen time; coalition, proxy or Yemeni-government strikes do not count. On Oct 5, 2026 the Saudi-backed Yemeni government announced Operation Dawn of Yemen to retake Sanaa, with about 100 Saudi aircraft reportedly supporting it, ending a roughly four-year ceasefire, and the coalition said it destroyed 324 high-value targets at the launch (https://www.cnn.com/2026/10/04/middleeast/yemen-offensive-houthis-intl, 2026-10-04, quotes not found on page; a search summary, with only the 324-target quote verbatim). Around Oct 18-19 an airstrike on a house in Saada killed at least 9 according to Houthi-run health officials, a Houthi-aligned official blamed Saudi Arabia and the Saudi government had not commented (https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/, 2026-10-18, not checked). Al-Masirah reported Saudi-led strikes on oil facilities west of Sanaa on Oct 13, and the Houthi-run Health Ministry says at least 83 civilians have been killed since the offensive began, figures that are unverified (https://en.wikipedia.org/wiki/2026_Yemen_offensives, quotes checked). CBS live coverage reports Saudi forces launching new strikes while the Houthis threaten the US if it joins in, and Houthi strikes have hit Saudi airports and Najran (https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/, quotes checked). The Houthis claimed about 300 Saudi airstrikes across nine provinces in one week, reported around Sep 19, with an uncertain date (https://siasat.com/houthis-claim-300-saudi-airstrikes-across-yemen-this-week-3544736, 2026-09-19). The base rate is that the Saudi air campaign was reportedly near-daily in September-October 2026, but no tally of days with an attributable Saudi-conducted strike was found, and reports often credit the 'Saudi-led coalition'. I found no reporting after about Oct 19. A ceasefire, talks or a pause before Oct 30 would end the strikes, and strikes with unclear attribution, on maritime targets, or intercepted munitions would not count; reliance on Houthi-run sources for individual strikes adds uncertainty about attribution and the Yemen-time date.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -921,6 +936,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -984,6 +1000,7 @@
   ]
  },
  "polymarket-5170823": {
+  "against": null,
   "base_rate": "No count was computed.\nXRP needing roughly +22% from about $1.31 within about 8 days is a large move for that window.\nXRP's realized volatility is high, and it moved about +40% over 60 days into late September.",
   "brief": "The question asks whether any Binance XRP/USDT 1-minute candle in October 2026 has a high of $1.60 or more. On Oct 22, 2026 XRP traded around $1.30-1.31, down about 4.6-4.7% in 24 hours, after being rejected at $1.40 and holding $1.30 support (https://cryptopotato.com/important-ripple-news-and-xrp-price-update-october-22/, 2026-10-22, quotes not found on page; a search summary). Spot XRP ETFs had a $3.55M net inflow on Oct 22, with cumulative inflows of about $1.8B since launch (https://www.kucoin.com/news/flash/xrp-spot-etf-sees-3-5464m-net-inflow-on-october-22, 2026-10-22). On Sep 29 XRP was about $1.49, so October has declined from its start, and a Fed decision was flagged for Oct 28 (https://247wallst.com/investing/cryptocurrency/2026/09/29/xrp-price-prediction-for-october-2026/, 2026-09-29, quotes checked). A crypto.news piece frames $1.50 as the recovery target after October's decline, not $1.60 (https://crypto.news/xrp-price-prediction-etf-inflows-wallet-growth/, quotes checked). The price therefore needs about +22% from roughly $1.31 within about eight days, and the recent upper range is about $1.40, roughly 14% below the threshold. No count was computed for the base rate; XRP's realized volatility is high and it moved about +40% over 60 days into late September, which makes a large move possible but not routine in an 8-day window. The exact current price and the month's high so far were not confirmed from Binance data, and aggregator figures differ. The Oct 28 Fed decision, broader moves in Bitcoin, or a catalyst such as an ETF or regulatory event could produce a sharp spike; continued weakness around $1.30 keeps the threshold out of reach.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -1052,6 +1069,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1103,6 +1121,7 @@
   ]
  },
  "polymarket-5340069": {
+  "against": null,
   "base_rate": "Recent Brazilian runoffs were close.\nLula beat Jair Bolsonaro by 50.9% to 49.1% in 2022, a margin of 1.8 points.\nDilma Rousseff won by 3.3 points in 2014 and 12.0 points in 2010.\nJair Bolsonaro won by 10.8 points in 2018, and Dilma beat A\u00e9cio Neves by 3.3 points in 2014.\nRunoff margins of 8\u201312 points are uncommon in the recent reference class: 2 of the last 5 runoffs (2010 and 2018) fell in that range, and none of the last 3 did (from memory).",
   "brief": "The question asks whether Flavio Bolsonaro wins the Oct 25, 2026 Brazilian runoff with a margin of 8 to 12 points of valid votes over Lula (an exact boundary goes to the higher bracket; blank and null votes are excluded). Datafolha, released Oct 22, put the runoff at 50% Flavio and 50% Lula among valid votes, with total votes Flavio 47% and Lula 46% (https://www.correiobraziliense.com.br/politica/2026/10/7525977-datafolha-flavio-bolsonaro-lula-segundo-turno.html, 2026-10-22, quotes not found on page; from a search summary). Quaest, released Oct 21, had Flavio at 45% and Lula at 44%, after Flavio at 46% in its Oct 14 poll (https://www.metropoles.com/brasil/quaest-flavio-bolsonaro-tem-45-e-lula-44-no-2o-turno, 2026-10-21, quotes checked). The first round on Oct 4 had Flavio at 47.03% and Lula at 45.16% of valid votes, while PoderData (Oct 8) had the runoff at 53-47 and Ipespe (Oct 10) at 52.7-47.3 for Flavio. A late-September Datafolha had Lula at 47% and Flavio at 45%, and Al Jazeera described them as essentially tied on Sep 25 (https://www.aljazeera.com/news/2026/9/25/brazils-lula-and-flavio-bolsonaro-still-essentially-tied-in-new-poll, quotes checked). The final Quaest and Datafolha polls are due Oct 24 (https://www.metropoles.com/brasil/quaest-e-datafolha-saiba-quando-saem-ultimas-pesquisas-antes-do-2-turno, quotes checked). The base rate for runoff margins: Lula beat Jair Bolsonaro by 1.8 points in 2022, Dilma Rousseff won by 3.3 points in 2014 and 12.0 in 2010, and Jair Bolsonaro won by 10.8 in 2018, so 2 of the last 5 runoffs fell in the 8-12 range but none of the last 3 (from memory). Current polls centre the expected margin at roughly 0-3 points for Flavio with a polling error of a few points in either direction; Brazilian polls understated Bolsonaro in 2022. The Oct 24 final polls showing a clear Flavio lead of 8 or more points, a differential turnout effect or a larger blank and null share would change the answer; polls staying tied would keep the bracket unlikely.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -1171,6 +1190,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1222,6 +1242,7 @@
   ]
  },
  "polymarket-5912693": {
+  "against": null,
   "base_rate": "Not computed from data.\nContext: BTC is about 2% above the $80,000 threshold with about 2.5 days (Oct 23 to 11:59pm ET Oct 25) left.\nRecent daily ranges are roughly 1-3%, and the Oct 12-16 low was near $80,250 without touching $80,000.\nWhether BTC already hit $80,000 on Oct 19-22 is unverified.",
   "brief": "The question asks whether any Binance BTC/USDT 1-minute candle between 12:00 AM ET on Oct 19 and 11:59 PM ET on Oct 25 has a low at or below $80,000. On Oct 23, 2026 Bitcoin traded at about $81,500-$81,700 across aggregators, with CoinDesk near $81,706 and Fortune near $81,546 (https://www.analyticsinsight.net/price-analysis/crypto-prices-today-bitcoin-steady-near-usd-81600-despite-iran-tensions-and-ai-selloff, 2026-10-23, quotes not found on page). Investing.com data cited the same day gave a high of $82,011 and a low of $81,118, with a headline fall of about 2.8% on the day (https://www.ad-hoc-news.de/boerse/news/marktberichte/bitcoin-price-stands-at-81-625-40-usd-on-october-23-2026-as-etfs-added-524-8-million/70398819, 2026-10-23, quotes checked). A push toward $85,000 reportedly lost steam amid Iran tensions and an AI-related stock sell-off, and one report cites $635M of spot ETF outflows on Oct 23 (https://www.cryptotimes.io/2026/10/23/crypto-price-today-bitcoin-price-falls-to-81668-as-635m-etf-outflows-drag-ethereum-xrp/, 2026-10-23, not checked). In the week of Oct 12-16 Bitcoin fell below $81,000 to a low near $80,250 without touching $80,000, after $409.2M of net ETF outflows (Coinpedia, 2026-10-17). In the week of Oct 5-11 it fell about 3.2% from about $85,767 to $83,031. The price is therefore about 2% above the threshold with about 2.5 days left, and recent daily ranges are roughly 1-3%. No base rate was computed from data; the working estimate treats it as a barrier-touch problem using a daily range of about 1.5-2%. It is unverified whether Binance already printed $80,000 on Oct 19-22, which would settle the question at once. The Federal Reserve decision (likely Oct 28-29) falls after the window, but positioning before it, weekend liquidity, Iran headlines, oil and yield moves and continued ETF outflows could push the price lower, while a rebound toward $83,000 would make a touch less likely.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -1294,6 +1315,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1354,6 +1376,7 @@
   ]
  },
  "polymarket-630805": {
+  "against": null,
   "base_rate": "Michigan has not elected a Republican U.S.\nsenator since 1994 (Spencer Abraham), so Democrats have won every Senate race there for about 30 years.\nClose Michigan Senate races (2018 D+6.5, 2020 D+1.7, 2024 D+0.3) have all gone Democratic.\nIn midterms the president's party usually loses seats, and Republicans currently hold the presidency.",
   "brief": "The question resolves on the winner of the Nov 3, 2026 Michigan U.S. Senate election: whether the Democratic nominee wins. The seat is open because Democrat Gary Peters is retiring, and Democrat Abdul El-Sayed is the apparent nominee against Republican Mike Rogers (https://www.semafor.com/article/08/05/2026/after-tough-michigan-primary-democrats-set-sights-on-rogers, 2026-08-05, quotes not found on page). A Marist poll of 1,185 likely voters (Oct 15-18, 2026) had El-Sayed at 50% and Rogers at 48%, and among registered voters El-Sayed led by 7 (https://maristpoll.marist.edu/polls/midterm-elections-in-michigan-october-2026/, 2026-10-21, quotes not found on page). The FiftyPlusOne average on Oct 22 showed El-Sayed 48.1% and Rogers 45.1% (https://fiftyplusone.news/polls/senate/general/michigan, 2026-10-22). Other October polls, from search summaries, were InsiderAdvantage (Oct 9-10) El-Sayed 48-46, Mitchell (Oct 1) 46-41, YouGov (Sep 22-Oct 4) 49-48, and a Rogers-allied Tyson Group poll with Rogers 46-44. Newsweek frames the race as a potential Republican flip, which would be the first Democratic loss of the seat in nearly 50 years, and notes that Rogers lost the 2024 Senate race by fewer than 20,000 votes (https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776). The base rate is that Michigan has not elected a Republican senator since Spencer Abraham in 1994; the close races of 2018 (D+6.5), 2020 (D+1.7) and 2024 (D+0.3) all went to Democrats. In midterms the president's party usually loses seats and Republicans hold the presidency. The poll figures here come from search summaries and the quotes are fragments, and I could not confirm current Cook, Sabato or Inside Elections ratings. Polls are within the margin of error, the likely-versus-registered-voter gap is wide, and turnout, late spending and events could move the result. A very close result could delay calls by AP, Fox and NBC, which the rule needs to agree, and push resolution to certification.",
   "brief_written_at": "2026-10-23T14:12:01+00:00",
@@ -1426,6 +1449,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-23T14:07:43.591886+00:00",
   "research_cost_usd": null,
   "research_failed": null,

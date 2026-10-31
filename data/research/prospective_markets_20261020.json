@@ -1,5 +1,6 @@
 {
  "manifold-SyhgEZC68s": {
+  "against": null,
   "base_rate": "Reference class: U.S.\nSenate general and special elections in Texas after Lloyd Bentsen\u2019s 1988 win.\nNo Democrat won any of those contests through the 2024 election; Republicans won every Texas Senate race in that span.",
   "brief": "The question is whether the Democratic candidate wins the Texas US Senate election on 3 November 2026. The Texas Secretary of State's page updated 14 October lists Ken Paxton (Republican), James Talarico (Democratic), Ted Brown (Libertarian) and four write-in candidates, with no results yet (https://electionresults.sos.state.tx.us/results.html). Early voting runs 19 to 30 October and registration closed 5 October (https://www.sos.texas.gov/elections/voter/important-election-dates.shtml, quotes checked). Talarico won the 3 March Democratic primary with 1,216,412 votes (52.5%) to Jasmine Crockett's 1,071,900 (46.2%) (https://txelectionresults.com/2026-democratic-primary/races/484). Paxton won the 26 May Republican runoff with 885,949 votes (63.8%) to incumbent John Cornyn's 501,725 (36.2%) (https://txelectionresults.com/runoffs/2026, quotes checked). A Marist poll of Texas likely voters interviewed 8 to 11 October found Talarico at 47% and Paxton at 45%, with a margin of error of plus or minus 4.9 points (https://maristpoll.marist.edu/polls/2026-midterm-elections-in-texas-october-2026/, quotes checked). CBS Texas reported on 18 October that Talarico's campaign said it raised $64 million in the third quarter against $18 million for Paxton (https://www.cbsnews.com/texas/news/texas-senate-race-early-voting-starts/, quotes checked); that fundraising claim was not checked against FEC filings. The base rate is that Lloyd Bentsen's 8 November 1988 reelection was the last Democratic win in a Texas Senate election, and Republicans won every Texas Senate race after it through 2024 (https://en.wikipedia.org/wiki/1988_United_States_Senate_election_in_Texas). The national setting in the sources includes a 52% to 44% Democratic lead on the House ballot and low presidential approval in a 9 to 13 October poll. One poll inside its margin of error is thin evidence, and the Libertarian and write-in candidates could draw votes. The answer would change with further public polling that shows a lead outside the margin for either candidate, early-vote turnout data, or an official count after 3 November, which may take several days because mail ballots can arrive after Election Day.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -88,6 +89,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -186,6 +188,7 @@
   ]
  },
  "manifold-nngCdzg62E": {
+  "against": null,
   "base_rate": "In the 90 US Top Free market days from 2026-05-17 to 2026-10-20, days at #1 were concentrated but still split: Muse 29, ChatGPT 25, TikTok Pro 12, 7 Brew Coffee 8, Capital One Mobile 6, and five other apps 1\u20134 days each.\nAverage daily churn in that window was 9.5%.",
   "brief": "The question is whether Muse from Meta is number 1 on Apple's US Top Free iPhone chart in the first feed snapshot updated at or after 17:00 UTC on 31 October 2026. On the Apple US Top Free feed updated at 09:15 UTC on 20 October, the order was Capital One Mobile, Vinted and then Muse from Meta (https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json), and a stored snapshot from 06:00 UTC on 20 October also had Capital One at number 1 and Muse at number 3 (https://appstorestatistics.com/charts/us/top-free). Appstro's daily series from 15 September to 19 October shows Muse at number 1 on every listed day from 18 September except number 2 on 14 and 17 October (https://www.appstro.dev/apps/muse-from-meta-6760173601, quotes checked). GameQuant's page, current through 19 October, says Muse was number 1 on that day and on 30 of the prior 30 days, with US ratings up 68,512 in a week to 283,222 (https://gamequant.io/app/ios/6760173601/muse-from-meta, quotes checked). The trackers therefore disagree about 19 October against the 20 October feed. Across 90 US Top Free days from 17 May to 20 October, Muse was number 1 on 29, ChatGPT on 25, TikTok Pro on 12, 7 Brew Coffee on 8 and Capital One Mobile on 6, with average daily chart churn of 9.5% (https://top-apps.anerg.com/countries/us/top-free/history). On 19 October Benzinga quoted BNP Paribas's Nick Jones saying Muse had passed 10.4 million downloads since its 8 September launch, that downloads peaked on day 12 and then stabilised through day 38, and that its app-open rate and 14-day retention lagged ChatGPT (https://www.benzinga.com/markets/tech/26/10/62434096/metas-muse-racks-up-10-million-downloads-but-its-path-to-profits-remains-unclear). The base rate is that number 1 was split across several apps over the last 90 days and is held by whoever has the strongest promotion or launch on a given day. The deciding snapshot does not exist yet and there are eleven days for Meta promotion, Meta's 21 October earnings cycle or a surge by another free app. The answer would change if Muse regains number 1 for a sustained stretch in the final week of October, or if it falls further down the chart.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -266,6 +269,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -347,6 +351,7 @@
   ]
  },
  "manifold-tAzh2Qytdl": {
+  "against": null,
   "base_rate": "The only documented Anthropic individual premium step in these sources is Claude Max, still priced at $100 and $200 per month.\nNo count of prior Anthropic individual tiers at $400 or more appears in the pages read.",
   "brief": "The question is whether Anthropic officially announces, before 1 November 2026, a new individual subscription tier with a standard US price of at least $400 per month. The Claude pricing page fetched on 20 October lists Max 5x and Max 20x as the highest individual plans, shown from $100 per month, with $100 to $200 per month of API credits (https://claude.com/pricing). The Help Center lists Max 5x at $100 and Max 20x at $200 per month and says prices and plans can change (https://support.claude.com/en/articles/11049741-what-is-the-max-plan, quotes checked). On 7 October Anthropic announced monthly API credits of $100 for Max 5x, $200 for Max 20x and up to $500 pooled for Team, for Claude Platform API use, which is not a new individual subscription price (https://www.anthropic.com/claude-haiku-5-5, quotes checked). Reporting of 18 October still described Max at $100 and $200 with no new tier of $400 or more (https://askgpu.com/updates/claude-max-and-team-plans-add-monthly-api-credits/, quotes checked). OpenAI's DevDay recap of 29 September announced a Pro 500 plan, which its Help Center describes as a $500 per month individual plan (https://openai.com/index/devday-2026-recap/; https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers). The base rate is that the only documented Anthropic individual premium step is Claude Max, still at $100 and $200, and no count of earlier Anthropic individual tiers at $400 or more appears in the pages read. The official pages carry no calendar date for the current Max prices, so a tier announced and withdrawn before the fetch would not show. Team credits, API billing and enterprise contracts do not count under the rule, and the tier need not be available before the deadline but the price must be confirmed. The answer would change on an Anthropic announcement of a new named individual plan with a price of $400 or more, for instance in a launch post, or on credible reporting that one is imminent.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -427,6 +432,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -504,6 +510,7 @@
   ]
  },
  "manifold-uISNlAqC2E": {
+  "against": null,
   "base_rate": "Reference class: U.S.\nmidterm House seat change for the party holding the presidency, Brookings Vital Statistics Table 2-4.\nFrom 1946 through 2022 (20 midterms), that party lost House seats in 18 elections and gained seats in 2 (1998, Democrats +4; 2002, Republicans +8).\nThe table measures seats won versus the previous general election, not whether the party kept at least 218 seats.\nThe 2026 election has not been held, so it is not in the table.",
   "brief": "The question is whether Republicans hold at least 218 seats in the House after the 3 November 2026 elections, as reported by the Clerk of the House. The Clerk's official member list of 1 October counts 218 Republicans, 214 Democrats, 1 independent and 2 vacancies (FL-20 and TX-23) (https://clerk.house.gov/member_info/olm-119.pdf, quotes checked); the House Press Gallery breakdown matches (http://pressgallery.house.gov/member-data/party-breakdown, quotes checked). Ballotpedia says all 435 districts are on the ballot and that Democrats need a net gain of three seats for a majority, and it reports mid-decade map changes in California, Florida, Missouri, North Carolina, Tennessee, Texas, Ohio, Alabama, Louisiana and Utah (https://ballotpedia.org/United_States_House_of_Representatives_elections,_2026). Cook Political Report's ratings of 16 October list 182 solid Democratic and 168 solid Republican seats, 21 Democratic and 24 Republican likely or lean seats, and 10 Democratic and 24 Republican seats at toss-up or worse (https://www.cookpolitical.com/print/ratings/races/house). An ABC News/Washington Post/Ipsos poll of 9 to 13 October, published 18 October, found likely voters preferring the Democratic House candidate 52% to 44%, with Trump's approval at 33% approve and 66% disapprove (https://abcnews.com/Politics/democrats-lead-republicans-house-vote-choice-trumps-approval/story?id=137322849, quotes checked). On 19 October States Newsroom reported Cook analyst Erin Covey projecting a Democratic net gain of 10 to 20 seats (https://www.newsfromthestates.com/article/2-weeks-until-midterms-analysts-say-dems-still-track-win-us-house-majority). The base rate comes from Brookings Table 2-4: from 1946 to 2022 the president's party gained House seats in 2 of 20 midterms (1998 and 2002) and lost seats in the other 18 (https://www.brookings.edu/wp-content/uploads/2024/11/2-4-Full.pdf). That table measures seat change and not whether a party kept 218, and the new maps change the district baselines. The generic ballot is not a district-by-district result, and early voting is already under way. The answer would change if the generic ballot or presidential approval moved sharply toward Republicans, if Cook shifts many toss-ups toward Republicans, or if the new maps prove to be worth more to Republicans than the national swing.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -592,6 +599,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -683,6 +691,7 @@
   ]
  },
  "polymarket-3081958": {
+  "against": null,
   "base_rate": "Of the six scheduled Bank of Russia key-rate decisions in 2026 through 11 September 2026, five lowered the rate and one left it unchanged.\nOf the ten decisions listed from 25 July 2025 through 11 September 2026, nine were cuts and one was a hold.",
   "brief": "The question is whether the Bank of Russia lowers its key rate at the meeting on 23 October 2026. The key rate has been 14.00% per annum since the 11 September decision to hold it, and the next board meeting is scheduled for 23 October with the press release due at 13:30 Moscow time (https://www.cbr.ru/eng/press/keypr/, quotes checked; https://www.cbr.ru/eng/hd_base/KeyRate). The Bank of Russia's homepage lists September 2026 inflation at 6.4% against a 4.0% target (https://www.cbr.ru/eng/). On 14 October the Bank said seasonally adjusted consumer-price growth had slowed since the summer but remained markedly above 4% (https://www.cbr.ru/eng/press/event/?id=32912, quotes checked). The analyst survey of 9 to 13 October, published 14 October, put the median average key rate for the rest of 2026 at 14.0% and raised the 2026 year-end inflation forecast to 7.1% (https://www.cbr.ru/eng/statistics/ddkp/mo_br/, quotes checked). The September statement said a higher structural primary budget deficit than in the July baseline could require a tighter stance, with the new budget projections to be reflected only in the October forecast. Of the six 2026 decisions through 11 September, five were cuts (13 February, 20 March, 24 April, 19 June and 24 July) and one was a hold, and of the ten decisions from 25 July 2025 to 11 September 2026 nine were cuts and one a hold (https://www.cbr.ru/eng/dkp/mp_dec/). The base rate is therefore a long easing cycle that paused at the latest meeting, with inflation still well above target and the analyst median consistent with an unchanged rate through year-end. The outcome is unknown until the release. The answer would change if the Bank signals before the meeting that it will resume cuts, or if the October statement shows weaker inflation or a smaller budget deficit than assumed; a larger deficit or faster price growth would make a hold or a rise more likely.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -763,6 +772,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -853,6 +863,7 @@
   ]
  },
  "polymarket-3372768": {
+  "against": null,
   "base_rate": "ISW\u2019s 2026-10-16 assessment counted three Russian settlement seizures in Donetsk Oblast from 2026-09-01 through that date, with a net territorial loss of 198.28 square kilometers over the same period.\nNo published count was found of how often a named village intersection near Dobropillya moved from infiltration to assessed Russian control within an 11-day window.",
   "brief": "The question is whether, by 11:59 PM ET on 31 October 2026, any part of the intersection at 48.405560 N, 37.119791 E in Svitle, Donetsk Oblast, is shaded on the ISW map as Assessed Russian-Controlled Terrain or Assessed Russian Advances, and stays so through the next full daily update. Assessed Russian Infiltration Areas and Claimed Russian Territory do not count. On 13 October ISW assessed that geolocated footage from 12 October showed Ukrainian strikes on Russian servicemembers in western Svitle, south of Dobropillya, after Russian infiltration missions, which it treats as different from consolidated control (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-13-2026/). On 16 October ISW said it had evidence of three Russian settlement seizures in Donetsk Oblast since 1 September, alongside a net loss of 198.28 square kilometres, and no evidence of a Russian advance into Dobropillya beyond limited infiltration (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-16-2026/). On 17 October Interfax-Ukraine reported that DeepState's map update showed Russian forces advancing near Matyasheve and Svitle, adding 7.22 square kilometres of occupied area, with both settlements still in the infiltration (grey) zone (https://interfax.com.ua/news/general/1221814.html, quotes checked). On 19 October ISW reported a Ukrainian advance east of Dobropillya, including northwest of Shakhove on footage dated 18 October, and cited a Ukrainian brigade saying Russian forces had tried the same route since mid-spring while taking heavy losses (https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-19-2026, quotes checked). On 8 October ISW assessed that small-group infiltration near Dobropillya could not produce a sudden breakthrough (https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-8-2026/). The base rate is ISW's count of three Russian settlement seizures in Donetsk Oblast over about six weeks, set against an overall net territorial loss for Russia in that period; no published count was found of how often a named village intersection moved from infiltration to assessed Russian control within an 11-day window. The live ISW map layer at the exact intersection was not read, so whether any shading already exists there is unconfirmed. The answer would change if ISW shades the intersection as an assessed advance or control and keeps it for a full update cycle, which requires evidence of consolidated Russian presence rather than infiltration, or if a negotiated transfer with actual control occurs.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -929,6 +940,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -994,6 +1006,7 @@
   ]
  },
  "polymarket-3554548": {
+  "against": null,
   "base_rate": "On the two dated Code Arena | WebDev Overall snapshots in this window (Oct 8 and Oct 19, 2026), an Anthropic model held rank 1 both times (2 of 2).\nNo longer historical series of end-of-month leaders was available.",
   "brief": "The question is which company owns the highest-ranked non-AutoEval model on the arena.ai Code Arena WebDev leaderboard (Models view) when it is checked at 12:00 PM ET on 31 October 2026. On the table dated 19 October, Claude Opus 5.5 (Max), owned by Anthropic, is rank 1 with a score of 1807 plus or minus 14 from 2,925 votes and a rank spread of 1 to 1; OpenAI's GPT-6 Astra (Max) is rank 2 at 1774 plus or minus 10 with a spread of 2 to 4 (https://arena.ai/leaderboard/code/webdev). The lab view of the same date lists Anthropic first, OpenAI second and Meta third, with Meta's best model, Muse Wonder Full (Max), at model rank 6 and 1726 plus or minus 16 (https://arena.ai/leaderboard/code/webdev?rankBy=labs). An Overall snapshot from 8 October already had claude-opus-5.5-max at rank 1 (1813 plus or minus 15) ahead of gpt-6-astra-max (1786 plus or minus 11) (https://arena.ai/leaderboard/code/webdev/overall). Arena's changelog for 18 and 19 October records new WebDev entries, including DeepSeek-V4.1-Flash-20261017 (Max) and Muse Wonder Full (Max) (https://arena.ai/company/leaderboard-changelog, quotes checked). Reporting dated 19 October said Muse Wonder Full's first public WebDev result was sixth at 1,726, behind the Anthropic leader (https://www.allthingsmuse.com/articles/muse-wonder-full-webdev-arena-debut/, quotes checked). Anthropic announced Claude Opus 5.5 on 22 September (https://www.anthropic.com/claude-opus-5-5). Arena says AutoEval scores are replaced once enough human votes arrive and treats models within 5 points as statistically indistinguishable (https://arena.ai/blog/autoeval-scores, quotes checked). The base rate is that an Anthropic model was rank 1 on both dated snapshots in the window, two of two; no longer history of end-of-month leaders was available. The first-place margin is 33 points, much larger than the stated uncertainty of either leader. The answer would change if a new model from another lab enters with enough human votes to leave AutoEval status and score above the current leader, if the leader's score falls as votes accumulate, or if the leaderboard is unavailable at the check time.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -1082,6 +1095,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1174,6 +1188,7 @@
   ]
  },
  "polymarket-4951227": {
+  "against": null,
   "base_rate": "In the Investing.com WTI futures table covering completed sessions from 1 October through 19 October 2026, the highest listed daily high is 99.71, so none of those 14 dated rows shows a daily high of 105.\nThe same page\u2019s 52-week range, through 20 October 2026, runs from 54.98 to 117.63, so a print at or above 105 occurred at least once in that trailing year on that series.",
   "brief": "The question is whether any Pyth one-minute candle for the active-month ICE WTI futures contract reaches a high of 105 or more during an October 2026 trading session. Under the rule, the November 2026 contract's last trading day is 19 October, and the next contract becomes the active month at the open of that contract's third-to-last session (ICE expiry calendar, https://www.ice.com/products/213/WTI-Crude-Futures/expiry). Pyth's December 2026 feed CLLZ6 (expiry 19 November) was shown as Stable at 99.91 on 20 October (https://app.pyth.com/explore/Commodities.CLLZ6%2FUSD). The expired November feed CLLX6 was Inactive with a displayed 103.57 (https://app.pyth.com/explore/Commodities.CLLX6%2FUSD, quotes checked), which is not an active-month print and so does not count. Investing.com's WTI futures table for 21 September to 20 October lists a window high of 99.71 and, for the completed sessions of 1 to 19 October, no daily high at 105 or above; its 20 October day range was 98.07 to 100.73, and its 52-week range was 54.98 to 117.63 (https://uk.investing.com/commodities/crude-oil-historical-data). On the morning of 20 October FXStreet put WTI near $99.15 and quoted an IRGC statement that the Strait of Hormuz had not been fully closed and that a blockade could be widened (https://www.fxstreet.com/news/wti-rises-above-9900-as-iran-warns-of-wider-blockade-202610200615). The EIA, as reported by the Wall Street Journal on 15 October, said commercial crude stocks excluding the SPR fell 8.6 million barrels to 415.6 million barrels in the week ended 9 October (https://www.wsj.com/business/energy-oil/u-s-crude-oil-stockpiles-post-large-weekly-drop-0a988c08). The base rate is therefore that none of the 14 sessions in October so far reached 105 on the listed series, while the trailing year included prints well above it. Sources disagree on recent levels (some screens show prints in the low 100s, the daily-high column stays under 100), and the Pyth one-minute High candles were not retrieved. The remaining window is about nine trading sessions through 30 October, and a rise of roughly five percent from the December contract is required. The answer would change on an escalation in the Strait of Hormuz that lifts the December contract, or on a verified Pyth active-month one-minute high at or above 105 earlier in the month.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -1254,6 +1269,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1343,6 +1359,7 @@
   ]
  },
  "polymarket-5170805": {
+  "against": null,
   "base_rate": "",
   "brief": "The question is whether any Binance SOL/USDT one-minute candle between 1 October and 31 October 2026 (ET) prints a low at or below $100. Twelve Data's Binance SOL/USD daily series shows a lowest low of 100.43 for 1 to 20 October, on 18 October, after a 1 October low of 116.73 (https://twelvedata.com/markets/722279/crypto/binance/sol-usd/historical-data, read 20 October). Bitget's daily history shows a low of $116.83 on 1 October and $100.51 on 18 October (https://www.bitget.com/price/solana/historical-data, quotes checked), and Investing.com lists a range low of 100.510 (https://www.investing.com/crypto/solana/sol-usd-historical-data). On 20 October CoinDesk showed Binance SOL-USDT at 104.03, down 1.37% (https://www.coindesk.com/price/solana), and a Binance daily close series printed 105.15 on 20 October against 105.08 on 19 October (https://forecasteconomy.com/currencies/indicator/sol-usd, quotes checked). So price fell about 14% across the first eighteen days, touched a low within half a percent of the line on 18 October, and has recovered roughly 4% above it. CoinDesk reported on 14 October that Solana's Alpenglow upgrade is scheduled for epoch 1064, around 15:00 UTC on 21 October (https://www.coindesk.com/tech/2026/10/14/solana-sets-oct-21-for-alpenglow-upgrade-targeting-150-millisecond-finality, quotes checked), an event that could move the price either way. Binance's own kline API was unreachable from the research environment, so the SOL/USDT one-minute lows named in the rule were not read directly; vendor daily lows differ by a few cents and are on SOL/USD rather than SOL/USDT. The base rate comes from distance and time: the line is about 4% below the 20 October price with 11 days left, and the recent daily moves in this series have been of the order of one to four percent, so a touch needs a move of a size the series has produced repeatedly within a fortnight. The answer would change if a verified one-minute SOL/USDT low at or below 100 appears in the 1 to 20 October data (which resolves it Yes at once), or if price rises well clear of the line before the end of the month.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -1423,6 +1440,7 @@
     "ok": false
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1505,12 +1523,14 @@
   ]
  },
  "polymarket-562793": {
+  "against": null,
   "base_rate": null,
   "brief": null,
   "brief_written_at": "2026-10-20T10:59:03+00:00",
   "different_now": null,
   "facts": [],
   "judges": [],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nToday is 2026-10-20 (UTC).\\nQuestion: Will the Democra",
@@ -1521,6 +1541,7 @@
   "unknowns": []
  },
  "polymarket-5786298": {
+  "against": null,
   "base_rate": "",
   "brief": "The question is whether the headline pool total on the official 1W token sale page exceeds US$60 million at any point before 11:59 PM ET on 2 November 2026. On 17 October at 07:20 UTC, Coindaro read the official sale page as US$5,660,925 committed by 1,885 wallets against a US$3.9 million allocation (https://www.coindaro.com/launchpad/1win-token-sale/, quotes checked). On 16 October the sale's own account said commitments were already at $5.5M after the $3.9M cap was hit in 8 minutes (https://nitter.rdrama.net/1win/status/2111060784776155408). Bitcoinist reported, in a piece updated 16 October, that the sale opened at 18:00 on 15 October and crossed $3.9 million in USDC by 18:08, with contributions continuing through 30 October (https://bitcoinist.com/1win-public-sale-hits-3-9-million-in-commitments-within-minutes/). ICO Drops, updated 19 October, still showed an oversubscription update of about $5.31M (1.36 times the allocation) dated 16 October, with the window ending 30 October at 16:00 UTC (https://icodrops.com/1win-token/, quotes checked). The 15 October release says 130 million tokens are sold at $0.03 in USDC, with no maximum contribution, token generation on 30 October, and unused USDC refunded after pro-rata allocation (https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/, quotes checked). The terms exclude residents of the United States and several EU states. The base rate is the observed path: roughly $3.9M in the first eight minutes, about $5.3M to $5.5M by 16 October and about $5.66M by 17 October, so growth after day one has been a few hundred thousand dollars a day. The newest figure found is from 17 October, a live fetch of the sale page on 20 October returned no readable total, and the current gross is unverified. Reaching more than $60M would need more than ten times the latest total, so the answer would change only on a large new inflow, such as a late surge before the 30 October close, an official figure well above the 17 October reading, or a change to the sale's terms or timing.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -1609,6 +1630,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,
@@ -1702,6 +1724,7 @@
   ]
  },
  "polymarket-648383": {
+  "against": null,
   "base_rate": "No prior California statewide one-time billionaire wealth tax is in the record.\nFor citizen initiatives generally, Ballotpedia\u2019s 1910\u20132025 inventory says legislatively referred measures were approved 69% of the time and ballot initiatives 36% of the time; of all 1,307 statewide measures in that span, 753 (57.6%) passed.",
   "brief": "The question is whether a proposition containing a one-time tax on people or households with at least $1 billion of wealth passes at the California election on 3 November 2026. On 17 June the California Secretary of State announced that initiative 25-0024A1, a one-time tax of up to 5% on taxpayers and trusts with covered assets over $1 billion, was eligible for the 3 November ballot (https://www.sos.ca.gov/administration/news-releases-and-advisories/2026-news-releases-and-advisories/california-secretary-state-shirley-n-weber-phd-announces-new-measure-eligible-november-2026-general-election-ballot-imposes-one, quotes checked). The qualified-measures list shows it as Proposition 40, an initiative constitutional amendment and statute, alongside competing Propositions 41 and 42 (https://www.sos.ca.gov/elections/ballot-measures/qualified-ballot-measures). The Legislative Analyst's Office says Proposition 40 would impose a one-time 5% tax on the net worth of billionaires who were California residents on 1 January 2026, due in 2027, and that Propositions 41 or 42 could stop it from becoming law if either gets more yes votes, even if Proposition 40 has a majority (https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026, quotes checked). CalMatters reports the same nullification mechanism (https://calmatters.org/california-voter-guide-2026/proposition-40-billionaire-tax/). A Citrin-POLITICO poll published 19 October found 46% of likely voters in favour and 43% opposed, about unchanged from a month earlier, with the headline saying it fell short of majority support (https://www.politico.com/news/2026/10/19/california-billionaire-tax-poll-01125462). Ballots began mailing on or before 5 October and no result exists yet (https://voterguide.sos.ca.gov/propositions/40/). For the base rate, Ballotpedia's inventory for 1910 to 2025 records ballot initiatives approved 36% of the time, legislatively referred measures 69%, and 57.6% of all 1,307 statewide measures (https://ballotpedia.org/California_Ballot_Measures:_Historical_Ballot_Measures_Factbook). No earlier California one-time billionaire tax exists for comparison. It is unclear whether a measure that wins a majority but is nullified by a rival measure counts as passing, which depends on how the market reads the word. The answer would change with new polling showing a majority, heavy late spending on either side, or court action on the competing measures.",
   "brief_written_at": "2026-10-20T10:59:03+00:00",
@@ -1782,6 +1805,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-20T09:17:35.279400+00:00",
   "research_cost_usd": null,
   "research_failed": null,

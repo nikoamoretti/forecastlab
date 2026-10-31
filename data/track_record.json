@@ -1,118 +1,118 @@
 {
   "calibration": {
     "as_of": "2026-10-31",
-    "intercept": 0.221392,
-    "results": 52,
-    "slope": 1.168857
+    "intercept": 0.266669,
+    "results": 53,
+    "slope": 1.134396
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.2006859771169243,
+      "brier": 0.1972513390828024,
       "coin_flip_brier": 0.25,
       "forecasts": 230,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 56,
-      "right": 35,
+      "resolved": 67,
+      "right": 44,
       "toss_ups": 1,
-      "wrong": 20
+      "wrong": 22
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1827826923076923,
+      "brier": 0.1778079365079365,
       "coin_flip_brier": 0.25,
       "forecasts": 225,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 52,
-      "right": 35,
+      "resolved": 63,
+      "right": 44,
       "toss_ups": 3,
-      "wrong": 14
+      "wrong": 16
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.16602592592592594,
+      "brier": 0.16218333333333332,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 27,
-      "right": 20,
+      "resolved": 30,
+      "right": 23,
       "toss_ups": 0,
       "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.2085923076923077,
+      "brier": 0.20767931034482756,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 26,
-      "right": 17,
+      "resolved": 29,
+      "right": 19,
       "toss_ups": 1,
-      "wrong": 8
+      "wrong": 9
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.16847941176470588,
+      "brier": 0.17227804878048783,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 34,
-      "right": 25,
+      "resolved": 41,
+      "right": 30,
       "toss_ups": 0,
-      "wrong": 9
+      "wrong": 11
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.199165,
+      "brier": 0.20134166666666667,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 20,
-      "right": 14,
-      "toss_ups": 0,
-      "wrong": 6
-    },
-    {
-      "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.1530258064516129,
-      "coin_flip_brier": 0.25,
-      "forecasts": 167,
-      "label": "Qwen 3.8 27B (judge)",
-      "method": "judge_qwen38_27b_v1",
-      "resolved": 31,
-      "right": 25,
-      "toss_ups": 0,
-      "wrong": 6
-    },
-    {
-      "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.1699735294117647,
-      "coin_flip_brier": 0.25,
-      "forecasts": 171,
-      "label": "MiniMax M3 (judge)",
-      "method": "judge_minimax_m3_v1",
-      "resolved": 34,
-      "right": 27,
+      "resolved": 24,
+      "right": 17,
       "toss_ups": 0,
       "wrong": 7
     },
     {
+      "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
+      "brier": 0.15173999999999999,
+      "coin_flip_brier": 0.25,
+      "forecasts": 167,
+      "label": "Qwen 3.8 27B (judge)",
+      "method": "judge_qwen38_27b_v1",
+      "resolved": 40,
+      "right": 33,
+      "toss_ups": 0,
+      "wrong": 7
+    },
+    {
+      "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
+      "brier": 0.18353555555555556,
+      "coin_flip_brier": 0.25,
+      "forecasts": 171,
+      "label": "MiniMax M3 (judge)",
+      "method": "judge_minimax_m3_v1",
+      "resolved": 45,
+      "right": 35,
+      "toss_ups": 0,
+      "wrong": 10
+    },
+    {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.26239999999999997,
+      "brier": 0.24055,
       "coin_flip_brier": 0.25,
       "forecasts": 59,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 2,
-      "right": 1,
+      "resolved": 6,
+      "right": 4,
       "toss_ups": 0,
-      "wrong": 1
+      "wrong": 2
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -176,31 +176,747 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.14416380357142858,
+      "brier": 0.16369042763157896,
       "coin_flip_brier": 0.25,
       "forecasts": 147,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 28,
-      "right": 19,
+      "resolved": 38,
+      "right": 27,
       "toss_ups": 0,
-      "wrong": 9
+      "wrong": 11
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.1754459588888889,
+      "brier": 0.197164119,
       "coin_flip_brier": 0.25,
       "forecasts": 48,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 9,
+      "resolved": 10,
       "right": 6,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
     }
   ],
   "generated_on": "2026-10-31",
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.375
+      },
+      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-12T11:00:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "The Arena Text leaderboard (no style control) was last seen with Google's Gemini 4 Argon (High) at #1 on about 1525-1534, marked preliminary, ahead of Anthropic's best, claude-opus-5.5-high, at about 1515 (arena.ai, updated Oct 8; Arena post and The Rundown, Oct 1). Third-party aggregators disagree and show Anthropic models on top, but they are older or inconsistent snapshots. Anthropic would need a new release or a preliminary Argon score to fall by roughly 10-20 points within 19 days. OpenAI's GPT-6.1 Astra was cancelled for October (WSJ via Gizmodo, Sept 28).",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.therundown.ai/news/google-gemini-4-argon-benchmarks-limited-rollout",
+            "https://www.orcarouter.ai/blog/gemini-4-release-date",
+            "https://gizmodo.com/openai-cancels-release-of-gpt-6-1-astra-because-it-regressed-on-safety-2000818566"
+          ]
+        },
+        {
+          "made_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for either Anthropic or Google leading the arena leaderboard is roughly even given recent historical swings. As of early October, Google's Gemini\u20114\u2011Argon\u2011High holds a ~19\u2011point lead over Anthropic's top Claude models, though Argon is limited to a specialized program and may see fewer updates. Anthropic\u2019s models are tightly clustered and could release a new version that closes the gap, especially with OpenAI\u2019s planned GPT\u20116.1 Astra scrapped, reducing competition. Considering the margin and uncertainty about model updates, there is about a 35% chance Anthropic will occupy rank\u202f1 by the October\u202f31 check."
+        },
+        {
+          "made_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for any single company holding the top spot is modest, but current evidence strongly favors Google: as of October 8, Gemini 4 Argon High leads the arena.ai Text Arena with ~1534, ahead of Anthropic's claude-opus-5.5-high at 1515. No upcoming Anthropic release is mentioned, and OpenAI's planned model was scrapped, reducing competitive pressure. While the Google model's preliminary status and limited availability could lead to volatility, the 19-day window and stable lead make an Anthropic takeover unlikely."
+        },
+        {
+          "made_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.42,
+          "rationale": "Google's gemini-4-argon-high currently leads by about 19 points, but it is preliminary, restricted to vetted cyber-defense teams, and has fewer than 5,000 votes, creating material downside risk from score regression or an AutoEval flag. Anthropic already occupies ranks 2 through 4 with broadly available models, so any slippage from Argon would immediately put Anthropic in first place. The remaining three weeks offer limited time for a major new release, yet leaderboard volatility for preliminary entries and the possibility of an Anthropic incremental update keep the race fairly open."
+        },
+        {
+          "made_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.4,
+          "rationale": "The base rate for any one major lab to hold the top arena slot is roughly one-third, but the current Oct 8 snapshot has Google's Gemini 4 Argon High ahead of Anthropic's closest model by about 19 points. That lead is not decisive because the scores are preliminary, Anthropic has several models clustered near the top, and Google's Argon appears to have limited availability, which could affect its arena performance. The probability could rise if Anthropic ships a stronger model or Google's lead erodes, and fall if Argon's preliminary rank stabilizes or another lab releases a stronger model."
+        },
+        {
+          "made_at": "2026-10-12T11:01:28.735576+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: with multiple top labs (Google, Anthropic, OpenAI, Meta, xAI) competing, any single company holding #1 on a given day is typically around 20-30%. Evidence: as of early October 2026, Google's Gemini 4 Argon (High) holds the top spot on arena.ai at ~1534, with Anthropic's Claude Opus 5.5 High second at ~1515, a meaningful but not insurmountable gap. Anthropic is the closest competitor and could overtake if Google doesn't update Argon or if Argon's limited rollout (vetted cyber-defense teams only) limits its vote count and stability. Key swing factors: whether Google releases a Gemini 4 update or Argon stabilizes higher, whether Anthropic ships a new Claude variant before Oct 31, and whether OpenAI's scrapped GPT-6.1 Astra gets revived."
+        },
+        {
+          "made_at": "2026-10-12T10:54:39.751312+00:00",
+          "method": "market_price_v1",
+          "probability": 0.255
+        }
+      ],
+      "id": "polymarket-3554657",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261012",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
+      "status": "resolved",
+      "title": "Will Anthropic have the best AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.68
+      },
+      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "On the Arena Text Overall board (no style control) of 2026-10-15, Google's Gemini 4 Argon (High) is rank 1 at 1532 on 4,904 votes, 16 points ahead of Anthropic's Claude Opus 5.5 (High) at 1516, and it already led on 2026-10-08 (1525 vs 1507). The check is 2026-10-31, twelve days later; the overall text #1 changed 25 times between 2024-08-28 and 2026-10-15, about once a month, and Arena is still adding models. The model is marked Preliminary (plus or minus 9) so its score can drift, but a 16-point lead that has held a week makes Google the likely holder, with roughly a one-in-four chance that a new release or drift changes the top spot.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://arena.ai/leaderboard/text/overall",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://kbgtools.com/en/ai-model-ranking"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Google's Gemini 4 Argon (High) currently leads the arena.ai Text Arena Overall (no style control) by 16 points (1532 vs 1516) as of Oct 15, with a Preliminary label based on 4,904 votes. The historical base rate shows ~1 leadership change per month (25 changes in 26 months), giving roughly a 40% chance of a change in the 16-day window to Oct 31. However, the 16-point gap exceeds the 10-point threshold where AutoEval achieves >90% accuracy, and the leader just assumed the top spot on Oct 15. The Preliminary status and relatively low vote count for Google's model introduce score-drift risk, while frequent new model additions (changelog shows releases through Oct 18) create disruption potential. Balancing the meaningful lead against base-rate volatility and Preliminary uncertainty yields a modest edge for Google."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.88,
+          "rationale": "The leaderboard changes roughly once per month, giving about a 32% chance of at least one change in the 12\u2011day window from Oct\u202f15 to Oct\u202f31. Google\u2019s current 16\u2011point lead yields an AutoEval accuracy >90%, so there is less than a 10% chance the observed ranking is wrong even if no change occurs. Historical shifts show Google usually stays on top when the leader changes. Combining these factors gives roughly an 88% probability that Google\u2019s model remains ranked first on Oct\u202f31."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.68,
+          "rationale": "The base rate for a Text Arena #1 change is roughly once every few weeks, so a 12-day window has a substantial chance of a new leader. However, the exact resolution board showed Google's Gemini 4 Argon (High) at rank 1 on Oct 15 with a 16-point lead over Anthropic and a rank spread of 1-1, while no new text model is close. The main risks are score drift on the preliminary Google model or a new frontier model accumulating enough human votes before Oct 31."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.55,
+          "rationale": "Google's Gemini 4 Argon (High) currently leads with 1532 vs 1516 for Claude Opus 5.5 (High), a 16-point gap that exceeds the 15-point AutoEval reliability threshold. However, the Google model is still 'Preliminary' with only ~4,900 votes (vs 60,000+ for the top Claude variants), making it vulnerable to score drift as more votes accumulate. Over a 16-day window, the historical base rate of leader changes (~25 changes in 26 months, or roughly once per month) combined with the fast pace of new frontier releases seen in the changelog suggests moderate downside risk, but the current solid gap prevents a major downward adjustment."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7065
+        }
+      ],
+      "id": "polymarket-3554659",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
+      "status": "resolved",
+      "title": "Will Google have the best AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.28
+      },
+      "detail": "Resolves YES if Muse from Meta is ranked #1 on Apple's US App Store Top Free iPhone Apps chart on October 31, 2026.\n\nHow it's checked: Apple's official public chart feed, https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json. The first snapshot whose updated timestamp is at or after 17:00 UTC on October 31, 2026 decides it. If the feed is unavailable, the App Store app's Top Charts \u2192 Free (US, iPhone) seen on that date decides it, confirmed by a public screenshot or a chart tracker (e.g. appfigures, Sensor Tower).\n\nDetails:\n\nOnly the overall Top Free iPhone chart counts. Category charts (Productivity, etc.), Top Paid, and iPad charts don't count.\n\nIf Meta renames the app but it is the same App Store listing, it still counts.\n\nIf Muse is #2 or lower, or was removed from the store, this resolves NO.\n\nTrading closes at 16:00 UTC on Oct 31, before the check.\n\nContext: Muse has been the #1 free iPhone app in the US every day since Sept 18, 2026, and was still #1 at 13:34 UTC on Sept 28 (Momo AI #2, ChatGPT #3). Launch-driven #1s usually fade within a few weeks, but Meta is promoting Muse heavily. Companion market: Will Muse rank #1 in App Store on October 1st.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-20T10:57:55+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Apple's US Top Free feed on 20 October (09:15 UTC) had Capital One Mobile first, Vinted second and Muse third, even though Appstro and GameQuant had Muse at number 1 on nearly every day from 18 September to 19 October. BNP Paribas's Nick Jones said on 19 October that downloads peaked around day 12 and then stabilised, with app-open rate and 14-day retention behind ChatGPT. In the 90 US market days to 20 October, Muse held number 1 on 29, and number 1 changed hands often, with average chart churn of 9.5%. Muse would have to retake the top spot at one specific snapshot on 31 October, after slipping to third.",
+          "sources": [
+            "https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json",
+            "https://www.appstro.dev/apps/muse-from-meta-6760173601",
+            "https://gamequant.io/app/ios/6760173601/muse-from-meta",
+            "https://www.benzinga.com/markets/tech/26/10/62434096/metas-muse-racks-up-10-million-downloads-but-its-path-to-profits-remains-unclear"
+          ]
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.28,
+          "rationale": "Base rate from the last 90 days shows Muse held #1 only 29/90 days (32%) with high churn (9.5% daily) and five apps sharing the top spot. As of Oct 20, the official Apple feed shows Muse at #3 behind Capital One Mobile and Vinted, suggesting its 25-day #1 streak has ended. Meta's Oct 21 earnings and heavy promotion could drive a rebound in the 11 remaining days, but launch-driven peaks typically fade by week 6 (day 43 post-launch) and Muse's retention/open rates lag ChatGPT. The current downward trajectory and strong competition make a sustained return to #1 by Oct 31 unlikely but not impossible."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for a single app holding #1 for over a month is low, and Muse has already fallen to #3 on October 20 after a long run. Its download peak passed on day 12, retention and open rates lag ChatGPT, and the chart is volatile (9.5% daily churn). Meta's promotion and earnings cycle could briefly push it back up, but sustained #1 through October 31 is unlikely given the current downward trend and strong competition."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: The US #1 free iPhone spot is volatile, with 9.5% daily churn and the top rank shared among many apps over the past 90 days. Evidence: The official Apple feed on Oct 20 shows Muse at #3 behind Capital One Mobile and Vinted, while third-party trackers claiming a recent #1 contradict this authoritative snapshot; combined with BNP Paribas data showing downloads peaked and retention lags ChatGPT, Muse appears to be losing organic momentum despite heavy promotion. What could change it: Meta could mount a renewed campaign around its Oct 21 earnings or Halloween to push Muse back to #1, and surges by banking or shopping apps are often short-lived, but sustaining the exact #1 position at the Oct 31 snapshot is uncertain."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.35,
+          "rationale": "Base rate: over 90 days, #1 was split across 5 apps with 9.5% daily churn, so any single app holding #1 on a specific future date is well below 50%. Muse was #1 for 29 of 90 days but has already slipped to #3 on Oct 20 per the official Apple feed, with Capital One Mobile and Vinted ahead. The app's downloads have stabilized post-peak and retention lags ChatGPT, suggesting organic momentum is fading, though Meta's heavy promotion and the Oct 21 earnings cycle could push it back up. The deciding factor is whether Meta can re-promote Muse to #1 in the final week; given it's currently #3 and trending down, I'd put the odds modestly below the historical hit rate."
+        },
+        {
+          "made_at": "2026-10-20T09:09:56.684000+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.6266
+        }
+      ],
+      "id": "manifold-nngCdzg62E",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261020",
+      "source_url": "https://manifold.markets/Terminator2/will-metas-muse-still-be-the-1-free",
+      "status": "resolved",
+      "title": "Will Meta's Muse still be the #1 free iPhone app in the US on October 31, 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.63
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Saudi Arabia takes a qualifying military action against Yemen on the specified date, Yemen Standard Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Saudi Arabia, that directly impacts Yemen. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Saudi Arabia. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Saudi Arabia directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Yemen do not constitute a military action regardless of any damage incurred.\n\n\u201cYemen\u201d refers to the terrestrial territory of Yemen, including its internal waters. Yemen\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Yemen as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Yemen Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Saudi Arabia and Yemen, the Houthis, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-23T14:10:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.6,
+          "rationale": "Saudi-backed forces began Operation Dawn of Yemen on Oct 5 with about 100 Saudi aircraft (CNN, 2026-10-04), ending a four-year ceasefire; Houthi sources claimed about 300 Saudi airstrikes in one week in September, and a Saada strike on Oct 18-19 killed at least 9 and was blamed on Saudi Arabia (Washington Times, 2026-10-18). CBS live coverage (quotes checked) reports Saudis launching new strikes, so a strike on any given day looks more likely than not while the war continues. I discount for the strict rule that Saudi forces themselves must have conducted the strike (not the coalition or Yemeni forces), the heavy reliance on Houthi-run sources for attribution, a possible ceasefire before Oct 30 and the absence of reporting I found after about Oct 19.",
+          "sources": [
+            "https://www.cnn.com/2026/10/04/middleeast/yemen-offensive-houthis-intl",
+            "https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/",
+            "https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/",
+            "https://en.wikipedia.org/wiki/2026_Yemen_offensives"
+          ]
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.6,
+          "rationale": "The Saudi-backed offensive 'Dawn of Yemen' began Oct 3-4 with intense air operations (324 targets claimed at launch, ~300 strikes/week per Houthi claims) and strikes were reported through Oct 18, suggesting a high base rate of near-daily activity. However, the last specific reporting is from Oct 18 (5 days ago), attribution to Saudi armed forces (vs. coalition/proxy) is often unclear in sources, and a ceasefire or pause before Oct 30 would halt strikes. The 7-day horizon and ongoing offensive favor Yes, but attribution and reporting gaps create significant uncertainty."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.92,
+          "rationale": "The Saudi-led coalition has been conducting near-daily airstrikes since early September 2026 as part of Operation Dawn of Yemen, with direct Saudi involvement reported. Given the intensity and sustained nature of the campaign, a qualifying strike on October 30 is highly likely, but a small chance of a pause, ceasefire, or day without attributable strikes reduces certainty slightly."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.6,
+          "rationale": "The Saudi-led coalition has conducted near-daily air strikes since early September, and Saudi warplanes were explicitly identified in attacks through mid-October during the ongoing Operation Dawn of Yemen; however, no reports were found after about Oct 19, creating uncertainty about whether tempo will persist and whether any Oct 30 strike will be clearly attributed to Saudi armed forces rather than coalition partners. A confirmed ceasefire or pause before Oct 30 would push the probability toward zero, while renewed credible reporting of Saudi-conducted strikes in the immediate days before Oct 30 would raise it."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.72,
+          "rationale": "The base rate is elevated because the evidence describes an ongoing Saudi-led air campaign in Yemen through at least mid-October, with coalition-confirmed strikes and Houthi claims of frequent Saudi aircraft operations. Reports of Saudi F-15/Typhoon strikes from Saudi bases and coalition statements about 100 jets support the possibility of direct Saudi armed-force action, which is the key qualifying condition. I discounted the probability because attribution is often to the broader coalition, Houthi-run sources may overstate or misattribute strikes, and there is no confirmed reporting after about Oct 19, leaving open the chance of a pause, ceasefire, or non-qualifying action on Oct 30."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.66,
+          "rationale": "The base rate is favorable: Saudi aircraft reportedly carried out near-daily strikes during the September\u2013October campaign, and CNN/CBS reporting and a Saudi coalition spokesman\u2019s statement that 100 fighter jets participated support direct Saudi involvement. However, no reporting was found after about October 19, and some incidents are described only as Saudi-led coalition strikes, leaving meaningful uncertainty about a pause, a Yemeni-only operation, or clear attribution on October 30. The probability is therefore about two-thirds; confirmed continued Saudi strikes would raise it, while a ceasefire or shift to Yemeni-only strikes would lower it."
+        },
+        {
+          "made_at": "2026-10-23T09:00:35.107323+00:00",
+          "method": "market_price_v1",
+          "probability": 0.64
+        }
+      ],
+      "id": "polymarket-5167211",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261023",
+      "source_url": "https://polymarket.com/event/saudi-arabia-military-action-against-yemen-on-october-2026",
+      "status": "resolved",
+      "title": "Saudi Arabia military action against Yemen on October 30?",
+      "topic": "World",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.12,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The top Chinese slot on the Arena text board has rotated among Baidu (ERNIE 5.0 in January and 5.1-Preview in April), Moonshot (Kimi K3 in July) and others, and Alibaba seems to have held it only occasionally. Late-October summaries point to Xiaomi MiMo, Kimi K3 and DeepSeek V4 Pro as contenders, with Alibaba's Qwen 3.7/3.8 Max within about 50 Elo and a vision-board rank that does not count. With no confirmed text-board data and several close rivals, Alibaba is a long shot.",
+          "sources": [
+            "https://benchlm.ai/llm-leaderboard-history",
+            "https://shattered.io/kimi-k3-coding-leaderboard-2026/",
+            "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "The base rate for Alibaba holding the top Chinese model spot on the Arena text leaderboard is low, as the lead has rotated among several labs and Alibaba has only occasionally been first. Recent evidence (July 2026) points to Moonshot's Kimi K3 as the highest Chinese model, with Baidu leading in April, and no reports suggest Alibaba has since taken the lead. With the check just five days away and no indication of an imminent Qwen release that could rank in time, the probability remains low, though a surprise launch could alter the outcome."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "The base rate from historical rotation shows the top Chinese slot has shifted among at least 5-6 labs with no stable majority, and Alibaba held it only occasionally. The October 2026 evidence points to Xiaomi MiMo-V2.6-Pro (1491, highest openly licensed model) and Moonshot Kimi K3 (topped coding arena in October, was #1 Chinese in July) as the most likely leaders, with Baidu ERNIE-5.1-Preview having held the spot in April. The brief's note that no reports of Alibaba leading were found, combined with Qwen 3.7 Max being described as within ~50 Elo of Kimi K3 (implying it trails), makes Alibaba the least likely candidate among the top contenders, though a late Qwen release or tie-breaking by unrounded score could shift the outcome."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The base rate for any single Chinese lab holding the top Chinese slot is low given the rotation among Alibaba, Baidu, Moonshot, DeepSeek, and others. Evidence suggests Moonshot's Kimi K3 and Xiaomi's MiMo are currently competitive or leading among Chinese models, with Alibaba's Qwen close but not clearly ahead. A late Qwen release before Oct 31 could shift this, but absent strong evidence of Alibaba leading, I assign a low probability."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.075
+        }
+      ],
+      "id": "polymarket-3554471",
+      "note": "The research digest mentioned that a market page lists another lab as favourite for this question. I did not use it and forecast from the leaderboard evidence only.",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": false,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
+      "status": "resolved",
+      "title": "Will Alibaba have the best Chinese AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.13,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) (Style Control On) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall with style control on (Adjustments: Style Control) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.13,
+          "rationale": "A summary of an aggregator page updated 2026-10-20 puts Google's Gemini 4 Argon (High) first on the text board at 1532 with style control off and 1524 with it on, with Claude Opus 5.5 (High) second at 1516 and Claude Fable 5.1 (Max) third at 1512; an Oct 8 snapshot had 1525 versus 1507. Anthropic trails by about 8 points, inside the roughly 8-9 point intervals, and ties on rank are broken by score, where Google leads. Anthropic would need a new release or a score shift by Oct 31, and no release was found for the final week of October.",
+          "sources": [
+            "https://www.swfte.com/lmarena",
+            "https://sophon.at/leaderboards/lmarena-text",
+            "https://www.versusapps.com/blog/lmarena-leaderboard-september-2026"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.12,
+          "rationale": "Google's Gemini 4 Argon (High) leads the leaderboard by ~8 points with style control on (1524 vs. 1516 for Anthropic's Claude Opus 5.5) as of October 20. The gap is small and within overlapping confidence intervals, but historically the #1 spot rarely changes over a 5-day window without a major release. No Anthropic release is expected, and Google would win any tiebreakers. Sampling error or a last-minute model could reverse this, but the low probability reflects the short remaining time and current clear lead."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The most recent data (Oct 20) shows Google's Gemini 4 Argon (High) leading with style control on at 1524, ahead of Anthropic's Claude Opus 5.5 (High) at 1516, an 8-point gap. While this gap is within the 'noise' threshold of 25 points, no new Anthropic model release was found for late October, and the leader has been stable over recent days. The 11-day window to the check time allows for some drift, and the overlapping confidence intervals from earlier snapshots suggest the ranking could flip, but the current trajectory favors Google. I estimate roughly a 20% chance Anthropic overtakes or ties by Oct 31."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The five-day horizon strongly favors the current leader: secondary snapshots from October 20 put Google\u2019s Gemini 4 Argon first at 1524 with style control on, versus 1516 for Anthropic\u2019s best model. Google\u2019s eight-point lead and the lack of a scheduled Anthropic release keep Anthropic\u2019s chance low, although the lead was larger on October 8 and Anthropic previously held first place in August. An unexpected Anthropic release, enough score drift, or a major competing release could change the result, while the lack of a checked primary leaderboard adds uncertainty."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0515
+        }
+      ],
+      "id": "polymarket-3554762",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/which-company-has-1-ai-model-end-of-october-style-control-on",
+      "status": "resolved",
+      "title": "Will Anthropic have the #1 AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.25,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank based on the arena.ai Text Arena (Math) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Math\" Leaderboard tab at https://arena.ai/leaderboard/text/math-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Math). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.13,
+          "rationale": "The only recent Math data point is an aggregator snippet (data version 2026-08-06) listing Alibaba's qwen3.8-max first at 1517, and an Arena March 2026 update had Qwen 3.5 Max Preview third on Math. Anthropic's best model sits second on the overall board behind Google's Gemini 4 Argon (reported 2026-10-20), and Math is unlikely to be easier for Anthropic than the overall board. With the top spot rotating among Anthropic, OpenAI, Alibaba and Google and a tie settled by unrounded score, I give Anthropic a modest chance.",
+          "sources": [
+            "https://arena.ai/blog/march-2026-arena-updates/",
+            "https://www.datalearner.com/en/leaderboards/external/text-generation-math",
+            "https://www.swfte.com/lmarena"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "Among major AI labs, the base rate for any single company holding the #1 Math spot at a given moment is roughly 20-25%. The limited evidence shows Alibaba led in August and was third in March, suggesting they are strong competitors, while Anthropic's Claude Opus 5.5 was a close second overall on October 20, indicating it remains highly competitive. Without current Math-specific leaderboard data, Anthropic's chance is plausible but not dominant."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.3,
+          "rationale": "The Math leaderboard top spot has rotated among Anthropic, OpenAI, and Alibaba during 2026, with Alibaba's qwen3.8-max leading as of August 2026. The most recent overall text data (Oct 20) shows Google #1 and Anthropic #2, but that's not the Math-specific board. Anthropic is a strong contender given their proximity on the overall board, but the Math-specific evidence points more toward Alibaba or Google holding the top spot, making a ~30% probability reasonable."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.27,
+          "rationale": "A reasonable base rate is roughly 20\u201330% for any one frontier lab to lead a specialist Arena category; Anthropic is competitive but not the default favorite. Claude Opus 5.5 was reportedly only about eight points behind Google on the overall text board, and Anthropic apparently contended for the Math lead during 2026, but an unverified August snapshot instead put Alibaba\u2019s qwen3.8-max first. The missing live Math table, possible releases before October 31, and AutoEval exclusions leave substantial uncertainty."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        }
+      ],
+      "id": "polymarket-3554355",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-text-arena-math-ai-model-end-of-october",
+      "status": "resolved",
+      "title": "Will Anthropic have the best Math AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.78,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the second-highest ranked Company based on the arena.ai Agent Arena Leaderboard when the table under \"Agent Arena\" filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Agent Arena\" Leaderboard tab at https://arena.ai/leaderboard/agent filtered for \"Labs\" will be used to resolve this market.\n\nModels marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by which model is listed higher on the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Agent Arena Leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "On the Agent Arena Labs table dated Oct 23, OpenAI is rank 2 (13.96%), ahead of Google (11.75%) and Meta (10.74%), and an Oct 13 post also listed OpenAI second; the latest model added through Oct 27 (Kimi K3.1 Pro) belongs to a rank-5 lab. The rank spreads of OpenAI and Google overlap (2-4), so a reshuffle is possible, and a new lab-best model before Oct 31 could move it, but the raw gap is over two points with three days left. The board is five days old, so I keep some room for change.",
+          "sources": [
+            "https://arena.ai/leaderboard/agent?rankBy=labs",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://arena.ai/blog/ranking-method"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.78,
+          "rationale": "As of Oct 23, OpenAI ranks 2nd on the Labs leaderboard with a raw rank of 2, though its confidence interval overlaps with Google's, indicating a statistical tie. The short time to resolution (3 days) and lack of recent high-ranking model additions from competitors make a rank change unlikely, but the overlapping spreads and dynamic nature of the leaderboard introduce some uncertainty."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "OpenAI is currently ranked 2nd in the Labs table as of Oct 23, with a ~2.2pp lead over Google, but both have overlapping rank spreads (2-4), meaning they are statistically tied. The resolution uses the raw Rank column (no ties), which currently favors OpenAI, and OpenAI has been consistently 2nd in both available snapshots. The main risk is that 5 more days of live data could shift the raw rank, especially given the statistical tie, but no new top-tier model from Google or another lab has been announced that would likely overtake OpenAI in that window."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "OpenAI has held the #2 lab rank in both October snapshots (Oct 13 LinkedIn post and Oct 23 leaderboard), with Anthropic firmly at #1 and Google at #3-5 with overlapping CIs. The Oct 23 data shows OpenAI at 13.96%\u00b12.08% vs Google at 11.75%\u00b10.91%, a meaningful gap. However, the leaderboard is dynamic, new models from Google or Meta could shift rankings, and the check is 3 days away. Base rate for a stable #2 holder remaining #2 over a week is moderate-high, adjusted up given the consistent evidence but capped below 0.8 due to volatility risk."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "OpenAI was rank 2 on the Oct 23 Labs table and second in the Oct 13 LinkedIn snapshot, so it has held the spot across both October observations. Google is third (11.75%, against OpenAI's 13.96%) and Meta is close behind. Their intervals overlap, and OpenAI's lab rank spread is 2-4, so a reshuffle is possible. Three days remain, and a new top model from Google or Meta, or a rescoring, could flip it. The GPT-6.1 Terra release hints that OpenAI may add a new model, which would help it. Anthropic taking rank 2 is unlikely given its lead. I put the chance OpenAI is second at about 80%."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.925
+        }
+      ],
+      "id": "polymarket-3572142",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/second-best-ai-agent-lab-end-of-october-20260812152901709",
+      "status": "resolved",
+      "title": "Will OpenAI be the second-best AI Agent Lab at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.08,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the company which owns the model with the highest Mathematics score on LiveBench.ai when the leaderboard is checked on October 31, 2026, at 12:00 PM ET.\n\nResults from the \u201cMathematics\u201d column of the leaderboard at https://livebench.ai/#/?cats=Mathematics, with the latest available LiveBench release selected and the category set to \u201cMathematics,\u201d will be used to resolve this market.\n\nModels will be ranked according to the specified score, with higher scores ranked ahead of lower scores. If two or more models have exactly the same score as displayed on the leaderboard, the model with the lower listed \"cost per successful task\" will be ranked ahead. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact score and cost per successful task, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the LiveBench leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \u201cOther.\u201d",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "The latest LiveBench release (2.0, 2026-10-25) shows no Mathematics category, and in its table Google's gemini-4-argon leads reasoning at 95.1 over Claude Opus 5.5 at 92.2. On the older v1 math tasks (2026-06-25) an OpenAI model led Anthropic's best, and in the paper's table OpenAI also led. Anthropic would need the resolver to use a source where a Claude model tops math, which no opened source shows.",
+          "sources": [
+            "https://livebench.ai/",
+            "https://livebench.ai/data/20261025/table.csv",
+            "https://raw.githubusercontent.com/LiveBench/livebench.github.io/refs/heads/main/public/table_2026_06_25.csv"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The LiveBench 2.0 release (2026-10-25) has no Mathematics category\u2014only Agentic, Design, Coding, Browser Use, Data Analysis, Research, and Reasoning. In the last v1 release that did include math columns (2026-06-25), OpenAI's gpt-5.5-xhigh led on math_comp (96.078 vs 97.059 for Claude) and integrals_with_game (99.0 vs 95.0), while Claude led on AMPS_Hard (98.0 vs 97.0) and was slightly behind on olympiad (91.207 vs 91.351). The resolution requires selecting the 'latest available LiveBench release' with category set to 'Mathematics'\u2014if no such category exists in the latest release, the market likely resolves to 'Other' or the resolver falls back to an older release where OpenAI led. For Anthropic to win, either a new release with a Mathematics category must appear by Oct 31 with a Claude model on top, or the resolver must interpret 'Mathematics' as mapping to 'Reasoning' (where Gemini leads at 95.1 vs Claude's 92.2). Both scenarios are unlikely, giving roughly 5%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.15,
+          "rationale": "The base rate is low because in both historical snapshots with math scores (2026-06-25 v1 and the LiveBench paper), OpenAI models led the math category, not Anthropic. The current LiveBench 2.0 (2026-10-25) has dropped the Mathematics category entirely, replacing it with 'Reasoning' where Gemini leads (95.1) and Claude is second (92.2). The resolution criteria specifically require a 'Mathematics' column, which may not exist in the latest release, creating ambiguity. If the resolver falls back to v1 or uses reasoning as a proxy, Anthropic is unlikely to lead. A new release with a Mathematics category where Claude leads would be needed for Yes."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.09,
+          "rationale": "The official LiveBench 2.0 release (2026-10-25) has no Mathematics category. Only the older v1 table from 2026-06-25 has math tasks. In that table, averaging the four math tasks gives gpt-5.5-xhigh about 95.9 and claude-opus-4-8 about 95.3, so OpenAI leads Anthropic. The resolver might fall back to v1, treat the category as unavailable (likely \"Other\"), or use a proxy such as the reasoning column, where Gemini leads. All of these paths favor non-Anthropic outcomes. A Claude win would need a new release with a math category where a Claude model leads, which looks unlikely in the three days left."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.845
+        }
+      ],
+      "id": "polymarket-3554982",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-on-livebench-mathematics-end-of-october",
+      "status": "resolved",
+      "title": "Will Anthropic have the best AI model on LiveBench (Mathematics) at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.6,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "On the 27 Oct Text Arena Overall board (style control off) Xiaomi's MiMo-V2.6-Pro (1491, rank 12) was the top Chinese model, 8 points ahead of Alibaba's Qwen3.8-Max (1483, rank 16), and it led on both snapshots seen (8 Oct and 27 Oct). The main risks are Moonshot's newly launched Kimi K3.1 Pro or another new Chinese model being listed above 1491 before 31 Oct, or MiMo's thinly voted score (4,037 votes, +/-9) slipping below Qwen's; both are plausible but not the base case.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.6,
+          "rationale": "Xiaomi currently leads among Chinese models by 8 points (1491 vs 1483) on the Text Arena, but with only 4,037 votes versus Alibaba's 31,915, the score is vulnerable to downward drift as votes accumulate over the remaining 4 days. The 8-point gap is above the 5-point indistinguishability threshold but within Xiaomi's \u00b19 confidence interval, meaning the true scores could overlap. No new Chinese models are expected on the Text Arena before the check date (Kimi K3.1 Pro hasn't been added there yet, and its full weights aren't due until Nov 4), so the main risk is score drift rather than a new entrant."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.38,
+          "rationale": ":"
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "On the 27 October board, Xiaomi's MiMo-V2.6-Pro (rank 12, 1491) leads the next Chinese model, Alibaba's Qwen3.8-Max (rank 16, 1483), by 8 points. The check is only about 4 days away. Kimi K3.1 Pro has not been added to the Text Arena, and the changelog shows it only on the Agent and Code arenas. A new Chinese model could still be added and beat Xiaomi by the check. Xiaomi's score could also drift down on thin votes, and the confidence intervals overlap. Even so, the lead is real and the window is short, so Xiaomi is the likely winner."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9055
+        }
+      ],
+      "id": "polymarket-3554475",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
+      "status": "resolved",
+      "title": "Will Xiaomi have the best Chinese AI model at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.55,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve according to the second-highest ranked primarily Chinese company based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs with style control off (Adjustments: None) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese AI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant qualifying Chinese AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "On the 27 Oct Text Arena labs table (style control off) the Chinese labs ranked Xiaomi (1491), Alibaba (1483), Moonshot (1476), Z.ai (1474), the same order as on 8 Oct, so Alibaba is second now. Alibaba's flagship is still the 2 Sep Qwen3.8-Max snapshot, while Moonshot's Kimi K3.1 Pro launched 26-27 Oct and could be listed above 1483 before the 31 Oct check, and Xiaomi's thinly voted 1491 (4,037 votes) could drop below Alibaba, so the middle position is exposed to movement from both sides.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs",
+            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html",
+            "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/newly-released-models"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "As of October 27, Alibaba is second among Chinese labs (Xiaomi 1491\u00b19, Alibaba 1483\u00b15, Moonshot 1476\u00b14), and this order has held since at least October 8. The main risks are: (1) Xiaomi's \u00b19 margin means its true score could dip below 1483, making Alibaba first (answer No), and (2) Moonshot's new Kimi K3.1 Pro (launched Oct 26, scored 4th on AA index, 11 points above predecessor) could accumulate enough votes by Oct 31 to score above 1483 and overtake Alibaba, making it third (answer No). Alibaba's own score is well-established at 31,915 votes with no new text flagship expected, so it's the most stable of the three. The 4-day window for Kimi K3.1 Pro to build votes is the key uncertainty; if it doesn't get listed or scores below 1483, and Xiaomi stays above 1483, Alibaba remains second."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.6,
+          "rationale": "Alibaba is currently the #2 Chinese lab on the Arena Text Arena Labs leaderboard (rank 5, 1483\u00b15), behind Xiaomi (1491\u00b19) and ahead of Moonshot (1476\u00b14) and Z.ai (1474\u00b15). The base rate is that Alibaba holds this position. The main risk is Moonshot's newly launched Kimi K3.1 Pro (scored 55 on Artificial Analysis, up 11 from predecessor), which could overtake Alibaba if it accumulates enough Arena votes by Oct 31\u2014uncertain given only 4 days and it wasn't on the Oct 27 models table. A secondary risk is Xiaomi's volatile \u00b19 interval allowing it to drop below Alibaba, which would make Alibaba #1 rather than #2. I estimate ~60% probability Alibaba remains exactly #2."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.52,
+          "rationale": "On 27 October the Chinese labs were ordered Xiaomi (1491\u00b19), Alibaba (1483\u00b15), Moonshot (1476), Z.ai (1474), and the 8 October crawl showed the same top three order. Alibaba is second if that holds. The main risks are that Xiaomi's score, based on only about 4k votes, drifts below Alibaba, which would make Alibaba first, or that Kimi K3.1 Pro gets listed above 1483 while Xiaomi stays ahead, which would make Alibaba third. I put roughly 60% on Xiaomi staying ahead and about 20% on Moonshot passing Alibaba in time, and Alibaba would also be second if Moonshot passes it and Xiaomi falls behind it."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.805
+        }
+      ],
+      "id": "polymarket-3554496",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/second-best-chinese-ai-company-end-of-october",
+      "status": "resolved",
+      "title": "Will Alibaba be the second-best Chinese AI company at the end of October 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -1196,6 +1912,68 @@
       "title": "Reserve Bank of New Zealand increases interest rates by 25 bps at the October 2026 meeting?",
       "topic": "Economy",
       "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.32
+      },
+      "detail": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel\u2019s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-08T12:54:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Since mid-September Eisenkot's Yashar has led Likud in 7 of 8 published polls, usually by 2-4 seats (latest Channel 12 and Kan: 23 to 21). Likud has sometimes beaten its final polls, and three weeks remain, so an upset is plausible but less likely than not.",
+          "sources": [
+            "https://israel2026.co.il/en/election-polls.html",
+            "https://www.jpost.com/israel-election-2026/article-908444"
+          ]
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.32,
+          "rationale": "Historically Likud has won the most seats in about 4 of the last 6 Israeli elections, giving a base rate near 0.45. Recent polls from mid\u2011September to early October 2026 show the Yashar bloc leading Likud in 7 out of 8 surveys, with margins typically 2\u20114 seats, suggesting a lower chance for Likud to finish first. However, polling error, last\u2011minute campaign events, or coalition realignments could shift the outcome, keeping the probability above zero but well below one\u2011half."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.28,
+          "rationale": "Recent polls show Likud trailing Yashar in 7 of 8 surveys, with Likud averaging roughly 21 seats to Yashar's 22, a gap within typical polling error. Likud has historically been the largest party and could gain from late undecideds, but current evidence makes it the underdog."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.35,
+          "rationale": "The base rate favors the party leading in late polls, and Yashar has led Likud in seven of the eight most recent surveys by an average of roughly two to three seats. While Israeli polls can miss and Likud benefits from a reliable right-wing turnout machine, the consistency of Yashar's narrow edge makes Likud an underdog. A late swing, polling error, or superior Likud mobilization could close the gap."
+        },
+        {
+          "made_at": "2026-10-08T13:31:46.560258+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Likud has historically been Israel's largest party, giving it a reasonable base rate, but the evidence brief shows Yashar (Gideon Sa'ar's breakaway party) leading Likud in 7 of 8 recent polls, typically by 2-6 seats. This consistent and cross-pollster lead for Yashar is decisive evidence that Likud is unlikely to finish first. While polls can shift, especially with security developments in Israel, the magnitude and consistency of Yashar's lead makes a Likud victory improbable but not negligible given potential late-breaking events."
+        },
+        {
+          "made_at": "2026-10-08T12:50:46.321157+00:00",
+          "method": "market_price_v1",
+          "probability": 0.515
+        }
+      ],
+      "id": "polymarket-2100981",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-10-28",
+      "scored": true,
+      "source": "prospective_markets_20261008",
+      "source_url": "https://polymarket.com/event/israeli-legislative-election-winner",
+      "status": "resolved",
+      "title": "Will Likud win the most seats in the 2026 Israeli legislative election?",
+      "topic": "Politics",
+      "verdict": "wrong"
     },
     {
       "actual": "Manifold: Yes",
@@ -3984,68 +4762,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.32
-      },
-      "detail": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel\u2019s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-08T12:54:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.33,
-          "rationale": "Since mid-September Eisenkot's Yashar has led Likud in 7 of 8 published polls, usually by 2-4 seats (latest Channel 12 and Kan: 23 to 21). Likud has sometimes beaten its final polls, and three weeks remain, so an upset is plausible but less likely than not.",
-          "sources": [
-            "https://israel2026.co.il/en/election-polls.html",
-            "https://www.jpost.com/israel-election-2026/article-908444"
-          ]
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.32,
-          "rationale": "Historically Likud has won the most seats in about 4 of the last 6 Israeli elections, giving a base rate near 0.45. Recent polls from mid\u2011September to early October 2026 show the Yashar bloc leading Likud in 7 out of 8 surveys, with margins typically 2\u20114 seats, suggesting a lower chance for Likud to finish first. However, polling error, last\u2011minute campaign events, or coalition realignments could shift the outcome, keeping the probability above zero but well below one\u2011half."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.28,
-          "rationale": "Recent polls show Likud trailing Yashar in 7 of 8 surveys, with Likud averaging roughly 21 seats to Yashar's 22, a gap within typical polling error. Likud has historically been the largest party and could gain from late undecideds, but current evidence makes it the underdog."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.35,
-          "rationale": "The base rate favors the party leading in late polls, and Yashar has led Likud in seven of the eight most recent surveys by an average of roughly two to three seats. While Israeli polls can miss and Likud benefits from a reliable right-wing turnout machine, the consistency of Yashar's narrow edge makes Likud an underdog. A late swing, polling error, or superior Likud mobilization could close the gap."
-        },
-        {
-          "made_at": "2026-10-08T13:31:46.560258+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Likud has historically been Israel's largest party, giving it a reasonable base rate, but the evidence brief shows Yashar (Gideon Sa'ar's breakaway party) leading Likud in 7 of 8 recent polls, typically by 2-6 seats. This consistent and cross-pollster lead for Yashar is decisive evidence that Likud is unlikely to finish first. While polls can shift, especially with security developments in Israel, the magnitude and consistency of Yashar's lead makes a Likud victory improbable but not negligible given potential late-breaking events."
-        },
-        {
-          "made_at": "2026-10-08T12:50:46.321157+00:00",
-          "method": "market_price_v1",
-          "probability": 0.515
-        }
-      ],
-      "id": "polymarket-2100981",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-28",
-      "scored": true,
-      "source": "prospective_markets_20261008",
-      "source_url": "https://polymarket.com/event/israeli-legislative-election-winner",
-      "status": "pending",
-      "title": "Will Likud win the most seats in the 2026 Israeli legislative election?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 7,
         "method": "combined_median_v1",
         "probability": 0.12
@@ -4190,76 +4906,6 @@
       "status": "pending",
       "title": "US x Iran ceasefire continues through October 31?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.375
-      },
-      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-12T11:00:20+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.14,
-          "rationale": "The Arena Text leaderboard (no style control) was last seen with Google's Gemini 4 Argon (High) at #1 on about 1525-1534, marked preliminary, ahead of Anthropic's best, claude-opus-5.5-high, at about 1515 (arena.ai, updated Oct 8; Arena post and The Rundown, Oct 1). Third-party aggregators disagree and show Anthropic models on top, but they are older or inconsistent snapshots. Anthropic would need a new release or a preliminary Argon score to fall by roughly 10-20 points within 19 days. OpenAI's GPT-6.1 Astra was cancelled for October (WSJ via Gizmodo, Sept 28).",
-          "sources": [
-            "https://arena.ai/leaderboard/text/overall-no-style-control",
-            "https://www.therundown.ai/news/google-gemini-4-argon-benchmarks-limited-rollout",
-            "https://www.orcarouter.ai/blog/gemini-4-release-date",
-            "https://gizmodo.com/openai-cancels-release-of-gpt-6-1-astra-because-it-regressed-on-safety-2000818566"
-          ]
-        },
-        {
-          "made_at": "2026-10-12T11:01:28.735576+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for either Anthropic or Google leading the arena leaderboard is roughly even given recent historical swings. As of early October, Google's Gemini\u20114\u2011Argon\u2011High holds a ~19\u2011point lead over Anthropic's top Claude models, though Argon is limited to a specialized program and may see fewer updates. Anthropic\u2019s models are tightly clustered and could release a new version that closes the gap, especially with OpenAI\u2019s planned GPT\u20116.1 Astra scrapped, reducing competition. Considering the margin and uncertainty about model updates, there is about a 35% chance Anthropic will occupy rank\u202f1 by the October\u202f31 check."
-        },
-        {
-          "made_at": "2026-10-12T11:01:28.735576+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "The base rate for any single company holding the top spot is modest, but current evidence strongly favors Google: as of October 8, Gemini 4 Argon High leads the arena.ai Text Arena with ~1534, ahead of Anthropic's claude-opus-5.5-high at 1515. No upcoming Anthropic release is mentioned, and OpenAI's planned model was scrapped, reducing competitive pressure. While the Google model's preliminary status and limited availability could lead to volatility, the 19-day window and stable lead make an Anthropic takeover unlikely."
-        },
-        {
-          "made_at": "2026-10-12T11:01:28.735576+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.42,
-          "rationale": "Google's gemini-4-argon-high currently leads by about 19 points, but it is preliminary, restricted to vetted cyber-defense teams, and has fewer than 5,000 votes, creating material downside risk from score regression or an AutoEval flag. Anthropic already occupies ranks 2 through 4 with broadly available models, so any slippage from Argon would immediately put Anthropic in first place. The remaining three weeks offer limited time for a major new release, yet leaderboard volatility for preliminary entries and the possibility of an Anthropic incremental update keep the race fairly open."
-        },
-        {
-          "made_at": "2026-10-12T11:01:28.735576+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.4,
-          "rationale": "The base rate for any one major lab to hold the top arena slot is roughly one-third, but the current Oct 8 snapshot has Google's Gemini 4 Argon High ahead of Anthropic's closest model by about 19 points. That lead is not decisive because the scores are preliminary, Anthropic has several models clustered near the top, and Google's Argon appears to have limited availability, which could affect its arena performance. The probability could rise if Anthropic ships a stronger model or Google's lead erodes, and fall if Argon's preliminary rank stabilizes or another lab releases a stronger model."
-        },
-        {
-          "made_at": "2026-10-12T11:01:28.735576+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate: with multiple top labs (Google, Anthropic, OpenAI, Meta, xAI) competing, any single company holding #1 on a given day is typically around 20-30%. Evidence: as of early October 2026, Google's Gemini 4 Argon (High) holds the top spot on arena.ai at ~1534, with Anthropic's Claude Opus 5.5 High second at ~1515, a meaningful but not insurmountable gap. Anthropic is the closest competitor and could overtake if Google doesn't update Argon or if Argon's limited rollout (vetted cyber-defense teams only) limits its vote count and stability. Key swing factors: whether Google releases a Gemini 4 update or Argon stabilizes higher, whether Anthropic ships a new Claude variant before Oct 31, and whether OpenAI's scrapped GPT-6.1 Astra gets revived."
-        },
-        {
-          "made_at": "2026-10-12T10:54:39.751312+00:00",
-          "method": "market_price_v1",
-          "probability": 0.255
-        }
-      ],
-      "id": "polymarket-3554657",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261012",
-      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
-      "status": "pending",
-      "title": "Will Anthropic have the best AI model at the end of October 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -4544,70 +5190,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.68
-      },
-      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.74,
-          "rationale": "On the Arena Text Overall board (no style control) of 2026-10-15, Google's Gemini 4 Argon (High) is rank 1 at 1532 on 4,904 votes, 16 points ahead of Anthropic's Claude Opus 5.5 (High) at 1516, and it already led on 2026-10-08 (1525 vs 1507). The check is 2026-10-31, twelve days later; the overall text #1 changed 25 times between 2024-08-28 and 2026-10-15, about once a month, and Arena is still adding models. The model is marked Preliminary (plus or minus 9) so its score can drift, but a 16-point lead that has held a week makes Google the likely holder, with roughly a one-in-four chance that a new release or drift changes the top spot.",
-          "sources": [
-            "https://arena.ai/leaderboard/text/overall-no-style-control",
-            "https://arena.ai/leaderboard/text/overall",
-            "https://arena.ai/company/leaderboard-changelog",
-            "https://kbgtools.com/en/ai-model-ranking"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.62,
-          "rationale": "Google's Gemini 4 Argon (High) currently leads the arena.ai Text Arena Overall (no style control) by 16 points (1532 vs 1516) as of Oct 15, with a Preliminary label based on 4,904 votes. The historical base rate shows ~1 leadership change per month (25 changes in 26 months), giving roughly a 40% chance of a change in the 16-day window to Oct 31. However, the 16-point gap exceeds the 10-point threshold where AutoEval achieves >90% accuracy, and the leader just assumed the top spot on Oct 15. The Preliminary status and relatively low vote count for Google's model introduce score-drift risk, while frequent new model additions (changelog shows releases through Oct 18) create disruption potential. Balancing the meaningful lead against base-rate volatility and Preliminary uncertainty yields a modest edge for Google."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.88,
-          "rationale": "The leaderboard changes roughly once per month, giving about a 32% chance of at least one change in the 12\u2011day window from Oct\u202f15 to Oct\u202f31. Google\u2019s current 16\u2011point lead yields an AutoEval accuracy >90%, so there is less than a 10% chance the observed ranking is wrong even if no change occurs. Historical shifts show Google usually stays on top when the leader changes. Combining these factors gives roughly an 88% probability that Google\u2019s model remains ranked first on Oct\u202f31."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.68,
-          "rationale": "The base rate for a Text Arena #1 change is roughly once every few weeks, so a 12-day window has a substantial chance of a new leader. However, the exact resolution board showed Google's Gemini 4 Argon (High) at rank 1 on Oct 15 with a 16-point lead over Anthropic and a rank spread of 1-1, while no new text model is close. The main risks are score drift on the preliminary Google model or a new frontier model accumulating enough human votes before Oct 31."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.55,
-          "rationale": "Google's Gemini 4 Argon (High) currently leads with 1532 vs 1516 for Claude Opus 5.5 (High), a 16-point gap that exceeds the 15-point AutoEval reliability threshold. However, the Google model is still 'Preliminary' with only ~4,900 votes (vs 60,000+ for the top Claude variants), making it vulnerable to score drift as more votes accumulate. Over a 16-day window, the historical base rate of leader changes (~25 changes in 26 months, or roughly once per month) combined with the fast pace of new frontier releases seen in the changelog suggests moderate downside risk, but the current solid gap prevents a major downward adjustment."
-        },
-        {
-          "made_at": "2026-10-19T09:10:12.136876+00:00",
-          "method": "market_price_v1",
-          "probability": 0.7065
-        }
-      ],
-      "id": "polymarket-3554659",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261019",
-      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-october",
-      "status": "pending",
-      "title": "Will Google have the best AI model at the end of October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 6,
         "method": "combined_median_v1",
         "probability": 0.08
@@ -4672,70 +5254,6 @@
       "source_url": "https://manifold.markets/winged_one/will-anthropic-announce-a-400month",
       "status": "pending",
       "title": "Will Anthropic announce a $400+/month tier before November 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.28
-      },
-      "detail": "Resolves YES if Muse from Meta is ranked #1 on Apple's US App Store Top Free iPhone Apps chart on October 31, 2026.\n\nHow it's checked: Apple's official public chart feed, https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json. The first snapshot whose updated timestamp is at or after 17:00 UTC on October 31, 2026 decides it. If the feed is unavailable, the App Store app's Top Charts \u2192 Free (US, iPhone) seen on that date decides it, confirmed by a public screenshot or a chart tracker (e.g. appfigures, Sensor Tower).\n\nDetails:\n\nOnly the overall Top Free iPhone chart counts. Category charts (Productivity, etc.), Top Paid, and iPad charts don't count.\n\nIf Meta renames the app but it is the same App Store listing, it still counts.\n\nIf Muse is #2 or lower, or was removed from the store, this resolves NO.\n\nTrading closes at 16:00 UTC on Oct 31, before the check.\n\nContext: Muse has been the #1 free iPhone app in the US every day since Sept 18, 2026, and was still #1 at 13:34 UTC on Sept 28 (Momo AI #2, ChatGPT #3). Launch-driven #1s usually fade within a few weeks, but Meta is promoting Muse heavily. Companion market: Will Muse rank #1 in App Store on October 1st.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-20T10:57:55+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.2,
-          "rationale": "Apple's US Top Free feed on 20 October (09:15 UTC) had Capital One Mobile first, Vinted second and Muse third, even though Appstro and GameQuant had Muse at number 1 on nearly every day from 18 September to 19 October. BNP Paribas's Nick Jones said on 19 October that downloads peaked around day 12 and then stabilised, with app-open rate and 14-day retention behind ChatGPT. In the 90 US market days to 20 October, Muse held number 1 on 29, and number 1 changed hands often, with average chart churn of 9.5%. Muse would have to retake the top spot at one specific snapshot on 31 October, after slipping to third.",
-          "sources": [
-            "https://rss.marketingtools.apple.com/api/v2/us/apps/top-free/10/apps.json",
-            "https://www.appstro.dev/apps/muse-from-meta-6760173601",
-            "https://gamequant.io/app/ios/6760173601/muse-from-meta",
-            "https://www.benzinga.com/markets/tech/26/10/62434096/metas-muse-racks-up-10-million-downloads-but-its-path-to-profits-remains-unclear"
-          ]
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.28,
-          "rationale": "Base rate from the last 90 days shows Muse held #1 only 29/90 days (32%) with high churn (9.5% daily) and five apps sharing the top spot. As of Oct 20, the official Apple feed shows Muse at #3 behind Capital One Mobile and Vinted, suggesting its 25-day #1 streak has ended. Meta's Oct 21 earnings and heavy promotion could drive a rebound in the 11 remaining days, but launch-driven peaks typically fade by week 6 (day 43 post-launch) and Muse's retention/open rates lag ChatGPT. The current downward trajectory and strong competition make a sustained return to #1 by Oct 31 unlikely but not impossible."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "The base rate for a single app holding #1 for over a month is low, and Muse has already fallen to #3 on October 20 after a long run. Its download peak passed on day 12, retention and open rates lag ChatGPT, and the chart is volatile (9.5% daily churn). Meta's promotion and earnings cycle could briefly push it back up, but sustained #1 through October 31 is unlikely given the current downward trend and strong competition."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.3,
-          "rationale": "Base rate: The US #1 free iPhone spot is volatile, with 9.5% daily churn and the top rank shared among many apps over the past 90 days. Evidence: The official Apple feed on Oct 20 shows Muse at #3 behind Capital One Mobile and Vinted, while third-party trackers claiming a recent #1 contradict this authoritative snapshot; combined with BNP Paribas data showing downloads peaked and retention lags ChatGPT, Muse appears to be losing organic momentum despite heavy promotion. What could change it: Meta could mount a renewed campaign around its Oct 21 earnings or Halloween to push Muse back to #1, and surges by banking or shopping apps are often short-lived, but sustaining the exact #1 position at the Oct 31 snapshot is uncertain."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.35,
-          "rationale": "Base rate: over 90 days, #1 was split across 5 apps with 9.5% daily churn, so any single app holding #1 on a specific future date is well below 50%. Muse was #1 for 29 of 90 days but has already slipped to #3 on Oct 20 per the official Apple feed, with Capital One Mobile and Vinted ahead. The app's downloads have stabilized post-peak and retention lags ChatGPT, suggesting organic momentum is fading, though Meta's heavy promotion and the Oct 21 earnings cycle could push it back up. The deciding factor is whether Meta can re-promote Muse to #1 in the final week; given it's currently #3 and trending down, I'd put the odds modestly below the historical hit rate."
-        },
-        {
-          "made_at": "2026-10-20T09:09:56.684000+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.6266
-        }
-      ],
-      "id": "manifold-nngCdzg62E",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261020",
-      "source_url": "https://manifold.markets/Terminator2/will-metas-muse-still-be-the-1-free",
-      "status": "pending",
-      "title": "Will Meta's Muse still be the #1 free iPhone app in the US on October 31, 2026?",
       "topic": "Tech",
       "verdict": null
     },
@@ -4811,76 +5329,6 @@
     {
       "actual": null,
       "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.63
-      },
-      "detail": "This market will resolve to \u201cYes\u201d if Saudi Arabia takes a qualifying military action against Yemen on the specified date, Yemen Standard Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Saudi Arabia, that directly impacts Yemen. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Saudi Arabia. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Saudi Arabia directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Yemen do not constitute a military action regardless of any damage incurred.\n\n\u201cYemen\u201d refers to the terrestrial territory of Yemen, including its internal waters. Yemen\u2019s maritime territory and airspace are not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Yemen as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Yemen Standard Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Saudi Arabia and Yemen, the Houthis, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.6,
-          "rationale": "Saudi-backed forces began Operation Dawn of Yemen on Oct 5 with about 100 Saudi aircraft (CNN, 2026-10-04), ending a four-year ceasefire; Houthi sources claimed about 300 Saudi airstrikes in one week in September, and a Saada strike on Oct 18-19 killed at least 9 and was blamed on Saudi Arabia (Washington Times, 2026-10-18). CBS live coverage (quotes checked) reports Saudis launching new strikes, so a strike on any given day looks more likely than not while the war continues. I discount for the strict rule that Saudi forces themselves must have conducted the strike (not the coalition or Yemeni forces), the heavy reliance on Houthi-run sources for attribution, a possible ceasefire before Oct 30 and the absence of reporting I found after about Oct 19.",
-          "sources": [
-            "https://www.cnn.com/2026/10/04/middleeast/yemen-offensive-houthis-intl",
-            "https://www.washingtontimes.com/news/2026/oct/18/airstrike-kills-least-9-rebel-held-yemen-mideast-news/",
-            "https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/",
-            "https://en.wikipedia.org/wiki/2026_Yemen_offensives"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.6,
-          "rationale": "The Saudi-backed offensive 'Dawn of Yemen' began Oct 3-4 with intense air operations (324 targets claimed at launch, ~300 strikes/week per Houthi claims) and strikes were reported through Oct 18, suggesting a high base rate of near-daily activity. However, the last specific reporting is from Oct 18 (5 days ago), attribution to Saudi armed forces (vs. coalition/proxy) is often unclear in sources, and a ceasefire or pause before Oct 30 would halt strikes. The 7-day horizon and ongoing offensive favor Yes, but attribution and reporting gaps create significant uncertainty."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.92,
-          "rationale": "The Saudi-led coalition has been conducting near-daily airstrikes since early September 2026 as part of Operation Dawn of Yemen, with direct Saudi involvement reported. Given the intensity and sustained nature of the campaign, a qualifying strike on October 30 is highly likely, but a small chance of a pause, ceasefire, or day without attributable strikes reduces certainty slightly."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.6,
-          "rationale": "The Saudi-led coalition has conducted near-daily air strikes since early September, and Saudi warplanes were explicitly identified in attacks through mid-October during the ongoing Operation Dawn of Yemen; however, no reports were found after about Oct 19, creating uncertainty about whether tempo will persist and whether any Oct 30 strike will be clearly attributed to Saudi armed forces rather than coalition partners. A confirmed ceasefire or pause before Oct 30 would push the probability toward zero, while renewed credible reporting of Saudi-conducted strikes in the immediate days before Oct 30 would raise it."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.72,
-          "rationale": "The base rate is elevated because the evidence describes an ongoing Saudi-led air campaign in Yemen through at least mid-October, with coalition-confirmed strikes and Houthi claims of frequent Saudi aircraft operations. Reports of Saudi F-15/Typhoon strikes from Saudi bases and coalition statements about 100 jets support the possibility of direct Saudi armed-force action, which is the key qualifying condition. I discounted the probability because attribution is often to the broader coalition, Houthi-run sources may overstate or misattribute strikes, and there is no confirmed reporting after about Oct 19, leaving open the chance of a pause, ceasefire, or non-qualifying action on Oct 30."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.66,
-          "rationale": "The base rate is favorable: Saudi aircraft reportedly carried out near-daily strikes during the September\u2013October campaign, and CNN/CBS reporting and a Saudi coalition spokesman\u2019s statement that 100 fighter jets participated support direct Saudi involvement. However, no reporting was found after about October 19, and some incidents are described only as Saudi-led coalition strikes, leaving meaningful uncertainty about a pause, a Yemeni-only operation, or clear attribution on October 30. The probability is therefore about two-thirds; confirmed continued Saudi strikes would raise it, while a ceasefire or shift to Yemeni-only strikes would lower it."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "market_price_v1",
-          "probability": 0.64
-        }
-      ],
-      "id": "polymarket-5167211",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://polymarket.com/event/saudi-arabia-military-action-against-yemen-on-october-2026",
-      "status": "pending",
-      "title": "Saudi Arabia military action against Yemen on October 30?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.55
@@ -4947,132 +5395,6 @@
       "call": {
         "members": 4,
         "method": "combined_weighted_v1",
-        "probability": 0.12,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.1,
-          "rationale": "The top Chinese slot on the Arena text board has rotated among Baidu (ERNIE 5.0 in January and 5.1-Preview in April), Moonshot (Kimi K3 in July) and others, and Alibaba seems to have held it only occasionally. Late-October summaries point to Xiaomi MiMo, Kimi K3 and DeepSeek V4 Pro as contenders, with Alibaba's Qwen 3.7/3.8 Max within about 50 Elo and a vision-board rank that does not count. With no confirmed text-board data and several close rivals, Alibaba is a long shot.",
-          "sources": [
-            "https://benchlm.ai/llm-leaderboard-history",
-            "https://shattered.io/kimi-k3-coding-leaderboard-2026/",
-            "https://ernie.baidu.com/blog/posts/ernie-5.1-preview-0430-release-on-lmarena/"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.12,
-          "rationale": "The base rate for Alibaba holding the top Chinese model spot on the Arena text leaderboard is low, as the lead has rotated among several labs and Alibaba has only occasionally been first. Recent evidence (July 2026) points to Moonshot's Kimi K3 as the highest Chinese model, with Baidu leading in April, and no reports suggest Alibaba has since taken the lead. With the check just five days away and no indication of an imminent Qwen release that could rank in time, the probability remains low, though a surprise launch could alter the outcome."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.18,
-          "rationale": "The base rate from historical rotation shows the top Chinese slot has shifted among at least 5-6 labs with no stable majority, and Alibaba held it only occasionally. The October 2026 evidence points to Xiaomi MiMo-V2.6-Pro (1491, highest openly licensed model) and Moonshot Kimi K3 (topped coding arena in October, was #1 Chinese in July) as the most likely leaders, with Baidu ERNIE-5.1-Preview having held the spot in April. The brief's note that no reports of Alibaba leading were found, combined with Qwen 3.7 Max being described as within ~50 Elo of Kimi K3 (implying it trails), makes Alibaba the least likely candidate among the top contenders, though a late Qwen release or tie-breaking by unrounded score could shift the outcome."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "The base rate for any single Chinese lab holding the top Chinese slot is low given the rotation among Alibaba, Baidu, Moonshot, DeepSeek, and others. Evidence suggests Moonshot's Kimi K3 and Xiaomi's MiMo are currently competitive or leading among Chinese models, with Alibaba's Qwen close but not clearly ahead. A late Qwen release before Oct 31 could shift this, but absent strong evidence of Alibaba leading, I assign a low probability."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.075
-        }
-      ],
-      "id": "polymarket-3554471",
-      "note": "The research digest mentioned that a market page lists another lab as favourite for this question. I did not use it and forecast from the leaderboard evidence only.",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": false,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
-      "status": "pending",
-      "title": "Will Alibaba have the best Chinese AI model at the end of October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.13,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the company which owns the model which has the highest arena rank based on the arena.ai Text Arena (Overall) (Style Control On) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall with style control on (Adjustments: Style Control) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.13,
-          "rationale": "A summary of an aggregator page updated 2026-10-20 puts Google's Gemini 4 Argon (High) first on the text board at 1532 with style control off and 1524 with it on, with Claude Opus 5.5 (High) second at 1516 and Claude Fable 5.1 (Max) third at 1512; an Oct 8 snapshot had 1525 versus 1507. Anthropic trails by about 8 points, inside the roughly 8-9 point intervals, and ties on rank are broken by score, where Google leads. Anthropic would need a new release or a score shift by Oct 31, and no release was found for the final week of October.",
-          "sources": [
-            "https://www.swfte.com/lmarena",
-            "https://sophon.at/leaderboards/lmarena-text",
-            "https://www.versusapps.com/blog/lmarena-leaderboard-september-2026"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.12,
-          "rationale": "Google's Gemini 4 Argon (High) leads the leaderboard by ~8 points with style control on (1524 vs. 1516 for Anthropic's Claude Opus 5.5) as of October 20. The gap is small and within overlapping confidence intervals, but historically the #1 spot rarely changes over a 5-day window without a major release. No Anthropic release is expected, and Google would win any tiebreakers. Sampling error or a last-minute model could reverse this, but the low probability reflects the short remaining time and current clear lead."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.2,
-          "rationale": "The most recent data (Oct 20) shows Google's Gemini 4 Argon (High) leading with style control on at 1524, ahead of Anthropic's Claude Opus 5.5 (High) at 1516, an 8-point gap. While this gap is within the 'noise' threshold of 25 points, no new Anthropic model release was found for late October, and the leader has been stable over recent days. The 11-day window to the check time allows for some drift, and the overlapping confidence intervals from earlier snapshots suggest the ranking could flip, but the current trajectory favors Google. I estimate roughly a 20% chance Anthropic overtakes or ties by Oct 31."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "The five-day horizon strongly favors the current leader: secondary snapshots from October 20 put Google\u2019s Gemini 4 Argon first at 1524 with style control on, versus 1516 for Anthropic\u2019s best model. Google\u2019s eight-point lead and the lack of a scheduled Anthropic release keep Anthropic\u2019s chance low, although the lead was larger on October 8 and Anthropic previously held first place in August. An unexpected Anthropic release, enough score drift, or a major competing release could change the result, while the lack of a checked primary leaderboard adds uncertainty."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.0515
-        }
-      ],
-      "id": "polymarket-3554762",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/which-company-has-1-ai-model-end-of-october-style-control-on",
-      "status": "pending",
-      "title": "Will Anthropic have the #1 AI model at the end of October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
         "probability": 0.07,
         "weights": {
           "claude_code_forecaster_v1": 31.14,
@@ -5129,69 +5451,6 @@
       "status": "pending",
       "title": "Israel military action against Greater Beirut by October 31?",
       "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.25,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank based on the arena.ai Text Arena (Math) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Math\" Leaderboard tab at https://arena.ai/leaderboard/text/math-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Math). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.13,
-          "rationale": "The only recent Math data point is an aggregator snippet (data version 2026-08-06) listing Alibaba's qwen3.8-max first at 1517, and an Arena March 2026 update had Qwen 3.5 Max Preview third on Math. Anthropic's best model sits second on the overall board behind Google's Gemini 4 Argon (reported 2026-10-20), and Math is unlikely to be easier for Anthropic than the overall board. With the top spot rotating among Anthropic, OpenAI, Alibaba and Google and a tie settled by unrounded score, I give Anthropic a modest chance.",
-          "sources": [
-            "https://arena.ai/blog/march-2026-arena-updates/",
-            "https://www.datalearner.com/en/leaderboards/external/text-generation-math",
-            "https://www.swfte.com/lmarena"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "Among major AI labs, the base rate for any single company holding the #1 Math spot at a given moment is roughly 20-25%. The limited evidence shows Alibaba led in August and was third in March, suggesting they are strong competitors, while Anthropic's Claude Opus 5.5 was a close second overall on October 20, indicating it remains highly competitive. Without current Math-specific leaderboard data, Anthropic's chance is plausible but not dominant."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.3,
-          "rationale": "The Math leaderboard top spot has rotated among Anthropic, OpenAI, and Alibaba during 2026, with Alibaba's qwen3.8-max leading as of August 2026. The most recent overall text data (Oct 20) shows Google #1 and Anthropic #2, but that's not the Math-specific board. Anthropic is a strong contender given their proximity on the overall board, but the Math-specific evidence points more toward Alibaba or Google holding the top spot, making a ~30% probability reasonable."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.27,
-          "rationale": "A reasonable base rate is roughly 20\u201330% for any one frontier lab to lead a specialist Arena category; Anthropic is competitive but not the default favorite. Claude Opus 5.5 was reportedly only about eight points behind Google on the overall text board, and Anthropic apparently contended for the Math lead during 2026, but an unverified August snapshot instead put Alibaba\u2019s qwen3.8-max first. The missing live Math table, possible releases before October 31, and AutoEval exclusions leave substantial uncertainty."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.22
-        }
-      ],
-      "id": "polymarket-3554355",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/which-company-has-the-best-text-arena-math-ai-model-end-of-october",
-      "status": "pending",
-      "title": "Will Anthropic have the best Math AI model at the end of October 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -5529,139 +5788,6 @@
       "call": {
         "members": 5,
         "method": "combined_weighted_v1",
-        "probability": 0.78,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 27.14,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "This market will resolve according to the second-highest ranked Company based on the arena.ai Agent Arena Leaderboard when the table under \"Agent Arena\" filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Agent Arena\" Leaderboard tab at https://arena.ai/leaderboard/agent filtered for \"Labs\" will be used to resolve this market.\n\nModels marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by which model is listed higher on the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Agent Arena Leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.8,
-          "rationale": "On the Agent Arena Labs table dated Oct 23, OpenAI is rank 2 (13.96%), ahead of Google (11.75%) and Meta (10.74%), and an Oct 13 post also listed OpenAI second; the latest model added through Oct 27 (Kimi K3.1 Pro) belongs to a rank-5 lab. The rank spreads of OpenAI and Google overlap (2-4), so a reshuffle is possible, and a new lab-best model before Oct 31 could move it, but the raw gap is over two points with three days left. The board is five days old, so I keep some room for change.",
-          "sources": [
-            "https://arena.ai/leaderboard/agent?rankBy=labs",
-            "https://arena.ai/company/leaderboard-changelog",
-            "https://arena.ai/blog/ranking-method"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.78,
-          "rationale": "As of Oct 23, OpenAI ranks 2nd on the Labs leaderboard with a raw rank of 2, though its confidence interval overlaps with Google's, indicating a statistical tie. The short time to resolution (3 days) and lack of recent high-ranking model additions from competitors make a rank change unlikely, but the overlapping spreads and dynamic nature of the leaderboard introduce some uncertainty."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.7,
-          "rationale": "OpenAI is currently ranked 2nd in the Labs table as of Oct 23, with a ~2.2pp lead over Google, but both have overlapping rank spreads (2-4), meaning they are statistically tied. The resolution uses the raw Rank column (no ties), which currently favors OpenAI, and OpenAI has been consistently 2nd in both available snapshots. The main risk is that 5 more days of live data could shift the raw rank, especially given the statistical tie, but no new top-tier model from Google or another lab has been announced that would likely overtake OpenAI in that window."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "OpenAI has held the #2 lab rank in both October snapshots (Oct 13 LinkedIn post and Oct 23 leaderboard), with Anthropic firmly at #1 and Google at #3-5 with overlapping CIs. The Oct 23 data shows OpenAI at 13.96%\u00b12.08% vs Google at 11.75%\u00b10.91%, a meaningful gap. However, the leaderboard is dynamic, new models from Google or Meta could shift rankings, and the check is 3 days away. Base rate for a stable #2 holder remaining #2 over a week is moderate-high, adjusted up given the consistent evidence but capped below 0.8 due to volatility risk."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.8,
-          "rationale": "OpenAI was rank 2 on the Oct 23 Labs table and second in the Oct 13 LinkedIn snapshot, so it has held the spot across both October observations. Google is third (11.75%, against OpenAI's 13.96%) and Meta is close behind. Their intervals overlap, and OpenAI's lab rank spread is 2-4, so a reshuffle is possible. Three days remain, and a new top model from Google or Meta, or a rescoring, could flip it. The GPT-6.1 Terra release hints that OpenAI may add a new model, which would help it. Anthropic taking rank 2 is unlikely given its lead. I put the chance OpenAI is second at about 80%."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "market_price_v1",
-          "probability": 0.925
-        }
-      ],
-      "id": "polymarket-3572142",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://polymarket.com/event/second-best-ai-agent-lab-end-of-october-20260812152901709",
-      "status": "pending",
-      "title": "Will OpenAI be the second-best AI Agent Lab at the end of October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.08,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "This market will resolve according to the company which owns the model with the highest Mathematics score on LiveBench.ai when the leaderboard is checked on October 31, 2026, at 12:00 PM ET.\n\nResults from the \u201cMathematics\u201d column of the leaderboard at https://livebench.ai/#/?cats=Mathematics, with the latest available LiveBench release selected and the category set to \u201cMathematics,\u201d will be used to resolve this market.\n\nModels will be ranked according to the specified score, with higher scores ranked ahead of lower scores. If two or more models have exactly the same score as displayed on the leaderboard, the model with the lower listed \"cost per successful task\" will be ranked ahead. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact score and cost per successful task, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the LiveBench leaderboard. If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \u201cOther.\u201d",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.08,
-          "rationale": "The latest LiveBench release (2.0, 2026-10-25) shows no Mathematics category, and in its table Google's gemini-4-argon leads reasoning at 95.1 over Claude Opus 5.5 at 92.2. On the older v1 math tasks (2026-06-25) an OpenAI model led Anthropic's best, and in the paper's table OpenAI also led. Anthropic would need the resolver to use a source where a Claude model tops math, which no opened source shows.",
-          "sources": [
-            "https://livebench.ai/",
-            "https://livebench.ai/data/20261025/table.csv",
-            "https://raw.githubusercontent.com/LiveBench/livebench.github.io/refs/heads/main/public/table_2026_06_25.csv"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.05,
-          "rationale": "The LiveBench 2.0 release (2026-10-25) has no Mathematics category\u2014only Agentic, Design, Coding, Browser Use, Data Analysis, Research, and Reasoning. In the last v1 release that did include math columns (2026-06-25), OpenAI's gpt-5.5-xhigh led on math_comp (96.078 vs 97.059 for Claude) and integrals_with_game (99.0 vs 95.0), while Claude led on AMPS_Hard (98.0 vs 97.0) and was slightly behind on olympiad (91.207 vs 91.351). The resolution requires selecting the 'latest available LiveBench release' with category set to 'Mathematics'\u2014if no such category exists in the latest release, the market likely resolves to 'Other' or the resolver falls back to an older release where OpenAI led. For Anthropic to win, either a new release with a Mathematics category must appear by Oct 31 with a Claude model on top, or the resolver must interpret 'Mathematics' as mapping to 'Reasoning' (where Gemini leads at 95.1 vs Claude's 92.2). Both scenarios are unlikely, giving roughly 5%."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.15,
-          "rationale": "The base rate is low because in both historical snapshots with math scores (2026-06-25 v1 and the LiveBench paper), OpenAI models led the math category, not Anthropic. The current LiveBench 2.0 (2026-10-25) has dropped the Mathematics category entirely, replacing it with 'Reasoning' where Gemini leads (95.1) and Claude is second (92.2). The resolution criteria specifically require a 'Mathematics' column, which may not exist in the latest release, creating ambiguity. If the resolver falls back to v1 or uses reasoning as a proxy, Anthropic is unlikely to lead. A new release with a Mathematics category where Claude leads would be needed for Yes."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.09,
-          "rationale": "The official LiveBench 2.0 release (2026-10-25) has no Mathematics category. Only the older v1 table from 2026-06-25 has math tasks. In that table, averaging the four math tasks gives gpt-5.5-xhigh about 95.9 and claude-opus-4-8 about 95.3, so OpenAI leads Anthropic. The resolver might fall back to v1, treat the category as unavailable (likely \"Other\"), or use a proxy such as the reasoning column, where Gemini leads. All of these paths favor non-Anthropic outcomes. A Claude win would need a new release with a math category where a Claude model leads, which looks unlikely in the three days left."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "market_price_v1",
-          "probability": 0.845
-        }
-      ],
-      "id": "polymarket-3554982",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://polymarket.com/event/which-company-has-the-best-ai-model-on-livebench-mathematics-end-of-october",
-      "status": "pending",
-      "title": "Will Anthropic have the best AI model on LiveBench (Mathematics) at the end of October 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
         "probability": 0.14,
         "weights": {
           "claude_code_forecaster_v1": 27.8,
@@ -5725,69 +5851,6 @@
       "status": "pending",
       "title": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
       "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.6,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_minimax_m3_v1": 32.13,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "On the 27 Oct Text Arena Overall board (style control off) Xiaomi's MiMo-V2.6-Pro (1491, rank 12) was the top Chinese model, 8 points ahead of Alibaba's Qwen3.8-Max (1483, rank 16), and it led on both snapshots seen (8 Oct and 27 Oct). The main risks are Moonshot's newly launched Kimi K3.1 Pro or another new Chinese model being listed above 1491 before 31 Oct, or MiMo's thinly voted score (4,037 votes, +/-9) slipping below Qwen's; both are plausible but not the base case.",
-          "sources": [
-            "https://arena.ai/leaderboard/text/overall-no-style-control",
-            "https://arena.ai/company/leaderboard-changelog",
-            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.6,
-          "rationale": "Xiaomi currently leads among Chinese models by 8 points (1491 vs 1483) on the Text Arena, but with only 4,037 votes versus Alibaba's 31,915, the score is vulnerable to downward drift as votes accumulate over the remaining 4 days. The 8-point gap is above the 5-point indistinguishability threshold but within Xiaomi's \u00b19 confidence interval, meaning the true scores could overlap. No new Chinese models are expected on the Text Arena before the check date (Kimi K3.1 Pro hasn't been added there yet, and its full weights aren't due until Nov 4), so the main risk is score drift rather than a new entrant."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.38,
-          "rationale": ":"
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.8,
-          "rationale": "On the 27 October board, Xiaomi's MiMo-V2.6-Pro (rank 12, 1491) leads the next Chinese model, Alibaba's Qwen3.8-Max (rank 16, 1483), by 8 points. The check is only about 4 days away. Kimi K3.1 Pro has not been added to the Text Arena, and the changelog shows it only on the Agent and Code arenas. A new Chinese model could still be added and beat Xiaomi by the check. Xiaomi's score could also drift down on thin votes, and the confidence intervals overlap. Even so, the lead is real and the window is short, so Xiaomi is the likely winner."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9055
-        }
-      ],
-      "id": "polymarket-3554475",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-october",
-      "status": "pending",
-      "title": "Will Xiaomi have the best Chinese AI model at the end of October 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -5914,69 +5977,6 @@
       "status": "pending",
       "title": "Will Alphabet\u2019s market capitalization be between $4.00T and $4.50T at the end of October 2026?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.55,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_minimax_m3_v1": 32.13,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve according to the second-highest ranked primarily Chinese company based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on October 31, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs with style control off (Adjustments: None) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese AI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant qualifying Chinese AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies second place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "On the 27 Oct Text Arena labs table (style control off) the Chinese labs ranked Xiaomi (1491), Alibaba (1483), Moonshot (1476), Z.ai (1474), the same order as on 8 Oct, so Alibaba is second now. Alibaba's flagship is still the 2 Sep Qwen3.8-Max snapshot, while Moonshot's Kimi K3.1 Pro launched 26-27 Oct and could be listed above 1483 before the 31 Oct check, and Xiaomi's thinly voted 1491 (4,037 votes) could drop below Alibaba, so the middle position is exposed to movement from both sides.",
-          "sources": [
-            "https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs",
-            "https://www.chinadaily.com.cn/a/202610/27/WS6adff3c1e4b06d4aa0564e78.html",
-            "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/newly-released-models"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.55,
-          "rationale": "As of October 27, Alibaba is second among Chinese labs (Xiaomi 1491\u00b19, Alibaba 1483\u00b15, Moonshot 1476\u00b14), and this order has held since at least October 8. The main risks are: (1) Xiaomi's \u00b19 margin means its true score could dip below 1483, making Alibaba first (answer No), and (2) Moonshot's new Kimi K3.1 Pro (launched Oct 26, scored 4th on AA index, 11 points above predecessor) could accumulate enough votes by Oct 31 to score above 1483 and overtake Alibaba, making it third (answer No). Alibaba's own score is well-established at 31,915 votes with no new text flagship expected, so it's the most stable of the three. The 4-day window for Kimi K3.1 Pro to build votes is the key uncertainty; if it doesn't get listed or scores below 1483, and Xiaomi stays above 1483, Alibaba remains second."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.6,
-          "rationale": "Alibaba is currently the #2 Chinese lab on the Arena Text Arena Labs leaderboard (rank 5, 1483\u00b15), behind Xiaomi (1491\u00b19) and ahead of Moonshot (1476\u00b14) and Z.ai (1474\u00b15). The base rate is that Alibaba holds this position. The main risk is Moonshot's newly launched Kimi K3.1 Pro (scored 55 on Artificial Analysis, up 11 from predecessor), which could overtake Alibaba if it accumulates enough Arena votes by Oct 31\u2014uncertain given only 4 days and it wasn't on the Oct 27 models table. A secondary risk is Xiaomi's volatile \u00b19 interval allowing it to drop below Alibaba, which would make Alibaba #1 rather than #2. I estimate ~60% probability Alibaba remains exactly #2."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.52,
-          "rationale": "On 27 October the Chinese labs were ordered Xiaomi (1491\u00b19), Alibaba (1483\u00b15), Moonshot (1476), Z.ai (1474), and the 8 October crawl showed the same top three order. Alibaba is second if that holds. The main risks are that Xiaomi's score, based on only about 4k votes, drifts below Alibaba, which would make Alibaba first, or that Kimi K3.1 Pro gets listed above 1483 while Xiaomi stays ahead, which would make Alibaba third. I put roughly 60% on Xiaomi staying ahead and about 20% on Moonshot passing Alibaba in time, and Alibaba would also be second if Moonshot passes it and Xiaomi falls behind it."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "market_price_v1",
-          "probability": 0.805
-        }
-      ],
-      "id": "polymarket-3554496",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://polymarket.com/event/second-best-chinese-ai-company-end-of-october",
-      "status": "pending",
-      "title": "Will Alibaba be the second-best Chinese AI company at the end of October 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -14849,21 +14849,21 @@
     }
   ],
   "summary": {
-    "brier": 0.2006859771169243,
+    "brier": 0.1972513390828024,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 171,
-    "resolved": 56,
-    "right": 35,
+    "pending": 159,
+    "resolved": 67,
+    "right": 44,
     "toss_ups": 1,
     "total": 230,
     "unscored": 3,
     "vs_market": {
-      "market": 0.1517729764864865,
-      "ours": 0.1683135135135135,
-      "questions": 37
+      "market": 0.17066411333333334,
+      "ours": 0.17093802083333332,
+      "questions": 48
     },
-    "wrong": 20
+    "wrong": 22
   },
   "version": "track_record_v2"
 }

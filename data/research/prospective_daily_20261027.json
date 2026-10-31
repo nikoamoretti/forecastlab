@@ -1,5 +1,6 @@
 {
  "4c014bd2f44640a3": {
+  "against": null,
   "base_rate": "Not computed.\nI could not retrieve the FRED DGS10 history.\nThe reference class would be the change in the 10-year yield over 3 to 4 trading days.\nHistorically the standard deviation of that change is roughly 10 to 15 basis points, so a start point within about 1 bp of 5.00% makes the outcome close to a coin flip in the base rate.",
   "brief": "The question asks whether the first published FRED DGS10 value for 2026-10-30 is strictly above 5.00 percent. Trading Economics showed the 10-year yield at about 4.99% on 2026-10-26, down 0.01 point on the prior session and about 0.25 point lower over a month (https://tradingeconomics.com/united-states/government-bond-yield). Spot the Money, citing the Treasury par yield curve, reported 5.00% on 2026-10-23 with the 2-year at 4.69% (https://spotthemoney.com/rates/treasury-yields/). govspending.org, using the Fed H.15 series DGS10, showed 4.96% for 2026-10-22 (https://govspending.org/series/DGS10/). Portfolio Terminal reported an October high of 5.311% on Oct 5 and a low close of 5.089% on Oct 15, which conflicts with the 4.96-5.00% readings and shows the intramonth data are inconsistent (https://portfolio-terminal.com/markets/10-year-treasury-yield/october-2026). All of these come from search summaries of pages that could not be opened, so the exact Oct 23-27 values are unverified. The base rate was not computed from data; the change in the 10-year over three to four trading days has a standard deviation of roughly 10 to 15 basis points, so a starting point within about 1 bp of 5.00% makes the outcome close to even. Because the resolving value is rounded to two decimals, an exact 5.00% print does not count as above 5. The yield has fallen about 25 bp from early-October highs above 5.2%. The FOMC meeting, Q3 GDP, PCE inflation and the Treasury refunding could all land in the window, but their dates and outcomes were not verified. The answer would change if the yield printed clearly above or below 5.00% on Oct 27-29 or if one of those events produced a large surprise.",
   "brief_written_at": "2026-10-27T11:15:34+00:00",
@@ -56,6 +57,7 @@
     "ok": true
    }
   ],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-27T10:59:34.072745+00:00",
   "research_cost_usd": 0.1692,
   "research_failed": null,
