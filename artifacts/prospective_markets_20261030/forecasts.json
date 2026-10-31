@@ -1,0 +1,684 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.065
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Binance BTC/USDT daily highs for Oct 26-29 were all under $82,000 (best $81,971 on Oct 29), and the Oct 29 session closed at $77,992 after a Binance exploit; on Oct 30 BTC traded near $77,300-77,700 with a day high near $78,800, so $82,000 needs a rally of about 5.8% in roughly two and a half days. October's 22-of-29 sessions at or above $82,000 all came before this shock, and daily volatility near 1.5% makes a 5.8% touch a roughly 2.3-sigma move. A relief rally once Binance resumes withdrawals is the main upside path, but the Fed hold with two dissents for a hike and the unresolved incident lean the other way.",
+          "sources": [
+            "https://tradervilla.com/public/coin/btcusdt/month-summary/october-2026",
+            "https://www.coindesk.com/business/2026/10/29/live-updates-bitcoin-clings-to-usd80-000-as-strategy-s-cushion-thins-before-earnings",
+            "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-falls-6-week-low-near-77-266-as-binance-security-scare-rattles-crypto-markets-14064131.html",
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate from recent days shows no daily high above $82,000 since October 23, and the current price is around $77,300, requiring a ~6% increase in the remaining ~22 hours. With daily volatility near 1.5%, such a move is a >4-sigma event, and negative news from the Binance hack and hawkish FOMC dissent further reduce the likelihood. Only an unexpected positive catalyst could change this, but none is evident."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.02,
+          "rationale": "Binance daily highs for Oct 26-30 are all confirmed below $82,000 (peak was $81,971 on Oct 29), and BTC is currently near $77,300, requiring a ~6.1% rally in the remaining ~41 hours. With daily volatility around 1.5%, that's roughly a 3-sigma move, and the context is negative (a $5B+ Binance exploit, downtrend, no clear catalyst for a sharp reversal). The only realistic path to Yes would be a sudden relief rally if Binance quickly restores confidence, which is possible but unlikely given the scale of the incident."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: in October 2026, 22 of 29 sessions had a high \u2265 $82,000, but the last six sessions (Oct 24-29) all stayed below, and the price has fallen sharply after a Binance exploit. Current spot is around $77,200-77,500, requiring a ~5.8% rally in ~2.5 days against ~1.5% daily volatility, which is roughly a 4-sigma move. The bearish catalyst (Binance security incident with $5B+ stolen) and recent downtrend make a recovery to $82,000 unlikely, though a relief bounce if Binance restores services could push it higher. I assign 18% probability, reflecting the small but non-trivial chance of a sharp relief rally."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.03,
+          "rationale": "Binance daily highs for Oct 26-30 all stayed below $82,000 (max $81,971 on Oct 29). BTC is now about $77,300, so it needs a rise of about 6% in about 45 hours, roughly 2.9 sigma at 1.5% daily volatility. I allow a few percent for fat-tailed relief-rally risk and for the chance the third-party table is slightly wrong."
+        }
+      ],
+      "id": "polymarket-6236213",
+      "market_id": "6236213",
+      "outcome": null,
+      "question": "Will Bitcoin reach $82,000 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-26-november-1-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.88
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.6,
+          "rationale": "The RBA has raised its cash rate four times in 2026 (to 4.60% on Sept 30) and the Sept minutes said it would go further if required. On Oct 28 the ABS reported 4.3% CPI and a 1.0% quarterly trimmed mean, Governor Bullock said inflation would be above the August forecast, and Deputy Governor Hauser said oil is about a third above the August assumption. Against that, both stressed lags from 100 bp already delivered and a slowing economy, and the Board paused after earlier hikes in June and August; after a 25 bp rise, the next meeting brought another rise in 7 of 11 cases since 2022. A hike is a modest favourite, with a hold the clear alternative.",
+          "sources": [
+            "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+            "https://www.rba.gov.au/monetary-policy/rba-board-minutes/2026/2026-09-29.html",
+            "https://www.abs.gov.au/media-centre/media-releases/cpi-rose-43-year-september-2026",
+            "https://www.rba.gov.au/speeches/2026/sp-gov-2026-10-28.html",
+            "https://www.rba.gov.au/speeches/2026/sp-dg-2026-10-21.html"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "Historically, 7 of 11 meetings after a hike resulted in another hike, suggesting a 64% base rate. The September CPI rising to 4.3% and strong quarterly trimmed mean of 1.0% exceed August forecasts, and Governor Bullock indicated the Board will assess if past tightening is enough, pointing to a lean toward further tightening. Despite 100 bps already delivered in 2026, the upside inflation surprise likely pushes the probability above the historical average, but mixed activity signals keep it away from certainty."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.58,
+          "rationale": "The base rate for consecutive 25 bps rises in the 2022-2026 tightening cycle is about 64% (7 of 11), which provides a moderate prior for a further hike. However, Governor Bullock's October 28 statement framed the decision as an open question ('whether the tightening to date will be sufficient'), and Deputy Governor Hauser explicitly described a 'choice between further tightening and holding,' both of which are notably less hawkish than the September statement's language. The accelerating CPI (4.0% to 4.3%) and trimmed mean at 3.6% push toward a hike, but 100 bps already delivered in 2026, easing labor market and consumer spending, and the RBA's demonstrated willingness to pause (June and August holds) pull the other way. A sharp adverse oil move or a hawkish SMP could push this higher; a dovish surprise in the SMP or a clear signal to wait for lagged effects would push it lower."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "The base rate for a hike following a hike in this cycle is about 7/11 \u2248 64%, but recent evidence strongly tilts toward another hike: CPI accelerated to 4.3% (from 4.0%), trimmed-mean at 3.6%, oil prices well above August assumptions, and both Bullock and Hauser signaled the inflation outlook has deteriorated materially and the Board will consider whether further tightening is needed. The September minutes explicitly said the Board would increase further if required, and the September statement used similar hawkish language. A pause is plausible if the Board wants to assess the lagged effects of 100 bps of tightening already delivered, but the data flow since the last meeting points firmly toward another 25 bp rise."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.5,
+          "rationale": "Base rate: of 11 meetings that followed a 25 bp hike since 2022, 7 brought another rise, and 4 of the 6 meetings this year brought a hike. Hawkish evidence: trimmed-mean inflation rose 1.0% in the quarter, headline CPI is 4.3%, oil is about a third above the August assumption, and the September minutes said further rises are possible. Against that, Hauser called it a genuine choice between tightening and holding because activity is mixed. Bullock framed the question as whether tightening so far is enough, and the Board has already raised the cash rate by 100 bp this year. The November Statement on Monetary Policy forecasts and market pricing are unknown, so I treat it as close to a coin flip."
+        }
+      ],
+      "id": "polymarket-3499790",
+      "market_id": "3499790",
+      "outcome": null,
+      "question": "Reserve Bank of Australia increases interest rates by 25 bps at the November 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the cash rate target resulting from the November 2026 meeting of the Reserve Bank of Australia (RBA) Monetary Policy Board, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of Australia, including the statement or release from its November 2026 meeting, scheduled for November 2-3, 2026, as listed on the official RBA calendar (https://www.rba.gov.au/schedules-events/calendar/?topics=monetary-policy-board). This market may resolve as soon as the statement or release of the Reserve Bank of Australia Monetary Policy Board resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/reserve-bank-of-australia-decision-in-november",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.865
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.89,
+          "rationale": "Republicans won Mississippi's last two Senate generals by about 10 points (Hyde-Smith 54.1% to 44.1% in 2020) and 763,420 to 451,981 votes in 2024 (Wicker over Pinkins). Hyde-Smith is the incumbent, Trump campaigned for her on Oct 29, and the race is decided by plurality with no runoff, so independent Ty Pinkins staying in (Oct 29) likely splits the anti-incumbent vote. Reports of a 3-point lead in one poll and a Clinton visit for Democrat Scott Colom show some competitiveness in a poor environment for Republicans, so I stay well below the base rate.",
+          "sources": [
+            "https://www.sos.ms.gov/content/CandidateQualifying/default.aspx",
+            "https://www.sos.ms.gov/elections/electionresults/2024General/Statewide%20Results/2024%20Official%20Statewide%20Results.pdf",
+            "https://www.wlbt.com/2026/10/30/independent-ty-pinkins-says-he-is-staying-mississippi-us-senate-race/",
+            "https://www.wapt.com/article/mississippi-senate-race-trump-clinton-campaign-stops/74286829",
+            "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.92,
+          "rationale": "Mississippi is a deep red state where Republicans have won recent Senate races by double digits (Hyde-Smith by 10 points in 2020, Wicker by 25 points in 2024). The three-way race with independent Ty Pinkins, a former Democrat, likely splits the anti-Republican vote, benefiting Hyde-Smith. Polls show Hyde-Smith leading, with one poll at 3 points but others larger, and no evidence suggests Pinkins draws disproportionately from Republican voters. The national environment may be less favorable for the president's party, but the state's strong partisan lean and split opposition make a Republican win highly probable."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate strongly favors Republicans: Mississippi's Senate seat has been won by Republicans in both 2020 (54%) and 2024 (63%), with the 2024 margin being especially large. The main risk is the three-way plurality format with independent Ty Pinkins staying in the race, which could split the vote and tighten the race; however, polls still show Hyde-Smith leading by at least 3 points, Trump is campaigning for her, and the deep-red base in Mississippi is so strong that even a 10-15% independent candidate likely won't be enough to flip the result. The key uncertainty is whether Pinkins draws disproportionately from Hyde-Smith's voters rather than Colom's, which would be the scenario that could change the outcome."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Mississippi is deep red: Hyde-Smith won by about 10 points in 2020 and Wicker by about 25 in 2024. The 2026 race has three candidates and a plurality rule, and Pinkins staying in splits the anti-incumbent vote, which helps Hyde-Smith. Polls disagree, with the closest showing a 3-point lead and others larger, and the national environment is less favorable for Republicans. Even so, a Democratic win would need a very large swing, so I put Republican odds at roughly 93%. A late poll inside two points would change this."
+        }
+      ],
+      "id": "polymarket-631018",
+      "market_id": "631018",
+      "outcome": null,
+      "question": "Will the Republicans win the Mississippi Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Mississippi U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/mississippi-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.156
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "Binance ETH/USDT's lows so far in the window are 2293 (Oct 26), 2233 (Oct 29) and 2174 (Oct 30, candle still open), with ETH near $2,229 on Oct 30, so $2,100 is about 5.8% below spot with two and a half days left. No session in the 89 completed ones since August fell 6.8% below the prior close, but the 13 of 89 sessions with a 3.4% drop show that a retest of the Oct 30 low and a bit more is plausible, and the multi-day window lets drops accumulate. The $6.3bn Binance exploit is a live shock, though Binance has pledged to cover losses, froze about $3bn and expects withdrawals back within 48 hours, which limits further forced selling.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&startTime=1785542400000&limit=100",
+            "https://www.theblock.co/news/markets/2026-10-29-bitcoin-slides-below-77000-binance-hack-432183",
+            "https://www.investing.com/crypto/ethereum/eth-usd-historical-data",
+            "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a 5.8% intraday drop in ETH is low: in 89 recent sessions, none exceeded a 6.5% decline, and only 14.6% had drops of 3.4% or more. The Binance hack and PCE data already drove a sharp sell-off to $2,174, but the price bounced to ~$2,229, and Binance's promise to cover losses and resume withdrawals within 48 hours may stabilize the market. With ~1.7 days left, a further leg down to $2,100 is possible but unlikely absent new negative catalysts."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.32,
+          "rationale": "The current low is $2,174.08, requiring a further 3.4% drop (or 5.8% from the current ~$2,229) to hit $2,100, with roughly 2 days of trading remaining. The Binance hack and hot PCE data create elevated downside risk, and historically 13/89 sessions saw drops of at least 3.4% from prior close, but the largest was only 6.5% and Binance's promise to cover losses and resume withdrawals within 48 hours is a meaningful stabilizing factor. The price has already bounced ~2.5% from the low, suggesting some stabilization, but the situation remains volatile enough that a further leg down to $2,100 is plausible but not the base case."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.1,
+          "rationale": "The lowest price observed in the period so far is $2,174.08 (Oct 30), which is about 3.4% above the $2,100 target. From the current price near $2,229, a drop to $2,100 would require a ~5.8% decline. Historical Binance ETHUSDT data shows the largest single-day drop was ~6.5% and no day had a drop of 6.8%+, making this a tail event. While the Binance hack and hot PCE inflation create downside risk, the market has already absorbed significant selling, withdrawals are expected to resume within 48 hours, and only ~2 trading days remain in the window. The probability is low but non-trivial given the unusual circumstances."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.17,
+          "rationale": "The lowest Binance print so far in the window is about 2,174 (30 Oct UTC), and the last price I have is about 2,229. A touch of 2,100 needs a further drop of about 5.8% over roughly 2.8 days (31 Oct plus 1 Nov ET). A simple barrier-touch estimate at about 3% daily volatility gives roughly 20-25%. Over the last 89 sessions, no session's low was 6.8% or more below the prior close, which argues for shading lower. The Binance hack and the hot PCE print raise tail risk, but Binance has promised to cover losses and resume withdrawals, which could support a rebound. The data may also be stale, since the 30 Oct candle was still shown as open."
+        }
+      ],
+      "id": "polymarket-6236258",
+      "market_id": "6236258",
+      "outcome": null,
+      "question": "Will Ethereum dip to $2,100 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-october-26-november-1-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.3
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "BLS reported only +29,000 for September (Oct 2, 2026) after a 12-month average of +45,000, and July and August were revised down by 60,000 combined; only 4 of 9 months in 2026 reached +100,000 in the revised data, and the recent run rate is far below that. ADP's four-week average of 16,750 jobs a week to Oct 10 (about 70,000 a month) and initial claims of 194,000 point to slow but not collapsing hiring. Monthly prints swing by tens of thousands around the trend, so a first print of 100,000 or more is possible but needs a clear upside surprise of roughly 40,000 or more.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://data.bls.gov/timeseries/CES0000000001?output_view=net_1mth",
+            "https://mediacenter.adp.com/2026-10-27-ADP-National-Employment-Report-Preliminary-Estimate-for-October-10,-2026",
+            "https://www.dol.gov/ui/data.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.2,
+          "rationale": "The recent 12-month average gain is only 45,000, and the ADP preliminary estimate suggests private payrolls around 67,000, making a total above 100,000 unlikely. Low jobless claims indicate stability but not strong hiring, and the September print of 29,000 shows weak momentum. However, occasional strong months like August 2026 (+133,000) and potential seasonal adjustment surprises keep the probability from being even lower."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate of months hitting +100k is roughly 33% over the past 33 months, but the recent trend is far weaker: the 12-month average is only 45k, September was +29k, and the last three months (Jul-Sep) averaged just ~51k. ADP's NER Pulse shows a pace of roughly 70k/month, well below the 100k threshold, and hiring has been decelerating for two consecutive weeks. The main upside risk is a seasonal adjustment surprise or a rebound in hiring, but the weight of evidence points to another sub-100k month, making the probability closer to 15%."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "The base rate from recent data is unfavorable: the 12-month average through September was only +45k, September itself was +29k, and only 1 of the last 5 months (August at +133k) hit 100k. The ADP weekly pulse implies roughly 70k/month for October, consistent with continued softness. While first prints can surprise and revisions are large (e.g., July revised from +21k to -10k), the leading indicators and recent trend point well below 100k, making a 100k+ print unlikely but not impossible."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.17,
+          "rationale": "Recent payroll prints are weak: September was +29k, July was -10k, and the 12-month average is 45k. In 2025-26, only about 5 of 21 months came in at 100k or more, and the 2026 pattern is volatile (-156k in February, then +214k in March). ADP's weekly pace of roughly 70k a month for October is soft. Low jobless claims point to low layoffs but not to strong hiring. The first print is noisy, with a standard deviation of roughly 70k around an expected value of 40-50k, which gives about a 15-20% chance of reaching 100k. Possible upside comes from a rebound after weak months or from seasonal adjustment quirks."
+        }
+      ],
+      "id": "polymarket-5211630",
+      "market_id": "5211630",
+      "outcome": null,
+      "question": "Will the US add at least 100k jobs in October?",
+      "resolution_criteria": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for October 2026, scheduled to be released on November 6, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "resolution_date": "2026-11-07",
+      "resolution_source": "https://polymarket.com/event/how-many-jobs-added-in-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0575
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "Benson led James 49% to 44% in a Mitchell poll of Oct 26-27 and 53.3% to 40.9% in the MSU/YouGov poll of Oct 2-19, with Trump's approval in Michigan only about 35% excellent or good. The open-seat history (the out-party won all three open races since the term limit) points to Republicans, but a 5-12 point Democratic lead five days out, a weak national environment for Republicans and 28% of respondents already having voted outweigh it. A Mitchell-sized 5-point lead can be overturned by a polling miss, so I keep a Republican win at about one in eight.",
+          "sources": [
+            "https://www.cbsnews.com/detroit/news/jocelyn-benson-john-james-october-michigan-gubernatorial-poll/",
+            "https://ippsr.msu.edu/news/msu-poll-shows-benson-large-lead-while-el-sayed-roger-race-tight",
+            "https://www.legislature.mi.gov/Laws/MCL?objectName=MCL-ARTICLE-V-30",
+            "https://mi-boe.entellitrak.com/etk-mi-boe-prod/page.request.do?electionType=GEN&electionYear=2026&page=page.miboePublicReport"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: Michigan has been competitive, but Democrats have won 4 of the last 5 gubernatorial races including the last two (2018, 2022), and the open-seat pattern since term limits favors the out-party. Two late polls both show Benson leading: Mitchell Research has her up 5 points (49-44) and MSU IPPSR/YouGov has her up 12.4 points (53.3-40.9), with Trump's 35% approval rating as a headwind for Republicans. The evidence consistently points to a Democratic win, though the Mitchell poll's wider margin of error and the 28% early vote share introduce some uncertainty. A late poll showing the race within 2 points or signs of a Republican turnout edge in early returns could shift this estimate upward."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.14,
+          "rationale": "The open-seat base rate favors the out-party, but late polls show Benson ahead by 5 (Mitchell) to 12 (MSU). Trump's approval is poor at 35% excellent or good, and the midterm environment likely favors Democrats. Polling error and the narrowing in the Mitchell poll leave James a real but minority chance."
+        }
+      ],
+      "id": "polymarket-629465",
+      "market_id": "629465",
+      "outcome": null,
+      "question": "Will the Republicans win the Michigan governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Michigan gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/michigan-governor-winner-2026",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.07
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Binance BTC/USDT closed Oct 29 at $77,992 and traded near $77,300-77,650 on Oct 30 (low $76,500), so the noon-ET Nov 3 close must be more than about 5.8% higher. In the July 3-Oct 29 Binance series a close below $82,000 was followed by a close above it four days later in 7 of 90 cases, and a four-day rise of 5.6% or more happened in 10 of 115 windows; the Binance security incident and the Fed hold with two hike dissents raise volatility but mostly point down. Kept just under the 'reach $82,000 by Nov 1' forecast since a Nov 3 close above that level is nearly always preceded by a touch.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=15",
+            "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-falls-6-week-low-near-77-266-as-binance-security-scare-rattles-crypto-markets-14064131.html",
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a 5.6%+ four-day rise is ~8.7%, and historically when below $82,000, the close four days later was above it only 7.8% of the time. The current Binance hack and suspended withdrawals add significant negative pressure, making a quick recovery to above $82,000 by Nov 3 less likely. A swift resolution and market rebound could change this, but uncertainty remains high."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.09,
+          "rationale": "The most relevant base rate is the observed 10 of 115 (8.7%) four-day windows with a rise of at least 5.6%, while 7 of 90 (7.8%) sessions below $82,000 were above it four days later. With BTC near $77,400-$77,700 and about 3.4 days remaining, it needs another 5.6%-6.0% gain; the unresolved Binance exploit and lack of monetary easing argue against a rapid recovery, although the sharp selloff creates rebound potential. A confirmed restoration of withdrawals and strong bounce would raise the probability, while further exploit-related selling or adverse earnings and yield moves would lower it."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "The Oct 30 daily candle closed near $77,369, so $82,000 is about 6% above the latest price. Realized daily volatility is about 1.5%, which gives roughly 3-3.5% volatility over the ~3.4 days to noon ET on Nov 3. That makes the strike about 1.8-2 sigma away, or around 3-4% with fat tails. The brief's empirical rate of a 5.6% rise in four days (10 of 115 windows) is higher, but those windows don't condition on a stressed, post-exploit market. A rebound after Binance restores withdrawals, or a surprise in earnings or yields, are the main upside risks."
+        }
+      ],
+      "id": "polymarket-6301347",
+      "market_id": "6301347",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $82,000 on November 3?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-3-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.116
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "September ISM was 54.5 (August 54.6), and none of the last 12 readings (high 55.6) or 37 months fell in 56.0-56.9, so the band needs a rise of at least 1.5 points. Evidence for a firmer October: the S&P Global flash manufacturing PMI of 56.0 (a different survey), Empire State at 25.5 (highest since Dec 2021) and supplier deliveries at 59.0; against it, the Philadelphia Fed index fell from 37.8 to 20.9 with new orders down 25 points. With a typical monthly move of about 1.5 points and an expected October reading near 55, the one-point band 56.0-56.9 gets roughly 15%.",
+          "sources": [
+            "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/",
+            "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
+            "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-10",
+            "https://www.newyorkfed.org/survey/empire/empiresurvey_overview"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate is 0 of 37 recent months in the 56.0-56.9 bracket, with the ISM high at 55.6 and September at 54.5, requiring a 1.5-2.4 point jump. The S&P Global flash at 56.0 (53-month high) and the Empire State surge to 25.5 are positive signals, but the S&P Global-ISM gap has been ~1.4 points recently, and the Philadelphia Fed's sharp decline (new orders to 4.3) is a headwind. A move this large in one month is uncommon given recent ISM moves of -1.0 and -0.1, making this a low-probability outcome despite the improving backdrop."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate is essentially zero: no ISM Manufacturing PMI reading has fallen in the 56.0-56.9 bracket in the past 37 months (September 2023 to September 2026), with the 12-month high being 55.6. The September reading was 54.5, and recent month-over-month changes have been small (-0.1 in September, -1.0 in August). The S&P Global flash PMI at 56.0 is a mildly positive signal, but ISM and S&P Global are different surveys that have diverged by ~1.4 points recently, and the Philadelphia Fed survey showed a sharp decline while the Empire State showed strength\u2014mixed signals. A jump from 54.5 to 56.0+ would be historically unusual, so I assign roughly 3% probability."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.06,
+          "rationale": "September's ISM reading was 54.5, and the bracket of 56.0-56.9 requires a rise of 1.5 to 2.4 points. Monthly ISM changes have a standard deviation of about 1.5-2 points, so that is roughly a 10% chance. The S&P flash PMI hit a 53-month high of 56.0 and the Empire State index rose sharply, which pushes the odds up. The Philadelphia Fed new orders index fell sharply, which pushes them down. ISM has not printed in this bracket in 37 months, and the 2025-26 high was 55.6. I put the probability at about 6-8%."
+        }
+      ],
+      "id": "polymarket-5194745",
+      "market_id": "5194745",
+      "outcome": null,
+      "question": "Will ISM Manufacturing PMI be between 56.0 and 56.9 in October?",
+      "resolution_criteria": "This is a market about the ISM Manufacturing Purchasing Managers' Index (PMI) for October 2026, as reported by the Institute for Supply Management (ISM). A reading above 50 indicates expansion in the manufacturing sector relative to the previous month; a reading below 50 indicates contraction.\n\nThis market will resolve to the bracket containing the ISM Manufacturing PMI for October 2026 according to the monthly ISM Manufacturing PMI Report On Business.\n\nThe resolution source for this market will be the ISM Manufacturing PMI Report On Business released for October 2026 (https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/), currently scheduled to be released on November 2, 2026, at 10:00 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: although ISM describes the PMI reading using the term \"percent\" in its official release (e.g., \"The Manufacturing PMI registered 52.7 percent\"), the PMI is a diffusion index, not a true percentage. For the purposes of this market, the PMI reading will be treated as a plain numerical value, consistent with how the index is universally quoted in financial markets.\n\nNote: The ISM Manufacturing PMI is reported to one decimal point. Thus, this is the level of precision that will be used when resolving this market.\n\nIf ISM does not release the relevant figures on the scheduled date, this market may remain open until the scheduled release time of the next ISM Manufacturing PMI report (https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "resolution_date": "2026-11-02",
+      "resolution_source": "https://polymarket.com/event/ism-manufacturing-pmi-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.895
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "Republicans won Florida's last two Senate generals by 16 points (Rubio 57.7% to 41.3%, 2022) and 13 points (Scott 55.6% to 42.8%, 2024), and Republicans out-register Democrats by about 1.55 million. Late polls have appointed incumbent Ashley Moody ahead 50-44 (NYT/Siena, Oct 19-26) and 49-45 (St. Pete Polls, Oct 25-27), though a reweighting of the latter gave only 47-46 and mail returns were running Democratic. Republicans usually vote later, so the early-ballot gap overstates the Democrats, and a 4-6 point lead in this environment makes Moody a clear but not certain favourite.",
+          "sources": [
+            "https://dos.elections.myflorida.com/candidates/CanList.asp?OfficeCode=USS&elecID=20261103-GEN",
+            "https://floridapolitics.com/archives/827489-final-st-pete-polls-ashley-moody-holds-49-to-45-over-angie-nixon-with-a-cushion-that-shrinks-if-republicans-stay-home/",
+            "https://floridapolitics.com/archives/827512-nyt-poll-shows-ashley-moody-crossing-50-line-byron-donalds-with-narrow-lead/",
+            "https://results.elections.myflorida.com/SummaryRpt.asp?DATAMODE=&ElectionDate=11%2F5%2F2024&Race=FED",
+            "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.82,
+          "rationale": ":"
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.86,
+          "rationale": "Republicans won the last two Florida Senate generals by 13 to 15 points, and the registration gap is now R+8, about 1.5 million. The final polls are closer than that history suggests: the NYT/Siena poll has Moody up 6, and St. Pete Polls has her up 4, or only 1 when reweighted to the registration split. Early and mail ballots are roughly even by party, which is unusually good for Democrats, though Republicans tend to vote more on Election Day. Florida polls have also tended to understate Republicans. A midterm environment that favors Democrats and independents breaking strongly for Nixon could still produce an upset, so I put Moody's chance of winning at about 86%."
+        }
+      ],
+      "id": "polymarket-631045",
+      "market_id": "631045",
+      "outcome": null,
+      "question": "Will the Republicans win the Florida Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Florida U.S. Senate special election currently scheduled for November 3, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/florida-senate-election-winner",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "ETH was about $2,229 on Oct 30, only about 1.3% above $2,200, and had already traded to $2,174 that day, so this is close to a coin flip with a slight tilt to staying above. In the ChartExchange series, 10 of 15 days that closed between $2,200 and $2,300 had a close above $2,200 four days later (67%), but the Binance exploit, falling BTC and a 5% one-day slide push below that base rate. Binance's pledge to cover losses and expected withdrawal restart before Monday noon ET support a partial rebound; the forecast is kept consistent with a 17% chance of touching $2,100 first.",
+          "sources": [
+            "https://chartexchange.com/symbol/crypto-ethusdt/historical/",
+            "https://www.coingecko.com/en/coins/ethereum",
+            "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html",
+            "https://www.tokenpost.com/news/investing/44062"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate: ETH is currently around $2,245 on Binance, only ~$45 above the $2,200 strike, so small moves matter. The Binance hack ($6.3B) and disabled withdrawals create downside risk, but Binance expects to resume withdrawals within 48 hours (by ~Oct 31), which could support recovery. Historical data shows 158/370 daily closes were under $2,200, and the recent trend is downward (Oct 29 closed at $2,253, down 4.5%). The price is close enough to the strike that a modest 2% move in either direction over 3 days is plausible, making this roughly a coin flip with slight downside tilt given the hack overhang."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.64,
+          "rationale": "ETH is about $2,245 on Oct 31, roughly 2% above the $2,200 strike. With about 3.3 days to resolution and daily volatility of about 2.7%, the strike is about 0.4 standard deviations below spot, which implies about 64-66% for Yes. The Binance hack and the recent downtrend add some downside risk. Price has stabilized since Oct 30, and withdrawals resuming would help."
+        }
+      ],
+      "id": "polymarket-6301274",
+      "market_id": "6301274",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $2,200 on November 3?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-3-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.315
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "September's unemployment rate was 4.2%, with the unrounded value at 4.175% (St. Louis Fed) after 4.14% in August, so 4.1% needs a small fall of at least about 0.03 point. Monthly moves in the unrounded rate are typically about 0.1 point, which makes 4.1% roughly a one-in-four to one-in-three outcome; after a 4.2% month, the next month was 4.1% in 3 of 7 recent cases, 4.2% in 3 and 4.3% in 1. Claims of 194,000 and insured unemployment of 1.1% suggest low layoffs, but payroll growth is weak, so I do not lean toward a fall.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://www.bls.gov/news.release/empsit.t15.htm",
+            "https://data.bls.gov/timeseries/LNS14000000",
+            "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september",
+            "https://www.dol.gov/ui/data.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.27,
+          "rationale": "September's unrounded rate was 4.175%, just 0.025 above the 4.15 rounding boundary. A normal model with a monthly change standard deviation of about 0.13 pp gives roughly 25% for exactly 4.1% (about 43% below 4.15, minus the share that falls below 4.05). Low claims and a stable labor market add little, since the household survey noise dominates; the rate could easily print 4.2 or 4.3 instead."
+        }
+      ],
+      "id": "polymarket-5211634",
+      "market_id": "5211634",
+      "outcome": null,
+      "question": "Will the October 2026 unemployment rate be 4.1%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for October 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for November 6, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "resolution_date": "2026-11-06",
+      "resolution_source": "https://polymarket.com/event/october-unemployment-rate-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.93
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.84,
+          "rationale": "Incumbent Democrat Katie Hobbs leads Republican Andy Biggs in every poll found: 48.7% to 40.0% in a polling average updated Oct 27 and 17 points in a HighGround poll of Oct 14 (whose sponsor is disputed). MultiState's rating (Oct 19) and Cook's (July) put the race at Lean Democratic, and incumbents win re-election roughly 80-85% of the time. This evidence comes from search summaries with unchecked quotes and a background-knowledge base rate, so I discount it, and Hobbs' 0.7-point win in 2022 and Arizona's Republican registration edge leave room for a polling miss.",
+          "sources": [
+            "https://www.azfamily.com/2026/10/14/new-arizona-poll-shows-democrats-leading-several-key-races/",
+            "https://www.multistate.us/elections/governor-race/arizona-2026",
+            "https://www.cookpolitical.com/governor/race/479456",
+            "https://www.pollcheck.co.uk/us-midterms-2026/governor/arizona"
+          ]
+        }
+      ],
+      "id": "polymarket-629183",
+      "market_id": "629183",
+      "outcome": null,
+      "question": "Will the Democrats win the Arizona governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Arizona gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://polymarket.com/event/arizona-governor-winner-2026",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7126
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.71,
+          "rationale": "Byron Donalds led David Jolly 49-47 (UNF, Oct 12-19) and 48-46 (St. Pete Polls, Oct 25-27), both inside the margin of error, and Republicans won both of the last two Florida governor races (49.6% to 49.2% in 2018, 59.4% to 40.0% in 2022). Republicans hold a 1.55 million registration edge, but the ballots cast by Oct 27 were almost evenly split by party (1,257,198 Republican, 1,244,432 Democratic) and both polls had Jolly ahead among independents. The Republican edge in Florida, the tendency of Republicans to vote late and the narrow poll lead for Donalds put a Republican win at about 70%, below the Moody Senate forecast.",
+          "sources": [
+            "https://www.wlrn.org/government-politics/2026-10-21/republicans-donalds-moody-hold-slim-leads-in-tightening-governor-us-senate-races-unf-polls-finds",
+            "https://floridapolitics.com/archives/827487-final-st-pete-polls-byron-donalds-leads-david-jolly-48-to-46-as-long-as-republicans-show-up/",
+            "https://results.elections.myflorida.com/DetailRpt.Asp?ELECTIONDATE=11%2F6%2F2018&RACE=GOV",
+            "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.77,
+          "rationale": "Republicans won the last two Florida governor races, and Florida has a large registration edge for Republicans (about 1.5 million more active voters). Late polls show Donalds up only 2 points (49-47 in the UNF poll, 48-46 in St. Pete Polls), which is within the margin of error. Early voting is nearly even by party, and Trump's low approval suggests a Democratic-leaning midterm environment. Still, Florida has trended right, Republican voters usually turn out strongly on Election Day, and polls have historically understated Republicans in Florida. A 2-point poll lead in a state that has voted about 10+ points Republican recently suggests Donalds is a modest favorite, so I put the chance of a Republican win around 77%."
+        }
+      ],
+      "id": "manifold-uODgxBgIoHZWqFqHGPbe",
+      "market_id": "uODgxBgIoHZWqFqHGPbe",
+      "outcome": null,
+      "question": "Will a Republican win the Florida governorship in 2026?",
+      "resolution_criteria": "The next election for Florida governor is in 2026. The current governor, Ron DeSantis, is term-limited and will not be able to run again, unless the Florida constitution is amended.\n\nWill the election be won by a Republican?",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Gabrielle/will-a-republican-win-the-florida-g",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.9255
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Democrats need a net gain of 3 seats from the 220-215 starting split, while the president's party lost House seats in 20 of 22 midterms since 1938, by at least 4 seats every time. On Oct 23 the Cook Political Report rated 220 seats Solid, Likely or Lean Democratic, 198 Republican and 17 Toss Ups, and Trump's approval was 31-35% in October polls (Reuters/Ipsos 31%, AP-NORC 35%). Fewer Republican seats are marginal than in 2018 (33 versus 43), which tempers the size of the gains, but a rated majority plus a likely split of the toss-ups leaves Democrats a clear favourite.",
+          "sources": [
+            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+            "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval",
+            "https://www.cnn.com/2026/02/15/politics/house-control-districts-vis"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Base rate: the president's party loses House seats in about 20 of 22 midterms, and Democrats need only a net +3. Cook's 23 October ratings have Democrats favored in 220 seats, with 17 Toss Ups, and call Republicans' path 'all but evaporated.' Trump's approval is 31-35%. The main limits are that the number of marginal Republican seats is small and redistricting changed the map, but Democrats could lose most Toss Ups and still reach 218. A polling miss or a very Republican-leaning Toss Up outcome could change this, and the remaining uncertainty is mostly about forecast error and the map."
+        }
+      ],
+      "id": "manifold-IPth6E2ZRI",
+      "market_id": "IPth6E2ZRI",
+      "outcome": null,
+      "question": "Will Democrats win a majority in the U.S. House of Representatives in the 2026 midterm elections?",
+      "resolution_criteria": "Resolution criteria\n\nThe market resolves based on the results of the U.S. House of Representatives elections scheduled for November 3, 2026. The market resolves YES if Democrats win 218 or more seats (a majority of the 435 total seats). The market resolves NO if Republicans win 218 or more seats. Resolution will be determined by official results from the House Clerk's office at https://clerk.house.gov/\n\nBackground\n\nFollowing the 2024 elections, Republicans hold a 220-215 majority in the House. Democrats need to gain a net of three districts to win a majority in the chamber. Republicans can lose no more than two districts to retain a majority.\n\nDemocrats continue to believe the party remains favored to regain the House majority, especially because they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president's job approval rating is as weak as Trump's is now. The president's party almost always loses ground in midterm House elections, as has happened in 20 of the past 22 midterm elections stretching back to 1938.\n\nConsiderations\n\nRepublicans this year are defending an unusually small number of House seats that either voted against President Donald Trump in 2024 or backed him only narrowly, meaning Democrats have fewer easy pickup opportunities against obviously vulnerable targets than is typical for the party out of the White House during a midterm election. House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.\n\nThis description was generated by AI.",
+      "resolution_date": "2026-11-04",
+      "resolution_source": "https://manifold.markets/winnerkarthik/will-democrats-win-a-majority-in-th-E55l2cIcuS",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.3999
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "The Berkeley IGS/Los Angeles Times poll of Oct 19-25 showed a 40-40 tie with 19% undecided, after Raman led 39-28 in September, so Karen Bass has the momentum. Of Spencer Pratt's primary voters (25.5% of the primary), 41% now favor Bass and only 14% Raman, with 45% undecided, and Rick Caruso said he would vote for Bass; Bass also leads among older voters, who have returned far more ballots (47% of over-65s against 13% of 18-34s as of Oct 29). Raman has a better image (42% favorable against Bass's 32%) and leads strongly among under-40 voters, so the race is close, with a slight edge to Bass.",
+          "sources": [
+            "https://www.latimes.com/california/story/2026-10-28/bass-comes-from-behind-now-in-dead-heat-with-raman-in-mayors-race-new-poll-shows",
+            "https://www.latimes.com/politics/story/2026-10-28/heres-where-bass-raman-need-to-win-over-pratt-voters",
+            "https://www.latimes.com/california/story/2026-10-29/raman-leads-among-younger-voters-polls-show-but-bass-isnt-conceding-any-ground",
+            "http://ens.lacity.org/clk/elections/clkelections3736198839_06022026.pdf"
+          ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.47,
+          "rationale": "The race is a dead heat at 40-40 with 19% undecided in the Berkeley IGS/LA Times poll. Bass has momentum: she moved from 28% in September to 40%, and undecided Pratt voters (45%) lean toward her (41% Bass vs 14% Raman among those who chose). Pratt voters are right-leaning and will likely break heavily to Bass, and Caruso endorsed her. Older voters, who favor Bass, are returning ballots at much higher rates (47% vs 13% for ages 18-34), which suggests the likely-voter electorate may skew toward her. Raman has better favorability (42/49 vs Bass 32/65) and a strong lead among young voters, but turnout in that group is the main uncertainty. The primary gave Bass 34% to Raman's 29%, and Bass plus most of Pratt's 25.5% looks like a path to a Bass win. I put Raman slightly below even."
+        }
+      ],
+      "id": "manifold-IdOgSACPIz",
+      "market_id": "IdOgSACPIz",
+      "outcome": null,
+      "question": "Will Nithya Raman Beat Karen Bass? (n/a if doesn\u2019t advance)",
+      "resolution_criteria": "Resolves n/a if Nithya Raman or Karen bass don\u2019t advance to November\n\nResolves yes if Nithya Raman wins the November election for La mayor, or resolves no if she loses to Karen bass.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Jack1/will-nithya-raman-beat-karen-bass-n",
+      "topic": "Politics"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7567
+        },
+        {
+          "created_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "Darline Graham is already the certified Republican nominee (52.45% in the Aug 25 runoff, certified Aug 28), so only the Nov 3 general remains. Late polls have her ahead of Democrat Annie Andrews by 4 points (ECU, Oct 19-24: 51-47) and 1 point (Policy Council/Targoz, Oct 16-25: 47-46), both inside the margins of error, while the same Targoz poll had Republican Alan Wilson up 10 points for governor. Since 1990, 17 of the 24 appointed senators whose races were decided won, and South Carolina leans Republican, which supports a clear but not safe favourite.",
+          "sources": [
+            "https://scvotes.gov/wp-content/uploads/2026/10/SBC-Meeting-Minutes-08.28.2026_FINAL.pdf",
+            "https://www.pewresearch.org/short-reads/2026/08/06/most-us-senators-appointed-since-1990-have-run-to-keep-their-seat-and-most-have-won/",
+            "https://surveyresearch-ecu.reportablenews.com/pr/ecu-poll-finds-graham-leading-andrews-by-four-points",
+            "https://www.foxcarolina.com/2026/10/26/new-poll-shows-neck-and-neck-senate-race-double-digit-lead-governor-sc-midterms/"
+          ]
+        }
+      ],
+      "id": "manifold-9ChtPnQ598",
+      "market_id": "9ChtPnQ598",
+      "outcome": null,
+      "question": "Will Darline Graham run for and win Lindsey Graham's senate seat in the 2026 Senate Election?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if Darline Graham (also known as Darline Graham Nordone) officially runs in the 2026 United States Senate election in South Carolina and wins the general election scheduled for November 3, 2026.\n\nThis market will resolve to NO if any of the following occur:\n\nShe does not officially file to run, or withdraws her candidacy before the elections.\n\nShe runs but loses the special Republican primary scheduled for August 11, 2026.\n\nShe runs but loses the general election on November 3, 2026.\n\nThe primary source of truth for resolution will be the official election results published by the South Carolina State Election Commission or, in the immediate aftermath, consensus race calls from major news organizations (e.g., AP News, Decision Desk HQ).\n\nBackground\n\nFollowing the death of long-serving U.S. Senator Lindsey Graham on July 11, 2026, South Carolina Governor Henry McMaster appointed Graham's sister, Darline Graham, to fill the vacancy for the remainder of the term. Because Lindsey Graham had already won the Republican primary in June 2026 before his passing, South Carolina will hold a special Republican primary on August 11, 2026, to choose a new nominee. On July 20, 2026, Darline Graham announced she is officially running to seek a full term for the seat. The winner of the Republican primary will face Democratic pediatrician Annie Andrews in the November general election.",
+      "resolution_date": "2026-11-03",
+      "resolution_source": "https://manifold.markets/Vernas/will-darline-graham-run-for-and-win",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}

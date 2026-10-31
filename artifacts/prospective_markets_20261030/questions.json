@@ -1,0 +1,134 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-02T05:00:00Z",
+      "id": "polymarket-6236213",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-october-26-november-1-2026",
+      "question": "Will Bitcoin reach $82,000 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-3499790",
+      "market_url": "https://polymarket.com/event/reserve-bank-of-australia-decision-in-november",
+      "question": "Reserve Bank of Australia increases interest rates by 25 bps at the November 2026 meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the cash rate target resulting from the November 2026 meeting of the Reserve Bank of Australia (RBA) Monetary Policy Board, relative to the level it was prior to this meeting. \n\nThe resolution source will be official information from the Reserve Bank of Australia, including the statement or release from its November 2026 meeting, scheduled for November 2-3, 2026, as listed on the official RBA calendar (https://www.rba.gov.au/schedules-events/calendar/?topics=monetary-policy-board). This market may resolve as soon as the statement or release of the Reserve Bank of Australia Monetary Policy Board resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \"Increase\" or \"Decrease\" will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.\n\nIf the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \"No Change\" bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-631018",
+      "market_url": "https://polymarket.com/event/mississippi-senate-election-winner",
+      "question": "Will the Republicans win the Mississippi Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 midterm Mississippi U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-02T05:00:00Z",
+      "id": "polymarket-6236258",
+      "market_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-26-november-1-2026",
+      "question": "Will Ethereum dip to $2,100 October 26-November 1?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-07T04:59:00Z",
+      "id": "polymarket-5211630",
+      "market_url": "https://polymarket.com/event/how-many-jobs-added-in-october-2026",
+      "question": "Will the US add at least 100k jobs in October?",
+      "resolution_criteria": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for October 2026, scheduled to be released on November 6, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-629465",
+      "market_url": "https://polymarket.com/event/michigan-governor-winner-2026",
+      "question": "Will the Republicans win the Michigan governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Michigan gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T17:00:00Z",
+      "id": "polymarket-6301347",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-3-2026",
+      "question": "Will the price of Bitcoin be above $82,000 on November 3?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-02T06:00:00Z",
+      "id": "polymarket-5194745",
+      "market_url": "https://polymarket.com/event/ism-manufacturing-pmi-october-2026",
+      "question": "Will ISM Manufacturing PMI be between 56.0 and 56.9 in October?",
+      "resolution_criteria": "This is a market about the ISM Manufacturing Purchasing Managers' Index (PMI) for October 2026, as reported by the Institute for Supply Management (ISM). A reading above 50 indicates expansion in the manufacturing sector relative to the previous month; a reading below 50 indicates contraction.\n\nThis market will resolve to the bracket containing the ISM Manufacturing PMI for October 2026 according to the monthly ISM Manufacturing PMI Report On Business.\n\nThe resolution source for this market will be the ISM Manufacturing PMI Report On Business released for October 2026 (https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/), currently scheduled to be released on November 2, 2026, at 10:00 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: although ISM describes the PMI reading using the term \"percent\" in its official release (e.g., \"The Manufacturing PMI registered 52.7 percent\"), the PMI is a diffusion index, not a true percentage. For the purposes of this market, the PMI reading will be treated as a plain numerical value, consistent with how the index is universally quoted in financial markets.\n\nNote: The ISM Manufacturing PMI is reported to one decimal point. Thus, this is the level of precision that will be used when resolving this market.\n\nIf ISM does not release the relevant figures on the scheduled date, this market may remain open until the scheduled release time of the next ISM Manufacturing PMI report (https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-631045",
+      "market_url": "https://polymarket.com/event/florida-senate-election-winner",
+      "question": "Will the Republicans win the Florida Senate race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Florida U.S. Senate special election currently scheduled for November 3, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T17:00:00Z",
+      "id": "polymarket-6301274",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-3-2026",
+      "question": "Will the price of Ethereum be above $2,200 on November 3?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-06T13:30:00Z",
+      "id": "polymarket-5211634",
+      "market_url": "https://polymarket.com/event/october-unemployment-rate-2026",
+      "question": "Will the October 2026 unemployment rate be 4.1%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for October 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for November 6, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-04T04:59:00Z",
+      "id": "polymarket-629183",
+      "market_url": "https://polymarket.com/event/arizona-governor-winner-2026",
+      "question": "Will the Democrats win the Arizona governor race in 2026?",
+      "resolution_criteria": "This market will resolve according to the winner of the 2026 Arizona gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T04:59:00Z",
+      "id": "manifold-uODgxBgIoHZWqFqHGPbe",
+      "market_url": "https://manifold.markets/Gabrielle/will-a-republican-win-the-florida-g",
+      "question": "Will a Republican win the Florida governorship in 2026?",
+      "resolution_criteria": "The next election for Florida governor is in 2026. The current governor, Ron DeSantis, is term-limited and will not be able to run again, unless the Florida constitution is amended.\n\nWill the election be won by a Republican?",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-04T00:00:00Z",
+      "id": "manifold-IPth6E2ZRI",
+      "market_url": "https://manifold.markets/winnerkarthik/will-democrats-win-a-majority-in-th-E55l2cIcuS",
+      "question": "Will Democrats win a majority in the U.S. House of Representatives in the 2026 midterm elections?",
+      "resolution_criteria": "Resolution criteria\n\nThe market resolves based on the results of the U.S. House of Representatives elections scheduled for November 3, 2026. The market resolves YES if Democrats win 218 or more seats (a majority of the 435 total seats). The market resolves NO if Republicans win 218 or more seats. Resolution will be determined by official results from the House Clerk's office at https://clerk.house.gov/\n\nBackground\n\nFollowing the 2024 elections, Republicans hold a 220-215 majority in the House. Democrats need to gain a net of three districts to win a majority in the chamber. Republicans can lose no more than two districts to retain a majority.\n\nDemocrats continue to believe the party remains favored to regain the House majority, especially because they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president's job approval rating is as weak as Trump's is now. The president's party almost always loses ground in midterm House elections, as has happened in 20 of the past 22 midterm elections stretching back to 1938.\n\nConsiderations\n\nRepublicans this year are defending an unusually small number of House seats that either voted against President Donald Trump in 2024 or backed him only narrowly, meaning Democrats have fewer easy pickup opportunities against obviously vulnerable targets than is typical for the party out of the White House during a midterm election. House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.\n\nThis description was generated by AI.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-IdOgSACPIz",
+      "market_url": "https://manifold.markets/Jack1/will-nithya-raman-beat-karen-bass-n",
+      "question": "Will Nithya Raman Beat Karen Bass? (n/a if doesn\u2019t advance)",
+      "resolution_criteria": "Resolves n/a if Nithya Raman or Karen bass don\u2019t advance to November\n\nResolves yes if Nithya Raman wins the November election for La mayor, or resolves no if she loses to Karen bass.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-03T23:59:00Z",
+      "id": "manifold-9ChtPnQ598",
+      "market_url": "https://manifold.markets/Vernas/will-darline-graham-run-for-and-win",
+      "question": "Will Darline Graham run for and win Lindsey Graham's senate seat in the 2026 Senate Election?",
+      "resolution_criteria": "Resolution criteria\n\nThis market will resolve to YES if Darline Graham (also known as Darline Graham Nordone) officially runs in the 2026 United States Senate election in South Carolina and wins the general election scheduled for November 3, 2026.\n\nThis market will resolve to NO if any of the following occur:\n\nShe does not officially file to run, or withdraws her candidacy before the elections.\n\nShe runs but loses the special Republican primary scheduled for August 11, 2026.\n\nShe runs but loses the general election on November 3, 2026.\n\nThe primary source of truth for resolution will be the official election results published by the South Carolina State Election Commission or, in the immediate aftermath, consensus race calls from major news organizations (e.g., AP News, Decision Desk HQ).\n\nBackground\n\nFollowing the death of long-serving U.S. Senator Lindsey Graham on July 11, 2026, South Carolina Governor Henry McMaster appointed Graham's sister, Darline Graham, to fill the vacancy for the remainder of the term. Because Lindsey Graham had already won the Republican primary in June 2026 before his passing, South Carolina will hold a special Republican primary on August 11, 2026, to choose a new nominee. On July 20, 2026, Darline Graham announced she is officially running to seek a full term for the seat. The winner of the Republican primary will face Democratic pediatrician Annie Andrews in the November general election.",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-10-30T09:45:59.030088+00:00",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}
