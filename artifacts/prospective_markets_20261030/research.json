@@ -1,9 +1,8 @@
 {
-  "cost_usd": {},
-  "downloaded_at": "2026-10-30T10:04:51.450117+00:00",
-  "failed": {
-    "polymarket-629183": "ValueError: the reply is not valid JSON: Extra data"
+  "cost_usd": {
+    "polymarket-629183": 0.1922
   },
+  "failed": {},
   "findings": {
     "manifold-9ChtPnQ598": {
       "base_rate": "Reference class: U.S.\nsenators appointed since 1990 who then ran to keep the seat, counted by Pew Research Center from Senate Historical Office records through August 6, 2026.\nOf 43 appointees, 27 ran; of 24 whose elections were already decided, 17 won and 7 lost.\nAmong those 7 losses, 2 were primary defeats, 3 were general-election losses after winning the nomination, and 2 were losses in a blanket-primary runoff.\nThe earlier 1960\u20131989 class was weaker: 11 wins among 29 appointees who sought election.\nSibling succession is rare in that set; the two post-1990 father-to-child appointees who ran",
@@ -444,6 +443,43 @@
         "The Oct 26 UTC candle includes four hours before 00:00 ET.\nIts low of 2293.09 is above 2100, so that overlap does not by itself show a qualifying print."
       ]
     },
+    "polymarket-629183": {
+      "base_rate": "Reference class: incumbent governors seeking re-election, and the candidate leading in the polling average three days before the election.\nIncumbent governors win re-election roughly 80-85% of the time.\nFinal-week polling leaders in statewide races usually win.\nA lead of 8 or more points in the average is rarely overturned, though polling errors of 3-5 points happen.\nI did not count specific cases from a source, so these figures are from background knowledge.\nArizona's two most recent governor races were close: 2018 Ducey (R) won by about 14 points, and 2022 Hobbs won by about 0.7 points.",
+      "different_now": "Hobbs is the incumbent and has led every public poll I found.\nThe lead is about 8.7 points in the average, with individual polls at 8 to 17 points.\nCook, Sabato and MultiState all rate the race Lean D.\nThat is more favourable to the Democrat than the 2022 race, which was a toss-up.\nBiggs is a Trump-endorsed hardliner.\nArizona is a swing state with a Republican registration edge, and Hobbs won in 2022 by under 1 point, so a polling miss is plausible.\nThe HighGround poll's sponsor is disputed.",
+      "facts": [
+        {
+          "fact": "A HighGround poll reported on 2026-10-14 had Democrat Katie Hobbs leading Republican Andy Biggs by 17 points.\nThe Biggs campaign questioned the poll's sponsor.\nI could not open the page, so this comes from a search summary.",
+          "source": 0
+        },
+        {
+          "fact": "MultiState's page, updated 2026-10-19, rates the race Lean Democratic.\nIt describes the rating as the average of Cook, Sabato's Crystal Ball and Pluribus News (search summary only).",
+          "source": 1
+        },
+        {
+          "fact": "Cook Political Report's page, last updated 2026-07-10, lists the race as Lean D.\nIts rating history includes a Toss Up entry (search summary only).",
+          "source": 2
+        },
+        {
+          "fact": "PollCheck's polling average, updated 2026-10-27, shows Hobbs at 48.7% and Biggs at 40.0% (search summary only).",
+          "source": 3
+        },
+        {
+          "fact": "Biggs won the Republican primary.\nThe general election is on 2026-11-03.\nThe ballot also has two third-party candidates (search summary only).",
+          "source": 3
+        },
+        {
+          "fact": "Earlier polls had Hobbs ahead.\nHighGround in late August: 49.5% to 34.3%.\nAn AARP-commissioned poll in early August: 52% to 44%.\nNoble Predictive Insights: 48% to 35%, undated in the results I saw.",
+          "source": 0
+        }
+      ],
+      "uncertainties": [
+        "I could not open any page, so every quote field is empty and all facts come from search summaries.",
+        "The midterm national environment and whether Republican turnout beats the polls.",
+        "Poll accuracy and sponsor bias, for example the disputed HighGround poll.",
+        "Whether the three sources (AP, Fox News, NBC) all call the race quickly.\nIf they don't, the market resolves on the official certification.",
+        "The latest Cook and Sabato rating changes after 2026-10-19 were not confirmed."
+      ]
+    },
     "polymarket-629465": {
       "base_rate": "Among the three Michigan gubernatorial elections that were open because the incumbent was barred by the two-term limit applying to terms beginning on or after January 1, 1993 (2002, 2010, and 2018), the Republican nominee won 1 of 3, and the party that did not already hold the office won 3 of 3.\nAcross all nine gubernatorial elections from 1990 through 2022, the Republican nominee won 5 and the Democratic nominee won 4.",
       "different_now": "2026 is the next open seat after two Democratic terms by Gretchen Whitmer, so the three-case open-seat record points toward the party out of office, the Republicans.\nLate-October 2026 surveys point the other way: Mitchell had the Democratic nominee ahead 49% to 44% (inside a 3.9-point margin of error) and MSU/YouGov had her ahead 53.3% to 40.9%.\nThe same MSU release described Trump's standing in Michigan as a headwind for Republicans.\nThe ballot also includes Libertarian, U.S.\nTaxpayers, and Green tickets, and CBS reported that 28% of Mitchell's late-October respondents had already voted.",
@@ -657,7 +693,7 @@
   "model": "grok-4.7-low",
   "model_family": "grok",
   "provider": "cursor",
-  "researched_at": "2026-10-30T10:03:05+00:00",
+  "researched_at": "2026-10-31T07:05:06+00:00",
   "researched_by": {
     "manifold-9ChtPnQ598": "grok-4.7-low",
     "manifold-IPth6E2ZRI": "grok-4.7-low",
@@ -669,13 +705,14 @@
     "polymarket-5211634": "grok-4.7-low",
     "polymarket-6236213": "grok-4.7-low",
     "polymarket-6236258": "grok-4.7-low",
+    "polymarket-629183": "claude-sonnet",
     "polymarket-629465": "grok-4.7-low",
     "polymarket-6301274": "grok-4.7-low",
     "polymarket-6301347": "grok-4.7-low",
     "polymarket-631018": "grok-4.7-low",
     "polymarket-631045": "grok-4.7-low"
   },
-  "runs": 16,
+  "runs": 1,
   "seconds": {
     "manifold-9ChtPnQ598": 99.0,
     "manifold-IPth6E2ZRI": 135.4,
@@ -687,7 +724,7 @@
     "polymarket-5211634": 131.0,
     "polymarket-6236213": 180.9,
     "polymarket-6236258": 221.6,
-    "polymarket-629183": 122.5,
+    "polymarket-629183": 31.2,
     "polymarket-629465": 133.6,
     "polymarket-6301274": 141.1,
     "polymarket-6301347": 167.6,
@@ -1443,6 +1480,40 @@
         "text": "",
         "title": "Security Incident Update",
         "url": "https://www.binance.com/en/support/announcement/detail/c5a8729a97ac486d963784d96c5642d7",
+        "verified": null
+      }
+    ],
+    "polymarket-629183": [
+      {
+        "published": "2026-10-14",
+        "quotes": [],
+        "text": "",
+        "title": "New Arizona poll shows Democrats leading in several key races",
+        "url": "https://www.azfamily.com/2026/10/14/new-arizona-poll-shows-democrats-leading-several-key-races/",
+        "verified": null
+      },
+      {
+        "published": "2026-10-19",
+        "quotes": [],
+        "text": "",
+        "title": "2026 governor races \u203a Arizona (MultiState)",
+        "url": "https://www.multistate.us/elections/governor-race/arizona-2026",
+        "verified": null
+      },
+      {
+        "published": "2026-07-10",
+        "quotes": [],
+        "text": "",
+        "title": "Cook Political Report: Arizona governor race",
+        "url": "https://www.cookpolitical.com/governor/race/479456",
+        "verified": null
+      },
+      {
+        "published": "2026-10-27",
+        "quotes": [],
+        "text": "",
+        "title": "US midterms 2026 / Governor: Arizona (PollCheck)",
+        "url": "https://www.pollcheck.co.uk/us-midterms-2026/governor/arizona",
         "verified": null
       }
     ],
