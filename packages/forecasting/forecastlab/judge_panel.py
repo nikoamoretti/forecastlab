@@ -1,4 +1,4 @@
-"""A panel of cheap open-weights models that forecast from Claude's evidence brief.
+"""A panel of models that forecast from the evidence brief.
 
 Claude does the expensive part, the web research, and writes a neutral evidence brief per
 question: dated facts, base rates and sources, with no probability and no lean. Each panel
@@ -6,21 +6,28 @@ member then reads the question, its resolution rule, the brief and excerpts of t
 documents fetched for it (forecastlab.research), and answers with a probability. Members do not see each other, Claude's forecast or any market price, so
 each one is a separate forecaster in the median call.
 
+A member is reached through OpenRouter or, for Claude, through a headless Claude Code run
+on the machine running the panel (``transport``), which bills the owner's Claude account
+instead of OpenRouter credit.
+
 Spending is capped per UTC day (``daily_budget_usd`` in ``configs/judge_panel.json``).
-Before every call the worst-case cost of that call, from OpenRouter's published prices,
-must fit under the cap; afterwards the amount OpenRouter reports is what counts.
+Before every call the worst-case cost of that call, from OpenRouter's published prices or
+the member's own ``usd_per_mtok``, must fit under the cap; afterwards the amount the
+provider reports is what counts.
 """
 
 from __future__ import annotations
 
 import json
 import re
+import subprocess
+import tempfile
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import httpx
 from pydantic import BaseModel, Field
@@ -34,9 +41,13 @@ Post = Callable[[dict[str, Any]], dict[str, Any]]
 
 class Member(BaseModel):
     method: str  # its label and description live in forecastlab_api.track_record.FORECASTERS
-    model: str  # OpenRouter model id
+    model: str  # OpenRouter model id, or the Claude Code model name for claude_cli
     # None sends no temperature: Anthropic models refuse one other than 1 while they think.
     temperature: float | None = 0.0
+    transport: Literal["openrouter", "claude_cli"] = "openrouter"
+    # Prices for the worst-case check when OpenRouter's list does not apply (claude_cli): input, output.
+    usd_per_mtok: tuple[float, float] | None = None
+    parallel: int = Field(default=1, ge=1, le=8)  # questions this member answers at once
 
 
 class PanelConfig(BaseModel):
@@ -190,6 +201,40 @@ def openrouter_post(api_key: str, *, timeout: float = 180.0) -> Post:
                 raise RuntimeError(f"OpenRouter error: {str(data['error'].get('message', ''))[:160]}")
             return data
         raise RuntimeError("unreachable")
+
+    return post
+
+
+def claude_cli_post(binary: str = "claude", *, timeout: float = 300.0) -> Post:
+    """Answer an OpenRouter-shaped request with a headless Claude Code run that has no tools.
+
+    It runs in an empty folder with no settings, MCP servers or session history, so the judge
+    sees only the system prompt and the question. The reply is returned in OpenRouter's shape.
+    """
+
+    def post(body: dict[str, Any]) -> dict[str, Any]:
+        system, user = (next(m["content"] for m in body["messages"] if m["role"] == role) for role in ("system", "user"))
+        with tempfile.TemporaryDirectory() as folder:
+            done = subprocess.run([binary, "-p", "--model", body["model"], "--effort", "low", "--output-format", "json",
+                                   "--tools", "", "--setting-sources", "", "--strict-mcp-config",
+                                   "--no-session-persistence", "--system-prompt", system],
+                                  input=user, cwd=folder, capture_output=True, text=True, timeout=timeout)
+        try:
+            envelope = json.loads(done.stdout)
+        except ValueError:
+            raise RuntimeError(f"claude exited {done.returncode}: {(done.stderr or done.stdout).strip()[-200:]}") from None
+        if done.returncode != 0 or envelope.get("is_error"):
+            raise RuntimeError(f"claude exited {done.returncode}: {str(envelope.get('result') or done.stderr)[-200:]}")
+        # The run's usage lists every model it touched; the judge is the one asked for.
+        used = envelope.get("modelUsage") or {}
+        served = next((name for name in used if name.replace(".", "-") == body["model"].replace(".", "-")), None)
+        usage = envelope.get("usage") or {}
+        return {"model": served or body["model"],
+                "usage": {"cost": envelope.get("total_cost_usd"),
+                          "prompt_tokens": sum(int(usage.get(k) or 0) for k in
+                                               ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")),
+                          "completion_tokens": usage.get("output_tokens")},
+                "choices": [{"message": {"content": str(envelope.get("result") or "")}}]}
 
     return post
 
