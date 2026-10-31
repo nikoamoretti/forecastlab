@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Run the cheap-model judge panel (configs/judge_panel.json) on today's question sets.
+"""Run the judge panel (configs/judge_panel.json) on today's question sets.
 
-  python scripts/judge_panel.py run <artifact_dir> [<artifact_dir> ...]
+  python scripts/judge_panel.py run <artifact_dir> [<artifact_dir> ...]          # OpenRouter members
+  python scripts/judge_panel.py run --local <artifact_dir> [<artifact_dir> ...]  # Claude Code members
   python scripts/judge_panel.py spend                 # today's and this month's spend
 
 Each directory needs ``briefs.json``: ``{"written_at", "briefs": {"<question id>": "<brief>"}}``,
@@ -17,6 +18,9 @@ where the track record reads them. Cohorts with ``frozen_manifest.json`` get one
 ``forecasts.json``. A run stops starting calls once the next call's worst case would push
 today's spend past ``daily_budget_usd``. Members are asked side by side, each going through
 the questions in order, and the log is saved after every call so a cancelled run keeps what it paid for. Without ``OPENROUTER_API_KEY`` it does nothing.
+``--local`` asks the ``claude_cli`` members instead, through the ``claude`` command on this
+machine (the daily routine's Claude Code session), so they need no OpenRouter credit. Either
+run rewrites every member's forecasts from the log, so the two keep each other's answers.
 """
 
 from __future__ import annotations
@@ -25,6 +29,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
@@ -45,6 +50,7 @@ from forecastlab.judge_panel import (  # noqa: E402
     Post,
     Price,
     ask,
+    claude_cli_post,
     fetch_models,
     load_config,
     openrouter_post,
@@ -172,9 +178,12 @@ def researched_by(directory: Path) -> dict[str, str]:
 
 
 def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], now: datetime | None = None,
-        config: PanelConfig | None = None, artifacts: Path = ROOT / "artifacts") -> dict[str, Any]:
+        config: PanelConfig | None = None, artifacts: Path = ROOT / "artifacts",
+        transport: str | None = None) -> dict[str, Any]:
+    """Ask the members reached by ``transport`` (all of them when None)."""
     config = config or load_config(CONFIG)
     check_independent(config)
+    members = [m for m in config.members if transport in (None, m.transport)]
     now = as_utc(now or utcnow())
     budget = Budget(config.daily_budget_usd, spent_on(artifacts, now.date().isoformat()))
     summary: dict[str, Any] = {"asked": 0, "answered": 0, "skipped_budget": 0, "skipped_own_research": 0,
@@ -227,8 +236,10 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
                 print(f"{question.id} {member.method}: "
                       + ("answered" if attempt["ok"] else attempt["error"]), flush=True)
 
-        with ThreadPoolExecutor(max_workers=max(1, len(config.members))) as pool:
-            for future in [pool.submit(ask_all, m, questions, log, log_path, done | tried_today, families) for m in config.members]:
+        # A member with ``parallel`` > 1 works through that many interleaved slices of the questions at once.
+        jobs = [(m, questions[i::m.parallel]) for m in members for i in range(m.parallel)]
+        with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as pool:
+            for future in [pool.submit(ask_all, m, part, log, log_path, done | tried_today, families) for m, part in jobs]:
                 future.result()
         log["attempts"].sort(key=lambda a: (a["at"], a["id"], a["method"]))
         _write(log_path, log)
@@ -240,13 +251,29 @@ def run(directories: list[Path], *, post: Post, price_list: dict[str, Price], no
     return summary
 
 
+def local_prices(config: PanelConfig) -> dict[str, Price]:
+    """Worst-case prices for the claude_cli members, from their own ``usd_per_mtok``."""
+    return {m.model: Price(m.usd_per_mtok[0] / 1e6, m.usd_per_mtok[1] / 1e6)
+            for m in config.members if m.transport == "claude_cli" and m.usd_per_mtok}
+
+
 def main(argv: list[str]) -> int:
-    if argv[:1] == ["run"] and len(argv) > 1:
+    if argv[:2] == ["run", "--local"] and len(argv) > 2:
+        if not shutil.which("claude"):
+            print("the claude command is not installed here: local judges skipped")
+            return 0
+        run([Path(p) for p in argv[2:]], post=claude_cli_post(), price_list=local_prices(load_config(CONFIG)),
+            transport="claude_cli")
+    elif argv[:1] == ["run"] and len(argv) > 1:
+        if not any(m.transport == "openrouter" for m in load_config(CONFIG).members):
+            print("no OpenRouter members in the panel: nothing to ask here")
+            return 0
         key = os.environ.get("OPENROUTER_API_KEY", "").strip()
         if not key:
             print("OPENROUTER_API_KEY is not set: judge panel skipped")
             return 0
-        run([Path(p) for p in argv[1:]], post=openrouter_post(key), price_list=prices(fetch_models()))
+        run([Path(p) for p in argv[1:]], post=openrouter_post(key), price_list=prices(fetch_models()),
+            transport="openrouter")
     elif argv[:1] == ["spend"]:
         today = utcnow().date().isoformat()
         month = spent_on(ROOT / "artifacts", today[:7])

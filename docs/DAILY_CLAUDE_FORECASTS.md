@@ -1,6 +1,6 @@
 # Daily Claude forecasts
 
-A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $2 a day (about $1.30 a day expected with the larger daily set from 2026-10-26; one free and three paid open-weights models plus Claude Sonnet 5.5, [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
+A scheduled Claude Code routine adds forecasts every weekday. The research runs on the owner's Cursor subscription, on his Mac; questions Cursor cannot research (its weekly limit, a timeout) are researched by a separate headless Claude Sonnet run (owner's call, 2026-10-23), never by the forecaster itself. The only metered calls are the judge panel's, capped at $2 a day. Since 2026-10-31 the panel is one judge, Claude Sonnet 5.5, run through the routine's own Claude Code session on the owner's Claude account instead of OpenRouter credit (owner's call; [JUDGE_PANEL.md](JUDGE_PANEL.md)), and data comes from keyless official sources and Polymarket's public API.
 
 ## What one run does
 
@@ -42,7 +42,7 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - The judges also read excerpts of the `research.json` sources, so a brief need not restate them word for word.
    - It contains no probability, no lean and no market odds.
    - Judges never come from a research model's family (`model_family` and `fallback.model_family` in `configs/research.json`); `judge_panel.py` refuses to run if one does.
-   - Then load `OPENROUTER_API_KEY` without printing it and run `python scripts/judge_panel.py run <dir> ...`.
+   - Then run `python scripts/judge_panel.py run --local <dir> ...` in the routine's session, before asking for **finish**, and commit `judge_panel_log.json` with the forecasts it adds. It asks the Claude judge through the `claude` command and needs no key. `python scripts/judge_panel.py run <dir> ...` (in **finish**) asks the OpenRouter members, of which the panel currently has none.
    - Failed or rate-limited members are logged and do not stop the run. See [JUDGE_PANEL.md](JUDGE_PANEL.md).
 8. **Score.** Run `python scripts/score_prospective_artifacts.py`. It rescores every artifact against first releases, records final Polymarket results for market questions, and rebuilds `data/track_record.json`, the data behind the app's Track record page. Commit that file with the artifacts.
 9. **Commit.** Commit to `claude/daily-forecasts-<date>` and open a pull request. The pull request's server timestamp shows the forecasts existed before the releases. The next run merges it once CI is green.
@@ -71,6 +71,6 @@ A cloud session may not reach FRED, Polymarket, Manifold or OpenRouter, may have
 - **download** (step 3) runs `research_download.py` on the listed directories after the Mac job pushes `research.json`: it downloads each cited page, checks the quotes against it and keeps the page text around them.
 - **research** is retired (Tavily search through `research_pack.py`); it is kept only for hand runs.
 - **conflict-score** runs `scripts/conflict_panel.py score --fetch` (UCDP's host is blocked in locked-down containers) and commits `artifacts/conflict_panel_v1/live_score_*.json`. It needs no secrets and logs a clear message, committing nothing, if UCDP has not published the target month yet.
-- **finish** (steps 7 and 8) runs the judge panel on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
+- **finish** (steps 7 and 8) runs the judge panel's OpenRouter members (none since 2026-10-31; the Claude judge runs in the routine's session first, step 7) on the listed directories, scores, and starts CI on the branch, since pushes made by the workflow start no CI.
 
 To run a step, push a commit to the daily branch that adds `daily-run-request.json`, for example `{"step": "finish", "dirs": ["artifacts/prospective_markets_<date>"]}`. The workflow removes the file when it is done. The order is prepare, research (on the Mac), download, then finish. Between steps, `git pull` the branch, read the digests, forecast, run the `record` commands (they need no network), write `briefs.json`, and push. People can also start any step, or `check-key`, from the Actions tab.

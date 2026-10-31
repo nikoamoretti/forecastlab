@@ -3,25 +3,21 @@
 Research is the expensive part of forecasting. Reading many pages costs money when a pay-per-use model does it. The judge panel splits the work:
 
 - **Claude researches.** This runs in the owner's Claude Code session, so it costs nothing per question. It first fetches the source documents for each question (`scripts/research_pack.py`, Tavily search with full page text, prediction-market sites and odds removed), then writes a neutral *evidence brief* from them: dated facts, base rates and source URLs.
-- **Cheap open-weights models judge.** Each one reads the question, its resolution rule, the brief and excerpts of the fetched sources (up to about 12,000 characters, `judge_prompt_v2`), and states a probability.
+- **Other models judge.** Each one reads the question, its resolution rule, the brief and excerpts of the fetched sources (up to about 12,000 characters, `judge_prompt_v2`), and states a probability. Since 2026-10-31 the panel is Claude Sonnet 5.5 alone (below).
 
 Each panel member is a forecaster of its own. Its probability goes into the median that makes our call, next to Claude and the statistical baseline. Its own row on the Track record page shows whether it adds anything.
 
 ## Members
 
-`configs/judge_panel.json` lists the members (`judge_panel_v5` since 2026-10-24). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
+`configs/judge_panel.json` lists the members (`judge_panel_v6` since 2026-10-31). Each member's label is in `forecastlab_api.track_record.FORECASTERS`.
 
-| Method | OpenRouter model | Cost (USD per million tokens, in / out, 2026-10-07) |
+| Method | Model | Reached through |
 | --- | --- | --- |
-| `judge_nemotron_ultra_v1` | `nvidia/nemotron-3-ultra-550b-a55b:free` | free |
-| `judge_deepseek_v4_pro_v1` | `deepseek/deepseek-v4-pro` | 0.21 / 0.42 |
-| `judge_qwen38_27b_v1` | `qwen/qwen3.8-27b` | 0.43 / 2.55 |
-| `judge_minimax_m3_v1` | `minimax/minimax-m3` | 0.30 / 1.20 |
-| `judge_claude_sonnet55_v1` | `anthropic/claude-sonnet-5.5` | 2 / 10 (2026-10-24) |
+| `judge_claude_sonnet55_v1` | `claude-sonnet-5-5` | the `claude` command in the routine's Claude Code session (`"transport": "claude_cli"`) |
 
-The first four are open weights from four labs. Claude Sonnet 5.5 (Anthropic) is a closed frontier model, added at the owner's request. It costs about three cents per question, so the paid members together cost about five cents per question (about $0.65 on a 14-question day), and the $1 daily cap still bounds the worst case. `reasoning_max_tokens` (3000) caps each member's thinking inside `max_tokens` (6000): before it, reasoning models often used the whole budget thinking and sent back no answer. Members answer at temperature 0, except Claude (`"temperature": null`), because Anthropic models accept no temperature but 1 while they think.
+The Claude judge runs as a headless Claude Code call with no tools, no settings, no MCP servers and no session history, in an empty folder (`forecastlab.judge_panel.claude_cli_post`), so it sees only the system prompt and the question. It bills the owner's Claude account, not OpenRouter. A smoke test on 2026-10-31 took 8 seconds and reported $0.06 for one question; later calls in a run reuse the cached system prompt and cost less. `usd_per_mtok` (2 / 10) bounds each call's worst case for the daily cap, and the cost Claude Code reports is what is charged. `parallel` (4) is how many questions it answers at once. It keeps the method of the OpenRouter-run Claude Sonnet 5.5 judge it replaces, so its record carries on: same model, same prompt, same brief and excerpts. `reasoning_max_tokens` (3000) caps each member's thinking inside `max_tokens` (6000): before it, reasoning models often used the whole budget thinking and sent back no answer. OpenRouter members answer at temperature 0, except Claude (`"temperature": null`), because Anthropic models accept no temperature but 1 while they think.
 
-**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. `judge_nemotron_super_v1` (`nvidia/nemotron-3-super-120b-a12b:free`) was removed on 2026-10-21 because OpenRouter returned HTTP 404 for it on every run since at least 2026-10-19; its earlier forecasts stay on the record under its own method. `judge_panel_v3` (2026-10-23) dropped `judge_kimi_k26_v1` (`moonshotai/kimi-k2.6`): 25 of its 87 calls ran out of tokens before answering, 40% of its spend bought nothing, and it was the panel's most expensive member per answer. Its earlier forecasts stay on the record. `judge_panel_v4` (2026-10-24) added `judge_gemini38_flash_v1` (`google/gemini-3.8-flash`); `judge_panel_v5` replaced it the same day, before it answered any question, with `judge_claude_sonnet55_v1` at the owner's request. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
+**History.** `judge_panel_v1` (2026-10-07, while the OpenRouter account had no credit) ran the two Nemotron models and `judge_gemma_v1` (`google/gemma-4-31b-it:free`), which was rate-limited on most calls. v2 dropped Gemma once credit was added the same day. Gemma's recorded forecasts stay on the record under its own method. `judge_nemotron_super_v1` (`nvidia/nemotron-3-super-120b-a12b:free`) was removed on 2026-10-21 because OpenRouter returned HTTP 404 for it on every run since at least 2026-10-19; its earlier forecasts stay on the record under its own method. `judge_panel_v3` (2026-10-23) dropped `judge_kimi_k26_v1` (`moonshotai/kimi-k2.6`): 25 of its 87 calls ran out of tokens before answering, 40% of its spend bought nothing, and it was the panel's most expensive member per answer. Its earlier forecasts stay on the record. `judge_panel_v4` (2026-10-24) added `judge_gemini38_flash_v1` (`google/gemini-3.8-flash`); `judge_panel_v5` replaced it the same day, before it answered any question, with `judge_claude_sonnet55_v1` at the owner's request. `judge_panel_v6` (2026-10-31) dropped the four OpenRouter members (Nemotron Ultra, DeepSeek V4 Pro, Qwen 3.8 27B, MiniMax M3) and moved the Claude judge off OpenRouter. The OpenRouter credit ran out on 2026-10-31 (HTTP 402 on most calls), the free Nemotron Ultra had failed every call since 2026-10-26, and the owner asked to use Claude as the judge with Cursor doing the research. Their earlier forecasts stay on the record under their own methods. The tests use the frozen v1 panel in `fixtures/judge_panel_v1.json`.
 
 ## Rules
 
@@ -53,6 +49,8 @@ The first four are open weights from four labs. Claude Sonnet 5.5 (Anthropic) is
 
 Both are rebuilt from the log on every run, so a rerun never duplicates a forecast.
 
-## Key
+## Running it
 
-The run reads `OPENROUTER_API_KEY` from the environment. Without it the run prints a note and does nothing. The key is never logged or committed.
+- `python scripts/judge_panel.py run --local <dir> ...` asks the `claude_cli` members through the `claude` command on this machine. The daily routine runs it in its own session before asking Actions for **finish**. It needs no key; without the `claude` command it prints a note and does nothing.
+- `python scripts/judge_panel.py run <dir> ...` asks the OpenRouter members, in the **finish** step. It reads `OPENROUTER_API_KEY` from the environment; without it, or with no OpenRouter members in the panel, it prints a note and does nothing. The key is never logged or committed.
+- Either run rebuilds every member's forecasts from the log, so the two never undo each other.

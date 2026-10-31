@@ -9,7 +9,16 @@ from pathlib import Path
 import pytest
 
 from forecastlab import research
-from forecastlab.judge_panel import Budget, Member, PanelQuestion, Price, ask, load_config, parse_answer
+from forecastlab.judge_panel import (
+    Budget,
+    Member,
+    PanelQuestion,
+    Price,
+    ask,
+    claude_cli_post,
+    load_config,
+    parse_answer,
+)
 from forecastlab_api.track_record import FORECASTERS, build_track_record
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,7 +76,8 @@ def test_a_reasoning_budget_is_sent_only_when_set() -> None:
     ask(Member(method="judge_claude", model="anthropic/claude-sonnet-5.5", temperature=None), question, now=NOW,
         post=fake_post(calls), max_tokens=6000, price=Price(0, 0), reasoning_max_tokens=3000)
     assert "temperature" not in calls[0]  # Anthropic refuses temperature 0 while thinking
-    assert LIVE.members[0].temperature == 0.0  # every other judge keeps answering at temperature 0
+    # every OpenRouter judge answers at temperature 0; the Claude judge sends none
+    assert all((m.temperature is None) == ("claude" in m.model) for m in LIVE.members)
 
 
 @pytest.mark.parametrize("text", ['{"probability": 0.3, "reasoning": "x"}', 'Sure.\n{"probability": 0.3, "reasoning": "x"} done'])
@@ -114,6 +124,45 @@ def test_panel_answers_once_records_cost_and_joins_the_median(tmp_path: Path) ->
     assert question["verdict"] == "right"
     assert question["note"] == "Disclosed early."
     assert next(f for f in record["forecasters"] if f["method"] == "judge_nemotron_super_v1")["label"] == "Nemotron Super (judge)"
+
+
+def test_local_and_openrouter_runs_ask_only_their_own_members_and_keep_each_others_answers(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    directory = _general(artifacts / "prospective_requests_20261007")
+    local = CONFIG.members[0].model_copy(update={"transport": "claude_cli", "parallel": 2})
+    config = CONFIG.model_copy(update={"members": [local, *CONFIG.members[1:]]})
+    calls: list[dict] = []
+    script.run([directory], post=fake_post(calls), price_list=CHEAP, now=NOW, config=config, artifacts=artifacts,
+               transport="claude_cli")
+    assert [c["model"] for c in calls] == [local.model]
+    script.run([directory], post=fake_post(calls), price_list=CHEAP, now=NOW, config=config, artifacts=artifacts,
+               transport="openrouter")
+    assert sorted(c["model"] for c in calls[1:]) == sorted(m.model for m in CONFIG.members[1:])
+    methods = [f["method"] for f in json.loads((directory / "forecasts.json").read_text())["questions"][0]["forecasts"]]
+    assert methods == ["claude_code_forecaster_v1", *ANSWERS]
+
+
+def test_the_claude_cli_judge_runs_without_tools_and_reports_cost(tmp_path: Path) -> None:
+    fake = tmp_path / "claude"
+    fake.write_text("""#!/usr/bin/env python3
+import json, os, sys
+args = sys.argv[1:]
+assert args[args.index("--tools") + 1] == "" and "--strict-mcp-config" in args and not os.listdir(".")
+assert "careful" in args[args.index("--system-prompt") + 1] and "Question: Q?" in sys.stdin.read()
+print(json.dumps({"is_error": False, "result": '{"probability": 0.35, "reasoning": "Base rate."}',
+                  "total_cost_usd": 0.012, "usage": {"input_tokens": 5, "cache_read_input_tokens": 900, "output_tokens": 40},
+                  "modelUsage": {"claude-haiku-5-5": {}, "claude-sonnet-5-5": {}}}))
+""")
+    fake.chmod(0o755)
+    question = PanelQuestion(id="q", question="Q?", criteria="Yes if so.", resolves_on="2026-10-20", cutoff=NOW, brief="Facts.")
+    member = Member(method="judge_claude", model="claude-sonnet-5-5", temperature=None, transport="claude_cli")
+    attempt = ask(member, question, now=NOW, post=claude_cli_post(str(fake)), max_tokens=6000, price=Price(0, 0))
+    assert attempt["ok"] and attempt["probability"] == 0.35 and attempt["cost_usd"] == 0.012
+    assert (attempt["served_model"], attempt["prompt_tokens"], attempt["completion_tokens"]) == ("claude-sonnet-5-5", 905, 40)
+
+    fake.write_text('#!/bin/sh\necho \'{"is_error": true, "result": "usage limit reached"}\'\nexit 1\n')
+    failed = ask(member, question, now=NOW, post=claude_cli_post(str(fake)), max_tokens=6000, price=Price(0, 0))
+    assert not failed["ok"] and "usage limit reached" in failed["error"] and failed["cost_usd"] == 0.0
 
 
 def test_daily_cap_stops_new_calls(tmp_path: Path) -> None:
