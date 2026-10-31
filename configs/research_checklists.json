@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "updated": "2026-10-31",
+  "topics": {
+    "Interest rates": [
+      "For a yield or rate threshold, find the exact series the question resolves on (the Treasury's daily par yield curve or FRED DGS10) and list its last 10 daily values with dates from the official page; do not take the level from a news headline or a market-data summary.",
+      "From that official series, give the standard deviation of daily changes over the last 20 trading days, the number of trading days left until resolution, the gap between the threshold and the latest value in basis points, and in how many of the last 12 months' windows of the same length the yield ended higher than it began.",
+      "List every scheduled release or event before resolution that moves rates (CPI, payrolls, central-bank meeting or minutes, Treasury auctions) with its date and the consensus forecast taken from a page you opened.",
+      "For a central-bank decision, find the bank's own calendar date, its last decision with the vote split, and the most recent economists' survey (Reuters, Bloomberg or the bank's own expectations survey) from a page you opened, with its date, and say how often the bank matched the survey at its last 6 meetings."
+    ],
+    "Economy": [
+      "For a central-bank decision, find the bank's own calendar date, its last decision with the vote split, and the most recent economists' survey (Reuters, Bloomberg or the bank's own expectations survey) from a page you opened, with its date; a survey seen only in a search summary does not count, so say so if that is all you found.",
+      "For a statistics-office release (GDP, trade, production), find the office's release calendar date, its advance estimate or nowcast for the period, and how each of the last 6 first official figures differed from the advance estimate (direction and size).",
+      "For quarterly or annual growth, work out the base effect (growth in the same period a year earlier) and calendar effects such as holidays and working days from official data, and find the central bank's or government's own forecast for the period.",
+      "For a range or bucket question, state how the statistics office rounds and words its headline (for example, 'essentially unchanged' counts as 0.0) and how many of the last 8 first releases landed in a band of the same width around the latest advance estimate or consensus."
+    ],
+    "Politics": [
+      "List the latest polls from at least three pollsters, independent and government-aligned ones included, with fieldwork dates and sample sizes, and the polling error in the country's last two elections measured against the electoral board's official results.",
+      "For a runoff or a most-seats question, take the first-round or previous-election result by candidate or party from the electoral board's own page, and look for endorsements, vote-transfer evidence and turnout trends that bear on how the vote moves."
+    ],
+    "Crypto": [
+      "For a question about touching a price, find the exact price source and timestamp convention in the rules (exchange, pair, 1-minute candle high or low, time zone) and the window's start and end, and report the lowest and highest price that source already printed inside the window.",
+      "Give the current price's distance from the threshold in percent and in multiples of the 30-day realised daily range, the hours left in the window, and any scheduled event inside it (ETF flow data, central-bank decision, token unlock, court date)."
+    ],
+    "Jobs": [
+      "Find the first-published (advance) values for the last 8 weekly releases from the Labor Department's own release, not later revisions, and count how many were strictly above the question's threshold; the question resolves on the first print for its week.",
+      "Say whether the threshold equals the latest first print, remembering that 'above' is strict, and give the typical week-to-week change in first prints and the consensus for the target week from a page you opened."
+    ]
+  }
+}
