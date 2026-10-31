@@ -1,5 +1,6 @@
 {
  "bdddde8088e754fd": {
+  "against": null,
   "base_rate": "Reference class: the first published (advance) seasonally adjusted state initial claims in the 10 DOL weekly releases from 2026-08-27 through 2026-10-29, covering weeks ending 2026-08-22 through 2026-10-24.\nThose advance prints were 203,000, 206,000, 206,000, 196,000, 197,000, 197,000, 197,000, 199,000, 194,000, and 194,000.\nEight of the 10 were strictly above 194,000; the last two were exactly 194,000.\nA wider revised FRED series is a weaker match for this resolution rule: of 42 revised weekly observations from the week ending 2026-01-10 through 2026-10-24, 39 were above 194,000 (the exceptio",
   "brief": null,
   "brief_written_at": null,
@@ -43,6 +44,7 @@
    }
   ],
   "judges": [],
+  "passes_done": null,
   "quotes_checked_at": "2026-10-30T10:03:30.492156+00:00",
   "research_cost_usd": null,
   "research_failed": null,
