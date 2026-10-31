@@ -118,6 +118,7 @@ export default function TrackRecordPage() {
   const dueThisWeek = open.filter(q => (new Date(q.resolves_on).getTime() - new Date(today).getTime()) / DAY <= 7).length;
   const calls = s.right + s.wrong;
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
+  const vs = s.vs_market && s.vs_market.questions > 0 && s.vs_market.ours != null && s.vs_market.market != null ? s.vs_market : null;
   const weeks = byWeek(resolved);
   const goal = nextMilestone(s.resolved);
   const due = dueThisWeek > 0 ? ` ${dueThisWeek} more ${dueThisWeek === 1 ? "is" : "are"} due this week.` : "";
@@ -126,9 +127,12 @@ export default function TrackRecordPage() {
     <header className="flex flex-wrap items-end justify-between gap-6">
       <div>
         <p className="font-mono text-xs uppercase tracking-widest text-copper">Track record</p>
-        <h2 className="mt-3 font-serif text-5xl">{calls ? `${s.right} of ${calls} calls right` : "No results yet"}</h2>
+        <h2 className="mt-3 font-serif text-5xl">{s.brier != null ? <>Score {s.brier.toFixed(2)}{" "}
+          <span className="block text-2xl text-ink/70 sm:inline">on all {s.resolved} decided questions</span></> : "No results yet"}</h2>
         {accuracy && <p className="mt-3 text-lg">{accuracy} so far
-          <span className="block text-sm text-ink/60 sm:inline"> · accuracy score {s.brier!.toFixed(2)}; always saying 50% scores 0.25, lower is better</span></p>}
+          <span className="block text-sm text-ink/60 sm:inline"> · lower is better; always saying 50% scores 0.25</span></p>}
+        {vs && <p className="mt-2 text-lg">On the {vs.questions} questions the market also priced: us {vs.ours!.toFixed(2)}, market {vs.market!.toFixed(2)}.</p>}
+        {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} toss-up isn’t counted as right or wrong`}</p>}
       </div>
       <Link href="/ask" className="bg-ink px-6 py-3 text-paper hover:bg-ink/85">Ask a question</Link>
     </header>
@@ -180,12 +184,12 @@ export default function TrackRecordPage() {
 
     <section>
       <h3 className="font-serif text-3xl">Who forecasts best</h3>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Every question goes to several forecasters. Our call is the combined forecast: the middle of their probabilities. Since Oct 24, forecasters with better records count for more, using only results known when the call was made. The prediction market is only a benchmark to beat; it is never part of our call. Each forecaster’s own record shows whether the combination beats it.</p>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Every question goes to several forecasters. Our call is the combined forecast: the middle of their probabilities. Since Oct 24, forecasters with better records count for more, using only results known when the call was made. The prediction market is only a benchmark to beat; it is never part of our call. Each forecaster’s own record shows whether the combination beats it. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
       <ul className="mt-4 divide-y divide-rule border-y border-rule">{data.forecasters.map(f => <li key={f.method}
         className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <span><span className="font-medium">{f.label}</span><span className="block text-sm text-ink/60">{f.about}</span></span>
         <span className="sm:text-right">{f.resolved ? <><strong className="tabular-nums">{f.right} of {f.right + f.wrong} right</strong>
-          <span className="block text-sm text-ink/60">{versusGuessing(f.brier, f.coin_flip_brier)} ({f.brier!.toFixed(2)}) · {f.forecasts} forecasts</span></>
+          <span className="block text-sm text-ink/60">{versusGuessing(f.brier, f.coin_flip_brier)}: score {f.brier!.toFixed(2)} on {f.resolved} decided questions · {f.forecasts} forecasts</span></>
           : <span className="text-sm text-ink/60">No results yet · {f.forecasts} forecasts</span>}</span>
       </li>)}</ul>
     </section>

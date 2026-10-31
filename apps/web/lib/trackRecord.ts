@@ -1,7 +1,9 @@
 import { call } from "@/lib/verdict";
 
 export type Source = string | { url: string; published?: string };
-export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number; weights?: Record<string, number> };
+export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number; weights?: Record<string, number>;
+  // Claude's confidence-corrected forecast carries the raw probability it corrects and the fit it came from.
+  raw?: number; slope?: number; intercept?: number; results?: number; as_of?: string };
 export type Question = {
   id: string; title: string; detail: string; topic: string; resolves_on: string;
   status: "pending" | "resolved" | "cancelled"; outcome: 0 | 1 | null; actual: string | null;
@@ -11,7 +13,11 @@ export type Question = {
 };
 export type Tally = { resolved: number; right: number; wrong: number; toss_ups: number; brier: number | null; coin_flip_brier: number };
 export type Forecaster = Tally & { method: string; label: string; about: string; forecasts: number };
-export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number };
+// The headline score is summary.brier over summary.resolved questions; vs_market compares our call with the market
+// on the questions the market also priced.
+export type VersusMarket = { questions: number; ours: number | null; market: number | null };
+export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket };
+  calibration?: { slope: number; intercept: number; results: number; as_of: string } | null;
   forecasters: Forecaster[]; questions: Question[] };
 
 // Questions on one indicator (other thresholds or days) shown together, in first-seen order.
@@ -80,6 +86,8 @@ export function versusGuessing(brier: number | null, coinFlip: number) {
   const skill = 1 - brier / coinFlip;
   return skill > 0.1 ? "Better than guessing" : skill < -0.1 ? "Worse than guessing" : "About the same as guessing";
 }
+
+export const percent = (p: number) => `${Math.round(p * 100)}%`;
 
 export const sourceUrl = (source: Source) => (typeof source === "string" ? source : source.url);
 

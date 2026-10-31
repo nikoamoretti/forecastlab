@@ -1,4 +1,10 @@
 {
+  "calibration": {
+    "as_of": "2026-10-31",
+    "intercept": 0.221392,
+    "results": 52,
+    "slope": 1.168857
+  },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
@@ -14852,6 +14858,11 @@
     "toss_ups": 1,
     "total": 230,
     "unscored": 3,
+    "vs_market": {
+      "market": 0.1517729764864865,
+      "ours": 0.1683135135135135,
+      "questions": 37
+    },
     "wrong": 20
   },
   "version": "track_record_v2"
