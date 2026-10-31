@@ -150,3 +150,145 @@ def test_weighted_call_without_any_record_is_the_plain_median_of_the_middle_memb
     call = build_track_record(tmp_path)["questions"][0]["call"]
     assert (call["method"], call["probability"]) == ("combined_weighted_v1", 0.5)
     assert not (tmp_path / "prospective_markets_20261025" / "calls.json").exists()  # only saved with freeze
+
+
+# ---- Claude's confidence correction (claude_calibrated_v1) and the headline score ----
+
+CLAUDE = "claude_code_forecaster_v1"
+
+
+def _history(root: Path, count: int, *, late_date: str | None = None) -> None:
+    """``count`` decided Claude forecasts from before the correction starts: 70% said, 40% came true."""
+    _markets(root / "prospective_markets_20261001", [
+        {"id": f"h{n}", "date": "2026-10-05", "outcome": 1 if n % 10 < 4 else 0,
+         "forecasts": [{"method": CLAUDE, "probability": 0.7}]} for n in range(count)])
+    if late_date:
+        _markets(root / "prospective_markets_20261002", [
+            {"id": "late", "date": late_date, "outcome": 0, "forecasts": [{"method": CLAUDE, "probability": 0.7}]}])
+
+
+def _today_question(root: Path, probability: float = 0.7, day: str = "20261031") -> None:
+    _markets(root / f"prospective_markets_{day}", [
+        {"id": f"new{day}", "date": "2026-11-05", "forecasts": [
+            {"method": CLAUDE, "probability": probability}, {"method": "statistical_baseline_v1", "probability": 0.5},
+            {"method": "market_price_v1", "probability": 0.2}]}])
+
+
+def _forecast(record: dict, question_id: str, method: str) -> dict | None:
+    question = next(q for q in record["questions"] if q["id"] == question_id)
+    return next((f for f in question["forecasts"] if f["method"] == method), None)
+
+
+def test_fit_starts_at_the_identity_and_follows_the_data() -> None:
+    from forecastlab_api.track_record import fit_confidence_correction
+
+    slope, intercept = fit_confidence_correction([])
+    assert (round(slope, 6), round(intercept, 6)) == (1.0, 0.0)
+    # Said 90% and 10% but each came true only 60% / 40% of the time: overconfident, so slope < 1.
+    rows = [(0.9, 1)] * 60 + [(0.9, 0)] * 40 + [(0.1, 1)] * 40 + [(0.1, 0)] * 60
+    over_slope, over_intercept = fit_confidence_correction(rows * 3)
+    assert over_slope < 0.6 and abs(over_intercept) < 0.05
+    # Always right when stated: stays near the identity.
+    honest = [(0.8, 1)] * 80 + [(0.8, 0)] * 20 + [(0.2, 1)] * 20 + [(0.2, 0)] * 80
+    honest_slope, honest_intercept = fit_confidence_correction(honest)
+    assert abs(honest_slope - 1) < 0.1 and abs(honest_intercept) < 0.05
+
+
+def test_the_prior_pulls_a_short_record_toward_the_identity() -> None:
+    from forecastlab_api.track_record import fit_confidence_correction
+
+    pattern = [(0.9, 1)] * 6 + [(0.9, 0)] * 4 + [(0.1, 1)] * 4 + [(0.1, 0)] * 6
+    short, _ = fit_confidence_correction(pattern)
+    long, _ = fit_confidence_correction(pattern * 10)
+    assert 0.1 < long < short < 1  # the same pattern moves the fit further the more results there are
+    # 20 pseudo-observations: a pure-prior fit with a few results never leaves the neighbourhood of (1, 0).
+    slope, intercept = fit_confidence_correction([(0.7, 0)] * 3)
+    assert 0.7 < slope < 1.1 and -1.0 < intercept < 0
+
+
+def test_corrected_forecast_waits_for_thirty_results(tmp_path: Path) -> None:
+    _history(tmp_path, 29)
+    _today_question(tmp_path)
+    record = build_track_record(tmp_path, today=date(2026, 10, 31), freeze=True)
+    assert _forecast(record, "new20261031", "claude_calibrated_v1") is None
+    assert record["calibration"] is None
+    assert not (tmp_path / "prospective_markets_20261031" / "calibrated.json").exists()
+
+    enough = tmp_path / "enough"
+    enough.mkdir()
+    _history(enough, 30)
+    assert build_track_record(enough, today=date(2026, 10, 31))["calibration"]["results"] == 30
+
+
+def test_corrected_forecast_is_frozen_with_its_fit_and_uses_only_results_known_before_the_day(tmp_path: Path) -> None:
+    _history(tmp_path, 40, late_date="2026-10-31")  # decided on the forecast day itself: not known beforehand
+    _today_question(tmp_path)
+    record = build_track_record(tmp_path, today=date(2026, 10, 31), freeze=True)
+    corrected = _forecast(record, "new20261031", "claude_calibrated_v1")
+    assert corrected is not None
+    assert corrected["results"] == 40 and corrected["raw"] == 0.7 and corrected["as_of"] == "2026-10-31"
+    # Said 70% but only 40% came true: the correction moves it down.
+    assert 0.02 <= corrected["probability"] < 0.7
+    frozen = json.loads((tmp_path / "prospective_markets_20261031" / "calibrated.json").read_text())
+    assert frozen == {"new20261031": {k: v for k, v in corrected.items() if k != "method"}}
+    assert {"slope", "intercept", "results"} <= set(frozen["new20261031"])
+
+    # Results that arrive later never rewrite it.
+    path = tmp_path / "prospective_markets_20261031" / "calibrated.json"
+    path.write_text(json.dumps({"new20261031": frozen["new20261031"] | {"probability": 0.5}}))
+    later = build_track_record(tmp_path, today=date(2026, 11, 3), freeze=True)
+    assert _forecast(later, "new20261031", "claude_calibrated_v1")["probability"] == 0.5
+
+
+def test_the_correction_ignores_a_result_decided_after_the_forecast_day(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _today_question(tmp_path)
+    flipped = tmp_path / "prospective_markets_20261002"
+    _markets(flipped, [{"id": "after", "date": "2026-11-02", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.05}]}])
+    with_after = _forecast(build_track_record(tmp_path), "new20261031", "claude_calibrated_v1")
+    (flipped / "forecasts.json").unlink()
+    flipped.rmdir()
+    without = _forecast(build_track_record(tmp_path), "new20261031", "claude_calibrated_v1")
+    assert with_after == without
+
+
+def test_questions_forecast_before_the_start_day_get_no_corrected_value(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _today_question(tmp_path, day="20261030")
+    record = build_track_record(tmp_path, today=date(2026, 10, 31), freeze=True)
+    assert _forecast(record, "new20261030", "claude_calibrated_v1") is None
+    assert not (tmp_path / "prospective_markets_20261030" / "calibrated.json").exists()
+
+
+def test_the_corrected_forecast_is_scored_but_never_part_of_our_call(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _today_question(tmp_path)
+    # Our call on the open question: members are Claude and the baseline only (median of 0.7, 0.5).
+    record = build_track_record(tmp_path, today=date(2026, 10, 31))
+    question = next(q for q in record["questions"] if q["id"] == "new20261031")
+    assert question["call"]["members"] == 2
+    assert question["call"]["probability"] == 0.5 and set(question["call"]["weights"]) == {CLAUDE, "statistical_baseline_v1"}
+    corrected = _forecast(record, "new20261031", "claude_calibrated_v1")
+    assert corrected is not None and corrected["probability"] != question["call"]["probability"]
+    # It has its own row on the record, with its label.
+    row = next(f for f in record["forecasters"] if f["method"] == "claude_calibrated_v1")
+    assert row["label"] == "Claude, confidence-corrected" and row["forecasts"] == 1
+    # And it carries no weight in the weights used for later calls.
+    from forecastlab_api.track_record import _weights
+    assert "claude_calibrated_v1" not in _weights([{**q, "outcome": 1} for q in record["questions"]])
+
+
+def test_headline_score_and_the_fair_market_comparison(tmp_path: Path) -> None:
+    _markets(tmp_path / "prospective_markets_20261001", [
+        {"id": "a", "date": "2026-10-05", "outcome": 1, "forecasts": [
+            {"method": CLAUDE, "probability": 0.8}, {"method": "market_price_v1", "probability": 0.6}]},
+        {"id": "b", "date": "2026-10-05", "outcome": 0, "forecasts": [
+            {"method": CLAUDE, "probability": 0.4}, {"method": "manifold_price_v1", "probability": 0.1}]},
+        {"id": "c", "date": "2026-10-05", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.5}]}])  # no market
+    summary = build_track_record(tmp_path, today=date(2026, 10, 31))["summary"]
+    assert summary["resolved"] == 3
+    assert summary["brier"] == pytest.approx((0.04 + 0.16 + 0.25) / 3)
+    versus = summary["vs_market"]
+    assert versus["questions"] == 2
+    assert versus["ours"] == pytest.approx((0.04 + 0.16) / 2)
+    assert versus["market"] == pytest.approx((0.16 + 0.01) / 2)

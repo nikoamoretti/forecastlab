@@ -20,6 +20,16 @@ the combination beats its members.
 Macro questions carry ``series`` (the indicator) and ``series_label`` so the page can show
 threshold and date siblings of one indicator as a single expandable row.
 
+Claude's own probability also gets a confidence correction (``claude_calibrated_v1``, from
+CALIBRATED_FROM): a logistic fit of outcome on logit(p) over Claude's resolved, scored forecasts
+on questions that were decided before the forecast day, with a prior pulling (slope, intercept)
+toward (1, 0). It is computed once, when the question is first built, and frozen as
+``calibrated.json`` next to ``calls.json``. It is scored like a benchmark and never enters our call.
+
+The headline score is the Brier score of our call over every decided, scored question
+(``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
+questions it also priced, using the same call.
+
 A question marked ``unscored`` (for example, a forecast that may have seen the market's
 odds) stays on the page with its integrity note but counts in no score: not the headline
 tally and not any forecaster's row. The mark is set before the outcome is known.
@@ -28,6 +38,7 @@ tally and not any forecaster's row. The mark is set before the outcome is known.
 from __future__ import annotations
 
 import json
+import math
 import re
 from datetime import date, datetime
 from itertools import accumulate
@@ -45,6 +56,16 @@ COMBINED = "combined_median_v1"
 WEIGHTED = "combined_weighted_v1"
 WEIGHTED_FROM = date(2026, 10, 24)
 CALLS_FILE = "calls.json"
+CALIBRATED = "claude_calibrated_v1"
+CALIBRATED_FROM = date(2026, 10, 31)
+CALIBRATED_FILE = "calibrated.json"
+CLAUDE = "claude_code_forecaster_v1"
+# No corrected forecast until this many decided Claude forecasts were known before the forecast day.
+CALIBRATION_MIN_RESULTS = 30
+# The fit is pulled toward "Claude is right as stated" (slope 1, intercept 0) as if by this many
+# extra observations that all agree with Claude's stated probabilities.
+CALIBRATION_PRIOR_RESULTS = 20
+CALIBRATION_BOUNDS = (0.02, 0.98)
 # A forecaster's Brier score is pulled toward a coin flip's as if it had this many extra
 # coin-flip-quality results, so a short lucky or unlucky streak moves its weight only a little.
 PRIOR_RESULTS = 10
@@ -76,6 +97,10 @@ FORECASTERS: dict[str, dict[str, str]] = {
     "three_track_forecaster": {"label": "Three-track AI (early)", "about": "Earlier version of the three-track AI."},
     "statistical_baseline_v1": {
         "label": "Statistical baseline", "about": "A fixed rule based on past data, with no AI. The bar to beat."},
+    CALIBRATED: {
+        "label": "Claude, confidence-corrected",
+        "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. "
+                 "Shown for comparison; not part of our call."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
         "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
@@ -87,7 +112,9 @@ SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job
                  "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
                  "treasury_10y": "10-year U.S. Treasury yield"}
 # Benchmarks are scored like forecasters but never enter our call.
-BENCHMARKS = {"market_price_v1", "manifold_price_v1"}
+BENCHMARKS = ("market_price_v1", "manifold_price_v1")
+# Scored like forecasters but never part of our call or of any forecaster's weight.
+EXCLUDED = {*BENCHMARKS, CALIBRATED}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
@@ -102,7 +129,7 @@ COMBINED_INFO = {"label": "Combined forecast",
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
     """Our call: the median probability across the forecasters that answered (benchmarks excluded)."""
-    members = [f["probability"] for f in forecasts if f["method"] not in BENCHMARKS]
+    members = [f["probability"] for f in forecasts if f["method"] not in EXCLUDED]
     if not members:
         return None
     return {"method": COMBINED, "probability": median(members), "members": len(members)}
@@ -117,6 +144,8 @@ def _weights(resolved: list[dict[str, Any]]) -> dict[str, float]:
     totals: dict[str, list[float]] = {}
     for question in resolved:
         for forecast in question["forecasts"]:
+            if forecast["method"] in EXCLUDED:
+                continue
             total = totals.setdefault(forecast["method"], [0, 0.0])
             total[0] += 1
             total[1] += _brier(forecast["probability"], question["outcome"])
@@ -128,13 +157,83 @@ def _weighted_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -
     """The weighted median: the probability where half the members' total weight lies on each side."""
     default = 1 / COIN_FLIP_BRIER ** 2
     members = sorted((f["probability"], round(weights.get(f["method"], default), 2), f["method"])
-                     for f in forecasts if f["method"] not in BENCHMARKS)
+                     for f in forecasts if f["method"] not in EXCLUDED)
     if not members:
         return None
     half = sum(w for _, w, _ in members) / 2
     probability = next(p for (p, _, _), total in zip(members, accumulate(w for _, w, _ in members), strict=True) if total >= half)
     return {"method": WEIGHTED, "probability": probability, "members": len(members),
             "weights": {method: weight for _, weight, method in members}}
+
+
+def _logit(p: float) -> float:
+    p = min(max(p, CALIBRATION_BOUNDS[0]), CALIBRATION_BOUNDS[1])
+    return math.log(p / (1 - p))
+
+
+def _sigmoid(z: float) -> float:
+    return 1 / (1 + math.exp(-z))
+
+
+def fit_confidence_correction(rows: list[tuple[float, int]]) -> tuple[float, float]:
+    """(slope, intercept) of the logistic regression of outcome on logit(probability).
+
+    The fit is pulled toward (1, 0), "the stated probabilities are right", by CALIBRATION_PRIOR_RESULTS
+    pseudo-observations spread evenly from 5% to 95% whose outcome rate equals the stated probability.
+    With no rows the answer is exactly (1, 0); with many it approaches the plain maximum-likelihood fit.
+    """
+    n = CALIBRATION_PRIOR_RESULTS
+    data = [(_logit(p), float(o)) for p, o in rows]
+    data += [(_logit(q), q) for q in (0.05 + 0.9 * k / (n - 1) for k in range(n))]
+
+    def log_likelihood(a: float, b: float) -> float:
+        total = 0.0
+        for x, y in data:
+            z = a + b * x
+            total += y * z - math.log1p(math.exp(z)) if z < 30 else y * z - z
+        return total
+
+    a, b = 0.0, 1.0
+    for _ in range(100):  # Newton's method on a concave function, with step halving as a safeguard
+        ga = gb = haa = hab = hbb = 0.0
+        for x, y in data:
+            p = _sigmoid(a + b * x)
+            w = p * (1 - p)
+            ga += y - p
+            gb += (y - p) * x
+            haa += w
+            hab += w * x
+            hbb += w * x * x
+        det = haa * hbb - hab * hab
+        da, db = (hbb * ga - hab * gb) / det, (haa * gb - hab * ga) / det
+        step, base = 1.0, log_likelihood(a, b)
+        while step > 1e-6 and log_likelihood(a + step * da, b + step * db) < base:
+            step /= 2
+        a, b = a + step * da, b + step * db
+        if abs(da) + abs(db) < 1e-10:
+            break
+    return b, a
+
+
+def correct_confidence(probability: float, slope: float, intercept: float) -> float:
+    low, high = CALIBRATION_BOUNDS
+    return min(max(_sigmoid(intercept + slope * _logit(probability)), low), high)
+
+
+def _claude_results_before(questions: list[dict[str, Any]], day: date) -> list[tuple[float, int]]:
+    """Claude's scored forecasts on questions decided before ``day``: what was known when it forecast."""
+    return [(f["probability"], q["outcome"]) for q in questions
+            if q["status"] == "resolved" and q["scored"] and q["resolves_on"] < day.isoformat()
+            for f in q["forecasts"] if f["method"] == CLAUDE]
+
+
+def _correction(questions: list[dict[str, Any]], day: date) -> dict[str, Any] | None:
+    """The fit as of ``day``, or None until CALIBRATION_MIN_RESULTS results were known."""
+    rows = _claude_results_before(questions, day)
+    if len(rows) < CALIBRATION_MIN_RESULTS:
+        return None
+    slope, intercept = fit_confidence_correction(rows)
+    return {"slope": round(slope, 6), "intercept": round(intercept, 6), "results": len(rows), "as_of": day.isoformat()}
 
 
 def _forecast_day(question: dict[str, Any]) -> date | None:
@@ -233,6 +332,19 @@ def _tally(rows: list[tuple[float, int]]) -> dict[str, Any]:
             "brier": sum(briers) / len(briers) if briers else None, "coin_flip_brier": COIN_FLIP_BRIER}
 
 
+def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
+    """Our call against the market's price (Polymarket's, else Manifold's) on the questions it priced."""
+    ours: list[float] = []
+    market: list[float] = []
+    for q in resolved:
+        price = next((f["probability"] for method in BENCHMARKS for f in q["forecasts"] if f["method"] == method), None)
+        if price is not None:
+            ours.append(_brier(q["call"]["probability"], q["outcome"]))
+            market.append(_brier(price, q["outcome"]))
+    return {"questions": len(ours), "ours": sum(ours) / len(ours) if ours else None,
+            "market": sum(market) / len(market) if market else None}
+
+
 def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bool = False) -> dict[str, Any]:
     """The track record; with ``freeze``, new weighted calls are saved so they never change later."""
     questions: list[dict[str, Any]] = []
@@ -259,13 +371,39 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = calls.get(question["id"])
         question["call"] = call
         question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
+    # Claude's confidence-corrected forecast: frozen the first time it can be made, never for earlier days.
+    corrected: dict[str, dict[str, dict[str, Any]]] = {}
+    fits: dict[date, dict[str, Any] | None] = {}
+    for question in list(questions):
+        day = _forecast_day(question)
+        claude = next((f for f in question["forecasts"] if f["method"] == CLAUDE), None)
+        if day is None or day < CALIBRATED_FROM or claude is None:
+            continue
+        path = artifacts / question["source"] / CALIBRATED_FILE
+        saved = corrected.setdefault(question["source"], json.loads(path.read_text()) if path.exists() else {})
+        if question["id"] not in saved:
+            if day not in fits:
+                fits[day] = _correction(questions, day)
+            if fit := fits[day]:
+                saved[question["id"]] = {
+                    "probability": round(correct_confidence(claude["probability"], fit["slope"], fit["intercept"]), 6),
+                    "raw": claude["probability"], **fit}
+        if question["id"] in saved:
+            question["forecasts"].append({"method": CALIBRATED, **saved[question["id"]]})
+            question["forecasts"].sort(key=lambda f: PRIMARY_ORDER.index(f["method"])
+                                       if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER))
     if freeze:
         for source, calls in frozen.items():
             path = artifacts / source / CALLS_FILE
             if calls and (not path.exists() or json.loads(path.read_text()) != calls):
                 path.write_text(json.dumps(calls, indent=2, sort_keys=True) + "\n")
+        for source, saved in corrected.items():
+            path = artifacts / source / CALIBRATED_FILE
+            if saved and (not path.exists() or json.loads(path.read_text()) != saved):
+                path.write_text(json.dumps(saved, indent=2, sort_keys=True) + "\n")
     resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
+    summary |= {"vs_market": _versus_market(resolved)}
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),
                 "cancelled": sum(q["status"] == "cancelled" for q in questions),
                 "unscored": sum(not q["scored"] for q in questions), "total": len(questions)}
@@ -281,5 +419,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
     # Latest results first, then open questions by the date they resolve.
     questions = (sorted((q for q in questions if q["status"] == "resolved"), key=lambda q: q["resolves_on"], reverse=True)
                  + sorted((q for q in questions if q["status"] != "resolved"), key=lambda q: q["resolves_on"]))
-    return {"version": TRACK_RECORD_VERSION, "generated_on": (today or utcnow().date()).isoformat(),
-            "summary": summary, "forecasters": forecasters, "questions": questions}
+    built_on = today or utcnow().date()
+    return {"version": TRACK_RECORD_VERSION, "generated_on": built_on.isoformat(),
+            "summary": summary, "calibration": _correction(questions, built_on),
+            "forecasters": forecasters, "questions": questions}
