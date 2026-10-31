@@ -132,7 +132,7 @@ export default function TrackRecordPage() {
         {accuracy && <p className="mt-3 text-lg">{accuracy} so far
           <span className="block text-sm text-ink/60 sm:inline"> · lower is better; always saying 50% scores 0.25</span></p>}
         {vs && <p className="mt-2 text-lg">On the {vs.questions} questions the market also priced: us {vs.ours!.toFixed(2)}, market {vs.market!.toFixed(2)}.</p>}
-        {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} toss-up isn’t counted as right or wrong`}</p>}
+        {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} ${s.toss_ups === 1 ? "toss-up isn’t" : "toss-ups aren’t"} counted as right or wrong`}</p>}
       </div>
       <Link href="/ask" className="bg-ink px-6 py-3 text-paper hover:bg-ink/85">Ask a question</Link>
     </header>
