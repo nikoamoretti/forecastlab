@@ -1,0 +1,35 @@
+{
+  "cells": [
+    {
+      "entry_id": "bdddde8088e754fd",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.4391025641025641,
+      "release_event": "claims-2026-11-05",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261030",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "7561f9728c5d353f8725d289617e64bb8d58c7228659b0e9bd446bad93bc19ff",
+  "methods": {
+    "statistical_baseline_v1": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "bdddde8088e754fd": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-10-31",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 1
+}

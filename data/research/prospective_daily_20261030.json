@@ -1,0 +1,136 @@
+{
+ "bdddde8088e754fd": {
+  "base_rate": "Reference class: the first published (advance) seasonally adjusted state initial claims in the 10 DOL weekly releases from 2026-08-27 through 2026-10-29, covering weeks ending 2026-08-22 through 2026-10-24.\nThose advance prints were 203,000, 206,000, 206,000, 196,000, 197,000, 197,000, 197,000, 199,000, 194,000, and 194,000.\nEight of the 10 were strictly above 194,000; the last two were exactly 194,000.\nA wider revised FRED series is a weaker match for this resolution rule: of 42 revised weekly observations from the week ending 2026-01-10 through 2026-10-24, 39 were above 194,000 (the exceptio",
+  "brief": null,
+  "brief_written_at": null,
+  "different_now": "The threshold is the current first-print level, not a level the series is clearly above.\nThe last two advance prints were exactly 194,000, and the four-week average has been falling (196,750 on the 2026-10-29 release).\nOn that week, unadjusted claims rose by less than the seasonal factor expected, which pulled the seasonally adjusted figure down by 1,000.\nReporting on 2026-10-29 describes layoffs as near historic lows in a low-hire, low-fire market, with the series close to the mid-July 189,000 reading and well below the prior year's October level.\nThat puts this week nearer the line than the ",
+  "facts": [
+   {
+    "fact": "The first published seasonally adjusted initial claims for the week ending 2026-10-24 were 194,000, released 2026-10-29; that print is not above 194,000.",
+    "source": 0
+   },
+   {
+    "fact": "That same 2026-10-29 release revised the prior week's first print up by 1,000, from 194,000 to 195,000, and put the four-week moving average at 196,750.",
+    "source": 0
+   },
+   {
+    "fact": "For the week ending 2026-10-24, unadjusted state initial claims rose 5,648, while the Labor Department's seasonal factors had expected a rise of 6,040.",
+    "source": 0
+   },
+   {
+    "fact": "The first published figure for the week ending 2026-10-17 was also 194,000, in the 2026-10-22 release.",
+    "source": 1
+   },
+   {
+    "fact": "The first published figure for the week ending 2026-10-10 was 199,000, in the 2026-10-15 release.",
+    "source": 2
+   },
+   {
+    "fact": "FRED ICSA is the seasonally adjusted weekly series, weeks ending Saturday, sourced from the Employment and Training Administration, with the next release dated 2026-11-05.",
+    "source": 3
+   },
+   {
+    "fact": "The weekly claims news release is scheduled for Thursday at 8:30 a.m.\nEastern; the listed 2026 holiday exception is Wednesday, November 25, 2026, so 2026-11-05 is a regular Thursday.",
+    "source": 4
+   },
+   {
+    "fact": "Revised FRED values for the early-November weeks of 2024 and 2025 were 221,000 (week ending 2024-11-02) and 228,000 (week ending 2025-11-01), both above 194,000, while the latest 2026 observation is 194,000.",
+    "source": 5
+   },
+   {
+    "fact": "Reuters reported on 2026-10-29 that economists it polled had expected 199,000 claims for the week ended 2026-10-24, and that claims have stayed mostly below 200,000 since mid-September, near a mid-July reading of 189,000.",
+    "source": 6
+   }
+  ],
+  "judges": [],
+  "quotes_checked_at": "2026-10-30T10:03:30.492156+00:00",
+  "research_cost_usd": null,
+  "research_failed": null,
+  "research_seconds": 197.8,
+  "researched_at": "2026-10-30T09:49:34+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-10-29",
+    "quotes": [
+     "In the week ending October 24, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 1,000 from the previous week's revised level.",
+     "The previous week's level was revised up by 1,000 from 194,000 to 195,000.\nThe 4-week moving average was 196,750, a decrease of 1,250 from the previous week's revised average.",
+     "The advance number of actual initial claims under state programs, unadjusted, totaled 178,851 in the week ending October 24, an increase of 5,648 (or 3.3 percent) from the previous week.\nThe seasonal factors had expected an increase of 6,040 (or 3.5 percent) from the previous week."
+    ],
+    "title": "Unemployment Insurance Weekly Claims, week ending October 24, 2026",
+    "url": "https://oui.doleta.gov/press/2026/102926.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-22",
+    "quotes": [
+     "In the week ending October 17, the advance figure for seasonally adjusted initial claims was 194,000, a decrease of 6,000 from the previous week's revised level.",
+     "The previous week's level was revised up by 1,000 from 199,000 to 200,000."
+    ],
+    "title": "Unemployment Insurance Weekly Claims, week ending October 17, 2026",
+    "url": "https://oui.doleta.gov/press/2026/102226.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "In the week ending October 10, the advance figure for seasonally adjusted initial claims was 199,000, an increase of 1,000 from the previous week's revised level.",
+     "The previous week's level was revised up by 1,000 from 197,000 to 198,000."
+    ],
+    "title": "Unemployment Insurance Weekly Claims, week ending October 10, 2026",
+    "url": "https://oui.doleta.gov/press/2026/101526.pdf",
+    "verified": true
+   },
+   {
+    "published": "2026-10-29",
+    "quotes": [
+     "2026-10-24: 194,000 | Number, Seasonally Adjusted | Weekly, Ending Saturday",
+     "Next Release Date: Nov 5, 2026",
+     "Source: U.S.\nEmployment and Training Administration"
+    ],
+    "title": "Initial Claims (ICSA)",
+    "url": "https://fred.stlouisfed.org/series/ICSA",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The UI Weekly Claims News Release is published each week on Thursday morning at 8:30am EST.",
+     "Exceptions to this schedule occur when a Thursday falls on a Federal Holiday.",
+     "Wednesday, November 25, 2026"
+    ],
+    "title": "UI Weekly Claims archive and publication schedule",
+    "url": "https://oui.doleta.gov/unemploy/claims_arch.asp",
+    "verified": true
+   },
+   {
+    "published": "2026-10-29",
+    "quotes": [
+     "| 2026-10-24 | 194000 |",
+     "| 2025-11-01 | 228000 |",
+     "| 2024-11-02 | 221000 |"
+    ],
+    "title": "Table Data - Initial Claims",
+    "url": "https://fred.stlouisfed.org/data/ICSA",
+    "verified": true
+   },
+   {
+    "published": "2026-10-29",
+    "quotes": [
+     "Initial claims for state unemployment benefits fell 1,000 to a seasonally adjusted 194,000 for the week ended October 24, the Labor Department said on Thursday.\nEconomists polled by Reuters had forecast 199,000 claims for the latest week.",
+     "Claims have stayed mostly below 200,000 since mid-September and are within striking distance of the 189,000 level touched in mid-July, which was the lowest reading since 1969.",
+     "Economists view the labor market as remaining in a \"low-hire, low-fire\" state."
+    ],
+    "title": "US weekly jobless claims hover near 57-year lows",
+    "url": "https://www.investing.com/news/economic-indicators/us-weekly-jobless-claims-hover-near-57year-lows-4983709",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Filings for the rest of the week ending Saturday 2026-10-31 are not in any published claims report.",
+   "The seasonal factor that will convert that week's unadjusted claims into the ICSA advance figure has not been published.",
+   "Recent weekly moves and revisions have been about 1,000 to several thousand, so a small state-level swing can put the first print on either side of 194,000.",
+   "Only the advance figure on the release around 2026-11-05 counts; the size of any later revision is unknown and does not decide the question."
+  ]
+ }
+}

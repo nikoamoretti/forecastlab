@@ -19,6 +19,30 @@
             "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-falls-6-week-low-near-77-266-as-binance-security-scare-rattles-crypto-markets-14064131.html",
             "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate from recent days shows no daily high above $82,000 since October 23, and the current price is around $77,300, requiring a ~6% increase in the remaining ~22 hours. With daily volatility near 1.5%, such a move is a >4-sigma event, and negative news from the Binance hack and hawkish FOMC dissent further reduce the likelihood. Only an unexpected positive catalyst could change this, but none is evident."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.02,
+          "rationale": "Binance daily highs for Oct 26-30 are all confirmed below $82,000 (peak was $81,971 on Oct 29), and BTC is currently near $77,300, requiring a ~6.1% rally in the remaining ~41 hours. With daily volatility around 1.5%, that's roughly a 3-sigma move, and the context is negative (a $5B+ Binance exploit, downtrend, no clear catalyst for a sharp reversal). The only realistic path to Yes would be a sudden relief rally if Binance quickly restores confidence, which is possible but unlikely given the scale of the incident."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: in October 2026, 22 of 29 sessions had a high \u2265 $82,000, but the last six sessions (Oct 24-29) all stayed below, and the price has fallen sharply after a Binance exploit. Current spot is around $77,200-77,500, requiring a ~5.8% rally in ~2.5 days against ~1.5% daily volatility, which is roughly a 4-sigma move. The bearish catalyst (Binance security incident with $5B+ stolen) and recent downtrend make a recovery to $82,000 unlikely, though a relief bounce if Binance restores services could push it higher. I assign 18% probability, reflecting the small but non-trivial chance of a sharp relief rally."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.03,
+          "rationale": "Binance daily highs for Oct 26-30 all stayed below $82,000 (max $81,971 on Oct 29). BTC is now about $77,300, so it needs a rise of about 6% in about 45 hours, roughly 2.9 sigma at 1.5% daily volatility. I allow a few percent for fat-tailed relief-rally risk and for the chance the third-party table is slightly wrong."
         }
       ],
       "id": "polymarket-6236213",
@@ -49,6 +73,30 @@
             "https://www.rba.gov.au/speeches/2026/sp-gov-2026-10-28.html",
             "https://www.rba.gov.au/speeches/2026/sp-dg-2026-10-21.html"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "Historically, 7 of 11 meetings after a hike resulted in another hike, suggesting a 64% base rate. The September CPI rising to 4.3% and strong quarterly trimmed mean of 1.0% exceed August forecasts, and Governor Bullock indicated the Board will assess if past tightening is enough, pointing to a lean toward further tightening. Despite 100 bps already delivered in 2026, the upside inflation surprise likely pushes the probability above the historical average, but mixed activity signals keep it away from certainty."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.58,
+          "rationale": "The base rate for consecutive 25 bps rises in the 2022-2026 tightening cycle is about 64% (7 of 11), which provides a moderate prior for a further hike. However, Governor Bullock's October 28 statement framed the decision as an open question ('whether the tightening to date will be sufficient'), and Deputy Governor Hauser explicitly described a 'choice between further tightening and holding,' both of which are notably less hawkish than the September statement's language. The accelerating CPI (4.0% to 4.3%) and trimmed mean at 3.6% push toward a hike, but 100 bps already delivered in 2026, easing labor market and consumer spending, and the RBA's demonstrated willingness to pause (June and August holds) pull the other way. A sharp adverse oil move or a hawkish SMP could push this higher; a dovish surprise in the SMP or a clear signal to wait for lagged effects would push it lower."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "The base rate for a hike following a hike in this cycle is about 7/11 \u2248 64%, but recent evidence strongly tilts toward another hike: CPI accelerated to 4.3% (from 4.0%), trimmed-mean at 3.6%, oil prices well above August assumptions, and both Bullock and Hauser signaled the inflation outlook has deteriorated materially and the Board will consider whether further tightening is needed. The September minutes explicitly said the Board would increase further if required, and the September statement used similar hawkish language. A pause is plausible if the Board wants to assess the lagged effects of 100 bps of tightening already delivered, but the data flow since the last meeting points firmly toward another 25 bp rise."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.5,
+          "rationale": "Base rate: of 11 meetings that followed a 25 bp hike since 2022, 7 brought another rise, and 4 of the 6 meetings this year brought a hike. Hawkish evidence: trimmed-mean inflation rose 1.0% in the quarter, headline CPI is 4.3%, oil is about a third above the August assumption, and the September minutes said further rises are possible. Against that, Hauser called it a genuine choice between tightening and holding because activity is mixed. Bullock framed the question as whether tightening so far is enough, and the Board has already raised the cash rate by 100 bp this year. The November Statement on Monetary Policy forecasts and market pricing are unknown, so I treat it as close to a coin flip."
         }
       ],
       "id": "polymarket-3499790",
@@ -79,6 +127,24 @@
             "https://www.wapt.com/article/mississippi-senate-race-trump-clinton-campaign-stops/74286829",
             "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.92,
+          "rationale": "Mississippi is a deep red state where Republicans have won recent Senate races by double digits (Hyde-Smith by 10 points in 2020, Wicker by 25 points in 2024). The three-way race with independent Ty Pinkins, a former Democrat, likely splits the anti-Republican vote, benefiting Hyde-Smith. Polls show Hyde-Smith leading, with one poll at 3 points but others larger, and no evidence suggests Pinkins draws disproportionately from Republican voters. The national environment may be less favorable for the president's party, but the state's strong partisan lean and split opposition make a Republican win highly probable."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate strongly favors Republicans: Mississippi's Senate seat has been won by Republicans in both 2020 (54%) and 2024 (63%), with the 2024 margin being especially large. The main risk is the three-way plurality format with independent Ty Pinkins staying in the race, which could split the vote and tighten the race; however, polls still show Hyde-Smith leading by at least 3 points, Trump is campaigning for her, and the deep-red base in Mississippi is so strong that even a 10-15% independent candidate likely won't be enough to flip the result. The key uncertainty is whether Pinkins draws disproportionately from Hyde-Smith's voters rather than Colom's, which would be the scenario that could change the outcome."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Mississippi is deep red: Hyde-Smith won by about 10 points in 2020 and Wicker by about 25 in 2024. The 2026 race has three candidates and a plurality rule, and Pinkins staying in splits the anti-incumbent vote, which helps Hyde-Smith. Polls disagree, with the closest showing a 3-point lead and others larger, and the national environment is less favorable for Republicans. Even so, a Democratic win would need a very large swing, so I put Republican odds at roughly 93%. A late poll inside two points would change this."
         }
       ],
       "id": "polymarket-631018",
@@ -108,6 +174,30 @@
             "https://www.investing.com/crypto/ethereum/eth-usd-historical-data",
             "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a 5.8% intraday drop in ETH is low: in 89 recent sessions, none exceeded a 6.5% decline, and only 14.6% had drops of 3.4% or more. The Binance hack and PCE data already drove a sharp sell-off to $2,174, but the price bounced to ~$2,229, and Binance's promise to cover losses and resume withdrawals within 48 hours may stabilize the market. With ~1.7 days left, a further leg down to $2,100 is possible but unlikely absent new negative catalysts."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.32,
+          "rationale": "The current low is $2,174.08, requiring a further 3.4% drop (or 5.8% from the current ~$2,229) to hit $2,100, with roughly 2 days of trading remaining. The Binance hack and hot PCE data create elevated downside risk, and historically 13/89 sessions saw drops of at least 3.4% from prior close, but the largest was only 6.5% and Binance's promise to cover losses and resume withdrawals within 48 hours is a meaningful stabilizing factor. The price has already bounced ~2.5% from the low, suggesting some stabilization, but the situation remains volatile enough that a further leg down to $2,100 is plausible but not the base case."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.1,
+          "rationale": "The lowest price observed in the period so far is $2,174.08 (Oct 30), which is about 3.4% above the $2,100 target. From the current price near $2,229, a drop to $2,100 would require a ~5.8% decline. Historical Binance ETHUSDT data shows the largest single-day drop was ~6.5% and no day had a drop of 6.8%+, making this a tail event. While the Binance hack and hot PCE inflation create downside risk, the market has already absorbed significant selling, withdrawals are expected to resume within 48 hours, and only ~2 trading days remain in the window. The probability is low but non-trivial given the unusual circumstances."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.17,
+          "rationale": "The lowest Binance print so far in the window is about 2,174 (30 Oct UTC), and the last price I have is about 2,229. A touch of 2,100 needs a further drop of about 5.8% over roughly 2.8 days (31 Oct plus 1 Nov ET). A simple barrier-touch estimate at about 3% daily volatility gives roughly 20-25%. Over the last 89 sessions, no session's low was 6.8% or more below the prior close, which argues for shading lower. The Binance hack and the hot PCE print raise tail risk, but Binance has promised to cover losses and resume withdrawals, which could support a rebound. The data may also be stale, since the 30 Oct candle was still shown as open."
         }
       ],
       "id": "polymarket-6236258",
@@ -137,6 +227,30 @@
             "https://mediacenter.adp.com/2026-10-27-ADP-National-Employment-Report-Preliminary-Estimate-for-October-10,-2026",
             "https://www.dol.gov/ui/data.pdf"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.2,
+          "rationale": "The recent 12-month average gain is only 45,000, and the ADP preliminary estimate suggests private payrolls around 67,000, making a total above 100,000 unlikely. Low jobless claims indicate stability but not strong hiring, and the September print of 29,000 shows weak momentum. However, occasional strong months like August 2026 (+133,000) and potential seasonal adjustment surprises keep the probability from being even lower."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate of months hitting +100k is roughly 33% over the past 33 months, but the recent trend is far weaker: the 12-month average is only 45k, September was +29k, and the last three months (Jul-Sep) averaged just ~51k. ADP's NER Pulse shows a pace of roughly 70k/month, well below the 100k threshold, and hiring has been decelerating for two consecutive weeks. The main upside risk is a seasonal adjustment surprise or a rebound in hiring, but the weight of evidence points to another sub-100k month, making the probability closer to 15%."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "The base rate from recent data is unfavorable: the 12-month average through September was only +45k, September itself was +29k, and only 1 of the last 5 months (August at +133k) hit 100k. The ADP weekly pulse implies roughly 70k/month for October, consistent with continued softness. While first prints can surprise and revisions are large (e.g., July revised from +21k to -10k), the leading indicators and recent trend point well below 100k, making a 100k+ print unlikely but not impossible."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.17,
+          "rationale": "Recent payroll prints are weak: September was +29k, July was -10k, and the 12-month average is 45k. In 2025-26, only about 5 of 21 months came in at 100k or more, and the 2026 pattern is volatile (-156k in February, then +214k in March). ADP's weekly pace of roughly 70k a month for October is soft. Low jobless claims point to low layoffs but not to strong hiring. The first print is noisy, with a standard deviation of roughly 70k around an expected value of 40-50k, which gives about a 15-20% chance of reaching 100k. Possible upside comes from a rebound after weak months or from seasonal adjustment quirks."
         }
       ],
       "id": "polymarket-5211630",
@@ -166,6 +280,18 @@
             "https://www.legislature.mi.gov/Laws/MCL?objectName=MCL-ARTICLE-V-30",
             "https://mi-boe.entellitrak.com/etk-mi-boe-prod/page.request.do?electionType=GEN&electionYear=2026&page=page.miboePublicReport"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate: Michigan has been competitive, but Democrats have won 4 of the last 5 gubernatorial races including the last two (2018, 2022), and the open-seat pattern since term limits favors the out-party. Two late polls both show Benson leading: Mitchell Research has her up 5 points (49-44) and MSU IPPSR/YouGov has her up 12.4 points (53.3-40.9), with Trump's 35% approval rating as a headwind for Republicans. The evidence consistently points to a Democratic win, though the Mitchell poll's wider margin of error and the 28% early vote share introduce some uncertainty. A late poll showing the race within 2 points or signs of a Republican turnout edge in early returns could shift this estimate upward."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.14,
+          "rationale": "The open-seat base rate favors the out-party, but late polls show Benson ahead by 5 (Mitchell) to 12 (MSU). Trump's approval is poor at 35% excellent or good, and the midterm environment likely favors Democrats. Polling error and the narrowing in the Mitchell poll leave James a real but minority chance."
         }
       ],
       "id": "polymarket-629465",
@@ -194,6 +320,24 @@
             "https://www.moneycontrol.com/news/business/personal-finance/bitcoin-falls-6-week-low-near-77-266-as-binance-security-scare-rattles-crypto-markets-14064131.html",
             "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The base rate for a 5.6%+ four-day rise is ~8.7%, and historically when below $82,000, the close four days later was above it only 7.8% of the time. The current Binance hack and suspended withdrawals add significant negative pressure, making a quick recovery to above $82,000 by Nov 3 less likely. A swift resolution and market rebound could change this, but uncertainty remains high."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.09,
+          "rationale": "The most relevant base rate is the observed 10 of 115 (8.7%) four-day windows with a rise of at least 5.6%, while 7 of 90 (7.8%) sessions below $82,000 were above it four days later. With BTC near $77,400-$77,700 and about 3.4 days remaining, it needs another 5.6%-6.0% gain; the unresolved Binance exploit and lack of monetary easing argue against a rapid recovery, although the sharp selloff creates rebound potential. A confirmed restoration of withdrawals and strong bounce would raise the probability, while further exploit-related selling or adverse earnings and yield moves would lower it."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "The Oct 30 daily candle closed near $77,369, so $82,000 is about 6% above the latest price. Realized daily volatility is about 1.5%, which gives roughly 3-3.5% volatility over the ~3.4 days to noon ET on Nov 3. That makes the strike about 1.8-2 sigma away, or around 3-4% with fat tails. The brief's empirical rate of a 5.6% rise in four days (10 of 115 windows) is higher, but those windows don't condition on a stressed, post-exploit market. A rebound after Binance restores withdrawals, or a surprise in earnings or yields, are the main upside risks."
         }
       ],
       "id": "polymarket-6301347",
@@ -223,6 +367,24 @@
             "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-10",
             "https://www.newyorkfed.org/survey/empire/empiresurvey_overview"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate is 0 of 37 recent months in the 56.0-56.9 bracket, with the ISM high at 55.6 and September at 54.5, requiring a 1.5-2.4 point jump. The S&P Global flash at 56.0 (53-month high) and the Empire State surge to 25.5 are positive signals, but the S&P Global-ISM gap has been ~1.4 points recently, and the Philadelphia Fed's sharp decline (new orders to 4.3) is a headwind. A move this large in one month is uncommon given recent ISM moves of -1.0 and -0.1, making this a low-probability outcome despite the improving backdrop."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate is essentially zero: no ISM Manufacturing PMI reading has fallen in the 56.0-56.9 bracket in the past 37 months (September 2023 to September 2026), with the 12-month high being 55.6. The September reading was 54.5, and recent month-over-month changes have been small (-0.1 in September, -1.0 in August). The S&P Global flash PMI at 56.0 is a mildly positive signal, but ISM and S&P Global are different surveys that have diverged by ~1.4 points recently, and the Philadelphia Fed survey showed a sharp decline while the Empire State showed strength\u2014mixed signals. A jump from 54.5 to 56.0+ would be historically unusual, so I assign roughly 3% probability."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.06,
+          "rationale": "September's ISM reading was 54.5, and the bracket of 56.0-56.9 requires a rise of 1.5 to 2.4 points. Monthly ISM changes have a standard deviation of about 1.5-2 points, so that is roughly a 10% chance. The S&P flash PMI hit a 53-month high of 56.0 and the Empire State index rose sharply, which pushes the odds up. The Philadelphia Fed new orders index fell sharply, which pushes them down. ISM has not printed in this bracket in 37 months, and the 2025-26 high was 55.6. I put the probability at about 6-8%."
         }
       ],
       "id": "polymarket-5194745",
@@ -253,6 +415,18 @@
             "https://results.elections.myflorida.com/SummaryRpt.asp?DATAMODE=&ElectionDate=11%2F5%2F2024&Race=FED",
             "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.82,
+          "rationale": ":"
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.86,
+          "rationale": "Republicans won the last two Florida Senate generals by 13 to 15 points, and the registration gap is now R+8, about 1.5 million. The final polls are closer than that history suggests: the NYT/Siena poll has Moody up 6, and St. Pete Polls has her up 4, or only 1 when reweighted to the registration split. Early and mail ballots are roughly even by party, which is unusually good for Democrats, though Republicans tend to vote more on Election Day. Florida polls have also tended to understate Republicans. A midterm environment that favors Democrats and independents breaking strongly for Nixon could still produce an upset, so I put Moody's chance of winning at about 86%."
         }
       ],
       "id": "polymarket-631045",
@@ -282,6 +456,18 @@
             "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html",
             "https://www.tokenpost.com/news/investing/44062"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.45,
+          "rationale": "Base rate: ETH is currently around $2,245 on Binance, only ~$45 above the $2,200 strike, so small moves matter. The Binance hack ($6.3B) and disabled withdrawals create downside risk, but Binance expects to resume withdrawals within 48 hours (by ~Oct 31), which could support recovery. Historical data shows 158/370 daily closes were under $2,200, and the recent trend is downward (Oct 29 closed at $2,253, down 4.5%). The price is close enough to the strike that a modest 2% move in either direction over 3 days is plausible, making this roughly a coin flip with slight downside tilt given the hack overhang."
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.64,
+          "rationale": "ETH is about $2,245 on Oct 31, roughly 2% above the $2,200 strike. With about 3.3 days to resolution and daily volatility of about 2.7%, the strike is about 0.4 standard deviations below spot, which implies about 64-66% for Yes. The Binance hack and the recent downtrend add some downside risk. Price has stabilized since Oct 30, and withdrawals resuming would help."
         }
       ],
       "id": "polymarket-6301274",
@@ -312,6 +498,12 @@
             "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september",
             "https://www.dol.gov/ui/data.pdf"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.27,
+          "rationale": "September's unrounded rate was 4.175%, just 0.025 above the 4.15 rounding boundary. A normal model with a monthly change standard deviation of about 0.13 pp gives roughly 25% for exactly 4.1% (about 43% below 4.15, minus the share that falls below 4.05). Low claims and a stable labor market add little, since the household survey noise dominates; the rate could easily print 4.2 or 4.3 instead."
         }
       ],
       "id": "polymarket-5211634",
@@ -370,6 +562,12 @@
             "https://results.elections.myflorida.com/DetailRpt.Asp?ELECTIONDATE=11%2F6%2F2018&RACE=GOV",
             "https://dos.fl.gov/elections/data-statistics/voter-registration-statistics/voter-registration-reports/voter-registration-by-party-affiliation"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.77,
+          "rationale": "Republicans won the last two Florida governor races, and Florida has a large registration edge for Republicans (about 1.5 million more active voters). Late polls show Donalds up only 2 points (49-47 in the UNF poll, 48-46 in St. Pete Polls), which is within the margin of error. Early voting is nearly even by party, and Trump's low approval suggests a Democratic-leaning midterm environment. Still, Florida has trended right, Republican voters usually turn out strongly on Election Day, and polls have historically understated Republicans in Florida. A 2-point poll lead in a state that has voted about 10+ points Republican recently suggests Donalds is a modest favorite, so I put the chance of a Republican win around 77%."
         }
       ],
       "id": "manifold-uODgxBgIoHZWqFqHGPbe",
@@ -399,6 +597,12 @@
             "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval",
             "https://www.cnn.com/2026/02/15/politics/house-control-districts-vis"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Base rate: the president's party loses House seats in about 20 of 22 midterms, and Democrats need only a net +3. Cook's 23 October ratings have Democrats favored in 220 seats, with 17 Toss Ups, and call Republicans' path 'all but evaporated.' Trump's approval is 31-35%. The main limits are that the number of marginal Republican seats is small and redistricting changed the map, but Democrats could lose most Toss Ups and still reach 218. A polling miss or a very Republican-leaning Toss Up outcome could change this, and the remaining uncertainty is mostly about forecast error and the map."
         }
       ],
       "id": "manifold-IPth6E2ZRI",
@@ -428,6 +632,12 @@
             "https://www.latimes.com/california/story/2026-10-29/raman-leads-among-younger-voters-polls-show-but-bass-isnt-conceding-any-ground",
             "http://ens.lacity.org/clk/elections/clkelections3736198839_06022026.pdf"
           ]
+        },
+        {
+          "created_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.47,
+          "rationale": "The race is a dead heat at 40-40 with 19% undecided in the Berkeley IGS/LA Times poll. Bass has momentum: she moved from 28% in September to 40%, and undecided Pratt voters (45%) lean toward her (41% Bass vs 14% Raman among those who chose). Pratt voters are right-leaning and will likely break heavily to Bass, and Caruso endorsed her. Older voters, who favor Bass, are returning ballots at much higher rates (47% vs 13% for ages 18-34), which suggests the likely-voter electorate may skew toward her. Raman has better favorability (42/49 vs Bass 32/65) and a strong lead among young voters, but turnout in that group is the main uncertainty. The primary gave Bass 34% to Raman's 29%, and Bass plus most of Pratt's 25.5% looks like a path to a Bass win. I put Raman slightly below even."
         }
       ],
       "id": "manifold-IdOgSACPIz",
