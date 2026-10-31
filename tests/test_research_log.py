@@ -14,6 +14,7 @@ def test_each_question_gets_its_research_brief_and_judge_calls_without_page_text
         "researched_by": {"q1": "claude-sonnet"}, "failed": {"q2": "cursor-agent timed out"},
         "seconds": {"q1": 48.2}, "cost_usd": {"q1": 0.21},
         "findings": {"q1": {"facts": [{"fact": "BTC was $81,600 on Oct 23.", "source": 0}], "base_rate": "Rare.",
+                            "against": "A dip is plausible.", "passes_done": ["outside", "inside", "against"],
                             "uncertainties": ["Weekend moves"]}},
         "sources": {"q1": [{"title": "Price", "url": "https://example.com/p", "published": "2026-10-23", "verified": True,
                             "quotes": ["$81,600"], "text": "a very long downloaded page"}]}}))
@@ -31,12 +32,14 @@ def test_each_question_gets_its_research_brief_and_judge_calls_without_page_text
     assert q1 is not None
     assert (q1["researched_by"], q1["brief"], q1["base_rate"]) == ("Claude Sonnet", "Brief.", "Rare.")
     assert (q1["research_seconds"], q1["research_cost_usd"]) == (48.2, 0.21)
+    assert (q1["against"], q1["passes_done"]) == ("A dip is plausible.", ["outside", "inside", "against"])
     assert q1["sources"] == [{"title": "Price", "url": "https://example.com/p", "published": "2026-10-23", "verified": True,
                               "quotes": ["$81,600"]}]
     assert q1["judges"][0] == {"method": "judge_kimi_k26_v1", "model": "moonshotai/kimi-k2.6", "ok": False,
                                      "error": "no JSON object in the reply", "cost_usd": 0.01, "at": "2026-10-23T14:12:19+00:00"}
     q2 = question_research(tmp_path / "data", "prospective_markets_20261023", "q2")
     assert q2 is not None and (q2["researched_by"], q2["research_failed"]) == ("Cursor (Grok 4.7)", "cursor-agent timed out")
+    assert (q2["against"], q2["passes_done"]) == (None, None)
     assert question_research(tmp_path / "data", "../secrets", "q1") is None
     assert question_research(tmp_path / "data", "prospective_markets_20261023", "nope") is None
 

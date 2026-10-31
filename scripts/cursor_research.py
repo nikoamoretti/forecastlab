@@ -8,16 +8,18 @@
 scripts/mac_research.sh. On weekdays inside the configured window (Pacific time), once per day, it:
 
 1. creates today's branch and has Actions prepare the questions, if that has not happened yet;
-2. researches each new question with cursor-agent and saves research.json next to it;
+2. researches each new question with cursor-agent, in three passes (outside view, inside view with the topic's
+   checklist from configs/research_checklists.json, the other side), and saves research.json next to it;
 3. pushes that with a request for the Actions ``download`` step, which checks the quotes against the pages.
 
 In ``dry_run`` mode (configs/research.json) the branch carries a ``-dryrun`` suffix and nothing is
-forecast from it. Runs are counted against daily and weekly caps, so the job stops at the cap
+forecast from it. Agent runs (one per pass) are counted against daily and weekly caps, so the job stops at the cap
 instead of using up Nico's Cursor allowance; the CLI cannot read Cursor's own usage meter.
 
 ``--dry-run`` is a hand test: at most 3 questions from an existing ``--branch``, nothing pushed.
-``fill`` researches with Claude (``fallback`` in configs/research.json) every question that still has no
-research on a daily branch, e.g. when Cursor's weekly limit is used up; the daily routine runs it.
+``fill`` researches with Claude (``fallback`` in configs/research.json, one combined pass unless that says
+otherwise) every question that still has no research on a daily branch, e.g. when Cursor's weekly limit is
+used up; the daily routine runs it.
 ``digest`` prints the forecaster's own record so far (calibration, topics, latest misses), then each
 question's evidence the way the forecaster reads it.
 """
@@ -39,10 +41,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
 from forecastlab.cursor_research import (  # noqa: E402
+    CHECKLIST_FILE,
     CONFIG_FILE,
     claude_agent,
     cursor_agent,
     digest,
+    load_checklists,
     load_settings,
     record_notes,
     research,
@@ -56,7 +60,7 @@ WORK = STATE / "work"  # a git worktree of the daily branch, so the job never to
 LEDGER = STATE / "ledger.json"
 REQUEST = "daily-run-request.json"
 PREPARE_WAIT_S = 15 * 60
-HAND_TEST_QUESTIONS = 3
+HAND_TEST_QUESTIONS = 3  # a hand test researches at most this many questions, whatever their passes
 
 
 def log(message: str) -> None:
@@ -139,7 +143,7 @@ def daily(args: argparse.Namespace) -> None:
     budget = min(settings.daily_run_cap - used.get(f"{now:%Y-%m-%d}", 0),
                  settings.weekly_run_cap - used.get(week_of(now), 0))
     if args.dry_run:
-        budget = min(budget, HAND_TEST_QUESTIONS)
+        budget = min(budget, HAND_TEST_QUESTIONS * settings.passes)
     if budget <= 0:
         log(f"{branch}: the research cap is reached ({json.dumps(used)}); skipping")
         return
@@ -148,10 +152,11 @@ def daily(args: argparse.Namespace) -> None:
     if not dirs:
         return
     agent = cursor_agent(settings.model, settings.timeout_s)
+    checklists = load_checklists(ROOT / CHECKLIST_FILE)
     runs, changed = 0, []
     for directory in dirs:
         result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel, budget=budget - runs,
-                          by=settings.model)
+                          by=settings.model, passes=settings.passes, checklists=checklists)
         runs += result["runs"]
         if not result["runs"]:
             continue
@@ -211,12 +216,15 @@ def fill(args: argparse.Namespace) -> None:
         raise SystemExit(f"{branch} is not a daily branch")
     dirs = question_dirs(branch, found.group(1), settings.base_branch, create=True)
     agent = claude_agent(settings.fallback_model, settings.fallback_timeout_s)
+    checklists = load_checklists(ROOT / CHECKLIST_FILE)
     changed = []
     for directory in dirs:
         path = directory / RESEARCH_FILE
         saved = json.loads(path.read_text()) if path.exists() else {}
         result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel,
-                          budget=len(tasks(directory)), by=f"claude-{settings.fallback_model}")
+                          budget=len(tasks(directory)) * settings.fallback_passes,
+                          by=f"claude-{settings.fallback_model}", passes=settings.fallback_passes,
+                          checklists=checklists)
         if not result["runs"]:
             log(f"{directory.name}: every question already has research")
             continue

@@ -52,6 +52,8 @@ def directory_research(directory: Path) -> dict[str, dict[str, Any]]:
             "facts": found.get("facts", []) if found else [],
             "base_rate": found.get("base_rate") if found else None,
             "different_now": (found.get("different_now") or None) if found else None,
+            "against": (found.get("against") or None) if found else None,
+            "passes_done": found.get("passes_done") if found else None,
             "unknowns": found.get("uncertainties", []) if found else [],
             "sources": sources,
             "brief": briefs.get("briefs", {}).get(qid),
