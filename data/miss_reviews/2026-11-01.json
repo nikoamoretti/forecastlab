@@ -1,0 +1,155 @@
+{
+  "reviewed_on": "2026-11-01",
+  "summary": "Sixteen misses, ten of them near-coin-flip calls that landed the wrong way (five were one correlated fall in the 10-year yield). The data-gathering gaps seen (in-window price lows, an unopened survey) are already covered by current checklist items, so no items are added.",
+  "misses": [
+    {
+      "id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+      "cause": "unlucky",
+      "note": "0.60 on a 4bp gap over 4 trading days was a fair random-walk number; the yield slipped to 5.22 vs a 5.24 threshold.",
+      "topic": "Interest rates",
+      "resolves_on": "2026-10-09",
+      "probability": 0.6,
+      "outcome": 0
+    },
+    {
+      "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+      "cause": "unlucky",
+      "note": "Same setup as the Oct 8 question; the strict 'above' threshold of 5.24 was met only as a tie (5.24), which resolves No.",
+      "topic": "Interest rates",
+      "resolves_on": "2026-10-12",
+      "probability": 0.58,
+      "outcome": 0
+    },
+    {
+      "id": "56e4e1b2fcb37d19",
+      "cause": "unlucky",
+      "note": "Near-coin-flip at 0.56 with a small momentum tilt; the yield fell to 5.21 from 5.28 after the weak payrolls, a fall inside one standard deviation.",
+      "topic": "Interest rates",
+      "resolves_on": "2026-10-14",
+      "probability": 0.56,
+      "outcome": 0
+    },
+    {
+      "id": "f9f7b84fc8c381e0",
+      "cause": "unlucky",
+      "note": "0.55 on a threshold at the current level with CPI on the day; the yield ended 5.19, part of the same correlated drop as the other rate misses.",
+      "topic": "Interest rates",
+      "resolves_on": "2026-10-15",
+      "probability": 0.55,
+      "outcome": 0
+    },
+    {
+      "id": "4c40cc475a07a5e1",
+      "cause": "unlucky",
+      "note": "0.55 with the level near the threshold and six trading days left; the yield fell to 5.10, again the same drop, not a data error.",
+      "topic": "Interest rates",
+      "resolves_on": "2026-10-16",
+      "probability": 0.55,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5311925",
+      "cause": "unlucky",
+      "note": "Touch odds near 55% for a 4% dip in 65 hours were reasonable; the low stayed above the level, and the checklist's price-source and distance items were followed.",
+      "topic": "Crypto",
+      "resolves_on": "2026-10-12",
+      "probability": 0.55,
+      "outcome": 0
+    },
+    {
+      "id": "manifold-Qgu99q9Lpu",
+      "cause": "unlucky",
+      "note": "0.30 for a gated model going public within days was reasonable given no date; it opened before the deadline, and the packet holds no research record showing a better signal.",
+      "topic": "Tech",
+      "resolves_on": "2026-10-14",
+      "probability": 0.3,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-4824602",
+      "cause": "wrong_base_rate",
+      "note": "Leaned on incumbency and a government-aligned poll over independent polls showing the student list ahead, so the 0.35 was too low.",
+      "topic": "Politics",
+      "resolves_on": "2026-10-25",
+      "probability": 0.35,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5912693",
+      "cause": "stale_data",
+      "note": "Did not find the Binance 1-minute lows for the days of the window already elapsed (1 of 5 sources checked); the existing price-touch item asks for exactly that.",
+      "topic": "Crypto",
+      "resolves_on": "2026-10-26",
+      "probability": 0.42,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-qUIpIulZcs",
+      "cause": "wrong_base_rate",
+      "note": "Reasoned from first-round shares and where the minor-candidate votes would go, with no runoff polls or past first-round-to-runoff swings, and gave the trailing candidate 0.35.",
+      "topic": "Politics",
+      "resolves_on": "2026-10-28",
+      "probability": 0.35,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-2100981",
+      "cause": "unlucky",
+      "note": "Gave the party 0.33 against a 2-4 seat poll deficit and flagged its history of beating final polls; it did beat them.",
+      "topic": "Politics",
+      "resolves_on": "2026-10-28",
+      "probability": 0.33,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-3083657",
+      "cause": "wrong_base_rate",
+      "note": "Own base-effect and holiday arithmetic gave 2.8% against the bank's 3.3% full-year forecast implying about 3.0% for H2; the bucket 3.0-3.4 held the result.",
+      "topic": "Economy",
+      "resolves_on": "2026-10-28",
+      "probability": 0.27,
+      "outcome": 1
+    },
+    {
+      "id": "65da04edb811bf47",
+      "cause": "unlucky",
+      "note": "The first print came in at exactly 194,000, and a tie resolves No under the strict 'above'; 0.63 for a lean above the latest print was reasonable.",
+      "topic": "Jobs",
+      "resolves_on": "2026-10-29",
+      "probability": 0.63,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-4470027",
+      "cause": "other",
+      "note": "Consensus came only from a search summary and no page opened (fetch refused by the proxy, 0 of 4 sources checked), so the lean to a hike rested on an unverified survey.",
+      "topic": "Economy",
+      "resolves_on": "2026-10-30",
+      "probability": 0.28,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5155512",
+      "cause": "unlucky",
+      "note": "Research was thorough (8 of 8 sources checked) and put 0.25 on a downward revision of the advance estimate; the revision came.",
+      "topic": "Economy",
+      "resolves_on": "2026-10-30",
+      "probability": 0.25,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-3572142",
+      "cause": "overconfident",
+      "note": "0.8 on a leaderboard position from a five-day-old snapshot, with the rank spreads of the second and third labs overlapping (2-4) and eight days to the check.",
+      "topic": "Tech",
+      "resolves_on": "2026-10-31",
+      "probability": 0.8,
+      "outcome": 0
+    }
+  ],
+  "checklist_items": {},
+  "checklist_added": {},
+  "checklist_dropped": {},
+  "checklist_version": 1,
+  "saved_on": "2026-11-01"
+}
