@@ -1,32 +1,32 @@
 {
   "calibration": {
     "as_of": "2026-11-02",
-    "intercept": 0.336186,
-    "results": 117,
-    "slope": 0.842289
+    "intercept": 0.330208,
+    "results": 118,
+    "slope": 0.850463
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.19857868824244254,
+      "brier": 0.19572026913602916,
       "coin_flip_brier": 0.25,
       "forecasts": 247,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 126,
-      "right": 88,
+      "resolved": 129,
+      "right": 91,
       "toss_ups": 1,
       "wrong": 37
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1886065573770492,
+      "brier": 0.1860368,
       "coin_flip_brier": 0.25,
       "forecasts": 242,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 122,
-      "right": 86,
+      "resolved": 125,
+      "right": 89,
       "toss_ups": 3,
       "wrong": 33
     },
@@ -56,13 +56,13 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.1924958762886598,
+      "brier": 0.19075353535353534,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 97,
-      "right": 70,
+      "resolved": 99,
+      "right": 72,
       "toss_ups": 0,
       "wrong": 27
     },
@@ -80,37 +80,37 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.17656041666666666,
+      "brier": 0.1729010101010101,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 96,
-      "right": 75,
+      "resolved": 99,
+      "right": 78,
       "toss_ups": 0,
       "wrong": 21
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.194535,
+      "brier": 0.18950679611650487,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 100,
-      "right": 73,
+      "resolved": 103,
+      "right": 76,
       "toss_ups": 1,
       "wrong": 26
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.25206923076923077,
+      "brier": 0.23425,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 26,
-      "right": 17,
+      "resolved": 28,
+      "right": 19,
       "toss_ups": 0,
       "wrong": 9
     },
@@ -164,15 +164,15 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.26304420894123604,
+      "brier": 0.2633553013407419,
       "coin_flip_brier": 0.25,
       "forecasts": 26,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 16,
+      "resolved": 17,
       "right": 6,
       "toss_ups": 0,
-      "wrong": 10
+      "wrong": 11
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Shown for comparison; not part of our call.",
@@ -188,31 +188,95 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.16902207692307694,
+      "brier": 0.16733114130434784,
       "coin_flip_brier": 0.25,
       "forecasts": 159,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 91,
-      "right": 66,
+      "resolved": 92,
+      "right": 67,
       "toss_ups": 0,
       "wrong": 25
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.156492170625,
+      "brier": 0.1489867488235294,
       "coin_flip_brier": 0.25,
       "forecasts": 53,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 16,
-      "right": 11,
+      "resolved": 17,
+      "right": 12,
       "toss_ups": 0,
       "wrong": 5
     }
   ],
   "generated_on": "2026-11-02",
   "questions": [
+    {
+      "actual": "4.94%",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.45,
+        "weights": {
+          "claude_code_forecaster_v1": 32.08,
+          "judge_deepseek_v4_pro_v1": 30.34,
+          "judge_minimax_m3_v1": 29.89,
+          "judge_qwen38_27b_v1": 34.34,
+          "statistical_baseline_v1": 14.72
+        }
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-30 be above 5 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "The 10-year sat almost exactly on the line: 4.96% on 2026-10-22 (govspending.org, H.15), 5.00% on 2026-10-23 (Treasury par curve via spotthemoney.com) and about 4.99% on 2026-10-26 (Trading Economics), so the question is nearly a coin flip over the 3-4 trading days left, with a typical move of 10-15 bp. An exact 5.00% print resolves No, which shaves a little off 50%, and the yield has drifted down about 25 bp from early-October highs; my earlier 'above X' yield calls at 55-56% were all wrong, so I stay slightly under even. FOMC, GDP and refunding news this week are unverified but add variance without a clear direction.",
+          "sources": [
+            "https://tradingeconomics.com/united-states/government-bond-yield",
+            "https://spotthemoney.com/rates/treasury-yields/",
+            "https://govspending.org/series/DGS10/"
+          ]
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.45,
+          "rationale": "The 10-year yield is hovering just below 5% (4.99% on Oct 27) after a three-week decline from above 5.3%. The downward trend and lack of a clear catalyst for a sharp reversal make a move above 5% by Oct 30 less likely, though the FOMC decision and data releases this week could trigger a surprise. With a typical 3-day standard deviation of 10\u201315 bp, the outcome is close to even but slightly favors staying below 5%."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.35,
+          "rationale": "The 10-year yield was at 4.99% on Oct 27 and 4.986% on Oct 26, on a three-week declining trend from above 5.3% in early October, making it currently below the 5.00% threshold. For the Oct 30 print to exceed 5.00%, it would need to rally at least 1 bp from current levels, which is within normal 3-day volatility (10-15 bp std dev), but the downward momentum argues against it. The FOMC meeting and GDP/PCE releases in the window are the main wildcards\u2014a hawkish surprise could push it above 5%, but the market expects no change and the base case is continued stability or slight decline below 5%."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "The 10-year yield has been trending down from early-October highs above 5.3% and closed at 4.986% on Oct 26, with the latest reading at 4.99% on Oct 27. The yield is currently just below 5.00% and has fallen about 30 bp over the past month. With a busy week of Fed, GDP, and PCE data ahead, but the prevailing trend pointing lower, the probability of a print above 5.00% on Oct 30 is modest but not negligible given potential event-driven volatility."
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5180084745762712
+        }
+      ],
+      "id": "4c014bd2f44640a3",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261027",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Oct 30, 2026 be above 5.00%?",
+      "topic": "Interest rates",
+      "verdict": "right"
+    },
     {
       "actual": "Manifold: No",
       "call": {
@@ -555,6 +619,70 @@
       "status": "resolved",
       "title": "Will Ethereum dip to $2,100 October 26-November 1?",
       "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.07,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74,
+          "judge_minimax_m3_v1": 28.24,
+          "judge_qwen38_27b_v1": 32.04
+        }
+      },
+      "detail": "This is a market about the ISM Manufacturing Purchasing Managers' Index (PMI) for October 2026, as reported by the Institute for Supply Management (ISM). A reading above 50 indicates expansion in the manufacturing sector relative to the previous month; a reading below 50 indicates contraction.\n\nThis market will resolve to the bracket containing the ISM Manufacturing PMI for October 2026 according to the monthly ISM Manufacturing PMI Report On Business.\n\nThe resolution source for this market will be the ISM Manufacturing PMI Report On Business released for October 2026 (https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/), currently scheduled to be released on November 2, 2026, at 10:00 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: although ISM describes the PMI reading using the term \"percent\" in its official release (e.g., \"The Manufacturing PMI registered 52.7 percent\"), the PMI is a diffusion index, not a true percentage. For the purposes of this market, the PMI reading will be treated as a plain numerical value, consistent with how the index is universally quoted in financial markets.\n\nNote: The ISM Manufacturing PMI is reported to one decimal point. Thus, this is the level of precision that will be used when resolving this market.\n\nIf ISM does not release the relevant figures on the scheduled date, this market may remain open until the scheduled release time of the next ISM Manufacturing PMI report (https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "September ISM was 54.5 (August 54.6), and none of the last 12 readings (high 55.6) or 37 months fell in 56.0-56.9, so the band needs a rise of at least 1.5 points. Evidence for a firmer October: the S&P Global flash manufacturing PMI of 56.0 (a different survey), Empire State at 25.5 (highest since Dec 2021) and supplier deliveries at 59.0; against it, the Philadelphia Fed index fell from 37.8 to 20.9 with new orders down 25 points. With a typical monthly move of about 1.5 points and an expected October reading near 55, the one-point band 56.0-56.9 gets roughly 15%.",
+          "sources": [
+            "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/",
+            "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
+            "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-10",
+            "https://www.newyorkfed.org/survey/empire/empiresurvey_overview"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate is 0 of 37 recent months in the 56.0-56.9 bracket, with the ISM high at 55.6 and September at 54.5, requiring a 1.5-2.4 point jump. The S&P Global flash at 56.0 (53-month high) and the Empire State surge to 25.5 are positive signals, but the S&P Global-ISM gap has been ~1.4 points recently, and the Philadelphia Fed's sharp decline (new orders to 4.3) is a headwind. A move this large in one month is uncommon given recent ISM moves of -1.0 and -0.1, making this a low-probability outcome despite the improving backdrop."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate is essentially zero: no ISM Manufacturing PMI reading has fallen in the 56.0-56.9 bracket in the past 37 months (September 2023 to September 2026), with the 12-month high being 55.6. The September reading was 54.5, and recent month-over-month changes have been small (-0.1 in September, -1.0 in August). The S&P Global flash PMI at 56.0 is a mildly positive signal, but ISM and S&P Global are different surveys that have diverged by ~1.4 points recently, and the Philadelphia Fed survey showed a sharp decline while the Empire State showed strength\u2014mixed signals. A jump from 54.5 to 56.0+ would be historically unusual, so I assign roughly 3% probability."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.06,
+          "rationale": "September's ISM reading was 54.5, and the bracket of 56.0-56.9 requires a rise of 1.5 to 2.4 points. Monthly ISM changes have a standard deviation of about 1.5-2 points, so that is roughly a 10% chance. The S&P flash PMI hit a 53-month high of 56.0 and the Empire State index rose sharply, which pushes the odds up. The Philadelphia Fed new orders index fell sharply, which pushes them down. ISM has not printed in this bracket in 37 months, and the 2025-26 high was 55.6. I put the probability at about 6-8%."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.116
+        }
+      ],
+      "id": "polymarket-5194745",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://polymarket.com/event/ism-manufacturing-pmi-october-2026",
+      "status": "resolved",
+      "title": "Will ISM Manufacturing PMI be between 56.0 and 56.9 in October?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -4537,6 +4665,76 @@
       "status": "resolved",
       "title": "Will Anthropic have the best AI model on LiveBench (Mathematics) at the end of October 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.14,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "Context: the first big \"vie chere\" protest day, on Saturday Oct 17, 2026, drew 550,000 protesters according to the French Ministry of the Interior (800,000 according to organizers). Resolves YES if the Ministry of the Interior (or, if it publishes no national figure, police figures reported by AFP) reports more than 500,000 protesters nationwide on Saturday Oct 24, 2026 or on Saturday Oct 31, 2026 (at least one of the two), in protests against the cost of living (vie chere) or the related social movement. Organizers' or unions' figures do not count. The Oct 17 day does not count. Resolves NO otherwise, including if no protest takes place. The market closes before the first of these figures is public.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "The Interior Ministry counted 410,000 on Oct 24, so only Oct 31 can make this resolve yes, and it must exceed 500,000. The count fell from 550,000 to 410,000 in one week, organizers are shifting to sit-ins rather than marches, routes are being kept out of city centres, and the union general strike is set for Nov 5, not Oct 31. Interior Minister Nu\u00f1ez expects a large turnout, so a rebound cannot be ruled out, but a rise of about 90,000 over the previous Saturday is a stretch.",
+          "sources": [
+            "https://www.afp.com/en/france-protests-latest-developments",
+            "https://www.franceinfo.fr/societe/manifestations/pres-de-410-000-personnes-ont-manifeste-en-france-d-apres-le-ministere-de-l-interieur-800-000-selon-la-cgt-des-tensions-dans-plusieurs-grandes-villes_8252440.html",
+            "https://actu.fr/societe/acte-iii-des-gilets-jaunes-plus-de-400-rassemblements-partout-en-france-samedi-31-octobre-la-carte-des-mobilisations_64979604.html"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.1,
+          "rationale": "The Oct 24 figure is already known at 410,000, below the threshold, so only Oct 31 can resolve Yes. The trend fell from 550,000 to 410,000 in one week, and the Oct 31 mobilisation is mostly sit-ins (355) with only 61 marches compared with 360 marches on Oct 24, during school holidays and before the larger Nov 5 strike. These factors make a rebound above 500,000 plausible but fairly unlikely, around 10%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "Oct 24 is already confirmed below threshold at 410,000 per the Interior Ministry. For Oct 31, the format shifts dramatically from 360 marches to only 61 marches plus 355 sit-ins, and the Interior Ministry's counting methodology typically focuses on cort\u00e8ges (marches), making it unlikely that sit-ins would be counted at the same scale. The trend is declining (550k\u2192410k), the main mobilization energy is directed toward the Nov 5 general strike, and government restrictions (routes outside city centers, curfews) further suppress turnout. A 500k+ count on Oct 31 would require either a significant surge in per-event attendance or the Ministry counting sit-ins aggressively, both of which seem unlikely given the evidence."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Oct. 24 is already ruled out by the Interior Ministry's 410,000 count, so the outcome depends entirely on Oct. 31. Given the decline from 550,000 to 410,000, the base rate for rebounding above 500,000 within a week is low, and the shift from 360 marches to only 61 marches\u2014along with dispersed sit-ins and security restrictions\u2014makes the threshold harder to reach. A large Paris turnout, inclusion of sit-ins in official totals, or strong mobilization ahead of the Nov. 5 strike could still produce a substantial rebound."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Oct 24 came in at 410,000 per the Interior Ministry, below the threshold, so only Oct 31 can resolve Yes. The ministry count is declining (550k to 410k). Oct 31 is a sit-in format rather than marches, falls in a holiday period, and sits just before the Nov 5 strike. A police figure above 500k is unlikely, though momentum from the repression could still produce a surprise."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.17
+        }
+      ],
+      "id": "manifold-Z9n5SgcU0y",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://manifold.markets/CheerForgeAdmin/-will-france-report-300000-proteste",
+      "status": "resolved",
+      "title": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -9101,76 +9299,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.14,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 27.14,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "Context: the first big \"vie chere\" protest day, on Saturday Oct 17, 2026, drew 550,000 protesters according to the French Ministry of the Interior (800,000 according to organizers). Resolves YES if the Ministry of the Interior (or, if it publishes no national figure, police figures reported by AFP) reports more than 500,000 protesters nationwide on Saturday Oct 24, 2026 or on Saturday Oct 31, 2026 (at least one of the two), in protests against the cost of living (vie chere) or the related social movement. Organizers' or unions' figures do not count. The Oct 17 day does not count. Resolves NO otherwise, including if no protest takes place. The market closes before the first of these figures is public.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.14,
-          "rationale": "The Interior Ministry counted 410,000 on Oct 24, so only Oct 31 can make this resolve yes, and it must exceed 500,000. The count fell from 550,000 to 410,000 in one week, organizers are shifting to sit-ins rather than marches, routes are being kept out of city centres, and the union general strike is set for Nov 5, not Oct 31. Interior Minister Nu\u00f1ez expects a large turnout, so a rebound cannot be ruled out, but a rise of about 90,000 over the previous Saturday is a stretch.",
-          "sources": [
-            "https://www.afp.com/en/france-protests-latest-developments",
-            "https://www.franceinfo.fr/societe/manifestations/pres-de-410-000-personnes-ont-manifeste-en-france-d-apres-le-ministere-de-l-interieur-800-000-selon-la-cgt-des-tensions-dans-plusieurs-grandes-villes_8252440.html",
-            "https://actu.fr/societe/acte-iii-des-gilets-jaunes-plus-de-400-rassemblements-partout-en-france-samedi-31-octobre-la-carte-des-mobilisations_64979604.html"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.1,
-          "rationale": "The Oct 24 figure is already known at 410,000, below the threshold, so only Oct 31 can resolve Yes. The trend fell from 550,000 to 410,000 in one week, and the Oct 31 mobilisation is mostly sit-ins (355) with only 61 marches compared with 360 marches on Oct 24, during school holidays and before the larger Nov 5 strike. These factors make a rebound above 500,000 plausible but fairly unlikely, around 10%."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.2,
-          "rationale": "Oct 24 is already confirmed below threshold at 410,000 per the Interior Ministry. For Oct 31, the format shifts dramatically from 360 marches to only 61 marches plus 355 sit-ins, and the Interior Ministry's counting methodology typically focuses on cort\u00e8ges (marches), making it unlikely that sit-ins would be counted at the same scale. The trend is declining (550k\u2192410k), the main mobilization energy is directed toward the Nov 5 general strike, and government restrictions (routes outside city centers, curfews) further suppress turnout. A 500k+ count on Oct 31 would require either a significant surge in per-event attendance or the Ministry counting sit-ins aggressively, both of which seem unlikely given the evidence."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Oct. 24 is already ruled out by the Interior Ministry's 410,000 count, so the outcome depends entirely on Oct. 31. Given the decline from 550,000 to 410,000, the base rate for rebounding above 500,000 within a week is low, and the shift from 360 marches to only 61 marches\u2014along with dispersed sit-ins and security restrictions\u2014makes the threshold harder to reach. A large Paris turnout, inclusion of sit-ins in official totals, or strong mobilization ahead of the Nov. 5 strike could still produce a substantial rebound."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.04,
-          "rationale": "Oct 24 came in at 410,000 per the Interior Ministry, below the threshold, so only Oct 31 can resolve Yes. The ministry count is declining (550k to 410k). Oct 31 is a sit-in format rather than marches, falls in a holiday period, and sits just before the Nov 5 strike. A police figure above 500k is unlikely, though momentum from the repression could still produce a surprise."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.17
-        }
-      ],
-      "id": "manifold-Z9n5SgcU0y",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://manifold.markets/CheerForgeAdmin/-will-france-report-300000-proteste",
-      "status": "pending",
-      "title": "\ud83c\uddeb\ud83c\uddf7\ud83e\udea7 Will France report 500,000+ protesters on at least 1 of the next 2 Saturdays (Oct 24 or Oct 31, 2026)?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.6,
@@ -9555,70 +9683,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.45,
-        "weights": {
-          "claude_code_forecaster_v1": 32.08,
-          "judge_deepseek_v4_pro_v1": 30.34,
-          "judge_minimax_m3_v1": 29.89,
-          "judge_qwen38_27b_v1": 34.34,
-          "statistical_baseline_v1": 14.72
-        }
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-10-30 be above 5 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-27T11:14:12+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "The 10-year sat almost exactly on the line: 4.96% on 2026-10-22 (govspending.org, H.15), 5.00% on 2026-10-23 (Treasury par curve via spotthemoney.com) and about 4.99% on 2026-10-26 (Trading Economics), so the question is nearly a coin flip over the 3-4 trading days left, with a typical move of 10-15 bp. An exact 5.00% print resolves No, which shaves a little off 50%, and the yield has drifted down about 25 bp from early-October highs; my earlier 'above X' yield calls at 55-56% were all wrong, so I stay slightly under even. FOMC, GDP and refunding news this week are unverified but add variance without a clear direction.",
-          "sources": [
-            "https://tradingeconomics.com/united-states/government-bond-yield",
-            "https://spotthemoney.com/rates/treasury-yields/",
-            "https://govspending.org/series/DGS10/"
-          ]
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.45,
-          "rationale": "The 10-year yield is hovering just below 5% (4.99% on Oct 27) after a three-week decline from above 5.3%. The downward trend and lack of a clear catalyst for a sharp reversal make a move above 5% by Oct 30 less likely, though the FOMC decision and data releases this week could trigger a surprise. With a typical 3-day standard deviation of 10\u201315 bp, the outcome is close to even but slightly favors staying below 5%."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.35,
-          "rationale": "The 10-year yield was at 4.99% on Oct 27 and 4.986% on Oct 26, on a three-week declining trend from above 5.3% in early October, making it currently below the 5.00% threshold. For the Oct 30 print to exceed 5.00%, it would need to rally at least 1 bp from current levels, which is within normal 3-day volatility (10-15 bp std dev), but the downward momentum argues against it. The FOMC meeting and GDP/PCE releases in the window are the main wildcards\u2014a hawkish surprise could push it above 5%, but the market expects no change and the base case is continued stability or slight decline below 5%."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "The 10-year yield has been trending down from early-October highs above 5.3% and closed at 4.986% on Oct 26, with the latest reading at 4.99% on Oct 27. The yield is currently just below 5.00% and has fallen about 30 bp over the past month. With a busy week of Fed, GDP, and PCE data ahead, but the prevailing trend pointing lower, the probability of a print above 5.00% on Oct 30 is modest but not negligible given potential event-driven volatility."
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5180084745762712
-        }
-      ],
-      "id": "4c014bd2f44640a3",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261027",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Oct 30, 2026 be above 5.00%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 7,
         "method": "combined_median_v1",
         "probability": 0.05
@@ -9893,70 +9957,6 @@
       "status": "pending",
       "title": "Will the price of Ethereum be above $2,200 on November 2?",
       "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.07,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74,
-          "judge_minimax_m3_v1": 28.24,
-          "judge_qwen38_27b_v1": 32.04
-        }
-      },
-      "detail": "This is a market about the ISM Manufacturing Purchasing Managers' Index (PMI) for October 2026, as reported by the Institute for Supply Management (ISM). A reading above 50 indicates expansion in the manufacturing sector relative to the previous month; a reading below 50 indicates contraction.\n\nThis market will resolve to the bracket containing the ISM Manufacturing PMI for October 2026 according to the monthly ISM Manufacturing PMI Report On Business.\n\nThe resolution source for this market will be the ISM Manufacturing PMI Report On Business released for October 2026 (https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/), currently scheduled to be released on November 2, 2026, at 10:00 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: although ISM describes the PMI reading using the term \"percent\" in its official release (e.g., \"The Manufacturing PMI registered 52.7 percent\"), the PMI is a diffusion index, not a true percentage. For the purposes of this market, the PMI reading will be treated as a plain numerical value, consistent with how the index is universally quoted in financial markets.\n\nNote: The ISM Manufacturing PMI is reported to one decimal point. Thus, this is the level of precision that will be used when resolving this market.\n\nIf ISM does not release the relevant figures on the scheduled date, this market may remain open until the scheduled release time of the next ISM Manufacturing PMI report (https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.15,
-          "rationale": "September ISM was 54.5 (August 54.6), and none of the last 12 readings (high 55.6) or 37 months fell in 56.0-56.9, so the band needs a rise of at least 1.5 points. Evidence for a firmer October: the S&P Global flash manufacturing PMI of 56.0 (a different survey), Empire State at 25.5 (highest since Dec 2021) and supplier deliveries at 59.0; against it, the Philadelphia Fed index fell from 37.8 to 20.9 with new orders down 25 points. With a typical monthly move of about 1.5 points and an expected October reading near 55, the one-point band 56.0-56.9 gets roughly 15%.",
-          "sources": [
-            "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/",
-            "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
-            "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-10",
-            "https://www.newyorkfed.org/survey/empire/empiresurvey_overview"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.07,
-          "rationale": "The base rate is 0 of 37 recent months in the 56.0-56.9 bracket, with the ISM high at 55.6 and September at 54.5, requiring a 1.5-2.4 point jump. The S&P Global flash at 56.0 (53-month high) and the Empire State surge to 25.5 are positive signals, but the S&P Global-ISM gap has been ~1.4 points recently, and the Philadelphia Fed's sharp decline (new orders to 4.3) is a headwind. A move this large in one month is uncommon given recent ISM moves of -1.0 and -0.1, making this a low-probability outcome despite the improving backdrop."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.03,
-          "rationale": "The base rate is essentially zero: no ISM Manufacturing PMI reading has fallen in the 56.0-56.9 bracket in the past 37 months (September 2023 to September 2026), with the 12-month high being 55.6. The September reading was 54.5, and recent month-over-month changes have been small (-0.1 in September, -1.0 in August). The S&P Global flash PMI at 56.0 is a mildly positive signal, but ISM and S&P Global are different surveys that have diverged by ~1.4 points recently, and the Philadelphia Fed survey showed a sharp decline while the Empire State showed strength\u2014mixed signals. A jump from 54.5 to 56.0+ would be historically unusual, so I assign roughly 3% probability."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.06,
-          "rationale": "September's ISM reading was 54.5, and the bracket of 56.0-56.9 requires a rise of 1.5 to 2.4 points. Monthly ISM changes have a standard deviation of about 1.5-2 points, so that is roughly a 10% chance. The S&P flash PMI hit a 53-month high of 56.0 and the Empire State index rose sharply, which pushes the odds up. The Philadelphia Fed new orders index fell sharply, which pushes them down. ISM has not printed in this bracket in 37 months, and the 2025-26 high was 55.6. I put the probability at about 6-8%."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.116
-        }
-      ],
-      "id": "polymarket-5194745",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://polymarket.com/event/ism-manufacturing-pmi-october-2026",
-      "status": "pending",
-      "title": "Will ISM Manufacturing PMI be between 56.0 and 56.9 in October?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -15842,19 +15842,19 @@
     }
   ],
   "summary": {
-    "brier": 0.19857868824244254,
+    "brier": 0.19572026913602916,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 117,
-    "resolved": 126,
-    "right": 88,
+    "pending": 114,
+    "resolved": 129,
+    "right": 91,
     "toss_ups": 1,
     "total": 247,
     "unscored": 3,
     "vs_market": {
-      "market": 0.16714844607476634,
-      "ours": 0.1870102803738318,
-      "questions": 107
+      "market": 0.16447008926605505,
+      "ours": 0.18380366972477066,
+      "questions": 109
     },
     "wrong": 37
   },
