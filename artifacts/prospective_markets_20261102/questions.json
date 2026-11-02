@@ -1,0 +1,142 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-04T17:00:00Z",
+      "id": "polymarket-6346612",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-4-2026",
+      "question": "Will the price of Bitcoin be above $74,000 on November 4?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-09T23:59:00Z",
+      "id": "polymarket-5734062",
+      "market_url": "https://polymarket.com/event/october-inflation-china-annual",
+      "question": "Will China\u2019s CPI increase by between 0.9% and 1.0% over the 12 month period ending in October 2026?",
+      "resolution_criteria": "This is a market about the variation of consumer prices in China over a 12-month period ending October 2026 as reported by the National Bureau of Statistics (NBS) of China.\n\nThis market will resolve according to the number the Consumer Price Index (CPI) increased by during the 12-month period ending October 2026 (% change from the same month in the previous year) according to the monthly NBS report.\n\nThe resolution source for this market will be the NBS Consumer Price Index monthly report released for October 2026 (https://www.stats.gov.cn/english/PressRelease/), currently scheduled to be released in November 2026. Resolution of this market will take place upon release of the aforementioned data. If no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nYou can find the relevant figure by locating the report for October 2026 on the Press Releases page (see: https://www.stats.gov.cn/english/PressRelease/), locating the table named \"Consumer Price Index in October 2026\", and finding the consumer price index figure in the column labeled \"Growth Rate Y/Y (%)\".\n\nNote: the resolution source for this market will be the official monthly NBS CPI news release which reports inflation during 12-month periods to only one decimal point (e.g. 1.9%). Thus, this is the level of precision that will be used when resolving the market. For the full release schedule, see: https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-06T17:00:00Z",
+      "id": "polymarket-6288574",
+      "market_url": "https://polymarket.com/event/elon-musk-of-tweets-october-30-november-6-2026",
+      "question": "Will Elon Musk post 320-339 tweets from October 30 to November 6, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from October 30 12:00 PM ET to November 6, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-09T05:00:00Z",
+      "id": "polymarket-6563893",
+      "market_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-2-8-2026",
+      "question": "Will Ethereum reach $2,400 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-11T04:59:00Z",
+      "id": "polymarket-5691088",
+      "market_url": "https://polymarket.com/event/october-inflation-us-annual",
+      "question": "Will annual inflation be 3.7% in October?",
+      "resolution_criteria": "This is a market about inflation over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Consumer Price Index (CPI) over the 12-month period ending in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports inflation over 12-month periods to only one decimal point (e.g., 2.9%). Thus, this is the level of precision that will be used when resolving the market.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-07T04:59:00Z",
+      "id": "polymarket-4927096",
+      "market_url": "https://polymarket.com/event/which-party-will-win-white-voters-in-the-midterms",
+      "question": "Will Republicans win white voters in the midterms?",
+      "resolution_criteria": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white voters in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-05T17:00:00Z",
+      "id": "polymarket-6389961",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-5-2026",
+      "question": "Will the price of Bitcoin be above $80,000 on November 5?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-11T04:59:00Z",
+      "id": "polymarket-5699280",
+      "market_url": "https://polymarket.com/event/core-cpi-yoy-october-2026",
+      "question": "Will Core CPI YoY be 2.6% in October?",
+      "resolution_criteria": "This is a market about core inflation (excluding food and energy) over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) over the 12-month period ending in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 12-month periods to only one decimal point (e.g., 2.8%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-07T04:59:00Z",
+      "id": "polymarket-4199214",
+      "market_url": "https://polymarket.com/event/which-party-will-win-white-women-in-the-midterms",
+      "question": "Will Republicans win white women in the midterms?",
+      "resolution_criteria": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white women in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-04T17:00:00Z",
+      "id": "polymarket-6346570",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-4-2026",
+      "question": "Will the price of Ethereum be above $2,200 on November 4?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-11T04:59:00Z",
+      "id": "polymarket-5691223",
+      "market_url": "https://polymarket.com/event/october-inflation-us-monthly",
+      "question": "Will monthly inflation increase by 0.1% or less in October?",
+      "resolution_criteria": "This is a market about the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) published by the Bureau of Labor Statistics (BLS).\n\nThis market will resolve to the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) in October 2026 according to the monthly BLS report.\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly Consumer Price Index for All Urban Consumers (CPI-U) which BLS reports to one decimal point (e.g. 0.4%). Thus, this is the level of precision that will be used when resolving the market.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-05T04:59:00Z",
+      "id": "polymarket-2822661",
+      "market_url": "https://polymarket.com/event/ca-04-house-election-winner-by-individual-20260630172946503",
+      "question": "Will Mike Thompson win the CA-04 House seat?",
+      "resolution_criteria": "This market will resolve according to the individual who wins the CA-04 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/).",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-11T13:29:00Z",
+      "id": "manifold-CcysACRQAh",
+      "market_url": "https://manifold.markets/Tripping/will-a-republican-win-the-us-senate",
+      "question": "Will a Republican win the US Senate special election in Florida in 2026?",
+      "resolution_criteria": "If Marco Rubio leaves the Senate, there will be a special election in 2026 to decide who will fill the position for the remaining 2 years of that term. \n\nIf a GOP candidate wins this election, this market resolves yes.\n\nIf a non-GOP candidate wins, the election isn't held, or some other outcome occurs, this market resolves NO.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-04T23:00:00Z",
+      "id": "manifold-LtpELtyL0p",
+      "market_url": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-EpgCOn90Oc",
+      "question": "Will Anthropic release a new Claude Fable model before November 5, 2026?",
+      "resolution_criteria": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before November 5, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-05T04:59:00Z",
+      "id": "manifold-cq5ZZ2hh8I",
+      "market_url": "https://manifold.markets/DSalomon/elon-musk-faces-a-credible-assassin",
+      "question": "Will there be a Assassination attempt on Elon Musks life between now and the mid terms of 2026.",
+      "resolution_criteria": "This market resolves to YES if there is a credible assassination attempt on Elon Musk before the 2026 U.S. midterm elections, as reported by at least two major news outlets. A credible attempt means law enforcement confirms the threat was real and steps were taken to prevent it.\n\nResolution will be based on official law enforcement statements and verified news reports.\n\nReferences:\n\nhttps://timesofindia.indiatimes.com/technology/tech-news/kill-elon-musk-says-tiktoker-to-followers-elon-musk-replies-everybody-/articleshow/118346755.cms\n\nhttps://www.ndtv.com/world-news/elon-musk-faces-assassination-threat-cryptic-social-media-post-targets-the-tesla-boss-7292764",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-11T05:59:00Z",
+      "id": "manifold-t2O0uUtuPn",
+      "market_url": "https://manifold.markets/nikki/will-polymarket-allow-us-citizens-t",
+      "question": "Will Polymarket allow US persons to trade on the 2026 midterms?",
+      "resolution_criteria": "The time must be longer than a period of a week, or allowing for betting on the day of the election. The markets can be separate, but should allow betting in some form of cryptocurrency. \n\n(update)\n\nA separate market or exchange is fine for US users. At least 80% of US users must be able to bet on the overall control of the House. The US market must allow cryptocurrency deposits and withdrawals. Other functionality besides election trading such as sports is irrelevant\n\nI will not bet in this market.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-10T23:59:00Z",
+      "id": "manifold-qg6Ql2nUEO",
+      "market_url": "https://manifold.markets/njordsier/national-guard-deployed-at-polling",
+      "question": "National Guard deployed at polling places in 2026 midterms?",
+      "resolution_criteria": "Resolution criteria\n\nResolves YES if, between the start of in\u2011person early voting and the close of polls on Tuesday, November 3, 2026, any U.S. state or territory officially deploys National Guard personnel to be physically present at one or more polling places where voters cast ballots (including early\u2011vote centers) to assist or provide security (e.g., setup, crowd/traffic control, administrative help, visible security), whether in uniform or civilian clothes. Acceptable proof: an official announcement from a state National Guard/governor/secretary of state, a National Guard Bureau news post, or two independent reputable news reports citing officials. Examples of acceptable source hubs for verification: National Guard Bureau newsroom, state Guard newsrooms, and state election officials\u2019 sites. (nationalguard.mil)\n\nResolves NO if no such physical deployment at polling places is documented. Cybersecurity-only support (remote or at operations centers), guarding non\u2011polling facilities, use of Guard buildings as polling sites without Guard members on duty at the polls, or post\u2011election presence at counting centers that are not open polling places do not count. (nationalguard.mil, politico.com, defenseone.com)\n\nBackground\n\nThe 2026 U.S. midterm general election is scheduled for Tuesday, November 3, 2026. (usvotefoundation.org, en.wikipedia.org)\n\nNational Guard members have previously been used at polling places in limited roles (e.g., Kentucky 2020 for administrative/logistics support), while many states have more recently used Guard units for election cybersecurity support away from polling locations (e.g., 2022). (armytimes.com, nationalguard.mil, defenseone.com)\n\nFederal law restricts federal troops at polls (18 U.S.C. \u00a7592); state\u2011controlled Guard activations for permissible support have occurred under state authority. (law.cornell.edu, governing.com)\n\nConsiderations\n\nDistinguish \u201cphysical presence at polling places\u201d (counts) from cybersecurity or infrastructure protection elsewhere (does not count). Prior cycles saw substantial cyber support but little on\u2011site polling\u2011place presence. (nationalguard.mil, military.com)\n\nEarly voting sites qualify as polling places; ballot\u2011counting centers after polls close do not, unless they are also open polling places at the time. Reference the statutory constraint on troops at polls when assessing edge cases. (law.cornell.edu)",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-11-02T10:19:34.582260+00:00",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}

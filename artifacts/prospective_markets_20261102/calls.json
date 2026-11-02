@@ -1,0 +1,152 @@
+{
+  "manifold-CcysACRQAh": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.8,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "manifold-LtpELtyL0p": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.04,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "manifold-cq5ZZ2hh8I": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.08,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "manifold-qg6Ql2nUEO": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.72,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "manifold-t2O0uUtuPn": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.25,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-2822661": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.52,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-4199214": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.33,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77
+    }
+  },
+  "polymarket-4927096": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.8,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-5691088": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.57,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-5691223": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.22,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77
+    }
+  },
+  "polymarket-5699280": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.6,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-5734062": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.32,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-6288574": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.09,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77
+    }
+  },
+  "polymarket-6346570": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.84,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-6346612": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.93,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-6389961": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.2,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  },
+  "polymarket-6563893": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.4,
+    "weights": {
+      "claude_code_forecaster_v1": 26.77,
+      "judge_claude_sonnet55_v1": 15.81
+    }
+  }
+}
