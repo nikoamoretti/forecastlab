@@ -19,6 +19,12 @@
             "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
             "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "BTC is about 78,000, roughly 5.4% above the 74,000 line, with about 54 hours to the noon ET close on Nov 4. That is about 2 times the average daily range, and the last 30 daily closes were all above 74,000, so a drop through the line needs a large move. The Binance hack and ETF outflows add tail risk, such as forced liquidation of stolen funds or renewed exchange stress, but the price held up through the Oct 29-30 shock, so I put the chance of staying above at about 93%."
         }
       ],
       "id": "polymarket-6346612",
@@ -48,6 +54,12 @@
             "https://www.ndrc.gov.cn/xwdt/xwfb/202610/t20261029_1408449.html",
             "https://price.mofcom.gov.cn/article/yjzx/hyzx/nyls/202610/65426.html"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.4,
+          "rationale": "September CPI was 0.9%, and the series is persistent, so 0.9 or 1.0 is the most likely zone. Against that, October 2025 is a firmer base (+0.2% m/m), pork and vegetable prices stayed well below last year, and the pump price rise only came at the very end of October. Mainly 0.8, 0.9 or 1.0 are plausible, with some chance of 1.1 or above from energy and core, so I put the 0.9-1.0 bucket at roughly 40%."
         }
       ],
       "id": "polymarket-5734062",
@@ -105,6 +117,12 @@
             "https://farside.co.uk/eth/",
             "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.2,
+          "rationale": "ETH is around 2,287, about 4.9% below the 2,400 line, with 7 days (about 6.5 remaining) to touch it. Daily ranges are about 94 and ATR about 78, so weekly volatility of roughly 8-9% gives a touch probability near 25-30% from a driftless model. The trend is down, ETF outflows continue, and resistance sits near 2,355. The jobs report on Nov 6 and a possible bounce are the upside risks, so I shade a bit lower, to about 0.2."
         }
       ],
       "id": "polymarket-6563893",
@@ -134,6 +152,12 @@
             "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
             "https://www.bls.gov/news.release/cpi.htm"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.4,
+          "rationale": "The Cleveland Fed nowcast is 3.74% year on year, just under the 3.75 rounding edge, so a printed 3.7 is plausible but 3.8 is nearly as likely. The nowcast also leans on a modeled October 2025 index because BLS never published one. Gasoline fell about 4% over October, which points the month-on-month change lower and pushes the tail below 3.7. BLS says it will not publish October 2026 12-month changes where the October 2025 value is missing. In that case the fallback rule resolves to September's 3.7%, which adds Yes probability. Weighing a roughly 35-40% chance of a 3.7 print if published against a meaningful chance of no 12-month figure and fallback to 3.7, I land a bit above 40%. Uncertainty is high on both the publication question and the fallback reading."
         }
       ],
       "id": "polymarket-5691088",
@@ -163,6 +187,12 @@
             "https://maristpoll.marist.edu/wp-content/uploads/2026/10/NPR_PBS-News_Marist-Poll_USA-NOS-and-Tables_202610211808AS.pdf",
             "https://edition.cnn.com/election/2022/exit-polls/national-results/general/us-house/0"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Republicans won the white vote in 8 of 10 readable midterm House exit polls, including 2006 (47-51) when Democrats won the House vote by about 8 points. In 2026 the national margin looks like D+9 or D+10, a bit bigger than 2006, and Pew shows whites at R+7 among registered voters, while ActiVote has them at R+2 and Marist at D+2. The likeliest outcome is a narrow Republican edge among whites in the CNN table; the risks are a tie or a Democratic edge in a wave year, and CNN failing to publish a white row (CBS and ABC are fallbacks)."
         }
       ],
       "id": "polymarket-4927096",
@@ -191,6 +221,12 @@
             "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
             "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.2,
+          "rationale": "Price is about 78,030, roughly 2.5% below 80,000, with about 78 hours to the noon ET close on Nov 5. Daily range is about 2,000, so a 3-day volatility of roughly 4% puts the line near 0.6 sigma away, which gives about 25-27% for a pure random walk. The Binance hack, outflows and ETF selling add some downside drift and the price has failed to hold above 80,000 since Oct 29, so I shade lower. A rebound on flows turning or a relief rally could still get it there."
         }
       ],
       "id": "polymarket-6389961",
@@ -220,6 +256,12 @@
             "https://www.bls.gov/news.release/cpi.htm",
             "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.3,
+          "rationale": "BLS says it will not publish a 12-month change for October 2026 because the October 2025 index was never published. If the release has no core YoY, the fallback rule points to September's 2.6%, which would resolve Yes, though the market could also be read as ambiguous or void. If BLS does print a figure, the Cleveland Fed nowcast of 2.48% suggests 2.5 is more likely than 2.6. The main uncertainty is how the fallback wording is applied and whether the release text states a figure anyway."
         }
       ],
       "id": "polymarket-5699280",
@@ -277,6 +319,12 @@
             "https://data-api.binance.vision/api/v3/ticker/price?symbol=ETHUSDT",
             "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1793322000000&limit=3"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "ETH was about 2,286, roughly 3.9% above the 2,200 line, with about 54 hours to the noon-ET close on Nov 4. With daily volatility of about 3.5-4%, 54 hours is roughly 1.5-1.8% per sqrt-day scaling, so the standard deviation is around 5-6% and the cushion is about 0.7 sigma, which gives roughly 76-80% for staying above. The 2,200 level has acted as support recently, but the Binance hack aftermath, ETF outflows, the midterms and ISM data add downside risk."
         }
       ],
       "id": "polymarket-6346570",
@@ -336,6 +384,12 @@
             "https://www.pressdemocrat.com/2026/10/16/eric-jones-campaign-spending-congress-california/",
             "https://www.brookings.edu/wp-content/uploads/2024/11/2-7-Full.pdf"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.72,
+          "rationale": "Incumbents win about 93% of the time, and Thompson led the primary 41% to 22% over Jones with the party endorsement. Riehle's Republican voters (about 37% of primary voters chose neither Democrat) mostly going to Jones makes this a real contest, though, and Jones's $10M self-funding and two internal polls showing him ahead (45-35 and 53-40) are meaningful. Internal polls overstate their sponsor's position and are uncorroborated, so I keep Thompson as a moderate favorite. An independent poll or turnout shifts could change this."
         }
       ],
       "id": "polymarket-2822661",
@@ -366,6 +420,12 @@
             "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
             "https://files.floridados.gov/media/711452/1-party-by-county.pdf"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.85,
+          "rationale": "Florida has a ~1.5M Republican registration edge, and three late polls (UNF, St. Pete Polls, RedBox) all show Moody ahead by 3-4 points. The national environment favors Democrats and independents lean Nixon, so the lead is narrower than the registration gap suggests, and polls can miss by a few points. Moody is still a clear favorite, though a Democratic-wave turnout or a polling miss could flip it."
         }
       ],
       "id": "manifold-CcysACRQAh",
@@ -395,6 +455,12 @@
             "https://platform.claude.com/docs/en/release-notes/system-prompts/claude-fable-5-1",
             "https://www.anthropic.com/events"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Base rate is low: the only gap between general Fable releases was 84 days, and Fable 5.1 shipped about 48 days ago, so the next Fable on that cadence would land around late November. No new model string, newsroom post, partner listing or event appears for Nov 2-4, and the Fable 5.1 system prompt dated Oct 30 still calls it the most advanced generally available model. A short-notice launch is possible since earlier Fable models launched the day they were announced, but the window is only about 3 days. A Mythos-only or partner-only release would not count."
         }
       ],
       "id": "manifold-LtpELtyL0p",
@@ -423,6 +489,12 @@
             "https://www.cbsnews.com/news/fbi-disrupts-alleged-plot-targeting-ufc-event-white-house/",
             "https://www.mediaite.com/politics/patrick-bet-david-predicts-elon-musk-will-be-assassinated-im-telling-you-theyre-not-gonna-let-this-guy-live/"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.02,
+          "rationale": "The window is about three days (to the Nov 3 midterms, resolution Nov 5), and the base rate of a law-enforcement-confirmed, publicly reported attempt on a private figure in any such window is tiny. The June UFC plot, which listed Musk among its targets, falls outside the window, and no new threat announcement was found from Oct 26 to Nov 2. A lenient resolver counting the June plot, or a surprise announcement, is the main upside risk."
         }
       ],
       "id": "manifold-cq5ZZ2hh8I",
@@ -453,6 +525,12 @@
             "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/08/28/25-7516.pdf",
             "https://storage.courtlistener.com/recap/gov.uscourts.cadc.41256/gov.uscourts.cadc.41256.01208737436.0.pdf"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.5,
+          "rationale": "In reality, Polymarket relaunched a CFTC-regulated US exchange (via QCEX acquisition) in late 2025 and offered US users event contracts, including politics. Kalshi also offers House control to all US states. However, the brief documents no confirmed crypto deposit/withdrawal access for 80% of US users on a House-control contract. Polymarket US reportedly supports USDC funding in some form, but this is uncertain, and state-law challenges may limit access in some states. The question's resolution criteria are also ambiguous, and the requirement for 80% of US users and crypto funding adds risk. The legal path is open and the platform is likely live with House markets, but the specific crypto and coverage conditions are unverified."
         }
       ],
       "id": "manifold-t2O0uUtuPn",
@@ -482,6 +560,12 @@
             "https://www.kuow.org/elections/2026-10-27/national-guard-and-doj-expected-around-washingtons-2026-midterm-election",
             "https://www.heraldnet.com/2026/10/30/national-guard-keeping-extra-eye-on-ballot-boxes-in-snohomish-county/"
           ]
+        },
+        {
+          "created_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.72,
+          "rationale": "Base rate is low (1 of 4 cycles had Guard at polls), but 2026 has Washington's Guard deployed in civilian clothes at ballot drop boxes and reportedly vote centers (King County said 'drop boxes and vote centers'), through Nov 10. Whether drop boxes count as polling places is ambiguous, but a resolver would plausibly count vote centers/early-vote sites, and other states might also have Guard support. Risk is a strict reading that drop boxes are not polling places where voters cast ballots."
         }
       ],
       "id": "manifold-qg6Ql2nUEO",
