@@ -1,0 +1,124 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6346612",
+      "market_id": "6346612",
+      "method": "market_price_v1",
+      "volume": 16943.657217,
+      "yes_price": 0.9405
+    },
+    {
+      "id": "polymarket-5734062",
+      "market_id": "5734062",
+      "method": "market_price_v1",
+      "volume": 20377.851528000003,
+      "yes_price": 0.245
+    },
+    {
+      "id": "polymarket-6288574",
+      "market_id": "6288574",
+      "method": "market_price_v1",
+      "volume": 38675.467139,
+      "yes_price": 0.095
+    },
+    {
+      "id": "polymarket-6563893",
+      "market_id": "6563893",
+      "method": "market_price_v1",
+      "volume": 15876.079104999999,
+      "yes_price": 0.43
+    },
+    {
+      "id": "polymarket-5691088",
+      "market_id": "5691088",
+      "method": "market_price_v1",
+      "volume": 15223.365762000001,
+      "yes_price": 0.905
+    },
+    {
+      "id": "polymarket-4927096",
+      "market_id": "4927096",
+      "method": "market_price_v1",
+      "volume": 35771.040341,
+      "yes_price": 0.905
+    },
+    {
+      "id": "polymarket-6389961",
+      "market_id": "6389961",
+      "method": "market_price_v1",
+      "volume": 15595.514908000001,
+      "yes_price": 0.265
+    },
+    {
+      "id": "polymarket-5699280",
+      "market_id": "5699280",
+      "method": "market_price_v1",
+      "volume": 14749.850505,
+      "yes_price": 0.905
+    },
+    {
+      "id": "polymarket-4199214",
+      "market_id": "4199214",
+      "method": "market_price_v1",
+      "volume": 29946.352725,
+      "yes_price": 0.275
+    },
+    {
+      "id": "polymarket-6346570",
+      "market_id": "6346570",
+      "method": "market_price_v1",
+      "volume": 11641.166838000001,
+      "yes_price": 0.84
+    },
+    {
+      "id": "polymarket-5691223",
+      "market_id": "5691223",
+      "method": "market_price_v1",
+      "volume": 10350.055641,
+      "yes_price": 0.095
+    },
+    {
+      "id": "polymarket-2822661",
+      "market_id": "2822661",
+      "method": "market_price_v1",
+      "volume": 16030.907083,
+      "yes_price": 0.545
+    },
+    {
+      "id": "manifold-CcysACRQAh",
+      "market_id": "CcysACRQAh",
+      "method": "manifold_price_v1",
+      "volume": 26848.640804973253,
+      "yes_price": 0.88
+    },
+    {
+      "id": "manifold-LtpELtyL0p",
+      "market_id": "LtpELtyL0p",
+      "method": "manifold_price_v1",
+      "volume": 3500.01279850542,
+      "yes_price": 0.23
+    },
+    {
+      "id": "manifold-cq5ZZ2hh8I",
+      "market_id": "cq5ZZ2hh8I",
+      "method": "manifold_price_v1",
+      "volume": 7594.725375759799,
+      "yes_price": 0.055
+    },
+    {
+      "id": "manifold-t2O0uUtuPn",
+      "market_id": "t2O0uUtuPn",
+      "method": "manifold_price_v1",
+      "volume": 3640.273675630498,
+      "yes_price": 0.7678
+    },
+    {
+      "id": "manifold-qg6Ql2nUEO",
+      "market_id": "qg6Ql2nUEO",
+      "method": "manifold_price_v1",
+      "volume": 3314.115075094737,
+      "yes_price": 0.3646
+    }
+  ],
+  "taken_at": "2026-11-02T10:19:34.582260+00:00"
+}
