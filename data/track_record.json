@@ -1,46 +1,46 @@
 {
   "calibration": {
     "as_of": "2026-11-03",
-    "intercept": 0.310486,
-    "results": 126,
-    "slope": 0.863574
+    "intercept": 0.283405,
+    "results": 127,
+    "slope": 0.854625
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.20916871968832904,
+      "brier": 0.20986522178020717,
       "coin_flip_brier": 0.25,
       "forecasts": 254,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 133,
+      "resolved": 134,
       "right": 92,
       "toss_ups": 1,
-      "wrong": 40
+      "wrong": 41
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20095271317829455,
+      "brier": 0.20173384615384615,
       "coin_flip_brier": 0.25,
       "forecasts": 249,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 129,
+      "resolved": 130,
       "right": 90,
       "toss_ups": 3,
-      "wrong": 36
+      "wrong": 37
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.19763392857142859,
+      "brier": 0.20091052631578948,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 56,
+      "resolved": 57,
       "right": 41,
       "toss_ups": 0,
-      "wrong": 15
+      "wrong": 16
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -56,25 +56,25 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.20877843137254903,
+      "brier": 0.21085339805825243,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 102,
+      "resolved": 103,
       "right": 72,
       "toss_ups": 0,
-      "wrong": 30
+      "wrong": 31
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.20829375000000003,
+      "brier": 0.20764285714285716,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 48,
-      "right": 34,
+      "resolved": 49,
+      "right": 35,
       "toss_ups": 0,
       "wrong": 14
     },
@@ -92,13 +92,13 @@
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.20475233644859814,
+      "brier": 0.20441296296296296,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 107,
-      "right": 77,
+      "resolved": 108,
+      "right": 78,
       "toss_ups": 1,
       "wrong": 29
     },
@@ -200,13 +200,13 @@
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.1489867488235294,
+      "brier": 0.14959859611111112,
       "coin_flip_brier": 0.25,
       "forecasts": 56,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 17,
-      "right": 12,
+      "resolved": 18,
+      "right": 13,
       "toss_ups": 0,
       "wrong": 5
     }
@@ -4407,6 +4407,70 @@
       "title": "Saudi Arabia military action against Yemen on October 30?",
       "topic": "World",
       "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.55
+      },
+      "detail": "Resolves based on the \"Russian Net Monthly Advance\" report of Black Bird group (positive values resolve NO, negative resolve YES) - typically published at their X account (xcancel.com/Black_BirdGroup). Here is their assessment as of May 2026 (from https://xcancel.com/Black_BirdGroup/status/2062585511340916856):\n\n[image]For context some analysts like Mike Kofman (e.g. in https://podcasts.apple.com/us/podcast/the-long-game-with-jake-sullivan-and-jon-finer/id1850526014?i=1000771130026) believe that Ukraine has gained initiative on the battlefield and is likely to keep it for the next few months.\n\nIf the group does not publish a new assessment following the same methodology by December 1st, this resolves NA",
+      "forecasts": [
+        {
+          "made_at": "2026-10-23T14:10:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "Black Bird Group reported a Russian net change of -190 km2 for September, the first net Russian loss since June 2023, after +133 km2 in August (X posts, quotes checked). For October, ISW reported a Russian net loss of about 241 km2 since Sept 1 as of Oct 22 (with ISW's own September figure about -81), which implies a further loss of roughly 160 km2 so far in October, and the Economist estimated Ukraine regained 30 square miles in 30 days; DeepState, however, shows a near-zero net (about +3 square miles over the four weeks to Oct 19). Negative months are rare historically (about 1 in 39), but the trend has turned sharply and two trackers point negative, so I lean slightly to Yes; the sign depends on a few late-month moves and on Black Bird's own method, and the question resolves N/A if it does not publish.",
+          "sources": [
+            "https://x.com/Black_BirdGroup/status/2106482419201093855",
+            "https://x.com/Black_BirdGroup/status/2096083074240975038",
+            "https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026",
+            "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-22-2026"
+          ]
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.62,
+          "rationale": "Base rate shows Black Bird reported Russian net gains in ~38 of 39 months from mid-2023 through August 2026, but September broke this pattern with -190 km\u00b2. Multiple trackers (ISW, Russia Matters) show Russian gains collapsing to near-zero or negative in early October, suggesting a genuine momentum shift. However, the month is not over (today Oct 23), DeepState reports localized Russian advances in the last few days, and the final Black Bird figure could be revised or delayed, creating meaningful uncertainty around the sign of the October net change."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.65,
+          "rationale": "The base rate of negative net Russian monthly advances is very low (about 1 in 39 months since mid-2023), but September 2026 saw a sharp reversal with -190 km\u00b2. Current October data from various trackers shows near-zero net change, with some sources indicating small Russian gains and others Ukrainian gains. Given the reported Ukrainian initiative and momentum, a negative October figure is more likely than not, but the month is not over and small territorial shifts could easily flip the sign, so confidence is moderate."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.42,
+          "rationale": "Black Bird\u2019s data shows Russian net territorial gains in roughly 38 of the last 39 months, giving a strong base rate for a positive (NO) reading. However, September 2026 broke that streak with a large -190 km\u00b2 net loss for Russia, and while some trackers suggest Ukraine continued to gain ground in early October, DeepState data through October 19 shows a near-zero net of +3 square miles for Russia, with small Russian advances reported in the final week. With only about eight days left in the month and the net balance effectively at the threshold, minor territorial shifts or the confirmation of disputed claims could easily flip the sign either way."
+        },
+        {
+          "made_at": "2026-10-23T14:12:19.590545+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.41,
+          "rationale": "Black Bird's monthly figure was positive in nearly every month from mid-2023 through August 2026, so the historical base rate for a negative (Yes) result was only about 1 in 39. September's unusual -190 km\u00b2 result, ISW's reported net Russian loss since September 1, and evidence of sharply shrinking Russian gains raise the odds substantially, although DeepState's slight net Russian gain and continuing local Russian advances keep October close to even. Confirmed Russian captures of Kostiantynivka or Dobropillia could push the result to No, while stronger late Ukrainian counterattacks would support Yes; failure to publish by December 1 would instead yield N/A."
+        },
+        {
+          "made_at": "2026-10-23T09:00:35.107323+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.4
+        }
+      ],
+      "id": "manifold-5nLRAAdRt5",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-10-31",
+      "scored": true,
+      "source": "prospective_markets_20261023",
+      "source_url": "https://manifold.markets/AIBear/will-ukraine-capture-more-territory-UcqQnuqpEL",
+      "status": "resolved",
+      "title": "Will Ukraine capture more territory than it loses to Russia in October 2026?",
+      "topic": "World",
+      "verdict": "wrong"
     },
     {
       "actual": "Polymarket: No",
@@ -9306,70 +9370,6 @@
       "status": "pending",
       "title": "Will bitcoin rise to 105k before the Strait of Hormuz is freely open?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.55
-      },
-      "detail": "Resolves based on the \"Russian Net Monthly Advance\" report of Black Bird group (positive values resolve NO, negative resolve YES) - typically published at their X account (xcancel.com/Black_BirdGroup). Here is their assessment as of May 2026 (from https://xcancel.com/Black_BirdGroup/status/2062585511340916856):\n\n[image]For context some analysts like Mike Kofman (e.g. in https://podcasts.apple.com/us/podcast/the-long-game-with-jake-sullivan-and-jon-finer/id1850526014?i=1000771130026) believe that Ukraine has gained initiative on the battlefield and is likely to keep it for the next few months.\n\nIf the group does not publish a new assessment following the same methodology by December 1st, this resolves NA",
-      "forecasts": [
-        {
-          "made_at": "2026-10-23T14:10:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.55,
-          "rationale": "Black Bird Group reported a Russian net change of -190 km2 for September, the first net Russian loss since June 2023, after +133 km2 in August (X posts, quotes checked). For October, ISW reported a Russian net loss of about 241 km2 since Sept 1 as of Oct 22 (with ISW's own September figure about -81), which implies a further loss of roughly 160 km2 so far in October, and the Economist estimated Ukraine regained 30 square miles in 30 days; DeepState, however, shows a near-zero net (about +3 square miles over the four weeks to Oct 19). Negative months are rare historically (about 1 in 39), but the trend has turned sharply and two trackers point negative, so I lean slightly to Yes; the sign depends on a few late-month moves and on Black Bird's own method, and the question resolves N/A if it does not publish.",
-          "sources": [
-            "https://x.com/Black_BirdGroup/status/2106482419201093855",
-            "https://x.com/Black_BirdGroup/status/2096083074240975038",
-            "https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-oct-21-2026",
-            "https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-october-22-2026"
-          ]
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.62,
-          "rationale": "Base rate shows Black Bird reported Russian net gains in ~38 of 39 months from mid-2023 through August 2026, but September broke this pattern with -190 km\u00b2. Multiple trackers (ISW, Russia Matters) show Russian gains collapsing to near-zero or negative in early October, suggesting a genuine momentum shift. However, the month is not over (today Oct 23), DeepState reports localized Russian advances in the last few days, and the final Black Bird figure could be revised or delayed, creating meaningful uncertainty around the sign of the October net change."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.65,
-          "rationale": "The base rate of negative net Russian monthly advances is very low (about 1 in 39 months since mid-2023), but September 2026 saw a sharp reversal with -190 km\u00b2. Current October data from various trackers shows near-zero net change, with some sources indicating small Russian gains and others Ukrainian gains. Given the reported Ukrainian initiative and momentum, a negative October figure is more likely than not, but the month is not over and small territorial shifts could easily flip the sign, so confidence is moderate."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.42,
-          "rationale": "Black Bird\u2019s data shows Russian net territorial gains in roughly 38 of the last 39 months, giving a strong base rate for a positive (NO) reading. However, September 2026 broke that streak with a large -190 km\u00b2 net loss for Russia, and while some trackers suggest Ukraine continued to gain ground in early October, DeepState data through October 19 shows a near-zero net of +3 square miles for Russia, with small Russian advances reported in the final week. With only about eight days left in the month and the net balance effectively at the threshold, minor territorial shifts or the confirmation of disputed claims could easily flip the sign either way."
-        },
-        {
-          "made_at": "2026-10-23T14:12:19.590545+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.41,
-          "rationale": "Black Bird's monthly figure was positive in nearly every month from mid-2023 through August 2026, so the historical base rate for a negative (Yes) result was only about 1 in 39. September's unusual -190 km\u00b2 result, ISW's reported net Russian loss since September 1, and evidence of sharply shrinking Russian gains raise the odds substantially, although DeepState's slight net Russian gain and continuing local Russian advances keep October close to even. Confirmed Russian captures of Kostiantynivka or Dobropillia could push the result to No, while stronger late Ukrainian counterattacks would support Yes; failure to publish by December 1 would instead yield N/A."
-        },
-        {
-          "made_at": "2026-10-23T09:00:35.107323+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.4
-        }
-      ],
-      "id": "manifold-5nLRAAdRt5",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-10-31",
-      "scored": true,
-      "source": "prospective_markets_20261023",
-      "source_url": "https://manifold.markets/AIBear/will-ukraine-capture-more-territory-UcqQnuqpEL",
-      "status": "pending",
-      "title": "Will Ukraine capture more territory than it loses to Russia in October 2026?",
-      "topic": "World",
       "verdict": null
     },
     {
@@ -16201,21 +16201,21 @@
     }
   ],
   "summary": {
-    "brier": 0.20916871968832904,
+    "brier": 0.20986522178020717,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 117,
-    "resolved": 133,
+    "pending": 116,
+    "resolved": 134,
     "right": 92,
     "toss_ups": 1,
     "total": 254,
     "unscored": 3,
     "vs_market": {
-      "market": 0.16250780513274335,
-      "ours": 0.200054203539823,
-      "questions": 113
+      "market": 0.16248580684210526,
+      "ours": 0.200952850877193,
+      "questions": 114
     },
-    "wrong": 40
+    "wrong": 41
   },
   "version": "track_record_v2"
 }
