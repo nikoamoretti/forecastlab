@@ -1,0 +1,420 @@
+{
+  "cost_usd": {
+    "manifold-02RzZt8EII": 0.1187,
+    "manifold-gzgcNgtOqC": 0.1516,
+    "manifold-tpR2hI2R8t": 0.146,
+    "polymarket-3566406": 0.1915,
+    "polymarket-6436901": 0.1935,
+    "polymarket-6563871": 0.1495
+  },
+  "failed": {},
+  "findings": {
+    "manifold-02RzZt8EII": {
+      "against": "The strongest case for YES is that polling errors in Senate races have been correlated and sometimes large.\nThe 2020 errors in Maine and Iowa are examples.\nA candidate at about 50% in a competitive race, such as an incumbent in Alaska, Ohio or Maine, could lose if the error is a few points.\nSilver has warned that several leads are within a normal polling error.",
+      "base_rate": "Not established.\nI found no count of past cases in which a Senate candidate at 50% or more in a polling average lost.\nThe reference class would be final polling-average leaders at or above 50% in Senate races over 2010-2024, and I did not find the counts.\nAverages with a leader at 50% or more are usually safe seats with large margins, so a loss would take a large polling miss.\nSilver has said that Texas and Maine are 'a normal-sized polling error away from flipping' (search summary, not a quote I opened).",
+      "different_now": "Many close Senate races have both candidates in the mid-40s, so few contested races would have a candidate at 50.1% or more.\nOnly lopsided safe-seat races likely qualify, and those rarely flip.\nSilver's model has the Democrats as favorites to take the Senate, and Silver himself has described the 2026 Senate lean as small enough to fall within normal polling error.",
+      "facts": [
+        {
+          "fact": "Newsweek, citing the Silver Bulletin as of about Oct 23, 2026, reported Turek (D) at 46.8% vs Hinson (R) at 45.6% in Iowa.\nIt also reported Hamilton (D) trailing Marshall (R) by 1.1 points in Kansas, Brown (D) leading Husted (R) by 3.7 in Ohio, and Peltola (D) leading Sullivan (R) by 3.5 in Alaska.\nThese are search-result summaries, since I could not open the pages.",
+          "source": 1
+        },
+        {
+          "fact": "The Silver Bulletin forecast in late October 2026 gave Democrats about a 76% chance of Senate control (76.4%), and a later report put it at 77.7%.\nThese figures come from search summaries.",
+          "source": 1
+        },
+        {
+          "fact": "I could not open the Silver Bulletin average page (the proxy refused the connection), so I have no current state-by-state list of candidates at or above 50.1%.",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "The final Silver Bulletin Senate averages by state were not retrieved, so I do not know whether any candidate is at 50.1% or more.",
+        "I could not tell whether independents or third-party candidates (for example in Nebraska or Maine) are included in the average.",
+        "The 'final' average will be the one on the resolution date, and late polls could move it.",
+        "Silver Bulletin's historical Senate averages are not available for a clean reference-class count.",
+        "The pollster-by-pollster list and the past polling-error comparison from the checklist were not completed."
+      ]
+    },
+    "manifold-gzgcNgtOqC": {
+      "against": "The 2024 ODIHR mission found a well-run process.\nCourts have been actively hearing challenges to the mail-voting order.\nThe White House denied plans to deploy ICE to polls.\nVoting procedures are expected to look much like 2024's.\nSystematic violations that materially changed the outcome would need to be proven, not just alleged.",
+      "base_rate": "The OSCE/ODIHR has observed every US general and midterm election since 2002: 12 federal campaigns, including 6 midterms.\nReports found the process fundamentally sound, with recommendations for improvement.\nI found no case where the OSCE declared a US election not free and fair.\nThe question's own resolution test, 'systematic violations that materially affected the outcome', has never been met in this reference class.",
+      "different_now": "There is no OSCE mission this cycle, so the named resolution source does not exist.\nResolution would fall back on domestic monitors and court rulings.\nThere are also an executive order on mail voting, mid-decade redistricting, intimidation lawsuits, and fears of election-material seizure.\nThese push toward a NO finding, or toward an ambiguous resolution.\nThe short window (resolves Nov 5, before any final reports) pushes the other way, because verified systematic violations are unlikely to be documented that fast.",
+      "facts": [
+        {
+          "fact": "On 2026-09-23 ODIHR and the OSCE Parliamentary Assembly said the US had not invited them to observe the Nov 3, 2026 midterms.\nThis is the first time since 2002 that no invitation was issued.\nThe OSCE has observed all US federal elections since 2002, including six midterms.\nAs reported by secondary outlets; I could not open the primary OSCE page.",
+          "source": 0
+        },
+        {
+          "fact": "A White House spokesperson said the elections would be administered, conducted with the participation of, and observed by American citizens.\nThis is as reported in secondary coverage.",
+          "source": 0
+        },
+        {
+          "fact": "The 2024 ODIHR mission found a well-run process with free campaigning and issued 31 recommendations.\nA 2022 midterm mission was limited in scope.\nThis is per secondary reporting.",
+          "source": 2
+        },
+        {
+          "fact": "A March 2026 mail-voting executive order was called 'likely unconstitutional' by Judge Indira Talwani in Boston.\nThe Supreme Court later cleared a path for its implementation.\nA judge allowed some challenges tied to the midterms to continue.",
+          "source": 1
+        },
+        {
+          "fact": "The NAACP and Democratic Party leaders sued over alleged voter intimidation, including threats to send law enforcement to polling places and pressure on election officials.\nThe DNC sued over possible seizure of ballots or machines.\nThe White House denied any plan to deploy ICE to polls.",
+          "source": 3
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "I could not open the primary pages (OSCE, court rulings, news); the facts rest on search-result summaries, and the quotes are empty.",
+        "I found no polls (checklist item 1) and no election-day incident reports.\nI did not look for either.",
+        "Whether any observer, domestic or other, will issue a formal 'free and fair' assessment before the Nov 5 resolution date.",
+        "The current status of the mail-voting order and whether it was applied in November.",
+        "How the resolver treats the absence of an OSCE mission."
+      ]
+    },
+    "manifold-tpR2hI2R8t": {
+      "against": "The case for 'does not die before Nov 7 2028' is that he has had a treatment response ('worked as intended'), hormone-sensitive disease often stays controlled for years, and he has lived with the diagnosis since May 2025 without a reported decline in the pages I found.\nEvidence for the outcome is the aggressive Gleason 9 grade, bone spread, his age, and Hunter Biden's remark that the cancer had worsened.",
+      "base_rate": "Reference class: men aged about 83 to 86 with metastatic, hormone-sensitive prostate cancer that has spread to the bone, treated with androgen deprivation therapy plus radiation.\nMedian survival is typically several years, and roughly 30 to 40 percent survive 5 years in the general metastatic population.\nBaseline all-cause mortality for a US man aged 83 to 84 is roughly 8 to 10 percent a year.\nThe window runs from 2026-11 to 2028-11-07, about 2 years.\nI did not find or open a source for these figures; they come from general knowledge.",
+      "different_now": "Biden has a Gleason 9 cancer with bone metastases, which raises his risk above same-age baseline mortality.\nReports say it responded to radiation and hormone therapy.\nHe is 83 (turns 84 on 2026-11-20).\nHe has been active, working on a memoir.\nThese pull in opposite directions.",
+      "facts": [
+        {
+          "fact": "Biden's office announced in May 2025 that he had prostate cancer that had spread to the bone; a Gleason score of 9 was reported, which is among the most aggressive grades (search-result summary, page not opened).",
+          "source": 1
+        },
+        {
+          "fact": "Biden's aide said he was undergoing radiation therapy plus hormone treatment, with the radiation expected to run about five weeks (search-result summary, page not opened).",
+          "source": 1
+        },
+        {
+          "fact": "Biden completed a radiation course at Penn Medicine in Philadelphia on 2025-10-20 (search-result summary, page not opened).",
+          "source": 2
+        },
+        {
+          "fact": "In a later statement (around early 2026; exact date unconfirmed), Biden said the radiation 'worked as intended' and that the cancer is 'very painful and very debilitating'.\nHe gave no prognosis (search-result summary, page not opened).",
+          "source": 0
+        },
+        {
+          "fact": "Hunter Biden said in August (year unverified) that the cancer had gotten worse (search-result summary).",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "Could not open any page; the quotes arrays are empty and all facts come from search summaries.",
+        "Exact date and wording of Biden's 'worked as intended' statement are unconfirmed.",
+        "The year of Hunter Biden's 'worse' comment is unverified.",
+        "No health news from the last 7 days was found.",
+        "Current PSA, imaging and treatment status are unknown."
+      ]
+    },
+    "polymarket-3566406": {
+      "against": "Deutsche Bank saw momentum slowing and expected a flat August.\nThe ONS noted that production and construction fell over the three months to August.\nA September contraction of roughly 0.5% or more, or downward revisions to July and August, could bring Q3 growth to 0.4\u20130.5%.\nQ2 itself printed at 0.4%.",
+      "base_rate": "I could not verify the last 8 first releases or their gaps to the advance estimate.\nA 0.4\u20130.5% band is two of the one-decimal outcomes.\nRecent UK quarterly prints have mostly been 0.1\u20130.7%, including Q1 2026 at 0.6% and Q2 2026 at 0.4%.\nOne article gives an average gap of 0.27pp between first and final estimates since 2000.\nThe ONS publishes the headline to one decimal place.",
+      "different_now": "July (+0.4%) and August (+0.1%) leave a strong carry-over into Q3 after June +0.4%.\nMy rough calculation puts Q3 around 0.6\u20130.8% unless September falls sharply.\nThat pushes the outcome above the 0.4\u20130.5% band.\nA weak September, or revisions to earlier months, would pull it back toward the band.",
+      "facts": [
+        {
+          "fact": "The ONS first quarterly estimate for July to September 2026, with September monthly GDP, is scheduled for 12 November 2026 at 07:00 UK time.\nThis comes from a calendar site's summary.\nI could not open the ONS release page itself.",
+          "source": 0
+        },
+        {
+          "fact": "The Q2 2026 first estimate (13 Aug 2026) was +0.4% q/q and +1.2% y/y.\nThe base effect is therefore a year-earlier quarterly figure that I did not find.",
+          "source": 0
+        },
+        {
+          "fact": "August 2026 monthly GDP, published 15 Oct, was +0.1% m/m.\nA Reuters poll had expected a 0.1% fall.\nJuly was unrevised at +0.4%.\nJune was revised up to 0.4% from 0.3%.",
+          "source": 2
+        },
+        {
+          "fact": "The ONS reported GDP growth of 0.7% in the three months to August 2026.\nProduction rose 0.8% in August, services were flat and construction fell 0.2%.",
+          "source": 1
+        },
+        {
+          "fact": "Deutsche Bank (8 Oct 2026) nowcast August GDP flat after a strong July.\nIt said momentum was slowing.\nActual August was +0.1%.",
+          "source": 4
+        },
+        {
+          "fact": "As of the search, no Reuters or Bloomberg consensus for Q3 2026 q/q had been published.\nI found no Bank of England 2026 Q3 forecast.",
+          "source": 0
+        },
+        {
+          "fact": "My own rough arithmetic is not an official figure.\nAssume Apr and May were equal, June +0.4%, July +0.4%, August +0.1% and September flat.\nQ3 would then average about 0.7% above Q2.\nThe Apr and May levels are assumed, so treat this only as an indication of a large carry-over.",
+          "source": 3
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "The ONS and Bank of England pages could not be opened because the proxy refused the connection, so no quotes were captured.",
+        "I did not find the monthly levels for April and May 2026, so the carry-over is approximate.",
+        "No September 2026 nowcast or Q3 consensus was found.",
+        "I did not find the Bank of England's November 2026 Monetary Policy Report or its Q3 forecast.",
+        "I could not verify the six most recent gaps between first official figures and advance estimates."
+      ]
+    },
+    "polymarket-6436901": {
+      "against": "Peace-talk headlines have repeatedly reversed.\nIn 2026, reports said oil climbed when US-Iran talks stalled, for example 'Oil tops $115 as Iran war talks stall over the Strait of Hormuz'.\nA stall or failure could push WTI back above $100 and keep it from falling to $95.\nOil also bounced from the earlier session level near $100, and OPEC+ is holding output steady.\nA sustained rebound this week, with no 1-minute low at or below $95, would resolve No.",
+      "base_rate": "No reference-class count was done.\nRough context: with WTI settling near $96.5 on the first trading day of the week, the strike of $95 sits only about 1.5% below that settle.\nWTI has recently moved several percent a day: -7.4% on Nov 2, and +2% on Oct 12 per a Xinhua summary.\nA touch of a level about 1.5% away within a 4-5 session window is a common outcome in such a volatile regime, but I did not compute a historical frequency.",
+      "different_now": "The market is in a high-volatility regime driven by the US-Iran talks and the Hormuz situation.\nPrices are about $20 higher than in August, when WTI was near $78.\nThe Nov 2 selloff came on peace headlines, and the Monday settle is already close to the $95 strike.\nThe pull is toward the strike if talks progress.\nAnother contract could be the Active Month by the pricing date, and the question uses Pyth CLL, so the exact contract and any roll gap matter.\nThe question requires a 1-minute Low at or below $95 after market creation, which may have been on Nov 2 itself, so the Monday intraday low is i",
+      "facts": [
+        {
+          "fact": "Search summaries (no page opened) report that on Monday 2026-11-02 oil fell sharply: WTI settled about $96.46 (down about 7.4%) and Brent about $104.77 (down about 7.6%).\nThis was the biggest daily drop since July 27.\nThe reported cause was renewed US-Iran peace hopes and a possible reopening of the Strait of Hormuz.",
+          "source": 0
+        },
+        {
+          "fact": "Search summaries report that WTI was near $100.69 and Brent near $109.75 earlier on 2026-11-02, and that later in the session WTI was about $96.\nOne outlet's headline says WTI fell 6% to below $100.\nWTI's Friday 2026-10-30 close would therefore be about $104.\nI did not confirm the intraday low for Monday.",
+          "source": 1
+        },
+        {
+          "fact": "Search summaries report that OPEC+ held December production targets unchanged at its 2026-11-01 meeting, with the next meeting on 2026-11-29.\nAnalysts said this did not directly explain the selloff.\nThe same summary says Brent's January 2027 contract closed at $113.43 on Friday.",
+          "source": 2
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "I could not open any source page, so all figures come from search summaries and no quotes are verified.",
+        "I did not find the Nov 2 intraday low or the Nov 3 price.\nThe low may already be at or below $95, which would resolve Yes, or it may be only slightly above $95.",
+        "I could not confirm the market creation time versus the Nov 2 price path.\nCandles from before creation do not count.",
+        "I did not confirm which contract Pyth CLL treats as the Active Month this week, or whether ICE WTI (not NYMEX) levels differ by a few cents.",
+        "I could not check the status of the US-Iran talks after Nov 2, or the scheduled events for the rest of the week.\nThe EIA inventory report is normally on Wednesday."
+      ]
+    },
+    "polymarket-6563871": {
+      "against": "The evidence that the price will not reach $70,000 is that BTC held the $76,000 area after the hack shock, and withdrawals reopened without a collapse.\nThe bullish scenario described requires holding $76,000 and reclaiming $82,000.",
+      "base_rate": "Not computed.\nI could not reach Binance kline data (the API call was blocked) and found no sourced count of past 7-day windows with a \u22658-9% drawdown.\nUsing the Nov 2 price of about $76,700, the $70,000 threshold is about 8.7% below.",
+      "different_now": "Three things stand out.\nBTC is in a downtrend, near a six-week low of about $76,275.\nThe Binance security breach of about $6.3B with net outflows adds exchange-specific stress, and it matters more because the question resolves on Binance prices.\nUS spot ETFs had their first monthly outflow since June in October.\nAll of these push toward a dip.\nThe 8.7% distance is large for a 7-day window unless volatility is elevated.",
+      "facts": [
+        {
+          "fact": "Per a search-result summary (I could not open the page), Yahoo Finance's Nov 2 evening wrap said BTC fell 1.92% to $76,732.38, as Binance withdrawals reopened after a $6.3 billion security breach.",
+          "source": 0
+        },
+        {
+          "fact": "Per a search-result summary (page not opened), Fortune reported BTC at about $77,750 at 6:30 a.m.\nET on Nov 2, 2026.",
+          "source": 1
+        },
+        {
+          "fact": "Per a search-result summary (page not opened), the Binance hack pushed BTC to a six-week low of $76,275, and analysts are watching $76,000 as support.\nBearish commentary puts resistance at $80,181 and $82,000.",
+          "source": 2
+        },
+        {
+          "fact": "Per a search-result summary (page not opened), Binance users withdrew a net $3.64 billion on reopening Sunday, and US spot Bitcoin ETFs lost $515.03M in October, their first monthly outflow since June.",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "I could not open any page, so every figure is from search summaries and not verified against the primary source.",
+        "I did not obtain the Binance BTC/USDT 1-minute low or high printed so far in the window, which began 2026-11-02 00:00 ET and ends 2026-11-08 23:59 ET.\nThe Nov 2 low is unknown.",
+        "I could not compute the 30-day realised daily range, so I cannot give the distance in multiples of it.",
+        "The price at the time of writing on Nov 3 is unknown.\nThe last figure is the Nov 2 evening price.",
+        "I found no scheduled in-window events (central-bank decision, ETF data, token unlock, court date).\nThe US election is on Nov 3, and the Nov 5-6 window may include an FOMC meeting; neither was checked."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "passes": 1,
+  "provider": "cursor",
+  "researched_at": "2026-11-03T10:57:23+00:00",
+  "researched_by": {
+    "manifold-02RzZt8EII": "claude-sonnet",
+    "manifold-gzgcNgtOqC": "claude-sonnet",
+    "manifold-tpR2hI2R8t": "claude-sonnet",
+    "polymarket-3566406": "claude-sonnet",
+    "polymarket-6436901": "claude-sonnet",
+    "polymarket-6563871": "claude-sonnet"
+  },
+  "runs": 6,
+  "seconds": {
+    "manifold-02RzZt8EII": 30.6,
+    "manifold-gzgcNgtOqC": 42.1,
+    "manifold-tpR2hI2R8t": 32.2,
+    "polymarket-3566406": 49.6,
+    "polymarket-6436901": 50.5,
+    "polymarket-6563871": 39.2
+  },
+  "sources": {
+    "manifold-02RzZt8EII": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Silver Bulletin 2026 midterm Senate model",
+        "url": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model",
+        "verified": null
+      },
+      {
+        "published": "2026-10-23",
+        "quotes": [],
+        "text": "",
+        "title": "Newsweek: who will win the midterms, what polls show 10 days out",
+        "url": "https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772",
+        "verified": null
+      }
+    ],
+    "manifold-gzgcNgtOqC": [
+      {
+        "published": "2026-09-23",
+        "quotes": [],
+        "text": "",
+        "title": "Europe security body says monitors not invited to US elections for first time",
+        "url": "https://www.cp24.com/news/world/2026/09/23/europe-security-body-says-monitors-not-invited-to-us-elections-for-first-time/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Federal judge allows some challenges to Trump's mail-in voting executive order",
+        "url": "https://newschannel9.com/news/nation-world/federal-judge-allows-some-challenges-to-trumps-mail-in-voting-executive-order-democratic-states-midterm-elections-rob-bonta-aclu-white-house",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Ranking Member Shaheen condemns unprecedented move to block international observers from US midterm elections",
+        "url": "https://www.foreign.senate.gov/press/dem/release/ranking-member-shaheen-condemns-unprecedented-move-to-block-international-observers-from-us-midterm-elections",
+        "verified": null
+      },
+      {
+        "published": "2026-08-28",
+        "quotes": [],
+        "text": "",
+        "title": "Here are the legal issues that could affect the midterm elections",
+        "url": "https://denvergazette.com/2026/08/28/here-are-the-legal-issues-that-could-affect-the-midterm-elections/",
+        "verified": null
+      }
+    ],
+    "manifold-tpR2hI2R8t": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Joe Biden says radiation treatment for prostate cancer worked as intended",
+        "url": "https://www.scrippsnews.com/health/joe-biden-says-radiation-treatment-for-prostate-cancer-worked-as-intended",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Biden is receiving radiation and hormone therapy to treat his prostate cancer, aide says",
+        "url": "https://www.pbs.org/newshour/amp/politics/biden-is-receiving-radiation-and-hormone-therapy-to-treat-his-prostate-cancer-aide-says",
+        "verified": null
+      },
+      {
+        "published": "2025-10-20",
+        "quotes": [],
+        "text": "",
+        "title": "Biden rings the bell after completing course of radiation therapy at Penn Medicine in Philadelphia",
+        "url": "https://abc7chicago.com/post/former-president-joe-biden-rings-bell-completing-course-radiation-therapy-cancer-penn-medicine-philadelphia/18049528/",
+        "verified": null
+      }
+    ],
+    "polymarket-3566406": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Finance Calendar: UK GDP first quarterly estimate, July to September 2026",
+        "url": "https://www.financecalendar.com/?p=2217",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "UK GDP Grows 0.1% in August, Beating the Calendar Estimate",
+        "url": "https://www.asktraders.com/?p=256369",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "UK economy grows 0.1% in August, defying forecasts of a decline",
+        "url": "https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline",
+        "verified": null
+      },
+      {
+        "published": "2026-10-15",
+        "quotes": [],
+        "text": "",
+        "title": "ONS GDP monthly estimate, UK: August 2026",
+        "url": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf",
+        "verified": null
+      },
+      {
+        "published": "2026-10-08",
+        "quotes": [],
+        "text": "",
+        "title": "United Kingdom: GDP momentum seen slowing \u2013 Deutsche Bank",
+        "url": "https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200",
+        "verified": null
+      }
+    ],
+    "polymarket-6436901": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Oil Prices Post Biggest Drop Since July as US\u2013Iran Peace Hopes Ease Supply Fears",
+        "url": "https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "WTI Crude Plunges 6% Below $100: What Caused the Sharp Drop in Oil Prices?",
+        "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Brent Crude $110: Falls 3 Percent After OPEC+ Hold",
+        "url": "https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/",
+        "verified": null
+      }
+    ],
+    "polymarket-6563871": [
+      {
+        "published": "2026-11-02",
+        "quotes": [],
+        "text": "",
+        "title": "Crypto Market Today, Nov.\n2: Bitcoin and Altcoins Retreat as Binance Withdrawals Spark Fresh Concerns",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/crypto-market-today-nov-2-223501665.html",
+        "verified": null
+      },
+      {
+        "published": "2026-11-02",
+        "quotes": [],
+        "text": "",
+        "title": "Current price of Bitcoin for November 2, 2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-02-2026/",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin Price Outlook For November 2026: One Price Level Remains Critical",
+        "url": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-price-outlook-november-2026-020000012.html",
+        "verified": null
+      }
+    ]
+  }
+}

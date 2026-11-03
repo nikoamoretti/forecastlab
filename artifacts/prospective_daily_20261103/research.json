@@ -1,0 +1,82 @@
+{
+  "cost_usd": {
+    "c4ee2a1aab6c194d": 0.2159
+  },
+  "failed": {},
+  "findings": {
+    "c4ee2a1aab6c194d": {
+      "against": "The 10-30 value equals the threshold at 4.94, and the yield was 4.98 the day before that.\nThe yield has fallen from above 5.18%, but a payrolls surprise on 11-06, or renewed rate-hike expectations, could push it back above 4.94.",
+      "base_rate": "Not computed.\nI could not open FRED or the Treasury page, so I have no official series to count from.\nRoughly, from general knowledge, 10-year daily changes have a standard deviation near 5-7 bp, so a 4-day move (11-02 to 11-06) has a standard deviation near 10-14 bp.\nThat is an assumption, not a counted figure.",
+      "different_now": "The yield sits about 2 bp below the threshold, so the question is close to a coin flip on the level.\nRates are volatile and near multi-decade highs, with hike talk in the background.\nThe November payrolls report is probably due Friday 2026-11-06, the same day as the resolution date.\nI did not confirm that date or any consensus forecast.",
+      "facts": [
+        {
+          "fact": "Search-result summaries (not pages I opened) put the 10-year yield at 4.92% on 2026-11-02, down 2 bp from the prior session.",
+          "source": 0
+        },
+        {
+          "fact": "The same summaries cite a Fed H.15 10-year value of 4.94 on 2026-10-30 and 4.98 on 2026-10-29.\nThe threshold of 4.94 therefore equals the 10-30 value and is about 2 bp above the 11-02 level.",
+          "source": 1
+        },
+        {
+          "fact": "The summaries describe the yield as near a seven-week low and say it had come down from a peak above 5.18%, the highest since 2002, reached around the September jobs report.",
+          "source": 2
+        },
+        {
+          "fact": "A CNBC headline dated 2026-09-04 says the 2-year yield rose to its highest since January 2025 after a hot jobs report raised expectations that the Fed could raise rates.",
+          "source": 2
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "Could not open FRED DGS10 or the Treasury par yield curve, so there is no verified list of the last 10 daily values.",
+        "The standard deviation of the last 20 daily changes, the count of the last 12 monthly windows that ended higher, and the exact trading days left are not computed.",
+        "The 11-02 value of 4.92 comes from a search summary only.\nThe 11-03 value is unknown.",
+        "Dates and consensus forecasts for payrolls, CPI, Fed events and Treasury auctions before 11-06 were not verified.",
+        "The check on the Fed's record against surveys at its last 6 meetings was not done."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-low",
+  "model_family": "grok",
+  "passes": 1,
+  "provider": "cursor",
+  "researched_at": "2026-11-03T10:55:51+00:00",
+  "researched_by": {
+    "c4ee2a1aab6c194d": "claude-sonnet"
+  },
+  "runs": 1,
+  "seconds": {
+    "c4ee2a1aab6c194d": 39.7
+  },
+  "sources": {
+    "c4ee2a1aab6c194d": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "US 10 Year Treasury Note Yield - Quote - Chart - Historical Data - News",
+        "url": "https://tradingeconomics.com/united-states/government-bond-yield",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity (DGS10)",
+        "url": "https://fred.stlouisfed.org/series/dgs10",
+        "verified": null
+      },
+      {
+        "published": "2026-10-02",
+        "quotes": [],
+        "text": "",
+        "title": "10-year Treasury yield ticks higher despite weaker-than-expected jobs report",
+        "url": "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html",
+        "verified": null
+      }
+    ]
+  }
+}
