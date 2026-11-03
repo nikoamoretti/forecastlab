@@ -1,0 +1,54 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-09T05:00:00Z",
+      "id": "polymarket-6563871",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-2-8-2026",
+      "question": "Will Bitcoin dip to $70,000 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-06T23:00:00Z",
+      "id": "polymarket-6436901",
+      "market_url": "https://polymarket.com/event/will-wti-hit-week-of-november-2-2026",
+      "question": "Will WTI Crude Oil (WTI) hit (LOW) $95 Week of November 2 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of November 2 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-13T04:59:00Z",
+      "id": "polymarket-3566406",
+      "market_url": "https://polymarket.com/event/uk-gdp-growth-in-q3-2026-qoq-20260813112748100",
+      "question": "Will UK GDP growth in Q3 2026 be between 0.4% and 0.5%?",
+      "resolution_criteria": "This market will resolve according to the UK real gross domestic product (GDP) growth rate (% change) for Q3 of 2026 compared with the most recent quarter (quarter-on-previous-quarter) in the \"GDP first quarterly estimate, UK\" release for Q3 of 2026, scheduled for November 12, 2026.\n\nThe GDP release will be made available here: https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/previousreleases\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution.\n\nNote: the resolution source for this market reports GDP growth rates to only one decimal point (e.g. 1.8%). Thus, this is the level of precision that will be used when resolving the market.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-10T23:59:00Z",
+      "id": "manifold-02RzZt8EII",
+      "market_url": "https://manifold.markets/Jack1/will-any-us-senate-candidate-have-5",
+      "question": "Will any US Senate candidate have 50.1% or more in the polling average and lose?",
+      "resolution_criteria": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model\n\nResolves YES if in any 2026 US Senate election on the Silver Bulletin average, a candidate has 50.1% or more of the vote and loses.\n\nThe final polling average on silver bulletin will be used.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-08T04:59:00Z",
+      "id": "manifold-tpR2hI2R8t",
+      "market_url": "https://manifold.markets/HenryFT/will-joe-biden-die-before-the-2028",
+      "question": "Will Joe Biden die before the 2028 presidential election (Nov. 7 2028)?",
+      "resolution_criteria": "Resolves as the Manifold market resolves: https://manifold.markets/HenryFT/will-joe-biden-die-before-the-2028",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-05T23:59:00Z",
+      "id": "manifold-gzgcNgtOqC",
+      "market_url": "https://manifold.markets/goober/will-the-united-states-midterm-elec",
+      "question": "Will the United States Midterm Elections be free and fair?",
+      "resolution_criteria": "Free and fair in this context means that all American Citizens will have the right and reasonable ability to vote in their Midterm Elections. additionally this means that the integrity of their votes after being cast will remain untampered in anyway shape or form. This also means that no form of intimidation or coehersion will be used on the people attempting to vote. This also means that impedences to vote such as through force or through using unlawful excutive orders aimed at slowing or halting the ballot process or voting infastructure process will count. \n\nResolution criteria\n\nThe 2026 midterm elections will be held on Tuesday, November 3, 2026. This market resolves YES if the elections are determined to be free and fair according to the following criteria:\n\nAll eligible U.S. citizens have the right and reasonable ability to vote\n\nVote integrity is maintained after ballots are cast with no tampering\n\nNo voter intimidation or coercion occurs\n\nNo impediments to voting through force or unlawful executive orders affecting ballot or voting infrastructure processes\n\nResolution will be based on assessments from OSCE election observation missions, which the United States has invited to observe every general and midterm election since 2002. The OSCE will publish preliminary findings immediately after the election, with a final comprehensive report issued weeks later. Additional sources include reports from domestic election monitoring organizations and court rulings on election-related disputes.\n\nThe market resolves NO if credible evidence demonstrates systematic violations of these criteria that materially affected the election's outcome or legitimacy.\n\nBackground\n\nIn January 2026, The Washington Post reported that the second Trump administration had undertaken several tactics, including mid-decade redrawing of congressional districts for partisan gain, prosecution of political opponents, and a push to change voting methods and rules, that were meant to undermine confidence in the midterm elections. Maps have changed or would change in several states, often due to legal challenges made based on partisan or racial gerrymandering.\n\nIn the 2024 elections, threats, harassment, and violence against election administrators were a cause for serious concern and made recruiting election workers a challenge, as well as making additional security measures necessary.\n\nConsiderations\n\nThere is a legal prohibition of international election observation in 17 states, against the commitments made by all 57 states of the OSCE. This may limit the comprehensiveness of international observation coverage. Additionally, voter ID remains a controversial issue, with supporters claiming the laws safeguard election integrity and opponents arguing they disproportionately affect various minority groups.\n\nThis description was generated by AI.",
+      "topic": "Politics"
+    }
+  ],
+  "selected_at": "2026-11-03T10:54:58.017715+00:00",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}
