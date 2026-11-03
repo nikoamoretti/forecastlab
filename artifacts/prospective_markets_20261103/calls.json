@@ -1,0 +1,50 @@
+{
+  "manifold-02RzZt8EII": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.06,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  },
+  "manifold-gzgcNgtOqC": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.5,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  },
+  "manifold-tpR2hI2R8t": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.28,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  },
+  "polymarket-3566406": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.14,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  },
+  "polymarket-6436901": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.78,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  },
+  "polymarket-6563871": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.1,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92
+    }
+  }
+}

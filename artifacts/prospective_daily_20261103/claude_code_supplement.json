@@ -1,0 +1,22 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-03T11:05:00+00:00",
+      "entry_id": "c4ee2a1aab6c194d",
+      "probability": 0.45,
+      "rationale": "Search summaries put the 10-year at 4.92% on 2026-11-02, after 4.94 on 2026-10-30 and 4.98 on 2026-10-29 (https://tradingeconomics.com/united-states/government-bond-yield; https://fred.stlouisfed.org/series/dgs10), so the 4.94 threshold sits about 2 bp above the latest level and the yield has been drifting lower from a peak above 5.18% (https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html, 2026-10-02). A four-session move has a standard deviation of roughly 10-14 bp (an assumption, not a counted figure), which makes a 2 bp gap close to a coin flip, and a tie at 4.94 counts as No. Payrolls probably land on 2026-11-06 itself, which widens the spread of outcomes without tilting it, so I stay just under 50% with the weak, unchecked evidence.",
+      "release_event": "dgs10-2026-11-06",
+      "sources": [
+        "https://tradingeconomics.com/united-states/government-bond-yield",
+        "https://fred.stlouisfed.org/series/dgs10",
+        "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261103",
+  "generated_at": "2026-11-03T11:05:00+00:00",
+  "manifest_hash": "b8a3144522d8e2713f2f5649fdf626dbac1ff9f5836b04f3201b39c7745a06cc",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}

@@ -1,0 +1,11 @@
+{
+  "c4ee2a1aab6c194d": {
+    "members": 2,
+    "method": "combined_weighted_v1",
+    "probability": 0.45,
+    "weights": {
+      "claude_code_forecaster_v1": 23.92,
+      "statistical_baseline_v1": 14.98
+    }
+  }
+}
