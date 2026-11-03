@@ -1,46 +1,46 @@
 {
   "calibration": {
-    "as_of": "2026-11-02",
-    "intercept": 0.330208,
-    "results": 118,
-    "slope": 0.850463
+    "as_of": "2026-11-03",
+    "intercept": 0.310486,
+    "results": 126,
+    "slope": 0.863574
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.19572026913602916,
+      "brier": 0.20916871968832904,
       "coin_flip_brier": 0.25,
-      "forecasts": 247,
+      "forecasts": 254,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 129,
-      "right": 91,
+      "resolved": 133,
+      "right": 92,
       "toss_ups": 1,
-      "wrong": 37
+      "wrong": 40
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.1860368,
+      "brier": 0.20095271317829455,
       "coin_flip_brier": 0.25,
-      "forecasts": 242,
+      "forecasts": 249,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 125,
-      "right": 89,
+      "resolved": 129,
+      "right": 90,
       "toss_ups": 3,
-      "wrong": 33
+      "wrong": 36
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.18376545454545457,
+      "brier": 0.19763392857142859,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 55,
+      "resolved": 56,
       "right": 41,
       "toss_ups": 0,
-      "wrong": 14
+      "wrong": 15
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -56,63 +56,63 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.19075353535353534,
+      "brier": 0.20877843137254903,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 99,
+      "resolved": 102,
       "right": 72,
       "toss_ups": 0,
-      "wrong": 27
+      "wrong": 30
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.19352340425531916,
+      "brier": 0.20829375000000003,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 47,
+      "resolved": 48,
       "right": 34,
       "toss_ups": 0,
-      "wrong": 13
+      "wrong": 14
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.1729010101010101,
+      "brier": 0.19105825242718444,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 99,
-      "right": 78,
+      "resolved": 103,
+      "right": 79,
       "toss_ups": 0,
-      "wrong": 21
+      "wrong": 24
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.18950679611650487,
+      "brier": 0.20475233644859814,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 103,
-      "right": 76,
+      "resolved": 107,
+      "right": 77,
       "toss_ups": 1,
-      "wrong": 26
+      "wrong": 29
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.23425,
+      "brier": 0.24888000000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 28,
-      "right": 19,
+      "resolved": 30,
+      "right": 20,
       "toss_ups": 0,
-      "wrong": 9
+      "wrong": 10
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -166,7 +166,7 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2633553013407419,
       "coin_flip_brier": 0.25,
-      "forecasts": 26,
+      "forecasts": 27,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
       "resolved": 17,
@@ -178,7 +178,7 @@
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Shown for comparison; not part of our call.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 17,
+      "forecasts": 24,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
       "resolved": 0,
@@ -188,21 +188,21 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.16733114130434784,
+      "brier": 0.16490215885416667,
       "coin_flip_brier": 0.25,
-      "forecasts": 159,
+      "forecasts": 162,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 92,
-      "right": 67,
+      "resolved": 96,
+      "right": 70,
       "toss_ups": 0,
-      "wrong": 25
+      "wrong": 26
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
       "brier": 0.1489867488235294,
       "coin_flip_brier": 0.25,
-      "forecasts": 53,
+      "forecasts": 56,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
       "resolved": 17,
@@ -211,8 +211,211 @@
       "wrong": 5
     }
   ],
-  "generated_on": "2026-11-02",
+  "generated_on": "2026-11-03",
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.025
+      },
+      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-20T10:57:55+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "The latest dated readings are about $5.31M on 16 October (ICO Drops), $5.5M on 16 October (the sale's own account) and $5,660,925 on 17 October (Coindaro), against a $3.9M allocation that was filled within 8 minutes on 15 October. Growth has slowed sharply since the opening day, so reaching more than $60M, over ten times the latest total, before the 2 November cutoff would need an extraordinary late surge. The sale runs to about 30 October with no maximum deposit, which keeps a small tail alive, and US and several EU residents are excluded.",
+          "sources": [
+            "https://www.coindaro.com/launchpad/1win-token-sale/",
+            "https://icodrops.com/1win-token/",
+            "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/",
+            "https://bitcoinist.com/1win-public-sale-hits-3-9-million-in-commitments-within-minutes/"
+          ]
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.02,
+          "rationale": "The sale hit $3.9M in 8 minutes but has since grown only to ~$5.66M by Oct 17 (1.45x oversubscribed), with daily inflows decelerating to a few hundred thousand dollars. Reaching $60M would require a ~10x surge in the remaining ~11 days, far exceeding typical token sale oversubscription patterns and the observed trajectory. No evidence suggests a pending catalyst (major exchange listing, whale influx, or marketing blast) that could drive such an extreme late rally."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The sale raised ~$5.66M in its first two days, with growth slowing to a few hundred thousand dollars per day. Reaching over $60M would require a >10x surge in the remaining 10 days, which is extremely unlikely given the oversubscription model disincentivizes large deposits and no major catalyst is evident. The base rate for such token sales is that extreme oversubscription is rare."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "The base rate from the first five days shows explosive initial demand ($3.9M in eight minutes) but a sharp deceleration afterward, with only about $5.7M committed by October 17 and no verified figure since. Reaching $60M would require more than a tenfold increase in roughly ten days, a pace unsupported by current wallet participation or reported momentum. Probability could rise if 1win mobilizes its 100 million registered users, attracts large whale deposits, or extends the sale window, but absent such a catalyst the total is likely to remain far below the threshold."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.03,
+          "rationale": "The base rate is very low because the sale's allocation is only $3.9M and verified commitments were about $5.3M-$5.7M by October 16-17, with growth slowing to a few hundred thousand dollars per day. Exceeding $60M would require more than 10x the latest verified total and roughly 15x the allocation, which is far above the observed path and the project's own 5x oversubscription example. A late viral surge, whale deposits, or an official gross figure much higher than the 17 October reading could change this, but no credible evidence currently points to that."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for a small public token sale reaching 10x its current oversubscription is very low. As of 17 October, commitments were ~$5.66M against a $3.9M allocation, with growth of only a few hundred thousand per day after the initial 8-minute surge. Reaching $60M would require more than 10x the latest verified total, which is implausible given the modest daily inflow, the niche audience (online casino/betting brand), and the exclusion of US and several EU residents. A late surge or major change to terms could move this, but no evidence supports such a scenario."
+        },
+        {
+          "made_at": "2026-10-20T09:09:56.684000+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        }
+      ],
+      "id": "polymarket-5786298",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261020",
+      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
+      "status": "resolved",
+      "title": "Will commitments to the 1W public sale exceed $60M?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.2,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "The 1win public sale sells 130M tokens at $0.03 (a $3.9M base allocation) with uncapped USDC commitments; it passed $3.9M within eight minutes of opening on Oct 15 (AMBCrypto, 2026-10-15), and a later undated snippet put commitments near $5.31M (1.36x oversubscribed). Exceeding $10M needs roughly 1.9x that last reported total in the remaining ~4 days, and the slow growth after the fast start suggests a flat middle. A final-day surge or a whale deposit is the main route to Yes, and the figures rest on search snippets only.",
+          "sources": [
+            "https://ambcrypto.com/1win-public-sale-attracts-over-3-9m-in-usdc-commitments-within-eight-minutes/",
+            "https://www.mexc.com/news/687185",
+            "https://thedefiant.io/news/press-releases/1win-launches-two-week-public-sale-for-1win-token"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.3,
+          "rationale": "The sale had a strong start at $3.9M in minutes, but the latest reported total is only about $5.31M, so it needs roughly 88% more commitments in about four days. Uncapped pro-rata sales can see late surges or large single deposits, which keeps the probability non-trivial, but the slow middle-period growth makes exceeding $10M less likely than not."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.2,
+          "rationale": "The base rate for uncapped pro-rata token sales is that most commitments arrive in the initial burst, and the evidence here strongly supports that pattern: $3.9M in 8 minutes, then only ~$5.3M total by some later point in the sale. Reaching $10M would require nearly doubling the last reported figure in the remaining days, which is a significant late surge. While a single large deposit or final-day FOMO spike is possible in an uncapped sale, the slow mid-sale growth makes this unlikely. The main uncertainty is the exact date of the $5.31M figure and whether a late surge occurs in the final 1-2 days before the Oct 30 close."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.36,
+          "rationale": "Public-sale commitment curves are typically front-loaded, and with no clean reference class, nearly doubling in the roughly four days remaining is less likely than not. Filling the $3.9M allocation within eight minutes shows genuine demand, but the reported total of about $5.31M represents only 1.36x oversubscription and suggests slowing growth, leaving a substantial $4.69M needed. An uncapped final-hours surge, whale deposit, or sale extension keeps the chance materially above negligible, although the unconfirmed report date and unseen current official total add uncertainty; a total already above $7\u20138M would raise the probability sharply, while remaining near $5\u20136M would lower it."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9315
+        }
+      ],
+      "id": "polymarket-5786291",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
+      "status": "resolved",
+      "title": "Will commitments to the 1W public sale exceed $10M?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.03,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "The 1W token sale pool was $5.66M on 17 Oct, $6.08M on 21 Oct and $6.12M on 22 Oct, with only about $10,800 added in the 16 hours before the last reading and 94 wallets providing 85% of the total. Reaching $20M by the 30 Oct 16:00 UTC close would need more than a threefold rise in the final week, and the comparable Shuffle sale only reached $20M because that was its hard cap. I could not verify any figure after 22 Oct, so a late rush keeps this above the floor.",
+          "sources": [
+            "https://gamblefihub.com/post/1win-sale-onchain-94-wallets-85-percent-usdc/",
+            "https://www.coindaro.com/it/launchpad/token-1win-vendita-pubblica-italia/",
+            "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate for token sales exceeding $20M is low, and the 1W sale has only reached ~$6.1M as of October 22 with slow growth (~$92k/day). With one day left and no evidence of a surge, a jump to over $20M is highly unlikely, especially given geographic restrictions. A sudden influx of large deposits could change this, but current data suggests minimal chance."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.03,
+          "rationale": "The pool was at ~$6.1M as of October 22, with growth of only ~$10,800 in the last 16 hours and the 94 largest wallets (holding 85% of the pool) showing no new activity. To exceed $20M before the October 30 close, the pool would need to more than triple in roughly 8 days, which is inconsistent with the observed decelerating growth pattern driven by small wallets under $10,000. The only scenario that changes this is a sudden multi-million-dollar deposit from a new or existing large wallet in the final days, but no evidence points to that occurring."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a small-cap token sale exceeding $20M is low, and the evidence shows the pool was only ~$6.1M as of October 22, with growth slowing (only ~$10,800 added in ~16 hours from small wallets). The sale closes October 30 at 16:00 UTC, leaving only about 8 days from the last reading, and the pool would need to more than triple with no evidence of large late-stage commitments. The 94 wallets holding 85% of the pool have not added meaningfully, and geographic restrictions (US, UK, much of EU excluded) limit the addressable market. A late surge from large wallets or a reported total near $15M+ would be needed to shift this estimate upward."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.05,
+          "rationale": "The pool was about $6.1M on 22 October and growing very slowly, with the top wallets unchanged. Passing $20M would need about $14M more in the last week, which would take a major late whale surge. Pro-rata dilution discourages that, though last-minute deposits do happen. Nothing after 22 October is verified, so some residual chance remains."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.905
+        }
+      ],
+      "id": "polymarket-5786294",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
+      "status": "resolved",
+      "title": "Will commitments to the 1W public sale exceed $20M?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
     {
       "actual": "4.94%",
       "call": {
@@ -476,6 +679,69 @@
       "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-october-26-november-1-2026",
       "status": "resolved",
       "title": "Will Ethereum reach $2,500 October 26-November 1?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.8,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.89,
+          "rationale": "Binance ETHUSDT was about 2,369 on 2026-10-28, about 7% above 2,200; every daily close in October was above 2,200 (monthly low 2,282.46 on Oct 24) and the biggest one-day October fall was 4.57%. Roughly 5% volatility over the five days to the Nov 2 noon ET candle gives about a 7-10% chance of finishing below 2,200, nudged up by October's downtrend, the FOMC decision and a weekend gap risk. This is coherent with the 2,500 touch question being clearly less likely than this one.",
+          "sources": [
+            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
+            "https://chartrow.com/ethereum/weekly-returns",
+            "https://www.coindesk.com/markets/2026/10/28/bitcoin-nears-usd81-000-ahead-of-fed-decision-as-zec-jumps-8"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "ETH is currently at ~$2,369, requiring a 7.1% drop over ~5 days to fall below $2,200. The October low was $2,282.46 (still $82 above the threshold), and the largest single-day drop was 4.57%, making a 7.1% five-day decline possible but not the base case. The downward trend (three consecutive negative weeks, 12.5% monthly decline) and upcoming catalysts (FOMC today, SEC decision Oct 30) create tail risk, but the substantial buffer and mostly bullish technical signals (16 of 25 indicators) favor a Yes resolution."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "ETH is currently around $2,369 on Binance, about 7.7% above the $2,200 threshold. Over 5 days, a 7%+ decline is uncommon but not rare (about 16% of weeks historically). The October trend has been bearish (-12.5% MTD), with recent weekly returns of -6.9%, -5.0%, and -3.4%, suggesting continued downside pressure. However, the technical summary shows a net buy signal, and the price is well above key support at $2,232. A hawkish FOMC surprise or negative SEC ETF decision on Oct 30 could push it lower, but the current cushion and mean-reversion tendency suggest ETH is more likely than not to remain above $2,200 by Nov 2."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "ETH is about 2,370, so the 2,200 threshold is roughly 7.2% below spot with about 5 days to go. With realized daily volatility near 1.8%, the five-day standard deviation is about 4.1%, making the threshold about 1.75 sigma away and implying a roughly 4% chance of a close below it. I widened that to about 7% for fat tails and event risk (FOMC, SEC ruling, ETF flows), since the 16% weekly-fall frequency comes from a higher-volatility regime."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.92
+        }
+      ],
+      "id": "polymarket-6255210",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-2-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,200 on November 2?",
       "topic": "Crypto",
       "verdict": "right"
     },
@@ -9899,139 +10165,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.8,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.89,
-          "rationale": "Binance ETHUSDT was about 2,369 on 2026-10-28, about 7% above 2,200; every daily close in October was above 2,200 (monthly low 2,282.46 on Oct 24) and the biggest one-day October fall was 4.57%. Roughly 5% volatility over the five days to the Nov 2 noon ET candle gives about a 7-10% chance of finishing below 2,200, nudged up by October's downtrend, the FOMC decision and a weekend gap risk. This is coherent with the 2,500 touch question being clearly less likely than this one.",
-          "sources": [
-            "https://tradervilla.com/public/coin/ethusdt/month-summary/october-2026",
-            "https://chartrow.com/ethereum/weekly-returns",
-            "https://www.coindesk.com/markets/2026/10/28/bitcoin-nears-usd81-000-ahead-of-fed-decision-as-zec-jumps-8"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.8,
-          "rationale": "ETH is currently at ~$2,369, requiring a 7.1% drop over ~5 days to fall below $2,200. The October low was $2,282.46 (still $82 above the threshold), and the largest single-day drop was 4.57%, making a 7.1% five-day decline possible but not the base case. The downward trend (three consecutive negative weeks, 12.5% monthly decline) and upcoming catalysts (FOMC today, SEC decision Oct 30) create tail risk, but the substantial buffer and mostly bullish technical signals (16 of 25 indicators) favor a Yes resolution."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "ETH is currently around $2,369 on Binance, about 7.7% above the $2,200 threshold. Over 5 days, a 7%+ decline is uncommon but not rare (about 16% of weeks historically). The October trend has been bearish (-12.5% MTD), with recent weekly returns of -6.9%, -5.0%, and -3.4%, suggesting continued downside pressure. However, the technical summary shows a net buy signal, and the price is well above key support at $2,232. A hawkish FOMC surprise or negative SEC ETF decision on Oct 30 could push it lower, but the current cushion and mean-reversion tendency suggest ETH is more likely than not to remain above $2,200 by Nov 2."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.93,
-          "rationale": "ETH is about 2,370, so the 2,200 threshold is roughly 7.2% below spot with about 5 days to go. With realized daily volatility near 1.8%, the five-day standard deviation is about 4.1%, making the threshold about 1.75 sigma away and implying a roughly 4% chance of a close below it. I widened that to about 7% for fat tails and event risk (FOMC, SEC ruling, ETF flows), since the 16% weekly-fall frequency comes from a higher-volatility regime."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "market_price_v1",
-          "probability": 0.92
-        }
-      ],
-      "id": "polymarket-6255210",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-2-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,200 on November 2?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.025
-      },
-      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-20T10:57:55+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.03,
-          "rationale": "The latest dated readings are about $5.31M on 16 October (ICO Drops), $5.5M on 16 October (the sale's own account) and $5,660,925 on 17 October (Coindaro), against a $3.9M allocation that was filled within 8 minutes on 15 October. Growth has slowed sharply since the opening day, so reaching more than $60M, over ten times the latest total, before the 2 November cutoff would need an extraordinary late surge. The sale runs to about 30 October with no maximum deposit, which keeps a small tail alive, and US and several EU residents are excluded.",
-          "sources": [
-            "https://www.coindaro.com/launchpad/1win-token-sale/",
-            "https://icodrops.com/1win-token/",
-            "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/",
-            "https://bitcoinist.com/1win-public-sale-hits-3-9-million-in-commitments-within-minutes/"
-          ]
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.02,
-          "rationale": "The sale hit $3.9M in 8 minutes but has since grown only to ~$5.66M by Oct 17 (1.45x oversubscribed), with daily inflows decelerating to a few hundred thousand dollars. Reaching $60M would require a ~10x surge in the remaining ~11 days, far exceeding typical token sale oversubscription patterns and the observed trajectory. No evidence suggests a pending catalyst (major exchange listing, whale influx, or marketing blast) that could drive such an extreme late rally."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.02,
-          "rationale": "The sale raised ~$5.66M in its first two days, with growth slowing to a few hundred thousand dollars per day. Reaching over $60M would require a >10x surge in the remaining 10 days, which is extremely unlikely given the oversubscription model disincentivizes large deposits and no major catalyst is evident. The base rate for such token sales is that extreme oversubscription is rare."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.05,
-          "rationale": "The base rate from the first five days shows explosive initial demand ($3.9M in eight minutes) but a sharp deceleration afterward, with only about $5.7M committed by October 17 and no verified figure since. Reaching $60M would require more than a tenfold increase in roughly ten days, a pace unsupported by current wallet participation or reported momentum. Probability could rise if 1win mobilizes its 100 million registered users, attracts large whale deposits, or extends the sale window, but absent such a catalyst the total is likely to remain far below the threshold."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.03,
-          "rationale": "The base rate is very low because the sale's allocation is only $3.9M and verified commitments were about $5.3M-$5.7M by October 16-17, with growth slowing to a few hundred thousand dollars per day. Exceeding $60M would require more than 10x the latest verified total and roughly 15x the allocation, which is far above the observed path and the project's own 5x oversubscription example. A late viral surge, whale deposits, or an official gross figure much higher than the 17 October reading could change this, but no credible evidence currently points to that."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.02,
-          "rationale": "The base rate for a small public token sale reaching 10x its current oversubscription is very low. As of 17 October, commitments were ~$5.66M against a $3.9M allocation, with growth of only a few hundred thousand per day after the initial 8-minute surge. Reaching $60M would require more than 10x the latest verified total, which is implausible given the modest daily inflow, the niche audience (online casino/betting brand), and the exclusion of US and several EU residents. A late surge or major change to terms could move this, but no evidence supports such a scenario."
-        },
-        {
-          "made_at": "2026-10-20T09:09:56.684000+00:00",
-          "method": "market_price_v1",
-          "probability": 0.355
-        }
-      ],
-      "id": "polymarket-5786298",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261020",
-      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
-      "status": "pending",
-      "title": "Will commitments to the 1W public sale exceed $60M?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.48
@@ -10154,69 +10287,6 @@
       "status": "pending",
       "title": "Will the Democratic Party Candidate win the 2026 Maine Senate Election?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.2,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.12,
-          "rationale": "The 1win public sale sells 130M tokens at $0.03 (a $3.9M base allocation) with uncapped USDC commitments; it passed $3.9M within eight minutes of opening on Oct 15 (AMBCrypto, 2026-10-15), and a later undated snippet put commitments near $5.31M (1.36x oversubscribed). Exceeding $10M needs roughly 1.9x that last reported total in the remaining ~4 days, and the slow growth after the fast start suggests a flat middle. A final-day surge or a whale deposit is the main route to Yes, and the figures rest on search snippets only.",
-          "sources": [
-            "https://ambcrypto.com/1win-public-sale-attracts-over-3-9m-in-usdc-commitments-within-eight-minutes/",
-            "https://www.mexc.com/news/687185",
-            "https://thedefiant.io/news/press-releases/1win-launches-two-week-public-sale-for-1win-token"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.3,
-          "rationale": "The sale had a strong start at $3.9M in minutes, but the latest reported total is only about $5.31M, so it needs roughly 88% more commitments in about four days. Uncapped pro-rata sales can see late surges or large single deposits, which keeps the probability non-trivial, but the slow middle-period growth makes exceeding $10M less likely than not."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.2,
-          "rationale": "The base rate for uncapped pro-rata token sales is that most commitments arrive in the initial burst, and the evidence here strongly supports that pattern: $3.9M in 8 minutes, then only ~$5.3M total by some later point in the sale. Reaching $10M would require nearly doubling the last reported figure in the remaining days, which is a significant late surge. While a single large deposit or final-day FOMO spike is possible in an uncapped sale, the slow mid-sale growth makes this unlikely. The main uncertainty is the exact date of the $5.31M figure and whether a late surge occurs in the final 1-2 days before the Oct 30 close."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.36,
-          "rationale": "Public-sale commitment curves are typically front-loaded, and with no clean reference class, nearly doubling in the roughly four days remaining is less likely than not. Filling the $3.9M allocation within eight minutes shows genuine demand, but the reported total of about $5.31M represents only 1.36x oversubscription and suggests slowing growth, leaving a substantial $4.69M needed. An uncapped final-hours surge, whale deposit, or sale extension keeps the chance materially above negligible, although the unconfirmed report date and unseen current official total add uncertainty; a total already above $7\u20138M would raise the probability sharply, while remaining near $5\u20136M would lower it."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9315
-        }
-      ],
-      "id": "polymarket-5786291",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
-      "status": "pending",
-      "title": "Will commitments to the 1W public sale exceed $10M?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -10729,76 +10799,6 @@
       "status": "pending",
       "title": "Democrats win the 2026 Special Election for Senate in Florida?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.03,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 30.98,
-          "judge_minimax_m3_v1": 32.13,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if total commitments to the official 1W public sale exceed the specified value at any point before November 2, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is the headline pool total displayed on the official 1W Token Sale page at https://1wtoken.com/ (the \"US$[amount] of US$[allocation]\" figure). Total commitments refers to this gross pool amount, including any oversubscription above the sale's allocation, and not the final allocated amount after excess deposits are refunded. If the sale page displays only a net or allocated figure rather than the gross pool amount, official announcements of the gross amount from 1W will be used. The sale accepts deposits in US dollar stablecoins (USDC), which are counted as US dollars at 1:1.\n\nIf the displayed figure exceeds the specified value at any point before November 2, 2026, 11:59 PM ET, this market will resolve to \"Yes\" regardless of subsequent refunds or cancellations. A displayed figure exactly equal to the specified value will not qualify. If the figure on the sale page is unavailable, official announcements from 1W (https://x.com/1winToken) may be used; if no official figure is available, a consensus of credible reporting may be used. If no commitment total is verifiable by November 2, 2026, 11:59 PM ET, including because the sale is put on hold, cancelled, or rescheduled to a time past that date, this market will resolve to \"No\". If requisite information for this market's resolution becomes permanently unavailable within this market's timeframe, this market will resolve to \"No\".\n\nIf the sale is extended before the official closing time, commitments made during the extended period will count toward resolution, provided the displayed figure exceeds the specified value before November 2, 2026, 11:59 PM ET.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.03,
-          "rationale": "The 1W token sale pool was $5.66M on 17 Oct, $6.08M on 21 Oct and $6.12M on 22 Oct, with only about $10,800 added in the 16 hours before the last reading and 94 wallets providing 85% of the total. Reaching $20M by the 30 Oct 16:00 UTC close would need more than a threefold rise in the final week, and the comparable Shuffle sale only reached $20M because that was its hard cap. I could not verify any figure after 22 Oct, so a late rush keeps this above the floor.",
-          "sources": [
-            "https://gamblefihub.com/post/1win-sale-onchain-94-wallets-85-percent-usdc/",
-            "https://www.coindaro.com/it/launchpad/token-1win-vendita-pubblica-italia/",
-            "https://chainwire.org/2026/10/15/1win-launches-two-week-public-sale-for-1win-token/"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.02,
-          "rationale": "The base rate for token sales exceeding $20M is low, and the 1W sale has only reached ~$6.1M as of October 22 with slow growth (~$92k/day). With one day left and no evidence of a surge, a jump to over $20M is highly unlikely, especially given geographic restrictions. A sudden influx of large deposits could change this, but current data suggests minimal chance."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.03,
-          "rationale": "The pool was at ~$6.1M as of October 22, with growth of only ~$10,800 in the last 16 hours and the 94 largest wallets (holding 85% of the pool) showing no new activity. To exceed $20M before the October 30 close, the pool would need to more than triple in roughly 8 days, which is inconsistent with the observed decelerating growth pattern driven by small wallets under $10,000. The only scenario that changes this is a sudden multi-million-dollar deposit from a new or existing large wallet in the final days, but no evidence points to that occurring."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.03,
-          "rationale": "The base rate for a small-cap token sale exceeding $20M is low, and the evidence shows the pool was only ~$6.1M as of October 22, with growth slowing (only ~$10,800 added in ~16 hours from small wallets). The sale closes October 30 at 16:00 UTC, leaving only about 8 days from the last reading, and the pool would need to more than triple with no evidence of large late-stage commitments. The 94 wallets holding 85% of the pool have not added meaningfully, and geographic restrictions (US, UK, much of EU excluded) limit the addressable market. A late surge from large wallets or a reported total near $15M+ would be needed to shift this estimate upward."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.05,
-          "rationale": "The pool was about $6.1M on 22 October and growing very slowly, with the top wallets unchanged. Passing $20M would need about $14M more in the last week, which would take a major late whale surge. Pro-rata dilution discourages that, though last-minute deposits do happen. Nothing after 22 October is verified, so some residual chance remains."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "market_price_v1",
-          "probability": 0.905
-        }
-      ],
-      "id": "polymarket-5786294",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://polymarket.com/event/total-commitments-for-the-1win-1w-public-sale",
-      "status": "pending",
-      "title": "Will commitments to the 1W public sale exceed $20M?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -14359,6 +14359,58 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.5,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "Free and fair in this context means that all American Citizens will have the right and reasonable ability to vote in their Midterm Elections. additionally this means that the integrity of their votes after being cast will remain untampered in anyway shape or form. This also means that no form of intimidation or coehersion will be used on the people attempting to vote. This also means that impedences to vote such as through force or through using unlawful excutive orders aimed at slowing or halting the ballot process or voting infastructure process will count. \n\nResolution criteria\n\nThe 2026 midterm elections will be held on Tuesday, November 3, 2026. This market resolves YES if the elections are determined to be free and fair according to the following criteria:\n\nAll eligible U.S. citizens have the right and reasonable ability to vote\n\nVote integrity is maintained after ballots are cast with no tampering\n\nNo voter intimidation or coercion occurs\n\nNo impediments to voting through force or unlawful executive orders affecting ballot or voting infrastructure processes\n\nResolution will be based on assessments from OSCE election observation missions, which the United States has invited to observe every general and midterm election since 2002. The OSCE will publish preliminary findings immediately after the election, with a final comprehensive report issued weeks later. Additional sources include reports from domestic election monitoring organizations and court rulings on election-related disputes.\n\nThe market resolves NO if credible evidence demonstrates systematic violations of these criteria that materially affected the election's outcome or legitimacy.\n\nBackground\n\nIn January 2026, The Washington Post reported that the second Trump administration had undertaken several tactics, including mid-decade redrawing of congressional districts for partisan gain, prosecution of political opponents, and a push to change voting methods and rules, that were meant to undermine confidence in the midterm elections. Maps have changed or would change in several states, often due to legal challenges made based on partisan or racial gerrymandering.\n\nIn the 2024 elections, threats, harassment, and violence against election administrators were a cause for serious concern and made recruiting election workers a challenge, as well as making additional security measures necessary.\n\nConsiderations\n\nThere is a legal prohibition of international election observation in 17 states, against the commitments made by all 57 states of the OSCE. This may limit the comprehensiveness of international observation coverage. Additionally, voter ID remains a controversial issue, with supporters claiming the laws safeguard election integrity and opponents arguing they disproportionately affect various minority groups.\n\nThis description was generated by AI.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "The OSCE has observed every US federal election since 2002 and never called one not free and fair, and the question's NO test (systematic violations that materially changed the outcome) has never been met, while resolution by 2026-11-05 comes before any final report. Against that, the US issued no OSCE invitation for the first time on 2026-09-23 (https://www.cp24.com/news/world/2026/09/23/europe-security-body-says-monitors-not-invited-to-us-elections-for-first-time/), a mail-voting order was called likely unconstitutional but allowed to proceed (https://newschannel9.com/news/nation-world/federal-judge-allows-some-challenges-to-trumps-mail-in-voting-executive-order-democratic-states-midterm-elections-rob-bonta-aclu-white-house), and intimidation suits are pending (https://denvergazette.com/2026/08/28/here-are-the-legal-issues-that-could-affect-the-midterm-elections/, 2026-08-28). The named resolution source does not exist and the criteria are broad and open to the resolver's reading, so I stay near even.",
+          "sources": [
+            "https://www.cp24.com/news/world/2026/09/23/europe-security-body-says-monitors-not-invited-to-us-elections-for-first-time/",
+            "https://newschannel9.com/news/nation-world/federal-judge-allows-some-challenges-to-trumps-mail-in-voting-executive-order-democratic-states-midterm-elections-rob-bonta-aclu-white-house",
+            "https://denvergazette.com/2026/08/28/here-are-the-legal-issues-that-could-affect-the-midterm-elections/",
+            "https://www.foreign.senate.gov/press/dem/release/ranking-member-shaheen-condemns-unprecedented-move-to-block-international-observers-from-us-midterm-elections"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.577004,
+          "raw": 0.5,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.5924
+        }
+      ],
+      "id": "manifold-gzgcNgtOqC",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://manifold.markets/goober/will-the-united-states-midterm-elec",
+      "status": "pending",
+      "title": "Will the United States Midterm Elections be free and fair?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.57
@@ -14754,6 +14806,57 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.78,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of November 2 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "WTI settled near $96.46 on 2026-11-02 after a 7.4% one-day drop on US-Iran peace hopes (https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026, https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey), so the $95 low is only about 1.5% under the settle. In a regime with multi-percent daily moves and four more sessions through 2026-11-06, a touch that close is likely, and Monday's own low may already have reached it. The risk is a rebound if talks stall, as earlier headlines did (https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/), plus uncertainty about the Pyth CLL contract and the creation time, and the evidence is unchecked summaries.",
+          "sources": [
+            "https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026",
+            "https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey",
+            "https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.802736,
+          "raw": 0.78,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        }
+      ],
+      "id": "polymarket-6436901",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://polymarket.com/event/will-wti-hit-week-of-november-2-2026",
+      "status": "pending",
+      "title": "Will WTI Crude Oil (WTI) hit (LOW) $95 Week of November 2 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.2,
@@ -14936,6 +15039,109 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.28,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "Resolves as the Manifold market resolves: https://manifold.markets/HenryFT/will-joe-biden-die-before-the-2028",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.28,
+          "rationale": "Biden's metastatic Gleason 9 prostate cancer was disclosed in May 2025 and he finished radiation on 2025-10-20 (https://www.pbs.org/newshour/amp/politics/biden-is-receiving-radiation-and-hormone-therapy-to-treat-his-prostate-cancer-aide-says, https://abc7chicago.com/post/former-president-joe-biden-rings-bell-completing-course-radiation-therapy-cancer-penn-medicine-philadelphia/18049528/, 2025-10-20). A US man of 83-84 has roughly 8-10% annual mortality, about 17-19% over the two years to 2028-11-07, and aggressive bone-metastatic disease adds meaningful excess risk, although he said the radiation worked as intended (https://www.scrippsnews.com/health/joe-biden-says-radiation-treatment-for-prostate-cancer-worked-as-intended) and hormone-sensitive disease can stay controlled for years. The figures are general knowledge and unsourced in the digest, and I found no recent health news, so I settle on roughly 28%.",
+          "sources": [
+            "https://www.pbs.org/newshour/amp/politics/biden-is-receiving-radiation-and-hormone-therapy-to-treat-his-prostate-cancer-aide-says",
+            "https://abc7chicago.com/post/former-president-joe-biden-rings-bell-completing-course-radiation-therapy-cancer-penn-medicine-philadelphia/18049528/",
+            "https://www.scrippsnews.com/health/joe-biden-says-radiation-treatment-for-prostate-cancer-worked-as-intended"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.376337,
+          "raw": 0.28,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2431
+        }
+      ],
+      "id": "manifold-tpR2hI2R8t",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-08",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://manifold.markets/HenryFT/will-joe-biden-die-before-the-2028",
+      "status": "pending",
+      "title": "Will Joe Biden die before the 2028 presidential election (Nov. 7 2028)?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.45,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92,
+          "statistical_baseline_v1": 14.98
+        }
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-06 be above 4.94 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Search summaries put the 10-year at 4.92% on 2026-11-02, after 4.94 on 2026-10-30 and 4.98 on 2026-10-29 (https://tradingeconomics.com/united-states/government-bond-yield; https://fred.stlouisfed.org/series/dgs10), so the 4.94 threshold sits about 2 bp above the latest level and the yield has been drifting lower from a peak above 5.18% (https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html, 2026-10-02). A four-session move has a standard deviation of roughly 10-14 bp (an assumption, not a counted figure), which makes a 2 bp gap close to a coin flip, and a tie at 4.94 counts as No. Payrolls probably land on 2026-11-06 itself, which widens the spread of outcomes without tilting it, so I stay just under 50% with the weak, unchecked evidence.",
+          "sources": [
+            "https://tradingeconomics.com/united-states/government-bond-yield",
+            "https://fred.stlouisfed.org/series/dgs10",
+            "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.513771186440678
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.534244,
+          "raw": 0.45,
+          "results": 126,
+          "slope": 0.863574
+        }
+      ],
+      "id": "c4ee2a1aab6c194d",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-09",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261103",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 6, 2026 be above 4.94%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 2,
         "method": "combined_weighted_v1",
         "probability": 0.32,
@@ -15054,6 +15260,57 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.1,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Yahoo Finance's 2026-11-02 evening wrap has BTC at $76,732 after the Binance breach and Fortune had it near $77,750 that morning, so $70,000 is about 8.7% below spot (https://finance.yahoo.com/markets/crypto/articles/crypto-market-today-nov-2-223501665.html, https://fortune.com/article/price-of-bitcoin-11-02-2026/). With about six days left and roughly 2-2.5% daily moves, a touch of a level 9% away has a probability near 10-12% by a simple barrier estimate. The downtrend, the exchange-specific stress and ETF outflows (https://finance.yahoo.com/markets/crypto/articles/bitcoin-price-outlook-november-2026-020000012.html) fatten the tail, but price held the $76,000 area after withdrawals reopened, and every figure is from unchecked summaries.",
+          "sources": [
+            "https://finance.yahoo.com/markets/crypto/articles/crypto-market-today-nov-2-223501665.html",
+            "https://fortune.com/article/price-of-bitcoin-11-02-2026/",
+            "https://finance.yahoo.com/markets/crypto/articles/bitcoin-price-outlook-november-2026-020000012.html"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.169809,
+          "raw": 0.1,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "market_price_v1",
+          "probability": 0.105
+        }
+      ],
+      "id": "polymarket-6563871",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-09",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-2-8-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $70,000 November 2-8?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.28
@@ -15164,6 +15421,56 @@
       "source_url": "https://manifold.markets/njordsier/national-guard-deployed-at-polling",
       "status": "pending",
       "title": "National Guard deployed at polling places in 2026 midterms?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.06,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model\n\nResolves YES if in any 2026 US Senate election on the Silver Bulletin average, a candidate has 50.1% or more of the vote and loses.\n\nThe final polling average on silver bulletin will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "Newsweek, citing Silver Bulletin on about 2026-10-23, showed the competitive races in the mid-40s (Iowa 46.8 vs 45.6, Ohio +3.7, Alaska +3.5), so few races would have a candidate at 50.1% or more (https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772, 2026-10-23). Candidates above 50% are usually in lopsided safe seats, where a loss needs a polling miss of 10 points or more, and no historical count was found. The main risk is a correlated miss of a few points in a race where a leader sits just over 50%, which Silver flags as normal-sized error (https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model), but the final state averages were not retrieved.",
+          "sources": [
+            "https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772",
+            "https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.112479,
+          "raw": 0.06,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1403
+        }
+      ],
+      "id": "manifold-02RzZt8EII",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://manifold.markets/Jack1/will-any-us-senate-candidate-have-5",
+      "status": "pending",
+      "title": "Will any US Senate candidate have 50.1% or more in the polling average and lose?",
       "topic": "Politics",
       "verdict": null
     },
@@ -15455,6 +15762,58 @@
       "status": "pending",
       "title": "Will Polymarket allow US persons to trade on the 2026 midterms?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.14,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "This market will resolve according to the UK real gross domestic product (GDP) growth rate (% change) for Q3 of 2026 compared with the most recent quarter (quarter-on-previous-quarter) in the \"GDP first quarterly estimate, UK\" release for Q3 of 2026, scheduled for November 12, 2026.\n\nThe GDP release will be made available here: https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/previousreleases\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution.\n\nNote: the resolution source for this market reports GDP growth rates to only one decimal point (e.g. 1.8%). Thus, this is the level of precision that will be used when resolving the market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "Monthly GDP was +0.4% in June and July and +0.1% in August 2026 (https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline, 2026-10-15; https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf, 2026-10-15), and the ONS put growth in the three months to August at 0.7%. Under a flat September that gives roughly 0.6-0.8% for Q3, and landing in the 0.4-0.5% band would take a September fall of about 0.5-1% or sizeable downward revisions; Deutsche Bank's slowing-momentum call (https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200, 2026-10-08) was already beaten by August. The April and May levels are unverified, so I keep some weight on the band rather than going lower.",
+          "sources": [
+            "https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf",
+            "https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200",
+            "https://www.financecalendar.com/?p=2217"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.221465,
+          "raw": 0.14,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1
+        }
+      ],
+      "id": "polymarket-3566406",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://polymarket.com/event/uk-gdp-growth-in-q3-2026-qoq-20260813112748100",
+      "status": "pending",
+      "title": "Will UK GDP growth in Q3 2026 be between 0.4% and 0.5%?",
+      "topic": "Economy",
       "verdict": null
     },
     {
@@ -15842,21 +16201,21 @@
     }
   ],
   "summary": {
-    "brier": 0.19572026913602916,
+    "brier": 0.20916871968832904,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 114,
-    "resolved": 129,
-    "right": 91,
+    "pending": 117,
+    "resolved": 133,
+    "right": 92,
     "toss_ups": 1,
-    "total": 247,
+    "total": 254,
     "unscored": 3,
     "vs_market": {
-      "market": 0.16447008926605505,
-      "ours": 0.18380366972477066,
-      "questions": 109
+      "market": 0.16250780513274335,
+      "ours": 0.200054203539823,
+      "questions": 113
     },
-    "wrong": 37
+    "wrong": 40
   },
   "version": "track_record_v2"
 }
