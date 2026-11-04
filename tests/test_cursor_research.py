@@ -905,7 +905,7 @@ def test_related_forecasts_list_only_claudes_own_calls_on_the_same_outcome() -> 
         assert left_out not in text
     assert text.endswith("if the evidence has changed, say why in the rationale.")
     assert "Ramaswamy be the next Governor of Ohio? You said 41%" in cr.related_forecasts(record, other, "2026-11-04")
-    assert "Ohio State" not in cr.related_forecasts(record, {**task, "topic": "Sports"}, "2026-11-04")
+    assert "Ohio governor" not in cr.related_forecasts(record, {**task, "topic": "Sports"}, "2026-11-04")  # other topic
 
 
 def test_related_forecasts_cap_order_and_nothing_to_show() -> None:
