@@ -868,3 +868,53 @@ def test_miss_review_cli_exports_to_a_file_and_applies(tmp_path: Path, monkeypat
         miss_review.main(["apply", str(review)])
     with pytest.raises(SystemExit):
         miss_review.main(["export", "--since", "yesterday"])
+
+
+def _own(title: str, topic: str, resolves_on: str, p: float, made_at: str, status: str = "pending",
+         outcome: int | None = None, qid: str = "") -> dict[str, Any]:
+    return {"id": qid or title, "title": title, "topic": topic, "resolves_on": resolves_on, "status": status,
+            "outcome": outcome,
+            "forecasts": [{"method": "claude_code_forecaster_v1", "probability": p, "made_at": made_at},
+                          {"method": "market_price_v1", "probability": 0.111, "made_at": made_at},
+                          {"method": "judge_kimi_k26_v1", "probability": 0.222, "made_at": made_at}]}
+
+
+def test_related_forecasts_list_only_claudes_own_calls_on_the_same_outcome() -> None:
+    record = {"questions": [
+        _own("Will the Republicans win the Ohio governor race in 2026?", "Politics", "2026-11-04", 0.57,
+             "2026-10-28T11:01:48+00:00", "resolved", 1, "gov"),
+        _own("Will the Democrats win the Ohio Senate race in 2026?", "Politics", "2026-11-04", 0.47,
+             "2026-10-26T11:14:05+00:00", "pending", None, "sen"),
+        _own("Will Vivek Ramaswamy be the next Governor of Ohio?", "Politics", "2026-11-04", 0.41,
+             "2026-10-21T10:55:44+00:00", "pending", None, "viv"),
+        _own("Will Ohio State win the Big Ten?", "Sports", "2026-11-30", 0.3, "2026-10-21T00:00:00+00:00"),
+        _own("Will the Democrats win the Texas Senate race in 2026?", "Politics", "2026-11-04", 0.2,
+             "2026-10-21T00:00:00+00:00"),
+        _own("Will Ohio ban phones in schools?", "Politics", "2026-08-01", 0.5, "2026-07-01T00:00:00+00:00",
+             "resolved", 0, "old"),
+    ]}
+    task = {"id": "viv", "question": "Will Vivek Ramaswamy be the next Governor of Ohio?", "topic": "Politics",
+            "resolves_on": "2026-11-04"}
+    other = {"id": "gov", "question": "Will the Republicans win the Ohio governor race in 2026?", "topic": "Politics",
+             "resolves_on": "2026-11-04"}
+    text = cr.related_forecasts(record, task, "2026-11-04")
+    assert text.startswith("Your earlier forecasts on related questions:")
+    assert "Republicans win the Ohio governor race in 2026? You said 57% yes on 2026-10-28; resolves 2026-11-04 (resolved yes)" in text
+    assert "Ohio Senate race" in text and "(pending)" in text
+    for left_out in ("Ramaswamy", "Big Ten", "Texas", "phones", "11%", "22%", "11.1", "22.2"):
+        assert left_out not in text
+    assert text.endswith("if the evidence has changed, say why in the rationale.")
+    assert "Ramaswamy be the next Governor of Ohio? You said 41%" in cr.related_forecasts(record, other, "2026-11-04")
+    assert "Ohio governor" not in cr.related_forecasts(record, {**task, "topic": "Sports"}, "2026-11-04")  # other topic
+
+
+def test_related_forecasts_cap_order_and_nothing_to_show() -> None:
+    record = {"questions": [_own(f"Will Bitcoin hit {n}?", "Crypto", f"2026-11-{n:02d}", 0.5, "2026-10-20T00:00:00+00:00")
+                            for n in range(10, 20)]}
+    task = {"id": "x", "question": "Will BTC be above $100k?", "topic": "Crypto", "resolves_on": "2026-11-12"}
+    lines = cr.related_forecasts(record, task, "2026-11-04").splitlines()
+    assert len(lines) == 8  # heading, 6 questions, coherence line
+    assert [line.split("resolves ")[1][:10] for line in lines[1:7]] == [
+        "2026-11-12", "2026-11-11", "2026-11-13", "2026-11-10", "2026-11-14", "2026-11-15"]
+    assert cr.related_forecasts(record, {**task, "question": "Will the price be above 2026?"}, "2026-11-04") == ""
+    assert cr.related_forecasts({"questions": []}, task, "2026-11-04") == ""
