@@ -373,6 +373,67 @@ def test_checkout_replaces_a_worktree_left_by_another_clone(tmp_path: Path, monk
     assert "/gone/" not in (stale / ".git").read_text()
 
 
+
+def test_merge_research_keeps_the_branchs_research_and_adds_ours_only_where_it_has_none() -> None:
+    theirs = {"provider": "cursor", "runs": 2, "findings": {"a": {"facts": ["claude a"]}}, "failed": {"b": "timeout"},
+              "sources": {"a": [{"url": "https://x/a"}]}, "researched_by": {"a": "claude-sonnet"}}
+    ours = {"provider": "cursor", "runs": 9, "findings": {"a": {"facts": ["cursor a"]}, "b": {"facts": ["cursor b"]}},
+            "failed": {"c": "no sources"}, "sources": {"a": [{"url": "https://y/a"}], "b": [{"url": "https://y/b"}]},
+            "researched_by": {"a": "grok-4.7-low", "b": "grok-4.7-low"}}
+    merged = research_script.merge_research(theirs, ours)
+    assert merged["findings"] == {"a": {"facts": ["claude a"]}, "b": {"facts": ["cursor b"]}}
+    assert merged["researched_by"] == {"a": "claude-sonnet", "b": "grok-4.7-low"}
+    assert merged["sources"]["a"] == [{"url": "https://x/a"}]
+    assert merged["failed"] == {"c": "no sources"}
+    assert merged["runs"] == 11
+    assert research_script.merge_research({}, ours) == ours
+
+
+def _git(cwd: Path, *args: str) -> str:
+    return subprocess.run(["git", "-C", str(cwd), "-c", "user.name=t", "-c", "user.email=t@t", *args], check=True,
+                          capture_output=True, text=True).stdout
+
+
+def test_a_refused_research_push_is_merged_onto_the_branch_instead_of_failing(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    origin, mac, cloud, work = tmp_path / "origin.git", tmp_path / "mac", tmp_path / "cloud", tmp_path / "work"
+    branch, name = "claude/daily-forecasts-20261104", "artifacts/prospective_markets_20261104"
+    subprocess.run(["git", "init", "-q", "--bare", str(origin)], check=True)
+    for clone in (mac, cloud):
+        subprocess.run(["git", "clone", "-q", str(origin), str(clone)], check=True, capture_output=True)
+    (cloud / name).mkdir(parents=True)
+    (cloud / name / "questions.json").write_text("{}\n")
+    _git(cloud, "add", "-A"), _git(cloud, "commit", "-q", "-m", "prepare"), _git(cloud, "push", "-q", "origin",
+                                                                                 f"HEAD:refs/heads/{branch}")
+    _git(mac, "fetch", "-q", "origin", branch)
+    _git(mac, "worktree", "add", "-q", "--detach", str(work), f"origin/{branch}")
+    # the routine's fill lands first, with Claude research for question a
+    (cloud / name / "research.json").write_text(json.dumps({"findings": {"a": {"facts": ["claude"]}}, "failed": {},
+                                                            "researched_by": {"a": "claude-sonnet"}}))
+    _git(cloud, "add", "-A"), _git(cloud, "commit", "-q", "-m", "fill"), _git(cloud, "push", "-q", "origin",
+                                                                              f"HEAD:refs/heads/{branch}")
+    # Cursor, which started earlier, finishes a and b
+    (work / name / "research.json").write_text(json.dumps({"findings": {"a": {"facts": ["cursor"]},
+                                                                        "b": {"facts": ["cursor"]}}, "failed": {},
+                                                           "researched_by": {"a": "grok", "b": "grok"}}))
+    monkeypatch.setattr(research_script, "WORK", work)
+    monkeypatch.setenv("GIT_AUTHOR_NAME", "t"), monkeypatch.setenv("GIT_AUTHOR_EMAIL", "t@t")
+    monkeypatch.setenv("GIT_COMMITTER_NAME", "t"), monkeypatch.setenv("GIT_COMMITTER_EMAIL", "t@t")
+    monkeypatch.setattr(research_script.git, "__kwdefaults__", {"cwd": mac, "check": True})
+
+    assert research_script.push_request(branch, "download", [name], "Research: cursor") == [name]
+    _git(cloud, "pull", "-q", "origin", branch)
+    saved = json.loads((cloud / name / "research.json").read_text())
+    assert saved["findings"] == {"a": {"facts": ["claude"]}, "b": {"facts": ["cursor"]}}
+    assert json.loads((cloud / "daily-run-request.json").read_text())["dirs"] == [name]
+
+    # once the directory has been forecast, a late push changes nothing there
+    (cloud / name / "briefs.json").write_text("{}\n")
+    _git(cloud, "add", "-A"), _git(cloud, "commit", "-q", "-m", "forecast"), _git(cloud, "push", "-q", "origin",
+                                                                                  f"HEAD:refs/heads/{branch}")
+    (work / name / "research.json").write_text(json.dumps({"findings": {"c": {"facts": ["cursor"]}}, "failed": {}}))
+    assert research_script.push_request(branch, "download", [name], "Research: late") == []
+
 # --- three passes, checklists and the miss review ---------------------------------------------------------
 
 import miss_review  # noqa: E402
