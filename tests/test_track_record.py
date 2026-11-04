@@ -152,6 +152,24 @@ def test_weighted_call_without_any_record_is_the_plain_median_of_the_middle_memb
     assert not (tmp_path / "prospective_markets_20261025" / "calls.json").exists()  # only saved with freeze
 
 
+def test_from_nov_5_our_call_is_claudes_own_forecast_frozen_and_earlier_calls_stay(tmp_path: Path) -> None:
+    _markets(tmp_path / "prospective_markets_20261104", [
+        {"id": "before", "forecasts": [{"method": "claude_code_forecaster_v1", "probability": 0.2},
+                                       {"method": "judge_claude_sonnet55_v1", "probability": 0.6},
+                                       {"method": "judge_qwen38_27b_v1", "probability": 0.7}]}])
+    _markets(tmp_path / "prospective_markets_20261105", [
+        {"id": "claude", "forecasts": [{"method": "claude_code_forecaster_v1", "probability": 0.2},
+                                       {"method": "judge_claude_sonnet55_v1", "probability": 0.6},
+                                       {"method": "market_price_v1", "probability": 0.9}]},
+        {"id": "no-claude", "forecasts": [{"method": "judge_claude_sonnet55_v1", "probability": 0.6}]}])
+    by_id = {q["id"]: q for q in build_track_record(tmp_path, today=date(2026, 11, 5), freeze=True)["questions"]}
+    assert (by_id["before"]["call"]["method"], by_id["before"]["call"]["probability"]) == ("combined_weighted_v1", 0.6)
+    assert by_id["claude"]["call"] == {"method": "claude_call_v1", "probability": 0.2, "members": 1}
+    assert by_id["no-claude"]["call"]["method"] == "combined_weighted_v1"
+    frozen = json.loads((tmp_path / "prospective_markets_20261105" / "calls.json").read_text())
+    assert frozen["claude"] == by_id["claude"]["call"]
+
+
 # ---- Claude's confidence correction (claude_calibrated_v1) and the headline score ----
 
 CLAUDE = "claude_code_forecaster_v1"
