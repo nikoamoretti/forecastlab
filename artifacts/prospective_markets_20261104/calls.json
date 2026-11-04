@@ -1,0 +1,42 @@
+{
+  "polymarket-5765625": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 22.89
+    }
+  },
+  "polymarket-6423846": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.76,
+    "weights": {
+      "claude_code_forecaster_v1": 22.89
+    }
+  },
+  "polymarket-6423890": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.15,
+    "weights": {
+      "claude_code_forecaster_v1": 22.89
+    }
+  },
+  "polymarket-6563861": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.42,
+    "weights": {
+      "claude_code_forecaster_v1": 22.89
+    }
+  },
+  "polymarket-6563889": {
+    "members": 1,
+    "method": "combined_weighted_v1",
+    "probability": 0.04,
+    "weights": {
+      "claude_code_forecaster_v1": 22.89
+    }
+  }
+}
