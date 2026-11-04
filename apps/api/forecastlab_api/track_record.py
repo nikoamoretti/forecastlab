@@ -12,7 +12,11 @@ same call on all four questions decided by then). Questions first forecast on or
 WEIGHTED_FROM use ``combined_weighted_v1`` instead: a weighted median in which each forecaster
 counts by its record on the questions decided so far (see ``_weights``). That call is computed
 once, from the record as it stood then, and frozen in the question's directory as ``calls.json``,
-so later results never rewrite an earlier call. A call is right when it put more than
+so later results never rewrite an earlier call. Questions first forecast on or after CLAUDE_CALL_FROM
+use ``claude_call_v1``: Claude's own probability, frozen in ``calls.json`` the same way (owner's plan of
+2026-10-31, part 3: drop the judges once Claude alone beats the combined call; on 2026-11-04 Claude alone
+scored 0.207 on the 173 decided questions against 0.216 for the combined call). A question with no Claude
+forecast falls back to the weighted call. A call is right when it put more than
 50% on what happened; an exact 50% is a toss-up and counts in the accuracy score but not
 in the right/wrong tally. Each forecaster keeps its own record, so the page shows whether
 the combination beats its members.
@@ -55,6 +59,8 @@ TRACK_RECORD_VERSION = "track_record_v2"
 COMBINED = "combined_median_v1"
 WEIGHTED = "combined_weighted_v1"
 WEIGHTED_FROM = date(2026, 10, 24)
+CLAUDE_CALL = "claude_call_v1"
+CLAUDE_CALL_FROM = date(2026, 11, 5)
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
@@ -123,8 +129,9 @@ def _forecaster(method: str) -> str:
 
 
 COMBINED_INFO = {"label": "Combined forecast",
-                 "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with "
-                          "better records count for more."}
+                 "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with "
+                          "better records counted for more. Since Nov 5 it is Claude's own forecast, which "
+                          "had beaten the combination."}
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -164,6 +171,14 @@ def _weighted_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -
     probability = next(p for (p, _, _), total in zip(members, accumulate(w for _, w, _ in members), strict=True) if total >= half)
     return {"method": WEIGHTED, "probability": probability, "members": len(members),
             "weights": {method: weight for _, weight, method in members}}
+
+
+def _claude_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> dict[str, Any] | None:
+    """Claude's own probability as our call; the weighted call when Claude has no forecast on the question."""
+    claude = next((f for f in forecasts if f["method"] == CLAUDE), None)
+    if claude is None:
+        return _weighted_call(forecasts, weights)
+    return {"method": CLAUDE_CALL, "probability": claude["probability"], "members": 1}
 
 
 def _logit(p: float) -> float:
@@ -366,7 +381,8 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = _call(question["forecasts"])
         else:
             calls = frozen[question["source"]]
-            if question["id"] not in calls and (fresh := _weighted_call(question["forecasts"], weights)):
+            pick = _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call
+            if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
                 calls[question["id"]] = fresh
             call = calls.get(question["id"])
         question["call"] = call
