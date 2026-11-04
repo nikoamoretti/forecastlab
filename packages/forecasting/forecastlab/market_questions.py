@@ -20,8 +20,18 @@ date ("the result isn't known by December 31, 2027"), the market can sit unsettl
 months, like the Bulgarian presidential election market that closed on election day but
 waits for any runoff.
 
+v5 (2026-11-04) caps clusters. The US midterms put about 34 questions (one per race, each its
+own Polymarket event) into one resolution window, and one national swing decided them all, so
+a single surprise wrecked the record. A question is now skipped when ``CLUSTER_LIMIT`` (5)
+questions in the same topic are still pending with a resolution date within ``CLUSTER_DAYS``
+(1) day of its own, counting those chosen earlier in the same run. On top of that, at most
+``ASSET_LIMIT`` (2) pending questions may be about the same asset (Bitcoin, Ethereum, gold,
+the S&P 500 ..., named in the title, see ``asset_of``) with resolution dates within a day of
+each other: several price thresholds on one asset are one bet. Both caps look at the pending
+questions committed under ``artifacts/prospective_markets_*``.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
-from 4 to 10 under the v3 window and topic cap) adds up to ``MANIFOLD_DAILY_LIMIT``
+from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
 the same window, price band and topic cap. Manifold trades play money, so it needs at least
 ``MANIFOLD_MIN_BETTORS`` traders and ``MANIFOLD_MIN_VOLUME`` mana traded, and skips personal
@@ -41,10 +51,10 @@ import re
 import urllib.parse
 import urllib.request
 from collections.abc import Callable
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v4"
+SELECTION_VERSION = "polymarket_selection_v5"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -61,8 +71,22 @@ LATE_SETTLING = timedelta(days=30)
 RULES_DATE = re.compile(r"\b(January|February|March|April|May|June|July|August|September|October|November|December)"
                         r" (\d{1,2}),? (\d{4})\b")
 TOPIC_LIMIT = 4
+# Pending questions in one topic resolving within CLUSTER_DAYS of each other hinge on much the same news.
+CLUSTER_LIMIT = 5
+CLUSTER_DAYS = 1
+# Several price thresholds or windows on one asset are one bet.
+ASSET_LIMIT = 2
+ASSETS = {
+    "bitcoin": r"bitcoin|\bbtc\b", "ethereum": r"ethereum|\beth\b|\bether\b", "solana": r"solana|\bsol\b",
+    "xrp": r"\bxrp\b|ripple", "dogecoin": r"dogecoin|\bdoge\b", "gold": r"\bgold\b|\bxau\b",
+    "silver": r"\bsilver\b", "oil": r"\boil\b|\bwti\b|\bbrent\b|crude",
+    "s&p 500": r"s&p|\bspx\b|\bsp500\b", "nasdaq": r"nasdaq|\bndx\b", "dow": r"\bdow jones\b|\bdjia\b",
+}
+ASSET_PATTERNS = {name: re.compile(pattern, re.IGNORECASE) for name, pattern in ASSETS.items()}
+# Fallback: a ticker written as "(NVDA)" or "$NVDA".
+TICKER = re.compile(r"\(([A-Z]{1,5})\)|\$([A-Z]{1,5})\b")
 
-MANIFOLD_SELECTION_VERSION = "manifold_selection_v2"
+MANIFOLD_SELECTION_VERSION = "manifold_selection_v3"
 MANIFOLD_METHOD = "manifold_price_v1"
 MANIFOLD = "https://api.manifold.markets/v0"
 MANIFOLD_TOPICS = {"economics-default": "Economy", "politics-default": "Politics", "technology-default": "Tech",
@@ -135,17 +159,64 @@ def candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]
     return list(found.values())
 
 
-def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT) -> list[dict[str, Any]]:
-    """Take topics in turn, the most traded market first within each topic, skipping known ones."""
+def asset_of(title: str) -> str | None:
+    """The asset a price question is about (Bitcoin, gold, ...), named in its title, else None."""
+    for name, pattern in ASSET_PATTERNS.items():
+        if pattern.search(title):
+            return name
+    match = TICKER.search(title)
+    return (match.group(1) or match.group(2)).lower() if match else None
+
+
+def _day(item: dict[str, Any]) -> date | None:
+    value = item.get("closes_at") or item.get("resolution_date")
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def _near(a: dict[str, Any], b: dict[str, Any]) -> bool:
+    first, second = _day(a), _day(b)
+    return first is not None and second is not None and abs((first - second).days) <= CLUSTER_DAYS
+
+
+def _crowded(item: dict[str, Any], held: list[dict[str, Any]]) -> bool:
+    """Whether the pending questions in ``held`` already fill the cluster or asset cap around ``item``."""
+    near = [other for other in held if _near(item, other)]
+    if sum(other.get("topic") == item["topic"] for other in near) >= CLUSTER_LIMIT:
+        return True
+    asset = asset_of(item.get("question") or "")
+    return asset is not None and sum(asset_of(other.get("question") or "") == asset for other in near) >= ASSET_LIMIT
+
+
+def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
+           pending: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
+    """Take topics in turn, the most traded market first within each topic, skipping known ones.
+
+    ``pending`` holds the questions not yet resolved (each with topic, question and closes_at or
+    resolution_date); a candidate that would overfill a cluster around them is skipped (see
+    ``_crowded``), and so is one that would overfill it together with questions chosen earlier.
+    """
     by_topic: dict[str, list[dict[str, Any]]] = {}
     for item in sorted(pool, key=lambda c: -c["volume"]):
-        if item["id"] not in seen and len(by_topic.setdefault(item["topic"], [])) < TOPIC_LIMIT:
-            by_topic[item["topic"]].append(item)
+        if item["id"] not in seen:
+            by_topic.setdefault(item["topic"], []).append(item)
+    held = list(pending or [])
+    taken = dict.fromkeys(by_topic, 0)
     chosen: list[dict[str, Any]] = []
     while len(chosen) < limit and any(by_topic.values()):
         for topic in sorted(by_topic):
-            if by_topic[topic] and len(chosen) < limit:
-                chosen.append(by_topic[topic].pop(0))
+            while by_topic[topic] and taken[topic] < TOPIC_LIMIT and len(chosen) < limit:
+                item = by_topic[topic].pop(0)
+                if _crowded(item, held):
+                    continue
+                chosen.append(item)
+                held.append(item)
+                taken[topic] += 1
+                break
+            else:
+                by_topic[topic] = []  # topic exhausted or at its daily limit
     return chosen
 
 
