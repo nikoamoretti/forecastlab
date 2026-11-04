@@ -1,0 +1,152 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0675
+        },
+        {
+          "created_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Fortune had ETH at $2,261.87 on 2026-11-03 and OKX showed about $2,301 on 2026-11-04 (unverified), so $2,600 is roughly 13-15% above spot with about 4.5 days left in the window (https://fortune.com/article/price-of-ethereum-11-03-2026/, https://www.okx.com/en-us/price/ethereum-eth). With a typical ETH daily move near 3%, that is more than two standard deviations of the five-day move, and FXStreet and Zebpay on 2026-11-03 describe a bearish channel, ETF outflows and rejection at the $2,309 realized price (https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-us-led-selling-keeps-eth-below-2-309-realized-price-202611032321). A single 1-minute high counts, and the Nov 6 payrolls print could spark a squeeze, so a small tail is left; no Nov 2-3 high near $2,600 is reported.",
+          "sources": [
+            "https://fortune.com/article/price-of-ethereum-11-03-2026/",
+            "https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-us-led-selling-keeps-eth-below-2-309-realized-price-202611032321",
+            "https://zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026",
+            "https://www.okx.com/en-us/price/ethereum-eth"
+          ]
+        }
+      ],
+      "id": "polymarket-6563889",
+      "market_id": "6563889",
+      "outcome": null,
+      "question": "Will Ethereum reach $2,600 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-09",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-november-2-8-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.345
+        },
+        {
+          "created_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "BLS reported 6.3% year-over-year for September 2026 (https://www.bls.gov/news.release/ppi.nr0.htm, 2026-10-15), so 6.8% needs about 0.5 points more, meaning October's not-seasonally-adjusted monthly rise would have to beat the unconfirmed October 2025 base month by roughly that much. Retail gasoline fell about 20 cents over October (https://gasprices.aaa.com/2026/10/), which points to a smaller energy contribution after September's 10.8% energy-goods jump, though crude readings conflict ($92 to $114) and core rose 0.7% in September. Such a further acceleration is rare outside energy shocks, but the September print surprised far above a reported 5.3% consensus, which keeps the upside tail alive.",
+          "sources": [
+            "https://www.bls.gov/news.release/ppi.nr0.htm",
+            "https://www.bls.gov/opub/ted/2026/producer-price-index-up-6-3-percent-in-september-largest-12-month-increase-since-december-2022.htm",
+            "https://gasprices.aaa.com/2026/10/",
+            "https://www.stocktitan.net/articles/september-2026-ppi-energy-share"
+          ]
+        }
+      ],
+      "id": "polymarket-5765625",
+      "market_id": "5765625",
+      "outcome": null,
+      "question": "Will PPI YoY be 6.8% or more in October?",
+      "resolution_criteria": "This is a market about the Producer Price Index (PPI) for final demand over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Producer Price Index (PPI) for final demand over the 12-month period ending in October 2026, before seasonal adjustment, according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Producer Price Index report released for October 2026 (https://www.bls.gov/ppi/), currently scheduled to be released on November 13, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS PPI news release, which reports PPI over 12-month periods to only one decimal point (e.g., 6.0%). Thus, this is the level of precision that will be used when resolving the market. This market resolves on the total PPI for final demand figure, not the core PPI figure excluding food and energy.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next PPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/ppi-yoy-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.595
+        },
+        {
+          "created_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "BTC traded near $77,500 on 2026-11-04 after a post-election low of $75,740 (https://sundayguardianlive.com/business/bitcoin-price-today-4-november-2026-btc-slips-below-77000-amid-market-uncertainty-check-market-metrics-key-drivers-317030/, https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/), so $80,000 is about 3.2% above with roughly 4.5 days left. With daily volatility near 2%, the chance that the 1-minute high touches a level that far away in that time is about 40%, a touch more because one print is enough and the Nov 2-3 highs are unknown. Spot ETF outflows of about $399M on 2026-11-02 and resistance at $79,500-$80,500 (https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026) weigh against it, while the Oct CPI and Nov 6 payrolls can move the price either way. Kept above the Nov 6 above-$80,000 question, which needs the same level to hold at noon ET.",
+          "sources": [
+            "https://sundayguardianlive.com/business/bitcoin-price-today-4-november-2026-btc-slips-below-77000-amid-market-uncertainty-check-market-metrics-key-drivers-317030/",
+            "https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026",
+            "https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/",
+            "https://admiralmarkets.com/analytics/traders-blog/bitcoin-today-november-3-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-6563861",
+      "market_id": "6563861",
+      "outcome": null,
+      "question": "Will Bitcoin reach $80,000 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-09",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-2-8-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.255
+        },
+        {
+          "created_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "BTC was near $77,500 on 2026-11-04, about 3.2% below $80,000, after a low of $75,740 on election night (https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026, https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/). The question needs the noon ET close on Nov 6, about 2.3 days away, to be above the level; with daily volatility near 2% that is a move of about 1.1 standard deviations, roughly 14%. ETF outflows and the $79,500-$80,500 resistance band push against it, while payrolls before the fixing could trigger a relief rally. Set well below the reach-$80,000 question for Nov 2-8, because touching the level at any point is much easier than closing above it at one minute.",
+          "sources": [
+            "https://sundayguardianlive.com/business/bitcoin-price-today-4-november-2026-btc-slips-below-77000-amid-market-uncertainty-check-market-metrics-key-drivers-317030/",
+            "https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026",
+            "https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/",
+            "https://admiralmarkets.com/analytics/traders-blog/bitcoin-today-november-3-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-6423890",
+      "market_id": "6423890",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $80,000 on November 6?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-06",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-6-2026",
+      "topic": "Crypto"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.94
+        },
+        {
+          "created_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "ETH was about $2,262 on 2026-11-03 (Fortune) and near $2,301 on 2026-11-04 on OKX (unverified), so $2,200 is roughly 3-4.5% below spot with about two days to the noon ET fixing on Nov 6 (https://fortune.com/article/price-of-ethereum-11-03-2026/, https://www.okx.com/en-us/price/ethereum-eth). With daily moves near 3%, the two-day spread is about 4%, which puts the chance of staying above at roughly 80%. FXStreet and Zebpay on 2026-11-03 describe a descending channel, continued ETF outflows and support at $2,200-$2,250, right at the strike (https://www.zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026), so I shade it down. Consistent with the Bitcoin questions: a Bitcoin rebound to $80,000 would put ETH comfortably above $2,200.",
+          "sources": [
+            "https://fortune.com/article/price-of-ethereum-11-03-2026/",
+            "https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-us-led-selling-keeps-eth-below-2-309-realized-price-202611032321",
+            "https://zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026",
+            "https://www.okx.com/en-us/price/ethereum-eth"
+          ]
+        }
+      ],
+      "id": "polymarket-6423846",
+      "market_id": "6423846",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $2,200 on November 6?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-06",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-6-2026",
+      "topic": "Crypto"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}
