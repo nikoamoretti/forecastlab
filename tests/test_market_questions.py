@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from forecastlab.market_questions import (
+    asset_of,
     candidates,
     manifold_candidates,
     manifold_resolution,
@@ -207,7 +208,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v4+manifold_selection_v2"
+    assert selected["selection"] == "polymarket_selection_v5+manifold_selection_v3"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
@@ -256,3 +257,63 @@ def test_record_skips_questions_without_research(tmp_path: Path, capsys: pytest.
         script.record(directory, answers, skip={"nope"})
     with pytest.raises(SystemExit, match="both skipped and forecast"):
         script.record(directory, answers, skip={ids[0], ids[2]})
+
+
+def _cand(i: str, day: str, topic: str = "Politics", question: str | None = None, volume: float = 1000) -> dict:
+    return {"id": i, "topic": topic, "question": question or f"Race {i}?", "closes_at": f"{day}T12:00:00Z", "volume": volume}
+
+
+def _pend(i: str, day: str, topic: str = "Politics", question: str | None = None) -> dict:
+    return {"id": i, "topic": topic, "question": question or f"Race {i}?", "resolution_date": day}
+
+
+def test_cluster_cap_counts_pending_questions_within_a_day_in_the_same_topic() -> None:
+    pending = [_pend(f"p{i}", "2026-11-03") for i in range(4)] + [_pend("far", "2026-11-09"), _pend("w", "2026-11-03", "World")]
+    pool = [_cand("a", "2026-11-04"), _cand("b", "2026-11-04"), _cand("c", "2026-11-05"), _cand("w2", "2026-11-04", "World")]
+    chosen = [c["id"] for c in select(pool, set(), pending=pending)]
+    # one slot left in Politics (4 near + a = 5), so b is skipped; c is 2 days from the pending ones, so only a is near it
+    assert chosen == ["a", "w2", "c"]
+    # without pending questions nothing is capped below the topic limit
+    assert len(select(pool, set())) == 4  # nothing pending: only the daily topic limit applies
+
+
+def test_cluster_cap_ignores_resolved_far_and_other_topic_questions() -> None:
+    pending = [_pend(f"p{i}", "2026-11-03") for i in range(5)]
+    assert [c["id"] for c in select([_cand("far", "2026-11-05"), _cand("tech", "2026-11-03", "Tech")], set(), pending=pending)] == ["far", "tech"]
+    assert select([_cand("near", "2026-11-04")], set(), pending=pending) == []
+
+
+def test_cluster_cap_counts_questions_chosen_earlier_in_the_run() -> None:
+    # TOPIC_LIMIT is 4 a day, so lower the room with 2 pending: 2 + 3 chosen = 5, the 4th is skipped
+    pending = [_pend("p0", "2026-11-03"), _pend("p1", "2026-11-03")]
+    pool = [_cand(f"c{i}", "2026-11-03", volume=100 - i) for i in range(4)] + [_cand("later", "2026-11-12", volume=1)]
+    assert [c["id"] for c in select(pool, set(), pending=pending)] == ["c0", "c1", "c2", "later"]
+
+
+def test_asset_of_names_the_asset_in_the_title() -> None:
+    assert asset_of("Will Bitcoin reach $120,000 on Nov 5?") == "bitcoin"
+    assert asset_of("Will ETH be above $4k?") == "ethereum"
+    assert asset_of("Will WTI crude close above $80?") == "oil"
+    assert asset_of("Will the S&P 500 close higher?") == "s&p 500"
+    assert asset_of("Will Nvidia (NVDA) close above $200?") == "nvda"
+    assert asset_of("Will the Senate flip?") is None
+
+
+def test_asset_cap_allows_two_pending_questions_per_asset_within_a_day() -> None:
+    pending = [_pend("p0", "2026-11-05", "Crypto", "Will Bitcoin be above $100k on Nov 5?")]
+    pool = [_cand("b1", "2026-11-05", "Crypto", "Will BTC be above $110k on Nov 5?", 900),
+            _cand("b2", "2026-11-06", "Crypto", "Will Bitcoin dip to $90k by Nov 6?", 800),
+            _cand("b3", "2026-11-12", "Crypto", "Will Bitcoin be above $100k on Nov 12?", 700),
+            _cand("e1", "2026-11-05", "Crypto", "Will Ethereum be above $4k on Nov 5?", 600)]
+    assert [c["id"] for c in select(pool, set(), pending=pending)] == ["b1", "b3", "e1"]
+
+
+def test_prepare_passes_pending_questions_to_selection(tmp_path: Path) -> None:
+    for day, outcome in (("20261101", None), ("20261102", 1)):
+        directory = tmp_path / f"prospective_markets_{day}"
+        directory.mkdir()
+        (directory / "forecasts.json").write_text(json.dumps({"questions": [
+            {"id": f"x{day}{i}", "topic": "Politics", "question": "Race?", "resolution_date": "2026-11-04", "outcome": outcome}
+            for i in range(5)]}))
+    open_ids = {q["id"] for q in script.pending_questions(tmp_path)}
+    assert open_ids == {f"x20261101{i}" for i in range(5)}

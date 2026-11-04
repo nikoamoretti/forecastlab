@@ -21,13 +21,14 @@ A scheduled Claude Code routine adds forecasts every weekday. The research runs 
    - Save the answers as `{"forecast_made_at", "answers": [{"id", "question", "topic", "resolution_criteria", "resolution_date", "resolution_source", "probability", "rationale", "sources"}]}` and run `python scripts/question_requests.py record <file>`. The ids must be the request ids.
    - After the pull request is pushed, run `python scripts/question_requests.py answered <id> ...`.
    - For an asked question whose resolution date has passed, check the named source and run `python scripts/question_requests.py outcome <artifact_dir> <id> yes|no --note "<what happened>" --source <url>`.
-5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v4` (v3 plus: skip markets whose rules allow settling more than 30 days after trading closes) and writes `artifacts/prospective_markets_<date>/`, with up to 18 Polymarket questions:
+5. **Forecast market questions.** Run `python scripts/market_questions.py prepare`. It applies `polymarket_selection_v5` (v4 plus the cluster caps below; v4 skipped markets whose rules allow settling more than 30 days after trading closes) and writes `artifacts/prospective_markets_<date>/`, with up to 18 Polymarket questions:
    - closing in 2–10 days, so results come in quickly, and not a "next prime minister/president" market, which settles only when someone takes office;
    - at least $10,000 traded;
    - priced between 5% and 95%;
-   - one per event and at most four per topic.
+   - one per event and at most four per topic a day;
+   - cluster cap: skipped when 5 questions in the same topic are already pending with a resolution date within 1 day of its own (counting those chosen earlier in the run), and at most 2 pending questions about the same asset (Bitcoin, Ethereum, gold, oil, the S&P 500 ..., named in the title) resolving within a day of each other.
 
-   It also adds up to 10 Manifold questions (`manifold_selection_v2`) from the economics, politics, technology and world topics, under the same window, price band and topic cap. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
+   It also adds up to 10 Manifold questions (`manifold_selection_v3`) from the economics, politics, technology and world topics, under the same window, price band, topic cap and cluster caps. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
 
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
    - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.

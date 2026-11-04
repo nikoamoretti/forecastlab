@@ -30,6 +30,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
@@ -65,12 +66,28 @@ def known_ids(artifacts: Path) -> set[str]:
     return seen
 
 
+def pending_questions(artifacts: Path) -> list[dict[str, Any]]:
+    """Questions not yet resolved: recorded ones without an outcome (and not cancelled), plus the
+    questions of a day whose forecasts are not recorded yet. Skipped questions are not tracked."""
+    pending: list[dict[str, Any]] = []
+    for directory in sorted(artifacts.glob("prospective_markets_*")):
+        recorded, selected = directory / "forecasts.json", directory / "questions.json"
+        if recorded.exists():
+            pending += [q for q in json.loads(recorded.read_text())["questions"]
+                        if q.get("outcome") is None and not q.get("cancelled")]
+        elif selected.exists():
+            pending += [{"id": q["id"], "topic": q["topic"], "question": q["question"], "resolution_date": q["closes_at"][:10]}
+                        for q in json.loads(selected.read_text())["questions"]]
+    return pending
+
+
 def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json) -> Path | None:
     now = as_utc(now or utcnow())
     seen = known_ids(artifacts)
-    chosen = select(candidates(now, fetch), seen)
+    pending = pending_questions(artifacts)
+    chosen = select(candidates(now, fetch), seen, pending=pending)
     try:  # Manifold adds questions; if it is unreachable, Polymarket's still run
-        chosen += [manifold_rules(item, fetch) for item in select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT)]
+        chosen += [manifold_rules(item, fetch) for item in select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT, pending + chosen)]
     except Exception as exc:  # noqa: BLE001
         print(f"manifold questions skipped today ({type(exc).__name__})")
     if not chosen:
