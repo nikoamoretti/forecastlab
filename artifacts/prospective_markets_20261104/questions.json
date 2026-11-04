@@ -1,0 +1,46 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-09T05:00:00Z",
+      "id": "polymarket-6563889",
+      "market_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-2-8-2026",
+      "question": "Will Ethereum reach $2,600 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-14T04:59:00Z",
+      "id": "polymarket-5765625",
+      "market_url": "https://polymarket.com/event/ppi-yoy-october-2026",
+      "question": "Will PPI YoY be 6.8% or more in October?",
+      "resolution_criteria": "This is a market about the Producer Price Index (PPI) for final demand over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Producer Price Index (PPI) for final demand over the 12-month period ending in October 2026, before seasonal adjustment, according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Producer Price Index report released for October 2026 (https://www.bls.gov/ppi/), currently scheduled to be released on November 13, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS PPI news release, which reports PPI over 12-month periods to only one decimal point (e.g., 6.0%). Thus, this is the level of precision that will be used when resolving the market. This market resolves on the total PPI for final demand figure, not the core PPI figure excluding food and energy.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next PPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-09T05:00:00Z",
+      "id": "polymarket-6563861",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-2-8-2026",
+      "question": "Will Bitcoin reach $80,000 November 2-8?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for BTC/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"High\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-06T17:00:00Z",
+      "id": "polymarket-6423890",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-6-2026",
+      "question": "Will the price of Bitcoin be above $80,000 on November 6?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-06T17:00:00Z",
+      "id": "polymarket-6423846",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-6-2026",
+      "question": "Will the price of Ethereum be above $2,200 on November 6?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    }
+  ],
+  "selected_at": "2026-11-04T10:48:19.736754+00:00",
+  "selection": "polymarket_selection_v4+manifold_selection_v2"
+}
