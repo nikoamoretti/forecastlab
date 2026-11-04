@@ -572,6 +572,84 @@ def digest(data: dict[str, Any], qid: str) -> str:
         lines.append(f"[{n}] {s['title']} ({s['url']}{', ' + s['published'] if s['published'] else ''}; {check})")
     return "\n".join(lines)
 
+RELATED_DAYS = 30
+RELATED_CAP = 6
+COHERENCE_LINE = ("Keep your answer coherent with these where they describe the same or nested outcomes; "
+                  "if the evidence has changed, say why in the rationale.")
+# Words that appear in many questions and say nothing about which outcome is meant.
+GENERIC_WORDS = frozenset("""
+a an the and or of in on at to for by with from as is are be been will would does do did has have had it its this that
+these those than then there their they not no yes any all more most less least over under above below between before
+after during until about into out up down off new next last first second third top high low higher lower highest lowest
+win wins won winner winners winning lose loses lost beat beats lead leads end ends ended close closes closed reach
+reaches hit hits get gets become becomes make makes
+election elections race races vote votes voting poll polls primary general nominee nomination candidate party seat seats
+senate senator senators house congress governor governors gubernatorial president presidential presidency mayor
+republican republicans democrat democrats democratic gop control majority
+price prices rate rates cut cuts hike hikes change level close closing open opening percent number total
+us usa united states state states america american
+market markets year years month months week weeks day days date time today
+who what when where which how why
+january february march april may june july august september october november december
+jan feb mar apr jun jul aug sep sept oct nov dec
+monday tuesday wednesday thursday friday saturday sunday mon tue tues wed thu thur thurs fri sat sun
+""".split())
+ALIASES = {"btc": "bitcoin", "eth": "ethereum", "ether": "ethereum", "sol": "solana", "doge": "dogecoin"}
+
+
+def distinctive_words(text: str) -> set[str]:
+    """Names, places and tickers in a question: capitalized or long-enough tokens that are not generic words."""
+    words = set()
+    for token in re.findall(r"[A-Za-z][A-Za-z0-9]+", re.sub(r"[\u2019']s\b", "", text)):
+        word = token.lower()
+        if word in GENERIC_WORDS:
+            continue
+        words.add(ALIASES.get(word, word))
+    return words
+
+
+def related_forecasts(track_record: dict[str, Any], task: dict[str, str], today: str,
+                      method: str = "claude_code_forecaster_v1", cap: int = RELATED_CAP) -> str:
+    """The forecaster's own earlier calls on related questions, so a new answer does not contradict them.
+
+    Related: same topic and at least one distinctive word in common. Only questions still pending, or
+    resolved within the last 30 days, and only the forecaster's own probability: never a market price,
+    never a judge. Closest resolution date to this question first.
+    """
+    own = distinctive_words(task["question"])
+    topic = (task.get("topic") or "").strip().lower()
+    if not own or not topic:
+        return ""
+    today_date = datetime.strptime(today[:10], "%Y-%m-%d").date()
+    mine_date = task.get("resolves_on") or ""
+    anchor = datetime.strptime(mine_date[:10], "%Y-%m-%d").date() if mine_date[:10] else today_date
+    found = []
+    for question in track_record.get("questions", []):
+        if question.get("id") == task["id"] or (question.get("topic") or "").strip().lower() != topic:
+            continue
+        status = question.get("status")
+        if status not in ("pending", "resolved") or not question.get("resolves_on"):
+            continue
+        resolves = datetime.strptime(question["resolves_on"][:10], "%Y-%m-%d").date()
+        if status == "resolved" and (today_date - resolves).days > RELATED_DAYS:
+            continue
+        mine = [f for f in question.get("forecasts", []) if f.get("method") == method]
+        if not mine or not own & distinctive_words(question["title"]):
+            continue
+        latest = max(mine, key=lambda f: f["made_at"])
+        found.append((abs((resolves - anchor).days), question["resolves_on"], question["id"], question, latest))
+    if not found:
+        return ""
+    lines = ["Your earlier forecasts on related questions:"]
+    for _, _, _, question, forecast in sorted(found, key=lambda row: row[:3])[:cap]:
+        state = "pending"
+        if question["status"] == "resolved":
+            state = f"resolved {'yes' if question.get('outcome') else 'no'}"
+        lines.append(f"- {question['title']} You said {forecast['probability']:.0%} yes on {forecast['made_at'][:10]}; "
+                     f"resolves {question['resolves_on'][:10]} ({state}).")
+    lines.append(COHERENCE_LINE)
+    return "\n".join(lines)
+
 
 CONFIDENCE_BANDS = ((0.5, 0.6), (0.6, 0.75), (0.75, 0.9), (0.9, 1.01))
 

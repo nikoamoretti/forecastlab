@@ -21,7 +21,8 @@ instead of using up Nico's Cursor allowance; the CLI cannot read Cursor's own us
 otherwise) every question that still has no research on a daily branch, e.g. when Cursor's weekly limit is
 used up; the daily routine runs it.
 ``digest`` prints the forecaster's own record so far (calibration, topics, latest misses), then each
-question's evidence the way the forecaster reads it.
+question's evidence the way the forecaster reads it, followed by the forecaster's own earlier calls on related
+questions (same topic, a shared name or word; pending or decided in the last 30 days) so answers stay coherent.
 """
 
 from __future__ import annotations
@@ -49,6 +50,7 @@ from forecastlab.cursor_research import (  # noqa: E402
     load_checklists,
     load_settings,
     record_notes,
+    related_forecasts,
     research,
     tasks,
 )
@@ -316,13 +318,17 @@ def fill(args: argparse.Namespace) -> None:
 
 def show_digest(directories: list[str]) -> None:
     record = ROOT / "data" / "track_record.json"
-    if record.exists():
-        print(f"{record_notes(json.loads(record.read_text()))}\n")
+    history: dict[str, Any] = json.loads(record.read_text()) if record.exists() else {}
+    if history:
+        print(f"{record_notes(history)}\n")
+    today = f"{datetime.now(UTC):%Y-%m-%d}"
     for name in directories:
         directory = ROOT / name
         data: dict[str, Any] = json.loads((directory / RESEARCH_FILE).read_text())
         for task in tasks(directory):
-            print(f"## {task['id']}: {task['question']}\n{digest(data, task['id'])}\n")
+            text = digest(data, task["id"])
+            related = related_forecasts(history, task, today) if task["id"] in data.get("findings", {}) else ""
+            print(f"## {task['id']}: {task['question']}\n{text}\n" + (f"{related}\n" if related else ""))
 
 
 def main(argv: list[str]) -> None:
