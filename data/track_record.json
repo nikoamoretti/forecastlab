@@ -7,64 +7,64 @@
   },
   "forecasters": [
     {
-      "about": "Our call: the middle of the forecasters' probabilities. Since Oct 24, forecasters with better records count for more.",
-      "brier": 0.21665008458935495,
+      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
+      "brier": 0.21505955889311956,
       "coin_flip_brier": 0.25,
       "forecasts": 259,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 174,
-      "right": 115,
-      "toss_ups": 2,
-      "wrong": 57
+      "resolved": 182,
+      "right": 121,
+      "toss_ups": 3,
+      "wrong": 58
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20660117647058823,
+      "brier": 0.2034803370786517,
       "coin_flip_brier": 0.25,
       "forecasts": 254,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 170,
-      "right": 112,
-      "toss_ups": 5,
-      "wrong": 53
+      "resolved": 178,
+      "right": 118,
+      "toss_ups": 6,
+      "wrong": 54
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20864545454545455,
+      "brier": 0.20816417910447763,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 66,
-      "right": 45,
+      "resolved": 67,
+      "right": 46,
       "toss_ups": 0,
       "wrong": 21
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.18234347826086958,
+      "brier": 0.1827723404255319,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 46,
-      "right": 34,
+      "resolved": 47,
+      "right": 35,
       "toss_ups": 1,
       "wrong": 11
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21666642335766423,
+      "brier": 0.21736153846153847,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 137,
-      "right": 91,
+      "resolved": 143,
+      "right": 94,
       "toss_ups": 1,
-      "wrong": 45
+      "wrong": 48
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -80,39 +80,39 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21168014705882351,
+      "brier": 0.21407234042553192,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 136,
-      "right": 98,
+      "resolved": 141,
+      "right": 101,
       "toss_ups": 0,
-      "wrong": 38
+      "wrong": 40
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2134985815602837,
+      "brier": 0.21902517006802721,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 141,
-      "right": 99,
+      "resolved": 147,
+      "right": 102,
       "toss_ups": 1,
-      "wrong": 41
+      "wrong": 44
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.20358478260869567,
+      "brier": 0.205002,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 46,
-      "right": 32,
+      "resolved": 50,
+      "right": 35,
       "toss_ups": 1,
-      "wrong": 13
+      "wrong": 14
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -188,13 +188,13 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.16616553361344538,
+      "brier": 0.15952666141732286,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 119,
-      "right": 87,
+      "resolved": 127,
+      "right": 95,
       "toss_ups": 0,
       "wrong": 32
     },
@@ -213,6 +213,64 @@
   ],
   "generated_on": "2026-11-04",
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.565
+      },
+      "detail": "This market will resolve according to the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a seat is decided by a runoff, the runoff result will determine attribution of that seat.\n\nSeats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nHouse members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "The president's party lost House seats in 18 of 20 midterms from 1946 to 2022 (American Presidency Project), including -41 in 2018, and Gallup approval of the president was 33 to 35 percent in August 2026. Democrats need a net gain of three seats from the 218-214-1 House (Clerk, 2026-10-01; Ballotpedia, 2026-10-14), but mid-decade maps adopted in nine states could be worth a net nine Republican seats on 2024 results, and Cook's 2026-10-16 ratings have 185 Solid D, 171 Solid R and 21 toss-ups. A typical midterm swing against an unpopular president should outweigh the redistricting offset, leaving Democrats a clear but not certain favourite.",
+          "sources": [
+            "https://clerk.house.gov/member_info/olm-119.pdf",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://www.cookpolitical.com/ratings/house-race-ratings",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: the president's party lost House seats in 18 of 20 midterms (1946-2022), with an average loss of ~25 seats, and low presidential approval (33-35%) historically correlates with larger losses. Evidence: Republicans hold a razor-thin effective majority (219-214 with vacancies), Democrats need only a net +3, and Cook Political Report rates 21 seats as toss-ups, giving Democrats a plausible path. However, new redistricting maps are projected to net Republicans +9 seats based on 2024 presidential results, a significant structural headwind. The 2022 midterm (only -9 seats for Biden at 42% approval) shows midterms can defy historical averages. The race is a toss-up with a slight lean toward Democrats due to historical patterns and presidential unpopularity, but redistricting advantage keeps it competitive."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.55,
+          "rationale": "Historically, Democrats have won the House in only about 25% of midterms with a Republican president (base rate). President Trump-II\u2019s low approval (~35%) tends to boost the opposition, adding roughly +0.15 to Democratic chances. However, new district maps could give Republicans a net +9 seat advantage, subtracting about -0.10, while the 21 toss\u2011up seats provide a path for Democrats to secure the needed +3 net gain if they win a majority of them, contributing roughly +0.10. Combining these adjustments yields an estimated probability of around 55% that Democrats will control the House after the 2026 election."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "Base rate: the president's party has lost House seats in 18 of 20 midterms since 1946, and Republicans enter with only a slim 218-214 majority needing to net three gains while only able to lose two. However, structural advantages favor Republicans: new maps adopted in 9 states since 2024 could yield a net Republican gain of ~9 districts on 2024 presidential results, and the independent caucuses with Republicans, meaning Democrats must flip more ground than the raw number suggests. With GOP-favored redistricting, a competitive but Republican-tilted national environment, and only 21 Cook toss-ups, I estimate roughly a 1-in-5 chance Democrats win the majority."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.905
+        }
+      ],
+      "id": "polymarket-562802",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
+      "status": "resolved",
+      "title": "Will the Democratic Party control the House after the 2026 Midterm elections?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -289,6 +347,59 @@
       "title": "No change in Reserve Bank of Australia's interest rates at the November 2026 meeting?",
       "topic": "Economy",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will resolve according to the party that wins control of the United States Senate and the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chambers.\n\nFor determining Senate control, all regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Vacant Senate seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat. For determining House control, all House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a Senate or House seat is decided by a runoff, the runoff result will determine attribution of that seat, even if it takes place after November 2026.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected. \n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate and House members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate or House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.18,
+          "rationale": "This needs Republicans to hold both chambers. The House side is the hard part: the president's party lost House seats in 18 of 20 midterms from 1946 to 2022, approval was 33 to 35 percent in August 2026 (Gallup, via American Presidency Project) and Democrats need only a net three seats, partly offset by new Republican-favouring maps (Ballotpedia, 2026-10-14). The Senate is closer: Republicans hold 53 seats, Democrats need a net four, and Fox's 2026-10-18 ratings show 47 seats each with six toss-ups. Taking about a one-in-four chance of a Republican House and a high chance the Senate holds if it does, the joint outcome is under one in five.",
+          "sources": [
+            "https://clerk.house.gov/member_info/olm-119.pdf",
+            "https://www.senate.gov/history/partydiv.htm",
+            "https://www.foxnews.com/politics/nine-key-races-could-decide-who-controls-senate-where-stand",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.35,
+          "rationale": "The base rate for the president's party losing House seats in midterms is high (20 of 23 since 1934), and Trump's low approval (33-35%) suggests a challenging environment. Current House control is razor-thin (218 R, 214 D) with redistricting possibly helping Republicans, but Democrats need only a net gain of 3 seats. In the Senate, Republicans defend 22 of 35 seats, and Fox News rates the race at 47-47 with 6 toss-ups, making a Democratic net gain of 4 seats plausible. Given historical trends and the tight margins, Republicans retaining both chambers is less likely than not, but not impossible if they outperform polls or win key toss-ups."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.3,
+          "rationale": "Base rate: the president's party has lost House seats in 20 of 23 midterms since 1934, and Republicans currently hold a narrow 218-214 House edge with redistricting potentially adding ~9 GOP seats, making House retention more likely than not (~60-65%). However, the Senate is the bigger obstacle: Republicans defend 20 of 33 regular seats plus 2 specials, and Fox's Power Rankings show a 47-47 split with 6 toss-ups, meaning GOP Senate retention is roughly a coin flip (~50%). Multiplying these gives ~30-35%. The main downside risks are a Democratic wave (Trump approval at 33-35% is historically weak) and the possibility that independents or runoffs shift the count; the main upside is Republican redistricting advantages and incumbency."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.085
+        }
+      ],
+      "id": "polymarket-562831",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
+      "status": "resolved",
+      "title": "2026 Balance of Power: R Senate, R House",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Manifold: No",
@@ -899,6 +1010,69 @@
       "verdict": "wrong"
     },
     {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.5,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if no Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nIf a Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, this market will resolve to \"No\" immediately.\n\nHormuz Agreement: A \"Hormuz Agreement\" will be considered to have occurred if a diplomatic agreement between the United States and Iran over traffic in the Strait of Hormuz is announced by October 23, 2026, 11:59 PM ET.\n\nA diplomatic agreement refers to an official agreement, treaty, deal, or substantially similar diplomatic instrument that establishes agreed actions, policies, obligations, or commitments between the United States and Iran.\n\nA qualifying diplomatic agreement must establish Iranian policies, obligations, or commitments aimed at permitting, restoring, or increasing vessel or shipping traffic through the Strait of Hormuz.\n\nAll listed countries must announce their acceptance of the same qualifying diplomatic agreement for the Hormuz Agreement component to be met. A joint announcement will qualify, as will separate announcements from each entity of its own acceptance of an agreement which, taken together, directly indicate that all the listed countries accepted the same agreement. Separate announcements of individual policies will not qualify if the policies are not announced as part of a diplomatic agreement.\n\nEach announcement must be a declarative statement that clearly and unambiguously communicates acceptance of an agreement. Statements that reference ongoing negotiations or a prospective agreement, or that allude to or express support for an agreement without confirming acceptance of the agreement, do not qualify. A qualifying announcement need not reference the agreement by name or use specific terminology, provided it clearly communicates acceptance of an agreement.\n\nWhether announcements from the listed countries represent a diplomatic agreement and whether such an agreement qualifies will be primarily determined through the announcements themselves. Where an announcement is made by all listed countries but, based on the announcements, it remains ambiguous whether the announcements represent a qualifying diplomatic agreement between the countries, the Hormuz Agreement component will remain undetermined until either i) definitive confirmation that the announcements represent a qualifying diplomatic agreement between the listed entities is achieved through further announcements from the listed countries or a consensus of credible reporting or ii) 14 calendar days (ET) have passed after the date that the last country made their first potentially qualifying announcement. If, at the end of the fourteenth calendar day, no definitive confirmation has been achieved, the Hormuz Agreement component will be determined based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for the Hormuz Agreement component will be official information from the governments of the United States and Iran and a consensus of credible reporting.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "Two parts must both hold: no qualifying Hormuz agreement announced by Oct 23, which looks met since reporting through Oct 25 shows no finalized deal (Iran International, 2026-10-25), and Republicans keeping the Senate. For the Senate, Cook (as of Oct 15) projected Democratic gains of 2-6 seats with four needed, seven toss-up races (six Republican-held), and October polls show Democrats ahead or tied in Ohio and Alaska. That makes control close to a coin flip, and the Hormuz component reduces it slightly.",
+          "sources": [
+            "https://www.iranintl.com/en/202610252197",
+            "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
+            "https://alaskabeacon.com/2026/06/11/repub/strong-candidates-in-alaska-ohio-seen-as-moving-us-senate-races-toward-dems/"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.59,
+          "rationale": "The Hormuz agreement deadline (Oct 23) has passed with no qualifying announcement, making that condition almost certain (\u224899%). The Senate outcome is the main uncertainty: Democrats need to net 4 seats in a 53-47 chamber, with multiple toss-up races in red states. Forecasters slightly favor Republicans, and the map requires Democrats to win most close races, so I estimate a 60% chance Republicans hold the Senate. Combined, the probability is about 0.59."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The Hormuz component is nearly resolved: the Oct 23 deadline has passed with no qualifying US-Iran agreement announced, and reporting through Oct 25 confirms diplomatic deadlock, giving ~92% confidence in 'no agreement.' The Senate component is the main uncertainty: Democrats need exactly 4 net seats from a 53-47 Republican base, Cook's Oct 15 projection of 2-6 Democratic gains centers right on that threshold, and Trump's low approval is a headwind, but the map still requires Democrats to win most of 6 Republican-held toss-ups. Combining ~92% \u00d7 ~52% yields roughly 48%."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.56,
+          "rationale": "The Hormuz condition appears very likely because the deadline has passed with no reported finalized U.S.-Iran agreement accepting the specified terms, although an earlier memorandum could create some ambiguity. Republicans begin with a 53-47 Senate advantage and remain favored by some forecasts, but Democrats need four net gains and recent projections and polling make several Republican-held toss-ups genuinely competitive. The main downside risk is a late shift producing Democratic Senate control, while a confirmed earlier qualifying Hormuz agreement would also reverse the answer."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.31
+        }
+      ],
+      "id": "polymarket-5567008",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/republicans-win-the-senate-pending-hormuz-agreement",
+      "status": "resolved",
+      "title": "Will there be no Hormuz agreement and the Republicans win the Senate?",
+      "topic": "World",
+      "verdict": "toss_up"
+    },
+    {
       "actual": "Polymarket: Yes",
       "call": {
         "members": 4,
@@ -1265,6 +1439,76 @@
       "verdict": "wrong"
     },
     {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.75,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm Nebraska U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "Republican incumbent Ricketts faces independent Dan Osborn (no Democratic nominee); Republicans have won all 7 Nebraska Senate races since 2006, and the one Oct 15-18 NPA Polling survey has Ricketts 46%, Osborn 43%, inside its margin. Osborn lost to Fischer by about 6.8 points in 2024 despite Nebraska's strong Republican lean, and the national environment now favours Democrats, so the race is closer than the base rate but Ricketts still has the structural edge. Evidence is thin (no quote-checked poll), so I keep the probability moderate.",
+          "sources": [
+            "https://backend.natpublicaffairs.com/media/NE_Tracker_R2_Trend_Memo_102226.7.pdf",
+            "https://nebraskapublicmedia.org/en/news/news-articles/us-senate-voter-guide-rollercoaster-race-features-four-candidates/",
+            "https://sos.nebraska.gov/sites/default/files/doc/elections/2024/2024%20General%20Canvass%20Book.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.68,
+          "rationale": "Republicans have won every Nebraska Senate race since 2006, and the state leans strongly Republican. However, the 2026 race is unusual: no Democrat is on the ballot, and independent Dan Osborn is consolidating Democratic support, making the race competitive. The only recent poll shows incumbent Pete Ricketts leading 46% to 43%, within the margin of error, but with a sample slightly more Republican than voter registration. Given incumbency and historical trends, Republicans are favored, but the tight polling and unique circumstances introduce significant uncertainty."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.63,
+          "rationale": "The base rate strongly favors Republicans: they've won 7 of 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. However, the specific dynamics are unusual\u2014there is no Democratic nominee, so all Democratic voters consolidate behind independent Dan Osborn, making this a genuine two-horse race. The latest NPA poll shows Ricketts leading 46% to 43% on the full ballot (50% to 47% head-to-head), within margin of error, with Osborn underwater (44% favorable vs 50% unfavorable) which helps Ricketts. The 2024 result (Fischer beat Osborn by ~7 points) and Ricketts's incumbency edge suggest he's more likely to win, but the tight polling and absence of a Democratic nominee make this considerably closer than a typical Nebraska Senate race."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.75,
+          "rationale": "The base rate strongly favors Republicans, who have won all 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. Ricketts leads the only polling (NPA, Oct 15-18) by 3 points on both the full ballot (46-43) and head-to-head (50-47), though within the \u00b14.0% margin of error. The absence of a Democratic nominee on the ballot means Osborn (independent) is the sole challenger, and while he came within 7 points of beating Fischer in 2024, Ricketts's structural advantages and consistent polling lead make a Republican win the most likely outcome. A late shift toward Osborn, strong independent turnout, or polling errors could change this."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Republicans have won every Nebraska Senate race since 2006, and Ricketts is the incumbent. In 2024 Fischer beat Osborn by about 7 points in a state that Trump won by about 20. The only recent poll (NPA, Ricketts 46-43, in a sample 55% Republican by registration) shows a closer race. NPA's polling quality is unknown, and the brief says only one source had its quotes checked. A 2026 midterm with a Republican president could produce a Democratic-leaning environment, and Osborn now has the field to himself with no Democratic nominee. Even so, a 3-point lead for a Republican incumbent in Nebraska with a few days left suggests an 78-82% chance he wins. Resolution on the Republican nominee is straightforward."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.72
+        }
+      ],
+      "id": "polymarket-634892",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/nebraska-senate-election-winner",
+      "status": "resolved",
+      "title": "Will the Republicans win the Nebraska Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
       "actual": "Polymarket: No",
       "call": {
         "members": 4,
@@ -1327,6 +1571,76 @@
       "title": "Will the Republicans win the Ohio governor race in 2026?",
       "topic": "Politics",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.52,
+        "weights": {
+          "claude_code_forecaster_v1": 27.8,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 27.14,
+          "judge_minimax_m3_v1": 28.09,
+          "judge_qwen38_27b_v1": 35.02
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Nevada gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-28T11:01:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.54,
+          "rationale": "Nevada has elected a Republican governor in every race since 1998 except 2018, and Republican incumbent Lombardo has a large cash and ad advantage, but both late polls have Democrat Aaron Ford ahead (DGA-backed Hart: 49-45; RedBox: 45.6-42.6), each from a Democratic-aligned sponsor and inside the margin of error. Trump's approval is deeply negative in the state, which favours Ford, while a GOP-tied PAC is promoting same-surname nonpartisan Danielle Ford to split the vote. I land close to a coin flip, slightly toward the Democrat.",
+          "sources": [
+            "https://democraticgovernors.org/updates/new-poll-from-dga-backed-group-shows-aaron-ford-leading-joe-lombardo-in-nevada-governors-race/",
+            "https://afightworthhaving.com/polling/2026/nevada/governor",
+            "https://thenevadaindependent.com/article/pac-boosting-third-party-nv-governor-candidate-as-aoc-of-nevada-has-gop-ties"
+          ]
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: Republicans won 6 of last 7 Nevada governor races, but the state is purple. Current polls (DGA-backed and RedBox) show Democrat Aaron Ford leading by 3-4 points, within margins of error. Polls may have Democratic lean, and GOP has financial advantage. Race is a toss-up with slight Democratic edge."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.42,
+          "rationale": "The base rate strongly favors Republicans (6 of 7 Nevada governor races since 1998), and Lombardo holds a significant funding advantage ($29.3M vs $14.1M in PAC spending). However, both available polls\u2014though from Democratic-aligned sponsors\u2014show Aaron Ford leading by 3-4 points, and Trump's deeply negative favorability (-18, 55.8% disapproval) is a meaningful tailwind for the challenger. The third-party candidate Danielle Ford (2.4%, with Republican-linked PAC support and a shared surname) adds uncertainty that could cut either way, and the narrow margins mean this is essentially a coin-flip race with a slight edge to the incumbent given the base rate and resources."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.52,
+          "rationale": "The base rate favors Republicans: Democrats won only one of Nevada's seven gubernatorial elections from 1998 through 2022, and Lombardo has incumbency plus a large financial advantage. Ford's leads of 49%-45% and 45.6%-42.6%, together with Trump's -18 favorability, shift the race from a Republican favorite to a close contest with a modest Democratic edge. But both polls have margins of error that include a tie and are Democratic-aligned, while Danielle Ford's vote share and early voting are unknown, so the evidence warrants only a slight probability above 50%."
+        },
+        {
+          "made_at": "2026-10-28T11:03:05.356625+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.52,
+          "rationale": "Base rate favors Republicans in Nevada governor races, and incumbents usually do well. Against that, 2026 looks like a Democratic-leaning midterm: Trump is a Republican president with a favorability of about -18, and approval in the RedBox poll is 42.6% against 55.8% disapproving. Both available polls show Aaron Ford up 3-4 points, but both come from Democratic-aligned sponsors, so I discount them by a point or two. Lombardo has a financial edge in outside spending, and the Danielle Ford spoiler could pull a small number of votes from the Democrat. Overall it is roughly a toss-up with a slight lean to the Democrat, given the national environment."
+        },
+        {
+          "made_at": "2026-10-28T09:27:10.477747+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-629505",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261028",
+      "source_url": "https://polymarket.com/event/nevada-governor-winner-2026",
+      "status": "resolved",
+      "title": "Will the Democrats win the Nevada governor race in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -1466,6 +1780,139 @@
       "status": "resolved",
       "title": "Will the Republicans win the Florida governor race in 2026?",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.38,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Oil < $85; R Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil < $85; D Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; R Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; D Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nOil price: The oil price component will be determined based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the oil price component will be determined based on the Close price for the most recent prior trading day.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for the oil price component will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.49,
+          "rationale": "Oil is not the binding leg: EIA Cushing WTI spot was $103-105 on 26-27 Oct and WTI futures were about $100.7 on 29 Oct, so a close of at least $85 on 2 Nov needs a roughly 15% fall in two sessions, which has a precedent only in the June 2026 peace-driven drop (about 94% likely to stay above). The Senate leg is close to a coin flip: Republicans hold 53 seats, but Democrats are competitive in seven toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas, plus Michigan to hold) in a strongly Democratic environment, so I put Democratic control a little above even and combine it with the oil leg.",
+          "sources": [
+            "https://www.eia.gov/dnav/pet/hist/rwtcd.htm",
+            "https://rollcall.com/2026/10/28/most-vulnerable-senators-midterm-elections/",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.44,
+          "rationale": "Oil is very likely to close at or above $85 on Nov 2 given current spot prices above $100 and EIA's Q4 forecast of $97, with only a small chance of a sudden geopolitical deal causing a drop below $85 in the next few days. Democrats need a net gain of four Senate seats, which is plausible but not favored given the Republican-leaning map and historical midterm trends; I estimate their chances around 45%. The joint probability is slightly below the Senate probability due to the small oil downside risk, with positive correlation between high oil and Democratic gains."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.26,
+          "rationale": "Oil is very likely \u2265$85 on Nov 2 (~87%): current WTI spot is ~$103-105, EIA forecasts Q4 average at $97, and even a significant geopolitical de-escalation would need to produce an ~$18-20 drop in one week to break below $85. Democrats winning the Senate is much less likely (~30%): they need a net gain of 4 seats from a 53-45 deficit, the top 4 vulnerable incumbents are all Republicans (Husted, Collins, Sullivan, Marshall), and the base rate favors the incumbent party holding the chamber (5 of 8 midterms 1994-2022). The combined probability is the product of these roughly independent events, yielding ~26%."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.13,
+          "rationale": "Oil is currently around $103-105 and the EIA forecasts Q4 2026 WTI at $97, making \u2265$85 on Nov 2 fairly likely (~75%), though the June 2026 precedent shows a $20 drop in two weeks is possible if geopolitical tensions ease. Democrats need a net gain of 4 seats to flip a 53-47 chamber, and CQ Roll Call explicitly states this 'looked highly unlikely for much of the cycle' with only 4 named vulnerable Republican incumbents (~18%). The combined probability is roughly 0.75 \u00d7 0.18 \u2248 0.13, with the main upside risk being a Democratic wave that flips more than the 4 most vulnerable seats, and the main downside being a sharp oil sell-off on a US-Iran deal."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.38,
+          "rationale": "Oil is very likely at or above $85: EIA spot was $103\u2013105 on 26\u201327 October and has not been below $85.23 since 21 September. Futures differ from spot and a US-Iran deal could cause a sharp drop, but I put P(oil \u2265 $85) at about 95%. For the Senate, Democrats need a net gain of four seats against a 53-47 Republican majority. A weak Republican environment, with high oil prices, Republicans defending Ohio, Alaska and Kansas, and Ossoff safe, makes a flip plausible but still less likely than not. I estimate about 40% for a Democratic Senate, and treat the two events as roughly independent."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.6475
+        }
+      ],
+      "id": "polymarket-5611882",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/who-wins-the-senate-pending-oil-below-85-before-the-midterms",
+      "status": "resolved",
+      "title": "Will oil be at least $85 on November 2 and the Democrats win the Senate?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.46,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if oil is greater than or equal to $80 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nOil price: This market will resolve based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the market will resolve 50-50.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.46,
+          "rationale": "Oil is almost certainly at or above $80: WTI futures were about $100.7 on 29 Oct and EIA spot $103-105 on 26-27 Oct, so the 2 Nov close would need a 20% fall in two sessions (about 97% yes), and 143 of 163 daily prints since 6 March were at least $80. The deciding leg is Republican Senate control, which I put slightly below even: Republicans hold 53 seats and need to lose a net of three to hold only through the vice president's tiebreak, but Democrats are competitive in several Trump-won states in a strongly Democratic environment.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/29/oil-price-today-wti-brent.html",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
+            "https://www.investing.com/news/politics-news/factboxthe-races-that-will-decide-control-of-the-us-senate-4971841"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.58,
+          "rationale": "Oil is currently ~$100.66, and a drop below $80 in four days would require an extreme sell-off; the US-Iran peace talks face hurdles and are unlikely to cause a >20% decline so quickly, making the oil condition very likely (~95%). For the Senate, Republicans hold 53 seats and can afford a net loss of three; Democrats need to flip four seats, which is possible given competitive races in several red states but historically difficult in midterms, so I estimate a ~60% chance Republicans retain control. The joint probability is thus around 0.58."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.38,
+          "rationale": "The oil leg is very likely to resolve Yes: WTI is around $100 and would need to crash ~20% in 4 days to fall below $80, which has not happened even during the June Iran-settlement dip that took ~2 weeks to drop from $95 to $70. I estimate P(oil \u2265 $80) at ~95%. The Senate leg is the binding constraint: Republicans are the president's party in a midterm, and historically the president's party has lost the Senate in most midterms (losing in 1942, 1946, 1950, 1954, 1958, 1966, 1974, 1978, 1986, 1990, 1994, 2006, 2010, 2014, 2018, 2022 \u2014 only gaining or holding in 1962, 1970, 1982, 1998, 2002). Democrats need a net gain of 4, and are competitive in multiple states including Trump-won states, but Republicans can afford to lose 3 seats. I estimate P(Republicans keep Senate) at ~40-45%, giving a combined probability of roughly 0.95 \u00d7 0.42 \u2248 0.40, adjusted slightly down for uncertainty to ~0.38."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.48,
+          "rationale": "WTI is about $100, so the oil leg at or above $80 on Nov 2 is very likely (~97%) even allowing for a peace-deal drop. The Senate leg is close to a toss-up: Republicans hold 53 seats and keep control with 50, but the environment is poor for them (Iran war, prices, Democrats competitive in Trump states). I put Republican control at roughly 50%, giving a combined probability near 0.48."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "market_price_v1",
+          "probability": 0.3525
+        }
+      ],
+      "id": "polymarket-5567025",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://polymarket.com/event/republicans-win-the-senate-pending-oil-above-or-below-80",
+      "status": "resolved",
+      "title": "Will oil be at least $80 on November 2 and the Republicans win the Senate?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -1792,6 +2239,49 @@
       "source_url": "https://polymarket.com/event/florida-senate-election-winner",
       "status": "resolved",
       "title": "Will the Republicans win the Florida Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.84,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 Arizona gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.84,
+          "rationale": "Incumbent Democrat Katie Hobbs leads Republican Andy Biggs in every poll found: 48.7% to 40.0% in a polling average updated Oct 27 and 17 points in a HighGround poll of Oct 14 (whose sponsor is disputed). MultiState's rating (Oct 19) and Cook's (July) put the race at Lean Democratic, and incumbents win re-election roughly 80-85% of the time. This evidence comes from search summaries with unchecked quotes and a background-knowledge base rate, so I discount it, and Hobbs' 0.7-point win in 2022 and Arizona's Republican registration edge leave room for a polling miss.",
+          "sources": [
+            "https://www.azfamily.com/2026/10/14/new-arizona-poll-shows-democrats-leading-several-key-races/",
+            "https://www.multistate.us/elections/governor-race/arizona-2026",
+            "https://www.cookpolitical.com/governor/race/479456",
+            "https://www.pollcheck.co.uk/us-midterms-2026/governor/arizona"
+          ]
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.93
+        }
+      ],
+      "id": "polymarket-629183",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://polymarket.com/event/arizona-governor-winner-2026",
+      "status": "resolved",
+      "title": "Will the Democrats win the Arizona governor race in 2026?",
       "topic": "Politics",
       "verdict": "right"
     },
@@ -12852,117 +13342,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.565
-      },
-      "detail": "This market will resolve according to the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a seat is decided by a runoff, the runoff result will determine attribution of that seat.\n\nSeats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nHouse members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.78,
-          "rationale": "The president's party lost House seats in 18 of 20 midterms from 1946 to 2022 (American Presidency Project), including -41 in 2018, and Gallup approval of the president was 33 to 35 percent in August 2026. Democrats need a net gain of three seats from the 218-214-1 House (Clerk, 2026-10-01; Ballotpedia, 2026-10-14), but mid-decade maps adopted in nine states could be worth a net nine Republican seats on 2024 results, and Cook's 2026-10-16 ratings have 185 Solid D, 171 Solid R and 21 toss-ups. A typical midterm swing against an unpopular president should outweigh the redistricting offset, leaving Democrats a clear but not certain favourite.",
-          "sources": [
-            "https://clerk.house.gov/member_info/olm-119.pdf",
-            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
-            "https://www.cookpolitical.com/ratings/house-race-ratings",
-            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: the president's party lost House seats in 18 of 20 midterms (1946-2022), with an average loss of ~25 seats, and low presidential approval (33-35%) historically correlates with larger losses. Evidence: Republicans hold a razor-thin effective majority (219-214 with vacancies), Democrats need only a net +3, and Cook Political Report rates 21 seats as toss-ups, giving Democrats a plausible path. However, new redistricting maps are projected to net Republicans +9 seats based on 2024 presidential results, a significant structural headwind. The 2022 midterm (only -9 seats for Biden at 42% approval) shows midterms can defy historical averages. The race is a toss-up with a slight lean toward Democrats due to historical patterns and presidential unpopularity, but redistricting advantage keeps it competitive."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.55,
-          "rationale": "Historically, Democrats have won the House in only about 25% of midterms with a Republican president (base rate). President Trump-II\u2019s low approval (~35%) tends to boost the opposition, adding roughly +0.15 to Democratic chances. However, new district maps could give Republicans a net +9 seat advantage, subtracting about -0.10, while the 21 toss\u2011up seats provide a path for Democrats to secure the needed +3 net gain if they win a majority of them, contributing roughly +0.10. Combining these adjustments yields an estimated probability of around 55% that Democrats will control the House after the 2026 election."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.2,
-          "rationale": "Base rate: the president's party has lost House seats in 18 of 20 midterms since 1946, and Republicans enter with only a slim 218-214 majority needing to net three gains while only able to lose two. However, structural advantages favor Republicans: new maps adopted in 9 states since 2024 could yield a net Republican gain of ~9 districts on 2024 presidential results, and the independent caucuses with Republicans, meaning Democrats must flip more ground than the raw number suggests. With GOP-favored redistricting, a competitive but Republican-tilted national environment, and only 21 Cook toss-ups, I estimate roughly a 1-in-5 chance Democrats win the majority."
-        },
-        {
-          "made_at": "2026-10-19T09:10:12.136876+00:00",
-          "method": "market_price_v1",
-          "probability": 0.905
-        }
-      ],
-      "id": "polymarket-562802",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261019",
-      "source_url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
-      "status": "pending",
-      "title": "Will the Democratic Party control the House after the 2026 Midterm elections?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.3
-      },
-      "detail": "This market will resolve according to the party that wins control of the United States Senate and the party that wins control of the United States House of Representatives in the 2026 United States midterm election.\n\nA party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nA party wins control of the United States House of Representatives if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the chamber will be deemed controlled by the party with which the first elected Speaker of the House of the Congress that convenes after the 2026 midterm election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chambers.\n\nFor determining Senate control, all regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Vacant Senate seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat. For determining House control, all House elections in the 2026 United States midterm election that elect voting members and determine representation in the upcoming 120th Congress are included. Where a Senate or House seat is decided by a runoff, the runoff result will determine attribution of that seat, even if it takes place after November 2026.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected. \n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate and House members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate or House elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for this market will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.18,
-          "rationale": "This needs Republicans to hold both chambers. The House side is the hard part: the president's party lost House seats in 18 of 20 midterms from 1946 to 2022, approval was 33 to 35 percent in August 2026 (Gallup, via American Presidency Project) and Democrats need only a net three seats, partly offset by new Republican-favouring maps (Ballotpedia, 2026-10-14). The Senate is closer: Republicans hold 53 seats, Democrats need a net four, and Fox's 2026-10-18 ratings show 47 seats each with six toss-ups. Taking about a one-in-four chance of a Republican House and a high chance the Senate holds if it does, the joint outcome is under one in five.",
-          "sources": [
-            "https://clerk.house.gov/member_info/olm-119.pdf",
-            "https://www.senate.gov/history/partydiv.htm",
-            "https://www.foxnews.com/politics/nine-key-races-could-decide-who-controls-senate-where-stand",
-            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
-            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.35,
-          "rationale": "The base rate for the president's party losing House seats in midterms is high (20 of 23 since 1934), and Trump's low approval (33-35%) suggests a challenging environment. Current House control is razor-thin (218 R, 214 D) with redistricting possibly helping Republicans, but Democrats need only a net gain of 3 seats. In the Senate, Republicans defend 22 of 35 seats, and Fox News rates the race at 47-47 with 6 toss-ups, making a Democratic net gain of 4 seats plausible. Given historical trends and the tight margins, Republicans retaining both chambers is less likely than not, but not impossible if they outperform polls or win key toss-ups."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.3,
-          "rationale": "Base rate: the president's party has lost House seats in 20 of 23 midterms since 1934, and Republicans currently hold a narrow 218-214 House edge with redistricting potentially adding ~9 GOP seats, making House retention more likely than not (~60-65%). However, the Senate is the bigger obstacle: Republicans defend 20 of 33 regular seats plus 2 specials, and Fox's Power Rankings show a 47-47 split with 6 toss-ups, meaning GOP Senate retention is roughly a coin flip (~50%). Multiplying these gives ~30-35%. The main downside risks are a Democratic wave (Trump approval at 33-35% is historically weak) and the possibility that independents or runoffs shift the count; the main upside is Republican redistricting advantages and incumbency."
-        },
-        {
-          "made_at": "2026-10-19T09:10:12.136876+00:00",
-          "method": "market_price_v1",
-          "probability": 0.085
-        }
-      ],
-      "id": "polymarket-562831",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261019",
-      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
-      "status": "pending",
-      "title": "2026 Balance of Power: R Senate, R House",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.38
@@ -13022,69 +13401,6 @@
       "status": "pending",
       "title": "Billionaire one-time wealth tax passes in California election 2026?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.5,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if no Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nIf a Hormuz Agreement is announced by October 23, 2026, 11:59 PM ET, this market will resolve to \"No\" immediately.\n\nHormuz Agreement: A \"Hormuz Agreement\" will be considered to have occurred if a diplomatic agreement between the United States and Iran over traffic in the Strait of Hormuz is announced by October 23, 2026, 11:59 PM ET.\n\nA diplomatic agreement refers to an official agreement, treaty, deal, or substantially similar diplomatic instrument that establishes agreed actions, policies, obligations, or commitments between the United States and Iran.\n\nA qualifying diplomatic agreement must establish Iranian policies, obligations, or commitments aimed at permitting, restoring, or increasing vessel or shipping traffic through the Strait of Hormuz.\n\nAll listed countries must announce their acceptance of the same qualifying diplomatic agreement for the Hormuz Agreement component to be met. A joint announcement will qualify, as will separate announcements from each entity of its own acceptance of an agreement which, taken together, directly indicate that all the listed countries accepted the same agreement. Separate announcements of individual policies will not qualify if the policies are not announced as part of a diplomatic agreement.\n\nEach announcement must be a declarative statement that clearly and unambiguously communicates acceptance of an agreement. Statements that reference ongoing negotiations or a prospective agreement, or that allude to or express support for an agreement without confirming acceptance of the agreement, do not qualify. A qualifying announcement need not reference the agreement by name or use specific terminology, provided it clearly communicates acceptance of an agreement.\n\nWhether announcements from the listed countries represent a diplomatic agreement and whether such an agreement qualifies will be primarily determined through the announcements themselves. Where an announcement is made by all listed countries but, based on the announcements, it remains ambiguous whether the announcements represent a qualifying diplomatic agreement between the countries, the Hormuz Agreement component will remain undetermined until either i) definitive confirmation that the announcements represent a qualifying diplomatic agreement between the listed entities is achieved through further announcements from the listed countries or a consensus of credible reporting or ii) 14 calendar days (ET) have passed after the date that the last country made their first potentially qualifying announcement. If, at the end of the fourteenth calendar day, no definitive confirmation has been achieved, the Hormuz Agreement component will be determined based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for the Hormuz Agreement component will be official information from the governments of the United States and Iran and a consensus of credible reporting.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.5,
-          "rationale": "Two parts must both hold: no qualifying Hormuz agreement announced by Oct 23, which looks met since reporting through Oct 25 shows no finalized deal (Iran International, 2026-10-25), and Republicans keeping the Senate. For the Senate, Cook (as of Oct 15) projected Democratic gains of 2-6 seats with four needed, seven toss-up races (six Republican-held), and October polls show Democrats ahead or tied in Ohio and Alaska. That makes control close to a coin flip, and the Hormuz component reduces it slightly.",
-          "sources": [
-            "https://www.iranintl.com/en/202610252197",
-            "https://www.aljazeera.com/news/2026/10/7/us-sets-new-demands-for-iran-deal-what-are-they",
-            "https://alaskabeacon.com/2026/06/11/repub/strong-candidates-in-alaska-ohio-seen-as-moving-us-senate-races-toward-dems/"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.59,
-          "rationale": "The Hormuz agreement deadline (Oct 23) has passed with no qualifying announcement, making that condition almost certain (\u224899%). The Senate outcome is the main uncertainty: Democrats need to net 4 seats in a 53-47 chamber, with multiple toss-up races in red states. Forecasters slightly favor Republicans, and the map requires Democrats to win most close races, so I estimate a 60% chance Republicans hold the Senate. Combined, the probability is about 0.59."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.48,
-          "rationale": "The Hormuz component is nearly resolved: the Oct 23 deadline has passed with no qualifying US-Iran agreement announced, and reporting through Oct 25 confirms diplomatic deadlock, giving ~92% confidence in 'no agreement.' The Senate component is the main uncertainty: Democrats need exactly 4 net seats from a 53-47 Republican base, Cook's Oct 15 projection of 2-6 Democratic gains centers right on that threshold, and Trump's low approval is a headwind, but the map still requires Democrats to win most of 6 Republican-held toss-ups. Combining ~92% \u00d7 ~52% yields roughly 48%."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.56,
-          "rationale": "The Hormuz condition appears very likely because the deadline has passed with no reported finalized U.S.-Iran agreement accepting the specified terms, although an earlier memorandum could create some ambiguity. Republicans begin with a 53-47 Senate advantage and remain favored by some forecasts, but Democrats need four net gains and recent projections and polling make several Republican-held toss-ups genuinely competitive. The main downside risk is a late shift producing Democratic Senate control, while a confirmed earlier qualifying Hormuz agreement would also reverse the answer."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.31
-        }
-      ],
-      "id": "polymarket-5567008",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/republicans-win-the-senate-pending-hormuz-agreement",
-      "status": "pending",
-      "title": "Will there be no Hormuz agreement and the Republicans win the Senate?",
-      "topic": "World",
       "verdict": null
     },
     {
@@ -13279,279 +13595,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.75,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 27.14,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "This market will resolve according to the winner of the 2026 midterm Nebraska U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.76,
-          "rationale": "Republican incumbent Ricketts faces independent Dan Osborn (no Democratic nominee); Republicans have won all 7 Nebraska Senate races since 2006, and the one Oct 15-18 NPA Polling survey has Ricketts 46%, Osborn 43%, inside its margin. Osborn lost to Fischer by about 6.8 points in 2024 despite Nebraska's strong Republican lean, and the national environment now favours Democrats, so the race is closer than the base rate but Ricketts still has the structural edge. Evidence is thin (no quote-checked poll), so I keep the probability moderate.",
-          "sources": [
-            "https://backend.natpublicaffairs.com/media/NE_Tracker_R2_Trend_Memo_102226.7.pdf",
-            "https://nebraskapublicmedia.org/en/news/news-articles/us-senate-voter-guide-rollercoaster-race-features-four-candidates/",
-            "https://sos.nebraska.gov/sites/default/files/doc/elections/2024/2024%20General%20Canvass%20Book.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.68,
-          "rationale": "Republicans have won every Nebraska Senate race since 2006, and the state leans strongly Republican. However, the 2026 race is unusual: no Democrat is on the ballot, and independent Dan Osborn is consolidating Democratic support, making the race competitive. The only recent poll shows incumbent Pete Ricketts leading 46% to 43%, within the margin of error, but with a sample slightly more Republican than voter registration. Given incumbency and historical trends, Republicans are favored, but the tight polling and unique circumstances introduce significant uncertainty."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.63,
-          "rationale": "The base rate strongly favors Republicans: they've won 7 of 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. However, the specific dynamics are unusual\u2014there is no Democratic nominee, so all Democratic voters consolidate behind independent Dan Osborn, making this a genuine two-horse race. The latest NPA poll shows Ricketts leading 46% to 43% on the full ballot (50% to 47% head-to-head), within margin of error, with Osborn underwater (44% favorable vs 50% unfavorable) which helps Ricketts. The 2024 result (Fischer beat Osborn by ~7 points) and Ricketts's incumbency edge suggest he's more likely to win, but the tight polling and absence of a Democratic nominee make this considerably closer than a typical Nebraska Senate race."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.75,
-          "rationale": "The base rate strongly favors Republicans, who have won all 7 Nebraska Senate races since 2006, and the last independent winner was in 1936. Ricketts leads the only polling (NPA, Oct 15-18) by 3 points on both the full ballot (46-43) and head-to-head (50-47), though within the \u00b14.0% margin of error. The absence of a Democratic nominee on the ballot means Osborn (independent) is the sole challenger, and while he came within 7 points of beating Fischer in 2024, Ricketts's structural advantages and consistent polling lead make a Republican win the most likely outcome. A late shift toward Osborn, strong independent turnout, or polling errors could change this."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.8,
-          "rationale": "Republicans have won every Nebraska Senate race since 2006, and Ricketts is the incumbent. In 2024 Fischer beat Osborn by about 7 points in a state that Trump won by about 20. The only recent poll (NPA, Ricketts 46-43, in a sample 55% Republican by registration) shows a closer race. NPA's polling quality is unknown, and the brief says only one source had its quotes checked. A 2026 midterm with a Republican president could produce a Democratic-leaning environment, and Osborn now has the field to himself with no Democratic nominee. Even so, a 3-point lead for a Republican incumbent in Nebraska with a few days left suggests an 78-82% chance he wins. Resolution on the Republican nominee is straightforward."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "market_price_v1",
-          "probability": 0.72
-        }
-      ],
-      "id": "polymarket-634892",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://polymarket.com/event/nebraska-senate-election-winner",
-      "status": "pending",
-      "title": "Will the Republicans win the Nebraska Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.52,
-        "weights": {
-          "claude_code_forecaster_v1": 27.8,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 27.14,
-          "judge_minimax_m3_v1": 28.09,
-          "judge_qwen38_27b_v1": 35.02
-        }
-      },
-      "detail": "This market will resolve according to the winner of the 2026 Nevada gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-28T11:01:48+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.54,
-          "rationale": "Nevada has elected a Republican governor in every race since 1998 except 2018, and Republican incumbent Lombardo has a large cash and ad advantage, but both late polls have Democrat Aaron Ford ahead (DGA-backed Hart: 49-45; RedBox: 45.6-42.6), each from a Democratic-aligned sponsor and inside the margin of error. Trump's approval is deeply negative in the state, which favours Ford, while a GOP-tied PAC is promoting same-surname nonpartisan Danielle Ford to split the vote. I land close to a coin flip, slightly toward the Democrat.",
-          "sources": [
-            "https://democraticgovernors.org/updates/new-poll-from-dga-backed-group-shows-aaron-ford-leading-joe-lombardo-in-nevada-governors-race/",
-            "https://afightworthhaving.com/polling/2026/nevada/governor",
-            "https://thenevadaindependent.com/article/pac-boosting-third-party-nv-governor-candidate-as-aoc-of-nevada-has-gop-ties"
-          ]
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: Republicans won 6 of last 7 Nevada governor races, but the state is purple. Current polls (DGA-backed and RedBox) show Democrat Aaron Ford leading by 3-4 points, within margins of error. Polls may have Democratic lean, and GOP has financial advantage. Race is a toss-up with slight Democratic edge."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.42,
-          "rationale": "The base rate strongly favors Republicans (6 of 7 Nevada governor races since 1998), and Lombardo holds a significant funding advantage ($29.3M vs $14.1M in PAC spending). However, both available polls\u2014though from Democratic-aligned sponsors\u2014show Aaron Ford leading by 3-4 points, and Trump's deeply negative favorability (-18, 55.8% disapproval) is a meaningful tailwind for the challenger. The third-party candidate Danielle Ford (2.4%, with Republican-linked PAC support and a shared surname) adds uncertainty that could cut either way, and the narrow margins mean this is essentially a coin-flip race with a slight edge to the incumbent given the base rate and resources."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.52,
-          "rationale": "The base rate favors Republicans: Democrats won only one of Nevada's seven gubernatorial elections from 1998 through 2022, and Lombardo has incumbency plus a large financial advantage. Ford's leads of 49%-45% and 45.6%-42.6%, together with Trump's -18 favorability, shift the race from a Republican favorite to a close contest with a modest Democratic edge. But both polls have margins of error that include a tie and are Democratic-aligned, while Danielle Ford's vote share and early voting are unknown, so the evidence warrants only a slight probability above 50%."
-        },
-        {
-          "made_at": "2026-10-28T11:03:05.356625+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.52,
-          "rationale": "Base rate favors Republicans in Nevada governor races, and incumbents usually do well. Against that, 2026 looks like a Democratic-leaning midterm: Trump is a Republican president with a favorability of about -18, and approval in the RedBox poll is 42.6% against 55.8% disapproving. Both available polls show Aaron Ford up 3-4 points, but both come from Democratic-aligned sponsors, so I discount them by a point or two. Lombardo has a financial edge in outside spending, and the Danielle Ford spoiler could pull a small number of votes from the Democrat. Overall it is roughly a toss-up with a slight lean to the Democrat, given the national environment."
-        },
-        {
-          "made_at": "2026-10-28T09:27:10.477747+00:00",
-          "method": "market_price_v1",
-          "probability": 0.795
-        }
-      ],
-      "id": "polymarket-629505",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261028",
-      "source_url": "https://polymarket.com/event/nevada-governor-winner-2026",
-      "status": "pending",
-      "title": "Will the Democrats win the Nevada governor race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.38,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 30.98,
-          "judge_minimax_m3_v1": 32.13,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve to \"Oil < $85; R Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil < $85; D Senate\" if oil is less than $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; R Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election.\n\nThis market will resolve to \"Oil \u2265 $85; D Senate\" if oil is greater than or equal to $85 at the close of trading on November 2, 2026, and the Democratic Party wins control of the United States Senate in the 2026 United States midterm election.\n\nOil price: The oil price component will be determined based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the oil price component will be determined based on the Close price for the most recent prior trading day.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for the oil price component will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.49,
-          "rationale": "Oil is not the binding leg: EIA Cushing WTI spot was $103-105 on 26-27 Oct and WTI futures were about $100.7 on 29 Oct, so a close of at least $85 on 2 Nov needs a roughly 15% fall in two sessions, which has a precedent only in the June 2026 peace-driven drop (about 94% likely to stay above). The Senate leg is close to a coin flip: Republicans hold 53 seats, but Democrats are competitive in seven toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas, plus Michigan to hold) in a strongly Democratic environment, so I put Democratic control a little above even and combine it with the oil leg.",
-          "sources": [
-            "https://www.eia.gov/dnav/pet/hist/rwtcd.htm",
-            "https://rollcall.com/2026/10/28/most-vulnerable-senators-midterm-elections/",
-            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.44,
-          "rationale": "Oil is very likely to close at or above $85 on Nov 2 given current spot prices above $100 and EIA's Q4 forecast of $97, with only a small chance of a sudden geopolitical deal causing a drop below $85 in the next few days. Democrats need a net gain of four Senate seats, which is plausible but not favored given the Republican-leaning map and historical midterm trends; I estimate their chances around 45%. The joint probability is slightly below the Senate probability due to the small oil downside risk, with positive correlation between high oil and Democratic gains."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.26,
-          "rationale": "Oil is very likely \u2265$85 on Nov 2 (~87%): current WTI spot is ~$103-105, EIA forecasts Q4 average at $97, and even a significant geopolitical de-escalation would need to produce an ~$18-20 drop in one week to break below $85. Democrats winning the Senate is much less likely (~30%): they need a net gain of 4 seats from a 53-45 deficit, the top 4 vulnerable incumbents are all Republicans (Husted, Collins, Sullivan, Marshall), and the base rate favors the incumbent party holding the chamber (5 of 8 midterms 1994-2022). The combined probability is the product of these roughly independent events, yielding ~26%."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.13,
-          "rationale": "Oil is currently around $103-105 and the EIA forecasts Q4 2026 WTI at $97, making \u2265$85 on Nov 2 fairly likely (~75%), though the June 2026 precedent shows a $20 drop in two weeks is possible if geopolitical tensions ease. Democrats need a net gain of 4 seats to flip a 53-47 chamber, and CQ Roll Call explicitly states this 'looked highly unlikely for much of the cycle' with only 4 named vulnerable Republican incumbents (~18%). The combined probability is roughly 0.75 \u00d7 0.18 \u2248 0.13, with the main upside risk being a Democratic wave that flips more than the 4 most vulnerable seats, and the main downside being a sharp oil sell-off on a US-Iran deal."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.38,
-          "rationale": "Oil is very likely at or above $85: EIA spot was $103\u2013105 on 26\u201327 October and has not been below $85.23 since 21 September. Futures differ from spot and a US-Iran deal could cause a sharp drop, but I put P(oil \u2265 $85) at about 95%. For the Senate, Democrats need a net gain of four seats against a 53-47 Republican majority. A weak Republican environment, with high oil prices, Republicans defending Ohio, Alaska and Kansas, and Ossoff safe, makes a flip plausible but still less likely than not. I estimate about 40% for a Democratic Senate, and treat the two events as roughly independent."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "market_price_v1",
-          "probability": 0.6475
-        }
-      ],
-      "id": "polymarket-5611882",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://polymarket.com/event/who-wins-the-senate-pending-oil-below-85-before-the-midterms",
-      "status": "pending",
-      "title": "Will oil be at least $85 on November 2 and the Democrats win the Senate?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.46,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 30.98,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if oil is greater than or equal to $80 at the close of trading on November 2, 2026, and the Republican Party wins control of the United States Senate in the 2026 United States midterm election. Otherwise, this market will resolve to \"No\".\n\nOil price: This market will resolve based on the Close price for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") for the November 2, 2026 trading day.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. Closing prices will be used exactly as published by Pyth, without rounding.\n\nIf the Active Month contract does not trade at all during the relevant trading session, or if the listed date is not a trading day under the applicable trading-hours schedule, the market will resolve 50-50.\n\nFor the purposes of this market, trading days will be determined according to the applicable trading hours schedule for the underlying market (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the specified day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other disruption, the official close price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe will be used to determine the closing price for that day (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" value for the relevant 1-minute candle for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe available at https://app.pyth.com/explore?search=CLL. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nSenate: A party wins control of the United States Senate if it wins a majority of the chamber\u2019s voting seats. If no party wins a majority of voting seats, the party that wins control of the chamber is the party that wins half of the voting seats and holds the Vice Presidency. If the outcome remains ambiguous after applying the above criteria, the chamber will be deemed controlled by the party with which the first selected President Pro Tempore of the Congress that convenes after the specified election is affiliated.\n\nThe following rules govern the counting of seats for determining which party wins control of the chamber.\n\nAll regular and special Senate elections that determine representation in the upcoming 120th Congress and are scheduled to take place in November 2026 as of October 31, 2026 are included. Runoffs for qualifying elections will determine attribution of the relevant seat, even if they take place after November 2026. Vacant seats for which no election or special election to fill the seat is scheduled to take place in November 2026 as of October 31, 2026 will be treated as held by the party affiliation of the most recent member to hold that seat.\n\nFor seats contested in the specified election, seats are attributed to the party under which the member was elected. If a member-elect changes party affiliation, or vacates their seat, between election day and the formal organization of Congress, the seat is attributed to the party under which the member was elected.\n\nFor seats not contested in the specified election, seats are attributed to the party that holds the seat as of the date of the election. If a current sitting member of the U.S. Senate who is not up for election changes party affiliation or vacates their seat after the date of the election, the seat is attributed to the party under which the member was affiliated at the time of the election.\n\nSenate members elected as independents who formally caucus with, or, for newly elected members, who announce their intent to caucus with, a party are included in that party\u2019s count. If the caucus decisions of members of the Senate elected as independents cannot be determined on the date of the election, this market may remain open until the earlier of (i) an announcement from the relevant members of their intents to caucus, or (ii) January 4th, 11:59 PM ET of the following calendar year. If no such announcement is made by January 4th, 11:59 PM ET of the following calendar year, the member will not count towards the seat count of any party.\n\nThe resolution sources for the Senate component will be official information from relevant state electoral authorities, the United States Congress, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.46,
-          "rationale": "Oil is almost certainly at or above $80: WTI futures were about $100.7 on 29 Oct and EIA spot $103-105 on 26-27 Oct, so the 2 Nov close would need a 20% fall in two sessions (about 97% yes), and 143 of 163 daily prints since 6 March were at least $80. The deciding leg is Republican Senate control, which I put slightly below even: Republicans hold 53 seats and need to lose a net of three to hold only through the vice president's tiebreak, but Democrats are competitive in several Trump-won states in a strongly Democratic environment.",
-          "sources": [
-            "https://www.cnbc.com/2026/10/29/oil-price-today-wti-brent.html",
-            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
-            "https://www.investing.com/news/politics-news/factboxthe-races-that-will-decide-control-of-the-us-senate-4971841"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.58,
-          "rationale": "Oil is currently ~$100.66, and a drop below $80 in four days would require an extreme sell-off; the US-Iran peace talks face hurdles and are unlikely to cause a >20% decline so quickly, making the oil condition very likely (~95%). For the Senate, Republicans hold 53 seats and can afford a net loss of three; Democrats need to flip four seats, which is possible given competitive races in several red states but historically difficult in midterms, so I estimate a ~60% chance Republicans retain control. The joint probability is thus around 0.58."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.38,
-          "rationale": "The oil leg is very likely to resolve Yes: WTI is around $100 and would need to crash ~20% in 4 days to fall below $80, which has not happened even during the June Iran-settlement dip that took ~2 weeks to drop from $95 to $70. I estimate P(oil \u2265 $80) at ~95%. The Senate leg is the binding constraint: Republicans are the president's party in a midterm, and historically the president's party has lost the Senate in most midterms (losing in 1942, 1946, 1950, 1954, 1958, 1966, 1974, 1978, 1986, 1990, 1994, 2006, 2010, 2014, 2018, 2022 \u2014 only gaining or holding in 1962, 1970, 1982, 1998, 2002). Democrats need a net gain of 4, and are competitive in multiple states including Trump-won states, but Republicans can afford to lose 3 seats. I estimate P(Republicans keep Senate) at ~40-45%, giving a combined probability of roughly 0.95 \u00d7 0.42 \u2248 0.40, adjusted slightly down for uncertainty to ~0.38."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.48,
-          "rationale": "WTI is about $100, so the oil leg at or above $80 on Nov 2 is very likely (~97%) even allowing for a peace-deal drop. The Senate leg is close to a toss-up: Republicans hold 53 seats and keep control with 50, but the environment is poor for them (Iran war, prices, Democrats competitive in Trump states). I put Republican control at roughly 50%, giving a combined probability near 0.48."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "market_price_v1",
-          "probability": 0.3525
-        }
-      ],
-      "id": "polymarket-5567025",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://polymarket.com/event/republicans-win-the-senate-pending-oil-above-or-below-80",
-      "status": "pending",
-      "title": "Will oil be at least $80 on November 2 and the Republicans win the Senate?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.89,
@@ -13611,49 +13654,6 @@
       "source_url": "https://polymarket.com/event/mississippi-senate-election-winner",
       "status": "pending",
       "title": "Will the Republicans win the Mississippi Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.84,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67
-        }
-      },
-      "detail": "This market will resolve according to the winner of the 2026 Arizona gubernatorial election.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.84,
-          "rationale": "Incumbent Democrat Katie Hobbs leads Republican Andy Biggs in every poll found: 48.7% to 40.0% in a polling average updated Oct 27 and 17 points in a HighGround poll of Oct 14 (whose sponsor is disputed). MultiState's rating (Oct 19) and Cook's (July) put the race at Lean Democratic, and incumbents win re-election roughly 80-85% of the time. This evidence comes from search summaries with unchecked quotes and a background-knowledge base rate, so I discount it, and Hobbs' 0.7-point win in 2022 and Arizona's Republican registration edge leave room for a polling miss.",
-          "sources": [
-            "https://www.azfamily.com/2026/10/14/new-arizona-poll-shows-democrats-leading-several-key-races/",
-            "https://www.multistate.us/elections/governor-race/arizona-2026",
-            "https://www.cookpolitical.com/governor/race/479456",
-            "https://www.pollcheck.co.uk/us-midterms-2026/governor/arizona"
-          ]
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.93
-        }
-      ],
-      "id": "polymarket-629183",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://polymarket.com/event/arizona-governor-winner-2026",
-      "status": "pending",
-      "title": "Will the Democrats win the Arizona governor race in 2026?",
       "topic": "Politics",
       "verdict": null
     },
@@ -16461,21 +16461,21 @@
     }
   ],
   "summary": {
-    "brier": 0.21665008458935495,
+    "brier": 0.21505955889311956,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 81,
-    "resolved": 174,
-    "right": 115,
-    "toss_ups": 2,
+    "pending": 73,
+    "resolved": 182,
+    "right": 121,
+    "toss_ups": 3,
     "total": 259,
     "unscored": 3,
     "vs_market": {
-      "market": 0.16385206305194805,
-      "ours": 0.21093376623376625,
-      "questions": 154
+      "market": 0.15876176055555558,
+      "ours": 0.2094291666666667,
+      "questions": 162
     },
-    "wrong": 57
+    "wrong": 58
   },
   "version": "track_record_v2"
 }
