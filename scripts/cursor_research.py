@@ -60,6 +60,7 @@ WORK = STATE / "work"  # a git worktree of the daily branch, so the job never to
 LEDGER = STATE / "ledger.json"
 REQUEST = "daily-run-request.json"
 PREPARE_WAIT_S = 15 * 60
+PUSH_TRIES = 3  # a refused push is redone on top of the branch at most this many times
 HAND_TEST_QUESTIONS = 3  # a hand test researches at most this many questions, whatever their passes
 
 
@@ -88,12 +89,82 @@ def checkout(ref: str) -> Path:
     return WORK
 
 
-def push_request(branch: str, step: str, dirs: list[str], message: str) -> None:
-    (WORK / REQUEST).write_text(json.dumps({"step": step, "dirs": dirs,
-                                            "requested_at": datetime.now(UTC).isoformat()}) + "\n")
-    git("add", "-A", REQUEST, *dirs, cwd=WORK)
-    git("commit", "-q", "-m", message, cwd=WORK)
-    git("push", "-q", "origin", f"HEAD:refs/heads/{branch}", cwd=WORK)
+def push_request(branch: str, step: str, dirs: list[str], message: str) -> list[str]:
+    """Commit ``dirs`` with a request for ``step`` and push; returns the directories actually pushed.
+
+    Someone else may push to the branch first (the routine's ``fill`` while Cursor is still researching, or
+    the other way round). A rejected push is then redone on top of what is there instead of failing the run:
+    a ``prepare`` is dropped (the branch exists), and research is merged in, keeping research the branch
+    already has and adding ours only for questions still without it (``merge_research``); a directory that
+    has been forecast meanwhile is left alone.
+    """
+    for _ in range(PUSH_TRIES):
+        pending = _read_json(WORK / REQUEST)
+        wanted = sorted(set(dirs) | set(pending.get("dirs", []))) if pending.get("step") == step else dirs
+        (WORK / REQUEST).write_text(json.dumps({"step": step, "dirs": wanted,
+                                                "requested_at": datetime.now(UTC).isoformat()}) + "\n")
+        git("add", "-A", REQUEST, *dirs, cwd=WORK)
+        git("commit", "-q", "-m", message, cwd=WORK)
+        pushed = git("push", "-q", "origin", f"HEAD:refs/heads/{branch}", cwd=WORK, check=False)
+        if not pushed.returncode:
+            return dirs
+        log(f"{branch}: push refused ({pushed.stderr.strip()[-200:]}); redoing it on top of the branch")
+        if step != "download":
+            return []  # the branch exists now; whoever created it asked for the same step
+        ours = {name: _read_json(WORK / name / RESEARCH_FILE) for name in dirs}
+        git("fetch", "-q", "origin", branch, cwd=WORK)
+        git("reset", "-q", "--hard", f"origin/{branch}", cwd=WORK)
+        dirs = rebase_research(ours)
+        if not dirs:
+            log(f"{branch}: the branch already has research for every question; nothing to push")
+            return []
+    raise RuntimeError(f"{branch}: push refused {PUSH_TRIES} times")
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    try:
+        return json.loads(path.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+PER_QUESTION = ("findings", "sources", "researched_by", "seconds", "cost_usd")
+
+
+def merge_research(theirs: dict[str, Any], ours: dict[str, Any]) -> dict[str, Any]:
+    """``theirs`` (already on the branch) with ``ours`` added for the questions ``theirs`` has no findings for."""
+    if not theirs.get("findings") and not theirs.get("failed"):
+        return ours
+    have = set(theirs.get("findings", {}))
+    merged = dict(theirs)
+    for key in PER_QUESTION:
+        part = dict(theirs.get(key, {}))
+        part.update({qid: value for qid, value in ours.get(key, {}).items() if qid not in have})
+        merged[key] = part
+    failed = {qid: reason for qid, reason in theirs.get("failed", {}).items() if qid not in merged["findings"]}
+    failed.update({qid: reason for qid, reason in ours.get("failed", {}).items()
+                   if qid not in merged["findings"] and qid not in failed})
+    merged["failed"] = failed
+    merged["runs"] = int(theirs.get("runs", 0)) + int(ours.get("runs", 0))
+    return merged
+
+
+def rebase_research(ours: dict[str, dict[str, Any]]) -> list[str]:
+    """Write ``ours`` into the freshly reset worktree, merged with what the branch has; the directories changed."""
+    changed = []
+    for name, research_data in ours.items():
+        directory = WORK / name
+        if (directory / "briefs.json").exists():
+            log(f"{name}: already forecast from the research on the branch; leaving it")
+            continue
+        path = directory / RESEARCH_FILE
+        theirs = _read_json(path)
+        merged = merge_research(theirs, research_data)
+        if merged.get("findings") == theirs.get("findings") and merged.get("failed") == theirs.get("failed"):
+            continue
+        path.write_text(json.dumps(merged, indent=2, sort_keys=True) + "\n")
+        changed.append(name)
+    return changed
 
 
 def prepared(branch: str) -> bool:
@@ -176,8 +247,9 @@ def daily(args: argparse.Namespace) -> None:
         log(f"hand test done: {runs} runs, nothing pushed")
         return
     if changed:
-        push_request(branch, "download", changed, f"Research: cursor-agent evidence ({runs} runs)")
-        log(f"{branch}: pushed research for {', '.join(changed)}; Actions now downloads the cited pages")
+        pushed = push_request(branch, "download", changed, f"Research: cursor-agent evidence ({runs} runs)")
+        if pushed:
+            log(f"{branch}: pushed research for {', '.join(pushed)}; Actions now downloads the cited pages")
     marker.touch()
 
 
@@ -237,8 +309,9 @@ def fill(args: argparse.Namespace) -> None:
         for qid, reason in sorted(result["failed"].items()):
             log(f"  {qid}: {reason}")
     if changed:
-        push_request(branch, "download", changed, f"Research: Claude {settings.fallback_model} fills the gaps")
-        log(f"{branch}: pushed research for {', '.join(changed)}; Actions now downloads the cited pages")
+        pushed = push_request(branch, "download", changed, f"Research: Claude {settings.fallback_model} fills the gaps")
+        if pushed:
+            log(f"{branch}: pushed research for {', '.join(pushed)}; Actions now downloads the cited pages")
 
 
 def show_digest(directories: list[str]) -> None:
