@@ -3,6 +3,7 @@
     "polymarket-6443529": 0.1213,
     "polymarket-6587953": 0.1029
   },
+  "downloaded_at": "2026-11-05T12:50:23.279574+00:00",
   "failed": {
     "polymarket-6587953": "ValueError: only 0 usable sources"
   },
@@ -54,14 +55,17 @@
   "sources": {
     "polymarket-6443529": [
       {
+        "checked_via": "archive",
         "published": "",
         "quotes": [],
-        "text": "",
+        "snapshot": "https://web.archive.org/web/20251123045128id_/https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story",
+        "text": "How does Elon Musk spend his time on X?\nWhat's the story\nA recent analysis of Elon Musk's activity on X has revealed some interesting trends.\nNBC News's David Ingram studied a month's worth of Musk's posts and found that nearly half were political in nature.\nBetween September 17 and October 17, Musk posted a staggering 1,716 times, an average of over 55 posts per day.\nOut of these, nearly half (49%) were about politics, often fringe topics.\nContent analysis\nMusk's focus on race and self-promotion\nThe content of Musk's political posts is often centered around the race of people in television and movies.\nHe has even targeted child actors over these issues.\nApart from politics, he also shares his views on crime and Tesla, his electric vehicle company.\nNotably, he posted about himself a whopping 109 times in the same period.\nTrend\nReposting habits of the billionaire\nMusk is also known for reposting content from his own fan accounts, which seem to exist solely to boost his ego.\nThis habit further highlights the billionaire's penchant for self-promotion on the platform.\nThe analysis by Ingram provides hard data backing what many already suspected: that Musk has a tendency to share controversial political opinions and engage in self-aggrandizing behavior on X.",
         "title": "Elon Musk's X activity: 49% of posts on politics, often fringe (NewsBytes, citing NBC News)",
         "url": "https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story",
         "verified": null
       },
       {
+        "download_error": "HTTPStatusError: Client error '404 Not Found' for url 'https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159'\nFor more information check: https://developer.mozilla.org/",
         "published": "",
         "quotes": [],
         "text": "",
