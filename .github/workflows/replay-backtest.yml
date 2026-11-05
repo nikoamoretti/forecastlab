@@ -5,6 +5,9 @@ name: Replay backtest
 # artifacts/replay/ as an artifact. Uses no secrets and no market prices.
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/replay-lab]
+    paths: [.github/workflows/replay-backtest.yml]
 
 permissions:
   contents: read
