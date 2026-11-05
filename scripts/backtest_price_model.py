@@ -16,6 +16,7 @@ import csv
 import io
 import json
 import sys
+import time
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -33,10 +34,16 @@ YAHOO = {"WTI": "CL=F", "GOLD": "GC=F", "SILVER": "SI=F", "SPY": "SPY", "NVDA": 
 CLIP = (0.02, 0.98)
 
 
-def _get(url: str) -> bytes:
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return r.read()
+def _get(url: str, timeout: int = 60, tries: int = 3) -> bytes:
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
+                return r.read()
+        except Exception:  # noqa: BLE001
+            if i == tries - 1:
+                raise
+            time.sleep(3 * (i + 1))
+    raise AssertionError
 
 
 def fetch_coinbase(product: str, start: date, end: date) -> dict[str, dict]:
@@ -53,8 +60,8 @@ def fetch_coinbase(product: str, start: date, end: date) -> dict[str, dict]:
     return bars
 
 
-def fetch_fred(series: str) -> dict[str, dict]:
-    text = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}").decode()
+def fetch_fred(series: str, start: date) -> dict[str, dict]:
+    text = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}&cosd={start.isoformat()}").decode()
     bars = {}
     for row in list(csv.reader(io.StringIO(text)))[1:]:
         if len(row) == 2 and row[1] not in ("", "."):
@@ -86,14 +93,18 @@ def fetch_all(assets: set[str], start: date, end: date) -> dict[str, dict]:
             if a in COINBASE:
                 hist[a] = fetch_coinbase(COINBASE[a], start, end)
             elif a == "DGS10":
-                hist[a] = fetch_fred("DGS10")
+                try:
+                    hist[a] = fetch_fred("DGS10", start)
+                except Exception as e:  # noqa: BLE001
+                    print(f"{a}: FRED failed ({e!r}); using Yahoo ^TNX", file=sys.stderr)
+                    hist[a] = {d: {"close": b["close"]} for d, b in fetch_yahoo("^TNX", start, end).items()}
             elif a in YAHOO:
                 try:
                     hist[a] = fetch_yahoo(YAHOO[a], start, end)
                 except Exception as e:  # noqa: BLE001
                     print(f"{a}: yahoo failed ({e!r})", file=sys.stderr)
                     if a == "WTI":
-                        hist[a] = fetch_fred("DCOILWTICO")
+                        hist[a] = fetch_fred("DCOILWTICO", start)
                     else:
                         raise
         except Exception as e:  # noqa: BLE001
