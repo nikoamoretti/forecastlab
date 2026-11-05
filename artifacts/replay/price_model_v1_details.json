@@ -1,0 +1,920 @@
+[
+ {
+  "id": "polymarket-6346612",
+  "title": "Will the price of Bitcoin be above $74,000 on November 4?",
+  "forecast_day": "2026-11-02",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 74000.0,
+  "window": [
+   "2026-11-04",
+   "2026-11-04"
+  ],
+  "spot": 78230.55,
+  "spot_date": "2026-11-01",
+  "daily_vol": 0.01519782008671378,
+  "raw": 0.9870030876610879,
+  "outcome": 1,
+  "claude": 0.93
+ },
+ {
+  "id": "polymarket-6346570",
+  "title": "Will the price of Ethereum be above $2,200 on November 4?",
+  "forecast_day": "2026-11-02",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2200.0,
+  "window": [
+   "2026-11-04",
+   "2026-11-04"
+  ],
+  "spot": 2272.23,
+  "spot_date": "2026-11-01",
+  "daily_vol": 0.019369143653509117,
+  "raw": 0.8425198929313019,
+  "outcome": 1,
+  "claude": 0.84
+ },
+ {
+  "id": "polymarket-6301347",
+  "title": "Will the price of Bitcoin be above $82,000 on November 3?",
+  "forecast_day": "2026-10-30",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 82000.0,
+  "window": [
+   "2026-11-03",
+   "2026-11-03"
+  ],
+  "spot": 77780.33,
+  "spot_date": "2026-10-29",
+  "daily_vol": 0.015309127572641612,
+  "raw": 0.053324469478606765,
+  "outcome": 0,
+  "claude": 0.04
+ },
+ {
+  "id": "polymarket-6301274",
+  "title": "Will the price of Ethereum be above $2,200 on November 3?",
+  "forecast_day": "2026-10-30",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2200.0,
+  "window": [
+   "2026-11-03",
+   "2026-11-03"
+  ],
+  "spot": 2248.34,
+  "spot_date": "2026-10-29",
+  "daily_vol": 0.019366272731352968,
+  "raw": 0.6909038555943326,
+  "outcome": 1,
+  "claude": 0.55
+ },
+ {
+  "id": "4c014bd2f44640a3",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 30, 2026 be above 5.00%?",
+  "forecast_day": "2026-10-27",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.0,
+  "window": [
+   "2026-10-30",
+   "2026-10-30"
+  ],
+  "spot": 4.986000061035156,
+  "spot_date": "2026-10-26",
+  "daily_vol": 0.01156244064801178,
+  "raw": 0.44717046034525815,
+  "outcome": 0,
+  "claude": 0.45
+ },
+ {
+  "id": "polymarket-6236215",
+  "title": "Will Bitcoin dip to $78,000 October 26-November 1?",
+  "forecast_day": "2026-10-28",
+  "asset": "BTC",
+  "kind": "touch_down",
+  "threshold": 78000.0,
+  "window": [
+   "2026-10-26",
+   "2026-11-01"
+  ],
+  "spot": 80799.51,
+  "spot_date": "2026-10-27",
+  "daily_vol": 0.013287753335862471,
+  "raw": 0.2488639841521485,
+  "outcome": 1,
+  "claude": 0.15
+ },
+ {
+  "id": "polymarket-6236248",
+  "title": "Will Ethereum reach $2,500 October 26-November 1?",
+  "forecast_day": "2026-10-28",
+  "asset": "ETH",
+  "kind": "touch_up",
+  "threshold": 2500.0,
+  "window": [
+   "2026-10-26",
+   "2026-11-01"
+  ],
+  "spot": 2347.01,
+  "spot_date": "2026-10-27",
+  "daily_vol": 0.017667230229577103,
+  "raw": 0.11335765797935674,
+  "outcome": 0,
+  "claude": 0.2
+ },
+ {
+  "id": "polymarket-6255210",
+  "title": "Will the price of Ethereum be above $2,200 on November 2?",
+  "forecast_day": "2026-10-28",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2200.0,
+  "window": [
+   "2026-11-02",
+   "2026-11-02"
+  ],
+  "spot": 2347.01,
+  "spot_date": "2026-10-27",
+  "daily_vol": 0.017667230229577103,
+  "raw": 0.9353113497565021,
+  "outcome": 1,
+  "claude": 0.89
+ },
+ {
+  "id": "polymarket-6236213",
+  "title": "Will Bitcoin reach $82,000 October 26-November 1?",
+  "forecast_day": "2026-10-30",
+  "asset": "BTC",
+  "kind": "touch_up",
+  "threshold": 82000.0,
+  "window": [
+   "2026-10-26",
+   "2026-11-01"
+  ],
+  "spot": 77780.33,
+  "spot_date": "2026-10-29",
+  "daily_vol": 0.015309127572641612,
+  "raw": 0.052311208219906896,
+  "outcome": 0,
+  "claude": 0.05
+ },
+ {
+  "id": "polymarket-6236258",
+  "title": "Will Ethereum dip to $2,100 October 26-November 1?",
+  "forecast_day": "2026-10-30",
+  "asset": "ETH",
+  "kind": "touch_down",
+  "threshold": 2100.0,
+  "window": [
+   "2026-10-26",
+   "2026-11-01"
+  ],
+  "spot": 2248.34,
+  "spot_date": "2026-10-29",
+  "daily_vol": 0.019366272731352968,
+  "raw": 0.05050346066834047,
+  "outcome": 0,
+  "claude": 0.17
+ },
+ {
+  "id": "polymarket-5170735",
+  "title": "Will Bitcoin reach $87,500 in October?",
+  "forecast_day": "2026-10-12",
+  "asset": "BTC",
+  "kind": "touch_up",
+  "threshold": 87500.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 83678.29,
+  "spot_date": "2026-10-11",
+  "daily_vol": 0.01999480261201798,
+  "raw": 0.6053510505243198,
+  "outcome": 0,
+  "claude": 0.58
+ },
+ {
+  "id": "polymarket-4936103",
+  "title": "Will WTI Crude Oil (WTI) hit (HIGH) $100 in October?",
+  "forecast_day": "2026-10-12",
+  "asset": "WTI",
+  "kind": "touch_up",
+  "threshold": 100.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 93.73999786376953,
+  "spot_date": "2026-10-11",
+  "daily_vol": 0.027112276504066404,
+  "raw": 0.520748214888451,
+  "outcome": 1,
+  "claude": 0.27
+ },
+ {
+  "id": "polymarket-5170791",
+  "title": "Will Ethereum dip to $2,100 in October?",
+  "forecast_day": "2026-10-12",
+  "asset": "ETH",
+  "kind": "touch_down",
+  "threshold": 2100.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 2534.22,
+  "spot_date": "2026-10-11",
+  "daily_vol": 0.02299192118831221,
+  "raw": 0.07566015396625764,
+  "outcome": 0,
+  "claude": 0.17
+ },
+ {
+  "id": "polymarket-5170822",
+  "title": "Will XRP reach $1.80 in October?",
+  "forecast_day": "2026-10-13",
+  "asset": "XRP",
+  "kind": "touch_up",
+  "threshold": 1.8,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 1.3405,
+  "spot_date": "2026-10-12",
+  "daily_vol": 0.036898486792172086,
+  "raw": 0.05880614863692951,
+  "outcome": 0,
+  "claude": 0.05
+ },
+ {
+  "id": "polymarket-5170807",
+  "title": "Will Solana dip to $80 in October?",
+  "forecast_day": "2026-10-13",
+  "asset": "SOL",
+  "kind": "touch_down",
+  "threshold": 80.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 105.63,
+  "spot_date": "2026-10-12",
+  "daily_vol": 0.034153513968218474,
+  "raw": 0.07259122130772878,
+  "outcome": 0,
+  "claude": 0.04
+ },
+ {
+  "id": "polymarket-5170806",
+  "title": "Will Solana dip to $90 in October?",
+  "forecast_day": "2026-10-19",
+  "asset": "SOL",
+  "kind": "touch_down",
+  "threshold": 90.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 103.99,
+  "spot_date": "2026-10-18",
+  "daily_vol": 0.024710449254119627,
+  "raw": 0.11551283964454111,
+  "outcome": 0,
+  "claude": 0.2
+ },
+ {
+  "id": "polymarket-5170805",
+  "title": "Will Solana dip to $100 in October?",
+  "forecast_day": "2026-10-20",
+  "asset": "SOL",
+  "kind": "touch_down",
+  "threshold": 100.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 104.96,
+  "spot_date": "2026-10-19",
+  "daily_vol": 0.024692040559193662,
+  "raw": 0.5884826917075929,
+  "outcome": 1,
+  "claude": 0.66
+ },
+ {
+  "id": "polymarket-4951227",
+  "title": "Will WTI Crude Oil (WTI) hit (HIGH) $105 in October?",
+  "forecast_day": "2026-10-20",
+  "asset": "WTI",
+  "kind": "touch_up",
+  "threshold": 105.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 101.79000091552734,
+  "spot_date": "2026-10-19",
+  "daily_vol": 0.02677779972603644,
+  "raw": 1.0,
+  "outcome": 1,
+  "claude": 0.27
+ },
+ {
+  "id": "polymarket-4936080",
+  "title": "Will Gold (XAUUSD) hit (LOW) $3,900 in October?",
+  "forecast_day": "2026-10-21",
+  "asset": "GOLD",
+  "kind": "touch_down",
+  "threshold": 3900.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 4150.0,
+  "spot_date": "2026-10-20",
+  "daily_vol": 0.010322894288577685,
+  "raw": 0.03438798360840217,
+  "outcome": 1,
+  "claude": 0.08
+ },
+ {
+  "id": "polymarket-4951229",
+  "title": "Will WTI Crude Oil (WTI) hit (HIGH) $115 in October?",
+  "forecast_day": "2026-10-23",
+  "asset": "WTI",
+  "kind": "touch_up",
+  "threshold": 115.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 103.2699966430664,
+  "spot_date": "2026-10-22",
+  "daily_vol": 0.025847600512773558,
+  "raw": 0.08456752611926749,
+  "outcome": 0,
+  "claude": 0.06
+ },
+ {
+  "id": "polymarket-5170823",
+  "title": "Will XRP reach $1.60 in October?",
+  "forecast_day": "2026-10-23",
+  "asset": "XRP",
+  "kind": "touch_up",
+  "threshold": 1.6,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 1.3074,
+  "spot_date": "2026-10-22",
+  "daily_vol": 0.02228512488444337,
+  "raw": 0.002538138000366436,
+  "outcome": 0,
+  "claude": 0.05
+ },
+ {
+  "id": "polymarket-4936081",
+  "title": "Will Gold (XAUUSD) hit (LOW) $3,800 in October?",
+  "forecast_day": "2026-10-23",
+  "asset": "GOLD",
+  "kind": "touch_down",
+  "threshold": 3800.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 4007.89990234375,
+  "spot_date": "2026-10-22",
+  "daily_vol": 0.010925369451036941,
+  "raw": 0.04779974167441166,
+  "outcome": 0,
+  "claude": 0.08
+ },
+ {
+  "id": "polymarket-5170739",
+  "title": "Will Bitcoin dip to $77,500 in October?",
+  "forecast_day": "2026-10-27",
+  "asset": "BTC",
+  "kind": "touch_down",
+  "threshold": 77500.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 80008.79,
+  "spot_date": "2026-10-26",
+  "daily_vol": 0.013122221841373382,
+  "raw": 0.2916137426899755,
+  "outcome": 1,
+  "claude": 0.24
+ },
+ {
+  "id": "polymarket-4936036",
+  "title": "Will S&P 500 (SPY) hit (LOW) $750 in October?",
+  "forecast_day": "2026-10-27",
+  "asset": "SPY",
+  "kind": "touch_down",
+  "threshold": 750.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 765.3699951171875,
+  "spot_date": "2026-10-26",
+  "daily_vol": 0.0066132139105485955,
+  "raw": 0.12636214451073668,
+  "outcome": 0,
+  "claude": 0.17
+ },
+ {
+  "id": "polymarket-4936096",
+  "title": "Will Silver (XAGUSD) hit (LOW) $52 in October?",
+  "forecast_day": "2026-10-27",
+  "asset": "SILVER",
+  "kind": "touch_down",
+  "threshold": 52.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 54.292999267578125,
+  "spot_date": "2026-10-26",
+  "daily_vol": 0.02135964562360402,
+  "raw": 0.31921408821715613,
+  "outcome": 1,
+  "claude": 0.72
+ },
+ {
+  "id": "polymarket-4935840",
+  "title": "Will NVIDIA (NVDA) hit (LOW) $208 in October?",
+  "forecast_day": "2026-10-28",
+  "asset": "NVDA",
+  "kind": "touch_down",
+  "threshold": 208.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 217.94000244140625,
+  "spot_date": "2026-10-27",
+  "daily_vol": 0.01769451563357515,
+  "raw": 0.13072276223234922,
+  "outcome": 1,
+  "claude": 0.16
+ },
+ {
+  "id": "polymarket-5170789",
+  "title": "Will Ethereum dip to $2,200 in October?",
+  "forecast_day": "2026-10-29",
+  "asset": "ETH",
+  "kind": "touch_down",
+  "threshold": 2200.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 2356.89,
+  "spot_date": "2026-10-28",
+  "daily_vol": 0.017723403204628684,
+  "raw": 0.03084175147726468,
+  "outcome": 1,
+  "claude": 0.19
+ },
+ {
+  "id": "polymarket-5170825",
+  "title": "Will XRP dip to $1.20 in October?",
+  "forecast_day": "2026-10-29",
+  "asset": "XRP",
+  "kind": "touch_down",
+  "threshold": 1.2,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 1.3243,
+  "spot_date": "2026-10-28",
+  "daily_vol": 0.01991548579654978,
+  "raw": 0.00594986315978238,
+  "outcome": 0,
+  "claude": 0.14
+ },
+ {
+  "id": "polymarket-6205303",
+  "title": "Will the price of Ethereum be above $2,200 on November 1?",
+  "forecast_day": "2026-10-29",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2200.0,
+  "window": [
+   "2026-11-01",
+   "2026-11-01"
+  ],
+  "spot": 2356.89,
+  "spot_date": "2026-10-28",
+  "daily_vol": 0.017723403204628684,
+  "raw": 0.9778829434559786,
+  "outcome": 1,
+  "claude": 0.87
+ },
+ {
+  "id": "manifold-sgUZP8EzSq",
+  "title": "Bitcoin $87,500 in October 2026?",
+  "forecast_day": "2026-10-12",
+  "asset": "BTC",
+  "kind": "touch_up",
+  "threshold": 87500.0,
+  "window": [
+   "2026-10-01",
+   "2026-10-31"
+  ],
+  "spot": 83678.29,
+  "spot_date": "2026-10-11",
+  "daily_vol": 0.01999480261201798,
+  "raw": 0.6053510505243198,
+  "outcome": 0,
+  "claude": 0.58
+ },
+ {
+  "id": "polymarket-6084526",
+  "title": "Will the price of Bitcoin be above $84,000 on October 30?",
+  "forecast_day": "2026-10-28",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 84000.0,
+  "window": [
+   "2026-10-30",
+   "2026-10-30"
+  ],
+  "spot": 80799.51,
+  "spot_date": "2026-10-27",
+  "daily_vol": 0.013287753335862471,
+  "raw": 0.03593268629193798,
+  "outcome": 0,
+  "claude": 0.08
+ },
+ {
+  "id": "polymarket-6015145",
+  "title": "Will the price of Bitcoin be above $78,000 on October 28?",
+  "forecast_day": "2026-10-26",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 78000.0,
+  "window": [
+   "2026-10-28",
+   "2026-10-28"
+  ],
+  "spot": 80053.16,
+  "spot_date": "2026-10-25",
+  "daily_vol": 0.013160929061985875,
+  "raw": 0.8844301190272121,
+  "outcome": 1,
+  "claude": 0.77
+ },
+ {
+  "id": "cfd7541436306b33",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 23, 2026 be above 5.10%?",
+  "forecast_day": "2026-10-19",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.1,
+  "window": [
+   "2026-10-23",
+   "2026-10-23"
+  ],
+  "spot": 5.0980000495910645,
+  "spot_date": "2026-10-16",
+  "daily_vol": 0.009685519701463488,
+  "raw": 0.4884565938359613,
+  "outcome": 0,
+  "claude": 0.46
+ },
+ {
+  "id": "polymarket-5912679",
+  "title": "Will Bitcoin reach $90,000 October 19-25?",
+  "forecast_day": "2026-10-21",
+  "asset": "BTC",
+  "kind": "touch_up",
+  "threshold": 90000.0,
+  "window": [
+   "2026-10-19",
+   "2026-10-25"
+  ],
+  "spot": 82938.26,
+  "spot_date": "2026-10-20",
+  "daily_vol": 0.01704619786272653,
+  "raw": 0.03411273917952985,
+  "outcome": 0,
+  "claude": 0.03
+ },
+ {
+  "id": "polymarket-5912693",
+  "title": "Will Bitcoin dip to $80,000 October 19-25?",
+  "forecast_day": "2026-10-23",
+  "asset": "BTC",
+  "kind": "touch_down",
+  "threshold": 80000.0,
+  "window": [
+   "2026-10-19",
+   "2026-10-25"
+  ],
+  "spot": 81307.16,
+  "spot_date": "2026-10-22",
+  "daily_vol": 0.013589543303546794,
+  "raw": 0.5090532336171997,
+  "outcome": 1,
+  "claude": 0.42
+ },
+ {
+  "id": "polymarket-5776854",
+  "title": "Will the price of Bitcoin be above $86,000 on October 23?",
+  "forecast_day": "2026-10-21",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 86000.0,
+  "window": [
+   "2026-10-23",
+   "2026-10-23"
+  ],
+  "spot": 82938.26,
+  "spot_date": "2026-10-20",
+  "daily_vol": 0.01704619786272653,
+  "raw": 0.0941880159783204,
+  "outcome": 0,
+  "claude": 0.08
+ },
+ {
+  "id": "polymarket-5690022",
+  "title": "Will the price of Bitcoin be above $82,000 on October 21?",
+  "forecast_day": "2026-10-19",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 82000.0,
+  "window": [
+   "2026-10-21",
+   "2026-10-21"
+  ],
+  "spot": 82006.85,
+  "spot_date": "2026-10-18",
+  "daily_vol": 0.01689068733932826,
+  "raw": 0.4957021977251026,
+  "outcome": 1,
+  "claude": 0.6
+ },
+ {
+  "id": "4c40cc475a07a5e1",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 15, 2026 be above 5.31%?",
+  "forecast_day": "2026-10-07",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.31,
+  "window": [
+   "2026-10-15",
+   "2026-10-15"
+  ],
+  "spot": 5.269000053405762,
+  "spot_date": "2026-10-06",
+  "daily_vol": 0.00916018550623473,
+  "raw": 0.36996480036820323,
+  "outcome": 0,
+  "claude": 0.55
+ },
+ {
+  "id": "f9f7b84fc8c381e0",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 14, 2026 be above 5.28%?",
+  "forecast_day": "2026-10-06",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.28,
+  "window": [
+   "2026-10-14",
+   "2026-10-14"
+  ],
+  "spot": 5.310999870300293,
+  "spot_date": "2026-10-05",
+  "daily_vol": 0.009128575964794933,
+  "raw": 0.5910733873995561,
+  "outcome": 0,
+  "claude": 0.55
+ },
+ {
+  "id": "56e4e1b2fcb37d19",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 13, 2026 be above 5.28%?",
+  "forecast_day": "2026-10-06",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.28,
+  "window": [
+   "2026-10-13",
+   "2026-10-13"
+  ],
+  "spot": 5.310999870300293,
+  "spot_date": "2026-10-05",
+  "daily_vol": 0.009128575964794933,
+  "raw": 0.5989473361044422,
+  "outcome": 0,
+  "claude": 0.56
+ },
+ {
+  "id": "13f127d7-f551-4184-9856-a4c8d13b1c18",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 9, 2026 be above 5.24%?",
+  "forecast_day": "2026-10-03",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.24,
+  "window": [
+   "2026-10-09",
+   "2026-10-09"
+  ],
+  "spot": 5.2769999504089355,
+  "spot_date": "2026-10-02",
+  "daily_vol": 0.00916428094951046,
+  "raw": 0.6304782677713069,
+  "outcome": 0,
+  "claude": 0.58
+ },
+ {
+  "id": "polymarket-5311923",
+  "title": "Will Ethereum dip to $2,500 October 5-11?",
+  "forecast_day": "2026-10-07",
+  "asset": "ETH",
+  "kind": "touch_down",
+  "threshold": 2500.0,
+  "window": [
+   "2026-10-05",
+   "2026-10-11"
+  ],
+  "spot": 2697.28,
+  "spot_date": "2026-10-06",
+  "daily_vol": 0.020726470931117173,
+  "raw": 0.11221319613905674,
+  "outcome": 1,
+  "claude": 0.58
+ },
+ {
+  "id": "polymarket-5311866",
+  "title": "Will Bitcoin dip to $80,000 October 5-11?",
+  "forecast_day": "2026-10-07",
+  "asset": "BTC",
+  "kind": "touch_down",
+  "threshold": 80000.0,
+  "window": [
+   "2026-10-05",
+   "2026-10-11"
+  ],
+  "spot": 85539.77,
+  "spot_date": "2026-10-06",
+  "daily_vol": 0.019722864675822176,
+  "raw": 0.14118970693927368,
+  "outcome": 0,
+  "claude": 0.3
+ },
+ {
+  "id": "polymarket-5311925",
+  "title": "Will Ethereum dip to $2,400 October 5-11?",
+  "forecast_day": "2026-10-09",
+  "asset": "ETH",
+  "kind": "touch_down",
+  "threshold": 2400.0,
+  "window": [
+   "2026-10-05",
+   "2026-10-11"
+  ],
+  "spot": 2472.89,
+  "spot_date": "2026-10-08",
+  "daily_vol": 0.023724061009929482,
+  "raw": 0.48802092732442676,
+  "outcome": 0,
+  "claude": 0.55
+ },
+ {
+  "id": "polymarket-5286491",
+  "title": "Will the price of Bitcoin be above $78,000 on October 11?",
+  "forecast_day": "2026-10-08",
+  "asset": "BTC",
+  "kind": "above",
+  "threshold": 78000.0,
+  "window": [
+   "2026-10-11",
+   "2026-10-11"
+  ],
+  "spot": 83275.06,
+  "spot_date": "2026-10-07",
+  "daily_vol": 0.020170438471942033,
+  "raw": 0.9529567655228729,
+  "outcome": 1,
+  "claude": 0.86
+ },
+ {
+  "id": "polymarket-5286464",
+  "title": "Will the price of Ethereum be above $2,400 on October 11?",
+  "forecast_day": "2026-10-09",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2400.0,
+  "window": [
+   "2026-10-11",
+   "2026-10-11"
+  ],
+  "spot": 2472.89,
+  "spot_date": "2026-10-08",
+  "daily_vol": 0.023724061009929482,
+  "raw": 0.7740968742504903,
+  "outcome": 1,
+  "claude": 0.72
+ },
+ {
+  "id": "polymarket-5238585",
+  "title": "Will the price of Ethereum be above $2,600 on October 10?",
+  "forecast_day": "2026-10-08",
+  "asset": "ETH",
+  "kind": "above",
+  "threshold": 2600.0,
+  "window": [
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "spot": 2572.8,
+  "spot_date": "2026-10-07",
+  "daily_vol": 0.02253088206620514,
+  "raw": 0.3805396013707266,
+  "outcome": 0,
+  "claude": 0.3
+ },
+ {
+  "id": "6a57d2a7-52c6-48d1-a090-33d4dcacdcc9",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 8, 2026 be above 5.24%?",
+  "forecast_day": "2026-10-03",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.24,
+  "window": [
+   "2026-10-08",
+   "2026-10-08"
+  ],
+  "spot": 5.2769999504089355,
+  "spot_date": "2026-10-02",
+  "daily_vol": 0.00916428094951046,
+  "raw": 0.6460696975743642,
+  "outcome": 0,
+  "claude": 0.6
+ },
+ {
+  "id": "96fb882f-1eab-4f04-b3fc-60b55913baf9",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 7, 2026 be above 5.24%?",
+  "forecast_day": "2026-10-03",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.24,
+  "window": [
+   "2026-10-07",
+   "2026-10-07"
+  ],
+  "spot": 5.2769999504089355,
+  "spot_date": "2026-10-02",
+  "daily_vol": 0.00916428094951046,
+  "raw": 0.6683448864718469,
+  "outcome": 1,
+  "claude": 0.61
+ },
+ {
+  "id": "1fa481be-5232-46b6-8bd7-c8fe62e2d51c",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 6, 2026 be above 5.24%?",
+  "forecast_day": "2026-10-03",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.24,
+  "window": [
+   "2026-10-06",
+   "2026-10-06"
+  ],
+  "spot": 5.2769999504089355,
+  "spot_date": "2026-10-02",
+  "daily_vol": 0.00916428094951046,
+  "raw": 0.7041691794225534,
+  "outcome": 1,
+  "claude": 0.64
+ },
+ {
+  "id": "8ab49dab-21d3-4457-b6f9-df59641cc9d8",
+  "title": "Will the 10-year U.S. Treasury yield on Oct 5, 2026 be above 5.24%?",
+  "forecast_day": "2026-10-03",
+  "asset": "DGS10",
+  "kind": "above",
+  "threshold": 5.24,
+  "window": [
+   "2026-10-05",
+   "2026-10-05"
+  ],
+  "spot": 5.2769999504089355,
+  "spot_date": "2026-10-02",
+  "daily_vol": 0.00916428094951046,
+  "raw": 0.7773303902254028,
+  "outcome": 1,
+  "claude": 0.68
+ }
+]
