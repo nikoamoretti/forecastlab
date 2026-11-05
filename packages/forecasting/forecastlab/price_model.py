@@ -71,7 +71,7 @@ class ParsedQuestion:
         return self.kind in (TOUCH_UP, TOUCH_DOWN)
 
 
-def _year_for(month: int, day: int, forecast_day: date, explicit: int | None) -> date:
+def _year_for(month: int, day: int, forecast_day: date, explicit: int | None) -> date | None:
     if explicit:
         return date(explicit, month, day)
     for y in (forecast_day.year, forecast_day.year + 1, forecast_day.year - 1):
