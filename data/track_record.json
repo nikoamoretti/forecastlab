@@ -1,34 +1,34 @@
 {
   "calibration": {
-    "as_of": "2026-11-04",
-    "intercept": 0.393016,
-    "results": 146,
-    "slope": 0.743417
+    "as_of": "2026-11-05",
+    "intercept": 0.359148,
+    "results": 183,
+    "slope": 0.732756
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.21505955889311956,
+      "brier": 0.21425287084333916,
       "coin_flip_brier": 0.25,
-      "forecasts": 259,
+      "forecasts": 260,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 182,
-      "right": 121,
+      "resolved": 188,
+      "right": 124,
       "toss_ups": 3,
-      "wrong": 58
+      "wrong": 61
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.2034803370786517,
+      "brier": 0.20384891304347827,
       "coin_flip_brier": 0.25,
-      "forecasts": 254,
+      "forecasts": 255,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 178,
-      "right": 118,
+      "resolved": 184,
+      "right": 121,
       "toss_ups": 6,
-      "wrong": 54
+      "wrong": 57
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -56,15 +56,15 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21736153846153847,
+      "brier": 0.21675342465753425,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 143,
-      "right": 94,
+      "resolved": 146,
+      "right": 96,
       "toss_ups": 1,
-      "wrong": 48
+      "wrong": 49
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -80,39 +80,39 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21407234042553192,
+      "brier": 0.21404405594405596,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 141,
-      "right": 101,
+      "resolved": 143,
+      "right": 102,
       "toss_ups": 0,
-      "wrong": 40
+      "wrong": 41
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21902517006802721,
+      "brier": 0.21834563758389264,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 147,
-      "right": 102,
+      "resolved": 149,
+      "right": 103,
       "toss_ups": 1,
-      "wrong": 44
+      "wrong": 45
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.205002,
+      "brier": 0.20145185185185188,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 50,
-      "right": 35,
+      "resolved": 54,
+      "right": 37,
       "toss_ups": 1,
-      "wrong": 14
+      "wrong": 16
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -176,43 +176,99 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Shown for comparison; not part of our call.",
-      "brier": null,
+      "brier": 0.014081590323999998,
       "coin_flip_brier": 0.25,
-      "forecasts": 29,
+      "forecasts": 30,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 2,
+      "right": 2,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.15952666141732286,
+      "brier": 0.15651250961538463,
       "coin_flip_brier": 0.25,
-      "forecasts": 167,
+      "forecasts": 168,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 127,
-      "right": 95,
+      "resolved": 130,
+      "right": 98,
       "toss_ups": 0,
       "wrong": 32
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.15598626314285713,
+      "brier": 0.15909049868421055,
       "coin_flip_brier": 0.25,
       "forecasts": 56,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 35,
-      "right": 24,
+      "resolved": 38,
+      "right": 26,
       "toss_ups": 0,
-      "wrong": 11
+      "wrong": 12
     }
   ],
-  "generated_on": "2026-11-04",
+  "generated_on": "2026-11-05",
   "questions": [
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 3,
+        "method": "combined_weighted_v1",
+        "probability": 0.47,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98
+        }
+      },
+      "detail": "Resolution criteria\n\nThis market resolves to \"YES\" if both of the following conditions are met:\n\nThe national average price of a gallon of regular gasoline reaches or exceeds $4.50 at any point between April 5, 2026, and the date of the 2026 midterm elections. This data will be verified using the AAA Gas Prices national average tracker.\n\nThe Democratic Party holds a majority of seats in both the U.S. House of Representatives and the U.S. Senate following the results of the 2026 midterm elections.\n\nThe market resolves to \"NO\" if gasoline prices do not reach or exceed $4.50 during the specified timeframe, or if the Democratic Party fails to secure control of either chamber of Congress. If official election results are contested, the market will resolve based on the certified results provided by the Federal Election Commission (FEC).\n\nBackground\n\nThe 2026 midterm elections will determine the composition of the 120th U.S. Congress. Historically, the party of the sitting president often faces challenges in midterm elections, which can impact the legislative agenda and the party's ability to maintain control of the House and Senate.\n\nGasoline prices are a significant economic indicator often cited in political discourse regarding inflation and voter sentiment. Traders should consider the historical correlation between energy prices and incumbent performance, alongside current polling data and projections for the 2026 election cycle as they become available.\n\nThis description was generated by AI.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "The gasoline leg is already met: AAA reported the national regular average at $4.564 on 21 May 2026, above $4.50 inside the 5 Apr to election window, so the question reduces to whether Democrats win both chambers. Democrats need a net gain of three House seats (Cook rates 220 seats Solid/Likely/Lean Democratic, with a generic ballot near D+8.5) and a net gain of four in the Senate where Republicans hold 53; I put the House near 90% and the Senate near 52%, with a wave making the two positively correlated, and a small deduction for resolver risk on the gas leg and timing.",
+          "sources": [
+            "https://gasprices.aaa.com/memorial-day-weekend-gas-prices-reach-four-year-highs/",
+            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
+            "https://www.cookpolitical.com/ratings/senate-race-ratings"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.73,
+          "rationale": "The gas price condition is already satisfied (AAA reported $4.564 on May 21, 2026). The question reduces to whether Democrats win both chambers. Historically, the president's party loses both chambers in about 4 of 11 midterms when starting with both, but current conditions differ. Cook rates 7 Senate toss-ups (6 GOP-held, 1 Dem-held) with NC and GA Likely Democratic, meaning Democrats have a plausible path to net +4. The House is very close, with Democrats needing a net gain of 3-4 seats. Given Trump's low approval (33-35%), a strong Democratic performance is likely, but uncertainty remains. I estimate a 73% chance."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.45,
+          "rationale": "The gas condition is already met: AAA reported a $4.564 national average on 21 May 2026, which is inside the window. The question therefore reduces to whether Democrats win both chambers on 3 November. The base rate for the opposition winning both chambers is about 4 of 11 midterms, but this environment is much stronger than usual for Democrats: Trump's approval is in the low-to-mid 30s and gas prices are high. The House needs only a net gain of 3 seats, which looks likely (about 85-90%). The Senate needs a net gain of 4. North Carolina and Georgia are rated Likely Democratic, so Democrats would still need about 3 of the 6 Republican-held toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas) while also holding Michigan. That is roughly a coin flip, perhaps slightly better given the wave-like conditions. Some risk remains that close races, such as Alaska, are not called by the 5 November resolution date."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.5327
+        }
+      ],
+      "id": "manifold-npRtO25zAZ",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/vdb/gas-exceeds-450-and-democrats-contr",
+      "status": "resolved",
+      "title": "Gas exceeds $4.50, and democrats control both House and Senate?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -1073,6 +1129,70 @@
       "verdict": "toss_up"
     },
     {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.7,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the change in basis points in the target for the Selic rate resulting from the November 2026 meeting of the Bank of Brazil\u2019s Monetary Policy Committee (COPOM), relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Brazil, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 3-4, 2026, as listed on the official Bank of Brazil calendar (https://www.bcb.gov.br/en/about/bcb-calendar?categoria=Monetary%20Policy%20Committee%20(Copom)). This market may resolve as soon as the statement or release of the Bank of Brazil's November 2026 Monetary Policy Committee meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "The Selic target is 13.75% after a 25 bp cut on 16 September 2026, the fifth straight 25 bp cut, and Copom has cut by exactly 25 bp at each of its last five meetings. A Focus-based summary says consensus points to a cut at the Nov 3-4 meeting, taking the rate to 13.50%, and the Focus end-2026 median of 13.25% implies further cuts at November and December. The September statement warned of uncertainty and de-anchored expectations, so a pause is the main risk.",
+          "sources": [
+            "https://www.riotimesonline.com/selic-rate-brazil-foreign-investors-guide/",
+            "https://ricoaospoucos.com.br/en/interest-rate/",
+            "https://www.bcb.gov.br/en/pressdetail/2680/nota",
+            "https://www.dgabc.com.br/Noticia/4353509/expectativa-para-a-selic-no-fim-de-2026-continua-em-13-25-no-focus-do-bc"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.7,
+          "rationale": "The last five Copom meetings have delivered consecutive 25 bp cuts, and the latest Focus survey median for end-2026 Selic is 13.25%, implying two more cuts. However, the September statement warned of uncertainty and de-anchored expectations, signaling caution that could lead to a pause."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.65,
+          "rationale": "The base rate is strongly supported by five consecutive 25 bp cuts and the Focus consensus pointing to 13.50% after November, implying a 25 bp cut. However, the September statement's explicit warning about 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and its call for 'serenity and caution' introduces meaningful risk of a pause. The end-2026 Focus median of 13.25% implies cuts in both November and December, but the cautionary tone could lead the committee to hold and cut in December instead. I estimate roughly 65% probability of a 25 bp cut, with the main risk being a pause driven by the de-anchoring concerns flagged in September."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.58,
+          "rationale": "Base rate: Copom has cut 25 bp at each of its last five meetings (March\u2013September 2026), establishing a strong pattern. The Focus survey median for end-2026 Selic remains 13.25%, implying roughly 50 bp of additional cuts across the November and December meetings, consistent with two more 25 bp steps. However, the September statement was notably hawkish, warning of 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and calling for 'serenity and caution,' which raises the probability of a pause. A 50 bp cut or hike appears unlikely. The probability could shift higher if the October Focus survey and IPCA-15 confirm disinflation, or lower if the real weakens further or October minutes signal a pause."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.24
+        }
+      ],
+      "id": "polymarket-3347919",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/bank-of-brazil-decision-in-november-1785878499354",
+      "status": "resolved",
+      "title": "Will the Bank of Brazil decrease the target for the Selic rate by 25 bps at the November meeting?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
+    {
       "actual": "Polymarket: Yes",
       "call": {
         "members": 4,
@@ -1437,6 +1557,69 @@
       "title": "Will Democrats win more than 230 seats in the House in the 2026 midterms?",
       "topic": "Politics",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.03,
+        "weights": {
+          "claude_code_forecaster_v1": 32.08,
+          "judge_deepseek_v4_pro_v1": 30.34,
+          "judge_minimax_m3_v1": 29.89,
+          "judge_qwen38_27b_v1": 34.34
+        }
+      },
+      "detail": "Update 2026-01-20 (PST) (AI summary of creator comment): The market will resolve YES if:\n\nMartial law is active during voting hours\n\nIt has been declared by someone with authority to do so\n\nThis applies to any part of America\n\nThe declaration can be for any reason",
+      "forecasts": [
+        {
+          "made_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Martial law has never been declared during a US federal election, and the talk of it is hypothetical and tied to a 'rigged' result that would come after voting, not before (Axios, 2026-10-16). Trump allies have discussed martial law and Trump has mentioned the Insurrection Act, but per the digest no official step toward a declaration had followed by late October, advisers were steering Trump away from fraud claims (The Atlantic, Sept 23), and legal and practical barriers to sending troops to polling places are significant (Votebeat, Jan 2026). A Guard deployment or Insurrection Act invocation would not by itself count as martial law, and the declaration must be active during voting hours, so I stay near the floor with some room for a loose resolution.",
+          "sources": [
+            "https://axios.com/2026/10/16/trumps-maga-allies-openly-discuss-martial-law",
+            "https://www.votebeat.org/2026/01/20/trump-national-guard-troops-polling-places-2026-election-insurrection-act",
+            "https://www.kunc.org/2026-09-17/fears-grow-that-trump-could-use-military-to-influence-the-upcoming-election"
+          ]
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate is near zero: martial law has never been declared during a US federal election in over 200 years. Current discussions among MAGA activists are hypothetical and tied to a post-election 'rigged' scenario, not voting hours, and no official steps toward a declaration have been taken as of late October. While fears of military deployment exist, the Insurrection Act or Guard deployments are not martial law, and a formal declaration by a governor or the president remains highly unlikely without a sudden, severe crisis."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.04,
+          "rationale": "The base rate is extremely low: martial law has never been declared during a US federal election in over 200 years. The evidence shows elevated rhetoric from MAGA activists discussing martial law, but critically, their proposed scenario is a post-election response to a 'rigged' result, not something active during voting hours as the resolution criteria require. No official steps toward declaration had been taken by late October, legal barriers are significant, and the Insurrection Act or Guard deployments (which are not martial law) are the more realistic worst case. A small residual probability remains for an unexpected event on Election Day triggering a formal declaration, but this is unlikely given the specific criteria."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.02,
+          "rationale": "The base rate is essentially zero: martial law has never been declared during a US federal election in over 200 years. While rhetoric from MAGA activists and Trump himself is unusually elevated, the discussion centers on post-election responses to alleged fraud, not preemptive martial law during voting hours. Legal and practical barriers are significant, advisers are reportedly steering Trump away from fraud claims, and no concrete steps toward declaration have been taken. The probability would rise meaningfully only if a formal declaration were made by a governor or the president, or if major unrest erupted in the days before November 3."
+        },
+        {
+          "made_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0862
+        }
+      ],
+      "id": "manifold-dNytldIuNO",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261027",
+      "source_url": "https://manifold.markets/SpeaksForTrees/will-any-part-of-america-be-under-m",
+      "status": "resolved",
+      "title": "Will any part of America be under martial law during midterm elections?",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -2283,6 +2466,123 @@
       "status": "resolved",
       "title": "Will the Democrats win the Arizona governor race in 2026?",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.93,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Binance BTCUSDT traded near 78,000 on 2026-11-02, about 5.4% above 74,000, and the lowest low of the last 30 daily candles (76,325.98 on 2026-10-30) stayed above the line. That gap is about two average daily ranges (1,967) with roughly 54 hours left to the noon ET close on 2026-11-04, so a daily close below 74,000 would need a fresh shock. I leave a few points for the unresolved Binance hack (FBI statement of 2026-10-31, $643.3 million ETF outflow reported 2026-11-02) and for the way the pair fell 4% in a single day on 2026-10-29.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.coindesk.com/markets/2026/11/02/bitcoin-etfs-lost-usd643-million-in-outflows-friday-and-2026-is-barely-green-now",
+            "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+            "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "BTC is about 78,000, roughly 5.4% above the 74,000 line, with about 54 hours to the noon ET close on Nov 4. That is about 2 times the average daily range, and the last 30 daily closes were all above 74,000, so a drop through the line needs a large move. The Binance hack and ETF outflows add tail risk, such as forced liquidation of stolen funds or renewed exchange stress, but the price held up through the Oct 29-30 shock, so I put the chance of staying above at about 93%."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.925182,
+          "raw": 0.93,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9405
+        }
+      ],
+      "id": "polymarket-6346612",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-4-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $74,000 on November 4?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.84,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.84,
+          "rationale": "Binance ETHUSDT was 2,286 at about 10:39 UTC on 2026-11-02, 3.9% above 2,200, and 2026-10-31 and 2026-11-01 both closed (2,255.66 and 2,275.31) with lows above 2,200. The cushion is about one average daily range (86), with 54 hours to the noon ET close on 2026-11-04 and ISM Services at 10:00 ET that day as the main data risk; with 2.3-2.5% daily swings that gives a bit over 80% that the close stays above the line. The 2026-10-30 dip to 2,174.08 that was quickly bought back shows the level has acted as support.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://data-api.binance.vision/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1793322000000&limit=3"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "ETH was about 2,286, roughly 3.9% above the 2,200 line, with about 54 hours to the noon-ET close on Nov 4. With daily volatility of about 3.5-4%, 54 hours is roughly 1.5-1.8% per sqrt-day scaling, so the standard deviation is around 5-6% and the cushion is about 0.7 sigma, which gives roughly 76-80% for staying above. The 2,200 level has acted as support recently, but the Binance hack aftermath, ETF outflows, the midterms and ISM data add downside risk."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.849782,
+          "raw": 0.84,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.84
+        }
+      ],
+      "id": "polymarket-6346570",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-4-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,200 on November 4?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -3303,6 +3603,56 @@
       "title": "Will a Republican win the Florida governorship in 2026?",
       "topic": "Politics",
       "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.42,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74
+        }
+      },
+      "detail": "Resolves n/a if Nithya Raman or Karen bass don\u2019t advance to November\n\nResolves yes if Nithya Raman wins the November election for La mayor, or resolves no if she loses to Karen bass.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "The Berkeley IGS/Los Angeles Times poll of Oct 19-25 showed a 40-40 tie with 19% undecided, after Raman led 39-28 in September, so Karen Bass has the momentum. Of Spencer Pratt's primary voters (25.5% of the primary), 41% now favor Bass and only 14% Raman, with 45% undecided, and Rick Caruso said he would vote for Bass; Bass also leads among older voters, who have returned far more ballots (47% of over-65s against 13% of 18-34s as of Oct 29). Raman has a better image (42% favorable against Bass's 32%) and leads strongly among under-40 voters, so the race is close, with a slight edge to Bass.",
+          "sources": [
+            "https://www.latimes.com/california/story/2026-10-28/bass-comes-from-behind-now-in-dead-heat-with-raman-in-mayors-race-new-poll-shows",
+            "https://www.latimes.com/politics/story/2026-10-28/heres-where-bass-raman-need-to-win-over-pratt-voters",
+            "https://www.latimes.com/california/story/2026-10-29/raman-leads-among-younger-voters-polls-show-but-bass-isnt-conceding-any-ground",
+            "http://ens.lacity.org/clk/elections/clkelections3736198839_06022026.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.47,
+          "rationale": "The race is a dead heat at 40-40 with 19% undecided in the Berkeley IGS/LA Times poll. Bass has momentum: she moved from 28% in September to 40%, and undecided Pratt voters (45%) lean toward her (41% Bass vs 14% Raman among those who chose). Pratt voters are right-leaning and will likely break heavily to Bass, and Caruso endorsed her. Older voters, who favor Bass, are returning ballots at much higher rates (47% vs 13% for ages 18-34), which suggests the likely-voter electorate may skew toward her. Raman has better favorability (42/49 vs Bass 32/65) and a strong lead among young voters, but turnout in that group is the main uncertainty. The primary gave Bass 34% to Raman's 29%, and Bass plus most of Pratt's 25.5% looks like a path to a Bass win. I put Raman slightly below even."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.3999
+        }
+      ],
+      "id": "manifold-IdOgSACPIz",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://manifold.markets/Jack1/will-nithya-raman-beat-karen-bass-n",
+      "status": "resolved",
+      "title": "Will Nithya Raman Beat Karen Bass? (n/a if doesn\u2019t advance)",
+      "topic": "Politics",
+      "verdict": "wrong"
     },
     {
       "actual": "Manifold: No",
@@ -13292,56 +13642,6 @@
     {
       "actual": null,
       "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.42,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74
-        }
-      },
-      "detail": "Resolves n/a if Nithya Raman or Karen bass don\u2019t advance to November\n\nResolves yes if Nithya Raman wins the November election for La mayor, or resolves no if she loses to Karen bass.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.42,
-          "rationale": "The Berkeley IGS/Los Angeles Times poll of Oct 19-25 showed a 40-40 tie with 19% undecided, after Raman led 39-28 in September, so Karen Bass has the momentum. Of Spencer Pratt's primary voters (25.5% of the primary), 41% now favor Bass and only 14% Raman, with 45% undecided, and Rick Caruso said he would vote for Bass; Bass also leads among older voters, who have returned far more ballots (47% of over-65s against 13% of 18-34s as of Oct 29). Raman has a better image (42% favorable against Bass's 32%) and leads strongly among under-40 voters, so the race is close, with a slight edge to Bass.",
-          "sources": [
-            "https://www.latimes.com/california/story/2026-10-28/bass-comes-from-behind-now-in-dead-heat-with-raman-in-mayors-race-new-poll-shows",
-            "https://www.latimes.com/politics/story/2026-10-28/heres-where-bass-raman-need-to-win-over-pratt-voters",
-            "https://www.latimes.com/california/story/2026-10-29/raman-leads-among-younger-voters-polls-show-but-bass-isnt-conceding-any-ground",
-            "http://ens.lacity.org/clk/elections/clkelections3736198839_06022026.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.47,
-          "rationale": "The race is a dead heat at 40-40 with 19% undecided in the Berkeley IGS/LA Times poll. Bass has momentum: she moved from 28% in September to 40%, and undecided Pratt voters (45%) lean toward her (41% Bass vs 14% Raman among those who chose). Pratt voters are right-leaning and will likely break heavily to Bass, and Caruso endorsed her. Older voters, who favor Bass, are returning ballots at much higher rates (47% vs 13% for ages 18-34), which suggests the likely-voter electorate may skew toward her. Raman has better favorability (42/49 vs Bass 32/65) and a strong lead among young voters, but turnout in that group is the main uncertainty. The primary gave Bass 34% to Raman's 29%, and Bass plus most of Pratt's 25.5% looks like a path to a Bass win. I put Raman slightly below even."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.3999
-        }
-      ],
-      "id": "manifold-IdOgSACPIz",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://manifold.markets/Jack1/will-nithya-raman-beat-karen-bass-n",
-      "status": "pending",
-      "title": "Will Nithya Raman Beat Karen Bass? (n/a if doesn\u2019t advance)",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.38
@@ -13408,70 +13708,6 @@
       "call": {
         "members": 4,
         "method": "combined_weighted_v1",
-        "probability": 0.7,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the change in basis points in the target for the Selic rate resulting from the November 2026 meeting of the Bank of Brazil\u2019s Monetary Policy Committee (COPOM), relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Brazil, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 3-4, 2026, as listed on the official Bank of Brazil calendar (https://www.bcb.gov.br/en/about/bcb-calendar?categoria=Monetary%20Policy%20Committee%20(Copom)). This market may resolve as soon as the statement or release of the Bank of Brazil's November 2026 Monetary Policy Committee meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.8,
-          "rationale": "The Selic target is 13.75% after a 25 bp cut on 16 September 2026, the fifth straight 25 bp cut, and Copom has cut by exactly 25 bp at each of its last five meetings. A Focus-based summary says consensus points to a cut at the Nov 3-4 meeting, taking the rate to 13.50%, and the Focus end-2026 median of 13.25% implies further cuts at November and December. The September statement warned of uncertainty and de-anchored expectations, so a pause is the main risk.",
-          "sources": [
-            "https://www.riotimesonline.com/selic-rate-brazil-foreign-investors-guide/",
-            "https://ricoaospoucos.com.br/en/interest-rate/",
-            "https://www.bcb.gov.br/en/pressdetail/2680/nota",
-            "https://www.dgabc.com.br/Noticia/4353509/expectativa-para-a-selic-no-fim-de-2026-continua-em-13-25-no-focus-do-bc"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.7,
-          "rationale": "The last five Copom meetings have delivered consecutive 25 bp cuts, and the latest Focus survey median for end-2026 Selic is 13.25%, implying two more cuts. However, the September statement warned of uncertainty and de-anchored expectations, signaling caution that could lead to a pause."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.65,
-          "rationale": "The base rate is strongly supported by five consecutive 25 bp cuts and the Focus consensus pointing to 13.50% after November, implying a 25 bp cut. However, the September statement's explicit warning about 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and its call for 'serenity and caution' introduces meaningful risk of a pause. The end-2026 Focus median of 13.25% implies cuts in both November and December, but the cautionary tone could lead the committee to hold and cut in December instead. I estimate roughly 65% probability of a 25 bp cut, with the main risk being a pause driven by the de-anchoring concerns flagged in September."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.58,
-          "rationale": "Base rate: Copom has cut 25 bp at each of its last five meetings (March\u2013September 2026), establishing a strong pattern. The Focus survey median for end-2026 Selic remains 13.25%, implying roughly 50 bp of additional cuts across the November and December meetings, consistent with two more 25 bp steps. However, the September statement was notably hawkish, warning of 'significant increase in uncertainty, de-anchoring of expectations and elevated risks' and calling for 'serenity and caution,' which raises the probability of a pause. A 50 bp cut or hike appears unlikely. The probability could shift higher if the October Focus survey and IPCA-15 confirm disinflation, or lower if the real weakens further or October minutes signal a pause."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.24
-        }
-      ],
-      "id": "polymarket-3347919",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/bank-of-brazil-decision-in-november-1785878499354",
-      "status": "pending",
-      "title": "Will the Bank of Brazil decrease the target for the Selic rate by 25 bps at the November meeting?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
         "probability": 0.55,
         "weights": {
           "claude_code_forecaster_v1": 31.14,
@@ -13526,69 +13762,6 @@
       "source_url": "https://polymarket.com/event/alaska-senate-election-winner",
       "status": "pending",
       "title": "Will Mary Peltola win the Alaska Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.03,
-        "weights": {
-          "claude_code_forecaster_v1": 32.08,
-          "judge_deepseek_v4_pro_v1": 30.34,
-          "judge_minimax_m3_v1": 29.89,
-          "judge_qwen38_27b_v1": 34.34
-        }
-      },
-      "detail": "Update 2026-01-20 (PST) (AI summary of creator comment): The market will resolve YES if:\n\nMartial law is active during voting hours\n\nIt has been declared by someone with authority to do so\n\nThis applies to any part of America\n\nThe declaration can be for any reason",
-      "forecasts": [
-        {
-          "made_at": "2026-10-27T11:14:12+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.03,
-          "rationale": "Martial law has never been declared during a US federal election, and the talk of it is hypothetical and tied to a 'rigged' result that would come after voting, not before (Axios, 2026-10-16). Trump allies have discussed martial law and Trump has mentioned the Insurrection Act, but per the digest no official step toward a declaration had followed by late October, advisers were steering Trump away from fraud claims (The Atlantic, Sept 23), and legal and practical barriers to sending troops to polling places are significant (Votebeat, Jan 2026). A Guard deployment or Insurrection Act invocation would not by itself count as martial law, and the declaration must be active during voting hours, so I stay near the floor with some room for a loose resolution.",
-          "sources": [
-            "https://axios.com/2026/10/16/trumps-maga-allies-openly-discuss-martial-law",
-            "https://www.votebeat.org/2026/01/20/trump-national-guard-troops-polling-places-2026-election-insurrection-act",
-            "https://www.kunc.org/2026-09-17/fears-grow-that-trump-could-use-military-to-influence-the-upcoming-election"
-          ]
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.02,
-          "rationale": "The base rate is near zero: martial law has never been declared during a US federal election in over 200 years. Current discussions among MAGA activists are hypothetical and tied to a post-election 'rigged' scenario, not voting hours, and no official steps toward a declaration have been taken as of late October. While fears of military deployment exist, the Insurrection Act or Guard deployments are not martial law, and a formal declaration by a governor or the president remains highly unlikely without a sudden, severe crisis."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.04,
-          "rationale": "The base rate is extremely low: martial law has never been declared during a US federal election in over 200 years. The evidence shows elevated rhetoric from MAGA activists discussing martial law, but critically, their proposed scenario is a post-election response to a 'rigged' result, not something active during voting hours as the resolution criteria require. No official steps toward declaration had been taken by late October, legal barriers are significant, and the Insurrection Act or Guard deployments (which are not martial law) are the more realistic worst case. A small residual probability remains for an unexpected event on Election Day triggering a formal declaration, but this is unlikely given the specific criteria."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.02,
-          "rationale": "The base rate is essentially zero: martial law has never been declared during a US federal election in over 200 years. While rhetoric from MAGA activists and Trump himself is unusually elevated, the discussion centers on post-election responses to alleged fraud, not preemptive martial law during voting hours. Legal and practical barriers are significant, advisers are reportedly steering Trump away from fraud claims, and no concrete steps toward declaration have been taken. The probability would rise meaningfully only if a formal declaration were made by a governor or the president, or if major unrest erupted in the days before November 3."
-        },
-        {
-          "made_at": "2026-10-27T09:23:19.029333+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.0862
-        }
-      ],
-      "id": "manifold-dNytldIuNO",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261027",
-      "source_url": "https://manifold.markets/SpeaksForTrees/will-any-part-of-america-be-under-m",
-      "status": "pending",
-      "title": "Will any part of America be under martial law during midterm elections?",
       "topic": "Politics",
       "verdict": null
     },
@@ -13705,123 +13878,6 @@
       "status": "pending",
       "title": "Will Democrats win a majority in the U.S. House of Representatives in the 2026 midterm elections?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.93,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.93,
-          "rationale": "Binance BTCUSDT traded near 78,000 on 2026-11-02, about 5.4% above 74,000, and the lowest low of the last 30 daily candles (76,325.98 on 2026-10-30) stayed above the line. That gap is about two average daily ranges (1,967) with roughly 54 hours left to the noon ET close on 2026-11-04, so a daily close below 74,000 would need a fresh shock. I leave a few points for the unresolved Binance hack (FBI statement of 2026-10-31, $643.3 million ETF outflow reported 2026-11-02) and for the way the pair fell 4% in a single day on 2026-10-29.",
-          "sources": [
-            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.coindesk.com/markets/2026/11/02/bitcoin-etfs-lost-usd643-million-in-outflows-friday-and-2026-is-barely-green-now",
-            "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
-            "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.93,
-          "rationale": "BTC is about 78,000, roughly 5.4% above the 74,000 line, with about 54 hours to the noon ET close on Nov 4. That is about 2 times the average daily range, and the last 30 daily closes were all above 74,000, so a drop through the line needs a large move. The Binance hack and ETF outflows add tail risk, such as forced liquidation of stolen funds or renewed exchange stress, but the price held up through the Oct 29-30 shock, so I put the chance of staying above at about 93%."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.925182,
-          "raw": 0.93,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9405
-        }
-      ],
-      "id": "polymarket-6346612",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-4-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $74,000 on November 4?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.84,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.84,
-          "rationale": "Binance ETHUSDT was 2,286 at about 10:39 UTC on 2026-11-02, 3.9% above 2,200, and 2026-10-31 and 2026-11-01 both closed (2,255.66 and 2,275.31) with lows above 2,200. The cushion is about one average daily range (86), with 54 hours to the noon ET close on 2026-11-04 and ISM Services at 10:00 ET that day as the main data risk; with 2.3-2.5% daily swings that gives a bit over 80% that the close stays above the line. The 2026-10-30 dip to 2,174.08 that was quickly bought back shows the level has acted as support.",
-          "sources": [
-            "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
-            "https://data-api.binance.vision/api/v3/ticker/price?symbol=ETHUSDT",
-            "https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&interval=1h&startTime=1793322000000&limit=3"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.8,
-          "rationale": "ETH was about 2,286, roughly 3.9% above the 2,200 line, with about 54 hours to the noon-ET close on Nov 4. With daily volatility of about 3.5-4%, 54 hours is roughly 1.5-1.8% per sqrt-day scaling, so the standard deviation is around 5-6% and the cushion is about 0.7 sigma, which gives roughly 76-80% for staying above. The 2,200 level has acted as support recently, but the Binance hack aftermath, ETF outflows, the midterms and ISM data add downside risk."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.849782,
-          "raw": 0.84,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.84
-        }
-      ],
-      "id": "polymarket-6346570",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-4-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,200 on November 4?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -14121,62 +14177,6 @@
       "source_url": "https://manifold.markets/EvanDaniel/will-there-be-another-assassination-StRlcEuPUp",
       "status": "pending",
       "title": "Will there be another assassination of a US politician before the 2026 midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_weighted_v1",
-        "probability": 0.47,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 30.98
-        }
-      },
-      "detail": "Resolution criteria\n\nThis market resolves to \"YES\" if both of the following conditions are met:\n\nThe national average price of a gallon of regular gasoline reaches or exceeds $4.50 at any point between April 5, 2026, and the date of the 2026 midterm elections. This data will be verified using the AAA Gas Prices national average tracker.\n\nThe Democratic Party holds a majority of seats in both the U.S. House of Representatives and the U.S. Senate following the results of the 2026 midterm elections.\n\nThe market resolves to \"NO\" if gasoline prices do not reach or exceed $4.50 during the specified timeframe, or if the Democratic Party fails to secure control of either chamber of Congress. If official election results are contested, the market will resolve based on the certified results provided by the Federal Election Commission (FEC).\n\nBackground\n\nThe 2026 midterm elections will determine the composition of the 120th U.S. Congress. Historically, the party of the sitting president often faces challenges in midterm elections, which can impact the legislative agenda and the party's ability to maintain control of the House and Senate.\n\nGasoline prices are a significant economic indicator often cited in political discourse regarding inflation and voter sentiment. Traders should consider the historical correlation between energy prices and incumbent performance, alongside current polling data and projections for the 2026 election cycle as they become available.\n\nThis description was generated by AI.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.47,
-          "rationale": "The gasoline leg is already met: AAA reported the national regular average at $4.564 on 21 May 2026, above $4.50 inside the 5 Apr to election window, so the question reduces to whether Democrats win both chambers. Democrats need a net gain of three House seats (Cook rates 220 seats Solid/Likely/Lean Democratic, with a generic ballot near D+8.5) and a net gain of four in the Senate where Republicans hold 53; I put the House near 90% and the Senate near 52%, with a wave making the two positively correlated, and a small deduction for resolver risk on the gas leg and timing.",
-          "sources": [
-            "https://gasprices.aaa.com/memorial-day-weekend-gas-prices-reach-four-year-highs/",
-            "https://abcnews.com/Politics/control-congress-grabs-election-day-math-democrats-republicans/story?id=137229697",
-            "https://www.cookpolitical.com/ratings/senate-race-ratings"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.73,
-          "rationale": "The gas price condition is already satisfied (AAA reported $4.564 on May 21, 2026). The question reduces to whether Democrats win both chambers. Historically, the president's party loses both chambers in about 4 of 11 midterms when starting with both, but current conditions differ. Cook rates 7 Senate toss-ups (6 GOP-held, 1 Dem-held) with NC and GA Likely Democratic, meaning Democrats have a plausible path to net +4. The House is very close, with Democrats needing a net gain of 3-4 seats. Given Trump's low approval (33-35%), a strong Democratic performance is likely, but uncertainty remains. I estimate a 73% chance."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.45,
-          "rationale": "The gas condition is already met: AAA reported a $4.564 national average on 21 May 2026, which is inside the window. The question therefore reduces to whether Democrats win both chambers on 3 November. The base rate for the opposition winning both chambers is about 4 of 11 midterms, but this environment is much stronger than usual for Democrats: Trump's approval is in the low-to-mid 30s and gas prices are high. The House needs only a net gain of 3 seats, which looks likely (about 85-90%). The Senate needs a net gain of 4. North Carolina and Georgia are rated Likely Democratic, so Democrats would still need about 3 of the 6 Republican-held toss-ups (Alaska, Iowa, Kansas, Maine, Ohio, Texas) while also holding Michigan. That is roughly a coin flip, perhaps slightly better given the wave-like conditions. Some risk remains that close races, such as Alaska, are not called by the 5 November resolution date."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.5327
-        }
-      ],
-      "id": "manifold-npRtO25zAZ",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://manifold.markets/vdb/gas-exceeds-450-and-democrats-contr",
-      "status": "pending",
-      "title": "Gas exceeds $4.50, and democrats control both House and Senate?",
       "topic": "Politics",
       "verdict": null
     },
@@ -15685,6 +15685,49 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.07
+      },
+      "detail": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 3 12:00 PM ET to November 10, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-05T12:54:04+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The digest found no counted 2026 weekly series, only an NBC-reported 2025 pace of about 55 posts a day, roughly 390 a week (https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story, unchecked), so 180-199 (about 26-28 a day) would be a markedly quiet week for a window that spans the 2026 midterm aftermath. Weekly brackets listed for 2026 run from 80-99 to 500+ (https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159), so the distribution is wide and a 20-post bucket well below the recent pace holds only a small slice. Coherent with my 9% on the 320-339 bucket for Oct 30-Nov 6 (2026-11-02): that bucket sat near the middle of my expected range, and this one sits in the lower tail; evidence is thin and unchecked, so I keep some mass here rather than going lower."
+        },
+        {
+          "as_of": "2026-11-05",
+          "intercept": 0.359148,
+          "method": "claude_calibrated_v1",
+          "probability": 0.177079,
+          "raw": 0.07,
+          "results": 183,
+          "slope": 0.732756
+        },
+        {
+          "made_at": "2026-11-05T10:05:35.363807+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0755
+        }
+      ],
+      "id": "polymarket-6443529",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261105",
+      "source_url": "https://polymarket.com/event/elon-musk-of-tweets-november-3-november-10-2026",
+      "status": "pending",
+      "title": "Will Elon Musk post 180-199 tweets from November 3 to November 10, 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 2,
         "method": "combined_weighted_v1",
         "probability": 0.57,
@@ -16461,21 +16504,21 @@
     }
   ],
   "summary": {
-    "brier": 0.21505955889311956,
+    "brier": 0.21425287084333916,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 73,
-    "resolved": 182,
-    "right": 121,
+    "pending": 68,
+    "resolved": 188,
+    "right": 124,
     "toss_ups": 3,
-    "total": 259,
+    "total": 260,
     "unscored": 3,
     "vs_market": {
-      "market": 0.15876176055555558,
-      "ours": 0.2094291666666667,
-      "questions": 162
+      "market": 0.1570956261904762,
+      "ours": 0.20872752976190478,
+      "questions": 168
     },
-    "wrong": 58
+    "wrong": 61
   },
   "version": "track_record_v2"
 }

@@ -1,0 +1,19 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6443529",
+      "market_id": "6443529",
+      "method": "market_price_v1",
+      "volume": 24634.054411999998,
+      "yes_price": 0.0755
+    },
+    {
+      "id": "polymarket-6587953",
+      "market_id": "6587953",
+      "method": "market_price_v1",
+      "volume": 15304.451235,
+      "yes_price": 0.215
+    }
+  ],
+  "taken_at": "2026-11-05T10:05:35.363807+00:00"
+}

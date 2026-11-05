@@ -1,0 +1,37 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-05T10:05:35.363807+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0755
+        },
+        {
+          "created_at": "2026-11-05T12:54:04+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The digest found no counted 2026 weekly series, only an NBC-reported 2025 pace of about 55 posts a day, roughly 390 a week (https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story, unchecked), so 180-199 (about 26-28 a day) would be a markedly quiet week for a window that spans the 2026 midterm aftermath. Weekly brackets listed for 2026 run from 80-99 to 500+ (https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159), so the distribution is wide and a 20-post bucket well below the recent pace holds only a small slice. Coherent with my 9% on the 320-339 bucket for Oct 30-Nov 6 (2026-11-02): that bucket sat near the middle of my expected range, and this one sits in the lower tail; evidence is thin and unchecked, so I keep some mass here rather than going lower.",
+          "sources": []
+        }
+      ],
+      "id": "polymarket-6443529",
+      "market_id": "6443529",
+      "outcome": null,
+      "question": "Will Elon Musk post 180-199 tweets from November 3 to November 10, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 3 12:00 PM ET to November 10, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "resolution_date": "2026-11-10",
+      "resolution_source": "https://polymarket.com/event/elon-musk-of-tweets-november-3-november-10-2026",
+      "topic": "Politics"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v5+manifold_selection_v3",
+  "skipped": [
+    {
+      "id": "polymarket-6587953",
+      "reason": "no research"
+    }
+  ]
+}
