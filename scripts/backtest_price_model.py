@@ -18,15 +18,16 @@ import json
 import sys
 import time
 import urllib.request
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from forecastlab.price_model import parse_question, price_model_probability, realized_daily_vol  # noqa: E402
 import replay  # noqa: E402
+
+from forecastlab.price_model import parse_question, price_model_probability, realized_daily_vol  # noqa: E402
 
 UA = {"User-Agent": "Mozilla/5.0 (forecastlab replay backtest)"}
 COINBASE = {"BTC": "BTC-USD", "ETH": "ETH-USD", "SOL": "SOL-USD", "XRP": "XRP-USD"}
@@ -54,7 +55,7 @@ def fetch_coinbase(product: str, start: date, end: date) -> dict[str, dict]:
         url = (f"https://api.exchange.coinbase.com/products/{product}/candles?granularity=86400"
                f"&start={cur.isoformat()}T00:00:00Z&end={stop.isoformat()}T23:59:59Z")
         for ts, low, high, _open, close, _vol in json.loads(_get(url)):
-            d = datetime.fromtimestamp(ts, timezone.utc).date().isoformat()
+            d = datetime.fromtimestamp(ts, UTC).date().isoformat()
             bars[d] = {"high": high, "low": low, "close": close}
         cur = stop + timedelta(days=1)
     return bars
@@ -70,8 +71,8 @@ def fetch_fred(series: str, start: date) -> dict[str, dict]:
 
 
 def fetch_yahoo(symbol: str, start: date, end: date) -> dict[str, dict]:
-    p1 = int(datetime(start.year, start.month, start.day, tzinfo=timezone.utc).timestamp())
-    p2 = int(datetime(end.year, end.month, end.day, tzinfo=timezone.utc).timestamp()) + 86400
+    p1 = int(datetime(start.year, start.month, start.day, tzinfo=UTC).timestamp())
+    p2 = int(datetime(end.year, end.month, end.day, tzinfo=UTC).timestamp()) + 86400
     url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
            f"?period1={p1}&period2={p2}&interval=1d")
     res = json.loads(_get(url))["chart"]["result"][0]
@@ -81,7 +82,7 @@ def fetch_yahoo(symbol: str, start: date, end: date) -> dict[str, dict]:
     for i, ts in enumerate(res["timestamp"]):
         if q["close"][i] is None:
             continue
-        d = datetime.fromtimestamp(ts + off, timezone.utc).date().isoformat()
+        d = datetime.fromtimestamp(ts + off, UTC).date().isoformat()
         bars[d] = {"high": q["high"][i], "low": q["low"][i], "close": q["close"][i]}
     return bars
 

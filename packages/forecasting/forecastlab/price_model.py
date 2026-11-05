@@ -17,9 +17,9 @@ from __future__ import annotations
 
 import math
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date, timedelta
-from typing import Optional, Sequence
 
 CRYPTO = "crypto"
 WEEKDAY = "weekday"
@@ -71,7 +71,7 @@ class ParsedQuestion:
         return self.kind in (TOUCH_UP, TOUCH_DOWN)
 
 
-def _year_for(month: int, day: int, forecast_day: date, explicit: Optional[int]) -> date:
+def _year_for(month: int, day: int, forecast_day: date, explicit: int | None) -> date:
     if explicit:
         return date(explicit, month, day)
     for y in (forecast_day.year, forecast_day.year + 1, forecast_day.year - 1):
@@ -81,7 +81,7 @@ def _year_for(month: int, day: int, forecast_day: date, explicit: Optional[int])
     return _safe_date(forecast_day.year, month, day)
 
 
-def _safe_date(y: int, m: int, d: int) -> Optional[date]:
+def _safe_date(y: int, m: int, d: int) -> date | None:
     try:
         return date(y, m, d)
     except ValueError:
@@ -93,7 +93,7 @@ def _month_end(y: int, m: int) -> date:
     return nxt - timedelta(days=1)
 
 
-def _parse_threshold(title: str, asset: str) -> Optional[float]:
+def _parse_threshold(title: str, asset: str) -> float | None:
     if asset == "DGS10":
         m = re.search(r"(\d+(?:\.\d+)?)\s*(?:%|percent)", title)
         return float(m.group(1)) if m else None
@@ -106,7 +106,7 @@ def _parse_threshold(title: str, asset: str) -> Optional[float]:
         return None
 
 
-def _parse_kind(title: str, detail: str = "") -> Optional[str]:
+def _parse_kind(title: str, detail: str = "") -> str | None:
     kind = _parse_kind_title(title)
     if kind is None and re.search(r"any .{0,40}candle", detail, re.I):
         # untitled-verb markets, e.g. "Bitcoin $87,500 in October 2026?"
@@ -117,7 +117,7 @@ def _parse_kind(title: str, detail: str = "") -> Optional[str]:
     return kind
 
 
-def _parse_kind_title(title: str) -> Optional[str]:
+def _parse_kind_title(title: str) -> str | None:
     t = title.lower()
     if re.search(r"\bdip to\b|\bfall to\b|\bdrop to\b|\(low\)", t):
         return TOUCH_DOWN
@@ -160,7 +160,7 @@ def _parse_window(title: str, detail: str, forecast_day: date, is_touch: bool):
     return None
 
 
-def parse_question(title: str, detail: str, forecast_day: date) -> Optional[ParsedQuestion]:
+def parse_question(title: str, detail: str, forecast_day: date) -> ParsedQuestion | None:
     """Parse an asset-price question, or return None if it is not one we price."""
     title = (title or "").strip()
     if not title or re.search(r"\band\b|\bor\b", title, re.I):  # compound questions
@@ -228,12 +228,12 @@ def terminal_above_probability(spot: float, strike: float, sigma: float, t: floa
     return _phi((math.log(spot / strike) + nu * t) / (sigma * math.sqrt(t)))
 
 
-def realized_daily_vol(closes: Sequence[float], window: int = 30) -> Optional[float]:
+def realized_daily_vol(closes: Sequence[float], window: int = 30) -> float | None:
     """Sample stdev of daily log returns over the last `window` closes."""
     xs = [c for c in closes if c and c > 0][-(window + 1):]
     if len(xs) < 11:
         return None
-    r = [math.log(b / a) for a, b in zip(xs, xs[1:])]
+    r = [math.log(b / a) for a, b in zip(xs, xs[1:], strict=False)]
     mean = sum(r) / len(r)
     return math.sqrt(sum((x - mean) ** 2 for x in r) / (len(r) - 1))
 
@@ -272,7 +272,7 @@ def price_model_probability(
     start up to spot_date (data before the forecast day only)."""
     if q.kind == TOUCH_UP and any(h >= q.threshold for h in highs_so_far):
         return 1.0
-    if q.kind == TOUCH_DOWN and any(l <= q.threshold for l in lows_so_far):
+    if q.kind == TOUCH_DOWN and any(lo <= q.threshold for lo in lows_so_far):
         return 1.0
     if q.is_touch:
         up = q.kind == TOUCH_UP

@@ -5,9 +5,15 @@ from datetime import date
 import pytest
 
 from forecastlab.price_model import (
-    ABOVE, BELOW, TOUCH_DOWN, TOUCH_UP,
-    barrier_hit_probability, parse_question, price_model_probability,
-    realized_daily_vol, terminal_above_probability,
+    ABOVE,
+    BELOW,
+    TOUCH_DOWN,
+    TOUCH_UP,
+    barrier_hit_probability,
+    parse_question,
+    price_model_probability,
+    realized_daily_vol,
+    terminal_above_probability,
 )
 
 D = date(2026, 10, 28)
