@@ -5,7 +5,7 @@
   "model_family": "grok",
   "passes": 3,
   "parallel": 3,
-  "timeout_s": 240,
+  "timeout_s": 420,
   "daily_run_cap": 120,
   "weekly_run_cap": 1000,
   "window_hours": [2, 8],
