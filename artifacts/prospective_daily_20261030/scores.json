@@ -1,9 +1,11 @@
 {
   "cells": [
     {
+      "brier": 0.19281106180144642,
       "entry_id": "bdddde8088e754fd",
+      "log_loss": 0.5782172138859683,
       "method": "statistical_baseline_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.4391025641025641,
       "release_event": "claims-2026-11-05",
       "status": "forecasted"
@@ -16,19 +18,24 @@
     "statistical_baseline_v1": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.19281106180144642,
+      "mean_log_loss": 0.5782172138859683,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     }
   },
   "outcomes": {
     "bdddde8088e754fd": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "basis": "alfred_initial_vintage",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=ICSA&cosd=2026-10-17&coed=2026-10-31&vintage_date=2026-11-04",
+      "status": "resolved",
+      "value": "189000",
+      "vintage_date": "2026-11-05",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=ICSA&cosd=2026-10-17&coed=2026-10-31&vintage_date=2026-11-05"
     }
   },
-  "resolved_entries": 0,
+  "resolved_entries": 1,
   "scored_on": "2026-11-05",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 1

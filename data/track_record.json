@@ -1,32 +1,32 @@
 {
   "calibration": {
     "as_of": "2026-11-05",
-    "intercept": 0.359148,
-    "results": 183,
-    "slope": 0.732756
+    "intercept": 0.367655,
+    "results": 184,
+    "slope": 0.737681
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.21425287084333916,
+      "brier": 0.2133155304228906,
       "coin_flip_brier": 0.25,
       "forecasts": 260,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 188,
-      "right": 124,
+      "resolved": 190,
+      "right": 126,
       "toss_ups": 3,
       "wrong": 61
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20384891304347827,
+      "brier": 0.2031708108108108,
       "coin_flip_brier": 0.25,
       "forecasts": 255,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 184,
-      "right": 121,
+      "resolved": 185,
+      "right": 122,
       "toss_ups": 6,
       "wrong": 57
     },
@@ -56,13 +56,13 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21675342465753425,
+      "brier": 0.21529591836734693,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 146,
-      "right": 96,
+      "resolved": 147,
+      "right": 97,
       "toss_ups": 1,
       "wrong": 49
     },
@@ -80,37 +80,37 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21404405594405596,
+      "brier": 0.21278263888888888,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 143,
-      "right": 102,
+      "resolved": 144,
+      "right": 103,
       "toss_ups": 0,
       "wrong": 41
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21834563758389264,
+      "brier": 0.21741266666666667,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 149,
-      "right": 103,
+      "resolved": 150,
+      "right": 104,
       "toss_ups": 1,
       "wrong": 45
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.20145185185185188,
+      "brier": 0.19883636363636364,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 54,
-      "right": 37,
+      "resolved": 55,
+      "right": 38,
       "toss_ups": 1,
       "wrong": 16
     },
@@ -164,13 +164,13 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2633553013407419,
+      "brier": 0.25943617692189214,
       "coin_flip_brier": 0.25,
       "forecasts": 27,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 17,
-      "right": 6,
+      "resolved": 18,
+      "right": 7,
       "toss_ups": 0,
       "wrong": 11
     },
@@ -200,19 +200,50 @@
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.15909049868421055,
+      "brier": 0.15545329846153846,
       "coin_flip_brier": 0.25,
       "forecasts": 56,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 38,
-      "right": 26,
+      "resolved": 39,
+      "right": 27,
       "toss_ups": 0,
       "wrong": 12
     }
   ],
   "generated_on": "2026-11-05",
   "questions": [
+    {
+      "actual": "189,000 claims",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.4391025641025641,
+        "weights": {
+          "statistical_baseline_v1": 15.02
+        }
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-31 be above 194,000 claims?",
+      "forecasts": [
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4391025641025641
+        }
+      ],
+      "id": "bdddde8088e754fd",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261030",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Oct 31, 2026 come in above 194,000 claims?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
     {
       "actual": "Manifold: Yes",
       "call": {
@@ -3361,6 +3392,76 @@
       "source_url": "https://manifold.markets/Jack1/will-phil-scott-win-the-2026-vermon",
       "status": "resolved",
       "title": "Will Phil Scott win the 2026 Vermont Gubernatorial Election?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.76,
+        "weights": {
+          "claude_code_forecaster_v1": 30.48,
+          "judge_claude_sonnet55_v1": 16.0,
+          "judge_deepseek_v4_pro_v1": 30.98,
+          "judge_minimax_m3_v1": 32.13,
+          "judge_qwen38_27b_v1": 40.01
+        }
+      },
+      "detail": "This market will resolve YES if, following the 2026 United States House of Representatives elections, the Democratic Party wins at least 225 seats.\n\nDefinition of \"Democratic Seat\": Any seat won by a candidate who ran on the Democratic ballot line. Independents who caucus with Democrats do not count toward this total unless they were elected as Democrats.\n\nResolution Source: This market will resolve based on the \"Partisan Breakdown\" table provided by Ballotpedia (link below).\n\nTiming: Resolution will occur once Ballotpedia has called all 435 races. If any race is subject to a recount or legal challenge, resolution will be delayed until a winner is certified or conceded.\n\nSpecial Case: If a seat is vacant on Election Day, it is not counted until the 2026 general election result for that district is finalized.\n\nResolution Link: https://ballotpedia.org/United_States_House_of_Representatives_elections,_2026",
+      "forecasts": [
+        {
+          "made_at": "2026-10-29T11:00:34+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "Democrats started the cycle at 215 seats, so 225 needs a net gain of 10, but Cook's 23 Oct ratings already have 220 seats Solid/Likely/Lean Democratic with 17 toss-ups, so Democrats need only five of 17 toss-ups (or some Republican-rated seats), and the generic ballot averages about D+8.5. A wave of that size typically breaks most toss-ups the same way, and Cook's own flip range of 12 to 22 seats lands at 227-237, but new Republican-drawn maps, the narrow cushion over 225 and a possible late recount or call delay keep this from being near-certain.",
+          "sources": [
+            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
+            "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+          ]
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.95,
+          "rationale": "The base rate for Democrats reaching 225 seats in midterms under a Republican president is 2 of the last 3 (2006, 2018). Cook Political Report's latest ratings already favor Democrats in 220 seats, with a projected gain of 12-22 seats from their current 215 (yielding 227+), and a generic ballot lead of 8.5 points mirrors the 2018 wave that produced 235 seats. The main risk is a polling overestimation or an upset in toss-up races, but the evidence points overwhelmingly to a Democratic majority exceeding 225."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.82,
+          "rationale": "Base rate for Democrats reaching 225 in a midterm under a Republican president is 2/3 (2006, 2018), but the current environment is unusually favorable: Cook's ratings already show 220 Democratic-favored seats (only 5 short of 225), the generic ballot averages +8.5% for Democrats, and Cook's own stated range of 12-22 flips from 215 puts the minimum at 227. The main risks are a narrowing generic ballot on Election Day, the structural headwind from new maps favoring Republicans by ~9 districts, and 60 open seats adding volatility, but reaching 225 requires Democrats to win only 5 of 17 toss-ups on top of their 220 favored seats, which an +8.5% environment makes highly probable."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.72,
+          "rationale": "Base rate from 1994-2024 shows Democrats hit 225+ in only 3 of 16 elections, but in midterms under a Republican president (2002, 2006, 2018) they did so in 2 of 3. Current evidence is strong: Cook rates 220 seats as Solid/Likely/Lean Democratic with 17 toss-ups, and the generic ballot shows Democrats +8.5, suggesting they win enough toss-ups and Lean seats to clear 225. Cook's projected flip range of 12-22 seats from 215 puts the most likely outcome above 225. Risks include Republican-favoring new maps, a narrower generic ballot, or underperformance in toss-ups, but the overall environment strongly favors Democrats reaching 225."
+        },
+        {
+          "made_at": "2026-10-29T11:02:01.628461+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.76,
+          "rationale": "Democrats reached 225 in only 3 of 16 elections since 1994, but 2 of 3 midterms under a Republican president. Cook already rates 220 seats Solid, Likely or Lean Democratic, so Democrats need only 5 of 17 toss-ups, and the generic ballot lead of about 8.5 points is close to 2018's, when they won 235. Cook's own range of 12 to 22 flips implies roughly 227 to 237 seats. The main risks are that the new Republican-favoring maps hold up better than the ratings suggest, that toss-ups break toward Republicans, and that some Lean Democratic seats are lost."
+        },
+        {
+          "made_at": "2026-10-29T09:12:31.275149+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.8687
+        }
+      ],
+      "id": "manifold-QtntARQCu9",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261029",
+      "source_url": "https://manifold.markets/ShaneBo/will-democrats-have-225-or-more-sea",
+      "status": "resolved",
+      "title": "Will Democrats have 225 or more seats after the 2026 House Elections?",
       "topic": "Politics",
       "verdict": "right"
     },
@@ -13573,76 +13674,6 @@
       "actual": null,
       "call": {
         "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.76,
-        "weights": {
-          "claude_code_forecaster_v1": 30.48,
-          "judge_claude_sonnet55_v1": 16.0,
-          "judge_deepseek_v4_pro_v1": 30.98,
-          "judge_minimax_m3_v1": 32.13,
-          "judge_qwen38_27b_v1": 40.01
-        }
-      },
-      "detail": "This market will resolve YES if, following the 2026 United States House of Representatives elections, the Democratic Party wins at least 225 seats.\n\nDefinition of \"Democratic Seat\": Any seat won by a candidate who ran on the Democratic ballot line. Independents who caucus with Democrats do not count toward this total unless they were elected as Democrats.\n\nResolution Source: This market will resolve based on the \"Partisan Breakdown\" table provided by Ballotpedia (link below).\n\nTiming: Resolution will occur once Ballotpedia has called all 435 races. If any race is subject to a recount or legal challenge, resolution will be delayed until a winner is certified or conceded.\n\nSpecial Case: If a seat is vacant on Election Day, it is not counted until the 2026 general election result for that district is finalized.\n\nResolution Link: https://ballotpedia.org/United_States_House_of_Representatives_elections,_2026",
-      "forecasts": [
-        {
-          "made_at": "2026-10-29T11:00:34+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "Democrats started the cycle at 215 seats, so 225 needs a net gain of 10, but Cook's 23 Oct ratings already have 220 seats Solid/Likely/Lean Democratic with 17 toss-ups, so Democrats need only five of 17 toss-ups (or some Republican-rated seats), and the generic ballot averages about D+8.5. A wave of that size typically breaks most toss-ups the same way, and Cook's own flip range of 12 to 22 seats lands at 227-237, but new Republican-drawn maps, the narrow cushion over 225 and a possible late recount or call delay keep this from being near-certain.",
-          "sources": [
-            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
-            "https://news.ballotpedia.org/2026/10/14/republicans-cannot-lose-more-than-two-seats-to-keep-control-of-the-u-s-house-democrats-need-to-gain-three-for-a-majority/",
-            "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
-          ]
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.95,
-          "rationale": "The base rate for Democrats reaching 225 seats in midterms under a Republican president is 2 of the last 3 (2006, 2018). Cook Political Report's latest ratings already favor Democrats in 220 seats, with a projected gain of 12-22 seats from their current 215 (yielding 227+), and a generic ballot lead of 8.5 points mirrors the 2018 wave that produced 235 seats. The main risk is a polling overestimation or an upset in toss-up races, but the evidence points overwhelmingly to a Democratic majority exceeding 225."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.82,
-          "rationale": "Base rate for Democrats reaching 225 in a midterm under a Republican president is 2/3 (2006, 2018), but the current environment is unusually favorable: Cook's ratings already show 220 Democratic-favored seats (only 5 short of 225), the generic ballot averages +8.5% for Democrats, and Cook's own stated range of 12-22 flips from 215 puts the minimum at 227. The main risks are a narrowing generic ballot on Election Day, the structural headwind from new maps favoring Republicans by ~9 districts, and 60 open seats adding volatility, but reaching 225 requires Democrats to win only 5 of 17 toss-ups on top of their 220 favored seats, which an +8.5% environment makes highly probable."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.72,
-          "rationale": "Base rate from 1994-2024 shows Democrats hit 225+ in only 3 of 16 elections, but in midterms under a Republican president (2002, 2006, 2018) they did so in 2 of 3. Current evidence is strong: Cook rates 220 seats as Solid/Likely/Lean Democratic with 17 toss-ups, and the generic ballot shows Democrats +8.5, suggesting they win enough toss-ups and Lean seats to clear 225. Cook's projected flip range of 12-22 seats from 215 puts the most likely outcome above 225. Risks include Republican-favoring new maps, a narrower generic ballot, or underperformance in toss-ups, but the overall environment strongly favors Democrats reaching 225."
-        },
-        {
-          "made_at": "2026-10-29T11:02:01.628461+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.76,
-          "rationale": "Democrats reached 225 in only 3 of 16 elections since 1994, but 2 of 3 midterms under a Republican president. Cook already rates 220 seats Solid, Likely or Lean Democratic, so Democrats need only 5 of 17 toss-ups, and the generic ballot lead of about 8.5 points is close to 2018's, when they won 235. Cook's own range of 12 to 22 flips implies roughly 227 to 237 seats. The main risks are that the new Republican-favoring maps hold up better than the ratings suggest, that toss-ups break toward Republicans, and that some Lean Democratic seats are lost."
-        },
-        {
-          "made_at": "2026-10-29T09:12:31.275149+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.8687
-        }
-      ],
-      "id": "manifold-QtntARQCu9",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261029",
-      "source_url": "https://manifold.markets/ShaneBo/will-democrats-have-225-or-more-sea",
-      "status": "pending",
-      "title": "Will Democrats have 225 or more seats after the 2026 House Elections?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
         "method": "combined_median_v1",
         "probability": 0.38
       },
@@ -13937,37 +13968,6 @@
       "status": "pending",
       "title": "Will Anthropic release a new Claude Fable model before November 5, 2026?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.4391025641025641,
-        "weights": {
-          "statistical_baseline_v1": 15.02
-        }
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-10-31 be above 194,000 claims?",
-      "forecasts": [
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.4391025641025641
-        }
-      ],
-      "id": "bdddde8088e754fd",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261030",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Oct 31, 2026 come in above 194,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -16504,19 +16504,19 @@
     }
   ],
   "summary": {
-    "brier": 0.21425287084333916,
+    "brier": 0.2133155304228906,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 68,
-    "resolved": 188,
-    "right": 124,
+    "pending": 66,
+    "resolved": 190,
+    "right": 126,
     "toss_ups": 3,
     "total": 260,
     "unscored": 3,
     "vs_market": {
-      "market": 0.1570956261904762,
-      "ours": 0.20872752976190478,
-      "questions": 168
+      "market": 0.15626807627218936,
+      "ours": 0.20783328402366863,
+      "questions": 169
     },
     "wrong": 61
   },
