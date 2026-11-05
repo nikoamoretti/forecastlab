@@ -1,0 +1,28 @@
+name: Replay backtest
+
+# Runs scripts/backtest_price_model.py where the public price hosts (Coinbase,
+# FRED, Yahoo) are reachable, scores it with scripts/replay.py and uploads
+# artifacts/replay/ as an artifact. Uses no secrets and no market prices.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Backtest
+        run: python scripts/backtest_price_model.py --fetch
+      - name: Score
+        run: python scripts/replay.py score artifacts/replay/price_model_v1.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: replay
+          path: artifacts/replay/
