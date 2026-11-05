@@ -1,22 +1,24 @@
 {
-  "cost_usd": {},
-  "downloaded_at": "2026-11-05T10:11:43.609514+00:00",
+  "cost_usd": {
+    "polymarket-6443529": 0.1866,
+    "polymarket-6587953": 0.154
+  },
   "failed": {
-    "polymarket-6443529": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 1 of 3: the outside view only. Later passes look ",
-    "polymarket-6587953": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-low', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 1 of 3: the outside view only. Later passes look "
+    "polymarket-6443529": "ValueError: only 1 usable sources",
+    "polymarket-6587953": "ValueError: only 1 usable sources"
   },
   "findings": {},
   "mode": "live",
   "model": "grok-4.7-low",
   "model_family": "grok",
-  "passes": 3,
+  "passes": 1,
   "provider": "cursor",
-  "researched_at": "2026-11-05T10:09:53+00:00",
+  "researched_at": "2026-11-05T12:40:49+00:00",
   "researched_by": {},
   "runs": 2,
   "seconds": {
-    "polymarket-6443529": 240.1,
-    "polymarket-6587953": 240.1
+    "polymarket-6443529": 40.0,
+    "polymarket-6587953": 24.2
   },
   "sources": {}
 }
