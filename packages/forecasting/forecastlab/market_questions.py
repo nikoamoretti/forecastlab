@@ -327,6 +327,11 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                  "limit": "500"}
         markets = fetch(f"{MANIFOLD}/search-markets?{urllib.parse.urlencode(query)}")
         _count(stats, f"markets:{slug}", len(markets))
+        if stats is not None and markets:  # how far the page reaches: sorted by close date, a full page may stop short of the window
+            times = [m["closeTime"] for m in markets if isinstance(m.get("closeTime"), int | float)]
+            if times:
+                stats[f"page_close_range_days_from_now:{slug}:min"] = round((min(times) / 1000 - now.timestamp()) / 86400)
+                stats[f"page_close_range_days_from_now:{slug}:max"] = round((max(times) / 1000 - now.timestamp()) / 86400)
         for market in markets:
             if market["id"] in found:
                 _count(stats, "drop:already_taken_from_other_topic")
@@ -341,7 +346,8 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 continue
             closes_at = datetime.fromtimestamp(closes / 1000, tz=now.tzinfo)
             if not start <= closes_at <= end:
-                _count(stats, "drop:window")
+                _count(stats, "drop:window_closes_already_past" if closes_at < now else
+                       "drop:window_closes_within_2_days" if closes_at < start else "drop:window_closes_after_10_days")
             elif not MIN_PRICE <= price <= MAX_PRICE:
                 _count(stats, "drop:price_band")
             elif int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS:

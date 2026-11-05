@@ -142,7 +142,7 @@ def pool(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetc
             continue
         chosen += picked
         print(f"{source.upper()} funnel (limit {limit}):")
-        print("\n".join(_funnel(stats, ("events:", "markets:")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
+        print("\n".join(_funnel(stats, ("events:", "markets:", "page_close")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
                         + _funnel(stats, ("select:",))))
         print(f"  chosen: {len(picked)}")
     return result
