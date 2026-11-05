@@ -1,0 +1,38 @@
+name: Replay backtest
+
+# Runs scripts/backtest_price_model.py where the public price hosts (Coinbase,
+# FRED, Yahoo) are reachable, scores it with scripts/replay.py and uploads
+# artifacts/replay/ as an artifact. Uses no secrets and no market prices.
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/replay-lab]
+    paths: [.github/workflows/replay-backtest.yml, scripts/backtest_price_model.py]
+
+permissions:
+  contents: write
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Backtest
+        run: python scripts/backtest_price_model.py --fetch
+      - name: Score
+        run: python scripts/replay.py score artifacts/replay/price_model_v1.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Commit the results to the branch
+        if: github.ref == 'refs/heads/claude/replay-lab'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/replay
+          git diff --cached --quiet || { git commit -q -m "Replay backtest results (price_model_v1)" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01P8fEDh68gZhgsGj2FAxaVj"; git push; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: replay
+          path: artifacts/replay/
