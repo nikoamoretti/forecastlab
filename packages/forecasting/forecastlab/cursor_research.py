@@ -35,6 +35,7 @@ from pathlib import Path
 from typing import Any, Optional, Tuple, Union  # noqa: UP035 -- the Mac may run Python 3.9
 from zoneinfo import ZoneInfo
 
+from forecastlab import live_counts
 from forecastlab.research import MARKET_WORDS, RESEARCH_FILE, clean, is_market_site
 
 UTC = timezone.utc  # noqa: UP017 -- datetime.UTC needs Python 3.11; the Mac may run 3.9
@@ -201,7 +202,13 @@ def _header(task: dict[str, str], today: str, part: str = "") -> str:
         f"Resolution date: {task['resolves_on']}\n"
         + (f"Topic: {task['topic']}\n" if task.get("topic") else "")
         + "\n"
+        + live_counts.live_rules(task, today)[0]
     )
+
+
+def _sources_json(task: dict[str, str], today: str) -> str:
+    """The shared reply fields, plus `tally` (count questions) or `spot` (asset-price questions)."""
+    return SOURCES_JSON + live_counts.live_rules(task, today)[1]
 
 
 def _checklist(items: list[str]) -> str:
@@ -225,7 +232,7 @@ def prompt(task: dict[str, str], today: str, checklist: list[str] | None = None)
         + SEARCH_RULES
         + _checklist(checklist or [])
         + ONLY_JSON
-        + "{" + SOURCES_JSON + ",\n"
+        + "{" + _sources_json(task, today) + ",\n"
         ' "base_rate": "how often comparable events happened: the reference class, the counts and the period; '
         'empty if none applies",\n'
         ' "different_now": "what is specific to this case now, compared with the reference class, and which way '
@@ -248,7 +255,7 @@ def outside_prompt(task: dict[str, str], today: str, total: int = 3) -> str:
         "Give the counts and the period. Do not yet look for what makes this case different.\n"
         + SEARCH_RULES
         + ONLY_JSON
-        + "{" + SOURCES_JSON + ",\n"
+        + "{" + _sources_json(task, today) + ",\n"
         ' "base_rate": "how often comparable events happened: the reference class, the counts and the period; '
         'empty if none applies"}\n'
         "Use 2 to 6 sources, each with 1 to 3 quotes that bear on the question. " + QUOTE_RULES
@@ -263,6 +270,10 @@ def _earlier(found: dict[str, Any]) -> str:
         lines.append(f"Different this time: {found['different_now']}")
     if found.get("against"):
         lines.append(f"Case for the other outcome: {found['against']}")
+    tally = found.get("tally")
+    if tally:
+        lines.append(f"Running tally already read: {live_counts.fmt(tally['value'])} {tally.get('unit', '')} at {tally.get('read_at', '')} "
+                     f"from {tally['source_url']}")
     lines += [f"- {f['fact']}" for f in found.get("facts", [])]
     urls = [s["url"] for s in found.get("sources", [])]
     if urls:
@@ -285,7 +296,7 @@ def inside_prompt(task: dict[str, str], today: str, outside: dict[str, Any], che
         + SEARCH_RULES
         + _checklist(checklist or [])
         + ONLY_JSON
-        + "{" + SOURCES_JSON + ",\n"
+        + "{" + _sources_json(task, today) + ",\n"
         ' "different_now": "what is specific to this case now, compared with the reference class, and which way '
         'it pushes, including the scheduled events before resolution; empty if nothing stands out",\n'
         ' "uncertainties": ["what is still unknown and could change the answer"]}\n'
@@ -306,7 +317,7 @@ def against_prompt(task: dict[str, str], today: str, found: dict[str, Any]) -> s
         "source listed in this reply.\n"
         + SEARCH_RULES
         + ONLY_JSON
-        + "{" + SOURCES_JSON + ",\n"
+        + "{" + _sources_json(task, today) + ",\n"
         ' "against": "the strongest evidence for that outcome, in a few sentences, each claim dated",\n'
         ' "uncertainties": ["what is still unknown and could change the answer"]}\n'
         "Use 1 to 5 sources, each with 1 to 3 quotes that bear on the question. " + QUOTE_RULES
@@ -359,9 +370,16 @@ def validate(reply: str, *, min_sources: int = MIN_SOURCES, min_facts: int = MIN
     if need_against and not against:
         raise ValueError("no case for the other outcome")
     uncertainties = [u for u in (_text(u, 300) for u in data.get("uncertainties") or [] if isinstance(u, str)) if u]
-    return {"sources": sources, "facts": facts, "base_rate": _text(data.get("base_rate"), 600),
-            "different_now": _text(data.get("different_now"), 600), "against": against,
-            "uncertainties": uncertainties[:5]}
+    found = {"sources": sources, "facts": facts, "base_rate": _text(data.get("base_rate"), 600),
+             "different_now": _text(data.get("different_now"), 600), "against": against,
+             "uncertainties": uncertainties[:5]}
+    bad = lambda url: is_market_site(url) or bool(MARKET_WORDS.search(url))  # noqa: E731
+    tally, spot = live_counts.clean_tally(data.get("tally"), bad), live_counts.clean_spot(data.get("spot"), bad)
+    if tally:
+        found["tally"] = tally
+    if spot:
+        found["spot"] = spot
+    return found
 
 
 def _url_key(url: str) -> str:
@@ -410,10 +428,15 @@ def merge(parts: dict[str, dict[str, Any]]) -> dict[str, Any]:
     def owned(field: str, *owners: str) -> str:
         return next((parts[o][field] for o in owners if o in parts and parts[o][field]), "")
 
-    return {"sources": sources, "facts": facts, "base_rate": owned("base_rate", "combined", "outside"),
-            "different_now": owned("different_now", "combined", "inside"),
-            "against": owned("against", "combined", "against"),
-            "uncertainties": uncertainties[:MAX_UNCERTAINTIES], "passes_done": order}
+    merged = {"sources": sources, "facts": facts, "base_rate": owned("base_rate", "combined", "outside"),
+              "different_now": owned("different_now", "combined", "inside"),
+              "against": owned("against", "combined", "against"),
+              "uncertainties": uncertainties[:MAX_UNCERTAINTIES], "passes_done": order}
+    for key in ("tally", "spot"):  # the reading taken last wins
+        best = live_counts.pick_latest([parts[name].get(key) for name in order])
+        if best:
+            merged[key] = best
+    return merged
 
 
 CURSOR_TRIES = 2
@@ -553,6 +576,7 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
         findings[task["id"]] = {"facts": result["facts"], "base_rate": result["base_rate"],
                                 "different_now": result["different_now"], "against": result["against"],
                                 "uncertainties": result["uncertainties"], "passes_done": result["passes_done"],
+                                **{k: result[k] for k in ("tally", "spot") if result.get(k)},
                                 **({"passes_failed": outcome.failed} if outcome.failed else {})}
         if by:
             researched_by[task["id"]] = by
@@ -562,13 +586,23 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
             "failed": failed, "researched_by": researched_by, "seconds": seconds, "cost_usd": costs}
 
 
-def digest(data: dict[str, Any], qid: str) -> str:
-    """The evidence for one question as a short text for the forecaster: facts, base rate, what differs now, gaps, sources."""
+def digest(data: dict[str, Any], qid: str, task: dict[str, str] | None = None, today: str = "") -> str:
+    """The evidence for one question as a short text for the forecaster: facts, base rate, what differs now, gaps, sources.
+
+    With the question's ``task``, a count/total question opens with its live tally and projection (or a warning that
+    none was found) and an asset-price question gets one price-math reference line, both before the facts.
+    """
     sources = data.get("sources", {}).get(qid, [])
     found = data.get("findings", {}).get(qid)
     if not found:
         return "No research for this question."
-    lines = [f"- {f['fact']} [{f['source'] + 1}]" for f in found["facts"]]
+    lines = []
+    if task:
+        try:
+            lines = live_counts.digest_head(found, task, today or f"{datetime.now(UTC):%Y-%m-%d}")
+        except Exception:  # noqa: BLE001 -- the digest must always print
+            lines = []
+    lines += [f"- {f['fact']} [{f['source'] + 1}]" for f in found["facts"]]
     if found.get("base_rate"):
         lines.append(f"Base rate: {found['base_rate']}")
     if found.get("different_now"):
