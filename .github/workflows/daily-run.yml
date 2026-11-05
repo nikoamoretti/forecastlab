@@ -18,6 +18,8 @@ name: Daily run steps
 #              in locked-down containers) and commit artifacts/conflict_panel_v1/live_score_*.json;
 #              needs no secrets, and exits cleanly with a log message if UCDP has not yet
 #              published the month the forecasts target
+#   pool       read-only diagnostic: market_questions.py pool prints the selection funnel
+#              (fetched, dropped by each rule, caps, chosen) per source; commits nothing
 #   check-key  only check that the key reaches OpenRouter
 # Triggers: no schedule (daily runs are paused until the research pipeline
 # plan is approved, 2026-10-13). A push to a daily
@@ -33,7 +35,7 @@ on:
     inputs:
       step:
         type: choice
-        options: [prepare, research, download, finish, conflict-score, check-key]
+        options: [prepare, pool, research, download, finish, conflict-score, check-key]
         required: true
       branch:
         description: "claude/daily-forecasts-YYYYMMDD"
@@ -83,7 +85,7 @@ jobs:
             *) STEP="$IN_STEP"; BRANCH="$IN_BRANCH"; DIRS="$IN_DIRS" ;;
           esac
           if [ "$STEP" != check-key ]; then
-            [[ "$STEP" =~ ^(prepare|research|download|finish|conflict-score)$ ]] || { echo "unknown step $STEP"; exit 1; }
+            [[ "$STEP" =~ ^(prepare|pool|research|download|finish|conflict-score)$ ]] || { echo "unknown step $STEP"; exit 1; }
             [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
           fi
           if [ -n "$DIRS" ]; then
@@ -111,7 +113,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: astral-sh/setup-uv@v5
-        if: env.STEP == 'prepare' || env.STEP == 'research' || env.STEP == 'download' || env.STEP == 'finish' || env.STEP == 'conflict-score'
+        if: env.STEP == 'prepare' || env.STEP == 'pool' || env.STEP == 'research' || env.STEP == 'download' || env.STEP == 'finish' || env.STEP == 'conflict-score'
         with:
           python-version: "3.12"
       - name: Prepare questions
@@ -124,6 +126,12 @@ jobs:
             uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
             uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
           fi
+      - name: Show the market question pool
+        if: env.STEP == 'pool'
+        run: |
+          # Read-only: fetches like prepare, writes nothing, commits nothing.
+          uv sync --frozen
+          { echo '```'; uv run --frozen python scripts/market_questions.py pool; echo '```'; } | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Fetch source documents
         if: env.STEP == 'research'
         run: |
