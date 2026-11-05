@@ -1,9 +1,8 @@
 {
   "cost_usd": {
     "polymarket-6443529": 0.1213,
-    "polymarket-6587953": 0.1029
+    "polymarket-6587953": 0.1015
   },
-  "downloaded_at": "2026-11-05T12:50:23.279574+00:00",
   "failed": {
     "polymarket-6587953": "ValueError: only 0 usable sources"
   },
@@ -43,14 +42,14 @@
   "model_family": "grok",
   "passes": 1,
   "provider": "cursor",
-  "researched_at": "2026-11-05T12:50:05+00:00",
+  "researched_at": "2026-11-05T12:51:50+00:00",
   "researched_by": {
     "polymarket-6443529": "claude-sonnet"
   },
-  "runs": 2,
+  "runs": 1,
   "seconds": {
     "polymarket-6443529": 34.6,
-    "polymarket-6587953": 18.2
+    "polymarket-6587953": 23.3
   },
   "sources": {
     "polymarket-6443529": [
