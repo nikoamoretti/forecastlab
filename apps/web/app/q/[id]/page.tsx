@@ -42,6 +42,8 @@ export default function QuestionPage() {
         <p className="mt-2 font-serif text-4xl">{q.call ? callText(q.call.probability) : "No call"}</p>
         {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.method === "claude_call_v1"
           ? "Claude’s own forecast"
+          : q.call.method === "claude_corrected_call_v1"
+          ? "Claude’s forecast, corrected for how its past calls turned out"
           : q.call.members
           ? `the middle (median) of ${q.call.members} forecaster${q.call.members === 1 ? "" : "s"}${q.call.weights ? ", better records counting more" : ""}`
           : `by ${labels[q.call.method] ?? q.call.method}`}</p>}

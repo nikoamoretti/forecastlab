@@ -28,7 +28,11 @@ Claude's own probability also gets a confidence correction (``claude_calibrated_
 CALIBRATED_FROM): a logistic fit of outcome on logit(p) over Claude's resolved, scored forecasts
 on questions that were decided before the forecast day, with a prior pulling (slope, intercept)
 toward (1, 0). It is computed once, when the question is first built, and frozen as
-``calibrated.json`` next to ``calls.json``. It is scored like a benchmark and never enters our call.
+``calibrated.json`` next to ``calls.json``. It is scored like a benchmark and never enters the weighted
+call. Questions first forecast on or after CORRECTED_CALL_FROM use it as our call
+(``claude_corrected_call_v1``): on 2026-11-05, over 168 decided questions, Claude's forecasts averaged
+42% yes while 53% resolved yes, and a correction fitted only on results known before each forecast
+day would have scored 0.195 against 0.210 for Claude as stated, on the 137 questions it could cover.
 
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
@@ -61,6 +65,8 @@ WEIGHTED = "combined_weighted_v1"
 WEIGHTED_FROM = date(2026, 10, 24)
 CLAUDE_CALL = "claude_call_v1"
 CLAUDE_CALL_FROM = date(2026, 11, 5)
+CORRECTED_CALL = "claude_corrected_call_v1"
+CORRECTED_CALL_FROM = date(2026, 11, 6)
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
@@ -106,7 +112,7 @@ FORECASTERS: dict[str, dict[str, str]] = {
     CALIBRATED: {
         "label": "Claude, confidence-corrected",
         "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. "
-                 "Shown for comparison; not part of our call."},
+                 "Our call from 2026-11-06."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
         "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
@@ -179,6 +185,14 @@ def _claude_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> 
     if claude is None:
         return _weighted_call(forecasts, weights)
     return {"method": CLAUDE_CALL, "probability": claude["probability"], "members": 1}
+
+
+def _corrected_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> dict[str, Any] | None:
+    """Claude's confidence-corrected probability as our call; Claude's own when no correction exists yet."""
+    corrected = next((f for f in forecasts if f["method"] == CALIBRATED), None)
+    if corrected is None:
+        return _claude_call(forecasts, weights)
+    return {"method": CORRECTED_CALL, "probability": corrected["probability"], "members": 1}
 
 
 def _logit(p: float) -> float:
@@ -375,18 +389,6 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             frozen[question["source"]] = json.loads(path.read_text()) if path.exists() else {}
     record_so_far = [q for q in questions if q["status"] == "resolved" and q["scored"]]
     weights = _weights(record_so_far)
-    for question in questions:
-        day = _forecast_day(question)
-        if day is None or day < WEIGHTED_FROM:
-            call = _call(question["forecasts"])
-        else:
-            calls = frozen[question["source"]]
-            pick = _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call
-            if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
-                calls[question["id"]] = fresh
-            call = calls.get(question["id"])
-        question["call"] = call
-        question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
     # Claude's confidence-corrected forecast: frozen the first time it can be made, never for earlier days.
     corrected: dict[str, dict[str, dict[str, Any]]] = {}
     fits: dict[date, dict[str, Any] | None] = {}
@@ -408,6 +410,19 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             question["forecasts"].append({"method": CALIBRATED, **saved[question["id"]]})
             question["forecasts"].sort(key=lambda f: PRIMARY_ORDER.index(f["method"])
                                        if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER))
+    for question in questions:
+        day = _forecast_day(question)
+        if day is None or day < WEIGHTED_FROM:
+            call = _call(question["forecasts"])
+        else:
+            calls = frozen[question["source"]]
+            pick = (_corrected_call if day >= CORRECTED_CALL_FROM
+                    else _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call)
+            if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
+                calls[question["id"]] = fresh
+            call = calls.get(question["id"])
+        question["call"] = call
+        question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
     if freeze:
         for source, calls in frozen.items():
             path = artifacts / source / CALLS_FILE
