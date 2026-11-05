@@ -317,3 +317,31 @@ def test_prepare_passes_pending_questions_to_selection(tmp_path: Path) -> None:
             for i in range(5)]}))
     open_ids = {q["id"] for q in script.pending_questions(tmp_path)}
     assert open_ids == {f"x20261101{i}" for i in range(5)}
+
+
+def test_pool_counts_each_rule_and_changes_nothing(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    stats: dict[str, int] = {}
+    found = candidates(NOW, fake_fetch, stats)
+    assert [c["id"] for c in found] == [c["id"] for c in candidates(NOW, fake_fetch)]  # same result with or without counting
+    assert stats["events:economy"] == 3 and stats["markets:economy"] == 4
+    assert stats["drop:sibling_in_same_event"] == 1 and stats["drop:volume"] == 1 and stats["drop:price_band"] == 1
+    assert stats["drop:next_leader"] == 1 and stats["drop:settles_late"] == 1 and stats["drop:window"] == 1
+    assert stats["drop:not_yes_no"] == 1 and stats["drop:event_already_taken_from_other_tag"] == 1
+
+    chosen_stats: dict[str, int] = {}
+    chosen = select(found, {"polymarket-m8"}, pending=[], stats=chosen_stats)
+    assert len(chosen) == 2 and chosen_stats["select:pool"] == 3 and chosen_stats["select:already_seen"] == 1
+    assert chosen_stats["select:chosen:Economy"] == 1 and chosen_stats["select:chosen:Politics"] == 1
+
+    crowded = [{"id": f"c{i}", "topic": "Crypto", "volume": 100 - i, "question": "Will it rain?", "closes_at": "2026-10-15T00:00:00Z"}
+               for i in range(7)]
+    crowded_stats: dict[str, int] = {}
+    select(crowded, set(), pending=crowded[:0], stats=crowded_stats)
+    assert crowded_stats["select:chosen:Crypto"] == 4 and crowded_stats["select:left_at_topic_limit:Crypto"] == 3
+
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    result = script.pool(NOW, artifacts, manifold_fetch)
+    assert result["polymarket"]["select:chosen:Economy"] >= 1 and result["manifold"]["candidates:economics-default"] >= 1
+    assert "POLYMARKET funnel" in capsys.readouterr().out
+    assert list(artifacts.iterdir()) == []  # writes nothing

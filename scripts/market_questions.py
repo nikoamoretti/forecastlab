@@ -2,6 +2,7 @@
 """Daily questions borrowed from Polymarket and Manifold (rule: forecastlab.market_questions).
 
   python scripts/market_questions.py prepare                   # artifacts/prospective_markets_<date>/
+  python scripts/market_questions.py pool                      # read-only: the selection funnel per source, writes nothing
   python scripts/market_questions.py record <dir> <forecasts.json> [--skip <id>[,<id>...]] [--skip-failed]
   python scripts/market_questions.py resolve                   # every open market question
 
@@ -36,11 +37,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
 from forecastlab.market_questions import (  # noqa: E402
+    DAILY_LIMIT,
     MANIFOLD_DAILY_LIMIT,
     MANIFOLD_SELECTION_VERSION,
     MARKET_METHOD,
     SELECTION_VERSION,
     Fetch,
+    Stats,
     candidates,
     fetch_json,
     manifold_candidates,
@@ -104,6 +107,45 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
                                                    "volume": c["volume"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: {len(chosen)} questions")
     return directory
+
+
+def _funnel(stats: Stats, prefixes: tuple[str, ...]) -> list[str]:
+    return [f"    {key} = {value}" for key, value in sorted(stats.items()) if key.startswith(prefixes)]
+
+
+def pool(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json) -> dict[str, Stats]:
+    """Read-only diagnostic: fetch and select exactly as ``prepare`` does, print the funnel per source, write nothing."""
+    now = as_utc(now or utcnow())
+    seen, held = known_ids(artifacts), pending_questions(artifacts)
+    print(f"pool at {now.isoformat()}: {len(seen)} questions seen before, {len(held)} pending")
+    by_day: dict[tuple[str, str], int] = {}
+    for q in held:
+        key = (str(q.get("topic")), str(q.get("resolution_date") or q.get("closes_at"))[:10])
+        by_day[key] = by_day.get(key, 0) + 1
+    print("  pending by topic and resolution date: " + ", ".join(f"{t}/{d}={n}" for (t, d), n in sorted(by_day.items())))
+    result: dict[str, Stats] = {}
+    chosen: list[dict[str, Any]] = []
+    for source, find, limit in (("polymarket", candidates, DAILY_LIMIT), ("manifold", manifold_candidates, MANIFOLD_DAILY_LIMIT)):
+        stats: Stats = {}
+        result[source] = stats
+        last: list[str] = []
+
+        def tracked(url: str, last: list[str] = last) -> Any:
+            last[:] = [url]
+            return fetch(url)
+
+        try:
+            found = find(now, tracked, stats)
+            picked = select(found, seen, limit, held + chosen, stats)
+        except Exception as exc:  # noqa: BLE001 - the point is to see which call fails
+            print(f"{source.upper()}: ERROR {type(exc).__name__}: {exc} (last url: {last[0] if last else 'none'})")
+            continue
+        chosen += picked
+        print(f"{source.upper()} funnel (limit {limit}):")
+        print("\n".join(_funnel(stats, ("events:", "markets:")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
+                        + _funnel(stats, ("select:",))))
+        print(f"  chosen: {len(picked)}")
+    return result
 
 
 def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, skip_failed: bool = False) -> Path:
@@ -196,6 +238,8 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
 def main(argv: list[str]) -> int:
     if argv[:1] == ["prepare"]:
         prepare()
+    elif argv[:1] == ["pool"]:
+        pool()
     elif argv[:1] == ["record"] and len(argv) >= 3:
         rest, skip, skip_failed = argv[3:], set(), False
         while rest:

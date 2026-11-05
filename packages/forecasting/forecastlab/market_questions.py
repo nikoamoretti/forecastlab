@@ -98,6 +98,13 @@ MANIFOLD_DAILY_LIMIT = 10
 PERSONAL = re.compile(r"\b(I|I'm|I'll|me|my)\b")
 
 Fetch = Callable[[str], Any]
+# Optional funnel counter: the selection functions add 1 under a key such as "drop:volume" or "select:chosen".
+Stats = dict[str, int]
+
+
+def _count(stats: Stats | None, key: str, amount: int = 1) -> None:
+    if stats is not None and amount:
+        stats[key] = stats.get(key, 0) + amount
 
 
 def fetch_json(url: str) -> Any:
@@ -127,35 +134,66 @@ def _yes_price(market: dict[str, Any]) -> float | None:
     return float(prices[0])
 
 
-def candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]:
-    """Every market that passes the rule, one per event, with its topic and event link."""
+def _polymarket_reject(market: dict[str, Any], price: float | None, volume: float, now: datetime) -> str | None:
+    """The first rule a market fails (None if it passes), in the order the rule has always been applied."""
+    closes = market.get("endDate")
+    if market.get("closed"):
+        return "closed"
+    if price is None:
+        return "not_yes_no"
+    if not closes:
+        return "no_end_date"
+    if volume < MIN_VOLUME:
+        return "volume"
+    if not MIN_PRICE <= price <= MAX_PRICE:
+        return "price_band"
+    if SLOW_SETTLING.search(market.get("question") or ""):
+        return "next_leader"
+    if not now + timedelta(days=MIN_DAYS) <= _parse_time(closes) <= now + timedelta(days=MAX_DAYS):
+        return "window"
+    if settles_late(market.get("description") or "", _parse_time(closes)):
+        return "settles_late"
+    return None
+
+
+def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = None) -> list[dict[str, Any]]:
+    """Every market that passes the rule, one per event, with its topic and event link.
+
+    ``stats``, if given, counts the funnel (events and markets fetched per tag, markets dropped per rule)
+    without changing what is returned.
+    """
     window = {"closed": "false", "active": "true", "limit": "100", "order": "volume", "ascending": "false",
               "end_date_min": _iso(now + timedelta(days=MIN_DAYS)), "end_date_max": _iso(now + timedelta(days=MAX_DAYS))}
     found: dict[str, dict[str, Any]] = {}
     for tag, topic in TOPICS.items():
-        for event in fetch(f"{GAMMA}/events?{urllib.parse.urlencode(window | {'tag_slug': tag})}"):
+        events = fetch(f"{GAMMA}/events?{urllib.parse.urlencode(window | {'tag_slug': tag})}")
+        _count(stats, f"events:{tag}", len(events))
+        for event in events:
             if event["id"] in found:
+                _count(stats, "drop:event_already_taken_from_other_tag")
                 continue
             eligible = []
             for market in event.get("markets", []):
+                _count(stats, f"markets:{tag}")
                 price = _yes_price(market)
                 volume = float(market.get("volumeNum") or 0)
-                closes = market.get("endDate")
-                if (market.get("closed") or price is None or not closes or volume < MIN_VOLUME
-                        or not MIN_PRICE <= price <= MAX_PRICE or SLOW_SETTLING.search(market.get("question") or "")):
+                reason = _polymarket_reject(market, price, volume, now)
+                if reason:
+                    _count(stats, f"drop:{reason}")
                     continue
-                if not now + timedelta(days=MIN_DAYS) <= _parse_time(closes) <= now + timedelta(days=MAX_DAYS):
-                    continue
-                if settles_late(market.get("description") or "", _parse_time(closes)):
-                    continue
+                assert price is not None
                 eligible.append((volume, market, price))
             if eligible:
+                _count(stats, "drop:sibling_in_same_event", len(eligible) - 1)
                 volume, market, price = max(eligible, key=lambda item: item[0])
+                _count(stats, f"candidates:{tag}")
                 found[event["id"]] = {
                     "id": f"polymarket-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": tag,
                     "question": market["question"].strip(), "resolution_criteria": (market.get("description") or "").strip(),
                     "closes_at": market["endDate"], "volume": volume, "market_price": price,
                     "market_url": f"https://polymarket.com/event/{event['slug']}"}
+            else:
+                _count(stats, "drop:events_with_no_eligible_market")
     return list(found.values())
 
 
@@ -181,27 +219,39 @@ def _near(a: dict[str, Any], b: dict[str, Any]) -> bool:
     return first is not None and second is not None and abs((first - second).days) <= CLUSTER_DAYS
 
 
-def _crowded(item: dict[str, Any], held: list[dict[str, Any]]) -> bool:
-    """Whether the pending questions in ``held`` already fill the cluster or asset cap around ``item``."""
+def _crowd(item: dict[str, Any], held: list[dict[str, Any]]) -> str | None:
+    """Which cap ("cluster" or "asset") the pending questions in ``held`` already fill around ``item``, else None."""
     near = [other for other in held if _near(item, other)]
     if sum(other.get("topic") == item["topic"] for other in near) >= CLUSTER_LIMIT:
-        return True
+        return "cluster"
     asset = asset_of(item.get("question") or "")
-    return asset is not None and sum(asset_of(other.get("question") or "") == asset for other in near) >= ASSET_LIMIT
+    if asset is not None and sum(asset_of(other.get("question") or "") == asset for other in near) >= ASSET_LIMIT:
+        return "asset"
+    return None
+
+
+def _crowded(item: dict[str, Any], held: list[dict[str, Any]]) -> bool:
+    """Whether the pending questions in ``held`` already fill the cluster or asset cap around ``item``."""
+    return _crowd(item, held) is not None
 
 
 def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
-           pending: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
+           pending: list[dict[str, Any]] | None = None, stats: Stats | None = None) -> list[dict[str, Any]]:
     """Take topics in turn, the most traded market first within each topic, skipping known ones.
 
     ``pending`` holds the questions not yet resolved (each with topic, question and closes_at or
     resolution_date); a candidate that would overfill a cluster around them is skipped (see
     ``_crowded``), and so is one that would overfill it together with questions chosen earlier.
+    ``stats``, if given, counts the pool, the questions already seen, those left over at the topic and daily
+    limits, those skipped by the cluster and asset caps, and those chosen.
     """
     by_topic: dict[str, list[dict[str, Any]]] = {}
+    _count(stats, "select:pool", len(pool))
     for item in sorted(pool, key=lambda c: -c["volume"]):
         if item["id"] not in seen:
             by_topic.setdefault(item["topic"], []).append(item)
+        else:
+            _count(stats, "select:already_seen")
     held = list(pending or [])
     taken = dict.fromkeys(by_topic, 0)
     chosen: list[dict[str, Any]] = []
@@ -209,14 +259,20 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
         for topic in sorted(by_topic):
             while by_topic[topic] and taken[topic] < TOPIC_LIMIT and len(chosen) < limit:
                 item = by_topic[topic].pop(0)
-                if _crowded(item, held):
+                crowd = _crowd(item, held)
+                if crowd:
+                    _count(stats, f"select:{crowd}_cap:{topic}")
                     continue
                 chosen.append(item)
                 held.append(item)
                 taken[topic] += 1
+                _count(stats, f"select:chosen:{topic}")
                 break
             else:
-                by_topic[topic] = []  # topic exhausted or at its daily limit
+                # topic exhausted, at its topic limit, or the daily limit reached: what is left is never reached
+                _count(stats, "select:left_at_daily_limit" if len(chosen) >= limit else f"select:left_at_topic_limit:{topic}",
+                       len(by_topic[topic]))
+                by_topic[topic] = []
     return chosen
 
 
@@ -259,30 +315,49 @@ def resolution(market_id: str, fetch: Fetch = fetch_json, now: datetime | None =
     return {"status": "cancelled"}
 
 
-def manifold_candidates(now: datetime, fetch: Fetch = fetch_json) -> list[dict[str, Any]]:
-    """Manifold yes/no markets that pass the rule, in the same shape as Polymarket candidates."""
+def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = None) -> list[dict[str, Any]]:
+    """Manifold yes/no markets that pass the rule, in the same shape as Polymarket candidates.
+
+    ``stats``, if given, counts markets fetched per topic and dropped per rule without changing the result.
+    """
     start, end = now + timedelta(days=MIN_DAYS), now + timedelta(days=MAX_DAYS)
     found: dict[str, dict[str, Any]] = {}
     for slug, topic in MANIFOLD_TOPICS.items():
         query = {"term": "", "filter": "open", "contractType": "BINARY", "sort": "close-date", "topicSlug": slug,
                  "limit": "500"}
-        for market in fetch(f"{MANIFOLD}/search-markets?{urllib.parse.urlencode(query)}"):
-            if market["id"] in found or market.get("isResolved") or market.get("outcomeType") != "BINARY":
+        markets = fetch(f"{MANIFOLD}/search-markets?{urllib.parse.urlencode(query)}")
+        _count(stats, f"markets:{slug}", len(markets))
+        for market in markets:
+            if market["id"] in found:
+                _count(stats, "drop:already_taken_from_other_topic")
+                continue
+            if market.get("isResolved") or market.get("outcomeType") != "BINARY":
+                _count(stats, "drop:resolved_or_not_binary")
                 continue
             closes, price = market.get("closeTime"), market.get("probability")
             question = (market.get("question") or "").strip()
             if not isinstance(closes, int | float) or not isinstance(price, int | float):
+                _count(stats, "drop:no_close_time_or_probability")
                 continue
             closes_at = datetime.fromtimestamp(closes / 1000, tz=now.tzinfo)
-            if (not start <= closes_at <= end or not MIN_PRICE <= price <= MAX_PRICE
-                    or int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS
-                    or float(market.get("volume") or 0) < MANIFOLD_MIN_VOLUME
-                    or PERSONAL.search(question) or SLOW_SETTLING.search(question)):
-                continue
-            found[market["id"]] = {
-                "id": f"manifold-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": slug,
-                "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]),
-                "market_price": round(float(price), 4), "market_url": market["url"], "method": MANIFOLD_METHOD}
+            if not start <= closes_at <= end:
+                _count(stats, "drop:window")
+            elif not MIN_PRICE <= price <= MAX_PRICE:
+                _count(stats, "drop:price_band")
+            elif int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS:
+                _count(stats, "drop:bettors")
+            elif float(market.get("volume") or 0) < MANIFOLD_MIN_VOLUME:
+                _count(stats, "drop:volume")
+            elif PERSONAL.search(question):
+                _count(stats, "drop:personal")
+            elif SLOW_SETTLING.search(question):
+                _count(stats, "drop:next_leader")
+            else:
+                _count(stats, f"candidates:{slug}")
+                found[market["id"]] = {
+                    "id": f"manifold-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": slug,
+                    "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]),
+                    "market_price": round(float(price), 4), "market_url": market["url"], "method": MANIFOLD_METHOD}
     return list(found.values())
 
 
