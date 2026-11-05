@@ -1,25 +1,74 @@
 {
   "cost_usd": {
-    "polymarket-6443529": 0.1866,
-    "polymarket-6587953": 0.154
+    "polymarket-6443529": 0.1213,
+    "polymarket-6587953": 0.1029
   },
-  "downloaded_at": "2026-11-05T12:41:08.505536+00:00",
   "failed": {
-    "polymarket-6443529": "ValueError: only 1 usable sources",
-    "polymarket-6587953": "ValueError: only 1 usable sources"
+    "polymarket-6587953": "ValueError: only 0 usable sources"
   },
-  "findings": {},
+  "findings": {
+    "polymarket-6443529": {
+      "against": "The 2025 pace of 55 or more posts a day would put a week far above 199, and weeks with 260-279, 300-319 or 500+ brackets appear in the market listings.\nA 180-199 total would need his activity to be well below that pace.",
+      "base_rate": "I could not open xtracker.io, so I have no counted weekly series.\nThe only figure is the 2025 NBC average of about 55 posts a day (about 390 a week) from Sept 17 to Oct 17, 2025.\nA 180-199 week would be about 26-28 a day.\nBrackets listed for 2026 weeks range from 80 to 500+, which suggests weekly counts vary widely, but the search shows brackets, not outcomes.",
+      "different_now": "Nov 3-10, 2026 starts the day before and runs through the aftermath of the Nov 3, 2026 US midterm elections.\nElection-week news would push Musk's posting up, but I found no 2026 data to test this.\nThe checklist's poll items do not apply to this question.",
+      "facts": [
+        {
+          "fact": "The question resolves on the xtracker.io Post Counter for @elonmusk, from Nov 3 12:00 PM ET to Nov 10 12:00 PM ET, 2026.\nIt counts main-feed posts, quote posts and reposts, and counts replies shown on the main feed.\nPages found in search describe these rules.",
+          "source": 1
+        },
+        {
+          "fact": "A search snippet citing an NBC News analysis says Musk posted about 1,716 times between Sept 17 and Oct 17, 2025, an average of over 55 posts a day.\nThat is roughly 390 a week and is from 2025, not 2026.",
+          "source": 0
+        },
+        {
+          "fact": "Search results show weekly count brackets for Oct\u2013Nov 2026 weeks, including 80-99, 100-119, 260-279, 300-319 and 500+.\nI found no actual weekly counts for 2026 and no count so far for Nov 3\u20135, 2026.",
+          "source": 1
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "Actual xtracker counts for Nov 3-5, 2026 and for recent weeks in 2026 are unknown.",
+        "Whether Musk's 2026 posting rate is lower than in 2025 is unknown.",
+        "Whether tracker counting differs from X, for example deleted posts and community reposts, is unknown.",
+        "I could not open xtracker.io; the proxy refused the connection.",
+        "The poll and polling-error checklist items do not apply to a tweet-count question, so I did not research them."
+      ]
+    }
+  },
   "mode": "live",
   "model": "grok-4.7-low",
   "model_family": "grok",
   "passes": 1,
   "provider": "cursor",
-  "researched_at": "2026-11-05T12:40:49+00:00",
-  "researched_by": {},
+  "researched_at": "2026-11-05T12:50:05+00:00",
+  "researched_by": {
+    "polymarket-6443529": "claude-sonnet"
+  },
   "runs": 2,
   "seconds": {
-    "polymarket-6443529": 40.0,
-    "polymarket-6587953": 24.2
+    "polymarket-6443529": 34.6,
+    "polymarket-6587953": 18.2
   },
-  "sources": {}
+  "sources": {
+    "polymarket-6443529": [
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Elon Musk's X activity: 49% of posts on politics, often fringe (NewsBytes, citing NBC News)",
+        "url": "https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story",
+        "verified": null
+      },
+      {
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Elon Musk # of tweets, November 7 to November 14, 140-159 (market page listing the xtracker rules)",
+        "url": "https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159",
+        "verified": null
+      }
+    ]
+  }
 }
