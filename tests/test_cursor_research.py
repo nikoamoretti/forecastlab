@@ -937,3 +937,151 @@ def test_cursor_agent_retries_a_timed_out_run_once(monkeypatch: pytest.MonkeyPat
     with pytest.raises(subprocess.TimeoutExpired):
         cr.cursor_agent("m", 5)("q")
     assert len(calls) == cr.CURSOR_TRIES
+
+
+# ---- live tallies and the price-math line ----------------------------------------------------
+
+def count_task(question: str = "Will commitments to the 1W public sale exceed $20M?", resolves_on: str = "2026-11-10") -> dict[str, str]:
+    return {"id": "c1", "question": question, "criteria": "Resolves yes if the total committed on the sale page exceeds $20,000,000.",
+            "resolves_on": resolves_on, "topic": "Crypto"}
+
+
+@pytest.mark.parametrize("question,expected", [
+    ("Will commitments to the 1W public sale exceed $20M?", True),
+    ("Will Claude go down 5-7 times in October?", True),
+    ("How many tweets will Elon Musk post this week?", True),
+    ("Will Elon Musk post between 400 and 419 tweets from Nov 1 to Nov 8?", True),
+    ("Will the Senate pass at least 3 bills?", False),
+    ("Will CPI exceed 3.0%?", False),
+    ("Will Bitcoin reach $120,000 in November?", False),
+    ("Will the price of Ethereum be above $2,200 on November 8?", False),
+    ("Will Democrats win the Senate?", False),
+])
+def test_count_questions_are_detected_and_asset_prices_are_not(question: str, expected: bool) -> None:
+    assert cr.live_counts.is_count_question({"question": question, "criteria": ""}, "2026-11-05") is expected
+
+
+def test_thresholds_come_from_the_question() -> None:
+    thresholds = cr.live_counts.thresholds
+    assert thresholds({"question": "Will commitments exceed $20M?"}) == [20e6]
+    assert thresholds({"question": "Will Claude go down 5-7 times in October?"}) == [5.0, 7.0]
+    assert thresholds({"question": "Will he post between 400 and 419 tweets?"}) == [400.0, 419.0]
+    assert thresholds({"question": "How many tweets will he post Oct 24-31?", "criteria": ""}) == []
+
+
+def test_count_prompts_ask_for_the_tally_in_every_pass_and_ordinary_ones_do_not() -> None:
+    task = count_task()
+    outside, combined = cr.outside_prompt(task, "2026-11-05"), cr.prompt(task, "2026-11-05")
+    inside = cr.inside_prompt(task, "2026-11-05", {"facts": [], "sources": []})
+    against = cr.against_prompt(task, "2026-11-05", {"facts": [], "sources": []})
+    for text in (outside, combined, inside, against):
+        assert "COUNT/TOTAL QUESTION" in text and '"tally"' in text and "earlier_value" in text
+        assert not cr.MARKET_WORDS.search(text.replace("Never use or mention prediction markets, betting sites or odds "
+                                                       "(Polymarket, Kalshi, Manifold, Metaculus, PredictIt, bookmakers).", ""))
+    plain = cr.outside_prompt({**task, "question": "Will the Fed cut rates?", "criteria": "FOMC statement."}, "2026-11-05")
+    assert "tally" not in plain and "spot" not in plain
+
+
+def test_price_prompts_ask_for_the_spot_and_volatility() -> None:
+    task = {"id": "p1", "question": "Will Bitcoin dip to $78,000 November 6-8?", "criteria": "Binance BTCUSDT 1m low.",
+            "resolves_on": "2026-11-08", "topic": "Crypto"}
+    text = cr.prompt(task, "2026-11-05")
+    assert "ASSET-PRICE QUESTION" in text and '"spot"' in text and "daily_vol_30d" in text and "tally" not in text
+
+
+READ = {"value": 12_000_000, "unit": "USD", "source_url": "https://sale.example.org/1w", "read_at": "2026-11-05T12:00 UTC",
+        "earlier_value": 9_000_000, "earlier_at": "2026-11-04T12:00 UTC"}
+
+
+def tally_reply(**extra: object) -> str:
+    return answer(tally=READ, **extra)
+
+
+def test_validate_keeps_a_usable_tally_and_drops_bad_ones() -> None:
+    assert cr.validate(tally_reply())["tally"] == {**READ, "value": 12e6, "earlier_value": 9e6}
+    for bad in ({**READ, "source_url": "https://polymarket.com/event/x"}, {**READ, "value": "lots"}, {**READ, "value": -1}, "12M", None):
+        assert "tally" not in cr.validate(answer(tally=bad))
+    no_earlier = cr.validate(answer(tally={**READ, "earlier_at": ""}))["tally"]
+    assert "earlier_value" not in no_earlier
+
+
+def test_the_tally_is_saved_and_the_latest_reading_wins_the_merge(tmp_path: Path) -> None:
+    older = cr.validate(answer(tally={**READ, "value": 10_000_000, "read_at": "2026-11-05T09:00 UTC"}))
+    newer = cr.validate(answer(tally=READ))
+    assert cr.merge({"outside": newer, "inside": older})["tally"]["value"] == 12e6
+    assert "tally" not in cr.merge({"outside": cr.validate(answer())})
+    directory = tmp_path / "prospective_markets_20261105"
+    directory.mkdir()
+    (directory / "forecasts.json").write_text(json.dumps({"questions": [
+        {**MARKET, "id": "c1", "question": "Will commitments to the 1W public sale exceed $20M?", "topic": "Crypto",
+         "resolution_date": "2026-11-10"}]}))
+    result = cr.research(directory, lambda text: tally_reply(), "2026-11-05", parallel=1, budget=3, passes=1)
+    assert result["findings"]["c1"]["tally"]["value"] == 12e6
+
+
+def test_digest_opens_a_count_question_with_the_tally_projection_and_needed_rate() -> None:
+    data = {"sources": {"c1": []}, "findings": {"c1": {"facts": [], "uncertainties": [], "tally": cr.validate(tally_reply())["tally"]}}}
+    lines = cr.digest(data, "c1", count_task(), "2026-11-05").splitlines()
+    assert lines[0].startswith("LIVE TALLY: 12.0M USD, read 2026-11-05T12:00 UTC from https://sale.example.org/1w")
+    text = "\n".join(lines)
+    assert "rate 3.0M USD per day over 1.0 days" in text
+    assert "Deadline 2026-11-10: 5.5 days left" in text
+    assert "Projection at the current rate" in text and "28.5M USD by the deadline" in text  # 12M + 3M x 5.5
+    assert "Threshold 20.0M: needs 8.0M more, i.e. 1.5M USD per day (current rate 3.0M/day)" in text
+
+
+def test_digest_handles_a_reached_threshold_one_reading_and_an_old_reading() -> None:
+    one = {**READ, "value": 25e6}
+    one.pop("earlier_value"), one.pop("earlier_at")
+    data = {"sources": {"c1": []}, "findings": {"c1": {"facts": [], "uncertainties": [], "tally": one}}}
+    text = cr.digest(data, "c1", count_task(), "2026-11-05")
+    assert "already reached" in text and "No earlier point reported, so no rate." in text and "Projection" not in text
+    old = cr.digest(data, "c1", count_task(), "2026-11-12")
+    assert "WARNING: this reading is 6 days old" in old
+
+
+def test_digest_warns_when_a_count_question_has_no_tally_and_is_unchanged_for_other_questions() -> None:
+    data = {"sources": {"c1": []}, "findings": {"c1": {"facts": [], "uncertainties": []}}}
+    assert cr.digest(data, "c1", count_task(), "2026-11-05").startswith("WARNING: no running tally found")
+    assert cr.digest(data, "c1") == "" or "WARNING" not in cr.digest(data, "c1")
+    plain = {**count_task(), "question": "Will the Fed cut rates in December?", "criteria": "FOMC statement."}
+    assert cr.digest(data, "c1", plain, "2026-11-05") == cr.digest(data, "c1")
+
+
+PRICE_TASK = {"id": "p1", "question": "Will Bitcoin dip to $78,000 November 6-8?", "criteria": "Binance BTCUSDT 1m low.",
+              "resolves_on": "2026-11-08", "topic": "Crypto"}
+SPOT = {"asset": "BTC", "price": 85_000, "source_url": "https://www.coinbase.com/price/bitcoin",
+        "read_at": "2026-11-05T12:00 UTC", "daily_vol_30d": 0.03}
+
+
+def test_validate_keeps_the_spot_and_reads_a_percent_volatility() -> None:
+    spot = cr.validate(answer(spot=SPOT))["spot"]
+    assert spot["price"] == 85000 and spot["daily_vol"] == 0.03
+    assert cr.validate(answer(spot={**SPOT, "daily_vol_30d": 3.0}))["spot"]["daily_vol"] == 0.03
+    assert "daily_vol" not in cr.validate(answer(spot={**SPOT, "daily_vol_30d": None}))["spot"]
+    assert "spot" not in cr.validate(answer(spot={**SPOT, "price": 0}))
+
+
+def test_digest_adds_one_price_math_reference_line_when_it_can() -> None:
+    from forecastlab.price_model import parse_question, price_model_probability
+    spot = cr.validate(answer(spot=SPOT))["spot"]
+    data = {"sources": {"p1": []}, "findings": {"p1": {"facts": [], "uncertainties": [], "spot": spot}}}
+    lines = cr.digest(data, "p1", PRICE_TASK, "2026-11-05").splitlines()
+    expected = price_model_probability(parse_question(PRICE_TASK["question"], PRICE_TASK["criteria"], datetime(2026, 11, 5).date()),
+                                       85000, datetime(2026, 11, 5).date(), 0.03)
+    assert lines[0].startswith(f"Price math (thin-tailed, tends to underrate sudden dips): {expected:.0%}.")
+    assert "Reference only, not the call" in lines[0]
+    assert sum("Price math" in line for line in lines) == 1
+    no_vol = {**data, "findings": {"p1": {"facts": [], "uncertainties": [], "spot": {**spot, "daily_vol": None}}}}
+    assert "Price math" not in cr.digest(no_vol, "p1", PRICE_TASK, "2026-11-05")
+    assert "Price math" not in cr.digest(data, "p1", {**PRICE_TASK, "question": "Will Bitcoin be popular?"}, "2026-11-05")
+
+
+def test_politics_checklist_asks_for_polling_averages_model_forecasts_and_ranges() -> None:
+    items = cr.load_checklists(ROOT / cr.CHECKLIST_FILE)["Politics"]
+    joined = " ".join(items).lower()
+    assert len(items) <= cr.MAX_CHECKLIST_ITEMS
+    for wanted in ("polling average", "number of pollsters", "cook political report", "sabato", "silver bulletin", "the economist",
+                   "distribution or range"):
+        assert wanted in joined
+    assert not cr.MARKET_WORDS.search(joined)

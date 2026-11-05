@@ -326,7 +326,7 @@ def show_digest(directories: list[str]) -> None:
         directory = ROOT / name
         data: dict[str, Any] = json.loads((directory / RESEARCH_FILE).read_text())
         for task in tasks(directory):
-            text = digest(data, task["id"])
+            text = digest(data, task["id"], task, today)
             related = related_forecasts(history, task, today) if task["id"] in data.get("findings", {}) else ""
             print(f"## {task['id']}: {task['question']}\n{text}\n" + (f"{related}\n" if related else ""))
 
