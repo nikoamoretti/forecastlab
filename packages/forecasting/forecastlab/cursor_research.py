@@ -416,12 +416,21 @@ def merge(parts: dict[str, dict[str, Any]]) -> dict[str, Any]:
             "uncertainties": uncertainties[:MAX_UNCERTAINTIES], "passes_done": order}
 
 
+CURSOR_TRIES = 2
+
+
 def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Agent:
     """A headless cursor-agent run in an empty folder; --force lets its search and fetch tools run."""
     def run(text: str) -> str:
-        with tempfile.TemporaryDirectory() as folder:
-            done = subprocess.run([binary, "-p", "--trust", "--force", "--mode", "ask", "--model", model, text],
-                                  cwd=folder, capture_output=True, text=True, timeout=timeout_s)
+        for attempt in range(CURSOR_TRIES):  # a run that times out is tried once more before it counts as failed
+            try:
+                with tempfile.TemporaryDirectory() as folder:
+                    done = subprocess.run([binary, "-p", "--trust", "--force", "--mode", "ask", "--model", model, text],
+                                          cwd=folder, capture_output=True, text=True, timeout=timeout_s)
+                break
+            except subprocess.TimeoutExpired:
+                if attempt == CURSOR_TRIES - 1:
+                    raise
         if done.returncode != 0:
             raise RuntimeError(f"cursor-agent exited {done.returncode}: {done.stderr.strip()[-300:]}")
         return done.stdout

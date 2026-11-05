@@ -918,3 +918,22 @@ def test_related_forecasts_cap_order_and_nothing_to_show() -> None:
         "2026-11-12", "2026-11-11", "2026-11-13", "2026-11-10", "2026-11-14", "2026-11-15"]
     assert cr.related_forecasts(record, {**task, "question": "Will the price be above 2026?"}, "2026-11-04") == ""
     assert cr.related_forecasts({"questions": []}, task, "2026-11-04") == ""
+
+
+def test_cursor_agent_retries_a_timed_out_run_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[int] = []
+
+    def fake_run(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        calls.append(1)
+        if len(calls) == 1:
+            raise subprocess.TimeoutExpired(args[0], kwargs["timeout"])
+        return subprocess.CompletedProcess(args[0], 0, stdout="found it", stderr="")
+
+    monkeypatch.setattr(cr.subprocess, "run", fake_run)
+    assert cr.cursor_agent("m", 5)("q") == "found it" and len(calls) == 2
+
+    calls.clear()
+    monkeypatch.setattr(cr.subprocess, "run", lambda *a, **k: (calls.append(1), (_ for _ in ()).throw(subprocess.TimeoutExpired(a[0], 5)))[1])
+    with pytest.raises(subprocess.TimeoutExpired):
+        cr.cursor_agent("m", 5)("q")
+    assert len(calls) == cr.CURSOR_TRIES
