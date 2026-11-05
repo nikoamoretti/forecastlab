@@ -296,6 +296,18 @@ def test_the_corrected_forecast_is_scored_but_never_part_of_our_call(tmp_path: P
     assert "claude_calibrated_v1" not in _weights([{**q, "outcome": 1} for q in record["questions"]])
 
 
+def test_from_nov_6_our_call_is_the_corrected_forecast_frozen(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _today_question(tmp_path, day="20261106")
+    record = build_track_record(tmp_path, today=date(2026, 11, 6), freeze=True)
+    question = next(q for q in record["questions"] if q["id"] == "new20261106")
+    corrected = _forecast(record, "new20261106", "claude_calibrated_v1")
+    assert corrected is not None and corrected["probability"] != 0.7
+    assert question["call"] == {"method": "claude_corrected_call_v1", "probability": corrected["probability"], "members": 1}
+    frozen = json.loads((tmp_path / "prospective_markets_20261106" / "calls.json").read_text())
+    assert frozen["new20261106"] == question["call"]
+
+
 def test_headline_score_and_the_fair_market_comparison(tmp_path: Path) -> None:
     _markets(tmp_path / "prospective_markets_20261001", [
         {"id": "a", "date": "2026-10-05", "outcome": 1, "forecasts": [

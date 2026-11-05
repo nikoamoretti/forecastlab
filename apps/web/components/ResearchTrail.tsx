@@ -58,7 +58,8 @@ export function ResearchTrail({ q, labels }: { q: Question; labels: Record<strin
           {answered.length} of {count(research.judges.length, "judge model")} answered from the brief and the checked sources{cost > 0 && ` (cost $${cost.toFixed(3)})`}.
           {failed.length > 0 && <span className="mt-1 block text-sm text-ink/60">No answer from {failed.map(j => `${labels[j.method] ?? j.model} (${j.error ?? "failed"})`).join("; ")}.</span>}</Step>}
         {q.call && q.call.method === "claude_call_v1" && <Step>Our call is Claude’s own forecast: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
-        {q.call && q.call.method !== "claude_call_v1" && <Step>Our call is the middle of the forecasters’ probabilities{q.call.weights ? ", with better records counting more" : ""}: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
+        {q.call && q.call.method === "claude_corrected_call_v1" && <Step>Our call is Claude’s forecast corrected for how its past calls turned out: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
+        {q.call && q.call.method !== "claude_call_v1" && q.call.method !== "claude_corrected_call_v1" && <Step>Our call is the middle of the forecasters’ probabilities{q.call.weights ? ", with better records counting more" : ""}: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
         {q.status === "resolved" && <Step>The result came in on {shortDate(q.resolves_on, true)}: {q.outcome ? "yes" : "no"}{q.actual ? ` (${q.actual})` : ""}.</Step>}
       </ol>
     </section>
