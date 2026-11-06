@@ -1,116 +1,116 @@
 {
   "calibration": {
-    "as_of": "2026-11-05",
-    "intercept": 0.367655,
-    "results": 184,
-    "slope": 0.737681
+    "as_of": "2026-11-06",
+    "intercept": 0.348975,
+    "results": 189,
+    "slope": 0.728837
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.2133155304228906,
+      "brier": 0.21251727206365573,
       "coin_flip_brier": 0.25,
-      "forecasts": 260,
+      "forecasts": 264,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 190,
-      "right": 126,
+      "resolved": 194,
+      "right": 129,
       "toss_ups": 3,
-      "wrong": 61
+      "wrong": 62
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.2031708108108108,
+      "brier": 0.20332857142857141,
       "coin_flip_brier": 0.25,
-      "forecasts": 255,
+      "forecasts": 259,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 185,
-      "right": 122,
+      "resolved": 189,
+      "right": 125,
       "toss_ups": 6,
-      "wrong": 57
+      "wrong": 58
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20816417910447763,
+      "brier": 0.20953333333333335,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 67,
-      "right": 46,
+      "resolved": 69,
+      "right": 47,
       "toss_ups": 0,
-      "wrong": 21
+      "wrong": 22
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.1827723404255319,
+      "brier": 0.18048333333333333,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 47,
-      "right": 35,
+      "resolved": 48,
+      "right": 36,
       "toss_ups": 1,
       "wrong": 11
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21529591836734693,
+      "brier": 0.2168523489932886,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 147,
-      "right": 97,
+      "resolved": 149,
+      "right": 98,
       "toss_ups": 1,
-      "wrong": 49
+      "wrong": 50
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.20734561403508772,
+      "brier": 0.2044603448275862,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 57,
-      "right": 41,
+      "resolved": 58,
+      "right": 42,
       "toss_ups": 0,
       "wrong": 16
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21278263888888888,
+      "brier": 0.21416917808219177,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 144,
-      "right": 103,
+      "resolved": 146,
+      "right": 104,
       "toss_ups": 0,
-      "wrong": 41
+      "wrong": 42
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21741266666666667,
+      "brier": 0.2188730263157895,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 150,
-      "right": 104,
+      "resolved": 152,
+      "right": 105,
       "toss_ups": 1,
-      "wrong": 45
+      "wrong": 46
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.19883636363636364,
+      "brier": 0.19258947368421053,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 55,
-      "right": 38,
+      "resolved": 57,
+      "right": 40,
       "toss_ups": 1,
       "wrong": 16
     },
@@ -166,7 +166,7 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.25943617692189214,
       "coin_flip_brier": 0.25,
-      "forecasts": 27,
+      "forecasts": 28,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
       "resolved": 18,
@@ -176,42 +176,42 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
-      "brier": 0.014081590323999998,
+      "brier": 0.03197125922025,
       "coin_flip_brier": 0.25,
-      "forecasts": 30,
+      "forecasts": 34,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 2,
-      "right": 2,
+      "resolved": 4,
+      "right": 4,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.15651250961538463,
+      "brier": 0.15594211466165414,
       "coin_flip_brier": 0.25,
-      "forecasts": 168,
+      "forecasts": 169,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 130,
-      "right": 98,
+      "resolved": 133,
+      "right": 100,
       "toss_ups": 0,
-      "wrong": 32
+      "wrong": 33
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.15545329846153846,
+      "brier": 0.152889466,
       "coin_flip_brier": 0.25,
-      "forecasts": 56,
+      "forecasts": 58,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 39,
-      "right": 27,
+      "resolved": 40,
+      "right": 28,
       "toss_ups": 0,
       "wrong": 12
     }
   ],
-  "generated_on": "2026-11-05",
+  "generated_on": "2026-11-06",
   "questions": [
     {
       "actual": "189,000 claims",
@@ -243,6 +243,147 @@
       "title": "Will weekly U.S. jobless claims for the week ending Oct 31, 2026 come in above 194,000 claims?",
       "topic": "Jobs",
       "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.78
+      },
+      "detail": "This market will resolve according to the change in basis points in the Bank Rate resulting from the November 2026 meeting of the Bank of England\u2019s Monetary Policy Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of England, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 5, 2026, as listed on the official Bank of England calendar (https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates). This market may resolve as soon as the statement or release of the Bank of England's November 2026 Monetary Policy Committee meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-19T10:56:56+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "The MPC held Bank Rate at 3.75% on 2026-09-17 by 6-3, with Greene, Mann and Pill voting for a 25 basis point rise, and Governor Bailey's statement says prolonged energy-price volatility makes a rise more likely. CPI was 3.1% in August (ONS, 2026-09-16) and the BoE expected it to rise further; a Reuters poll of 63 economists on 2026-10-12 to 14 had 54 expecting a 25 basis point rise in November, and Pill said on 2026-10-15 that a future hike need not start a long series. Seven straight holds in 2026 and a still-unpublished September CPI (2026-10-21) keep a hold plausible, but three votes already favour a rise and the near-term evidence points the same way.",
+          "sources": [
+            "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+            "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
+            "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026",
+            "https://financialnewsletter.com/boe-to-raise-rates-2/",
+            "https://squawknews.com/news/493378-update-1-boe-s-pill-says-a-rate-hike-need-not-be-start-of-long-series"
+          ]
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: BoE has held rates for 7 consecutive meetings in 2026 after a Dec 2025 cut, with no hike in over 3 years. Evidence moving probability up: 86% of economists (54/63) now expect a 25bp hike in November (reversing Sept consensus), 3/9 MPC members voted for hike in Sept, CPI at 3.1% and rising with energy-driven upside risks, and BoE explicitly states prolonged energy volatility makes a hike more likely. Pill's Oct 15 comments signal a hike is coming but not a tightening cycle. Key downside risks: Sept CPI (Oct 21), budget, and labour data before Nov 5 meeting could soften the case if inflation surprises lower or energy prices ease."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.73,
+          "rationale": "Base rate: the Bank of England has not raised rates in over three years, implying a low prior probability of a hike at any given meeting (roughly 10\u201115%). Evidence from the September MPC minutes shows a 6\u20113 split with three members favoring a 25\u202fbp increase, a Reuters poll of economists shows 86% expecting a November hike, and inflation has risen to 3.1% with upward pressure from volatile energy prices, making a hike more likely. These factors shift the probability upward to around 70\u201175%. The main uncertainty is the upcoming September CPI release (due 21\u202fOct); a softer\u2011than\u2011expected print could revive the hold case, while a hot print would strengthen the hike case."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The base rate for any MPC meeting is modest, but the September vote was 6-3 with three members already favouring a 25bp hike, and inflation at 3.1% with energy-price volatility pushing upward. A mid-October Reuters poll found 54 of 63 economists expecting a 25bp rise, and BoE messaging has leaned hawkish, suggesting a hike is likely. The main residual uncertainty is the September CPI release on 21 October and the 28 October budget, which could still sway the committee toward a hold, so I set the probability at 85%."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.8,
+          "rationale": "The Bank of England has held rates at 3.75% through all of 2026, but with CPI inflation at 3.1% and rising, the baseline chance of a hike is well above average. The September MPC vote was already 6-3 to hold with three members dissenting for a 25 bps rise, and Governor Bailey's subsequent statement explicitly warned that persistent energy volatility makes a rate increase more likely to return inflation to target; moreover, an October Reuters poll found 54 of 63 economists forecasting a November hike, reflecting a sharp shift in consensus. However, the September CPI report due on 21 October or upcoming labour data and budget announcements could still surprise to the downside, potentially convincing the majority of holdouts that inflation pressures are easing enough to keep rates unchanged."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.86,
+          "rationale": "The base case is a hold, but the evidence has shifted strongly toward a 25 bps hike: inflation is above target and expected to rise, three MPC members voted for a rise in September, and a large economist poll plus market commentary treat a November hike as likely. The main uncertainty is the September CPI print on October 21 and the October 28 budget, which could soften the case if energy prices ease or fiscal policy is less inflationary. Overall, the balance of evidence supports a high but not near-certain probability of a 25 bps increase."
+        },
+        {
+          "made_at": "2026-10-19T10:58:27.658930+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: BoE has held at 3.75% for all seven 2026 meetings, but the September vote was a narrow 6-3 with three members seeking a hike, and inflation is rising (3.1% in August, expected higher). A Reuters poll of 63 economists taken 2026-10-12 to 14 found 54 expecting a 25bp rise in November, a sharp shift from September's ~90% expecting no change. Pill's comments suggest he supports a hike but not a long series, consistent with a one-off 25bp move. The main risks are a softer-than-expected September CPI print (due 2026-10-21) or easing energy prices, which could keep the MPC on hold; conversely, a hot print or hawkish budget on 28 October would push probability higher."
+        },
+        {
+          "made_at": "2026-10-19T09:10:12.136876+00:00",
+          "method": "market_price_v1",
+          "probability": 0.935
+        }
+      ],
+      "id": "polymarket-3247826",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261019",
+      "source_url": "https://polymarket.com/event/bank-of-england-decision-in-november-20260730150602252",
+      "status": "resolved",
+      "title": "Bank of England increases interest rates by 25 bps after November 2026 meeting?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.78
+      },
+      "detail": "This market will resolve according to the change in basis points in the target for the overnight interbank interest rate resulting from the November 2026 meeting of the Bank of Mexico, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Mexico, including the statement or release from its November 2026 meeting, scheduled for November 5, 2026, as listed on the official Bank of Mexico calendar (https://www.banxico.org.mx/viewers2/JSP/calendarioDifusion_es.jsp). This market may resolve as soon as the statement or release of the Bank of Mexico resulting from its November 2026 meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "Banxico held at 6.50% unanimously on 24 September 2026, its third straight hold (25 June, 6 August, 24 September), and the statement still said the balance of risks to inflation is biased to the upside (Banxico, 24 September). The September private-analyst survey (1 October) had a median end-2026 rate of 6.50%, and a Citi survey reported on 20 October had a majority expecting no change through the rest of 2026, with a minority (Bankaool, Finamex) calling a cut in November. The 8 October minutes show some members open to a later fine-tuning cut and September inflation was 3.45% (INEGI), so a November cut is a real minority risk, while a hike is very unlikely.",
+          "sources": [
+            "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/%7B7D0BDB6E-E519-9C69-04AA-ABD4D31E4850%7D.pdf",
+            "https://www.banxico.org.mx/publicaciones-y-prensa/minutas-de-las-decisiones-de-politica-monetaria/%7BF63C3DE2-0AEC-9BAE-A86E-FC59895F9702%7D.pdf",
+            "https://www.elfinanciero.com.mx/economia/2026/10/20/banxico-no-hara-cambios-a-tasa-en-2026-ni-en-2027-encuesta-citi/",
+            "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/inpc/inpc_2q2026_10.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.68,
+          "rationale": "Base rate: Banxico held rates at 6.50% at its last three meetings (June, August, September 2026). However, the October 8 minutes explicitly state that \"in the following decisions a one-off decrease in the reference rate may be evaluated\" and that \"there are elements to discuss the convenience of a fine-tuning adjustment downward\" if disinflation continues. September inflation came in at 3.45% annually with core monthly at 0.20%, supporting continued disinflation. The private-sector median expects no change by year-end, but a minority (including Bankaool and Finamex) sees a November cut. The October 22 biweekly inflation print and Fed policy trajectory are the key swing factors before the November 5 meeting."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.8,
+          "rationale": "The base rate for central bank meetings is often a hold, especially after three consecutive holds. The September minutes show some members open to a cut if disinflation continues, but the majority of analysts in the October 20 Citi survey expect no change. Inflation at 3.45% and upside risks, along with a recent Fed hike, support holding. However, a surprise downside inflation print on October 22 or a dovish Fed turn could trigger a cut, giving a roughly 20% chance of a change."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.78,
+          "rationale": "The recent base rate is mixed but tilted toward holds: four of the last eight decisions were holds, and the last three were consecutive holds at 6.50%. The September statement and minutes emphasize upside inflation risks, a hawkish Fed, and only a possible later fine-tuning cut, while the Citi survey has a majority expecting no change in the remaining 2026 meetings. A soft October inflation print or a dovish Fed shift could raise the chance of a 25bp cut, but a hike is not discussed in the sources."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.78,
+          "rationale": "Base rate: Banxico has held at 6.50% for three consecutive meetings (June, August, September 2026), and the September minutes show a unanimous hold with only some members discussing a possible fine-tuning cut at later decisions. The September analyst survey median for end-2026 is 6.50%, and a Citi survey shows a majority expecting no change through 2026. The upside risk bias in the September statement and the Fed's September hike argue against a cut, though a minority of analysts (Bankaool, Finamex) expect a November cut. The October inflation print (due 22 October) and Fed trajectory are the remaining swing factors, but no source discusses a hike. I assign ~78% to no change, with the residual reflecting the minority cut expectation and data uncertainty."
+        },
+        {
+          "made_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.565
+        }
+      ],
+      "id": "polymarket-3388093",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261021",
+      "source_url": "https://polymarket.com/event/bank-of-mexico-decision-in-november",
+      "status": "resolved",
+      "title": "No change in Bank of Mexico\u2019s interest rates after November 2026 meeting?",
+      "topic": "Economy",
+      "verdict": "wrong"
     },
     {
       "actual": "Manifold: Yes",
@@ -299,6 +440,64 @@
       "title": "Gas exceeds $4.50, and democrats control both House and Senate?",
       "topic": "Politics",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.2,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Binance BTCUSDT was about 78,030 at 10:33 UTC on 2026-11-02, 2.5% under 80,000, and the last three daily closes (2026-10-30 to 11-01: 77,368.77, 77,582.02, 78,354.00) were all below it after the 2026-10-29 spike to 81,971 and close at 77,991.89. The gap equals about one average daily range (1,967) and the noon ET print on 2026-11-05 is about 78 hours out, so a random-walk estimate with 1.6-1.8% daily swings gives roughly 20-23%. The hack aftermath and ETF outflows weigh on the price, while a relief bounce toward the 80,000-82,000 area it held through October is the main path up.",
+          "sources": [
+            "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
+            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.2,
+          "rationale": "Price is about 78,030, roughly 2.5% below 80,000, with about 78 hours to the noon ET close on Nov 5. Daily range is about 2,000, so a 3-day volatility of roughly 4% puts the line near 0.6 sigma away, which gives about 25-27% for a pure random walk. The Binance hack, outflows and ETF selling add some downside drift and the price has failed to hold above 80,000 since Oct 29, so I shade lower. A rebound on flows turning or a relief rally could still get it there."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.303333,
+          "raw": 0.2,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.265
+        }
+      ],
+      "id": "polymarket-6389961",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-5-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $80,000 on November 5?",
+      "topic": "Crypto",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -2614,6 +2813,65 @@
       "status": "resolved",
       "title": "Will the price of Ethereum be above $2,200 on November 4?",
       "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.04,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before November 5, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Anthropic's own pages show no model newer than Claude Fable 5.1 as of 2026-11-02: the release notes of 2026-10-30, the system prompt of 2026-10-30 and the models overview all name Fable 5.1 as the newest generally available Fable, and the events page lists nothing before 2026-11-10. The only prior Fable gap was 84 days (2026-06-09 to 2026-09-01), so a launch within the three-day window would be about 62 days after the last one, and the S-1 mention of unreleased models gives no date. A same-day unannounced launch is how earlier Fable models shipped, which keeps a small residual chance.",
+          "sources": [
+            "https://www.anthropic.com/news/models",
+            "https://platform.claude.com/docs/en/release-notes/overview",
+            "https://platform.claude.com/docs/en/release-notes/system-prompts/claude-fable-5-1",
+            "https://www.anthropic.com/events"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.04,
+          "rationale": "Base rate is low: the only gap between general Fable releases was 84 days, and Fable 5.1 shipped about 48 days ago, so the next Fable on that cadence would land around late November. No new model string, newsroom post, partner listing or event appears for Nov 2-4, and the Fable 5.1 system prompt dated Oct 30 still calls it the most advanced generally available model. A short-notice launch is possible since earlier Fable models launched the day they were announced, but the window is only about 3 days. A Mythos-only or partner-only release would not count."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.087812,
+          "raw": 0.04,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.23
+        }
+      ],
+      "id": "manifold-LtpELtyL0p",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-EpgCOn90Oc",
+      "status": "resolved",
+      "title": "Will Anthropic release a new Claude Fable model before November 5, 2026?",
+      "topic": "Tech",
       "verdict": "right"
     },
     {
@@ -13914,206 +14172,6 @@
     {
       "actual": null,
       "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.04,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "Resolves YES if Anthropic officially releases a new Claude Fable model (newer than Fable 5.1) before November 5, 2026.\n\nThe model must be available to general users through an official channel (Claude apps, API, or cloud partners). Releases limited to selected partners or testers do not count. \n\nAny version number counts (5.2, 5.5, 6, etc.). Rumors, leaks, and hidden-routing reports do not count.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.04,
-          "rationale": "Anthropic's own pages show no model newer than Claude Fable 5.1 as of 2026-11-02: the release notes of 2026-10-30, the system prompt of 2026-10-30 and the models overview all name Fable 5.1 as the newest generally available Fable, and the events page lists nothing before 2026-11-10. The only prior Fable gap was 84 days (2026-06-09 to 2026-09-01), so a launch within the three-day window would be about 62 days after the last one, and the S-1 mention of unreleased models gives no date. A same-day unannounced launch is how earlier Fable models shipped, which keeps a small residual chance.",
-          "sources": [
-            "https://www.anthropic.com/news/models",
-            "https://platform.claude.com/docs/en/release-notes/overview",
-            "https://platform.claude.com/docs/en/release-notes/system-prompts/claude-fable-5-1",
-            "https://www.anthropic.com/events"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.04,
-          "rationale": "Base rate is low: the only gap between general Fable releases was 84 days, and Fable 5.1 shipped about 48 days ago, so the next Fable on that cadence would land around late November. No new model string, newsroom post, partner listing or event appears for Nov 2-4, and the Fable 5.1 system prompt dated Oct 30 still calls it the most advanced generally available model. A short-notice launch is possible since earlier Fable models launched the day they were announced, but the window is only about 3 days. A Mythos-only or partner-only release would not count."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.087812,
-          "raw": 0.04,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.23
-        }
-      ],
-      "id": "manifold-LtpELtyL0p",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://manifold.markets/winged_one/will-anthropic-release-a-new-claude-EpgCOn90Oc",
-      "status": "pending",
-      "title": "Will Anthropic release a new Claude Fable model before November 5, 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.78
-      },
-      "detail": "This market will resolve according to the change in basis points in the Bank Rate resulting from the November 2026 meeting of the Bank of England\u2019s Monetary Policy Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of England, including the statement or release from its November 2026 Monetary Policy Committee meeting, scheduled for November 5, 2026, as listed on the official Bank of England calendar (https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates). This market may resolve as soon as the statement or release of the Bank of England's November 2026 Monetary Policy Committee meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-19T10:56:56+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "The MPC held Bank Rate at 3.75% on 2026-09-17 by 6-3, with Greene, Mann and Pill voting for a 25 basis point rise, and Governor Bailey's statement says prolonged energy-price volatility makes a rise more likely. CPI was 3.1% in August (ONS, 2026-09-16) and the BoE expected it to rise further; a Reuters poll of 63 economists on 2026-10-12 to 14 had 54 expecting a 25 basis point rise in November, and Pill said on 2026-10-15 that a future hike need not start a long series. Seven straight holds in 2026 and a still-unpublished September CPI (2026-10-21) keep a hold plausible, but three votes already favour a rise and the near-term evidence points the same way.",
-          "sources": [
-            "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
-            "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
-            "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026",
-            "https://financialnewsletter.com/boe-to-raise-rates-2/",
-            "https://squawknews.com/news/493378-update-1-boe-s-pill-says-a-rate-hike-need-not-be-start-of-long-series"
-          ]
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.78,
-          "rationale": "Base rate: BoE has held rates for 7 consecutive meetings in 2026 after a Dec 2025 cut, with no hike in over 3 years. Evidence moving probability up: 86% of economists (54/63) now expect a 25bp hike in November (reversing Sept consensus), 3/9 MPC members voted for hike in Sept, CPI at 3.1% and rising with energy-driven upside risks, and BoE explicitly states prolonged energy volatility makes a hike more likely. Pill's Oct 15 comments signal a hike is coming but not a tightening cycle. Key downside risks: Sept CPI (Oct 21), budget, and labour data before Nov 5 meeting could soften the case if inflation surprises lower or energy prices ease."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.73,
-          "rationale": "Base rate: the Bank of England has not raised rates in over three years, implying a low prior probability of a hike at any given meeting (roughly 10\u201115%). Evidence from the September MPC minutes shows a 6\u20113 split with three members favoring a 25\u202fbp increase, a Reuters poll of economists shows 86% expecting a November hike, and inflation has risen to 3.1% with upward pressure from volatile energy prices, making a hike more likely. These factors shift the probability upward to around 70\u201175%. The main uncertainty is the upcoming September CPI release (due 21\u202fOct); a softer\u2011than\u2011expected print could revive the hold case, while a hot print would strengthen the hike case."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.85,
-          "rationale": "The base rate for any MPC meeting is modest, but the September vote was 6-3 with three members already favouring a 25bp hike, and inflation at 3.1% with energy-price volatility pushing upward. A mid-October Reuters poll found 54 of 63 economists expecting a 25bp rise, and BoE messaging has leaned hawkish, suggesting a hike is likely. The main residual uncertainty is the September CPI release on 21 October and the 28 October budget, which could still sway the committee toward a hold, so I set the probability at 85%."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.8,
-          "rationale": "The Bank of England has held rates at 3.75% through all of 2026, but with CPI inflation at 3.1% and rising, the baseline chance of a hike is well above average. The September MPC vote was already 6-3 to hold with three members dissenting for a 25 bps rise, and Governor Bailey's subsequent statement explicitly warned that persistent energy volatility makes a rate increase more likely to return inflation to target; moreover, an October Reuters poll found 54 of 63 economists forecasting a November hike, reflecting a sharp shift in consensus. However, the September CPI report due on 21 October or upcoming labour data and budget announcements could still surprise to the downside, potentially convincing the majority of holdouts that inflation pressures are easing enough to keep rates unchanged."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.86,
-          "rationale": "The base case is a hold, but the evidence has shifted strongly toward a 25 bps hike: inflation is above target and expected to rise, three MPC members voted for a rise in September, and a large economist poll plus market commentary treat a November hike as likely. The main uncertainty is the September CPI print on October 21 and the October 28 budget, which could soften the case if energy prices ease or fiscal policy is less inflationary. Overall, the balance of evidence supports a high but not near-certain probability of a 25 bps increase."
-        },
-        {
-          "made_at": "2026-10-19T10:58:27.658930+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.78,
-          "rationale": "Base rate: BoE has held at 3.75% for all seven 2026 meetings, but the September vote was a narrow 6-3 with three members seeking a hike, and inflation is rising (3.1% in August, expected higher). A Reuters poll of 63 economists taken 2026-10-12 to 14 found 54 expecting a 25bp rise in November, a sharp shift from September's ~90% expecting no change. Pill's comments suggest he supports a hike but not a long series, consistent with a one-off 25bp move. The main risks are a softer-than-expected September CPI print (due 2026-10-21) or easing energy prices, which could keep the MPC on hold; conversely, a hot print or hawkish budget on 28 October would push probability higher."
-        },
-        {
-          "made_at": "2026-10-19T09:10:12.136876+00:00",
-          "method": "market_price_v1",
-          "probability": 0.935
-        }
-      ],
-      "id": "polymarket-3247826",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261019",
-      "source_url": "https://polymarket.com/event/bank-of-england-decision-in-november-20260730150602252",
-      "status": "pending",
-      "title": "Bank of England increases interest rates by 25 bps after November 2026 meeting?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.78
-      },
-      "detail": "This market will resolve according to the change in basis points in the target for the overnight interbank interest rate resulting from the November 2026 meeting of the Bank of Mexico, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Mexico, including the statement or release from its November 2026 meeting, scheduled for November 5, 2026, as listed on the official Bank of Mexico calendar (https://www.banxico.org.mx/viewers2/JSP/calendarioDifusion_es.jsp). This market may resolve as soon as the statement or release of the Bank of Mexico resulting from its November 2026 meeting with relevant data is issued. \n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound. \n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting.  If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-21T10:55:44+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.85,
-          "rationale": "Banxico held at 6.50% unanimously on 24 September 2026, its third straight hold (25 June, 6 August, 24 September), and the statement still said the balance of risks to inflation is biased to the upside (Banxico, 24 September). The September private-analyst survey (1 October) had a median end-2026 rate of 6.50%, and a Citi survey reported on 20 October had a majority expecting no change through the rest of 2026, with a minority (Bankaool, Finamex) calling a cut in November. The 8 October minutes show some members open to a later fine-tuning cut and September inflation was 3.45% (INEGI), so a November cut is a real minority risk, while a hike is very unlikely.",
-          "sources": [
-            "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/%7B7D0BDB6E-E519-9C69-04AA-ABD4D31E4850%7D.pdf",
-            "https://www.banxico.org.mx/publicaciones-y-prensa/minutas-de-las-decisiones-de-politica-monetaria/%7BF63C3DE2-0AEC-9BAE-A86E-FC59895F9702%7D.pdf",
-            "https://www.elfinanciero.com.mx/economia/2026/10/20/banxico-no-hara-cambios-a-tasa-en-2026-ni-en-2027-encuesta-citi/",
-            "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/inpc/inpc_2q2026_10.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.68,
-          "rationale": "Base rate: Banxico held rates at 6.50% at its last three meetings (June, August, September 2026). However, the October 8 minutes explicitly state that \"in the following decisions a one-off decrease in the reference rate may be evaluated\" and that \"there are elements to discuss the convenience of a fine-tuning adjustment downward\" if disinflation continues. September inflation came in at 3.45% annually with core monthly at 0.20%, supporting continued disinflation. The private-sector median expects no change by year-end, but a minority (including Bankaool and Finamex) sees a November cut. The October 22 biweekly inflation print and Fed policy trajectory are the key swing factors before the November 5 meeting."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.8,
-          "rationale": "The base rate for central bank meetings is often a hold, especially after three consecutive holds. The September minutes show some members open to a cut if disinflation continues, but the majority of analysts in the October 20 Citi survey expect no change. Inflation at 3.45% and upside risks, along with a recent Fed hike, support holding. However, a surprise downside inflation print on October 22 or a dovish Fed turn could trigger a cut, giving a roughly 20% chance of a change."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.78,
-          "rationale": "The recent base rate is mixed but tilted toward holds: four of the last eight decisions were holds, and the last three were consecutive holds at 6.50%. The September statement and minutes emphasize upside inflation risks, a hawkish Fed, and only a possible later fine-tuning cut, while the Citi survey has a majority expecting no change in the remaining 2026 meetings. A soft October inflation print or a dovish Fed shift could raise the chance of a 25bp cut, but a hike is not discussed in the sources."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.78,
-          "rationale": "Base rate: Banxico has held at 6.50% for three consecutive meetings (June, August, September 2026), and the September minutes show a unanimous hold with only some members discussing a possible fine-tuning cut at later decisions. The September analyst survey median for end-2026 is 6.50%, and a Citi survey shows a majority expecting no change through 2026. The upside risk bias in the September statement and the Fed's September hike argue against a cut, though a minority of analysts (Bankaool, Finamex) expect a November cut. The October inflation print (due 22 October) and Fed trajectory are the remaining swing factors, but no source discusses a hike. I assign ~78% to no change, with the residual reflecting the minority cut expectation and data uncertainty."
-        },
-        {
-          "made_at": "2026-10-21T09:17:28.572088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.565
-        }
-      ],
-      "id": "polymarket-3388093",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261021",
-      "source_url": "https://polymarket.com/event/bank-of-mexico-decision-in-november",
-      "status": "pending",
-      "title": "No change in Bank of Mexico\u2019s interest rates after November 2026 meeting?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.02,
@@ -14178,64 +14236,6 @@
       "status": "pending",
       "title": "Will there be another assassination of a US politician before the 2026 midterms?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.2,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.2,
-          "rationale": "Binance BTCUSDT was about 78,030 at 10:33 UTC on 2026-11-02, 2.5% under 80,000, and the last three daily closes (2026-10-30 to 11-01: 77,368.77, 77,582.02, 78,354.00) were all below it after the 2026-10-29 spike to 81,971 and close at 77,991.89. The gap equals about one average daily range (1,967) and the noon ET print on 2026-11-05 is about 78 hours out, so a random-walk estimate with 1.6-1.8% daily swings gives roughly 20-23%. The hack aftermath and ETF outflows weigh on the price, while a relief bounce toward the 80,000-82,000 area it held through October is the main path up.",
-          "sources": [
-            "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-            "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.2,
-          "rationale": "Price is about 78,030, roughly 2.5% below 80,000, with about 78 hours to the noon ET close on Nov 5. Daily range is about 2,000, so a 3-day volatility of roughly 4% puts the line near 0.6 sigma away, which gives about 25-27% for a pure random walk. The Binance hack, outflows and ETF selling add some downside drift and the price has failed to hold above 80,000 since Oct 29, so I shade lower. A rebound on flows turning or a relief rally could still get it there."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.303333,
-          "raw": 0.2,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.265
-        }
-      ],
-      "id": "polymarket-6389961",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-5-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $80,000 on November 5?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -15728,6 +15728,55 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.076737
+      },
+      "detail": "Coronae Borealis (T CrB), also known as the 'Blaze Star,' is a recurrent nova expected to undergo an outburst \"soon\". Historically, it has brightened to magnitude 2.0 or 3.0 during such events in 1866 and 1946 respectively.\n\nThis market resolves to 'Yes' if T CrB reaches magnitude 5.0 or brighter before November 11th, 2026 (12:00:00 am ET), as reported by reputable astronomical sources such as the American Association of Variable Star Observers (AAVSO).\n\nT Coronae Borealis - Wikipedia \n\n[link preview]",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Only two primary eruptions are on record (1866 and 1946, https://arxiv.org/pdf/2303.04933), and T CrB was still at B=11.235 on 2026-11-05 (https://theskylive.com/sky/stars/hr-5958-star) with no outburst reported as of 2026-11-03 (https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/). The rise is fast enough that an eruption on any remaining night would count, but nothing marks the 5 days before the cutoff as special; even a generous hazard of 30 to 50% a year gives under 1% for this window, so I sit at the 2% floor.",
+          "sources": [
+            "https://arxiv.org/pdf/2303.04933",
+            "https://theskylive.com/sky/stars/hr-5958-star",
+            "https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/",
+            "https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/"
+          ]
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.076737,
+          "raw": 0.02,
+          "results": 189,
+          "slope": 0.728837
+        },
+        {
+          "made_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0761
+        }
+      ],
+      "id": "manifold-gq5RCCO6PN",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261106",
+      "source_url": "https://manifold.markets/EstMtz/t-coronae-borealis-reaches-magnitud-SpAug080pQ",
+      "status": "pending",
+      "title": "T Coronae Borealis reaches magnitude 5.0 before November 11th, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 2,
         "method": "combined_weighted_v1",
         "probability": 0.57,
@@ -16019,6 +16068,105 @@
       "actual": null,
       "call": {
         "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.466436
+      },
+      "detail": "This is a market about the one-month percent change in the Consumer Price Index for All Urban Consumers excluding food and energy in October 2026 as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the one-month percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report (seasonally adjusted change from the preceding month).\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.3%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.34,
+          "rationale": "Core CPI printed 0.2 in 46 of 127 months since 2016 (about 36%, https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth), and 3 of the last 7 2026 prints (0.2, 0.4, 0.2, 0.0, 0.2, 0.3, 0.3 for March to September, https://www.bls.gov/news.release/cpi.nr0.htm, 2026-10-14). The Cleveland Fed 0.21 nowcast is only a 12-month moving average of past core inflation (https://www.clevelandfed.org/-/media/project/clevelandfedtenant/clevelandfedsite/indicators-and-data/inflation-nowcasting/nowcasting_faqs.pdf), so I give it little weight. The last two prints were 0.3 with broad strength (shelter 0.4, services 0.4, https://www.bls.gov/news.release/cpi.t03.htm) and PPI services accelerated (https://www.bls.gov/news.release/archives/ppi_10152026.htm, 2026-10-15), which makes 0.3 the modal outcome and 0.2 the second most likely.",
+          "sources": [
+            "https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth",
+            "https://www.bls.gov/news.release/cpi.nr0.htm",
+            "https://www.bls.gov/news.release/cpi.t03.htm",
+            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+            "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.466436,
+          "raw": 0.34,
+          "results": 189,
+          "slope": 0.728837
+        },
+        {
+          "made_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "market_price_v1",
+          "probability": 0.35
+        }
+      ],
+      "id": "polymarket-5699271",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261106",
+      "source_url": "https://polymarket.com/event/core-cpi-mom-october-2026",
+      "status": "pending",
+      "title": "Will Core CPI MoM be 0.2% in October?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.724425
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-07 be above 189,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.7,
+          "rationale": "The threshold equals the latest first print (189,000 for the week ending 2026-10-31, https://www.dol.gov/ui/data.pdf, 2026-11-05), so a repeat fails and a single tick down fails too. But 189,000 was a 5,000 step below the prior 194,000 and 195,000 prints (the 4-week average is 194,750), and the drop came from unadjusted claims falling while the factors expected a rise, a pattern that tends to partly reverse. The factor jumps from 0.933 to 1.036 for the week ending 2026-11-07 (https://www.bls.gov/lau/current-factors.htm), and raw claims rose about 10.5% in the same week of 2025 (https://fred.stlouisfed.org/data/ICNSA); with typical moves of 0 to 5,000, I put roughly 70% on a print of 190,000 or more.",
+          "sources": [
+            "https://www.dol.gov/ui/data.pdf",
+            "https://fred.stlouisfed.org/data/ICSA",
+            "https://fred.stlouisfed.org/data/ICNSA",
+            "https://www.bls.gov/lau/current-factors.htm"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4326923076923077
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.724425,
+          "raw": 0.7,
+          "results": 189,
+          "slope": 0.728837
+        }
+      ],
+      "id": "06d2e2a99c5b7e5b",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-12",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261106",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 7, 2026 come in above 189,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
         "method": "combined_weighted_v1",
         "probability": 0.14,
         "weights": {
@@ -16117,6 +16265,56 @@
       "status": "pending",
       "title": "Will PPI YoY be 6.8% or more in October?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.388949
+      },
+      "detail": "Based on the paper and my opinion on it which I will also partially base on the discourse / other people's reaction to it, as I am not an expert.\n\nWill I find it to be true that neural networks are already clean?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "The resolver is a non-expert who will weigh the paper and the discourse. For yes: the Goodfire essay (https://already-clean.goodfire.com/, revised 2026-10-30) reports 76% held-out success, about 70% of GPT-2 XL neurons looking like one thing and a Qwen3-32B audit with 90% single-job poles, and Cammarata has MIT Technology Review's backing (2026-10-19). Against: the authors say the title overstates the evidence and put themselves at maybe 85% on a change of kind, Gorton (2026-10-20) failed to replicate the canonical cases, and Batutin (2026-10-19) found 84% of random-init neurons labelled single-job, a noise-floor problem. The companion paper is not out, and earlier papers all treated neurons as polysemantic, so a firm yes by 2026-11-15 looks less likely than not.",
+          "sources": [
+            "https://already-clean.goodfire.com/",
+            "https://livgorton.com/already-clean-thoughts/",
+            "https://andriybatutin.substack.com/p/we-tried-to-confirm-neural-networks",
+            "https://www.technologyreview.com/2026/10/19/1147149/we-were-looking-at-it-wrong-the-explosive-claim-thats-upended-the-ai-world/",
+            "https://transluce.org/neuron-circuits"
+          ]
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.388949,
+          "raw": 0.25,
+          "results": 189,
+          "slope": 0.728837
+        },
+        {
+          "made_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2314
+        }
+      ],
+      "id": "manifold-RZUdPgyPN5",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-15",
+      "scored": true,
+      "source": "prospective_markets_20261106",
+      "source_url": "https://manifold.markets/Bayesian/are-neural-networks-already-clean",
+      "status": "pending",
+      "title": "Are neural networks already clean?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -16504,21 +16702,21 @@
     }
   ],
   "summary": {
-    "brier": 0.2133155304228906,
+    "brier": 0.21251727206365573,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
     "pending": 66,
-    "resolved": 190,
-    "right": 126,
+    "resolved": 194,
+    "right": 129,
     "toss_ups": 3,
-    "total": 260,
+    "total": 264,
     "unscored": 3,
     "vs_market": {
-      "market": 0.15626807627218936,
-      "ours": 0.20783328402366863,
-      "questions": 169
+      "market": 0.15523629994219654,
+      "ours": 0.20706488439306361,
+      "questions": 173
     },
-    "wrong": 61
+    "wrong": 62
   },
   "version": "track_record_v2"
 }

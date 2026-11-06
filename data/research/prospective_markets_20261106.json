@@ -1,0 +1,596 @@
+{
+ "manifold-RZUdPgyPN5": {
+  "against": "The record above makes a yes on \u201cneural networks are already clean\u201d less likely, but the strongest support for that yes is dated measurement rather than the title.\nOn 2025-11-20 Transluce showed neuron circuits matching sparse-autoencoder circuits in sparsity and faithfulness on Llama 3.1-8B-Instruct.\nBy the 2026-10-30 essay revision, explanations written before measurement drove 183 Qwen3-32B neurons at 76% versus 11% for near misses and about 1% for distant concepts, and a GPT-2 XL re-audit moved the same model from under 2% clean in 2023 to about 70% looking like one thing.\nOn 2026-10-20 a recount of the released gallery found 86 of 100 and 83 of 100 poles labeled as one idea or a branching structure, and a small-model ablation put most of the loss effect in the strongest activations.\nOn 2026-10-19 the author told MIT Technology Review he had mapped whole circuitry and that the networ",
+  "base_rate": "Reference class: primary mechanistic-interpretability papers that state whether a network's own neurons are already legible units, from Zoom In (2020-03-10) through Toy Models of Superposition (2022-09-21) and the sparse-autoencoder preprint arXiv:2309.08600 (2023).\nIn 0 of these 3 papers is the conclusion that neural networks are already free of polysemanticity; all 3 treat neurons that respond to unrelated inputs as an open obstacle, and the later 2 of 3 move the unit of analysis off the neuron.",
+  "brief": "The question asks whether the market creator will find it true that neural networks are already clean, a judgment based on the Goodfire essay by Nick Cammarata and others and on the surrounding discussion, with the market closing 2026-11-15 (the resolver says he is not an expert). The base reference class is the three main interpretability papers that addressed the question, Zoom In (2020-03-10, https://distill.pub/2020/circuits/zoom-in/), Toy Models of Superposition (2022-09-21, https://arxiv.org/abs/2209.10652) and the sparse-autoencoder paper arXiv:2309.08600, none of which concluded that neurons are clean, so the prior is 0 of 3 and the question was worked out as a strong claim needing unusual support. The essay (https://already-clean.goodfire.com/, revised 2026-10-30) is a working hypothesis: a held-out check on 183 Qwen3-32B neurons found explanation-based examples fired strongly 76 percent of the time against 11 percent for near misses and about 1 percent for distant concepts, a GPT-2 XL re-audit found about 70 percent of neurons looking like one thing against under 2 percent called clean in 2023, and the authors say they are maybe 85 percent sure of a change in kind and that the title overstates the evidence. MIT Technology Review covered it on 2026-10-19 and Transluce showed neuron-basis circuits as sparse as SAE circuits in Llama 3.1-8B (2025-11-20, https://transluce.org/neuron-circuits). Against it, Liv Gorton reported on 2026-10-20 that her replications disagreed and the canonical cat-and-car cases did not survive basic checks (https://livgorton.com/already-clean-thoughts/), and Andriy Batutin reported on 2026-10-19 that 84 percent of untrained random-init Qwen3 neurons were labelled single-job against 52 percent of trained ones, with none of 299 trained neurons meeting his pre-registered bar (https://andriybatutin.substack.com/p/we-tried-to-confirm-neural-networks). The technical companion paper had not appeared by 2026-11-06. The mixed record of strong claims by the authors and failed independent checks argues for caution about the strong form of the claim. A released companion paper with independent replication, or a clear endorsement by other interpretability groups before 2026-11-15, would strengthen the case; further failed controls would weaken it.",
+  "brief_written_at": "2026-11-06T12:41:10+00:00",
+  "different_now": "Unlike the 2020\u20132023 papers, which treated unrelated responses on one neuron as an open obstacle and then moved the unit of analysis off the neuron, the 2026-10-15 Goodfire essay (revised 2026-10-30) says those canonical cases were misread and that the network\u2019s own neurons are already the legible units.\nThat pushes toward yes, but only as a self-labeled working hypothesis whose author puts the cleanliness score among the least certain parts.\nIndependent checks published 2026-10-19 and 2026-10-20 failed replication and a noise-floor control, which pushes toward no.\nBetween 2026-11-06 and the 2",
+  "facts": [
+   {
+    "fact": "On 2020-03-10, Olah, Cammarata, and coauthors wrote that the typical neuron is understandable, and in the same article that polysemantic neurons responding to unrelated inputs are a major limit on reasoning about networks.",
+    "source": 0
+   },
+   {
+    "fact": "On 2022-09-21, Elhage and coauthors submitted a paper whose abstract says networks often pack many unrelated concepts into a single neuron and models that packing as superposition.",
+    "source": 1
+   },
+   {
+    "fact": "In the 2023 arXiv preprint 2309.08600, Cunningham and coauthors treat polysemantic neurons as a roadblock and present sparse autoencoders, rather than the neurons themselves, as a way to resolve superposition.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-10-30 the Goodfire essay was revised to weaken the claim that InceptionV1 neuron 4e:55 is simply a V-shape neuron, while still arguing it is not an arbitrary mixture.",
+    "source": 3
+   },
+   {
+    "fact": "The same essay, still presented as a working hypothesis, reports a preliminary Qwen3-32B audit of about 90% of neuron poles with one main job, about 7% with two related jobs, and about 2\u20134% not yet understood, and says a technical companion paper will cover the language-model experiments.",
+    "source": 3
+   },
+   {
+    "fact": "In the essay\u2019s \u201cOn the Title\u201d section the authors say they are maybe 85% sure of a change in kind of learning process, that the title overstates the evidence because they have not audited everything, and that a cleanliness score is the part they are least sure of.",
+    "source": 3
+   },
+   {
+    "fact": "On 2026-10-20 Liv Gorton wrote that her replications of the essay\u2019s experiments disagreed with the reported results and that the canonical cat-and-car and car-circuit cases did not survive what she called basic checks.",
+    "source": 4
+   },
+   {
+    "fact": "On 2026-10-19 Andriy Batutin reported that an LLM labeller tagged 84% of untrained random-init Qwen3 neurons as having one job, versus 52% of trained neurons on Qwen3-0.6B and 1.7B, and that 0 of 299 trained neurons met his pre-registered simulation bar.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-10-28 a Web of Trust post quoted Cammarata defining \u201calready clean\u201d as parts built to be read by downstream readers, and said its own causal reading of the flower neuron was not a measurement of that neuron.",
+    "source": 6
+   },
+   {
+    "fact": "On 2026-11-05 the Heliox podcast episode \u201cAlready Clean\u201d restated the Goodfire essay as the researcher who helped tell the tangled-neuron story asking the field to look again; it announced no new experiment or paper date.",
+    "source": 7
+   },
+   {
+    "fact": "In the Goodfire essay\u2019s text as revised by 2026-10-30, a held-out check on 183 Qwen3-32B gallery neurons found agent-written examples from the explanation alone fired strongly 76% of the time, near misses 11% of the time, and maximally distant concepts about 1% of the time, with 179 of 183 neurons never firing on those distant texts.",
+    "source": 8
+   },
+   {
+    "fact": "In the same revised essay, a re-audit of GPT-2 XL with 500 neuron papers found about 70% looking like roughly one thing, against fewer than 2% called clean in the 2023 automated-interpretability project on that model, while about 5% were called pristine.",
+    "source": 8
+   },
+   {
+    "fact": "On 2026-10-19 Cammarata told MIT Technology Review that he had mapped out whole circuitry after expecting very little to be legible, and that his guess was that things would turn out well because the network was in some sense designed to be read.",
+    "source": 9
+   },
+   {
+    "fact": "On 2025-11-20 Transluce reported that, in Llama 3.1-8B-Instruct, circuits built from MLP neurons were as sparse and faithful as circuits built from sparse-autoencoder features, while stating that learned bases may still be more monosemantic.",
+    "source": 10
+   },
+   {
+    "fact": "On 2026-10-20 Evidence Press recounted Goodfire\u2019s published gallery labels and found \u201cone idea\u201d plus \u201cbranching structure\u201d on 86 of 100 sampled Qwen3-32B poles and 83 of 100 sampled expert-model poles, and reported a TinyStories deletion check in which removing the weakest 75% of activations raised loss by 0.037 versus 2.030 for the strongest 3.2%.",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "outside",
+   "inside",
+   "against"
+  ],
+  "quotes_checked_at": "2026-11-06T10:39:12.222744+00:00",
+  "research_cost_usd": null,
+  "research_failed": null,
+  "research_seconds": 342.8,
+  "researched_at": "2026-11-06T10:38:02+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2020-03-10",
+    "quotes": [
+     "Nevertheless, thousands of hours of studying individual neurons have led us to believe the typical case is that neurons (or in some cases, other directions in the vector space of neuron activations) are understandable.",
+     "Alas, this is not the case.\nNeural networks often contain \u201cpolysemantic neurons\u201d that respond to multiple unrelated inputs.",
+     "Despite this, polysemantic neurons are a major challenge for the circuits agenda, significantly limiting our ability to reason about neural networks."
+    ],
+    "title": "Zoom In: An Introduction to Circuits",
+    "url": "https://distill.pub/2020/circuits/zoom-in/",
+    "verified": false
+   },
+   {
+    "published": "2022-09-21",
+    "quotes": [
+     "Neural networks often pack many unrelated concepts into a single neuron - a puzzling phenomenon known as 'polysemanticity' which makes interpretability much more challenging.",
+     "This paper provides a toy model where polysemanticity can be fully understood, arising as a result of models storing additional sparse features in \"superposition.\""
+    ],
+    "title": "Toy Models of Superposition",
+    "url": "https://arxiv.org/abs/2209.10652",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "One of the roadblocks to a better understanding of neural networks\u2019 internals is polysemanticity, where neurons appear to activate in multiple, semantically distinct contexts.",
+     "Using individual neurons as these units has had some success (Olah et al., 2020; Bills et al., 2023), but a key challenge has been that neurons are often polysemantic, activating for several unrelated types of feature (Olah et al., 2020).",
+     "This work indicates that it is possible to resolve superposition in language models using a scalable, unsupervised method."
+    ],
+    "title": "Sparse Autoencoders Find Highly Interpretable Features in Language Models",
+    "url": "https://arxiv.org/abs/2309.08600",
+    "verified": false
+   },
+   {
+    "published": "2026-10-30",
+    "quotes": [
+     "The canonical evidence of polysemanticity and superposition that convinced much of the field, including me, that networks pack concepts arbitrarily was misread.",
+     "In preliminary audits of Qwen3-32B, we estimate that roughly 90% of neuron poles have one main job, often with small related offshoots; another ~7% have two related jobs; and only ~2-4% are not yet understood.",
+     "Revised October 30, 2026.\nAn earlier version said \u201cit\u2019s not a cat and car neuron, it\u2019s a V-shape neuron.\u201d That was too strong: a one-letter overcompression."
+    ],
+    "title": "Neural Networks Are Already Clean",
+    "url": "https://already-clean.goodfire.com/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "When I\u2019ve tried to replicate Nick\u2019s experiments, or run the standard experiments for some of the empirical claims, my results have been different than those described.",
+     "None of this settles whether neural networks are \u201calready clean,\u201d and there\u2019s a lot in the essay I haven\u2019t touched.",
+     "I\u2019m also conscious that Nick\u2019s post isn\u2019t the final scientific paper, which is still forthcoming."
+    ],
+    "title": "Some initial thoughts on Nick Cammarata's \"Neural Networks Are Already Clean\"",
+    "url": "https://livgorton.com/already-clean-thoughts/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "Here is what we found, in one sentence: the labeller called 84% of pure-noise neurons \u201cone job,\u201d versus 52% of real ones \u2014 and neither set could predict its own behavior.",
+     "Zero neurons out of 299 cleared our pre-registered legibility bar (top-1% r \u2265 0.5 and 1\u201310% r \u2265 0.3).",
+     "Single seeds, two small models (not the essay\u2019s 32B) \u2014 a limitation we state loudly."
+    ],
+    "title": "We Tried to Confirm \"Neural Networks Are Already Clean.\" The Controls Said No.",
+    "url": "https://andriybatutin.substack.com/p/we-tried-to-confirm-neural-networks",
+    "verified": true
+   },
+   {
+    "published": "2026-10-28",
+    "quotes": [
+     "When I say neural networks are already clean, I mean something deeper than neuron monosemanticity, although even by that standard, I think things look much better than the field expects.",
+     "This is the causal interpretation explored below, rather than a measured dependency in Cammarata\u2019s flower neuron."
+    ],
+    "title": "What Makes a Neural Net Clean",
+    "url": "https://weboftru.st/post/clean-nets/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-05",
+    "quotes": [
+     "Now one of the researchers who helped tell that story has come back to say: look again.",
+     "Reference Neural Networks Are Already Clean, by Nick Cammarata | Goodfire"
+    ],
+    "title": "Already Clean (Heliox, Season 8 Episode 13)",
+    "url": "https://www.buzzsprout.com/2405788/episodes/20070453-already-clean",
+    "verified": true
+   },
+   {
+    "published": "2026-10-30",
+    "quotes": [
+     "Among the 183 whose explanations describe their positive side, the new examples fired their neurons strongly 76% of the time; the near misses, 11%.",
+     "Those texts fired their neurons strongly about 1% of the time, and 179 of the 183 neurons never fired on them at all.",
+     "Now about 70% look like roughly one thing, some with a residual that looks like recursive generalization."
+    ],
+    "title": "Neural Networks Are Already Clean",
+    "url": "https://already-clean.goodfire.com/essay.md",
+    "verified": null
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "\u201cNot all of them are flawless, but I expected nothing to be legible, or very little to be legible,\u201d he says.\n\u201cAnd actually, I was able to, like, map out whole circuitry.\u201d",
+     "\u201cMy guess is that things will turn out pretty well, because it was in some sense designed to be read.\u201d"
+    ],
+    "title": "\u201cWe were looking at it wrong\u201d: The explosive claim that\u2019s upended the AI world",
+    "url": "https://www.technologyreview.com/2026/10/19/1147149/we-were-looking-at-it-wrong-the-explosive-claim-thats-upended-the-ai-world/",
+    "verified": true
+   },
+   {
+    "published": "2025-11-20",
+    "quotes": [
+     "Surprisingly, we find that circuits built directly in the neuron basis can be just as sparse and faithful as circuits built from SAE features.",
+     "Learned bases may plausibly be more monosemantic and interpretable (especially due to increased dimensionality), and we do not offer evidence to refute this claim on the tasks we investigate."
+    ],
+    "title": "Language Model Circuits Are Sparse in the Neuron Basis",
+    "url": "https://transluce.org/neuron-circuits",
+    "verified": true
+   },
+   {
+    "published": "2026-10-20",
+    "quotes": [
+     "In Goodfire's own review categories, \"one idea\" and \"branching structure\" together cover 86 of the 100 dense-model poles and 83 of the expert-model poles.",
+     "Deleting the weakest 75% of activations raised the loss by only 0.037, while deleting the strongest 3.2%, matched on total activation, raised it by 2.030."
+    ],
+    "title": "Are Neural Networks Already Clean?",
+    "url": "https://evidencepress.org/articles/neural-networks-already-clean/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The technical companion paper has no published release date before 2026-11-15, so the language-model audits, including Qwen3-32B and Kimi K3, remain unaudited by an independent paper.",
+   "Whether the judge treats the 2026-10-30 softening of the V-shape claim, Gorton\u2019s failed checks, and Batutin\u2019s noise baseline as enough to reject the title.",
+   "Batutin tested Qwen3-0.6B and 1.7B, not the essay\u2019s Qwen3-32B, so a matching control on 32B could still differ.",
+   "No public schedule shows whether Cammarata will post the fuller 4e:55 study before 2026-11-15.",
+   "No companion technical paper had appeared by 2026-11-06, so the language-model audit method and sampling frame are still unpublished.",
+   "The gallery scores are an AI reviewer\u2019s judgments, and Evidence Press did not re-judge any neuron or rerun the model."
+  ]
+ },
+ "manifold-gq5RCCO6PN": {
+  "against": "A reported magnitude of 5.0 or brighter before 2026-11-11 00:00 ET is the outcome this record makes less likely.\nThe strongest support for that outcome is the historical rise: on 1866 May 12 Schmidt still had T CrB fainter than 5th or 6th magnitude only 2.8 hours before Birmingham measured V=2.0, a climb faster than 1 magnitude per hour, and Schaefer (2023) finds the 1946 V curve the same shape.\nThe AAVSO, writing on 2025-11-20, said a 1946-like eruption could go from about V=9.8 to about V=1.7 in less than 24 hours, so an ignition on any of the nights still left before the cutoff would cross magnitude 5.0 inside the resolution window, and coverage since 1946 has averaged about once every 6 hours.",
+  "base_rate": "Reference class: days when T CrB was at visual magnitude 5.0 or brighter in its compiled photometric history.\nIn Schaefer\u2019s 1842\u20132022 light curve there are 2 such primary eruptions (1866 and 1946), both peaking at V=2.0, and none others; the secondary maxima peaked at V=8.0 and do not qualify.\nEach primary stayed within 3 magnitudes of peak for about 5\u20136 days (t3=5.0 days; abstract duration 6 days), so about 10\u201312 days in total over 1866\u20132022 (156 years).\nThe two eruptions are 80 years apart (1866.363 to 1946.105).\nFrom 1946-02-09 through the AAVSO report of 2025-02-24 (79 years) the same reco",
+  "brief": "The question asks whether T Coronae Borealis reaches visual magnitude 5.0 or brighter before 2026-11-11 00:00 ET, as reported by sources such as AAVSO. The reference class is thin: Schaefer's compiled light curve for 1842 to 2022 (https://arxiv.org/pdf/2303.04933) shows only two primary eruptions, 1866 and 1946, both peaking at V=2.0, about 80 years apart, and each stayed within 3 magnitudes of peak for roughly 5 to 6 days, so the star spent perhaps 10 to 12 days at magnitude 5 or brighter in 156 years. The 1866 eruption rose faster than one magnitude per hour, and AAVSO notes a 1946-like eruption could take the star from about V=9.8 to about V=1.7 in under a day (https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/, 2025-11-20), so any eruption starting in the window would qualify. The star is now overdue by the 80-year rule: an arXiv analysis through 2026-07-11 (https://arxiv.org/html/2607.15245) puts the interval at 80.415 years with no eruption, and EarthSky on 2026-11-03 (https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/) says earlier predicted dates in 2025 passed without one. On 2026-11-05 an AAVSO observer measured it at B=11.235 (https://theskylive.com/sky/stars/hr-5958-star), still quiescent, and a separate visual series stayed near V=9.9 to 10.4 through 2026-10-28. The paper's nearer timing guess points to around December 2026, after the cutoff. Even treating the eruption as a 30 to 50 percent a year event given how overdue it is, the share of that falling in a five-day window is under one percent, so the window is very short against the evidence. An AAVSO alert, a reported brightening above magnitude 9, or a confirmed multi-source detection before 2026-11-11 would change the answer.",
+  "brief_written_at": "2026-11-06T12:41:10+00:00",
+  "different_now": "Unlike the reference-class nights, which were the brief peaks of the 1866 and 1946 eruptions, T CrB on 2026-11-05 was still at B = 11.235 and an independent V series through 2026-10-28 stayed near 9.9\u201310.4 with no outburst.\nThe simple 80-year clock from 1946 had already been passed by 2026-07-11 without an eruption, the paper\u2019s first post-July orbital window (2026-08-05 to 2026-08-08) is already over, and its nearer dip-analogue timing is around December 2026, after the 2026-11-11 00:00 ET cutoff.\nNo release, meeting, or predicted eruption date falls between 2026-11-06 and that cutoff; the sta",
+  "facts": [
+   {
+    "fact": "Schaefer\u2019s Johnson B and V light curve of T CrB, 213,730 magnitudes spanning 1842\u20132022, records primary eruptions only in 1866 and 1946, both peaking at V=2.0.",
+    "source": 0
+   },
+   {
+    "fact": "Each primary eruption is described as staying within 3 magnitudes of the V=2.0 peak for 6 days in the abstract, and the measured fade times are t2=3.0, t3=5.0, and t6=12.0 days; the secondary event peaks at V=8.0.",
+    "source": 0
+   },
+   {
+    "fact": "Peak times used for the two eruptions are JD 2402734.5 (1866.363) and JD 2431860.0 (1946.105).",
+    "source": 0
+   },
+   {
+    "fact": "In the 1866 eruption table, V is 2.5 on JD 2402734.5, V is 5.0 on JD 2402739.4, and the next tabulated point, JD 2402740.4, is V=5.3.",
+    "source": 1
+   },
+   {
+    "fact": "As of the AAVSO account dated 2025-02-24, the most recent outburst was still the one on 1946-02-09, 79 years earlier, and the star had not erupted again; the 1866-05-12 and 1946-02-09 outbursts were separated by 80 years.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-05 at 17:34:46 UTC, AAVSO observer OAR measured T CrB at magnitude 11.235 \u00b1 0.007 in Johnson B with a CCD, as displayed by TheSkyLive from the AAVSO International Database.",
+    "source": 3
+   },
+   {
+    "fact": "An EarthSky article dated 2026-11-03 states that T CrB has still not erupted, that Jean Schneider\u2019s proposed dates of 2025-03-27 and 2025-11-10 passed without an outburst, and that the 80-year mark after 1946 falls in 2026.",
+    "source": 4
+   },
+   {
+    "fact": "A 2026 analysis of AAVSO B and V photometry through 2026-07-11 (MJD 61232) states that no eruption had occurred by that date and that the post-1946 interval had already reached 80.415 years, longer than the 79.75-year gap between 1866 and 1946.",
+    "source": 5
+   },
+   {
+    "fact": "That same paper reports a renewed decline in the AAVSO light curve by 2026-07-11, with B near the pre-high-state quiescent level and V slightly below both the pre-high-state level and the 2023\u20132024 fading episode, and lists 2026-08-05 to 2026-08-08 as the first remaining orbital-phase monitoring window after 2026-07-11.",
+    "source": 5
+   },
+   {
+    "fact": "An observer\u2019s V-band series published on sonnensystem.com reports no outburst as of early November 2026, nightly means about 9.9\u201310.4 mag in V from late May through 2026-10-28 (9.95 mag that night), and a local observing gap until about May 2027.",
+    "source": 6
+   },
+   {
+    "fact": "On 1866 May 12, J.\nF.\nJ.\nSchmidt at Athens recorded T CrB fainter than 5th or 6th magnitude 2.8 hours before John Birmingham discovered it at V=2.0.",
+    "source": 0
+   },
+   {
+    "fact": "Schaefer\u2019s 2023 light-curve paper measures that 1866 rise as faster than 1 magnitude per hour and states that the 1866 and 1946 V eruption light curves are identical.",
+    "source": 0
+   },
+   {
+    "fact": "The same 2023 paper reports average photometric coverage of T CrB about once every 6 hours since 1946, including through the yearly solar conjunction.",
+    "source": 0
+   },
+   {
+    "fact": "On 2025-11-20 the AAVSO said that if the next eruption mirrors 1946, T CrB could brighten from about V=9.8 to about V=1.7 in less than 24 hours, and asked visual observers for three to four estimates per night during an eruption.",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "outside",
+   "inside",
+   "against"
+  ],
+  "quotes_checked_at": "2026-11-06T10:39:12.222744+00:00",
+  "research_cost_usd": null,
+  "research_failed": null,
+  "research_seconds": 417.2,
+  "researched_at": "2026-11-06T10:38:02+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2023-03-10",
+    "quotes": [
+     "T CrB is one of the most-famous and brightest novae known, and is a recurrent nova with prior eruptions in 1866 and 1946 that peak at V=2.0.",
+     "The main eruption has a fast rise, a peak at V=2.0 mag, and a duration of 6 days within 3 mags of the peak, while the secondary event has a fast rise, a peak at V=8.0 mag, and a FWHM duration of 90 days.",
+     "The times for the light curve to drop by 2, 3, and 6 magnitudes from peak are t2=3.0, t3=5.0, and t6=12.0 days.",
+     "The reliable null-detection of Julius Schmidt (with V >5, as shown by the light-green triangle in the figure) just 2.8 hours before the discovery observation of Birmingham at V =2.0 means that T CrB had a tremendously fast rise of >1 mag per hour.",
+     "The rise to peak and the peak magnitude is sharply constrained by the confident non-detection (with T CrB being fainter than 5th or 6th mag) by the great observer J.\nF.\nJ.\nSchmidt (National Observatory of Athens) just 2.8 hours before the discovery at V=2.0 by Birmingham."
+    ],
+    "title": "The B & V Light Curves for Recurrent Nova T CrB From 1842\u20132022 (Schaefer 2023 preprint)",
+    "url": "https://arxiv.org/pdf/2303.04933",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "2402734.5 V 2.5 \u00b1 0.5 Lynn 1866",
+     "2402739.4 V 5.0 \u00b1 0.3 Baxendall 1866",
+     "2402740.4 V 5.3 \u00b1 0.3 Baxendall 1866"
+    ],
+    "title": "Table 1.\nEruption Light Curve for T CrB",
+    "url": "https://www.phys.lsu.edu/recurrentnova/TCrBtable.pdf",
+    "verified": true
+   },
+   {
+    "published": "2025-02-24",
+    "quotes": [
+     "February 9 marked the 79th anniversary of T Coronae Borealis\u2019 most recent outburst in 1946.",
+     "T CrB\u2019s last two outbursts\u2014observed on May 12, 1866, when it climbed to second magnitude; and February 9, 1946, when it reached third\u2014were separated by 80 years, so it seemed reasonable to expect the next episode would occur sometime in 2026.",
+     "Here we are approaching March 2025, and the so-called \u201cBlaze Star\u201d isn\u2019t blazing."
+    ],
+    "title": "When will the recurrent nova T Cr B\u2014the so-called Blaze Star\u2014erupt?",
+    "url": "https://aavso.org/blog/tcrb-blazed-and-confused/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Magnitude 11.235 \u00b1 0.007 Measured on: 2026-11-05 17:34:46 UTC Instrument: CCD; Filter: B; Observer: OAR Credits: AAVSO International Database",
+     "T CrB is usually around magnitude 10 however during outbursts it can reach magnitude 2.\nPrevious outbursts have been observed in 1866 and 1946 and some studies suggest that a new outburst might happen in the coming years.",
+     "Today's T Coronae Borealis rise, culmination and set times from Greenwich, UK are the following (all times relative to the local timezone Europe/London): Azimuth: 44.6\u00b0 RISE 4:23 Max altitude: 64.4\u00b0 CULMINATION 12:57 Azimuth: 315.4\u00b0 SET 21:31"
+    ],
+    "title": "T Coronae Borealis - Star in Corona Borealis | TheSkyLive",
+    "url": "https://theskylive.com/sky/stars/hr-5958-star",
+    "verified": false
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "The now-infamous Blaze Star \u2014 also known as T Coronae Borealis or \u201cT Cor Bor\u201d (T CrB) \u2014 is late.",
+     "He pinpointed possible dates of March 27, 2025, and November 10, 2025.\nThose dates have come and gone with no big kablooey.",
+     "Eighty years from 1946 would be 2026.\nAnd still we wait \u2026"
+    ],
+    "title": "When will the Blaze Star erupt?\nWill neutrinos give us a warning?",
+    "url": "https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The interval from 1946 February to 2026 July 11 already exceeds 80.41 yr, longer than the 79.75 yr 1866\u20131946 interval.",
+     "After the 2023\u20132024 fading episode, T CrB brightened again around 2024 May, but by 2026 July 11 the AAVSO light curve showed a renewed decline (Figure 1).",
+     "After 2026 July 11, the first remaining phase-pair window is 2026 August 5\u20138."
+    ],
+    "title": "When will T Coronae Borealis next erupt as a nova?\nConstraints from recurrence, orbital phase, and accretion-state evolution",
+    "url": "https://arxiv.org/html/2607.15245",
+    "verified": true
+   },
+   {
+    "published": "2026-02-14",
+    "quotes": [
+     "As of early November 2026, T Coronae Borealis (T CrB) remains in its quiescent phase.\nIn my measurements it varies between about 9.9 and 10.4 mag (V)",
+     "As of early November 2026 there has been no outburst.",
+     "My last measurement of the season was on October 28.\nAfter that T CrB sits too low in the evening sky, and because my view to the northeast is blocked, I will resume the nightly series around May 2027"
+    ],
+    "title": "T Coronae Borealis: Scientific Insights into a Recurrent Nova",
+    "url": "https://www.sonnensystem.com/en/t-coronae-borealis-recurrent-nova/",
+    "verified": false
+   },
+   {
+    "published": "2025-11-20",
+    "quotes": [
+     "If it mirrors the 1946 eruption, T CrB could brighten from V~9.8 to V~1.7 in less than 24 hours, then gradually return to its pre-eruption brightness over the next 45 days.",
+     "During the eruption, visual observers should collect observations three to four times per night, ideally spaced at least an hour apart.",
+     "Note: T CrB will reach solar conjunction in late November, making it extremely difficult or nearly impossible to observe safely due to its proximity to the Sun."
+    ],
+    "title": "What to Do During the Eruption of T CrB",
+    "url": "https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Whether a rise to visual magnitude 5.0 or brighter occurs in the remaining time before 2026-11-11 00:00 ET and is reported by AAVSO or another source the resolution accepts.",
+   "The latest opened AAVSO-cited point is a B-band CCD measure on 2026-11-05, not a validated visual magnitude on 2026-11-06, so the hours since that point are not covered here.",
+   "One local V series stops on 2026-10-28 because of that observer\u2019s horizon; other sites can still observe, so that gap is not a global data gap.",
+   "AAVSO has previously required multi-source checks before announcing an eruption, so a single bright report might not be accepted before the cutoff even if one is submitted.",
+   "The last cited magnitude is still pre-eruption; nothing in these pages rules out ignition between 2026-11-06 and the 2026-11-11 00:00 ET cutoff, and nothing shows that ignition has begun.",
+   "The AAVSO rise time is conditional on a 1946-like event and quotes a peak near V=1.7, while Schaefer\u2019s compiled peak is V=2.0; either still satisfies magnitude 5.0, but the pages do not give a measured 1946 hour-by-hour rise from magnitude 10."
+  ]
+ },
+ "polymarket-5699271": {
+  "against": "The outcome this makes less likely is that the October 2026 seasonally adjusted core CPI-U one-month change will print 0.2 percent.\nOn October 14, 2026, BLS showed the 0.3 percent core pace was broad: owners\u2019 equivalent rent rose 0.3 percent, and used cars, education, airfares, and apparel all rose, while Table 3 shows the core aggregate that also drops shelter still advanced 0.3 percent in July, August, and September, including after dropping used cars, and services rose 0.4 percent in September.\nOn October 15, 2026, the closest upstream official price index, final-demand PPI less foods, energy, and trade services, accelerated to 0.5 percent.\nThe Cleveland Fed core figure of 0.21 is, by its own FAQ, a 12-month moving average of past core CPI, so it averages in softer earlier months and does not observe October\u2019s prices; repeating the last two BLS one-decimal core prints would be 0.3 per",
+  "base_rate": "Reference class: prior monthly BLS releases of the seasonally adjusted CPI-U all-items-less-food-and-energy 1-month percent change, printed to one decimal (series CUSR0000SA0L1E, 1-month percent change).\nFrom January 2016 through September 2026, excluding October and November 2025 (unavailable), the change was 0.2 in 46 of 127 months.\nIn the same table, published Octobers from 2016 through 2024 were 0.2 in 2 of 9 months.",
+  "brief": "The question asks whether the October 2026 seasonally adjusted core CPI-U one-month change, as printed to one decimal by BLS on 2026-11-10 (https://www.bls.gov/schedule/news_release/cpi.htm), will be exactly 0.2 percent. The base rate comes from the BLS series (https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth): from January 2016 through September 2026, skipping the two unavailable 2025 months, 46 of 127 monthly prints were 0.2, about 36 percent, and only 2 of 9 published Octobers (2018 and 2019) were 0.2. The 2026 prints for March to September were 0.2, 0.4, 0.2, 0.0, 0.2, 0.3 and 0.3 (https://www.bls.gov/news.release/cpi.nr0.htm, 2026-10-14), so 0.2 has come up in three of seven months. The Cleveland Fed nowcast of 0.21 (https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting, 2026-11-05) points to 0.2, but its own FAQ describes it as a 12-month moving average of past core inflation that does not observe October prices, so it was given little weight. The September report showed broad firmness: owners' equivalent rent up 0.3, shelter 0.4, used cars 0.7, airfares 1.2, services 0.4, and core excluding shelter up 0.3 in July, August and September (https://www.bls.gov/news.release/cpi.t03.htm). The September producer price index for final demand less foods, energy and trade services rose 0.5 percent (https://www.bls.gov/news.release/archives/ppi_10152026.htm, 2026-10-15), and the FOMC held rates on 2026-10-28 with two dissents in favor of a hike (https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm). Together this makes 0.3 the most likely print, with 0.2 second, while the long-run frequency of about 36 percent is tempered by the firm recent run. No consensus survey was available in the research. A softer shelter reading, a drop in used car or airfare prices, or a consensus near 0.2 published before the release would favor 0.2, while another broad 0.3 pace would point away from it.",
+  "brief_written_at": "2026-11-06T12:41:10+00:00",
+  "different_now": "Relative to a long sample in which 0.2 is only one of several one-decimal outcomes, the live official nowcast for this specific month is 0.21 as of 2026-11-05, below the last two BLS core prints of 0.3 and on the 0.2 side of a one-decimal headline, while the Cleveland Fed says that core figure will not move again before the BLS release because it ignores oil and gasoline.\nThat pushes toward a printed 0.2 versus simply carrying forward August\u2013September, but the same page says the nowcast is uncertain and can miss components it does not model.\nSeptember\u2019s composition was firmer in shelter (0.4) ",
+  "facts": [
+   {
+    "fact": "On the BLS page extracted November 6, 2026, seasonally adjusted core CPI-U (all items less food and energy) 1-month percent changes are published through September 2026, and the October 2026 cell is blank.",
+    "source": 0
+   },
+   {
+    "fact": "In that same one-decimal series, October 2025 and November 2025 are marked unavailable because of the 2025 lapse in appropriations.",
+    "source": 0
+   },
+   {
+    "fact": "Counting that table from January 2016 through September 2026, and skipping the two unavailable 2025 months, the printed 1-month change was 0.2 in 46 of 127 months.",
+    "source": 0
+   },
+   {
+    "fact": "Among the nine published Octobers in that window (2016 through 2024), the 1-month change was 0.2 in 2 months (October 2018 and October 2019).",
+    "source": 0
+   },
+   {
+    "fact": "The BLS CPI release schedule lists October 2026 with release date Nov.\n10, 2026 at 08:30 AM.",
+    "source": 1
+   },
+   {
+    "fact": "The September 2026 CPI news release, issued October 14, 2026, reported that the index for all items less food and energy rose 0.3 percent in September, and Table A shows that same series at 0.2, 0.4, 0.2, 0.0, 0.2, 0.3, and 0.3 percent for March through September 2026.",
+    "source": 2
+   },
+   {
+    "fact": "On the Cleveland Fed page accessed 2026-11-06, the 2026-11-05 update shows October 2026 seasonally adjusted core CPI month-over-month at 0.21 and year-over-year at 2.48; November 2026 core CPI month-over-month is shown at 0.20.",
+    "source": 3
+   },
+   {
+    "fact": "The same Cleveland Fed page states that core CPI nowcasts use only past core CPI and change only when new CPI data are released or past data are revised, and that the October 2025 CPI gap is filled with the model\u2019s own nowcast.",
+    "source": 3
+   },
+   {
+    "fact": "The BLS November 2026 calendar, last modified 2026-11-03, schedules the Employment Situation for October 2026 on Friday, November 6, 2026, at 08:30 AM Eastern, the CPI and Real Earnings for October 2026 on Tuesday, November 10, 2026, at 08:30 AM Eastern, and Veterans Day on Wednesday, November 11, 2026.",
+    "source": 4
+   },
+   {
+    "fact": "The September 2026 CPI news release of 2026-10-14 reports the seasonally adjusted all-items-less-food-and-energy index up 0.3 percent in both August and September, with shelter up 0.4 percent in September, and prints that series to one decimal in Table A.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-10-28 the FOMC, by a 10\u20132 vote, held the federal funds target range at 3-3/4 to 4 percent; Cook and Hammack dissented in favor of a quarter-point increase.\nThe Board calendar lists the next FOMC meeting as December 8\u20139, 2026, after this market\u2019s resolution date.",
+    "source": 6
+   },
+   {
+    "fact": "On October 14, 2026, BLS reported that in September the owners\u2019 equivalent rent index rose 0.3 percent, rent rose 0.2 percent, used cars and trucks rose 0.7 percent, education rose 0.6 percent, airline fares rose 1.2 percent, and apparel rose 0.3 percent, while all items less food and energy rose 0.3 percent for a second month.",
+    "source": 5
+   },
+   {
+    "fact": "In the September 2026 CPI Table 3, the seasonally adjusted one-month change in all items less food, shelter, and energy was 0.3 percent in each of July, August, and September 2026, and the same 0.3, 0.3, 0.3 pattern held after also excluding used cars and trucks; services rose 0.4 percent in September.",
+    "source": 7
+   },
+   {
+    "fact": "On October 15, 2026, BLS reported that the September producer-price index for final demand less foods, energy, and trade services rose 0.5 percent after 0.3 percent in August, final-demand services rose 0.8 percent, and final-demand goods less foods and energy rose 0.3 percent.",
+    "source": 8
+   },
+   {
+    "fact": "The Cleveland Fed nowcasting FAQ states that the core CPI forecast is a 12-month moving average of past monthly core CPI inflation, so the published 0.21 October figure is an average of earlier months rather than a reading of October prices.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "outside",
+   "inside",
+   "against"
+  ],
+  "quotes_checked_at": "2026-11-06T10:39:12.222744+00:00",
+  "research_cost_usd": null,
+  "research_failed": null,
+  "research_seconds": 351.2,
+  "researched_at": "2026-11-06T10:38:02+00:00",
+  "researched_by": "Cursor (Grok 4.7)",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "Data extracted on: November 6, 2026 (5:32:06 AM)",
+     "Series Title: All items less food and energy in U.S.\ncity average, all urban consumers, seasonally adjusted",
+     "X : Data unavailable due to the 2025 lapse in appropriations"
+    ],
+    "title": "BLS CPI-U 1-month percent change, all items less food and energy, seasonally adjusted (CUSR0000SA0L1E)",
+    "url": "https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months."
+    ],
+    "title": "Schedule of Releases for the Consumer Price Index",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "Transmission of material in this release is embargoed until 8:30 a.m.\n(ET) Wednesday, October 14, 2026",
+     "The index for all items less food and energy rose 0.3 percent in September, as it did in August.",
+     "All items less food and energy | 0.2 | 0.4 | 0.2 | 0.0 | 0.2 | 0.3 | 0.3 | 2.6"
+    ],
+    "title": "Consumer Price Index News Release - September 2026",
+    "url": "https://www.bls.gov/news.release/cpi.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-05",
+    "quotes": [
+     "October 2026 | 0.24 | 0.21 | 0.27 | 0.26 | 11/05",
+     "Nowcasts of core CPI inflation are based only on past core CPI inflation; thus, the nowcasts can only change when new CPI data are released (or when past data are revised).",
+     "Notes: Inflation Nowcasting uses the latest available nowcast for October 2025 CPI in place of the BLS October 2025 CPI release."
+    ],
+    "title": "Inflation Nowcasting, Federal Reserve Bank of Cleveland",
+    "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+    "verified": false
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "6 Employment Situation October 2026 08:30 AM",
+     "10 Consumer Price Index October 2026 08:30 AM Real Earnings October 2026 08:30 AM",
+     "11 Veterans Day Holiday"
+    ],
+    "title": "Schedule of Selected Releases for November 2026",
+    "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "The index for all items less food and energy rose 0.3 percent in September, as it did in August.",
+     "The shelter index increased 0.4 percent over the month after rising 0.3 percent in August.",
+     "All items less food and energy | 0.2 | 0.4 | 0.2 | 0.0 | 0.2 | 0.3 | 0.3 | 2.6",
+     "The index for owners' equivalent rent rose 0.3 percent in September, and the index for rent increased 0.2 percent.",
+     "The used cars and trucks index rose 0.7 percent in September, and the education index increased 0.6 percent.\nThe index for airline fares increased 1.2 percent in September, and the index for apparel rose 0.3 percent."
+    ],
+    "title": "Consumer Price Index Summary - September 2026",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-10-28",
+    "quotes": [
+     "The Federal Open Market Committee approved the following statement for release by a 10 \u2013 2 vote:",
+     "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+     "Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting."
+    ],
+    "title": "Federal Reserve issues FOMC statement",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-10-14",
+    "quotes": [
+     "All items less food, shelter, and energy | 43.753 | 282.146 | 286.786 | 287.899 | 2.0 | 0.4 | 0.3 | 0.3 | 0.3",
+     "All items less food, shelter, energy, and used cars and trucks | 41.064 | 287.460 | 292.722 | 293.952 | 2.3 | 0.4 | 0.3 | 0.3 | 0.3",
+     "Services | 63.512 | 421.102 | 433.290 | 434.668 | 3.2 | 0.3 | 0.2 | 0.3 | 0.4"
+    ],
+    "title": "Table 3.\nCPI-U special aggregate indexes, September 2026",
+    "url": "https://www.bls.gov/news.release/cpi.t03.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-10-15",
+    "quotes": [
+     "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+     "Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively.",
+     "In September, prices for final demand goods rose 2.6 percent, and the index for final demand services advanced 0.8 percent."
+    ],
+    "title": "Producer Price Index News Release, September 2026",
+    "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "In what follows, we set J=12, \u03c4=24, and \u03c4L=60.",
+     "We recursively forecast monthly core CPI inflation using J-month moving averages, so the forecast for month t is"
+    ],
+    "title": "Inflation Nowcasting: Frequently Asked Questions",
+    "url": "https://www.clevelandfed.org/-/media/project/clevelandfedtenant/clevelandfedsite/indicators-and-data/inflation-nowcasting/nowcasting_faqs.pdf",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The October 2026 core CPI-U one-month percent change has not been released, and no opened BLS page shows that cell.",
+   "No Reuters, Bloomberg, or central-bank survey page for October 2026 core CPI month-over-month was opened; search snippets were not used, so a dated consensus is not established.",
+   "How the last 6 or 8 first BLS core prints differed from the Cleveland Fed nowcast, and how many fell in a one-decimal-wide band around 0.21, was not extracted from a page opened this pass.",
+   "October 2025 core CPI remains unpublished, so the year-over-year base the Cleveland Fed uses for October 2026 is partly a nowcast rather than a BLS index.",
+   "The underlying unrounded index change, and whether it is near the one-decimal boundary the BLS headline uses, is unknown until the November 10 release.",
+   "October 2026 CPI prices are unpublished until the November 10, 2026 BLS release, and the one-decimal rule can turn a small difference in the unrounded index change into 0.2 or 0.3."
+  ]
+ }
+}
