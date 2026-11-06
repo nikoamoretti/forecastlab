@@ -1,0 +1,30 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-11T04:59:00Z",
+      "id": "polymarket-5699271",
+      "market_url": "https://polymarket.com/event/core-cpi-mom-october-2026",
+      "question": "Will Core CPI MoM be 0.2% in October?",
+      "resolution_criteria": "This is a market about the one-month percent change in the Consumer Price Index for All Urban Consumers excluding food and energy in October 2026 as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the one-month percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report (seasonally adjusted change from the preceding month).\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.3%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-10T23:59:00Z",
+      "id": "manifold-gq5RCCO6PN",
+      "market_url": "https://manifold.markets/EstMtz/t-coronae-borealis-reaches-magnitud-SpAug080pQ",
+      "question": "T Coronae Borealis reaches magnitude 5.0 before November 11th, 2026?",
+      "resolution_criteria": "Coronae Borealis (T CrB), also known as the 'Blaze Star,' is a recurrent nova expected to undergo an outburst \"soon\". Historically, it has brightened to magnitude 2.0 or 3.0 during such events in 1866 and 1946 respectively.\n\nThis market resolves to 'Yes' if T CrB reaches magnitude 5.0 or brighter before November 11th, 2026 (12:00:00 am ET), as reported by reputable astronomical sources such as the American Association of Variable Star Observers (AAVSO).\n\nT Coronae Borealis - Wikipedia \n\n[link preview]",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-15T17:00:00Z",
+      "id": "manifold-RZUdPgyPN5",
+      "market_url": "https://manifold.markets/Bayesian/are-neural-networks-already-clean",
+      "question": "Are neural networks already clean?",
+      "resolution_criteria": "Based on the paper and my opinion on it which I will also partially base on the discourse / other people's reaction to it, as I am not an expert.\n\nWill I find it to be true that neural networks are already clean?",
+      "topic": "Tech"
+    }
+  ],
+  "selected_at": "2026-11-06T10:23:48.311924+00:00",
+  "selection": "polymarket_selection_v5+manifold_selection_v3"
+}
