@@ -1,0 +1,96 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "market_price_v1",
+          "probability": 0.35
+        },
+        {
+          "created_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.34,
+          "rationale": "Core CPI printed 0.2 in 46 of 127 months since 2016 (about 36%, https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth), and 3 of the last 7 2026 prints (0.2, 0.4, 0.2, 0.0, 0.2, 0.3, 0.3 for March to September, https://www.bls.gov/news.release/cpi.nr0.htm, 2026-10-14). The Cleveland Fed 0.21 nowcast is only a 12-month moving average of past core inflation (https://www.clevelandfed.org/-/media/project/clevelandfedtenant/clevelandfedsite/indicators-and-data/inflation-nowcasting/nowcasting_faqs.pdf), so I give it little weight. The last two prints were 0.3 with broad strength (shelter 0.4, services 0.4, https://www.bls.gov/news.release/cpi.t03.htm) and PPI services accelerated (https://www.bls.gov/news.release/archives/ppi_10152026.htm, 2026-10-15), which makes 0.3 the modal outcome and 0.2 the second most likely.",
+          "sources": [
+            "https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth",
+            "https://www.bls.gov/news.release/cpi.nr0.htm",
+            "https://www.bls.gov/news.release/cpi.t03.htm",
+            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+            "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-5699271",
+      "market_id": "5699271",
+      "outcome": null,
+      "question": "Will Core CPI MoM be 0.2% in October?",
+      "resolution_criteria": "This is a market about the one-month percent change in the Consumer Price Index for All Urban Consumers excluding food and energy in October 2026 as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the one-month percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report (seasonally adjusted change from the preceding month).\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.3%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "resolution_date": "2026-11-11",
+      "resolution_source": "https://polymarket.com/event/core-cpi-mom-october-2026",
+      "topic": "Economy"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0761
+        },
+        {
+          "created_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Only two primary eruptions are on record (1866 and 1946, https://arxiv.org/pdf/2303.04933), and T CrB was still at B=11.235 on 2026-11-05 (https://theskylive.com/sky/stars/hr-5958-star) with no outburst reported as of 2026-11-03 (https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/). The rise is fast enough that an eruption on any remaining night would count, but nothing marks the 5 days before the cutoff as special; even a generous hazard of 30 to 50% a year gives under 1% for this window, so I sit at the 2% floor.",
+          "sources": [
+            "https://arxiv.org/pdf/2303.04933",
+            "https://theskylive.com/sky/stars/hr-5958-star",
+            "https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/",
+            "https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/"
+          ]
+        }
+      ],
+      "id": "manifold-gq5RCCO6PN",
+      "market_id": "gq5RCCO6PN",
+      "outcome": null,
+      "question": "T Coronae Borealis reaches magnitude 5.0 before November 11th, 2026?",
+      "resolution_criteria": "Coronae Borealis (T CrB), also known as the 'Blaze Star,' is a recurrent nova expected to undergo an outburst \"soon\". Historically, it has brightened to magnitude 2.0 or 3.0 during such events in 1866 and 1946 respectively.\n\nThis market resolves to 'Yes' if T CrB reaches magnitude 5.0 or brighter before November 11th, 2026 (12:00:00 am ET), as reported by reputable astronomical sources such as the American Association of Variable Star Observers (AAVSO).\n\nT Coronae Borealis - Wikipedia \n\n[link preview]",
+      "resolution_date": "2026-11-10",
+      "resolution_source": "https://manifold.markets/EstMtz/t-coronae-borealis-reaches-magnitud-SpAug080pQ",
+      "topic": "Tech"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.2314
+        },
+        {
+          "created_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "The resolver is a non-expert who will weigh the paper and the discourse. For yes: the Goodfire essay (https://already-clean.goodfire.com/, revised 2026-10-30) reports 76% held-out success, about 70% of GPT-2 XL neurons looking like one thing and a Qwen3-32B audit with 90% single-job poles, and Cammarata has MIT Technology Review's backing (2026-10-19). Against: the authors say the title overstates the evidence and put themselves at maybe 85% on a change of kind, Gorton (2026-10-20) failed to replicate the canonical cases, and Batutin (2026-10-19) found 84% of random-init neurons labelled single-job, a noise-floor problem. The companion paper is not out, and earlier papers all treated neurons as polysemantic, so a firm yes by 2026-11-15 looks less likely than not.",
+          "sources": [
+            "https://already-clean.goodfire.com/",
+            "https://livgorton.com/already-clean-thoughts/",
+            "https://andriybatutin.substack.com/p/we-tried-to-confirm-neural-networks",
+            "https://www.technologyreview.com/2026/10/19/1147149/we-were-looking-at-it-wrong-the-explosive-claim-thats-upended-the-ai-world/",
+            "https://transluce.org/neuron-circuits"
+          ]
+        }
+      ],
+      "id": "manifold-RZUdPgyPN5",
+      "market_id": "RZUdPgyPN5",
+      "outcome": null,
+      "question": "Are neural networks already clean?",
+      "resolution_criteria": "Based on the paper and my opinion on it which I will also partially base on the discourse / other people's reaction to it, as I am not an expert.\n\nWill I find it to be true that neural networks are already clean?",
+      "resolution_date": "2026-11-15",
+      "resolution_source": "https://manifold.markets/Bayesian/are-neural-networks-already-clean",
+      "topic": "Tech"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v5+manifold_selection_v3"
+}

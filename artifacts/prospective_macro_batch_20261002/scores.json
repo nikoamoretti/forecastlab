@@ -470,8 +470,9 @@
   },
   "outcomes": {
     "0b87f4ba-50c6-4423-872d-796cb9f5c9fa": {
-      "reason": "release_in_future",
-      "status": "pending"
+      "reason": "observation_absent_from_release_vintage",
+      "status": "pending",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "14bf6180-65b3-494a-8a63-990338fb1651": {
       "basis": "alfred_release_day_vintage:yoy_percent",
@@ -496,20 +497,24 @@
       "status": "pending"
     },
     "666cd77b-244d-433f-81d4-6bf09a22519c": {
-      "reason": "release_in_future",
-      "status": "pending"
+      "reason": "observation_absent_from_release_vintage",
+      "status": "pending",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "67059f16-df87-474a-be11-72a22d7b7c5a": {
-      "reason": "release_in_future",
-      "status": "pending"
+      "reason": "observation_absent_from_release_vintage",
+      "status": "pending",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "7084500c-ec25-4649-9d26-837f91a5f2a1": {
-      "reason": "release_in_future",
-      "status": "pending"
+      "reason": "observation_absent_from_release_vintage",
+      "status": "pending",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "86054306-91c5-4aec-9c08-c28208164658": {
-      "reason": "release_in_future",
-      "status": "pending"
+      "reason": "observation_absent_from_release_vintage",
+      "status": "pending",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "cf0c8389-7f43-45a2-9c29-886d406da17a": {
       "basis": "alfred_release_day_vintage:yoy_percent",
@@ -526,7 +531,7 @@
     }
   },
   "resolved_entries": 3,
-  "scored_on": "2026-11-05",
+  "scored_on": "2026-11-06",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 10
 }

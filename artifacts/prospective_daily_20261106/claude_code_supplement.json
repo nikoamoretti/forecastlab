@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-06T12:40:43+00:00",
+      "entry_id": "06d2e2a99c5b7e5b",
+      "probability": 0.7,
+      "rationale": "The threshold equals the latest first print (189,000 for the week ending 2026-10-31, https://www.dol.gov/ui/data.pdf, 2026-11-05), so a repeat fails and a single tick down fails too. But 189,000 was a 5,000 step below the prior 194,000 and 195,000 prints (the 4-week average is 194,750), and the drop came from unadjusted claims falling while the factors expected a rise, a pattern that tends to partly reverse. The factor jumps from 0.933 to 1.036 for the week ending 2026-11-07 (https://www.bls.gov/lau/current-factors.htm), and raw claims rose about 10.5% in the same week of 2025 (https://fred.stlouisfed.org/data/ICNSA); with typical moves of 0 to 5,000, I put roughly 70% on a print of 190,000 or more.",
+      "release_event": "claims-2026-11-12",
+      "sources": [
+        "https://www.dol.gov/ui/data.pdf",
+        "https://fred.stlouisfed.org/data/ICSA",
+        "https://fred.stlouisfed.org/data/ICNSA",
+        "https://www.bls.gov/lau/current-factors.htm"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261106",
+  "generated_at": "2026-11-06T12:40:43+00:00",
+  "manifest_hash": "2bf70bbb8fa91e9db440993a221128d0f8d56bc6333d0831cb9338ff73d9b6de",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}

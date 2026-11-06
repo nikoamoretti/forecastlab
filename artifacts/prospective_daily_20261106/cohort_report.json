@@ -1,0 +1,34 @@
+{
+  "id": "prospective_daily_20261106",
+  "interpretation": "Daily zero-cost set; small, correlated sample.",
+  "manifest_hash": "2bf70bbb8fa91e9db440993a221128d0f8d56bc6333d0831cb9338ff73d9b6de",
+  "methods": [
+    "statistical_baseline_v1"
+  ],
+  "questions": [
+    {
+      "cells": [
+        {
+          "interval_80": [
+            177000,
+            201000
+          ],
+          "method": "statistical_baseline_v1",
+          "probability": 0.4326923076923077,
+          "snapshot": {
+            "observations": 156,
+            "raw_hash": "46e599a38312cd3b15c4b7157ee4fcecb60a97950a3288a5a28e8fe9dd5f97a5",
+            "request_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA&cosd=2023-10-20",
+            "retrieved_at": "2026-11-06T10:23:48.216763+00:00",
+            "revision_basis": "latest_observed_revisions_not_first_release",
+            "source_lineage": "agency:dol",
+            "source_url": "https://fred.stlouisfed.org/series/ICSA"
+          },
+          "status": "forecasted"
+        }
+      ],
+      "id": "06d2e2a99c5b7e5b",
+      "release_event": "claims-2026-11-12"
+    }
+  ]
+}

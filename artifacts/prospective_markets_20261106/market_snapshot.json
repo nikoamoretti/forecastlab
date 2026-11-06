@@ -1,0 +1,26 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-5699271",
+      "market_id": "5699271",
+      "method": "market_price_v1",
+      "volume": 10508.22963,
+      "yes_price": 0.35
+    },
+    {
+      "id": "manifold-gq5RCCO6PN",
+      "market_id": "gq5RCCO6PN",
+      "method": "manifold_price_v1",
+      "volume": 2184.8500000000004,
+      "yes_price": 0.0761
+    },
+    {
+      "id": "manifold-RZUdPgyPN5",
+      "market_id": "RZUdPgyPN5",
+      "method": "manifold_price_v1",
+      "volume": 1158.3721496355327,
+      "yes_price": 0.2314
+    }
+  ],
+  "taken_at": "2026-11-06T10:23:48.311924+00:00"
+}
