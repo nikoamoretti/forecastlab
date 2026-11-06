@@ -3,15 +3,17 @@
     {
       "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "insufficient_evidence"
     },
     {
+      "brier": 0.3844,
       "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "log_loss": 0.9675840262617056,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.62,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -19,7 +21,7 @@
     {
       "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "execution_failed"
@@ -101,17 +103,21 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.09000000000000002,
       "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "log_loss": 0.35667494393873245,
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.30000000000000004,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.36,
       "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "log_loss": 0.916290731874155,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.6,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -119,7 +125,7 @@
     {
       "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "execution_failed"
@@ -127,15 +133,17 @@
     {
       "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "insufficient_evidence"
     },
     {
+      "brier": 0.12249999999999998,
       "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "log_loss": 0.4307829160924542,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.35,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -143,7 +151,7 @@
     {
       "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "execution_failed"
@@ -151,47 +159,57 @@
     {
       "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": null,
       "release_event": "employment-2026-11-06",
       "status": "insufficient_evidence"
     },
     {
+      "brier": 0.12249999999999998,
       "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "log_loss": 0.4307829160924542,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.65,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.8642688464808046,
       "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "log_loss": 2.654423298868691,
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.07033939177740528,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.21117897386582576,
       "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "log_loss": 0.6153386005895101,
       "method": "root_event_ensemble_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.5404578649722903,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.30250000000000005,
       "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "log_loss": 0.7985076962177716,
       "method": "single_model_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.45,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.25,
       "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "log_loss": 0.6931471805599453,
       "method": "three_track_strict_forecaster_v1",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.5,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -251,9 +269,11 @@
       "status": "execution_failed"
     },
     {
+      "brier": 0.2767674858223062,
       "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "log_loss": 0.7467314266940516,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.5260869565217391,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -287,33 +307,41 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.06580340264650285,
       "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "log_loss": 0.29641575242053564,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.2565217391304348,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.00833648393194707,
       "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "log_loss": 0.0957450569583844,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.09130434782608696,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.45031163434903043,
       "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "log_loss": 1.1118575154181303,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.32894736842105265,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.22024084333641122,
       "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "log_loss": 0.6335550833576997,
       "method": "statistical_baseline_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.5307017543859649,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -367,25 +395,31 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.32489999999999997,
       "entry_id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "log_loss": 0.8439700702945289,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.57,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.0729,
       "entry_id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "log_loss": 0.31471074483970024,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.27,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.0064,
       "entry_id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "log_loss": 0.08338160893905101,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.08,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -399,17 +433,21 @@
       "status": "forecasted"
     },
     {
+      "brier": 0.19359999999999997,
       "entry_id": "86054306-91c5-4aec-9c08-c28208164658",
+      "log_loss": 0.579818495252942,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.56,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
     },
     {
+      "brier": 0.5476,
       "entry_id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "log_loss": 1.3470736479666092,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 1,
       "probability": 0.26,
       "release_event": "employment-2026-11-06",
       "status": "forecasted"
@@ -430,48 +468,52 @@
     "claude_code_forecaster_v1 (post-freeze supplement)": {
       "assigned": 10,
       "forecasted": 10,
-      "mean_brier": 0.02576666666666667,
-      "mean_log_loss": 0.14541258892513936,
-      "resolved_forecasts": 3,
+      "mean_brier": 0.1528375,
+      "mean_log_loss": 0.45064904175853115,
+      "resolved_forecasts": 8,
       "uninformed_50pct_brier": 0.25
     },
     "root_event_ensemble_v1": {
       "assigned": 10,
       "forecasted": 4,
-      "mean_brier": 0.4627070449527472,
-      "mean_log_loss": 1.1479492772700777,
-      "resolved_forecasts": 2,
+      "mean_brier": 0.30664826594283007,
+      "mean_log_loss": 0.8169780247670995,
+      "resolved_forecasts": 4,
       "uninformed_50pct_brier": 0.25
     },
     "single_model_forecaster_v1": {
       "assigned": 10,
       "forecasted": 9,
-      "mean_brier": 0.10625000000000001,
-      "mean_log_loss": 0.39372893001559334,
-      "resolved_forecasts": 2,
+      "mean_brier": 0.2149142857142857,
+      "mean_log_loss": 0.6187723066528182,
+      "resolved_forecasts": 7,
       "uninformed_50pct_brier": 0.25
     },
     "statistical_baseline_v1 (post-freeze supplement)": {
       "assigned": 10,
       "forecasted": 10,
-      "mean_brier": 0.28978437780340893,
-      "mean_log_loss": 0.775671875694373,
-      "resolved_forecasts": 3,
+      "mean_brier": 0.23635162293705309,
+      "mean_log_loss": 0.6514150577414901,
+      "resolved_forecasts": 8,
       "uninformed_50pct_brier": 0.25
     },
     "three_track_strict_forecaster_v1": {
       "assigned": 10,
       "forecasted": 4,
-      "mean_brier": 0.3430985793570702,
-      "mean_log_loss": 0.8812763846918472,
-      "resolved_forecasts": 1,
+      "mean_brier": 0.4857891419459583,
+      "mean_log_loss": 1.4096156213734945,
+      "resolved_forecasts": 3,
       "uninformed_50pct_brier": 0.25
     }
   },
   "outcomes": {
     "0b87f4ba-50c6-4423-872d-796cb9f5c9fa": {
-      "reason": "observation_absent_from_release_vintage",
-      "status": "pending",
+      "basis": "alfred_release_day_vintage:level",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-05",
+      "status": "resolved",
+      "value": "4.1",
+      "vintage_date": "2026-11-06",
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "14bf6180-65b3-494a-8a63-990338fb1651": {
@@ -497,23 +539,39 @@
       "status": "pending"
     },
     "666cd77b-244d-433f-81d4-6bf09a22519c": {
-      "reason": "observation_absent_from_release_vintage",
-      "status": "pending",
+      "basis": "alfred_release_day_vintage:level",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-05",
+      "status": "resolved",
+      "value": "4.1",
+      "vintage_date": "2026-11-06",
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "67059f16-df87-474a-be11-72a22d7b7c5a": {
-      "reason": "observation_absent_from_release_vintage",
-      "status": "pending",
+      "basis": "alfred_release_day_vintage:level",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-05",
+      "status": "resolved",
+      "value": "4.1",
+      "vintage_date": "2026-11-06",
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=UNRATE&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "7084500c-ec25-4649-9d26-837f91a5f2a1": {
-      "reason": "observation_absent_from_release_vintage",
-      "status": "pending",
+      "basis": "alfred_release_day_vintage:change_thousands",
+      "outcome": 1,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-05",
+      "status": "resolved",
+      "value": "165000",
+      "vintage_date": "2026-11-06",
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "86054306-91c5-4aec-9c08-c28208164658": {
-      "reason": "observation_absent_from_release_vintage",
-      "status": "pending",
+      "basis": "alfred_release_day_vintage:change_thousands",
+      "outcome": 1,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-05",
+      "status": "resolved",
+      "value": "165000",
+      "vintage_date": "2026-11-06",
       "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=PAYEMS&cosd=2026-09-01&coed=2026-10-01&vintage_date=2026-11-06"
     },
     "cf0c8389-7f43-45a2-9c29-886d406da17a": {
@@ -530,7 +588,7 @@
       "status": "pending"
     }
   },
-  "resolved_entries": 3,
+  "resolved_entries": 8,
   "scored_on": "2026-11-06",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 10
