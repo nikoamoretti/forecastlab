@@ -1,34 +1,34 @@
 {
   "calibration": {
     "as_of": "2026-11-06",
-    "intercept": 0.348975,
-    "results": 189,
-    "slope": 0.728837
+    "intercept": 0.347741,
+    "results": 190,
+    "slope": 0.733511
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.21251727206365573,
+      "brier": 0.21321253975069174,
       "coin_flip_brier": 0.25,
       "forecasts": 264,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 194,
-      "right": 129,
+      "resolved": 201,
+      "right": 133,
       "toss_ups": 3,
-      "wrong": 62
+      "wrong": 65
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20332857142857141,
+      "brier": 0.2044188775510204,
       "coin_flip_brier": 0.25,
       "forecasts": 259,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 189,
-      "right": 125,
+      "resolved": 196,
+      "right": 129,
       "toss_ups": 6,
-      "wrong": 58
+      "wrong": 61
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -44,75 +44,75 @@
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.18048333333333333,
+      "brier": 0.17689999999999997,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 48,
-      "right": 36,
+      "resolved": 49,
+      "right": 37,
       "toss_ups": 1,
       "wrong": 11
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.2168523489932886,
+      "brier": 0.21542333333333333,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 149,
-      "right": 98,
+      "resolved": 150,
+      "right": 99,
       "toss_ups": 1,
       "wrong": 50
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.2044603448275862,
+      "brier": 0.20116440677966102,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 58,
-      "right": 42,
+      "resolved": 59,
+      "right": 43,
       "toss_ups": 0,
       "wrong": 16
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21416917808219177,
+      "brier": 0.21274557823129253,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 146,
-      "right": 104,
+      "resolved": 147,
+      "right": 105,
       "toss_ups": 0,
       "wrong": 42
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2188730263157895,
+      "brier": 0.21765424836601305,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 152,
-      "right": 105,
+      "resolved": 153,
+      "right": 106,
       "toss_ups": 1,
       "wrong": 46
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.19258947368421053,
+      "brier": 0.19845689655172413,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 57,
+      "resolved": 58,
       "right": 40,
       "toss_ups": 1,
-      "wrong": 16
+      "wrong": 17
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -128,51 +128,51 @@
     },
     {
       "about": "Three AI estimates built from one shared, checked evidence packet.",
-      "brier": 0.31532413956503785,
+      "brier": 0.2741404764070066,
       "coin_flip_brier": 0.25,
       "forecasts": 8,
       "label": "Research pipeline",
       "method": "root_event_ensemble_v1",
-      "resolved": 6,
-      "right": 3,
+      "resolved": 8,
+      "right": 5,
       "toss_ups": 0,
       "wrong": 3
     },
     {
       "about": "One AI model with web search.",
-      "brier": 0.2674888888888889,
+      "brier": 0.2642357142857143,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Single AI model",
       "method": "single_model_forecaster_v1",
-      "resolved": 9,
-      "right": 5,
+      "resolved": 14,
+      "right": 7,
       "toss_ups": 0,
-      "wrong": 4
+      "wrong": 7
     },
     {
       "about": "Three separate AI analyses, combined.",
-      "brier": 0.2583179041072837,
+      "brier": 0.32472157502575455,
       "coin_flip_brier": 0.25,
       "forecasts": 15,
       "label": "Three-track AI",
       "method": "three_track_strict_forecaster_v1",
-      "resolved": 7,
+      "resolved": 9,
       "right": 3,
-      "toss_ups": 0,
-      "wrong": 4
+      "toss_ups": 1,
+      "wrong": 5
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.25943617692189214,
+      "brier": 0.24744830585566333,
       "coin_flip_brier": 0.25,
       "forecasts": 28,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 18,
-      "right": 7,
+      "resolved": 23,
+      "right": 10,
       "toss_ups": 0,
-      "wrong": 11
+      "wrong": 13
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
@@ -188,31 +188,375 @@
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.15594211466165414,
+      "brier": 0.15828004664179104,
       "coin_flip_brier": 0.25,
       "forecasts": 169,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 133,
+      "resolved": 134,
       "right": 100,
       "toss_ups": 0,
-      "wrong": 33
+      "wrong": 34
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.152889466,
+      "brier": 0.15034094243902438,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 40,
-      "right": 28,
+      "resolved": 41,
+      "right": 29,
       "toss_ups": 0,
       "wrong": 12
     }
   ],
   "generated_on": "2026-11-06",
   "questions": [
+    {
+      "actual": "4.1%",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.57
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.1 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. P(unrounded \u22654.15) \u2248 0.55-0.6 given the start at 4.175 and mild reversion toward the 4.1-4.2 range. Confidence: low-medium.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+            },
+            {
+              "published": "2026-10",
+              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/UNRATE"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.62
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.5260869565217391
+        }
+      ],
+      "id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "series": "unemployment",
+      "series_label": "U.S. unemployment rate",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+      "status": "resolved",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.1%?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "4.1%",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.28500000000000003
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.2 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.25, about +0.08pp from the current level. Confidence: medium.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+            },
+            {
+              "published": "2026-10",
+              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/UNRATE"
+            }
+          ]
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.30000000000000004
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.6
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.2565217391304348
+        }
+      ],
+      "id": "666cd77b-244d-433f-81d4-6bf09a22519c",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "series": "unemployment",
+      "series_label": "U.S. unemployment rate",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+      "status": "resolved",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.2%?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "4.1%",
+      "call": {
+        "members": 3,
+        "method": "combined_median_v1",
+        "probability": 0.09130434782608696
+      },
+      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.3 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.35, a rise of ~0.18pp in one month, which is roughly a 1.4-sd move. Confidence: medium.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+            },
+            {
+              "published": "2026-10",
+              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/UNRATE"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.35
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.09130434782608696
+        }
+      ],
+      "id": "67059f16-df87-474a-be11-72a22d7b7c5a",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "series": "unemployment",
+      "series_label": "U.S. unemployment rate",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+      "status": "resolved",
+      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.3%?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "+165,000 jobs",
+      "call": {
+        "members": 4,
+        "method": "combined_median_v1",
+        "probability": 0.29447368421052633
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 100,000 jobs?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.26,
+          "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Exceeding 100k needs about a +0.7-sd surprise. Only 2 of the last 6 months (Mar, Aug) cleared it in current vintage. Confidence: low-medium.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/PAYEMS"
+            }
+          ]
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.65
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.07033939177740528
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.32894736842105265
+        }
+      ],
+      "id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "series": "payrolls",
+      "series_label": "U.S. job growth",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+      "status": "resolved",
+      "title": "Will the U.S. economy add more than 100,000 jobs in October 2026?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "+165,000 jobs",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.5307017543859649
+      },
+      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 29,000 jobs?",
+      "forecasts": [
+        {
+          "made_at": "2026-10-03T19:26:53Z",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.56,
+          "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Centre ~45k against the 29k threshold gives slightly better than even odds. Confidence: low.",
+          "sources": [
+            {
+              "published": "2026-10-02",
+              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
+            },
+            {
+              "published": "2026-10-02",
+              "url": "https://fred.stlouisfed.org/series/PAYEMS"
+            }
+          ]
+        },
+        {
+          "method": "root_event_ensemble_v1",
+          "probability": 0.5404578649722903
+        },
+        {
+          "method": "single_model_forecaster_v1",
+          "probability": 0.45
+        },
+        {
+          "method": "three_track_strict_forecaster_v1",
+          "probability": 0.5
+        },
+        {
+          "made_at": "2026-10-03T11:22:47.694320+00:00",
+          "method": "statistical_baseline_v1",
+          "probability": 0.5307017543859649
+        }
+      ],
+      "id": "86054306-91c5-4aec-9c08-c28208164658",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "series": "payrolls",
+      "series_label": "U.S. job growth",
+      "source": "prospective_macro_batch_20261002",
+      "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+      "status": "resolved",
+      "title": "Will the U.S. economy add more than 29,000 jobs in October 2026?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.3,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74
+        }
+      },
+      "detail": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for October 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for November 6, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "September's unemployment rate was 4.2%, with the unrounded value at 4.175% (St. Louis Fed) after 4.14% in August, so 4.1% needs a small fall of at least about 0.03 point. Monthly moves in the unrounded rate are typically about 0.1 point, which makes 4.1% roughly a one-in-four to one-in-three outcome; after a 4.2% month, the next month was 4.1% in 3 of 7 recent cases, 4.2% in 3 and 4.3% in 1. Claims of 194,000 and insured unemployment of 1.1% suggest low layoffs, but payroll growth is weak, so I do not lean toward a fall.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://www.bls.gov/news.release/empsit.t15.htm",
+            "https://data.bls.gov/timeseries/LNS14000000",
+            "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september",
+            "https://www.dol.gov/ui/data.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.27,
+          "rationale": "September's unrounded rate was 4.175%, just 0.025 above the 4.15 rounding boundary. A normal model with a monthly change standard deviation of about 0.13 pp gives roughly 25% for exactly 4.1% (about 43% below 4.15, minus the share that falls below 4.05). Low claims and a stable labor market add little, since the household survey noise dominates; the rate could easily print 4.2 or 4.3 instead."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.315
+        }
+      ],
+      "id": "polymarket-5211634",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://polymarket.com/event/october-unemployment-rate-2026",
+      "status": "resolved",
+      "title": "Will the October 2026 unemployment rate be 4.1%?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
     {
       "actual": "189,000 claims",
       "call": {
@@ -4179,6 +4523,74 @@
       "source_url": "https://manifold.markets/Plant/-will-america-get-more-woke-in-2026",
       "status": "resolved",
       "title": "\ud83d\udd2e\ud83c\udf0a Will America get MORE WOKE in 2026? \ud83c\udff3\ufe0f\u200d\u26a7\ufe0f\u2728",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 6,
+        "method": "combined_median_v1",
+        "probability": 0.07
+      },
+      "detail": "Shadow strategist Bannon seems to believe so. \n\nResolution criteria\n\nThis market resolves to YES if Donald Trump, in his capacity as President of the United States, officially declares a new national emergency under the National Emergencies Act (50 U.S.C. 1601 et seq.) on or before November 3, 2026 (11:59 PM EST).\n\nSource of Truth: The declaration must be officially published as a Presidential Proclamation or Executive Order on the Federal Register (federalregister.gov) or the official White House website (whitehouse.gov).\n\nExclusions: This market requires a newly declared national emergency. The continuation, extension, or modification of existing national emergencies (such as the January 2025 emergency regarding energy and critical minerals) will not qualify.\n\nIf no qualifying new national emergency is officially declared by the deadline, the market resolves to NO.\n\nBackground\n\nIn July and August 2026, key allies of Donald Trump\u2014including former White House strategist Steve Bannon and media host Wayne Allyn Root\u2014publicly urged the President to declare a national security emergency to assert federal control over the upcoming 2026 midterm elections. Proponents of this move suggest it could be used to implement voting restrictions, such as strict photo ID and citizenship requirements, or station ICE agents at polling places.\n\nLegal scholars and critics have heavily disputed the legality of such an action, noting that the U.S. Constitution explicitly grants individual states and Congress\u2014not the executive branch\u2014the authority to administer federal elections. Trump himself has publicly declined to rule out the idea, stating in an August 2026 interview that \"stranger things have happened\" when asked about declaring an election-related emergency.\n\nUpdate 2026-08-22 (PST) (AI summary of creator comment): To resolve to YES, any newly declared national emergency must have the effect of disrupting the midterms.\n\nRoutine declarations (such as foreign sanctions) will not qualify unless they disrupt the midterms.\n\nThe mechanism of disruption matters less than the declaration itself.\n\nUpdate 2026-08-23 (PST) (AI summary of creator comment): * The market's subtext (disrupting or asserting control over the midterms) governs the resolution criteria.\n\nRoutine trade or foreign sanctions (such as Cuba- or Venezuela-style sanctions) will not qualify for a YES resolution.\n\nUpdate 2026-08-24 (PST) (AI summary of creator comment): - A qualifying declaration must have the practical effect of disrupting or asserting federal authority over the midterms, regardless of its stated basis (such as using foreign interference as a pretext).\n\nRoutine foreign sanctions or trade declarations do not qualify.\n\nFinal resolution is subject to creator judgment.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "Trump said in February he was not considering an election-related national emergency and later said 'stranger things have happened' without ruling it out; Bannon and allies are urging one, and a draft order has circulated among supporters. The market needs a new emergency that actually disrupts or asserts federal control over the midterms, and legal scholars say the executive has no authority to administer elections. With 3 weeks left and no reported move by the administration, a qualifying declaration is unlikely.",
+          "sources": [
+            "https://www.pbs.org/newshour/politics/trump-says-hes-not-mulling-a-draft-executive-order-to-seize-control-over-elections-heres-what-we-know",
+            "https://www.newsweek.com/trump-ally-demands-national-emergency-to-place-ice-at-midterm-poll-stations-12338733"
+          ]
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.07,
+          "rationale": "Historically, presidents have almost never used the National Emergencies Act to influence elections, giving a base rate well below 5%. Trump\u2019s allies have publicly urged such a move and he has not ruled it out, which raises the chance, but his February statement that he was not considering it and the strong legal constraints that any election\u2011related emergency would likely be struck down keep the probability modest. Overall, the evidence suggests a roughly 7% likelihood of a newly declared national emergency that would disrupt the 2026 midterms before the November 3 deadline."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a president declaring a national emergency to disrupt or control midterm elections is essentially zero historically. Trump's February denial and subsequent non-committal 'stranger things have happened' remark, combined with no concrete steps as of mid-October, suggest a low probability. Legal challenges and the strict market criteria (requiring practical disruption, not just routine sanctions) further reduce the likelihood, though Trump's unpredictability and Bannon's influence leave a small tail risk."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.1,
+          "rationale": "Base rate: Declaring a national emergency to assert federal control over elections is unprecedented and legally dubious, making the prior very low. Evidence: Trump explicitly disavowed the idea in February, and while he refused to rule it out in August under pressure from allies, no concrete action has materialized with only three weeks until the deadline. What would change it: A sudden escalation in Trump's rhetoric alleging foreign interference or voting fraud in the final weeks would substantially increase the probability."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.07,
+          "rationale": "The base rate for a new, election-disrupting National Emergencies Act declaration in a three-week window is low, and Trump earlier said he was not considering such a move. The main upward evidence is his refusal to rule it out and pressure from Bannon and Root, but legal constraints, likely court challenges, and the absence of an imminent draft order keep the probability modest. A sudden announcement, leaked order, or explicit threat would materially raise the estimate."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "Base rate for Trump declaring a new national emergency is moderate given his history of using emergency powers, but the specific requirement that it must disrupt or assert federal authority over midterms is a much higher bar. Trump publicly said in February 2026 he was not considering such a move, and while he declined to rule it out in August, legal scholars note it would face immediate court challenges and likely fail. The political cost of overtly federalizing elections before midterms is high even for Trump, and allies' rhetoric doesn't necessarily translate to action. A last-minute October surprise declaration remains possible but unlikely given the legal and political obstacles."
+        },
+        {
+          "made_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.22
+        }
+      ],
+      "id": "manifold-IUgtSpszNS",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261013",
+      "source_url": "https://manifold.markets/xixi/will-trump-declare-a-national-emerg-qphcUqSlZZ",
+      "status": "resolved",
+      "title": "Will Trump declare a national emergency before the midterms?",
       "topic": "Politics",
       "verdict": "right"
     },
@@ -13737,74 +14149,6 @@
     {
       "actual": null,
       "call": {
-        "members": 6,
-        "method": "combined_median_v1",
-        "probability": 0.07
-      },
-      "detail": "Shadow strategist Bannon seems to believe so. \n\nResolution criteria\n\nThis market resolves to YES if Donald Trump, in his capacity as President of the United States, officially declares a new national emergency under the National Emergencies Act (50 U.S.C. 1601 et seq.) on or before November 3, 2026 (11:59 PM EST).\n\nSource of Truth: The declaration must be officially published as a Presidential Proclamation or Executive Order on the Federal Register (federalregister.gov) or the official White House website (whitehouse.gov).\n\nExclusions: This market requires a newly declared national emergency. The continuation, extension, or modification of existing national emergencies (such as the January 2025 emergency regarding energy and critical minerals) will not qualify.\n\nIf no qualifying new national emergency is officially declared by the deadline, the market resolves to NO.\n\nBackground\n\nIn July and August 2026, key allies of Donald Trump\u2014including former White House strategist Steve Bannon and media host Wayne Allyn Root\u2014publicly urged the President to declare a national security emergency to assert federal control over the upcoming 2026 midterm elections. Proponents of this move suggest it could be used to implement voting restrictions, such as strict photo ID and citizenship requirements, or station ICE agents at polling places.\n\nLegal scholars and critics have heavily disputed the legality of such an action, noting that the U.S. Constitution explicitly grants individual states and Congress\u2014not the executive branch\u2014the authority to administer federal elections. Trump himself has publicly declined to rule out the idea, stating in an August 2026 interview that \"stranger things have happened\" when asked about declaring an election-related emergency.\n\nUpdate 2026-08-22 (PST) (AI summary of creator comment): To resolve to YES, any newly declared national emergency must have the effect of disrupting the midterms.\n\nRoutine declarations (such as foreign sanctions) will not qualify unless they disrupt the midterms.\n\nThe mechanism of disruption matters less than the declaration itself.\n\nUpdate 2026-08-23 (PST) (AI summary of creator comment): * The market's subtext (disrupting or asserting control over the midterms) governs the resolution criteria.\n\nRoutine trade or foreign sanctions (such as Cuba- or Venezuela-style sanctions) will not qualify for a YES resolution.\n\nUpdate 2026-08-24 (PST) (AI summary of creator comment): - A qualifying declaration must have the practical effect of disrupting or asserting federal authority over the midterms, regardless of its stated basis (such as using foreign interference as a pretext).\n\nRoutine foreign sanctions or trade declarations do not qualify.\n\nFinal resolution is subject to creator judgment.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-13T11:01:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.04,
-          "rationale": "Trump said in February he was not considering an election-related national emergency and later said 'stranger things have happened' without ruling it out; Bannon and allies are urging one, and a draft order has circulated among supporters. The market needs a new emergency that actually disrupts or asserts federal control over the midterms, and legal scholars say the executive has no authority to administer elections. With 3 weeks left and no reported move by the administration, a qualifying declaration is unlikely.",
-          "sources": [
-            "https://www.pbs.org/newshour/politics/trump-says-hes-not-mulling-a-draft-executive-order-to-seize-control-over-elections-heres-what-we-know",
-            "https://www.newsweek.com/trump-ally-demands-national-emergency-to-place-ice-at-midterm-poll-stations-12338733"
-          ]
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.07,
-          "rationale": "Historically, presidents have almost never used the National Emergencies Act to influence elections, giving a base rate well below 5%. Trump\u2019s allies have publicly urged such a move and he has not ruled it out, which raises the chance, but his February statement that he was not considering it and the strong legal constraints that any election\u2011related emergency would likely be struck down keep the probability modest. Overall, the evidence suggests a roughly 7% likelihood of a newly declared national emergency that would disrupt the 2026 midterms before the November 3 deadline."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.05,
-          "rationale": "The base rate for a president declaring a national emergency to disrupt or control midterm elections is essentially zero historically. Trump's February denial and subsequent non-committal 'stranger things have happened' remark, combined with no concrete steps as of mid-October, suggest a low probability. Legal challenges and the strict market criteria (requiring practical disruption, not just routine sanctions) further reduce the likelihood, though Trump's unpredictability and Bannon's influence leave a small tail risk."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.1,
-          "rationale": "Base rate: Declaring a national emergency to assert federal control over elections is unprecedented and legally dubious, making the prior very low. Evidence: Trump explicitly disavowed the idea in February, and while he refused to rule it out in August under pressure from allies, no concrete action has materialized with only three weeks until the deadline. What would change it: A sudden escalation in Trump's rhetoric alleging foreign interference or voting fraud in the final weeks would substantially increase the probability."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.07,
-          "rationale": "The base rate for a new, election-disrupting National Emergencies Act declaration in a three-week window is low, and Trump earlier said he was not considering such a move. The main upward evidence is his refusal to rule it out and pressure from Bannon and Root, but legal constraints, likely court challenges, and the absence of an imminent draft order keep the probability modest. A sudden announcement, leaked order, or explicit threat would materially raise the estimate."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "Base rate for Trump declaring a new national emergency is moderate given his history of using emergency powers, but the specific requirement that it must disrupt or assert federal authority over midterms is a much higher bar. Trump publicly said in February 2026 he was not considering such a move, and while he declined to rule it out in August, legal scholars note it would face immediate court challenges and likely fail. The political cost of overtly federalizing elections before midterms is high even for Trump, and allies' rhetoric doesn't necessarily translate to action. A last-minute October surprise declaration remains possible but unlikely given the legal and political obstacles."
-        },
-        {
-          "made_at": "2026-10-13T10:54:44.534467+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.22
-        }
-      ],
-      "id": "manifold-IUgtSpszNS",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "source": "prospective_markets_20261013",
-      "source_url": "https://manifold.markets/xixi/will-trump-declare-a-national-emerg-qphcUqSlZZ",
-      "status": "pending",
-      "title": "Will Trump declare a national emergency before the midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.48
@@ -14406,350 +14750,6 @@
       "status": "pending",
       "title": "Will the United States Midterm Elections be free and fair?",
       "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.57
-      },
-      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.1 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.57,
-          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. P(unrounded \u22654.15) \u2248 0.55-0.6 given the start at 4.175 and mild reversion toward the 4.1-4.2 range. Confidence: low-medium.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
-            },
-            {
-              "published": "2026-10",
-              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/UNRATE"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.62
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.5260869565217391
-        }
-      ],
-      "id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "series": "unemployment",
-      "series_label": "U.S. unemployment rate",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
-      "status": "pending",
-      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.1%?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.28500000000000003
-      },
-      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.2 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.27,
-          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.25, about +0.08pp from the current level. Confidence: medium.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
-            },
-            {
-              "published": "2026-10",
-              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/UNRATE"
-            }
-          ]
-        },
-        {
-          "method": "root_event_ensemble_v1",
-          "probability": 0.30000000000000004
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.6
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.2565217391304348
-        }
-      ],
-      "id": "666cd77b-244d-433f-81d4-6bf09a22519c",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "series": "unemployment",
-      "series_label": "U.S. unemployment rate",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
-      "status": "pending",
-      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.2%?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 3,
-        "method": "combined_median_v1",
-        "probability": 0.09130434782608696
-      },
-      "detail": "Will the first published U.S. unemployment rate (FRED UNRATE) for 2026-10 be above 4.3 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.08,
-          "rationale": "Sep 2026 unemployment printed 4.2%, but unrounded it was 4.175%, just above the rounding boundary; it was 4.1% in Jul-Aug. The labor force jumped 485k. Payrolls are weak (+29k, with -60k revisions) but layoffs and claims are very low. Monthly first-print change sd is ~0.13pp. Needs unrounded \u22654.35, a rise of ~0.18pp in one month, which is roughly a 1.4-sd move. Confidence: medium.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
-            },
-            {
-              "published": "2026-10",
-              "url": "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/UNRATE"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.35
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.09130434782608696
-        }
-      ],
-      "id": "67059f16-df87-474a-be11-72a22d7b7c5a",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "series": "unemployment",
-      "series_label": "U.S. unemployment rate",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
-      "status": "pending",
-      "title": "Will the U.S. unemployment rate for October 2026 come in above 4.3%?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_median_v1",
-        "probability": 0.29447368421052633
-      },
-      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 100,000 jobs?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.26,
-          "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Exceeding 100k needs about a +0.7-sd surprise. Only 2 of the last 6 months (Mar, Aug) cleared it in current vintage. Confidence: low-medium.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/PAYEMS"
-            }
-          ]
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.65
-        },
-        {
-          "method": "three_track_strict_forecaster_v1",
-          "probability": 0.07033939177740528
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.32894736842105265
-        }
-      ],
-      "id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "series": "payrolls",
-      "series_label": "U.S. job growth",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
-      "status": "pending",
-      "title": "Will the U.S. economy add more than 100,000 jobs in October 2026?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.5307017543859649
-      },
-      "detail": "Will the first published U.S. nonfarm payroll monthly change (FRED PAYEMS) for 2026-10 be above 29,000 jobs?",
-      "forecasts": [
-        {
-          "made_at": "2026-10-03T19:26:53Z",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.56,
-          "rationale": "Recent payroll changes (current vintage): Jun +31k, Jul -10k, Aug +133k, Sep +29k first print (consensus was 84k); the 3-month average is ~51k and the 12-month average ~45k. Low immigration keeps breakeven low. The Fed hiked in September and oil is >$90, while layoffs remain low. First-print sd is ~75k. Centre ~45k against the 29k threshold gives slightly better than even odds. Confidence: low.",
-          "sources": [
-            {
-              "published": "2026-10-02",
-              "url": "https://www.bls.gov/news.release/empsit.nr0.htm"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html"
-            },
-            {
-              "published": "2026-10-02",
-              "url": "https://fred.stlouisfed.org/series/PAYEMS"
-            }
-          ]
-        },
-        {
-          "method": "root_event_ensemble_v1",
-          "probability": 0.5404578649722903
-        },
-        {
-          "method": "single_model_forecaster_v1",
-          "probability": 0.45
-        },
-        {
-          "method": "three_track_strict_forecaster_v1",
-          "probability": 0.5
-        },
-        {
-          "made_at": "2026-10-03T11:22:47.694320+00:00",
-          "method": "statistical_baseline_v1",
-          "probability": 0.5307017543859649
-        }
-      ],
-      "id": "86054306-91c5-4aec-9c08-c28208164658",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "series": "payrolls",
-      "series_label": "U.S. job growth",
-      "source": "prospective_macro_batch_20261002",
-      "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
-      "status": "pending",
-      "title": "Will the U.S. economy add more than 29,000 jobs in October 2026?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.3,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74
-        }
-      },
-      "detail": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for October 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for November 6, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "September's unemployment rate was 4.2%, with the unrounded value at 4.175% (St. Louis Fed) after 4.14% in August, so 4.1% needs a small fall of at least about 0.03 point. Monthly moves in the unrounded rate are typically about 0.1 point, which makes 4.1% roughly a one-in-four to one-in-three outcome; after a 4.2% month, the next month was 4.1% in 3 of 7 recent cases, 4.2% in 3 and 4.3% in 1. Claims of 194,000 and insured unemployment of 1.1% suggest low layoffs, but payroll growth is weak, so I do not lean toward a fall.",
-          "sources": [
-            "https://www.bls.gov/news.release/empsit.nr0.htm",
-            "https://www.bls.gov/news.release/empsit.t15.htm",
-            "https://data.bls.gov/timeseries/LNS14000000",
-            "https://www.stlouisfed.org/on-the-economy/2026/oct/flash-report-unemployment-rises-slightly-job-growth-slows-september",
-            "https://www.dol.gov/ui/data.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.27,
-          "rationale": "September's unrounded rate was 4.175%, just 0.025 above the 4.15 rounding boundary. A normal model with a monthly change standard deviation of about 0.13 pp gives roughly 25% for exactly 4.1% (about 43% below 4.15, minus the share that falls below 4.05). Low claims and a stable labor market add little, since the household survey noise dominates; the rate could easily print 4.2 or 4.3 instead."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.315
-        }
-      ],
-      "id": "polymarket-5211634",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://polymarket.com/event/october-unemployment-rate-2026",
-      "status": "pending",
-      "title": "Will the October 2026 unemployment rate be 4.1%?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -16702,21 +16702,21 @@
     }
   ],
   "summary": {
-    "brier": 0.21251727206365573,
+    "brier": 0.21321253975069174,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 66,
-    "resolved": 194,
-    "right": 129,
+    "pending": 59,
+    "resolved": 201,
+    "right": 133,
     "toss_ups": 3,
     "total": 264,
     "unscored": 3,
     "vs_market": {
-      "market": 0.15523629994219654,
-      "ours": 0.20706488439306361,
-      "questions": 173
+      "market": 0.15642002794285714,
+      "ours": 0.20752642857142856,
+      "questions": 175
     },
-    "wrong": 62
+    "wrong": 65
   },
   "version": "track_record_v2"
 }
