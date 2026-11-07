@@ -5,11 +5,16 @@ The Mac job (``scripts/mac_research.sh``) builds a task for each new question, a
 JSON evidence, checks every answer, and saves ``research.json``. The Actions ``download`` step then
 fetches each cited page and checks the quotes against it (``scripts/research_download.py``).
 
-Each question is researched in up to three passes, one agent run each, in order: the outside view
-(the reference class and its counts), the inside view (what is different this time, with the topic's
-checklist from ``configs/research_checklists.json``) and the other side (the strongest evidence for the
-outcome the first two make less likely). The replies are merged into one set of findings. Claude, as the
-fallback researcher, uses one combined pass to save tokens (``passes`` in ``configs/research.json``).
+Each question is researched in up to five passes, one agent run each, in order: the rules (the exact
+resolution rules, the source that settles it and its latest value), the outside view (the reference class
+and its counts), the inside view (what is different this time, with the topic's checklist from
+``configs/research_checklists.json``), the other side (the strongest evidence for the outcome the first
+three make less likely) and the gap pass (search specifically for the top open unknowns). If the merged
+result then has fewer than two primary sources with quotes, one extra round asks only for primary sources;
+if it is still short the result carries a warning. The replies are merged into one set of findings.
+``passes`` in ``configs/research.json`` picks how many: 5 = all of that, 4 = no gap pass, 3 = the original
+outside / inside / against (no rules pass, no primary-source round), 2 = outside and inside, 1 = one
+combined pass (the Claude fallback's, to save tokens).
 
 Cursor gathers evidence only: no probability, no lean. Claude forecasts from a digest of it and the
 judge panel, which may not include the research model's family, checks the forecast. No one sees a
@@ -44,12 +49,17 @@ CHECKLIST_FILE = "configs/research_checklists.json"
 MIN_SOURCES = 2
 MIN_FACTS = 2
 MAX_SOURCES = 8  # per reply
-MAX_TOTAL_SOURCES = 14  # after the passes are merged
-RESERVE_PER_LATER_PASS = 3  # an early pass may not use the room a later pass needs for its own sources
+MAX_TOTAL_SOURCES = 20  # after the passes are merged
+RESERVE_PER_LATER_PASS = 3  # an early pass may not use the room a later pass needs for its own sources (3 x 4 later passes = 12 of 20)
+MIN_PRIMARY = 2  # primary sources with quotes the merged result needs before the extra primary-source round is skipped
 MAX_MERGED_QUOTES = 5
 MAX_UNCERTAINTIES = 6
 MAX_CHECKLIST_ITEMS = 6  # per topic
-PASS_ORDER = ("combined", "outside", "inside", "against")
+PASS_ORDER = ("combined", "rules", "outside", "inside", "against", "gap", "primary")
+# The passes one question takes for each `passes` setting; "primary" is the conditional extra round after them.
+PLANS = {1: ("combined",), 2: ("outside", "inside"), 3: ("outside", "inside", "against"),
+         4: ("rules", "outside", "inside", "against"), 5: ("rules", "outside", "inside", "against", "gap")}
+MAX_PASSES = max(PLANS)
 # The US economic-data cohort questions carry their series, not a topic; these match forecastlab.plain_questions.TOPICS.
 COHORT_TOPICS = {"unemployment": "Jobs", "payrolls": "Jobs", "jobless_claims": "Jobs", "cpi": "Inflation",
                  "treasury_10y": "Interest rates"}
@@ -77,7 +87,7 @@ class Settings:
     fallback_model: str = ""
     fallback_family: str = ""
     fallback_timeout_s: int = 600
-    passes: int = 1  # agent runs per question: 3 = outside view, inside view, other side; 1 = one combined run
+    passes: int = 1  # agent runs per question, see PLANS: 5 = rules, outside, inside, against, gap; 3 = the first three without rules; 1 = one combined run
     fallback_passes: int = 1
 
     @property
@@ -104,8 +114,8 @@ def load_settings(path: Path) -> Settings:
     zone = data.get("window_tz") or "UTC"
     ZoneInfo(zone)  # a mistyped zone fails here, loudly, not silently at the next run
     passes, fallback_passes = int(data.get("passes", 1)), int(fallback.get("passes", 1))
-    if not (1 <= passes <= 3 and 1 <= fallback_passes <= 3):
-        raise ValueError("configs/research.json: passes must be 1, 2 or 3")
+    if not (1 <= passes <= MAX_PASSES and 1 <= fallback_passes <= MAX_PASSES):
+        raise ValueError("configs/research.json: passes must be 1, 2, 3, 4 or 5")
     return Settings(mode=data["mode"], model=data["model"], model_family=data["model_family"].lower(),
                     parallel=int(data["parallel"]), timeout_s=int(data["timeout_s"]),
                     daily_run_cap=int(data["daily_run_cap"]), weekly_run_cap=int(data["weekly_run_cap"]),
@@ -173,7 +183,9 @@ def tasks(directory: Path) -> list[dict[str, str]]:
 
 SOURCES_JSON = (
     '"sources": [{"url": "...", "title": "...", "published": "YYYY-MM-DD, or empty if the page has no date", '
-    '"quotes": ["a sentence copied word for word from the page", "..."]}],\n'
+    '"quotes": ["a sentence copied word for word from the page", "..."], '
+    '"primary": true for an official, agency, company, court, exchange or data-publisher page or the source '
+    'that settles the question, else false}],\n'
     ' "facts": [{"fact": "one specific, dated fact", "source": <index of its source in this reply\'s sources, from 0>}]'
 )
 QUOTE_RULES = (
@@ -244,10 +256,32 @@ def prompt(task: dict[str, str], today: str, checklist: list[str] | None = None)
     )
 
 
-def outside_prompt(task: dict[str, str], today: str, total: int = 3) -> str:
-    """Pass 1: the reference class of comparable past cases, counted, from primary data where possible."""
+def rules_prompt(task: dict[str, str], today: str, total: int = 5) -> str:
+    """Pass 1: the exact resolution rules, the source that settles the question and its latest value."""
     return (
-        _header(task, today, f"Pass 1 of {total}: the outside view only. Later passes look at what is specific to this case.")
+        _header(task, today, f"Pass 1 of {total}: the rules. Later passes look at base rates, what is specific to "
+                             "this case and the other side; do not do their work.")
+        + "Find the exact resolution rules of this question and the source that settles it: the agency, site, "
+        "exchange, court or release that decides the outcome, and the page with its rules or methodology. Open it "
+        "and read the current status or latest official value as of now (the latest print, count, level, ruling or "
+        "stage, with its date). Then list the wording edge cases that could flip the answer: the exact dates and "
+        "time zones that count, whether revised or later-corrected values count, ties and exact-threshold cases, "
+        "what does and does not count, and what happens if the source is delayed or changes.\n"
+        + SEARCH_RULES
+        + ONLY_JSON
+        + "{" + _sources_json(task, today) + ",\n"
+        ' "resolution": {"settling_source": "the agency or site that settles it, with its URL",\n'
+        '   "criteria": "the resolution rule in the source\'s own terms, short",\n'
+        '   "current_status": "the latest official value or status as of today, dated",\n'
+        '   "edge_cases": ["one wording edge case each: dates, time zones, revisions, ties, what counts"]}}\n'
+        "Use 2 to 5 sources, each with 1 to 3 quotes that bear on the rules or the current value. " + QUOTE_RULES
+    )
+
+
+def outside_prompt(task: dict[str, str], today: str, total: int = 3, number: int = 1) -> str:
+    """The reference class of comparable past cases, counted, from primary data where possible."""
+    return (
+        _header(task, today, f"Pass {number} of {total}: the outside view only. Later passes look at what is specific to this case.")
         + "Find the reference class of comparable past cases (earlier releases of the same statistic, earlier votes, "
         "launches or rulings of the same kind) and count how often the outcome happened, and over what period. "
         "Work from primary data where you can (the statistics office's own series, official records, the archive of "
@@ -264,6 +298,13 @@ def outside_prompt(task: dict[str, str], today: str, total: int = 3) -> str:
 
 def _earlier(found: dict[str, Any]) -> str:
     lines = []
+    rules = found.get("resolution") or {}
+    for label, key in (("Settling source", "settling_source"), ("Resolution rule", "criteria"),
+                       ("Status as of the rules pass", "current_status")):
+        if rules.get(key):
+            lines.append(f"{label}: {rules[key]}")
+    if rules.get("edge_cases"):
+        lines.append("Wording edge cases: " + "; ".join(rules["edge_cases"]))
     if found.get("base_rate"):
         lines.append(f"Base rate: {found['base_rate']}")
     if found.get("different_now"):
@@ -275,6 +316,7 @@ def _earlier(found: dict[str, Any]) -> str:
         lines.append(f"Running tally already read: {live_counts.fmt(tally['value'])} {tally.get('unit', '')} at {tally.get('read_at', '')} "
                      f"from {tally['source_url']}")
     lines += [f"- {f['fact']}" for f in found.get("facts", [])]
+    lines += [f"Still unknown: {u}" for u in found.get("uncertainties", [])]
     urls = [s["url"] for s in found.get("sources", [])]
     if urls:
         lines.append("Pages already read: " + ", ".join(urls))
@@ -282,10 +324,10 @@ def _earlier(found: dict[str, Any]) -> str:
 
 
 def inside_prompt(task: dict[str, str], today: str, outside: dict[str, Any], checklist: list[str] | None = None,
-                  total: int = 3) -> str:
-    """Pass 2: the latest facts from primary sources, what is different this time, what is scheduled, what is unknown."""
+                  total: int = 3, number: int = 2) -> str:
+    """The latest facts from primary sources, what is different this time, what is scheduled, what is unknown."""
     return (
-        _header(task, today, f"Pass 2 of {total}: the inside view. The outside view is done; do not repeat it.")
+        _header(task, today, f"Pass {number} of {total}: the inside view. The outside view is done; do not repeat it.")
         + "Already found:\n" + _earlier(outside) + "\n\n"
         "Now find the latest facts from the primary sources that decide this question (central banks, statistics "
         "offices, election boards, courts, filings, schedules) and the reporting from the last 7 days. Report what "
@@ -304,10 +346,10 @@ def inside_prompt(task: dict[str, str], today: str, outside: dict[str, Any], che
     )
 
 
-def against_prompt(task: dict[str, str], today: str, found: dict[str, Any]) -> str:
-    """Pass 3: the strongest evidence for the outcome that passes 1 and 2 make less likely."""
+def against_prompt(task: dict[str, str], today: str, found: dict[str, Any], total: int = 3, number: int = 3) -> str:
+    """The strongest evidence for the outcome that the earlier passes make less likely."""
     return (
-        _header(task, today, "Pass 3 of 3: the other side. The outside and inside views are done.")
+        _header(task, today, f"Pass {number} of {total}: the other side. The outside and inside views are done.")
         + "Found so far:\n" + _earlier(found) + "\n\n"
         "Decide which outcome of the question this evidence makes less likely, then find the strongest evidence "
         "for that outcome: facts, precedents, scheduled events, official or expert statements and data that point "
@@ -324,8 +366,56 @@ def against_prompt(task: dict[str, str], today: str, found: dict[str, Any]) -> s
     )
 
 
+def gap_prompt(task: dict[str, str], today: str, found: dict[str, Any], total: int = 5, number: int = 5) -> str:
+    """The last pass: search specifically for the top open unknowns of everything gathered so far."""
+    return (
+        _header(task, today, f"Pass {number} of {total}: the gaps. Every other pass is done; do not repeat them.")
+        + "Found so far:\n" + _earlier(found) + "\n\n"
+        "Pick the 2 or 3 open unknowns that matter most to the answer: the items listed as still unknown above, and "
+        "any latest number that is missing or stale (the newest official value, a count, a date, a scheduled release "
+        "not yet found). Search specifically to answer each one, primary sources first (the agency, company, court or "
+        "exchange that publishes it), and open the page. Record each answer as a dated fact with its source; if an "
+        "unknown cannot be answered, say so under uncertainties. Do not repeat the facts above; every fact must cite "
+        "a source listed in this reply, so list again any page above that you rely on.\n"
+        + SEARCH_RULES
+        + ONLY_JSON
+        + "{" + _sources_json(task, today) + ",\n"
+        ' "uncertainties": ["what is still unknown after this pass and could change the answer"]}\n'
+        "Use 1 to 6 sources, each with 1 to 3 quotes that bear on the question. " + QUOTE_RULES
+    )
+
+
+def primary_prompt(task: dict[str, str], today: str, found: dict[str, Any]) -> str:
+    """The extra round when the merged result has too few primary sources: only primary sources are asked for."""
+    return (
+        _header(task, today, "Extra round: primary sources only. The earlier passes found too few official pages.")
+        + "Found so far:\n" + _earlier(found) + "\n\n"
+        "Find the official page behind the facts above and the one that settles this question: the statistics "
+        "agency, central bank, government or court page, company filing or announcement, exchange notice or data "
+        "publisher that issues the number or decision itself, not an article about it. Open each page and copy "
+        "quotes from it. Do not list news articles, aggregators or blogs. Every fact must cite a source listed in "
+        "this reply.\n"
+        + SEARCH_RULES
+        + ONLY_JSON
+        + "{" + _sources_json(task, today) + "}\n"
+        "Use 2 to 5 primary sources, each with 1 to 3 quotes that bear on the question, each marked primary. " + QUOTE_RULES
+    )
+
+
 def _text(value: Any, limit: int) -> str:
     return clean(value if isinstance(value, str) else "")[:limit]
+
+
+def _resolution(value: Any) -> dict[str, Any]:
+    """The rules pass's short summary of the resolution rules, cleaned; {} when it has nothing."""
+    if not isinstance(value, dict):
+        return {}
+    found: dict[str, Any] = {key: _text(value.get(key), limit) for key, limit in
+                             (("settling_source", 250), ("criteria", 500), ("current_status", 400))}
+    edges = value.get("edge_cases")
+    edges = [edges] if isinstance(edges, str) else edges if isinstance(edges, list) else []
+    found["edge_cases"] = [e for e in (_text(e, 250) for e in edges if isinstance(e, str)) if e][:4]
+    return found if any(found.values()) else {}
 
 
 def validate(reply: str, *, min_sources: int = MIN_SOURCES, min_facts: int = MIN_FACTS,
@@ -354,7 +444,8 @@ def validate(reply: str, *, min_sources: int = MIN_SOURCES, min_facts: int = MIN
         published = item.get("published") if isinstance(item.get("published"), str) else ""
         index[n] = len(sources)
         sources.append({"url": url, "title": _text(item.get("title"), 200),
-                        "published": published if DATE.match(published) else "", "quotes": quotes})
+                        "published": published if DATE.match(published) else "", "quotes": quotes,
+                        "primary": item.get("primary") is True})
     facts = []
     for item in data.get("facts") or []:
         if not isinstance(item, dict) or not isinstance(item.get("source"), int) or item["source"] not in index:
@@ -370,9 +461,12 @@ def validate(reply: str, *, min_sources: int = MIN_SOURCES, min_facts: int = MIN
     if need_against and not against:
         raise ValueError("no case for the other outcome")
     uncertainties = [u for u in (_text(u, 300) for u in data.get("uncertainties") or [] if isinstance(u, str)) if u]
-    found = {"sources": sources, "facts": facts, "base_rate": _text(data.get("base_rate"), 600),
-             "different_now": _text(data.get("different_now"), 600), "against": against,
-             "uncertainties": uncertainties[:5]}
+    found: dict[str, Any] = {"sources": sources, "facts": facts, "base_rate": _text(data.get("base_rate"), 600),
+                             "different_now": _text(data.get("different_now"), 600), "against": against,
+                             "uncertainties": uncertainties[:5]}
+    resolution = _resolution(data.get("resolution"))
+    if resolution:
+        found["resolution"] = resolution
     bad = lambda url: is_market_site(url) or bool(MARKET_WORDS.search(url))  # noqa: E731
     tally, spot = live_counts.clean_tally(data.get("tally"), bad), live_counts.clean_spot(data.get("spot"), bad)
     if tally:
@@ -410,6 +504,7 @@ def merge(parts: dict[str, dict[str, Any]]) -> dict[str, Any]:
                 known["quotes"] = (known["quotes"] + [q for q in source["quotes"] if q not in known["quotes"]]
                                    )[:MAX_MERGED_QUOTES]
                 known["published"] = known["published"] or source["published"]
+                known["primary"] = bool(known.get("primary") or source.get("primary"))
                 remap[n] = where[key]
             elif len(sources) < room:
                 where[key] = remap[n] = len(sources)
@@ -432,11 +527,53 @@ def merge(parts: dict[str, dict[str, Any]]) -> dict[str, Any]:
               "different_now": owned("different_now", "combined", "inside"),
               "against": owned("against", "combined", "against"),
               "uncertainties": uncertainties[:MAX_UNCERTAINTIES], "passes_done": order}
+    resolution = next((parts[o]["resolution"] for o in ("rules", "combined") if o in parts and parts[o].get("resolution")), None)
+    if resolution:
+        merged["resolution"] = resolution
     for key in ("tally", "spot"):  # the reading taken last wins
         best = live_counts.pick_latest([parts[name].get(key) for name in order])
         if best:
             merged[key] = best
     return merged
+
+
+# Hosts of agencies, courts, central banks and exchanges that publish their own numbers and decisions.
+PRIMARY_HOST = re.compile(r"(^|\.)(gov|mil|int)$|\.(gov|go|gouv|govt)\.[a-z]{2}$|\.europa\.eu$|\.gc\.ca$|\.admin\.ch$")
+PRIMARY_DOMAINS = frozenset("""
+stlouisfed.org frbny.org newyorkfed.org bankofengland.co.uk boj.or.jp imf.org worldbank.org oecd.org bis.org
+cmegroup.com nyse.com nasdaq.com cboe.com theice.com lseg.com sec.gov courtlistener.com
+""".split())
+HOST_IN_TEXT = re.compile(r"(?:https?://)?((?:[a-z0-9-]+\.)+[a-z]{2,})", re.IGNORECASE)
+
+
+def _host(url: str) -> str:
+    return re.sub(r"^https?://(www\.)?", "", url.strip().lower()).split("/")[0].split(":")[0]
+
+
+def _registrable(host: str) -> str:
+    labels = host.split(".")
+    keep = 3 if len(labels) > 2 and len(labels[-1]) == 2 and labels[-2] in ("co", "com", "org", "gov", "ac", "or", "go") else 2
+    return ".".join(labels[-keep:])
+
+
+def is_primary(source: dict[str, Any], settling: str = "") -> bool:
+    """True for a source with quotes that is an agency/court/exchange/data-publisher page or the settling source.
+
+    The model's own ``primary`` flag counts, as does a host check (.gov, .mil, .int, national government
+    domains, the EU, a list of central banks, exchanges and data publishers) and a match with the domain of
+    the settling source named by the rules pass. A page with no quotes is never counted: nothing was read.
+    """
+    if not source.get("quotes"):
+        return False
+    host = _host(source["url"])
+    if source.get("primary") or PRIMARY_HOST.search(host) or _registrable(host) in PRIMARY_DOMAINS:
+        return True
+    return any(_registrable(found.lower()) == _registrable(host) for found in HOST_IN_TEXT.findall(settling or ""))
+
+
+def primary_count(found: dict[str, Any]) -> int:
+    settling = (found.get("resolution") or {}).get("settling_source", "")
+    return sum(is_primary(s, settling) for s in found["sources"])
 
 
 CURSOR_TRIES = 2
@@ -489,8 +626,15 @@ class Outcome:
     failed: dict[str, str]  # passes that ran or were skipped without evidence (the first pass failing fails the question)
 
 
+def plan_for(passes: int) -> tuple[str, ...]:
+    """The passes one question takes for a ``passes`` setting (see PLANS); out-of-range values are clamped."""
+    return PLANS[max(1, min(passes, MAX_PASSES))]
+
+
 def runs_per_question(passes: int) -> int:
-    return max(1, min(passes, 3))
+    """The most agent runs one question can take: its passes, plus the one extra primary-source round if it has the rules pass."""
+    plan = plan_for(passes)
+    return len(plan) + (1 if "rules" in plan else 0)
 
 
 def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget: int,
@@ -498,44 +642,52 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
              checklists: dict[str, list[str]] | None = None) -> dict[str, Any]:
     """Research the directory's questions not yet in research.json, at most ``budget`` agent runs.
 
-    ``passes`` is how many runs one question takes: 3 = outside view, inside view (with the topic's
-    checklist), the other side; 2 = the first two; 1 = one combined run. A question is started only if its
-    passes fit in the budget. Passes for one question run in order (each gets the earlier ones' findings);
-    questions run ``parallel`` at a time. The first pass failing fails the question; a later pass failing
-    keeps the passes that succeeded (``passes_done`` and ``passes_failed`` in its findings).
+    ``passes`` picks the plan (``PLANS``): 5 = rules, outside view, inside view (with the topic's checklist),
+    the other side, gap; 4 = the same without the gap pass; 3 = outside, inside, other side; 2 = the first two
+    of those; 1 = one combined run. With the rules pass there is also, only if the merged result has fewer than
+    ``MIN_PRIMARY`` primary sources with quotes, one extra round asking only for primary sources, and a warning
+    in the findings if it is still short. A question is started only if all its possible runs (see
+    ``runs_per_question``) fit in the budget. Passes for one question run in order (each gets the earlier ones'
+    findings); questions run ``parallel`` at a time. The outside (or combined) pass failing fails the question;
+    the rules pass or a later pass failing keeps the passes that succeeded (``passes_done`` and
+    ``passes_failed`` in its findings).
     """
     path = directory / RESEARCH_FILE
     saved = json.loads(path.read_text()) if path.exists() else {}
     if saved and saved.get("provider") != "cursor":
         saved = {}  # an older search provider's file is replaced
     done = set(saved.get("findings", {}))
+    names = plan_for(passes)
     each = runs_per_question(passes)
     todo = [t for t in tasks(directory) if t["id"] not in done][:max(0, min(budget // each, limit or budget))]
     limit_hit = threading.Event()
-    names = ["combined"] if each == 1 else ["outside", "inside", "against"][:each]
+    total = len(names)
 
     def one(task: dict[str, str]) -> Outcome:
         started, cost, runs = time.monotonic(), None, 0
         parts: dict[str, dict[str, Any]] = {}
         failed: dict[str, str] = {}
         items = checklist_for(checklists or {}, task.get("topic", ""))
-        for name in names:
-            if limit_hit.is_set():
-                if not parts:
-                    return Outcome("skipped: the research model's usage limit was reached earlier in this run",
-                                   None, None, runs, failed)
-                failed[name] = "skipped: the research model's usage limit was reached"
-                continue
+
+        def ask(name: str, number: int) -> bool:
+            """Run one pass into parts; False (reason in failed) when it gave no usable evidence."""
+            nonlocal cost, runs
             need: dict[str, Any] = {}
             if name == "combined":
                 text = prompt(task, today, items)
+            elif name == "rules":
+                text, need = rules_prompt(task, today, total), {"min_sources": 1, "min_facts": 1}
             elif name == "outside":
-                text = outside_prompt(task, today, each)
+                text = outside_prompt(task, today, total, number)
             elif name == "inside":
-                text, need = inside_prompt(task, today, merge(parts), items, each), {"min_sources": 1, "min_facts": 1}
-            else:
-                text, need = against_prompt(task, today, merge(parts)), {"min_sources": 1, "min_facts": 1,
-                                                                         "need_against": True}
+                text, need = inside_prompt(task, today, merge(parts), items, total, number), {"min_sources": 1, "min_facts": 1}
+            elif name == "against":
+                text, need = against_prompt(task, today, merge(parts), total, number), {
+                    "min_sources": 1, "min_facts": 1, "need_against": True}
+            elif name == "gap":
+                text, need = gap_prompt(task, today, merge(parts), total, number), {"min_sources": 1, "min_facts": 1}
+            else:  # the extra primary-source round
+                text, need = primary_prompt(task, today, merge(parts)), {"min_sources": 1, "min_facts": 0}
             try:
                 runs += 1
                 reply = agent(text)
@@ -543,14 +695,40 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
                     reply, spent = reply
                     cost = (cost or 0.0) + (spent or 0.0)
                 parts[name] = validate(reply, **need)
+                return True
             except Exception as error:  # a failed question is skipped, never the run
                 if LIMIT_REACHED.search(str(error)):
                     limit_hit.set()
-                reason = f"{type(error).__name__}: {error}"[:300]
-                if not parts:  # the first pass is the base of the rest: without it the question has no evidence
-                    return Outcome(reason, round(time.monotonic() - started, 1), cost, runs, failed)
-                failed[name] = reason
-        return Outcome(merge(parts), round(time.monotonic() - started, 1), cost, runs, failed)
+                failed[name] = f"{type(error).__name__}: {error}"[:300]
+                return False
+
+        for number, name in enumerate(names, 1):
+            if limit_hit.is_set():
+                if not parts:
+                    return Outcome("skipped: the research model's usage limit was reached earlier in this run",
+                                   None, None, runs, failed)
+                failed[name] = "skipped: the research model's usage limit was reached"
+                continue
+            if not ask(name, number) and name in ("outside", "combined") and not set(parts) - {"rules"}:
+                # the outside (or combined) pass is the base of the rest: without it the question has no evidence
+                return Outcome(failed[name], round(time.monotonic() - started, 1), cost, runs, failed)
+        if not parts:
+            return Outcome(next(iter(failed.values()), "no evidence"), round(time.monotonic() - started, 1), cost, runs, failed)
+        merged = merge(parts)
+        warnings: list[str] = []
+        if "rules" in names:  # the primary-source gate
+            if primary_count(merged) < MIN_PRIMARY and not limit_hit.is_set():
+                if ask("primary", total + 1):
+                    merged = merge(parts)
+            elif primary_count(merged) < MIN_PRIMARY:
+                failed["primary"] = "skipped: the research model's usage limit was reached"
+            if primary_count(merged) < MIN_PRIMARY:
+                warnings.append(f"only {primary_count(merged)} primary source(s) with quotes (need {MIN_PRIMARY}): "
+                                "rely on the facts less than on official data")
+            merged["primary_sources"] = primary_count(merged)
+        if warnings:
+            merged["warnings"] = warnings
+        return Outcome(merged, round(time.monotonic() - started, 1), cost, runs, failed)
 
     with ThreadPoolExecutor(max_workers=max(1, parallel)) as pool:
         results = list(pool.map(one, todo))
@@ -571,19 +749,31 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
             continue
         failed.pop(task["id"], None)
         sources[task["id"]] = [{"title": s["title"], "url": s["url"], "published": s["published"],
-                                "quotes": s["quotes"], "text": "\n".join(s["quotes"]), "verified": None}
+                                "quotes": s["quotes"], "text": "\n".join(s["quotes"]), "verified": None,
+                                "primary": is_primary(s, (result.get("resolution") or {}).get("settling_source", ""))}
                                for s in result["sources"]]
         findings[task["id"]] = {"facts": result["facts"], "base_rate": result["base_rate"],
                                 "different_now": result["different_now"], "against": result["against"],
                                 "uncertainties": result["uncertainties"], "passes_done": result["passes_done"],
-                                **{k: result[k] for k in ("tally", "spot") if result.get(k)},
+                                **{k: result[k] for k in ("tally", "spot", "resolution", "warnings") if result.get(k)},
+                                **({"primary_sources": result["primary_sources"]} if "primary_sources" in result else {}),
                                 **({"passes_failed": outcome.failed} if outcome.failed else {})}
         if by:
             researched_by[task["id"]] = by
     # "provider" names the file format (research_download.py reads it); researched_by names the model.
     return {"provider": "cursor", "researched_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
-            "runs": sum(o.runs for o in results), "passes": each, "sources": sources, "findings": findings,
+            "runs": sum(o.runs for o in results), "passes": total, "sources": sources, "findings": findings,
             "failed": failed, "researched_by": researched_by, "seconds": seconds, "cost_usd": costs}
+
+
+def _resolution_lines(found: dict[str, Any]) -> list[str]:
+    """A compact "Resolution rules" block from the rules pass, [] when there was none."""
+    rules = found.get("resolution") or {}
+    rows = [(label, rules.get(key)) for label, key in (("Settled by", "settling_source"), ("Rule", "criteria"),
+                                                      ("Status now", "current_status")) if rules.get(key)]
+    if rules.get("edge_cases"):
+        rows.append(("Edge cases", "; ".join(rules["edge_cases"])))
+    return ["Resolution rules:"] + [f"  {label}: {value}" for label, value in rows] if rows else []
 
 
 def digest(data: dict[str, Any], qid: str, task: dict[str, str] | None = None, today: str = "") -> str:
@@ -602,6 +792,7 @@ def digest(data: dict[str, Any], qid: str, task: dict[str, str] | None = None, t
             lines = live_counts.digest_head(found, task, today or f"{datetime.now(UTC):%Y-%m-%d}")
         except Exception:  # noqa: BLE001 -- the digest must always print
             lines = []
+    lines += _resolution_lines(found)
     lines += [f"- {f['fact']} [{f['source'] + 1}]" for f in found["facts"]]
     if found.get("base_rate"):
         lines.append(f"Base rate: {found['base_rate']}")
@@ -610,8 +801,10 @@ def digest(data: dict[str, Any], qid: str, task: dict[str, str] | None = None, t
     if found.get("against"):
         lines.append(f"Case for the other outcome: {found['against']}")
     lines += [f"Unknown: {u}" for u in found.get("uncertainties", [])]
+    lines += [f"WARNING: {w}" for w in found.get("warnings", [])]
     for n, s in enumerate(sources, 1):
         check = {True: "quotes checked", False: "quotes not found on page"}.get(s.get("verified"), "not checked")
+        check += ", primary" if s.get("primary") else ""
         lines.append(f"[{n}] {s['title']} ({s['url']}{', ' + s['published'] if s['published'] else ''}; {check})")
     return "\n".join(lines)
 

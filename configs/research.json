@@ -1,9 +1,9 @@
 {
   "mode": "live",
   "provider": "cursor",
-  "model": "grok-4.7-low",
+  "model": "grok-4.7-medium",
   "model_family": "grok",
-  "passes": 3,
+  "passes": 5,
   "parallel": 3,
   "timeout_s": 420,
   "daily_run_cap": 120,

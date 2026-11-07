@@ -8,8 +8,8 @@
 scripts/mac_research.sh. On weekdays inside the configured window (Pacific time), once per day, it:
 
 1. creates today's branch and has Actions prepare the questions, if that has not happened yet;
-2. researches each new question with cursor-agent, in three passes (outside view, inside view with the topic's
-   checklist from configs/research_checklists.json, the other side), and saves research.json next to it;
+2. researches each new question with cursor-agent, in up to five passes (rules, outside view, inside view with the topic's
+   checklist from configs/research_checklists.json, the other side, gaps) plus a primary-source check, and saves research.json next to it;
 3. pushes that with a request for the Actions ``download`` step, which checks the quotes against the pages.
 
 In ``dry_run`` mode (configs/research.json) the branch carries a ``-dryrun`` suffix and nothing is
@@ -52,6 +52,7 @@ from forecastlab.cursor_research import (  # noqa: E402
     record_notes,
     related_forecasts,
     research,
+    runs_per_question,
     tasks,
 )
 from forecastlab.research import RESEARCH_FILE  # noqa: E402
@@ -216,7 +217,7 @@ def daily(args: argparse.Namespace) -> None:
     budget = min(settings.daily_run_cap - used.get(f"{now:%Y-%m-%d}", 0),
                  settings.weekly_run_cap - used.get(week_of(now), 0))
     if args.dry_run:
-        budget = min(budget, HAND_TEST_QUESTIONS * settings.passes)
+        budget = min(budget, HAND_TEST_QUESTIONS * runs_per_question(settings.passes))
     if budget <= 0:
         log(f"{branch}: the research cap is reached ({json.dumps(used)}); skipping")
         return
@@ -296,7 +297,7 @@ def fill(args: argparse.Namespace) -> None:
         path = directory / RESEARCH_FILE
         saved = json.loads(path.read_text()) if path.exists() else {}
         result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel,
-                          budget=len(tasks(directory)) * settings.fallback_passes,
+                          budget=len(tasks(directory)) * runs_per_question(settings.fallback_passes),
                           by=f"claude-{settings.fallback_model}", passes=settings.fallback_passes,
                           checklists=checklists)
         if not result["runs"]:
