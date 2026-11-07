@@ -534,9 +534,9 @@ def test_merge_dedupes_sources_by_url_remaps_facts_and_caps_the_total() -> None:
 
     capped = cr.merge({"outside": many("a", 8), "inside": many("b", 8), "against": many("c", 8)})
     urls = [s["url"] for s in capped["sources"]]
-    assert len(urls) == cr.MAX_TOTAL_SOURCES == 14
-    assert sum("/a" in u for u in urls) == 8 and sum("/b" in u for u in urls) == 3 and sum("/c" in u for u in urls) == 3
-    assert all(f["source"] < 14 for f in capped["facts"]) and len(capped["facts"]) == 14  # facts of dropped sources go
+    assert len(urls) == cr.MAX_TOTAL_SOURCES == 20
+    assert sum("/a" in u for u in urls) == 8 and sum("/b" in u for u in urls) == 8 and sum("/c" in u for u in urls) == 4
+    assert all(f["source"] < 20 for f in capped["facts"]) and len(capped["facts"]) == 20  # facts of dropped sources go
 
 
 def test_a_failed_later_pass_keeps_the_passes_that_succeeded(tmp_path: Path) -> None:
@@ -584,10 +584,15 @@ def test_questions_are_started_only_when_all_their_passes_fit_in_the_budget(tmp_
     assert len(result["findings"]) == 2 and result["runs"] == 6 == len(prompts)  # 8 runs buy two 3-pass questions
 
 
-def test_the_daily_cap_fits_thirty_three_pass_questions() -> None:
+def test_the_daily_cap_fits_twenty_five_pass_questions_with_the_primary_round() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
-    assert (settings.passes, settings.fallback_passes) == (3, 1)
-    assert 30 * settings.passes == 90 <= settings.daily_run_cap and 5 * settings.daily_run_cap <= settings.weekly_run_cap
+    assert (settings.passes, settings.fallback_passes) == (5, 1)
+    assert settings.model == "grok-4.7-medium"
+    each = cr.runs_per_question(settings.passes)
+    assert each == 6  # five passes and, at most, the one extra primary-source round
+    assert (cr.runs_per_question(3), cr.runs_per_question(1)) == (3, 1)  # the older plans are unchanged
+    assert 10 * each == 60 <= settings.daily_run_cap and 20 * each <= settings.daily_run_cap  # ~10 a day, room for 20
+    assert 5 * settings.daily_run_cap <= settings.weekly_run_cap
 
 
 def test_two_passes_skip_the_other_side(tmp_path: Path) -> None:
@@ -599,7 +604,7 @@ def test_two_passes_skip_the_other_side(tmp_path: Path) -> None:
     assert "Case for the other outcome" not in cr.digest(result, "q1")
     with pytest.raises(ValueError, match="passes must be"):
         path = tmp_path / "research.json"
-        path.write_text(json.dumps({**json.loads((ROOT / cr.CONFIG_FILE).read_text()), "passes": 4}))
+        path.write_text(json.dumps({**json.loads((ROOT / cr.CONFIG_FILE).read_text()), "passes": 6}))
         cr.load_settings(path)
 
 
@@ -1085,3 +1090,153 @@ def test_politics_checklist_asks_for_polling_averages_model_forecasts_and_ranges
                    "distribution or range"):
         assert wanted in joined
     assert not cr.MARKET_WORDS.search(joined)
+
+
+# --- five passes: rules first, gap last, the primary-source gate ---
+
+RULES = reply([("https://www.federalreserve.gov/rules", ["The series is the H.15 daily release."])],
+              [("The settling series is H.15 DGS10.", 0)],
+              resolution={"settling_source": "Federal Reserve H.15 (https://www.federalreserve.gov/releases/h15/)",
+                          "criteria": "First published daily 10-year par yield for Nov 6.",
+                          "current_status": "4.52 on 2026-10-30.",
+                          "edge_cases": ["Revisions do not count.", "A tie at 4.50 resolves No."]})
+GAP = reply([("https://www.bls.gov/news.release/empsit.htm", ["The next release is on November 6."])],
+            [("Payrolls release 2026-11-06 at 8:30 ET.", 0)], uncertainties=["Revision to the October print."])
+EXTRA = reply([("https://home.treasury.gov/data", ["Daily Treasury Par Yield Curve Rates"])], [])
+
+
+def five_agent(prompts: list[str], *, rules: object = RULES, outside: object = OUTSIDE, extra: object = EXTRA,
+               gap: object = GAP) -> Any:
+    """Answers by pass; the extra round is recognized by its header."""
+    def agent(text: str) -> str:
+        prompts.append(text)
+        which = (extra if "Extra round: primary sources only" in text else rules if "Pass 1 of 5" in text
+                 else outside if "Pass 2 of 5" in text else inside_for(text) if "Pass 3 of 5" in text
+                 else AGAINST if "Pass 4 of 5" in text else gap)
+        if isinstance(which, Exception):
+            raise which
+        return str(which)
+    return agent
+
+
+def inside_for(text: str) -> str:
+    return INSIDE
+
+
+def test_five_passes_run_in_order_and_the_rules_summary_is_merged(tmp_path: Path) -> None:
+    prompts: list[str] = []
+    result = cr.research(rates_dir(tmp_path), five_agent(prompts), "2026-10-31", parallel=1, budget=10, passes=5)
+    assert [p.split("\n\n")[1].split(":")[0] for p in prompts] == [f"Pass {n} of 5" for n in range(1, 6)]
+    assert "the rules" in prompts[0] and "time zones" in prompts[0] and "settling_source" in prompts[0]
+    assert "the outside view" in prompts[1] and "the inside view" in prompts[2]
+    assert "the other side" in prompts[3] and "the gaps" in prompts[4]
+    assert "Settling source: Federal Reserve H.15" in prompts[1 + 1]  # later passes get the rules
+    assert result["runs"] == 5 and result["passes"] == 5  # two primary sources (federalreserve.gov, bls.gov): no extra round
+    found = result["findings"]["q1"]
+    assert found["passes_done"] == ["rules", "outside", "inside", "against", "gap"]
+    assert found["resolution"]["settling_source"].startswith("Federal Reserve H.15")
+    assert found["resolution"]["edge_cases"] == ["Revisions do not count.", "A tie at 4.50 resolves No."]
+    assert "warnings" not in found and found["primary_sources"] >= 2
+    text = cr.digest(result, "q1")
+    assert "Resolution rules:" in text and "Settled by: Federal Reserve H.15" in text and "Edge cases: Revisions" in text
+    assert text.index("Resolution rules:") < text.index("- The settling series")
+    for prompt in prompts:
+        assert "Never use or mention prediction markets" in prompt and "published before now" in prompt
+
+
+def test_the_gap_pass_gets_everything_found_so_far(tmp_path: Path) -> None:
+    prompts: list[str] = []
+    cr.research(rates_dir(tmp_path), five_agent(prompts), "2026-10-31", parallel=1, budget=10, passes=5)
+    gap = prompts[4]
+    for expected in ("A tie at 4.50 resolves No.", "31 of the last 60 five-day windows ended higher.",
+                     "Payrolls land on the resolution day.", "Yields could fall", "Still unknown: Auction demand.",
+                     "https://www.federalreserve.gov/minutes", "- DGS10 was 4.52 on 2026-10-30."):
+        assert expected in gap
+    assert "2 or 3 open unknowns" in gap and "primary sources first" in gap
+
+
+def test_lower_pass_settings_keep_the_older_plans(tmp_path: Path) -> None:
+    assert [cr.plan_for(n) for n in (1, 2, 3)] == [("combined",), ("outside", "inside"), ("outside", "inside", "against")]
+    assert cr.plan_for(4) == ("rules", "outside", "inside", "against") and cr.plan_for(9) == cr.plan_for(5)
+    prompts: list[str] = []
+    replies = [RULES, OUTSIDE, INSIDE, AGAINST]
+    result = cr.research(rates_dir(tmp_path), lambda text: (prompts.append(text), replies[len(prompts) - 1])[1],
+                         "2026-10-31", parallel=1, budget=10, passes=4)
+    assert "Pass 4 of 4" in prompts[3] and result["runs"] == 4 and len(prompts) == 4  # no gap pass
+    assert result["findings"]["q1"]["passes_done"] == ["rules", "outside", "inside", "against"]
+
+
+def test_a_failed_rules_pass_does_not_fail_the_question(tmp_path: Path) -> None:
+    prompts: list[str] = []
+    result = cr.research(rates_dir(tmp_path), five_agent(prompts, rules=TimeoutError("slow")), "2026-10-31",
+                         parallel=1, budget=10, passes=5)
+    found = result["findings"]["q1"]
+    assert "rules" not in found["passes_done"] and "TimeoutError" in found["passes_failed"]["rules"]
+    assert "resolution" not in found and "Resolution rules" not in cr.digest(result, "q1")
+
+
+def test_primary_round_runs_when_short_and_not_when_enough(tmp_path: Path) -> None:
+    def secondary(url: str) -> str:
+        return reply([(url, ["A line copied from the page."])], [("A dated fact.", 0)], base_rate="x")
+
+    news = reply([("https://www.example-news.com/a", ["Q."]), ("https://www.example-news.com/b", ["Q."])],
+                 [("A dated fact.", 0), ("Another fact.", 1)], base_rate="x")
+    prompts: list[str] = []
+    short = {"rules": secondary("https://www.example-news.com/r"), "outside": news,
+             "gap": secondary("https://blog.example.org/g")}
+    plain = reply([("https://blog.example.org/x", ["Q."])], [("A fact.", 0)], different_now="d", uncertainties=["u"])
+    against = reply([("https://blog.example.org/y", ["Q."])], [("A fact two.", 0)], against="a")
+
+    def agent(text: str) -> str:
+        prompts.append(text)
+        if "Extra round: primary sources only" in text:
+            return EXTRA
+        for n, key in enumerate(("rules", "outside"), 1):
+            if f"Pass {n} of 5" in text:
+                return short[key]
+        return plain if "Pass 3 of 5" in text else against if "Pass 4 of 5" in text else short["gap"]
+
+    result = cr.research(rates_dir(tmp_path), agent, "2026-10-31", parallel=1, budget=10, passes=5)
+    assert len(prompts) == 6 and result["runs"] == 6 and "Extra round: primary sources only" in prompts[5]
+    assert "Do not list news articles" in prompts[5] and "https://blog.example.org/y" in prompts[5]
+    found = result["findings"]["q1"]
+    assert found["passes_done"][-1] == "primary" and found["primary_sources"] == 1  # home.treasury.gov is .gov; one primary
+    assert "warnings" in found  # still short of two primary sources
+    assert "WARNING: only 1 primary source(s)" in cr.digest(result, "q1")
+
+    enough: list[str] = []
+    done = cr.research(rates_dir(tmp_path / "ok"), five_agent(enough), "2026-10-31", parallel=1, budget=10, passes=5)
+    assert done["runs"] == 5 and all("Extra round" not in p for p in enough)
+
+
+def test_the_primary_round_that_finds_enough_clears_the_warning(tmp_path: Path) -> None:
+    secondary = reply([("https://blog.example.org/a", ["Q."]), ("https://blog.example.org/b", ["Q."])],
+                      [("A fact.", 0), ("Another fact.", 1)], base_rate="x", different_now="d", against="a",
+                      uncertainties=["u"])
+    two = reply([("https://home.treasury.gov/data", ["Rates."]), ("https://www.bls.gov/cpi/", ["CPI."])], [])
+
+    def agent(text: str) -> str:
+        return two if "Extra round" in text else secondary
+
+    result = cr.research(rates_dir(tmp_path), agent, "2026-10-31", parallel=1, budget=10, passes=5)
+    found = result["findings"]["q1"]
+    assert found["primary_sources"] == 2 and "warnings" not in found and result["runs"] == 6
+
+
+def test_is_primary_uses_the_flag_the_host_the_settling_source_and_needs_quotes() -> None:
+    quote = ["q"]
+    assert cr.is_primary({"url": "https://www.bls.gov/cpi/", "quotes": quote})
+    assert cr.is_primary({"url": "https://www.ecb.europa.eu/x", "quotes": quote})
+    assert cr.is_primary({"url": "https://www.ons.gov.uk/x", "quotes": quote})
+    assert cr.is_primary({"url": "https://fred.stlouisfed.org/series/DGS10", "quotes": quote})
+    assert cr.is_primary({"url": "https://news.example.com/a", "quotes": quote, "primary": True})
+    assert cr.is_primary({"url": "https://www.acme-corp.com/ir", "quotes": quote}, "Acme investor relations, acme-corp.com/ir")
+    assert not cr.is_primary({"url": "https://news.example.com/a", "quotes": quote})
+    assert not cr.is_primary({"url": "https://www.bls.gov/cpi/", "quotes": []})  # nothing was read from the page
+    assert not cr.is_primary({"url": "https://notgov.com/a", "quotes": quote})
+
+
+def test_five_passes_budget_reserves_the_extra_round(tmp_path: Path) -> None:
+    prompts: list[str] = []
+    result = cr.research(rates_dir(tmp_path, 5), five_agent(prompts), "2026-10-31", parallel=1, budget=13, passes=5)
+    assert len(result["findings"]) == 2 and result["runs"] == len(prompts) == 10  # 13 runs buy two questions of up to 6
