@@ -1,6 +1,6 @@
 # Prospective batch results
 
-Live prospective batches run so far, their operational results, and how they are scored. No outcome-based score exists yet for these batches; nothing here is an accuracy or calibration claim.
+Live prospective batches run so far, their operational results, and how they are scored. Outcome scores exist for the questions that have resolved (see the results sections below); the samples are small and correlated, so nothing here is an accuracy or calibration claim.
 
 Both batches ran in ephemeral local instances, whose databases were discarded. Their exports under `artifacts/prospective_*` are the durable record:
 
@@ -70,6 +70,61 @@ The September 2026 CPI came in at 3.7% year over year (first release, ALFRED vin
 
 - Every method put its probability for Yes on the 3.4% and 3.5% questions below Claude Code's, and the research pipeline (root ensemble) gave 38% and 27% to questions that resolved Yes, which is why its score is worse than a coin flip.
 - Claude Code (web search) and the statistical baseline were both produced after the freeze and before the release (2026-10-03), so they are scored separately as post-freeze supplements. The three questions are thresholds on one number, so this is one data point, not three.
+
+## October employment results (scored 2026-11-06)
+
+The October 2026 employment report came out on 2026-11-06. Both the unemployment rate and payrolls are the first release, read from the ALFRED vintage dated on the release day, using the same reconstruction as the scorer.
+
+- **Unemployment rate, October 2026: 4.1%** (`UNRATE`). Below 4.2% and 4.3%, above 4.1% is therefore No.
+- **Nonfarm payroll change, October 2026: +165,000 jobs** (`PAYEMS` level change). Above both 29,000 and 100,000.
+
+Probabilities are for Yes. "Our call" is the `combined_median_v1` forecast in `data/track_record.json`, taken as the median of the forecasters that answered. Brier is (p - outcome)^2; 0.25 is a coin flip. "Withheld" and "failed" cells have no probability and no score.
+
+| Question | Outcome | root ensemble | single model | strict three-track | statistical baseline | Claude Code | Our call |
+| --- | :---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Unemployment above 4.1% | No | withheld | 62% (0.384) | failed | 52.6% (0.277) | 57% (0.325) | 57% (0.325) |
+| Unemployment above 4.2% | No | 30% (0.090) | 60% (0.360) | failed | 25.7% (0.066) | 27% (0.073) | 28.5% (0.081) |
+| Unemployment above 4.3% | No | withheld | 35% (0.123) | failed | 9.1% (0.008) | 8% (0.006) | 9.1% (0.008) |
+| Payrolls above 29,000 | Yes | 54.0% (0.211) | 45% (0.303) | 50% (0.250) | 53.1% (0.220) | 56% (0.194) | 53.1% (0.220) |
+| Payrolls above 100,000 | Yes | withheld | 65% (0.123) | 7.0% (0.864) | 32.9% (0.450) | 26% (0.548) | 29.4% (0.498) |
+| **Mean Brier over the forecasts shown (lower is better)** | | 0.151 (2) | 0.258 (5) | 0.557 (2) | 0.204 (5) | 0.229 (5) | |
+
+- Every method that answered put 25% or more on above 4.2% and at least 8% on above 4.3%, and all of them leaned Yes on above 4.1%. The rate printed at 4.1%, so the 4.2% and 4.3% calls leaned the right way while the above-4.1% calls were the misses. Our call at 57% on above 4.1% is the costliest single miss here (0.325); the single model at 62% did worse on it than the statistical baseline at 52.6%.
+- Payrolls came in well above both thresholds. The strict three-track method was the worst on the 100,000 question (7.0%, Brier 0.864); its only other scored forecast was 50% on above 29,000, so its mean of 0.557 rests on two forecasts. The research pipeline withheld the 100,000 question.
+- The three strict-method runs on the 4.1%, 4.2% and 4.3% questions failed on execution, so the strict method has no scored unemployment forecast for October.
+- Five questions, two of them nested thresholds on the same release. This is one data point, not five.
+
+### Ad-hoc strict-method forecast (not in the scored files)
+
+An earlier ad-hoc strict-method forecast of **27.8%** was recorded that October unemployment would be above 4.2%. It is not in any `scores.json` or `forecasts.json` in this repo: the frozen strict run for that question failed (see above), and no artifact holds the 27.8% figure, so it is scored here from the stated probability alone.
+
+| Question | Outcome | Forecast | Brier |
+| --- | :---: | ---: | ---: |
+| Unemployment above 4.2% (October 2026) | No (0) | 27.8% | 0.0773 (`(0.278 - 0)^2`) |
+
+## Running record by method (`data/track_record.json`, as of 2026-11-06)
+
+Resolved questions across all batches, not only the ones above. Counts and Brier are as recorded per forecaster in `data/track_record.json`, which also lists toss-ups separately.
+
+| Method | Label | Resolved | Right | Wrong | Brier |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `combined_median_v1` | Combined forecast (our call) | 201 | 133 | 65 | 0.213 |
+| `claude_code_forecaster_v1` | Claude | 196 | 129 | 61 | 0.204 |
+| `judge_nemotron_ultra_v1` | Nemotron Ultra (judge) | 69 | 47 | 22 | 0.210 |
+| `judge_nemotron_super_v1` | Nemotron Super (judge) | 49 | 37 | 11 | 0.177 |
+| `judge_deepseek_v4_pro_v1` | DeepSeek V4 Pro (judge) | 150 | 99 | 50 | 0.215 |
+| `judge_kimi_k26_v1` | Kimi K2.6 (judge) | 59 | 43 | 16 | 0.201 |
+| `judge_qwen38_27b_v1` | Qwen 3.8 27B (judge) | 147 | 105 | 42 | 0.213 |
+| `judge_minimax_m3_v1` | MiniMax M3 (judge) | 153 | 106 | 46 | 0.218 |
+| `judge_claude_sonnet55_v1` | Claude Sonnet 5.5 (judge) | 58 | 40 | 17 | 0.198 |
+| `judge_gemma_v1` | Gemma (judge) | 0 | 0 | 0 | n/a |
+| `root_event_ensemble_v1` | Research pipeline | 8 | 5 | 3 | 0.274 |
+| `single_model_forecaster_v1` | Single AI model | 14 | 7 | 7 | 0.264 |
+| `three_track_strict_forecaster_v1` | Three-track AI | 9 | 3 | 5 | 0.325 |
+| `statistical_baseline_v1` | Statistical baseline | 23 | 10 | 13 | 0.247 |
+| `claude_calibrated_v1` | Claude, confidence-corrected | 4 | 4 | 0 | 0.032 |
+| `market_price_v1` | Prediction market (benchmark) | 134 | 100 | 34 | 0.158 |
+| `manifold_price_v1` | Manifold (benchmark) | 41 | 29 | 12 | 0.150 |
 
 ## Statistical baseline supplement
 
