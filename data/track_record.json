@@ -1,34 +1,34 @@
 {
   "calibration": {
-    "as_of": "2026-11-06",
-    "intercept": 0.347741,
-    "results": 190,
-    "slope": 0.733511
+    "as_of": "2026-11-07",
+    "intercept": 0.369834,
+    "results": 202,
+    "slope": 0.754369
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.21321253975069174,
+      "brier": 0.20976660521478005,
       "coin_flip_brier": 0.25,
       "forecasts": 264,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 201,
-      "right": 133,
+      "resolved": 209,
+      "right": 140,
       "toss_ups": 3,
-      "wrong": 65
+      "wrong": 66
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.2044188775510204,
+      "brier": 0.20233823529411765,
       "coin_flip_brier": 0.25,
       "forecasts": 259,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 196,
-      "right": 129,
+      "resolved": 204,
+      "right": 135,
       "toss_ups": 6,
-      "wrong": 61
+      "wrong": 63
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -56,15 +56,15 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21542333333333333,
+      "brier": 0.21557124183006535,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 150,
-      "right": 99,
+      "resolved": 153,
+      "right": 101,
       "toss_ups": 1,
-      "wrong": 50
+      "wrong": 51
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -80,39 +80,39 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21274557823129253,
+      "brier": 0.21405733333333335,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 147,
-      "right": 105,
+      "resolved": 150,
+      "right": 107,
       "toss_ups": 0,
-      "wrong": 42
+      "wrong": 43
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21765424836601305,
+      "brier": 0.21870448717948718,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 153,
-      "right": 106,
+      "resolved": 156,
+      "right": 108,
       "toss_ups": 1,
-      "wrong": 46
+      "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.19845689655172413,
+      "brier": 0.20676949152542373,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 58,
+      "resolved": 59,
       "right": 40,
       "toss_ups": 1,
-      "wrong": 17
+      "wrong": 18
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -176,27 +176,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
-      "brier": 0.03197125922025,
+      "brier": 0.05749682322722222,
       "coin_flip_brier": 0.25,
       "forecasts": 34,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 4,
-      "right": 4,
+      "resolved": 9,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.15828004664179104,
+      "brier": 0.15540863556338028,
       "coin_flip_brier": 0.25,
       "forecasts": 169,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 134,
-      "right": 100,
+      "resolved": 142,
+      "right": 107,
       "toss_ups": 0,
-      "wrong": 34
+      "wrong": 35
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
@@ -211,8 +211,131 @@
       "wrong": 12
     }
   ],
-  "generated_on": "2026-11-06",
+  "generated_on": "2026-11-07",
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 5,
+        "method": "combined_weighted_v1",
+        "probability": 0.2,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74,
+          "judge_deepseek_v4_pro_v1": 28.59,
+          "judge_minimax_m3_v1": 28.24,
+          "judge_qwen38_27b_v1": 32.04
+        }
+      },
+      "detail": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for October 2026, scheduled to be released on November 6, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "BLS reported only +29,000 for September (Oct 2, 2026) after a 12-month average of +45,000, and July and August were revised down by 60,000 combined; only 4 of 9 months in 2026 reached +100,000 in the revised data, and the recent run rate is far below that. ADP's four-week average of 16,750 jobs a week to Oct 10 (about 70,000 a month) and initial claims of 194,000 point to slow but not collapsing hiring. Monthly prints swing by tens of thousands around the trend, so a first print of 100,000 or more is possible but needs a clear upside surprise of roughly 40,000 or more.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://data.bls.gov/timeseries/CES0000000001?output_view=net_1mth",
+            "https://mediacenter.adp.com/2026-10-27-ADP-National-Employment-Report-Preliminary-Estimate-for-October-10,-2026",
+            "https://www.dol.gov/ui/data.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.2,
+          "rationale": "The recent 12-month average gain is only 45,000, and the ADP preliminary estimate suggests private payrolls around 67,000, making a total above 100,000 unlikely. Low jobless claims indicate stability but not strong hiring, and the September print of 29,000 shows weak momentum. However, occasional strong months like August 2026 (+133,000) and potential seasonal adjustment surprises keep the probability from being even lower."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate of months hitting +100k is roughly 33% over the past 33 months, but the recent trend is far weaker: the 12-month average is only 45k, September was +29k, and the last three months (Jul-Sep) averaged just ~51k. ADP's NER Pulse shows a pace of roughly 70k/month, well below the 100k threshold, and hiring has been decelerating for two consecutive weeks. The main upside risk is a seasonal adjustment surprise or a rebound in hiring, but the weight of evidence points to another sub-100k month, making the probability closer to 15%."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.2,
+          "rationale": "The base rate from recent data is unfavorable: the 12-month average through September was only +45k, September itself was +29k, and only 1 of the last 5 months (August at +133k) hit 100k. The ADP weekly pulse implies roughly 70k/month for October, consistent with continued softness. While first prints can surprise and revisions are large (e.g., July revised from +21k to -10k), the leading indicators and recent trend point well below 100k, making a 100k+ print unlikely but not impossible."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.17,
+          "rationale": "Recent payroll prints are weak: September was +29k, July was -10k, and the 12-month average is 45k. In 2025-26, only about 5 of 21 months came in at 100k or more, and the 2026 pattern is volatile (-156k in February, then +214k in March). ADP's weekly pace of roughly 70k a month for October is soft. Low jobless claims point to low layoffs but not to strong hiring. The first print is noisy, with a standard deviation of roughly 70k around an expected value of 40-50k, which gives about a 15-20% chance of reaching 100k. Possible upside comes from a rebound after weak months or from seasonal adjustment quirks."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.3
+        }
+      ],
+      "id": "polymarket-5211630",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-07",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://polymarket.com/event/how-many-jobs-added-in-october-2026",
+      "status": "resolved",
+      "title": "Will the US add at least 100k jobs in October?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.33,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77
+        }
+      },
+      "detail": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white women in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Claude researched this in one pass without opened pages, so the evidence is thin: Republicans carried white women in the 2022 (53-45) and 2024 (55-44) exit polls, but the 2026 national House ballot is running about Democrat +7 to +10, which in 2018 left white women roughly even. Working from the sharper white-voter numbers elsewhere in the digest (Pew 2026-10-08 white registered voters 44-37 Republican; Marist 2026-10-19/20 white likely voters 49-47 Democratic) and the usual gap of about ten points between white men and white women, white women look close to even with a slight Democratic tilt. A tie goes to the Democrat alphabetically, so I stay under one half.",
+          "sources": [
+            "https://abcnews.go.com/Elections/exit-polls-2022-us-house-election-results-analysis",
+            "https://pro-assets.morningconsult.com/wp-uploads/2026/07/MCPI-Midterm-Ballot_260706.html",
+            "https://www.pewresearch.org/politics/2026/10/08/midterm-vote-preferences-by-race-and-ethnicity-age-and-other-demographics/",
+            "https://maristpoll.marist.edu/wp-content/uploads/2026/10/NPR_PBS-News_Marist-Poll_USA-NOS-and-Tables_202610211808AS.pdf"
+          ]
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.435287,
+          "raw": 0.33,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.275
+        }
+      ],
+      "id": "polymarket-4199214",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-07",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/which-party-will-win-white-women-in-the-midterms",
+      "status": "resolved",
+      "title": "Will Republicans win white women in the midterms?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
     {
       "actual": "4.1%",
       "call": {
@@ -556,6 +679,212 @@
       "title": "Will the October 2026 unemployment rate be 4.1%?",
       "topic": "Economy",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.09,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77
+        }
+      },
+      "detail": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from October 30 12:00 PM ET to November 6, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.09,
+          "rationale": "Claude researched this in one pass with no checked quotes, so I stay near the base rate: the digest's reference rates of roughly 40-68 posts a day (Semafor, 2025-05-14) imply about 280-475 posts a week, which makes a single 20-wide bin around 320-339 worth roughly one week in ten. Nothing found shows the pace so far for 2026-10-30 to 2026-11-02, and the 2026-11-03 midterms could raise his output, which pulls slightly above the mid-bin area rather than into it. I did not find any weekly history to narrow the spread.",
+          "sources": [
+            "https://www.semafor.com/article/05/14/2025/elon-musk-posted-half-as-many-xeets-in-april",
+            "https://www.nbcnews.com/tech/elon-musk/elon-musk-x-politics-crime-conspiracy-content-month-posts-acount-ai-rcna241593",
+            "https://accrue.com/m/elon-musk-of-tweets-february-10-february-17-320-339"
+          ]
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.166233,
+          "raw": 0.09,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.095
+        }
+      ],
+      "id": "polymarket-6288574",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/elon-musk-of-tweets-october-30-november-6-2026",
+      "status": "resolved",
+      "title": "Will Elon Musk post 320-339 tweets from October 30 to November 6, 2026?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.78,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of November 2 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "WTI settled near $96.46 on 2026-11-02 after a 7.4% one-day drop on US-Iran peace hopes (https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026, https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey), so the $95 low is only about 1.5% under the settle. In a regime with multi-percent daily moves and four more sessions through 2026-11-06, a touch that close is likely, and Monday's own low may already have reached it. The risk is a rebound if talks stall, as earlier headlines did (https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/), plus uncertainty about the Pyth CLL contract and the creation time, and the evidence is unchecked summaries.",
+          "sources": [
+            "https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026",
+            "https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey",
+            "https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.802736,
+          "raw": 0.78,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        }
+      ],
+      "id": "polymarket-6436901",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://polymarket.com/event/will-wti-hit-week-of-november-2-2026",
+      "status": "resolved",
+      "title": "Will WTI Crude Oil (WTI) hit (LOW) $95 Week of November 2 2026?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.15,
+        "weights": {
+          "claude_code_forecaster_v1": 22.89
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "BTC was near $77,500 on 2026-11-04, about 3.2% below $80,000, after a low of $75,740 on election night (https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026, https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/). The question needs the noon ET close on Nov 6, about 2.3 days away, to be above the level; with daily volatility near 2% that is a move of about 1.1 standard deviations, roughly 14%. ETF outflows and the $79,500-$80,500 resistance band push against it, while payrolls before the fixing could trigger a relief rally. Set well below the reach-$80,000 question for Nov 2-8, because touching the level at any point is much easier than closing above it at one minute.",
+          "sources": [
+            "https://sundayguardianlive.com/business/bitcoin-price-today-4-november-2026-btc-slips-below-77000-amid-market-uncertainty-check-market-metrics-key-drivers-317030/",
+            "https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026",
+            "https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/",
+            "https://admiralmarkets.com/analytics/traders-blog/bitcoin-today-november-3-2026"
+          ]
+        },
+        {
+          "as_of": "2026-11-04",
+          "intercept": 0.393016,
+          "method": "claude_calibrated_v1",
+          "probability": 0.289767,
+          "raw": 0.15,
+          "results": 146,
+          "slope": 0.743417
+        },
+        {
+          "made_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.255
+        }
+      ],
+      "id": "polymarket-6423890",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261104",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-6-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $80,000 on November 6?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.76,
+        "weights": {
+          "claude_code_forecaster_v1": 22.89
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "ETH was about $2,262 on 2026-11-03 (Fortune) and near $2,301 on 2026-11-04 on OKX (unverified), so $2,200 is roughly 3-4.5% below spot with about two days to the noon ET fixing on Nov 6 (https://fortune.com/article/price-of-ethereum-11-03-2026/, https://www.okx.com/en-us/price/ethereum-eth). With daily moves near 3%, the two-day spread is about 4%, which puts the chance of staying above at roughly 80%. FXStreet and Zebpay on 2026-11-03 describe a descending channel, continued ETF outflows and support at $2,200-$2,250, right at the strike (https://www.zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026), so I shade it down. Consistent with the Bitcoin questions: a Bitcoin rebound to $80,000 would put ETH comfortably above $2,200.",
+          "sources": [
+            "https://fortune.com/article/price-of-ethereum-11-03-2026/",
+            "https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-us-led-selling-keeps-eth-below-2-309-realized-price-202611032321",
+            "https://zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026",
+            "https://www.okx.com/en-us/price/ethereum-eth"
+          ]
+        },
+        {
+          "as_of": "2026-11-04",
+          "intercept": 0.393016,
+          "method": "claude_calibrated_v1",
+          "probability": 0.777289,
+          "raw": 0.76,
+          "results": 146,
+          "slope": 0.743417
+        },
+        {
+          "made_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.94
+        }
+      ],
+      "id": "polymarket-6423846",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-06",
+      "scored": true,
+      "source": "prospective_markets_20261104",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-6-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,200 on November 6?",
+      "topic": "Crypto",
+      "verdict": "right"
     },
     {
       "actual": "189,000 claims",
@@ -6648,6 +6977,69 @@
       "verdict": "right"
     },
     {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.1,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "The IMF PortWatch 7-day average of Bab el-Mandeb transit calls was 24.7 for the week to 20 Sep 2026, about 25.4 for the week to 6 Sep and 25.1 for the week to 9 Aug, with a reported low of 23.71 on 6 Aug, all well below the 30-34 band, and the 90-day mean to 20 Sep was 30.8. Lloyd's List counted 290 preliminary transits for Sept 21-27 (up from 264), but on a different, higher-reading monitor. No October PortWatch values were found and an unverified report of Houthi advances near the strait would depress traffic, so landing in 30-34 would take a sizeable rebound.",
+          "sources": [
+            "https://statisticsoftheworld.com/news/2026-09-20",
+            "https://statisticsoftheworld.com/news/2026-09-06",
+            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-1-october-2026"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.08,
+          "rationale": "The most recent IMF PortWatch 7-day average (week to 20 Sep 2026) was 24.7, well below the 30\u201334 range, and earlier August\u2013September readings were similarly around 25. The ongoing Houthi blockade and US-Iran conflict continue to suppress transits, with no clear de-escalation. While Lloyd's List reported a weekly increase in late September, its methodology differs and the gap to PortWatch is unknown, making a rise to 30+ by 31 October unlikely without a major positive shift."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The PortWatch 7-day moving average has been consistently in the 24-26 range through August and September 2026 (24.7 for week to 20 Sep, 25.4 for week to 6 Sep, 25.1 for week to 9 Aug), well below the 30-34 target range. Lloyd's List shows a modest uptick in late September (290 vs 264 weekly transits), but their counts run significantly higher than PortWatch's (41/day vs 24.7/day), so even the uptick likely keeps PortWatch in the mid-20s. The Houthi blockade and ongoing security concerns provide a structural headwind to traffic recovery, making a jump to 30-34 by October 31 unlikely without a major de-escalation event."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.18,
+          "rationale": "PortWatch\u2019s recent 7-day average was consistently around 24.7\u201325.4, making 30\u201334 a rebound scenario rather than the continuation of the August\u2013September regime. The late-September Lloyd\u2019s List increase is a positive signal, but its counts are not directly comparable to PortWatch, and there is no evidence of de-escalation or an October PortWatch reading near 30. An October PortWatch average above 28 or a clear reduction in attacks would raise the probability materially, while readings remaining near 25 would make Yes unlikely."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.12
+        }
+      ],
+      "id": "polymarket-5166820",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
+      "status": "resolved",
+      "title": "Will there be between 30 and 34 average daily transits of the Bab el-Mandeb Strait on October 31?",
+      "topic": "World",
+      "verdict": "right"
+    },
+    {
       "actual": "Manifold: No",
       "call": {
         "members": 4,
@@ -6771,6 +7163,69 @@
       "title": "Will Bitcoin dip to $77,500 in October?",
       "topic": "Crypto",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.7,
+        "weights": {
+          "claude_code_forecaster_v1": 32.08,
+          "judge_deepseek_v4_pro_v1": 30.34,
+          "judge_minimax_m3_v1": 29.89,
+          "judge_qwen38_27b_v1": 34.34
+        }
+      },
+      "detail": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The only recent level is about 26 transits a day for the week ending 2026-10-18, from a secondary tracker citing IMF PortWatch (elestrechodigital.com), up from about 11 in June and below the high 30s earlier in 2026. The bracket of 25-29 is about five wide and sits right on that figure, but the number is secondhand, I have no data after Oct 18, and the series swings by several calls over two weeks in both directions (continued recovery above 29, or a Houthi escalation below 25; one headline claims transits are down 47%). That makes this the single most likely bracket but still well short of even odds.",
+          "sources": [
+            "https://www.elestrechodigital.com/en/indicators/ship-traffic-through-the-bab-el-mandeb-strait",
+            "https://redanalysis.org/2026/10/08/houthis-bab-el-mandeb-maritime-transport/",
+            "https://houseofsaud.com/houthi-bab-el-mandeb-chokepoint/"
+          ]
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.85,
+          "rationale": "The most recent 7-day average (week ending 18 Oct 2026) is 26, within the 25\u201329 range. The series has been stable in the high 20s, with the lowest recent point at 27 in September. Absent a major disruption, it is likely to remain in that range on 31 Oct, though the Houthi occupation of Mayyun Island and potential shipping decisions could cause a sharp move, and data revisions add some uncertainty."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.7,
+          "rationale": "The 7-day moving average was 26 on October 18, 2026, squarely in the middle of the 25-29 range, and 7-day moving averages tend to be relatively stable week-to-week absent a major disruption. The September monthly average was 27 and the October 7-day average is 26, suggesting a flat-to-slightly-declining trend rather than the 'high 30s' recovery the Red Team predicted. The main risks are a Houthi escalation pushing the average below 25 or a shipping-line return pushing it above 29, but no such event is indicated between Oct 18 and Oct 31."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.62,
+          "rationale": "The most recent measured 7-day average is 26 transits/day for the week ending Oct 18, 2026, which sits squarely in the 25-29 band. Weekly averages of this series typically move only a few calls per week, so absent a sharp escalation or shipping-line decision, the Oct 31 reading is likely to remain in this range. However, the Houthi occupation of Mayyun Island on Sep 11 and ongoing military operations could cause further declines, and the 47% drop claim (if accurate) suggests downside risk. The secondhand nature of the 26 figure and lack of post-Oct 18 data add uncertainty."
+        },
+        {
+          "made_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.74
+        }
+      ],
+      "id": "polymarket-5166819",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261027",
+      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
+      "status": "resolved",
+      "title": "Will there be between 25 and 29 average daily transits of the Bab el-Mandeb Strait on October 31?",
+      "topic": "World",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -13745,132 +14200,6 @@
       "call": {
         "members": 4,
         "method": "combined_weighted_v1",
-        "probability": 0.1,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.1,
-          "rationale": "The IMF PortWatch 7-day average of Bab el-Mandeb transit calls was 24.7 for the week to 20 Sep 2026, about 25.4 for the week to 6 Sep and 25.1 for the week to 9 Aug, with a reported low of 23.71 on 6 Aug, all well below the 30-34 band, and the 90-day mean to 20 Sep was 30.8. Lloyd's List counted 290 preliminary transits for Sept 21-27 (up from 264), but on a different, higher-reading monitor. No October PortWatch values were found and an unverified report of Houthi advances near the strait would depress traffic, so landing in 30-34 would take a sizeable rebound.",
-          "sources": [
-            "https://statisticsoftheworld.com/news/2026-09-20",
-            "https://statisticsoftheworld.com/news/2026-09-06",
-            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-1-october-2026"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.08,
-          "rationale": "The most recent IMF PortWatch 7-day average (week to 20 Sep 2026) was 24.7, well below the 30\u201334 range, and earlier August\u2013September readings were similarly around 25. The ongoing Houthi blockade and US-Iran conflict continue to suppress transits, with no clear de-escalation. While Lloyd's List reported a weekly increase in late September, its methodology differs and the gap to PortWatch is unknown, making a rise to 30+ by 31 October unlikely without a major positive shift."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.15,
-          "rationale": "The PortWatch 7-day moving average has been consistently in the 24-26 range through August and September 2026 (24.7 for week to 20 Sep, 25.4 for week to 6 Sep, 25.1 for week to 9 Aug), well below the 30-34 target range. Lloyd's List shows a modest uptick in late September (290 vs 264 weekly transits), but their counts run significantly higher than PortWatch's (41/day vs 24.7/day), so even the uptick likely keeps PortWatch in the mid-20s. The Houthi blockade and ongoing security concerns provide a structural headwind to traffic recovery, making a jump to 30-34 by October 31 unlikely without a major de-escalation event."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.18,
-          "rationale": "PortWatch\u2019s recent 7-day average was consistently around 24.7\u201325.4, making 30\u201334 a rebound scenario rather than the continuation of the August\u2013September regime. The late-September Lloyd\u2019s List increase is a positive signal, but its counts are not directly comparable to PortWatch, and there is no evidence of de-escalation or an October PortWatch reading near 30. An October PortWatch average above 28 or a clear reduction in attacks would raise the probability materially, while readings remaining near 25 would make Yes unlikely."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.12
-        }
-      ],
-      "id": "polymarket-5166820",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
-      "status": "pending",
-      "title": "Will there be between 30 and 34 average daily transits of the Bab el-Mandeb Strait on October 31?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.7,
-        "weights": {
-          "claude_code_forecaster_v1": 32.08,
-          "judge_deepseek_v4_pro_v1": 30.34,
-          "judge_minimax_m3_v1": 29.89,
-          "judge_qwen38_27b_v1": 34.34
-        }
-      },
-      "detail": "This market will resolve according to the 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Bab el-Mandeb Strait that IMF Portwatch reports for October 31, 2026.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nThis market will resolve as soon as the relevant data has been published. If the relevant data is not published within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Bab El-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-27T11:14:12+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.35,
-          "rationale": "The only recent level is about 26 transits a day for the week ending 2026-10-18, from a secondary tracker citing IMF PortWatch (elestrechodigital.com), up from about 11 in June and below the high 30s earlier in 2026. The bracket of 25-29 is about five wide and sits right on that figure, but the number is secondhand, I have no data after Oct 18, and the series swings by several calls over two weeks in both directions (continued recovery above 29, or a Houthi escalation below 25; one headline claims transits are down 47%). That makes this the single most likely bracket but still well short of even odds.",
-          "sources": [
-            "https://www.elestrechodigital.com/en/indicators/ship-traffic-through-the-bab-el-mandeb-strait",
-            "https://redanalysis.org/2026/10/08/houthis-bab-el-mandeb-maritime-transport/",
-            "https://houseofsaud.com/houthi-bab-el-mandeb-chokepoint/"
-          ]
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.85,
-          "rationale": "The most recent 7-day average (week ending 18 Oct 2026) is 26, within the 25\u201329 range. The series has been stable in the high 20s, with the lowest recent point at 27 in September. Absent a major disruption, it is likely to remain in that range on 31 Oct, though the Houthi occupation of Mayyun Island and potential shipping decisions could cause a sharp move, and data revisions add some uncertainty."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.7,
-          "rationale": "The 7-day moving average was 26 on October 18, 2026, squarely in the middle of the 25-29 range, and 7-day moving averages tend to be relatively stable week-to-week absent a major disruption. The September monthly average was 27 and the October 7-day average is 26, suggesting a flat-to-slightly-declining trend rather than the 'high 30s' recovery the Red Team predicted. The main risks are a Houthi escalation pushing the average below 25 or a shipping-line return pushing it above 29, but no such event is indicated between Oct 18 and Oct 31."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.62,
-          "rationale": "The most recent measured 7-day average is 26 transits/day for the week ending Oct 18, 2026, which sits squarely in the 25-29 band. Weekly averages of this series typically move only a few calls per week, so absent a sharp escalation or shipping-line decision, the Oct 31 reading is likely to remain in this range. However, the Houthi occupation of Mayyun Island on Sep 11 and ongoing military operations could cause further declines, and the 47% drop claim (if accurate) suggests downside risk. The secondhand nature of the 26 figure and lack of post-Oct 18 data add uncertainty."
-        },
-        {
-          "made_at": "2026-10-27T09:23:19.029333+00:00",
-          "method": "market_price_v1",
-          "probability": 0.74
-        }
-      ],
-      "id": "polymarket-5166819",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261027",
-      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-bab-el-mandeb-strait-end-of-october",
-      "status": "pending",
-      "title": "Will there be between 25 and 29 average daily transits of the Bab el-Mandeb Strait on October 31?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
         "probability": 0.92,
         "weights": {
           "claude_code_forecaster_v1": 32.08,
@@ -14755,283 +15084,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.09,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77
-        }
-      },
-      "detail": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from October 30 12:00 PM ET to November 6, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.09,
-          "rationale": "Claude researched this in one pass with no checked quotes, so I stay near the base rate: the digest's reference rates of roughly 40-68 posts a day (Semafor, 2025-05-14) imply about 280-475 posts a week, which makes a single 20-wide bin around 320-339 worth roughly one week in ten. Nothing found shows the pace so far for 2026-10-30 to 2026-11-02, and the 2026-11-03 midterms could raise his output, which pulls slightly above the mid-bin area rather than into it. I did not find any weekly history to narrow the spread.",
-          "sources": [
-            "https://www.semafor.com/article/05/14/2025/elon-musk-posted-half-as-many-xeets-in-april",
-            "https://www.nbcnews.com/tech/elon-musk/elon-musk-x-politics-crime-conspiracy-content-month-posts-acount-ai-rcna241593",
-            "https://accrue.com/m/elon-musk-of-tweets-february-10-february-17-320-339"
-          ]
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.166233,
-          "raw": 0.09,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.095
-        }
-      ],
-      "id": "polymarket-6288574",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/elon-musk-of-tweets-october-30-november-6-2026",
-      "status": "pending",
-      "title": "Will Elon Musk post 320-339 tweets from October 30 to November 6, 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.78,
-        "weights": {
-          "claude_code_forecaster_v1": 23.92
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of November 2 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered (See: \"Trading Hours\" at https://www.ice.com/products/213/WTI-Crude-Futures). The trading session for a given business day typically begins at 8:00 PM ET on the prior calendar date, except for the session dated Monday, which begins at 6:00 PM ET on the preceding Sunday, and where modified by holiday or other special hours (See: https://www.ice.com/holiday-hours).\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the applicable trading session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected).\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-03T11:05:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.78,
-          "rationale": "WTI settled near $96.46 on 2026-11-02 after a 7.4% one-day drop on US-Iran peace hopes (https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026, https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey), so the $95 low is only about 1.5% under the settle. In a regime with multi-percent daily moves and four more sessions through 2026-11-06, a touch that close is likely, and Monday's own low may already have reached it. The risk is a rebound if talks stall, as earlier headlines did (https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/), plus uncertainty about the Pyth CLL contract and the creation time, and the evidence is unchecked summaries.",
-          "sources": [
-            "https://www.ebc.com/forex/oil-prices-biggest-drop-since-july-2026",
-            "https://www.tradingkey.com/analysis/stocks/us-stocks/262264351-wti-brent-crude-oil-drop-6-percent-wti-what-reasons-prices-to-fall-tradingkey",
-            "https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/"
-          ]
-        },
-        {
-          "as_of": "2026-11-03",
-          "intercept": 0.310486,
-          "method": "claude_calibrated_v1",
-          "probability": 0.802736,
-          "raw": 0.78,
-          "results": 126,
-          "slope": 0.863574
-        },
-        {
-          "made_at": "2026-11-03T10:54:58.017715+00:00",
-          "method": "market_price_v1",
-          "probability": 0.635
-        }
-      ],
-      "id": "polymarket-6436901",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "source": "prospective_markets_20261103",
-      "source_url": "https://polymarket.com/event/will-wti-hit-week-of-november-2-2026",
-      "status": "pending",
-      "title": "Will WTI Crude Oil (WTI) hit (LOW) $95 Week of November 2 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.15,
-        "weights": {
-          "claude_code_forecaster_v1": 22.89
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-04T11:08:28.500325+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.15,
-          "rationale": "BTC was near $77,500 on 2026-11-04, about 3.2% below $80,000, after a low of $75,740 on election night (https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026, https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/). The question needs the noon ET close on Nov 6, about 2.3 days away, to be above the level; with daily volatility near 2% that is a move of about 1.1 standard deviations, roughly 14%. ETF outflows and the $79,500-$80,500 resistance band push against it, while payrolls before the fixing could trigger a relief rally. Set well below the reach-$80,000 question for Nov 2-8, because touching the level at any point is much easier than closing above it at one minute.",
-          "sources": [
-            "https://sundayguardianlive.com/business/bitcoin-price-today-4-november-2026-btc-slips-below-77000-amid-market-uncertainty-check-market-metrics-key-drivers-317030/",
-            "https://www.kucoin.com/news/articles/crypto-daily-market-report-november-4-2026",
-            "https://cryptoticker.io/en/bitcoin-price-election-night-congress-low/",
-            "https://admiralmarkets.com/analytics/traders-blog/bitcoin-today-november-3-2026"
-          ]
-        },
-        {
-          "as_of": "2026-11-04",
-          "intercept": 0.393016,
-          "method": "claude_calibrated_v1",
-          "probability": 0.289767,
-          "raw": 0.15,
-          "results": 146,
-          "slope": 0.743417
-        },
-        {
-          "made_at": "2026-11-04T10:48:19.736754+00:00",
-          "method": "market_price_v1",
-          "probability": 0.255
-        }
-      ],
-      "id": "polymarket-6423890",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "source": "prospective_markets_20261104",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-6-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $80,000 on November 6?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.76,
-        "weights": {
-          "claude_code_forecaster_v1": 22.89
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-04T11:08:28.500325+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.76,
-          "rationale": "ETH was about $2,262 on 2026-11-03 (Fortune) and near $2,301 on 2026-11-04 on OKX (unverified), so $2,200 is roughly 3-4.5% below spot with about two days to the noon ET fixing on Nov 6 (https://fortune.com/article/price-of-ethereum-11-03-2026/, https://www.okx.com/en-us/price/ethereum-eth). With daily moves near 3%, the two-day spread is about 4%, which puts the chance of staying above at roughly 80%. FXStreet and Zebpay on 2026-11-03 describe a descending channel, continued ETF outflows and support at $2,200-$2,250, right at the strike (https://www.zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026), so I shade it down. Consistent with the Bitcoin questions: a Bitcoin rebound to $80,000 would put ETH comfortably above $2,200.",
-          "sources": [
-            "https://fortune.com/article/price-of-ethereum-11-03-2026/",
-            "https://www.fxstreet.com/cryptocurrencies/news/ethereum-price-forecast-us-led-selling-keeps-eth-below-2-309-realized-price-202611032321",
-            "https://zebpay.com/blog/ethereum-technical-analysis-report-3rd-november-2026",
-            "https://www.okx.com/en-us/price/ethereum-eth"
-          ]
-        },
-        {
-          "as_of": "2026-11-04",
-          "intercept": 0.393016,
-          "method": "claude_calibrated_v1",
-          "probability": 0.777289,
-          "raw": 0.76,
-          "results": 146,
-          "slope": 0.743417
-        },
-        {
-          "made_at": "2026-11-04T10:48:19.736754+00:00",
-          "method": "market_price_v1",
-          "probability": 0.94
-        }
-      ],
-      "id": "polymarket-6423846",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-06",
-      "scored": true,
-      "source": "prospective_markets_20261104",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-6-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,200 on November 6?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 5,
-        "method": "combined_weighted_v1",
-        "probability": 0.2,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74,
-          "judge_deepseek_v4_pro_v1": 28.59,
-          "judge_minimax_m3_v1": 28.24,
-          "judge_qwen38_27b_v1": 32.04
-        }
-      },
-      "detail": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for October 2026, scheduled to be released on November 6, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.27,
-          "rationale": "BLS reported only +29,000 for September (Oct 2, 2026) after a 12-month average of +45,000, and July and August were revised down by 60,000 combined; only 4 of 9 months in 2026 reached +100,000 in the revised data, and the recent run rate is far below that. ADP's four-week average of 16,750 jobs a week to Oct 10 (about 70,000 a month) and initial claims of 194,000 point to slow but not collapsing hiring. Monthly prints swing by tens of thousands around the trend, so a first print of 100,000 or more is possible but needs a clear upside surprise of roughly 40,000 or more.",
-          "sources": [
-            "https://www.bls.gov/news.release/empsit.nr0.htm",
-            "https://data.bls.gov/timeseries/CES0000000001?output_view=net_1mth",
-            "https://mediacenter.adp.com/2026-10-27-ADP-National-Employment-Report-Preliminary-Estimate-for-October-10,-2026",
-            "https://www.dol.gov/ui/data.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.2,
-          "rationale": "The recent 12-month average gain is only 45,000, and the ADP preliminary estimate suggests private payrolls around 67,000, making a total above 100,000 unlikely. Low jobless claims indicate stability but not strong hiring, and the September print of 29,000 shows weak momentum. However, occasional strong months like August 2026 (+133,000) and potential seasonal adjustment surprises keep the probability from being even lower."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.15,
-          "rationale": "The base rate of months hitting +100k is roughly 33% over the past 33 months, but the recent trend is far weaker: the 12-month average is only 45k, September was +29k, and the last three months (Jul-Sep) averaged just ~51k. ADP's NER Pulse shows a pace of roughly 70k/month, well below the 100k threshold, and hiring has been decelerating for two consecutive weeks. The main upside risk is a seasonal adjustment surprise or a rebound in hiring, but the weight of evidence points to another sub-100k month, making the probability closer to 15%."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.2,
-          "rationale": "The base rate from recent data is unfavorable: the 12-month average through September was only +45k, September itself was +29k, and only 1 of the last 5 months (August at +133k) hit 100k. The ADP weekly pulse implies roughly 70k/month for October, consistent with continued softness. While first prints can surprise and revisions are large (e.g., July revised from +21k to -10k), the leading indicators and recent trend point well below 100k, making a 100k+ print unlikely but not impossible."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.17,
-          "rationale": "Recent payroll prints are weak: September was +29k, July was -10k, and the 12-month average is 45k. In 2025-26, only about 5 of 21 months came in at 100k or more, and the 2026 pattern is volatile (-156k in February, then +214k in March). ADP's weekly pace of roughly 70k a month for October is soft. Low jobless claims point to low layoffs but not to strong hiring. The first print is noisy, with a standard deviation of roughly 70k around an expected value of 40-50k, which gives about a 15-20% chance of reaching 100k. Possible upside comes from a rebound after weak months or from seasonal adjustment quirks."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.3
-        }
-      ],
-      "id": "polymarket-5211630",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-07",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://polymarket.com/event/how-many-jobs-added-in-october-2026",
-      "status": "pending",
-      "title": "Will the US add at least 100k jobs in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 2,
         "method": "combined_weighted_v1",
         "probability": 0.8,
@@ -15085,58 +15137,6 @@
       "source_url": "https://polymarket.com/event/which-party-will-win-white-voters-in-the-midterms",
       "status": "pending",
       "title": "Will Republicans win white voters in the midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.33,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77
-        }
-      },
-      "detail": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white women in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.33,
-          "rationale": "Claude researched this in one pass without opened pages, so the evidence is thin: Republicans carried white women in the 2022 (53-45) and 2024 (55-44) exit polls, but the 2026 national House ballot is running about Democrat +7 to +10, which in 2018 left white women roughly even. Working from the sharper white-voter numbers elsewhere in the digest (Pew 2026-10-08 white registered voters 44-37 Republican; Marist 2026-10-19/20 white likely voters 49-47 Democratic) and the usual gap of about ten points between white men and white women, white women look close to even with a slight Democratic tilt. A tie goes to the Democrat alphabetically, so I stay under one half.",
-          "sources": [
-            "https://abcnews.go.com/Elections/exit-polls-2022-us-house-election-results-analysis",
-            "https://pro-assets.morningconsult.com/wp-uploads/2026/07/MCPI-Midterm-Ballot_260706.html",
-            "https://www.pewresearch.org/politics/2026/10/08/midterm-vote-preferences-by-race-and-ethnicity-age-and-other-demographics/",
-            "https://maristpoll.marist.edu/wp-content/uploads/2026/10/NPR_PBS-News_Marist-Poll_USA-NOS-and-Tables_202610211808AS.pdf"
-          ]
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.435287,
-          "raw": 0.33,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.275
-        }
-      ],
-      "id": "polymarket-4199214",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-07",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/which-party-will-win-white-women-in-the-midterms",
-      "status": "pending",
-      "title": "Will Republicans win white women in the midterms?",
       "topic": "Politics",
       "verdict": null
     },
@@ -16702,21 +16702,21 @@
     }
   ],
   "summary": {
-    "brier": 0.21321253975069174,
+    "brier": 0.20976660521478005,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 59,
-    "resolved": 201,
-    "right": 133,
+    "pending": 51,
+    "resolved": 209,
+    "right": 140,
     "toss_ups": 3,
     "total": 264,
     "unscored": 3,
     "vs_market": {
-      "market": 0.15642002794285714,
-      "ours": 0.20752642857142856,
-      "questions": 175
+      "market": 0.15427325076502732,
+      "ours": 0.20383948087431694,
+      "questions": 183
     },
-    "wrong": 65
+    "wrong": 66
   },
   "version": "track_record_v2"
 }
