@@ -57,7 +57,8 @@ function Expandable({ groups, label, children, summary }: {
 }
 
 const span = (g: QuestionGroup) => {
-  const first = shortDate(g.items[0].resolves_on), last = shortDate(g.items[g.items.length - 1].resolves_on);
+  const days = g.items.map(q => q.resolves_on).sort();
+  const first = shortDate(days[0]), last = shortDate(days[days.length - 1]);
   return first === last ? first : `${first} to ${last}`;
 };
 
