@@ -16706,6 +16706,77 @@
     "cancelled": 1,
     "coin_flip_brier": 0.25,
     "pending": 51,
+    "progress": {
+      "changes": [
+        {
+          "date": "2026-10-24",
+          "label": "Weighted by track record"
+        },
+        {
+          "date": "2026-11-06",
+          "label": "Confidence correction"
+        },
+        {
+          "date": "2026-11-09",
+          "label": "Deeper research"
+        }
+      ],
+      "since_last_change": {
+        "after": {
+          "market": null,
+          "ours": null,
+          "questions": 0
+        },
+        "before": {
+          "market": 0.15427325076502732,
+          "ours": 0.20383948087431694,
+          "questions": 183
+        },
+        "date": "2026-11-06"
+      },
+      "weeks": [
+        {
+          "market": 0.16426797476190474,
+          "ours": 0.18733333333333335,
+          "questions": 21,
+          "right": 13,
+          "start": "2026-10-05",
+          "wrong": 7
+        },
+        {
+          "market": 0.135891454,
+          "ours": 0.16934,
+          "questions": 20,
+          "right": 16,
+          "start": "2026-10-12",
+          "wrong": 4
+        },
+        {
+          "market": 0.15258752024390243,
+          "ours": 0.19559329268292683,
+          "questions": 41,
+          "right": 31,
+          "start": "2026-10-19",
+          "wrong": 9
+        },
+        {
+          "market": 0.1670618995652174,
+          "ours": 0.23527065217391305,
+          "questions": 92,
+          "right": 58,
+          "start": "2026-10-26",
+          "wrong": 33
+        },
+        {
+          "market": 0.048751694444444445,
+          "ours": 0.03528888888888889,
+          "questions": 9,
+          "right": 9,
+          "start": "2026-11-02",
+          "wrong": 0
+        }
+      ]
+    },
     "resolved": 209,
     "right": 140,
     "toss_ups": 3,

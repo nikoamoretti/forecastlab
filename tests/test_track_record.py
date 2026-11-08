@@ -322,3 +322,29 @@ def test_headline_score_and_the_fair_market_comparison(tmp_path: Path) -> None:
     assert versus["questions"] == 2
     assert versus["ours"] == pytest.approx((0.04 + 0.16) / 2)
     assert versus["market"] == pytest.approx((0.16 + 0.01) / 2)
+
+
+def test_progress_groups_by_forecast_week_and_splits_before_and_after_nov_6(tmp_path: Path) -> None:
+    def q(name: str, outcome: int, ours: float, price: float | None) -> dict:
+        forecasts = [{"method": CLAUDE, "probability": ours}]
+        if price is not None:
+            forecasts.append({"method": "market_price_v1", "probability": price})
+        return {"id": name, "date": "2026-11-10", "outcome": outcome, "forecasts": forecasts}
+    # 2026-11-02 is a Monday: Nov 2 and Nov 8 share a week, Nov 9 starts the next.
+    _markets(tmp_path / "prospective_markets_20261102", [q("a", 1, 0.8, 0.6), q("nomarket", 1, 0.9, None)])
+    _markets(tmp_path / "prospective_markets_20261108", [q("b", 0, 0.4, 0.1)])
+    _markets(tmp_path / "prospective_markets_20261109", [q("c", 1, 0.5, 0.9)])
+    progress = build_track_record(tmp_path, today=date(2026, 11, 12))["summary"]["progress"]
+    first, second = progress["weeks"]
+    assert (first["start"], first["questions"]) == ("2026-11-02", 2)
+    assert first["ours"] == pytest.approx((0.04 + 0.16) / 2) and first["market"] == pytest.approx((0.16 + 0.01) / 2)
+    assert (first["right"], first["wrong"]) == (2, 0)
+    assert (second["start"], second["questions"]) == ("2026-11-09", 1)
+    assert second["ours"] == pytest.approx(0.25) and second["market"] == pytest.approx(0.01)
+    assert (second["right"], second["wrong"]) == (0, 0)  # an exact 50% is a toss-up
+    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09"]
+    split = progress["since_last_change"]
+    assert split["date"] == "2026-11-06"
+    assert split["before"]["questions"] == 1 and split["before"]["ours"] == pytest.approx(0.04)
+    assert split["after"]["questions"] == 2 and split["after"]["ours"] == pytest.approx((0.16 + 0.25) / 2)
+    assert split["after"]["market"] == pytest.approx(0.01)

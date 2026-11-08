@@ -48,7 +48,7 @@ from __future__ import annotations
 import json
 import math
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from itertools import accumulate
 from pathlib import Path
 from statistics import median
@@ -70,6 +70,16 @@ CORRECTED_CALL_FROM = date(2026, 11, 6)
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
+# The research upgrade (5 research passes) applies to forecasts made from this day.
+DEEPER_RESEARCH_FROM = date(2026, 11, 9)
+# Milestones drawn on the "Are we improving?" chart, in plain words.
+CHANGES = (
+    {"date": WEIGHTED_FROM, "label": "Weighted by track record"},
+    {"date": CORRECTED_CALL_FROM, "label": "Confidence correction"},
+    {"date": DEEPER_RESEARCH_FROM, "label": "Deeper research"},
+)
+# "Before / after" splits forecasts made on or after this day against earlier ones.
+PROGRESS_SPLIT = CORRECTED_CALL_FROM
 CALIBRATED_FILE = "calibrated.json"
 CLAUDE = "claude_code_forecaster_v1"
 # No corrected forecast until this many decided Claude forecasts were known before the forecast day.
@@ -374,6 +384,38 @@ def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
             "market": sum(market) / len(market) if market else None}
 
 
+def _mean(values: list[float]) -> float | None:
+    return sum(values) / len(values) if values else None
+
+
+def _progress(resolved: list[dict[str, Any]]) -> dict[str, Any]:
+    """Our call against the market by the week (Monday, UTC) each question was first forecast.
+
+    Only decided questions the market priced count. ``since_last_change`` splits them at PROGRESS_SPLIT.
+    """
+    weeks: dict[date, list[tuple[float, float, str | None]]] = {}
+    split: dict[str, list[tuple[float, float]]] = {"after": [], "before": []}
+    for q in resolved:
+        day = _forecast_day(q)
+        price = next((f["probability"] for method in BENCHMARKS for f in q["forecasts"] if f["method"] == method), None)
+        if day is None or price is None:
+            continue
+        ours, theirs = _brier(q["call"]["probability"], q["outcome"]), _brier(price, q["outcome"])
+        weeks.setdefault(day - timedelta(days=day.weekday()), []).append((ours, theirs, q["verdict"]))
+        split["after" if day >= PROGRESS_SPLIT else "before"].append((ours, theirs))
+    return {
+        "weeks": [{"start": start.isoformat(), "questions": len(rows),
+                   "ours": _mean([r[0] for r in rows]), "market": _mean([r[1] for r in rows]),
+                   "right": sum(r[2] == "right" for r in rows), "wrong": sum(r[2] == "wrong" for r in rows)}
+                  for start, rows in sorted(weeks.items())],
+        "changes": [{"date": c["date"].isoformat(), "label": c["label"]} for c in CHANGES],
+        "since_last_change": {
+            "date": PROGRESS_SPLIT.isoformat(),
+            **{key: {"questions": len(rows), "ours": _mean([r[0] for r in rows]), "market": _mean([r[1] for r in rows])}
+               for key, rows in split.items()}},
+    }
+
+
 def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bool = False) -> dict[str, Any]:
     """The track record; with ``freeze``, new weighted calls are saved so they never change later."""
     questions: list[dict[str, Any]] = []
@@ -434,7 +476,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
                 path.write_text(json.dumps(saved, indent=2, sort_keys=True) + "\n")
     resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
-    summary |= {"vs_market": _versus_market(resolved)}
+    summary |= {"vs_market": _versus_market(resolved), "progress": _progress(resolved)}
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),
                 "cancelled": sum(q["status"] == "cancelled" for q in questions),
                 "unscored": sum(not q["scored"] for q in questions), "total": len(questions)}
