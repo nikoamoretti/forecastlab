@@ -1,118 +1,118 @@
 {
   "calibration": {
-    "as_of": "2026-11-07",
-    "intercept": 0.369834,
-    "results": 202,
-    "slope": 0.754369
+    "as_of": "2026-11-08",
+    "intercept": 0.356402,
+    "results": 208,
+    "slope": 0.745587
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.20976660521478005,
+      "brier": 0.20891183328586402,
       "coin_flip_brier": 0.25,
       "forecasts": 264,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 209,
-      "right": 140,
+      "resolved": 213,
+      "right": 143,
       "toss_ups": 3,
-      "wrong": 66
+      "wrong": 67
     },
     {
       "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20233823529411765,
+      "brier": 0.2020076923076923,
       "coin_flip_brier": 0.25,
       "forecasts": 259,
       "label": "Claude",
       "method": "claude_code_forecaster_v1",
-      "resolved": 204,
-      "right": 135,
+      "resolved": 208,
+      "right": 138,
       "toss_ups": 6,
-      "wrong": 63
+      "wrong": 64
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20953333333333335,
+      "brier": 0.20657571428571428,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 69,
-      "right": 47,
+      "resolved": 70,
+      "right": 48,
       "toss_ups": 0,
       "wrong": 22
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.17689999999999997,
+      "brier": 0.17338,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "method": "judge_nemotron_super_v1",
-      "resolved": 49,
-      "right": 37,
+      "resolved": 50,
+      "right": 38,
       "toss_ups": 1,
       "wrong": 11
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21557124183006535,
+      "brier": 0.21284709677419356,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 153,
-      "right": 101,
+      "resolved": 155,
+      "right": 103,
       "toss_ups": 1,
       "wrong": 51
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.20116440677966102,
+      "brier": 0.19785333333333333,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "method": "judge_kimi_k26_v1",
-      "resolved": 59,
-      "right": 43,
+      "resolved": 60,
+      "right": 44,
       "toss_ups": 0,
       "wrong": 16
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21405733333333335,
+      "brier": 0.21128947368421053,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 150,
-      "right": 107,
+      "resolved": 152,
+      "right": 109,
       "toss_ups": 0,
       "wrong": 43
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21870448717948718,
+      "brier": 0.21610632911392408,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 156,
-      "right": 108,
+      "resolved": 158,
+      "right": 110,
       "toss_ups": 1,
       "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
-      "brier": 0.20676949152542373,
+      "brier": 0.21056229508196722,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 59,
-      "right": 40,
+      "resolved": 61,
+      "right": 41,
       "toss_ups": 1,
-      "wrong": 18
+      "wrong": 19
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -176,42 +176,42 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
-      "brier": 0.05749682322722222,
+      "brier": 0.1186835922654,
       "coin_flip_brier": 0.25,
       "forecasts": 34,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 9,
+      "resolved": 10,
       "right": 9,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
-      "brier": 0.15540863556338028,
+      "brier": 0.15897691840277778,
       "coin_flip_brier": 0.25,
       "forecasts": 169,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 142,
-      "right": 107,
+      "resolved": 144,
+      "right": 108,
       "toss_ups": 0,
-      "wrong": 35
+      "wrong": 36
     },
     {
       "about": "Manifold's play-money price when we forecast. Not part of our call.",
-      "brier": 0.15034094243902438,
+      "brier": 0.14356681139534885,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 41,
-      "right": 29,
+      "resolved": 43,
+      "right": 31,
       "toss_ups": 0,
       "wrong": 12
     }
   ],
-  "generated_on": "2026-11-07",
+  "generated_on": "2026-11-08",
   "questions": [
     {
       "actual": "Polymarket: Yes",
@@ -282,6 +282,65 @@
       "status": "resolved",
       "title": "Will the US add at least 100k jobs in October?",
       "topic": "Economy",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.8,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white voters in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "Republicans had the larger white share in 8 of the 10 readable midterm House exit polls, including 2006 (51-47) and 2018 (54-44) when Democrats won the House vote by about 8 points. With the national House ballot at about Democrat +7 to +10 in late-October polls (CNN Poll of Polls 2026-10-27; ActiVote 2026-10-30), the arithmetic with a non-white electorate near 28% leaves whites a few points Republican; Pew (fielded 2026-09-28 to 10-04) had white registered voters 44-37 Republican and ActiVote 51-49 Republican, while Marist (2026-10-19/20) had them 49-47 Democratic. A tie resolves to the Democrat alphabetically, and the exit-poll publication itself is a small extra risk.",
+          "sources": [
+            "https://www.pewresearch.org/politics/2026/10/08/midterm-vote-preferences-by-race-and-ethnicity-age-and-other-demographics/",
+            "https://www.activote.net/polls/generic-ballot/",
+            "https://maristpoll.marist.edu/wp-content/uploads/2026/10/NPR_PBS-News_Marist-Poll_USA-NOS-and-Tables_202610211808AS.pdf",
+            "https://edition.cnn.com/election/2022/exit-polls/national-results/general/us-house/0"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.8,
+          "rationale": "Republicans won the white vote in 8 of 10 readable midterm House exit polls, including 2006 (47-51) when Democrats won the House vote by about 8 points. In 2026 the national margin looks like D+9 or D+10, a bit bigger than 2006, and Pew shows whites at R+7 among registered voters, while ActiVote has them at R+2 and Marist at D+2. The likeliest outcome is a narrow Republican edge among whites in the CNN table; the risks are a tie or a Democratic edge in a wave year, and CNN failing to publish a white row (CBS and ABC are fallbacks)."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.818147,
+          "raw": 0.8,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.905
+        }
+      ],
+      "id": "polymarket-4927096",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-07",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/which-party-will-win-white-voters-in-the-midterms",
+      "status": "resolved",
+      "title": "Will Republicans win white voters in the midterms?",
+      "topic": "Politics",
       "verdict": "wrong"
     },
     {
@@ -3372,6 +3431,56 @@
       "verdict": "right"
     },
     {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.91,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74
+        }
+      },
+      "detail": "Resolution criteria\n\nThe market resolves based on the results of the U.S. House of Representatives elections scheduled for November 3, 2026. The market resolves YES if Democrats win 218 or more seats (a majority of the 435 total seats). The market resolves NO if Republicans win 218 or more seats. Resolution will be determined by official results from the House Clerk's office at https://clerk.house.gov/\n\nBackground\n\nFollowing the 2024 elections, Republicans hold a 220-215 majority in the House. Democrats need to gain a net of three districts to win a majority in the chamber. Republicans can lose no more than two districts to retain a majority.\n\nDemocrats continue to believe the party remains favored to regain the House majority, especially because they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president's job approval rating is as weak as Trump's is now. The president's party almost always loses ground in midterm House elections, as has happened in 20 of the past 22 midterm elections stretching back to 1938.\n\nConsiderations\n\nRepublicans this year are defending an unusually small number of House seats that either voted against President Donald Trump in 2024 or backed him only narrowly, meaning Democrats have fewer easy pickup opportunities against obviously vulnerable targets than is typical for the party out of the White House during a midterm election. House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.\n\nThis description was generated by AI.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Democrats need a net gain of 3 seats from the 220-215 starting split, while the president's party lost House seats in 20 of 22 midterms since 1938, by at least 4 seats every time. On Oct 23 the Cook Political Report rated 220 seats Solid, Likely or Lean Democratic, 198 Republican and 17 Toss Ups, and Trump's approval was 31-35% in October polls (Reuters/Ipsos 31%, AP-NORC 35%). Fewer Republican seats are marginal than in 2018 (33 versus 43), which tempers the size of the gains, but a rated majority plus a likely split of the toss-ups leaves Democrats a clear favourite.",
+          "sources": [
+            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
+            "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval",
+            "https://www.cnn.com/2026/02/15/politics/house-control-districts-vis"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Base rate: the president's party loses House seats in about 20 of 22 midterms, and Democrats need only a net +3. Cook's 23 October ratings have Democrats favored in 220 seats, with 17 Toss Ups, and call Republicans' path 'all but evaporated.' Trump's approval is 31-35%. The main limits are that the number of marginal Republican seats is small and redistricting changed the map, but Democrats could lose most Toss Ups and still reach 218. A polling miss or a very Republican-leaning Toss Up outcome could change this, and the remaining uncertainty is mostly about forecast error and the map."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.9255
+        }
+      ],
+      "id": "manifold-IPth6E2ZRI",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://manifold.markets/winnerkarthik/will-democrats-win-a-majority-in-th-E55l2cIcuS",
+      "status": "resolved",
+      "title": "Will Democrats win a majority in the U.S. House of Representatives in the 2026 midterm elections?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
       "actual": "Polymarket: Yes",
       "call": {
         "members": 2,
@@ -4853,6 +4962,80 @@
       "status": "resolved",
       "title": "\ud83d\udd2e\ud83c\udf0a Will America get MORE WOKE in 2026? \ud83c\udff3\ufe0f\u200d\u26a7\ufe0f\u2728",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.05
+      },
+      "detail": "Resolution criteria\n\nThis market will resolve to YES if the United States federal government enacts a ban or embargo on the export of diesel fuel (distillate fuel oil) from the U.S. at any point before the U.S. midterm elections on November 3, 2026. Otherwise, this market will resolve to NO.\n\nTo qualify:\n\nThe action must be federal, implemented via an executive order, a federal agency action (e.g., from the Department of Energy or the Bureau of Industry and Security), or federal legislation signed into law. State-level proposals, actions, or non-binding resolutions do not qualify.\n\nThe policy must legally prohibit or comprehensively restrict the export of U.S. diesel fuel to foreign markets (temporary bans or short-term emergency embargoes qualify, but narrow, non-binding guidelines or routine administrative export licensing adjustments do not).\n\nThe ban must be officially announced and scheduled to take effect or be in effect prior to November 3, 2026.\n\nCredible financial and political news sources\u2014such as Bloomberg, Reuters, or The Wall Street Journal\u2014will be used to verify the outcomes.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Trump said on Sept 22 he was looking very seriously at a diesel export ban with diesel at a record $6.52, and Treasury said it was examining one. The White House then denied on Sept 23 that it was preparing a ban, and Energy Secretary Wright said nobody was considering a flat ban because it could raise gasoline and jet prices; the oil industry opposes it. On Oct 9 the administration took the opposite tack, licensing Russian diesel imports through April 2027. A federal export ban announced by Nov 3 is possible only if prices spike again.",
+          "sources": [
+            "https://oilprice.com/Energy/Energy-General/White-House-Rules-Out-Diesel-Export-Ban-as-Prices-Surge-Above-650.html",
+            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
+          ]
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for a US diesel export ban is near zero historically. The White House explicitly denied considering a ban on Sept 23, with Energy Secretary Wright citing adverse price effects on gasoline and jet fuel, and the administration instead licensed Russian diesel imports on Oct 9 as its chosen price-relief measure. With only ~3 weeks until the midterms, reversing course to announce and implement a ban would be politically and policy-inconsistent. Only a sudden, severe supply crisis could change this, but current evidence points decisively to NO."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.03,
+          "rationale": "The base rate for a federal diesel export ban in the U.S. is very low, as such measures are rare and typically only considered during severe supply crises. Although Trump and some officials expressed serious consideration in late September, the White House explicitly denied pursuing a ban on September 23 and instead opted to license Russian diesel imports through April 2027 to ease prices, indicating a policy direction opposite to a ban. With the midterms only a few weeks away and no credible signs of an imminent ban, the probability remains low, though a sudden price spike or political shift could modestly raise it."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.05,
+          "rationale": "US diesel export bans are historically rare, and the White House explicitly denied considering one in late September, while the Energy Secretary warned it could raise gasoline and jet fuel prices. The administration has instead licensed Russian diesel imports to ease prices before the midterms, indicating a chosen alternative. Only a sharp reversal and emergency action before Nov 3 would make this Yes, so I assign a low but non-zero probability."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.05,
+          "rationale": "Base rate for U.S. diesel export bans is near zero, as they are historically rare and opposed by the petroleum industry. The White House explicitly denied considering a ban after Trump floated it, Energy Secretary Wright warned it could raise gasoline and jet fuel prices, and the administration instead licensed Russian diesel imports on Oct. 9 as its chosen pre-midterm price relief. With only about three weeks until the election, the window for a dramatic policy reversal is narrow, though an unexpected surge in diesel prices could theoretically revive the proposal."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.05,
+          "rationale": "The base rate for a sudden federal diesel export ban is very low, and the White House explicitly denied considering one on Sept 23. The Oct 9 decision to license Russian diesel imports is a concrete alternative that reduces the political need for an export embargo. A late Trump reversal remains possible if prices stay high before the midterms, but current evidence points to no ban."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.1,
+          "rationale": "The base rate for a sudden major policy reversal in the final ~21 days before an election is low. The White House explicitly denied considering a diesel export ban on Sept 23, Energy Secretary Wright warned it would spike gasoline and jet fuel prices, and the API opposed it. Critically, on Oct 9 the administration chose an alternative solution\u2014licensing Russian diesel imports through April 2027\u2014signaling its preferred approach to easing prices. However, diesel remains at $6.28/gal, keeping political pressure elevated, so a last-minute reversal cannot be entirely ruled out."
+        },
+        {
+          "made_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.062
+        }
+      ],
+      "id": "manifold-QRL0Uygyg0",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261013",
+      "source_url": "https://manifold.markets/Balasar/diesel-export-ban-before-midterms",
+      "status": "resolved",
+      "title": "Diesel export ban before midterms?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -7287,6 +7470,68 @@
       "status": "resolved",
       "title": "Will Anthropic have the best AI model on LiveBench (Overall) at the end of October 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.92,
+        "weights": {
+          "claude_code_forecaster_v1": 32.08,
+          "judge_deepseek_v4_pro_v1": 30.34,
+          "judge_minimax_m3_v1": 29.89,
+          "judge_qwen38_27b_v1": 34.34
+        }
+      },
+      "detail": "This market will resolve according to the finalized 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Strait of Hormuz that IMF Portwatch reports for October 31, 2026.\n\nIf the reported value falls exactly between two brackets, this market will resolve to the higher range bracket.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nData for a specific date must be finalized before it is considered for this market (namely, once the next date's data point is available, the previous one is finalized).\n\nThis market will resolve as soon as the relevant data has been finalized. If the data for the specified date has not been finalized by the end of the third calendar day (ET) after the day on which such data is released, this market will resolve based on data published up to that point. Additionally, if the relevant data is not released and finalized within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nOnly revisions to previously published data points made before the applicable resolution time will be considered.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Strait of Hormuz at https://portwatch.imf.org/pages/cb5856222a5b4105adc6ee7e880a1730, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-27T11:14:12+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.7,
+          "rationale": "Search text citing IMF PortWatch put Hormuz transits at 2 on Oct 11, 4 on Oct 4 and 4 on Oct 18, about 5% of a normal 85 a day, and the IRGC declared the strait closed around 2026-10-26 (straits.live, houseofsaud.com). The resolving figure is the 7-day average of transit calls on Oct 31, not a single day, and I saw no values for Oct 19-27, so an average of 5 or slightly above is possible, particularly if a convoy or some vessels without transponders get through; a value exactly on 5 would go to the higher bracket. With the closure just reaffirmed and counts low for weeks, I expect the average to stay in the 0-5 bracket more likely than not.",
+          "sources": [
+            "https://straits.live/briefs/2026-10-27",
+            "https://houseofsaud.com/iran-declares-hormuz-closed-oct26/"
+          ]
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.92,
+          "rationale": "The pre-crisis base rate of ~85 daily transits is irrelevant under the ongoing closure. The most recent actual PortWatch data point (Oct 18) shows 4 transits, consistent with earlier weeks (2\u20134). To exceed a 7-day moving average of 5 on Oct 31, the total Oct 25\u201331 transits must be >35, requiring a sharp, immediate increase from current levels. Given Iran\u2019s Oct 26 closure declaration, recent attacks, and no verified safe corridor, a sudden surge is highly unlikely, though a last-minute diplomatic deal or convoy could raise counts."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.93,
+          "rationale": "The base rate strongly favors Yes: daily transit counts have been 2-4 in recent weeks (Oct 4: 4, Oct 11: 2, Oct 18: 4), and the strait is declared closed with active attacks on vessels. A 7-day moving average of daily counts in the 2-4 range would almost certainly fall below 5. The main risk is a sudden reopening or convoy before Oct 31, but the IRGC just declared closure on Oct 26 and attacks are ongoing, making a spike above 5 in the 7-day window very unlikely."
+        },
+        {
+          "made_at": "2026-10-27T11:16:34.265757+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.87,
+          "rationale": "The base case for an effectively closed waterway is that the trailing 7-day average remains in the low single digits, consistent with the reported daily counts of 2\u20134. The 239-day closure, the October 26 declaration of closure, and recent tanker attacks strengthen the case for the average remaining below 5 by October 31. The main upside risk is an unseen traffic increase during October 19\u201324 or a rapid reopening and convoy surge; a value exactly at 5 would also fall into the higher bracket."
+        },
+        {
+          "made_at": "2026-10-27T09:23:19.029333+00:00",
+          "method": "market_price_v1",
+          "probability": 0.925
+        }
+      ],
+      "id": "polymarket-5166953",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261027",
+      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-strait-of-hormuz-end-of-october",
+      "status": "resolved",
+      "title": "Will there be between 0 and 5 average daily transits of the Strait of Hormuz on October 31?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -14198,68 +14443,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.92,
-        "weights": {
-          "claude_code_forecaster_v1": 32.08,
-          "judge_deepseek_v4_pro_v1": 30.34,
-          "judge_minimax_m3_v1": 29.89,
-          "judge_qwen38_27b_v1": 34.34
-        }
-      },
-      "detail": "This market will resolve according to the finalized 7-day moving average of transit calls (\u201cArrivals of Ships\u201d) for the Strait of Hormuz that IMF Portwatch reports for October 31, 2026.\n\nIf the reported value falls exactly between two brackets, this market will resolve to the higher range bracket.\n\nTransit calls include container, dry bulk, roll-on/roll-off, general cargo, and tanker ships. Ships not reported by IMF Portwatch will not be considered.\n\nData for a specific date must be finalized before it is considered for this market (namely, once the next date's data point is available, the previous one is finalized).\n\nThis market will resolve as soon as the relevant data has been finalized. If the data for the specified date has not been finalized by the end of the third calendar day (ET) after the day on which such data is released, this market will resolve based on data published up to that point. Additionally, if the relevant data is not released and finalized within 14 calendar days of the specified date, this market will resolve based on the most recent data published up to that point.\n\nIn case of obvious data integrity issues (i.e., erroneous data), the market may remain open until the end of the third calendar day (ET) after the date on which such data is first released to allow for corrections. Data integrity issues refer only to clerical or other similar errors in the underlying data, and do not include cases where IMF Portwatch differs from alternative sources.\n\nOnly revisions to previously published data points made before the applicable resolution time will be considered.\n\nThe resolution source for this market will be IMF Portwatch, specifically the transit calls data published for the Strait of Hormuz at https://portwatch.imf.org/pages/cb5856222a5b4105adc6ee7e880a1730, both in the chart and through downloadable files. Where an unrounded and rounded value provided by the resolution source differ with respect to the resolution of this market, the unrounded value will be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-27T11:14:12+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.7,
-          "rationale": "Search text citing IMF PortWatch put Hormuz transits at 2 on Oct 11, 4 on Oct 4 and 4 on Oct 18, about 5% of a normal 85 a day, and the IRGC declared the strait closed around 2026-10-26 (straits.live, houseofsaud.com). The resolving figure is the 7-day average of transit calls on Oct 31, not a single day, and I saw no values for Oct 19-27, so an average of 5 or slightly above is possible, particularly if a convoy or some vessels without transponders get through; a value exactly on 5 would go to the higher bracket. With the closure just reaffirmed and counts low for weeks, I expect the average to stay in the 0-5 bracket more likely than not.",
-          "sources": [
-            "https://straits.live/briefs/2026-10-27",
-            "https://houseofsaud.com/iran-declares-hormuz-closed-oct26/"
-          ]
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.92,
-          "rationale": "The pre-crisis base rate of ~85 daily transits is irrelevant under the ongoing closure. The most recent actual PortWatch data point (Oct 18) shows 4 transits, consistent with earlier weeks (2\u20134). To exceed a 7-day moving average of 5 on Oct 31, the total Oct 25\u201331 transits must be >35, requiring a sharp, immediate increase from current levels. Given Iran\u2019s Oct 26 closure declaration, recent attacks, and no verified safe corridor, a sudden surge is highly unlikely, though a last-minute diplomatic deal or convoy could raise counts."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.93,
-          "rationale": "The base rate strongly favors Yes: daily transit counts have been 2-4 in recent weeks (Oct 4: 4, Oct 11: 2, Oct 18: 4), and the strait is declared closed with active attacks on vessels. A 7-day moving average of daily counts in the 2-4 range would almost certainly fall below 5. The main risk is a sudden reopening or convoy before Oct 31, but the IRGC just declared closure on Oct 26 and attacks are ongoing, making a spike above 5 in the 7-day window very unlikely."
-        },
-        {
-          "made_at": "2026-10-27T11:16:34.265757+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.87,
-          "rationale": "The base case for an effectively closed waterway is that the trailing 7-day average remains in the low single digits, consistent with the reported daily counts of 2\u20134. The 239-day closure, the October 26 declaration of closure, and recent tanker attacks strengthen the case for the average remaining below 5 by October 31. The main upside risk is an unseen traffic increase during October 19\u201324 or a rapid reopening and convoy surge; a value exactly at 5 would also fall into the higher bracket."
-        },
-        {
-          "made_at": "2026-10-27T09:23:19.029333+00:00",
-          "method": "market_price_v1",
-          "probability": 0.925
-        }
-      ],
-      "id": "polymarket-5166953",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261027",
-      "source_url": "https://polymarket.com/event/avgpt-of-ships-transiting-strait-of-hormuz-end-of-october",
-      "status": "pending",
-      "title": "Will there be between 0 and 5 average daily transits of the Strait of Hormuz on October 31?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.12,
@@ -14325,80 +14508,6 @@
       "status": "pending",
       "title": "US x Cuba diplomatic meeting by October 31?",
       "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.05
-      },
-      "detail": "Resolution criteria\n\nThis market will resolve to YES if the United States federal government enacts a ban or embargo on the export of diesel fuel (distillate fuel oil) from the U.S. at any point before the U.S. midterm elections on November 3, 2026. Otherwise, this market will resolve to NO.\n\nTo qualify:\n\nThe action must be federal, implemented via an executive order, a federal agency action (e.g., from the Department of Energy or the Bureau of Industry and Security), or federal legislation signed into law. State-level proposals, actions, or non-binding resolutions do not qualify.\n\nThe policy must legally prohibit or comprehensively restrict the export of U.S. diesel fuel to foreign markets (temporary bans or short-term emergency embargoes qualify, but narrow, non-binding guidelines or routine administrative export licensing adjustments do not).\n\nThe ban must be officially announced and scheduled to take effect or be in effect prior to November 3, 2026.\n\nCredible financial and political news sources\u2014such as Bloomberg, Reuters, or The Wall Street Journal\u2014will be used to verify the outcomes.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-13T11:01:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.05,
-          "rationale": "Trump said on Sept 22 he was looking very seriously at a diesel export ban with diesel at a record $6.52, and Treasury said it was examining one. The White House then denied on Sept 23 that it was preparing a ban, and Energy Secretary Wright said nobody was considering a flat ban because it could raise gasoline and jet prices; the oil industry opposes it. On Oct 9 the administration took the opposite tack, licensing Russian diesel imports through April 2027. A federal export ban announced by Nov 3 is possible only if prices spike again.",
-          "sources": [
-            "https://oilprice.com/Energy/Energy-General/White-House-Rules-Out-Diesel-Export-Ban-as-Prices-Surge-Above-650.html",
-            "https://spectrumlocalnews.com/tx/austin/politics/2026/10/09/trump-says-us-to-get-diesel-from-russia--relaxing-pressure-on-moscow-to-ease-prices-before-midterms"
-          ]
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.05,
-          "rationale": "Base rate for a US diesel export ban is near zero historically. The White House explicitly denied considering a ban on Sept 23, with Energy Secretary Wright citing adverse price effects on gasoline and jet fuel, and the administration instead licensed Russian diesel imports on Oct 9 as its chosen price-relief measure. With only ~3 weeks until the midterms, reversing course to announce and implement a ban would be politically and policy-inconsistent. Only a sudden, severe supply crisis could change this, but current evidence points decisively to NO."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.03,
-          "rationale": "The base rate for a federal diesel export ban in the U.S. is very low, as such measures are rare and typically only considered during severe supply crises. Although Trump and some officials expressed serious consideration in late September, the White House explicitly denied pursuing a ban on September 23 and instead opted to license Russian diesel imports through April 2027 to ease prices, indicating a policy direction opposite to a ban. With the midterms only a few weeks away and no credible signs of an imminent ban, the probability remains low, though a sudden price spike or political shift could modestly raise it."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.05,
-          "rationale": "US diesel export bans are historically rare, and the White House explicitly denied considering one in late September, while the Energy Secretary warned it could raise gasoline and jet fuel prices. The administration has instead licensed Russian diesel imports to ease prices before the midterms, indicating a chosen alternative. Only a sharp reversal and emergency action before Nov 3 would make this Yes, so I assign a low but non-zero probability."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.05,
-          "rationale": "Base rate for U.S. diesel export bans is near zero, as they are historically rare and opposed by the petroleum industry. The White House explicitly denied considering a ban after Trump floated it, Energy Secretary Wright warned it could raise gasoline and jet fuel prices, and the administration instead licensed Russian diesel imports on Oct. 9 as its chosen pre-midterm price relief. With only about three weeks until the election, the window for a dramatic policy reversal is narrow, though an unexpected surge in diesel prices could theoretically revive the proposal."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.05,
-          "rationale": "The base rate for a sudden federal diesel export ban is very low, and the White House explicitly denied considering one on Sept 23. The Oct 9 decision to license Russian diesel imports is a concrete alternative that reduces the political need for an export embargo. A late Trump reversal remains possible if prices stay high before the midterms, but current evidence points to no ban."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.1,
-          "rationale": "The base rate for a sudden major policy reversal in the final ~21 days before an election is low. The White House explicitly denied considering a diesel export ban on Sept 23, Energy Secretary Wright warned it would spike gasoline and jet fuel prices, and the API opposed it. Critically, on Oct 9 the administration chose an alternative solution\u2014licensing Russian diesel imports through April 2027\u2014signaling its preferred approach to easing prices. However, diesel remains at $6.28/gal, keeping political pressure elevated, so a last-minute reversal cannot be entirely ruled out."
-        },
-        {
-          "made_at": "2026-10-13T10:54:44.534467+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.062
-        }
-      ],
-      "id": "manifold-QRL0Uygyg0",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "source": "prospective_markets_20261013",
-      "source_url": "https://manifold.markets/Balasar/diesel-export-ban-before-midterms",
-      "status": "pending",
-      "title": "Diesel export ban before midterms?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -14795,56 +14904,6 @@
     {
       "actual": null,
       "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.91,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74
-        }
-      },
-      "detail": "Resolution criteria\n\nThe market resolves based on the results of the U.S. House of Representatives elections scheduled for November 3, 2026. The market resolves YES if Democrats win 218 or more seats (a majority of the 435 total seats). The market resolves NO if Republicans win 218 or more seats. Resolution will be determined by official results from the House Clerk's office at https://clerk.house.gov/\n\nBackground\n\nFollowing the 2024 elections, Republicans hold a 220-215 majority in the House. Democrats need to gain a net of three districts to win a majority in the chamber. Republicans can lose no more than two districts to retain a majority.\n\nDemocrats continue to believe the party remains favored to regain the House majority, especially because they need to gain only three seats \u2014 far fewer than the opposition party usually wins in midterm elections, especially when the president's job approval rating is as weak as Trump's is now. The president's party almost always loses ground in midterm House elections, as has happened in 20 of the past 22 midterm elections stretching back to 1938.\n\nConsiderations\n\nRepublicans this year are defending an unusually small number of House seats that either voted against President Donald Trump in 2024 or backed him only narrowly, meaning Democrats have fewer easy pickup opportunities against obviously vulnerable targets than is typical for the party out of the White House during a midterm election. House Republicans are defending eight seats that Trump lost in 2024, and 25 more that he carried with a vote total no more than 4 points higher than his national vote share.\n\nThis description was generated by AI.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.91,
-          "rationale": "Democrats need a net gain of 3 seats from the 220-215 starting split, while the president's party lost House seats in 20 of 22 midterms since 1938, by at least 4 seats every time. On Oct 23 the Cook Political Report rated 220 seats Solid, Likely or Lean Democratic, 198 Republican and 17 Toss Ups, and Trump's approval was 31-35% in October polls (Reuters/Ipsos 31%, AP-NORC 35%). Fewer Republican seats are marginal than in 2018 (33 versus 43), which tempers the size of the gains, but a rated majority plus a likely split of the toss-ups leaves Democrats a clear favourite.",
-          "sources": [
-            "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
-            "https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections",
-            "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval",
-            "https://www.cnn.com/2026/02/15/politics/house-control-districts-vis"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.93,
-          "rationale": "Base rate: the president's party loses House seats in about 20 of 22 midterms, and Democrats need only a net +3. Cook's 23 October ratings have Democrats favored in 220 seats, with 17 Toss Ups, and call Republicans' path 'all but evaporated.' Trump's approval is 31-35%. The main limits are that the number of marginal Republican seats is small and redistricting changed the map, but Democrats could lose most Toss Ups and still reach 218. A polling miss or a very Republican-leaning Toss Up outcome could change this, and the remaining uncertainty is mostly about forecast error and the map."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.9255
-        }
-      ],
-      "id": "manifold-IPth6E2ZRI",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://manifold.markets/winnerkarthik/will-democrats-win-a-majority-in-th-E55l2cIcuS",
-      "status": "pending",
-      "title": "Will Democrats win a majority in the U.S. House of Representatives in the 2026 midterm elections?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.02,
@@ -15078,65 +15137,6 @@
       "source_url": "https://manifold.markets/goober/will-the-united-states-midterm-elec",
       "status": "pending",
       "title": "Will the United States Midterm Elections be free and fair?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.8,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "The 2026 midterm elections are scheduled to be held on November 3, 2026.\n\nThis market will resolve according to the party that wins the greatest share of white voters in the midterm elections according to exit polling provided by CNN.\n\nThis market will resolve according to the national exit polling for the United States House, as viewed on the applicable cnn.com webpage at 12:00PM ET on November 6, 2026.\n\nIn the event of a tie for first place, this market will resolve based on the party, among those tied, whose name comes first alphabetically.\n\nIn the event that CNN provides applicable exit polling but it is not available at the time specified above, this market will await an update for one full calendar day before moving to the media organizations listed below.\n\nIn the event that CNN does not provide applicable exit polling, this market will resolve according to the exit polling provided by CBS or, should CBS also not provide applicable polling, ABC. \n\nIf none of the listed organizations provide applicable exit polling by November 7, 2026 at 11:59PM ET, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.8,
-          "rationale": "Republicans had the larger white share in 8 of the 10 readable midterm House exit polls, including 2006 (51-47) and 2018 (54-44) when Democrats won the House vote by about 8 points. With the national House ballot at about Democrat +7 to +10 in late-October polls (CNN Poll of Polls 2026-10-27; ActiVote 2026-10-30), the arithmetic with a non-white electorate near 28% leaves whites a few points Republican; Pew (fielded 2026-09-28 to 10-04) had white registered voters 44-37 Republican and ActiVote 51-49 Republican, while Marist (2026-10-19/20) had them 49-47 Democratic. A tie resolves to the Democrat alphabetically, and the exit-poll publication itself is a small extra risk.",
-          "sources": [
-            "https://www.pewresearch.org/politics/2026/10/08/midterm-vote-preferences-by-race-and-ethnicity-age-and-other-demographics/",
-            "https://www.activote.net/polls/generic-ballot/",
-            "https://maristpoll.marist.edu/wp-content/uploads/2026/10/NPR_PBS-News_Marist-Poll_USA-NOS-and-Tables_202610211808AS.pdf",
-            "https://edition.cnn.com/election/2022/exit-polls/national-results/general/us-house/0"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.8,
-          "rationale": "Republicans won the white vote in 8 of 10 readable midterm House exit polls, including 2006 (47-51) when Democrats won the House vote by about 8 points. In 2026 the national margin looks like D+9 or D+10, a bit bigger than 2006, and Pew shows whites at R+7 among registered voters, while ActiVote has them at R+2 and Marist at D+2. The likeliest outcome is a narrow Republican edge among whites in the CNN table; the risks are a tie or a Democratic edge in a wave year, and CNN failing to publish a white row (CBS and ABC are fallbacks)."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.818147,
-          "raw": 0.8,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.905
-        }
-      ],
-      "id": "polymarket-4927096",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-07",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/which-party-will-win-white-voters-in-the-midterms",
-      "status": "pending",
-      "title": "Will Republicans win white voters in the midterms?",
       "topic": "Politics",
       "verdict": null
     },
@@ -16702,10 +16702,10 @@
     }
   ],
   "summary": {
-    "brier": 0.20976660521478005,
+    "brier": 0.20891183328586402,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 51,
+    "pending": 47,
     "progress": {
       "changes": [
         {
@@ -16728,9 +16728,9 @@
           "questions": 0
         },
         "before": {
-          "market": 0.15427325076502732,
-          "ours": 0.20383948087431694,
-          "questions": 183
+          "market": 0.15543341786096257,
+          "ours": 0.20299264705882356,
+          "questions": 187
         },
         "date": "2026-11-06"
       },
@@ -16744,10 +16744,10 @@
           "wrong": 7
         },
         {
-          "market": 0.135891454,
-          "ours": 0.16934,
-          "questions": 20,
-          "right": 16,
+          "market": 0.12960348,
+          "ours": 0.1613952380952381,
+          "questions": 21,
+          "right": 17,
           "start": "2026-10-12",
           "wrong": 4
         },
@@ -16760,34 +16760,34 @@
           "wrong": 9
         },
         {
-          "market": 0.1670618995652174,
-          "ours": 0.23527065217391305,
-          "questions": 92,
-          "right": 58,
+          "market": 0.16362627670212768,
+          "ours": 0.23041914893617024,
+          "questions": 94,
+          "right": 60,
           "start": "2026-10-26",
           "wrong": 33
         },
         {
-          "market": 0.048751694444444445,
-          "ours": 0.03528888888888889,
-          "questions": 9,
+          "market": 0.125779025,
+          "ours": 0.09576000000000001,
+          "questions": 10,
           "right": 9,
           "start": "2026-11-02",
-          "wrong": 0
+          "wrong": 1
         }
       ]
     },
-    "resolved": 209,
-    "right": 140,
+    "resolved": 213,
+    "right": 143,
     "toss_ups": 3,
     "total": 264,
     "unscored": 3,
     "vs_market": {
-      "market": 0.15427325076502732,
-      "ours": 0.20383948087431694,
-      "questions": 183
+      "market": 0.15543341786096257,
+      "ours": 0.20299264705882356,
+      "questions": 187
     },
-    "wrong": 66
+    "wrong": 67
   },
   "version": "track_record_v2"
 }
