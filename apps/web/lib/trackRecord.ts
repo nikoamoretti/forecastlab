@@ -16,7 +16,12 @@ export type Forecaster = Tally & { method: string; label: string; about: string;
 // The headline score is summary.brier over summary.resolved questions; vs_market compares our call with the market
 // on the questions the market also priced.
 export type VersusMarket = { questions: number; ours: number | null; market: number | null };
-export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket };
+// Decided questions the market priced, by the week (Monday, UTC) we first forecast them; lower Brier is better.
+export type ProgressWeek = { start: string; questions: number; ours: number | null; market: number | null; right: number; wrong: number };
+export type ProgressSplit = { questions: number; ours: number | null; market: number | null };
+export type Progress = { weeks: ProgressWeek[]; changes: { date: string; label: string }[];
+  since_last_change: { date: string; before: ProgressSplit; after: ProgressSplit } };
+export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress };
   calibration?: { slope: number; intercept: number; results: number; as_of: string } | null;
   forecasters: Forecaster[]; questions: Question[] };
 

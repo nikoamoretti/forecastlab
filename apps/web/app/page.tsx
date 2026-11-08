@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
+import { Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -57,7 +57,8 @@ function Expandable({ groups, label, children, summary }: {
 }
 
 const span = (g: QuestionGroup) => {
-  const first = shortDate(g.items[0].resolves_on), last = shortDate(g.items[g.items.length - 1].resolves_on);
+  const days = g.items.map(q => q.resolves_on).sort();
+  const first = shortDate(days[0]), last = shortDate(days[days.length - 1]);
   return first === last ? first : `${first} to ${last}`;
 };
 
@@ -98,6 +99,59 @@ function OverTime({ weeks: all }: { weeks: Week[] }) {
       })}
       <line x1={x(0)} x2={x(weeks.length - 1)} y1={y(fit.start)} y2={y(fit.end)} className="stroke-copper" strokeWidth={2.5} strokeLinecap="round" />
     </svg>
+  </section>;
+}
+
+// Brier score by the week we made the forecast, ours against the market's, with a marker where we changed the method.
+const ENOUGH_TO_JUDGE = 40, TOO_EARLY = 10, THIN_WEEK = 3;
+
+function Improving({ progress }: { progress: Progress }) {
+  const weeks = progress.weeks.filter(wk => wk.ours != null && wk.market != null);
+  const { before, after, date } = progress.since_last_change;
+  if (weeks.length < 2) return null;
+  const f = (v: number | null) => v!.toFixed(2);
+  const headline = after.questions < TOO_EARLY
+    ? `Too early to tell: ${after.questions} ${after.questions === 1 ? "question" : "questions"} decided since ${shortDate(date)}, we need about ${ENOUGH_TO_JUDGE}.`
+    : `Since the ${shortDate(date)} changes: our score ${f(after.ours)} vs the market's ${f(after.market)} on ${after.questions} questions`
+      + (before.questions > 0 ? ` (before: ${f(before.ours)} vs ${f(before.market)} on ${before.questions}).` : ".");
+  const w = 360, h = 220, left = 36, right = 12, top = 52, bottom = 40;
+  const day = (iso: string) => new Date(`${iso}T12:00:00Z`).getTime() / DAY;
+  const changes = progress.changes;
+  const t0 = day(weeks[0].start), t1 = Math.max(day(weeks[weeks.length - 1].start) + 7, ...changes.map(c => day(c.date) + 1));
+  const x = (t: number) => left + (t - t0) / (t1 - t0) * (w - left - right);
+  const centre = (wk: { start: string }) => x(day(wk.start) + 3.5);
+  const top_ = Math.max(0.3, Math.ceil(Math.max(...weeks.flatMap(wk => [wk.ours!, wk.market!])) * 20) / 20);
+  const y = (v: number) => top + (1 - v / top_) * (h - top - bottom);
+  const ticks = [0, top_ / 2, top_];
+  const line = (pick: (wk: typeof weeks[number]) => number | null) => weeks.map(wk => `${centre(wk)},${y(pick(wk)!)}`).join(" ");
+  const shown = changes.filter(c => day(c.date) >= t0 && day(c.date) <= t1);
+  return <section aria-label="Are we improving?">
+    <h3 className="font-serif text-3xl">Are we improving?</h3>
+    <p className="mt-3 text-lg font-medium">{headline}</p>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided.</p>
+    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
+      aria-label={`Score by forecast week, ours against the market, lower is better: ${weeks.map(wk => `week of ${shortDate(wk.start)} us ${f(wk.ours)}, market ${f(wk.market)}, ${wk.questions} questions`).join("; ")}. Changes: ${changes.map(c => `${c.label} on ${shortDate(c.date)}`).join(", ")}. ${headline}`}>
+      {ticks.map(t => <g key={t}>
+        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className={t === 0 ? "stroke-ink/40" : "stroke-rule"} />
+        <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{t.toFixed(2)}</text>
+      </g>)}
+      {shown.map((c, i) => {
+        const cx = x(day(c.date)), flip = cx > w * 0.6;
+        return <g key={c.date}>
+          <line x1={cx} x2={cx} y1={top - 6 - (i % 3) * 12} y2={y(0)} className="stroke-ink/50" strokeDasharray="1 3" strokeWidth={1.5} />
+          <text x={flip ? cx - 3 : cx + 3} y={top - 8 - (i % 3) * 12} textAnchor={flip ? "end" : "start"} className="fill-ink/70 text-[9px]">{shortDate(c.date)} {c.label}</text>
+        </g>;
+      })}
+      <polyline points={line(wk => wk.market)} fill="none" className="stroke-ink/60" strokeWidth={2} strokeDasharray="4 4" />
+      <polyline points={line(wk => wk.ours)} fill="none" className="stroke-copper" strokeWidth={2.5} strokeLinejoin="round" />
+      {weeks.map(wk => <g key={wk.start}>
+        <circle cx={centre(wk)} cy={y(wk.market!)} r={wk.questions < THIN_WEEK ? 2 : 3} className="fill-ink/60" />
+        <circle cx={centre(wk)} cy={y(wk.ours!)} r={wk.questions < THIN_WEEK ? 2.5 : 4} className="fill-copper" />
+        <text x={centre(wk)} y={h - 24} textAnchor="middle" className="fill-ink/70 text-[10px]">{shortDate(wk.start)}</text>
+        <text x={centre(wk)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.questions} q</text>
+      </g>)}
+    </svg>
+    <p className="mt-2 flex gap-6 text-sm text-ink/70"><span><span className="text-copper">●</span> Us</span><span><span className="text-ink/60">●</span> Market</span></p>
   </section>;
 }
 
@@ -158,6 +212,8 @@ export default function TrackRecordPage() {
     </section>
 
     {weeks.length > 1 && <OverTime weeks={weeks} />}
+
+    {s.progress && <Improving progress={s.progress} />}
 
     <section>
       <h3 className="font-serif text-3xl">Latest results</h3>

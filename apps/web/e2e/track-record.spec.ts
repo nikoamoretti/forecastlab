@@ -207,3 +207,23 @@ test("a question page shows Claude's raw and confidence-corrected probability on
   await expect(page.getByRole("heading", { name: "Will the older question resolve yes?" })).toBeVisible();
   await expect(page.getByText(/Corrected for its track record/)).toHaveCount(0);
 });
+
+test("the improving chart compares our score with the market by forecast week, or says it is too early", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-08T12:00:00Z"));
+  const week = (start: string, questions: number, ours: number, market: number) => ({ start, questions, ours, market, right: questions, wrong: 0 });
+  const split = (after: number) => ({ date: "2026-11-06", before: { questions: 168, ours: .22, market: .16 },
+    after: { questions: after, ours: after ? .18 : null, market: after ? .16 : null } });
+  const progress = (after: number) => ({ weeks: [week("2026-10-19", 41, .2, .15), week("2026-10-26", 92, .23, .17), week("2026-11-02", 2, .04, .05)],
+    changes: [{ date: "2026-10-24", label: "Weighted by track record" }, { date: "2026-11-06", label: "Confidence correction" },
+      { date: "2026-11-09", label: "Deeper research" }], since_last_change: split(after) });
+  for (const [after, headline] of [[0, "Too early to tell: 0 questions decided since Nov 6, we need about 40."],
+    [24, "Since the Nov 6 changes: our score 0.18 vs the market's 0.16 on 24 questions (before: 0.22 vs 0.16 on 168)."]] as const) {
+    await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-08", forecasters,
+      summary: { resolved: 56, right: 35, wrong: 20, toss_ups: 1, brier: .2007, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 56,
+        progress: progress(after) }, questions: [] } }));
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Are we improving?" })).toBeVisible();
+    await expect(page.getByText(headline)).toBeVisible();
+    await expect(page.getByRole("img", { name: /Score by forecast week/ })).toBeVisible();
+  }
+});
