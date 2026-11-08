@@ -1,0 +1,452 @@
+{
+  "reviewed_on": "2026-11-08",
+  "summary": "45 misses: 18 wrong base rate (state or party record weighed over a Democratic-leaning environment), 13 unlucky, 7 stale data (running totals and trackers not read at their latest value), 3 overconfident, and a Nov 6 jobs report that beat a weak-trend anchor.",
+  "misses": [
+    {
+      "id": "polymarket-3372768",
+      "cause": "stale_data",
+      "note": "Never read the live ISW layer at the intersection; relied on 2-3 week old assessments.",
+      "topic": "World",
+      "resolves_on": "2026-11-01",
+      "probability": 0.1,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-3529066",
+      "cause": "unlucky",
+      "note": "Near coin-flip 4 cents under the line; settled above.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.44,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-4935840",
+      "cause": "overconfident",
+      "note": "Own touch estimate was 20-25% for a 4.6% drop in 3 sessions, then shaded down to 16%.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.16,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-4936080",
+      "cause": "wrong_base_rate",
+      "note": "Treated a 5.5% drop in 7 sessions as rare after an 8.5% monthly fall and rising yields.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.08,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-4936103",
+      "cause": "unlucky",
+      "note": "Needed +10% in 3 weeks in a spiking oil market; touched.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.27,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-4951227",
+      "cause": "unlucky",
+      "note": "Needed +5% on the active contract during a volatile spell; touched.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.27,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5166819",
+      "cause": "stale_data",
+      "note": "Only a secondhand weekly figure to Oct 18 and nothing for the final fortnight.",
+      "topic": "World",
+      "resolves_on": "2026-11-01",
+      "probability": 0.35,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5166888",
+      "cause": "unlucky",
+      "note": "Band was reasonable at 55% but Bloomberg figure left it; Forbes level used as proxy.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.55,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5166925",
+      "cause": "misread_rules",
+      "note": "Counted nine non-operational days against a 5-7 range yet the count resolved Yes; day-colouring rule not verified.",
+      "topic": "Tech",
+      "resolves_on": "2026-11-01",
+      "probability": 0.03,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5166965",
+      "cause": "unlucky",
+      "note": "Three launch days by Oct 14 and a fourth came in the last days; 25% was fair.",
+      "topic": "World",
+      "resolves_on": "2026-11-01",
+      "probability": 0.25,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5166967",
+      "cause": "unlucky",
+      "note": "Third place was a near tie with sources in conflict.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.35,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5170735",
+      "cause": "unlucky",
+      "note": "Touch of a level 4% away, shaded to 58%, did not happen.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-01",
+      "probability": 0.58,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5170739",
+      "cause": "stale_data",
+      "note": "No verified spot price or October low; snippets undated and conflicting.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-01",
+      "probability": 0.24,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5170789",
+      "cause": "unlucky",
+      "note": "Level was 5% below spot with under 3 days left; touched.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-01",
+      "probability": 0.19,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5180413",
+      "cause": "other",
+      "note": "No research in packet; used mid-October market caps 2 weeks old and resolution is a media consensus.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-01",
+      "probability": 0.93,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5476380",
+      "cause": "misread_rules",
+      "note": "Relied on one OSINT cargo track while the rule needs consensus credible reporting.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-01",
+      "probability": 0.85,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6236215",
+      "cause": "unlucky",
+      "note": "Level 4.3% below with 4.5 days left at a 15% touch estimate; touched.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-02",
+      "probability": 0.15,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-8zNC2tNlnt",
+      "cause": "wrong_base_rate",
+      "note": "Anchored to 2018 and past map instead of the environment polls showed.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.4,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-9ChtPnQ598",
+      "cause": "wrong_base_rate",
+      "note": "Leaned on state record and a thin poll lead; Democrat won.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.72,
+      "outcome": 0
+    },
+    {
+      "id": "manifold-A9hC8NPQnn",
+      "cause": "wrong_base_rate",
+      "note": "Anchored on a 30-year state record with no poll from the last week and no early-vote data.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.22,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-AnP5hddcLL",
+      "cause": "unlucky",
+      "note": "Win by 3 or more at 28% on mixed polls; happened.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.28,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-EttIsglNlL",
+      "cause": "wrong_base_rate",
+      "note": "Margin centred 4-5 points despite a D+8 national environment.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.42,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-IdOgSACPIz",
+      "cause": "unlucky",
+      "note": "40-40 tie with undecideds; went to Raman.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.42,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-QC80ENZPh5",
+      "cause": "wrong_base_rate",
+      "note": "Leaned on county history over a regional poll lead for the Democrat.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-03",
+      "probability": 0.33,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5786291",
+      "cause": "stale_data",
+      "note": "Latest total was undated or from Oct 15-22; the page could not be opened, so a late surge was missed.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-03",
+      "probability": 0.12,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5786294",
+      "cause": "stale_data",
+      "note": "Latest total was Oct 22, eight days before close; the late surge was not found.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-03",
+      "probability": 0.03,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5786298",
+      "cause": "stale_data",
+      "note": "Latest total was Oct 17, two weeks before close; final total far above it.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-03",
+      "probability": 0.03,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-SyhgEZC68s",
+      "cause": "wrong_base_rate",
+      "note": "Texas Senate record anchored the call despite a 2-point poll lead for the Democrat.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.45,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-plsdPpp9Iz",
+      "cause": "wrong_base_rate",
+      "note": "Tally of toss-ups assumed fewer flips than the national environment implied.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.4,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-3347919",
+      "cause": "stale_data",
+      "note": "Primary BCB page and latest Focus survey never opened; consensus came from a summary.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-04",
+      "probability": 0.8,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-3499789",
+      "cause": "missed_scheduled_event",
+      "note": "Named the Oct 28 CPI as the swing factor but the hold call was made before it.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-04",
+      "probability": 0.68,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5447182",
+      "cause": "overconfident",
+      "note": "87% on no strike with Aug-Oct strike status unconfirmed and Trump reported to want to resume bombing.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.87,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-5611882",
+      "cause": "wrong_base_rate",
+      "note": "Senate leg priced as a coin flip while Democrats were running ahead of fundamentals.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.49,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-629558",
+      "cause": "wrong_base_rate",
+      "note": "Open-seat race with a D+8 environment; Republican state record outweighed it.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.57,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-629691",
+      "cause": "wrong_base_rate",
+      "note": "Record since 1994 outweighed polls within 3 points and a Democratic surge.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.78,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-630733",
+      "cause": "wrong_base_rate",
+      "note": "Democratic win came with tied polls; state record shaded the call down.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.46,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-630747",
+      "cause": "wrong_base_rate",
+      "note": "Record since 1932 outweighed a tied independent poll average.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.62,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-630924",
+      "cause": "wrong_base_rate",
+      "note": "Said polls overstate Democrats; they understated them this year.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.27,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-631057",
+      "cause": "wrong_base_rate",
+      "note": "Discounted a 3-point poll lead using past Ohio poll bias.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.47,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-npRtO25zAZ",
+      "cause": "wrong_base_rate",
+      "note": "Chamber-control chance held below even despite D+8.5 generic ballot.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-05",
+      "probability": 0.47,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-3388093",
+      "cause": "overconfident",
+      "note": "85% hold although the minutes showed members discussing a cut.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-05",
+      "probability": 0.85,
+      "outcome": 0
+    },
+    {
+      "id": "0b87f4ba-50c6-4423-872d-796cb9f5c9fa",
+      "cause": "unlucky",
+      "note": "Unrounded 4.175% start; rate fell to 4.1% by a small step.",
+      "topic": "Jobs",
+      "resolves_on": "2026-11-06",
+      "probability": 0.57,
+      "outcome": 0
+    },
+    {
+      "id": "7084500c-ec25-4649-9d26-837f91a5f2a1",
+      "cause": "wrong_base_rate",
+      "note": "Anchored on a weak trend and ADP and did not use the published consensus for the print.",
+      "topic": "Jobs",
+      "resolves_on": "2026-11-06",
+      "probability": 0.26,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5211634",
+      "cause": "unlucky",
+      "note": "Needed a 0.03 point fall from 4.175%; happened.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-06",
+      "probability": 0.3,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-5211630",
+      "cause": "wrong_base_rate",
+      "note": "Anchored on a weak trend and ADP and did not use the published consensus for the print.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-07",
+      "probability": 0.27,
+      "outcome": 1
+    }
+  ],
+  "checklist_items": {
+    "Crypto": [
+      "For a running total, count or status (sale commitments, tally, events so far), find the latest figure from the official page or on-chain source and quote it with its date and time before anything else; if none from the last 48 hours exists, say so and widen the range.",
+      "For a touch (hit or dip) question, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason."
+    ],
+    "Economy": [
+      "For a touch (hit or dip) question on a stock, commodity or index, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason.",
+      "For a central-bank decision, list the last two inflation prints and the bank's latest minutes or statement wording on the next move, each with its date, and say whether the data since the last meeting moved toward or away from the path it was on."
+    ],
+    "World": [
+      "For a count or position kept by a published tracker or map (daily ship transits, a frontline map layer), open the tracker itself and quote its latest value or layer status with its date; a secondhand report or an older assessment does not count."
+    ],
+    "Politics": [
+      "Before leaning on a state's party record, quote the latest generic-ballot average and the swing in recent special elections against the last presidential margin, with dates, and say how much weight the record deserves against those and the state's polls."
+    ],
+    "Jobs": [
+      "For a monthly jobs-report question, find the published economists' consensus for the headline payroll change and the unemployment rate, the unrounded latest unemployment rate, and the ADP and claims readings for the survey week, each with its date."
+    ]
+  },
+  "checklist_added": {
+    "Crypto": [
+      "For a running total, count or status (sale commitments, tally, events so far), find the latest figure from the official page or on-chain source and quote it with its date and time before anything else; if none from the last 48 hours exists, say so and widen the range.",
+      "For a touch (hit or dip) question, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason."
+    ],
+    "Economy": [
+      "For a touch (hit or dip) question on a stock, commodity or index, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason.",
+      "For a central-bank decision, list the last two inflation prints and the bank's latest minutes or statement wording on the next move, each with its date, and say whether the data since the last meeting moved toward or away from the path it was on."
+    ],
+    "World": [
+      "For a count or position kept by a published tracker or map (daily ship transits, a frontline map layer), open the tracker itself and quote its latest value or layer status with its date; a secondhand report or an older assessment does not count."
+    ],
+    "Politics": [
+      "Before leaning on a state's party record, quote the latest generic-ballot average and the swing in recent special elections against the last presidential margin, with dates, and say how much weight the record deserves against those and the state's polls."
+    ],
+    "Jobs": [
+      "For a monthly jobs-report question, find the published economists' consensus for the headline payroll change and the unemployment rate, the unrounded latest unemployment rate, and the ADP and claims readings for the survey week, each with its date."
+    ]
+  },
+  "checklist_dropped": {},
+  "checklist_version": 2,
+  "saved_on": "2026-11-08"
+}

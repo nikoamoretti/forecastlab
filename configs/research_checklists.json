@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-11-05",
+  "version": 2,
+  "updated": "2026-11-08",
   "topics": {
     "Interest rates": [
       "For a yield or rate threshold, find the exact series the question resolves on (the Treasury's daily par yield curve or FRED DGS10) and list its last 10 daily values with dates from the official page; do not take the level from a news headline or a market-data summary.",
@@ -12,22 +12,31 @@
       "For a central-bank decision, find the bank's own calendar date, its last decision with the vote split, and the most recent economists' survey (Reuters, Bloomberg or the bank's own expectations survey) from a page you opened, with its date; a survey seen only in a search summary does not count, so say so if that is all you found.",
       "For a statistics-office release (GDP, trade, production), find the office's release calendar date, its advance estimate or nowcast for the period, and how each of the last 6 first official figures differed from the advance estimate (direction and size).",
       "For quarterly or annual growth, work out the base effect (growth in the same period a year earlier) and calendar effects such as holidays and working days from official data, and find the central bank's or government's own forecast for the period.",
-      "For a range or bucket question, state how the statistics office rounds and words its headline (for example, 'essentially unchanged' counts as 0.0) and how many of the last 8 first releases landed in a band of the same width around the latest advance estimate or consensus."
+      "For a range or bucket question, state how the statistics office rounds and words its headline (for example, 'essentially unchanged' counts as 0.0) and how many of the last 8 first releases landed in a band of the same width around the latest advance estimate or consensus.",
+      "For a touch (hit or dip) question on a stock, commodity or index, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason.",
+      "For a central-bank decision, list the last two inflation prints and the bank's latest minutes or statement wording on the next move, each with its date, and say whether the data since the last meeting moved toward or away from the path it was on."
     ],
     "Politics": [
       "List the latest polls from at least three pollsters, independent and government-aligned ones included, with fieldwork dates and sample sizes, and the polling error in the country's last two elections measured against the electoral board's official results.",
       "For a runoff or a most-seats question, take the first-round or previous-election result by candidate or party from the electoral board's own page, and look for endorsements, vote-transfer evidence and turnout trends that bear on how the vote moves.",
       "For a race, nomination or control question, report the latest polling average (RealClearPolling, 538-style or Silver Bulletin average, or the best equivalent) with the date it was last updated, the margin it shows and the number of pollsters in it; if there is no average, list the latest polls with their dates.",
       "Find the published model forecasts or race ratings for the contest (for example Cook Political Report, Sabato's Crystal Ball, Inside Elections, Silver Bulletin, The Economist, Split Ticket) with the date of each, and the rating or win chance each one gives.",
-      "For a seat-count, vote-share or margin question, report the distribution or range the models give (median, the 80% interval or the low-high range of seats or points) and the gap between that range and the threshold in the question."
+      "For a seat-count, vote-share or margin question, report the distribution or range the models give (median, the 80% interval or the low-high range of seats or points) and the gap between that range and the threshold in the question.",
+      "Before leaning on a state's party record, quote the latest generic-ballot average and the swing in recent special elections against the last presidential margin, with dates, and say how much weight the record deserves against those and the state's polls."
     ],
     "Crypto": [
       "For a question about touching a price, find the exact price source and timestamp convention in the rules (exchange, pair, 1-minute candle high or low, time zone) and the window's start and end, and report the lowest and highest price that source already printed inside the window.",
-      "Give the current price's distance from the threshold in percent and in multiples of the 30-day realised daily range, the hours left in the window, and any scheduled event inside it (ETF flow data, central-bank decision, token unlock, court date)."
+      "Give the current price's distance from the threshold in percent and in multiples of the 30-day realised daily range, the hours left in the window, and any scheduled event inside it (ETF flow data, central-bank decision, token unlock, court date).",
+      "For a running total, count or status (sale commitments, tally, events so far), find the latest figure from the official page or on-chain source and quote it with its date and time before anything else; if none from the last 48 hours exists, say so and widen the range.",
+      "For a touch (hit or dip) question, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason."
     ],
     "Jobs": [
       "Find the first-published (advance) values for the last 8 weekly releases from the Labor Department's own release, not later revisions, and count how many were strictly above the question's threshold; the question resolves on the first print for its week.",
-      "Say whether the threshold equals the latest first print, remembering that 'above' is strict, and give the typical week-to-week change in first prints and the consensus for the target week from a page you opened."
+      "Say whether the threshold equals the latest first print, remembering that 'above' is strict, and give the typical week-to-week change in first prints and the consensus for the target week from a page you opened.",
+      "For a monthly jobs-report question, find the published economists' consensus for the headline payroll change and the unemployment rate, the unrounded latest unemployment rate, and the ADP and claims readings for the survey week, each with its date."
+    ],
+    "World": [
+      "For a count or position kept by a published tracker or map (daily ship transits, a frontline map layer), open the tracker itself and quote its latest value or layer status with its date; a secondhand report or an older assessment does not count."
     ]
   }
 }
