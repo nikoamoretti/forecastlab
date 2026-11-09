@@ -308,6 +308,29 @@ def test_from_nov_6_our_call_is_the_corrected_forecast_frozen(tmp_path: Path) ->
     assert frozen["new20261106"] == question["call"]
 
 
+def test_from_nov_10_our_call_is_claude_raw_and_the_corrected_value_stays_a_shadow(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _today_question(tmp_path, day="20261109")
+    _today_question(tmp_path, day="20261110")
+    record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    nov9 = next(q for q in record["questions"] if q["id"] == "new20261109")
+    nov10 = next(q for q in record["questions"] if q["id"] == "new20261110")
+    # Nov 9 keeps the corrected call; Nov 10 is Claude's own probability.
+    shadow9 = _forecast(record, "new20261109", "claude_calibrated_v1")
+    assert shadow9 is not None and nov9["call"] == {"method": "claude_corrected_call_v1", "probability": shadow9["probability"], "members": 1}
+    assert nov10["call"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
+    # The correction is still computed and frozen for the new directory, but is not the call.
+    shadow10 = _forecast(record, "new20261110", "claude_calibrated_v1")
+    assert shadow10 is not None and shadow10["raw"] == 0.7 and shadow10["probability"] != 0.7
+    frozen = json.loads((tmp_path / "prospective_markets_20261110" / "calibrated.json").read_text())
+    assert frozen["new20261110"]["probability"] == shadow10["probability"]
+    calls = json.loads((tmp_path / "prospective_markets_20261110" / "calls.json").read_text())
+    assert calls["new20261110"]["method"] == "claude_call_v1"
+    # A rebuild never rewrites the frozen Nov 9 call.
+    again = build_track_record(tmp_path, today=date(2026, 11, 11), freeze=True)
+    assert next(q for q in again["questions"] if q["id"] == "new20261109")["call"] == nov9["call"]
+
+
 def test_headline_score_and_the_fair_market_comparison(tmp_path: Path) -> None:
     _markets(tmp_path / "prospective_markets_20261001", [
         {"id": "a", "date": "2026-10-05", "outcome": 1, "forecasts": [
@@ -342,7 +365,7 @@ def test_progress_groups_by_forecast_week_and_splits_before_and_after_nov_6(tmp_
     assert (second["start"], second["questions"]) == ("2026-11-09", 1)
     assert second["ours"] == pytest.approx(0.25) and second["market"] == pytest.approx(0.01)
     assert (second["right"], second["wrong"]) == (0, 0)  # an exact 50% is a toss-up
-    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09"]
+    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09", "2026-11-10"]
     split = progress["since_last_change"]
     assert split["date"] == "2026-11-06"
     assert split["before"]["questions"] == 1 and split["before"]["ours"] == pytest.approx(0.04)

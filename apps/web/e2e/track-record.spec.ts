@@ -215,7 +215,7 @@ test("the improving chart compares our score with the market by forecast week, o
     after: { questions: after, ours: after ? .18 : null, market: after ? .16 : null } });
   const progress = (after: number) => ({ weeks: [week("2026-10-19", 41, .2, .15), week("2026-10-26", 92, .23, .17), week("2026-11-02", 2, .04, .05)],
     changes: [{ date: "2026-10-24", label: "Weighted by track record" }, { date: "2026-11-06", label: "Confidence correction" },
-      { date: "2026-11-09", label: "Deeper research" }], since_last_change: split(after) });
+      { date: "2026-11-09", label: "Deeper research" }, { date: "2026-11-10", label: "Call back to Claude's own forecast" }], since_last_change: split(after) });
   for (const [after, headline] of [[0, "Too early to tell: 0 questions decided since Nov 6, we need about 40."],
     [24, "Since the Nov 6 changes: our score 0.18 vs the market's 0.16 on 24 questions (before: 0.22 vs 0.16 on 168)."]] as const) {
     await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-08", forecasters,

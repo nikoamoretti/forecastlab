@@ -64,7 +64,7 @@ export default function QuestionPage() {
     {corrected && <aside className="border-l-4 border-rule bg-white/60 p-4 text-sm" aria-label="Confidence correction">
       <p className="text-base">Claude said {percent(corrected.raw!)}. Corrected for its track record: <strong>{percent(corrected.probability)}</strong>.</p>
       <p className="mt-1 text-ink/70">Both are chances of yes. The correction comes from how Claude’s {corrected.results} earlier decided calls turned out at each confidence level.
-        Shown for comparison; it is not part of our call.</p></aside>}
+        {q.call?.method === "claude_corrected_call_v1" ? "This is our call for this question." : "Shown for comparison; it is not part of our call."}</p></aside>}
 
     {q.note && <aside className="border-l-4 border-copper bg-white/60 p-4 text-sm" aria-label="Integrity note">
       <p className="font-medium">Integrity note{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
