@@ -1,5 +1,6 @@
 {
   "cost_usd": {},
+  "downloaded_at": "2026-11-09T10:59:11.607233+00:00",
   "failed": {
     "polymarket-3681004": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo",
     "polymarket-6625358": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo",
