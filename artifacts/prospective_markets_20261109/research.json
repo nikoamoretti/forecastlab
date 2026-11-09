@@ -1,0 +1,25 @@
+{
+  "cost_usd": {},
+  "failed": {
+    "polymarket-3681004": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo",
+    "polymarket-6625358": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo",
+    "polymarket-6625371": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo",
+    "polymarket-6683300": "TimeoutExpired: Command '['cursor-agent', '-p', '--trust', '--force', '--mode', 'ask', '--model', 'grok-4.7-medium', 'You are a research assistant gathering evidence for a forecasting question. Do not forecast: give no probability, odds or lean.\\n\\nPass 2 of 5: the outside view only. Later passes lo"
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "grok-4.7-medium",
+  "model_family": "grok",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-09T10:58:56+00:00",
+  "researched_by": {},
+  "runs": 8,
+  "seconds": {
+    "polymarket-3681004": 1163.1,
+    "polymarket-6625358": 1177.0,
+    "polymarket-6625371": 1198.7,
+    "polymarket-6683300": 1104.1
+  },
+  "sources": {}
+}
