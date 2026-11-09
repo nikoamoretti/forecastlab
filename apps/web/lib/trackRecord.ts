@@ -2,6 +2,8 @@ import { call } from "@/lib/verdict";
 
 export type Source = string | { url: string; published?: string };
 export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number; weights?: Record<string, number>;
+  // A market-anchored call keeps both numbers it was made from; "held" is set when weak research kept it at the price.
+  claude?: number; market?: number; held?: string;
   // Claude's confidence-corrected forecast carries the raw probability it corrects and the fit it came from.
   raw?: number; slope?: number; intercept?: number; results?: number; as_of?: string };
 export type Question = {
@@ -15,10 +17,14 @@ export type Tally = { resolved: number; right: number; wrong: number; toss_ups: 
 export type Forecaster = Tally & { method: string; label: string; about: string; forecasts: number };
 // The headline score is summary.brier over summary.resolved questions; vs_market compares our call with the market
 // on the questions the market also priced.
-export type VersusMarket = { questions: number; ours: number | null; market: number | null };
+// claude is Claude alone on the same priced questions (claude_questions of them have a Claude forecast); since_anchored
+// is the three scores on the questions first forecast from the date our call began to start from the market price.
+export type AnchoredScores = { questions: number; ours: number | null; claude: number | null; market: number | null };
+export type VersusMarket = { questions: number; ours: number | null; market: number | null; claude?: number | null; claude_questions?: number;
+  since_anchored?: AnchoredScores & { date: string } };
 // Decided questions the market priced, by the week (Monday, UTC) we first forecast them; lower Brier is better.
-export type ProgressWeek = { start: string; questions: number; ours: number | null; market: number | null; right: number; wrong: number };
-export type ProgressSplit = { questions: number; ours: number | null; market: number | null };
+export type ProgressWeek = { start: string; questions: number; ours: number | null; market: number | null; claude?: number | null; right: number; wrong: number };
+export type ProgressSplit = { questions: number; ours: number | null; market: number | null; claude?: number | null };
 export type Progress = { weeks: ProgressWeek[]; changes: { date: string; label: string }[];
   since_last_change: { date: string; before: ProgressSplit; after: ProgressSplit } };
 export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress };

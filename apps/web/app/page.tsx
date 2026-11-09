@@ -128,7 +128,7 @@ function Improving({ progress }: { progress: Progress }) {
   return <section aria-label="Are we improving?">
     <h3 className="font-serif text-3xl">Are we improving?</h3>
     <p className="mt-3 text-lg font-medium">{headline}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided.</p>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided. From Nov 10 our call stays within 10 points of the market, so the two lines will sit closer together; Claude alone is the independent comparison.</p>
     <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
       aria-label={`Score by forecast week, ours against the market, lower is better: ${weeks.map(wk => `week of ${shortDate(wk.start)} us ${f(wk.ours)}, market ${f(wk.market)}, ${wk.questions} questions`).join("; ")}. Changes: ${changes.map(c => `${c.label} on ${shortDate(c.date)}`).join(", ")}. ${headline}`}>
       {ticks.map(t => <g key={t}>
@@ -173,6 +173,7 @@ export default function TrackRecordPage() {
   const calls = s.right + s.wrong;
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
   const vs = s.vs_market && s.vs_market.questions > 0 && s.vs_market.ours != null && s.vs_market.market != null ? s.vs_market : null;
+  const anchored = vs?.since_anchored && vs.since_anchored.questions > 0 && vs.since_anchored.ours != null && vs.since_anchored.claude != null && vs.since_anchored.market != null ? vs.since_anchored : null;
   const weeks = byWeek(resolved);
   const goal = nextMilestone(s.resolved);
   const due = dueThisWeek > 0 ? ` ${dueThisWeek} more ${dueThisWeek === 1 ? "is" : "are"} due this week.` : "";
@@ -186,6 +187,9 @@ export default function TrackRecordPage() {
         {accuracy && <p className="mt-3 text-lg">{accuracy} so far
           <span className="block text-sm text-ink/60 sm:inline"> · lower is better; always saying 50% scores 0.25</span></p>}
         {vs && <p className="mt-2 text-lg">On the {vs.questions} questions the market also priced: us {vs.ours!.toFixed(2)}, market {vs.market!.toFixed(2)}.</p>}
+        {vs?.claude != null && <p className="mt-1 text-sm text-ink/70">Claude alone on the same questions: {vs.claude.toFixed(2)}{vs.claude_questions !== vs.questions && ` (the ${vs.claude_questions} it forecast)`}.</p>}
+        {anchored && <p className="mt-1 text-sm text-ink/70">Since {shortDate(anchored.date)}, on {anchored.questions} questions the market also priced: our call {anchored.ours!.toFixed(2)}, Claude alone {anchored.claude!.toFixed(2)}, market {anchored.market!.toFixed(2)}.</p>}
+        {vs?.since_anchored && <p className="mt-1 max-w-2xl text-sm text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market and cannot differ from it by more than 10 points, so “ours vs market” mostly measures those 10 points. “Claude alone vs market” is the test of independent skill.</p>}
         {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} ${s.toss_ups === 1 ? "toss-up isn’t" : "toss-ups aren’t"} counted as right or wrong`}</p>}
       </div>
       <Link href="/ask" className="bg-ink px-6 py-3 text-paper hover:bg-ink/85">Ask a question</Link>
@@ -240,7 +244,7 @@ export default function TrackRecordPage() {
 
     <section>
       <h3 className="font-serif text-3xl">Who forecasts best</h3>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Every question goes to several forecasters. Our call is the combined forecast: the middle of their probabilities. Since Oct 24, forecasters with better records count for more, using only results known when the call was made. The prediction market is only a benchmark to beat; it is never part of our call. Each forecaster’s own record shows whether the combination beats it. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call has changed over time: first the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price moved toward Claude’s forecast by at most 10 points, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call can no longer differ from the market by more than 10 points. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
       <ul className="mt-4 divide-y divide-rule border-y border-rule">{data.forecasters.map(f => <li key={f.method}
         className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <span><span className="font-medium">{f.label}</span><span className="block text-sm text-ink/60">{f.about}</span></span>
