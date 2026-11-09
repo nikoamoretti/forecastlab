@@ -1,4 +1,5 @@
-"""Evidence gathered by cursor-agent on Nico's Mac (or Claude, for the gaps), one headless run per question.
+"""Evidence gathered by Claude Haiku in the cloud routine (provider "claude", since 2026-11-10) or cursor-agent on
+Nico's Mac (provider "cursor"), one headless run per pass.
 
 The Mac job (``scripts/mac_research.sh``) builds a task for each new question, asks cursor-agent
 (a non-Claude model, ``configs/research.json``) to search, read the primary sources and reply with
@@ -89,11 +90,25 @@ class Settings:
     fallback_timeout_s: int = 600
     passes: int = 1  # agent runs per question, see PLANS: 5 = rules, outside, inside, against, gap; 3 = the first three without rules; 1 = one combined run
     fallback_passes: int = 1
+    provider: str = "cursor"  # "claude": the claude CLI researches (cloud routine, `fill`); "cursor": cursor-agent on the Mac
 
     @property
     def families(self) -> tuple[str, ...]:
-        """Every model family that may have researched a question; a judge of one sits out what it researched."""
+        """What a judge's model name must not contain to grade a question: it sits out what it researched itself.
+
+        With Cursor this is the model family (Grok, plus Claude for the fallback's gaps). With Claude as the
+        researcher the rule is per model, not per family: the panel's only judge is Claude Sonnet, so a family
+        rule would leave nobody to judge anything; Haiku research is checked by Sonnet, but Sonnet research
+        would leave the Sonnet judge sitting out every question.
+        """
+        if self.provider == "claude":
+            return (self.model.lower(),)
         return tuple(f for f in (self.model_family, self.fallback_family) if f)
+
+    @property
+    def barred(self) -> tuple[str, ...]:
+        """Names no judge on the panel may carry at all (the research model's family, or with Claude its exact model)."""
+        return (self.model.lower(),) if self.provider == "claude" else (self.model_family,)
 
     def in_window(self, now: datetime) -> bool:
         """True on a weekday, in the window's own time zone, when the hour there is inside the window."""
@@ -104,11 +119,14 @@ class Settings:
 
 def load_settings(path: Path) -> Settings:
     data = json.loads(path.read_text())
-    if data.get("provider") != "cursor":
-        raise ValueError("configs/research.json: provider must be cursor")
+    provider = data.get("provider")
+    if provider not in ("cursor", "claude"):
+        raise ValueError("configs/research.json: provider must be claude or cursor")
     if data["mode"] not in ("dry_run", "live"):
         raise ValueError("configs/research.json: mode must be dry_run or live")
     fallback = data.get("fallback") or {}
+    if fallback and provider == "claude":
+        raise ValueError("configs/research.json: a claude provider needs no fallback (remove it)")
     if fallback and fallback.get("provider") != "claude":
         raise ValueError("configs/research.json: fallback provider must be claude")
     zone = data.get("window_tz") or "UTC"
@@ -122,7 +140,8 @@ def load_settings(path: Path) -> Settings:
                     window_hours=list(data.get("window_hours") or data["window_utc"]), window_tz=zone,
                     base_branch=data["base_branch"],
                     fallback_model=fallback.get("model", ""), fallback_family=fallback.get("model_family", "").lower(),
-                    fallback_timeout_s=int(fallback.get("timeout_s", 600)), passes=passes, fallback_passes=fallback_passes)
+                    fallback_timeout_s=int(fallback.get("timeout_s", 600)), passes=passes, fallback_passes=fallback_passes,
+                    provider=provider)
 
 
 def load_checklists(path: Path) -> dict[str, list[str]]:
@@ -597,12 +616,25 @@ def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Ag
     return run
 
 
+# WebFetch does not hand the model the page: a small model answers the `prompt` given to it from the page. A
+# researcher that asks "summarize this" therefore has no sentence to copy, and writes no quotes.
+CLAUDE_TOOL_NOTES = (
+    "How your tools work. WebSearch returns snippets and summaries: facts and leads, never quotes. WebFetch opens "
+    "one page, but returns only what its `prompt` asks for, so always call it with a prompt like: \"Copy word for "
+    "word, between quotation marks, the 1 to 3 sentences that state <what you need> (the number, date, rule or "
+    "count). Add the page's publication date.\" A quote in your reply must be a sentence WebFetch returned that "
+    "way, copied unchanged. When WebFetch fails (for example \"proxy refused the connection\"), try one other page "
+    "on a different site for that fact; never invent or reconstruct a quote, leave quotes empty for a page you "
+    "could not open, and say which pages could not be opened under uncertainties."
+)
+
+
 def claude_agent(model: str, timeout_s: int, binary: str = "claude") -> Agent:
     """A headless Claude Code run in an empty folder, allowed only its web search and fetch tools."""
     def run(text: str) -> str | tuple[str, float | None]:
         with tempfile.TemporaryDirectory() as folder:
             done = subprocess.run([binary, "-p", "--model", model, "--effort", "low", "--output-format", "json",
-                                   "--allowedTools", "WebSearch", "WebFetch"],
+                                   "--append-system-prompt", CLAUDE_TOOL_NOTES, "--allowedTools", "WebSearch", "WebFetch"],
                                   input=text, cwd=folder, capture_output=True, text=True, timeout=timeout_s)
         if done.returncode != 0:
             raise RuntimeError(f"claude exited {done.returncode}: {(done.stderr or done.stdout).strip()[-300:]}")
@@ -726,6 +758,9 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
                 warnings.append(f"only {primary_count(merged)} primary source(s) with quotes (need {MIN_PRIMARY}): "
                                 "rely on the facts less than on official data")
             merged["primary_sources"] = primary_count(merged)
+        if not any(src["quotes"] for src in merged["sources"]):
+            warnings.append("no source has a quote: the pages could not be opened, so the facts rest on search "
+                            "summaries; rely on them less")
         if warnings:
             merged["warnings"] = warnings
         return Outcome(merged, round(time.monotonic() - started, 1), cost, runs, failed)

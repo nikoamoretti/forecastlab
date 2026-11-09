@@ -161,10 +161,10 @@ def write_forecasts(directory: Path, config: PanelConfig, attempts: list[dict[st
 
 def check_independent(config: PanelConfig) -> None:
     """No judge may come from the model family that does the research (configs/research.json)."""
-    family = load_settings(ROOT / RESEARCH_CONFIG).model_family
-    clash = [m.model for m in config.members if family in m.model.lower()]
+    barred = load_settings(ROOT / RESEARCH_CONFIG).barred
+    clash = [m.model for m in config.members if any(name in m.model.lower() for name in barred)]
     if clash:
-        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {family} (configs/research.json)")
+        raise SystemExit(f"{', '.join(clash)} cannot judge: research runs on {', '.join(barred)} (configs/research.json)")
 
 
 def researched_by(directory: Path) -> dict[str, str]:

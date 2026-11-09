@@ -227,22 +227,44 @@ def test_judges_read_cursor_research(tmp_path: Path) -> None:
     assert "The all items index rose 2.9 percent" in question.sources
 
 
-def test_the_research_model_family_cannot_judge() -> None:
+def test_the_research_model_cannot_judge() -> None:
+    live = load_config(ROOT / "configs" / "judge_panel.json")
+    panel_script.check_independent(live)  # Haiku researches, Sonnet judges
+    with_haiku = PanelConfig(**{**live.model_dump(), "members": [*live.members, Member(method="judge_haiku", model="anthropic/claude-haiku-4.5")]})
+    with pytest.raises(SystemExit, match="cannot judge"):
+        panel_script.check_independent(with_haiku)
+    assert any("claude" in m.model for m in live.members)  # a family rule would leave the panel empty
+
+
+def test_with_cursor_the_whole_model_family_cannot_judge(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(panel_script, "ROOT", tmp_path)
+    (tmp_path / "configs").mkdir()
+    (tmp_path / "configs" / "research.json").write_text(json.dumps(cursor_config()))
     live = load_config(ROOT / "configs" / "judge_panel.json")
     panel_script.check_independent(live)
     with_grok = PanelConfig(**{**live.model_dump(), "members": [*live.members, Member(method="judge_grok", model="x-ai/grok-4.7")]})
     with pytest.raises(SystemExit, match="cannot judge"):
         panel_script.check_independent(with_grok)
-    assert any("claude" in m.model for m in live.members)  # Claude only fills gaps, so it sits out per question
 
 
-def test_a_judge_sits_out_the_questions_its_own_family_researched(tmp_path: Path) -> None:
+def cursor_config() -> dict[str, Any]:
+    """The previous configs/research.json: Cursor (Grok) first, Claude Sonnet filling the gaps."""
+    return {"mode": "live", "provider": "cursor", "model": "grok-4.7-low", "model_family": "grok", "passes": 5,
+            "parallel": 3, "timeout_s": 420, "daily_run_cap": 120, "weekly_run_cap": 1000, "window_hours": [2, 8],
+            "window_tz": "America/Los_Angeles", "base_branch": "grok/forecastlab-mvp",
+            "fallback": {"provider": "claude", "model": "sonnet", "model_family": "claude", "timeout_s": 600, "passes": 1}}
+
+
+def test_a_judge_sits_out_the_questions_its_own_family_researched(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     directory = market_dir(tmp_path)
     second = dict(MARKET, id="polymarket-2", question="Will payrolls rise?")
     (directory / "forecasts.json").write_text(json.dumps({"questions": [MARKET, second]}))
     research = cr.research(directory, lambda text: answer(), "2026-10-14", parallel=1, budget=5, by="grok-4.7-low")
     research["researched_by"]["polymarket-2"] = "claude-sonnet"
     (directory / "research.json").write_text(json.dumps(research))
+    monkeypatch.setattr(panel_script, "ROOT", tmp_path)  # the Cursor-first config, where Claude only filled gaps
+    (tmp_path / "configs").mkdir()
+    (tmp_path / "configs" / "research.json").write_text(json.dumps(cursor_config()))
     assert panel_script.researched_by(directory) == {"polymarket-1": "grok", "polymarket-2": "claude"}
     (directory / "briefs.json").write_text(json.dumps({"briefs": {
         "polymarket-1": "CPI rose 2.9% through August.", "polymarket-2": "Payrolls rose 50,000 in August."}}))
@@ -263,8 +285,12 @@ def test_a_judge_sits_out_the_questions_its_own_family_researched(tmp_path: Path
 
 def test_research_settings_are_valid() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
-    assert settings.model_family in settings.model and settings.mode in ("dry_run", "live")
-    assert settings.families == (settings.model_family, "claude") and settings.fallback_model
+    assert settings.mode in ("dry_run", "live")
+    assert (settings.provider, settings.model, settings.passes, settings.timeout_s, settings.parallel) == ("claude", "haiku", 5, 600, 3)
+    assert settings.families == ("haiku",) and settings.barred == ("haiku",) and not settings.fallback_model
+    old = write_config(cursor_config())
+    cursor = cr.load_settings(old)
+    assert cursor.provider == "cursor" and cursor.families == ("grok", "claude") and cursor.barred == ("grok",)
 
 
 @pytest.mark.parametrize(("when", "inside"), [
@@ -587,7 +613,7 @@ def test_questions_are_started_only_when_all_their_passes_fit_in_the_budget(tmp_
 def test_the_daily_cap_fits_twenty_five_pass_questions_with_the_primary_round() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
     assert (settings.passes, settings.fallback_passes) == (5, 1)
-    assert settings.model == "grok-4.7-low"
+    assert settings.model == "haiku"
     each = cr.runs_per_question(settings.passes)
     assert each == 6  # five passes and, at most, the one extra primary-source round
     assert (cr.runs_per_question(3), cr.runs_per_question(1)) == (3, 1)  # the older plans are unchanged
@@ -1240,3 +1266,96 @@ def test_five_passes_budget_reserves_the_extra_round(tmp_path: Path) -> None:
     prompts: list[str] = []
     result = cr.research(rates_dir(tmp_path, 5), five_agent(prompts), "2026-10-31", parallel=1, budget=13, passes=5)
     assert len(result["findings"]) == 2 and result["runs"] == len(prompts) == 10  # 13 runs buy two questions of up to 6
+
+
+CONFIG_DIR: list[Path] = []
+
+
+@pytest.fixture(autouse=True)
+def _config_dir(tmp_path: Path) -> None:
+    CONFIG_DIR[:] = [tmp_path]
+
+
+def write_config(data: dict[str, Any]) -> Path:
+    path = CONFIG_DIR[0] / "research_test.json"
+    path.write_text(json.dumps(data))
+    return path
+
+
+def test_provider_claude_is_accepted_and_cursor_still_loads() -> None:
+    live = json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    assert cr.load_settings(write_config({**live, "provider": "claude", "model": "sonnet"})).model == "sonnet"
+    assert cr.load_settings(write_config({**live, "provider": "cursor", "model": "grok-4.7-low", "model_family": "grok"})).provider == "cursor"
+    with pytest.raises(ValueError, match="provider must be"):
+        cr.load_settings(write_config({**live, "provider": "grok"}))
+    with pytest.raises(ValueError, match="needs no fallback"):
+        cr.load_settings(write_config({**live, "fallback": {"provider": "claude", "model": "sonnet"}}))
+
+
+def test_the_mac_daily_command_does_nothing_and_exits_cleanly_when_claude_researches(
+        monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    def forbidden(*args: object, **kwargs: object) -> None:
+        raise AssertionError("the Mac job must not touch git, cursor-agent or its state")
+
+    for name in ("git", "question_dirs", "cursor_agent", "push_request", "count_runs"):
+        monkeypatch.setattr(research_script, name, forbidden)
+    monkeypatch.setattr(research_script, "STATE", CONFIG_DIR[0] / "state")
+    research_script.main(["daily"])  # no SystemExit: the LaunchAgent sees exit code 0
+    research_script.main(["daily", "--dry-run", "--branch", "claude/daily-forecasts-20261109"])
+    assert "research runs in the cloud routine now" in capsys.readouterr().out
+    assert not (CONFIG_DIR[0] / "state").exists()
+
+
+def fill_setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, config: dict[str, Any]) -> tuple[list[dict[str, Any]], Path]:
+    """Run ``fill`` on a daily directory with a stub agent factory; returns the claude_agent calls and the directory."""
+    directory = rates_dir(tmp_path)
+    calls: list[dict[str, Any]] = []
+    prompts: list[str] = []
+
+    def fake_claude(model: str, timeout_s: int) -> Any:
+        calls.append({"model": model, "timeout_s": timeout_s, "prompts": prompts})
+        return five_agent(prompts)
+
+    monkeypatch.setattr(research_script, "claude_agent", fake_claude)
+    monkeypatch.setattr(research_script, "load_settings", lambda path: cr.load_settings(write_config(config)))
+    monkeypatch.setattr(research_script, "question_dirs", lambda *a, **k: [directory])
+    monkeypatch.setattr(research_script, "push_request", lambda *a, **k: ["x"])
+    return calls, directory
+
+
+def test_fill_uses_the_main_model_five_passes_and_the_timeout_when_claude_researches(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    live = json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    calls, directory = fill_setup(tmp_path, monkeypatch, live)
+    research_script.fill(type("Args", (), {"branch": "claude/daily-forecasts-20261031"})())
+    assert calls[0]["model"] == "haiku" and calls[0]["timeout_s"] == 600
+    data = json.loads((directory / "research.json").read_text())
+    assert data["researched_by"]["q1"] == "claude-haiku" and data["passes"] == 5
+    assert data["findings"]["q1"]["passes_done"][:2] == ["rules", "outside"]
+    assert "primary_sources" in data["findings"]["q1"]  # the primary-source gate ran
+
+
+def test_fill_with_cursor_still_uses_the_sonnet_fallback(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    calls, directory = fill_setup(tmp_path, monkeypatch, cursor_config())
+    research_script.fill(type("Args", (), {"branch": "claude/daily-forecasts-20261031"})())
+    assert calls[0]["model"] == "sonnet" and json.loads((directory / "research.json").read_text())["passes"] == 1
+
+
+def test_the_claude_agent_tells_the_model_how_to_get_exact_quotes_from_webfetch(tmp_path: Path) -> None:
+    fake = tmp_path / "claude"
+    fake.write_text("#!/bin/sh\nprintf '%s\\0' \"$@\" > \"$(dirname \"$0\")/args\"\ncat\n")
+    fake.chmod(0o755)
+    cr.claude_agent("haiku", 30, binary=str(fake))("x")
+    args = (tmp_path / "args").read_bytes().decode().split("\0")
+    assert args[args.index("--append-system-prompt") + 1] == cr.CLAUDE_TOOL_NOTES
+    assert "Copy word for word" in cr.CLAUDE_TOOL_NOTES and "never invent" in cr.CLAUDE_TOOL_NOTES
+
+
+def test_a_result_without_any_quote_carries_a_warning_and_one_with_quotes_does_not(tmp_path: Path) -> None:
+    bare = json.loads(OUTSIDE)
+    for source in bare["sources"]:
+        source["quotes"] = []
+    result = cr.research(rates_dir(tmp_path), lambda text: json.dumps(bare), "2026-10-31", parallel=1, budget=1, passes=1)
+    assert "no source has a quote" in result["findings"]["q1"]["warnings"][0]
+    quoted = cr.research(rates_dir(tmp_path / "b"), lambda text: OUTSIDE, "2026-10-31", parallel=1, budget=1, passes=1)
+    assert "warnings" not in quoted["findings"]["q1"]

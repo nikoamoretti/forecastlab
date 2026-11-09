@@ -1,15 +1,14 @@
 {
   "mode": "live",
-  "provider": "cursor",
-  "model": "grok-4.7-low",
-  "model_family": "grok",
+  "provider": "claude",
+  "model": "haiku",
+  "model_family": "claude",
   "passes": 5,
   "parallel": 3,
-  "timeout_s": 420,
-  "daily_run_cap": 120,
+  "timeout_s": 600,
+  "daily_run_cap": 200,
   "weekly_run_cap": 1000,
   "window_hours": [2, 8],
   "window_tz": "America/Los_Angeles",
-  "base_branch": "grok/forecastlab-mvp",
-  "fallback": {"provider": "claude", "model": "sonnet", "model_family": "claude", "timeout_s": 600, "passes": 1}
+  "base_branch": "grok/forecastlab-mvp"
 }

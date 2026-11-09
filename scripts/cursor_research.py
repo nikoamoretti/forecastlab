@@ -4,6 +4,10 @@
     cursor_research.py fill [--branch claude/daily-forecasts-YYYYMMDD]
     cursor_research.py digest artifacts/<dir> [...]
 
+Since 2026-11-10 (configs/research.json provider "claude") ``fill`` is the research step, run by the cloud
+routine with Claude Haiku, and ``daily`` only logs "research runs in the cloud routine now" and exits 0.
+The text below describes ``daily`` with provider "cursor".
+
 ``daily`` is what the LaunchAgent ai.forecastlab.research runs every 30 minutes through
 scripts/mac_research.sh. On weekdays inside the configured window (Pacific time), once per day, it:
 
@@ -17,9 +21,10 @@ forecast from it. Agent runs (one per pass) are counted against daily and weekly
 instead of using up Nico's Cursor allowance; the CLI cannot read Cursor's own usage meter.
 
 ``--dry-run`` is a hand test: at most 3 questions from an existing ``--branch``, nothing pushed.
-``fill`` researches with Claude (``fallback`` in configs/research.json, one combined pass unless that says
-otherwise) every question that still has no research on a daily branch, e.g. when Cursor's weekly limit is
-used up; the daily routine runs it.
+``fill`` researches with Claude every question that still has no research on a daily branch: with provider
+"claude" using the main model, passes and timeout of configs/research.json (it also creates and prepares the
+branch if needed); with provider "cursor" using ``fallback`` (one combined pass unless that says otherwise).
+The daily routine runs it.
 ``digest`` prints the forecaster's own record so far (calibration, topics, latest misses), then each
 question's evidence the way the forecaster reads it, followed by the forecaster's own earlier calls on related
 questions (same topic, a shared name or word; pending or decided in the last 30 days) so answers stay coherent.
@@ -199,6 +204,10 @@ def count_runs(now: datetime, runs: int) -> None:
 
 def daily(args: argparse.Namespace) -> None:
     settings = load_settings(ROOT / CONFIG_FILE)
+    if settings.provider == "claude":
+        # The LaunchAgent keeps firing; it must exit 0 and touch nothing (no branch, no cursor-agent, no ledger).
+        log("research runs in the cloud routine now (configs/research.json provider is claude): nothing to do on the Mac")
+        return
     now = datetime.now(UTC)
     STATE.mkdir(parents=True, exist_ok=True)
     if args.branch:
@@ -279,40 +288,62 @@ def question_dirs(branch: str, day: str, base_branch: str, *, create: bool) -> l
     return dirs
 
 
-def fill(args: argparse.Namespace) -> None:
-    """Research with Claude every question on a daily branch that Cursor left without research."""
-    settings = load_settings(ROOT / CONFIG_FILE)
+def fill_plan(settings: Any) -> tuple[Any, str, int, str]:
+    """(agent, researched_by, passes, label) for ``fill``: the main provider when it is Claude, else the Cursor fallback."""
+    if settings.provider == "claude":
+        return (claude_agent(settings.model, settings.timeout_s), f"claude-{settings.model}", settings.passes,
+                settings.model)
     if not settings.fallback_model:
         raise SystemExit("configs/research.json has no fallback")
+    return (claude_agent(settings.fallback_model, settings.fallback_timeout_s), f"claude-{settings.fallback_model}",
+            settings.fallback_passes, settings.fallback_model)
+
+
+def fill(args: argparse.Namespace) -> None:
+    """Research with Claude every question on a daily branch that has no research yet.
+
+    This is the daily research step when ``provider`` is claude (the cloud routine runs it; it also creates the
+    branch and asks Actions to prepare the questions if nobody has). With provider cursor it fills what the Mac left.
+    """
+    settings = load_settings(ROOT / CONFIG_FILE)
+    agent, by, passes, label = fill_plan(settings)
     now = datetime.now(UTC)
     branch = args.branch or f"claude/daily-forecasts-{now:%Y%m%d}" + ("-dryrun" if settings.mode == "dry_run" else "")
     found = re.search(r"claude/daily-forecasts-(\d{8})", branch)
     if not found:
         raise SystemExit(f"{branch} is not a daily branch")
     dirs = question_dirs(branch, found.group(1), settings.base_branch, create=True)
-    agent = claude_agent(settings.fallback_model, settings.fallback_timeout_s)
     checklists = load_checklists(ROOT / CHECKLIST_FILE)
+    each = runs_per_question(passes)
+    left = settings.daily_run_cap if settings.provider == "claude" else None  # the cloud has no ledger: the cap is per fill
     changed = []
     for directory in dirs:
         path = directory / RESEARCH_FILE
         saved = json.loads(path.read_text()) if path.exists() else {}
-        result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel,
-                          budget=len(tasks(directory)) * runs_per_question(settings.fallback_passes),
-                          by=f"claude-{settings.fallback_model}", passes=settings.fallback_passes,
-                          checklists=checklists)
+        budget = len(tasks(directory)) * each
+        if left is not None:
+            budget = min(budget, left)
+        result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel, budget=budget,
+                          by=by, passes=passes, checklists=checklists)
+        if left is not None:
+            left -= result["runs"]
         if not result["runs"]:
-            log(f"{directory.name}: every question already has research")
+            log(f"{directory.name}: every question already has research (or the run cap is reached)")
             continue
         result.update(model=saved.get("model", settings.model), model_family=saved.get("model_family", settings.model_family),
                       mode=settings.mode)
         path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
         changed.append(f"artifacts/{directory.name}")
         log(f"{directory.name}: {len(result['findings'])} researched, {len(result['failed'])} failed "
-            f"({result['runs']} Claude runs)")
+            f"({result['runs']} Claude runs, ${sum(result['cost_usd'].values()):.2f})")
         for qid, reason in sorted(result["failed"].items()):
             log(f"  {qid}: {reason}")
+        bare = sorted(qid for qid, items in result["sources"].items() if not any(s["quotes"] for s in items))
+        if bare:
+            log(f"WARNING: no source has a quote for {', '.join(bare)}: WebFetch could not open the pages "
+                "(network policy of this environment?)")
     if changed:
-        pushed = push_request(branch, "download", changed, f"Research: Claude {settings.fallback_model} fills the gaps")
+        pushed = push_request(branch, "download", changed, f"Research: Claude {label} ({passes} passes)")
         if pushed:
             log(f"{branch}: pushed research for {', '.join(pushed)}; Actions now downloads the cited pages")
 
