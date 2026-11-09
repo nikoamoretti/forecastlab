@@ -2,7 +2,7 @@
 
 Selection is a fixed rule (``SELECTION_VERSION``): yes/no markets on economics, finance,
 politics, geopolitics, world affairs, technology and crypto; closing in 2 to 10 days; at
-least $10,000 traded; a price between 5% and 95% (near-certain questions say nothing
+least ``MIN_VOLUME`` ($5,000, since v7) traded; a price between 5% and 95% (near-certain questions say nothing
 about skill); one market per Polymarket event, so siblings such as "who will be prime
 minister" do not crowd the sample; topics taken in turn, at most ``TOPIC_LIMIT`` per topic
 and ``DAILY_LIMIT`` in all a day.
@@ -33,6 +33,14 @@ questions committed under ``artifacts/prospective_markets_*``.
 v6 (2026-11-09) takes no market from an event that already has a pending question (same ``market_url``) from an earlier
 day: sibling markets of one event, selected on different days, counted its single outcome many times.
 
+v7 (2026-11-09) lowers the traded-volume floor from $10,000 to $5,000. The 2026-11-09 pool run showed the fetch was
+already limited to the closing window (1,902 of 1,904 fetched markets end inside it), so the floor was the only rule
+thinning the pool: of the markets passing every other rule, 17 traded $10,000 or more (8 events) and 14 traded $5,000
+to $10,000 (11 events), while 940 traded under $1,000. Thinner markets are a weaker benchmark: a price on a market
+with few traders moves on one order and says less about what a well-informed crowd thinks, so a market-beating
+score on them is worth less. Each recorded question therefore keeps the floor it was chosen under
+(``volume_floor``), and the page's scores can be read with that in mind.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
@@ -57,14 +65,14 @@ from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v6"
+SELECTION_VERSION = "polymarket_selection_v7"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
 TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "geopolitics": "World",
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
 MIN_DAYS, MAX_DAYS = 2, 10
-MIN_VOLUME = 10_000
+MIN_VOLUME = 5_000
 MIN_PRICE, MAX_PRICE = 0.05, 0.95
 DAILY_LIMIT = 18
 # Markets that settle when someone takes office, not when trading closes.
@@ -221,7 +229,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
                 found[event["id"]] = {
                     "id": f"polymarket-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": tag,
                     "question": market["question"].strip(), "resolution_criteria": (market.get("description") or "").strip(),
-                    "closes_at": market["endDate"], "volume": volume, "market_price": price,
+                    "closes_at": market["endDate"], "volume": volume, "volume_floor": MIN_VOLUME, "market_price": price,
                     "market_url": f"https://polymarket.com/event/{event['slug']}"}
             else:
                 _count(stats, "drop:events_with_no_eligible_market")
@@ -417,7 +425,7 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 _count(stats, f"candidates:{slug}")
                 found[market["id"]] = {
                     "id": f"manifold-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": slug,
-                    "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]),
+                    "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]), "volume_floor": MANIFOLD_MIN_VOLUME,
                     "market_price": round(float(price), 4), "market_url": market["url"], "method": MANIFOLD_METHOD}
     return list(found.values())
 
