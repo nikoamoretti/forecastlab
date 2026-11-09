@@ -37,7 +37,7 @@ EVENTS = {
         {"id": "e1", "slug": "boc-october", "markets": [
             _market("m1", "Will the Bank of Canada hold rates?", 0.78, 54_000),
             _market("m2", "Will the Bank of Canada hike 25 bps?", 0.21, 43_000)]},  # same event: only the larger
-        {"id": "e2", "slug": "thin", "markets": [_market("m3", "Thinly traded?", 0.5, 2_000)]},  # under $10k
+        {"id": "e2", "slug": "thin", "markets": [_market("m3", "Thinly traded?", 0.5, 2_000)]},  # under the volume floor
         {"id": "e3", "slug": "sure-thing", "markets": [_market("m4", "Near certain?", 0.97, 90_000)]},  # above 95%
     ],
     "politics": [
@@ -188,7 +188,7 @@ def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
     assert pool["f1"] | {"volume": 0} == {
         "id": "manifold-f1", "market_id": "f1", "topic": "Economy", "tag": "economics-default",
         "question": "Will the Fed raise rates in October 2026?", "closes_at": "2026-10-15T00:00:00Z", "volume": 0,
-        "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
+        "volume_floor": 1_000, "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
 
 
 def test_manifold_funnel_says_which_side_of_the_window_markets_miss() -> None:
@@ -219,7 +219,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v6+manifold_selection_v3"
+    assert selected["selection"] == "polymarket_selection_v7+manifold_selection_v3"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
@@ -390,3 +390,57 @@ def test_pool_counts_each_rule_and_changes_nothing(tmp_path: Path, capsys: pytes
     assert result["polymarket"]["select:chosen:Economy"] >= 1 and result["manifold"]["candidates:economics-default"] >= 1
     assert "POLYMARKET funnel" in capsys.readouterr().out
     assert list(artifacts.iterdir()) == []  # writes nothing
+
+
+def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_path: Path) -> None:
+    from forecastlab.market_questions import MIN_VOLUME, SELECTION_VERSION
+
+    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v7")
+    events = {"economy": [
+        {"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 2_600)]},
+        {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 2_400)]}]}
+    fetch = lambda url: events.get(url.split("tag_slug=")[1].split("&")[0], [])  # noqa: E731
+    assert [c["market_id"] for c in candidates(NOW, fetch)] == ["ma"]
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, fetch)
+    assert directory is not None
+    snapshot = json.loads((directory / "market_snapshot.json").read_text())
+    assert [m["volume_floor"] for m in snapshot["markets"]] == [2_500]
+    answers = tmp_path / "claude.json"
+    answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
+        {"id": "polymarket-ma", "probability": 0.4}]}))
+    script.record(directory, answers)
+    recorded = json.loads((directory / "forecasts.json").read_text())["questions"]
+    assert (recorded[0]["volume_floor"], recorded[0]["volume"]) == (2_500, 2_600)
+
+
+def test_funnel_counts_volume_bands_and_fetch_window_position() -> None:
+    events = {"crypto": [
+        {"id": "a", "slug": "a", "markets": [_market("a1", "Q a1?", 0.5, 500), _market("a2", "Q a2?", 0.5, 1_500)]},
+        {"id": "b", "slug": "b", "markets": [_market("b1", "Q b1?", 0.5, 3_000), _market("b2", "Q b2?", 0.99, 3_000)]},  # b2: price band
+        {"id": "c", "slug": "c", "markets": [_market("c1", "Q c1?", 0.5, 7_000)]},
+        {"id": "d", "slug": "d", "markets": [_market("d1", "Q d1?", 0.5, 60_000, ends="2026-12-31T00:00:00Z")]},  # far-dated
+        {"id": "e", "slug": "e", "markets": [_market("e1", "Q e1?", 0.5, 60_000, ends="2026-10-08T00:00:00Z")]}]}  # too soon
+    stats: dict[str, int] = {}
+    candidates(NOW, lambda url: events.get(url.split("tag_slug=")[1].split("&")[0], []), stats)
+    assert {k: v for k, v in stats.items() if k.startswith("volume_band:")} == {
+        "volume_band:markets:under_1k": 1, "volume_band:markets:1k_2.5k": 1, "volume_band:markets:2.5k_5k": 1,
+        "volume_band:markets:5k_10k": 1, "volume_band:events:under_1k": 1, "volume_band:events:1k_2.5k": 1,
+        "volume_band:events:2.5k_5k": 1, "volume_band:events:5k_10k": 1}
+    assert (stats["fetched:ends_in_window"], stats["fetched:ends_too_late"], stats["fetched:ends_too_soon"]) == (5, 1, 1)
+
+
+def test_manifold_funnel_shows_whether_the_fetch_reaches_the_window() -> None:
+    day = 86_400_000
+    now_ms = int(NOW.timestamp() * 1000)
+    rows = [_manifold(f"r{i}", "Will it happen?", 0.5, closes="2026-12-01T00:00:00+00:00") | {"closeTime": now_ms + d * day}
+            for i, d in enumerate([-1, 1, 5, 30, 40])]
+    stats: dict[str, int] = {}
+    manifold_candidates(NOW, lambda url: rows if "search-markets" in url else None, stats)
+    topic = "economics-default"
+    assert [stats[f"reach:{topic}:{k}"] for k in ("already_past", "0_to_2_days", "in_window", "after_window", "sorted_ascending")] == [1, 1, 1, 2, 1]
+    rows.reverse()
+    stats = {}
+    manifold_candidates(NOW, lambda url: rows if "search-markets" in url else None, stats)
+    assert stats.get(f"reach:{topic}:sorted_ascending", 0) == 0

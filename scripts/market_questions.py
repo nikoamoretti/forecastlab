@@ -107,7 +107,7 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
         indent=2, sort_keys=True) + "\n")
     (directory / "market_snapshot.json").write_text(json.dumps(
         {"taken_at": now.isoformat(), "markets": [{"id": c["id"], "market_id": c["market_id"], "yes_price": c["market_price"],
-                                                   "volume": c["volume"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
+                                                   "volume": c["volume"], "volume_floor": c["volume_floor"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: {len(chosen)} questions")
     return directory
 
@@ -145,7 +145,7 @@ def pool(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetc
             continue
         chosen += picked
         print(f"{source.upper()} funnel (limit {limit}):")
-        print("\n".join(_funnel(stats, ("events:", "markets:")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
+        print("\n".join(_funnel(stats, ("events:", "markets:", "fetched:", "reach:", "volume_band:")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
                         + _funnel(stats, ("select:",))))
         print(f"  chosen: {len(picked)}")
     return result
@@ -189,6 +189,9 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
             "id": qid, "question": question["question"], "topic": question["topic"],
             "resolution_criteria": question["resolution_criteria"], "resolution_date": question["closes_at"][:10],
             "resolution_source": question["market_url"], "market_id": prices[qid]["market_id"], "outcome": None,
+            # the floor it was chosen under and what had traded, so scores can be split by how thin the market was
+            **({"volume_floor": prices[qid]["volume_floor"], "volume": prices[qid]["volume"]}
+               if "volume_floor" in prices[qid] else {}),
             **({"integrity_note": forecast["integrity_note"], "unscored": True} if forecast.get("integrity_note") else {}),
             "forecasts": [
                 {"method": prices[qid].get("method", MARKET_METHOD), "probability": prices[qid]["yes_price"],
