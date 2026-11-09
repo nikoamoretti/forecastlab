@@ -159,6 +159,28 @@ def _polymarket_reject(market: dict[str, Any], price: float | None, volume: floa
     return None
 
 
+# Traded-volume bands (USD) for the pool funnel: how many markets that pass every rule except the volume floor sit in each.
+VOLUME_BANDS = (("under_1k", 0, 1_000), ("1k_2.5k", 1_000, 2_500), ("2.5k_5k", 2_500, 5_000),
+                ("5k_10k", 5_000, 10_000), ("10k_up", 10_000, float("inf")))
+
+
+def _volume_band(volume: float) -> str:
+    return next(name for name, low, high in VOLUME_BANDS if low <= volume < high)
+
+
+def _window_side(closes: Any, now: datetime) -> str:
+    """Where a market's end date sits against the closing window, for the funnel only."""
+    try:
+        moment = _parse_time(str(closes))
+    except ValueError:
+        return "no_end_date"
+    if moment.tzinfo is None:
+        return "no_end_date"
+    if moment < now + timedelta(days=MIN_DAYS):
+        return "ends_too_soon"
+    return "ends_in_window" if moment <= now + timedelta(days=MAX_DAYS) else "ends_too_late"
+
+
 def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = None) -> list[dict[str, Any]]:
     """Every market that passes the rule, one per event, with its topic and event link.
 
@@ -168,6 +190,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
     window = {"closed": "false", "active": "true", "limit": "100", "order": "volume", "ascending": "false",
               "end_date_min": _iso(now + timedelta(days=MIN_DAYS)), "end_date_max": _iso(now + timedelta(days=MAX_DAYS))}
     found: dict[str, dict[str, Any]] = {}
+    band_events: dict[str, set[str]] = {}  # funnel only: events with a market passing every rule but the volume floor
     for tag, topic in TOPICS.items():
         events = fetch(f"{GAMMA}/events?{urllib.parse.urlencode(window | {'tag_slug': tag})}")
         _count(stats, f"events:{tag}", len(events))
@@ -178,8 +201,13 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
             eligible = []
             for market in event.get("markets", []):
                 _count(stats, f"markets:{tag}")
+                _count(stats, f"fetched:{_window_side(market.get('endDate'), now)}")
                 price = _yes_price(market)
                 volume = float(market.get("volumeNum") or 0)
+                if stats is not None and _polymarket_reject(market, price, float("inf"), now) is None:
+                    band = _volume_band(volume)
+                    _count(stats, f"volume_band:markets:{band}")
+                    band_events.setdefault(band, set()).add(str(event["id"]))
                 reason = _polymarket_reject(market, price, volume, now)
                 if reason:
                     _count(stats, f"drop:{reason}")
@@ -197,6 +225,8 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
                     "market_url": f"https://polymarket.com/event/{event['slug']}"}
             else:
                 _count(stats, "drop:events_with_no_eligible_market")
+    for band, event_ids in band_events.items():
+        _count(stats, f"volume_band:events:{band}", len(event_ids))
     return list(found.values())
 
 
@@ -330,6 +360,20 @@ def resolution(market_id: str, fetch: Fetch = fetch_json, now: datetime | None =
     return {"status": "cancelled"}
 
 
+def _manifold_reach(stats: Stats | None, slug: str, markets: list[dict[str, Any]], now: datetime) -> None:
+    """Funnel only: where the fetched markets close (already past, before, inside, after the window) and whether the
+    list comes back in ascending close order, to show whether the fetch can reach the window at all."""
+    if stats is None:
+        return
+    times = [m["closeTime"] for m in markets if isinstance(m.get("closeTime"), int | float)]
+    _count(stats, f"reach:{slug}:sorted_ascending", int(times == sorted(times)))
+    for closes in times:
+        days = (datetime.fromtimestamp(closes / 1000, tz=UTC) - now).total_seconds() / 86400
+        bucket = ("already_past" if days < 0 else "0_to_2_days" if days < MIN_DAYS else "in_window" if days <= MAX_DAYS
+                  else "after_window")
+        _count(stats, f"reach:{slug}:{bucket}")
+
+
 def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = None) -> list[dict[str, Any]]:
     """Manifold yes/no markets that pass the rule, in the same shape as Polymarket candidates.
 
@@ -342,6 +386,7 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                  "limit": "500"}
         markets = fetch(f"{MANIFOLD}/search-markets?{urllib.parse.urlencode(query)}")
         _count(stats, f"markets:{slug}", len(markets))
+        _manifold_reach(stats, slug, markets, now)
         for market in markets:
             if market["id"] in found:
                 _count(stats, "drop:already_taken_from_other_topic")
