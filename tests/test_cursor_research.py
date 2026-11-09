@@ -587,7 +587,7 @@ def test_questions_are_started_only_when_all_their_passes_fit_in_the_budget(tmp_
 def test_the_daily_cap_fits_twenty_five_pass_questions_with_the_primary_round() -> None:
     settings = cr.load_settings(ROOT / cr.CONFIG_FILE)
     assert (settings.passes, settings.fallback_passes) == (5, 1)
-    assert settings.model == "grok-4.7-medium"
+    assert settings.model == "grok-4.7-low"
     each = cr.runs_per_question(settings.passes)
     assert each == 6  # five passes and, at most, the one extra primary-source round
     assert (cr.runs_per_question(3), cr.runs_per_question(1)) == (3, 1)  # the older plans are unchanged
