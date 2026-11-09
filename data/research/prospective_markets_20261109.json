@@ -1,0 +1,215 @@
+{
+ "polymarket-3681004": {
+  "against": "Japan's first releases have often differed from consensus by more than 1 point annualized (negative surprises in 2025, for example).\nThe September Nikkei survey ranged down to -1.1%, and weak consumption or imports could push the figure below 0.0%.\nStrong capex or net exports could push it above 0.8%.\nThe prior quarter's 1.4-1.6% pace shows the economy can post large positive readings.",
+  "base_rate": "Not computed.\nI could not retrieve the last 8 first releases or their consensus errors.\nJapan's first-release GDP often misses consensus by 0.5 to 2 points annualized, which is a wide error compared with the 0.8-point-wide bucket.\nThis is general knowledge, not counted from sources.",
+  "brief": "The question asks whether the first Cabinet Office estimate of Japan's Jul-Sep 2026 real GDP, annualized, falls from 0.0% to 0.8%. The release is scheduled for Monday 2026-11-16 at 08:50 JST (https://journalarta.com/en/2026/11/06/japan-q3-gdp-growth-forecast/, 2026-11-06, search summary only). That preview reports a median forecast of +0.3% annualized, about +0.1% quarter on quarter, from a poll of 16 economists, citing weaker household spending partly offset by business investment. The Japan Center for Economic Research's ESP forecast revised its Q3 outlook up to 0.25% (https://www.jcer.or.jp/en/esp-forecast-top/), though it is unclear whether that is annualized. A Nikkei survey of 10 economists in September expected roughly flat growth, with annualized forecasts from +0.4% down to -1.1%, and cited crude oil imports as a drag (https://view.asiae.co.kr/en/article/2026090914565446058, 2026-09-09). The prior quarter appears as 1.1%, 1.4% and 1.6% annualized across sources (https://english.adnkronos.com/2026/09/03/japan-april-june-gdp-growth-seen-revised-up-to-annualized-1-6-pct/, 2026-09-03), so the sources conflict and none was opened. No count of past first-release surprises was available; from general knowledge, Japan's first prints often miss consensus by 0.5 to 2 points annualized. With the consensus at +0.3% and a forecast error of 1.2 to 1.5 points, a normal curve puts roughly 21% to 26% of the probability between 0.0% and 0.8%. The case against the bucket is a miss on either side: weak consumption or imports could produce a negative print, and strong capex or net exports could produce more than 0.8%, as the 1.4% to 1.6% prior pace shows. A revised consensus nearer 0.4%, or any report of the actual trade and capex data, would change the estimate.",
+  "brief_written_at": "2026-11-09T12:46:41+00:00",
+  "different_now": "The consensus of about +0.3% annualized (range roughly -1.1% to +0.4% in the earlier survey) sits inside the 0.0-0.8% bucket.\nThe bucket is narrow, so a typical forecast miss could land outside it on either side.\nHouseholds are weak, and crude oil imports are a drag.",
+  "facts": [
+   {
+    "fact": "A 2026-11-06 preview (seen only in a search summary; the page could not be opened) reports a median forecast of +0.3% annualized (about +0.1% q/q) for Jul-Sep 2026 from a poll of 16 economists.\nIt cites weaker household spending partly offset by business investment, and Apr-Jun at about 1.4% annualized.",
+    "source": 0
+   },
+   {
+    "fact": "The Cabinet Office release is scheduled for Monday 2026-11-16 at 08:50 JST (search summary of the preview; the ESRI page could not be opened).",
+    "source": 0
+   },
+   {
+    "fact": "The Japan Center for Economic Research's ESP forecast revised its Q3 2026 real GDP growth outlook up to 0.25% (search-result title; the page could not be opened and it is unclear whether this is annualized).",
+    "source": 1
+   },
+   {
+    "fact": "A Nikkei survey of 10 economists in Sept 2026 expected flat Q3 GDP, with an annualized range from +0.4% to -1.1%.\nCrude oil imports were cited as a drag (search summary only).",
+    "source": 2
+   },
+   {
+    "fact": "Apr-Jun 2026 GDP was revised up to about 1.6% annualized in the Sept 3 forecast, then reported as 1.4% in a later summary.\nThe sources conflict on the figure (1.1%, 1.4% and 1.6% appear).",
+    "source": 3
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "combined"
+  ],
+  "quotes_checked_at": "2026-11-09T12:41:53.007276+00:00",
+  "research_cost_usd": 0.1974,
+  "research_failed": null,
+  "research_seconds": 65.2,
+  "researched_at": "2026-11-09T12:40:53+00:00",
+  "researched_by": "Claude Sonnet",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "Japan Q3 GDP growth forecast",
+    "url": "https://journalarta.com/en/2026/11/06/japan-q3-gdp-growth-forecast/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Real GDP Growth Outlook for Q3 2026 Revised Up to 0.25%",
+    "url": "https://www.jcer.or.jp/en/esp-forecast-top/",
+    "verified": null
+   },
+   {
+    "published": "2026-09-09",
+    "quotes": [],
+    "title": "Japan Forecast to See \"Zero Growth\" in Q3",
+    "url": "https://view.asiae.co.kr/en/article/2026090914565446058",
+    "verified": null
+   },
+   {
+    "published": "2026-09-03",
+    "quotes": [],
+    "title": "Japan April-June GDP Growth Seen Revised Up to Annualized 1.6 Pct",
+    "url": "https://english.adnkronos.com/2026/09/03/japan-april-june-gdp-growth-seen-revised-up-to-annualized-1-6-pct/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "I could not open any page, so all facts come from search summaries.",
+   "No ESRI advance estimate or nowcast was found.\nThe Cabinet Office does not publish one.",
+   "I could not verify the last 6 first-release surprises versus consensus.",
+   "Base effect, calendar effects and the BoJ or government forecast were not found.",
+   "The Apr-Jun 2026 figure is inconsistent across sources (1.1%, 1.4%, 1.6%)."
+  ]
+ },
+ "polymarket-6625358": {
+  "against": "Trump's bursts of late-night posting, often many reposts in a row, can push single days past 50 posts.\nThe 2024 average of about 24 per day, or about 173 per week, shows that volume can run well above the 2026 average.\nReposts and quote posts count, and the tracker includes replies that appear on the main feed.",
+  "base_rate": "Averages of about 18 posts per day in 2025 and about 19 per day in early 2026 imply about 126-133 posts per week.\nA 200+ week needs about 28.6 posts per day.\nThat is well above the average and would be an unusually busy week.\nI did not obtain a count of how many past weeks reached 200, so I cannot give that frequency.",
+  "brief": "The question asks whether the Truth Social post counter at xtracker.io (https://www.xtracker.io/?platform=TRUTH_SOCIAL) will show 200 or more Trump posts from 2026-11-06 to 2026-11-13. The research could not open the tracker, so there is no running tally for the window. A report summarized in search results says Trump averaged about 19 Truth Social posts a day in 2026, and NPR counted 2,249 posts in the first four months of 2026, just under 19 a day (https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report, snippet only). That is about 130 a week, and the average for 2025 was about 18 a day. A 200-post week needs about 28.6 posts a day, around 50% above the 2026 pace. Roll Call and Factba.se reported an average of about 24 a day in 2024, about 173 a week, with busier spikes around major events (https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/, 2024-10-02). No count of how many past weeks reached 200 was found, so the frequency is not measured. The window starts three days after the 2026-11-03 midterm elections, and a heavy news cycle or a run of late-night reposts can push single days past 50 posts, which would lift the weekly total quickly. Whether the tracker counts the window as seven or eight days is also unclear. The estimate rests on weak evidence, so it is held low but with room for a fat tail. A tally above about 100 by 2026-11-10, or a report of a posting surge after the midterms, would raise it sharply.",
+  "brief_written_at": "2026-11-09T12:46:41+00:00",
+  "different_now": "The window runs from Nov 6 to Nov 13, 2026, just after the Nov 3 midterm elections.\nPost-election and news-driven weeks can raise volume.\nI found no evidence of the actual pace in this window.",
+  "facts": [
+   {
+    "fact": "Search results (snippets only; the pages could not be opened) report Trump averaged about 19 Truth Social posts per day in 2026, which is about 133 per week, below the 200-post threshold.",
+    "source": 0
+   },
+   {
+    "fact": "NPR, quoted in a search summary, counted 2,249 posts in the first four months of 2026, just under 19 per day.\nThis was not checked against the page.",
+    "source": 0
+   },
+   {
+    "fact": "Roll Call/Factba.se reported about 24 posts per day in 2024, or about 173 per week, with busier spikes around major events.\nThis comes from a snippet only.",
+    "source": 1
+   },
+   {
+    "fact": "The resolution tracker is xtracker.io's Truth Social Post Counter.\nI could not open it because the proxy refused the connection.",
+    "source": 2
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "combined"
+  ],
+  "quotes_checked_at": "2026-11-09T12:41:53.007276+00:00",
+  "research_cost_usd": 0.1333,
+  "research_failed": null,
+  "research_seconds": 31.8,
+  "researched_at": "2026-11-09T12:40:53+00:00",
+  "researched_by": "Claude Sonnet",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Trump Has Averaged a Whopping 19 Truth Social Posts a Day in 2026: Report",
+    "url": "https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
+    "verified": null
+   },
+   {
+    "published": "2024-10-02",
+    "quotes": [],
+    "title": "Trump averages more than 24 Truth Social posts a day and he was even busier during the VP debate",
+    "url": "https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "xtracker.io Truth Social Post Counter (resolution tracker)",
+    "url": "https://www.xtracker.io/?platform=TRUTH_SOCIAL",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "I could not read the tracker, so the running count for Nov 6-13 is unknown.",
+   "I do not know the weekly distribution, for example how many of the past 52 weeks exceeded 200 posts.",
+   "The 19-per-day figure comes from search snippets, not from a page I opened.",
+   "I did not work through the polling and race-rating checklist items, which do not apply to a post-count question.",
+   "Whether post volume rose after the Nov 3 midterms is unknown."
+  ]
+ },
+ "polymarket-6625371": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-09T12:46:41+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-09T12:41:53.007276+00:00",
+  "research_cost_usd": 0.1601,
+  "research_failed": "ValueError: only 0 usable sources",
+  "research_seconds": 25.4,
+  "researched_at": "2026-11-09T12:40:53+00:00",
+  "researched_by": "grok-4.7-medium",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-6683300": {
+  "against": "BTC fell about 5% in a day from about $80,200 to about $76,000 and ETF outflows were reported.\nA further decline of about 8% by noon ET on Nov 11 would put the Binance 1-minute close below $70,000.",
+  "base_rate": "Not computed.\nI could not retrieve Binance daily closes, so no reference class count is available.",
+  "brief": "The question asks whether the Binance BTC/USDT 1-minute candle closing at 12:00 ET on 2026-11-11 is above $70,000. The latest price found is about $76,024 on the morning of 2026-11-06, taken from a search summary of Fortune's daily price page (https://fortune.com/article/price-of-bitcoin-11-06-2026/, 2026-11-06), and the research could not open the page, so the figure is unverified. The same summary gave about $80,221 for 2026-11-05, so Bitcoin fell roughly 5% in one day. A search summary also reported combined net outflows of about $530 million from US spot Bitcoin and Ether ETFs around 2026-11-06 and a weekly crypto fund outflow headline of $1.3 billion (https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week), but the date of that article could not be confirmed and it may come from 2025. No Binance price from 2026-11-07 to 2026-11-09 was obtained, and the 30-day volatility could not be computed, so no counted base rate exists. The working estimate uses a typical daily move of 2.5% to 3% over about five days, which gives a standard deviation of roughly 6% to 7%, so a price near $76,000 sits about 1.2 standard deviations above the threshold. The threshold is about 8% to 9% below the last reading. The case for a miss is the one-day 5% fall, the reported outflows and the fat tails of crypto, where a further drop of about 8% in five days is not rare. No scheduled event inside the window was found. The answer would change with any verified Binance price from 2026-11-07 to 2026-11-10: a price near $72,000 would make this close to a coin flip, while a price back near $80,000 would make it very likely above.",
+  "brief_written_at": "2026-11-09T12:46:41+00:00",
+  "different_now": "The last reading I found (about $76,000 on Nov 6) is about 8-9% above the $70,000 threshold.\nPrice was falling and ETF outflows were reported.\nI found no Nov 7-9 price, so the current distance to the threshold is unknown.",
+  "facts": [
+   {
+    "fact": "A search summary of Fortune's daily Bitcoin price page for 2026-11-06 gave a morning price of about $76,024.\nI could not open the page, so this is unverified.",
+    "source": 0
+   },
+   {
+    "fact": "The same summary of Fortune's 2026-11-05 page gave about $80,221, so BTC fell roughly 5% in one day.\nThis is also unverified.",
+    "source": 0
+   },
+   {
+    "fact": "A search summary said U.S.\nspot Bitcoin and Ether ETFs had about $530M of combined net outflows around 2026-11-06.\nI could not confirm the date or the figure on the page, which may be from 2025.",
+    "source": 1
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "combined"
+  ],
+  "quotes_checked_at": "2026-11-09T12:41:53.007276+00:00",
+  "research_cost_usd": 0.1955,
+  "research_failed": null,
+  "research_seconds": 38.5,
+  "researched_at": "2026-11-09T12:40:53+00:00",
+  "researched_by": "Claude Sonnet",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "price of bitcoin 11 06 2026 (Fortune)",
+    "url": "https://fortune.com/article/price-of-bitcoin-11-06-2026/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Crypto Market Update: Crypto Outflows Hit US$1.3 Billion for Second Week",
+    "url": "https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No Binance BTC/USDT price from Nov 7-9 was obtained; the Binance API and direct fetches were blocked by the proxy.",
+   "The 30-day daily volatility could not be computed.",
+   "The Fortune $76,024 and $80,221 figures come from search summaries and are unverified.",
+   "No scheduled event inside the window to Nov 11 noon ET was found.",
+   "The window is a single 1-minute candle at 12:00 ET on Nov 11, so the highest and lowest prices inside it are not applicable."
+  ]
+ }
+}
