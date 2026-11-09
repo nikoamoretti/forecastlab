@@ -107,7 +107,7 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
         indent=2, sort_keys=True) + "\n")
     (directory / "market_snapshot.json").write_text(json.dumps(
         {"taken_at": now.isoformat(), "markets": [{"id": c["id"], "market_id": c["market_id"], "yes_price": c["market_price"],
-                                                   "volume": c["volume"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
+                                                   "volume": c["volume"], "volume_floor": c["volume_floor"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: {len(chosen)} questions")
     return directory
 
@@ -189,6 +189,7 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
             "id": qid, "question": question["question"], "topic": question["topic"],
             "resolution_criteria": question["resolution_criteria"], "resolution_date": question["closes_at"][:10],
             "resolution_source": question["market_url"], "market_id": prices[qid]["market_id"], "outcome": None,
+            **({"volume_floor": prices[qid]["volume_floor"]} if "volume_floor" in prices[qid] else {}),
             **({"integrity_note": forecast["integrity_note"], "unscored": True} if forecast.get("integrity_note") else {}),
             "forecasts": [
                 {"method": prices[qid].get("method", MARKET_METHOD), "probability": prices[qid]["yes_price"],
