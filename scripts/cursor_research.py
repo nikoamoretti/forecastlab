@@ -4,9 +4,11 @@
     cursor_research.py fill [--branch claude/daily-forecasts-YYYYMMDD]
     cursor_research.py digest artifacts/<dir> [...]
 
-Since 2026-11-10 (configs/research.json provider "claude") ``fill`` is the research step, run by the cloud
-routine with Claude Haiku, and ``daily`` only logs "research runs in the cloud routine now" and exits 0.
-The text below describes ``daily`` with provider "cursor".
+Since 2026-11-10 (configs/research.json provider "claude") ``daily`` researches on the Mac with the ``claude``
+CLI (Claude Haiku, full web access, the owner's Max subscription): the same steps as below, with claude_agent
+instead of cursor-agent. If the CLI is not found it logs that and exits 0. The cloud routine's ``fill`` is the
+fallback for questions the Mac did not research (it cannot open web pages, so expect no checked quotes from it).
+The steps below are the same for both providers.
 
 ``daily`` is what the LaunchAgent ai.forecastlab.research runs every 30 minutes through
 scripts/mac_research.sh. On weekdays inside the configured window (Pacific time), once per day, it:
@@ -41,7 +43,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
@@ -202,12 +204,25 @@ def count_runs(now: datetime, runs: int) -> None:
     LEDGER.write_text(json.dumps(used, indent=2, sort_keys=True) + "\n")
 
 
+def claude_binary() -> Optional[str]:  # noqa: UP045 -- the Mac may run Python 3.9
+    """The claude CLI: on PATH, else ~/.local/bin/claude (where the installer puts it); None if neither exists."""
+    found = shutil.which("claude")
+    if found:
+        return found
+    fallback = Path.home() / ".local" / "bin" / "claude"
+    return str(fallback) if fallback.is_file() else None
+
+
 def daily(args: argparse.Namespace) -> None:
     settings = load_settings(ROOT / CONFIG_FILE)
+    binary = None
     if settings.provider == "claude":
-        # The LaunchAgent keeps firing; it must exit 0 and touch nothing (no branch, no cursor-agent, no ledger).
-        log("research runs in the cloud routine now (configs/research.json provider is claude): nothing to do on the Mac")
-        return
+        binary = claude_binary()
+        if not binary:
+            # The LaunchAgent keeps firing; exit 0 and touch nothing, the cloud routine's `fill` covers the day.
+            log("claude CLI not found (not on PATH, no ~/.local/bin/claude): the Mac does no research; "
+                "the cloud routine's fill will cover it")
+            return
     now = datetime.now(UTC)
     STATE.mkdir(parents=True, exist_ok=True)
     if args.branch:
@@ -234,12 +249,17 @@ def daily(args: argparse.Namespace) -> None:
     dirs = question_dirs(branch, found.group(1), settings.base_branch, create=not args.dry_run)
     if not dirs:
         return
-    agent = cursor_agent(settings.model, settings.timeout_s)
+    if binary:  # Claude on the Mac: full web access, the owner's Claude subscription
+        agent = claude_agent(settings.model, settings.timeout_s, binary=binary)
+        by, label = f"claude-{settings.model}", f"claude-{settings.model}"
+    else:
+        agent = cursor_agent(settings.model, settings.timeout_s)
+        by, label = settings.model, "cursor-agent"
     checklists = load_checklists(ROOT / CHECKLIST_FILE)
     runs, changed = 0, []
     for directory in dirs:
         result = research(directory, agent, f"{now:%Y-%m-%d}", parallel=settings.parallel, budget=budget - runs,
-                          by=settings.model, passes=settings.passes, checklists=checklists)
+                          by=by, passes=settings.passes, checklists=checklists)
         runs += result["runs"]
         if not result["runs"]:
             continue
@@ -259,7 +279,7 @@ def daily(args: argparse.Namespace) -> None:
         log(f"hand test done: {runs} runs, nothing pushed")
         return
     if changed:
-        pushed = push_request(branch, "download", changed, f"Research: cursor-agent evidence ({runs} runs)")
+        pushed = push_request(branch, "download", changed, f"Research: {label} evidence ({runs} runs)")
         if pushed:
             log(f"{branch}: pushed research for {', '.join(pushed)}; Actions now downloads the cited pages")
     marker.touch()
