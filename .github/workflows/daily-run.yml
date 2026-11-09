@@ -8,7 +8,7 @@ name: Daily run steps
 #              daily_forecasts.py prepare and market_questions.py prepare
 #   research   run research_pack.py on DIRS (each needs research_queries.json):
 #              Tavily searches with full page text, saved as research.json (retired:
-#              research now comes from the Mac's cursor-agent job, scripts/mac_research.sh)
+#              research now comes from the routine's `cursor_research.py fill` (Claude Haiku); before 2026-11-10 from the Mac's cursor-agent job)
 #   download   run research_download.py on DIRS: download every page the Mac's
 #              cursor-agent research cited and check its quotes against the page
 #   finish     run judge_panel.py on DIRS (each needs briefs.json), then
