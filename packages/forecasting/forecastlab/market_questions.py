@@ -72,7 +72,7 @@ USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
 TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "geopolitics": "World",
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
 MIN_DAYS, MAX_DAYS = 2, 10
-MIN_VOLUME = 5_000
+MIN_VOLUME = 2_500
 MIN_PRICE, MAX_PRICE = 0.05, 0.95
 DAILY_LIMIT = 18
 # Markets that settle when someone takes office, not when trading closes.
