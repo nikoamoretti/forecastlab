@@ -215,7 +215,7 @@ test("the improving chart compares our score with the market by forecast week, o
     after: { questions: after, ours: after ? .18 : null, market: after ? .16 : null } });
   const progress = (after: number) => ({ weeks: [week("2026-10-19", 41, .2, .15), week("2026-10-26", 92, .23, .17), week("2026-11-02", 2, .04, .05)],
     changes: [{ date: "2026-10-24", label: "Weighted by track record" }, { date: "2026-11-06", label: "Confidence correction" },
-      { date: "2026-11-09", label: "Deeper research" }, { date: "2026-11-10", label: "Call back to Claude's own forecast" }], since_last_change: split(after) });
+      { date: "2026-11-09", label: "Deeper research" }, { date: "2026-11-10", label: "Call anchored to market" }], since_last_change: split(after) });
   for (const [after, headline] of [[0, "Too early to tell: 0 questions decided since Nov 6, we need about 40."],
     [24, "Since the Nov 6 changes: our score 0.18 vs the market's 0.16 on 24 questions (before: 0.22 vs 0.16 on 168)."]] as const) {
     await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-08", forecasters,
@@ -226,4 +226,31 @@ test("the improving chart compares our score with the market by forecast week, o
     await expect(page.getByText(headline)).toBeVisible();
     await expect(page.getByRole("img", { name: /Score by forecast week/ })).toBeVisible();
   }
+});
+
+test("a market-anchored call shows both our call and Claude alone, and the page says what the comparison measures", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-14T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-10T09:00:00Z" };
+  const market = { method: "market_price_v1", probability: .5 };
+  const open = { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-20", topic: "Tech" };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-14", forecasters,
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 42,
+      vs_market: { questions: 30, ours: .17, market: .15, claude: .2, claude_questions: 30,
+        since_anchored: { date: "2026-11-10", questions: 12, ours: .16, claude: .21, market: .15 } } },
+    questions: [
+      question("anchored", "Will the anchored question resolve yes?", { ...open, forecasts: [claude, market],
+        call: { method: "market_anchored_call_v1", probability: .6, members: 1, claude: .9, market: .5 } }),
+      question("held", "Will the held question resolve yes?", { ...open, forecasts: [claude, market],
+        call: { method: "market_anchored_call_v1", probability: .5, members: 1, claude: .9, market: .5, held: "weak research" } })] } }));
+  await page.goto("/");
+  await expect(page.getByText("Since Nov 10, on 12 questions the market also priced: our call 0.16, Claude alone 0.21, market 0.15.")).toBeVisible();
+  await expect(page.getByText("Claude alone on the same questions: 0.20.")).toBeVisible();
+  await expect(page.getByText("cannot differ from it by more than 10 points")).toBeVisible();
+  await page.goto("/q/anchored");
+  await expect(page.getByText("Our call (starts from the market)").first()).toBeVisible();
+  await expect(page.getByText("60.0% chance of yes · the market’s 50.0%, moved toward Claude’s forecast by at most 10 points")).toBeVisible();
+  await expect(page.getByText("Claude alone:")).toContainText("90.0% yes");
+  await expect(page.getByRole("row").filter({ hasText: "Our call (starts from the market)" })).toContainText("60.0% yes");
+  await page.goto("/q/held");
+  await expect(page.getByText("held at the market’s 50.0% because the research behind Claude’s forecast was thin")).toBeVisible();
 });

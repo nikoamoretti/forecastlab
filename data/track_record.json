@@ -7,7 +7,7 @@
   },
   "forecasters": [
     {
-      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
+      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it starts from the market price and moves at most 10 points toward Claude's forecast.",
       "brier": 0.20832359672759923,
       "coin_flip_brier": 0.25,
       "forecasts": 267,
@@ -19,11 +19,11 @@
       "wrong": 69
     },
     {
-      "about": "Claude researches each question on the web and states a probability.",
+      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
       "brier": 0.20153584905660377,
       "coin_flip_brier": 0.25,
       "forecasts": 262,
-      "label": "Claude",
+      "label": "Claude alone",
       "method": "claude_code_forecaster_v1",
       "resolved": 212,
       "right": 140,
@@ -187,7 +187,7 @@
       "wrong": 2
     },
     {
-      "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
+      "about": "Polymarket's price when we forecast. From 2026-11-10 our call starts from it and moves at most 10 points; the toughest bar to beat.",
       "brier": 0.15808907094594593,
       "coin_flip_brier": 0.25,
       "forecasts": 172,
@@ -199,7 +199,7 @@
       "wrong": 37
     },
     {
-      "about": "Manifold's play-money price when we forecast. Not part of our call.",
+      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call starts from it and moves at most 10 points.",
       "brier": 0.14356681139534885,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
@@ -16866,16 +16866,18 @@
         },
         {
           "date": "2026-11-10",
-          "label": "Call back to Claude's own forecast"
+          "label": "Call anchored to market"
         }
       ],
       "since_last_change": {
         "after": {
+          "claude": null,
           "market": null,
           "ours": null,
           "questions": 0
         },
         "before": {
+          "claude": 0.2000649214659686,
           "market": 0.1548196617277487,
           "ours": 0.20244829842931938,
           "questions": 191
@@ -16884,6 +16886,7 @@
       },
       "weeks": [
         {
+          "claude": 0.1920904761904762,
           "market": 0.16426797476190474,
           "ours": 0.18733333333333335,
           "questions": 21,
@@ -16892,6 +16895,7 @@
           "wrong": 7
         },
         {
+          "claude": 0.16929047619047619,
           "market": 0.12960348,
           "ours": 0.1613952380952381,
           "questions": 21,
@@ -16900,6 +16904,7 @@
           "wrong": 4
         },
         {
+          "claude": 0.18425121951219514,
           "market": 0.15258752024390243,
           "ours": 0.19559329268292683,
           "questions": 41,
@@ -16908,6 +16913,7 @@
           "wrong": 9
         },
         {
+          "claude": 0.2276968085106383,
           "market": 0.16362627670212768,
           "ours": 0.23041914893617024,
           "questions": 94,
@@ -16916,6 +16922,7 @@
           "wrong": 33
         },
         {
+          "claude": 0.11897142857142859,
           "market": 0.12587832142857144,
           "ours": 0.11897142857142859,
           "questions": 14,
@@ -16931,9 +16938,18 @@
     "total": 267,
     "unscored": 3,
     "vs_market": {
+      "claude": 0.2000649214659686,
+      "claude_questions": 191,
       "market": 0.1548196617277487,
       "ours": 0.20244829842931938,
-      "questions": 191
+      "questions": 191,
+      "since_anchored": {
+        "claude": null,
+        "date": "2026-11-10",
+        "market": null,
+        "ours": null,
+        "questions": 0
+      }
     },
     "wrong": 69
   },
