@@ -1292,18 +1292,83 @@ def test_provider_claude_is_accepted_and_cursor_still_loads() -> None:
         cr.load_settings(write_config({**live, "fallback": {"provider": "claude", "model": "sonnet"}}))
 
 
-def test_the_mac_daily_command_does_nothing_and_exits_cleanly_when_claude_researches(
-        monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
-    def forbidden(*args: object, **kwargs: object) -> None:
-        raise AssertionError("the Mac job must not touch git, cursor-agent or its state")
+def mac_daily_setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, binary: str | None,
+                    config: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Run-ready ``daily`` on a stub branch: records the claude_agent binary, the push message and the prompts."""
+    directory = rates_dir(tmp_path)
+    seen: dict[str, Any] = {"prompts": [], "pushes": [], "directory": directory, "agents": []}
 
-    for name in ("git", "question_dirs", "cursor_agent", "push_request", "count_runs"):
-        monkeypatch.setattr(research_script, name, forbidden)
-    monkeypatch.setattr(research_script, "STATE", CONFIG_DIR[0] / "state")
-    research_script.main(["daily"])  # no SystemExit: the LaunchAgent sees exit code 0
-    research_script.main(["daily", "--dry-run", "--branch", "claude/daily-forecasts-20261109"])
-    assert "research runs in the cloud routine now" in capsys.readouterr().out
-    assert not (CONFIG_DIR[0] / "state").exists()
+    def fake_claude(model: str, timeout_s: int, binary: str = "claude") -> Any:
+        seen["agents"].append({"model": model, "timeout_s": timeout_s, "binary": binary})
+        return five_agent(seen["prompts"])
+
+    def forbidden(*args: object, **kwargs: object) -> None:
+        raise AssertionError("cursor-agent must not run when claude researches")
+
+    live = config or json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    monkeypatch.setattr(research_script, "claude_agent", fake_claude)
+    monkeypatch.setattr(research_script, "cursor_agent", forbidden)
+    monkeypatch.setattr(research_script, "load_settings", lambda path: cr.load_settings(write_config(live)))
+    monkeypatch.setattr(research_script, "question_dirs", lambda *a, **k: [directory])
+    monkeypatch.setattr(research_script, "push_request",
+                        lambda branch, step, dirs, message: seen["pushes"].append((step, dirs, message)) or dirs)
+    monkeypatch.setattr(research_script, "STATE", tmp_path / "state")
+    monkeypatch.setattr(research_script, "LEDGER", tmp_path / "state" / "ledger.json")
+    monkeypatch.setattr(research_script.shutil, "which", lambda name: binary)
+    monkeypatch.setattr(research_script.Path, "home", classmethod(lambda cls: tmp_path / "home"))
+    return seen
+
+
+def test_the_mac_daily_command_researches_with_claude_when_the_provider_is_claude(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    seen = mac_daily_setup(tmp_path, monkeypatch, "/opt/bin/claude")
+    research_script.main(["daily", "--branch", "claude/daily-forecasts-20261031"])
+    assert seen["agents"] == [{"model": "haiku", "timeout_s": 600, "binary": "/opt/bin/claude"}]
+    data = json.loads((seen["directory"] / "research.json").read_text())
+    assert data["researched_by"]["q1"] == "claude-haiku" and data["passes"] == 5
+    assert "primary_sources" in data["findings"]["q1"]  # the primary-source gate ran
+    ((step, dirs, message),) = seen["pushes"]
+    assert step == "download" and dirs == [f"artifacts/{seen['directory'].name}"]
+    assert message.startswith("Research: claude-haiku evidence (") and message.endswith(" runs)")
+    used = json.loads((tmp_path / "state" / "ledger.json").read_text())
+    assert max(used.values()) == len(seen["prompts"])
+    assert (tmp_path / "state" / "done2-claude_daily-forecasts-20261031").exists()
+    research_script.main(["daily", "--branch", "claude/daily-forecasts-20261031"])  # the marker stops a second run
+    assert len(seen["pushes"]) == 1
+
+
+def test_the_mac_daily_command_respects_the_run_cap_and_the_window(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    live = json.loads((ROOT / cr.CONFIG_FILE).read_text())
+    seen = mac_daily_setup(tmp_path, monkeypatch, "/opt/bin/claude", {**live, "daily_run_cap": 5})
+    research_script.main(["daily", "--branch", "claude/daily-forecasts-20261031"])  # a question needs 6 runs
+    assert not seen["prompts"] and not seen["pushes"]
+    seen = mac_daily_setup(tmp_path / "w", monkeypatch, "/opt/bin/claude", {**live, "window_hours": [0, 0]})
+    research_script.main(["daily"])  # outside the window and no --branch: nothing happens
+    assert not seen["prompts"] and not seen["pushes"]
+
+
+def test_the_mac_daily_command_exits_zero_and_logs_when_there_is_no_claude_binary(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    seen = mac_daily_setup(tmp_path, monkeypatch, None)
+    research_script.main(["daily", "--branch", "claude/daily-forecasts-20261031"])  # no SystemExit
+    assert "claude CLI not found" in capsys.readouterr().out
+    assert not seen["agents"] and not seen["pushes"] and not (tmp_path / "state").exists()
+    local = tmp_path / "home" / ".local" / "bin"
+    local.mkdir(parents=True)
+    (local / "claude").write_text("#!/bin/sh\n")
+    assert research_script.claude_binary() == str(local / "claude")  # found without PATH
+
+
+def test_the_claude_prompt_is_never_a_positional_argument_after_allowed_tools(tmp_path: Path) -> None:
+    fake = tmp_path / "claude"
+    fake.write_text("#!/bin/sh\nprintf '%s\\0' \"$@\" > \"$(dirname \"$0\")/args\"\ncat > \"$(dirname \"$0\")/stdin\"\n")
+    fake.chmod(0o755)
+    cr.claude_agent("haiku", 30, binary=str(fake))("SECRET PROMPT TEXT")
+    args = (tmp_path / "args").read_bytes().decode().split("\0")[:-1]
+    assert "SECRET PROMPT TEXT" not in " ".join(args) and (tmp_path / "stdin").read_text() == "SECRET PROMPT TEXT"
+    tail = args[args.index("--allowedTools") + 1:]
+    assert tail == ["WebSearch", "WebFetch"]  # --allowedTools is variadic: anything after the tools would be swallowed
 
 
 def fill_setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, config: dict[str, Any]) -> tuple[list[dict[str, Any]], Path]:
