@@ -249,7 +249,7 @@ test("a market-anchored call shows both our call and Claude alone, and the page 
   await page.goto("/q/anchored");
   await expect(page.getByText("Our call (starts from the market)").first()).toBeVisible();
   await expect(page.getByText("60.0% chance of yes · the market’s 50.0%, moved toward Claude’s forecast by at most 10 points")).toBeVisible();
-  await expect(page.getByText("Claude alone:")).toContainText("90.0% yes");
+  await expect(page.locator("p").filter({ hasText: "Claude alone:" })).toContainText("90.0% yes");
   await expect(page.getByRole("row").filter({ hasText: "Our call (starts from the market)" })).toContainText("60.0% yes");
   await page.goto("/q/held");
   await expect(page.getByText("held at the market’s 50.0% because the research behind Claude’s forecast was thin")).toBeVisible();
