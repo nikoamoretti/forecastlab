@@ -412,7 +412,7 @@ def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_pat
         {"id": "polymarket-ma", "probability": 0.4}]}))
     script.record(directory, answers)
     recorded = json.loads((directory / "forecasts.json").read_text())["questions"]
-    assert recorded[0]["volume_floor"] == 2_500
+    assert (recorded[0]["volume_floor"], recorded[0]["volume"]) == (2_500, 2_600)
 
 
 def test_funnel_counts_volume_bands_and_fetch_window_position() -> None:

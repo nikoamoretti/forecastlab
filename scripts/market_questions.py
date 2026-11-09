@@ -189,7 +189,9 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
             "id": qid, "question": question["question"], "topic": question["topic"],
             "resolution_criteria": question["resolution_criteria"], "resolution_date": question["closes_at"][:10],
             "resolution_source": question["market_url"], "market_id": prices[qid]["market_id"], "outcome": None,
-            **({"volume_floor": prices[qid]["volume_floor"]} if "volume_floor" in prices[qid] else {}),
+            # the floor it was chosen under and what had traded, so scores can be split by how thin the market was
+            **({"volume_floor": prices[qid]["volume_floor"], "volume": prices[qid]["volume"]}
+               if "volume_floor" in prices[qid] else {}),
             **({"integrity_note": forecast["integrity_note"], "unscored": True} if forecast.get("integrity_note") else {}),
             "forecasts": [
                 {"method": prices[qid].get("method", MARKET_METHOD), "probability": prices[qid]["yes_price"],
