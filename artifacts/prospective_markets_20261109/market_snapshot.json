@@ -1,0 +1,33 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6683300",
+      "market_id": "6683300",
+      "method": "market_price_v1",
+      "volume": 10469.049713,
+      "yes_price": 0.931
+    },
+    {
+      "id": "polymarket-3681004",
+      "market_id": "3681004",
+      "method": "market_price_v1",
+      "volume": 32445.363722000002,
+      "yes_price": 0.2825
+    },
+    {
+      "id": "polymarket-6625371",
+      "market_id": "6625371",
+      "method": "market_price_v1",
+      "volume": 14361.703134,
+      "yes_price": 0.063
+    },
+    {
+      "id": "polymarket-6625358",
+      "market_id": "6625358",
+      "method": "market_price_v1",
+      "volume": 11670.533889999999,
+      "yes_price": 0.075
+    }
+  ],
+  "taken_at": "2026-11-09T10:20:36.864097+00:00"
+}

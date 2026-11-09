@@ -1,0 +1,224 @@
+{
+  "cost_usd": {
+    "polymarket-3681004": 0.1974,
+    "polymarket-6625358": 0.1333,
+    "polymarket-6625371": 0.1601,
+    "polymarket-6683300": 0.1955
+  },
+  "downloaded_at": "2026-11-09T12:41:53.007276+00:00",
+  "failed": {
+    "polymarket-6625371": "ValueError: only 0 usable sources"
+  },
+  "findings": {
+    "polymarket-3681004": {
+      "against": "Japan's first releases have often differed from consensus by more than 1 point annualized (negative surprises in 2025, for example).\nThe September Nikkei survey ranged down to -1.1%, and weak consumption or imports could push the figure below 0.0%.\nStrong capex or net exports could push it above 0.8%.\nThe prior quarter's 1.4-1.6% pace shows the economy can post large positive readings.",
+      "base_rate": "Not computed.\nI could not retrieve the last 8 first releases or their consensus errors.\nJapan's first-release GDP often misses consensus by 0.5 to 2 points annualized, which is a wide error compared with the 0.8-point-wide bucket.\nThis is general knowledge, not counted from sources.",
+      "different_now": "The consensus of about +0.3% annualized (range roughly -1.1% to +0.4% in the earlier survey) sits inside the 0.0-0.8% bucket.\nThe bucket is narrow, so a typical forecast miss could land outside it on either side.\nHouseholds are weak, and crude oil imports are a drag.",
+      "facts": [
+        {
+          "fact": "A 2026-11-06 preview (seen only in a search summary; the page could not be opened) reports a median forecast of +0.3% annualized (about +0.1% q/q) for Jul-Sep 2026 from a poll of 16 economists.\nIt cites weaker household spending partly offset by business investment, and Apr-Jun at about 1.4% annualized.",
+          "source": 0
+        },
+        {
+          "fact": "The Cabinet Office release is scheduled for Monday 2026-11-16 at 08:50 JST (search summary of the preview; the ESRI page could not be opened).",
+          "source": 0
+        },
+        {
+          "fact": "The Japan Center for Economic Research's ESP forecast revised its Q3 2026 real GDP growth outlook up to 0.25% (search-result title; the page could not be opened and it is unclear whether this is annualized).",
+          "source": 1
+        },
+        {
+          "fact": "A Nikkei survey of 10 economists in Sept 2026 expected flat Q3 GDP, with an annualized range from +0.4% to -1.1%.\nCrude oil imports were cited as a drag (search summary only).",
+          "source": 2
+        },
+        {
+          "fact": "Apr-Jun 2026 GDP was revised up to about 1.6% annualized in the Sept 3 forecast, then reported as 1.4% in a later summary.\nThe sources conflict on the figure (1.1%, 1.4% and 1.6% appear).",
+          "source": 3
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "I could not open any page, so all facts come from search summaries.",
+        "No ESRI advance estimate or nowcast was found.\nThe Cabinet Office does not publish one.",
+        "I could not verify the last 6 first-release surprises versus consensus.",
+        "Base effect, calendar effects and the BoJ or government forecast were not found.",
+        "The Apr-Jun 2026 figure is inconsistent across sources (1.1%, 1.4%, 1.6%)."
+      ]
+    },
+    "polymarket-6625358": {
+      "against": "Trump's bursts of late-night posting, often many reposts in a row, can push single days past 50 posts.\nThe 2024 average of about 24 per day, or about 173 per week, shows that volume can run well above the 2026 average.\nReposts and quote posts count, and the tracker includes replies that appear on the main feed.",
+      "base_rate": "Averages of about 18 posts per day in 2025 and about 19 per day in early 2026 imply about 126-133 posts per week.\nA 200+ week needs about 28.6 posts per day.\nThat is well above the average and would be an unusually busy week.\nI did not obtain a count of how many past weeks reached 200, so I cannot give that frequency.",
+      "different_now": "The window runs from Nov 6 to Nov 13, 2026, just after the Nov 3 midterm elections.\nPost-election and news-driven weeks can raise volume.\nI found no evidence of the actual pace in this window.",
+      "facts": [
+        {
+          "fact": "Search results (snippets only; the pages could not be opened) report Trump averaged about 19 Truth Social posts per day in 2026, which is about 133 per week, below the 200-post threshold.",
+          "source": 0
+        },
+        {
+          "fact": "NPR, quoted in a search summary, counted 2,249 posts in the first four months of 2026, just under 19 per day.\nThis was not checked against the page.",
+          "source": 0
+        },
+        {
+          "fact": "Roll Call/Factba.se reported about 24 posts per day in 2024, or about 173 per week, with busier spikes around major events.\nThis comes from a snippet only.",
+          "source": 1
+        },
+        {
+          "fact": "The resolution tracker is xtracker.io's Truth Social Post Counter.\nI could not open it because the proxy refused the connection.",
+          "source": 2
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "I could not read the tracker, so the running count for Nov 6-13 is unknown.",
+        "I do not know the weekly distribution, for example how many of the past 52 weeks exceeded 200 posts.",
+        "The 19-per-day figure comes from search snippets, not from a page I opened.",
+        "I did not work through the polling and race-rating checklist items, which do not apply to a post-count question.",
+        "Whether post volume rose after the Nov 3 midterms is unknown."
+      ]
+    },
+    "polymarket-6683300": {
+      "against": "BTC fell about 5% in a day from about $80,200 to about $76,000 and ETF outflows were reported.\nA further decline of about 8% by noon ET on Nov 11 would put the Binance 1-minute close below $70,000.",
+      "base_rate": "Not computed.\nI could not retrieve Binance daily closes, so no reference class count is available.",
+      "different_now": "The last reading I found (about $76,000 on Nov 6) is about 8-9% above the $70,000 threshold.\nPrice was falling and ETF outflows were reported.\nI found no Nov 7-9 price, so the current distance to the threshold is unknown.",
+      "facts": [
+        {
+          "fact": "A search summary of Fortune's daily Bitcoin price page for 2026-11-06 gave a morning price of about $76,024.\nI could not open the page, so this is unverified.",
+          "source": 0
+        },
+        {
+          "fact": "The same summary of Fortune's 2026-11-05 page gave about $80,221, so BTC fell roughly 5% in one day.\nThis is also unverified.",
+          "source": 0
+        },
+        {
+          "fact": "A search summary said U.S.\nspot Bitcoin and Ether ETFs had about $530M of combined net outflows around 2026-11-06.\nI could not confirm the date or the figure on the page, which may be from 2025.",
+          "source": 1
+        }
+      ],
+      "passes_done": [
+        "combined"
+      ],
+      "uncertainties": [
+        "No Binance BTC/USDT price from Nov 7-9 was obtained; the Binance API and direct fetches were blocked by the proxy.",
+        "The 30-day daily volatility could not be computed.",
+        "The Fortune $76,024 and $80,221 figures come from search summaries and are unverified.",
+        "No scheduled event inside the window to Nov 11 noon ET was found.",
+        "The window is a single 1-minute candle at 12:00 ET on Nov 11, so the highest and lowest prices inside it are not applicable."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "grok-4.7-medium",
+  "model_family": "grok",
+  "passes": 1,
+  "provider": "cursor",
+  "researched_at": "2026-11-09T12:40:53+00:00",
+  "researched_by": {
+    "polymarket-3681004": "claude-sonnet",
+    "polymarket-6625358": "claude-sonnet",
+    "polymarket-6683300": "claude-sonnet"
+  },
+  "runs": 4,
+  "seconds": {
+    "polymarket-3681004": 65.2,
+    "polymarket-6625358": 31.8,
+    "polymarket-6625371": 25.4,
+    "polymarket-6683300": 38.5
+  },
+  "sources": {
+    "polymarket-3681004": [
+      {
+        "primary": false,
+        "published": "2026-11-06",
+        "quotes": [],
+        "text": "Japan Q3 GDP Growth Seen Slowing to 0.3%\nJapan\u2019s economy is forecast to have grown at an annualized 0.3% in July-September, down from 1.4% in the previous quarter, as weaker consumption and external demand offset a rebound in capital spending.\nThe estimate comes from a poll of 16 economists.\nThe government\u2019s preliminary GDP figures will provide the first official reading of the quarter.\nTOKYO \u2014 Japan Q3 GDP growth is forecast at an annualized 0.3% for July-September, according to the median estimate in a poll of 16 economists, as weaker consumption and external demand offset a recovery in capital spending.\nThe projection marks a slowdown from the 1.4% expansion in April-June.\nGrowth would still extend Japan\u2019s run of quarterly increases to a fourth consecutive quarter.\nWithout annualization, economists put the quarter\u2019s growth rate at 0.1%.\nThe forecast points to a split in the economy: business investment is expected to recover, while household spending and trade pull in the opposite direction.\nPrivate consumption accounts for more than half of Japan\u2019s GDP, making its expected decline a substantial drag on the overall estimate.\nWhat is weighing on Japan Q3 GDP growth?\nPrivate consumption is forecast to have fallen 0.2% in July-September, which would be its first contraction in seven quarters.\nThe expected decline reflects weakness across some categories of household spending, despite firm service consumption.\nAnalysts at SMBC Nikko Securities said in a note: \u201cService consumption was firm in July-September ...\nbut durable goods consumption contracted due to policy-related factors, while non-durable goods consumption was weak because of the negative impact of rising inflation.\u201d\nThat mix matters for the growth outlook because household consumption represents more than half of Japan\u2019s economic output.\nThe forecast suggests consumer spending could reduce growth even as companies increase investment.\nRising inflation was identified by the analysts as a factor weighing on purchases of non-durable goods.\nInvestment rebounds as external demand turns negative\nCapital expenditure is expected to have grown 1.5%, reversing the previous quarter\u2019s 0.9% decline.\nThe recovery in spending by businesses offers some support, but the poll\u2019s overall estimate remains modest because consumption and net external demand are forecast to weaken.\nNet external demand, which measures exports minus imports, is expected to subtract 0.4 percentage points from GDP growth.\nIt added 0.5 percentage points in the previous quarter.\nAnalysts said external demand likely turned negative as imports rose, reflecting progress in alternative crude oil procurement.\nThe shift in trade\u2019s contribution means higher imports are expected to weigh on the growth calculation.\nAt the same time, the analysts linked the increase to progress in securing crude oil through alternative procurement.\nThe poll therefore describes a quarter in which investment improved, but that support was offset by softer domestic spending and a negative contribution from external demand.\nThe growth reading will also be among the factors considered by the Bank of Japan when it decides whether to raise interest rates further.\nMany analysts expect the next rate hike as soon as next month, making the coming GDP figures relevant to the policy debate as well as the assessment of household and business activity.\nThe government will release preliminary third-quarter GDP data at 8:50 a.m.\nThe official figures will show how the July-September estimate compares with the poll\u2019s forecast of 0.3% annualized growth.",
+        "title": "Japan Q3 GDP growth forecast",
+        "url": "https://journalarta.com/en/2026/11/06/japan-q3-gdp-growth-forecast/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "Real GDP Growth Outlook for Q3 2026 Revised Down to 0.08%\n2026/10/14\nProfessional forecasters (37 forecasters surveyed) in Japan expect real GDP to grow at an annual rate of 0.08% last quarter, a downward revision from the previous survey.\nGrowth is projected to rise to 0.73% this quarter and further to 1.78% in Q2 2027, before slowing to 0.92% in Q1 2028.\n2026\nThe ESP Forecast Survey team conducted its annual forecast accuracy evaluation, and has announced the top performing forecasters for their FY2025 forecasts.\n2025\n-\n-\n-\nFY2024 Forecast Accuracy Evaluation (10 October 2025)\nThe ESP Forecast Survey team conducted its annual forecast accuracy evaluation, and has announced the top performing forecasters for their FY2024 forecasts.\n-\nFY2024 Forecast Accuracy Evaluation (10 October 2025)\n-\n-\nJCER ESP Forecast\nESP Forecast is a monthly survey on the outlook of Japan's economy.\nAround 40 leading forecasters from private institutes in Japan participate in this survey.\nJCER conducts the survey since April 2012.",
+        "title": "Real GDP Growth Outlook for Q3 2026 Revised Up to 0.25%",
+        "url": "https://www.jcer.or.jp/en/esp-forecast-top/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-09",
+        "quotes": [],
+        "text": "Japan Forecast to See \"Zero Growth\" in Q3...\nDownward Pressure from Surging Crude Oil Imports\nNikkei Survey of 10 Private Sector Economists\nExperts predict that Japan's economy will effectively experience 'zero growth' in the third quarter.\nAccording to a survey conducted by Nikkei on the 9th with ten private-sector economists, Japan's Gross Domestic Product (GDP) for the third quarter of this year (July to September), when adjusted for inflation, is expected to remain flat, both quarter-on-quarter and on an annualized basis.\nThis survey follows the previous day's upward revision of preliminary figures by the Japanese Cabinet Office.\nThe Cabinet Office raised the second quarter real GDP growth rate, initially reported as 0.3%, to 0.4%.\nOn an annualized basis, the figure was revised from 1.1% (preliminary) to 1.4%.\nOn Friday the 4th, a citizen stands in front of an electronic billboard of a securities firm in Tokyo.\nTokyo (Japan) = AP Yonhap News.\nView original image\nBased on this recent revision, the economists\u2019 forecasts for third-quarter growth, on an annualized basis, ranged from an increase of 0.4% to a decrease of 1.1%.\nHowever, according to their average estimate, Japan\u2019s economic growth is expected to hover near zero percent, effectively indicating zero growth.\nNikkei identified the main reason as increased imports resulting from alternative crude oil procurement.\nIn the second quarter, instability in the Middle East disrupted the Strait of Hormuz, leading to unstable crude oil supply.\nExperts analyzed that this had a temporary positive effect on GDP.\nDuring this period, imports decreased by 1.7%.\nHowever, Nikkei explained that the Japanese government\u2019s efforts to secure alternative supplies, due to factors such as a shortage of naphtha, have recently led to a recovery in crude oil import volumes.\nAccording to preliminary statistics on oil imports, Japan\u2019s crude oil imports in July increased by 17% compared to the same month the previous year.\nAs a result, experts predict that imports will increase by 2.0% quarter-on-quarter.\nHot Picks Today\n\"Two Spend 500,000 Won in a Flash, Yet Wait Two Hours?\" ...\n'Dreamland' Shunned by Kids and Foreign Tourists\n- The Era of Getting 200 Million Won After 30 Years Is Over...\nA Japanese Bank's \"Perpetual Department Head\" Who Just Clocked In Cries Out\n- Spain Hit by Its Worst Tragedy...\nLee Kangin, Moreno and Real Madrid Join Soccer World in Mourning\n- They Said, \u201cMake It Your Home for Life\u201d - Then Suddenly Kicked 200 Passengers Off...\nWhat Happened to the Around-the-World Cruise?\n- \"130 Rice Bowls Sold Out in a Day\"...\n'Unfiltered Face' Adds 8 Million Won to Night Market Sales: China's Bungeunwoo\nIn addition, the sluggish recovery in consumer spending, which drives domestic demand, has also been cited as a cause.\nAlthough real wages have maintained year-over-year growth, rising prices for food and beverages as well as electricity and gas fees in the autumn are expected to act as a drag on the recovery of consumption.\nTakayuki Miyajima, a senior economist at Sony Financial Group, told the Nikkei, \u201cEven if the actual income environment improves, it will likely be difficult to translate that into consumer spending.\u201d\n\u00a9 The Asia Business Daily.\nAll rights reserved.\nUnauthorized AI training and use prohibited.",
+        "title": "Japan Forecast to See \"Zero Growth\" in Q3",
+        "url": "https://view.asiae.co.kr/en/article/2026090914565446058",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-03",
+        "quotes": [],
+        "text": "Tokyo, Sept.\n3 (Jiji Press)\u2013The annualized growth rate of Japan\u2019s real gross domestic product for April-June is expected to be revised up to 1.6 pct, according to the average forecast of 10 private think tanks.\nThe figure is higher than the 1.1 pct rise reported in a preliminary report released by the Cabinet Office last month.\nThe upward revision is seen to be driven mainly by stronger private capital investment.\nQuarter on quarter, the 10 firms expect the April-June GDP to have grown 0.4 pct on average, up from the preliminary reading of 0.3 pct.\nThe government agency will release the revised April-June GDP data next Tuesday.\nAccording to the Finance Ministry\u2019s corporate activity survey report released on Tuesday, capital investment in the first quarter of fiscal 2026 increased mainly in nonmanufacturing industries.\nAcross all industries, excluding financial and insurance firms, capital investment climbed 1.6 pct year on year.\nBased on these data, the 10 institutes forecast capital investment in the revised GDP data will show a 0.8 pct decline from the previous quarter, an improvement from the 1.2 pct decrease reported in the preliminary report.\nFor the July-September period, higher crude oil prices resulting from tensions in the Middle East are likely to be passed on to consumers through retail prices, putting downward pressure on consumption.\nEven so, substantial wage hikes are expected to support household purchasing power.\nCapital investment is also likely to remain resilient, supported by labor-saving investments to address labor shortages and solid demand related to artificial intelligence and semiconductors.\nKazutaka Maeda, an economist at Meiji Yasuda Research Institute Inc., said the Japanese economy is expected to \u201ccontinue recovering, albeit at a moderate pace.\u201d END [Copyright The Jiji Press, Ltd.]",
+        "title": "Japan April-June GDP Growth Seen Revised Up to Annualized 1.6 Pct",
+        "url": "https://english.adnkronos.com/2026/09/03/japan-april-june-gdp-growth-seen-revised-up-to-annualized-1-6-pct/",
+        "verified": null
+      }
+    ],
+    "polymarket-6625358": [
+      {
+        "checked_via": "archive",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "snapshot": "https://web.archive.org/web/20260627210225id_/https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
+        "text": "Trump Has Averaged a Whopping 19 Truth Social Posts a Day in 2026: Report\nA report published by the Financial Times this week found that President Donald Trump has averaged a whopping 19 Truth Social posts a day so far in 2026.\nThe Financial Times found that Trump has made more than 2,700 posts on his social media platform this year, or an average of 19 posts per day, with nearly half featuring videos or images.\n\u201cAt least 75 of those appear to have been generated using AI, according to an FT analysis of his feed, using a conservative methodology that is likely to undercount the true number,\u201d the newspaper reported.\n\u201cBut 57 of those posts came in just the first three weeks of May, compared with eight for all of April.\u201d\nThe number was reported in a Financial Times report titled, \u201cHow AI turbocharged Donald Trump\u2019s \u2018slopaganda\u2019 machine,\u201d which explored the president\u2019s recent obsession with AI-generated images.\nOn Sunday, Trump posted an AI-generated image of himself launching missiles at the Earth from space.\nLast week, the president also went on an AI-generated image spree, posting images of former presidents Barack Obama and Joe Biden bathing in sewage; Illinois Gov.\nJB Pritzker eating a feast of cheeseburgers, pizza, fried chicken; a representation of House Minority Leader Hakeem Jeffries\u2019s (D-NY) district as a slum; and a $100 note with his own face and name on the front.\nIn the past few months alone, Trump also found himself in hot water on several occasions after posting AI-generated content that offended social media users on both the left and right.\nIn February, Trump deleted an AI-generated video that depicted Obama and former First Lady Michelle Obama as apes after receiving heavy backlash.\nLast month, the president sparked outrage among his own supporters after he posted an AI-generated image of himself as Jesus Christ healing a sick man.\nTrump also shocked social media users in October after he posted an AI-generated video of himself dropping feces on protesters in New York City from a fighter jet.\nTrump praised AI while speaking to reporters outside Air Force One this week, hailing the \u201camazing\u201d technology.\nNew: The Mediaite One-Sheet \"Newsletter of Newsletters\"\nYour daily summary and analysis of what the many, many media newsletters are saying and reporting.\nSubscribe now!\nComments\n\u2193 Scroll down for comments \u2193",
+        "title": "Trump Has Averaged a Whopping 19 Truth Social Posts a Day in 2026: Report",
+        "url": "https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2024-10-02",
+        "quotes": [],
+        "text": "Trump averages more than 24 Truth Social posts a day and he was even busier during the VP debate\nA new Roll Call Factba.se analysis found former president Trump posted on his social media site nearly 9,000 times in 2024.\nANALYSIS \u2014 Former President Donald Trump made 42 rapid-fire posts on Truth Social during the roughly 90-minute vice presidential debate Tuesday, revealing his immediate reactions to what was likely the last national ticket debate before Election Day.\nTrump posted often in all caps praising Sen.\nJD Vance, R-Ohio, and calling out Governor Tim Walz for his mistakes.\n\u201cJD is doing GREAT \u2013 A different level of Intelligence from Tampon Tim!,\u201d Trump said in one play-by-play post of the debate.\nTrump\u2019s social media footprint has given the public a look into his innermost thoughts since he launched his first Republican presidential campaign in June 2015.\nNow, Truth Social has become his most used platform, where the former president calls out his enemies, makes major campaign announcements (think, no new debate with Vice President Kamala Harris), and promotes his businesses.\nTrump has averaged more than 24 posts a day on Truth Social in 2024 through Oct.\n1.\nThat\u2019s nearly 173 posts a week on average, totaling 8,989 posts so far this year (including deleted posts) on the social media platform, according to data from Roll Call Factba.se.\n(See methodology note.)\nScroll further down on Trump\u2019s Truth Social feed and you can see an ad for gold and diamond-encrusted Trump watches, a post calling out his hate for Taylor Swift, and inappropriate sexual remarks about Vice President Harris.\nThe former president\u2019s social media platform was created in February 2022 after his suspension from Twitter because of his tweets about Jan.\n6, 2021, and the insurrection at the Capitol.\nTrump\u2019s most active month on Truth Social was January 2024, with 1,364 posts.\nIt was also the month when a New York jury ordered Trump to pay millions in damages to E.\nJean Carroll for defamatory statements Trump made against her after she accused him of sexual assault.\nThe Iowa caucuses were also held in January.\nHis second most active month came during August 2024, with 1,153 posts, followed by August 2023 with 1,109 posts.\nAugust last year marked the month when Trump surrendered himself after being charged for efforts to overturn 2020 election results in Georgia.\nAugust 2023 also marked Trump\u2019s brief return to X, formerly Twitter, with a post featuring his mugshot.\nTrump\u2019s busiest day on Truth Social was Jan.\n4, 2024, with 120 posts ranging from comments on E.\nJean Carroll to links to right-leaning news stories.\nHis second busiest day came on May 26, 2024, with 104 \u201ctruths.\u201d\nTrump has posted more than 23,000 times on Truth Social since his first post on the platform on Valentine\u2019s Day, 2022.\nNearly half of Trump\u2019s truth posts contain photos or videos and nearly 16 percent only contain photos or videos.\nMemes and graphics made by anonymous accounts with names such as @catturd2 also regularly make up Trump\u2019s feed.\nMost mentioned accounts on Trump\u2019s feed\nTrump talks about himself a lot, so it\u2019s no surprise his most mentioned account (including mentions and re-posts) is his own @realDonaldTrump, with over 2,250 mentions.\nSince the inception of his Truth Social account, his second most mentioned account is @GodandCountryy, with 260 mentions.\nIt\u2019s an account with more than 98,000 followers with a bio that reads, \u201cAmerican Patriot.\nFighting for We The People.\nReTruthed by President Donald Trump.\u201d Scrolling the account\u2019s feed, it appears to be made up of Trump-centric pictures and memes along with re-posts of right-leaning accounts on the platform.\nTrump has only re-posted that account once this year.\nIn 2024, after himself, Real America\u2019s Voice, Right Side Broadcasting Network (RSBN), NewsMax, Rumble, and OAN make up his top mentioned usernames on his feed.\nAll of them are right-leaning news sites.\nTrump has 7.82 million followers on Truth Social, compared to 91.2 million followers on his X account.\nHe returned to X again in August of this year when owner Elon Musk hosted an X Spaces conversation with the Republican nominee.\nHowever, Truth Social remains his dominant way to communicate what he\u2019s thinking online.\nAs the former president\u2019s travel and appearances become more restricted after two assassination attempts on his life, Trump\u2019s Truth Social\u2019s presence is the opposite \u2014 unrestricted.\nThe platform is a place to get a closer look at the candidate\u2019s focus each day as he tries to get back into the White House.\nYou can view all of the data we used for the analysis of Trump\u2019s Truth Social numbers in this spreadsheet.\nRoll Call Factba.se will soon have Trump\u2019s social media archive from Twitter and Truth Social online.\nMethodology Note: Roll Call Factba.se automatically monitors Trump\u2019s Truth Social and Twitter accounts and checks the Internet Archive to get the numbers of his social media posts, including deleted posts.\nAlex Angle is a Roll Call Factba.se presidential campaign research fellow.",
+        "title": "Trump averages more than 24 Truth Social posts a day and he was even busier during the VP debate",
+        "url": "https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "xtracker.io Truth Social Post Counter (resolution tracker)",
+        "url": "https://www.xtracker.io/?platform=TRUTH_SOCIAL",
+        "verified": null
+      }
+    ],
+    "polymarket-6683300": [
+      {
+        "primary": false,
+        "published": "2026-11-06",
+        "quotes": [],
+        "text": "At 7:15 a.m.\nEastern Time today, the market price for a single Bitcoin (BTC) is $76,023.87.\nThat\u2019s a $4,197.53 drop from where it was trading yesterday morning and about $25,325 lower than it was one year ago.\nWhat is Bitcoin?\nBitcoin is widely recognized as the pioneering cryptocurrency and continues to hold the top spot in terms of name recognition and market size.\nIts market capitalization is roughly $1.33 trillion, putting it far ahead of second-place Ethereum with about $233 billion in market cap.\nAt a basic level, Bitcoin functions as a decentralized digital currency.\nInstead of relying on a central authority like a bank or government, it runs on a peer-to-peer network of computers.\nThis design lets people transfer value straight to others without using a traditional financial intermediary.\nMany investors turn to Bitcoin as a potential hedge against inflation in the U.S.\ndollar or as a way to branch out beyond conventional investments.\nOver the past decade, it has posted stunning gains, often outperforming major stock indexes, which has played a big role in its popularity.\nAt the same time, Bitcoin shares a key trait with other cryptocurrencies\u2014it can be extremely volatile, with frequent and sometimes dramatic price changes.\nBitcoin price history\nSince it was introduced in 2009, Bitcoin has been highly volatile and often headline-grabbing.\nOne early milestone in its history involves developer Laszlo Hanyecz, who famously spent 10,000 Bitcoins on pizza.\nToday, those coins would be valued at more than 668 million dollars.\nOver the last decade or so, Bitcoin\u2019s price has climbed more than 15,000%.\nThis tremendous growth comes with a trade-off, as cryptocurrencies are known for their unpredictability.\nBitcoin has undergone severe pullbacks\u2014sometimes dropping tens of thousands of dollars within months\u2014as well as dramatic recoveries.\nAt the close of 2025, it was trading roughly 30% below the all-time high it hit that very October.\nWhat affects Bitcoin\u2019s price?\nSeveral different dynamics can move Bitcoin\u2019s price up or down, including:\n- Investor speculation: Like many speculative assets, Bitcoin\u2019s short-term price is heavily driven by trader psychology and buzz.\nIn the near term, prices usually reflect investor beliefs and trading activity more than anything else.\n- Adoption by major companies: When large corporations embrace Bitcoin or broader crypto technology, it can help support further growth.\nFor example, Bitcoin\u2019s price rose after companies such as Tesla and Ferrari announced plans to accept Bitcoin as a payment option.\n- Economy: Bitcoin doesn\u2019t track inflation figures or central bank decisions in the same way many traditional investments do.\nStill, it often benefits when the U.S.\neconomy is strong, because people who feel financially secure may be more willing to allocate money to alternative assets that are a bit riskier\u2014like crypto.\n- Regulatory developments: As a relatively young asset class, cryptocurrency is still in the process of being fully regulated.\nNew rules or enforcement actions can either instill confidence or create fear.\nBoth cases can significantly affect Bitcoin\u2019s price.\nHow to buy and invest in Bitcoin\nIf you\u2019ve decided to invest in Bitcoin, there are multiple ways to do it.\nHere are some of the main options.\nBuy Bitcoin on a cryptocurrency exchange\nThe most straightforward route is to buy Bitcoin directly.\nYou set up an account with a crypto exchange, connect it to your bank, and then use your deposited cash to buy Bitcoin.\nInvest in Bitcoin ETFs\nFor those who prefer a more traditional investment vehicle, Bitcoin exchange-traded funds are an alternative.\nA Bitcoin ETF holds Bitcoin on behalf of its shareholders, and its shares trade on standard stock exchanges.\nThis option lets you skip the process of managing your own crypto wallet and can reduce the risk of losing access to your funds because of a password mistake or wallet issue.\nBuy crypto stocks\nInvestors who don\u2019t want to buy Bitcoin directly can also consider stocks of companies in the crypto space.\nThese might include tech companies that support blockchain technology, public crypto exchanges, even payment processors.\nBecause these companies may earn revenue from Bitcoin-related activity, their share prices can offer indirect exposure to Bitcoin\u2019s performance.\nOpen a Bitcoin IRA\nFor retirement-focused investing, a Bitcoin IRA is another great option.\nLike a standard IRA, it\u2019s a tax-advantaged account with similar contribution limits and tax rules, but it lets you allocate some of your retirement savings to Bitcoin and other cryptocurrencies as alternative investments.\nBitcoin vs.\nother cryptocurrencies\nBitcoin might be the best-known name in crypto, but it is not your only choice.\nWhen weighing where to put your money, you may want to compare it with a few other major coins.\n- Ethereum: Ethereum is currently the second-largest cryptocurrency by market cap.\nUnlike Bitcoin, which was designed mainly as a form of money, Ethereum was built as a decentralized computing platform and is widely used for running applications and smart contracts.\n- Tether: Tether is a stablecoin, meaning that its value is directly tied to another asset\u2014in this instance, the U.S.\ndollar.\nIts peg typically keeps price movements smaller than Bitcoin\u2019s, but that also means there\u2019s less opportunity for outsized growth.\n- XRP: XRP is a digital asset created to make sending money across borders faster and cheaper, focusing specifically on international transfers with low transaction costs.\nCrypto coverage from Fortune\nSee our newsroom\u2019s recent coverage of what\u2019s been happening on the cryptocurrency scene:\n- Apple and Home Depot join list of objectors to tokenized stock plan pushed by NYSE owner\n- Startup Uranium Digital raises $16.5 million to modernize uranium trading\n- Petrovietnam is now betting on LNG, wind, and nuclear\nIs it a good time to invest in Bitcoin?\nWhen compared with long-standing blue-chip names such as Procter & Gamble or Walmart, Bitcoin is still a newcomer.\nThat makes predicting its long-term behavior challenging.\nBut its recent history has been impressive.\nAs more companies start accepting Bitcoin as a payment method, its price may get a further boost, and as the asset matures, it might eventually see somewhat smoother price movements.\nHowever, Bitcoin should not be treated as a sure bet.\nIt\u2019s wise to invest only money you can afford to have tied up and to ensure your broader portfolio is diversified, so other investments can help offset Bitcoin\u2019s volatility.\nFor most people, Bitcoin is better viewed as a long-term, higher-risk holding than as a quick trade.\nIt is not ideal for investors who are uncomfortable watching large price swings.\nBut if you plan to hold it for years and keep it as a piece of a balanced portfolio, investing in Bitcoin could make sense for a portion of your overall strategy.\nFrequently asked questions\nHow much will Bitcoin be worth in 2030?\nWhile the answer is obviously unknowable, crypto experts are generally optimistic about the short-term success of Bitcoin.\nSome models price it at more than $700,000 by 2030, with conservative estimates closer to $300,000.\nWhat is Bitcoin\u2019s all-time high price?\nAs of this writing, Bitcoin reached its highest price ever on Oct.\n6, 2025, pricing at a whopping $126,198.07.\nCan you buy a fraction of a Bitcoin?\nYes, you can buy a fraction of a Bitcoin.\nMost cryptocurrency exchanges offer fractional investing, meaning you can buy portions of crypto coins.\nThanks to fractional investing, you can invest in Bitcoin with as little as a few dollars.\nHow do I start investing in Bitcoin as a beginner?\nIf you want to invest directly in Bitcoin by owning the currency, you\u2019ll typically open an account with a cryptocurrency exchange.\nOnce the account is created, you can transfer money to your crypto account from your bank and place an order for Bitcoin and other tokens or coins.\nYou can also indirectly invest in Bitcoin via an ETF or a ",
+        "title": "price of bitcoin 11 06 2026 (Fortune)",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-06-2026/",
+        "verified": null
+      },
+      {
+        "download_error": "ReadTimeout: The read operation timed out",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Crypto Market Update: Crypto Outflows Hit US$1.3 Billion for Second Week",
+        "url": "https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week",
+        "verified": null
+      }
+    ]
+  }
+}
