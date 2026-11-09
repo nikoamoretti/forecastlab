@@ -79,7 +79,7 @@ function OverTime({ weeks: all }: { weeks: Week[] }) {
   return <section aria-label="How we've done over time">
     <h3 className="font-serif text-3xl">Over time</h3>
     <p className="mt-3 text-lg font-medium">{summary}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each bar is the share of calls we got right in the week the questions were decided. The dashed line is a coin flip (50%). The copper line is the trend, with busier weeks counting for more.</p>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each bar is the share of calls we got right in the week the questions were decided. The dashed line is a coin flip (50%). The copper line is the trend, with busier weeks counting for more. Under each week: calls right / calls decided.</p>
     <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
       aria-label={`By week: ${weeks.map(wk => `${shortDate(wk.start)} ${pct(hit(wk))} (${wk.right} of ${wk.right + wk.wrong} right)`).join(", ")}. ${summary}`}>
       {[0, 0.25, 0.75, 1].map(t => <g key={t}>
@@ -94,7 +94,7 @@ function OverTime({ weeks: all }: { weeks: Week[] }) {
           <rect x={x(i) - bar / 2} width={bar} y={y(v)} height={y(0) - y(v)} className={v < 0.5 ? "fill-brick/70" : "fill-pine/70"} />
           <text x={x(i)} y={y(v) - 4} textAnchor="middle" className="fill-ink text-[10px] font-medium">{pct(v)}</text>
           <text x={x(i)} y={h - 24} textAnchor="middle" className="fill-ink/70 text-[10px]">{shortDate(wk.start)}</text>
-          <text x={x(i)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.right} of {wk.right + wk.wrong} right</text>
+          <text x={x(i)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.right}/{wk.right + wk.wrong}</text>
         </g>;
       })}
       <line x1={x(0)} x2={x(weeks.length - 1)} y1={y(fit.start)} y2={y(fit.end)} className="stroke-copper" strokeWidth={2.5} strokeLinecap="round" />
