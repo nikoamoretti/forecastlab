@@ -1050,6 +1050,24 @@ def test_the_tally_is_saved_and_the_latest_reading_wins_the_merge(tmp_path: Path
     assert result["findings"]["c1"]["tally"]["value"] == 12e6
 
 
+def test_a_count_question_with_no_tally_read_is_unresearched_and_a_read_one_is_not(tmp_path: Path) -> None:
+    directory = tmp_path / "prospective_markets_20261105"
+    directory.mkdir()
+    count = {**MARKET, "id": "c1", "question": "Will commitments to the 1W public sale exceed $20M?", "topic": "Crypto",
+             "resolution_date": "2026-11-10"}
+    plain = {**MARKET, "id": "q1", "question": "Will the Fed cut rates in December?", "resolution_date": "2026-11-10"}
+    (directory / "forecasts.json").write_text(json.dumps({"questions": [count, plain]}))
+    result = cr.research(directory, lambda text: answer(), "2026-11-05", parallel=1, budget=6, passes=1)
+    assert set(result["findings"]) == {"q1"}  # the question with no readable count gets no findings ...
+    assert result["failed"] == {"c1": cr.live_counts.NO_TALLY} and "c1" not in result["sources"]
+    task = next(t for t in cr.tasks(directory) if t["id"] == "c1")
+    text = cr.digest(result, "c1", task, "2026-11-05")
+    assert text.startswith("No research for this question: SKIP it (no running tally read")  # ... and the digest says why
+    (directory / "research.json").write_text(json.dumps(result))  # asked again next time; read this time, it is kept
+    again = cr.research(directory, lambda text: tally_reply(), "2026-11-05", parallel=1, budget=6, passes=1)
+    assert again["findings"]["c1"]["tally"]["value"] == 12e6 and not again["failed"]
+
+
 def test_digest_opens_a_count_question_with_the_tally_projection_and_needed_rate() -> None:
     data = {"sources": {"c1": []}, "findings": {"c1": {"facts": [], "uncertainties": [], "tally": cr.validate(tally_reply())["tally"]}}}
     lines = cr.digest(data, "c1", count_task(), "2026-11-05").splitlines()

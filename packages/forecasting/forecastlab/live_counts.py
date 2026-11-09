@@ -171,6 +171,14 @@ def fmt(value: float) -> str:
     return f"{value:,.0f}" if abs(value) >= 100 else f"{value:,.2f}".rstrip("0").rstrip(".")
 
 
+NO_TALLY = "no running tally read for a count/total question; not forecast"
+
+
+def needs_tally(found: dict[str, Any], task: dict[str, str], today: str) -> bool:
+    """True for a count/total question whose research did not read the live number: it must not be forecast."""
+    return is_count_question(task, today) and not found.get("tally")
+
+
 def tally_block(found: dict[str, Any], task: dict[str, str], today: str) -> str:
     """The top-of-digest block for a count question: the running tally, a projection, and the rate each threshold needs."""
     tally = found.get("tally")

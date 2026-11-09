@@ -747,6 +747,9 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
         if not parts:
             return Outcome(next(iter(failed.values()), "no evidence"), round(time.monotonic() - started, 1), cost, runs, failed)
         merged = merge(parts)
+        if live_counts.needs_tally(merged, task, today):
+            # A running count that was not read is a blind guess (2-5% on questions that then resolved yes): unresearched.
+            return Outcome(live_counts.NO_TALLY, round(time.monotonic() - started, 1), cost, runs, failed)
         warnings: list[str] = []
         if "rules" in names:  # the primary-source gate
             if primary_count(merged) < MIN_PRIMARY and not limit_hit.is_set():
@@ -820,7 +823,8 @@ def digest(data: dict[str, Any], qid: str, task: dict[str, str] | None = None, t
     sources = data.get("sources", {}).get(qid, [])
     found = data.get("findings", {}).get(qid)
     if not found:
-        return "No research for this question."
+        why = data.get("failed", {}).get(qid)
+        return f"No research for this question: SKIP it ({why})." if why else "No research for this question."
     lines = []
     if task:
         try:
