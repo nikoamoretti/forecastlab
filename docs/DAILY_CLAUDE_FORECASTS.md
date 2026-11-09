@@ -31,6 +31,8 @@ A scheduled Claude Code routine adds forecasts every weekday. From 2026-11-10 th
 
    It also adds up to 10 Manifold questions (`manifold_selection_v3`) from the economics, politics, technology and world topics, under the same window, price band, topic cap and cluster caps. Manifold trades play money, so a market needs at least 15 traders and 1,000 mana traded, and personal markets ("Will I …") are skipped. Its price is a separate benchmark, `manifold_price_v1`, and is not part of our call either. If Manifold can't be reached, the Polymarket questions still run.
 
+   `python scripts/market_questions.py pool` (the "Daily run steps" `pool` step) prints the funnel for both sources without writing anything: markets fetched per tag, markets dropped by each rule (Manifold's window drop is split into closing too soon / too late), the cluster, asset and open-event skips, and what was chosen. On 2026-11-09 it showed Polymarket dropping 1,751 of 1,904 fetched markets on the $10,000 volume rule (8 candidates left, 4 already seen), the daily and topic limits not binding, and Manifold dropping 1,986 of 2,000 fetched on the window.
+
    Forecast `questions.json` as in step 3, reading each question's `resolution_criteria` closely.
    - **Never look up the question's market odds:** not Polymarket, Kalshi, Manifold or any betting site. The market price is the benchmark we try to beat, so it must not leak into our forecast.
    - `market_snapshot.json` holds that price. Don't open it before recording.

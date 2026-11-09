@@ -191,6 +191,16 @@ def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
         "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
 
 
+def test_manifold_funnel_says_which_side_of_the_window_markets_miss() -> None:
+    stats: dict[str, int] = {}
+    assert [c["market_id"] for c in manifold_candidates(NOW, manifold_fetch, stats)] == ["f1", "f7"]
+    assert stats["drop:window_closes_too_soon"] == 1 and "drop:window_closes_too_late" not in stats
+    late = {**MANIFOLD_SEARCH, "world-default": [_manifold("f8", "Will it happen?", 0.5, closes="2026-12-01T00:00:00+00:00")]}
+    stats = {}
+    manifold_candidates(NOW, lambda url: late[url.split("topicSlug=")[1].split("&")[0]] if "search-markets" in url else None, stats)
+    assert stats["drop:window_closes_too_late"] == 1
+
+
 @pytest.mark.parametrize(("market", "expected"), [
     ({"isResolved": True, "resolution": "YES"}, {"status": "resolved", "outcome": 1}),
     ({"isResolved": True, "resolution": "NO"}, {"status": "resolved", "outcome": 0}),
