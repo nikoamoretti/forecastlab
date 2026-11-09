@@ -30,6 +30,9 @@ the S&P 500 ..., named in the title, see ``asset_of``) with resolution dates wit
 each other: several price thresholds on one asset are one bet. Both caps look at the pending
 questions committed under ``artifacts/prospective_markets_*``.
 
+v6 (2026-11-09) takes no market from an event that already has a pending question (same ``market_url``) from an earlier
+day: sibling markets of one event, selected on different days, counted its single outcome many times.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
@@ -54,7 +57,7 @@ from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v5"
+SELECTION_VERSION = "polymarket_selection_v6"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -235,6 +238,11 @@ def _crowded(item: dict[str, Any], held: list[dict[str, Any]]) -> bool:
     return _crowd(item, held) is not None
 
 
+def _event_key(item: dict[str, Any]) -> str:
+    """The event a question belongs to: its market page (a Polymarket event URL), also kept on recorded questions."""
+    return str(item.get("market_url") or item.get("resolution_source") or "")
+
+
 def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
            pending: list[dict[str, Any]] | None = None, stats: Stats | None = None) -> list[dict[str, Any]]:
     """Take topics in turn, the most traded market first within each topic, skipping known ones.
@@ -242,8 +250,10 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
     ``pending`` holds the questions not yet resolved (each with topic, question and closes_at or
     resolution_date); a candidate that would overfill a cluster around them is skipped (see
     ``_crowded``), and so is one that would overfill it together with questions chosen earlier.
+    A candidate whose event (``market_url``) already has a pending question, from an earlier day or chosen
+    earlier in this run, is skipped too: one event's outcome counts once.
     ``stats``, if given, counts the pool, the questions already seen, those left over at the topic and daily
-    limits, those skipped by the cluster and asset caps, and those chosen.
+    limits, those skipped by the event, cluster and asset caps, and those chosen.
     """
     by_topic: dict[str, list[dict[str, Any]]] = {}
     _count(stats, "select:pool", len(pool))
@@ -253,18 +263,23 @@ def select(pool: list[dict[str, Any]], seen: set[str], limit: int = DAILY_LIMIT,
         else:
             _count(stats, "select:already_seen")
     held = list(pending or [])
+    open_events = {_event_key(other) for other in held} - {""}  # events that already have an open question
     taken = dict.fromkeys(by_topic, 0)
     chosen: list[dict[str, Any]] = []
     while len(chosen) < limit and any(by_topic.values()):
         for topic in sorted(by_topic):
             while by_topic[topic] and taken[topic] < TOPIC_LIMIT and len(chosen) < limit:
                 item = by_topic[topic].pop(0)
+                if _event_key(item) and _event_key(item) in open_events:
+                    _count(stats, f"select:event_already_open:{topic}")
+                    continue
                 crowd = _crowd(item, held)
                 if crowd:
                     _count(stats, f"select:{crowd}_cap:{topic}")
                     continue
                 chosen.append(item)
                 held.append(item)
+                open_events.add(_event_key(item))  # "" (no event known) never matches: it is checked above
                 taken[topic] += 1
                 _count(stats, f"select:chosen:{topic}")
                 break
@@ -341,7 +356,8 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 continue
             closes_at = datetime.fromtimestamp(closes / 1000, tz=now.tzinfo)
             if not start <= closes_at <= end:
-                _count(stats, "drop:window")
+                # which side of the window tells whether the 500 fetched per topic reach it at all
+                _count(stats, "drop:window_closes_too_soon" if closes_at < start else "drop:window_closes_too_late")
             elif not MIN_PRICE <= price <= MAX_PRICE:
                 _count(stats, "drop:price_band")
             elif int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS:

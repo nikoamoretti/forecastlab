@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from forecastlab.live_counts import NO_TALLY
 from forecastlab.market_questions import (
     asset_of,
     candidates,
@@ -190,6 +191,16 @@ def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
         "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
 
 
+def test_manifold_funnel_says_which_side_of_the_window_markets_miss() -> None:
+    stats: dict[str, int] = {}
+    assert [c["market_id"] for c in manifold_candidates(NOW, manifold_fetch, stats)] == ["f1", "f7"]
+    assert stats["drop:window_closes_too_soon"] == 1 and "drop:window_closes_too_late" not in stats
+    late = {**MANIFOLD_SEARCH, "world-default": [_manifold("f8", "Will it happen?", 0.5, closes="2026-12-01T00:00:00+00:00")]}
+    stats = {}
+    manifold_candidates(NOW, lambda url: late[url.split("topicSlug=")[1].split("&")[0]] if "search-markets" in url else None, stats)
+    assert stats["drop:window_closes_too_late"] == 1
+
+
 @pytest.mark.parametrize(("market", "expected"), [
     ({"isResolved": True, "resolution": "YES"}, {"status": "resolved", "outcome": 1}),
     ({"isResolved": True, "resolution": "NO"}, {"status": "resolved", "outcome": 0}),
@@ -208,7 +219,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v5+manifold_selection_v3"
+    assert selected["selection"] == "polymarket_selection_v6+manifold_selection_v3"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
@@ -253,6 +264,10 @@ def test_record_skips_questions_without_research(tmp_path: Path, capsys: pytest.
     assert [q["id"] for q in recorded["questions"]] == ids[2:]
     assert recorded["skipped"] == [{"id": ids[0], "reason": "research failed or timed out"}, {"id": ids[1], "reason": "no research"}]
     assert f"skipped {ids[1]} (no research)" in capsys.readouterr().out
+    (directory / "research.json").write_text(json.dumps({"failed": {ids[0]: NO_TALLY}}))
+    script.record(directory, answers, skip={ids[1]}, skip_failed=True)
+    assert json.loads((directory / "forecasts.json").read_text())["skipped"][0] == {
+        "id": ids[0], "reason": "no live tally for a count/total question"}
     with pytest.raises(SystemExit, match="unknown"):
         script.record(directory, answers, skip={"nope"})
     with pytest.raises(SystemExit, match="both skipped and forecast"):
@@ -288,6 +303,36 @@ def test_cluster_cap_counts_questions_chosen_earlier_in_the_run() -> None:
     pending = [_pend("p0", "2026-11-03"), _pend("p1", "2026-11-03")]
     pool = [_cand(f"c{i}", "2026-11-03", volume=100 - i) for i in range(4)] + [_cand("later", "2026-11-12", volume=1)]
     assert [c["id"] for c in select(pool, set(), pending=pending)] == ["c0", "c1", "c2", "later"]
+
+
+def test_an_event_with_an_open_question_from_an_earlier_day_is_not_selected_again() -> None:
+    def cand(i: str, event: str, volume: float) -> dict:
+        return {**_cand(i, "2026-11-12", volume=volume), "market_url": f"https://polymarket.com/event/{event}"}
+
+    pool = [cand("a2", "fed-dec", 900), cand("b", "cpi", 800), cand("c", "gdp", 700)]
+    pending = [{**_pend("a1", "2026-11-12"), "market_url": "https://polymarket.com/event/fed-dec"},  # open: unrecorded day
+               {**_pend("old", "2026-11-12"), "resolution_source": "https://polymarket.com/event/gdp"}]  # recorded question
+    stats: dict[str, int] = {}
+    assert [c["id"] for c in select(pool, set(), pending=pending, stats=stats)] == ["b"]
+    assert stats["select:event_already_open:Politics"] == 2 and stats["select:chosen:Politics"] == 1
+    assert [c["id"] for c in select(pool, set())] == ["a2", "b", "c"]  # nothing open: all three, as before
+    assert [c["id"] for c in select(pool, set(), pending=[_pend("x", "2026-11-12")])] == ["a2", "b", "c"]  # no event on it
+
+
+def test_pending_questions_carry_their_event_and_resolved_ones_free_it(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    one, two = artifacts / "prospective_markets_20261101", artifacts / "prospective_markets_20261102"
+    one.mkdir(parents=True), two.mkdir()
+    done = {"id": "d", "topic": "Economy", "question": "Q?", "resolution_date": "2026-11-05", "outcome": 1,
+            "resolution_source": "https://polymarket.com/event/done"}
+    held = {**done, "id": "h", "outcome": None, "resolution_source": "https://polymarket.com/event/held"}
+    (one / "forecasts.json").write_text(json.dumps({"questions": [done, held]}))
+    (two / "questions.json").write_text(json.dumps({"questions": [
+        {"id": "u", "topic": "Tech", "question": "U?", "closes_at": "2026-11-09T00:00:00Z", "market_url": "https://polymarket.com/event/u"}]}))
+    pending = script.pending_questions(artifacts)
+    assert {q["id"] for q in pending} == {"h", "u"}
+    pool = [{**_cand(i, "2026-11-12"), "market_url": f"https://polymarket.com/event/{i}"} for i in ("done", "held", "u", "fresh")]
+    assert [c["id"] for c in select(pool, set(), pending=pending)] == ["done", "fresh"]  # a resolved event may come back
 
 
 def test_asset_of_names_the_asset_in_the_title() -> None:

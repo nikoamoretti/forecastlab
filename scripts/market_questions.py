@@ -36,6 +36,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
 
+from forecastlab.live_counts import NO_TALLY  # noqa: E402
 from forecastlab.market_questions import (  # noqa: E402
     DAILY_LIMIT,
     MANIFOLD_DAILY_LIMIT,
@@ -71,7 +72,8 @@ def known_ids(artifacts: Path) -> set[str]:
 
 def pending_questions(artifacts: Path) -> list[dict[str, Any]]:
     """Questions not yet resolved: recorded ones without an outcome (and not cancelled), plus the
-    questions of a day whose forecasts are not recorded yet. Skipped questions are not tracked."""
+    questions of a day whose forecasts are not recorded yet. Skipped questions are not tracked. Each carries its
+    event (``market_url``, or ``resolution_source`` once recorded) so selection can avoid re-picking an open event."""
     pending: list[dict[str, Any]] = []
     for directory in sorted(artifacts.glob("prospective_markets_*")):
         recorded, selected = directory / "forecasts.json", directory / "questions.json"
@@ -79,7 +81,8 @@ def pending_questions(artifacts: Path) -> list[dict[str, Any]]:
             pending += [q for q in json.loads(recorded.read_text())["questions"]
                         if q.get("outcome") is None and not q.get("cancelled")]
         elif selected.exists():
-            pending += [{"id": q["id"], "topic": q["topic"], "question": q["question"], "resolution_date": q["closes_at"][:10]}
+            pending += [{"id": q["id"], "topic": q["topic"], "question": q["question"], "resolution_date": q["closes_at"][:10],
+                            "market_url": q.get("market_url")}
                         for q in json.loads(selected.read_text())["questions"]]
     return pending
 
@@ -161,7 +164,9 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
         research = directory / "research.json"
         failed = json.loads(research.read_text()).get("failed", {}) if research.exists() else {}
         for identifier in failed:
-            skipped.setdefault(identifier, "research failed or timed out")
+            no_tally = isinstance(failed, dict) and failed[identifier] == NO_TALLY
+            skipped.setdefault(identifier, "no live tally for a count/total question" if no_tally
+                               else "research failed or timed out")
     if set(skipped) - set(questions):
         raise SystemExit(f"cannot skip unknown questions: {sorted(set(skipped) - set(questions))}")
     if set(skipped) & set(forecasts):
