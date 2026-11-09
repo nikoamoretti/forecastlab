@@ -103,7 +103,7 @@
       "wrong": 47
     },
     {
-      "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
+      "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
       "brier": 0.21748870967741937,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
@@ -175,7 +175,7 @@
       "wrong": 13
     },
     {
-      "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
+      "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
       "brier": 0.1210902102235,
       "coin_flip_brier": 0.25,
       "forecasts": 37,
@@ -16863,6 +16863,10 @@
         {
           "date": "2026-11-09",
           "label": "Deeper research"
+        },
+        {
+          "date": "2026-11-10",
+          "label": "Call back to Claude's own forecast"
         }
       ],
       "since_last_change": {

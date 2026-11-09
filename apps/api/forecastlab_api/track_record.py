@@ -33,6 +33,11 @@ call. Questions first forecast on or after CORRECTED_CALL_FROM use it as our cal
 (``claude_corrected_call_v1``): on 2026-11-05, over 168 decided questions, Claude's forecasts averaged
 42% yes while 53% resolved yes, and a correction fitted only on results known before each forecast
 day would have scored 0.195 against 0.210 for Claude as stated, on the 137 questions it could cover.
+That gain did not hold out of sample: a forward-walk test on 2026-11-09 scored Claude as stated 0.2135 and the
+corrected forecast 0.2252 on 109 questions (difference +0.0117, 95% interval +0.0009 to +0.0206). Questions first
+forecast on or after RAW_AGAIN_FROM (2026-11-10) use ``claude_call_v1`` again. The corrected value is still computed
+and frozen in ``calibrated.json`` as a shadow forecast, so the two can be compared later. Calls frozen for
+2026-11-06 to 2026-11-09 keep ``claude_corrected_call_v1``.
 
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
@@ -67,6 +72,8 @@ CLAUDE_CALL = "claude_call_v1"
 CLAUDE_CALL_FROM = date(2026, 11, 5)
 CORRECTED_CALL = "claude_corrected_call_v1"
 CORRECTED_CALL_FROM = date(2026, 11, 6)
+# Back to Claude's own forecast: the forward-walk test of 2026-11-09 found the correction worse out of sample.
+RAW_AGAIN_FROM = date(2026, 11, 10)
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
@@ -77,6 +84,7 @@ CHANGES = (
     {"date": WEIGHTED_FROM, "label": "Weighted by track record"},
     {"date": CORRECTED_CALL_FROM, "label": "Confidence correction"},
     {"date": DEEPER_RESEARCH_FROM, "label": "Deeper research"},
+    {"date": RAW_AGAIN_FROM, "label": "Call back to Claude's own forecast"},
 )
 # "Before / after" splits forecasts made on or after this day against earlier ones.
 PROGRESS_SPLIT = CORRECTED_CALL_FROM
@@ -122,7 +130,7 @@ FORECASTERS: dict[str, dict[str, str]] = {
     CALIBRATED: {
         "label": "Claude, confidence-corrected",
         "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. "
-                 "Our call from 2026-11-06."},
+                 "Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
         "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
@@ -458,7 +466,8 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = _call(question["forecasts"])
         else:
             calls = frozen[question["source"]]
-            pick = (_corrected_call if day >= CORRECTED_CALL_FROM
+            pick = (_claude_call if day >= RAW_AGAIN_FROM
+                    else _corrected_call if day >= CORRECTED_CALL_FROM
                     else _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call)
             if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
                 calls[question["id"]] = fresh
