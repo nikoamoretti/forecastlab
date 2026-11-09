@@ -356,7 +356,8 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 continue
             closes_at = datetime.fromtimestamp(closes / 1000, tz=now.tzinfo)
             if not start <= closes_at <= end:
-                _count(stats, "drop:window")
+                # which side of the window tells whether the 500 fetched per topic reach it at all
+                _count(stats, "drop:window_closes_too_soon" if closes_at < start else "drop:window_closes_too_late")
             elif not MIN_PRICE <= price <= MAX_PRICE:
                 _count(stats, "drop:price_band")
             elif int(market.get("uniqueBettorCount") or 0) < MANIFOLD_MIN_BETTORS:
