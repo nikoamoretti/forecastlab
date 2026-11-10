@@ -69,7 +69,25 @@ DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 # prompt -> the agent's reply text, or the text and what the run cost in USD when the agent reports it
 Agent = Callable[[str], Union[str, Tuple[str, Optional[float]]]]  # noqa: UP006, UP007, UP045 -- Python 3.9
 # An agent error that will repeat for every question until the allowance resets, so the run stops asking.
-LIMIT_REACHED = re.compile(r"usage limit|limit reached|rate limit|quota", re.IGNORECASE)
+# "quota" is a whole word: the agents' own instructions say "quotation marks".
+LIMIT_REACHED = re.compile(r"usage limit|limit reached|rate limit|\bquotas?\b", re.IGNORECASE)
+
+
+def limit_reached(error: BaseException) -> bool:
+    """True when ``error`` says the research model's allowance is used up. A run that timed out never does."""
+    return (not isinstance(error, (TimeoutError, subprocess.TimeoutExpired))
+            and LIMIT_REACHED.search(str(error)) is not None)
+
+
+def failure_reason(error: BaseException) -> str:
+    """What research.json keeps about a failed pass: the error's type and text, cut to 300 characters.
+
+    subprocess's own timeout error is the exception: its text is the whole command line (local paths and the
+    system prompt), so only how long the run was given is kept.
+    """
+    if isinstance(error, subprocess.TimeoutExpired):
+        return f"TimeoutError: timed out after {error.timeout:g} seconds"
+    return f"{type(error).__name__}: {error}"[:300]
 
 
 @dataclass(frozen=True)
@@ -595,21 +613,30 @@ def primary_count(found: dict[str, Any]) -> int:
     return sum(is_primary(s, settling) for s in found["sources"])
 
 
-CURSOR_TRIES = 2
+TIMEOUT_TRIES = 2
+
+
+def run_agent(name: str, command: list[str], timeout_s: int, stdin: str | None = None) -> subprocess.CompletedProcess[str]:
+    """Run a headless agent in an empty folder. A run that times out is tried once more before it counts as failed.
+
+    The second timeout is raised as a plain TimeoutError. subprocess's own error carries the whole command line,
+    which research.json would keep and which the usage-limit check would read: on 2026-11-10 the "quotation
+    marks" in the Claude instructions matched "quota", so one timed-out run stopped the rest of the day's research.
+    """
+    for _ in range(TIMEOUT_TRIES):
+        try:
+            with tempfile.TemporaryDirectory() as folder:
+                return subprocess.run(command, input=stdin, cwd=folder, capture_output=True, text=True, timeout=timeout_s)
+        except subprocess.TimeoutExpired:
+            continue
+    raise TimeoutError(f"{name} timed out after {timeout_s} seconds, {TIMEOUT_TRIES} times in a row")
 
 
 def cursor_agent(model: str, timeout_s: int, binary: str = "cursor-agent") -> Agent:
     """A headless cursor-agent run in an empty folder; --force lets its search and fetch tools run."""
     def run(text: str) -> str:
-        for attempt in range(CURSOR_TRIES):  # a run that times out is tried once more before it counts as failed
-            try:
-                with tempfile.TemporaryDirectory() as folder:
-                    done = subprocess.run([binary, "-p", "--trust", "--force", "--mode", "ask", "--model", model, text],
-                                          cwd=folder, capture_output=True, text=True, timeout=timeout_s)
-                break
-            except subprocess.TimeoutExpired:
-                if attempt == CURSOR_TRIES - 1:
-                    raise
+        done = run_agent("cursor-agent", [binary, "-p", "--trust", "--force", "--mode", "ask", "--model", model, text],
+                         timeout_s)
         if done.returncode != 0:
             raise RuntimeError(f"cursor-agent exited {done.returncode}: {done.stderr.strip()[-300:]}")
         return done.stdout
@@ -632,10 +659,9 @@ CLAUDE_TOOL_NOTES = (
 def claude_agent(model: str, timeout_s: int, binary: str = "claude") -> Agent:
     """A headless Claude Code run in an empty folder, allowed only its web search and fetch tools."""
     def run(text: str) -> str | tuple[str, float | None]:
-        with tempfile.TemporaryDirectory() as folder:
-            done = subprocess.run([binary, "-p", "--model", model, "--effort", "low", "--output-format", "json",
-                                   "--append-system-prompt", CLAUDE_TOOL_NOTES, "--allowedTools", "WebSearch", "WebFetch"],
-                                  input=text, cwd=folder, capture_output=True, text=True, timeout=timeout_s)
+        done = run_agent("claude", [binary, "-p", "--model", model, "--effort", "low", "--output-format", "json",
+                                    "--append-system-prompt", CLAUDE_TOOL_NOTES, "--allowedTools", "WebSearch", "WebFetch"],
+                         timeout_s, stdin=text)
         if done.returncode != 0:
             raise RuntimeError(f"claude exited {done.returncode}: {(done.stderr or done.stdout).strip()[-300:]}")
         try:  # the JSON envelope carries the reply and what the run cost
@@ -729,9 +755,9 @@ def research(directory: Path, agent: Agent, today: str, *, parallel: int, budget
                 parts[name] = validate(reply, **need)
                 return True
             except Exception as error:  # a failed question is skipped, never the run
-                if LIMIT_REACHED.search(str(error)):
+                if limit_reached(error):
                     limit_hit.set()
-                failed[name] = f"{type(error).__name__}: {error}"[:300]
+                failed[name] = failure_reason(error)
                 return False
 
         for number, name in enumerate(names, 1):
