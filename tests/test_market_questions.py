@@ -444,3 +444,149 @@ def test_manifold_funnel_shows_whether_the_fetch_reaches_the_window() -> None:
     stats = {}
     manifold_candidates(NOW, lambda url: rows if "search-markets" in url else None, stats)
     assert stats.get(f"reach:{topic}:sorted_ascending", 0) == 0
+
+
+# --- The second look: export and record ---------------------------------------------------------------------------
+
+SECOND_LOOK = "claude_second_look_v1"
+SL_NOW = datetime(2026, 11, 11, 12, tzinfo=UTC)
+
+
+def _look_dir(tmp_path: Path) -> Path:
+    """A recorded market directory: ids -> what makes each (in)eligible for a second look."""
+    claude = {"method": "claude_code_forecaster_v1", "probability": 0.7, "rationale": "Because.", "created_at": "2026-11-11T09:00:00+00:00"}
+    price = {"method": "market_price_v1", "probability": 0.41, "created_at": "2026-11-11T08:00:00+00:00"}
+    manifold = {"method": "manifold_price_v1", "probability": 0.33, "created_at": "2026-11-11T08:00:00+00:00"}
+    rows = {"tech": ("Tech", [price, claude]), "manifold": ("Tech", [manifold, claude]), "politics": ("Politics", [price, claude]),
+            "no-price": ("Tech", [claude]), "no-claude": ("Tech", [price]), "failed": ("Tech", [price, claude]),
+            "no-findings": ("Tech", [price, claude]), "done": ("Tech", [price, claude, {"method": SECOND_LOOK, "probability": 0.5}]),
+            "decided": ("Tech", [price, claude])}
+    directory = tmp_path / "artifacts_copy" / "prospective_markets_20261111"
+    directory.mkdir(parents=True)
+    (directory / "forecasts.json").write_text(json.dumps({"schema": "market_questions_v1", "questions": [
+        {"id": qid, "question": f"Will {qid} happen?", "topic": topic, "resolution_criteria": f"Rules for {qid}.",
+         "resolution_date": "2026-11-20", "outcome": 1 if qid == "decided" else None, "forecasts": forecasts}
+        for qid, (topic, forecasts) in rows.items()]}, indent=2, sort_keys=True) + "\n")
+    (directory / "questions.json").write_text(json.dumps({"questions": [
+        {"id": qid, "closes_at": "2026-11-20T00:00:00Z"} for qid in rows]}))
+    finding = {"facts": [{"fact": "A dated fact.", "source": 0}], "base_rate": "1 in 5."}
+    (directory / "research.json").write_text(json.dumps({
+        "findings": {qid: finding for qid in rows if qid != "no-findings"}, "failed": {"failed": "ValueError: nothing"},
+        "sources": {qid: [{"title": "Page", "url": "https://example.org/p", "published": "", "verified": True, "primary": True}] for qid in rows}}))
+    return directory
+
+
+def _ids(packet: Path) -> list[str]:
+    return [item["id"] for item in json.loads(packet.read_text())]
+
+
+def test_second_look_export_lists_only_eligible_questions_with_their_digest_and_prices(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    directory = _look_dir(tmp_path)
+    out = tmp_path / "scratch" / "packet.json"
+    assert script.second_look_export(directory, out, today="2026-11-11") == 2
+    assert _ids(out) == ["tech", "manifold"]  # Tech only by default; both entries, findings, not failed, no second look, open
+    assert "exported 2 questions" in capsys.readouterr().out
+    tech, manifold = json.loads(out.read_text())
+    assert set(tech) == {"id", "question", "resolution_criteria", "topic", "resolves_on", "digest", "first_forecast", "market_price"}
+    assert (tech["question"], tech["resolution_criteria"], tech["topic"], tech["resolves_on"]) == (
+        "Will tech happen?", "Rules for tech.", "Tech", "2026-11-20")
+    assert tech["first_forecast"] == {"probability": 0.7, "rationale": "Because."}
+    assert tech["market_price"] == 0.41 and manifold["market_price"] == 0.33  # Polymarket's, else Manifold's
+    assert "- A dated fact. [1]" in tech["digest"] and "Base rate: 1 in 5." in tech["digest"]
+    assert "own record" not in tech["digest"].lower() and "Your record so far" not in tech["digest"]
+    assert "earlier forecasts" not in tech["digest"]
+    # Other topics only when asked for.
+    assert script.second_look_export(directory, out, {"Politics"}, today="2026-11-11") == 1 and _ids(out) == ["politics"]
+    assert script.second_look_export(directory, out, {"Sports"}, today="2026-11-11") == 0 and json.loads(out.read_text()) == []
+
+
+def test_second_look_export_default_topics_follow_the_rules_in_the_registry(monkeypatch: pytest.MonkeyPatch) -> None:
+    from forecastlab_api import track_record
+
+    assert script.second_look_topics() == {"Tech"}
+    rules = tuple(track_record.CALL_RULES)
+    monkeypatch.setattr(script, "CALL_RULES", rules + (rules[2] | {"id": "pol", "topics": ("Politics",)},))
+    assert script.second_look_topics() == {"Tech", "Politics"}
+    monkeypatch.setattr(script, "CALL_RULES", rules + (rules[2] | {"id": "all", "topics": None},))
+    assert script.second_look_topics() is None
+
+
+def test_second_look_export_refuses_to_write_inside_artifacts(tmp_path: Path) -> None:
+    directory = _look_dir(tmp_path)
+    for target in (script.ROOT / "artifacts" / "second_look_packet.json", script.ROOT / "artifacts" / "sub" / ".." / "x.json"):
+        with pytest.raises(SystemExit, match="market prices"):
+            script.second_look_export(directory, target)
+        assert not target.exists()
+    assert not (script.ROOT / "artifacts" / "sub").exists()
+
+
+def test_second_look_cli_usage(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    directory = _look_dir(tmp_path)
+    out = tmp_path / "packet.json"
+    assert script.main(["second-look", "export", str(directory), "--out", str(out), "--topics", "Tech,Politics"]) == 0
+    assert _ids(out) == ["tech", "manifold", "politics"] and "exported 3 questions" in capsys.readouterr().out
+    assert script.main(["second-look", "export", str(directory)]) == 2  # --out is required
+    answers = tmp_path / "answers.json"
+    answers.write_text(json.dumps({"tech": {"probability": 0.5, "note": "Fine."}}))
+    assert script.main(["second-look", "record", str(directory), str(answers)]) == 0
+    assert "recorded 1 second looks" in capsys.readouterr().out
+
+
+def _answers(tmp_path: Path, **items: dict) -> Path:
+    path = tmp_path / "answers.json"
+    path.write_text(json.dumps(items))
+    return path
+
+
+def test_second_look_record_appends_one_entry_and_changes_nothing_else(tmp_path: Path) -> None:
+    directory = _look_dir(tmp_path)
+    before = json.loads((directory / "forecasts.json").read_text())
+    path = script.second_look_record(directory, _answers(
+        tmp_path, tech={"probability": 0.55, "note": "The digest shows X."}), now=SL_NOW)
+    after = json.loads(path.read_text())
+    assert path == directory / "forecasts.json"
+    for old, new in zip(before["questions"], after["questions"], strict=True):
+        if old["id"] != "tech":
+            assert old == new
+            continue
+        assert new["forecasts"][:2] == old["forecasts"]  # the market and Claude entries are the same objects as before
+        assert json.dumps(new["forecasts"][:2], sort_keys=True) == json.dumps(old["forecasts"], sort_keys=True)
+        assert new["forecasts"][2] == {"method": SECOND_LOOK, "probability": 0.55, "created_at": "2026-11-11T12:00:00+00:00",
+                                       "rationale": "The digest shows X.", "saw_market_price": True}
+        assert {k: v for k, v in new.items() if k != "forecasts"} == {k: v for k, v in old.items() if k != "forecasts"}
+    assert {k: v for k, v in after.items() if k != "questions"} == {k: v for k, v in before.items() if k != "questions"}
+    # Partial coverage is allowed: "manifold" was exported but got no answer and holds none.
+    assert all(f["method"] != SECOND_LOOK for q in after["questions"] if q["id"] == "manifold" for f in q["forecasts"])
+    # One per question, never overwritten.
+    with pytest.raises(SystemExit, match="already hold a second look"):
+        script.second_look_record(directory, _answers(tmp_path, tech={"probability": 0.9}), now=SL_NOW)
+    with pytest.raises(SystemExit, match="already hold a second look"):
+        script.second_look_record(directory, _answers(tmp_path, done={"probability": 0.9}), now=SL_NOW)
+    assert json.loads(path.read_text()) == after
+
+
+@pytest.mark.parametrize(("answers", "message"), [
+    ({"nope": {"probability": 0.5}}, "unknown questions"),
+    ({"no-price": {"probability": 0.5}}, "not eligible"), ({"no-claude": {"probability": 0.5}}, "not eligible"),
+    ({"failed": {"probability": 0.5}}, "not eligible"), ({"no-findings": {"probability": 0.5}}, "not eligible"),
+    ({"politics": {"probability": 0.5}}, "not eligible"), ({"decided": {"probability": 0.5}}, "not eligible"),
+    ({"tech": {"probability": 0.01}}, "outside"), ({"tech": {"probability": 0.99}}, "outside"),
+    ({"tech": {"probability": 0.5}, "manifold": {"probability": 1.0}}, "manifold: probability")])
+def test_second_look_record_validates_before_it_writes_anything(tmp_path: Path, answers: dict, message: str) -> None:
+    directory = _look_dir(tmp_path)
+    original = (directory / "forecasts.json").read_bytes()
+    with pytest.raises(SystemExit, match=message):
+        script.second_look_record(directory, _answers(tmp_path, **answers), now=SL_NOW)
+    assert (directory / "forecasts.json").read_bytes() == original
+
+
+def test_second_look_record_must_be_made_before_the_market_closes(tmp_path: Path) -> None:
+    directory = _look_dir(tmp_path)
+    original = (directory / "forecasts.json").read_bytes()
+    with pytest.raises(SystemExit, match="before the market closes"):
+        script.second_look_record(directory, _answers(tmp_path, tech={"probability": 0.5}), now=datetime(2026, 11, 20, 0, 0, 1, tzinfo=UTC))
+    assert (directory / "forecasts.json").read_bytes() == original
+    script.second_look_record(directory, _answers(tmp_path, tech={"probability": 0.5}), now=datetime(2026, 11, 19, 23, tzinfo=UTC))
+    (directory / "questions.json").unlink()  # without questions.json the resolution date is the limit
+    with pytest.raises(SystemExit, match="before the market closes"):
+        script.second_look_record(directory, _answers(tmp_path, manifold={"probability": 0.5}), now=datetime(2026, 11, 20, 1, tzinfo=UTC))

@@ -5,6 +5,8 @@
   python scripts/market_questions.py pool                      # read-only: the selection funnel per source, writes nothing
   python scripts/market_questions.py record <dir> <forecasts.json> [--skip <id>[,<id>...]] [--skip-failed]
   python scripts/market_questions.py resolve                   # every open market question
+  python scripts/market_questions.py second-look export <dir> --out <file> [--topics Tech[,Politics...]]
+  python scripts/market_questions.py second-look record <dir> <answers.json> [--topics Tech[,Politics...]]
 
 ``prepare`` writes ``questions.json`` (question, rules, close time) and, separately,
 ``market_snapshot.json`` with each market's price at selection. Forecasters read only
@@ -23,6 +25,15 @@ in [0.02, 0.98] and that the forecast was made before each market closes, and wr
 ``skipped`` in ``forecasts.json`` with a reason; any other uncovered question is still refused.
 
 ``resolve`` records the market's final result (Polymarket or Manifold) for questions whose market has closed.
+
+``second-look export`` writes a packet for the "second look": a second Claude forecast made after seeing the research
+digest, Claude's first (blind) forecast with its rationale, and the market's price. One item per eligible question: it has
+both a Claude forecast and a market price in ``forecasts.json``, a topic in ``--topics`` (default: the topics of the
+second-look rules in CALL_RULES), findings in ``research.json`` (and is not listed under ``failed``), is still open, and
+holds no second look yet. The packet contains market prices, so it is refused inside ``artifacts/`` and never committed.
+``second-look record`` reads ``{"<id>": {"probability", "note"}}`` and appends a ``claude_second_look_v1`` entry to each
+question's ``forecasts`` (one per question, never overwritten; nothing else in the file changes). The second look is
+never read by the blind forecaster: see ``prompts/second_look.md``.
 """
 
 from __future__ import annotations
@@ -35,7 +46,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "packages" / "forecasting"))
+sys.path.insert(0, str(ROOT / "apps" / "api"))
 
+from forecastlab.cursor_research import digest  # noqa: E402
 from forecastlab.live_counts import NO_TALLY  # noqa: E402
 from forecastlab.market_questions import (  # noqa: E402
     DAILY_LIMIT,
@@ -54,6 +67,7 @@ from forecastlab.market_questions import (  # noqa: E402
     select,
 )
 from forecastlab.timeutil import as_utc, utcnow  # noqa: E402
+from forecastlab_api.track_record import CALL_RULES, SECOND_LOOK  # noqa: E402
 
 CLAUDE_METHOD = "claude_code_forecaster_v1"
 
@@ -210,6 +224,106 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
     return target
 
 
+def second_look_topics() -> set[str] | None:
+    """The topics of the second-look rules in CALL_RULES (None when a rule covers every topic)."""
+    rules = [r for r in CALL_RULES if r["forecaster"] == SECOND_LOOK]
+    if any(r["topics"] is None for r in rules):
+        return None
+    return {topic for r in rules for topic in r["topics"] or ()}
+
+
+def _price_entry(question: dict[str, Any]) -> dict[str, Any] | None:
+    """The recorded market price: Polymarket's, else Manifold's."""
+    return next((f for method in (MARKET_METHOD, "manifold_price_v1") for f in question["forecasts"]
+                 if f["method"] == method and f.get("probability") is not None), None)
+
+
+def _second_look_pool(directory: Path, topics: set[str] | None) -> tuple[dict[str, dict[str, Any]], set[str], dict[str, Any]]:
+    """(eligible questions by id, ids already holding a second look, research.json) for a market directory."""
+    data = json.loads((directory / "forecasts.json").read_text())
+    research_path = directory / "research.json"
+    research = json.loads(research_path.read_text()) if research_path.exists() else {}
+    wanted = second_look_topics() if topics is None else topics
+    eligible: dict[str, dict[str, Any]] = {}
+    done: set[str] = set()
+    for question in data["questions"]:
+        methods = {f["method"] for f in question["forecasts"]}
+        if SECOND_LOOK in methods:
+            done.add(question["id"])
+            continue
+        claude = next((f for f in question["forecasts"] if f["method"] == CLAUDE_METHOD and f.get("probability") is not None), None)
+        if (claude is None or _price_entry(question) is None or question.get("outcome") is not None or question.get("cancelled")
+                or (wanted is not None and question["topic"] not in wanted)
+                or not research.get("findings", {}).get(question["id"]) or question["id"] in research.get("failed", {})):
+            continue
+        eligible[question["id"]] = question
+    return eligible, done, research
+
+
+def second_look_export(directory: Path, out: Path, topics: set[str] | None = None, today: str | None = None) -> int:
+    """Write the second-look packet for ``directory`` to ``out`` and return how many questions it holds.
+
+    The packet carries market prices, so ``out`` may not be inside the repository's ``artifacts/`` directory.
+    """
+    resolved = out.resolve()
+    if resolved.is_relative_to((ROOT / "artifacts").resolve()):
+        raise SystemExit(f"{out}: the packet contains market prices; write it outside artifacts/ and do not commit it")
+    eligible, _, research = _second_look_pool(directory, topics)
+    day = today or f"{utcnow():%Y-%m-%d}"
+    packet = []
+    for qid, question in eligible.items():
+        claude = next(f for f in question["forecasts"] if f["method"] == CLAUDE_METHOD)
+        price = _price_entry(question)
+        assert price is not None
+        task = {"id": qid, "question": question["question"], "criteria": question["resolution_criteria"],
+                "resolves_on": question["resolution_date"], "topic": question["topic"]}
+        packet.append({
+            "id": qid, "question": question["question"], "resolution_criteria": question["resolution_criteria"],
+            "topic": question["topic"], "resolves_on": question["resolution_date"], "digest": digest(research, qid, task, day),
+            "first_forecast": {"probability": claude["probability"], "rationale": claude.get("rationale", "")},
+            "market_price": price["probability"]})
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(packet, indent=2, sort_keys=True) + "\n")
+    print(f"{directory.name}: exported {len(packet)} questions for a second look")
+    return len(packet)
+
+
+def second_look_record(directory: Path, answers_path: Path, topics: set[str] | None = None, now: datetime | None = None) -> Path:
+    """Append each answer as a ``claude_second_look_v1`` forecast; nothing else in forecasts.json changes."""
+    now = as_utc(now or utcnow())
+    answers = json.loads(answers_path.read_text())
+    if not isinstance(answers, dict):
+        raise SystemExit('answers must be {"<id>": {"probability": p, "note": "..."}}')
+    path = directory / "forecasts.json"
+    data = json.loads(path.read_text())
+    eligible, done, _ = _second_look_pool(directory, topics)
+    known = {q["id"] for q in data["questions"]}
+    if unknown := sorted(set(answers) - known):
+        raise SystemExit(f"unknown questions: {unknown}")
+    if again := sorted(set(answers) & done):
+        raise SystemExit(f"already hold a second look (one per question, never overwritten): {again}")
+    if ineligible := sorted(set(answers) - set(eligible)):
+        raise SystemExit(f"not eligible for a second look: {ineligible}")
+    selected = directory / "questions.json"
+    closes = {q["id"]: q["closes_at"] for q in json.loads(selected.read_text())["questions"]} if selected.exists() else {}
+    for qid, answer in answers.items():
+        probability = float(answer["probability"])
+        if not 0.02 <= probability <= 0.98:
+            raise SystemExit(f"{qid}: probability {probability} outside [0.02, 0.98]")
+        closing = _parse(closes[qid]) if qid in closes else _parse(f"{eligible[qid]['resolution_date']}T00:00:00Z")
+        if now >= closing:
+            raise SystemExit(f"{qid}: second look made at {now.isoformat()} is not before the market closes")
+    for question in data["questions"]:
+        if question["id"] in answers:
+            answer = answers[question["id"]]
+            question["forecasts"].append({"method": SECOND_LOOK, "probability": float(answer["probability"]),
+                                          "created_at": now.isoformat(), "rationale": str(answer.get("note", "")),
+                                          "saw_market_price": True})
+    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    print(f"{directory.name}: recorded {len(answers)} second looks")
+    return path
+
+
 def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, today: datetime | None = None) -> int:
     """Record final Polymarket results; network errors leave a question open for the next run."""
     today = as_utc(today or utcnow())
@@ -243,6 +357,29 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
     return changed
 
 
+def _second_look_cli(argv: list[str]) -> int:
+    rest, topics, out, positional = argv[2:], None, None, []
+    while rest:
+        item = rest.pop(0)
+        if item == "--topics" and rest:
+            topics = {t.strip() for t in rest.pop(0).split(",") if t.strip()}
+        elif item == "--out" and rest and argv[1] == "export":
+            out = Path(rest.pop(0))
+        elif item.startswith("--"):
+            print(__doc__)
+            return 2
+        else:
+            positional.append(item)
+    if argv[1] == "export" and len(positional) == 1 and out is not None:
+        second_look_export(Path(positional[0]), out, topics)
+    elif argv[1] == "record" and len(positional) == 2:
+        second_look_record(Path(positional[0]), Path(positional[1]), topics)
+    else:
+        print(__doc__)
+        return 2
+    return 0
+
+
 def main(argv: list[str]) -> int:
     if argv[:1] == ["prepare"]:
         prepare()
@@ -260,6 +397,8 @@ def main(argv: list[str]) -> int:
                 print(__doc__)
                 return 2
         record(Path(argv[1]), Path(argv[2]), skip, skip_failed)
+    elif argv[:2] in (["second-look", "export"], ["second-look", "record"]):
+        return _second_look_cli(argv)
     elif argv[:1] == ["resolve"]:
         resolve()
     else:

@@ -64,6 +64,12 @@ below zero). ``summary.edge_tests`` scores every rule in the shadows, on questio
 was registered (``counted``) and, for information only, before it (``before``). Promotion is a reviewed one-line change
 of a rule's status.
 
+A rule may name a ``forecaster`` instead: the "second look" (``claude_second_look_v1``), a second Claude forecast made
+after seeing the research, Claude's first forecast and the market's price, and so never an input to the blind forecaster
+or to any older call. Such a rule's probability is that forecaster's, limited to within the rule's ``move`` of the market
+price; a question with no such forecast is not matched. Promoted forecaster rules take precedence over move rules, and the
+frozen call then also records ``forecaster`` and ``target``. ``tech_second_look_v1`` tests it on Tech questions.
+
 DEFAULT_MOVE is 0.0 (owner's decision of 2026-11-10, taken before any anchored call was frozen): the call is the market
 price unless a promoted rule applies, and no rule is promoted yet. The 10-point move chosen on 2026-11-09 was never
 used for a call; it is still scored in the shadows as the rule ``every_question_move_v1``. With no move there is nothing
@@ -112,6 +118,10 @@ ANCHORED_FROM = date(2026, 11, 10)
 # price until a rule has proven it beats the market. It was 0.10 for one day and no call was frozen under it.
 DEFAULT_MOVE: float = 0.0
 CALL_BOUNDS = (0.02, 0.98)
+CLAUDE = "claude_code_forecaster_v1"
+# Claude's forecast after also seeing the market price and its own first forecast. Never an input to anything Claude
+# forecasts blind, and never part of an older call (see EXCLUDED).
+SECOND_LOOK = "claude_second_look_v1"
 # Call rules: ideas for moving further toward Claude on some questions. Each is scored in the shadows (summary.edge_tests)
 # on questions first forecast on or after its registered date. "testing" rules change nothing; promoting one (a reviewed
 # one-line change of "status" to "promoted") lets the call move by the rule's `move` on the questions whose topic it
@@ -125,13 +135,16 @@ class CallRule(TypedDict):
     topics: tuple[str, ...] | None
     move: float
     status: str
+    forecaster: str | None  # None: the market moved toward Claude's blind forecast; else that forecaster's probability
 
 
 CALL_RULES: tuple[CallRule, ...] = (
     {"id": "tech_move_v1", "label": "Tech questions", "registered": date(2026, 11, 10), "topics": ("Tech",),
-     "move": 0.10, "status": "testing"},
+     "move": 0.10, "status": "testing", "forecaster": None},
     {"id": "every_question_move_v1", "label": "Every question", "registered": date(2026, 11, 10), "topics": None,
-     "move": 0.10, "status": "testing"},
+     "move": 0.10, "status": "testing", "forecaster": None},
+    {"id": "tech_second_look_v1", "label": "Second look on Tech", "registered": date(2026, 11, 11), "topics": ("Tech",),
+     "move": 1.0, "status": "testing", "forecaster": SECOND_LOOK},
 )
 # The promotion bar: counted questions, distinct resolution dates, and a 90% interval (percentiles of the mean of
 # rule Brier minus market Brier over resamples of the resolution dates) entirely below zero.
@@ -155,7 +168,6 @@ CHANGES = (
 # "Before / after" splits forecasts made on or after this day against earlier ones.
 PROGRESS_SPLIT = CORRECTED_CALL_FROM
 CALIBRATED_FILE = "calibrated.json"
-CLAUDE = "claude_code_forecaster_v1"
 # No corrected forecast until this many decided Claude forecasts were known before the forecast day.
 CALIBRATION_MIN_RESULTS = 30
 # The fit is pulled toward "Claude is right as stated" (slope 1, intercept 0) as if by this many
@@ -171,6 +183,10 @@ FORECASTERS: dict[str, dict[str, str]] = {
     "claude_code_forecaster_v1": {
         "label": "Claude alone", "about": "Claude researches each question on the web and states a probability, "
         "without seeing any market price. Tracked on its own beside our call; the test of independent skill."},
+    SECOND_LOOK: {
+        "label": "Claude, second look",
+        "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test "
+                 "on Tech questions; it is part of our call only if it proves it beats the market."},
     "judge_nemotron_ultra_v1": {
         "label": "Nemotron Ultra (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes."},
     "judge_nemotron_super_v1": {
@@ -213,7 +229,7 @@ SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job
 # Benchmarks are scored like forecasters but never enter our call.
 BENCHMARKS = ("market_price_v1", "manifold_price_v1")
 # Scored like forecasters but never part of our call or of any forecaster's weight.
-EXCLUDED = {*BENCHMARKS, CALIBRATED}
+EXCLUDED = {*BENCHMARKS, CALIBRATED, SECOND_LOOK}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
@@ -302,16 +318,31 @@ def _weak_research(research: dict[str, Any] | None, question_id: str) -> bool:
     return question_id in research.get("failed", {}) or not findings or bool(findings.get("warnings"))
 
 
-def _allowed_move(topic: str) -> tuple[float, str | None]:
-    """How far the call may move on a question of this topic, and the id of the promoted rule that set it.
+def _applicable(rule: CallRule, topic: str, forecasts: list[dict[str, Any]]) -> bool:
+    """True when the rule's topics include ``topic`` and, for a forecaster rule, that forecaster has a forecast."""
+    return ((rule["topics"] is None or topic in rule["topics"])
+            and (rule["forecaster"] is None or _probability_of(forecasts, rule["forecaster"]) is not None))
 
-    The largest move among the promoted rules matching the topic; DEFAULT_MOVE (and no rule) when none matches.
+
+def _probability_of(forecasts: list[dict[str, Any]], method: str) -> float | None:
+    return next((f["probability"] for f in forecasts if f["method"] == method), None)
+
+
+def _policy(topic: str, forecasts: list[dict[str, Any]], claude: float) -> tuple[float, float, str | None, str | None]:
+    """(target probability, allowed move, id of the promoted rule that set it, forecaster the target came from).
+
+    Promoted forecaster rules that match come first, in registry order; otherwise the largest move among the promoted
+    move rules matching the topic (the target is Claude's blind forecast); otherwise DEFAULT_MOVE toward Claude.
     """
-    matching = [r for r in CALL_RULES if r["status"] == "promoted" and (r["topics"] is None or topic in r["topics"])]
-    if not matching:
-        return DEFAULT_MOVE, None
-    rule = max(matching, key=lambda r: r["move"])
-    return rule["move"], rule["id"]
+    promoted = [r for r in CALL_RULES if r["status"] == "promoted" and _applicable(r, topic, forecasts)]
+    for rule in promoted:
+        if (method := rule["forecaster"]) is not None and (target := _probability_of(forecasts, method)) is not None:
+            return target, rule["move"], rule["id"], method
+    moves = [r for r in promoted if r["forecaster"] is None]
+    if not moves:
+        return claude, DEFAULT_MOVE, None, None
+    rule = max(moves, key=lambda r: r["move"])
+    return claude, rule["move"], rule["id"], None
 
 
 def _moved(price: float, claude: float, move: float, held: bool) -> float:
@@ -325,19 +356,21 @@ def _anchored_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
                    research: dict[str, Any] | None = None, question_id: str = "", topic: str = "") -> dict[str, Any] | None:
     """The market price moved toward Claude's forecast by the allowed move; held at the price when the research is weak.
 
-    The allowed move is ``_allowed_move(topic)``; when it is 0 the call is the price. No market price: Claude's own
+    The target and the allowed move come from ``_policy``; when the move is 0 the call is the price. No market price: Claude's own
     forecast. A price but no Claude forecast: whatever ``_claude_call`` does.
     """
     price = _market_price(forecasts)
     claude = next((f for f in forecasts if f["method"] == CLAUDE), None)
     if price is None or claude is None:
         return _claude_call(forecasts, weights)
-    move, rule = _allowed_move(topic)
+    target, move, rule, forecaster = _policy(topic, forecasts, claude["probability"])
     held = move > 0 and _weak_research(research, question_id)
-    call = {"method": ANCHORED_CALL, "probability": _moved(price, claude["probability"], move, held), "members": 1,
+    call = {"method": ANCHORED_CALL, "probability": _moved(price, target, move, held), "members": 1,
             "claude": claude["probability"], "market": price, "max_move": move}
     if rule:
         call["rule"] = rule
+    if forecaster:
+        call |= {"forecaster": forecaster, "target": target}
     return call | {"held": "weak research"} if held else call
 
 
@@ -652,13 +685,16 @@ def _edge_tests(resolved: list[dict[str, Any]], artifacts: Path, research_files:
     for rule in CALL_RULES:
         rows: dict[str, list[tuple[float, float, str]]] = {"counted": [], "before": []}
         for q in resolved:
-            day, price, claude = _forecast_day(q), _market_price(q["forecasts"]), _claude_probability(q)
-            if day is None or price is None or claude is None or (rule["topics"] is not None and q["topic"] not in rule["topics"]):
+            day, price = _forecast_day(q), _market_price(q["forecasts"])
+            target = _probability_of(q["forecasts"], rule["forecaster"] or CLAUDE)
+            if day is None or price is None or target is None or not _applicable(rule, q["topic"], q["forecasts"]):
+                continue
+            if rule["forecaster"] is not None and _claude_probability(q) is None:
                 continue
             key = "counted" if day >= rule["registered"] else "before"
             research = _research(artifacts, q["source"], research_files)
             held = _weak_research(research, q["id"]) if research is not None or key == "counted" else False
-            moved = _moved(price, claude, rule["move"], held)
+            moved = _moved(price, target, rule["move"], held)
             rows[key].append((_brier(moved, q["outcome"]), _brier(price, q["outcome"]), q["resolves_on"]))
         tests.append({"id": rule["id"], "label": rule["label"], "status": rule["status"],
                       "registered": rule["registered"].isoformat(),

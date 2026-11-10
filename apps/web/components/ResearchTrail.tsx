@@ -33,6 +33,7 @@ function Step({ at, children }: { at?: string | null; children: React.ReactNode 
 function anchoredStep(call: Forecast, edges: EdgeTest[] | undefined) {
   const move = call.max_move ?? DEFAULT_POLICY.default_move;
   const label = call.rule ? edges?.find(e => e.id === call.rule)?.label ?? call.rule : null;
+  if (label && call.forecaster) return `Our call is set by the tested edge “${label}”: Claude’s second look, made after also seeing the market’s price and its own first forecast, limited to ${points(move)} from the price. ${Math.round(call.probability * 100)}% yes${call.held ? ", held at the price because the research was thin" : ""}. Claude’s first forecast was made without seeing the price and stays on record as “Claude alone”.`;
   const how = label ? `Our call starts from the market’s price and moves toward Claude’s forecast under the tested edge “${label}”`
     : move === 0 ? "Our call is the market’s price, because no tested edge applies to this question"
     : `Our call starts from the market’s price and moves toward Claude’s forecast by at most ${points(move)}`;

@@ -1442,3 +1442,51 @@ def test_a_result_without_any_quote_carries_a_warning_and_one_with_quotes_does_n
     assert "no source has a quote" in result["findings"]["q1"]["warnings"][0]
     quoted = cr.research(rates_dir(tmp_path / "b"), lambda text: OUTSIDE, "2026-10-31", parallel=1, budget=1, passes=1)
     assert "warnings" not in quoted["findings"]["q1"]
+
+
+# --- The second look (claude_second_look_v1) must never reach the blind forecaster ---------------------------------
+
+SECOND_LOOK = "claude_second_look_v1"
+LOOK_MARK = 0.8765  # a probability only a second look carries; it must appear nowhere the forecaster reads
+
+
+def _with_second_looks(question: dict[str, Any]) -> dict[str, Any]:
+    return {**question, "forecasts": [*question["forecasts"], {
+        "method": SECOND_LOOK, "probability": LOOK_MARK, "made_at": "2026-11-11T09:00:00+00:00", "rationale": "Saw the price at 41%."}]}
+
+
+def test_the_digests_record_and_related_forecasts_ignore_the_second_look() -> None:
+    from forecastlab.cursor_research import record_notes
+
+    def own(qid: str, title: str, p: float, status: str = "pending", outcome: int | None = None) -> dict[str, Any]:
+        return _with_second_looks({"id": qid, "title": title, "topic": "Tech", "resolves_on": "2026-11-20", "status": status,
+                                   "outcome": outcome, "forecasts": [{"method": CLAUDE, "probability": p, "made_at": "2026-11-01T09:00:00+00:00",
+                                                                      "rationale": f"Reason for {qid}."}]})
+
+    record = {"questions": [own("a", "Will Nvidia ship the H300 chip?", 0.3, "resolved", 1), own("b", "Will Nvidia ship the H400 chip?", 0.4),
+                            _with_second_looks({"id": "c", "title": "Will Nvidia ship the H500 chip?", "topic": "Tech", "status": "pending",
+                                                "resolves_on": "2026-11-20", "outcome": None, "forecasts": []})]}
+    notes = record_notes(record)
+    assert "1 right of 0" not in notes and "0 right of 1 decided calls" in notes  # Claude's 0.3 was wrong; the 0.88 was not counted
+    assert "You said 30% yes" in notes and "88%" not in notes and "Saw the price" not in notes
+    task = {"id": "z", "question": "Will Nvidia ship the H200 chip?", "topic": "Tech", "resolves_on": "2026-11-20"}
+    related = cr.related_forecasts(record, task, "2026-11-11")
+    assert "H300" in related and "You said 30%" in related and "You said 40%" in related
+    assert "H500" not in related  # a question with only a second look is not "your earlier forecast"
+    assert "88%" not in related and "Saw the price" not in related
+
+
+def test_the_miss_review_export_ignores_the_second_look(tmp_path: Path) -> None:
+    root = review_root(tmp_path)
+    track = json.loads((root / "data" / "track_record.json").read_text())
+    track["questions"] = [_with_second_looks(q) if "forecasts" in q else q for q in track["questions"]]
+    # A question only the second look got wrong is no miss; Claude's rationale is the one exported, never the second look's.
+    right = next(q for q in track["questions"] if q["id"] == "right")
+    right["forecasts"][-1]["probability"] = 0.01
+    (root / "data" / "track_record.json").write_text(json.dumps(track))
+    packet = miss_review.export(root, today="2026-10-31")
+    assert [m["id"] for m in packet["misses"]] == ["wrong", "big", "late"]
+    assert str(LOOK_MARK) not in json.dumps(packet) and "Saw the price" not in json.dumps(packet)
+    assert [m["rationale"] for m in packet["misses"]] == ["Why wrong.", "Why big.", "Why late."]
+    assert [q["id"] for q, _ in miss_review.misses(track)] == ["wrong", "big", "late"]
+    assert all(mine["method"] == CLAUDE for _, mine in miss_review.misses(track))
