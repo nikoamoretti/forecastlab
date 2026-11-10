@@ -15,7 +15,8 @@ present in any earlier artifact, and computes
 scores, plus ``questions.json`` with each question's text and forecast cutoff.
 
 ``record`` validates a forecaster's JSON (``{"method", "forecast_made_at",
-"forecasts": [{"entry_id", "probability", "rationale", "sources"}]}``). Every
+"forecasts": [{"entry_id", "probability", "rationale", "sources"}]}``; ``id`` is
+accepted for ``entry_id``, as in the market file). Every
 entry must be covered, probabilities must lie in [0.02, 0.98], and
 ``forecast_made_at`` must precede every entry's cutoff. It then writes
 ``claude_code_supplement.json``, which the scorer reports as its own method.
@@ -125,7 +126,10 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
     entries = {e["entry_id"]: e for e in manifest["manifest"]["entries"]}
     data = json.loads(forecasts_path.read_text())
     made_at = as_utc(datetime.fromisoformat(data["forecast_made_at"].replace("Z", "+00:00")))
-    forecasts = {f["entry_id"]: f for f in data["forecasts"]}
+    try:  # "id" is what the market file calls it; a forecaster writing both files may use it here too
+        forecasts = {f.get("entry_id") or f["id"]: f for f in data["forecasts"]}
+    except KeyError:
+        raise SystemExit('each forecast needs an "entry_id" (or "id")') from None
     skipped = {identifier: "no research" for identifier in skip or ()}
     if skip_failed:
         research = directory / "research.json"
