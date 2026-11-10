@@ -432,16 +432,201 @@ def kalshi(now: datetime) -> None:
     print(f"checkable-keyword titles in band: {len(kw)}; samples: " + " || ".join(t[:80] for t in kw[:10]))
 
 
+# ---------------- Tech supply detail (run 7) ----------------
+def _spread_bucket(m: dict) -> str:
+    b, a = cents(m, "yes_bid"), cents(m, "yes_ask")
+    if not b or not a:
+        return "one_sided"
+    d = a - b
+    return "le5" if d <= 5 else "le10" if d <= 10 else "le20" if d <= 20 else "gt20"
+
+
+def tech(now: datetime) -> None:
+    print("=== T1. POLYMARKET tech-like tags: every event in the window (no prices) ===")
+    events: dict[str, dict] = {}
+    tags_of: dict[str, set] = defaultdict(set)
+    for tag in ("tech", "ai", "big-tech", "openai", "science", "technology", "anthropic", "gemini", "chatgpt", "grok", "ai-models"):
+        got, first, err = poly_events(now, tag, 6)
+        print(f"tag {tag}: events in window={len(got)}" + (f" ERR={err}" if err else ""))
+        for e in got:
+            events[str(e["id"])] = e
+            tags_of[str(e["id"])].add(tag)
+        time.sleep(0.3)
+    seen = set()
+    try:
+        import market_questions as script  # the CLI module: ids already used
+        seen = script.known_ids(ROOT / "artifacts")
+        pend = script.pending_questions(ROOT / "artifacts")
+        open_events = {str(q.get("market_url") or q.get("resolution_source") or "") for q in pend}
+    except Exception as exc:  # noqa: BLE001
+        open_events = set()
+        print(f"(could not read known ids: {type(exc).__name__})")
+    floors = (2500, 1000, 500, 250, 100, 0)
+    passing_at: dict[int, int] = Counter()
+    fresh_at: dict[int, int] = Counter()
+    print("event | tags | markets | pass-all-but-volume | top volumes of those | other drop reasons | already open? | best market seen before?")
+    for eid, e in sorted(events.items(), key=lambda kv: kv[1].get("title") or ""):
+        ok, reasons = [], Counter()
+        for m in e.get("markets", []):
+            price = mq._yes_price(m)
+            r = mq._polymarket_reject(m, price, float("inf"), now)
+            if r is None:
+                ok.append(m)
+            else:
+                reasons[r] += 1
+        vols = sorted((float(m.get("volumeNum") or 0) for m in ok), reverse=True)
+        url = f"https://polymarket.com/event/{e.get('slug')}"
+        is_open = url in open_events
+        best = max(ok, key=lambda m: float(m.get("volumeNum") or 0)) if ok else None
+        best_seen = bool(best and f"polymarket-{best['id']}" in seen)
+        for f in floors:
+            if vols and vols[0] >= f:
+                passing_at[f] += 1
+                if not is_open and not best_seen:
+                    fresh_at[f] += 1
+        ends = sorted({str(m.get("endDate"))[:10] for m in ok})
+        print(f"  {(e.get('title') or '')[:70]!r} | {','.join(sorted(tags_of[eid]))} | {len(e.get('markets', []))} | {len(ok)} | "
+              f"{[int(v) for v in vols[:4]]} | {dict(reasons)} | open={'Y' if is_open else 'N'} | seen={'Y' if best_seen else 'N'} | ends {ends[:3]}")
+    print("events with a market passing every rule at floor: " + ", ".join(f"${f}: {passing_at[f]} (not open, not seen: {fresh_at[f]})" for f in floors))
+
+    print("\n=== T2. KALSHI Science and Technology: every event in the window (no prices) ===")
+    base = "https://api.elections.kalshi.com/trade-api/v2"
+    lo, hi = int((now + timedelta(days=2)).timestamp()), int((now + timedelta(days=10)).timestamp())
+    cat: dict[str, dict] = {}
+    code, data = kget(base, "/series", {})
+    if code == 200:
+        for s in data.get("series", []) or []:
+            cat[s.get("ticker")] = s
+    print(f"/series -> HTTP {code}; {len(cat)} series; Science and Technology series: {sum(1 for s in cat.values() if s.get('category') == 'Science and Technology')}")
+    if cat:
+        sample = next(iter(cat.values()))
+        print("series keys: " + ",".join(sorted(sample.keys())))
+    markets: list[dict] = []
+    cursor, pages = "", 0
+    while pages < 150:
+        params = {"status": "open", "min_close_ts": lo, "max_close_ts": hi, "mve_filter": "exclude", "limit": "1000"} | ({"cursor": cursor} if cursor else {})
+        code, data = kget(base, "/markets", params)
+        if code != 200:
+            print(f"page {pages} HTTP {code} {str(data)[:150]}")
+            break
+        markets += data.get("markets", [])
+        cursor = data.get("cursor") or ""
+        pages += 1
+        if not cursor:
+            break
+        time.sleep(0.2)
+
+    def series_of(m: dict) -> str:
+        return m.get("series_ticker") or str(m.get("event_ticker", "")).split("-")[0]
+
+    def category(m: dict) -> str:
+        return (cat.get(series_of(m)) or {}).get("category") or "unknown"
+
+    def price(m: dict) -> float | None:
+        b, a = cents(m, "yes_bid"), cents(m, "yes_ask")
+        if b and a:
+            return (b + a) / 2
+        last = cents(m, "last_price")
+        return last if last and last > 0 else None
+
+    st = [m for m in markets if category(m) == "Science and Technology"]
+    print(f"window markets fetched={len(markets)}; Science and Technology markets={len(st)} events={len({m.get('event_ticker') for m in st})}")
+    by_event: dict[str, list[dict]] = defaultdict(list)
+    for m in st:
+        by_event[m.get("event_ticker")].append(m)
+    series_seen: dict[str, int] = Counter()
+    summary: dict[str, Counter] = defaultdict(Counter)
+    for et, ms in sorted(by_event.items()):
+        sr = series_of(ms[0])
+        series_seen[sr] += 1
+        band = [m for m in ms if (price(m) is not None and 5 <= price(m) <= 95)]
+        two = [m for m in band if _spread_bucket(m) in ("le5", "le10")]
+        spreads = Counter(_spread_bucket(m) for m in band)
+        vols = sorted(((count(m, "volume") or 0) for m in band), reverse=True)
+        vols2 = sorted(((count(m, "volume") or 0) for m in two), reverse=True)
+        oi = sorted(((count(m, "open_interest") or 0) for m in band), reverse=True)
+        strikes = Counter(str(m.get("strike_type")) for m in ms)
+        top = max(band, key=lambda m: count(m, "volume") or 0) if band else ms[0]
+        for f in (1000, 250, 100, 25):
+            if vols and vols[0] >= f:
+                summary[sr][f"band_vol>={f}"] += 1
+            if vols2 and vols2[0] >= f:
+                summary[sr][f"band_spread<=10_vol>={f}"] += 1
+        print(f"  {et} | series {sr} | markets {len(ms)} | in band {len(band)} | spreads {dict(spreads)} | top vol in band {[int(v) for v in vols[:4]]} "
+              f"| top vol band+spread<=10 {[int(v) for v in vols2[:3]]} | top OI {[int(v) for v in oi[:3]]} | strike {dict(strikes)} "
+              f"| closes {str(top.get('close_time'))[:16]} | expected_exp {str(top.get('expected_expiration_time'))[:16]} | early_close {top.get('can_close_early')}")
+        print(f"      title: {str(top.get('title'))[:110]!r} | yes: {str(top.get('yes_sub_title'))[:50]!r}")
+        print(f"      rules: {str(top.get('rules_primary'))[:330]!r}")
+    print("per series (events in window passing each test): ")
+    for sr, n in sorted(series_seen.items()):
+        s = cat.get(sr) or {}
+        print(f"  {sr}: events={n} | title={str(s.get('title'))[:70]!r} | frequency={s.get('frequency')} | tags={s.get('tags')} | "
+              f"sources={[x.get('name') for x in (s.get('settlement_sources') or [])][:3]} | {dict(summary[sr])}")
+
+    print("\n=== T3. KALSHI Science and Technology: how past markets settled (per series seen above) ===")
+    for sr in sorted(series_seen):
+        code, data = kget(base, "/markets", {"series_ticker": sr, "status": "settled", "limit": "200"})
+        if code != 200:
+            print(f"  {sr}: HTTP {code}")
+            continue
+        sm = data.get("markets", []) or []
+        res = Counter(m.get("result") for m in sm)
+        lags = []
+        for m in sm:
+            try:
+                c = datetime.fromisoformat(str(m["close_time"]).replace("Z", "+00:00"))
+                s2 = datetime.fromisoformat(str(m.get("settlement_ts")).replace("Z", "+00:00"))
+                lags.append((s2 - c).total_seconds() / 3600)
+            except Exception:  # noqa: BLE001
+                pass
+        lags.sort()
+        evs = len({m.get("event_ticker") for m in sm})
+        vol = sorted(((count(m, "volume") or 0) for m in sm), reverse=True)
+        print(f"  {sr}: settled markets={len(sm)} events={evs} results={dict(res)} status={dict(Counter(m.get('status') for m in sm))} | "
+              f"hours from close to settlement: median={lags[len(lags)//2]:.1f} max={lags[-1]:.1f} n={len(lags)}" if lags else
+              f"  {sr}: settled markets={len(sm)} events={evs} results={dict(res)} (no settlement times)")
+        if vol:
+            print(f"      settled volume: top {[int(v) for v in vol[:3]]} median {int(vol[len(vol)//2])}")
+        time.sleep(0.2)
+
+    print("\n=== T4. KALSHI Science and Technology: open events beyond the window (titles only) ===")
+    cursor, pages, evs = "", 0, []
+    while pages < 100:
+        params = {"status": "open", "limit": "200"} | ({"cursor": cursor} if cursor else {})
+        code, data = kget(base, "/events", params)
+        if code != 200:
+            print(f"/events page {pages} HTTP {code} {str(data)[:120]}")
+            break
+        evs += data.get("events", []) or []
+        cursor = data.get("cursor") or ""
+        pages += 1
+        if not cursor:
+            break
+        time.sleep(0.2)
+    ste = [e for e in evs if (e.get("category") or (cat.get(e.get("series_ticker")) or {}).get("category")) == "Science and Technology"]
+    print(f"open events fetched={len(evs)} (more left={'Y' if cursor else 'N'}); Science and Technology={len(ste)}")
+    if evs:
+        print("event keys: " + ",".join(sorted(evs[0].keys())))
+    bys: dict[str, list[str]] = defaultdict(list)
+    for e in ste:
+        bys[e.get("series_ticker")].append(str(e.get("title")))
+    for sr, titles in sorted(bys.items(), key=lambda kv: -len(kv[1])):
+        s = cat.get(sr) or {}
+        print(f"  {sr} ({len(titles)} open events, frequency={s.get('frequency')}): " + " || ".join(t[:70] for t in titles[:3]))
+
+
+
+
 def run() -> None:
     now = datetime.now(timezone.utc)
-    print(f"supply probe at {now.isoformat()}")
-    for fn in (polymarket_all, kalshi):
+    print(f"supply probe (tech detail) at {now.isoformat()}")
+    for fn in (tech,):
         try:
             fn(now)
         except Exception as exc:  # noqa: BLE001
             import traceback
             print(f"{fn.__name__} FAILED: {type(exc).__name__}: {exc}")
-            traceback.print_exc(limit=3, file=sys.stdout)
+            traceback.print_exc(limit=5, file=sys.stdout)
 
 
 if __name__ == "__main__":
