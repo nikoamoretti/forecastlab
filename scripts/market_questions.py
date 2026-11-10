@@ -67,7 +67,7 @@ from forecastlab.market_questions import (  # noqa: E402
     select,
 )
 from forecastlab.timeutil import as_utc, utcnow  # noqa: E402
-from forecastlab_api.track_record import CALL_RULES, SECOND_LOOK  # noqa: E402
+from forecastlab_api.track_record import BENCHMARKS, CALL_RULES, SECOND_LOOK  # noqa: E402
 
 CLAUDE_METHOD = "claude_code_forecaster_v1"
 
@@ -233,8 +233,8 @@ def second_look_topics() -> set[str] | None:
 
 
 def _price_entry(question: dict[str, Any]) -> dict[str, Any] | None:
-    """The recorded market price: Polymarket's, else Manifold's."""
-    return next((f for method in (MARKET_METHOD, "manifold_price_v1") for f in question["forecasts"]
+    """The recorded market price: the first benchmark in BENCHMARKS that priced the question."""
+    return next((f for method in BENCHMARKS for f in question["forecasts"]
                  if f["method"] == method and f.get("probability") is not None), None)
 
 

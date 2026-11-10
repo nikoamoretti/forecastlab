@@ -6,7 +6,7 @@ You are given two file paths: a packet and an output file. The packet is a JSON 
 - `id`, `question`, `resolution_criteria`, `topic`, `resolves_on`
 - `digest`: all the research that is available today
 - `first_forecast`: a probability and rationale from a forecaster who did NOT see any market price
-- `market_price`: the prediction market's probability of yes right now
+- `market_price`: the prediction market's probability of yes when today's questions were selected, a few hours ago and before the first forecast was made
 
 For each question, decide the final probability of yes as of today.
 
