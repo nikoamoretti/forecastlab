@@ -174,6 +174,7 @@ def test_from_nov_5_our_call_is_claudes_own_forecast_frozen_and_earlier_calls_st
 # ---- Claude's confidence correction (claude_calibrated_v1) and the headline score ----
 
 CLAUDE = "claude_code_forecaster_v1"
+SECOND_LOOK = "claude_second_look_v1"
 
 
 def _history(root: Path, count: int, *, late_date: str | None = None) -> None:
@@ -514,11 +515,13 @@ def _tech_and_other(root: Path, day: str = "20261110") -> Path:
     return directory
 
 
-def test_the_registry_starts_with_two_testing_rules_and_no_default_move() -> None:
+def test_the_registry_starts_with_three_testing_rules_and_no_default_move() -> None:
     assert track_record.DEFAULT_MOVE == 0.0  # owner's decision of 2026-11-10: the market price until an edge is proven
-    assert [(r["id"], r["label"], r["registered"], r["topics"], r["move"], r["status"]) for r in track_record.CALL_RULES] == [
-        ("tech_move_v1", "Tech questions", date(2026, 11, 10), ("Tech",), 0.10, "testing"),
-        ("every_question_move_v1", "Every question", date(2026, 11, 10), None, 0.10, "testing")]
+    assert [(r["id"], r["label"], r["registered"], r["topics"], r["move"], r["status"], r["forecaster"]) for r in track_record.CALL_RULES] == [
+        ("tech_move_v1", "Tech questions", date(2026, 11, 10), ("Tech",), 0.10, "testing", None),
+        ("every_question_move_v1", "Every question", date(2026, 11, 10), None, 0.10, "testing", None),
+        ("tech_second_look_v1", "Second look on Tech", date(2026, 11, 11), ("Tech",), 1.0, "testing", SECOND_LOOK)]
+    assert track_record.SECOND_LOOK == "claude_second_look_v1" and SECOND_LOOK in track_record.EXCLUDED
     assert (track_record.PROMOTION_QUESTIONS, track_record.PROMOTION_DATES) == (40, 10)
 
 
@@ -567,7 +570,8 @@ def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_pat
                             "max_move": 0.1, "rule": "tech_move_v1"}
     assert call["other"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
     assert record["summary"]["call_policy"]["promoted"] == ["Tech questions"]
-    assert [(e["id"], e["status"]) for e in record["summary"]["edge_tests"]] == [("tech_move_v1", "promoted"), ("every_question_move_v1", "testing")]
+    assert [(e["id"], e["status"]) for e in record["summary"]["edge_tests"]] == [
+        ("tech_move_v1", "promoted"), ("every_question_move_v1", "testing"), ("tech_second_look_v1", "testing")]
 
 
 def test_the_largest_move_among_matching_promoted_rules_applies_and_weak_research_still_holds(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -672,3 +676,163 @@ def test_a_rule_that_beats_the_market_only_by_luck_does_not_meet_the_bar(tmp_pat
     counted = next(t for t in build_track_record(tmp_path, today=date(2026, 12, 15))["summary"]["edge_tests"] if t["id"] == "tech_move_v1")["counted"]
     assert counted["questions"] == 48 and counted["dates"] == 12
     assert counted["interval"][0] < 0 < counted["interval"][1] and counted["meets_bar"] is False
+
+
+# --- The second look (claude_second_look_v1) and the rule that uses it ----------------------------------------------
+
+
+def _looks(root: Path, day: str, items: list[tuple], research: bool = True) -> Path:
+    """A market directory: (id, topic, Claude, market price, second look or None, outcome, resolution date) per question."""
+    directory = root / f"prospective_markets_{day}"
+    _markets(directory, [
+        {"id": qid, "topic": topic, "date": when, "outcome": outcome,
+         "forecasts": [{"method": CLAUDE, "probability": claude}, {"method": "market_price_v1", "probability": price}]
+         + ([{"method": SECOND_LOOK, "probability": second}] if second is not None else [])}
+        for qid, topic, claude, price, second, outcome, when in items])
+    if research:
+        _research(directory, good=[item[0] for item in items])
+    return directory
+
+
+def _calls(root: Path, **kwargs: object) -> dict[str, dict]:
+    return {q["id"]: q["call"] for q in build_track_record(root, today=date(2026, 11, 11), **kwargs)["questions"]}
+
+
+def test_the_second_look_is_scored_on_its_own_row_but_is_in_no_older_call(tmp_path: Path) -> None:
+    _markets(tmp_path / "prospective_markets_20261020", [
+        {"id": "median", "date": "2026-10-25", "outcome": 1, "forecasts": [
+            {"method": CLAUDE, "probability": 0.6}, {"method": "statistical_baseline_v1", "probability": 0.4},
+            {"method": SECOND_LOOK, "probability": 0.98}]}])
+    _markets(tmp_path / "prospective_markets_20261024", [
+        {"id": "weighted", "date": "2026-10-25", "outcome": 1, "forecasts": [
+            {"method": CLAUDE, "probability": 0.6}, {"method": "statistical_baseline_v1", "probability": 0.4},
+            {"method": SECOND_LOOK, "probability": 0.98}]}])
+    # No Claude forecast: the call falls back to the weighted call, and the second look is no member of it.
+    _markets(tmp_path / "prospective_markets_20261105", [
+        {"id": "fallback", "date": "2026-11-12", "forecasts": [
+            {"method": "statistical_baseline_v1", "probability": 0.3}, {"method": SECOND_LOOK, "probability": 0.9}]}])
+    _markets(tmp_path / "prospective_markets_20261110", [
+        {"id": "nothing", "date": "2026-11-12", "forecasts": [
+            {"method": "market_price_v1", "probability": 0.3}, {"method": SECOND_LOOK, "probability": 0.9}]}])
+    record = build_track_record(tmp_path, today=date(2026, 11, 11), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    assert (call["median"]["method"], call["median"]["probability"], call["median"]["members"]) == ("combined_median_v1", 0.5, 2)
+    assert (call["weighted"]["method"], call["weighted"]["members"]) == ("combined_weighted_v1", 2)
+    assert SECOND_LOOK not in call["weighted"]["weights"]
+    assert (call["fallback"]["method"], call["fallback"]["probability"], call["fallback"]["members"]) == ("combined_weighted_v1", 0.3, 1)
+    assert call["nothing"] is None  # a price and a second look but no Claude and no other member: no call at all
+    assert SECOND_LOOK not in track_record._weights([{"outcome": 1, "forecasts": [{"method": SECOND_LOOK, "probability": 0.9}]}])
+    row = next(f for f in record["forecasters"] if f["method"] == SECOND_LOOK)
+    assert row["label"] == "Claude, second look" and row["forecasts"] == 4 and row["resolved"] == 2
+    assert row["about"].startswith("Claude's forecast after also seeing the market's price and its own first forecast.")
+    assert [f["method"] for f in record["forecasters"]][:3] == ["combined_median_v1", CLAUDE, SECOND_LOOK]
+
+
+def test_the_second_look_never_enters_the_confidence_correction(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    _markets(tmp_path / "prospective_markets_20261015", [
+        {"id": "looked", "date": "2026-10-20", "outcome": 0, "forecasts": [
+            {"method": CLAUDE, "probability": 0.7}, {"method": SECOND_LOOK, "probability": 0.95}]}])
+    questions = build_track_record(tmp_path, today=date(2026, 11, 1))["questions"]
+    rows = track_record._claude_results_before(questions, date(2026, 11, 6))
+    assert len(rows) == 41 and (0.95, 0) not in rows and (0.7, 0) in rows
+    # A question that has only a second look gets no corrected forecast, however many results are known.
+    _markets(tmp_path / "prospective_markets_20261106", [
+        {"id": "only", "date": "2026-11-12", "forecasts": [{"method": SECOND_LOOK, "probability": 0.9}]}])
+    record = build_track_record(tmp_path, today=date(2026, 11, 6), freeze=True)
+    assert _forecast(record, "only", "claude_calibrated_v1") is None
+    assert not (tmp_path / "prospective_markets_20261106" / "calibrated.json").exists()
+    # And the fit is the same with or without the second looks.
+    without = tmp_path / "without"
+    without.mkdir()
+    _history(without, 40)
+    _markets(without / "prospective_markets_20261015", [
+        {"id": "looked", "date": "2026-10-20", "outcome": 0, "forecasts": [{"method": CLAUDE, "probability": 0.7}]}])
+    assert build_track_record(tmp_path, today=date(2026, 11, 6))["calibration"] == build_track_record(without, today=date(2026, 11, 6))["calibration"]
+
+
+def test_a_testing_forecaster_rule_changes_no_call(tmp_path: Path) -> None:
+    _looks(tmp_path, "20261111", [("tech", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20"), ("other", "Politics", 0.9, 0.5, 0.2, None, "2026-11-20")])
+    for call in _calls(tmp_path).values():
+        assert call == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
+
+
+def test_a_promoted_forecaster_rule_sets_the_call_and_records_where_it_came_from(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_second_look_v1="promoted"))
+    directory = _looks(tmp_path, "20261111", [
+        ("tech", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20"), ("nolook", "Tech", 0.9, 0.5, None, None, "2026-11-20"),
+        ("other", "Politics", 0.9, 0.5, 0.2, None, "2026-11-20"), ("weak", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20")])
+    _research(directory, good=["tech", "nolook", "other"], warned=["weak"])
+    call = _calls(tmp_path, freeze=True)
+    assert call["tech"] == {"method": "market_anchored_call_v1", "probability": 0.2, "members": 1, "claude": 0.9, "market": 0.5,
+                            "max_move": 1.0, "rule": "tech_second_look_v1", "forecaster": SECOND_LOOK, "target": 0.2}
+    # No second look: the rule does not apply, and nothing else is promoted, so the call is the price.
+    assert call["nolook"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
+    assert call["other"]["probability"] == 0.5 and "rule" not in call["other"]  # not a Tech question
+    assert call["weak"]["probability"] == 0.5 and call["weak"]["held"] == "weak research"
+    assert call["weak"]["rule"] == "tech_second_look_v1" and call["weak"]["target"] == 0.2
+    assert json.loads((directory / "calls.json").read_text())["tech"] == call["tech"]
+
+
+def test_the_rules_move_caps_how_far_the_second_look_can_pull_the_call(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    rules = _rules(tech_second_look_v1="promoted")
+    monkeypatch.setattr(track_record, "CALL_RULES", rules[:2] + (rules[2] | {"move": 0.15},))
+    _looks(tmp_path, "20261111", [("down", "Tech", 0.9, 0.5, 0.1, None, "2026-11-20"), ("up", "Tech", 0.1, 0.5, 0.9, None, "2026-11-20"),
+                                  ("near", "Tech", 0.5, 0.5, 0.58, None, "2026-11-20"), ("edge", "Tech", 0.5, 0.95, 0.99, None, "2026-11-20")])
+    call = _calls(tmp_path)
+    assert (call["down"]["probability"], call["down"]["max_move"], call["down"]["target"]) == (pytest.approx(0.35), 0.15, 0.1)
+    assert call["up"]["probability"] == pytest.approx(0.65)
+    assert call["near"]["probability"] == pytest.approx(0.58)
+    assert call["edge"]["probability"] == 0.98  # within the call bounds
+
+
+def test_a_promoted_forecaster_rule_takes_precedence_over_a_promoted_move_rule(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_move_v1="promoted", every_question_move_v1="promoted", tech_second_look_v1="promoted"))
+    _looks(tmp_path, "20261111", [("tech", "Tech", 0.9, 0.5, 0.3, None, "2026-11-20"), ("nolook", "Tech", 0.9, 0.5, None, None, "2026-11-20"),
+                                  ("other", "Politics", 0.9, 0.5, 0.3, None, "2026-11-20")])
+    call = _calls(tmp_path)
+    assert call["tech"]["rule"] == "tech_second_look_v1" and call["tech"]["probability"] == pytest.approx(0.3)
+    # Without a second look (or off Tech) the move rules apply as before: the Claude target, no forecaster fields.
+    assert call["nolook"]["rule"] == "tech_move_v1" and call["nolook"]["probability"] == pytest.approx(0.6)  # equal moves: the first rule
+    assert "forecaster" not in call["nolook"] and "target" not in call["nolook"]
+    assert call["other"]["rule"] == "every_question_move_v1" and call["other"]["probability"] == pytest.approx(0.6)
+
+
+def test_the_edge_test_for_a_forecaster_rule_scores_the_second_look_against_the_market(tmp_path: Path) -> None:
+    # Before the rule's day: counted only for information. Brier of 0.2 against 1 is 0.64; the market's 0.5 gives 0.25.
+    _looks(tmp_path, "20261110", [("early", "Tech", 0.9, 0.5, 0.2, 1, "2026-11-12")])
+    directory = _looks(tmp_path, "20261111", [
+        ("win", "Tech", 0.1, 0.5, 0.9, 1, "2026-11-13"),       # rule 0.9 -> 0.01 against 0.25
+        ("nolook", "Tech", 0.9, 0.5, None, 0, "2026-11-13"),   # no second look: not counted
+        ("other", "Politics", 0.9, 0.5, 0.9, 0, "2026-11-13"), # not Tech: not counted
+        ("open", "Tech", 0.9, 0.5, 0.9, None, "2026-11-30"),   # undecided: not counted
+        ("weak", "Tech", 0.9, 0.5, 0.9, 0, "2026-11-14")])     # weak research: held at the price, 0.25 against 0.25
+    _research(directory, good=["win", "nolook", "other", "open"], warned=["weak"])
+    tests = {t["id"]: t for t in build_track_record(tmp_path, today=date(2026, 11, 20))["summary"]["edge_tests"]}
+    test = tests["tech_second_look_v1"]
+    assert (test["label"], test["status"], test["registered"]) == ("Second look on Tech", "testing", "2026-11-11")
+    assert test["counted"]["questions"] == 2 and test["counted"]["dates"] == 2
+    assert test["counted"]["rule"] == pytest.approx((0.01 + 0.25) / 2) and test["counted"]["market"] == pytest.approx(0.25)
+    assert test["counted"]["difference"] == pytest.approx(-0.12) and test["counted"]["meets_bar"] is False
+    assert test["before"]["questions"] == 1 and test["before"]["rule"] == pytest.approx(0.64)
+    # The move rules still use Claude's blind forecast: the second look changes nothing about them.
+    assert tests["every_question_move_v1"]["counted"]["questions"] == 5  # early, win, nolook, other, weak (open is undecided)
+
+
+def test_a_second_look_is_never_a_target_of_the_move_rules(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_move_v1="promoted"))
+    _looks(tmp_path, "20261111", [("tech", "Tech", 0.9, 0.5, 0.0, None, "2026-11-20")])
+    call = _calls(tmp_path)["tech"]
+    assert call["probability"] == pytest.approx(0.6) and call["rule"] == "tech_move_v1" and "forecaster" not in call
+
+
+def test_promoting_the_second_look_rule_never_rewrites_a_call_already_frozen(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _looks(tmp_path, "20261111", [("tech", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20")])
+    before = _calls(tmp_path, freeze=True)
+    frozen = (tmp_path / "prospective_markets_20261111" / "calls.json").read_bytes()
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_second_look_v1="promoted"))
+    assert _calls(tmp_path, freeze=True) == before
+    assert (tmp_path / "prospective_markets_20261111" / "calls.json").read_bytes() == frozen
+    # A question first built after the promotion does use it.
+    _looks(tmp_path, "20261112", [("later", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20")])
+    assert _calls(tmp_path, freeze=True)["later"]["rule"] == "tech_second_look_v1"

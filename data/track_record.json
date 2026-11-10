@@ -16910,6 +16910,29 @@
         "label": "Every question",
         "registered": "2026-11-10",
         "status": "testing"
+      },
+      {
+        "before": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "questions": 0,
+          "rule": null
+        },
+        "counted": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "meets_bar": false,
+          "questions": 0,
+          "rule": null
+        },
+        "id": "tech_second_look_v1",
+        "label": "Second look on Tech",
+        "registered": "2026-11-11",
+        "status": "testing"
       }
     ],
     "pending": 45,
