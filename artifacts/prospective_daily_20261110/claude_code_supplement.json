@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-10T10:58:00+00:00",
+      "entry_id": "5993599385e99923",
+      "probability": 0.53,
+      "rationale": "The threshold of 4.86 equals the last FRED DGS10 print (2026-11-06) and the Treasury par curve read 4.88 on 2026-11-09, so the start is about 2 basis points above the line with four trading days to go and a strict test (a tie at 4.86 is No). Five-observation changes were higher in 54.5% of pairs over the last year and 49.4% over 10 years, and a typical weekly move of 10 basis points or more makes this close to a coin flip with a slight edge from the 4.88 starting point and the October CPI (2026-11-10) following a 3.7% September inflation print and two hawkish FOMC dissents. I shade it back toward 50% because the six earlier 10-year questions in my record all resolved no while yields drifted down from about 5.3% and a tie counts against yes. Sources: https://fred.stlouisfed.org/series/DGS10 (2026-11-09), https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611 (2026-11-09), https://www.bls.gov/schedule/news_release/cpi.htm, https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm (2026-10-28).",
+      "release_event": "dgs10-2026-11-13",
+      "sources": [
+        "https://fred.stlouisfed.org/series/DGS10",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+        "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261110",
+  "generated_at": "2026-11-10T10:58:00+00:00",
+  "manifest_hash": "1725b4b0d9ee39405b9518c2e9afb7d834475042505841d1f61583cf30e14501",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}

@@ -1,0 +1,27 @@
+{
+  "frozen_at": "2026-11-10T10:30:24.694067+00:00",
+  "manifest": {
+    "created_at": "2026-11-10T10:30:24.694067+00:00",
+    "entries": [
+      {
+        "cutoff": "2026-11-10T16:30:00+00:00",
+        "entry_id": "5993599385e99923",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "treasury_10y",
+          "observation_period": "2026-11-13",
+          "release_at": "2026-11-16T21:00:00Z",
+          "revision_policy": "first_release",
+          "threshold": 4.86
+        },
+        "release_event": "dgs10-2026-11-13"
+      }
+    ],
+    "methods": [
+      "statistical_baseline_v1"
+    ],
+    "schema_version": "prospective_daily_v1",
+    "selection": "fast_fred_question_selection_v3"
+  },
+  "manifest_hash": "1725b4b0d9ee39405b9518c2e9afb7d834475042505841d1f61583cf30e14501"
+}
