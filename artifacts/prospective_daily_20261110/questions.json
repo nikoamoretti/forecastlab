@@ -1,0 +1,16 @@
+[
+  {
+    "cutoff": "2026-11-10T16:30:00+00:00",
+    "entry_id": "5993599385e99923",
+    "macro": {
+      "comparison": "gt",
+      "indicator": "treasury_10y",
+      "observation_period": "2026-11-13",
+      "release_at": "2026-11-16T21:00:00Z",
+      "revision_policy": "first_release",
+      "threshold": 4.86
+    },
+    "question": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-13 be above 4.86 percent?",
+    "release_at": "2026-11-16T21:00:00Z"
+  }
+]
