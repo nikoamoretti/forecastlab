@@ -11,6 +11,7 @@ from forecastlab.live_counts import NO_TALLY
 from forecastlab.market_questions import (
     asset_of,
     candidates,
+    KALSHI_MAX_PAGES,
     kalshi_candidates,
     kalshi_question,
     kalshi_resolution,
@@ -328,6 +329,26 @@ def test_kalshi_pages_are_followed_until_the_cursor_is_empty() -> None:
     kalshi_candidates(NOW, tracked)
     markets = [u for u in urls if "/markets?" in u]
     assert len(markets) == 2 and "cursor" not in markets[0] and markets[1].endswith("cursor=next")
+
+
+def test_kalshi_paging_stops_on_a_repeated_cursor_or_too_many_pages() -> None:
+    def repeating(url: str):
+        return kalshi_fetch(url) if "/series?" in url else {"markets": [], "cursor": "same"}
+
+    with pytest.raises(RuntimeError, match="cursor it was asked with"):
+        kalshi_candidates(NOW, repeating)
+
+    counter = {"n": 0}
+
+    def endless(url: str):
+        if "/series?" in url:
+            return {"series": _KALSHI_SERIES}
+        counter["n"] += 1
+        return {"markets": [], "cursor": f"c{counter['n']}"}
+
+    with pytest.raises(RuntimeError, match="more than 100 pages"):
+        kalshi_candidates(NOW, endless)
+    assert counter["n"] == KALSHI_MAX_PAGES + 1
 
 
 def test_kalshi_question_text_adds_the_yes_side_only_when_the_title_lacks_it() -> None:

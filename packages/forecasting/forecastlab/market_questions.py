@@ -485,6 +485,7 @@ KALSHI_TOPIC = "Tech"
 KALSHI_MIN_VOLUME = 1_000  # contracts
 KALSHI_MAX_SPREAD = 0.10
 KALSHI_DAILY_LIMIT = 4
+KALSHI_MAX_PAGES = 100  # about 29 pages exist; a cursor that never ends must not hang the run
 
 
 def _kalshi_number(value: Any) -> float | None:
@@ -547,7 +548,7 @@ def kalshi_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | N
              "max_close_ts": str(int((now + timedelta(days=MAX_DAYS)).timestamp())), "mve_filter": "exclude", "limit": "1000"}
     by_event: dict[str, list[tuple[float, dict[str, Any], float, str]]] = {}
     cursor = ""
-    while True:
+    for _ in range(KALSHI_MAX_PAGES + 1):
         page = fetch(f"{KALSHI}/markets?{urllib.parse.urlencode(query | ({'cursor': cursor} if cursor else {}))}")
         for market in page.get("markets", []):
             _count(stats, "markets:fetched")
@@ -565,9 +566,14 @@ def kalshi_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | N
             assert price[0] is not None and price[1] is not None
             by_event.setdefault(event, []).append(
                 (_kalshi_number(market.get("volume_fp")) or 0.0, market, round((price[0] + price[1]) / 2, 4), tag))
-        cursor = str(page.get("cursor") or "")
-        if not cursor:
+        following = str(page.get("cursor") or "")
+        if not following:
             break
+        if following == cursor:
+            raise RuntimeError("kalshi: a page returned the cursor it was asked with")
+        cursor = following
+    else:
+        raise RuntimeError(f"kalshi: more than {KALSHI_MAX_PAGES} pages of markets")
     found = []
     for event, eligible in by_event.items():
         _count(stats, "drop:sibling_in_same_event", len(eligible) - 1)
