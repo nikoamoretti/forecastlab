@@ -174,6 +174,57 @@ def polymarket(now: datetime) -> None:
     print("sample checkable-keyword titles among all passing events: " + " || ".join(t[:90] for t in chk))
 
 
+def polymarket_all(now: datetime) -> None:
+    """Untagged fetch in one-day slices of the closing window (the offset cap of ~2,100 made the single fetch incomplete)."""
+    print("=== A (rerun). POLYMARKET all tags, one-day slices ===")
+    events: dict[str, dict] = {}
+    capped = 0
+    for k in range(2 * 4, 10 * 4):  # six-hour slices: 2.0 .. 10.0 days
+        lo, hi = now + timedelta(hours=6 * k / 1), now + timedelta(hours=6 * (k + 1))
+        w = {"closed": "false", "active": "true", "limit": "100", "order": "volume", "ascending": "false",
+             "end_date_min": mq._iso(lo), "end_date_max": mq._iso(hi)}
+        for p in range(30):
+            try:
+                ev = get(f"{mq.GAMMA}/events?{urllib.parse.urlencode(w | {'offset': str(p * 100)})}")
+            except Exception as exc:  # noqa: BLE001
+                capped += 1
+                print(f"slice {k} page {p}: {type(exc).__name__} {getattr(exc, 'code', '')}")
+                break
+            for e in ev:
+                events[str(e["id"])] = e
+            if len(ev) < 100:
+                break
+            time.sleep(0.2)
+        time.sleep(0.2)
+    pall = passing(now, list(events.values()))
+    print(f"events in window (all tags): {len(events)}; slices with errors: {capped}; passing markets={sum(len(v) for v in pall.values())} "
+          f"passing events={len(pall)}")
+    tagc: Counter = Counter()
+    cur = set(mq.TOPICS)
+    reach = [i for i in pall if cur & {t.get("slug") for t in events[i].get("tags") or []}]
+    print(f"passing events carrying a current tag={len(reach)}; not carrying one={len(pall) - len(reach)}")
+    for i in pall:
+        if i in reach:
+            continue
+        for t in events[i].get("tags") or []:
+            tagc[t.get("slug")] += 1
+    print("passing events without a current tag, by tag slug (top 40): " + ", ".join(f"{k}={v}" for k, v in tagc.most_common(40)))
+    nonsport = [i for i in pall if i not in reach and not ({"sports", "games", "soccer"} & {t.get("slug") for t in events[i].get("tags") or []})]
+    print(f"passing events w/o current tag and w/o sports/games/soccer tag={len(nonsport)}")
+    for label, ids in (("all passing", set(pall)), ("current-tag", set(reach)), ("no current tag", set(pall) - set(reach)), ("no current tag, non-sports", set(nonsport))):
+        mk, ev = Counter(), defaultdict(set)
+        for i in ids:
+            for m in pall[i]:
+                b = bucket(now, m["endDate"])
+                if b is not None:
+                    mk[b] += 1
+                    ev[b].add(i)
+        print(f"inflow {label}: markets " + " ".join(f"d{b}={mk[b]}" for b in range(2, 10)) + " | events " + " ".join(f"d{b}={len(ev[b])}" for b in range(2, 10)))
+    print("sample titles non-sports without current tag (<=10): " + " || ".join((events[i].get("title") or "")[:90] for i in nonsport[:10]))
+    chk = [events[i].get("title") or "" for i in pall if CHECKABLE.search(events[i].get("title") or "")]
+    print(f"checkable-keyword titles among passing events={len(chk)}; samples: " + " || ".join(t[:90] for t in chk[:10]))
+
+
 # ---------------- Kalshi ----------------
 def kget(base: str, path: str, params: dict | None = None) -> tuple[int, Any]:
     url = f"{base}{path}" + (f"?{urllib.parse.urlencode(params)}" if params else "")
@@ -327,6 +378,32 @@ def kalshi(now: datetime) -> None:
             mk[b] += 1
             ev2[b].add(m.get("event_ticker"))
         print(f"inflow {label}: markets " + " ".join(f"d{b}={mk[b]}" for b in range(2, 10)) + " | events " + " ".join(f"d{b}={len(ev2[b])}" for b in range(2, 10)))
+    ns = [m for m in band if category(m) != "Sports"]
+    print(f"NON-SPORTS band: markets={len(ns)} events={len({m.get('event_ticker') for m in ns})}")
+    for name in ("volume", "open_interest"):
+        cnt: Counter = Counter()
+        ev: dict[str, set] = defaultdict(set)
+        for m in ns:
+            b = vb(count(m, name) or 0.0)
+            cnt[b] += 1
+            ev[b].add(m.get("event_ticker"))
+        print(f"NON-SPORTS band by {name}: " + " | ".join(f"{b}: markets={cnt[b]} events={len(ev[b])}" for b in ("under100", "100-1k", "1k-10k", "over10k")))
+    for thr in (1, 100, 1000):
+        sel = [m for m in ns if (count(m, "volume") or 0) >= thr]
+        mk2: Counter = Counter()
+        ev3: dict[int, set] = defaultdict(set)
+        for m in sel:
+            b = min(int((closes(m) - now).total_seconds() / 86400), 9)
+            mk2[b] += 1
+            ev3[b].add(m.get("event_ticker"))
+        print(f"NON-SPORTS band & volume>={thr}: markets={len(sel)} events={len({m.get('event_ticker') for m in sel})}; inflow markets "
+              + " ".join(f"d{b}={mk2[b]}" for b in range(2, 10)) + " | events " + " ".join(f"d{b}={len(ev3[b])}" for b in range(2, 10)))
+    for c in sorted({category(m) for m in ns}):
+        sel = [m for m in ns if category(m) == c]
+        print(f"  NS {c}: " + " ".join(f"{b}={sum(1 for m in sel if vb(count(m,'volume') or 0)==b)}" for b in ("under100", "100-1k", "1k-10k", "over10k"))
+              + f" events={len({m.get('event_ticker') for m in sel})}")
+    sst = [m for m in ns if category(m) == "Science and Technology" and (count(m, "volume") or 0) >= 100]
+    print("Science&Tech vol>=100 event titles (<=10): " + " || ".join(sorted({str(m.get('title'))[:80] for m in sst})[:10]))
     need = ["ticker", "title", "subtitle", "yes_sub_title", "rules_primary", "rules_secondary", "close_time", "expiration_time",
             "last_price", "last_price_dollars", "yes_bid", "yes_bid_dollars", "yes_ask", "yes_ask_dollars", "volume", "volume_fp",
             "volume_24h", "open_interest", "open_interest_fp", "event_ticker", "result", "status", "market_type", "settlement_value",
@@ -358,7 +435,7 @@ def kalshi(now: datetime) -> None:
 def run() -> None:
     now = datetime.now(timezone.utc)
     print(f"supply probe at {now.isoformat()}")
-    for fn in (polymarket, kalshi):
+    for fn in (polymarket_all, kalshi):
         try:
             fn(now)
         except Exception as exc:  # noqa: BLE001
