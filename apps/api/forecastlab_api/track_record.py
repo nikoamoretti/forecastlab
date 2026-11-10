@@ -70,6 +70,16 @@ or to any older call. Such a rule's probability is that forecaster's, limited to
 price; a question with no such forecast is not matched. Promoted forecaster rules take precedence over move rules, and the
 frozen call then also records ``forecaster`` and ``target``. ``tech_second_look_v1`` tests it on Tech questions.
 
+The learned model (``learned_model_v1``, from LEARNED_FROM; see ``learned_model.py``) is the part of the system that
+learns from results: a small logistic model fitted on the decided questions that had both a Claude forecast and a market
+price. It corrects the price for how prices have turned out and follows Claude's disagreement with the market by a
+weight learned for each topic, every knob pulled toward "the market is right as stated". Like the confidence
+correction it is fitted only on questions decided before the forecast day, computed once, when the question is first
+built, and frozen as ``learned.json`` next to ``calls.json`` (not until LEARNED_MIN_RESULTS such results exist). It is
+scored on its own row, is in EXCLUDED, and is the forecaster of the rule ``learned_model_call_v1`` on every topic, so
+it becomes our call only if it clears the same bar as every other edge. ``learned_model`` in the record is the fit as
+of the build day, for reading only.
+
 DEFAULT_MOVE is 0.0 (owner's decision of 2026-11-10, taken before any anchored call was frozen): the call is the market
 price unless a promoted rule applies, and no rule is promoted yet. The 10-point move chosen on 2026-11-09 was never
 used for a call; it is still scored in the shadows as the rule ``every_question_move_v1``. With no move there is nothing
@@ -101,6 +111,7 @@ from forecastlab.fast_questions import bond_market_holidays
 from forecastlab.macro import SERIES, MacroSpec
 from forecastlab.plain_questions import TOPICS, format_value, question_text, question_title
 from forecastlab.timeutil import utcnow
+from forecastlab_api.learned_model import LearnedFit, fit_learned_model, learned_probability
 
 TRACK_RECORD_VERSION = "track_record_v2"
 COMBINED = "combined_median_v1"
@@ -123,6 +134,14 @@ CLAUDE = "claude_code_forecaster_v1"
 # Claude's forecast after also seeing the market price and its own first forecast. Never an input to anything Claude
 # forecasts blind, and never part of an older call (see EXCLUDED).
 SECOND_LOOK = "claude_second_look_v1"
+# A small model fitted on the decided questions (learned_model.py): the market's price corrected by how prices have
+# turned out and by how much Claude's disagreement has been worth on each topic. Made by the builder, never by a model
+# call; frozen in LEARNED_FILE for questions first forecast from LEARNED_FROM, once LEARNED_MIN_RESULTS decided
+# questions with both a Claude forecast and a market price were known before the forecast day.
+LEARNED = "learned_model_v1"
+LEARNED_FROM = date(2026, 11, 11)
+LEARNED_FILE = "learned.json"
+LEARNED_MIN_RESULTS = 100
 # Call rules: ideas for moving further toward Claude on some questions. Each is scored in the shadows (summary.edge_tests)
 # on questions first forecast on or after its registered date. "testing" rules change nothing; promoting one (a reviewed
 # one-line change of "status" to "promoted") lets the call move by the rule's `move` on the questions whose topic it
@@ -132,6 +151,7 @@ SECOND_LOOK = "claude_second_look_v1"
 class CallRule(TypedDict):
     id: str
     label: str
+    about: str  # one plain sentence for the page: what the rule would do to our call
     registered: date
     topics: tuple[str, ...] | None
     move: float
@@ -141,11 +161,18 @@ class CallRule(TypedDict):
 
 CALL_RULES: tuple[CallRule, ...] = (
     {"id": "tech_move_v1", "label": "Tech questions", "registered": date(2026, 11, 10), "topics": ("Tech",),
-     "move": 0.10, "status": "testing", "forecaster": None},
+     "move": 0.10, "status": "testing", "forecaster": None,
+     "about": "On Tech questions, move up to 10 points from the market’s price toward Claude’s forecast."},
     {"id": "every_question_move_v1", "label": "Every question", "registered": date(2026, 11, 10), "topics": None,
-     "move": 0.10, "status": "testing", "forecaster": None},
+     "move": 0.10, "status": "testing", "forecaster": None,
+     "about": "On every question, move up to 10 points from the market’s price toward Claude’s forecast."},
     {"id": "tech_second_look_v1", "label": "Second look on Tech", "registered": date(2026, 11, 11), "topics": ("Tech",),
-     "move": 1.0, "status": "testing", "forecaster": SECOND_LOOK},
+     "move": 1.0, "status": "testing", "forecaster": SECOND_LOOK,
+     "about": "On Tech questions, use the forecast Claude makes after it has also seen the market’s price."},
+    {"id": "learned_model_call_v1", "label": "Learned from results", "registered": LEARNED_FROM, "topics": None,
+     "move": 1.0, "status": "testing", "forecaster": LEARNED,
+     "about": "A small model that re-fits itself on every result: the market’s price, corrected by how prices and "
+              "Claude’s disagreements with them have turned out."},
 )
 # The promotion bar: counted questions, distinct resolution dates, and a 90% interval (percentiles of the mean of
 # rule Brier minus market Brier over resamples of the resolution dates) entirely below zero.
@@ -188,6 +215,11 @@ FORECASTERS: dict[str, dict[str, str]] = {
         "label": "Claude, second look",
         "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test "
                  "on Tech questions; it is part of our call only if it proves it beats the market."},
+    LEARNED: {
+        "label": "Learned model",
+        "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how "
+                 "prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge "
+                 "under test; it is part of our call only if it proves it beats the market."},
     "judge_nemotron_ultra_v1": {
         "label": "Nemotron Ultra (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes."},
     "judge_nemotron_super_v1": {
@@ -234,7 +266,7 @@ SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job
 # Benchmarks are scored like forecasters but never enter our call.
 BENCHMARKS = ("market_price_v1", "manifold_price_v1", "kalshi_price_v1")
 # Scored like forecasters but never part of our call or of any forecaster's weight.
-EXCLUDED = {*BENCHMARKS, CALIBRATED, SECOND_LOOK}
+EXCLUDED = {*BENCHMARKS, CALIBRATED, SECOND_LOOK, LEARNED}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
@@ -463,6 +495,31 @@ def _correction(questions: list[dict[str, Any]], day: date) -> dict[str, Any] | 
         return None
     slope, intercept = fit_confidence_correction(rows)
     return {"slope": round(slope, 6), "intercept": round(intercept, 6), "results": len(rows), "as_of": day.isoformat()}
+
+
+def _learned_fit(questions: list[dict[str, Any]], day: date) -> dict[str, Any] | None:
+    """The learned model fitted on what was known before ``day``, or None until LEARNED_MIN_RESULTS results were known.
+
+    A result counts when the question is decided, scored, was decided before ``day`` and has both a market price and
+    Claude's blind forecast. The knobs are rounded before use, so the saved fit reproduces the saved probability.
+    """
+    rows = [(price, claude, q["topic"], q["outcome"]) for q in questions
+            if q["status"] == "resolved" and q["scored"] and q["resolves_on"] < day.isoformat()
+            and (price := _market_price(q["forecasts"])) is not None and (claude := _claude_probability(q)) is not None]
+    if len(rows) < LEARNED_MIN_RESULTS:
+        return None
+    fit = fit_learned_model(rows)
+    return {"intercept": round(fit["intercept"], 6), "slope": round(fit["slope"], 6),
+            "weights": {topic: round(weight, 6) for topic, weight in fit["weights"].items()},
+            "results": len(rows), "as_of": day.isoformat()}
+
+
+def _learned_forecast(question: dict[str, Any], price: float, claude: float, fit: dict[str, Any]) -> dict[str, Any]:
+    """One question's learned forecast with the numbers and the knobs it came from."""
+    knobs: LearnedFit = {"intercept": fit["intercept"], "slope": fit["slope"], "weights": fit["weights"]}
+    return {"probability": round(learned_probability(price, claude, question["topic"], knobs), 6),
+            "market": price, "claude": claude, "intercept": fit["intercept"], "slope": fit["slope"],
+            "claude_weight": fit["weights"].get(question["topic"], 0.0), "results": fit["results"], "as_of": fit["as_of"]}
 
 
 def _forecast_day(question: dict[str, Any]) -> date | None:
@@ -708,7 +765,7 @@ def _edge_tests(resolved: list[dict[str, Any]], artifacts: Path, research_files:
             held = _weak_research(research, q["id"]) if research is not None or key == "counted" else False
             moved = _moved(price, target, rule["move"], held)
             rows[key].append((_brier(moved, q["outcome"]), _brier(price, q["outcome"]), q["resolves_on"]))
-        tests.append({"id": rule["id"], "label": rule["label"], "status": rule["status"],
+        tests.append({"id": rule["id"], "label": rule["label"], "about": rule["about"], "status": rule["status"],
                       "registered": rule["registered"].isoformat(),
                       "counted": _edge_block(rows["counted"], counted=True), "before": _edge_block(rows["before"], counted=False)})
     return tests
@@ -758,6 +815,24 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             question["forecasts"].append({"method": CALIBRATED, **saved[question["id"]]})
             question["forecasts"].sort(key=lambda f: PRIMARY_ORDER.index(f["method"])
                                        if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER))
+    # The learned model's forecast: made once per question from what was known before its forecast day, then frozen.
+    learned: dict[str, dict[str, dict[str, Any]]] = {}
+    learned_fits: dict[date, dict[str, Any] | None] = {}
+    for question in questions:
+        day, price, claude_said = _forecast_day(question), _market_price(question["forecasts"]), _claude_probability(question)
+        if day is None or day < LEARNED_FROM or price is None or claude_said is None:
+            continue
+        path = artifacts / question["source"] / LEARNED_FILE
+        kept = learned.setdefault(question["source"], json.loads(path.read_text()) if path.exists() else {})
+        if question["id"] not in kept:
+            if day not in learned_fits:
+                learned_fits[day] = _learned_fit(questions, day)
+            if learned_fit := learned_fits[day]:
+                kept[question["id"]] = _learned_forecast(question, price, claude_said, learned_fit)
+        if question["id"] in kept:
+            question["forecasts"].append({"method": LEARNED, **kept[question["id"]]})
+            question["forecasts"].sort(key=lambda f: PRIMARY_ORDER.index(f["method"])
+                                       if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER))
     for question in questions:
         day = _forecast_day(question)
         if day is None or day < WEIGHTED_FROM:
@@ -783,6 +858,10 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             path = artifacts / source / CALIBRATED_FILE
             if saved and (not path.exists() or json.loads(path.read_text()) != saved):
                 path.write_text(json.dumps(saved, indent=2, sort_keys=True) + "\n")
+        for source, kept in learned.items():
+            path = artifacts / source / LEARNED_FILE
+            if kept and (not path.exists() or json.loads(path.read_text()) != kept):
+                path.write_text(json.dumps(kept, indent=2, sort_keys=True) + "\n")
     resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
     summary |= {"vs_market": _versus_market(resolved), "progress": _progress(resolved),
@@ -808,4 +887,5 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
     built_on = today or utcnow().date()
     return {"version": TRACK_RECORD_VERSION, "generated_on": built_on.isoformat(),
             "summary": summary, "calibration": _correction(questions, built_on),
+            "learned_model": _learned_fit(questions, built_on),
             "forecasters": forecasters, "questions": questions}

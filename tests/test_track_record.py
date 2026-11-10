@@ -9,6 +9,7 @@ import pytest
 from forecastlab.macro import MacroSpec
 from forecastlab.plain_questions import format_value, question_title
 from forecastlab_api import track_record
+from forecastlab_api.learned_model import fit_learned_model, learned_probability
 from forecastlab_api.track_record import build_track_record, verdict
 
 UNEMPLOYMENT = {"indicator": "unemployment", "observation_period": "2026-09", "threshold": 4.1, "comparison": "gt",
@@ -191,6 +192,7 @@ def test_from_nov_5_our_call_is_claudes_own_forecast_frozen_and_earlier_calls_st
 
 CLAUDE = "claude_code_forecaster_v1"
 SECOND_LOOK = "claude_second_look_v1"
+LEARNED = "learned_model_v1"
 
 
 def _history(root: Path, count: int, *, late_date: str | None = None) -> None:
@@ -531,13 +533,15 @@ def _tech_and_other(root: Path, day: str = "20261110") -> Path:
     return directory
 
 
-def test_the_registry_starts_with_three_testing_rules_and_no_default_move() -> None:
+def test_the_registry_starts_with_four_testing_rules_and_no_default_move() -> None:
     assert track_record.DEFAULT_MOVE == 0.0  # owner's decision of 2026-11-10: the market price until an edge is proven
     assert [(r["id"], r["label"], r["registered"], r["topics"], r["move"], r["status"], r["forecaster"]) for r in track_record.CALL_RULES] == [
         ("tech_move_v1", "Tech questions", date(2026, 11, 10), ("Tech",), 0.10, "testing", None),
         ("every_question_move_v1", "Every question", date(2026, 11, 10), None, 0.10, "testing", None),
-        ("tech_second_look_v1", "Second look on Tech", date(2026, 11, 11), ("Tech",), 1.0, "testing", SECOND_LOOK)]
+        ("tech_second_look_v1", "Second look on Tech", date(2026, 11, 11), ("Tech",), 1.0, "testing", SECOND_LOOK),
+        ("learned_model_call_v1", "Learned from results", date(2026, 11, 11), None, 1.0, "testing", LEARNED)]
     assert track_record.SECOND_LOOK == "claude_second_look_v1" and SECOND_LOOK in track_record.EXCLUDED
+    assert track_record.LEARNED == "learned_model_v1" and LEARNED in track_record.EXCLUDED
     assert (track_record.PROMOTION_QUESTIONS, track_record.PROMOTION_DATES) == (40, 10)
 
 
@@ -587,7 +591,8 @@ def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_pat
     assert call["other"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
     assert record["summary"]["call_policy"]["promoted"] == ["Tech questions"]
     assert [(e["id"], e["status"]) for e in record["summary"]["edge_tests"]] == [
-        ("tech_move_v1", "promoted"), ("every_question_move_v1", "testing"), ("tech_second_look_v1", "testing")]
+        ("tech_move_v1", "promoted"), ("every_question_move_v1", "testing"), ("tech_second_look_v1", "testing"),
+        ("learned_model_call_v1", "testing")]
 
 
 def test_the_largest_move_among_matching_promoted_rules_applies_and_weak_research_still_holds(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -870,3 +875,111 @@ def test_promoting_the_second_look_rule_never_rewrites_a_call_already_frozen(tmp
     # A question first built after the promotion does use it.
     _looks(tmp_path, "20261112", [("later", "Tech", 0.9, 0.5, 0.2, None, "2026-11-20")])
     assert _calls(tmp_path, freeze=True)["later"]["rule"] == "tech_second_look_v1"
+
+
+# --- The learned model (learned_model_v1) and the rule that tests it -------------------------------------------------
+
+def _lessons(count: int) -> list[tuple[str, str, float, float, int, str]]:
+    """``count`` decided questions, market 50% and Claude 80%: on Tech yes happens 4 times in 5, on Politics half the time."""
+    return [(f"l{n}", "Tech", 0.8, 0.5, 0 if n % 10 == 0 else 1, "2026-11-05") if n % 2 == 0
+            else (f"l{n}", "Politics", 0.8, 0.5, n % 4 // 2, "2026-11-05") for n in range(count)]
+
+
+def _fit_of(items: list[tuple[str, str, float, float, int, str]]) -> dict:
+    fit = fit_learned_model([(price, claude, topic, outcome) for _, topic, claude, price, outcome, _ in items])
+    return {"intercept": round(fit["intercept"], 6), "slope": round(fit["slope"], 6),
+            "weights": {topic: round(weight, 6) for topic, weight in fit["weights"].items()}}
+
+
+def test_the_learned_forecast_waits_for_a_hundred_results_and_for_its_first_day(tmp_path: Path) -> None:
+    _decided(tmp_path, "20261101", _lessons(99))
+    _looks(tmp_path, "20261111", [("new", "Tech", 0.7, 0.4, None, None, "2026-11-20")])
+    record = build_track_record(tmp_path, today=date(2026, 11, 11), freeze=True)
+    assert _forecast(record, "new", LEARNED) is None and record["learned_model"] is None
+    assert not (tmp_path / "prospective_markets_20261111" / "learned.json").exists()
+    # Enough results, but a question first forecast the day before the model starts gets none.
+    _decided(tmp_path, "20261102", [("extra", "Tech", 0.8, 0.5, 1, "2026-11-05")])
+    _looks(tmp_path, "20261110", [("early", "Tech", 0.7, 0.4, None, None, "2026-11-20")])
+    record = build_track_record(tmp_path, today=date(2026, 11, 11), freeze=True)
+    assert _forecast(record, "early", LEARNED) is None and _forecast(record, "new", LEARNED) is not None
+    assert not (tmp_path / "prospective_markets_20261110" / "learned.json").exists()
+
+
+def test_the_learned_forecast_is_frozen_with_its_fit_and_uses_only_results_known_before_the_day(tmp_path: Path) -> None:
+    lessons = _lessons(120)
+    _decided(tmp_path, "20261101", lessons)
+    # Decided on the forecast day itself: not known before it, so not part of the fit.
+    _decided(tmp_path, "20261102", [("sameday", "Tech", 0.8, 0.5, 0, "2026-11-11")])
+    directory = _looks(tmp_path, "20261111", [
+        ("tech", "Tech", 0.7, 0.4, None, None, "2026-11-20"), ("pol", "Politics", 0.7, 0.4, None, None, "2026-11-20"),
+        ("crypto", "Crypto", 0.7, 0.4, None, None, "2026-11-20")])
+    forecasts = json.loads((directory / "forecasts.json").read_text())
+    forecasts["questions"].append({"id": "noprice", "question": "noprice", "resolution_criteria": "Rules.", "resolution_date": "2026-11-20",
+                                   "outcome": None, "topic": "Tech", "forecasts": [{"method": CLAUDE, "probability": 0.7}]})
+    (directory / "forecasts.json").write_text(json.dumps(forecasts))
+    record = build_track_record(tmp_path, today=date(2026, 11, 11), freeze=True)
+    fit = _fit_of(lessons)
+    saved = json.loads((directory / "learned.json").read_text())
+    assert set(saved) == {"tech", "pol", "crypto"}  # no market price, no learned forecast
+    assert saved["tech"] == {
+        "probability": round(learned_probability(0.4, 0.7, "Tech", fit), 6), "market": 0.4, "claude": 0.7,
+        "intercept": fit["intercept"], "slope": fit["slope"], "claude_weight": fit["weights"]["Tech"],
+        "results": 120, "as_of": "2026-11-11"}
+    assert _forecast(record, "tech", LEARNED) == {"method": LEARNED, **saved["tech"]}
+    # It follows Claude further on the topic where Claude's disagreement has paid, and not at all on a topic never seen.
+    assert saved["tech"]["probability"] > saved["pol"]["probability"]
+    assert saved["crypto"]["claude_weight"] == 0.0
+    assert saved["crypto"]["probability"] == round(learned_probability(0.4, 0.4, "Crypto", fit), 6)
+    assert record["learned_model"] == {**fit, "results": 120, "as_of": "2026-11-11"}
+    # A later result changes the fit of later days, never a forecast already frozen.
+    _decided(tmp_path, "20261103", [(f"more{n}", "Tech", 0.8, 0.5, 0, "2026-11-12") for n in range(40)])
+    later = build_track_record(tmp_path, today=date(2026, 11, 15), freeze=True)
+    assert json.loads((directory / "learned.json").read_text()) == saved
+    assert _forecast(later, "tech", LEARNED) == {"method": LEARNED, **saved["tech"]}
+    assert later["learned_model"]["results"] == 161 and later["learned_model"]["weights"]["Tech"] < fit["weights"]["Tech"]
+
+
+def test_the_learned_forecast_has_its_own_row_and_changes_no_call_while_it_is_tested(tmp_path: Path) -> None:
+    _decided(tmp_path, "20261101", _lessons(120))
+    _looks(tmp_path, "20261111", [("tech", "Tech", 0.7, 0.4, None, None, "2026-11-20")])
+    record = build_track_record(tmp_path, today=date(2026, 11, 11))
+    question = next(q for q in record["questions"] if q["id"] == "tech")
+    assert question["call"] == {"method": "market_anchored_call_v1", "probability": 0.4, "members": 1, "claude": 0.7, "market": 0.4, "max_move": 0.0}
+    row = next(f for f in record["forecasters"] if f["method"] == LEARNED)
+    assert (row["label"], row["forecasts"], row["resolved"]) == ("Learned model", 1, 0)
+    # Never a member of a combined call or of a forecaster's weight.
+    assert LEARNED not in track_record._weights([q for q in record["questions"] if q["status"] == "resolved"])
+
+
+def test_the_edge_test_scores_the_learned_forecast_against_the_market(tmp_path: Path) -> None:
+    lessons = _lessons(120)
+    _decided(tmp_path, "20261101", lessons)
+    directory = _looks(tmp_path, "20261111", [
+        ("win", "Tech", 0.8, 0.5, None, 1, "2026-11-13"), ("weak", "Tech", 0.8, 0.5, None, 1, "2026-11-14"),
+        ("open", "Tech", 0.8, 0.5, None, None, "2026-11-30")])
+    _research(directory, good=["win", "open"], warned=["weak"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 20))
+    test = next(t for t in record["summary"]["edge_tests"] if t["id"] == "learned_model_call_v1")
+    assert (test["label"], test["status"], test["registered"]) == ("Learned from results", "testing", "2026-11-11")
+    learned = learned_probability(0.5, 0.8, "Tech", _fit_of(lessons))
+    assert learned > 0.6
+    # "weak" has thin research, so the rule holds it at the price like every other rule.
+    assert test["counted"]["questions"] == 2 and test["counted"]["dates"] == 2
+    assert test["counted"]["rule"] == pytest.approx(((1 - learned) ** 2 + 0.25) / 2, abs=1e-6)
+    assert test["counted"]["market"] == pytest.approx(0.25) and test["counted"]["meets_bar"] is False
+    # Questions forecast before the model started have no learned forecast, so nothing is shown for them.
+    assert test["before"]["questions"] == 0
+
+
+def test_a_promoted_learned_rule_sets_the_call_and_records_where_it_came_from(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(learned_model_call_v1="promoted"))
+    lessons = _lessons(120)
+    _decided(tmp_path, "20261101", lessons)
+    directory = _looks(tmp_path, "20261111", [("tech", "Tech", 0.8, 0.5, None, None, "2026-11-20"), ("weak", "Politics", 0.8, 0.5, None, None, "2026-11-20")])
+    _research(directory, good=["tech"], warned=["weak"])
+    call = _calls(tmp_path, freeze=True)
+    learned = round(learned_probability(0.5, 0.8, "Tech", _fit_of(lessons)), 6)
+    assert call["tech"] == {"method": "market_anchored_call_v1", "probability": learned, "members": 1, "claude": 0.8, "market": 0.5,
+                            "max_move": 1.0, "rule": "learned_model_call_v1", "forecaster": LEARNED, "target": learned}
+    assert call["weak"]["probability"] == 0.5 and call["weak"]["held"] == "weak research"
+    assert json.loads((directory / "calls.json").read_text())["tech"] == call["tech"]

@@ -229,6 +229,19 @@
     }
   ],
   "generated_on": "2026-11-10",
+  "learned_model": {
+    "as_of": "2026-11-10",
+    "intercept": 0.370938,
+    "results": 193,
+    "slope": 1.090909,
+    "weights": {
+      "Crypto": -0.324302,
+      "Economy": -0.207138,
+      "Politics": -0.29665,
+      "Tech": 0.532004,
+      "World": -0.411017
+    }
+  },
   "questions": [
     {
       "actual": "Manifold: No",
@@ -17396,6 +17409,7 @@
     "coin_flip_brier": 0.25,
     "edge_tests": [
       {
+        "about": "On Tech questions, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 8,
           "difference": -0.01838722241379312,
@@ -17422,6 +17436,7 @@
         "status": "testing"
       },
       {
+        "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 25,
           "difference": 0.013371565230769183,
@@ -17448,6 +17463,7 @@
         "status": "testing"
       },
       {
+        "about": "On Tech questions, use the forecast Claude makes after it has also seen the market\u2019s price.",
         "before": {
           "dates": 0,
           "difference": null,
@@ -17467,6 +17483,30 @@
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
+        "registered": "2026-11-11",
+        "status": "testing"
+      },
+      {
+        "about": "A small model that re-fits itself on every result: the market\u2019s price, corrected by how prices and Claude\u2019s disagreements with them have turned out.",
+        "before": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "questions": 0,
+          "rule": null
+        },
+        "counted": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "meets_bar": false,
+          "questions": 0,
+          "rule": null
+        },
+        "id": "learned_model_call_v1",
+        "label": "Learned from results",
         "registered": "2026-11-11",
         "status": "testing"
       }
