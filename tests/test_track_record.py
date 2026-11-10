@@ -600,6 +600,24 @@ def test_changing_the_policy_never_rewrites_a_frozen_call(tmp_path: Path, monkey
     assert {p: p.read_bytes() for p in sorted(tmp_path.glob("prospective_*/calls.json"))} == frozen
 
 
+def test_a_question_priced_only_by_kalshi_is_anchored_compared_and_counted_in_the_tech_edge_test(tmp_path: Path) -> None:
+    directory = tmp_path / "prospective_markets_20261110"
+    _markets(directory, [{"id": "kalshi-KXGPT-ASTRA61", "topic": "Tech", "date": "2026-11-13", "outcome": 1,
+                          "resolution_source": "https://kalshi.com/events/KXGPT-ASTRA61", "forecasts": [
+                              {"method": CLAUDE, "probability": 0.9}, {"method": "kalshi_price_v1", "probability": 0.5}]}])
+    _research(directory, good=["kalshi-KXGPT-ASTRA61"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 20))
+    call = record["questions"][0]["call"]
+    assert call["method"] == "market_anchored_call_v1" and call["probability"] == 0.5 and call["market"] == 0.5 and call["claude"] == 0.9
+    versus = record["summary"]["vs_market"]
+    assert versus["questions"] == 1 and versus["market"] == pytest.approx(0.25) and versus["ours"] == pytest.approx(0.25)
+    kalshi = next(f for f in record["forecasters"] if f["method"] == "kalshi_price_v1")
+    assert kalshi["label"] == "Kalshi (benchmark)" and kalshi["resolved"] == 1
+    tech = next(t for t in record["summary"]["edge_tests"] if t["id"] == "tech_move_v1")
+    assert tech["counted"]["questions"] == 1 and tech["counted"]["market"] == pytest.approx(0.25)
+    assert tech["counted"]["rule"] == pytest.approx(0.16)  # the price moved 0.10 toward Claude: 0.6 against a yes
+
+
 def _decided(root: Path, day: str, items: list[tuple[str, str, float, float, int, str]], **extra: object) -> None:
     """A directory of decided questions: (id, topic, Claude, market price, outcome, resolution date)."""
     directory = root / f"prospective_markets_{day}"

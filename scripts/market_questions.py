@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Daily questions borrowed from Polymarket and Manifold (rule: forecastlab.market_questions).
+"""Daily questions borrowed from Polymarket, Manifold and Kalshi (rule: forecastlab.market_questions).
 
   python scripts/market_questions.py prepare                   # artifacts/prospective_markets_<date>/
   python scripts/market_questions.py pool                      # read-only: the selection funnel per source, writes nothing
@@ -24,7 +24,7 @@ in [0.02, 0.98] and that the forecast was made before each market closes, and wr
 ``failed`` in the directory's ``research.json``. Skipped questions are printed and listed under
 ``skipped`` in ``forecasts.json`` with a reason; any other uncovered question is still refused.
 
-``resolve`` records the market's final result (Polymarket or Manifold) for questions whose market has closed.
+``resolve`` records the market's final result (Polymarket, Manifold or Kalshi) for questions whose market has closed.
 
 ``second-look export`` writes a packet for the "second look": a second Claude forecast made after seeing the research
 digest, Claude's first (blind) forecast with its rationale, and the market's price. One item per eligible question: it has
@@ -52,6 +52,8 @@ from forecastlab.cursor_research import digest  # noqa: E402
 from forecastlab.live_counts import NO_TALLY  # noqa: E402
 from forecastlab.market_questions import (  # noqa: E402
     DAILY_LIMIT,
+    KALSHI_DAILY_LIMIT,
+    KALSHI_SELECTION_VERSION,
     MANIFOLD_DAILY_LIMIT,
     MANIFOLD_SELECTION_VERSION,
     MARKET_METHOD,
@@ -60,6 +62,8 @@ from forecastlab.market_questions import (  # noqa: E402
     Stats,
     candidates,
     fetch_json,
+    kalshi_candidates,
+    kalshi_resolution,
     manifold_candidates,
     manifold_resolution,
     manifold_rules,
@@ -110,6 +114,10 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
         chosen += [manifold_rules(item, fetch) for item in select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT, pending + chosen)]
     except Exception as exc:  # noqa: BLE001
         print(f"manifold questions skipped today ({type(exc).__name__})")
+    try:  # Kalshi adds Tech questions; if it is unreachable, the other sources still run
+        chosen += select(kalshi_candidates(now, fetch), seen, KALSHI_DAILY_LIMIT, pending + chosen)
+    except Exception as exc:  # noqa: BLE001
+        print(f"kalshi questions skipped today ({type(exc).__name__})")
     if not chosen:
         print("no new market questions today")
         return None
@@ -117,11 +125,12 @@ def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", f
     directory.mkdir(parents=True, exist_ok=False)
     keep = ("id", "question", "topic", "resolution_criteria", "closes_at", "market_url")
     (directory / "questions.json").write_text(json.dumps(
-        {"selection": f"{SELECTION_VERSION}+{MANIFOLD_SELECTION_VERSION}", "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen]},
+        {"selection": f"{SELECTION_VERSION}+{MANIFOLD_SELECTION_VERSION}+{KALSHI_SELECTION_VERSION}", "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen]},
         indent=2, sort_keys=True) + "\n")
     (directory / "market_snapshot.json").write_text(json.dumps(
         {"taken_at": now.isoformat(), "markets": [{"id": c["id"], "market_id": c["market_id"], "yes_price": c["market_price"],
-                                                   "volume": c["volume"], "volume_floor": c["volume_floor"], "method": c.get("method", MARKET_METHOD)} for c in chosen]}, indent=2, sort_keys=True) + "\n")
+                                                   "volume": c["volume"], "volume_floor": c["volume_floor"], "method": c.get("method", MARKET_METHOD),
+                                                   **({"volume_unit": c["volume_unit"]} if "volume_unit" in c else {})} for c in chosen]}, indent=2, sort_keys=True) + "\n")
     print(f"{directory.name}: {len(chosen)} questions")
     return directory
 
@@ -142,7 +151,8 @@ def pool(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetc
     print("  pending by topic and resolution date: " + ", ".join(f"{t}/{d}={n}" for (t, d), n in sorted(by_day.items())))
     result: dict[str, Stats] = {}
     chosen: list[dict[str, Any]] = []
-    for source, find, limit in (("polymarket", candidates, DAILY_LIMIT), ("manifold", manifold_candidates, MANIFOLD_DAILY_LIMIT)):
+    for source, find, limit in (("polymarket", candidates, DAILY_LIMIT), ("manifold", manifold_candidates, MANIFOLD_DAILY_LIMIT),
+                               ("kalshi", kalshi_candidates, KALSHI_DAILY_LIMIT)):
         stats: Stats = {}
         result[source] = stats
         last: list[str] = []
@@ -162,6 +172,7 @@ def pool(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetc
         print("\n".join(_funnel(stats, ("events:", "markets:", "fetched:", "reach:", "volume_band:")) + _funnel(stats, ("drop:",)) + _funnel(stats, ("candidates:",))
                         + _funnel(stats, ("select:",))))
         print(f"  chosen: {len(picked)}")
+        print("  chosen ids: " + ", ".join(c["id"] for c in picked))
     return result
 
 
@@ -206,6 +217,7 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
             # the floor it was chosen under and what had traded, so scores can be split by how thin the market was
             **({"volume_floor": prices[qid]["volume_floor"], "volume": prices[qid]["volume"]}
                if "volume_floor" in prices[qid] else {}),
+            **({"volume_unit": prices[qid]["volume_unit"]} if "volume_unit" in prices[qid] else {}),
             **({"integrity_note": forecast["integrity_note"], "unscored": True} if forecast.get("integrity_note") else {}),
             "forecasts": [
                 {"method": prices[qid].get("method", MARKET_METHOD), "probability": prices[qid]["yes_price"],
@@ -214,7 +226,7 @@ def record(directory: Path, forecasts_path: Path, skip: set[str] | None = None, 
                  "rationale": forecast.get("rationale", ""), "sources": forecast.get("sources", [])}]})
     target = directory / "forecasts.json"
     record_data = {"schema": "market_questions_v1", "selection": selected.get("selection", SELECTION_VERSION), "note": (
-        "Questions borrowed from a prediction market (Polymarket or Manifold) and resolved by it. The market price at "
+        "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at "
         "selection is a benchmark, "
         "not part of our call; our forecasters did not look at it."), "questions": out}
     if skipped:
@@ -325,7 +337,7 @@ def second_look_record(directory: Path, answers_path: Path, topics: set[str] | N
 
 
 def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, today: datetime | None = None) -> int:
-    """Record final Polymarket results; network errors leave a question open for the next run."""
+    """Record final market results (Polymarket, Manifold, Kalshi); network errors leave a question open for the next run."""
     today = as_utc(today or utcnow())
     changed = 0
     for path in sorted(artifacts.glob("prospective_markets_*/forecasts.json")):
@@ -334,21 +346,25 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
         for question in data["questions"]:
             if question["outcome"] is not None or question.get("cancelled") or question["resolution_date"] > today.date().isoformat():
                 continue
-            manifold = question["id"].startswith("manifold-")
+            manifold, kalshi = question["id"].startswith("manifold-"), question["id"].startswith("kalshi-")
+            name = "Kalshi" if kalshi else "Manifold" if manifold else "Polymarket"
             try:
-                result = (manifold_resolution(question["market_id"], fetch) if manifold
+                result = (kalshi_resolution(question["market_id"], fetch) if kalshi
+                          else manifold_resolution(question["market_id"], fetch) if manifold
                           else resolution(question["market_id"], fetch, now=today))
             except Exception as exc:  # noqa: BLE001 - one unreachable market must not stop the others
                 print(f"{question['id']}: still open ({type(exc).__name__})")
                 continue
             if result["status"] == "resolved":
                 question |= {"outcome": result["outcome"], "outcome_source": question["resolution_source"],
-                             "outcome_note": f"{'Manifold' if manifold else 'Polymarket'}: {'Yes' if result['outcome'] else 'No'}"}
+                             "outcome_note": f"{name}: {'Yes' if result['outcome'] else 'No'}"}
                 changed += 1
             elif result["status"] == "cancelled":
-                question |= {"cancelled": True, "outcome_note": "Manifold cancelled it" if manifold else "Polymarket settled it 50/50"}
+                question |= {"cancelled": True, "outcome_note": (
+                    "Kalshi settled it without a yes or no" if kalshi else "Manifold cancelled it" if manifold
+                    else "Polymarket settled it 50/50")}
                 changed += 1
-            elif not manifold:  # why a past-due market is still open; flags only, never a price
+            elif not manifold and not kalshi:  # why a past-due market is still open; flags only, never a price
                 print(f"{question['id']}: pending (closed={result.get('closed')}, uma={result.get('uma') or 'none'}, "
                       f"settled_prices={result.get('settled_prices')})")
         if changed > before:

@@ -169,6 +169,20 @@ test("a market whose rules allow a much later settlement says so instead of look
   await expect(page.getByText("It was due Oct 25, 2026, but Manifold hasn’t settled it yet. We check every evening.")).toBeVisible();
 });
 
+test("a pending Kalshi question says it is waiting for Kalshi", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-12T12:00:00Z"));
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-12", forecasters,
+    summary: { resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 1 },
+    questions: [
+      question("astra", "Will OpenAI release Astra 6.1 before Nov 11, 2026?", { status: "pending", outcome: null, actual: null,
+        resolves_on: "2026-11-11", source_url: "https://kalshi.com/events/KXGPT-ASTRA61", call: { method: "market_anchored_call_v1", probability: .4 },
+        detail: "Resolves YES if it is released before Nov 11, 2026." })] } }));
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: /Astra 6.1/ })).toContainText("Waiting for Kalshi");
+  await page.goto("/q/astra");
+  await expect(page.getByText("It was due Nov 11, 2026, but Kalshi hasn’t settled it yet. We check every evening.")).toBeVisible();
+});
+
 test("the headline score covers every decided question, and the market comparison uses our call on the questions it priced", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-10-31T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-31", forecasters,

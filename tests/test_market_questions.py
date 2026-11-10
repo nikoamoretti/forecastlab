@@ -11,11 +11,15 @@ from forecastlab.live_counts import NO_TALLY
 from forecastlab.market_questions import (
     asset_of,
     candidates,
+    kalshi_candidates,
+    kalshi_question,
+    kalshi_resolution,
     manifold_candidates,
     manifold_resolution,
     resolution,
     select,
     settles_late,
+    volume_floor,
 )
 from forecastlab_api.track_record import build_track_record
 
@@ -188,7 +192,8 @@ def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
     assert pool["f1"] | {"volume": 0} == {
         "id": "manifold-f1", "market_id": "f1", "topic": "Economy", "tag": "economics-default",
         "question": "Will the Fed raise rates in October 2026?", "closes_at": "2026-10-15T00:00:00Z", "volume": 0,
-        "volume_floor": 1_000, "market_price": 0.23, "market_url": "https://manifold.markets/u/f1", "method": "manifold_price_v1"}
+        "volume_floor": 1_000, "volume_unit": "mana", "market_price": 0.23, "market_url": "https://manifold.markets/u/f1",
+        "method": "manifold_price_v1"}
 
 
 def test_manifold_funnel_says_which_side_of_the_window_markets_miss() -> None:
@@ -219,7 +224,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v7+manifold_selection_v3"
+    assert selected["selection"] == "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
@@ -243,6 +248,164 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     fed = next(q for q in record["questions"] if q["id"] == "manifold-f1")
     assert (fed["status"], fed["actual"], fed["verdict"]) == ("resolved", "Manifold: Yes", "wrong")
     assert fed["call"] == {"method": "combined_median_v1", "probability": 0.3, "members": 1}  # benchmark excluded
+
+
+_KALSHI_SERIES = [{"ticker": t, "category": "Science and Technology"} for t in ("KXLLM1", "KXGPT", "KX", "KX-HY", "KXNUM")] + [
+    {"ticker": "KXPOL", "category": "Politics"}]  # a series whose primary category is something else
+
+
+def _kalshi(ticker: str, event: str, **over: object) -> dict:
+    return {"ticker": ticker, "event_ticker": event, "title": "Will it happen?", "yes_sub_title": "", "rules_primary": "Primary rules.",
+            "rules_secondary": "", "close_time": "2026-10-15T00:00:00Z", "status": "active", "market_type": "binary",
+            "strike_type": "custom", "yes_bid_dollars": "0.5000", "yes_ask_dollars": "0.5400", "volume_fp": "5000.00"} | over
+
+
+KALSHI_PAGES = {
+    "": {"cursor": "next", "markets": [
+        _kalshi("KXLLM1-26OCT15-CLAUDE", "KXLLM1-26OCT15", title="Best AI this week", yes_sub_title="Claude", volume_fp="17137.00",
+                rules_secondary="Secondary rules. "),
+        _kalshi("KXLLM1-26OCT15-GEMINI", "KXLLM1-26OCT15", title="Best AI this week", yes_sub_title="Gemini", volume_fp="14839.00"),
+        _kalshi("KXPOL-1", "KXPOL-1"), _kalshi("SPORTS-1", "SPORTS-1"),  # other categories
+        _kalshi("KXNUM-1", "KXNUM-1", market_type="scalar"),
+        _kalshi("KXNUM-2", "KXNUM-2", close_time="2026-10-30T00:00:00Z"),
+        _kalshi("KXNUM-3", "KXNUM-3", strike_type="greater"),
+        _kalshi("KXNUM-4", "KXNUM-4", yes_bid_dollars="0.0000"),
+        _kalshi("KXNUM-5", "KXNUM-5", yes_ask_dollars=""),
+    ]},
+    "next": {"cursor": "", "markets": [
+        _kalshi("KXNUM-6", "KXNUM-6", yes_bid_dollars="0.4000", yes_ask_dollars="0.5500"),  # 15 cents wide
+        _kalshi("KXNUM-7", "KXNUM-7", yes_bid_dollars="0.0100", yes_ask_dollars="0.0300"),  # midpoint 2%
+        _kalshi("KXNUM-8", "KXNUM-8", volume_fp="999.00"),
+        _kalshi("KXNUM-9", "KXNUM-9", title="Who will be the next president of France?"),
+        _kalshi("KX-HY-26OCT15-A", "KX-HY-26OCT15", strike_type="", yes_bid_dollars="0.5000", yes_ask_dollars="0.6000",
+                volume_fp="2000.00"),  # exactly 10 cents wide still passes; the longer series ticker wins
+        _kalshi("KXGPT-ASTRA61", "KXGPT-ASTRA61", title="Will OpenAI release Astra 6.1 before Oct 17, 2026?", strike_type=None,
+                volume_fp="208047.00"),
+    ]},
+}
+
+
+def kalshi_fetch(url: str):
+    if "api.elections.kalshi.com/trade-api/v2/series?category=Science+and+Technology" in url:
+        return {"series": _KALSHI_SERIES}
+    if "api.elections.kalshi.com/trade-api/v2/markets?" in url:
+        assert "status=open" in url and "mve_filter=exclude" in url and "limit=1000" in url
+        assert f"min_close_ts={int(NOW.timestamp()) + 2 * 86_400}" in url and f"max_close_ts={int(NOW.timestamp()) + 10 * 86_400}" in url
+        return KALSHI_PAGES[url.split("cursor=")[1] if "cursor=" in url else ""]
+    if "api.elections.kalshi.com/trade-api/v2/markets/" in url:
+        ticker = url.rsplit("/", 1)[1]
+        return {"market": {"ticker": ticker, "status": {"KXLLM1-26OCT15-CLAUDE": "finalized", "KX-HY-26OCT15-A": "finalized"}.get(ticker, "active"),
+                           "result": {"KXLLM1-26OCT15-CLAUDE": "yes"}.get(ticker, "")}}
+    return manifold_fetch(url)
+
+
+def test_kalshi_rule_keeps_liquid_tight_non_numeric_markets_one_per_event() -> None:
+    stats: dict[str, int] = {}
+    found = {c["market_id"]: c for c in kalshi_candidates(NOW, kalshi_fetch, stats)}
+    assert set(found) == {"KXLLM1-26OCT15-CLAUDE", "KX-HY-26OCT15-A", "KXGPT-ASTRA61"}
+    assert found["KXLLM1-26OCT15-CLAUDE"] == {
+        "id": "kalshi-KXLLM1-26OCT15-CLAUDE", "market_id": "KXLLM1-26OCT15-CLAUDE", "topic": "Tech", "tag": "KXLLM1",
+        "question": "Best AI this week: Claude?", "resolution_criteria": "Primary rules.\n\nSecondary rules.",
+        "closes_at": "2026-10-15T00:00:00Z", "volume": 17137.0, "volume_floor": 1_000, "volume_unit": "contracts",
+        "market_price": 0.52, "market_url": "https://kalshi.com/events/KXLLM1-26OCT15", "method": "kalshi_price_v1"}
+    assert found["KX-HY-26OCT15-A"]["tag"] == "KX-HY" and found["KX-HY-26OCT15-A"]["market_price"] == 0.55  # longest series match
+    assert found["KXGPT-ASTRA61"]["tag"] == "KXGPT" and found["KXGPT-ASTRA61"]["resolution_criteria"] == "Primary rules."
+    assert found["KXGPT-ASTRA61"]["question"] == "Will OpenAI release Astra 6.1 before Oct 17, 2026?"
+    # Each rule drops exactly one market, in the order of the rule; the series of another category is ignored.
+    assert stats == {"markets:fetched": 15, "markets:other_category": 2, "markets:science_and_technology": 13,
+                     "drop:not_binary": 1, "drop:window": 1, "drop:numeric_strike": 1, "drop:one_sided": 2, "drop:wide_spread": 1,
+                     "drop:price_band": 1, "drop:volume": 1, "drop:next_leader": 1, "drop:sibling_in_same_event": 1,
+                     "candidates:kalshi": 3}
+
+
+def test_kalshi_pages_are_followed_until_the_cursor_is_empty() -> None:
+    urls: list[str] = []
+
+    def tracked(url: str):
+        urls.append(url)
+        return kalshi_fetch(url)
+
+    kalshi_candidates(NOW, tracked)
+    markets = [u for u in urls if "/markets?" in u]
+    assert len(markets) == 2 and "cursor" not in markets[0] and markets[1].endswith("cursor=next")
+
+
+def test_kalshi_question_text_adds_the_yes_side_only_when_the_title_lacks_it() -> None:
+    assert kalshi_question({"title": "Best AI this week?", "yes_sub_title": "Claude"}) == "Best AI this week: Claude?"
+    assert kalshi_question({"title": "Best AI this week", "yes_sub_title": "Claude"}) == "Best AI this week: Claude?"
+    assert kalshi_question({"title": "Will Claude be best this week?", "yes_sub_title": "claude"}) == "Will Claude be best this week?"
+    assert kalshi_question({"title": "Will it happen?", "yes_sub_title": ""}) == "Will it happen?"
+    assert kalshi_question({"title": "Will it happen?"}) == "Will it happen?"
+
+
+@pytest.mark.parametrize(("market", "expected"), [
+    ({"status": "finalized", "result": "yes"}, {"status": "resolved", "outcome": 1}),
+    ({"status": "finalized", "result": "no"}, {"status": "resolved", "outcome": 0}),
+    ({"status": "active", "result": ""}, {"status": "pending"}),
+    ({"status": "determined", "result": "yes"}, {"status": "pending"}),
+    ({"status": "finalized", "result": ""}, {"status": "cancelled"}),
+])
+def test_kalshi_results(market: dict, expected: dict) -> None:
+    assert kalshi_resolution("KX-1", lambda _url: {"market": market}) == expected
+
+
+def test_kalshi_questions_join_the_daily_set_after_manifold_with_their_own_benchmark(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, kalshi_fetch)
+    assert directory is not None
+    selected = json.loads((directory / "questions.json").read_text())
+    ids = [q["id"] for q in selected["questions"]]
+    assert selected["selection"] == "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
+    assert ids[-3:] == ["kalshi-KXGPT-ASTRA61", "kalshi-KXLLM1-26OCT15-CLAUDE", "kalshi-KX-HY-26OCT15-A"]  # most traded first
+    assert "manifold-f1" in ids[:-3]
+    assert "market_price" not in json.dumps(selected)
+    snapshot = {m["id"]: m for m in json.loads((directory / "market_snapshot.json").read_text())["markets"]}
+    assert snapshot["kalshi-KXGPT-ASTRA61"]["method"] == "kalshi_price_v1" and snapshot["kalshi-KXGPT-ASTRA61"]["volume_unit"] == "contracts"
+    assert snapshot["manifold-f1"]["volume_unit"] == "mana" and "volume_unit" not in snapshot["polymarket-m1"]
+
+    answers = tmp_path / "claude.json"
+    answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [{"id": qid, "probability": 0.3} for qid in ids]}))
+    script.record(directory, answers)
+    recorded = {q["id"]: q for q in json.loads((directory / "forecasts.json").read_text())["questions"]}
+    entry = recorded["kalshi-KXLLM1-26OCT15-CLAUDE"]
+    assert entry["forecasts"][0] == {"method": "kalshi_price_v1", "probability": 0.52, "created_at": NOW.isoformat()}
+    assert (entry["volume_floor"], entry["volume"], entry["volume_unit"]) == (1_000, 17137.0, "contracts")
+    assert entry["resolution_source"] == "https://kalshi.com/events/KXLLM1-26OCT15" and "volume_unit" not in recorded["polymarket-m1"]
+    assert "Kalshi" in json.loads((directory / "forecasts.json").read_text())["note"]
+
+    script.resolve(artifacts, kalshi_fetch, today=datetime(2026, 10, 16, tzinfo=UTC))
+    after = {q["id"]: q for q in json.loads((directory / "forecasts.json").read_text())["questions"]}
+    assert (after["kalshi-KXLLM1-26OCT15-CLAUDE"]["outcome"], after["kalshi-KXLLM1-26OCT15-CLAUDE"]["outcome_note"]) == (1, "Kalshi: Yes")
+    assert after["kalshi-KX-HY-26OCT15-A"]["cancelled"] and after["kalshi-KX-HY-26OCT15-A"]["outcome_note"] == "Kalshi settled it without a yes or no"
+    assert after["kalshi-KXGPT-ASTRA61"]["outcome"] is None and "cancelled" not in after["kalshi-KXGPT-ASTRA61"]
+    assert after["manifold-f1"]["outcome_note"] == "Manifold: Yes"  # the Manifold branch is unchanged
+
+
+def test_prepare_still_writes_the_other_sources_when_kalshi_fails(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    def broken(url: str):
+        if "kalshi.com" in url:
+            raise RuntimeError("unreachable")
+        return manifold_fetch(url)
+
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, broken)
+    assert directory is not None
+    ids = [q["id"] for q in json.loads((directory / "questions.json").read_text())["questions"]]
+    assert "polymarket-m1" in ids and "manifold-f1" in ids and not any(i.startswith("kalshi-") for i in ids)
+    assert "kalshi questions skipped today (RuntimeError)" in capsys.readouterr().out
+
+
+def test_pool_lists_the_kalshi_funnel_and_the_ids_it_chose(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    result = script.pool(NOW, artifacts, kalshi_fetch)
+    assert result["kalshi"]["candidates:kalshi"] == 3 and result["kalshi"]["select:chosen:Tech"] == 3
+    out = capsys.readouterr().out
+    assert "KALSHI funnel (limit 4):" in out and "chosen ids: kalshi-" in out and "chosen ids: polymarket-m1" in out
+    assert "market_price" not in out and "0.52" not in out
+    assert list(artifacts.iterdir()) == []
 
 
 def test_record_skips_questions_without_research(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
@@ -395,7 +558,7 @@ def test_pool_counts_each_rule_and_changes_nothing(tmp_path: Path, capsys: pytes
 def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_path: Path) -> None:
     from forecastlab.market_questions import MIN_VOLUME, SELECTION_VERSION
 
-    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v7")
+    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v8")
     events = {"economy": [
         {"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 2_600)]},
         {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 2_400)]}]}
@@ -413,6 +576,18 @@ def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_pat
     script.record(directory, answers)
     recorded = json.loads((directory / "forecasts.json").read_text())["questions"]
     assert (recorded[0]["volume_floor"], recorded[0]["volume"]) == (2_500, 2_600)
+
+
+def test_tech_has_a_lower_volume_floor_than_every_other_topic() -> None:
+    assert volume_floor("Tech") == 1_000 and volume_floor("Politics") == 2_500 and volume_floor("Economy") == 2_500
+    events = {"tech": [{"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 1_200)]},
+                       {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 900)]}],
+              "economy": [{"id": "c", "slug": "c", "markets": [_market("mc", "Will C happen?", 0.5, 1_200)]}]}
+    stats: dict[str, int] = {}
+    found = candidates(NOW, lambda url: events.get(url.split("tag_slug=")[1].split("&")[0], []), stats)
+    assert [(c["market_id"], c["topic"], c["volume_floor"]) for c in found] == [("ma", "Tech", 1_000)]
+    assert stats["drop:volume"] == 2  # the $900 Tech market, and the $1,200 one under an Economy tag
+    assert stats["volume_band:markets:1k_2.5k"] == 2 and stats["volume_band:markets:under_1k"] == 1  # bands stay as they were
 
 
 def test_funnel_counts_volume_bands_and_fetch_window_position() -> None:
@@ -590,3 +765,19 @@ def test_second_look_record_must_be_made_before_the_market_closes(tmp_path: Path
     (directory / "questions.json").unlink()  # without questions.json the resolution date is the limit
     with pytest.raises(SystemExit, match="before the market closes"):
         script.second_look_record(directory, _answers(tmp_path, manifold={"probability": 0.5}), now=datetime(2026, 11, 20, 1, tzinfo=UTC))
+
+
+def test_a_tech_question_priced_only_by_kalshi_is_included_in_the_second_look(tmp_path: Path) -> None:
+    directory = _look_dir(tmp_path)
+    claude = {"method": "claude_code_forecaster_v1", "probability": 0.7, "rationale": "Because.", "created_at": "2026-11-11T09:00:00+00:00"}
+    kalshi = {"method": "kalshi_price_v1", "probability": 0.52, "created_at": "2026-11-11T08:00:00+00:00"}
+    data = json.loads((directory / "forecasts.json").read_text())
+    data["questions"] = [q for q in data["questions"] if q["id"] == "tech"]
+    data["questions"][0] |= {"id": "kalshi-KXGPT-ASTRA61", "forecasts": [kalshi, claude]}
+    (directory / "forecasts.json").write_text(json.dumps(data))
+    research = json.loads((directory / "research.json").read_text())
+    research["findings"]["kalshi-KXGPT-ASTRA61"] = research["findings"]["tech"]
+    (directory / "research.json").write_text(json.dumps(research))
+    out = tmp_path / "scratch" / "packet.json"
+    assert script.second_look_export(directory, out, today="2026-11-11") == 1
+    assert _ids(out) == ["kalshi-KXGPT-ASTRA61"] and json.loads(out.read_text())[0]["market_price"] == 0.52
