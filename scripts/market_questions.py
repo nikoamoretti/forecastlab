@@ -248,6 +248,8 @@ def main(argv: list[str]) -> int:
         prepare()
     elif argv[:1] == ["pool"]:
         pool()
+        import supply_probe  # throwaway branch only: supply measurement, counts only
+        supply_probe.run()
     elif argv[:1] == ["record"] and len(argv) >= 3:
         rest, skip, skip_failed = argv[3:], set(), False
         while rest:
