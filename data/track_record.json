@@ -1,44 +1,44 @@
 {
   "calibration": {
     "as_of": "2026-11-10",
-    "intercept": 0.361353,
-    "results": 213,
-    "slope": 0.753748
+    "intercept": 0.343542,
+    "results": 215,
+    "slope": 0.758133
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20829688298114235,
+      "brier": 0.2080068490535542,
       "coin_flip_brier": 0.25,
-      "forecasts": 267,
+      "forecasts": 277,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 218,
-      "right": 146,
+      "resolved": 222,
+      "right": 149,
       "toss_ups": 3,
-      "wrong": 69
+      "wrong": 70
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.20154037558685448,
+      "brier": 0.2011175115207373,
       "coin_flip_brier": 0.25,
-      "forecasts": 262,
+      "forecasts": 272,
       "label": "Claude alone",
       "method": "claude_code_forecaster_v1",
-      "resolved": 213,
-      "right": 141,
+      "resolved": 217,
+      "right": 144,
       "toss_ups": 6,
-      "wrong": 66
+      "wrong": 67
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20657571428571428,
+      "brier": 0.20570000000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 70,
-      "right": 48,
+      "resolved": 71,
+      "right": 49,
       "toss_ups": 0,
       "wrong": 22
     },
@@ -56,13 +56,13 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21284709677419356,
+      "brier": 0.21295961538461539,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 155,
-      "right": 103,
+      "resolved": 156,
+      "right": 104,
       "toss_ups": 1,
       "wrong": 51
     },
@@ -80,39 +80,39 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21128947368421053,
+      "brier": 0.21012026143790852,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 152,
-      "right": 109,
+      "resolved": 153,
+      "right": 110,
       "toss_ups": 0,
       "wrong": 43
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21610632911392408,
+      "brier": 0.2158566037735849,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "method": "judge_minimax_m3_v1",
-      "resolved": 158,
-      "right": 110,
+      "resolved": 159,
+      "right": 111,
       "toss_ups": 1,
       "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
-      "brier": 0.21748870967741937,
+      "brier": 0.22129218750000001,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 62,
-      "right": 41,
+      "resolved": 64,
+      "right": 42,
       "toss_ups": 1,
-      "wrong": 20
+      "wrong": 21
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -166,7 +166,7 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.24813632777903827,
       "coin_flip_brier": 0.25,
-      "forecasts": 28,
+      "forecasts": 29,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
       "resolved": 24,
@@ -176,43 +176,152 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.132045306311,
+      "brier": 0.15258137662994445,
       "coin_flip_brier": 0.25,
-      "forecasts": 37,
+      "forecasts": 47,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 15,
-      "right": 12,
+      "resolved": 18,
+      "right": 14,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15808907094594593,
+      "brier": 0.15670405,
       "coin_flip_brier": 0.25,
-      "forecasts": 172,
+      "forecasts": 181,
       "label": "Prediction market (benchmark)",
       "method": "market_price_v1",
-      "resolved": 148,
-      "right": 111,
+      "resolved": 150,
+      "right": 113,
       "toss_ups": 0,
       "wrong": 37
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.14356681139534885,
+      "brier": 0.14057755866666666,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
       "label": "Manifold (benchmark)",
       "method": "manifold_price_v1",
-      "resolved": 43,
-      "right": 31,
+      "resolved": 45,
+      "right": 33,
       "toss_ups": 0,
       "wrong": 12
     }
   ],
   "generated_on": "2026-11-10",
   "questions": [
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.72,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "Resolution criteria\n\nResolves YES if, between the start of in\u2011person early voting and the close of polls on Tuesday, November 3, 2026, any U.S. state or territory officially deploys National Guard personnel to be physically present at one or more polling places where voters cast ballots (including early\u2011vote centers) to assist or provide security (e.g., setup, crowd/traffic control, administrative help, visible security), whether in uniform or civilian clothes. Acceptable proof: an official announcement from a state National Guard/governor/secretary of state, a National Guard Bureau news post, or two independent reputable news reports citing officials. Examples of acceptable source hubs for verification: National Guard Bureau newsroom, state Guard newsrooms, and state election officials\u2019 sites. (nationalguard.mil)\n\nResolves NO if no such physical deployment at polling places is documented. Cybersecurity-only support (remote or at operations centers), guarding non\u2011polling facilities, use of Guard buildings as polling sites without Guard members on duty at the polls, or post\u2011election presence at counting centers that are not open polling places do not count. (nationalguard.mil, politico.com, defenseone.com)\n\nBackground\n\nThe 2026 U.S. midterm general election is scheduled for Tuesday, November 3, 2026. (usvotefoundation.org, en.wikipedia.org)\n\nNational Guard members have previously been used at polling places in limited roles (e.g., Kentucky 2020 for administrative/logistics support), while many states have more recently used Guard units for election cybersecurity support away from polling locations (e.g., 2022). (armytimes.com, nationalguard.mil, defenseone.com)\n\nFederal law restricts federal troops at polls (18 U.S.C. \u00a7592); state\u2011controlled Guard activations for permissible support have occurred under state authority. (law.cornell.edu, governing.com)\n\nConsiderations\n\nDistinguish \u201cphysical presence at polling places\u201d (counts) from cybersecurity or infrastructure protection elsewhere (does not count). Prior cycles saw substantial cyber support but little on\u2011site polling\u2011place presence. (nationalguard.mil, military.com)\n\nEarly voting sites qualify as polling places; ballot\u2011counting centers after polls close do not, unless they are also open polling places at the time. Reference the statutory constraint on troops at polls when assessing edge cases. (law.cornell.edu)",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "Washington's governor activated state Guard members on 2026-10-21 for a mission running to 2026-11-10; seven counties accepted, and King County Elections said members would be extra eyes and ears at drop boxes and vote centers (Washington State Standard, 2026-10-30). Other reports of the same day describe drop-box monitoring only (Seattle Times, Snohomish County), and ballot drop boxes may not count as polling places under the rule, which excludes cyber-only support. Past cycles had on-site Guard at polls in only 1 of 4 general elections (2020), but this year the state-ordered, in-person civilian-clothed watch makes a qualifying report fairly likely, particularly if any vote center is named.",
+          "sources": [
+            "https://washingtonstatestandard.com/2026/10/30/wa-mobilizes-national-guard-for-added-security-for-ballot-drop-boxes/",
+            "https://www.seattletimes.com/seattle-news/politics/national-guard-monitoring-ballot-boxes-in-seven-wa-counties/",
+            "https://www.kuow.org/elections/2026-10-27/national-guard-and-doj-expected-around-washingtons-2026-midterm-election",
+            "https://www.heraldnet.com/2026/10/30/national-guard-keeping-extra-eye-on-ballot-boxes-in-snohomish-county/"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.72,
+          "rationale": "Base rate is low (1 of 4 cycles had Guard at polls), but 2026 has Washington's Guard deployed in civilian clothes at ballot drop boxes and reportedly vote centers (King County said 'drop boxes and vote centers'), through Nov 10. Whether drop boxes count as polling places is ambiguous, but a resolver would plausibly count vote centers/early-vote sites, and other states might also have Guard support. Risk is a strict reading that drop boxes are not polling places where voters cast ballots."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.756152,
+          "raw": 0.72,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.3646
+        }
+      ],
+      "id": "manifold-qg6Ql2nUEO",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://manifold.markets/njordsier/national-guard-deployed-at-polling",
+      "status": "resolved",
+      "title": "National Guard deployed at polling places in 2026 midterms?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.06,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model\n\nResolves YES if in any 2026 US Senate election on the Silver Bulletin average, a candidate has 50.1% or more of the vote and loses.\n\nThe final polling average on silver bulletin will be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "Newsweek, citing Silver Bulletin on about 2026-10-23, showed the competitive races in the mid-40s (Iowa 46.8 vs 45.6, Ohio +3.7, Alaska +3.5), so few races would have a candidate at 50.1% or more (https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772, 2026-10-23). Candidates above 50% are usually in lopsided safe seats, where a loss needs a polling miss of 10 points or more, and no historical count was found. The main risk is a correlated miss of a few points in a race where a leader sits just over 50%, which Silver flags as normal-sized error (https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model), but the final state averages were not retrieved.",
+          "sources": [
+            "https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772",
+            "https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.112479,
+          "raw": 0.06,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1403
+        }
+      ],
+      "id": "manifold-02RzZt8EII",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://manifold.markets/Jack1/will-any-us-senate-candidate-have-5",
+      "status": "resolved",
+      "title": "Will any US Senate candidate have 50.1% or more in the polling average and lose?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
     {
       "actual": "4.86%",
       "call": {
@@ -263,6 +372,65 @@
       "status": "resolved",
       "title": "Will the 10-year U.S. Treasury yield on Nov 6, 2026 be above 4.94%?",
       "topic": "Interest rates",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.32,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This is a market about the variation of consumer prices in China over a 12-month period ending October 2026 as reported by the National Bureau of Statistics (NBS) of China.\n\nThis market will resolve according to the number the Consumer Price Index (CPI) increased by during the 12-month period ending October 2026 (% change from the same month in the previous year) according to the monthly NBS report.\n\nThe resolution source for this market will be the NBS Consumer Price Index monthly report released for October 2026 (https://www.stats.gov.cn/english/PressRelease/), currently scheduled to be released in November 2026. Resolution of this market will take place upon release of the aforementioned data. If no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nYou can find the relevant figure by locating the report for October 2026 on the Press Releases page (see: https://www.stats.gov.cn/english/PressRelease/), locating the table named \"Consumer Price Index in October 2026\", and finding the consumer price index figure in the column labeled \"Growth Rate Y/Y (%)\".\n\nNote: the resolution source for this market will be the official monthly NBS CPI news release which reports inflation during 12-month periods to only one decimal point (e.g. 1.9%). Thus, this is the level of precision that will be used when resolving the market. For the full release schedule, see: https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.32,
+          "rationale": "NBS reported September CPI at 0.9% on 2026-10-14, inside the 0.9-1.0 bucket, but October is a base-effect and mix problem: October 2025 was +0.2% y/y, pump prices were left unchanged on 2026-10-15 and the only October rise took effect at 24:00 on 2026-10-29, and wholesale pork was still 12.1% below a year earlier in the week to 2026-10-25. The one-decimal y/y rate has moved between roughly 0.8 and 1.1 in recent months, so a print of 0.9 or 1.0 is plausible but not the central case, and none of the 26 earlier Octobers fell in this bucket. I put it a little under one in three, with PPI at 5.0% and core at 1.0% keeping the upside open.",
+          "sources": [
+            "https://english.news.cn/20261014/83a459c8eb1147ca85fc73233b84a88b/c.html",
+            "http://www.xinhuanet.com/fortune/20261014/2ca7672b7f7741e29a1421cbc3dcf9b8/c.html",
+            "https://www.ndrc.gov.cn/xwdt/xwfb/202610/t20261029_1408449.html",
+            "https://price.mofcom.gov.cn/article/yjzx/hyzx/nyls/202610/65426.html"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.4,
+          "rationale": "September CPI was 0.9%, and the series is persistent, so 0.9 or 1.0 is the most likely zone. Against that, October 2025 is a firmer base (+0.2% m/m), pork and vegetable prices stayed well below last year, and the pump price rise only came at the very end of October. Mainly 0.8, 0.9 or 1.0 are plausible, with some chance of 1.1 or above from energy and core, so I put the 0.9-1.0 bucket at roughly 40%."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.425873,
+          "raw": 0.32,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.245
+        }
+      ],
+      "id": "polymarket-5734062",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-09",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/october-inflation-china-annual",
+      "status": "resolved",
+      "title": "Will China\u2019s CPI increase by between 0.9% and 1.0% over the 12 month period ending in October 2026?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -1682,6 +1850,70 @@
       "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
       "status": "resolved",
       "title": "2026 Balance of Power: R Senate, R House",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.38
+      },
+      "detail": "A one-time wealth tax on billionaires has been proposed to potentially appear on California's ballot for the November 3, 2026 general election. You can read more about that here: https://6abc.com/post/california-union-proposes-taxing-billionaires-offset-medicaid-cuts-low-income-people/18066430/\n\nThis market will resolve to \"Yes\" if any proposition containing a one-time tax targeting individuals, households, or family units with wealth, assets, or net worth of at least $1 billion (USD or equivalent) passes in the named election. Otherwise, this market will resolve to \"No\".\n\nIf no qualifying ballot initiative is certified to appear on the official statewide California ballot as a proposition to be voted on in the stated election by June 25, 2026, 11:59 PM ET (the official cutoff date for new initiatives to be approved), or if all qualifying propositions/initiatives are removed from the ballot or amended before the election such that the main threshold drops below $1 billion, this market will resolve \"No\".\n\nThe primary resolution source for this market will be official information from the Government of the State of California, however a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-20T10:57:55+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "Proposition 40, the one-time tax of up to 5% on billionaires, qualified for the 3 November 2026 ballot (California Secretary of State, 17 June), so the ballot-qualification condition is met. A Citrin-POLITICO poll published 19 October put likely voters at 46% yes and 43% no, short of a majority and unchanged from a month earlier. Ballotpedia's 1910 to 2025 record has ballot initiatives approved 36% of the time, and undecided voters usually break toward No late. Competing Propositions 41 and 42 could nullify Proposition 40 even with a majority, per the Legislative Analyst's Office, which lowers the chance further.",
+          "sources": [
+            "https://www.sos.ca.gov/elections/ballot-measures/qualified-ballot-measures",
+            "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+            "https://www.politico.com/news/2026/10/19/california-billionaire-tax-poll-01125462",
+            "https://ballotpedia.org/California_Ballot_Measures:_Historical_Ballot_Measures_Factbook"
+          ]
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.38,
+          "rationale": "Proposition 40 qualified for the November 2026 ballot as a one-time 5% wealth tax on billionaires, but a Citrin-POLITICO poll on October 19 shows only 46% support vs 43% opposition, short of a majority. Historical base rate for California initiatives is 36% passage. The measure faces a unique nullification risk: if competing Propositions 41 or 42 receive more yes votes, Prop 40 could be blocked even with a majority. With ballots already mailing and two weeks until Election Day, the race is competitive but currently leaning against passage."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.48,
+          "rationale": "The base rate for California ballot initiatives is 36%, but Proposition 40 is polling at 46% yes, 43% no with 11% undecided as of October 19, 2026. The poll shows it just short of a majority, and undecided voters historically break against tax measures, though high-profile support could help. The outcome is highly uncertain, with late spending or shifts among undecideds potentially changing it."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.18,
+          "rationale": "The base rate for California ballot initiatives is about 36% approval, but this is a tax measure and the latest likely-voter poll shows only 46% support versus 43% opposition, with ballots already mailed and little movement. Proposition 40 must not only reach a majority but also outvote the competing anti-tax measures 41 or 42, which adds a meaningful nullification risk. The main upside is a late swing among undecideds or weak support for the rival measures; the main downside is that tax measures and this one-time billionaire tax remain below majority support."
+        },
+        {
+          "made_at": "2026-10-20T10:59:36.973951+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate for California ballot initiatives passing is 36%, but this measure has a unique complication: Propositions 41 and 42 on the same ballot could nullify Prop 40 even if it wins a majority. The latest Citrin-POLITICO poll shows 46% support vs 43% opposed, which is below majority and suggests the measure is in genuine jeopardy. The nullification risk from competing measures adds meaningful downside, so I estimate slightly above the base rate but well below 50%."
+        },
+        {
+          "made_at": "2026-10-20T09:09:56.684000+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        }
+      ],
+      "id": "polymarket-648383",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261020",
+      "source_url": "https://polymarket.com/event/billionaire-one-time-wealth-tax-passes-in-california-election-2026",
+      "status": "resolved",
+      "title": "Billionaire one-time wealth tax passes in California election 2026?",
       "topic": "Politics",
       "verdict": "right"
     },
@@ -14979,70 +15211,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.38
-      },
-      "detail": "A one-time wealth tax on billionaires has been proposed to potentially appear on California's ballot for the November 3, 2026 general election. You can read more about that here: https://6abc.com/post/california-union-proposes-taxing-billionaires-offset-medicaid-cuts-low-income-people/18066430/\n\nThis market will resolve to \"Yes\" if any proposition containing a one-time tax targeting individuals, households, or family units with wealth, assets, or net worth of at least $1 billion (USD or equivalent) passes in the named election. Otherwise, this market will resolve to \"No\".\n\nIf no qualifying ballot initiative is certified to appear on the official statewide California ballot as a proposition to be voted on in the stated election by June 25, 2026, 11:59 PM ET (the official cutoff date for new initiatives to be approved), or if all qualifying propositions/initiatives are removed from the ballot or amended before the election such that the main threshold drops below $1 billion, this market will resolve \"No\".\n\nThe primary resolution source for this market will be official information from the Government of the State of California, however a consensus of credible reporting may also be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-20T10:57:55+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.3,
-          "rationale": "Proposition 40, the one-time tax of up to 5% on billionaires, qualified for the 3 November 2026 ballot (California Secretary of State, 17 June), so the ballot-qualification condition is met. A Citrin-POLITICO poll published 19 October put likely voters at 46% yes and 43% no, short of a majority and unchanged from a month earlier. Ballotpedia's 1910 to 2025 record has ballot initiatives approved 36% of the time, and undecided voters usually break toward No late. Competing Propositions 41 and 42 could nullify Proposition 40 even with a majority, per the Legislative Analyst's Office, which lowers the chance further.",
-          "sources": [
-            "https://www.sos.ca.gov/elections/ballot-measures/qualified-ballot-measures",
-            "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
-            "https://www.politico.com/news/2026/10/19/california-billionaire-tax-poll-01125462",
-            "https://ballotpedia.org/California_Ballot_Measures:_Historical_Ballot_Measures_Factbook"
-          ]
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.38,
-          "rationale": "Proposition 40 qualified for the November 2026 ballot as a one-time 5% wealth tax on billionaires, but a Citrin-POLITICO poll on October 19 shows only 46% support vs 43% opposition, short of a majority. Historical base rate for California initiatives is 36% passage. The measure faces a unique nullification risk: if competing Propositions 41 or 42 receive more yes votes, Prop 40 could be blocked even with a majority. With ballots already mailing and two weeks until Election Day, the race is competitive but currently leaning against passage."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.48,
-          "rationale": "The base rate for California ballot initiatives is 36%, but Proposition 40 is polling at 46% yes, 43% no with 11% undecided as of October 19, 2026. The poll shows it just short of a majority, and undecided voters historically break against tax measures, though high-profile support could help. The outcome is highly uncertain, with late spending or shifts among undecideds potentially changing it."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.18,
-          "rationale": "The base rate for California ballot initiatives is about 36% approval, but this is a tax measure and the latest likely-voter poll shows only 46% support versus 43% opposition, with ballots already mailed and little movement. Proposition 40 must not only reach a majority but also outvote the competing anti-tax measures 41 or 42, which adds a meaningful nullification risk. The main upside is a late swing among undecideds or weak support for the rival measures; the main downside is that tax measures and this one-time billionaire tax remain below majority support."
-        },
-        {
-          "made_at": "2026-10-20T10:59:36.973951+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate for California ballot initiatives passing is 36%, but this measure has a unique complication: Propositions 41 and 42 on the same ballot could nullify Prop 40 even if it wins a majority. The latest Citrin-POLITICO poll shows 46% support vs 43% opposed, which is below majority and suggests the measure is in genuine jeopardy. The nullification risk from competing measures adds meaningful downside, so I estimate slightly above the base rate but well below 50%."
-        },
-        {
-          "made_at": "2026-10-20T09:09:56.684000+00:00",
-          "method": "market_price_v1",
-          "probability": 0.22
-        }
-      ],
-      "id": "polymarket-648383",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261020",
-      "source_url": "https://polymarket.com/event/billionaire-one-time-wealth-tax-passes-in-california-election-2026",
-      "status": "pending",
-      "title": "Billionaire one-time wealth tax passes in California election 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.55,
@@ -15460,65 +15628,6 @@
     {
       "actual": null,
       "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.32,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This is a market about the variation of consumer prices in China over a 12-month period ending October 2026 as reported by the National Bureau of Statistics (NBS) of China.\n\nThis market will resolve according to the number the Consumer Price Index (CPI) increased by during the 12-month period ending October 2026 (% change from the same month in the previous year) according to the monthly NBS report.\n\nThe resolution source for this market will be the NBS Consumer Price Index monthly report released for October 2026 (https://www.stats.gov.cn/english/PressRelease/), currently scheduled to be released in November 2026. Resolution of this market will take place upon release of the aforementioned data. If no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nYou can find the relevant figure by locating the report for October 2026 on the Press Releases page (see: https://www.stats.gov.cn/english/PressRelease/), locating the table named \"Consumer Price Index in October 2026\", and finding the consumer price index figure in the column labeled \"Growth Rate Y/Y (%)\".\n\nNote: the resolution source for this market will be the official monthly NBS CPI news release which reports inflation during 12-month periods to only one decimal point (e.g. 1.9%). Thus, this is the level of precision that will be used when resolving the market. For the full release schedule, see: https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.32,
-          "rationale": "NBS reported September CPI at 0.9% on 2026-10-14, inside the 0.9-1.0 bucket, but October is a base-effect and mix problem: October 2025 was +0.2% y/y, pump prices were left unchanged on 2026-10-15 and the only October rise took effect at 24:00 on 2026-10-29, and wholesale pork was still 12.1% below a year earlier in the week to 2026-10-25. The one-decimal y/y rate has moved between roughly 0.8 and 1.1 in recent months, so a print of 0.9 or 1.0 is plausible but not the central case, and none of the 26 earlier Octobers fell in this bucket. I put it a little under one in three, with PPI at 5.0% and core at 1.0% keeping the upside open.",
-          "sources": [
-            "https://english.news.cn/20261014/83a459c8eb1147ca85fc73233b84a88b/c.html",
-            "http://www.xinhuanet.com/fortune/20261014/2ca7672b7f7741e29a1421cbc3dcf9b8/c.html",
-            "https://www.ndrc.gov.cn/xwdt/xwfb/202610/t20261029_1408449.html",
-            "https://price.mofcom.gov.cn/article/yjzx/hyzx/nyls/202610/65426.html"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.4,
-          "rationale": "September CPI was 0.9%, and the series is persistent, so 0.9 or 1.0 is the most likely zone. Against that, October 2025 is a firmer base (+0.2% m/m), pork and vegetable prices stayed well below last year, and the pump price rise only came at the very end of October. Mainly 0.8, 0.9 or 1.0 are plausible, with some chance of 1.1 or above from energy and core, so I put the 0.9-1.0 bucket at roughly 40%."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.425873,
-          "raw": 0.32,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.245
-        }
-      ],
-      "id": "polymarket-5734062",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-09",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/october-inflation-china-annual",
-      "status": "pending",
-      "title": "Will China\u2019s CPI increase by between 0.9% and 1.0% over the 12 month period ending in October 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.28
@@ -15571,115 +15680,6 @@
       "status": "pending",
       "title": "Will USTR extend the Section 301 tariff exclusion for 'graphics processing modules' (statistical reporting number 8473.30.1180) beyond 2026-11-10?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.72,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "Resolution criteria\n\nResolves YES if, between the start of in\u2011person early voting and the close of polls on Tuesday, November 3, 2026, any U.S. state or territory officially deploys National Guard personnel to be physically present at one or more polling places where voters cast ballots (including early\u2011vote centers) to assist or provide security (e.g., setup, crowd/traffic control, administrative help, visible security), whether in uniform or civilian clothes. Acceptable proof: an official announcement from a state National Guard/governor/secretary of state, a National Guard Bureau news post, or two independent reputable news reports citing officials. Examples of acceptable source hubs for verification: National Guard Bureau newsroom, state Guard newsrooms, and state election officials\u2019 sites. (nationalguard.mil)\n\nResolves NO if no such physical deployment at polling places is documented. Cybersecurity-only support (remote or at operations centers), guarding non\u2011polling facilities, use of Guard buildings as polling sites without Guard members on duty at the polls, or post\u2011election presence at counting centers that are not open polling places do not count. (nationalguard.mil, politico.com, defenseone.com)\n\nBackground\n\nThe 2026 U.S. midterm general election is scheduled for Tuesday, November 3, 2026. (usvotefoundation.org, en.wikipedia.org)\n\nNational Guard members have previously been used at polling places in limited roles (e.g., Kentucky 2020 for administrative/logistics support), while many states have more recently used Guard units for election cybersecurity support away from polling locations (e.g., 2022). (armytimes.com, nationalguard.mil, defenseone.com)\n\nFederal law restricts federal troops at polls (18 U.S.C. \u00a7592); state\u2011controlled Guard activations for permissible support have occurred under state authority. (law.cornell.edu, governing.com)\n\nConsiderations\n\nDistinguish \u201cphysical presence at polling places\u201d (counts) from cybersecurity or infrastructure protection elsewhere (does not count). Prior cycles saw substantial cyber support but little on\u2011site polling\u2011place presence. (nationalguard.mil, military.com)\n\nEarly voting sites qualify as polling places; ballot\u2011counting centers after polls close do not, unless they are also open polling places at the time. Reference the statutory constraint on troops at polls when assessing edge cases. (law.cornell.edu)",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "Washington's governor activated state Guard members on 2026-10-21 for a mission running to 2026-11-10; seven counties accepted, and King County Elections said members would be extra eyes and ears at drop boxes and vote centers (Washington State Standard, 2026-10-30). Other reports of the same day describe drop-box monitoring only (Seattle Times, Snohomish County), and ballot drop boxes may not count as polling places under the rule, which excludes cyber-only support. Past cycles had on-site Guard at polls in only 1 of 4 general elections (2020), but this year the state-ordered, in-person civilian-clothed watch makes a qualifying report fairly likely, particularly if any vote center is named.",
-          "sources": [
-            "https://washingtonstatestandard.com/2026/10/30/wa-mobilizes-national-guard-for-added-security-for-ballot-drop-boxes/",
-            "https://www.seattletimes.com/seattle-news/politics/national-guard-monitoring-ballot-boxes-in-seven-wa-counties/",
-            "https://www.kuow.org/elections/2026-10-27/national-guard-and-doj-expected-around-washingtons-2026-midterm-election",
-            "https://www.heraldnet.com/2026/10/30/national-guard-keeping-extra-eye-on-ballot-boxes-in-snohomish-county/"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.72,
-          "rationale": "Base rate is low (1 of 4 cycles had Guard at polls), but 2026 has Washington's Guard deployed in civilian clothes at ballot drop boxes and reportedly vote centers (King County said 'drop boxes and vote centers'), through Nov 10. Whether drop boxes count as polling places is ambiguous, but a resolver would plausibly count vote centers/early-vote sites, and other states might also have Guard support. Risk is a strict reading that drop boxes are not polling places where voters cast ballots."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.756152,
-          "raw": 0.72,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.3646
-        }
-      ],
-      "id": "manifold-qg6Ql2nUEO",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-10",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://manifold.markets/njordsier/national-guard-deployed-at-polling",
-      "status": "pending",
-      "title": "National Guard deployed at polling places in 2026 midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.06,
-        "weights": {
-          "claude_code_forecaster_v1": 23.92
-        }
-      },
-      "detail": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model\n\nResolves YES if in any 2026 US Senate election on the Silver Bulletin average, a candidate has 50.1% or more of the vote and loses.\n\nThe final polling average on silver bulletin will be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-03T11:05:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.06,
-          "rationale": "Newsweek, citing Silver Bulletin on about 2026-10-23, showed the competitive races in the mid-40s (Iowa 46.8 vs 45.6, Ohio +3.7, Alaska +3.5), so few races would have a candidate at 50.1% or more (https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772, 2026-10-23). Candidates above 50% are usually in lopsided safe seats, where a loss needs a polling miss of 10 points or more, and no historical count was found. The main risk is a correlated miss of a few points in a race where a leader sits just over 50%, which Silver flags as normal-sized error (https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model), but the final state averages were not retrieved.",
-          "sources": [
-            "https://newsweek.com/who-will-win-the-midterms-what-polls-show-10-days-out-12610772",
-            "https://www.natesilver.net/p/nate-silver-2026-midterm-election-senate-model"
-          ]
-        },
-        {
-          "as_of": "2026-11-03",
-          "intercept": 0.310486,
-          "method": "claude_calibrated_v1",
-          "probability": 0.112479,
-          "raw": 0.06,
-          "results": 126,
-          "slope": 0.863574
-        },
-        {
-          "made_at": "2026-11-03T10:54:58.017715+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.1403
-        }
-      ],
-      "id": "manifold-02RzZt8EII",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-10",
-      "scored": true,
-      "source": "prospective_markets_20261103",
-      "source_url": "https://manifold.markets/Jack1/will-any-us-senate-candidate-have-5",
-      "status": "pending",
-      "title": "Will any US Senate candidate have 50.1% or more in the polling average and lose?",
-      "topic": "Politics",
       "verdict": null
     },
     {
@@ -16213,6 +16213,58 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.52,
+        "market": 0.555,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.555
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "Binance BTCUSDT was about 74,250 on 2026-11-10 at 10:40 UTC, only 0.34% above the strict 74,000 line, with about 54 hours left to the noon ET candle on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT). With 1.86% daily volatility the line is about 0.1 standard deviations away, which gives roughly 54%, and the two-day base rate of closing above a level 0.37% below spot is 57.3% over 1,998 windows. I trim it to 52% because the price has trended from 77,381 on 2026-10-30 down to 74,250, spot ETFs lost $1.28B in the week to Nov 7 (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), and the October CPI (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.599702,
+          "raw": 0.52,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.555
+        }
+      ],
+      "id": "polymarket-6716576",
+      "note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-12",
+      "scored": false,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-12-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $74,000 on November 12?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 1,
         "method": "combined_weighted_v1",
         "probability": 0.14,
@@ -16308,6 +16360,214 @@
       "status": "pending",
       "title": "Will Donald Trump post 200+ Truth Social posts from November 6 to November 13, 2026?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.18,
+        "market": 0.355,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.355
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.18,
+          "rationale": "A regular-hours print of 192 needs NVDA to rise 7.5% from the 178.67 close of 2026-11-09 (that day's high was 179.92) within the four sessions of 2026-11-10 to 11-13 (https://stockanalysis.com/stocks/nvda/history, 2026-11-09). With about 3% daily moves in this high-volatility selloff, a touch of that height is about 1.2 standard deviations away and comes out near 20-25% before discounting for regular-hours-only candles and a recent downtrend (202.06 on Nov 2 to 178.67). The October CPI on 2026-11-10 could trigger a relief rally (https://www.bls.gov/schedule/news_release/cpi.htm), but earnings are on 2026-11-17, after the window (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873), so I settle at 18%, consistent with my view that the close above 170 is likely but far from certain.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.308733,
+          "raw": 0.18,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        }
+      ],
+      "id": "polymarket-6764151",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/will-nvda-hit-week-of-november-9-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) hit (HIGH) $192 Week of November 9 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.78,
+        "market": 0.805,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.805
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "Binance ETHUSDT was 2,086.55 on 2026-11-10 at 10:41 UTC, 4.3% above 2,000, with about 78 hours to the noon ET candle on 2026-11-13 and 30-day daily volatility of 2.61% (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365). That is about 0.9 standard deviations of the three-day move, or roughly 81-83%, and 80.3% of 361 three-day windows in the last year did not fall 4.1% or more. I shade it to 78% because ETH has slid from about 2,135 to 2,087 in a day, spot ether ETFs saw $99.9M outflows on Nov 5 (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107), the October CPI due 2026-11-10 is unknown (https://www.bls.gov/schedule/news_release/cpi.htm) and ETH touched 2,090 in May with no proven floor near 2,000. It is a little less safe than my BTC above 70,000 call because ETH moves more per day.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365",
+            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://cointelegraph.com/markets/ethereum-traders-say-bears-in-control-eth-price-drop-2k"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.786354,
+          "raw": 0.78,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.805
+        }
+      ],
+      "id": "polymarket-6753102",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-13-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $2,000 on November 13?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.91,
+        "market": 0.93,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.93
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Binance BTC/USDT was about 74,176 on 2026-11-10 (10:47 UTC), 5.9% above 70,000, and the noon ET candle on 2026-11-13 is about 78 hours away. With 30-day daily volatility of 1.86% that is roughly 3.2 standard deviations over one day and about 1.7 over three days, and in 88.8% of 3,370 three-day windows (93.4% over the last year) the close stayed above a 5.6% fall. I take 91% rather than the 96-97% the normal model gives because the trend is down (about 5% drop on 2026-11-06, ETF outflows of $1.28B in the week to Nov 7, https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) and the October CPI on 2026-11-10 (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown; this stays above my 40% for a touch of 72,000 and my coin-flip view of 74,000 on Nov 12.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://bravenewcoin.com/insights/bitcoin-cpi-inflation-ai-stock-sell-off"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.890668,
+          "raw": 0.91,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.93
+        }
+      ],
+      "id": "polymarket-6753150",
+      "note": "While looking up the record format, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109), which showed the market's price for a closely related question, polymarket-6683300 (Bitcoin above $70,000 on November 11). That was about a minute before this forecast was written down, so it cannot be shown to be blind and it is left out of the scores. The forecaster reports that the number came from the digest alone and was not changed.",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": false,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-13-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $70,000 on November 13?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.77,
+        "market": 0.825,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.825
+      },
+      "detail": "This market will resolve to \"Yes\" if the Close price for NVIDIA (NVDA) on the final day of trading of the week specified in the title (normally Friday) is higher than the listed price. Otherwise, this market will resolve to \"No.\"\n\nIf the two specified prices are exactly equal, this market will resolve to \"No\".\n\nClosing prices will be used exactly as published by Pyth, without rounding.\n\nIf NVIDIA (NVDA) does not trade at all during the regular session of the final trading day of the week, the market will resolve 50-50.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. If the relevant session is shortened (for example, due to a market-holiday schedule), the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of that shortened session will be used.\n\nIf the relevant day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other technical disruption, the official closing price published by the primary exchange on which the listed security trades will be used to determine the closing price for that day.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed security during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth. The target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" values for the relevant 1-minute candle for NVIDIA (NVDA) available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "NVDA closed at 178.67 on 2026-11-09 (low 170.24), so the 170 line is 4.9% below with four sessions left to the Friday 2026-11-13 close (https://stockanalysis.com/stocks/nvda/history/, 2026-11-09). The stock has been extremely volatile (202.06 on Nov 2, a 9.26% drop on Nov 5 to 181.60, then 186.64, then 178.67), so I use about 3% a day, which puts the line near 0.8 standard deviations away for roughly 79%. I take 77% because Monday's low came within 0.25 of 170, the October CPI on 2026-11-10 is unresolved (https://www.bls.gov/schedule/news_release/cpi.htm), and there is no earnings catalyst before the 2026-11-17 report (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873); an undated Pyth reading of 181.38 hints at a higher start but I do not rely on it.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history/",
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.778958,
+          "raw": 0.77,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.825
+        }
+      ],
+      "id": "polymarket-6764126",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/nvda-above-on-november-13-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) finish week of November 9 above $170?",
+      "topic": "Economy",
       "verdict": null
     },
     {
@@ -16415,6 +16675,108 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.42,
+        "market": 0.54,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.54
+      },
+      "detail": "This market will resolve to \"Yes\" if the US national average price of regular gasoline published by AAA is equal to or below the specified price for any date from the creation of this market through November 15, 2026. Otherwise, this market will resolve to \"No\". Price action before this market's creation will not be considered.\n\nThis market resolves based on the US national average price of regular gasoline published by AAA at https://gasprices.aaa.com/ in the \"National Average Gas Prices\" table under the \"Regular\" column and the \"Current Avg.\" row.\n\nEach date's price is the price displayed at 10:00 AM ET on that date, provided that at that time the \"Price as of\" date shown on the webpage is that date and the \"Yesterday Avg.\" row in the same column shows the previous date's price. If either condition is not met at 10:00 AM ET, the price will be observed at the first time on that date at which both are met; if both are not met by 11:59 PM ET on that date, the price displayed in the table at that time will be used. If AAA does not display the US national average price of regular gasoline in the table at the time of observation, the price displayed elsewhere on the webpage will be used.\n\nIf AAA displays no US national average price of regular gasoline on the specified webpage at any time on one or more dates within the specified week, this market will resolve based on the prices observed for the remaining dates.\n\nThe resolution source for this market will be the American Automobile Association (AAA) (https://gasprices.aaa.com/).\n\nNote: AAA currently publishes gas prices to four decimal places (e.g., $4.3718). The price will be used as published, without rounding.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "AAA's regular national average was $3.9788 on 2026-11-10, down from $4.0093 the day before and $4.10 on 2026-11-05, so it needs another 7.9 cents by 2026-11-15, about 1.6 cents a day over five readings (https://gasprices.aaa.com/, https://gasprices.aaa.com/?p=5262). The last five days averaged about 2.4 cents a day and crude fell about 16% in the week to Nov 6, which should keep feeding through to pumps with a lag, but Brent had rebounded to about 97-98 (https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/, https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran, 2026-11-08), retail declines usually slow as they near the wholesale price, and Monday's drop was only about 1 cent. That leaves it a bit below even.",
+          "sources": [
+            "https://gasprices.aaa.com/",
+            "https://gasprices.aaa.com/?p=5262",
+            "https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/",
+            "https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran",
+            "https://www.eia.gov/petroleum/gasdiesel/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.524689,
+          "raw": 0.42,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.54
+        }
+      ],
+      "id": "polymarket-6906853",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-15",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/will-gas-hit-week-of-november-9-2026",
+      "status": "pending",
+      "title": "Will US gas hit $3.90 (Low) the week of November 9?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.53
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-13 be above 4.86 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.53,
+          "rationale": "The threshold of 4.86 equals the last FRED DGS10 print (2026-11-06) and the Treasury par curve read 4.88 on 2026-11-09, so the start is about 2 basis points above the line with four trading days to go and a strict test (a tie at 4.86 is No). Five-observation changes were higher in 54.5% of pairs over the last year and 49.4% over 10 years, and a typical weekly move of 10 basis points or more makes this close to a coin flip with a slight edge from the 4.88 starting point and the October CPI (2026-11-10) following a 3.7% September inflation print and two hawkish FOMC dissents. I shade it back toward 50% because the six earlier 10-year questions in my record all resolved no while yields drifted down from about 5.3% and a tie counts against yes. Sources: https://fred.stlouisfed.org/series/DGS10 (2026-11-09), https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611 (2026-11-09), https://www.bls.gov/schedule/news_release/cpi.htm, https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm (2026-10-28).",
+          "sources": [
+            "https://fred.stlouisfed.org/series/DGS10",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5042283298097252
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.606978,
+          "raw": 0.53,
+          "results": 215,
+          "slope": 0.758133
+        }
+      ],
+      "id": "5993599385e99923",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261110",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 13, 2026 be above 4.86%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 1,
         "method": "claude_corrected_call_v1",
         "probability": 0.367142
@@ -16458,6 +16820,163 @@
       "source_url": "https://polymarket.com/event/japan-gdp-growth-in-q3-2026-qoq-annualized",
       "status": "pending",
       "title": "Will Japan Q3 GDP growth (annualized) be between 0.0% and 0.8%?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.4,
+        "market": 0.505,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.505
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.4,
+          "rationale": "Binance BTC/USDT was about 74,250 at 10:35 UTC on 2026-11-10, and the 1-minute lows since the window opened never went below 73,750, so 72,000 needs a further fall of about 3.1% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&startTime=1794182400000&limit=1000, 2026-11-10). With 30-day daily volatility of 1.87% and about 5.8 days left, a driftless touch calculation gives roughly 45-50%, but that volatility includes the post-election crash, and 8 of 23 seven-day windows (35%) in the sample saw closes fall that far. I settle at 40% because the trend is down (ETF outflows of $1.28B in the week to Nov 7, https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), October CPI lands 2026-11-10 at 13:30 UTC (https://www.bls.gov/schedule/news_release/cpi.htm) and one wick is enough.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&startTime=1794182400000&limit=1000",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://news.bitcoin.com/bitcoin-price-tumbles-below-77000-in-tech-stock-selloff"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.509035,
+          "raw": 0.4,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.505
+        }
+      ],
+      "id": "polymarket-6891202",
+      "note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": false,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-9-15-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $72,000 November 9-15?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.86,
+        "market": 0.82,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.82
+      },
+      "detail": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "The arena.ai Text Arena (style control off) snapshot of 2026-11-09 lists Gemini 4 Carbon (High) at rank 1 with 1538 (preliminary, 9.1 million votes), up from the 1,528 reported when it took the top on 2026-10-28 (https://arena.ai/leaderboard/text/overall-no-style-control, https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The only new entry, Kimi K3.1 Pro (Max) added 2026-11-09, sits at rank 44 with 1457, about 81 points behind (https://arena.ai/blog/leaderboard-changelog/). The lead changed hands a handful of times in 2026, so a week with no leader change is the usual case; the risks are a surprise release from a rival lab before 2026-11-16, vote drift on a preliminary score, and an unverified margin over the second-place model, so I stop at 86%.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/",
+            "https://arena.ai/blog/leaderboard-changelog/",
+            "https://www.deeplearning.ai/the-batch/gemini-leads-the-pack-again/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.8481,
+          "raw": 0.86,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.82
+        }
+      ],
+      "id": "polymarket-6665168",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/best-ai-model-on-november-16",
+      "status": "pending",
+      "title": "Will gemini-4-carbon-high be the best AI model on November 16, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.64,
+        "market": 0.4745,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.4745
+      },
+      "detail": "As of market creation, Home Depot is estimated to release earnings on November 17, 2026. The Street consensus estimate for Home Depot\u2019s non-GAAP EPS for the relevant quarter is $3.95 as of market creation. This market will resolve to \"Yes\" if Home Depot reports non-GAAP EPS greater than $3.95 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Home Depot releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64,
+          "rationale": "Home Depot reports fiscal Q3 2026 on 2026-11-17 (https://ir.homedepot.com/) and the question needs non-GAAP EPS above $3.95, which is 5.6% over last year's $3.74 (https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm, 2025-11-18). That Q3 2025 figure was depressed by a lack of storms, Q2 2026 came in at $4.92 against $4.68 a year earlier (+5%) and beat consensus, and the company has beaten in its last three quarters after three misses in 2025 (https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings). Against that, full-year guidance of flat to +4.0% was reaffirmed rather than raised, demand is in smaller projects, and I could not confirm the $3.95 consensus or the base rate beyond 5 beats in 8 quarters, so I put it modestly above the roughly 70% typical beat rate of large caps less ties.",
+          "sources": [
+            "https://ir.homedepot.com/",
+            "https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings",
+            "https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm",
+            "https://ir.homedepot.com/news-releases/2026/02-24-2026-110040985",
+            "https://247wallst.com/companies/hd/earnings/trends"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.685625,
+          "raw": 0.64,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4745
+        }
+      ],
+      "id": "polymarket-6639361",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/hd-quarterly-earnings-nongaap-eps-11-17-2026-3pt95",
+      "status": "pending",
+      "title": "Will Home Depot (HD) beat quarterly earnings?",
       "topic": "Economy",
       "verdict": null
     },
@@ -16846,7 +17365,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20829688298114235,
+    "brier": 0.2080068490535542,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -16887,15 +17406,15 @@
       },
       {
         "before": {
-          "dates": 24,
-          "difference": 0.012862012094240816,
+          "dates": 25,
+          "difference": 0.013371565230769183,
           "interval": [
-            0.00324,
-            0.021151
+            0.004077,
+            0.021979
           ],
-          "market": 0.1548196617277487,
-          "questions": 191,
-          "rule": 0.1676816738219895
+          "market": 0.15298255200000002,
+          "questions": 195,
+          "rule": 0.1663541172307692
         },
         "counted": {
           "dates": 0,
@@ -16935,7 +17454,7 @@
         "status": "testing"
       }
     ],
-    "pending": 45,
+    "pending": 51,
     "progress": {
       "changes": [
         {
@@ -16963,10 +17482,10 @@
           "questions": 0
         },
         "before": {
-          "claude": 0.2000649214659686,
-          "market": 0.1548196617277487,
-          "ours": 0.20244829842931938,
-          "questions": 191
+          "claude": 0.19962461538461537,
+          "market": 0.15298255200000002,
+          "ours": 0.2022380769230769,
+          "questions": 195
         },
         "date": "2026-11-06"
       },
@@ -16990,11 +17509,11 @@
           "wrong": 4
         },
         {
-          "claude": 0.18425121951219514,
-          "market": 0.15258752024390243,
-          "ours": 0.19559329268292683,
-          "questions": 41,
-          "right": 31,
+          "claude": 0.18200714285714287,
+          "market": 0.150106865,
+          "ours": 0.19437440476190476,
+          "questions": 42,
+          "right": 32,
           "start": "2026-10-19",
           "wrong": 9
         },
@@ -17008,27 +17527,27 @@
           "wrong": 33
         },
         {
-          "claude": 0.11897142857142859,
-          "market": 0.12587832142857144,
-          "ours": 0.11897142857142859,
-          "questions": 14,
-          "right": 11,
+          "claude": 0.13470588235294118,
+          "market": 0.11617286764705884,
+          "ours": 0.13470588235294118,
+          "questions": 17,
+          "right": 13,
           "start": "2026-11-02",
-          "wrong": 3
+          "wrong": 4
         }
       ]
     },
-    "resolved": 218,
-    "right": 146,
+    "resolved": 222,
+    "right": 149,
     "toss_ups": 3,
-    "total": 267,
-    "unscored": 3,
+    "total": 277,
+    "unscored": 6,
     "vs_market": {
-      "claude": 0.2000649214659686,
-      "claude_questions": 191,
-      "market": 0.1548196617277487,
-      "ours": 0.20244829842931938,
-      "questions": 191,
+      "claude": 0.19962461538461537,
+      "claude_questions": 195,
+      "market": 0.15298255200000002,
+      "ours": 0.2022380769230769,
+      "questions": 195,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",
@@ -17037,7 +17556,7 @@
         "questions": 0
       }
     },
-    "wrong": 69
+    "wrong": 70
   },
   "version": "track_record_v2"
 }

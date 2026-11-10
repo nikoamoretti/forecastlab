@@ -1,0 +1,74 @@
+{
+  "polymarket-6639361": {
+    "claude": 0.64,
+    "market": 0.4745,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.4745
+  },
+  "polymarket-6665168": {
+    "claude": 0.86,
+    "market": 0.82,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.82
+  },
+  "polymarket-6716576": {
+    "claude": 0.52,
+    "market": 0.555,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.555
+  },
+  "polymarket-6753102": {
+    "claude": 0.78,
+    "market": 0.805,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.805
+  },
+  "polymarket-6753150": {
+    "claude": 0.91,
+    "market": 0.93,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.93
+  },
+  "polymarket-6764126": {
+    "claude": 0.77,
+    "market": 0.825,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.825
+  },
+  "polymarket-6764151": {
+    "claude": 0.18,
+    "market": 0.355,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.355
+  },
+  "polymarket-6891202": {
+    "claude": 0.4,
+    "market": 0.505,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.505
+  },
+  "polymarket-6906853": {
+    "claude": 0.42,
+    "market": 0.54,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.54
+  }
+}
