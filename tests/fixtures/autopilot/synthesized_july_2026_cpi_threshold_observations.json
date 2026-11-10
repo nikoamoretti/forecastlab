@@ -1,0 +1,62 @@
+{
+  "schema_version": "forecastlab_synthesized_bls_payload_v1",
+  "synthetic": true,
+  "label": "SYNTHESIZED test-only BLS-shaped observations. Not an official release.",
+  "purpose": "As of the frozen August 5, 2026 seed clock, the latest published CPI is June 2026 at 3.0 percent year-over-year. Used only as the threshold for the July 2026 CPI first release on August 12, 2026.",
+  "status": "REQUEST_SUCCEEDED",
+  "Results": {
+    "series": [
+      {
+        "seriesID": "LNS14000000",
+        "data": [
+          {
+            "year": "2026",
+            "period": "M07",
+            "value": "4.3",
+            "footnotes": [{}]
+          }
+        ]
+      },
+      {
+        "seriesID": "CES0000000001",
+        "data": [
+          {
+            "year": "2026",
+            "period": "M06",
+            "value": "150000",
+            "footnotes": [{}]
+          },
+          {
+            "year": "2026",
+            "period": "M07",
+            "value": "150022",
+            "footnotes": [{}]
+          }
+        ]
+      },
+      {
+        "seriesID": "CUUR0000SA0",
+        "data": [
+          {
+            "year": "2025",
+            "period": "M06",
+            "value": "100",
+            "footnotes": [{}]
+          },
+          {
+            "year": "2025",
+            "period": "M07",
+            "value": "100",
+            "footnotes": [{}]
+          },
+          {
+            "year": "2026",
+            "period": "M06",
+            "value": "103",
+            "footnotes": [{}]
+          }
+        ]
+      }
+    ]
+  }
+}

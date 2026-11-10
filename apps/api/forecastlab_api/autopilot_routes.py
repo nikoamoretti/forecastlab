@@ -5,10 +5,11 @@ import json
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from forecastlab.official_releases import official_correction_evidence_url
 from forecastlab.timeutil import as_utc, utcnow
 from forecastlab_api import autopilot
 from forecastlab_api.artifact_store import get_bytes
@@ -86,7 +87,14 @@ class Correction(BaseModel):
     model_config = ConfigDict(extra="forbid")
     outcome: Literal[0, 1] | None
     reason: str = Field(min_length=10, max_length=3000)
-    evidence_url: str = Field(pattern=r"^https://www\.bls\.gov/", max_length=1000)
+    evidence_url: str = Field(max_length=1000)
+
+    @field_validator("evidence_url")
+    @classmethod
+    def official_release_url(cls, value: str) -> str:
+        if not official_correction_evidence_url(value):
+            raise ValueError("evidence_url must be an official BLS page or DOL economic-data release")
+        return value
 
 
 @router.post("/api/autopilot/outcomes/{proposal_id}/corrections")
