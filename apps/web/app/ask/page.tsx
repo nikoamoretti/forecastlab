@@ -12,9 +12,10 @@ const EXAMPLES = [
   "Will Bitcoin trade above $150,000 on December 31, 2026?",
 ];
 
-// The daily Claude run starts at 10:52 UTC on weekdays.
+// The daily Claude run starts at 12:37 UTC on weekdays and its answers are on the site about 40 minutes later,
+// so the page promises 13:30 UTC. Keep this in step with the routine's start time (docs/CURSOR_RESEARCH.md).
 function nextRun(now = new Date()) {
-  const run = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 10, 52));
+  const run = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 13, 30));
   while (run <= now || run.getUTCDay() === 0 || run.getUTCDay() === 6) run.setUTCDate(run.getUTCDate() + 1);
   return run.toLocaleString("en-US", { weekday: "long", hour: "numeric", minute: "2-digit" });
 }
