@@ -119,6 +119,22 @@ def _markets(directory: Path, questions: list[dict]) -> None:
          "outcome": q.get("outcome"), **q} for q in questions]}))
 
 
+def test_each_forecaster_carries_the_day_of_its_latest_forecast(tmp_path: Path) -> None:
+    """The page lists a forecaster with no recent forecast under "earlier forecasters"."""
+    judge = "judge_qwen38_27b_v1"
+    _markets(tmp_path / "prospective_markets_20261020", [
+        {"id": "old", "forecasts": [{"method": CLAUDE, "probability": 0.7}, {"method": judge, "probability": 0.6}]}])
+    _markets(tmp_path / "prospective_markets_20261110", [
+        {"id": "new", "forecasts": [{"method": CLAUDE, "probability": 0.7}, {"method": "market_price_v1", "probability": 0.4}]}])
+    _cohort(tmp_path / "prospective_test")  # a directory without a day in its name
+
+    last = {f["method"]: f["last_forecast_on"] for f in build_track_record(tmp_path, today=date(2026, 11, 10))["forecasters"]}
+
+    assert (last["combined_median_v1"], last[CLAUDE], last["market_price_v1"]) == ("2026-11-10", "2026-11-10", "2026-11-10")
+    assert last[judge] == "2026-10-20"
+    assert last["root_event_ensemble_v1"] is None
+
+
 def test_from_oct_24_better_records_count_for_more_and_the_call_is_frozen(tmp_path: Path) -> None:
     good, bad = "claude_code_forecaster_v1", "statistical_baseline_v1"
     # Before the switch: the plain median, and a record where one forecaster is much better.

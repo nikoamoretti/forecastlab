@@ -16,6 +16,15 @@ const more = [
   ["Settings", "/settings"]
 ];
 
+// The mark beside the name: three calls on a rising line.
+function Mark() {
+  return <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0">
+    <rect width="24" height="24" rx="7" className="fill-ink" />
+    <path d="M5.5 16.5 10 12l3.5 2.5L18.5 8" fill="none" className="stroke-paper" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="18.5" cy="8" r="1.9" className="fill-copper" />
+  </svg>;
+}
+
 export function Nav() {
   const path = usePathname();
   const [version, setVersion] = useState("");
@@ -38,25 +47,26 @@ export function Nav() {
   }, [open]);
   const active = (href: string) => (href === "/" ? path === "/" || path.startsWith("/q/") : path.startsWith(href));
   const inMore = more.some(([, href]) => active(href));
+  const item = (on: boolean) => `rounded-full px-3 py-1.5 text-[15px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper ${
+    on ? "bg-ink/[0.07] font-medium text-ink" : "text-ink/70 hover:bg-ink/[0.04] hover:text-ink"}`;
   return (
-    <header className="border-b border-rule bg-paper/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
-        <Link href="/" className="font-serif text-2xl tracking-tight">ForecastLab</Link>
-        <nav className="flex items-center gap-1 text-base" aria-label="Main">
+    <header className="sticky top-0 z-30 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
+        <Link href="/" className="flex items-center gap-2.5 font-serif text-[22px] leading-none tracking-tight"><Mark />ForecastLab</Link>
+        <nav className="-mx-1 flex items-center gap-0.5 sm:gap-1" aria-label="Main">
+          {/* On a phone the name on the left already leads home, and "Ask a question" is shortened, so the bar stays on one line. */}
           {links.map(([label, href]) => (
             <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}
-              className={`rounded-md px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper ${
-                active(href) ? "bg-ink/5 font-medium text-ink" : "text-ink/70 hover:text-ink"}`}>{label}</Link>
+              className={`${item(active(href))} ${href === "/" ? "hidden sm:inline-block" : ""}`}>
+              {href === "/ask" ? <><span className="sm:hidden">Ask</span><span className="hidden sm:inline">{label}</span></> : label}</Link>
           ))}
           <div className="relative" ref={menu}>
-            <button type="button" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen(!open)}
-              className={`rounded-md px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper ${
-                inMore ? "bg-ink/5 font-medium text-ink" : "text-ink/70 hover:text-ink"}`}>More ▾</button>
-            {open && <div role="menu" className="absolute right-0 z-20 mt-2 w-48 border border-rule bg-paper py-1 shadow-lg">
+            <button type="button" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen(!open)} className={item(inMore)}>More ▾</button>
+            {open && <div role="menu" className="card absolute right-0 z-20 mt-2 w-48 overflow-hidden py-1.5">
               {more.map(([label, href]) => (
                 <Link key={href} href={href} role="menuitem" className={`block px-4 py-2.5 hover:bg-ink/5 ${active(href) ? "font-medium" : ""}`}>{label}</Link>
               ))}
-              {version && <p className="border-t border-rule px-4 py-2 text-xs text-ink/50">Version {version}</p>}
+              {version && <p className="mt-1 border-t border-rule/70 px-4 pb-1 pt-2.5 text-xs text-ink/50">Version {version}</p>}
             </div>}
           </div>
         </nav>

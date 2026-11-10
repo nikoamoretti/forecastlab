@@ -17,7 +17,9 @@ export type Question = {
   forecasts: Forecast[]; call: Forecast | null; verdict: "right" | "wrong" | "toss_up" | null;
 };
 export type Tally = { resolved: number; right: number; wrong: number; toss_ups: number; brier: number | null; coin_flip_brier: number };
-export type Forecaster = Tally & { method: string; label: string; about: string; forecasts: number };
+// last_forecast_on is the latest day this forecaster forecast a question (absent in records built before it was added,
+// null when no question of its carries a day); the page lists a forecaster that has gone quiet under "earlier forecasters".
+export type Forecaster = Tally & { method: string; label: string; about: string; forecasts: number; last_forecast_on?: string | null };
 // The headline score is summary.brier over summary.resolved questions; vs_market compares our call with the market
 // on the questions the market also priced.
 // claude is Claude alone on the same priced questions (claude_questions of them have a Claude forecast); since_anchored

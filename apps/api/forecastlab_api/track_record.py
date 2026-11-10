@@ -90,6 +90,7 @@ import json
 import math
 import random
 import re
+from collections.abc import Iterable
 from datetime import date, datetime, timedelta
 from itertools import accumulate
 from pathlib import Path
@@ -470,6 +471,13 @@ def _forecast_day(question: dict[str, Any]) -> date | None:
     return datetime.strptime(found.group(1), "%Y%m%d").date() if found else None
 
 
+def _last_forecast_on(questions: Iterable[dict[str, Any]]) -> str | None:
+    """The latest day any of these questions was first forecast: the page lists a forecaster that has gone quiet
+    under "earlier forecasters". None when no question carries a day (the first macro pilot)."""
+    days = [day for question in questions if (day := _forecast_day(question))]
+    return max(days).isoformat() if days else None
+
+
 def verdict(probability: float, outcome: int | None) -> str | None:
     """'right', 'wrong', 'toss_up', or None while the question is open."""
     if outcome is None:
@@ -783,6 +791,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
                 "cancelled": sum(q["status"] == "cancelled" for q in questions),
                 "unscored": sum(not q["scored"] for q in questions), "total": len(questions)}
     forecasters = [{"method": COMBINED, **_about(COMBINED_INFO, combined=True), "forecasts": sum(q["call"] is not None for q in questions),
+                    "last_forecast_on": _last_forecast_on(q for q in questions if q["call"] is not None),
                     **_tally([(q["call"]["probability"], q["outcome"]) for q in resolved])}]
     for method in sorted({f["method"] for q in questions for f in q["forecasts"]},
                          key=lambda m: PRIMARY_ORDER.index(m) if m in PRIMARY_ORDER else len(PRIMARY_ORDER)):
@@ -790,6 +799,8 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
         info = _about(FORECASTERS.get(method, {"label": method, "about": ""}))
         forecasters.append({"method": method, **info,
                             "forecasts": sum(f["method"] == method for q in questions for f in q["forecasts"]),
+                            "last_forecast_on": _last_forecast_on(
+                                q for q in questions if any(f["method"] == method for f in q["forecasts"])),
                             **_tally(rows)})
     # Latest results first, then open questions by the date they resolve.
     questions = (sorted((q for q in questions if q["status"] == "resolved"), key=lambda q: q["resolves_on"], reverse=True)
