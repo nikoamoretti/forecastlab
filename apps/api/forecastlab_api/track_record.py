@@ -83,7 +83,7 @@ from datetime import date, datetime, timedelta
 from itertools import accumulate
 from pathlib import Path
 from statistics import median
-from typing import Any
+from typing import Any, TypedDict
 
 from forecastlab.fast_questions import bond_market_holidays
 from forecastlab.macro import SERIES, MacroSpec
@@ -104,13 +104,24 @@ ANCHORED_CALL = "market_anchored_call_v1"
 ANCHORED_FROM = date(2026, 11, 10)
 # How far the call may move from the market price toward Claude's forecast when no promoted rule applies (the one place
 # for the cap; 0.0 makes the call the market price), and the range the call stays within.
-DEFAULT_MOVE = 0.10
+DEFAULT_MOVE: float = 0.10
 CALL_BOUNDS = (0.02, 0.98)
 # Call rules: ideas for moving further toward Claude on some questions. Each is scored in the shadows (summary.edge_tests)
 # on questions first forecast on or after its registered date. "testing" rules change nothing; promoting one (a reviewed
 # one-line change of "status" to "promoted") lets the call move by the rule's `move` on the questions whose topic it
 # names (None = every topic). A rule whose counted interval stops being below zero is set back to "testing".
-CALL_RULES = (
+
+
+class CallRule(TypedDict):
+    id: str
+    label: str
+    registered: date
+    topics: tuple[str, ...] | None
+    move: float
+    status: str
+
+
+CALL_RULES: tuple[CallRule, ...] = (
     {"id": "tech_move_v1", "label": "Tech questions", "registered": date(2026, 11, 10), "topics": ("Tech",),
      "move": 0.10, "status": "testing"},
     {"id": "every_question_move_v1", "label": "Every question", "registered": date(2026, 11, 10), "topics": None,
