@@ -80,7 +80,11 @@ def test_a_forecaster_that_stays_in_its_folder_is_clean(tmp_path: Path, folder: 
     ("Read", {"file_path": "FOLDER/../forecastlab/data/track_record.json"}, "path outside the folder"),
     ("Read", {"file_path": "forecastlab/artifacts/x/forecasts.json"}, "path not spelled from the root"),
     ("Grep", {"pattern": "price"}, "searched without naming the forecaster's folder"),
-    ("Glob", {"pattern": "/tmp/s/**/forecasts.json"}, "searched without naming the forecaster's folder"),
+    ("Glob", {"pattern": "**/forecasts.json"}, "searched without naming the forecaster's folder"),
+    ("Glob", {"pattern": "/tmp/s/**/forecasts.json"}, "pattern outside the folder"),
+    ("Glob", {"pattern": "/tmp/s/**/forecasts.json", "path": "FOLDER"}, "pattern outside the folder"),
+    ("Glob", {"pattern": "FOLDER*/*.json"}, "pattern outside the folder"),
+    ("Glob", {"pattern": "../*/forecasts.json", "path": "FOLDER"}, 'pattern climbs out with ".."'),
     ("WebFetch", {"url": "https://polymarket.com/event/x"}, "a tool the forecaster has no use for"),
     ("Agent", {"prompt": "look up the price"}, "a tool the forecaster has no use for"),
 ])

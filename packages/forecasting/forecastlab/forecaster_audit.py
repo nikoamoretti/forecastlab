@@ -114,12 +114,21 @@ def _inside(path: str, folder: Path) -> bool:
     return False
 
 
+def _pattern_folder(pattern: str) -> str:
+    """The folder a rooted search pattern starts from: what stands before its first wildcard, up to the last "/"."""
+    fixed = re.split(r"[*?\[{]", pattern)[0]
+    return fixed if fixed == pattern else fixed[:fixed.rfind("/")] or "/"
+
+
 def _file_reasons(call: Call, folder: Path) -> list[str]:
     path = call.input.get("file_path") or call.input.get("path")
     pattern = str(call.input.get("pattern") or "") if call.tool == "Glob" else ""
+    rooted = pattern.startswith(("/", "~"))
     reasons: list[str] = []
+    if rooted and not _inside(_pattern_folder(pattern), folder):
+        reasons.append(f"pattern outside the folder: {pattern}")
     if not isinstance(path, str) or not path:
-        if not (pattern.startswith(("/", "~")) and _inside(re.split(r"[*?\[{]", pattern)[0], folder)):
+        if not rooted:
             reasons.append("searched without naming the forecaster's folder")
     elif not path.startswith(("/", "~")):
         reasons.append(f"path not spelled from the root, so it is read from the session's own folder: {path}")
