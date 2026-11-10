@@ -22,6 +22,7 @@
         }
       ],
       "id": "polymarket-6891202",
+      "integrity_note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
       "market_id": "6891202",
       "outcome": null,
       "question": "Will Bitcoin dip to $72,000 November 9-15?",
@@ -29,6 +30,7 @@
       "resolution_date": "2026-11-16",
       "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-9-15-2026",
       "topic": "Crypto",
+      "unscored": true,
       "volume": 28708.33225,
       "volume_floor": 2500
     },
@@ -115,6 +117,7 @@
         }
       ],
       "id": "polymarket-6716576",
+      "integrity_note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
       "market_id": "6716576",
       "outcome": null,
       "question": "Will the price of Bitcoin be above $74,000 on November 12?",
@@ -122,6 +125,7 @@
       "resolution_date": "2026-11-12",
       "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-12-2026",
       "topic": "Crypto",
+      "unscored": true,
       "volume": 12637.40883,
       "volume_floor": 2500
     },
@@ -241,7 +245,7 @@
         }
       ],
       "id": "polymarket-6753150",
-      "integrity_note": "While looking up the record format I printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109), which showed a market price for a different question, polymarket-6683300 (Bitcoin above $70,000 on November 11). I had already settled this forecast of 91% from the digest before seeing it and did not change it afterwards, but the two questions are close, so this is disclosed here.",
+      "integrity_note": "While looking up the record format, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109), which showed the market's price for a closely related question, polymarket-6683300 (Bitcoin above $70,000 on November 11). That was about a minute before this forecast was written down, so it cannot be shown to be blind and it is left out of the scores. The forecaster reports that the number came from the digest alone and was not changed.",
       "market_id": "6753150",
       "outcome": null,
       "question": "Will the price of Bitcoin be above $70,000 on November 13?",
