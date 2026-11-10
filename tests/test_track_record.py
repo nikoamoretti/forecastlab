@@ -329,7 +329,7 @@ def _anchored_day(root: Path, day: str, questions: dict[str, tuple[float, float 
     return directory
 
 
-def test_from_nov_10_the_call_starts_from_the_market_and_moves_at_most_ten_points(tmp_path: Path) -> None:
+def test_from_nov_10_the_call_is_the_market_price_until_an_edge_is_proven(tmp_path: Path) -> None:
     _history(tmp_path, 40)
     nov9 = _anchored_day(tmp_path, "20261109", {"n9": (0.7, 0.2)}, good=["n9"])
     nov10 = _anchored_day(tmp_path, "20261110", {
@@ -337,13 +337,14 @@ def test_from_nov_10_the_call_starts_from_the_market_and_moves_at_most_ten_point
         "none": (0.7, None)}, good=["up", "down", "inside", "high", "low", "none"])
     record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
     call = {q["id"]: q["call"] for q in record["questions"]}
-    # Moved toward Claude by at most 0.10, on both sides; both numbers are kept on the call.
-    # The call also records the move it was allowed; no rule is named while only the default applies.
-    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
-                          "max_move": 0.1}
-    assert call["down"]["probability"] == pytest.approx(0.4) and call["down"]["claude"] == 0.1
-    assert call["inside"]["probability"] == 0.55  # within the cap: Claude's number
-    assert call["high"]["probability"] == 0.98 and call["low"]["probability"] == 0.02  # kept within 2% to 98%
+    # No rule is promoted, so the call is the price itself wherever Claude stands. Both numbers are kept on the call,
+    # with the move it was allowed (none); no rule is named and nothing is marked as held.
+    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5,
+                          "max_move": 0.0}
+    assert call["down"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.1, "market": 0.5,
+                            "max_move": 0.0}
+    assert call["inside"]["probability"] == 0.5
+    assert call["high"]["probability"] == 0.95 and call["low"]["probability"] == 0.03
     # No market price: Claude's own forecast, as before.
     assert call["none"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
     # Nov 9 keeps the corrected-forecast rule (claude_calibrated_v1), not the anchor.
@@ -351,6 +352,34 @@ def test_from_nov_10_the_call_starts_from_the_market_and_moves_at_most_ten_point
     # The independent forecast stays tracked beside the call.
     assert _forecast(record, "up", CLAUDE)["probability"] == 0.9
     assert _forecast(record, "up", "market_price_v1")["probability"] == 0.5
+    assert json.loads((nov10 / "calls.json").read_text())["up"] == call["up"]
+    # Rebuilding changes nothing.
+    frozen = {path: path.read_text() for path in (nov9 / "calls.json", nov10 / "calls.json")}
+    again = build_track_record(tmp_path, today=date(2026, 11, 12), freeze=True)
+    assert {q["id"]: q["call"] for q in again["questions"]} == call
+    assert {path: path.read_text() for path in frozen} == frozen
+
+
+def test_a_promoted_rule_moves_the_call_toward_claude_by_at_most_its_move(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(every_question_move_v1="promoted"))
+    _history(tmp_path, 40)
+    nov9 = _anchored_day(tmp_path, "20261109", {"n9": (0.7, 0.2)}, good=["n9"])
+    nov10 = _anchored_day(tmp_path, "20261110", {
+        "up": (0.9, 0.5), "down": (0.1, 0.5), "inside": (0.55, 0.5), "high": (0.99, 0.95), "low": (0.0, 0.03),
+        "none": (0.7, None)}, good=["up", "down", "inside", "high", "low", "none"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    # Moved toward Claude by at most 0.10, on both sides; both numbers are kept on the call,
+    # with the move it was allowed and the rule that allowed it.
+    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
+                          "max_move": 0.1, "rule": "every_question_move_v1"}
+    assert call["down"]["probability"] == pytest.approx(0.4) and call["down"]["claude"] == 0.1
+    assert call["inside"]["probability"] == 0.55  # within the cap: Claude's number
+    assert call["high"]["probability"] == 0.98 and call["low"]["probability"] == 0.02  # kept within 2% to 98%
+    # No market price: Claude's own forecast, whatever the rules say.
+    assert call["none"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
+    # Nov 9 keeps the corrected-forecast rule (claude_calibrated_v1), not the anchor.
+    assert call["n9"]["method"] == "claude_corrected_call_v1"
     assert json.loads((nov10 / "calls.json").read_text())["up"] == call["up"]
     # Rebuilding changes nothing, even when the inputs behind a frozen call have moved.
     frozen = {path: path.read_text() for path in (nov9 / "calls.json", nov10 / "calls.json")}
@@ -374,17 +403,18 @@ def test_calls_frozen_before_nov_10_are_byte_identical_to_the_rules_they_were_ma
     assert json.loads(before["prospective_markets_20261104"])["q20261104"]["method"] == "combined_weighted_v1"
     assert json.loads(before["prospective_markets_20261105"])["q20261105"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
     assert json.loads(before["prospective_markets_20261109"])["q20261109"]["method"] == "claude_corrected_call_v1"
-    assert json.loads(after["prospective_markets_20261110"])["q20261110"]["probability"] == pytest.approx(0.3)
+    assert json.loads(after["prospective_markets_20261110"])["q20261110"]["probability"] == 0.2  # the market price
 
 
-def test_weak_research_holds_the_call_at_the_market_price(tmp_path: Path) -> None:
+def test_weak_research_holds_a_call_that_may_move_at_the_market_price(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(every_question_move_v1="promoted"))
     _anchored_day(tmp_path, "20261110", {"ok": (0.9, 0.5), "warned": (0.9, 0.5), "failed": (0.9, 0.5), "empty": (0.9, 0.5)},
                   good=["ok"], warned=["warned"], failed=["failed"])
     call = {q["id"]: q["call"] for q in build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)["questions"]}
     assert call["ok"]["probability"] == pytest.approx(0.6) and "held" not in call["ok"]
     for held in ("warned", "failed", "empty"):  # a primary-source warning, a failed question, no findings at all
         assert call[held] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9,
-                              "market": 0.5, "max_move": 0.1, "held": "weak research"}
+                              "market": 0.5, "max_move": 0.1, "rule": "every_question_move_v1", "held": "weak research"}
     # Claude's own forecast is still tracked on the held question.
     assert _forecast(build_track_record(tmp_path, today=date(2026, 11, 10)), "warned", CLAUDE)["probability"] == 0.9
 
@@ -398,7 +428,9 @@ def test_a_market_price_without_a_claude_forecast_follows_the_old_fallback(tmp_p
     assert call["method"] == "combined_weighted_v1" and call["probability"] == 0.6
 
 
-def test_the_record_scores_the_call_claude_alone_and_the_market_on_the_same_questions(tmp_path: Path) -> None:
+def test_the_record_scores_the_call_claude_alone_and_the_market_on_the_same_questions(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # A promoted rule, so that the call, Claude alone and the market are three different numbers.
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(every_question_move_v1="promoted"))
     directory = tmp_path / "prospective_markets_20261110"
     _markets(directory, [
         {"id": "a", "date": "2026-11-12", "outcome": 1, "forecasts": [
@@ -482,15 +514,16 @@ def _tech_and_other(root: Path, day: str = "20261110") -> Path:
     return directory
 
 
-def test_the_registry_starts_with_two_testing_rules_and_the_default_move_of_today() -> None:
-    assert track_record.DEFAULT_MOVE == 0.10
+def test_the_registry_starts_with_two_testing_rules_and_no_default_move() -> None:
+    assert track_record.DEFAULT_MOVE == 0.0  # owner's decision of 2026-11-10: the market price until an edge is proven
     assert [(r["id"], r["label"], r["registered"], r["topics"], r["move"], r["status"]) for r in track_record.CALL_RULES] == [
         ("tech_move_v1", "Tech questions", date(2026, 11, 10), ("Tech",), 0.10, "testing"),
         ("every_question_move_v1", "Every question", date(2026, 11, 10), None, 0.10, "testing")]
     assert (track_record.PROMOTION_QUESTIONS, track_record.PROMOTION_DATES) == (40, 10)
 
 
-def test_a_testing_rule_changes_no_call_and_the_default_move_is_what_moves_it(tmp_path: Path) -> None:
+def test_a_testing_rule_changes_no_call_and_a_default_move_is_what_moves_it(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.10)
     _tech_and_other(tmp_path)
     record = build_track_record(tmp_path, today=date(2026, 11, 10))
     call = {q["id"]: q["call"] for q in record["questions"]}
@@ -504,8 +537,7 @@ def test_a_testing_rule_changes_no_call_and_the_default_move_is_what_moves_it(tm
     assert "moves at most 10 points" in market["about"]
 
 
-def test_with_no_default_move_the_call_is_the_market_price_and_claude_alone_is_still_scored(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
+def test_by_default_the_call_is_the_market_price_and_claude_alone_is_still_scored(tmp_path: Path) -> None:
     directory = tmp_path / "prospective_markets_20261110"
     _markets(directory, [
         {"id": "a", "date": "2026-11-12", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]},

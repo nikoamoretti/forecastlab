@@ -7,7 +7,7 @@
   },
   "forecasters": [
     {
-      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it starts from the market price and moves at most 10 points toward Claude's forecast.",
+      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
       "brier": 0.20829688298114235,
       "coin_flip_brier": 0.25,
       "forecasts": 267,
@@ -187,7 +187,7 @@
       "wrong": 3
     },
     {
-      "about": "Polymarket's price when we forecast. From 2026-11-10 our call starts from it and moves at most 10 points; the toughest bar to beat.",
+      "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
       "brier": 0.15808907094594593,
       "coin_flip_brier": 0.25,
       "forecasts": 172,
@@ -199,7 +199,7 @@
       "wrong": 37
     },
     {
-      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call starts from it and moves at most 10 points.",
+      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
       "brier": 0.14356681139534885,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
@@ -16853,7 +16853,7 @@
         "interval": 0.9,
         "questions": 40
       },
-      "default_move": 0.1,
+      "default_move": 0.0,
       "promoted": []
     },
     "cancelled": 1,
