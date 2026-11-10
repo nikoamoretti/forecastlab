@@ -617,10 +617,54 @@ def tech(now: datetime) -> None:
 
 
 
+def kalshi_urls(now: datetime) -> None:
+    """Which public page address works for a Kalshi event. Prints status, final address and two booleans; never a page body."""
+    print("=== U. KALSHI page addresses (status and final address only) ===")
+    base = "https://api.elections.kalshi.com/trade-api/v2"
+    for series, event in (("KXLLM1", "KXLLM1-26NOV16"), ("KXGPT", "KXGPT-ASTRA61")):
+        code, data = kget(base, f"/events/{event}", {})
+        title = (data.get("event", {}) if isinstance(data, dict) else {}).get("title") if code == 200 else None
+        print(f"API /events/{event} -> HTTP {code}; title={title!r}; keys={sorted((data.get('event') or {}).keys()) if code == 200 else ''}")
+        code, sdata = kget(base, f"/series/{series}", {})
+        if code == 200:
+            sr = sdata.get("series") or {}
+            print(f"API /series/{series} -> title={sr.get('title')!r} contract_url={sr.get('contract_url')!r} keys={sorted(sr.keys())}")
+        for url in (f"https://kalshi.com/events/{event}", f"https://kalshi.com/events/{event.lower()}",
+                    f"https://kalshi.com/markets/{series.lower()}", f"https://kalshi.com/markets/{series.lower()}/x/{event.lower()}",
+                    f"https://kalshi.com/markets/{event.lower()}", f"https://kalshi.com/markets/{series.lower()}/{event.lower()}",
+                    f"https://kalshi.com/markets/{series.lower()}/no-such-page-zzz/{event.lower()}zzz"):
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; ForecastLab/0.3)", "Accept": "text/html"})
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    body = r.read(600000).decode("utf-8", "replace")
+                    print(f"  {url} -> HTTP {r.status}; final={r.geturl()}; bytes={len(body)}; mentions_event={event.lower() in body.lower()}; "
+                          f"mentions_title={bool(title) and str(title).lower() in body.lower()}")
+            except urllib.error.HTTPError as exc:
+                print(f"  {url} -> HTTP {exc.code}; final={exc.geturl()}")
+            except Exception as exc:  # noqa: BLE001
+                print(f"  {url} -> {type(exc).__name__}: {exc}")
+            time.sleep(0.5)
+    code, data = kget(base, "/series", {"category": "Science and Technology"})
+    n = len(data.get("series", []) or []) if code == 200 else 0
+    cats = Counter(s.get("category") for s in (data.get("series", []) or [])) if code == 200 else {}
+    print(f"API /series?category=Science and Technology -> HTTP {code}; series={n}; categories returned={dict(cats)}")
+    code, data = kget(base, "/markets/KXLLM1-26NOV16-ZZZ", {})
+    print(f"API /markets/<unknown ticker> -> HTTP {code}")
+    code, data = kget(base, "/markets", {"series_ticker": "KXLLM1", "status": "settled", "limit": "3"})
+    if code == 200 and data.get("markets"):
+        m = data["markets"][0]
+        print("settled market fields: " + ", ".join(f"{k}={m.get(k)!r}" for k in ("ticker", "status", "result", "close_time", "settlement_ts", "expiration_value", "settlement_value_dollars", "market_type")))
+        code, one = kget(base, f"/markets/{m['ticker']}", {})
+        mk = one.get("market", {}) if code == 200 else {}
+        print(f"API /markets/{{settled ticker}} -> HTTP {code}; status={mk.get('status')!r} result={mk.get('result')!r}")
+
+
+
+
 def run() -> None:
     now = datetime.now(timezone.utc)
-    print(f"supply probe (tech detail) at {now.isoformat()}")
-    for fn in (tech,):
+    print(f"supply probe (kalshi addresses) at {now.isoformat()}")
+    for fn in (kalshi_urls,):
         try:
             fn(now)
         except Exception as exc:  # noqa: BLE001
