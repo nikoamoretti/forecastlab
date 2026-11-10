@@ -42,7 +42,7 @@ forecast on or after ANCHORED_FROM (2026-11-10) no longer use it; it is still co
 From ANCHORED_FROM (2026-11-10) our call starts from the market (``market_anchored_call_v1``, owner's decision of
 2026-11-09). On the 191 questions both priced, Claude alone scored a Brier of 0.2024 against the market's 0.1548, and
 capping Claude's distance from the market at 0.10 would have scored 0.1712. So when a question has a market price
-(``market_price_v1``, else ``manifold_price_v1``, captured before Claude forecast) the call is the price moved toward
+(``market_price_v1``, else ``manifold_price_v1``, else ``kalshi_price_v1``, captured before Claude forecast) the call is the price moved toward
 Claude's forecast by at most the allowed move (DEFAULT_MOVE, or the larger move of a promoted call rule that matches
 the question's topic; see CALL_RULES), kept within CALL_BOUNDS. The call moves only on checked evidence: if the
 question's ``research.json`` lists it under ``failed``, has no findings for it, or carries a warning on its findings (fewer than
@@ -222,12 +222,16 @@ FORECASTERS: dict[str, dict[str, str]] = {
         "label": "Manifold (benchmark)",
         "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call "
                  "{call}."},
+    "kalshi_price_v1": {
+        "label": "Kalshi (benchmark)",
+        "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from "
+                 "Kalshi. From 2026-11-10 our call {call}."},
 }
 SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job growth",
                  "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
                  "treasury_10y": "10-year U.S. Treasury yield"}
 # Benchmarks are scored like forecasters but never enter our call.
-BENCHMARKS = ("market_price_v1", "manifold_price_v1")
+BENCHMARKS = ("market_price_v1", "manifold_price_v1", "kalshi_price_v1")
 # Scored like forecasters but never part of our call or of any forecaster's weight.
 EXCLUDED = {*BENCHMARKS, CALIBRATED, SECOND_LOOK}
 PRIMARY_ORDER = list(FORECASTERS)
@@ -302,7 +306,7 @@ def _claude_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> 
 
 
 def _market_price(forecasts: list[dict[str, Any]]) -> float | None:
-    """The market's price (Polymarket's, else Manifold's) captured before Claude forecast, if the question has one."""
+    """The market's price (Polymarket's, else Manifold's, else Kalshi's) captured before Claude forecast, if the question has one."""
     return next((f["probability"] for method in BENCHMARKS for f in forecasts if f["method"] == method), None)
 
 
@@ -565,7 +569,7 @@ def _claude_probability(question: dict[str, Any]) -> float | None:
 
 
 def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
-    """Our call against the market's price (Polymarket's, else Manifold's) on the questions it priced.
+    """Our call against the market's price (Polymarket's, else Manifold's, else Kalshi's) on the questions it priced.
 
     ``claude`` is Claude's own forecast on the same questions (``claude_questions`` of them have one), and
     ``since_anchored`` repeats all three on the questions first forecast from ANCHORED_FROM that have both a market

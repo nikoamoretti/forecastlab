@@ -21,7 +21,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 TRACK = ROOT / "data" / "track_record.json"
 CLAUDE = "claude_code_forecaster_v1"
-MARKET_METHODS = ("market_price_v1", "manifold_price_v1")
+MARKET_METHODS = ("market_price_v1", "manifold_price_v1", "kalshi_price_v1")
 
 
 def forecast_day(source: str) -> str | None:

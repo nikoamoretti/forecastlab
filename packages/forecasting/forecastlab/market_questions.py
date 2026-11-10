@@ -1,8 +1,8 @@
-"""Questions borrowed from Polymarket, resolved by Polymarket.
+"""Questions borrowed from Polymarket, Manifold and Kalshi, resolved by the market they come from.
 
 Selection is a fixed rule (``SELECTION_VERSION``): yes/no markets on economics, finance,
 politics, geopolitics, world affairs, technology and crypto; closing in 2 to 10 days; at
-least ``MIN_VOLUME`` ($2,500, since v7) traded; a price between 5% and 95% (near-certain questions say nothing
+least ``MIN_VOLUME`` ($2,500, since v7; $1,000 for Tech, since v8) traded; a price between 5% and 95% (near-certain questions say nothing
 about skill); one market per Polymarket event, so siblings such as "who will be prime
 minister" do not crowd the sample; topics taken in turn, at most ``TOPIC_LIMIT`` per topic
 and ``DAILY_LIMIT`` in all a day.
@@ -42,6 +42,13 @@ with few traders moves on one order and says less about what a well-informed cro
 bar. Each recorded question therefore keeps the floor it was chosen under (``volume_floor``), so scores can be read
 with that in mind.
 
+v8 (2026-11-10) lowers the floor for Tech alone to $1,000 (``TOPIC_MIN_VOLUME``); every other topic stays at
+$2,500. On 2026-11-10 Polymarket had 17 tech events closing in the window: one had a market passing every rule at
+$2,500, five at $1,000 and seven at $500 (the weekly App Store rank events and OpenRouter usage). Tech is the one topic
+with edges under test, and its results arrive at about 6 a week, too few to test them. Thin markets are a weaker
+benchmark, which is why each recorded question keeps the floor it was chosen under (``volume_floor``) and scores are
+split by volume. The floor is the one of the topic the event is taken under.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
@@ -50,6 +57,15 @@ the same window, price band and topic cap. Manifold trades play money, so it nee
 markets ("Will I ...") whose creator decides the answer about themselves. Its price is a
 separate benchmark (``MANIFOLD_METHOD``). A Manifold question resolves when the market
 resolves YES or NO; MKT or CANCEL counts as cancelled.
+
+Kalshi (``KALSHI_SELECTION_VERSION``, added 2026-11-10) adds up to ``KALSHI_DAILY_LIMIT`` Tech questions a day from its
+Science and Technology series (weekly "Best AI" leaderboards, release-date markets), under the same window, price band
+and one-per-event rule. It leaves out binary markets that are a threshold on a live number (``strike_type`` other than
+custom), because once-a-day research cannot judge them, and markets whose best bid and ask are more than
+``KALSHI_MAX_SPREAD`` (10 cents) apart or that lack either side, because their price says little. The price is the
+midpoint of the best bid and ask, a separate benchmark (``KALSHI_METHOD``). Volume is counted in contracts, not dollars
+(``volume_unit``), and needs at least ``KALSHI_MIN_VOLUME``. A Kalshi question resolves when the market is finalized
+with a yes or no result.
 
 The market price at selection time is kept as a benchmark forecaster. It is never part of
 our call. A question resolves only when Polymarket's resolution is final: the market is
@@ -66,7 +82,7 @@ from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v7"
+SELECTION_VERSION = "polymarket_selection_v8"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -74,6 +90,8 @@ TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "g
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
 MIN_DAYS, MAX_DAYS = 2, 10
 MIN_VOLUME = 2_500
+# Topics that take their markets at a lower traded-volume floor (v8): Tech has the edges under test and too few results.
+TOPIC_MIN_VOLUME: dict[str, int] = {"Tech": 1_000}
 MIN_PRICE, MAX_PRICE = 0.05, 0.95
 DAILY_LIMIT = 18
 # Markets that settle when someone takes office, not when trading closes.
@@ -146,7 +164,13 @@ def _yes_price(market: dict[str, Any]) -> float | None:
     return float(prices[0])
 
 
-def _polymarket_reject(market: dict[str, Any], price: float | None, volume: float, now: datetime) -> str | None:
+def volume_floor(topic: str) -> int:
+    """The traded-volume floor (USD) for a Polymarket event taken under ``topic``."""
+    return TOPIC_MIN_VOLUME.get(topic, MIN_VOLUME)
+
+
+def _polymarket_reject(market: dict[str, Any], price: float | None, volume: float, now: datetime,
+                       floor: int = MIN_VOLUME) -> str | None:
     """The first rule a market fails (None if it passes), in the order the rule has always been applied."""
     closes = market.get("endDate")
     if market.get("closed"):
@@ -155,7 +179,7 @@ def _polymarket_reject(market: dict[str, Any], price: float | None, volume: floa
         return "not_yes_no"
     if not closes:
         return "no_end_date"
-    if volume < MIN_VOLUME:
+    if volume < floor:
         return "volume"
     if not MIN_PRICE <= price <= MAX_PRICE:
         return "price_band"
@@ -201,6 +225,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
     found: dict[str, dict[str, Any]] = {}
     band_events: dict[str, set[str]] = {}  # funnel only: events with a market passing every rule but the volume floor
     for tag, topic in TOPICS.items():
+        floor = volume_floor(topic)
         events = fetch(f"{GAMMA}/events?{urllib.parse.urlencode(window | {'tag_slug': tag})}")
         _count(stats, f"events:{tag}", len(events))
         for event in events:
@@ -217,7 +242,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
                     band = _volume_band(volume)
                     _count(stats, f"volume_band:markets:{band}")
                     band_events.setdefault(band, set()).add(str(event["id"]))
-                reason = _polymarket_reject(market, price, volume, now)
+                reason = _polymarket_reject(market, price, volume, now, floor)
                 if reason:
                     _count(stats, f"drop:{reason}")
                     continue
@@ -230,7 +255,7 @@ def candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = N
                 found[event["id"]] = {
                     "id": f"polymarket-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": tag,
                     "question": market["question"].strip(), "resolution_criteria": (market.get("description") or "").strip(),
-                    "closes_at": market["endDate"], "volume": volume, "volume_floor": MIN_VOLUME, "market_price": price,
+                    "closes_at": market["endDate"], "volume": volume, "volume_floor": floor, "market_price": price,
                     "market_url": f"https://polymarket.com/event/{event['slug']}"}
             else:
                 _count(stats, "drop:events_with_no_eligible_market")
@@ -427,6 +452,7 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 found[market["id"]] = {
                     "id": f"manifold-{market['id']}", "market_id": str(market["id"]), "topic": topic, "tag": slug,
                     "question": question, "closes_at": _iso(closes_at), "volume": float(market["volume"]), "volume_floor": MANIFOLD_MIN_VOLUME,
+                    "volume_unit": "mana",
                     "market_price": round(float(price), 4), "market_url": market["url"], "method": MANIFOLD_METHOD}
     return list(found.values())
 
@@ -447,5 +473,129 @@ def manifold_resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, 
     if resolved == "YES":
         return {"status": "resolved", "outcome": 1}
     if resolved == "NO":
+        return {"status": "resolved", "outcome": 0}
+    return {"status": "cancelled"}
+
+
+KALSHI_SELECTION_VERSION = "kalshi_selection_v1"
+KALSHI_METHOD = "kalshi_price_v1"
+KALSHI = "https://api.elections.kalshi.com/trade-api/v2"
+KALSHI_CATEGORY = "Science and Technology"
+KALSHI_TOPIC = "Tech"
+KALSHI_MIN_VOLUME = 1_000  # contracts
+KALSHI_MAX_SPREAD = 0.10
+KALSHI_DAILY_LIMIT = 4
+KALSHI_MAX_PAGES = 100  # about 29 pages exist; a cursor that never ends must not hang the run
+
+
+def _kalshi_number(value: Any) -> float | None:
+    """A Kalshi number sent as a string such as "0.5600"; None when missing or empty."""
+    try:
+        return None if value in (None, "") else float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _kalshi_series_of(event_ticker: str, series: list[str]) -> str | None:
+    """The longest series ticker equal to the event ticker or a prefix of it followed by "-"."""
+    matches = [s for s in series if event_ticker == s or event_ticker.startswith(s + "-")]
+    return max(matches, key=len) if matches else None
+
+
+def kalshi_question(market: dict[str, Any]) -> str:
+    """The market's title, plus the yes side when the title does not already say it ("Best AI this week: Claude?")."""
+    title, side = (market.get("title") or "").strip(), (market.get("yes_sub_title") or "").strip()
+    if not side or side.lower() in title.lower():
+        return title
+    return f"{title.rstrip(' ?')}: {side}?"
+
+
+def _kalshi_reject(market: dict[str, Any], now: datetime) -> tuple[str, float | None] | None:
+    """(the first rule a market fails, price or None) or None if it passes; the price is the bid/ask midpoint."""
+    if market.get("market_type") != "binary":
+        return "not_binary", None
+    try:
+        closes = _parse_time(str(market.get("close_time")))
+    except ValueError:
+        return "window", None
+    if closes.tzinfo is None or not now + timedelta(days=MIN_DAYS) <= closes <= now + timedelta(days=MAX_DAYS):
+        return "window", None
+    if market.get("strike_type") not in (None, "", "custom"):
+        return "numeric_strike", None
+    bid, ask = _kalshi_number(market.get("yes_bid_dollars")), _kalshi_number(market.get("yes_ask_dollars"))
+    if bid is None or ask is None or bid <= 0 or ask <= 0:
+        return "one_sided", None
+    if ask - bid > KALSHI_MAX_SPREAD + 1e-9:
+        return "wide_spread", None
+    price = round((bid + ask) / 2, 4)
+    if not MIN_PRICE <= price <= MAX_PRICE:
+        return "price_band", price
+    if (_kalshi_number(market.get("volume_fp")) or 0) < KALSHI_MIN_VOLUME:
+        return "volume", price
+    if SLOW_SETTLING.search(market.get("title") or ""):
+        return "next_leader", price
+    return None
+
+
+def kalshi_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats | None = None) -> list[dict[str, Any]]:
+    """Kalshi Science and Technology binary markets that pass the rule, one per event, in the candidate shape.
+
+    ``stats``, if given, counts markets fetched and dropped per rule without changing the result.
+    """
+    rows = fetch(f"{KALSHI}/series?{urllib.parse.urlencode({'category': KALSHI_CATEGORY})}").get("series", [])
+    series = [row["ticker"] for row in rows if row.get("category") == KALSHI_CATEGORY]
+    query = {"status": "open", "min_close_ts": str(int((now + timedelta(days=MIN_DAYS)).timestamp())),
+             "max_close_ts": str(int((now + timedelta(days=MAX_DAYS)).timestamp())), "mve_filter": "exclude", "limit": "1000"}
+    by_event: dict[str, list[tuple[float, dict[str, Any], float, str]]] = {}
+    cursor = ""
+    for _ in range(KALSHI_MAX_PAGES + 1):
+        page = fetch(f"{KALSHI}/markets?{urllib.parse.urlencode(query | ({'cursor': cursor} if cursor else {}))}")
+        for market in page.get("markets", []):
+            _count(stats, "markets:fetched")
+            event = str(market.get("event_ticker") or "")
+            tag = _kalshi_series_of(event, series)
+            if tag is None:
+                _count(stats, "markets:other_category")
+                continue
+            _count(stats, "markets:science_and_technology")
+            rejected = _kalshi_reject(market, now)
+            if rejected:
+                _count(stats, f"drop:{rejected[0]}")
+                continue
+            price = _kalshi_number(market.get("yes_bid_dollars")), _kalshi_number(market.get("yes_ask_dollars"))
+            assert price[0] is not None and price[1] is not None
+            by_event.setdefault(event, []).append(
+                (_kalshi_number(market.get("volume_fp")) or 0.0, market, round((price[0] + price[1]) / 2, 4), tag))
+        following = str(page.get("cursor") or "")
+        if not following:
+            break
+        if following == cursor:
+            raise RuntimeError("kalshi: a page returned the cursor it was asked with")
+        cursor = following
+    else:
+        raise RuntimeError(f"kalshi: more than {KALSHI_MAX_PAGES} pages of markets")
+    found = []
+    for event, eligible in by_event.items():
+        _count(stats, "drop:sibling_in_same_event", len(eligible) - 1)
+        volume, market, price, tag = max(eligible, key=lambda item: item[0])
+        _count(stats, "candidates:kalshi")
+        rules = [(market.get("rules_primary") or "").strip(), (market.get("rules_secondary") or "").strip()]
+        found.append({
+            "id": f"kalshi-{market['ticker']}", "market_id": str(market["ticker"]), "topic": KALSHI_TOPIC, "tag": tag,
+            "question": kalshi_question(market), "resolution_criteria": "\n\n".join(r for r in rules if r),
+            "closes_at": market["close_time"], "volume": volume, "volume_floor": KALSHI_MIN_VOLUME,
+            "volume_unit": "contracts", "market_price": price, "market_url": f"https://kalshi.com/events/{event}",
+            "method": KALSHI_METHOD})
+    return found
+
+
+def kalshi_resolution(market_id: str, fetch: Fetch = fetch_json) -> dict[str, Any]:
+    """{"status": "resolved", "outcome": 1|0} once finalized yes/no; "cancelled" if finalized otherwise; else pending."""
+    market = fetch(f"{KALSHI}/markets/{market_id}")["market"]
+    if market.get("status") != "finalized":
+        return {"status": "pending"}
+    if market.get("result") == "yes":
+        return {"status": "resolved", "outcome": 1}
+    if market.get("result") == "no":
         return {"status": "resolved", "outcome": 0}
     return {"status": "cancelled"}

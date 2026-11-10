@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { CallPolicy, DEFAULT_POLICY, EdgeTest, Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, points, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
+import { CallPolicy, DEFAULT_POLICY, EdgeTest, Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, marketNameOf, nextMilestone, points, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -17,8 +17,7 @@ function ResultRow({ q }: { q: Question }) {
   </Link></li>;
 }
 
-const settledBy = (q: Question) => q.source_url?.includes("polymarket.com") ? "Polymarket"
-  : q.source_url?.includes("manifold.markets") ? "Manifold" : "the official figure";
+const settledBy = (q: Question) => marketNameOf(q.source_url) ?? "the official figure";
 
 function OpenRow({ q, today }: { q: Question; today: string }) {
   const overdue = q.resolves_on < today;

@@ -1,7 +1,7 @@
 name: Daily run steps
 
 # The network and key steps of docs/DAILY_CLAUDE_FORECASTS.md, for a Claude
-# session whose container cannot reach FRED, Polymarket, Manifold or OpenRouter,
+# session whose container cannot reach FRED, Polymarket, Manifold, Kalshi or OpenRouter,
 # or no longer holds the OpenRouter key. Each step commits its output to the
 # daily branch claude/daily-forecasts-YYYYMMDD.
 #   prepare    create the branch from grok/forecastlab-mvp if needed, then run

@@ -80,6 +80,11 @@ export function lateDeadline(rules: string, listed: string): string | null {
   return latest && (noon(latest).getTime() - noon(listed).getTime()) / 86_400_000 > 30 ? latest : null;
 }
 
+// The prediction market a question comes from, named from its source link (null for anything else).
+export function marketNameOf(url: string | null | undefined): string | null {
+  return url?.includes("polymarket.com") ? "Polymarket" : url?.includes("manifold.markets") ? "Manifold" : url?.includes("kalshi.com") ? "Kalshi" : null;
+}
+
 export function shortDate(iso: string, withYear = false) {
   return noon(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: withYear ? "numeric" : undefined, timeZone: "UTC" });
 }

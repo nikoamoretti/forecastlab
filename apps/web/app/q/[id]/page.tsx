@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
 import { ResearchTrail } from "@/components/ResearchTrail";
 import { api, pct } from "@/lib/api";
-import { TrackRecord, anchoredCallText, callText, percent, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
+import { TrackRecord, anchoredCallText, callText, percent, lateDeadline, marketNameOf, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
 export default function QuestionPage() {
   const { id } = useParams<{ id: string }>();
@@ -21,7 +21,7 @@ export default function QuestionPage() {
   // Forecasters that wrote down their reasoning (Claude does); the first one is shown.
   const reasoning = q.forecasts.find(f => f.rationale) ?? null;
   const overdue = q.status === "pending" && q.resolves_on < todayUTC();
-  const marketName = q.source_url?.includes("polymarket.com") ? "Polymarket" : q.source_url?.includes("manifold.markets") ? "Manifold" : null;
+  const marketName = marketNameOf(q.source_url);
   const market = marketName !== null;
   const anchored = q.call?.method === "market_anchored_call_v1";
   const claudeAlone = q.forecasts.find(f => f.method === "claude_code_forecaster_v1");
