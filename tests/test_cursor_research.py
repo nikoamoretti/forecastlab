@@ -179,6 +179,39 @@ def test_research_stops_asking_once_the_usage_limit_is_hit_and_records_cost(tmp_
     assert all(result["failed"][f"polymarket-{n}"].startswith("skipped") for n in (3, 4))
 
 
+def test_a_timed_out_run_is_not_a_usage_limit_and_keeps_no_command_line(tmp_path: Path) -> None:
+    # 2026-11-10: the command line in subprocess's timeout error carries the Claude instructions, whose
+    # "quotation marks" matched "quota"; one timed-out run then stopped the rest of the day's research.
+    directory = market_dir(tmp_path)
+    questions = [dict(MARKET, id=f"polymarket-{n}", question=f"Question {n}?") for n in range(1, 4)]
+    (directory / "forecasts.json").write_text(json.dumps({"questions": questions}))
+    command = ["/Users/someone/.local/bin/claude", "-p", "--append-system-prompt", cr.CLAUDE_TOOL_NOTES]
+    assert "quotation" in cr.CLAUDE_TOOL_NOTES
+    asked: list[str] = []
+
+    def agent(text: str) -> str:
+        asked.append(text)
+        if len(asked) == 2:  # the second question's run hangs
+            raise subprocess.TimeoutExpired(command, 600)
+        return answer()
+
+    result = cr.research(directory, agent, "2026-11-10", parallel=1, budget=10)
+    assert len(asked) == 3  # the third question is still asked
+    assert set(result["findings"]) == {"polymarket-1", "polymarket-3"}
+    assert result["failed"] == {"polymarket-2": "TimeoutError: timed out after 600 seconds"}
+
+
+@pytest.mark.parametrize(("text", "expected"), [
+    ("claude exited 1: You've hit your weekly usage limit", True),
+    ("cursor-agent exited 1: rate limit exceeded, try again later", True),
+    ("claude exited 1: monthly quota exceeded", True),
+    ("claude exited 1: copy the sentence between quotation marks", False),
+    ("claude exited 1: could not open the page", False)])
+def test_only_the_words_of_a_limit_count_as_one(text: str, expected: bool) -> None:
+    assert cr.limit_reached(RuntimeError(text)) is expected
+    assert not cr.limit_reached(TimeoutError(text))  # a timed-out run never counts, whatever its text says
+
+
 def test_claude_agent_reads_the_prompt_on_stdin_with_only_web_tools(tmp_path: Path) -> None:
     fake = tmp_path / "claude"
     fake.write_text("#!/bin/sh\nprintf '%s\\n' \"$@\" > \"$(dirname \"$0\")/args\"\ncat\n")
@@ -965,9 +998,36 @@ def test_cursor_agent_retries_a_timed_out_run_once(monkeypatch: pytest.MonkeyPat
 
     calls.clear()
     monkeypatch.setattr(cr.subprocess, "run", lambda *a, **k: (calls.append(1), (_ for _ in ()).throw(subprocess.TimeoutExpired(a[0], 5)))[1])
-    with pytest.raises(subprocess.TimeoutExpired):
+    with pytest.raises(TimeoutError, match="cursor-agent timed out after 5 seconds"):
         cr.cursor_agent("m", 5)("q")
-    assert len(calls) == cr.CURSOR_TRIES
+    assert len(calls) == cr.TIMEOUT_TRIES
+
+
+def test_claude_agent_retries_a_timed_out_run_once_and_then_fails_without_its_command_line(
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[float] = []
+
+    def fake_run(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        calls.append(kwargs["timeout"])
+        if len(calls) == 1:
+            raise subprocess.TimeoutExpired(args[0], kwargs["timeout"])
+        return subprocess.CompletedProcess(args[0], 0, stdout="found it", stderr="")
+
+    monkeypatch.setattr(cr.subprocess, "run", fake_run)
+    assert cr.claude_agent("haiku", 600, binary="/Users/someone/.local/bin/claude")("q") == "found it"
+    assert calls == [600, 600]
+
+    def hangs(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        calls.append(kwargs["timeout"])
+        raise subprocess.TimeoutExpired(args[0], kwargs["timeout"])
+
+    calls.clear()
+    monkeypatch.setattr(cr.subprocess, "run", hangs)
+    with pytest.raises(TimeoutError) as caught:
+        cr.claude_agent("haiku", 600, binary="/Users/someone/.local/bin/claude")("q")
+    text = str(caught.value)
+    assert len(calls) == cr.TIMEOUT_TRIES and "claude timed out after 600 seconds" in text
+    assert "/Users" not in text and "quotation" not in text and not cr.limit_reached(caught.value)
 
 
 # ---- live tallies and the price-math line ----------------------------------------------------
