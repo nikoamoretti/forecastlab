@@ -7,26 +7,26 @@
   },
   "forecasters": [
     {
-      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination.",
-      "brier": 0.20832359672759923,
+      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it starts from the market price and moves at most 10 points toward Claude's forecast.",
+      "brier": 0.20829688298114235,
       "coin_flip_brier": 0.25,
       "forecasts": 267,
       "label": "Combined forecast",
       "method": "combined_median_v1",
-      "resolved": 217,
-      "right": 145,
+      "resolved": 218,
+      "right": 146,
       "toss_ups": 3,
       "wrong": 69
     },
     {
-      "about": "Claude researches each question on the web and states a probability.",
-      "brier": 0.20153584905660377,
+      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
+      "brier": 0.20154037558685448,
       "coin_flip_brier": 0.25,
       "forecasts": 262,
-      "label": "Claude",
+      "label": "Claude alone",
       "method": "claude_code_forecaster_v1",
-      "resolved": 212,
-      "right": 140,
+      "resolved": 213,
+      "right": 141,
       "toss_ups": 6,
       "wrong": 66
     },
@@ -103,7 +103,7 @@
       "wrong": 47
     },
     {
-      "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions Claude researched.",
+      "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
       "brier": 0.21748870967741937,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
@@ -164,30 +164,30 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.24744830585566333,
+      "brier": 0.24813632777903827,
       "coin_flip_brier": 0.25,
       "forecasts": 28,
       "label": "Statistical baseline",
       "method": "statistical_baseline_v1",
-      "resolved": 23,
+      "resolved": 24,
       "right": 10,
       "toss_ups": 0,
-      "wrong": 13
+      "wrong": 14
     },
     {
-      "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call from 2026-11-06.",
-      "brier": 0.1210902102235,
+      "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
+      "brier": 0.132045306311,
       "coin_flip_brier": 0.25,
       "forecasts": 37,
       "label": "Claude, confidence-corrected",
       "method": "claude_calibrated_v1",
-      "resolved": 14,
+      "resolved": 15,
       "right": 12,
       "toss_ups": 0,
-      "wrong": 2
+      "wrong": 3
     },
     {
-      "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat.",
+      "about": "Polymarket's price when we forecast. From 2026-11-10 our call starts from it and moves at most 10 points; the toughest bar to beat.",
       "brier": 0.15808907094594593,
       "coin_flip_brier": 0.25,
       "forecasts": 172,
@@ -199,7 +199,7 @@
       "wrong": 37
     },
     {
-      "about": "Manifold's play-money price when we forecast. Not part of our call.",
+      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call starts from it and moves at most 10 points.",
       "brier": 0.14356681139534885,
       "coin_flip_brier": 0.25,
       "forecasts": 58,
@@ -213,6 +213,58 @@
   ],
   "generated_on": "2026-11-09",
   "questions": [
+    {
+      "actual": "4.86%",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.45,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92,
+          "statistical_baseline_v1": 14.98
+        }
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-06 be above 4.94 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Search summaries put the 10-year at 4.92% on 2026-11-02, after 4.94 on 2026-10-30 and 4.98 on 2026-10-29 (https://tradingeconomics.com/united-states/government-bond-yield; https://fred.stlouisfed.org/series/dgs10), so the 4.94 threshold sits about 2 bp above the latest level and the yield has been drifting lower from a peak above 5.18% (https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html, 2026-10-02). A four-session move has a standard deviation of roughly 10-14 bp (an assumption, not a counted figure), which makes a 2 bp gap close to a coin flip, and a tie at 4.94 counts as No. Payrolls probably land on 2026-11-06 itself, which widens the spread of outcomes without tilting it, so I stay just under 50% with the weak, unchecked evidence.",
+          "sources": [
+            "https://tradingeconomics.com/united-states/government-bond-yield",
+            "https://fred.stlouisfed.org/series/dgs10",
+            "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.513771186440678
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.534244,
+          "raw": 0.45,
+          "results": 126,
+          "slope": 0.863574
+        }
+      ],
+      "id": "c4ee2a1aab6c194d",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-09",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261103",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 6, 2026 be above 4.94%?",
+      "topic": "Interest rates",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -15410,58 +15462,6 @@
       "call": {
         "members": 2,
         "method": "combined_weighted_v1",
-        "probability": 0.45,
-        "weights": {
-          "claude_code_forecaster_v1": 23.92,
-          "statistical_baseline_v1": 14.98
-        }
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-06 be above 4.94 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-11-03T11:05:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "Search summaries put the 10-year at 4.92% on 2026-11-02, after 4.94 on 2026-10-30 and 4.98 on 2026-10-29 (https://tradingeconomics.com/united-states/government-bond-yield; https://fred.stlouisfed.org/series/dgs10), so the 4.94 threshold sits about 2 bp above the latest level and the yield has been drifting lower from a peak above 5.18% (https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html, 2026-10-02). A four-session move has a standard deviation of roughly 10-14 bp (an assumption, not a counted figure), which makes a 2 bp gap close to a coin flip, and a tie at 4.94 counts as No. Payrolls probably land on 2026-11-06 itself, which widens the spread of outcomes without tilting it, so I stay just under 50% with the weak, unchecked evidence.",
-          "sources": [
-            "https://tradingeconomics.com/united-states/government-bond-yield",
-            "https://fred.stlouisfed.org/series/dgs10",
-            "https://www.cnbc.com/2026/10/02/treasury-yields-bonds-nonfarm-payrolls.html"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.513771186440678
-        },
-        {
-          "as_of": "2026-11-03",
-          "intercept": 0.310486,
-          "method": "claude_calibrated_v1",
-          "probability": 0.534244,
-          "raw": 0.45,
-          "results": 126,
-          "slope": 0.863574
-        }
-      ],
-      "id": "c4ee2a1aab6c194d",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-09",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261103",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Nov 6, 2026 be above 4.94%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
         "probability": 0.32,
         "weights": {
           "claude_code_forecaster_v1": 26.77,
@@ -16846,10 +16846,10 @@
     }
   ],
   "summary": {
-    "brier": 0.20832359672759923,
+    "brier": 0.20829688298114235,
     "cancelled": 1,
     "coin_flip_brier": 0.25,
-    "pending": 46,
+    "pending": 45,
     "progress": {
       "changes": [
         {
@@ -16863,15 +16863,21 @@
         {
           "date": "2026-11-09",
           "label": "Deeper research"
+        },
+        {
+          "date": "2026-11-10",
+          "label": "Call anchored to market"
         }
       ],
       "since_last_change": {
         "after": {
+          "claude": null,
           "market": null,
           "ours": null,
           "questions": 0
         },
         "before": {
+          "claude": 0.2000649214659686,
           "market": 0.1548196617277487,
           "ours": 0.20244829842931938,
           "questions": 191
@@ -16880,6 +16886,7 @@
       },
       "weeks": [
         {
+          "claude": 0.1920904761904762,
           "market": 0.16426797476190474,
           "ours": 0.18733333333333335,
           "questions": 21,
@@ -16888,6 +16895,7 @@
           "wrong": 7
         },
         {
+          "claude": 0.16929047619047619,
           "market": 0.12960348,
           "ours": 0.1613952380952381,
           "questions": 21,
@@ -16896,6 +16904,7 @@
           "wrong": 4
         },
         {
+          "claude": 0.18425121951219514,
           "market": 0.15258752024390243,
           "ours": 0.19559329268292683,
           "questions": 41,
@@ -16904,6 +16913,7 @@
           "wrong": 9
         },
         {
+          "claude": 0.2276968085106383,
           "market": 0.16362627670212768,
           "ours": 0.23041914893617024,
           "questions": 94,
@@ -16912,6 +16922,7 @@
           "wrong": 33
         },
         {
+          "claude": 0.11897142857142859,
           "market": 0.12587832142857144,
           "ours": 0.11897142857142859,
           "questions": 14,
@@ -16921,15 +16932,24 @@
         }
       ]
     },
-    "resolved": 217,
-    "right": 145,
+    "resolved": 218,
+    "right": 146,
     "toss_ups": 3,
     "total": 267,
     "unscored": 3,
     "vs_market": {
+      "claude": 0.2000649214659686,
+      "claude_questions": 191,
       "market": 0.1548196617277487,
       "ours": 0.20244829842931938,
-      "questions": 191
+      "questions": 191,
+      "since_anchored": {
+        "claude": null,
+        "date": "2026-11-10",
+        "market": null,
+        "ours": null,
+        "questions": 0
+      }
     },
     "wrong": 69
   },

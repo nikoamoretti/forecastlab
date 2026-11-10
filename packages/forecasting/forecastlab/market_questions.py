@@ -2,7 +2,7 @@
 
 Selection is a fixed rule (``SELECTION_VERSION``): yes/no markets on economics, finance,
 politics, geopolitics, world affairs, technology and crypto; closing in 2 to 10 days; at
-least ``MIN_VOLUME`` ($5,000, since v7) traded; a price between 5% and 95% (near-certain questions say nothing
+least ``MIN_VOLUME`` ($2,500, since v7) traded; a price between 5% and 95% (near-certain questions say nothing
 about skill); one market per Polymarket event, so siblings such as "who will be prime
 minister" do not crowd the sample; topics taken in turn, at most ``TOPIC_LIMIT`` per topic
 and ``DAILY_LIMIT`` in all a day.
@@ -33,13 +33,14 @@ questions committed under ``artifacts/prospective_markets_*``.
 v6 (2026-11-09) takes no market from an event that already has a pending question (same ``market_url``) from an earlier
 day: sibling markets of one event, selected on different days, counted its single outcome many times.
 
-v7 (2026-11-09) lowers the traded-volume floor from $10,000 to $5,000. The 2026-11-09 pool run showed the fetch was
+v7 (2026-11-09) lowers the traded-volume floor from $10,000 to $2,500. The 2026-11-09 pool run showed the fetch was
 already limited to the closing window (1,902 of 1,904 fetched markets end inside it), so the floor was the only rule
-thinning the pool: of the markets passing every other rule, 17 traded $10,000 or more (8 events) and 14 traded $5,000
-to $10,000 (11 events), while 940 traded under $1,000. Thinner markets are a weaker benchmark: a price on a market
-with few traders moves on one order and says less about what a well-informed crowd thinks, so a market-beating
-score on them is worth less. Each recorded question therefore keeps the floor it was chosen under
-(``volume_floor``), and the page's scores can be read with that in mind.
+thinning the pool. Of the markets passing every other rule, 17 traded $10,000 or more (8 events), 13 traded $5,000 to
+$10,000 (11 events), 42 traded $2,500 to $5,000 (28 events) and 945 traded under $1,000. A $5,000 floor left 13
+candidates, short of the 15 a day needed; $2,500 left 31. Thinner markets are a weaker benchmark: a price on a market
+with few traders moves on one order and says less about what a well-informed crowd thinks, so beating it is a lower
+bar. Each recorded question therefore keeps the floor it was chosen under (``volume_floor``), so scores can be read
+with that in mind.
 
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``

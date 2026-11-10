@@ -392,13 +392,13 @@ def test_pool_counts_each_rule_and_changes_nothing(tmp_path: Path, capsys: pytes
     assert list(artifacts.iterdir()) == []  # writes nothing
 
 
-def test_volume_floor_is_five_thousand_and_kept_per_question(tmp_path: Path) -> None:
+def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_path: Path) -> None:
     from forecastlab.market_questions import MIN_VOLUME, SELECTION_VERSION
 
-    assert (MIN_VOLUME, SELECTION_VERSION) == (5_000, "polymarket_selection_v7")
+    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v7")
     events = {"economy": [
-        {"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 5_500)]},
-        {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 4_900)]}]}
+        {"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 2_600)]},
+        {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 2_400)]}]}
     fetch = lambda url: events.get(url.split("tag_slug=")[1].split("&")[0], [])  # noqa: E731
     assert [c["market_id"] for c in candidates(NOW, fetch)] == ["ma"]
     artifacts = tmp_path / "artifacts"
@@ -406,13 +406,13 @@ def test_volume_floor_is_five_thousand_and_kept_per_question(tmp_path: Path) -> 
     directory = script.prepare(NOW, artifacts, fetch)
     assert directory is not None
     snapshot = json.loads((directory / "market_snapshot.json").read_text())
-    assert [m["volume_floor"] for m in snapshot["markets"]] == [5_000]
+    assert [m["volume_floor"] for m in snapshot["markets"]] == [2_500]
     answers = tmp_path / "claude.json"
     answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
         {"id": "polymarket-ma", "probability": 0.4}]}))
     script.record(directory, answers)
     recorded = json.loads((directory / "forecasts.json").read_text())["questions"]
-    assert recorded[0]["volume_floor"] == 5_000
+    assert (recorded[0]["volume_floor"], recorded[0]["volume"]) == (2_500, 2_600)
 
 
 def test_funnel_counts_volume_bands_and_fetch_window_position() -> None:

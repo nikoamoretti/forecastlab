@@ -308,6 +308,118 @@ def test_from_nov_6_our_call_is_the_corrected_forecast_frozen(tmp_path: Path) ->
     assert frozen["new20261106"] == question["call"]
 
 
+def _research(directory: Path, *, good: list[str] = (), warned: list[str] = (), failed: list[str] = ()) -> None:
+    """A research.json as the download step writes it: findings per question, some with warnings, some failed."""
+    (directory / "research.json").write_text(json.dumps({
+        "findings": {**{i: {"facts": [{"fact": "x", "source": 0}]} for i in good},
+                     **{i: {"facts": [{"fact": "x", "source": 0}], "warnings": ["only 1 primary source(s) with quotes (need 2): rely on the facts less than on official data"]}
+                        for i in warned}},
+        "failed": {i: "ValueError: only 0 usable sources" for i in failed}}))
+
+
+def _anchored_day(root: Path, day: str, questions: dict[str, tuple[float, float | None]], **research: list[str]) -> Path:
+    """A market directory: id -> (Claude's probability, the market's price or None)."""
+    directory = root / f"prospective_markets_{day}"
+    _markets(directory, [
+        {"id": qid, "date": "2026-11-20", "forecasts": [{"method": CLAUDE, "probability": claude}]
+         + ([{"method": "market_price_v1", "probability": price}] if price is not None else [])}
+        for qid, (claude, price) in questions.items()])
+    _research(directory, **research)
+    return directory
+
+
+def test_from_nov_10_the_call_starts_from_the_market_and_moves_at_most_ten_points(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    nov9 = _anchored_day(tmp_path, "20261109", {"n9": (0.7, 0.2)}, good=["n9"])
+    nov10 = _anchored_day(tmp_path, "20261110", {
+        "up": (0.9, 0.5), "down": (0.1, 0.5), "inside": (0.55, 0.5), "high": (0.99, 0.95), "low": (0.0, 0.03),
+        "none": (0.7, None)}, good=["up", "down", "inside", "high", "low", "none"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    # Moved toward Claude by at most 0.10, on both sides; both numbers are kept on the call.
+    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5}
+    assert call["down"]["probability"] == pytest.approx(0.4) and call["down"]["claude"] == 0.1
+    assert call["inside"]["probability"] == 0.55  # within the cap: Claude's number
+    assert call["high"]["probability"] == 0.98 and call["low"]["probability"] == 0.02  # kept within 2% to 98%
+    # No market price: Claude's own forecast, as before.
+    assert call["none"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
+    # Nov 9 keeps the corrected-forecast rule (claude_calibrated_v1), not the anchor.
+    assert call["n9"]["method"] == "claude_corrected_call_v1"
+    # The independent forecast stays tracked beside the call.
+    assert _forecast(record, "up", CLAUDE)["probability"] == 0.9
+    assert _forecast(record, "up", "market_price_v1")["probability"] == 0.5
+    assert json.loads((nov10 / "calls.json").read_text())["up"] == call["up"]
+    # Rebuilding changes nothing, even when the inputs behind a frozen call have moved.
+    frozen = {path: path.read_text() for path in (nov9 / "calls.json", nov10 / "calls.json")}
+    _research(nov10, failed=["up"])
+    again = build_track_record(tmp_path, today=date(2026, 11, 12), freeze=True)
+    assert {q["id"]: q["call"] for q in again["questions"]} == call
+    assert {path: path.read_text() for path in frozen} == frozen
+
+
+def test_calls_frozen_before_nov_10_are_byte_identical_to_the_rules_they_were_made_under(tmp_path: Path) -> None:
+    _history(tmp_path, 40)
+    for day in ("20261104", "20261105", "20261106", "20261109"):
+        _anchored_day(tmp_path, day, {f"q{day}": (0.7, 0.2)}, good=[f"q{day}"])
+    # Same data once with the Nov 10 code path unreachable (today before it), then after: the frozen files do not differ.
+    build_track_record(tmp_path, today=date(2026, 11, 9), freeze=True)
+    before = {p.parent.name: p.read_bytes() for p in sorted(tmp_path.glob("prospective_markets_*/calls.json"))}
+    _anchored_day(tmp_path, "20261110", {"q20261110": (0.7, 0.2)}, good=["q20261110"])
+    build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    after = {p.parent.name: p.read_bytes() for p in sorted(tmp_path.glob("prospective_markets_*/calls.json"))}
+    assert {k: v for k, v in after.items() if k < "prospective_markets_20261110"} == before
+    assert json.loads(before["prospective_markets_20261104"])["q20261104"]["method"] == "combined_weighted_v1"
+    assert json.loads(before["prospective_markets_20261105"])["q20261105"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
+    assert json.loads(before["prospective_markets_20261109"])["q20261109"]["method"] == "claude_corrected_call_v1"
+    assert json.loads(after["prospective_markets_20261110"])["q20261110"]["probability"] == pytest.approx(0.3)
+
+
+def test_weak_research_holds_the_call_at_the_market_price(tmp_path: Path) -> None:
+    _anchored_day(tmp_path, "20261110", {"ok": (0.9, 0.5), "warned": (0.9, 0.5), "failed": (0.9, 0.5), "empty": (0.9, 0.5)},
+                  good=["ok"], warned=["warned"], failed=["failed"])
+    call = {q["id"]: q["call"] for q in build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)["questions"]}
+    assert call["ok"]["probability"] == pytest.approx(0.6) and "held" not in call["ok"]
+    for held in ("warned", "failed", "empty"):  # a primary-source warning, a failed question, no findings at all
+        assert call[held] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9,
+                              "market": 0.5, "held": "weak research"}
+    # Claude's own forecast is still tracked on the held question.
+    assert _forecast(build_track_record(tmp_path, today=date(2026, 11, 10)), "warned", CLAUDE)["probability"] == 0.9
+
+
+def test_a_market_price_without_a_claude_forecast_follows_the_old_fallback(tmp_path: Path) -> None:
+    directory = tmp_path / "prospective_markets_20261110"
+    _markets(directory, [{"id": "q", "date": "2026-11-20", "forecasts": [
+        {"method": "judge_qwen38_27b_v1", "probability": 0.6}, {"method": "market_price_v1", "probability": 0.2}]}])
+    _research(directory, good=["q"])
+    call = build_track_record(tmp_path, today=date(2026, 11, 10))["questions"][0]["call"]
+    assert call["method"] == "combined_weighted_v1" and call["probability"] == 0.6
+
+
+def test_the_record_scores_the_call_claude_alone_and_the_market_on_the_same_questions(tmp_path: Path) -> None:
+    directory = tmp_path / "prospective_markets_20261110"
+    _markets(directory, [
+        {"id": "a", "date": "2026-11-12", "outcome": 1, "forecasts": [
+            {"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]},
+        {"id": "b", "date": "2026-11-12", "outcome": 0, "forecasts": [
+            {"method": CLAUDE, "probability": 0.2}, {"method": "manifold_price_v1", "probability": 0.2}]},
+        {"id": "no-price", "date": "2026-11-12", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.8}]}])
+    _research(directory, good=["a", "b", "no-price"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 13), freeze=True)
+    # a: call 0.6; b: call 0.2 (already at the market). Questions without a price are in no market comparison.
+    versus = record["summary"]["vs_market"]
+    assert versus["questions"] == 2 and versus["claude_questions"] == 2
+    assert versus["ours"] == pytest.approx((0.4 ** 2 + 0.2 ** 2) / 2)
+    assert versus["claude"] == pytest.approx((0.1 ** 2 + 0.2 ** 2) / 2)
+    assert versus["market"] == pytest.approx((0.5 ** 2 + 0.2 ** 2) / 2)
+    assert versus["since_anchored"] == {"date": "2026-11-10", "questions": 2, "ours": versus["ours"],
+                                        "claude": versus["claude"], "market": versus["market"]}
+    week = record["summary"]["progress"]["weeks"][0]
+    assert week["claude"] == pytest.approx(versus["claude"]) and week["ours"] == pytest.approx(versus["ours"])
+    assert record["summary"]["progress"]["changes"][-1] == {"date": "2026-11-10", "label": "Call anchored to market"}
+    claude = next(f for f in record["forecasters"] if f["method"] == CLAUDE)
+    assert claude["label"] == "Claude alone" and claude["resolved"] == 3
+
+
 def test_headline_score_and_the_fair_market_comparison(tmp_path: Path) -> None:
     _markets(tmp_path / "prospective_markets_20261001", [
         {"id": "a", "date": "2026-10-05", "outcome": 1, "forecasts": [
@@ -342,7 +454,7 @@ def test_progress_groups_by_forecast_week_and_splits_before_and_after_nov_6(tmp_
     assert (second["start"], second["questions"]) == ("2026-11-09", 1)
     assert second["ours"] == pytest.approx(0.25) and second["market"] == pytest.approx(0.01)
     assert (second["right"], second["wrong"]) == (0, 0)  # an exact 50% is a toss-up
-    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09"]
+    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09", "2026-11-10"]
     split = progress["since_last_change"]
     assert split["date"] == "2026-11-06"
     assert split["before"]["questions"] == 1 and split["before"]["ours"] == pytest.approx(0.04)

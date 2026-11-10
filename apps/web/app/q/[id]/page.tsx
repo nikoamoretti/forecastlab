@@ -23,6 +23,8 @@ export default function QuestionPage() {
   const overdue = q.status === "pending" && q.resolves_on < todayUTC();
   const marketName = q.source_url?.includes("polymarket.com") ? "Polymarket" : q.source_url?.includes("manifold.markets") ? "Manifold" : null;
   const market = marketName !== null;
+  const anchored = q.call?.method === "market_anchored_call_v1";
+  const claudeAlone = q.forecasts.find(f => f.method === "claude_code_forecaster_v1");
   // Claude's probability corrected for how its earlier calls at each confidence level turned out; frozen when the question was built.
   const corrected = q.forecasts.find(f => f.method === "claude_calibrated_v1" && f.raw != null) ?? null;
   const settlesBy = overdue && market ? lateDeadline(q.detail ?? "", q.resolves_on) : null;
@@ -38,15 +40,19 @@ export default function QuestionPage() {
 
     <section className="grid gap-4 sm:grid-cols-2">
       <div className="border border-rule bg-white/50 p-5">
-        <p className="font-mono text-xs uppercase tracking-widest text-copper">Our call</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-copper">{anchored ? "Our call (starts from the market)" : "Our call"}</p>
         <p className="mt-2 font-serif text-4xl">{q.call ? callText(q.call.probability) : "No call"}</p>
-        {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.method === "claude_call_v1"
+        {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.method === "market_anchored_call_v1"
+          ? `${q.call.held ? `held at the market’s ${pct(q.call.market!)} because the research behind Claude’s forecast was thin` : `the market’s ${pct(q.call.market!)}, moved toward Claude’s forecast by at most 10 points`}`
+          : q.call.method === "claude_call_v1"
           ? "Claude’s own forecast"
           : q.call.method === "claude_corrected_call_v1"
           ? "Claude’s forecast, corrected for how its past calls turned out"
           : q.call.members
           ? `the middle (median) of ${q.call.members} forecaster${q.call.members === 1 ? "" : "s"}${q.call.weights ? ", better records counting more" : ""}`
           : `by ${labels[q.call.method] ?? q.call.method}`}</p>}
+        {anchored && claudeAlone && <p className="mt-3 border-t border-rule/60 pt-3 text-sm"><span className="font-medium">Claude alone:</span> {callText(claudeAlone.probability)} ({pct(claudeAlone.probability)} yes)
+          <span className="block text-ink/60">Claude’s own forecast, made without seeing the market price, tracked and scored beside our call.</span></p>}
       </div>
       <div className={`border p-5 ${q.status === "resolved" ? "border-ink/30 bg-white/70" : "border-dashed border-rule"}`}>
         <p className="font-mono text-xs uppercase tracking-widest text-copper">What happened</p>
@@ -64,7 +70,7 @@ export default function QuestionPage() {
     {corrected && <aside className="border-l-4 border-rule bg-white/60 p-4 text-sm" aria-label="Confidence correction">
       <p className="text-base">Claude said {percent(corrected.raw!)}. Corrected for its track record: <strong>{percent(corrected.probability)}</strong>.</p>
       <p className="mt-1 text-ink/70">Both are chances of yes. The correction comes from how Claude’s {corrected.results} earlier decided calls turned out at each confidence level.
-        Shown for comparison; it is not part of our call.</p></aside>}
+        {q.call?.method === "claude_corrected_call_v1" ? "This is our call for this question." : "Shown for comparison; it is not part of our call."}</p></aside>}
 
     {q.note && <aside className="border-l-4 border-copper bg-white/60 p-4 text-sm" aria-label="Integrity note">
       <p className="font-medium">Integrity note{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
@@ -88,7 +94,7 @@ export default function QuestionPage() {
           <td className="py-2 pr-4 font-medium tabular-nums">{callText(f.probability)}</td>
           <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(f.probability)} yes</td></tr>)}
           {q.call && q.forecasts.length > 1 && <tr className="border-t-2 border-ink/20">
-            <td className="py-2 pr-4 font-medium">Combined (our call)</td>
+            <td className="py-2 pr-4 font-medium">{anchored ? "Our call (starts from the market)" : "Combined (our call)"}</td>
             <td className="py-2 pr-4 font-medium tabular-nums">{callText(q.call.probability)}</td>
             <td className="py-2 text-right text-sm text-ink/50 tabular-nums">{pct(q.call.probability)} yes</td></tr>}</tbody>
       </table>

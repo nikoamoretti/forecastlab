@@ -33,6 +33,26 @@ call. Questions first forecast on or after CORRECTED_CALL_FROM use it as our cal
 (``claude_corrected_call_v1``): on 2026-11-05, over 168 decided questions, Claude's forecasts averaged
 42% yes while 53% resolved yes, and a correction fitted only on results known before each forecast
 day would have scored 0.195 against 0.210 for Claude as stated, on the 137 questions it could cover.
+That gain did not hold out of sample: a forward-walk test on 2026-11-09 scored Claude as stated 0.2135 and the
+corrected forecast 0.2252 on 109 questions (difference +0.0117, 95% interval +0.0009 to +0.0206). Questions first
+forecast on or after ANCHORED_FROM (2026-11-10) no longer use it; it is still computed and frozen in
+``calibrated.json`` as a shadow forecast, so the two can be compared later. Calls frozen for 2026-11-06 to
+2026-11-09 keep ``claude_corrected_call_v1``.
+
+From ANCHORED_FROM (2026-11-10) our call starts from the market (``market_anchored_call_v1``, owner's decision of
+2026-11-09). On the 191 questions both priced, Claude alone scored a Brier of 0.2024 against the market's 0.1548, and
+capping Claude's distance from the market at 0.10 would have scored 0.1712. So when a question has a market price
+(``market_price_v1``, else ``manifold_price_v1``, captured before Claude forecast) the call is the price moved toward
+Claude's forecast by at most MAX_MOVE, kept within CALL_BOUNDS. The call moves only on checked evidence: if the
+question's ``research.json`` lists it under ``failed``, has no findings for it, or carries a warning on its findings (fewer than
+two primary sources with quotes, or no source with a quote), the call is the market price unchanged. A question with
+no market price keeps ``claude_call_v1`` (Claude's own forecast); with a price but no Claude forecast the call falls back
+as ``claude_call_v1`` does. The anchoring happens only here, from the price already stored in ``forecasts.json``: the
+forecasting step never sees it. Claude's independent forecast stays tracked and scored beside the call (its own row in
+``forecasters``, ``summary.vs_market.claude`` and ``claude`` in ``summary.progress``), and every anchored call
+records both numbers (``claude`` and ``market``). Because the call can differ from the market by at most 10 points,
+"ours against the market" mostly measures those 10 points; "Claude alone against the market" is the test of
+independent skill.
 
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
@@ -67,6 +87,13 @@ CLAUDE_CALL = "claude_call_v1"
 CLAUDE_CALL_FROM = date(2026, 11, 5)
 CORRECTED_CALL = "claude_corrected_call_v1"
 CORRECTED_CALL_FROM = date(2026, 11, 6)
+# The call starts from the market price: the forward-walk test of 2026-11-09 found the correction worse out of sample,
+# and Claude alone trailed the market (0.2024 against 0.1548 on 191 questions).
+ANCHORED_CALL = "market_anchored_call_v1"
+ANCHORED_FROM = date(2026, 11, 10)
+# Largest distance the call may move from the market price toward Claude's forecast, and the range it stays within.
+MAX_MOVE = 0.10
+CALL_BOUNDS = (0.02, 0.98)
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
@@ -77,6 +104,7 @@ CHANGES = (
     {"date": WEIGHTED_FROM, "label": "Weighted by track record"},
     {"date": CORRECTED_CALL_FROM, "label": "Confidence correction"},
     {"date": DEEPER_RESEARCH_FROM, "label": "Deeper research"},
+    {"date": ANCHORED_FROM, "label": "Call anchored to market"},
 )
 # "Before / after" splits forecasts made on or after this day against earlier ones.
 PROGRESS_SPLIT = CORRECTED_CALL_FROM
@@ -95,7 +123,8 @@ SUPPLEMENT_SUFFIX = " (post-freeze supplement)"
 COIN_FLIP_BRIER = 0.25
 FORECASTERS: dict[str, dict[str, str]] = {
     "claude_code_forecaster_v1": {
-        "label": "Claude", "about": "Claude researches each question on the web and states a probability."},
+        "label": "Claude alone", "about": "Claude researches each question on the web and states a probability, "
+        "without seeing any market price. Tracked on its own beside our call; the test of independent skill."},
     "judge_nemotron_ultra_v1": {
         "label": "Nemotron Ultra (judge)", "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes."},
     "judge_nemotron_super_v1": {
@@ -122,13 +151,15 @@ FORECASTERS: dict[str, dict[str, str]] = {
     CALIBRATED: {
         "label": "Claude, confidence-corrected",
         "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. "
-                 "Our call from 2026-11-06."},
+                 "Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
-        "about": "Polymarket's price when we forecast. Not part of our call; the toughest bar to beat."},
+        "about": "Polymarket's price when we forecast. From 2026-11-10 our call starts from it and moves at most 10 points; "
+                 "the toughest bar to beat."},
     "manifold_price_v1": {
         "label": "Manifold (benchmark)",
-        "about": "Manifold's play-money price when we forecast. Not part of our call."},
+        "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call "
+                 "starts from it and moves at most 10 points."},
 }
 SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job growth",
                  "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
@@ -147,7 +178,8 @@ def _forecaster(method: str) -> str:
 COMBINED_INFO = {"label": "Combined forecast",
                  "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with "
                           "better records counted for more. Since Nov 5 it is Claude's own forecast, which "
-                          "had beaten the combination."}
+                          "had beaten the combination. Since Nov 10 it starts from the market price and moves "
+                          "at most 10 points toward Claude's forecast."}
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -197,12 +229,55 @@ def _claude_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> 
     return {"method": CLAUDE_CALL, "probability": claude["probability"], "members": 1}
 
 
+def _market_price(forecasts: list[dict[str, Any]]) -> float | None:
+    """The market's price (Polymarket's, else Manifold's) captured before Claude forecast, if the question has one."""
+    return next((f["probability"] for method in BENCHMARKS for f in forecasts if f["method"] == method), None)
+
+
+def _weak_research(research: dict[str, Any] | None, question_id: str) -> bool:
+    """True when the question's research.json shows no checked evidence: failed, no findings, or a warning.
+
+    A directory with no research.json has no findings at all, so its questions count as weak. The file is committed
+    with the directory before the finish step runs (the download step writes it).
+    """
+    if research is None:
+        return True
+    findings = research.get("findings", {}).get(question_id)
+    return question_id in research.get("failed", {}) or not findings or bool(findings.get("warnings"))
+
+
+def _anchored_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
+                   research: dict[str, Any] | None = None, question_id: str = "") -> dict[str, Any] | None:
+    """The market price moved toward Claude's forecast by at most MAX_MOVE; held at the price when the research is weak.
+
+    No market price: Claude's own forecast. A price but no Claude forecast: whatever ``_claude_call`` does.
+    """
+    price = _market_price(forecasts)
+    claude = next((f for f in forecasts if f["method"] == CLAUDE), None)
+    if price is None or claude is None:
+        return _claude_call(forecasts, weights)
+    held = _weak_research(research, question_id)
+    target = price if held else min(max(claude["probability"], price - MAX_MOVE), price + MAX_MOVE)
+    low, high = CALL_BOUNDS
+    call = {"method": ANCHORED_CALL, "probability": round(min(max(target, low), high), 6), "members": 1,
+            "claude": claude["probability"], "market": price}
+    return call | {"held": "weak research"} if held else call
+
+
 def _corrected_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> dict[str, Any] | None:
     """Claude's confidence-corrected probability as our call; Claude's own when no correction exists yet."""
     corrected = next((f for f in forecasts if f["method"] == CALIBRATED), None)
     if corrected is None:
         return _claude_call(forecasts, weights)
     return {"method": CORRECTED_CALL, "probability": corrected["probability"], "members": 1}
+
+
+def _research(artifacts: Path, source: str, loaded: dict[str, dict[str, Any] | None]) -> dict[str, Any] | None:
+    """A directory's research.json, read once; None when it has none."""
+    if source not in loaded:
+        path = artifacts / source / "research.json"
+        loaded[source] = json.loads(path.read_text()) if path.exists() else None
+    return loaded[source]
 
 
 def _logit(p: float) -> float:
@@ -371,21 +446,42 @@ def _tally(rows: list[tuple[float, int]]) -> dict[str, Any]:
             "brier": sum(briers) / len(briers) if briers else None, "coin_flip_brier": COIN_FLIP_BRIER}
 
 
-def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
-    """Our call against the market's price (Polymarket's, else Manifold's) on the questions it priced."""
-    ours: list[float] = []
-    market: list[float] = []
-    for q in resolved:
-        price = next((f["probability"] for method in BENCHMARKS for f in q["forecasts"] if f["method"] == method), None)
-        if price is not None:
-            ours.append(_brier(q["call"]["probability"], q["outcome"]))
-            market.append(_brier(price, q["outcome"]))
-    return {"questions": len(ours), "ours": sum(ours) / len(ours) if ours else None,
-            "market": sum(market) / len(market) if market else None}
-
-
 def _mean(values: list[float]) -> float | None:
     return sum(values) / len(values) if values else None
+
+
+def _claude_probability(question: dict[str, Any]) -> float | None:
+    return next((f["probability"] for f in question["forecasts"] if f["method"] == CLAUDE), None)
+
+
+def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
+    """Our call against the market's price (Polymarket's, else Manifold's) on the questions it priced.
+
+    ``claude`` is Claude's own forecast on the same questions (``claude_questions`` of them have one), and
+    ``since_anchored`` repeats all three on the questions first forecast from ANCHORED_FROM that have both a market
+    price and a Claude forecast: there the call can differ from the market by at most MAX_MOVE, so ``ours`` against
+    ``market`` mostly measures that cap, and ``claude`` against ``market`` is the test of independent skill.
+    """
+    ours: list[float] = []
+    market: list[float] = []
+    claude: list[float] = []
+    anchored: list[tuple[float, float, float]] = []
+    for q in resolved:
+        price = _market_price(q["forecasts"])
+        if price is None:
+            continue
+        ours.append(_brier(q["call"]["probability"], q["outcome"]))
+        market.append(_brier(price, q["outcome"]))
+        raw = _claude_probability(q)
+        if raw is not None:
+            claude.append(_brier(raw, q["outcome"]))
+            if (day := _forecast_day(q)) and day >= ANCHORED_FROM:
+                anchored.append((ours[-1], claude[-1], market[-1]))
+    return {"questions": len(ours), "ours": _mean(ours), "market": _mean(market),
+            "claude": _mean(claude), "claude_questions": len(claude),
+            "since_anchored": {"date": ANCHORED_FROM.isoformat(), "questions": len(anchored),
+                               "ours": _mean([r[0] for r in anchored]), "claude": _mean([r[1] for r in anchored]),
+                               "market": _mean([r[2] for r in anchored])}}
 
 
 def _progress(resolved: list[dict[str, Any]]) -> dict[str, Any]:
@@ -393,25 +489,29 @@ def _progress(resolved: list[dict[str, Any]]) -> dict[str, Any]:
 
     Only decided questions the market priced count. ``since_last_change`` splits them at PROGRESS_SPLIT.
     """
-    weeks: dict[date, list[tuple[float, float, str | None]]] = {}
-    split: dict[str, list[tuple[float, float]]] = {"after": [], "before": []}
+    weeks: dict[date, list[tuple[float, float, str | None, float | None]]] = {}
+    split: dict[str, list[tuple[float, float, float | None]]] = {"after": [], "before": []}
     for q in resolved:
         day = _forecast_day(q)
-        price = next((f["probability"] for method in BENCHMARKS for f in q["forecasts"] if f["method"] == method), None)
+        price = _market_price(q["forecasts"])
         if day is None or price is None:
             continue
         ours, theirs = _brier(q["call"]["probability"], q["outcome"]), _brier(price, q["outcome"])
-        weeks.setdefault(day - timedelta(days=day.weekday()), []).append((ours, theirs, q["verdict"]))
-        split["after" if day >= PROGRESS_SPLIT else "before"].append((ours, theirs))
+        raw = _claude_probability(q)
+        alone = None if raw is None else _brier(raw, q["outcome"])
+        weeks.setdefault(day - timedelta(days=day.weekday()), []).append((ours, theirs, q["verdict"], alone))
+        split["after" if day >= PROGRESS_SPLIT else "before"].append((ours, theirs, alone))
     return {
         "weeks": [{"start": start.isoformat(), "questions": len(rows),
                    "ours": _mean([r[0] for r in rows]), "market": _mean([r[1] for r in rows]),
+                   "claude": _mean([r[3] for r in rows if r[3] is not None]),
                    "right": sum(r[2] == "right" for r in rows), "wrong": sum(r[2] == "wrong" for r in rows)}
                   for start, rows in sorted(weeks.items())],
         "changes": [{"date": c["date"].isoformat(), "label": c["label"]} for c in CHANGES],
         "since_last_change": {
             "date": PROGRESS_SPLIT.isoformat(),
-            **{key: {"questions": len(rows), "ours": _mean([r[0] for r in rows]), "market": _mean([r[1] for r in rows])}
+            **{key: {"questions": len(rows), "ours": _mean([r[0] for r in rows]), "market": _mean([r[1] for r in rows]),
+                     "claude": _mean([r[2] for r in rows if r[2] is not None])}
                for key, rows in split.items()}},
     }
 
@@ -429,6 +529,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
         path = artifacts / question["source"] / CALLS_FILE
         if question["source"] not in frozen:
             frozen[question["source"]] = json.loads(path.read_text()) if path.exists() else {}
+    research_files: dict[str, dict[str, Any] | None] = {}
     record_so_far = [q for q in questions if q["status"] == "resolved" and q["scored"]]
     weights = _weights(record_so_far)
     # Claude's confidence-corrected forecast: frozen the first time it can be made, never for earlier days.
@@ -458,7 +559,10 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = _call(question["forecasts"])
         else:
             calls = frozen[question["source"]]
-            pick = (_corrected_call if day >= CORRECTED_CALL_FROM
+            pick = ((lambda forecasts, weights, q=question: _anchored_call(
+                        forecasts, weights, _research(artifacts, q["source"], research_files), q["id"]))
+                    if day >= ANCHORED_FROM
+                    else _corrected_call if day >= CORRECTED_CALL_FROM
                     else _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call)
             if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
                 calls[question["id"]] = fresh
