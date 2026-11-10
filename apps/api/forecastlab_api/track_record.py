@@ -62,7 +62,12 @@ interval -0.038 to +0.020: promising, not proven). CALL_RULES registers ideas fo
 each "testing" until it has beaten the market on new results (PROMOTION_QUESTIONS, PROMOTION_DATES, the 90% interval
 below zero). ``summary.edge_tests`` scores every rule in the shadows, on questions first forecast on or after the day it
 was registered (``counted``) and, for information only, before it (``before``). Promotion is a reviewed one-line change
-of a rule's status; setting DEFAULT_MOVE to 0.0 makes the call the market price unless a promoted rule applies.
+of a rule's status.
+
+DEFAULT_MOVE is 0.0 (owner's decision of 2026-11-10, taken before any anchored call was frozen): the call is the market
+price unless a promoted rule applies, and no rule is promoted yet. The 10-point move chosen on 2026-11-09 was never
+used for a call; it is still scored in the shadows as the rule ``every_question_move_v1``. With no move there is nothing
+to hold back, so such a call carries no ``held`` mark.
 
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
@@ -103,8 +108,9 @@ CORRECTED_CALL_FROM = date(2026, 11, 6)
 ANCHORED_CALL = "market_anchored_call_v1"
 ANCHORED_FROM = date(2026, 11, 10)
 # How far the call may move from the market price toward Claude's forecast when no promoted rule applies (the one place
-# for the cap; 0.0 makes the call the market price), and the range the call stays within.
-DEFAULT_MOVE: float = 0.10
+# for the cap), and the range the call stays within. 0.0 since 2026-11-10 (owner's decision): the call is the market
+# price until a rule has proven it beats the market. It was 0.10 for one day and no call was frozen under it.
+DEFAULT_MOVE: float = 0.0
 CALL_BOUNDS = (0.02, 0.98)
 # Call rules: ideas for moving further toward Claude on some questions. Each is scored in the shadows (summary.edge_tests)
 # on questions first forecast on or after its registered date. "testing" rules change nothing; promoting one (a reviewed
