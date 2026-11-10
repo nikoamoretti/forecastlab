@@ -9,9 +9,9 @@ import pytest
 
 from forecastlab.live_counts import NO_TALLY
 from forecastlab.market_questions import (
+    KALSHI_MAX_PAGES,
     asset_of,
     candidates,
-    KALSHI_MAX_PAGES,
     kalshi_candidates,
     kalshi_question,
     kalshi_resolution,
