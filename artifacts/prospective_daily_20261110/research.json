@@ -1,0 +1,258 @@
+{
+  "cost_usd": {
+    "5993599385e99923": 0.19
+  },
+  "failed": {},
+  "findings": {
+    "5993599385e99923": {
+      "against": "The case for a 2026-11-13 DGS10 value at or below 4.86 rests on the settling series itself: the last FRED observation is exactly 4.86 (2026-11-06), so any print that is flat or slightly lower resolves as not above (FRED page, updated 2026-11-09).\nThe October CPI release falls on 2026-11-10 inside the window (BLS schedule, modified 2026-11-03), and a softer-than-expected print would be one channel that moves yields down, though this reply does not measure the direction of the surprise.\nThe FRED value is the H.15 constant-maturity series; the Treasury par-curve table is a separate series and was not used here, so this case does not depend on it.",
+      "base_rate": "Reference class: all pairs of DGS10 observations five trading observations apart (the question's 2026-11-06 to 2026-11-13 gap).\nCounted from FRED's full daily CSV, last observation 2026-11-06.\nOver the last 1 year (246 pairs): later value higher in 54.5%.\nOver the last 5 years (1,244 pairs): 53.7%.\nOver the last 10 years (2,494 pairs): 49.4%.\nThese are shares of pairs where the later value is higher, not of values above a fixed 4.86 threshold.\nThose are not the same measure, and the threshold-level share was not computed.",
+      "different_now": "Two market-moving events fall inside the window between the last observation (2026-11-06) and the 2026-11-13 observation: the October CPI release at 8:30 AM ET on 10 Nov and a $42 billion 10-year note auction at 1:00 PM ET the same day.\nBoth land on the day the 10-year yield is being traded toward the 4.86 threshold, so the 2026-11-13 print is shaped by a CPI surprise and auction tone.\nThe Fed's last decision had two hawkish dissents favouring a hike, so a hot CPI print would likely push yields up more than a soft one would pull them down; that is a stated asymmetry, not a forecast.\nNo FOMC de",
+      "facts": [
+        {
+          "fact": "FRED's DGS10 latest observation is 4.86 percent for 2026-11-06, and the page was updated Nov 9, 2026 at 3:16 PM CST.",
+          "source": 0
+        },
+        {
+          "fact": "FRED lists the next DGS10 release date as Nov 10, 2026.",
+          "source": 0
+        },
+        {
+          "fact": "The U.S.\nTreasury daily par yield curve row for 11/09/2026 shows a 10 Yr value of 4.88.",
+          "source": 1
+        },
+        {
+          "fact": "The Treasury par yield curve is estimated daily using a monotone convex spline method, with indicative bid-side prices of the most recently auctioned nominal Treasury securities as inputs.",
+          "source": 1
+        },
+        {
+          "fact": "The Federal Reserve H.15 release is posted daily Monday through Friday at 4:15pm, is not posted on holidays or when the Board is closed, and its Treasury constant maturity data source is the U.S.\nTreasury; the page was last updated Nov 9, 2026.",
+          "source": 2
+        },
+        {
+          "fact": "The latest FRED DGS10 observation before the question date is 4.86 percent for 2026-11-06.",
+          "source": 0
+        },
+        {
+          "fact": "FRED DGS10 is a daily series quoted in percent, not seasonally adjusted.",
+          "source": 0
+        },
+        {
+          "fact": "The Treasury daily par yield page lists the 10 Yr par yield as 4.88% for 11/09/2026 and 4.86% for 11/06/2026, published Monday 2026-11-09.",
+          "source": 1
+        },
+        {
+          "fact": "In the FRED DGS10 history, 1962-01-02 to 2026-11-06 has 16,198 observations, and the first value is 4.06.",
+          "source": 3
+        },
+        {
+          "fact": "Over the last 1 year of FRED DGS10 history (246 pairs of observations five observations apart), the later value was higher in 54.5% of pairs, rose by 0.02 points or more in 45.9%, and fell by 0.02 points or more in 32.5%.",
+          "source": 3
+        },
+        {
+          "fact": "Over the last 5 years (1,244 pairs), the later value was higher in 53.7% of pairs, rose by 0.02 points or more in 48.9%, and fell by 0.02 points or more in 38.6%.",
+          "source": 3
+        },
+        {
+          "fact": "Over the last 10 years (2,494 pairs), the later value was higher in 49.4% of pairs, rose by 0.02 points or more in 43.9%, and fell by 0.02 points or more in 41.1%.",
+          "source": 3
+        },
+        {
+          "fact": "The BLS calendar lists the October 2026 CPI release for Tuesday, 10 November 2026 at 8:30 AM Eastern, one day before the 2026-11-13 observation date (page last modified 3 Nov 2026).",
+          "source": 4
+        },
+        {
+          "fact": "The October 2026 Employment Situation was scheduled for Friday, 6 November 2026 at 8:30 AM Eastern, the same day as the latest FRED DGS10 observation (4.86 percent).",
+          "source": 4
+        },
+        {
+          "fact": "Treasury announced on 4 Nov 2026 a $42 billion 10-year note auction at 1:00 p.m.\nET on Tuesday, 10 Nov 2026, the same day as the October CPI release.",
+          "source": 5
+        },
+        {
+          "fact": "The Fed's 2026 calendar lists the next FOMC meeting after October as December 8-9, a meeting with a Summary of Economic Projections, so no FOMC decision falls between now and the 2026-11-16 resolution date.",
+          "source": 6
+        },
+        {
+          "fact": "On 28 Oct 2026 the FOMC kept the federal funds target range at 3-3/4 to 4 percent; Lisa D.\nCook and Beth M.\nHammack voted against, both preferring a 1/4-point increase, per the Fed's own statement.",
+          "source": 7
+        },
+        {
+          "fact": "FRED's latest DGS10 observation before the question date is 4.86 percent for 2026-11-06, which equals the 4.86 threshold, so a 2026-11-13 print of 4.86 would be a tie and would not count as above.",
+          "source": 0
+        },
+        {
+          "fact": "FRED's page was updated Nov 9, 2026 at 3:16 PM CST and lists the next DGS10 release date as Nov 10, 2026, so no 2026-11-13 value was on the page when it was read.",
+          "source": 0
+        },
+        {
+          "fact": "The BLS November 2026 schedule lists the October 2026 Consumer Price Index release for Tuesday, November 10, 2026 at 08:30 AM, three days before the 2026-11-13 observation date, and the page was last modified November 3, 2026.",
+          "source": 4
+        },
+        {
+          "fact": "The U.S.\nTreasury daily par yield curve shows a 10 Yr value of 4.88 for 11/09/2026, published Monday 2026-11-09; the 10 Yr value for 11/06/2026 is 4.86.",
+          "source": 1
+        },
+        {
+          "fact": "The BLS CPI release schedule lists the October 2026 reference-month CPI release for Nov.\n10, 2026 at 08:30 AM, one day before the 2026-11-13 DGS10 observation date.",
+          "source": 8
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 8,
+      "resolution": {
+        "criteria": "First published FRED DGS10 value for 2026-11-13 must be above 4.86 percent; the question says it is released around 2026-11-16 and later revisions do not count.",
+        "current_status": "FRED latest observation: 2026-11-06 = 4.86 (page updated Nov 9, 2026, 3:16 PM CST).\nTreasury par curve 10 Yr for 11/09/2026 = 4.88 (published Nov 9, 2026).\nNo 2026-11-13 value exists yet as of 2026-11-10.",
+        "edge_cases": [
+          "Threshold is strict: a print of exactly 4.86 is a tie and does not count as above 4.86.",
+          "FRED's value is the H.15 constant-maturity series sourced from Treasury, while the Treasury par curve page is a separate table; the two can differ, so the settling series must be the FRED DGS10 value, not the Treasury page.",
+          "The 'first published' value is the one released around Nov 16, 2026; later revisions or corrections to the 2026-11-13 observation do not count.",
+          "Publication timing: H.15 posts daily at 4:15pm (Eastern presumably, per Fed convention; the page did not state a time zone), and FRED's own update stamp is in CST, so the timestamp used to define 'first published' could shift by time zone."
+        ],
+        "settling_source": "Federal Reserve Bank of St.\nLouis FRED series DGS10, https://fred.stlouisfed.org/series/DGS10 (underlying data from the U.S.\nTreasury via the Federal Reserve H.15 release, https://www.federalreserve.gov/releases/h15/)"
+      },
+      "uncertainties": [
+        "No Street consensus for the October 2026 CPI was found on a page I could open; an aggregator snippet said none had been published as of 4 Nov, and the consensus should be checked on Reuters or Bloomberg before the 10 Nov release.\nThe Investing.com CPI preview I opened covers the September report, no",
+        "The September 2026 CPI result (3.7 percent against a 3.6 percent forecast) appeared only in a search snippet and was not verified on a page I opened.",
+        "The 10-year note auction settlement date (16 Nov) comes from the Treasury tentative schedule PDF, which I could not decode; it is not confirmed from an opened page.",
+        "The Advisor Perspectives 6 Nov snapshot returned HTTP 403; the 4.86 close for 6 Nov is from the brief, not verified by me.",
+        "I did not compute the 20-day standard deviation of daily changes, trading days to resolution, or the 12-month up/down window count from the official series; the FRED CSV was not re-parsed in this pass.",
+        "The Treasury par-curve 10-year value for 2026-11-09 (4.88 in the earlier brief) was not checked on a page I opened in this pass, and it is a different series from FRED DGS10."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-10T10:35:01+00:00",
+  "researched_by": {
+    "5993599385e99923": "claude-haiku"
+  },
+  "runs": 5,
+  "seconds": {
+    "5993599385e99923": 234.5
+  },
+  "sources": {
+    "5993599385e99923": [
+      {
+        "primary": true,
+        "published": "2026-11-09",
+        "quotes": [
+          "2026-11-06: 4.86 | Percent, Not Seasonally Adjusted | Daily",
+          "Next Release Date: Nov 10, 2026",
+          "Frequency: Daily",
+          "Percent, Not Seasonally Adjusted",
+          "2026-11-06: 4.86"
+        ],
+        "text": "2026-11-06: 4.86 | Percent, Not Seasonally Adjusted | Daily\nNext Release Date: Nov 10, 2026\nFrequency: Daily\nPercent, Not Seasonally Adjusted\n2026-11-06: 4.86",
+        "title": "Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis (DGS10), FRED",
+        "url": "https://fred.stlouisfed.org/series/DGS10",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-09",
+        "quotes": [
+          "The Treasury par yield curve is estimated daily using a monotone convex spline method.",
+          "Inputs to the model are indicative bid-side prices for the most recently auctioned nominal Treasury securities.",
+          "11/09/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.04 4.13 4.19 4.24 4.20 4.26 4.38 4.56 4.58 4.67",
+          "4.76 4.88 5.29 5.26",
+          "11/06/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.02 4.07 4.15 4.19 4.19 4.23 4.33 4.51 4.59 4.64"
+        ],
+        "text": "The Treasury par yield curve is estimated daily using a monotone convex spline method.\nInputs to the model are indicative bid-side prices for the most recently auctioned nominal Treasury securities.\n11/09/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.04 4.13 4.19 4.24 4.20 4.26 4.38 4.56 4.58 4.67\n4.76 4.88 5.29 5.26\n11/06/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.02 4.07 4.15 4.19 4.19 4.23 4.33 4.51 4.59 4.64",
+        "title": "Daily Treasury Par Yield Curve Rates, U.S.\nDepartment of the Treasury",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-09",
+        "quotes": [
+          "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.",
+          "Source: U.S.\nTreasury."
+        ],
+        "text": "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.\nSource: U.S.\nTreasury.",
+        "title": "Statistical Release H.15, Selected Interest Rates, Federal Reserve Board",
+        "url": "https://www.federalreserve.gov/releases/h15/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [],
+        "text": "",
+        "title": "FRED DGS10 full history CSV (downloaded and counted with Python)",
+        "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-03",
+        "quotes": [
+          "\"Tuesday, November 10, 2026\" \"08:30 AM\" \"Consumer Price Index for October 2026\"",
+          "\"All times on calendar are Eastern Time.\"",
+          "Consumer Price Index for October 2026"
+        ],
+        "text": "\"Tuesday, November 10, 2026\" \"08:30 AM\" \"Consumer Price Index for October 2026\"\n\"All times on calendar are Eastern Time.\"\nConsumer Price Index for October 2026",
+        "title": "BLS release schedule, November 2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-04",
+        "quotes": [
+          "\"A 10-year note in the amount of $42 billion, maturing November 15, 2036;\"",
+          "\"The 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\""
+        ],
+        "text": "\"A 10-year note in the amount of $42 billion, maturing November 15, 2036;\"\n\"The 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\"",
+        "title": "Treasury press release: November 2026 refunding, 10-year note auction",
+        "url": "https://home.treasury.gov/news/press-releases/sb0678",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-28",
+        "quotes": [
+          "\"December\n8-9*\"",
+          "\"* Meeting associated with a Summary of Economic Projections.\""
+        ],
+        "text": "\"December\n8-9*\"\n\"* Meeting associated with a Summary of Economic Projections.\"",
+        "title": "Federal Reserve FOMC calendars, 2026 meetings",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-28",
+        "quotes": [
+          "\"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent,\"",
+          "\"Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack,\""
+        ],
+        "text": "\"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent,\"\n\"Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack,\"",
+        "title": "Federal Reserve press release, October 28, 2026 FOMC statement",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October 2026 Nov.\n10, 2026 08:30 AM"
+        ],
+        "text": "October 2026 Nov.\n10, 2026 08:30 AM",
+        "title": "BLS Schedule: Consumer Price Index release dates",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": null
+      }
+    ]
+  }
+}
