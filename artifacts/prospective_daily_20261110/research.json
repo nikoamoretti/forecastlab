@@ -2,6 +2,7 @@
   "cost_usd": {
     "5993599385e99923": 0.19
   },
+  "downloaded_at": "2026-11-10T10:49:19.954841+00:00",
   "failed": {},
   "findings": {
     "5993599385e99923": {
@@ -152,10 +153,10 @@
           "Percent, Not Seasonally Adjusted",
           "2026-11-06: 4.86"
         ],
-        "text": "2026-11-06: 4.86 | Percent, Not Seasonally Adjusted | Daily\nNext Release Date: Nov 10, 2026\nFrequency: Daily\nPercent, Not Seasonally Adjusted\n2026-11-06: 4.86",
+        "text": "2026-11-06: 4.86 | Percent, Not Seasonally Adjusted | Daily\nNext Release Date: Nov 10, 2026\nFrequency: Daily\nPercent, Not Seasonally Adjusted\n2026-11-06: 4.86\n\nObservations\n2026-11-06: 4.86 | Percent, Not Seasonally Adjusted | Daily\nUpdated: Nov 9, 2026 3:16 PM CST\nObservations\n2026-11-06:\n4.86\nUpdated:\nNov 9, 2026\n3:16 PM CST\n| 2026-11-06: | 4.86 | |\n| 2026-11-05: | 4.84 | |\n| 2026-11-04: | 4.90 | |\n| 2026-11-03: | 4.95 | |\n| 2026-11-02: | 4.91 | |\n| View All | | |\nUnits:\nPercent,\nNot Seasonally Adjusted\nFrequency:\nDaily\nFullscreen",
         "title": "Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis (DGS10), FRED",
         "url": "https://fred.stlouisfed.org/series/DGS10",
-        "verified": null
+        "verified": false
       },
       {
         "primary": true,
@@ -167,10 +168,10 @@
           "4.76 4.88 5.29 5.26",
           "11/06/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.02 4.07 4.15 4.19 4.19 4.23 4.33 4.51 4.59 4.64"
         ],
-        "text": "The Treasury par yield curve is estimated daily using a monotone convex spline method.\nInputs to the model are indicative bid-side prices for the most recently auctioned nominal Treasury securities.\n11/09/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.04 4.13 4.19 4.24 4.20 4.26 4.38 4.56 4.58 4.67\n4.76 4.88 5.29 5.26\n11/06/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.02 4.07 4.15 4.19 4.19 4.23 4.33 4.51 4.59 4.64",
+        "text": "The Treasury par yield curve is estimated daily using a monotone convex spline method.\nInputs to the model are indicative bid-side prices for the most recently auctioned nominal Treasury securities.\n11/09/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.04 4.13 4.19 4.24 4.20 4.26 4.38 4.56 4.58 4.67\n4.76 4.88 5.29 5.26\n11/06/2026 N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A N/A 4.02 4.07 4.15 4.19 4.19 4.23 4.33 4.51 4.59 4.64\n\nEQUIVALENT | 1 Mo | 1.5 Mo | 2 Mo | 3 Mo | 4 Mo | 6 Mo | 1 Yr | 2 Yr | 3 Yr | 5 Yr | 7 Yr | 10 Yr | 20 Yr | 30 Yr |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.05 | 4.09 | 4.16 | 4.21 | 4.19 | 4.25 | 4.38 | 4.59 | 4.65 | 4.70 | 4.79 | 4.91 | 5.31 | 5.28 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.03 | 4.09 | 4.15 | 4.21 | 4.18 | 4.26 | 4.40 | 4.61 | 4.68 | 4.74 | 4.83 | 4.95 | 5.35 | 5.32 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.01 | 4.08 | 4.15 | 4.21 | 4.20 | 4.25 | 4.39 | 4.58 | 4.64 | 4.69 | 4.77 | 4.90 | 5.30 | 5.28 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.03 | 4.07 | 4.15 | 4.17 | 4.16 | 4.19 | 4.28 | 4.46 | 4.53 | 4.59 | 4.70 | 4.84 | 5.27 | 5.25 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.02 | 4.07 | 4.15 | 4.19 | 4.19 | 4.23 | 4.33 | 4.51 | 4.59 | 4.64 | 4.74 | 4.86 | 5.29 | 5.26 |\n| | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 4.04 | 4.13 | 4.19 | 4.24 | 4.20 | 4.26 | 4.38 | 4.56 | 4.58 | 4.67 | 4.76 | 4.88 | 5.29 | 5.26 |",
         "title": "Daily Treasury Par Yield Curve Rates, U.S.\nDepartment of the Treasury",
         "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
-        "verified": null
+        "verified": false
       },
       {
         "primary": true,
@@ -179,12 +180,13 @@
           "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.",
           "Source: U.S.\nTreasury."
         ],
-        "text": "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.\nSource: U.S.\nTreasury.",
+        "text": "The release is posted daily Monday through Friday at 4:15pm.\nThe release is not posted on holidays or in the event that the Board is closed.\nSource: U.S.\nTreasury.\n\nes) insured U.S.-chartered commercial banks.\nPrime is one of several base rates used by banks to price short-term business loans.\n8.\nThe rate charged for discounts made and advances extended under the Federal Reserve's primary credit discount window program, which became effective January 9, 2003.\nThis rate replaces that for adjustment credit, which was discontinued after January 8, 2003.\nFor further information, see www.federalreserve.gov/boarddocs/press/bcreg/2002/200210312/default.htm.\nThe rate reported is that for the Federal Reserve Bank of New York.\nHistorical series for the rate on adjustment credit as well as the rate on primary credit are available at www.federalreserve.gov/releases/h15/data.htm.\n9.\nYields on actively traded non-inflation-indexed issues adjusted to constant maturities.\nThe 30-year Treasury constant maturity series was discontinued on February 18, 2002, and reintroduced on February 9, 2006.\nFrom February 18, 2002, to February 9, 2006, the U.S.\nTreasury published a factor for adjusting the daily nominal 20-year constant maturity in order to estimate a 30-year nominal rate.\nThe historical adjustment factor can be found at home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics.\nSource: U.S.\nTreasury.\n10.\nYields on Treasury inflation protected securities (TIPS) adjusted to constant maturities.\nSource: U.S.\nTreasury.\nAdditional information on both nominal and inflation-indexed yields may be found at home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics.\n11.\nBased on the unweighted average bid yields for all TIPS with remaining terms to maturity of more than 10 years.",
         "title": "Statistical Release H.15, Selected Interest Rates, Federal Reserve Board",
         "url": "https://www.federalreserve.gov/releases/h15/",
-        "verified": null
+        "verified": false
       },
       {
+        "download_error": "no readable text on the page",
         "primary": false,
         "published": "2026-11-09",
         "quotes": [],
@@ -194,6 +196,7 @@
         "verified": null
       },
       {
+        "download_error": "the only archive copy predates the page",
         "primary": true,
         "published": "2026-11-03",
         "quotes": [
@@ -213,10 +216,10 @@
           "\"A 10-year note in the amount of $42 billion, maturing November 15, 2036;\"",
           "\"The 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\""
         ],
-        "text": "\"A 10-year note in the amount of $42 billion, maturing November 15, 2036;\"\n\"The 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\"",
+        "text": "\"A 10-year note in the amount of $42 billion, maturing November 15, 2036;\"\n\"The 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\"\n\nWASHINGTON \u2014 The U.S.\nDepartment of the Treasury is offering $125 billion of Treasury securities to refund approximately $97 billion of privately-held Treasury notes and bonds maturing on November 15, 2026.\nThis issuance will raise new cash from private investors of approximately $28 billion.\nThe securities are:\n- A 3-year note in the amount of $58 billion, maturing November 15, 2029;\n- A 10-year note in the amount of $42 billion, maturing November 15, 2036;\n- A 30-year bond in the amount of $25 billion, maturing November 15, 2056.\nThe 3-year note will be auctioned at 1:00 p.m.\nET on Monday, November 9, 2026.\nThe 10-year note will be auctioned at 1:00 p.m.\nET on Tuesday, November 10, 2026.\nThe 30-year bond will be auctioned at 1:00 p.m.\nET on Thursday, November 12, 2026.\nAll these auctions will take place on a yield basis and will settle on Monday, November 16, 2026.\nThe balance of Treasury financing requirements over the quarter will be met with regular weekly bill auctions, cash management bills (CMBs), and monthly note, bond, Treasury Inflation-Protected Securities (TIPS), and 2-year Floating Rate Note (FRN) auctions.\nNOMINAL COUPON AND FRN FINANCING\nTreasury believes its current auction sizes leave it well positioned to address potential changes to the fiscal outlook and to the size and composition of the SOMA portfolio.\nBased on current projected borrowing needs, Treasury anticipates maintaining nominal coupon and FRN auction sizes for the next several quarters.\nTreasury is monitoring SOMA purchases of Treasury bills and growing demand for Treasury bills from the private sector.\nLooking ahead, Treasury continues to evaluate potential future changes to nominal coupon and FRN auction sizes, with a focus on trends in structural demand and potential costs and risks of various issuance ",
         "title": "Treasury press release: November 2026 refunding, 10-year note auction",
         "url": "https://home.treasury.gov/news/press-releases/sb0678",
-        "verified": null
+        "verified": true
       },
       {
         "primary": true,
@@ -225,10 +228,10 @@
           "\"December\n8-9*\"",
           "\"* Meeting associated with a Summary of Economic Projections.\""
         ],
-        "text": "\"December\n8-9*\"\n\"* Meeting associated with a Summary of Economic Projections.\"",
+        "text": "\"December\n8-9*\"\n\"* Meeting associated with a Summary of Economic Projections.\"\n\nMeeting calendars, statements, and minutes (2021-2027)\nThe FOMC holds eight regularly scheduled meetings during the year and other meetings as needed.\nLinks to policy statements and minutes are in the calendars below.\nThe minutes of regularly scheduled meetings are released three weeks after the date of the policy decision.\nCommittee membership changes at the first regularly scheduled meeting of the year.\nFOIA\nThe FOMC makes an annual report pursuant to the Freedom of Information Act.\nThe FOMC FOIA Service Center provides information about the status of FOIA requests and the FOIA process.\n2026 | 2025 | 2024 | 2023 | 2022 | 2021\nFuture Year: 2027\nJanuary\n27-28\nMinutes:\nPDF\n|\nHTML\n(Released February 18, 2026)\nMarch\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released April 08, 2026)\nApril\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released May 20, 2026)\nJune\n16-17*\nMinutes:\nPDF\n|\nHTML\n(Released July 08, 2026)\nJuly\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released August 19, 2026)\nSeptember\n15-16*\nMinutes:\nPDF\n|\nHTML\n(Released October 07, 2026)\nJanuary\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released February 19, 2025)\nMarch\n18-19*\nMinutes:\nPDF\n|\nHTML\n(Released April 09, 2025)\nMay\n6-7\nMinutes:\nPDF\n|\nHTML\n(Released May 28, 2025)\nJune\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released July 09, 2025)\nJuly\n29-30\nMinutes:\nPDF\n|\nHTML\n(Released August 20, 2025)\nAugust\n22 (notation vote)\nSeptember\n16-17*\nMinutes:\nPDF\n|\nHTML\n(Released October 08, 2025)\nOctober\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released November 19, 2025)\nDecember\n9-10*\nMinutes:\nPDF\n|\nHTML\n(Released December 30, 2025)\nJanuary\n30-31\nMinutes:\nPDF\n|\nHTML\n(Released February 21, 2024)\nMarch\n19-20*\nMinutes:\nPDF\n|\nHTML\n(Released April 10, 2024)\nApr/May\n30-1\nMinutes:\nPDF\n|\nHTML\n(Released May 22, 2024)\nJune\n11-12*\nMinutes:\nPDF\n|\nHTML\n(Released July 03, 2024)\nJuly\n30-31\nMinutes:\nPDF\n|\nHTML\n(Released August 21, 2024)\nSeptember\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released October 09, 2024)\nNovember\n6-7\nMinutes:\nPDF\n|\nHTML\n(Released November 26, 2024)\nDecember\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released January 08, 2025)\nJan/Feb\n31-1\nMinutes:\nPDF\n|\nHTML\n(Released February 22, 2023)\nMarch\n21-22*\nMinutes:\nPDF\n|\nHTML\n(Released April 12, 2023)\nMay\n2-3\nMinutes:\nPDF\n|\nHTML\n(Released May 24, 2023)\nJune\n13-14*\nMinutes:\nPDF\n|\nHTML\n(Released July 05, 2023)\nJuly\n25-26\nMinutes:\nPDF\n|\nHTML\n(Released August 16, 2023)\nSeptember\n19-20*\nMinutes:\nPDF\n|\nHTML\n(Released October 11, 2023)\nOct/Nov\n31-1\nMinutes:\nPDF\n|\nHTML\n(Released November 21, 2023)\nDecember\n12-13*\nMinutes:\nPDF\n|\nHTML\n(Released January 03, 2024)\nJanuary\n25-26\nMinutes:\nPDF\n|\nHTML\n(Released February 16, 2022)\nMarch\n15-16*\nMinutes:\nPDF\n|\nHTML\n(Released April 06, 2022)\nMay\n3-4\nMinutes:\nPDF\n|\nHTML\n(Released May 25, 2022)\nJune\n14-15*\nMinutes:\nPDF\n|\nHTML\n(Released July 06, 2022)\nJuly\n26-27\nMinutes:\nPDF\n|\nHTML\n(Released August 17, 2022)\nSeptember\n20-21*\nMinutes:\nPDF\n|\nHTML\n(Released October 12, 2022)\nNovember\n1-2\nMinutes:\nPDF\n|\nHTML\n(Released November 23, 2022)\nDecember\n13-14*\nMinutes:\nPDF\n|\nHTML\n(Released January 04, 2023)\nJanuary\n26-27\nMinutes:\nPDF\n|\nHTML\n(Released February 17, 2021)\nMarch\n16-17*\nMinutes:\nPDF\n|\nHTML\n(Released April 07, 2021)\nApril\n27-28\nMinutes:\nPDF\n|\nHTML\n(Released May 19, 2021)\nJune\n15-16*\nMinutes:\nPDF\n|\nHTML\n(Released July 07, 2021)\nJuly\n27-28\nMinutes:\nPDF\n|\nHTML\n(Released August 18, 2021)\nSeptember\n21-22*\nMinutes:\nPDF\n|\nHTML\n(Released October 13, 2021)\nNovember\n2-3\nMinutes:\nPDF\n|\nHTML\n(Released November 24, 2021)\nDecember\n14-15*\nMinutes:\nPDF\n|\nHTML\n(Released January 05, 2022)\nNote: A two-day meeting is scheduled for January 25-26, 2028.\nEach meeting date is tentative until confirmed at the meeting immediately preceding it.\nBack to Top\nLast Update:\nOctober 28, 2026",
         "title": "Federal Reserve FOMC calendars, 2026 meetings",
         "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-        "verified": null
+        "verified": false
       },
       {
         "primary": true,
@@ -237,21 +240,23 @@
           "\"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent,\"",
           "\"Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack,\""
         ],
-        "text": "\"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent,\"\n\"Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack,\"",
+        "text": "\"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent,\"\n\"Voting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack,\"\n\nOctober 28, 2026\nFederal Reserve issues FOMC statement\nFor release at 2:00 p.m.\nEDT\nThe Federal Open Market Committee approved the following statement for release by a 10 \u2013 2 vote:\nThe Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\nThe Committee is continuing its policy of maintaining ample reserves in the banking system.\nEconomic activity is expanding at a strong pace.\nWhile uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient.\nProductivity growth is strong, and capital investment is robust.\nJob gains have kept pace with the workforce, and the unemployment rate has changed little.\nInflation remains elevated.\nThe accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal.\nThe Committee will deliver price stability.\nVoting against the monetary policy action were Lisa D.\nCook and Beth M.\nHammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.\nFor media inquiries, please email [email protected] or call 202-452-2955.",
         "title": "Federal Reserve press release, October 28, 2026 FOMC statement",
         "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
-        "verified": null
+        "verified": true
       },
       {
+        "checked_via": "archive",
         "primary": true,
         "published": "",
         "quotes": [
           "October 2026 Nov.\n10, 2026 08:30 AM"
         ],
-        "text": "October 2026 Nov.\n10, 2026 08:30 AM",
+        "snapshot": "https://web.archive.org/web/20261031012753id_/https://www.bls.gov/schedule/news_release/cpi.htm",
+        "text": "October 2026 Nov.\n10, 2026 08:30 AM\n\nAn official website of the United States government\n| | Schedule of Releases for the Consumer Price Index Subscribe to the BLS Online Calendar Online calendar subscription \u2014 automatically updated: If you use a recent version of an electronic calendar, you may be able to subscribe to the BLS Online Calendar.\nSee details below for users of different types of calendars.\nNOTE: We do not recommend using this online calendar with Outlook 2003 or older versions.\nThe calendar will not update automatically in those applications.\nThe BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date.\n|\n| Reference Month | Release Date | Release Time |\n|---|---|---|\n| October 2026 | Nov.\n10, 2026 | 08:30 AM |\n| November 2026 | Dec.\n10, 2026 | 08:30 AM |\n| December 2026 | Jan.\n13, 2027 | 08:30 AM |\n| January 2027 | Feb.\n11, 2027 | 08:30 AM |\n| February 2027 | Mar.\n10, 2027 | 08:30 AM |\n| March 2027 | Apr.\n13, 2027 | 08:30 AM |\n| April 2027 | May 12, 2027 | 08:30 AM |\n| May 2027 | Jun.\n10, 2027 | 08:30 AM |\n| June 2027 | Jul.\n14, 2027 | 08:30 AM |\n| July 2027 | Aug.\n11, 2027 | 08:30 AM |\n| August 2027 | Sep.\n14, 2027 | 08:30 AM |\n| September 2027 | Oct.\n14, 2027 | 08:30 AM |\n| October 2027 | Nov.\n10, 2027 | 08:30 AM |\n| November 2027 | Dec.\n10, 2027 | 08:30 AM |",
         "title": "BLS Schedule: Consumer Price Index release dates",
         "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
-        "verified": null
+        "verified": true
       }
     ]
   }
