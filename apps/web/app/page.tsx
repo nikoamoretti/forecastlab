@@ -85,16 +85,19 @@ function EdgesUnderTest({ edges, policy }: { edges: EdgeTest[]; policy: CallPoli
   return <section aria-label="Edges under test">
     <h3 className="font-serif text-3xl">Edges under test</h3>
     <p className="mt-2 max-w-3xl text-ink/65">An idea joins our call only after it beats the market on at least {questions} new results across {dates} or more resolution days.</p>
-    <ul className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">{edges.map(e => {
+    <ul className={`mt-5 grid grid-cols-1 gap-4 ${edges.length % 3 === 0 ? "md:grid-cols-3" : "sm:grid-cols-2"}`}>{edges.map(e => {
       const proven = e.status === "promoted";
       return <li key={e.id} className="card flex flex-col p-5">
         <p className="flex flex-wrap items-center justify-between gap-2">
           <span className="font-medium">{e.label}</span>
           <strong className={`rounded-full px-2.5 py-0.5 text-sm font-medium ${proven ? "bg-pine/10 text-pine" : "bg-ink/[0.06] text-ink/70"}`}>{proven ? "Proven: part of our call" : "Testing"}</strong></p>
-        <div className="meter mt-4" aria-hidden><div className={proven ? "bg-pine" : "bg-ink/50"} style={{ width: `${Math.min(100, e.counted.questions / questions * 100)}%` }} /></div>
-        <p className="mt-2.5 text-sm text-ink/65">{e.counted.questions} of {questions} results since {shortDate(e.registered)} · {e.counted.dates} of {dates} days</p>
-        {e.counted.questions > 0 && e.counted.rule != null && e.counted.market != null
-          && <p className="mt-1 text-sm tabular-nums">Edge {e.counted.rule.toFixed(2)} vs market {e.counted.market.toFixed(2)}</p>}
+        {e.about && <p className="mt-2 text-sm leading-relaxed text-ink/65">{e.about}</p>}
+        <div className="mt-auto pt-4">
+          <div className="meter" aria-hidden><div className={proven ? "bg-pine" : "bg-ink/50"} style={{ width: `${Math.min(100, e.counted.questions / questions * 100)}%` }} /></div>
+          <p className="mt-2.5 text-sm text-ink/65">{e.counted.questions} of {questions} results since {shortDate(e.registered)} · {e.counted.dates} of {dates} days</p>
+          {e.counted.questions > 0 && e.counted.rule != null && e.counted.market != null
+            && <p className="mt-1 text-sm tabular-nums">Edge {e.counted.rule.toFixed(2)} vs market {e.counted.market.toFixed(2)}</p>}
+        </div>
       </li>;
     })}</ul>
   </section>;

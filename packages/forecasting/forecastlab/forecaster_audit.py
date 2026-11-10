@@ -43,7 +43,8 @@ REACHES_OUT = re.compile(
     r"|\bgit\s+(?:clone|show|log|diff|checkout|fetch|pull|cat-file|grep|status|add|commit|push|archive|worktree|stash)\b"
 )
 # Places that hold prices or another agent's work, however the command spells the way there.
-PRICE_PLACES = ("artifacts/", "market_snapshot", "calls.json", "scores.json", "calibrated.json", "track_record",
+PRICE_PLACES = ("artifacts/", "market_snapshot", "calls.json", "scores.json", "calibrated.json", "learned.json",
+                "track_record",
                 "track-record", "packet.json", "second-look", "second_look", "forecastlab", "subagents/",
                 ".claude/")
 

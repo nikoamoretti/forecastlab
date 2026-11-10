@@ -5,7 +5,7 @@ export type Forecast = { method: string; probability: number; rationale?: string
   // A market-anchored call keeps both numbers it was made from; "held" is set when weak research kept it at the price.
   // max_move is how far the call was allowed to move (absent on calls frozen before it was recorded: 0.10); rule is the
   // id of the tested edge that set it, absent when only the default applied. When the edge uses another forecaster's
-  // probability (the second look), forecaster is its method and target the probability the call was pulled toward.
+  // probability (the second look, the learned model), forecaster is its method and target the probability the call was pulled toward.
   claude?: number; market?: number; held?: string; max_move?: number; rule?: string; forecaster?: string; target?: number;
   // Claude's confidence-corrected forecast carries the raw probability it corrects and the fit it came from.
   raw?: number; slope?: number; intercept?: number; results?: number; as_of?: string };
@@ -36,7 +36,8 @@ export type Progress = { weeks: ProgressWeek[]; changes: { date: string; label: 
 // it beats the market on enough new results; until then its score is tracked on the side ("counted").
 export type EdgeBlock = { questions: number; dates: number; rule: number | null; market: number | null; difference: number | null;
   interval: [number, number] | null; meets_bar?: boolean };
-export type EdgeTest = { id: string; label: string; status: "testing" | "promoted"; registered: string; counted: EdgeBlock; before: EdgeBlock };
+// about is one plain sentence on what the edge would do to our call (absent in records built before it was added).
+export type EdgeTest = { id: string; label: string; about?: string; status: "testing" | "promoted"; registered: string; counted: EdgeBlock; before: EdgeBlock };
 export type CallPolicy = { default_move: number; promoted: string[]; bar: { questions: number; dates: number; interval: number } };
 export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress;
   call_policy?: CallPolicy; edge_tests?: EdgeTest[] };

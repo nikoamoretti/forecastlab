@@ -350,8 +350,8 @@ test("a market-anchored call shows both our call and Claude alone, and the page 
 
 const block = (questions: number, dates: number, rule: number | null, market: number | null) => ({ questions, dates, rule, market,
   difference: rule == null || market == null ? null : rule - market, interval: null, meets_bar: false });
-const edge = (id: string, label: string, status: string, counted: ReturnType<typeof block>) =>
-  ({ id, label, status, registered: "2026-11-10", counted, before: block(29, 8, .119, .138) });
+const edge = (id: string, label: string, status: string, counted: ReturnType<typeof block>, about?: string) =>
+  ({ id, label, status, registered: "2026-11-10", counted, before: block(29, 8, .119, .138), ...(about ? { about } : {}) });
 
 test("the page lists the edges under test with their progress, and says what it takes to join our call", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
@@ -359,10 +359,17 @@ test("the page lists the edges under test with their progress, and says what it 
     summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 40,
       call_policy: { default_move: .1, promoted: ["Every question"], bar: { questions: 40, dates: 10, interval: .9 } },
       edge_tests: [edge("tech_move_v1", "Tech questions", "testing", block(0, 0, null, null)),
-        edge("every_question_move_v1", "Every question", "promoted", block(12, 4, .141, .157))] },
+        edge("every_question_move_v1", "Every question", "promoted", block(12, 4, .141, .157)),
+        edge("tech_second_look_v1", "Second look on Tech", "testing", block(0, 0, null, null)),
+        edge("learned_model_call_v1", "Learned from results", "testing", block(3, 2, .12, .15), "A small model that re-fits itself on every result.")] },
     questions: [] } }));
   await page.goto("/");
   const section = page.getByRole("region", { name: "Edges under test" });
+  await expect(section.getByRole("listitem")).toHaveCount(4);
+  const learned = section.getByRole("listitem").filter({ hasText: "Learned from results" });
+  await expect(learned).toContainText("A small model that re-fits itself on every result.");
+  await expect(learned).toContainText("3 of 40 results since Nov 10");
+  await expect(learned).toContainText("Edge 0.12 vs market 0.15");
   await expect(section.getByText("An idea joins our call only after it beats the market on at least 40 new results across 10 or more resolution days.")).toBeVisible();
   const tech = section.getByRole("listitem").filter({ hasText: "Tech questions" });
   await expect(tech).toContainText("0 of 40 results since Nov 10");
@@ -420,4 +427,25 @@ test("when a promoted second-look edge set the call, the question page says so",
   await page.goto("/q/look");
   await expect(page.getByText("30.0% chance of yes · the market’s 50.0%, set by the tested edge “Second look on Tech”")).toBeVisible();
   await expect(page.getByText("moved toward Claude’s forecast under the tested edge")).toHaveCount(0);
+});
+
+test("when a promoted learned-model edge set the call, the question page says where the number came from", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .8, rationale: "Strong base rate.", made_at: "2026-11-11T09:00:00Z" };
+  const market = { method: "market_price_v1", probability: .5 };
+  const model = { method: "learned_model_v1", probability: .62, market: .5, claude: .8, intercept: .35, slope: 1.1, claude_weight: .5, results: 195, as_of: "2026-11-11" };
+  const learner = { method: "learned_model_v1", label: "Learned model", about: "A small model that re-fits itself on every decided question.", forecasts: 1, resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25 };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-20", forecasters: [...forecasters, learner],
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 41,
+      call_policy: { default_move: 0, promoted: ["Learned from results"], bar: { questions: 40, dates: 10, interval: .9 } },
+      edge_tests: [edge("learned_model_call_v1", "Learned from results", "promoted", block(41, 11, .12, .15))] },
+    questions: [
+      question("learned", "Will the learned question resolve yes?", { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-25",
+        topic: "Tech", forecasts: [claude, model, market],
+        call: { method: "market_anchored_call_v1", probability: .62, members: 1, claude: .8, market: .5, max_move: 1,
+          rule: "learned_model_call_v1", forecaster: "learned_model_v1", target: .62 } })] } }));
+  await page.goto("/q/learned");
+  await expect(page.getByText("62.0% chance of yes · the market’s 50.0%, set by the tested edge “Learned from results”")).toBeVisible();
+  await expect(page.getByRole("row").filter({ hasText: "Learned model" })).toContainText("62.0% yes");
+  await expect(page.getByText("Claude’s second look")).toHaveCount(0);
 });
