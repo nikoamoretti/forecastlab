@@ -1,9 +1,9 @@
 {
   "calibration": {
-    "as_of": "2026-11-09",
-    "intercept": 0.356402,
-    "results": 208,
-    "slope": 0.745587
+    "as_of": "2026-11-10",
+    "intercept": 0.361353,
+    "results": 213,
+    "slope": 0.753748
   },
   "forecasters": [
     {
@@ -211,7 +211,7 @@
       "wrong": 12
     }
   ],
-  "generated_on": "2026-11-09",
+  "generated_on": "2026-11-10",
   "questions": [
     {
       "actual": "4.86%",
@@ -16847,8 +16847,71 @@
   ],
   "summary": {
     "brier": 0.20829688298114235,
+    "call_policy": {
+      "bar": {
+        "dates": 10,
+        "interval": 0.9,
+        "questions": 40
+      },
+      "default_move": 0.1,
+      "promoted": []
+    },
     "cancelled": 1,
     "coin_flip_brier": 0.25,
+    "edge_tests": [
+      {
+        "before": {
+          "dates": 8,
+          "difference": -0.01838722241379312,
+          "interval": [
+            -0.034356,
+            0.008911
+          ],
+          "market": 0.13758285241379312,
+          "questions": 29,
+          "rule": 0.11919563
+        },
+        "counted": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "meets_bar": false,
+          "questions": 0,
+          "rule": null
+        },
+        "id": "tech_move_v1",
+        "label": "Tech questions",
+        "registered": "2026-11-10",
+        "status": "testing"
+      },
+      {
+        "before": {
+          "dates": 24,
+          "difference": 0.012862012094240816,
+          "interval": [
+            0.00324,
+            0.021151
+          ],
+          "market": 0.1548196617277487,
+          "questions": 191,
+          "rule": 0.1676816738219895
+        },
+        "counted": {
+          "dates": 0,
+          "difference": null,
+          "interval": null,
+          "market": null,
+          "meets_bar": false,
+          "questions": 0,
+          "rule": null
+        },
+        "id": "every_question_move_v1",
+        "label": "Every question",
+        "registered": "2026-11-10",
+        "status": "testing"
+      }
+    ],
     "pending": 45,
     "progress": {
       "changes": [
