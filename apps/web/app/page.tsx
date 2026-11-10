@@ -2,18 +2,23 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
+import { AgainstMarket, Improving, OverTime } from "@/components/TrackCharts";
 import { api } from "@/lib/api";
-import { CallPolicy, DEFAULT_POLICY, EdgeTest, Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, marketNameOf, nextMilestone, points, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
+import { CallPolicy, DEFAULT_POLICY, EdgeTest, Forecaster, Question, QuestionGroup, TrackRecord, byWeek, callText, groupBySeries, lateDeadline, marketNameOf, nextMilestone, points, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
+// A forecaster with no forecast for this long is listed under "earlier forecasters".
+const QUIET_AFTER_DAYS = 14;
+
+const Chevron = () => <svg aria-hidden viewBox="0 0 20 20" className="hidden h-5 w-5 shrink-0 text-ink/30 sm:block"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 
 function ResultRow({ q }: { q: Question }) {
-  return <li><Link href={`/q/${q.id}`} className="grid gap-x-4 gap-y-1 py-4 hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center">
+  return <li><Link href={`/q/${q.id}`} className="row grid gap-x-4 gap-y-1.5 sm:grid-cols-[5.75rem_1fr_auto] sm:items-center">
     <span><ResultMark verdict={q.verdict} scored={q.scored !== false} /></span>
-    <span>{q.title}
+    <span className="min-w-0">{q.title}
       <span className="mt-1 block text-sm text-ink/60">We said {callText(q.call!.probability)} · actual {q.actual ?? (q.outcome ? "yes" : "no")} · {shortDate(q.resolves_on)}</span></span>
-    <span aria-hidden className="hidden text-xl text-ink/30 sm:block">›</span>
+    <Chevron />
   </Link></li>;
 }
 
@@ -22,10 +27,12 @@ const settledBy = (q: Question) => marketNameOf(q.source_url) ?? "the official f
 function OpenRow({ q, today }: { q: Question; today: string }) {
   const overdue = q.resolves_on < today;
   const late = overdue && settledBy(q) !== "the official figure" ? lateDeadline(q.detail ?? "", q.resolves_on) : null;
-  return <li><Link href={`/q/${q.id}`} className="grid gap-x-4 gap-y-1 py-4 hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center">
-    <span className="text-sm text-ink/60">{overdue ? `Due ${shortDate(q.resolves_on)}` : relativeDay(q.resolves_on, today)}</span>
-    <span>{q.title}{overdue && <span className="mt-1 block text-sm text-ink/60">Waiting for {settledBy(q)}{late && `; its rules allow until ${shortDate(late, true)}`}</span>}</span>
-    {q.call && <span><CallPill probability={q.call.probability} /></span>}
+  return <li><Link href={`/q/${q.id}`} className="row">
+    <span className="flex items-center justify-between gap-3">
+      <span className="text-[13px] font-medium text-ink/55">{overdue ? `Due ${shortDate(q.resolves_on)}` : relativeDay(q.resolves_on, today)} · {q.topic}</span>
+      {q.call && <CallPill probability={q.call.probability} />}</span>
+    <span className="mt-1 block">{q.title}</span>
+    {overdue && <span className="mt-1 block text-sm text-ink/60">Waiting for {settledBy(q)}{late && `; its rules allow until ${shortDate(late, true)}`}</span>}
   </Link></li>;
 }
 
@@ -34,13 +41,13 @@ function GroupRow({ group, children, summary }: { group: QuestionGroup; children
   const [open, setOpen] = useState(false);
   if (group.items.length === 1) return <>{children(group.items[0])}</>;
   return <li>
-    <button className="grid w-full gap-x-4 gap-y-1 py-4 text-left hover:bg-white/50 sm:grid-cols-[6rem_1fr_auto] sm:items-center"
+    <button className="row grid w-full gap-x-4 gap-y-1.5 text-left sm:grid-cols-[5.75rem_1fr_auto] sm:items-center"
       aria-expanded={open} onClick={() => setOpen(!open)}>
-      <span className="text-sm text-ink/60">{group.items.length} questions</span>
-      <span>{group.label}<span className="mt-1 block text-sm text-ink/60">{summary}</span></span>
-      <span aria-hidden className="hidden text-xl text-ink/30 sm:block">{open ? "−" : "+"}</span>
+      <span><span className="chip">{group.items.length} questions</span></span>
+      <span className="min-w-0">{group.label}<span className="mt-1 block text-sm text-ink/60">{summary}</span></span>
+      <span aria-hidden className="hidden w-5 text-center text-xl leading-none text-ink/40 sm:block">{open ? "−" : "+"}</span>
     </button>
-    {open && <ul className="mb-3 divide-y divide-rule border-y border-rule pl-4 sm:pl-8">{group.items.map(children)}</ul>}
+    {open && <ul className="rows border-t border-rule/60 bg-ink/[0.02] pl-3 sm:pl-6">{group.items.map(children)}</ul>}
   </li>;
 }
 
@@ -48,11 +55,22 @@ function Expandable({ groups, label, children, summary }: {
   groups: QuestionGroup[]; label: string; children: (q: Question) => React.ReactNode; summary: (g: QuestionGroup) => string }) {
   const [all, setAll] = useState(false);
   return <>
-    <ul className="divide-y divide-rule border-y border-rule">{(all ? groups : groups.slice(0, SHOWN)).map(g =>
+    <ul className="rows">{(all ? groups : groups.slice(0, SHOWN)).map(g =>
       <GroupRow key={g.key} group={g} summary={summary(g)}>{children}</GroupRow>)}</ul>
-    {groups.length > SHOWN && <button className="mt-3 py-2 text-sm underline" onClick={() => setAll(!all)}>
-      {all ? "Show fewer" : `Show all ${groups.length} ${label}`}</button>}
+    {groups.length > SHOWN && <p className="border-t border-rule/60 px-5 py-3 sm:px-6"><button className="btn-quiet" onClick={() => setAll(!all)}>
+      {all ? "Show fewer" : `Show all ${groups.length} ${label}`}</button></p>}
   </>;
+}
+
+// A titled card that holds a list: the heading, an optional count and a line of explanation, then the rows.
+function ListCard({ title, count, note, children, className = "" }: { title: string; count?: number; note?: string; children: React.ReactNode; className?: string }) {
+  return <section className={`card min-w-0 overflow-hidden ${className}`}>
+    <div className="px-5 pb-4 pt-5 sm:px-6">
+      <h3 className="font-serif text-2xl">{title}{count != null && <> <span className="chip ml-1 align-middle font-sans">{count}</span></>}</h3>
+      {note && <p className="mt-1.5 text-sm text-ink/60">{note}</p>}
+    </div>
+    <div className="border-t border-rule/60">{children}</div>
+  </section>;
 }
 
 const span = (g: QuestionGroup) => {
@@ -61,114 +79,58 @@ const span = (g: QuestionGroup) => {
   return first === last ? first : `${first} to ${last}`;
 };
 
-// The score so far after each week, against always answering 50% (0.25). Lower is better.
-function OverTime({ weeks: all }: { weeks: Week[] }) {
-  const weeks = all.filter(wk => wk.right + wk.wrong > 0).slice(-8);
-  if (weeks.length < 2) return null;
-  const hit = (wk: Week) => wk.right / (wk.right + wk.wrong);
-  const fit = trend(weeks, hit)!;
-  const w = 360, h = 200, left = 36, right = 8, top = 18, bottom = 40;
-  const slot = (w - left - right) / weeks.length, bar = Math.min(36, slot * 0.6);
-  const x = (i: number) => left + slot * (i + 0.5);
-  const y = (v: number) => top + (1 - Math.min(1, Math.max(0, v))) * (h - top - bottom);
-  const pct = (v: number) => `${Math.round(v * 100)}%`;
-  const change = fit.end - fit.start;
-  const summary = Math.abs(change) < 0.05 ? `Holding steady at about ${pct(fit.end)} of calls right.`
-    : `${change > 0 ? "Getting better" : "Slipping"}: from about ${pct(fit.start)} to ${pct(fit.end)} of calls right.`;
-  return <section aria-label="How we've done over time">
-    <h3 className="font-serif text-3xl">Over time</h3>
-    <p className="mt-3 text-lg font-medium">{summary}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Each bar is the share of calls we got right in the week the questions were decided. The dashed line is a coin flip (50%). The copper line is the trend, with busier weeks counting for more. Under each week: calls right / calls decided.</p>
-    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
-      aria-label={`By week: ${weeks.map(wk => `${shortDate(wk.start)} ${pct(hit(wk))} (${wk.right} of ${wk.right + wk.wrong} right)`).join(", ")}. ${summary}`}>
-      {[0, 0.25, 0.75, 1].map(t => <g key={t}>
-        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className={t === 0 ? "stroke-ink/40" : "stroke-rule"} />
-        <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{pct(t)}</text>
-      </g>)}
-      <line x1={left} x2={w - right} y1={y(0.5)} y2={y(0.5)} className="stroke-ink/50" strokeDasharray="4 4" />
-      <text x={left - 6} y={y(0.5) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">50%</text>
-      {weeks.map((wk, i) => {
-        const v = hit(wk);
-        return <g key={wk.start}>
-          <rect x={x(i) - bar / 2} width={bar} y={y(v)} height={y(0) - y(v)} className={v < 0.5 ? "fill-brick/70" : "fill-pine/70"} />
-          <text x={x(i)} y={y(v) - 4} textAnchor="middle" className="fill-ink text-[10px] font-medium">{pct(v)}</text>
-          <text x={x(i)} y={h - 24} textAnchor="middle" className="fill-ink/70 text-[10px]">{shortDate(wk.start)}</text>
-          <text x={x(i)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.right}/{wk.right + wk.wrong}</text>
-        </g>;
-      })}
-      <line x1={x(0)} x2={x(weeks.length - 1)} y1={y(fit.start)} y2={y(fit.end)} className="stroke-copper" strokeWidth={2.5} strokeLinecap="round" />
-    </svg>
-  </section>;
-}
-
-// Brier score by the week we made the forecast, ours against the market's, with a marker where we changed the method.
-// One row per tested edge: how many new results it has, how it scores against the market on them, and where it stands.
+// One card per tested edge: how many new results it has, how it scores against the market on them, and where it stands.
 function EdgesUnderTest({ edges, policy }: { edges: EdgeTest[]; policy: CallPolicy }) {
   const { questions, dates } = policy.bar;
   return <section aria-label="Edges under test">
     <h3 className="font-serif text-3xl">Edges under test</h3>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">An idea joins our call only after it beats the market on at least {questions} new results across {dates} or more resolution days.</p>
-    <ul className="mt-4 divide-y divide-rule border-y border-rule">{edges.map(e => <li key={e.id} className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
-      <span><span className="font-medium">{e.label}</span>
-        <span className="block text-sm text-ink/60">{e.counted.questions} of {questions} results since {shortDate(e.registered)} · {e.counted.dates} of {dates} days</span></span>
-      <span className="sm:text-right">
+    <p className="mt-2 max-w-3xl text-ink/65">An idea joins our call only after it beats the market on at least {questions} new results across {dates} or more resolution days.</p>
+    <ul className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">{edges.map(e => {
+      const proven = e.status === "promoted";
+      return <li key={e.id} className="card flex flex-col p-5">
+        <p className="flex flex-wrap items-center justify-between gap-2">
+          <span className="font-medium">{e.label}</span>
+          <strong className={`rounded-full px-2.5 py-0.5 text-sm font-medium ${proven ? "bg-pine/10 text-pine" : "bg-ink/[0.06] text-ink/70"}`}>{proven ? "Proven: part of our call" : "Testing"}</strong></p>
+        <div className="meter mt-4" aria-hidden><div className={proven ? "bg-pine" : "bg-ink/50"} style={{ width: `${Math.min(100, e.counted.questions / questions * 100)}%` }} /></div>
+        <p className="mt-2.5 text-sm text-ink/65">{e.counted.questions} of {questions} results since {shortDate(e.registered)} · {e.counted.dates} of {dates} days</p>
         {e.counted.questions > 0 && e.counted.rule != null && e.counted.market != null
-          && <span className="block text-sm text-ink/70">Edge {e.counted.rule.toFixed(2)} vs market {e.counted.market.toFixed(2)}</span>}
-        <strong>{e.status === "promoted" ? "Proven: part of our call" : "Testing"}</strong></span>
-    </li>)}</ul>
+          && <p className="mt-1 text-sm tabular-nums">Edge {e.counted.rule.toFixed(2)} vs market {e.counted.market.toFixed(2)}</p>}
+      </li>;
+    })}</ul>
   </section>;
 }
 
-const ENOUGH_TO_JUDGE = 40, TOO_EARLY = 10, THIN_WEEK = 3;
+function ForecasterRow({ f }: { f: Forecaster }) {
+  const calls = f.right + f.wrong;
+  return <li className="grid gap-x-8 gap-y-2 px-5 py-4 sm:grid-cols-[1fr_17rem] sm:items-center sm:px-6">
+    <span className="min-w-0"><span className="font-medium">{f.label}</span><span className="mt-0.5 block text-sm text-ink/60">{f.about}</span></span>
+    <span>{f.resolved ? <>
+      <span className="flex items-center gap-3">
+        <strong className="whitespace-nowrap tabular-nums">{f.right} of {calls} right</strong>
+        {calls > 0 && <span className="meter" aria-hidden><span className="block bg-ink/55" style={{ width: `${f.right / calls * 100}%` }} /></span>}</span>
+      <span className="mt-1 block text-sm text-ink/60">{versusGuessing(f.brier, f.coin_flip_brier)}: score {f.brier!.toFixed(2)} on {f.resolved} decided questions · {f.forecasts} forecasts</span></>
+      : <span className="text-sm text-ink/60">No results yet · {f.forecasts} forecasts</span>}</span>
+  </li>;
+}
 
-function Improving({ progress, policy }: { progress: Progress; policy: CallPolicy }) {
-  const weeks = progress.weeks.filter(wk => wk.ours != null && wk.market != null);
-  const { before, after, date } = progress.since_last_change;
-  if (weeks.length < 2) return null;
-  const f = (v: number | null) => v!.toFixed(2);
-  const headline = after.questions < TOO_EARLY
-    ? `Too early to tell: ${after.questions} ${after.questions === 1 ? "question" : "questions"} decided since ${shortDate(date)}, we need about ${ENOUGH_TO_JUDGE}.`
-    : `Since the ${shortDate(date)} changes: our score ${f(after.ours)} vs the market's ${f(after.market)} on ${after.questions} questions`
-      + (before.questions > 0 ? ` (before: ${f(before.ours)} vs ${f(before.market)} on ${before.questions}).` : ".");
-  const w = 360, h = 220, left = 36, right = 12, top = 52, bottom = 40;
-  const day = (iso: string) => new Date(`${iso}T12:00:00Z`).getTime() / DAY;
-  const changes = progress.changes;
-  const t0 = day(weeks[0].start), t1 = Math.max(day(weeks[weeks.length - 1].start) + 7, ...changes.map(c => day(c.date) + 1));
-  const x = (t: number) => left + (t - t0) / (t1 - t0) * (w - left - right);
-  const centre = (wk: { start: string }) => x(day(wk.start) + 3.5);
-  const top_ = Math.max(0.3, Math.ceil(Math.max(...weeks.flatMap(wk => [wk.ours!, wk.market!])) * 20) / 20);
-  const y = (v: number) => top + (1 - v / top_) * (h - top - bottom);
-  const ticks = [0, top_ / 2, top_];
-  const line = (pick: (wk: typeof weeks[number]) => number | null) => weeks.map(wk => `${centre(wk)},${y(pick(wk)!)}`).join(" ");
-  const shown = changes.filter(c => day(c.date) >= t0 && day(c.date) <= t1);
-  return <section aria-label="Are we improving?">
-    <h3 className="font-serif text-3xl">Are we improving?</h3>
-    <p className="mt-3 text-lg font-medium">{headline}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided. From Nov 10 our call {policy.default_move > 0 ? `stays within ${points(policy.default_move)} of the market` : "is the market’s price unless a tested edge applies"}, so the two lines will sit {policy.default_move > 0 ? "closer together" : "very close together"}; Claude alone is the independent comparison.</p>
-    <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
-      aria-label={`Score by forecast week, ours against the market, lower is better: ${weeks.map(wk => `week of ${shortDate(wk.start)} us ${f(wk.ours)}, market ${f(wk.market)}, ${wk.questions} questions`).join("; ")}. Changes: ${changes.map(c => `${c.label} on ${shortDate(c.date)}`).join(", ")}. ${headline}`}>
-      {ticks.map(t => <g key={t}>
-        <line x1={left} x2={w - right} y1={y(t)} y2={y(t)} className={t === 0 ? "stroke-ink/40" : "stroke-rule"} />
-        <text x={left - 6} y={y(t) + 3} textAnchor="end" className="fill-ink/60 text-[9px]">{t.toFixed(2)}</text>
-      </g>)}
-      {shown.map((c, i) => {
-        const cx = x(day(c.date)), flip = cx > w * 0.6;
-        return <g key={c.date}>
-          <line x1={cx} x2={cx} y1={top - 6 - (i % 3) * 12} y2={y(0)} className="stroke-ink/50" strokeDasharray="1 3" strokeWidth={1.5} />
-          <text x={flip ? cx - 3 : cx + 3} y={top - 8 - (i % 3) * 12} textAnchor={flip ? "end" : "start"} className="fill-ink/70 text-[9px]">{shortDate(c.date)} {c.label}</text>
-        </g>;
-      })}
-      <polyline points={line(wk => wk.market)} fill="none" className="stroke-ink/60" strokeWidth={2} strokeDasharray="4 4" />
-      <polyline points={line(wk => wk.ours)} fill="none" className="stroke-copper" strokeWidth={2.5} strokeLinejoin="round" />
-      {weeks.map(wk => <g key={wk.start}>
-        <circle cx={centre(wk)} cy={y(wk.market!)} r={wk.questions < THIN_WEEK ? 2 : 3} className="fill-ink/60" />
-        <circle cx={centre(wk)} cy={y(wk.ours!)} r={wk.questions < THIN_WEEK ? 2.5 : 4} className="fill-copper" />
-        <text x={centre(wk)} y={h - 24} textAnchor="middle" className="fill-ink/70 text-[10px]">{shortDate(wk.start)}</text>
-        <text x={centre(wk)} y={h - 10} textAnchor="middle" className="fill-ink/50 text-[9px]">{wk.questions} q</text>
-      </g>)}
-    </svg>
-    <p className="mt-2 flex gap-6 text-sm text-ink/70"><span><span className="text-copper">●</span> Us</span><span><span className="text-ink/60">●</span> Market</span></p>
-  </section>;
+// The forecasters still forecasting come first; the ones that have gone quiet sit behind a button.
+function Forecasters({ forecasters, asOf }: { forecasters: Forecaster[]; asOf: string }) {
+  const [all, setAll] = useState(false);
+  const quiet = (f: Forecaster) => !f.last_forecast_on
+    || (new Date(asOf).getTime() - new Date(f.last_forecast_on).getTime()) / DAY > QUIET_AFTER_DAYS;
+  // A record built before the dates were added lists everyone together.
+  const dated = forecasters.some(f => f.last_forecast_on);
+  const now = dated ? forecasters.filter(f => !quiet(f)) : forecasters;
+  const earlier = dated ? forecasters.filter(quiet) : [];
+  return <>
+    <ul className="rows">{now.map(f => <ForecasterRow key={f.method} f={f} />)}</ul>
+    {earlier.length > 0 && <>
+      <p className="border-t border-rule/60 px-5 py-3 sm:px-6"><button className="btn-quiet" aria-expanded={all} onClick={() => setAll(!all)}>
+        {all ? "Hide earlier forecasters" : `Show ${earlier.length} earlier ${earlier.length === 1 ? "forecaster" : "forecasters"}`}</button>
+        <span className="ml-3 text-sm text-ink/55">No forecast in the last two weeks.</span></p>
+      {all && <ul className="rows border-t border-rule/60 bg-ink/[0.02]">{earlier.map(f => <ForecasterRow key={f.method} f={f} />)}</ul>}
+    </>}
+  </>;
 }
 
 export default function TrackRecordPage() {
@@ -190,91 +152,105 @@ export default function TrackRecordPage() {
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
   const vs = s.vs_market && s.vs_market.questions > 0 && s.vs_market.ours != null && s.vs_market.market != null ? s.vs_market : null;
   const policy = s.call_policy ?? DEFAULT_POLICY;
-  const anchored = vs?.since_anchored && vs.since_anchored.questions > 0 && vs.since_anchored.ours != null && vs.since_anchored.claude != null && vs.since_anchored.market != null ? vs.since_anchored : null;
   const weeks = byWeek(resolved);
   const goal = nextMilestone(s.resolved);
   const due = dueThisWeek > 0 ? ` ${dueThisWeek} more ${dueThisWeek === 1 ? "is" : "are"} due this week.` : "";
+  const figure = "font-sans text-4xl font-semibold tracking-tight";
 
-  return <div className="space-y-12">
-    <header className="flex flex-wrap items-end justify-between gap-6">
+  return <div className="space-y-12 sm:space-y-14">
+    <header className="grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-[1fr_24rem] lg:items-end">
       <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-copper">Track record</p>
-        <h2 className="mt-3 font-serif text-5xl">{s.brier != null ? <>Score {s.brier.toFixed(2)}{" "}
-          <span className="block text-2xl text-ink/70 sm:inline">on all {s.resolved} decided questions</span></> : "No results yet"}</h2>
-        {accuracy && <p className="mt-3 text-lg">{accuracy} so far
-          <span className="block text-sm text-ink/60 sm:inline"> · lower is better; always saying 50% scores 0.25</span></p>}
-        {vs && <p className="mt-2 text-lg">On the {vs.questions} questions the market also priced: us {vs.ours!.toFixed(2)}, market {vs.market!.toFixed(2)}.</p>}
-        {vs?.claude != null && <p className="mt-1 text-sm text-ink/70">Claude alone on the same questions: {vs.claude.toFixed(2)}{vs.claude_questions !== vs.questions && ` (the ${vs.claude_questions} it forecast)`}.</p>}
-        {anchored && <p className="mt-1 text-sm text-ink/70">Since {shortDate(anchored.date)}, on {anchored.questions} questions the market also priced: our call {anchored.ours!.toFixed(2)}, Claude alone {anchored.claude!.toFixed(2)}, market {anchored.market!.toFixed(2)}.</p>}
-        {vs?.since_anchored && <p className="mt-1 max-w-2xl text-sm text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market{policy.default_move > 0
-          ? ` and cannot differ from it by more than ${points(policy.default_move)}, so “ours vs market” mostly measures those ${points(policy.default_move)}.`
-          : " and is its price unless a tested edge applies, so “ours vs market” mostly measures those edges."} “Claude alone vs market” is the test of independent skill.</p>}
-        {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} ${s.toss_ups === 1 ? "toss-up isn’t" : "toss-ups aren’t"} counted as right or wrong`}</p>}
+        <p className="eyebrow">Track record</p>
+        <h2 className="mt-3">{s.brier != null ? <><span className="font-sans text-5xl font-semibold tracking-tight sm:text-6xl">Score {s.brier.toFixed(2)}</span>{" "}
+          <span className="mt-1 block font-serif text-2xl text-ink/65 sm:ml-1 sm:mt-0 sm:inline">on all {s.resolved} decided questions</span></>
+          : <span className="font-serif text-5xl">No results yet</span>}</h2>
+        {accuracy && <p className="mt-4 text-lg font-medium">{accuracy} so far
+          <span className="block text-sm font-normal text-ink/60 sm:inline"> · lower is better; always saying 50% scores 0.25</span></p>}
+        <p className="mt-3 max-w-xl text-ink/70">Yes-or-no questions about the real world, forecast before the answer is known. Every call stays on this page and is scored once the result is in.</p>
       </div>
-      <Link href="/ask" className="bg-ink px-6 py-3 text-paper hover:bg-ink/85">Ask a question</Link>
+      {next ? <Link href={`/q/${next.id}`} className="card block border-l-4 border-l-copper p-5 transition-colors hover:border-copper">
+        <p className="eyebrow">Next result · {relativeDay(next.resolves_on, today)}</p>
+        <p className="mt-2 text-lg leading-snug">{next.title}</p>
+        {next.call && <p className="mt-3 text-sm"><span className="text-ink/60">Our call: </span><strong>{callText(next.call.probability)}</strong></p>}
+      </Link> : <Link href="/ask" className="btn-primary justify-self-start lg:justify-self-end">Ask a question</Link>}
     </header>
 
-    <section aria-label="Progress and next result" className="grid gap-4 md:grid-cols-2">
-      <div className="border border-rule bg-white/40 p-5">
-        {goal ? <>
-          <p className="font-medium">{s.resolved} of {goal.at} results</p>
-          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-ink/10" role="progressbar" aria-label="Decided questions"
-            aria-valuenow={s.resolved} aria-valuemin={0} aria-valuemax={goal.at}>
-            <div className="h-full rounded-full bg-pine" style={{ width: `${Math.max(s.resolved / goal.at * 100, 2)}%` }} /></div>
-          <p className="mt-3 text-sm text-ink/70">{goal.why}{due}</p>
-        </> : <>
-          <p className="font-medium">{s.resolved} results</p>
-          <p className="mt-3 text-sm text-ink/70">Enough decided questions for the score to be reliable.{due}</p>
-        </>}
+    <section aria-label="The record in numbers">
+     <div className={`grid grid-cols-1 gap-4 ${vs ? "lg:grid-cols-[1fr_1.35fr_1fr]" : "sm:grid-cols-2"}`}>
+      <div className="card p-5 sm:p-6">
+        <p className="eyebrow">Calls right</p>
+        {calls > 0 ? <>
+          <p className={`mt-3 ${figure}`}>{Math.round(s.right / calls * 100)}%</p>
+          <div className="meter mt-4" aria-hidden><div className="bg-pine" style={{ width: `${s.right / calls * 100}%` }} /></div>
+          <p className="mt-3 text-sm text-ink/65">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} ${s.toss_ups === 1 ? "toss-up isn’t" : "toss-ups aren’t"} counted as right or wrong`}</p>
+        </> : <p className="mt-3 text-ink/65">No call has been decided yet.</p>}
       </div>
-      {next && <Link href={`/q/${next.id}`} className="block border-2 border-copper bg-white/60 p-5 hover:bg-white">
-        <p className="font-mono text-xs uppercase tracking-widest text-copper">Next result · {relativeDay(next.resolves_on, today)}</p>
-        <p className="mt-2 text-lg">{next.title}</p>
-        {next.call && <p className="mt-2 text-sm"><span className="text-ink/60">Our call: </span><strong>{callText(next.call.probability)}</strong></p>}
-      </Link>}
+      {vs && <div className="card p-5 sm:p-6">
+        <p className="eyebrow">Against the market</p>
+        <div className="mt-4"><AgainstMarket vs={vs} /></div>
+      </div>}
+      <div className="card p-5 sm:p-6">
+        <p className="eyebrow">Decided so far</p>
+        {goal ? <>
+          <p className="mt-3"><span className={figure}>{s.resolved}</span> <span className="text-ink/65">of {goal.at} results</span></p>
+          <div className="meter mt-4" role="progressbar" aria-label="Decided questions"
+            aria-valuenow={s.resolved} aria-valuemin={0} aria-valuemax={goal.at}>
+            <div className="bg-pine" style={{ width: `${Math.max(s.resolved / goal.at * 100, 2)}%` }} /></div>
+          <p className="mt-3 text-sm text-ink/65">{goal.why}{due}</p>
+        </> : <>
+          <p className="mt-3"><span className={figure}>{s.resolved}</span> <span className="text-ink/65">results</span></p>
+          <p className="mt-3 text-sm text-ink/65">Enough decided questions for the score to be reliable.{due}</p>
+        </>}
+        {pending.length > 0 && <p className="mt-2 text-sm text-ink/65">{pending.length} still open: {open.length} coming up, {waiting.length} waiting for a result.</p>}
+      </div>
+     </div>
+     {vs?.since_anchored && <p className="mt-4 max-w-4xl text-sm leading-relaxed text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market{policy.default_move > 0
+       ? ` and cannot differ from it by more than ${points(policy.default_move)}, so “ours vs market” mostly measures those ${points(policy.default_move)}.`
+       : " and is its price unless a tested edge applies, so “ours vs market” mostly measures those edges."} “Claude alone vs market” is the test of independent skill.</p>}
     </section>
 
-    {weeks.length > 1 && <OverTime weeks={weeks} />}
-
-    {s.progress && <Improving progress={s.progress} policy={policy} />}
+    {(weeks.length > 1 || s.progress) && <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+      {weeks.length > 1 && <OverTime weeks={weeks} />}
+      {s.progress && <Improving progress={s.progress} policy={policy} />}
+    </div>}
 
     {s.edge_tests && s.edge_tests.length > 0 && <EdgesUnderTest edges={s.edge_tests} policy={policy} />}
 
-    <section>
-      <h3 className="font-serif text-3xl">Latest results</h3>
+    <ListCard title="Latest results">
       {resolved.length
-        ? <div className="mt-4"><Expandable groups={groupBySeries(resolved)} label="results"
+        ? <Expandable groups={groupBySeries(resolved)} label="results"
             summary={g => `${g.items.filter(q => q.verdict === "right").length} of ${g.items.length} right · decided ${span(g)}`}>
-            {q => <ResultRow key={q.id} q={q} />}</Expandable></div>
-        : <p className="mt-3 text-ink/70">Nothing has been decided yet.</p>}
-    </section>
+            {q => <ResultRow key={q.id} q={q} />}</Expandable>
+        : <p className="px-5 py-4 text-ink/70 sm:px-6">Nothing has been decided yet.</p>}
+    </ListCard>
 
-    {waiting.length > 0 && <section>
-      <h3 className="font-serif text-3xl">Waiting for results <span className="text-ink/40">{waiting.length}</span></h3>
-      <p className="mt-1 text-sm text-ink/60">The date has passed; we score these as soon as the market settles or the official figure is out. Results are checked every day.</p>
-      <ul className="mt-4 divide-y divide-rule border-y border-rule">{waiting.map(q => <OpenRow key={q.id} q={q} today={today} />)}</ul>
-    </section>}
+    <div className={`grid grid-cols-1 items-start gap-4 ${waiting.length > 0 ? "lg:grid-cols-2" : ""}`}>
+      <ListCard title="Coming up" count={open.length} note="Our call on each open question, soonest first. Questions on the same figure are grouped.">
+        {open.length
+          ? <Expandable groups={groupBySeries(open)} label="topics"
+              summary={g => `Different thresholds or days · results ${span(g)}`}>
+              {q => <OpenRow key={q.id} q={q} today={today} />}</Expandable>
+          : <p className="px-5 py-4 text-ink/70 sm:px-6">No open question right now.</p>}
+      </ListCard>
+      {waiting.length > 0 && <ListCard title="Waiting for results" count={waiting.length}
+        note="The date has passed; we score these as soon as the market settles or the official figure is out. Results are checked every day.">
+        <Expandable groups={waiting.map(q => ({ key: q.id, label: q.title, items: [q] }))} label="waiting" summary={() => ""}>
+          {q => <OpenRow key={q.id} q={q} today={today} />}</Expandable>
+      </ListCard>}
+    </div>
 
-    <section>
-      <h3 className="font-serif text-3xl">Coming up <span className="text-ink/40">{open.length}</span></h3>
-      <p className="mt-1 text-sm text-ink/60">Our call on each open question, soonest first. Questions on the same figure are grouped.</p>
-      <div className="mt-4"><Expandable groups={groupBySeries(open)} label="topics"
-        summary={g => `Different thresholds or days · results ${span(g)}`}>
-        {q => <OpenRow key={q.id} q={q} today={today} />}</Expandable></div>
-    </section>
+    <ListCard title="Who forecasts best"
+      note="A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.">
+      <details className="border-b border-rule/60 px-5 py-3 text-sm sm:px-6">
+        <summary className="cursor-pointer text-ink/70 hover:text-ink">How our call has changed over time</summary>
+        <p className="mt-2 max-w-3xl leading-relaxed text-ink/65">First it was the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price{policy.default_move > 0 ? ` moved toward Claude’s forecast by at most ${points(policy.default_move)}` : ", moved toward Claude’s forecast only under a tested edge"}, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call {policy.default_move > 0 ? `can no longer differ from the market by more than ${points(policy.default_move)}` : "is the market’s price unless a tested edge applies"}.</p>
+      </details>
+      <Forecasters forecasters={data.forecasters} asOf={data.generated_on} />
+    </ListCard>
 
-    <section>
-      <h3 className="font-serif text-3xl">Who forecasts best</h3>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call has changed over time: first the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price{policy.default_move > 0 ? ` moved toward Claude’s forecast by at most ${points(policy.default_move)}` : ", moved toward Claude’s forecast only under a tested edge"}, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call {policy.default_move > 0 ? `can no longer differ from the market by more than ${points(policy.default_move)}` : "is the market’s price unless a tested edge applies"}. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
-      <ul className="mt-4 divide-y divide-rule border-y border-rule">{data.forecasters.map(f => <li key={f.method}
-        className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
-        <span><span className="font-medium">{f.label}</span><span className="block text-sm text-ink/60">{f.about}</span></span>
-        <span className="sm:text-right">{f.resolved ? <><strong className="tabular-nums">{f.right} of {f.right + f.wrong} right</strong>
-          <span className="block text-sm text-ink/60">{versusGuessing(f.brier, f.coin_flip_brier)}: score {f.brier!.toFixed(2)} on {f.resolved} decided questions · {f.forecasts} forecasts</span></>
-          : <span className="text-sm text-ink/60">No results yet · {f.forecasts} forecasts</span>}</span>
-      </li>)}</ul>
-    </section>
-
-    <p className="text-sm text-ink/50">Updated {shortDate(data.generated_on, true)} from official first releases. Test runs and drafts don’t count; they’re under More › All runs.</p>
+    <footer className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-rule/70 pt-6 text-sm text-ink/55">
+      <p>Updated {shortDate(data.generated_on, true)} from official first releases. Test runs and drafts don’t count; they’re under More › All runs.</p>
+      <Link href="/ask" className="btn-quiet">Ask a question</Link>
+    </footer>
   </div>;
 }

@@ -7,6 +7,11 @@ const question = (id: string, title: string, extra: object) => ({ id, title, det
   resolves_on: "2026-10-02", status: "resolved", outcome: 1, actual: "4.2%", source_url: "https://fred.stlouisfed.org/series/UNRATE",
   report_url: null, forecasts: [], call: null, verdict: null, ...extra });
 
+// The "Against the market" card: one named group of scores, one row per forecaster.
+const scores = (page: Page, name: string) => page.getByRole("group", { name });
+const scoreRow = (page: Page, name: string, who: string) => scores(page, name).getByRole("listitem").filter({ hasText: who });
+const ON_PRICED = "Scores on the questions the market also priced";
+
 async function mockRecord(page: Page) {
   await page.clock.setFixedTime(new Date("2026-10-07T12:00:00Z"));
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-07", forecasters,
@@ -30,7 +35,9 @@ test("the home page leads with the score, the next result and clickable question
   await expect(page.getByRole("heading", { name: "Score 0.24 on all 2 decided questions" })).toBeVisible();
   await expect(page.getByText("About the same as guessing so far")).toBeVisible();
   await expect(page.getByText("lower is better; always saying 50% scores 0.25")).toBeVisible();
-  await expect(page.getByText("On the 2 questions the market also priced: us 0.17, market 0.15.")).toBeVisible();
+  await expect(scores(page, ON_PRICED).getByText("On the 2 questions the market also priced")).toBeVisible();
+  await expect(scoreRow(page, ON_PRICED, "Our call")).toContainText("0.17");
+  await expect(scoreRow(page, ON_PRICED, "Market")).toContainText("0.15");
   await expect(page.getByText("1 of 2 calls right", { exact: true })).toBeVisible();
   await expect(page.getByText("2 of 30 results")).toBeVisible();
   const next = page.getByRole("link", { name: /Next result · Tomorrow/ });
@@ -135,6 +142,10 @@ test("the over-time section shows the share of calls right each week and the tre
   await expect(section).toContainText("Getting better: from about 50% to 100% of calls right.");
   await expect(section.getByRole("img")).toHaveAttribute("aria-label",
     "By week: Oct 5 50% (1 of 2 right), Oct 12 100% (1 of 1 right). Getting better: from about 50% to 100% of calls right.");
+  // The same figures are there to read without hovering over the chart.
+  await section.getByText("See the numbers").click();
+  await expect(section.getByRole("row").filter({ hasText: "Oct 5" })).toContainText("1 of 2");
+  await expect(section.getByRole("row").filter({ hasText: "Oct 12" })).toContainText("100%");
 });
 
 test("past 30 results the progress box moves on to the next milestone", async ({ page }) => {
@@ -193,7 +204,9 @@ test("the headline score covers every decided question, and the market compariso
   await expect(page.getByRole("heading", { name: "Score 0.20 on all 56 decided questions" })).toBeVisible();
   await expect(page.getByText("Better than guessing so far")).toBeVisible();
   await expect(page.getByText("lower is better; always saying 50% scores 0.25")).toBeVisible();
-  await expect(page.getByText("On the 37 questions the market also priced: us 0.17, market 0.15.")).toBeVisible();
+  await expect(scores(page, ON_PRICED).getByText("On the 37 questions the market also priced")).toBeVisible();
+  await expect(scoreRow(page, ON_PRICED, "Our call")).toContainText("0.17");
+  await expect(scoreRow(page, ON_PRICED, "Market")).toContainText("0.15");
   await expect(page.getByText("35 of 55 calls right · 1 toss-up isn’t counted as right or wrong")).toBeVisible();
   // Every forecaster row says which questions its score covers.
   await expect(page.getByRole("listitem").filter({ hasText: "Research pipeline" })).toContainText("score 0.24 on 2 decided questions");
@@ -239,7 +252,70 @@ test("the improving chart compares our score with the market by forecast week, o
     await expect(page.getByRole("heading", { name: "Are we improving?" })).toBeVisible();
     await expect(page.getByText(headline)).toBeVisible();
     await expect(page.getByRole("img", { name: /Score by forecast week/ })).toBeVisible();
+    const section = page.getByRole("region", { name: "Are we improving?" });
+    // Each change is a numbered marker on the chart with its name listed underneath.
+    await expect(section.getByRole("listitem").filter({ hasText: "Confidence correction" })).toContainText("Nov 6");
+    await expect(section.getByText("Claude alone", { exact: true })).toHaveCount(0);  // these weeks carry no Claude-alone score
   }
+  const withClaude = { ...progress(24), weeks: progress(24).weeks.map(wk => ({ ...wk, claude: .21 })) };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-08", forecasters,
+    summary: { resolved: 56, right: 35, wrong: 20, toss_ups: 1, brier: .2007, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 56,
+      progress: withClaude }, questions: [] } }));
+  await page.goto("/");
+  const section = page.getByRole("region", { name: "Are we improving?" });
+  await expect(section.getByText("Claude alone", { exact: true }).first()).toBeVisible();
+  await expect(section.getByRole("img")).toHaveAttribute("aria-label", /week of Oct 19 us 0\.20, market 0\.15, Claude alone 0\.21, 41 questions/);
+  await section.getByText("See the numbers").click();
+  await expect(section.getByRole("row").filter({ hasText: "Oct 26" })).toContainText("0.23");
+});
+
+test("forecasters with no forecast in the last two weeks sit behind a button", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-12T12:00:00Z"));
+  const dated = [{ ...forecasters[0], last_forecast_on: "2026-11-11" }, { ...forecasters[1], last_forecast_on: "2026-10-20" },
+    { ...forecasters[1], method: "statistical_baseline_v1", label: "Statistical baseline", last_forecast_on: null }];
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-12", forecasters: dated,
+    summary: { resolved: 2, right: 1, wrong: 1, toss_ups: 0, brier: .24, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 2 },
+    questions: [] } }));
+  await page.goto("/");
+  const row = (label: string) => page.getByRole("listitem").filter({ hasText: label });
+  await expect(row("Researches on the web.")).toBeVisible();
+  await expect(row("Research pipeline")).toHaveCount(0);
+  await page.getByRole("button", { name: "Show 2 earlier forecasters" }).click();
+  await expect(row("Research pipeline")).toContainText("1 of 2 right");
+  await expect(row("Statistical baseline")).toBeVisible();
+  await page.getByRole("button", { name: "Hide earlier forecasters" }).click();
+  await expect(row("Research pipeline")).toHaveCount(0);
+});
+
+test.describe("on a phone", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("the page fits the screen and the bar stays on one line", async ({ page }) => {
+    await page.clock.setFixedTime(new Date("2026-11-08T12:00:00Z"));
+    const week = (start: string, questions: number, ours: number, market: number) => ({ start, questions, ours, market, claude: ours, right: questions, wrong: 0 });
+    await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-08", forecasters,
+      summary: { resolved: 3, right: 2, wrong: 1, toss_ups: 0, brier: .2, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 4,
+        vs_market: { questions: 3, ours: .2, market: .15, claude: .2, claude_questions: 3 },
+        progress: { weeks: [week("2026-10-19", 41, .2, .15), week("2026-10-26", 92, .23, .17)],
+          changes: [{ date: "2026-10-24", label: "Weighted by track record" }],
+          since_last_change: { date: "2026-10-24", before: { questions: 41, ours: .2, market: .15 }, after: { questions: 92, ours: .23, market: .17 } } } },
+      questions: [
+        question("w1", "Week one, called right", { resolves_on: "2026-10-20", outcome: 1, call: { method: "combined_median_v1", probability: .8 }, verdict: "right" }),
+        question("w2", "Week one, called wrong", { resolves_on: "2026-10-22", outcome: 0, call: { method: "combined_median_v1", probability: .6 }, verdict: "wrong" }),
+        question("w3", "Week two, called right", { resolves_on: "2026-10-28", outcome: 0, call: { method: "combined_median_v1", probability: .1 }, verdict: "right" }),
+        question("open", "Will a very long question title about an obscure tariff exclusion for graphics processing modules still fit beside its call on a narrow screen?",
+          { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-12", call: { method: "combined_median_v1", probability: .86 } })] } }));
+    await page.goto("/");
+    await expect(page.getByRole("img", { name: /Score by forecast week/ })).toBeVisible();
+    await expect(page.getByRole("img", { name: /By week/ })).toBeVisible();
+    // Nothing is wider than the screen: no sideways scrolling.
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+    const nav = page.getByRole("navigation", { name: "Main" });
+    await expect(nav.getByRole("link", { name: "Ask" })).toBeVisible();
+    const name = await page.getByRole("link", { name: "ForecastLab" }).boundingBox();
+    const more = await nav.getByRole("button", { name: "More ▾" }).boundingBox();
+    expect(Math.abs(name!.y + name!.height / 2 - (more!.y + more!.height / 2))).toBeLessThan(8);
+  });
 });
 
 test("a market-anchored call shows both our call and Claude alone, and the page says what the comparison measures", async ({ page }) => {
@@ -258,8 +334,10 @@ test("a market-anchored call shows both our call and Claude alone, and the page 
       question("held", "Will the held question resolve yes?", { ...open, forecasts: [claude, market],
         call: { method: "market_anchored_call_v1", probability: .5, members: 1, claude: .9, market: .5, max_move: .1, held: "weak research" } })] } }));
   await page.goto("/");
-  await expect(page.getByText("Since Nov 10, on 12 questions the market also priced: our call 0.16, Claude alone 0.21, market 0.15.")).toBeVisible();
-  await expect(page.getByText("Claude alone on the same questions: 0.20.")).toBeVisible();
+  await expect(scores(page, "Scores since Nov 10").getByText("Since Nov 10, on 12 questions the market also priced")).toBeVisible();
+  for (const [who, score] of [["Our call", "0.16"], ["Claude alone", "0.21"], ["Market", "0.15"]])
+    await expect(scoreRow(page, "Scores since Nov 10", who)).toContainText(score);
+  await expect(scoreRow(page, ON_PRICED, "Claude alone")).toContainText("0.20");
   await expect(page.getByText("cannot differ from it by more than 10 points")).toBeVisible();
   await page.goto("/q/anchored");
   await expect(page.getByText("Our call (starts from the market)").first()).toBeVisible();

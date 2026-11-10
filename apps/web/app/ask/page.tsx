@@ -46,39 +46,42 @@ export default function AskPage() {
     catch (e) { setError(e instanceof Error ? e.message : "Could not withdraw the question"); }
   }
 
-  return <div className="mx-auto max-w-2xl space-y-10">
+  return <div className="mx-auto max-w-2xl space-y-8 sm:space-y-10">
     <header>
-      <h2 className="font-serif text-5xl">Ask a question</h2>
-      <p className="mt-4 text-lg text-ink/80">Ask a yes-or-no question about the future. Claude researches it and gives you a call, like “No, 70% sure”, in the next daily run. It costs nothing.</p>
+      <p className="eyebrow">Your own question</p>
+      <h2 className="mt-3 font-serif text-4xl sm:text-5xl">Ask a question</h2>
+      <p className="mt-4 text-lg text-ink/75">Ask a yes-or-no question about the future. Claude researches it and gives you a call, like “No, 70% sure”, in the next daily run. It costs nothing.</p>
     </header>
 
-    <form onSubmit={submit} className="space-y-4">
+    <form onSubmit={submit} className="card space-y-4 p-5 sm:p-6">
       <label className="block">
         <span className="font-medium">Your question</span>
         <textarea value={text} onChange={e => setText(e.target.value)} rows={3} maxLength={500} autoFocus
-          placeholder="Will … happen by [date]?" className="mt-2 block w-full border border-rule bg-white/80 p-4 text-lg focus:border-ink focus:outline-none" />
+          placeholder="Will … happen by [date]?" className="mt-2 block w-full rounded-xl border border-rule bg-paper/40 p-4 text-lg placeholder:text-ink/35 focus:border-ink/60 focus:bg-white focus:outline-none" />
       </label>
       <p className="text-sm text-ink/60">Include a date and something that can be checked. If anything is unclear, Claude writes down exactly how the question will be decided.</p>
-      <div className="flex flex-wrap gap-2">{EXAMPLES.map(example => <button type="button" key={example} onClick={() => setText(example)}
-        className="rounded-full border border-rule bg-white/50 px-3 py-1.5 text-left text-sm text-ink/80 hover:border-ink/40 hover:bg-white">{example}</button>)}</div>
-      <button disabled={busy || tooShort} className="w-full bg-ink px-6 py-4 text-lg text-paper hover:bg-ink/85 disabled:opacity-40 sm:w-auto">
+      <div><p className="text-[13px] font-medium text-ink/55">Or start from an example</p>
+        <div className="mt-2 flex flex-wrap gap-2">{EXAMPLES.map(example => <button type="button" key={example} onClick={() => setText(example)}
+          className="rounded-full border border-rule bg-white px-3 py-1.5 text-left text-sm text-ink/80 transition hover:border-ink/40">{example}</button>)}</div></div>
+      <button disabled={busy || tooShort} className="btn-primary w-full px-7 py-3.5 text-lg sm:w-auto">
         {busy ? "Saving…" : "Ask Claude"}</button>
-      {notice && <p role="status" className="border border-pine/30 bg-pine/10 p-4 text-pine">{notice}</p>}
+      {notice && <p role="status" className="rounded-xl border border-pine/30 bg-pine/10 p-4 text-pine">{notice}</p>}
       {error && <p role="alert" className="text-brick">{error}</p>}
     </form>
 
-    {waiting.length > 0 && <section>
-      <h3 className="font-serif text-2xl">Waiting for Claude <span className="text-ink/40">{waiting.length}</span></h3>
-      <p className="mt-1 text-sm text-ink/60">Answers arrive by {nextRun()}.</p>
-      <ul className="mt-3 divide-y divide-rule border-y border-rule">{waiting.map(r => <li key={r.id} className="flex items-start justify-between gap-4 py-3">
+    {waiting.length > 0 && <section className="card overflow-hidden">
+      <div className="px-5 pb-4 pt-5 sm:px-6">
+        <h3 className="font-serif text-2xl">Waiting for Claude <span className="chip ml-1 align-middle font-sans">{waiting.length}</span></h3>
+        <p className="mt-1.5 text-sm text-ink/60">Answers arrive by {nextRun()}.</p></div>
+      <ul className="rows border-t border-rule/60">{waiting.map(r => <li key={r.id} className="flex items-start justify-between gap-4 px-5 py-4 sm:px-6">
         <span>{r.text}<span className="mt-1 block text-sm text-ink/50">Asked {shortDate(r.asked_at)}</span></span>
-        <button onClick={() => withdraw(r.id)} className="shrink-0 rounded border border-rule px-3 py-1.5 text-sm text-ink/70 hover:border-ink/40 hover:text-ink">Withdraw</button></li>)}</ul>
+        <button onClick={() => withdraw(r.id)} className="btn-quiet shrink-0">Withdraw</button></li>)}</ul>
     </section>}
 
-    {answered.length > 0 && <section>
-      <h3 className="font-serif text-2xl">Answered</h3>
-      <ul className="mt-3 divide-y divide-rule border-y border-rule">{answered.map(r => <li key={r.id}>
-        <Link href={`/q/${r.id}`} className="flex items-center justify-between gap-4 py-3 hover:bg-white/50"><span>{r.text}</span><span aria-hidden className="text-ink/30">›</span></Link></li>)}</ul>
+    {answered.length > 0 && <section className="card overflow-hidden">
+      <h3 className="px-5 pb-4 pt-5 font-serif text-2xl sm:px-6">Answered</h3>
+      <ul className="rows border-t border-rule/60">{answered.map(r => <li key={r.id}>
+        <Link href={`/q/${r.id}`} className="row flex items-center justify-between gap-4"><span>{r.text}</span><span aria-hidden className="text-ink/30">›</span></Link></li>)}</ul>
     </section>}
   </div>;
 }

@@ -23,9 +23,13 @@ const effort = (r: Research) => {
 };
 const checkLabel = (s: Source) => s.verified === true ? "quotes checked on the page" : s.verified === false ? "quotes not found on the page" : "not checked";
 
+// One step on the timeline: a dot on the line, the time it happened (when known) and what was done.
 function Step({ at, children }: { at?: string | null; children: React.ReactNode }) {
-  return <li className="grid gap-x-4 gap-y-0.5 py-3 sm:grid-cols-[11rem_1fr]">
-    <span className="text-sm tabular-nums text-ink/50">{when(at) ?? ""}</span><span>{children}</span></li>;
+  return <li className="relative pb-5 pl-6 last:pb-0">
+    <span aria-hidden className="absolute bottom-0 left-[4.5px] top-2 w-px bg-rule" />
+    <span aria-hidden className="absolute left-0 top-[7px] h-2.5 w-2.5 rounded-full border-2 border-copper bg-white" />
+    {when(at) && <span className="block text-[13px] tabular-nums text-ink/50">{when(at)}</span>}
+    <span className="block leading-relaxed">{children}</span></li>;
 }
 
 // Everything done to research and forecast one question, in order, with the evidence itself.
@@ -53,9 +57,9 @@ export function ResearchTrail({ q, labels, edges }: { q: Question; labels: Recor
   const checked = research?.sources.filter(s => s.verified === true).length ?? 0;
 
   return <>
-    <section>
+    <section className="card p-5 sm:p-6">
       <h3 className="font-serif text-2xl">How this forecast was made</h3>
-      <ol className="mt-3 divide-y divide-rule/60 border-y border-rule/60">
+      <ol className="mt-4">
         {!research && <Step>No research log was saved for this question; it predates the research pipeline (Oct 14). Claude searched the web itself, and its sources are listed above.</Step>}
         {research?.researched_by && (research.research_failed
           ? <Step at={research.researched_at}>Research by {research.researched_by} failed: {research.research_failed}. No forecast was made from it.</Step>
@@ -76,16 +80,16 @@ export function ResearchTrail({ q, labels, edges }: { q: Question; labels: Recor
       </ol>
     </section>
 
-    {research && (research.facts.length > 0 || research.sources.length > 0) && <section>
+    {research && (research.facts.length > 0 || research.sources.length > 0) && <section className="card p-5 sm:p-6">
       <h3 className="font-serif text-2xl">The research</h3>
       <p className="mt-1 text-sm text-ink/60">Exactly what the forecasters read{research.researched_by ? `, gathered by ${research.researched_by}` : ""}.</p>
-      {research.facts.length > 0 && <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed [overflow-wrap:anywhere]">{research.facts.map((f, n) =>
-        <li key={n} className="whitespace-pre-line">{f.fact} <a className="text-sm text-copper underline" href={`#source-${f.source + 1}`}>[{f.source + 1}]</a></li>)}</ul>}
-      {research.base_rate && <p className="mt-4 whitespace-pre-line leading-relaxed"><span className="font-medium">Base rate: </span>{research.base_rate}</p>}
-      {research.different_now && <p className="mt-2 whitespace-pre-line leading-relaxed"><span className="font-medium">Different this time: </span>{research.different_now}</p>}
-      {research.unknowns.length > 0 && <div className="mt-4"><p className="font-medium">Still unknown</p>
-        <ul className="mt-1 list-disc space-y-1 pl-5">{research.unknowns.map((u, n) => <li key={n}>{u}</li>)}</ul></div>}
-      {research.sources.length > 0 && <div className="mt-5"><p className="text-sm text-ink/60">Sources</p>
+      {research.facts.length > 0 && <ul className="mt-4 list-disc space-y-2.5 pl-5 leading-relaxed marker:text-ink/30 [overflow-wrap:anywhere]">{research.facts.map((f, n) =>
+        <li key={n} className="whitespace-pre-line">{f.fact} <a className="whitespace-nowrap text-sm text-copper underline" href={`#source-${f.source + 1}`}>[{f.source + 1}]</a></li>)}</ul>}
+      {research.base_rate && <p className="mt-5 whitespace-pre-line rounded-xl bg-ink/[0.03] p-4 leading-relaxed"><span className="font-medium">Base rate: </span>{research.base_rate}</p>}
+      {research.different_now && <p className="mt-3 whitespace-pre-line rounded-xl bg-ink/[0.03] p-4 leading-relaxed"><span className="font-medium">Different this time: </span>{research.different_now}</p>}
+      {research.unknowns.length > 0 && <div className="mt-5"><p className="font-medium">Still unknown</p>
+        <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed marker:text-ink/30">{research.unknowns.map((u, n) => <li key={n}>{u}</li>)}</ul></div>}
+      {research.sources.length > 0 && <div className="mt-5 border-t border-rule/60 pt-4"><p className="text-sm text-ink/60">Sources</p>
         <ol className="mt-1 space-y-2 text-sm">{research.sources.map((s, n) => <li key={n} id={`source-${n + 1}`}>
           <span className="tabular-nums text-ink/50">[{n + 1}] </span>
           <a className="underline [overflow-wrap:anywhere]" href={s.url} target="_blank" rel="noreferrer">{s.title || s.url}</a>
@@ -96,7 +100,7 @@ export function ResearchTrail({ q, labels, edges }: { q: Question; labels: Recor
         </li>)}</ol></div>}
     </section>}
 
-    {research?.brief && <section>
+    {research?.brief && <section className="card p-5 sm:p-6">
       <details><summary className="cursor-pointer font-serif text-2xl">The brief the judges read</summary>
         <p className="mt-3 whitespace-pre-line leading-relaxed [overflow-wrap:anywhere]">{research.brief}</p></details>
     </section>}

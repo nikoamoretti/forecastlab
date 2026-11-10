@@ -1,20 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Fonts are loaded and self-hosted by next/font in app/layout.tsx, which sets --font-serif, --font-sans and --font-mono. */
 
 :root {
   color-scheme: light;
   --ink: 28 25 22;
-  --paper: 243 239 230;
-  --rule: 215 203 184;
+  --paper: 244 240 232;
+  --rule: 221 211 195;
   --copper: 154 75 36;
   --pine: 33 92 75;
   --moss: 63 111 92;
   --brick: 163 57 43;
   --white: 255 255 255;
-  --glow: rgba(154, 75, 36, 0.06);
+  --glow: rgba(154, 75, 36, 0.07);
+  /* Chart series, checked together for contrast and colour-blind separation on the card surface:
+     our call, the market, Claude alone. A series keeps its colour everywhere it appears. */
+  --chart-us: 180 83 42;
+  --chart-market: 58 110 168;
+  --chart-claude: 27 158 119;
+  --shadow-card: 0 1px 2px rgba(28, 25, 22, 0.04), 0 8px 24px -12px rgba(28, 25, 22, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +35,10 @@
     --brick: 232 128 112;
     --white: 38 34 30;
     --glow: rgba(222, 142, 98, 0.07);
+    --chart-us: 208 122 74;
+    --chart-market: 91 147 207;
+    --chart-claude: 34 168 132;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -38,9 +48,17 @@ body {
   color: rgb(var(--ink));
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
 body {
-  font-family: "IBM Plex Sans", sans-serif;
-  background-image: radial-gradient(circle at top, var(--glow), transparent 28%);
+  font-family: var(--font-sans), "Source Sans 3", system-ui, sans-serif;
+  background-image: radial-gradient(60rem 28rem at 50% -8rem, var(--glow), transparent 70%);
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -50,4 +68,64 @@ a {
 :focus-visible {
   outline: 3px solid rgb(var(--copper));
   outline-offset: 3px;
+}
+
+@layer components {
+  /* The raised surface every section sits on. */
+  .card {
+    @apply rounded-2xl border border-rule/70 bg-white;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* The small capital label above a heading or a figure. */
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-copper;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 font-medium text-paper transition hover:bg-ink/85 disabled:opacity-40;
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-rule bg-white px-4 py-2 text-sm font-medium text-ink/80 transition hover:border-ink/40 hover:text-ink;
+  }
+
+  /* A small rounded label, such as a count beside a heading. */
+  .chip {
+    @apply inline-flex items-center whitespace-nowrap rounded-full bg-ink/[0.06] px-2.5 py-0.5 text-sm font-medium tabular-nums text-ink/70;
+  }
+
+  /* A list of rows inside a card; each row is usually a link. */
+  .rows {
+    @apply divide-y divide-rule/60;
+  }
+
+  .row {
+    @apply block px-5 py-4 transition-colors hover:bg-ink/[0.03] sm:px-6;
+  }
+
+  /* A thin meter: the filled part of a whole. */
+  .meter {
+    @apply h-2 w-full overflow-hidden rounded-full bg-ink/10;
+  }
+
+  .meter > * {
+    @apply h-full rounded-full;
+  }
+}
+
+/* The marker browsers draw on <summary>; ours is drawn in the markup. */
+summary.plain {
+  list-style: none;
+}
+
+summary.plain::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
