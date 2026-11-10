@@ -43,6 +43,20 @@ def test_record_writes_supplement_before_cutoff(tmp_path: Path) -> None:
     assert supplement["cells"][0]["probability"] == 0.6
 
 
+def test_record_accepts_id_for_entry_id_and_names_a_missing_one(tmp_path: Path) -> None:
+    module = _module()
+    _artifact(tmp_path / "day")
+    path = tmp_path / "f.json"
+    path.write_text(json.dumps({"forecast_made_at": "2026-10-06T11:30:00Z",
+                                "forecasts": [{"id": "a1", "probability": 0.6, "rationale": "r"}]}))
+    module.record(tmp_path / "day", path)
+    supplement = json.loads((tmp_path / "day" / "claude_code_supplement.json").read_text())
+    assert [(c["entry_id"], c["probability"]) for c in supplement["cells"]] == [("a1", 0.6)]
+    path.write_text(json.dumps({"forecast_made_at": "2026-10-06T11:30:00Z", "forecasts": [{"probability": 0.6}]}))
+    with pytest.raises(SystemExit, match="entry_id"):
+        module.record(tmp_path / "day", path)
+
+
 @pytest.mark.parametrize(("made_at", "probability", "entry"), [
     ("2026-10-06T16:50:00Z", 0.6, "a1"),   # at the cutoff: too late
     ("2026-10-06T11:30:00Z", 0.995, "a1"),  # outside [0.02, 0.98]
