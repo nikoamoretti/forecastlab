@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ResultMark } from "@/components/CallBadges";
 import { ResearchTrail } from "@/components/ResearchTrail";
 import { api, pct } from "@/lib/api";
-import { TrackRecord, callText, percent, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
+import { TrackRecord, anchoredCallText, callText, percent, lateDeadline, relativeDay, shortDate, sourceLabel, sourceUrl, todayUTC } from "@/lib/trackRecord";
 
 export default function QuestionPage() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +43,7 @@ export default function QuestionPage() {
         <p className="font-mono text-xs uppercase tracking-widest text-copper">{anchored ? "Our call (starts from the market)" : "Our call"}</p>
         <p className="mt-2 font-serif text-4xl">{q.call ? callText(q.call.probability) : "No call"}</p>
         {q.call && <p className="mt-2 text-sm text-ink/60">{pct(q.call.probability)} chance of yes · {q.call.method === "market_anchored_call_v1"
-          ? `${q.call.held ? `held at the market’s ${pct(q.call.market!)} because the research behind Claude’s forecast was thin` : `the market’s ${pct(q.call.market!)}, moved toward Claude’s forecast by at most 10 points`}`
+          ? anchoredCallText(q.call, pct(q.call.market!), data.summary.edge_tests)
           : q.call.method === "claude_call_v1"
           ? "Claude’s own forecast"
           : q.call.method === "claude_corrected_call_v1"
@@ -100,7 +100,7 @@ export default function QuestionPage() {
       </table>
     </section>
 
-    <ResearchTrail q={q} labels={labels} />
+    <ResearchTrail q={q} labels={labels} edges={data.summary.edge_tests} />
 
     <section className="border-t border-rule pt-6 text-sm text-ink/70">
       <h3 className="font-medium text-ink">How it’s decided</h3>

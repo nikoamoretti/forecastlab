@@ -8,6 +8,7 @@ import pytest
 
 from forecastlab.macro import MacroSpec
 from forecastlab.plain_questions import format_value, question_title
+from forecastlab_api import track_record
 from forecastlab_api.track_record import build_track_record, verdict
 
 UNEMPLOYMENT = {"indicator": "unemployment", "observation_period": "2026-09", "threshold": 4.1, "comparison": "gt",
@@ -337,7 +338,9 @@ def test_from_nov_10_the_call_starts_from_the_market_and_moves_at_most_ten_point
     record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
     call = {q["id"]: q["call"] for q in record["questions"]}
     # Moved toward Claude by at most 0.10, on both sides; both numbers are kept on the call.
-    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5}
+    # The call also records the move it was allowed; no rule is named while only the default applies.
+    assert call["up"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
+                          "max_move": 0.1}
     assert call["down"]["probability"] == pytest.approx(0.4) and call["down"]["claude"] == 0.1
     assert call["inside"]["probability"] == 0.55  # within the cap: Claude's number
     assert call["high"]["probability"] == 0.98 and call["low"]["probability"] == 0.02  # kept within 2% to 98%
@@ -381,7 +384,7 @@ def test_weak_research_holds_the_call_at_the_market_price(tmp_path: Path) -> Non
     assert call["ok"]["probability"] == pytest.approx(0.6) and "held" not in call["ok"]
     for held in ("warned", "failed", "empty"):  # a primary-source warning, a failed question, no findings at all
         assert call[held] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9,
-                              "market": 0.5, "held": "weak research"}
+                              "market": 0.5, "max_move": 0.1, "held": "weak research"}
     # Claude's own forecast is still tracked on the held question.
     assert _forecast(build_track_record(tmp_path, today=date(2026, 11, 10)), "warned", CLAUDE)["probability"] == 0.9
 
@@ -460,3 +463,180 @@ def test_progress_groups_by_forecast_week_and_splits_before_and_after_nov_6(tmp_
     assert split["before"]["questions"] == 1 and split["before"]["ours"] == pytest.approx(0.04)
     assert split["after"]["questions"] == 2 and split["after"]["ours"] == pytest.approx((0.16 + 0.25) / 2)
     assert split["after"]["market"] == pytest.approx(0.01)
+
+
+# --- Call rules and edge tests -------------------------------------------------------------------------------------
+
+
+def _rules(**status: str) -> tuple[dict, ...]:
+    """The registered rules with the given statuses (rule id -> status) set."""
+    return tuple(r | {"status": status.get(r["id"], r["status"])} for r in track_record.CALL_RULES)
+
+
+def _tech_and_other(root: Path, day: str = "20261110") -> Path:
+    directory = root / f"prospective_markets_{day}"
+    _markets(directory, [
+        {"id": "tech", "topic": "Tech", "forecasts": [{"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]},
+        {"id": "other", "topic": "Politics", "forecasts": [{"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]}])
+    _research(directory, good=["tech", "other"])
+    return directory
+
+
+def test_the_registry_starts_with_two_testing_rules_and_the_default_move_of_today() -> None:
+    assert track_record.DEFAULT_MOVE == 0.10
+    assert [(r["id"], r["label"], r["registered"], r["topics"], r["move"], r["status"]) for r in track_record.CALL_RULES] == [
+        ("tech_move_v1", "Tech questions", date(2026, 11, 10), ("Tech",), 0.10, "testing"),
+        ("every_question_move_v1", "Every question", date(2026, 11, 10), None, 0.10, "testing")]
+    assert (track_record.PROMOTION_QUESTIONS, track_record.PROMOTION_DATES) == (40, 10)
+
+
+def test_a_testing_rule_changes_no_call_and_the_default_move_is_what_moves_it(tmp_path: Path) -> None:
+    _tech_and_other(tmp_path)
+    record = build_track_record(tmp_path, today=date(2026, 11, 10))
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    for qid in ("tech", "other"):
+        assert call[qid] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9,
+                             "market": 0.5, "max_move": 0.1}
+    assert record["summary"]["call_policy"] == {"default_move": 0.1, "promoted": [], "bar": {"questions": 40, "dates": 10, "interval": 0.9}}
+    ours = next(f for f in record["forecasters"] if f["method"] == "combined_median_v1")
+    assert "moves at most 10 points toward Claude's forecast" in ours["about"]
+    market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")
+    assert "moves at most 10 points" in market["about"]
+
+
+def test_with_no_default_move_the_call_is_the_market_price_and_claude_alone_is_still_scored(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
+    directory = tmp_path / "prospective_markets_20261110"
+    _markets(directory, [
+        {"id": "a", "date": "2026-11-12", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]},
+        {"id": "weak", "date": "2026-11-12", "outcome": 0, "forecasts": [{"method": CLAUDE, "probability": 0.1}, {"method": "market_price_v1", "probability": 0.4}]}])
+    _research(directory, good=["a"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 13), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    # No move: the price itself, with no rule named and no "held" mark (nothing was held back).
+    assert call["a"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
+    assert call["weak"] == {"method": "market_anchored_call_v1", "probability": 0.4, "members": 1, "claude": 0.1, "market": 0.4, "max_move": 0.0}
+    versus = record["summary"]["vs_market"]
+    assert versus["ours"] == pytest.approx(versus["market"]) and versus["claude"] == pytest.approx((0.1 ** 2 + 0.1 ** 2) / 2)
+    assert next(f for f in record["forecasters"] if f["method"] == CLAUDE)["resolved"] == 2
+    assert record["summary"]["call_policy"]["default_move"] == 0.0
+    ours = next(f for f in record["forecasters"] if f["method"] == "combined_median_v1")
+    assert "is the market's price unless a tested edge applies" in ours["about"] and "10 points" not in ours["about"]
+    assert "is this price unless a tested edge applies" in next(f for f in record["forecasters"] if f["method"] == "market_price_v1")["about"]
+
+
+def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_move_v1="promoted"))
+    _tech_and_other(tmp_path)
+    record = build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    assert call["tech"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
+                            "max_move": 0.1, "rule": "tech_move_v1"}
+    assert call["other"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
+    assert record["summary"]["call_policy"]["promoted"] == ["Tech questions"]
+    assert [(e["id"], e["status"]) for e in record["summary"]["edge_tests"]] == [("tech_move_v1", "promoted"), ("every_question_move_v1", "testing")]
+
+
+def test_the_largest_move_among_matching_promoted_rules_applies_and_weak_research_still_holds(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    rules = _rules(tech_move_v1="promoted", every_question_move_v1="promoted")
+    rules = (rules[0] | {"move": 0.05}, rules[1] | {"move": 0.2})
+    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
+    monkeypatch.setattr(track_record, "CALL_RULES", rules)
+    directory = _tech_and_other(tmp_path)
+    _research(directory, good=["other"], warned=["tech"])
+    call = {q["id"]: q["call"] for q in build_track_record(tmp_path, today=date(2026, 11, 10))["questions"]}
+    assert call["other"]["probability"] == pytest.approx(0.7) and call["other"]["rule"] == "every_question_move_v1" and call["other"]["max_move"] == 0.2
+    assert call["tech"]["probability"] == 0.5 and call["tech"]["held"] == "weak research" and call["tech"]["rule"] == "every_question_move_v1"
+
+
+def test_changing_the_policy_never_rewrites_a_frozen_call(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _history(tmp_path, 40)
+    for day in ("20261104", "20261105", "20261106", "20261109"):
+        _anchored_day(tmp_path, day, {f"q{day}": (0.7, 0.2)}, good=[f"q{day}"])
+    _tech_and_other(tmp_path)
+    build_track_record(tmp_path, today=date(2026, 11, 10), freeze=True)
+    frozen = {p: p.read_bytes() for p in sorted(tmp_path.glob("prospective_*/calls.json"))}
+    assert len(frozen) == 5
+    monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(every_question_move_v1="promoted"))
+    build_track_record(tmp_path, today=date(2026, 11, 12), freeze=True)
+    assert {p: p.read_bytes() for p in sorted(tmp_path.glob("prospective_*/calls.json"))} == frozen
+
+
+def _decided(root: Path, day: str, items: list[tuple[str, str, float, float, int, str]], **extra: object) -> None:
+    """A directory of decided questions: (id, topic, Claude, market price, outcome, resolution date)."""
+    directory = root / f"prospective_markets_{day}"
+    _markets(directory, [
+        {"id": qid, "topic": topic, "date": when, "outcome": outcome, **extra,
+         "forecasts": [{"method": CLAUDE, "probability": claude}, {"method": "market_price_v1", "probability": price}]}
+        for qid, topic, claude, price, outcome, when in items])
+    _research(directory, good=[item[0] for item in items])
+
+
+def test_edge_tests_count_only_questions_first_forecast_on_or_after_the_registered_day(tmp_path: Path) -> None:
+    # Before the rule: tech, price 0.5, Claude 0.9, yes -> rule 0.6 (0.16) against market 0.25.
+    _decided(tmp_path, "20261109", [("old-tech", "Tech", 0.9, 0.5, 1, "2026-11-12"), ("old-other", "Politics", 0.9, 0.5, 1, "2026-11-12")])
+    # Counted: tech 0.9 vs 0.5, no -> rule 0.6 (0.36) against 0.25; politics 0.1 vs 0.5, no -> rule 0.4 (0.16) against 0.25.
+    _decided(tmp_path, "20261110", [("tech", "Tech", 0.9, 0.5, 0, "2026-11-13"), ("pol", "Politics", 0.1, 0.5, 0, "2026-11-14"),
+                                    ("open", "Tech", 0.9, 0.5, None, "2026-11-30")])
+    _decided(tmp_path, "20261111", [("noprice", "Tech", 0.9, 0.5, 1, "2026-11-13")])
+    (tmp_path / "prospective_markets_20261110" / "research.json").write_text(json.dumps({"findings": {
+        "tech": {"facts": [{"fact": "x", "source": 0}]}, "pol": {"facts": [{"fact": "x", "source": 0}], "warnings": ["thin"]}}, "failed": {}}))
+    forecasts = json.loads((tmp_path / "prospective_markets_20261111" / "forecasts.json").read_text())
+    forecasts["questions"][0]["forecasts"] = [f for f in forecasts["questions"][0]["forecasts"] if f["method"] == CLAUDE]
+    (tmp_path / "prospective_markets_20261111" / "forecasts.json").write_text(json.dumps(forecasts))
+    tests = {t["id"]: t for t in build_track_record(tmp_path, today=date(2026, 11, 20))["summary"]["edge_tests"]}
+    tech = tests["tech_move_v1"]
+    assert (tech["label"], tech["status"], tech["registered"]) == ("Tech questions", "testing", "2026-11-10")
+    assert tech["counted"] == {"questions": 1, "dates": 1, "rule": pytest.approx(0.36), "market": pytest.approx(0.25),
+                               "difference": pytest.approx(0.11), "interval": None, "meets_bar": False}
+    assert tech["before"] == {"questions": 1, "dates": 1, "rule": pytest.approx(0.16), "market": pytest.approx(0.25),
+                              "difference": pytest.approx(-0.09), "interval": None}
+    every = tests["every_question_move_v1"]
+    # "pol" has weak research (a warning), so the rule holds it at the price: Brier equals the market's.
+    assert every["counted"]["questions"] == 2 and every["counted"]["dates"] == 2
+    assert every["counted"]["rule"] == pytest.approx((0.36 + 0.25) / 2) and every["counted"]["market"] == pytest.approx(0.25)
+    assert every["counted"]["interval"] is not None and every["counted"]["meets_bar"] is False
+    assert every["before"]["questions"] == 2 and every["before"]["rule"] == pytest.approx(0.16)
+
+
+def test_older_questions_with_no_research_file_are_moved_by_the_plain_cap(tmp_path: Path) -> None:
+    _decided(tmp_path, "20261105", [("t", "Tech", 0.9, 0.5, 1, "2026-11-12")])
+    (tmp_path / "prospective_markets_20261105" / "research.json").unlink()
+    test = next(t for t in build_track_record(tmp_path, today=date(2026, 11, 20))["summary"]["edge_tests"] if t["id"] == "tech_move_v1")
+    assert test["before"]["rule"] == pytest.approx(0.16) and test["counted"]["questions"] == 0 and test["counted"]["rule"] is None
+
+
+def _winning_days(root: Path, days: int, per_day: int) -> None:
+    items = [(f"w{d}-{n}", "Tech", 0.9, 0.5, 1, f"2026-11-{11 + d:02d}") for d in range(days) for n in range(per_day)]
+    _decided(root, "20261110", items)
+
+
+def test_edge_tests_are_deterministic(tmp_path: Path) -> None:
+    _winning_days(tmp_path, 6, 3)
+    _decided(tmp_path, "20261111", [("x", "Tech", 0.2, 0.6, 1, "2026-11-20"), ("y", "Tech", 0.8, 0.3, 0, "2026-11-21")])
+    first = build_track_record(tmp_path, today=date(2026, 11, 25))["summary"]["edge_tests"]
+    second = build_track_record(tmp_path, today=date(2026, 11, 25))["summary"]["edge_tests"]
+    assert json.dumps(first, sort_keys=True) == json.dumps(second, sort_keys=True)
+    low, high = first[0]["counted"]["interval"]
+    assert low <= first[0]["counted"]["difference"] <= high
+
+
+@pytest.mark.parametrize(("days", "per_day", "meets"), [(12, 4, True), (12, 3, False), (9, 5, False)])
+def test_a_rule_meets_the_bar_only_with_enough_questions_on_enough_days_and_an_interval_below_zero(
+        tmp_path: Path, days: int, per_day: int, meets: bool) -> None:
+    _winning_days(tmp_path, days, per_day)
+    counted = next(t for t in build_track_record(tmp_path, today=date(2026, 12, 15))["summary"]["edge_tests"] if t["id"] == "tech_move_v1")["counted"]
+    assert (counted["questions"], counted["dates"]) == (days * per_day, days)
+    assert counted["difference"] == pytest.approx(-0.09) and counted["interval"][1] < 0
+    assert counted["meets_bar"] is meets
+
+
+def test_a_rule_that_beats_the_market_only_by_luck_does_not_meet_the_bar(tmp_path: Path) -> None:
+    # Half the days the move helps, half it hurts by the same amount: the interval straddles zero.
+    items = [(f"m{d}-{n}", "Tech", 0.9, 0.5, d % 2, f"2026-11-{11 + d:02d}") for d in range(12) for n in range(4)]
+    _decided(tmp_path, "20261110", items)
+    counted = next(t for t in build_track_record(tmp_path, today=date(2026, 12, 15))["summary"]["edge_tests"] if t["id"] == "tech_move_v1")["counted"]
+    assert counted["questions"] == 48 and counted["dates"] == 12
+    assert counted["interval"][0] < 0 < counted["interval"][1] and counted["meets_bar"] is False

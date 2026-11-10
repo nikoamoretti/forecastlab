@@ -43,16 +43,26 @@ From ANCHORED_FROM (2026-11-10) our call starts from the market (``market_anchor
 2026-11-09). On the 191 questions both priced, Claude alone scored a Brier of 0.2024 against the market's 0.1548, and
 capping Claude's distance from the market at 0.10 would have scored 0.1712. So when a question has a market price
 (``market_price_v1``, else ``manifold_price_v1``, captured before Claude forecast) the call is the price moved toward
-Claude's forecast by at most MAX_MOVE, kept within CALL_BOUNDS. The call moves only on checked evidence: if the
+Claude's forecast by at most the allowed move (DEFAULT_MOVE, or the larger move of a promoted call rule that matches
+the question's topic; see CALL_RULES), kept within CALL_BOUNDS. The call moves only on checked evidence: if the
 question's ``research.json`` lists it under ``failed``, has no findings for it, or carries a warning on its findings (fewer than
 two primary sources with quotes, or no source with a quote), the call is the market price unchanged. A question with
 no market price keeps ``claude_call_v1`` (Claude's own forecast); with a price but no Claude forecast the call falls back
 as ``claude_call_v1`` does. The anchoring happens only here, from the price already stored in ``forecasts.json``: the
 forecasting step never sees it. Claude's independent forecast stays tracked and scored beside the call (its own row in
 ``forecasters``, ``summary.vs_market.claude`` and ``claude`` in ``summary.progress``), and every anchored call
-records both numbers (``claude`` and ``market``). Because the call can differ from the market by at most 10 points,
-"ours against the market" mostly measures those 10 points; "Claude alone against the market" is the test of
+records both numbers (``claude`` and ``market``), the move it was allowed (``max_move``) and, when a promoted rule
+set it, that rule's id (``rule``). Because the call can differ from the market by at most the allowed move,
+"ours against the market" mostly measures that move; "Claude alone against the market" is the test of
 independent skill.
+
+The allowed move is a tested choice. On 191 questions the 10-point move scored worse than the market itself (0.168
+against 0.155; difference +0.013, 95% interval +0.002 to +0.023); only on Tech did moving help (29 questions, -0.018,
+interval -0.038 to +0.020: promising, not proven). CALL_RULES registers ideas for moving further on some questions,
+each "testing" until it has beaten the market on new results (PROMOTION_QUESTIONS, PROMOTION_DATES, the 90% interval
+below zero). ``summary.edge_tests`` scores every rule in the shadows, on questions first forecast on or after the day it
+was registered (``counted``) and, for information only, before it (``before``). Promotion is a reviewed one-line change
+of a rule's status; setting DEFAULT_MOVE to 0.0 makes the call the market price unless a promoted rule applies.
 
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
@@ -67,12 +77,13 @@ from __future__ import annotations
 
 import json
 import math
+import random
 import re
 from datetime import date, datetime, timedelta
 from itertools import accumulate
 from pathlib import Path
 from statistics import median
-from typing import Any
+from typing import Any, TypedDict
 
 from forecastlab.fast_questions import bond_market_holidays
 from forecastlab.macro import SERIES, MacroSpec
@@ -91,9 +102,38 @@ CORRECTED_CALL_FROM = date(2026, 11, 6)
 # and Claude alone trailed the market (0.2024 against 0.1548 on 191 questions).
 ANCHORED_CALL = "market_anchored_call_v1"
 ANCHORED_FROM = date(2026, 11, 10)
-# Largest distance the call may move from the market price toward Claude's forecast, and the range it stays within.
-MAX_MOVE = 0.10
+# How far the call may move from the market price toward Claude's forecast when no promoted rule applies (the one place
+# for the cap; 0.0 makes the call the market price), and the range the call stays within.
+DEFAULT_MOVE: float = 0.10
 CALL_BOUNDS = (0.02, 0.98)
+# Call rules: ideas for moving further toward Claude on some questions. Each is scored in the shadows (summary.edge_tests)
+# on questions first forecast on or after its registered date. "testing" rules change nothing; promoting one (a reviewed
+# one-line change of "status" to "promoted") lets the call move by the rule's `move` on the questions whose topic it
+# names (None = every topic). A rule whose counted interval stops being below zero is set back to "testing".
+
+
+class CallRule(TypedDict):
+    id: str
+    label: str
+    registered: date
+    topics: tuple[str, ...] | None
+    move: float
+    status: str
+
+
+CALL_RULES: tuple[CallRule, ...] = (
+    {"id": "tech_move_v1", "label": "Tech questions", "registered": date(2026, 11, 10), "topics": ("Tech",),
+     "move": 0.10, "status": "testing"},
+    {"id": "every_question_move_v1", "label": "Every question", "registered": date(2026, 11, 10), "topics": None,
+     "move": 0.10, "status": "testing"},
+)
+# The promotion bar: counted questions, distinct resolution dates, and a 90% interval (percentiles of the mean of
+# rule Brier minus market Brier over resamples of the resolution dates) entirely below zero.
+PROMOTION_QUESTIONS = 40
+PROMOTION_DATES = 10
+PROMOTION_INTERVAL = (0.05, 0.95)
+BOOTSTRAP_RESAMPLES = 2000
+BOOTSTRAP_SEED = 20261110
 CALLS_FILE = "calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
@@ -154,12 +194,12 @@ FORECASTERS: dict[str, dict[str, str]] = {
                  "Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
-        "about": "Polymarket's price when we forecast. From 2026-11-10 our call starts from it and moves at most 10 points; "
+        "about": "Polymarket's price when we forecast. From 2026-11-10 our call {call}; "
                  "the toughest bar to beat."},
     "manifold_price_v1": {
         "label": "Manifold (benchmark)",
         "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call "
-                 "starts from it and moves at most 10 points."},
+                 "{call}."},
 }
 SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job growth",
                  "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
@@ -171,6 +211,17 @@ EXCLUDED = {*BENCHMARKS, CALIBRATED}
 PRIMARY_ORDER = list(FORECASTERS)
 
 
+def _about(info: dict[str, str], *, combined: bool = False) -> dict[str, str]:
+    """``info`` with its {call} filled in from DEFAULT_MOVE and the promoted rules, so the texts never hard-code a move."""
+    if DEFAULT_MOVE > 0:
+        most = max([DEFAULT_MOVE] + [r["move"] for r in CALL_RULES if r["status"] == "promoted"])
+        call = (f"starts from the market price and moves at most {round(most * 100)} points toward Claude's forecast" if combined
+                else f"starts from it and moves at most {round(most * 100)} points")
+    else:
+        call = "is the market's price unless a tested edge applies" if combined else "is this price unless a tested edge applies"
+    return {**info, "about": info["about"].format(call=call)}
+
+
 def _forecaster(method: str) -> str:
     return method.removesuffix(SUPPLEMENT_SUFFIX)
 
@@ -178,8 +229,7 @@ def _forecaster(method: str) -> str:
 COMBINED_INFO = {"label": "Combined forecast",
                  "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with "
                           "better records counted for more. Since Nov 5 it is Claude's own forecast, which "
-                          "had beaten the combination. Since Nov 10 it starts from the market price and moves "
-                          "at most 10 points toward Claude's forecast."}
+                          "had beaten the combination. Since Nov 10 it {call}."}
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -246,21 +296,42 @@ def _weak_research(research: dict[str, Any] | None, question_id: str) -> bool:
     return question_id in research.get("failed", {}) or not findings or bool(findings.get("warnings"))
 
 
-def _anchored_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
-                   research: dict[str, Any] | None = None, question_id: str = "") -> dict[str, Any] | None:
-    """The market price moved toward Claude's forecast by at most MAX_MOVE; held at the price when the research is weak.
+def _allowed_move(topic: str) -> tuple[float, str | None]:
+    """How far the call may move on a question of this topic, and the id of the promoted rule that set it.
 
-    No market price: Claude's own forecast. A price but no Claude forecast: whatever ``_claude_call`` does.
+    The largest move among the promoted rules matching the topic; DEFAULT_MOVE (and no rule) when none matches.
+    """
+    matching = [r for r in CALL_RULES if r["status"] == "promoted" and (r["topics"] is None or topic in r["topics"])]
+    if not matching:
+        return DEFAULT_MOVE, None
+    rule = max(matching, key=lambda r: r["move"])
+    return rule["move"], rule["id"]
+
+
+def _moved(price: float, claude: float, move: float, held: bool) -> float:
+    """The market price moved toward Claude's forecast by at most ``move`` (not at all when held), within CALL_BOUNDS."""
+    target = price if held else min(max(claude, price - move), price + move)
+    low, high = CALL_BOUNDS
+    return round(min(max(target, low), high), 6)
+
+
+def _anchored_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
+                   research: dict[str, Any] | None = None, question_id: str = "", topic: str = "") -> dict[str, Any] | None:
+    """The market price moved toward Claude's forecast by the allowed move; held at the price when the research is weak.
+
+    The allowed move is ``_allowed_move(topic)``; when it is 0 the call is the price. No market price: Claude's own
+    forecast. A price but no Claude forecast: whatever ``_claude_call`` does.
     """
     price = _market_price(forecasts)
     claude = next((f for f in forecasts if f["method"] == CLAUDE), None)
     if price is None or claude is None:
         return _claude_call(forecasts, weights)
-    held = _weak_research(research, question_id)
-    target = price if held else min(max(claude["probability"], price - MAX_MOVE), price + MAX_MOVE)
-    low, high = CALL_BOUNDS
-    call = {"method": ANCHORED_CALL, "probability": round(min(max(target, low), high), 6), "members": 1,
-            "claude": claude["probability"], "market": price}
+    move, rule = _allowed_move(topic)
+    held = move > 0 and _weak_research(research, question_id)
+    call = {"method": ANCHORED_CALL, "probability": _moved(price, claude["probability"], move, held), "members": 1,
+            "claude": claude["probability"], "market": price, "max_move": move}
+    if rule:
+        call["rule"] = rule
     return call | {"held": "weak research"} if held else call
 
 
@@ -459,7 +530,7 @@ def _versus_market(resolved: list[dict[str, Any]]) -> dict[str, Any]:
 
     ``claude`` is Claude's own forecast on the same questions (``claude_questions`` of them have one), and
     ``since_anchored`` repeats all three on the questions first forecast from ANCHORED_FROM that have both a market
-    price and a Claude forecast: there the call can differ from the market by at most MAX_MOVE, so ``ours`` against
+    price and a Claude forecast: there the call can differ from the market by at most the allowed move, so ``ours`` against
     ``market`` mostly measures that cap, and ``claude`` against ``market`` is the test of independent skill.
     """
     ours: list[float] = []
@@ -516,6 +587,86 @@ def _progress(resolved: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _percentile(sorted_values: list[float], fraction: float) -> float:
+    """The value at ``fraction`` (0 to 1) of a sorted list, interpolating between neighbours."""
+    position = fraction * (len(sorted_values) - 1)
+    lower = math.floor(position)
+    upper = min(lower + 1, len(sorted_values) - 1)
+    return sorted_values[lower] + (sorted_values[upper] - sorted_values[lower]) * (position - lower)
+
+
+def _interval(rows: list[tuple[float, str]]) -> list[float] | None:
+    """The 90% interval of the mean difference (rule minus market) when resolution dates are resampled with replacement.
+
+    ``rows`` are (difference, resolution date). Dates are sorted first and the seed is fixed, so the same record always
+    gives the same numbers. None with fewer than 2 dates.
+    """
+    by_date: dict[str, list[float]] = {}
+    for difference, day in rows:
+        by_date.setdefault(day, []).append(difference)
+    days = [(sum(by_date[day]), len(by_date[day])) for day in sorted(by_date)]
+    if len(days) < 2:
+        return None
+    rng = random.Random(BOOTSTRAP_SEED)
+    means = []
+    for _ in range(BOOTSTRAP_RESAMPLES):
+        picks = [days[int(rng.random() * len(days))] for _ in days]
+        means.append(sum(total for total, _ in picks) / sum(count for _, count in picks))
+    means.sort()
+    low, high = PROMOTION_INTERVAL
+    return [round(_percentile(means, low), 6), round(_percentile(means, high), 6)]
+
+
+def _edge_block(rows: list[tuple[float, float, str]], *, counted: bool) -> dict[str, Any]:
+    """Questions, distinct resolution dates, the rule's and the market's Brier on them and the interval of the difference.
+
+    ``rows`` are (rule Brier, market Brier, resolution date). Only the counted block says whether it meets the bar.
+    """
+    dates = {day for _, _, day in rows}
+    rule, market = _mean([r[0] for r in rows]), _mean([r[1] for r in rows])
+    interval = _interval([(r[0] - r[1], r[2]) for r in rows])
+    block = {"questions": len(rows), "dates": len(dates), "rule": rule, "market": market,
+             "difference": None if rule is None or market is None else rule - market, "interval": interval}
+    if counted:
+        block["meets_bar"] = bool(len(rows) >= PROMOTION_QUESTIONS and len(dates) >= PROMOTION_DATES
+                                  and interval is not None and interval[1] < 0)
+    return block
+
+
+def _edge_tests(resolved: list[dict[str, Any]], artifacts: Path, research_files: dict[str, dict[str, Any] | None]) -> list[dict[str, Any]]:
+    """Each call rule scored in the shadows against the market, whatever its status.
+
+    A question counts when it is decided, scored, has a market price and a Claude forecast, matches the rule's topics and
+    was first forecast on or after the rule's registered date; earlier ones are given in ``before`` for information
+    only, because they are what suggested the rule. The rule's probability comes from the same function as the call
+    (``_moved``), including the weak-research hold; a question with no research.json is held when counted, and moved by
+    the plain cap when it is older.
+    """
+    tests = []
+    for rule in CALL_RULES:
+        rows: dict[str, list[tuple[float, float, str]]] = {"counted": [], "before": []}
+        for q in resolved:
+            day, price, claude = _forecast_day(q), _market_price(q["forecasts"]), _claude_probability(q)
+            if day is None or price is None or claude is None or (rule["topics"] is not None and q["topic"] not in rule["topics"]):
+                continue
+            key = "counted" if day >= rule["registered"] else "before"
+            research = _research(artifacts, q["source"], research_files)
+            held = _weak_research(research, q["id"]) if research is not None or key == "counted" else False
+            moved = _moved(price, claude, rule["move"], held)
+            rows[key].append((_brier(moved, q["outcome"]), _brier(price, q["outcome"]), q["resolves_on"]))
+        tests.append({"id": rule["id"], "label": rule["label"], "status": rule["status"],
+                      "registered": rule["registered"].isoformat(),
+                      "counted": _edge_block(rows["counted"], counted=True), "before": _edge_block(rows["before"], counted=False)})
+    return tests
+
+
+def _call_policy() -> dict[str, Any]:
+    """How far the call may move, which rules are promoted and the bar a rule must clear, so the web copy follows the data."""
+    return {"default_move": DEFAULT_MOVE, "promoted": [r["label"] for r in CALL_RULES if r["status"] == "promoted"],
+            "bar": {"questions": PROMOTION_QUESTIONS, "dates": PROMOTION_DATES,
+                    "interval": round(PROMOTION_INTERVAL[1] - PROMOTION_INTERVAL[0], 2)}}
+
+
 def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bool = False) -> dict[str, Any]:
     """The track record; with ``freeze``, new weighted calls are saved so they never change later."""
     questions: list[dict[str, Any]] = []
@@ -560,7 +711,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
         else:
             calls = frozen[question["source"]]
             pick = ((lambda forecasts, weights, q=question: _anchored_call(
-                        forecasts, weights, _research(artifacts, q["source"], research_files), q["id"]))
+                        forecasts, weights, _research(artifacts, q["source"], research_files), q["id"], q["topic"]))
                     if day >= ANCHORED_FROM
                     else _corrected_call if day >= CORRECTED_CALL_FROM
                     else _claude_call if day >= CLAUDE_CALL_FROM else _weighted_call)
@@ -580,16 +731,17 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
                 path.write_text(json.dumps(saved, indent=2, sort_keys=True) + "\n")
     resolved = [q for q in questions if q["status"] == "resolved" and q["call"] and q["scored"]]
     summary = _tally([(q["call"]["probability"], q["outcome"]) for q in resolved])
-    summary |= {"vs_market": _versus_market(resolved), "progress": _progress(resolved)}
+    summary |= {"vs_market": _versus_market(resolved), "progress": _progress(resolved),
+                "call_policy": _call_policy(), "edge_tests": _edge_tests(resolved, artifacts, research_files)}
     summary |= {"pending": sum(q["status"] == "pending" for q in questions),
                 "cancelled": sum(q["status"] == "cancelled" for q in questions),
                 "unscored": sum(not q["scored"] for q in questions), "total": len(questions)}
-    forecasters = [{"method": COMBINED, **COMBINED_INFO, "forecasts": sum(q["call"] is not None for q in questions),
+    forecasters = [{"method": COMBINED, **_about(COMBINED_INFO, combined=True), "forecasts": sum(q["call"] is not None for q in questions),
                     **_tally([(q["call"]["probability"], q["outcome"]) for q in resolved])}]
     for method in sorted({f["method"] for q in questions for f in q["forecasts"]},
                          key=lambda m: PRIMARY_ORDER.index(m) if m in PRIMARY_ORDER else len(PRIMARY_ORDER)):
         rows = [(f["probability"], q["outcome"]) for q in resolved for f in q["forecasts"] if f["method"] == method]
-        info = FORECASTERS.get(method, {"label": method, "about": ""})
+        info = _about(FORECASTERS.get(method, {"label": method, "about": ""}))
         forecasters.append({"method": method, **info,
                             "forecasts": sum(f["method"] == method for q in questions for f in q["forecasts"]),
                             **_tally(rows)})

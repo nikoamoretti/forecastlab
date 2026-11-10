@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import type { Question } from "@/lib/trackRecord";
-import { shortDate } from "@/lib/trackRecord";
+import type { EdgeTest, Forecast, Question } from "@/lib/trackRecord";
+import { DEFAULT_POLICY, points, shortDate } from "@/lib/trackRecord";
 
 type Source = { title: string; url: string; published?: string; verified?: boolean | null; quotes?: string[] };
 type Judge = { method: string; model: string; at?: string; ok: boolean; error?: string | null; cost_usd?: number | null };
@@ -29,7 +29,17 @@ function Step({ at, children }: { at?: string | null; children: React.ReactNode 
 }
 
 // Everything done to research and forecast one question, in order, with the evidence itself.
-export function ResearchTrail({ q, labels }: { q: Question; labels: Record<string, string> }) {
+// The market-anchored step, worded by how far this call was allowed to move and which tested edge, if any, allowed it.
+function anchoredStep(call: Forecast, edges: EdgeTest[] | undefined) {
+  const move = call.max_move ?? DEFAULT_POLICY.default_move;
+  const label = call.rule ? edges?.find(e => e.id === call.rule)?.label ?? call.rule : null;
+  const how = label ? `Our call starts from the market’s price and moves toward Claude’s forecast under the tested edge “${label}”`
+    : move === 0 ? "Our call is the market’s price, because no tested edge applies to this question"
+    : `Our call starts from the market’s price and moves toward Claude’s forecast by at most ${points(move)}`;
+  return `${how}: ${Math.round(call.probability * 100)}% yes${call.held ? ", held at the price because the research was thin" : ""}. Claude never saw the price; the price was added only when the call was fixed. Claude’s own forecast stays on record as “Claude alone”.`;
+}
+
+export function ResearchTrail({ q, labels, edges }: { q: Question; labels: Record<string, string>; edges?: EdgeTest[] }) {
   const [research, setResearch] = useState<Research | null | undefined>(undefined);
   useEffect(() => {
     api<Research>(`/api/research/${encodeURIComponent(q.source)}/${encodeURIComponent(q.id)}`).then(setResearch).catch(() => setResearch(null));
@@ -57,7 +67,7 @@ export function ResearchTrail({ q, labels }: { q: Question; labels: Record<strin
         {research && research.judges.length > 0 && <Step at={research.judges[0].at}>
           {answered.length} of {count(research.judges.length, "judge model")} answered from the brief and the checked sources{cost > 0 && ` (cost $${cost.toFixed(3)})`}.
           {failed.length > 0 && <span className="mt-1 block text-sm text-ink/60">No answer from {failed.map(j => `${labels[j.method] ?? j.model} (${j.error ?? "failed"})`).join("; ")}.</span>}</Step>}
-        {q.call && q.call.method === "market_anchored_call_v1" && <Step>Our call starts from the market’s price and moves toward Claude’s forecast by at most 10 points: {Math.round(q.call.probability * 100)}% yes{q.call.held ? ", held at the price because the research was thin" : ""}. Claude never saw the price; the price was added only when the call was fixed. Claude’s own forecast stays on record as “Claude alone”.</Step>}
+        {q.call && q.call.method === "market_anchored_call_v1" && <Step>{anchoredStep(q.call, edges)}</Step>}
         {q.call && q.call.method === "claude_call_v1" && <Step>Our call is Claude’s own forecast: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
         {q.call && q.call.method === "claude_corrected_call_v1" && <Step>Our call is Claude’s forecast corrected for how its past calls turned out: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}
         {q.call && q.call.method !== "claude_call_v1" && q.call.method !== "claude_corrected_call_v1" && q.call.method !== "market_anchored_call_v1" && <Step>Our call is the middle of the forecasters’ probabilities{q.call.weights ? ", with better records counting more" : ""}: {Math.round(q.call.probability * 100)}% yes. The prediction market is only a benchmark and never part of it.</Step>}

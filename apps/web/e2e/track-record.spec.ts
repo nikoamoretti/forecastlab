@@ -235,13 +235,14 @@ test("a market-anchored call shows both our call and Claude alone, and the page 
   const open = { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-20", topic: "Tech" };
   await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-14", forecasters,
     summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 42,
+      call_policy: { default_move: .1, promoted: [], bar: { questions: 40, dates: 10, interval: .9 } },
       vs_market: { questions: 30, ours: .17, market: .15, claude: .2, claude_questions: 30,
         since_anchored: { date: "2026-11-10", questions: 12, ours: .16, claude: .21, market: .15 } } },
     questions: [
       question("anchored", "Will the anchored question resolve yes?", { ...open, forecasts: [claude, market],
-        call: { method: "market_anchored_call_v1", probability: .6, members: 1, claude: .9, market: .5 } }),
+        call: { method: "market_anchored_call_v1", probability: .6, members: 1, claude: .9, market: .5, max_move: .1 } }),
       question("held", "Will the held question resolve yes?", { ...open, forecasts: [claude, market],
-        call: { method: "market_anchored_call_v1", probability: .5, members: 1, claude: .9, market: .5, held: "weak research" } })] } }));
+        call: { method: "market_anchored_call_v1", probability: .5, members: 1, claude: .9, market: .5, max_move: .1, held: "weak research" } })] } }));
   await page.goto("/");
   await expect(page.getByText("Since Nov 10, on 12 questions the market also priced: our call 0.16, Claude alone 0.21, market 0.15.")).toBeVisible();
   await expect(page.getByText("Claude alone on the same questions: 0.20.")).toBeVisible();
@@ -253,4 +254,56 @@ test("a market-anchored call shows both our call and Claude alone, and the page 
   await expect(page.getByRole("row").filter({ hasText: "Our call (starts from the market)" })).toContainText("60.0% yes");
   await page.goto("/q/held");
   await expect(page.getByText("held at the market’s 50.0% because the research behind Claude’s forecast was thin")).toBeVisible();
+});
+
+const block = (questions: number, dates: number, rule: number | null, market: number | null) => ({ questions, dates, rule, market,
+  difference: rule == null || market == null ? null : rule - market, interval: null, meets_bar: false });
+const edge = (id: string, label: string, status: string, counted: ReturnType<typeof block>) =>
+  ({ id, label, status, registered: "2026-11-10", counted, before: block(29, 8, .119, .138) });
+
+test("the page lists the edges under test with their progress, and says what it takes to join our call", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-20", forecasters,
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 40,
+      call_policy: { default_move: .1, promoted: ["Every question"], bar: { questions: 40, dates: 10, interval: .9 } },
+      edge_tests: [edge("tech_move_v1", "Tech questions", "testing", block(0, 0, null, null)),
+        edge("every_question_move_v1", "Every question", "promoted", block(12, 4, .141, .157))] },
+    questions: [] } }));
+  await page.goto("/");
+  const section = page.getByRole("region", { name: "Edges under test" });
+  await expect(section.getByText("An idea joins our call only after it beats the market on at least 40 new results across 10 or more resolution days.")).toBeVisible();
+  const tech = section.getByRole("listitem").filter({ hasText: "Tech questions" });
+  await expect(tech).toContainText("0 of 40 results since Nov 10");
+  await expect(tech).toContainText("Testing");
+  await expect(tech).not.toContainText("vs market");
+  const every = section.getByRole("listitem").filter({ hasText: "Every question" });
+  await expect(every).toContainText("12 of 40 results since Nov 10");
+  await expect(every).toContainText("Edge 0.14 vs market 0.16");
+  await expect(every).toContainText("Proven: part of our call");
+});
+
+test("when the call is the market's price by default, the copy and the question page say so", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-10T09:00:00Z" };
+  const market = { method: "market_price_v1", probability: .5 };
+  const open = { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-25" };
+  const anchored = { method: "market_anchored_call_v1", members: 1, claude: .9, market: .5 };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-20", forecasters,
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 42,
+      call_policy: { default_move: 0, promoted: ["Tech questions"], bar: { questions: 40, dates: 10, interval: .9 } },
+      vs_market: { questions: 30, ours: .15, market: .15, claude: .2, claude_questions: 30,
+        since_anchored: { date: "2026-11-10", questions: 12, ours: .15, claude: .21, market: .15 } },
+      edge_tests: [edge("tech_move_v1", "Tech questions", "promoted", block(41, 11, .12, .15))] },
+    questions: [
+      question("plain", "Will the plain question resolve yes?", { ...open, topic: "Politics", forecasts: [claude, market],
+        call: { ...anchored, probability: .5, max_move: 0 } }),
+      question("edge", "Will the tech question resolve yes?", { ...open, topic: "Tech", forecasts: [claude, market],
+        call: { ...anchored, probability: .6, max_move: .1, rule: "tech_move_v1" } })] } }));
+  await page.goto("/");
+  await expect(page.getByText("is its price unless a tested edge applies, so “ours vs market” mostly measures those edges.")).toBeVisible();
+  await expect(page.getByText("cannot differ from it by more than")).toHaveCount(0);
+  await page.goto("/q/plain");
+  await expect(page.getByText("50.0% chance of yes · the market’s 50.0%; no tested edge applies to this question")).toBeVisible();
+  await page.goto("/q/edge");
+  await expect(page.getByText("60.0% chance of yes · the market’s 50.0%, moved toward Claude’s forecast under the tested edge “Tech questions”")).toBeVisible();
 });

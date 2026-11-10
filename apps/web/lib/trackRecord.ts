@@ -3,7 +3,9 @@ import { call } from "@/lib/verdict";
 export type Source = string | { url: string; published?: string };
 export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number; weights?: Record<string, number>;
   // A market-anchored call keeps both numbers it was made from; "held" is set when weak research kept it at the price.
-  claude?: number; market?: number; held?: string;
+  // max_move is how far the call was allowed to move (absent on calls frozen before it was recorded: 0.10); rule is the
+  // id of the tested edge that set it, absent when only the default applied.
+  claude?: number; market?: number; held?: string; max_move?: number; rule?: string;
   // Claude's confidence-corrected forecast carries the raw probability it corrects and the fit it came from.
   raw?: number; slope?: number; intercept?: number; results?: number; as_of?: string };
 export type Question = {
@@ -27,7 +29,14 @@ export type ProgressWeek = { start: string; questions: number; ours: number | nu
 export type ProgressSplit = { questions: number; ours: number | null; market: number | null; claude?: number | null };
 export type Progress = { weeks: ProgressWeek[]; changes: { date: string; label: string }[];
   since_last_change: { date: string; before: ProgressSplit; after: ProgressSplit } };
-export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress };
+// A tested edge: a rule for moving the call further toward Claude on some questions. It joins the call only after
+// it beats the market on enough new results; until then its score is tracked on the side ("counted").
+export type EdgeBlock = { questions: number; dates: number; rule: number | null; market: number | null; difference: number | null;
+  interval: [number, number] | null; meets_bar?: boolean };
+export type EdgeTest = { id: string; label: string; status: "testing" | "promoted"; registered: string; counted: EdgeBlock; before: EdgeBlock };
+export type CallPolicy = { default_move: number; promoted: string[]; bar: { questions: number; dates: number; interval: number } };
+export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress;
+  call_policy?: CallPolicy; edge_tests?: EdgeTest[] };
   calibration?: { slope: number; intercept: number; results: number; as_of: string } | null;
   forecasters: Forecaster[]; questions: Question[] };
 
@@ -96,6 +105,19 @@ export function versusGuessing(brier: number | null, coinFlip: number) {
   if (brier == null) return null;
   const skill = 1 - brier / coinFlip;
   return skill > 0.1 ? "Better than guessing" : skill < -0.1 ? "Worse than guessing" : "About the same as guessing";
+}
+
+// How far our call may move from the market's price. Records built before the policy was published moved it at most 10 points.
+export const DEFAULT_POLICY: CallPolicy = { default_move: 0.1, promoted: [], bar: { questions: 40, dates: 10, interval: 0.9 } };
+export const points = (move: number) => `${Math.round(move * 100)} point${Math.round(move * 100) === 1 ? "" : "s"}`;
+
+// One question's call, in words: what the market said and what, if anything, moved the call off it.
+export function anchoredCallText(call: Forecast, marketPct: string, edges: EdgeTest[] | undefined) {
+  if (call.held) return `held at the market’s ${marketPct} because the research behind Claude’s forecast was thin`;
+  const move = call.max_move ?? DEFAULT_POLICY.default_move;
+  if (call.rule) return `the market’s ${marketPct}, moved toward Claude’s forecast under the tested edge “${edges?.find(e => e.id === call.rule)?.label ?? call.rule}”`;
+  if (move === 0) return `the market’s ${marketPct}; no tested edge applies to this question`;
+  return `the market’s ${marketPct}, moved toward Claude’s forecast by at most ${points(move)}`;
 }
 
 export const percent = (p: number) => `${Math.round(p * 100)}%`;

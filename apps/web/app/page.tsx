@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { api } from "@/lib/api";
-import { Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
+import { CallPolicy, DEFAULT_POLICY, EdgeTest, Progress, Question, QuestionGroup, TrackRecord, Week, byWeek, callText, groupBySeries, lateDeadline, nextMilestone, points, relativeDay, shortDate, todayUTC, trend, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -103,9 +103,26 @@ function OverTime({ weeks: all }: { weeks: Week[] }) {
 }
 
 // Brier score by the week we made the forecast, ours against the market's, with a marker where we changed the method.
+// One row per tested edge: how many new results it has, how it scores against the market on them, and where it stands.
+function EdgesUnderTest({ edges, policy }: { edges: EdgeTest[]; policy: CallPolicy }) {
+  const { questions, dates } = policy.bar;
+  return <section aria-label="Edges under test">
+    <h3 className="font-serif text-3xl">Edges under test</h3>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">An idea joins our call only after it beats the market on at least {questions} new results across {dates} or more resolution days.</p>
+    <ul className="mt-4 divide-y divide-rule border-y border-rule">{edges.map(e => <li key={e.id} className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
+      <span><span className="font-medium">{e.label}</span>
+        <span className="block text-sm text-ink/60">{e.counted.questions} of {questions} results since {shortDate(e.registered)} · {e.counted.dates} of {dates} days</span></span>
+      <span className="sm:text-right">
+        {e.counted.questions > 0 && e.counted.rule != null && e.counted.market != null
+          && <span className="block text-sm text-ink/70">Edge {e.counted.rule.toFixed(2)} vs market {e.counted.market.toFixed(2)}</span>}
+        <strong>{e.status === "promoted" ? "Proven: part of our call" : "Testing"}</strong></span>
+    </li>)}</ul>
+  </section>;
+}
+
 const ENOUGH_TO_JUDGE = 40, TOO_EARLY = 10, THIN_WEEK = 3;
 
-function Improving({ progress }: { progress: Progress }) {
+function Improving({ progress, policy }: { progress: Progress; policy: CallPolicy }) {
   const weeks = progress.weeks.filter(wk => wk.ours != null && wk.market != null);
   const { before, after, date } = progress.since_last_change;
   if (weeks.length < 2) return null;
@@ -128,7 +145,7 @@ function Improving({ progress }: { progress: Progress }) {
   return <section aria-label="Are we improving?">
     <h3 className="font-serif text-3xl">Are we improving?</h3>
     <p className="mt-3 text-lg font-medium">{headline}</p>
-    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided. From Nov 10 our call stays within 10 points of the market, so the two lines will sit closer together; Claude alone is the independent comparison.</p>
+    <p className="mt-1 max-w-3xl text-sm text-ink/60">Score by the week we made the forecast, on questions the market also priced. Lower is better. The copper line is us, the dashed line is the market. Dotted lines mark when we changed how we forecast. Small dots are weeks with fewer than {THIN_WEEK} decided questions, so read them lightly; weeks fill in as questions are decided. From Nov 10 our call {policy.default_move > 0 ? `stays within ${points(policy.default_move)} of the market` : "is the market’s price unless a tested edge applies"}, so the two lines will sit {policy.default_move > 0 ? "closer together" : "very close together"}; Claude alone is the independent comparison.</p>
     <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 w-full max-w-xl" role="img"
       aria-label={`Score by forecast week, ours against the market, lower is better: ${weeks.map(wk => `week of ${shortDate(wk.start)} us ${f(wk.ours)}, market ${f(wk.market)}, ${wk.questions} questions`).join("; ")}. Changes: ${changes.map(c => `${c.label} on ${shortDate(c.date)}`).join(", ")}. ${headline}`}>
       {ticks.map(t => <g key={t}>
@@ -173,6 +190,7 @@ export default function TrackRecordPage() {
   const calls = s.right + s.wrong;
   const accuracy = versusGuessing(s.brier, s.coin_flip_brier);
   const vs = s.vs_market && s.vs_market.questions > 0 && s.vs_market.ours != null && s.vs_market.market != null ? s.vs_market : null;
+  const policy = s.call_policy ?? DEFAULT_POLICY;
   const anchored = vs?.since_anchored && vs.since_anchored.questions > 0 && vs.since_anchored.ours != null && vs.since_anchored.claude != null && vs.since_anchored.market != null ? vs.since_anchored : null;
   const weeks = byWeek(resolved);
   const goal = nextMilestone(s.resolved);
@@ -189,7 +207,9 @@ export default function TrackRecordPage() {
         {vs && <p className="mt-2 text-lg">On the {vs.questions} questions the market also priced: us {vs.ours!.toFixed(2)}, market {vs.market!.toFixed(2)}.</p>}
         {vs?.claude != null && <p className="mt-1 text-sm text-ink/70">Claude alone on the same questions: {vs.claude.toFixed(2)}{vs.claude_questions !== vs.questions && ` (the ${vs.claude_questions} it forecast)`}.</p>}
         {anchored && <p className="mt-1 text-sm text-ink/70">Since {shortDate(anchored.date)}, on {anchored.questions} questions the market also priced: our call {anchored.ours!.toFixed(2)}, Claude alone {anchored.claude!.toFixed(2)}, market {anchored.market!.toFixed(2)}.</p>}
-        {vs?.since_anchored && <p className="mt-1 max-w-2xl text-sm text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market and cannot differ from it by more than 10 points, so “ours vs market” mostly measures those 10 points. “Claude alone vs market” is the test of independent skill.</p>}
+        {vs?.since_anchored && <p className="mt-1 max-w-2xl text-sm text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market{policy.default_move > 0
+          ? ` and cannot differ from it by more than ${points(policy.default_move)}, so “ours vs market” mostly measures those ${points(policy.default_move)}.`
+          : " and is its price unless a tested edge applies, so “ours vs market” mostly measures those edges."} “Claude alone vs market” is the test of independent skill.</p>}
         {calls > 0 && <p className="mt-2 text-sm text-ink/60">{s.right} of {calls} calls right{s.toss_ups > 0 && ` · ${s.toss_ups} ${s.toss_ups === 1 ? "toss-up isn’t" : "toss-ups aren’t"} counted as right or wrong`}</p>}
       </div>
       <Link href="/ask" className="bg-ink px-6 py-3 text-paper hover:bg-ink/85">Ask a question</Link>
@@ -217,7 +237,9 @@ export default function TrackRecordPage() {
 
     {weeks.length > 1 && <OverTime weeks={weeks} />}
 
-    {s.progress && <Improving progress={s.progress} />}
+    {s.progress && <Improving progress={s.progress} policy={policy} />}
+
+    {s.edge_tests && s.edge_tests.length > 0 && <EdgesUnderTest edges={s.edge_tests} policy={policy} />}
 
     <section>
       <h3 className="font-serif text-3xl">Latest results</h3>
@@ -244,7 +266,7 @@ export default function TrackRecordPage() {
 
     <section>
       <h3 className="font-serif text-3xl">Who forecasts best</h3>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call has changed over time: first the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price moved toward Claude’s forecast by at most 10 points, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call can no longer differ from the market by more than 10 points. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Our call has changed over time: first the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price{policy.default_move > 0 ? ` moved toward Claude’s forecast by at most ${points(policy.default_move)}` : ", moved toward Claude’s forecast only under a tested edge"}, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call {policy.default_move > 0 ? `can no longer differ from the market by more than ${points(policy.default_move)}` : "is the market’s price unless a tested edge applies"}. A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.</p>
       <ul className="mt-4 divide-y divide-rule border-y border-rule">{data.forecasters.map(f => <li key={f.method}
         className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <span><span className="font-medium">{f.label}</span><span className="block text-sm text-ink/60">{f.about}</span></span>
