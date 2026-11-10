@@ -4,8 +4,9 @@ export type Source = string | { url: string; published?: string };
 export type Forecast = { method: string; probability: number; rationale?: string; sources?: Source[]; made_at?: string; members?: number; weights?: Record<string, number>;
   // A market-anchored call keeps both numbers it was made from; "held" is set when weak research kept it at the price.
   // max_move is how far the call was allowed to move (absent on calls frozen before it was recorded: 0.10); rule is the
-  // id of the tested edge that set it, absent when only the default applied.
-  claude?: number; market?: number; held?: string; max_move?: number; rule?: string;
+  // id of the tested edge that set it, absent when only the default applied. When the edge uses another forecaster's
+  // probability (the second look), forecaster is its method and target the probability the call was pulled toward.
+  claude?: number; market?: number; held?: string; max_move?: number; rule?: string; forecaster?: string; target?: number;
   // Claude's confidence-corrected forecast carries the raw probability it corrects and the fit it came from.
   raw?: number; slope?: number; intercept?: number; results?: number; as_of?: string };
 export type Question = {
@@ -115,6 +116,7 @@ export const points = (move: number) => `${Math.round(move * 100)} point${Math.r
 export function anchoredCallText(call: Forecast, marketPct: string, edges: EdgeTest[] | undefined) {
   if (call.held) return `held at the market’s ${marketPct} because the research behind Claude’s forecast was thin`;
   const move = call.max_move ?? DEFAULT_POLICY.default_move;
+  if (call.rule && call.forecaster) return `the market’s ${marketPct}, set by the tested edge “${edges?.find(e => e.id === call.rule)?.label ?? call.rule}”`;
   if (call.rule) return `the market’s ${marketPct}, moved toward Claude’s forecast under the tested edge “${edges?.find(e => e.id === call.rule)?.label ?? call.rule}”`;
   if (move === 0) return `the market’s ${marketPct}; no tested edge applies to this question`;
   return `the market’s ${marketPct}, moved toward Claude’s forecast by at most ${points(move)}`;

@@ -307,3 +307,25 @@ test("when the call is the market's price by default, the copy and the question 
   await page.goto("/q/edge");
   await expect(page.getByText("60.0% chance of yes · the market’s 50.0%, moved toward Claude’s forecast under the tested edge “Tech questions”")).toBeVisible();
 });
+
+test("when a promoted second-look edge set the call, the question page says so", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-11T09:00:00Z" };
+  const market = { method: "market_price_v1", probability: .5 };
+  const look = { method: "claude_second_look_v1", probability: .3, rationale: "The digest shows the deadline passed.", made_at: "2026-11-11T10:00:00Z" };
+  const looker = { method: "claude_second_look_v1", label: "Claude, second look", about: "After also seeing the market.", forecasts: 1, resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25 };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-20", forecasters: [...forecasters, looker],
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 1, cancelled: 0, total: 41,
+      call_policy: { default_move: 0, promoted: ["Second look on Tech"], bar: { questions: 40, dates: 10, interval: .9 } },
+      vs_market: { questions: 30, ours: .15, market: .15, claude: .2, claude_questions: 30,
+        since_anchored: { date: "2026-11-10", questions: 12, ours: .15, claude: .21, market: .15 } },
+      edge_tests: [edge("tech_second_look_v1", "Second look on Tech", "promoted", block(41, 11, .12, .15))] },
+    questions: [
+      question("look", "Will the second-look question resolve yes?", { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-25",
+        topic: "Tech", forecasts: [claude, market, look],
+        call: { method: "market_anchored_call_v1", probability: .3, members: 1, claude: .9, market: .5, max_move: 1,
+          rule: "tech_second_look_v1", forecaster: "claude_second_look_v1", target: .3 } })] } }));
+  await page.goto("/q/look");
+  await expect(page.getByText("30.0% chance of yes · the market’s 50.0%, set by the tested edge “Second look on Tech”")).toBeVisible();
+  await expect(page.getByText("moved toward Claude’s forecast under the tested edge")).toHaveCount(0);
+});
