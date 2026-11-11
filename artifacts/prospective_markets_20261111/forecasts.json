@@ -1,0 +1,434 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.06
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Binance ETH/USDT was about 2,057 on 2026-11-11 and the highest 1-minute High in the window so far is 2,151.90 (2026-11-09 15:47 UTC), so 2,300 needs about +12% in roughly 111 hours. With 30-day daily vol of 2.66% that is about 2 sigma for a touch (about 5%), and the all-history 16.5% hit rate comes from higher-volatility regimes (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m, 2026-11-11). The CPI release on 2026-11-10 already passed without a spike.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=32",
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m"
+          ]
+        }
+      ],
+      "id": "polymarket-6891258",
+      "market_id": "6891258",
+      "outcome": null,
+      "question": "Will Ethereum reach $2,300 November 9-15?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-16",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-november-9-15-2026",
+      "topic": "Crypto",
+      "volume": 22754.185745000002,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.05
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The Apple US top-paid chart fetched 2026-11-11 had Shadowrocket at #1 and Chromagraph Camera at #3 (https://apps.apple.com/us/iphone/charts/36?chart=top-paid), though the page did not mark Free or Paid. Chromagraph's earlier #1 was only a Photo & Video category rank (MacRumors, 2026-10-30), and a viral launch spike usually decays while Shadowrocket is a perennial paid leader. Two places of movement in two days is possible but not the usual path.",
+          "sources": [
+            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+            "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
+            "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.05,
+          "rationale": "Chromagraph sat at #3 behind Shadowrocket in the one unlabelled chart fetch; viral launch spikes decay, and its #1 was only a Photo & Video category rank. Agree with market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-6759462",
+      "market_id": "6759462",
+      "outcome": null,
+      "question": "Will Chromagraph Camera be #1 Paid App in the US Apple App Store on November 13?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-13",
+      "topic": "Tech",
+      "volume": 2068.3111729999996,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.475
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "GGC Season 1 sends six traders to a single-match London final decided by highest Grand Final PnL (AMBCrypto, 2026-10-17: https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/). No finalist list naming Dani was found and GMGN pages returned 403, so Dani's place is unconfirmed; a non-finalist resolves No. Taking roughly 1 in 6 for a listed finalist, trimmed for finalist uncertainty and the Nov 16/17 date conflict.",
+          "sources": [
+            "https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/",
+            "https://gmgn.ai/static/ggc/rules.html"
+          ]
+        }
+      ],
+      "id": "polymarket-6733682",
+      "market_id": "6733682",
+      "outcome": null,
+      "question": "Will Dani win the GMGN GGC Season 1 Grand Final?",
+      "resolution_criteria": "This market will resolve according to the finalist GMGN declares Grand Champion of the GMGN Global Championship (GGC) Season 1 Grand Final, scheduled for November 16, 2026, from 1:30 PM to 3:30 PM ET (18:30 to 20:30 UTC), under the GGC rules (https://gmgn.ai/static/ggc/rules.html).\n\nFinalists are identified by their X accounts. If a listed finalist does not compete in the Grand Final for any reason, the corresponding market will resolve to \"No\". If an unlisted finalist is declared Grand Champion, this market will resolve to \"Other\".\n\nThis market will resolve according to the final result first announced by GMGN following its post-match review. Any subsequent changes will not be considered. If no Grand Champion has been announced by November 17, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nThe primary resolution source for this market will be information from GMGN, including its X account (https://x.com/gmgnai), however a consensus of credible reporting may also be used.",
+      "resolution_date": "2026-11-18",
+      "resolution_source": "https://polymarket.com/event/gmgn-ggc-season-1-winner",
+      "topic": "Crypto",
+      "volume": 11560.776023,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.51
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "MSFT closed 533.16 on 2026-11-10 after a 526.37 low, and a Pyth print of 535.20 was seen pre-market (https://stockanalysis.com/stocks/msft/history/, https://app.pyth.com/explore/Equity.US.MSFT%2FUSD). Reaching 525 needs a drop of about 1.5-2% at some point in the remaining sessions of Nov 11-13, against recent daily ranges of 3% or more, so a touch is near a coin flip. The hot CPI print (0.4%, https://www.bls.gov/news.release/cpi.htm, 2026-11-10) has already been absorbed and fewer sessions remain than in the reference weeks.",
+          "sources": [
+            "https://stockanalysis.com/stocks/msft/history/",
+            "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD",
+            "https://www.bls.gov/news.release/cpi.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-6763947",
+      "market_id": "6763947",
+      "outcome": null,
+      "question": "Will Microsoft Corporation (MSFT) hit (LOW) $525 Week of November 9 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for Microsoft Corporation (MSFT) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Microsoft Corporation (MSFT) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.MSFT%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.MSFT%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-13",
+      "resolution_source": "https://polymarket.com/event/will-msft-hit-week-of-november-9-2026",
+      "topic": "Economy",
+      "volume": 4471.078681,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.64
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "Apple's US free chart fetched 2026-11-11 listed TikTok Pro - Events first, and the MWM tracker showed #1 US Free overall as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). It sat 5th-6th in late Aug-early Sep, so the #1 is a recent surge of unknown cause and the pilot has no stated end date (TikTok newsroom, 2026-06-03). Holding #1 at a single noon ET instant two days later is somewhat better than even; my earlier calls on top-chart apps (Muse) show such leads can fade quickly.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.62,
+          "rationale": "Apple chart and MWM both show #1 as of Nov 10-11, but the lead is a recent surge of unknown cause (it was 5th-6th in Sep), so holding #1 at a single noon ET instant two days out is only moderately likely. Close to market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-6759476",
+      "market_id": "6759476",
+      "outcome": null,
+      "question": "Will TikTok Pro - Events be #1 Free App in the US Apple App Store on November 13?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/1-free-app-in-the-us-apple-app-store-on-november-13",
+      "topic": "Tech",
+      "volume": 2030.566045,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "Binance BTC/USDT was about 73,850 on 2026-11-11, roughly 2.5% above 72,000, with 30-day daily vol of 1.87% and about 3 days to the noon ET close on 2026-11-14; that gives roughly 78%, matching the 77.8% historical 3-day frequency (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Offsetting: four straight days of ETF outflows and a 72,700 low after hot CPI (CoinDesk, 2026-11-11), though CoinDesk also describes stabilization near 74,000. No FOMC or CPI falls before the resolution.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+            "https://www.coindesk.com/markets/2026/11/11/bitcoin-sits-out-stock-rebound-as-etf-outflows-extend-to-fourth-day",
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102"
+          ]
+        }
+      ],
+      "id": "polymarket-6801798",
+      "market_id": "6801798",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $72,000 on November 14?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-14-2026",
+      "topic": "Crypto",
+      "volume": 9197.529543,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "La-Z-Boy reports fiscal Q2 after the close on 2026-11-17; the bar is adjusted diluted EPS above $0.48, so exactly $0.48 is No (company release, https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call, 2026-11-03). Guidance of $500-520M sales and 4.0-5.5% adjusted operating margin (2026-08-18, https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm) implies roughly $0.44-0.52, bracketing the consensus. Fiscal Q1 adjusted EPS of $0.43 missed, while the company has beaten about 64% of estimates historically (unverified snippet).",
+          "sources": [
+            "https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call",
+            "https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm",
+            "https://www.marketbeat.com/instant-alerts/sidoti-issues-negative-outlook-for-la-z-boy-earnings-2026-08-21/"
+          ]
+        }
+      ],
+      "id": "polymarket-6639367",
+      "market_id": "6639367",
+      "outcome": null,
+      "question": "Will La-Z-Boy (LZB) beat quarterly earnings?",
+      "resolution_criteria": "As of market creation, La-Z-Boy is estimated to release earnings on December 2, 2026. The Street consensus estimate for La-Z-Boy\u2019s non-GAAP EPS for the relevant quarter is $0.48 as of market creation. This market will resolve to \"Yes\" if La-Z-Boy reports non-GAAP EPS greater than $0.48 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf La-Z-Boy releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "resolution_date": "2026-11-17",
+      "resolution_source": "https://polymarket.com/event/lzb-quarterly-earnings-nongaap-eps-12-02-2026-0pt48",
+      "topic": "Economy",
+      "volume": 2536.4664510000002,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.13
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "TikTok Pro - Events was #1 on Apple's US free chart fetched 2026-11-11 and #1 overall at MWM as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). #2 requires a one-place slip from the current spot, or a rise from below if it had dropped; with it at #1 now, #2 is the main fallback outcome but well short of the likeliest one. Kept coherent with the #1 question so the two outcomes sum below 1.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.14,
+          "rationale": "App is #1 now; #2 is the main fallback if it slips one place, but staying #1 is likelier. Near market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-6759450",
+      "market_id": "6759450",
+      "outcome": null,
+      "question": "Will TikTok Pro - Events be #2 Free App in the US Apple App Store on November 13?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #2 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-13",
+      "topic": "Tech",
+      "volume": 1884.4264529999998,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8305
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance XRP/USDT was 1.061 on 2026-11-11 about 14:06 UTC, 6% above 1.00, with 30-day daily log-return sd of 0.026 and about 51 hours to the 17:00 UTC close on 2026-11-13, which is roughly 1.5 sd (about 94%); (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). The coin has fallen about 21% since 2026-10-12 and lost the 1.12 floor (AltcoinBuzz, 2026-11-08), so I shade down for fat-tailed downside.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor"
+          ]
+        }
+      ],
+      "id": "polymarket-6753198",
+      "market_id": "6753198",
+      "outcome": null,
+      "question": "Will the price of XRP be above $1.00 on November 13?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-13",
+      "resolution_source": "https://polymarket.com/event/xrp-above-on-november-13-2026",
+      "topic": "Crypto",
+      "volume": 4457.57092,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.31
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "AhaSignals computed 197.9T tokens for 2026-10-27 to 11-02 and 204.5T for 10-28 to 11-03, up from 188.4T a week earlier (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md, 2026-11-04). Carrying 4-5% weekly growth forward to Nov 9-15 gives about 214-220T, above the bracket, but growth could flatten (zeli.app, 2026-10-19) and the displayed chart figure may differ from the third-party series. The 200-210T bracket therefore needs growth to stall at roughly current levels.",
+          "sources": [
+            "https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md",
+            "https://ahasignals.com/data/demand-briefs/v1/briefs/2f42b504a801edfcac3de5c8e3240a8c0927fefb01beed677eab3340d3b6c41b.md",
+            "https://openrouter.ai/fr/data/october-2026",
+            "https://zeli.app/story/50159464"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.27,
+          "rationale": "Third-party weekly totals were 197.9T to 204.5T in the week ending Nov 2-3, trending up about 4-8% a week, which puts Nov 9-15 more likely above 210T, though growth could stall and the chart's calendar week may differ.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-6638953",
+      "market_id": "6638953",
+      "outcome": null,
+      "question": "Will OpenRouter process between 200T and 210T tokens the week of November 9?",
+      "resolution_criteria": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 9 to November 15, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 9 to November 15, 2026 once the figures for the week of November 16, 2026 are first displayed. If the figures for the week of November 16, 2026 have not been displayed by 11:59 PM ET on November 20, 2026, this market will resolve according to the total displayed for the week of November 9 to November 15, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "resolution_date": "2026-11-16",
+      "resolution_source": "https://polymarket.com/event/openrouter-token-usage-week-of-november-9",
+      "topic": "Tech",
+      "volume": 1275.123899,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.8981
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Anthropic publicly filed its S-1 on 2026-10-26, filed an S-1/A on 2026-11-10 setting a $70-78 range for 825M shares, and launched its roadshow the same day (https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/, https://www.anthropic.com/news). Sources report pricing on 2026-11-18 and first trade on 2026-11-19 (CNBC, 2026-11-10), leaving a day of cushion before the 2026-11-20 close. Risks are a market-driven delay or earlier timetable slips (September/October targets were missed), but a launched roadshow with a range rarely slips by more than a few days.",
+          "sources": [
+            "https://www.anthropic.com/news/s1-sec",
+            "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+            "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
+            "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "Roadshow launched Nov 10 with a $70-78 range; reported pricing Nov 18 and first trade Nov 19 leave one trading day of cushion. Launched roadshows rarely slip more than a few days. Slightly above market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "manifold-dLEZL5CLgc",
+      "market_id": "dLEZL5CLgc",
+      "outcome": null,
+      "question": "Will Anthropic IPO by Nov 20?",
+      "resolution_criteria": "This market resolves YES if Anthropic is trading on NASDAQ (or any other US exchange) at close of market (4:00 PM Eastern Time) on Friday Nov 20.",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://manifold.markets/EriccNsnA/will-anthropic-ipo-by-nov-20",
+      "topic": "Tech",
+      "volume": 8947.629426739812,
+      "volume_floor": 1000,
+      "volume_unit": "mana"
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "kalshi_price_v1",
+          "probability": 0.095
+        },
+        {
+          "created_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.09,
+          "rationale": "On the Arena text board dated 2026-11-09, Gemini 4 Carbon (High) leads at 1526 (1538 on the no-style-control page) while Claude Opus 5.5 (High) is at 1506-1513 and Fable 5 at 1504 (https://arena.ai/leaderboard/text). Anthropic released Fable 5.2 on 2026-11-09 (Constellation Research), which is not yet on the board, so a late entry could close a 15-30 point gap but must also appear by Nov 16. Consistent with my 86% on Gemini 4 Carbon being best on Nov 16.",
+          "sources": [
+            "https://arena.ai/leaderboard/text",
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52"
+          ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.09,
+          "rationale": "Gemini 4 Carbon leads at 1526 against Claude's best listed entry at about 1506. Fable 5.2 (released Nov 9) is not yet on the board and would need to appear and beat 1526 by Nov 16; ties go to the higher score. Agree with market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "kalshi-KXLLM1-26NOV16-ANTH",
+      "market_id": "KXLLM1-26NOV16-ANTH",
+      "outcome": null,
+      "question": "Best AI this week: Claude?",
+      "resolution_criteria": "If Anthropic has the top-ranked LLM on Nov 16, 2026, then the market resolves to Yes.\n\nIf two models are tied under Rank (UB), then the model with the highest Arena Score will win. If two models are still tied after that, then the model with the most votes will win. If two models are still tied after that, the model that was released earlier will win. Important information: When checking the source for this market, check the 'Remove Style Control' toggle.",
+      "resolution_date": "2026-11-16",
+      "resolution_source": "https://kalshi.com/events/KXLLM1-26NOV16",
+      "topic": "Tech",
+      "volume": 32829.48,
+      "volume_floor": 1000,
+      "volume_unit": "contracts"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1",
+  "skipped": [
+    {
+      "id": "polymarket-6096679",
+      "reason": "no live tally for a count/total question"
+    },
+    {
+      "id": "polymarket-6625273",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-6625367",
+      "reason": "no live tally for a count/total question"
+    },
+    {
+      "id": "polymarket-6771083",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-6909743",
+      "reason": "no live tally for a count/total question"
+    }
+  ]
+}

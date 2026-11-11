@@ -1,0 +1,2381 @@
+{
+ "kalshi-KXLLM1-26NOV16-ANTH": {
+  "against": "The strongest case for No: on the settling page dated 2026-11-09, Anthropic's best entry, Claude Opus 5.5 (High) at 1506\u00b16, sits fourth, about 20 points behind Google's preliminary Gemini 4 Carbon (High) at 1526\u00b110 and about 16 points behind Gemini 4 Argon (High) at 1522\u00b15.\nGemini 4 Carbon's score is marked preliminary, so it can move, but nothing in the sources shows it falling below Claude's score.\nAnthropic's Fable 5.2 launched on 2026-11-09 with no Arena figure reported, so it has no evidence of entering the board above 1526 before Nov 16.\nA Google release is not dated; the 2026-09-24 statement gave no timeline, so Google may keep its current lead until the 16th.",
+  "base_rate": "Not counted.\nI could not finish the count: the full text history is a 63.7 MB parquet file that the Hugging Face tools here cannot parse, and the Arena site pages returned tables, not quotable sentences.\nWhat I saw is unverified and comes from aggregator pages I did not open, so treat it as leads only: Claude Opus 4.6 at #1 in Feb 2026 (a Reddit snapshot), Opus 4.7 thinking at #1 in May 2026 (DataLearner), Opus 4.8 at #1 in June 2026 (a guide), Claude Fable 5 at #1 on 1 July and in August 2026 (Arena page excerpt and Swfte), and Gemini 4 Argon/Carbon at #1 in October and November 2026 (Arena b",
+  "brief": "The question resolves Yes if an Anthropic model is top-ranked on the Arena text leaderboard with style control removed on 2026-11-16 (https://arena.ai/leaderboard/text). The page dated 2026-11-09 with style control set to None shows Gemini 4 Carbon (High) first at 1526 +/-10 (Preliminary, 4,282 votes), Gemini 4 Argon (High) at 1522 +/-5, Muse Wonder (Max) at 1511 +/-6, Claude Opus 5.5 (High) at 1506 +/-6 and Claude Fable 5 (High) at 1504 +/-4. A separate no-style-control page dated the same day shows Gemini 4 Carbon at 1538 +/-10 and Claude Opus 5.5 at 1513 +/-6 in third (https://arena.ai/leaderboard/text/overall-no-style-control). Anthropic released Fable 5.2 and Mythos 5.2 on 2026-11-09, with Fable 5.2 available to all users (Constellation Research, https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52), but neither appeared on the board in the 2026-11-09 content and the article gives no Arena result. Unverified leads suggest Claude models led in February, May, June, July and August 2026 before Gemini 4 took over in October and November. Ties go to the higher score, and the methodology page (2025-11-14) defines raw rank and rank spreads, so how Rank (UB) is applied is unconfirmed. Google said on 2026-09-24 that a Gemini 4 release was coming as soon as possible, with no date. What would change the answer: a Fable 5.2 or Mythos 5.2 entry on the board scoring above Gemini 4 Carbon, or a revision of Carbon's preliminary score.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The top of the Nov 9 Arena snapshot is Google (Gemini 4 Carbon, Preliminary, 1526\u00b110) with Anthropic's Claude Opus 5.5 at 1506\u00b16 and Claude Fable 5 at 1504\u00b14, so the gap is inside the rank-spread range.\nAnthropic released Fable 5.2 on 2026-11-09, two days before the 2026-11-11 check and after the Nov 9 snapshot, so it is not yet reflected in the leaderboard I read; a new Anthropic entry could enter the Arena text board before Nov 16, which pushes toward Yes.\nGoogle's Gemini 4 release date is unannounced beyond 'as soon as possible' as of Sept 2026, so a new Google flagship before Nov 16 is pos",
+  "facts": [
+   {
+    "fact": "The arena.ai text leaderboard page shows its Style Control adjustment set to None and is dated Nov 9, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "On the text leaderboard dated Nov 9, 2026, the top entry is Gemini 4 Carbon (High) at 1526\u00b110 (Preliminary), followed by Gemini 4 Argon (High) at 1522\u00b15, Muse Wonder (Max) at 1511\u00b16, Claude Opus 5.5 (High) at 1506\u00b16 and Claude Fable 5 (High) at 1504\u00b14.",
+    "source": 0
+   },
+   {
+    "fact": "The arena.ai ranking-method page, published 2025-11-14, defines the raw rank as the rank of the model's Arena score and says two models are tied when their rank spreads overlap.",
+    "source": 1
+   },
+   {
+    "fact": "A search snippet (not opened) reported Gemini 4 Carbon at the top of the LMArena Text board on 2026-11-02 with 1528; this conflicts with the 1526\u00b110 value on the page dated 2026-11-09 and was not used as a source.",
+    "source": 0
+   },
+   {
+    "fact": "On the Arena text overall leaderboard with style control removed, as shown on a page dated 2026-11-09, Gemini 4 Carbon (High) (Google) ranks #1 with a score of 1538\u00b110, and Claude Opus 5.5 (High) (Anthropic) ranks #3 with 1513\u00b16.",
+    "source": 2
+   },
+   {
+    "fact": "The Hugging Face leaderboard dataset's latest split has leaderboard_publish_date 2026-11-08 on every row, and it holds a full historical snapshot file (about 63.7 MB parquet) for the text config.",
+    "source": 3
+   },
+   {
+    "fact": "A discussion on the dataset repo was opened 2026-05-21 and closed 2026-06-03 about the text style-control view being out of sync with the Arena site.",
+    "source": 4
+   },
+   {
+    "fact": "Anthropic released Claude Mythos 5.2 and Fable 5.2 on 2026-11-09; Fable 5.2 is available to all users and Mythos 5.2 is limited to verification programs.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-09-24, Google DeepMind's Koray Kavukcuoglu said Gemini 4 was in post-training and that Google intends to release an early post-training output as soon as possible, with no date given.",
+    "source": 6
+   },
+   {
+    "fact": "On the Arena text leaderboard dated 2026-11-09, Gemini 4 Carbon (High) by Google is rank 1 at 1526\u00b110, marked preliminary; Gemini 4 Argon (High) is rank 2 at 1522\u00b15; Claude Opus 5.5 (High) is 1506\u00b16, fourth in the table.",
+    "source": 0
+   },
+   {
+    "fact": "The Arena page dated 2026-11-09 does not clearly show the Style Control setting; the fetch could not confirm whether the figures shown are the Remove Style Control view the question settles on.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-11-09 Anthropic released Fable 5.2 and Mythos 5.2; Fable 5.2 is available to all users, and the article mentions no Arena or leaderboard result.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-09-24 Google DeepMind's Koray Kavukcuoglu said Google intends to release an early post-training Gemini 4 output as soon as possible, and that a specific timeline was not shared.",
+    "source": 6
+   },
+   {
+    "fact": "On the Arena text leaderboard dated 2026-11-09, the Style Control adjustment is set to None, and the rank 1 entry is Gemini 4 Carbon (High) by Google at 1526\u00b110, marked Preliminary, with 4,282 votes.",
+    "source": 0
+   },
+   {
+    "fact": "The Arena text leaderboard page dated 2026-11-09 shows no Claude Fable 5.2 or Mythos 5.2 entry in the visible content, which is truncated at rank 152, so their scores are not confirmed on the board as of that date.",
+    "source": 0
+   },
+   {
+    "fact": "Constellation Research, dated 2026-11-09, reports that Anthropic released Fable 5.2 and Mythos 5.2, and that Fable 5.2 is available to all users; the article gives no Arena or leaderboard result.",
+    "source": 5
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1979,
+  "research_failed": null,
+  "research_seconds": 296.2,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "View overall rankings across various AI models in text-to-text tasks",
+     "\"Style Control\" appears under Adjustments with the value \"None.\"",
+     "\"Gemini 4 Carbon (High)\" by Google \u00b7 Proprietary, with score \"1526\u00b110Preliminary\" and 4,282 votes."
+    ],
+    "title": "Text Arena leaderboard (arena.ai, formerly lmarena.ai)",
+    "url": "https://arena.ai/leaderboard/text",
+    "verified": null
+   },
+   {
+    "published": "2025-11-14",
+    "quotes": [
+     "The raw rank is simply the rank of the model's Arena score.",
+     "Therefore, two models are tied if their rank spreads overlap."
+    ],
+    "title": "LMArena ranking method (arena.ai blog, formerly news.lmarena.ai/ranking-method)",
+    "url": "https://arena.ai/blog/ranking-method",
+    "verified": true
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [],
+    "title": "Arena text leaderboard, overall, no style control",
+    "url": "https://arena.ai/leaderboard/text/overall-no-style-control",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Historical snapshots of the Arena leaderboard."
+    ],
+    "title": "lmarena-ai/leaderboard-dataset (Hugging Face dataset card)",
+    "url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Arena.ai shows Gemini Flash 3.5 in top 10, yet this model doesn't appear in the dataset."
+    ],
+    "title": "Discussion: Text style control is out of sync",
+    "url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset/discussions/3",
+    "verified": true
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "Anthropic released Claude Mythos 5.2 and Fable 5.2 models and touted their abilities in coding and cybersecurity.",
+     "Fable 5.2 has cybersecurity and biology safeguards and is available to all users.",
+     "Mythos 5.2 is available through Anthropic's verification programs for cybersecurity and life sciences.",
+     "\"Anthropic released Claude Mythos 5.2 and Fable 5.2 models and touted their abilities in coding and cybersecurity.\"",
+     "\"Fable 5.2 has cybersecurity and biology safeguards and is available to all users.\""
+    ],
+    "title": "Anthropic releases Mythos 5.2, Fable 5.2",
+    "url": "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52",
+    "verified": null
+   },
+   {
+    "published": "2026-09-24",
+    "quotes": [
+     "Our intention is to, like\u2014as soon as possible\u2014to release an early post-training output.",
+     "He hopes it will arrive \"much earlier\" than the end of 2026, though no specific date was given.",
+     "Our intention is to, like\u2014as soon as possible\u2014to release an early post-training output"
+    ],
+    "title": "Google says Gemini 4 release is coming as soon as possible",
+    "url": "https://9to5google.com/2026-09-24/google-says-gemini-4-release-is-coming-as-soon-as-possible/",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "Whether Claude Fable 5.2 or Mythos 5.2 has been added to the Arena text leaderboard, and at what score, before Nov 16.",
+   "Whether Gemini 4 Carbon's 1526 score is preliminary and will be revised or confirmed by Nov 16.",
+   "Whether the Arena display uses Rank (UB) or raw rank for the top spot, which matters if the top two overlap within their spreads.",
+   "Conflicting figures: an AF.NET article reported Gemini 4 Carbon at 1528 on 2026-11-02, and the Nov 9 page shows 1526\u00b110; neither was opened directly.",
+   "Whether Gemini 4 launches before Nov 16; no release date has been announced in sources I could open.",
+   "The Nov 9 figures were read from a summarised fetch and the page's own quotes could not be copied; the live leaderboard should be re-read on Nov 16 with Remove Style Control set."
+  ]
+ },
+ "manifold-dLEZL5CLgc": {
+  "against": "The strongest case for NO rests on the company's own 2026-10-26 statement that the registration statement had not yet become effective and that share count and price range were undetermined; effectiveness has not been confirmed by any page I could open, so the SEC step is still ahead.\nThe pricing and first-trade dates (2026-11-18 and 2026-11-19) come only from unconfirmed press reports, so a slip of a few trading days would put the first trade after the 4:00 PM ET close on 2026-11-20 and resolve NO.\nEarlier targets of September or early October 2026 were reported and then missed, which shows the timetable has already moved once.\nThe 2026-11-10 S-1/A is confirmed only as an index entry; its contents, including any price range, are unverified.",
+  "base_rate": "Not computed.\nI could not open a count of US IPOs that set a price range and then priced, or were postponed, on the planned date, so no rate for the reference class is given.\nRitter's IPO data page lists the datasets but gives no postponement rate.\nA figure of about one in six US IPOs withdrawn from 1997 to 2021 (Humphrey) appeared only in a search snippet, so I did not verify it and do not use it.\nRenaissance Capital's archive has deal-level postponement reports (e.g.\nOura, 2026) but no aggregate rate that I could open.",
+  "brief": "The question resolves Yes if Anthropic stock is trading on Nasdaq or another US exchange at the 4:00 PM ET close on 2026-11-20. Anthropic publicly filed a Form S-1 on 2026-10-26 for a Nasdaq Global Select listing under ANT, not yet effective at that time (https://www.anthropic.com/news/s1-sec). EDGAR lists an S-1/A dated 2026-11-10 (accession 0001628280-26-072484), and TechCrunch reported on 2026-11-10 a price range of $70-78 for 825 million Class A shares, implying a valuation of about $1.404 trillion (https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/). Anthropic's newsroom announced on 2026-11-10 that it had launched the roadshow. CNBC reported, citing sources, pricing planned for 2026-11-18 and first trading on 2026-11-19, which the company had not confirmed (https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html). That leaves about one trading day of margin before the resolution close. Earlier press targets of September or early October were missed. No aggregate rate of postponement after a launched roadshow was verified; a snippet cited about one in six US IPOs withdrawn from 1997 to 2021, but it covers all filings, not deals that had set a range and started marketing. SEC effectiveness was not confirmed in pages opened. What would change the answer: a market selloff, an SEC delay, a changed pricing date, or a halt after the first trade.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The filing is not yet effective and no pricing, effectiveness or first-trade date is confirmed in any page I could open, so the question turns on whether the SEC declares the registration effective and the deal prices and trades before the 4:00 PM ET close on 2026-11-20.\nPress reports (not company statements, and not opened by me) put the roadshow in the week of 2026-11-09, pricing around 2026-11-18 and first trading around 2026-11-19, which would leave about one trading day of margin before the resolution close; any slip of several days past 2026-11-20 would resolve NO.\nA reported 825 million",
+  "facts": [
+   {
+    "fact": "Anthropic, PBC filed a Form S-1 registration statement with the SEC on 2026-10-26, stating it intends to list Class A common stock on the Nasdaq Global Select Market under the symbol ANT.",
+    "source": 0
+   },
+   {
+    "fact": "As of the 2026-10-26 announcement, the registration statement had not yet become effective and the number of shares and price range were not yet determined.",
+    "source": 0
+   },
+   {
+    "fact": "The SEC EDGAR index lists the latest S-1-type filing for Anthropic as an S-1/A (amendment) dated 2026-11-10; the page itself gives no publication date, so this date is the index's listing, not a quoted sentence.",
+    "source": 1
+   },
+   {
+    "fact": "Anthropic confidentially submitted a draft S-1 to the SEC on 2026-06-01, per press reports the public S-1 followed the confidential draft.",
+    "source": 0
+   },
+   {
+    "fact": "Anthropic publicly filed its Form S-1 with the SEC on 2026-10-26 for a Nasdaq Global Select Market listing under the symbol ANT, with the share count and price range not yet set.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-11-10 Anthropic's updated filing set an estimated price range of $70 to $78 per share for 825 million Class A shares.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-10, sources familiar with the plans said pricing was planned for 2026-11-18 and first trading on Nasdaq for 2026-11-19; the company had not confirmed these dates.",
+    "source": 3
+   },
+   {
+    "fact": "The SEC EDGAR filings index lists an S-1/A (general form for registration of securities) for Anthropic with a filing date of 2026-11-10, the latest S-1-type filing shown on the page when I opened it.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-10-26 Anthropic stated that its registration statement had been filed with the SEC but had not yet become effective.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-10-26 Anthropic stated that the number of Class A shares to be offered and the price range had not yet been determined.",
+    "source": 0
+   },
+   {
+    "fact": "The SEC EDGAR index lists an S-1/A amendment for Anthropic with a filing date of 2026-11-10 (accession 0001628280-26-072484), but the index page does not show the amendment's contents.",
+    "source": 1
+   },
+   {
+    "fact": "Earlier press coverage, before the public filing, targeted a Nasdaq listing in September or early October 2026; those targets passed without a listing.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-11-10 Anthropic, PBC announced on its newsroom that it had launched the roadshow for its proposed IPO of Class A common stock.",
+    "source": 6
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.2259,
+  "research_failed": null,
+  "research_seconds": 305.6,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-10-26",
+    "quotes": [
+     "Today, Anthropic, PBC filed a registration statement on Form S-1 with the U.S.\nSecurities and Exchange Commission",
+     "Anthropic intends to list its Class A common stock on the Nasdaq Global Select Market under the symbol \u201cANT.\u201d",
+     "A registration statement relating to these securities has been filed with the SEC but has not yet become effective.",
+     "Today, Anthropic, PBC filed a registration statement on Form S-1",
+     "The number of shares of Class A common stock to be offered and the price range for the proposed offering have not yet been determined."
+    ],
+    "title": "Anthropic news: S-1 filing with the SEC",
+    "url": "https://www.anthropic.com/news/s1-sec",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "**[Amend]** General form for registration of securities under the Securities Act of 1933",
+     "Its filing date is \"2026-11-10.\"",
+     "[Amend] General form for registration of securities under the Securities Act of 1933"
+    ],
+    "title": "SEC EDGAR company filing index: Anthropic (S-1 search)",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany",
+    "verified": null
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "offering a total of 825 million Class A shares at an estimated price range of $70 to $78 per share",
+     "intends to start trading on the Nasdaq close to November 19"
+    ],
+    "title": "Anthropic sets IPO price range of $70 to $78 per share (TechCrunch)",
+    "url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "\"The company is planning to price on Nov.\n18 and trade on Nov.\n19,\" according to people familiar with the details.\nThe dates come from sources, not the company."
+    ],
+    "title": "Anthropic sets IPO price range of $70 to $78, looks to start trading Nov.\n19, sources say (CNBC)",
+    "url": "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
+    "verified": false
+   },
+   {
+    "published": "2026-03-09",
+    "quotes": [
+     "IPO Statistics for 2025 and Earlier Years"
+    ],
+    "title": "Jay Ritter, IPO data (University of Florida)",
+    "url": "https://site.warrington.ufl.edu/ritter/ipo-data/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Anthropic IPO 2026: Plans September or Early October Listing Amid $965 Billion Valuation Talks",
+    "url": "https://www.kucoin.com/blog/anthropic-ipo-2026-plans-september-or-early-otcober-listing-amid-965-billion-valuation-talks",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "Today Anthropic, PBC launched the roadshow for its proposed initial public offering of its Class A common stock."
+    ],
+    "title": "Anthropic News",
+    "url": "https://www.anthropic.com/news",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "No primary source I opened confirms a pricing date, an SEC effectiveness date or a first-trade date; the 2026-11-18 pricing and 2026-11-19 trading dates come from unconfirmed press reports.",
+   "The 825 million share, $70-$78 price range reported on 2026-11-10 (per the prior pass) was not confirmed in pages I opened; my searches found no range in the 2026-11-02 amendment or in any later filing I could open.",
+   "The EDGAR index page showed a 2026-11-10 S-1/A but I could not open the filing itself, so the amendment's contents (underwriting agreement, legal opinion, share count) are unverified.",
+   "Whether the SEC declares the registration effective before 2026-11-20 is unknown; effectiveness alone does not resolve YES.",
+   "Whether the stock trades at the 4:00 PM ET close on 2026-11-20 depends on pricing, opening, and absence of halts or postponement, none of which is confirmed.",
+   "Whether the SEC declares the registration effective before 2026-11-20 (no effectiveness notice opened)."
+  ]
+ },
+ "polymarket-6096679": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.201,
+  "research_failed": "no running tally read for a count/total question; not forecast",
+  "research_seconds": 379.8,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-6625273": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.0836,
+  "research_failed": "ValueError: only 1 usable sources",
+  "research_seconds": 47.3,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-6625367": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1404,
+  "research_failed": "no running tally read for a count/total question; not forecast",
+  "research_seconds": 290.0,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-6638953": {
+  "against": "The bracket looks less likely than the level above it because the recent series has been rising steadily.\nAhaSignals' platform totals rose from 169.3T (2026-10-03 to 10-09, published 2026-10-10) to 197.9T (2026-10-27 to 11-02, published 2026-11-03), with the last reported step at +4.1%.\nCarrying the recent rate forward two weeks to the Nov 9 to 15 week gives roughly 214T, and the three-week average rate gives roughly 220T, both above 210T.\nThese are my own extrapolations from a third-party series, not OpenRouter figures.",
+  "base_rate": "Not counted.\nI could not open a primary weekly-total series for OpenRouter.\nThe rankings page is rendered by script and returned no chart values, and openrouter.ai/rankings/usage returned HTTP 404.\nThe only totals found are secondary snapshots (a 2026-04-14 multiple of 11.1\u00d7 over a year, and a 2026-10-19 report of flattening weekly usage), which cannot be turned into a count of weeks with a given outcome.\nThe reference class would need the weekly totals from the rankings chart over its full history, which I could not read.",
+  "brief": "The question asks whether the weekly OpenRouter token total shown in the Top Models chart for 2026-11-09 to 2026-11-15 falls between 200T and 210T, with the 210T boundary going to the higher bracket. The rankings page states its usage data runs through 2026-11-10 but the chart values were not readable by the fetch tool, so no primary weekly figure was confirmed (https://openrouter.ai/rankings). The page describes its weekly view as a trailing seven-day window, which may not match the calendar week. The third-party AhaSignals series, computed from the rankings, shows 169.3T for 2026-10-03 to 10-09, 190.0T for 10-20 to 10-26, 197.9T for 10-27 to 11-02 (+4.1%), and 204.5T for 10-28 to 11-03 versus 188.4T for 10-21 to 10-27 (+8.5%) (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md). OpenRouter's October recap gives 790T for the month, about 178T per week on average, its largest month ever (https://openrouter.ai/fr/data/october-2026). Holding +4.1% weekly growth for two more weeks gives about 214T and the three-week average of 5.4% gives about 220T, both above 210T; these are extrapolations. A secondary report dated 2026-10-19 said weekly usage was flattening. No figure for the window ending 2026-11-10 was found. What would change the answer: a readable chart total for the week of 2026-11-02, or evidence that growth stalled or accelerated.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The most recent weekly figure found (about 204.5T for the seven days ending Nov 3, per AhaSignals) already sits just above the 200T lower bound of the bracket, and the prior week was about 188T, so the latest measured level is close to the 200T to 210T range.\nThe October monthly total implies a lower average of roughly 178T per week, so the series rose through late October and early November.\nThe rankings page's usage window ends Nov 10, which means Nov 9 and 10 are partly visible, but no weekly total for the Nov 9 to 15 week exists yet.\nScheduled before resolution: the Nov 9 to 15 figure keep",
+  "facts": [
+   {
+    "fact": "The OpenRouter rankings page says its usage data runs through Nov 10, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "The Top Models chart ranks each model by the number of tokens it processed through the OpenRouter API.",
+    "source": 0
+   },
+   {
+    "fact": "OpenRouter's API reference says rankings token totals are prompt_tokens plus completion_tokens, matching the public rankings chart.",
+    "source": 1
+   },
+   {
+    "fact": "The weekly view on the rankings page is described as a trailing seven-day window ending with the most recent complete daily bucket, with usage aggregated into daily UTC buckets.",
+    "source": 2
+   },
+   {
+    "fact": "The rankings page's market share section refers to the week beginning Nov 2, 2026.",
+    "source": 2
+   },
+   {
+    "fact": "The OpenRouter rankings page shows usage data through Nov 10, 2026, so the latest displayed week is the one ending before the question's week of Nov 9 to 15.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-04-14, a Codesota snapshot said the total OpenRouter market was up 11.1\u00d7 over twelve months.",
+    "source": 3
+   },
+   {
+    "fact": "On 2026-10-19, a secondary article reported that OpenRouter's live rankings showed weekly token usage flattening across the leaderboard.",
+    "source": 4
+   },
+   {
+    "fact": "A secondary article dated 2026-10-19 reported DeepSeek V4.1 Flash as top model at 32.8T tokens, down 20%.\nThis is a single model's figure, not the weekly total.",
+    "source": 4
+   },
+   {
+    "fact": "The OpenRouter rankings page showed usage data through Nov 10, 2026, but no weekly token total could be read from its text.",
+    "source": 0
+   },
+   {
+    "fact": "AhaSignals, computed from OpenRouter's rankings data, put platform tokens at about 204.5 trillion for 2026-10-28 to 2026-11-03, up from about 188.4 trillion the prior week (+8.5%), in a brief published 2026-11-04.",
+    "source": 5
+   },
+   {
+    "fact": "OpenRouter's own October 2026 recap says October was its largest month ever at 790 trillion tokens (790 000 milliards de jetons), and that agents accounted for 76% of October tokens, about 600T.",
+    "source": 6
+   },
+   {
+    "fact": "Dividing the October total of 790T over 31 days gives about 178T per 7 days on average (derived arithmetic, not a published figure), below the 204.5T trailing week ending Nov 3 reported by AhaSignals.",
+    "source": 6
+   },
+   {
+    "fact": "AhaSignals reports 169.3 trillion platform tokens for 2026-10-03 to 2026-10-09, a brief published 2026-10-10.",
+    "source": 8
+   },
+   {
+    "fact": "AhaSignals reports 197.9 trillion platform tokens for 2026-10-27 to 2026-11-02, up 4.11% on 190.0 trillion for 2026-10-20 to 2026-10-26, in a brief published 2026-11-03.",
+    "source": 7
+   },
+   {
+    "fact": "Derived arithmetic: from the 2026-10-03 to 10-09 total (169.3T) to the 2026-10-27 to 11-02 total (197.9T) is three weeks at about 5.4% compound growth per week.",
+    "source": 7
+   },
+   {
+    "fact": "Derived arithmetic: holding the +4.1% week-over-week rate from the 197.9T window for two more weeks gives about 214T, and holding the 5.4% three-week average gives about 220T, both above the 210T upper bound of the bracket.",
+    "source": 7
+   },
+   {
+    "fact": "The OpenRouter rankings page states its usage data runs through Nov 10, 2026, so no full calendar week of Nov 9 to 15 is closed on the page yet.",
+    "source": 0
+   },
+   {
+    "fact": "The OpenRouter rankings week view labels its context-length summary as the week beginning Nov 2, 2026, and the fetched page gave no weekly total token figure.",
+    "source": 2
+   },
+   {
+    "fact": "AhaSignals reports 204,471,678,441,606 platform tokens for 2026-10-28 to 2026-11-03, versus 188,413,718,979,913 for 2026-10-21 to 2026-10-27, an 8.52% change; the brief was published 2026-11-04.",
+    "source": 5
+   },
+   {
+    "fact": "The AhaSignals series page states its source as OpenRouter rankings as of 2026-11-10 17:06 UTC; the page did not show a figure for the Nov 4 to 10 window, and no brief for the window ending 2026-11-10 was found in search.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1632,
+  "research_failed": null,
+  "research_seconds": 300.1,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Each model is ranked by the number of tokens it processed through the OpenRouter API",
+     "Usage data through Nov 10, 2026.",
+     "Weekly usage of models across OpenRouter",
+     "Usage data through Nov 10, 2026"
+    ],
+    "title": "OpenRouter AI Model Rankings",
+    "url": "https://openrouter.ai/rankings",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Token totals are `prompt_tokens + completion_tokens`, matching the public rankings chart on openrouter.ai/rankings."
+    ],
+    "title": "OpenRouter API reference: Get rankings daily",
+    "url": "https://openrouter.ai/docs/api/api-reference/datasets/get-rankings-daily",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "a trailing window of one day, seven days, and thirty days",
+     "Summary of the context-length chart above for the 10K context window in the week beginning Nov 2, 2026."
+    ],
+    "title": "OpenRouter AI Model Rankings (weekly view)",
+    "url": "https://openrouter.ai/rankings?view=week",
+    "verified": true
+   },
+   {
+    "published": "2026-04-14",
+    "quotes": [
+     "the total market is up 11.1\u00d7",
+     "In absolute tokens that is 1.02T \u2192 39.9T"
+    ],
+    "title": "Codesota: Agentic, OpenRouter trends (one year of weekly token data)",
+    "url": "https://www.codesota.com/agentic/openrouter-trends",
+    "verified": false
+   },
+   {
+    "published": "2026-10-19",
+    "quotes": [
+     "OpenRouter's live rankings show weekly token usage flattening across its leaderboard",
+     "DeepSeek V4.1 Flash still on top at 32.8T tokens but down 20%"
+    ],
+    "title": "OpenRouter's token usage plateaus as the token-maxxing era ends",
+    "url": "https://zeli.app/story/50159464",
+    "verified": true
+   },
+   {
+    "published": "2026-11-04",
+    "quotes": [
+     "Seven-day platform token change: 8.522712% through 2026-11-03",
+     "The platform reported 204471678441606 tokens during 2026-10-28\u20132026-11-03, versus 188413718979913 during",
+     "2026-10-21\u20132026-10-27: 8.522712%."
+    ],
+    "title": "Seven-day platform token change: 8.522712% through 2026-11-03",
+    "url": "https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Octobre a \u00e9t\u00e9 le mois le plus important de l'histoire d'OpenRouter : 790 000 milliards de jetons",
+     "En octobre, elles en repr\u00e9sentaient 76 %, soit environ 600 T jetons."
+    ],
+    "title": "R\u00e9capitulatif des donn\u00e9es d'octobre 2026 (OpenRouter October 2026 data recap)",
+    "url": "https://openrouter.ai/fr/data/october-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "The platform reported 197866105410220 tokens during 2026-10-27\u20132026-11-02",
+     "The change versus the prior week (2026-10-20 to 2026-10-26, 190048844282169 tokens) was **+4.113291%**."
+    ],
+    "title": "Seven-day platform token change: 4.113291% through 2026-11-02 (AhaSignals)",
+    "url": "https://ahasignals.com/data/demand-briefs/v1/briefs/2f42b504a801edfcac3de5c8e3240a8c0927fefb01beed677eab3340d3b6c41b.md",
+    "verified": null
+   },
+   {
+    "published": "2026-10-10",
+    "quotes": [
+     "The platform reported 169297838666860 tokens during 2026-10-03\u20132026-10-09"
+    ],
+    "title": "Seven-day platform token change: 5.060978% through 2026-10-09 (AhaSignals)",
+    "url": "https://ahasignals.com/data/demand-briefs/v1/briefs/79e62ce2687a837c204f801ca0929a6d29d54962f4083703a422ea4bb75c3fb9.md",
+    "verified": null
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "Source: OpenRouter (openrouter.ai/rankings), as of 2026-11-10T17:06:44.705Z.\nAhaSignals calculations.",
+     "Missing named rows are censored, not zero."
+    ],
+    "title": "AhaSignals: Model activity, source-dated brief",
+    "url": "https://ahasignals.com/research/ai-demand-brief/",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "The rankings chart values were not readable by the fetch tool, so the displayed weekly total for Nov 9 to 15 is unknown and the only weekly numbers are from a third-party brief.",
+   "The AhaSignals figures are computed from OpenRouter's public rankings, but its method is not stated in full; whether its seven-day windows match the Top Models chart total is unverified.",
+   "The displayed total can rise until the Nov 16 week appears, so any Nov 11 reading is provisional.",
+   "The trailing-window versus calendar-week mismatch could move the displayed figure into a different bracket than the Monday to Sunday calendar total.",
+   "Week-over-week growth was +8.5% in the last reported week, but there is no data on whether that pace continued into Nov 4 to 10 or whether it flattened, as one 2026-10-19 secondary report suggested for earlier weeks.",
+   "The chart total on openrouter.ai/rankings could not be read, so no primary weekly figure for any week is confirmed.\nThe AhaSignals series is a derived third-party measure whose method is not fully stated."
+  ]
+ },
+ "polymarket-6639367": {
+  "against": "The case for a beat rests on the company's own numbers.\nOn 2026-08-18 La-Z-Boy guided fiscal Q2 sales to $500-$520 million and adjusted operating margin to 4.0-5.5%, and it gave no EPS guidance, so the $0.48 bar is an analyst figure rather than a company target.\nIts fiscal Q1 adjusted EPS of $0.43 excluded the one-time charges from exiting its two smallest plants, which the company reported as a GAAP loss of $(0.06); the adjusted figure is therefore the one that the threshold compares against.\nThe $0.48 bar also follows a sharp cut by one analyst (Sidoti, 2026-08-21, $0.73 to $0.48, from a snippet), so the consensus may have been reset down to a level the company can reach.\nThe release date is fixed for 2026-11-17, so no timing risk offsets this.",
+  "base_rate": "Not established from primary data.\nThe company IR pages (lazboy.gcs-web.com and investors.la-z-boy.com) and Benzinga returned HTTP 403, so I could not open them and did not count from the company's own releases.\nOnly two past quarters were verified on pages I opened: quarter ended April 2023 beat ($0.99 vs $0.73) and quarter ended April 2025 missed ($0.92 vs $0.93).\nUnverified figures from search snippets, not opened: FXEmpire tallies La-Z-Boy beating 27 of 42 estimates (about 64%), with no period given; a Benzinga table lists the last four quarters as beat, beat, beat and miss (quarter ended ",
+  "brief": "The question resolves Yes if La-Z-Boy's headline adjusted diluted EPS for fiscal 2027 Q2 exceeds the $0.48 consensus; $0.48 exactly resolves No. The company will release results after the NYSE close on 2026-11-17 with a call at 8:30 a.m. ET on 2026-11-18 (https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call, 2026-11-03). In the fiscal Q1 release on 2026-08-18, adjusted diluted EPS was $0.43 (GAAP $(0.06)) against $0.47 a year earlier, and it missed the $0.48 consensus per MarketBeat; adjustments were one-time charges from exiting two small plants (https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm). That release guided Q2 sales to $500-520 million and adjusted operating margin to 4.0-5.5%, with no EPS guidance. Rough arithmetic on that guidance gives adjusted EPS of about $0.44-0.52, so the $0.48 consensus sits near the middle; Sidoti reportedly cut its Q2 estimate to $0.48 from $0.73 on 2026-08-21 (snippet only). Prior-year Q2 adjusted EPS was $0.71 (2025-11-18). Verified history is thin: a beat in April 2023 ($0.99 vs $0.73) and a one-cent miss in April 2025 ($0.92 vs $0.93); an unverified snippet says the company beat 27 of 42 estimates. The Section 232 furniture tariff stays at 25% through 2026, with the rise to 30% deferred to 2027-01-01. What would change the answer: retail written-sales trends, wholesale margin, or tariff cost commentary before the release.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "Timing is settled: the release is after the close on Nov 17 and the call is Nov 18, so the 45-day window is not in doubt and the release lands on the stated resolution date, and the question's Dec 2 estimate is superseded.\nThe most recent guidance is the Aug 18 Q2 range of $500-520M sales and 4.0-5.5% adjusted operating margin, and the $0.48 consensus equals a single analyst's cut (Sidoti) only per a snippet I could not open.\nLast quarter's $0.43 adjusted EPS missed consensus, which pushes toward No.\nThe upholstered-furniture tariff increase is deferred to Jan 1, 2027, so it does not hit the Q",
+  "facts": [
+   {
+    "fact": "On 2026-11-03 La-Z-Boy announced its fiscal 2027 second quarter results would be released after the NYSE close on Tuesday, November 17, 2026, with an 8:30 a.m.\nEastern call on Wednesday, November 18, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "La-Z-Boy's fiscal 2027 first quarter results (released 2026-08-18) reported diluted EPS of $(0.06) on a GAAP basis and $0.43 on an adjusted basis, versus $0.47 adjusted a year earlier.",
+    "source": 1
+   },
+   {
+    "fact": "The fiscal 2027 first quarter adjustments related primarily to one-time charges from the planned exit of the company's two smallest plants.",
+    "source": 1
+   },
+   {
+    "fact": "La-Z-Boy's fiscal 2027 first quarter period ended July 25, 2026, and its results were released after the NYSE close on August 18, 2026.",
+    "source": 2
+   },
+   {
+    "fact": "On 2023-06-20, Zacks reported La-Z-Boy's adjusted EPS for the quarter ended April 2023 at $0.99 versus a Zacks consensus of $0.73, a beat.",
+    "source": 3
+   },
+   {
+    "fact": "On 2025-06-18, Zacks reported La-Z-Boy's EPS for the quarter ended April 2025 at $0.92 versus a Zacks consensus of $0.93, a miss by one cent.",
+    "source": 4
+   },
+   {
+    "fact": "La-Z-Boy will report fiscal 2027 second-quarter results after the NYSE close on Tuesday, November 17, 2026, with the conference call at 8:30 a.m.\nET on Wednesday, November 18, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "La-Z-Boy's fiscal Q1 2027 release (published 2026-08-18) gave a Q2 sales outlook of $500-$520 million and an adjusted operating margin outlook of 4.0-5.5%, and reported adjusted diluted EPS of $0.43.",
+    "source": 7
+   },
+   {
+    "fact": "The Section 232 tariff on upholstered furniture stays at 25% through 2026; the scheduled rise to 30% was pushed to January 1, 2027, per a December 31, 2025 proclamation reported on 2026-01-05.",
+    "source": 8
+   },
+   {
+    "fact": "Snippet only, not opened: Sidoti cut its Q2 FY27 EPS estimate to $0.48 from $0.73 (MarketBeat, 2026-08-21).\nThis is the source of the $0.48 threshold's analyst side, not verified on the page.",
+    "source": 7
+   },
+   {
+    "fact": "On 2026-08-18 La-Z-Boy guided fiscal Q2 2027 sales to $500-$520 million, with enterprise sales of -1% to +2% excluding the wholesale casegoods divestiture.",
+    "source": 7
+   },
+   {
+    "fact": "On 2026-08-18 La-Z-Boy guided fiscal Q2 2027 adjusted operating margin to 4.0-5.5%, citing near-term investments and friction costs.",
+    "source": 7
+   },
+   {
+    "fact": "La-Z-Boy's fiscal Q1 2027 (released 2026-08-18) reported diluted GAAP EPS of $(0.06) and adjusted diluted EPS of $0.43.",
+    "source": 7
+   },
+   {
+    "fact": "On 2026-11-03 La-Z-Boy announced fiscal Q2 2027 results (period ended Oct 24, 2026) would be released after the NYSE close on Tuesday 2026-11-17, with the call at 8:30 a.m.\nET on 2026-11-18.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-08-21 MarketBeat reported that Sidoti cut its Q2 FY27 EPS estimate to $0.48 from $0.73; the page was not opened, so this is unverified beyond the snippet.",
+    "source": 9
+   },
+   {
+    "fact": "La-Z-Boy's fiscal 2026 second quarter (period ended October 25, 2025) reported diluted EPS of $0.70 GAAP and $0.71 adjusted; the release is dated 2025-11-18.",
+    "source": 10
+   },
+   {
+    "fact": "The prior-year fiscal Q2 adjusted diluted EPS is a $0.71 figure, set against an aggregator-reported consensus of about $0.54 (aggregator figure, not verified on a primary page; search summary only, not opened).",
+    "source": 10
+   },
+   {
+    "fact": "Per a Q1 FY27 call summary (MarketBeat, 2026-08-19; search summary, not opened), the Q2 FY27 guidance is sales of about $500-520 million and adjusted operating margin of roughly 4-5.5%, and Q1 wholesale sales fell 9% to $323 million.",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.2272,
+  "research_failed": null,
+  "research_seconds": 226.4,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "after the close of trading on the New York Stock Exchange on Tuesday, November 17, 2026",
+     "will hold its quarterly investor conference call at 8:30 a.m.\nEastern Time the following day, Wednesday, November 18, 2026.",
+     "La-Z-Boy will report its results \"after the close of trading on the New York Stock Exchange on Tuesday, November 17, 2026,\" and hold its conference call \"at 8:30 a.m.\nEastern Time the following day, Wednesday, November 18, 2026.\"",
+     "after the close of trading on the New York Stock Exchange on Tuesday, November 17, 2026."
+    ],
+    "title": "La-Z-Boy Incorporated Announces Timing of Fiscal 2027 Second Quarter Earnings Release and Conference Call (company release, republished on finviz)",
+    "url": "https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call",
+    "verified": false
+   },
+   {
+    "published": "2026-08-18",
+    "quotes": [
+     "Diluted earnings per share totaled $(0.06) on a GAAP basis and $0.43 on an adjusted_(1)_ basis.",
+     "Adjustments relate primarily to one-time charges from the planned exit of the company's two smallest plants.",
+     "Management uses these adjusted financial measures when assessing our ongoing performance."
+    ],
+    "title": "La-Z-Boy Incorporated Reports First Quarter Results; Retail Momentum With Positive Written Same-Store Sales (company release, republished on finviz)",
+    "url": "https://finviz.com/news/383445/la-z-boy-incorporated-reports-first-quarter-results-retail-momentum-with-positive-written-same-store-sales",
+    "verified": false
+   },
+   {
+    "published": "2026-08-04",
+    "quotes": [
+     "will report its Fiscal 2027 First Quarter results for the period ended July 25, 2026",
+     "after the close of trading on the New York Stock Exchange on Tuesday, August 18, 2026"
+    ],
+    "title": "La-Z-Boy Incorporated Announces Timing of Fiscal 2027 First Quarter Earnings Release and Conference Call (PR Newswire copy)",
+    "url": "https://www.placera.se/pressmeddelanden/la-z-boy-la-z-boy-incorporated-announces-timing-of-fiscal-2027-first-quarter-earnings-release-and-conference-call-20260804",
+    "verified": true
+   },
+   {
+    "published": "2023-06-20",
+    "quotes": [
+     "La-Z-Boy (LZB) came out with quarterly earnings of $0.99 per share, beating the Zacks Consensus Estimate of $0.73 per share.",
+     "These figures are adjusted for non-recurring items."
+    ],
+    "title": "La-Z-Boy (LZB) Surpasses Q4 Earnings and Revenue Estimates (Zacks via Yahoo Finance)",
+    "url": "https://finance.yahoo.com/news/la-z-boy-lzb-surpasses-213504067.html",
+    "verified": true
+   },
+   {
+    "published": "2025-06-18",
+    "quotes": [
+     "La-Z-Boy came out with quarterly earnings of $0.92 per share, missing the Zacks Consensus Estimate of $0.93 per share."
+    ],
+    "title": "La-Z-Boy (LZB) Lags Q4 Earnings Estimates (Zacks via FXStreet)",
+    "url": "https://www.fxstreet.com/news/la-z-boy-lzb-lags-q4-earnings-estimates-202506180709",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "La-Z-Boy Incorporated Reports Solid Second Quarter Results (company IR release, quarter ended 2025-10-25; page returned HTTP 403, not opened)",
+    "url": "https://lazboy.gcs-web.com/news-releases/news-release-details/la-z-boy-incorporated-reports-solid-second-quarter-results",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "La-Z-Boy Incorporated Reports Strong Fourth Quarter and Full Year Results (company IR release; page returned HTTP 403, not opened)",
+    "url": "https://investors.la-z-boy.com/news-releases/news-release-details/la-z-boy-incorporated-reports-strong-fourth-quarter-and-full",
+    "verified": null
+   },
+   {
+    "published": "2026-08-18",
+    "quotes": [
+     "We expect fiscal second quarter sales to be in the range of $500-$520 million",
+     "We expect adjusted operating margin(2) in the range of 4.0-5.5%",
+     "adjusted(1) diluted EPS of $0.43",
+     "We expect fiscal second quarter sales to be in the range of $500-$520 million,",
+     "We expect adjusted operating margin(2) in the range of 4.0-5.5%,"
+    ],
+    "title": "La-Z-Boy fiscal 2027 first quarter press release (Form 8-K exhibit)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-01-05",
+    "quotes": [
+     "These duties were scheduled to increase from 25% to 30% for furniture and 50% for cabinets on January 1, 2026.",
+     "The Section 232 duty rates for upholstered furniture, kitchen cabinets, and vanities will now increase on January 1, 2027."
+    ],
+    "title": "White House Delays Increase of Section 232 Tariffs on Furniture and Cabinets (Expeditors newsflash)",
+    "url": "https://info.expeditors.com/newsflash/white-house-delays-increase-of-section-232-tariffs-on-furniture-and-cabinets",
+    "verified": true
+   },
+   {
+    "published": "2026-08-21",
+    "quotes": [],
+    "title": "MarketBeat: Sidoti issues negative outlook for La-Z-Boy earnings (search snippet, page not opened)",
+    "url": "https://www.marketbeat.com/instant-alerts/sidoti-issues-negative-outlook-for-la-z-boy-earnings-2026-08-21/",
+    "verified": null
+   },
+   {
+    "published": "2025-11-18",
+    "quotes": [
+     "Diluted earnings per share totaled $0.70 on a GAAP basis and $0.71 on an adjusted(1) basis.",
+     "reported second quarter results for the period ended October 25, 2025."
+    ],
+    "title": "La-Z-Boy Incorporated Form 8-K, fiscal 2026 second quarter press release (SEC EDGAR)",
+    "url": "https://www.sec.gov/Archives/edgar/data/57131/000005713125000096/fy26q2pressrelease.htm",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Could not open the MarketBeat, Benzinga or FinViz consensus pages (MarketBeat returned HTTP 403), so the $0.48 consensus and the Sidoti estimate are not verified on a page I read.",
+   "Search summaries disagree on Q2 revenue consensus ($537.44M vs $506.9M), which is above or inside the company's own $500-520M range; the consensus figures are unreliable.",
+   "No news from 2026-11-04 to 2026-11-11 was found; the Q2 period (ended Oct 24, 2026) results are not yet public.",
+   "Whether the company's own Q2 comments at the Aug 18 call or later updates moved the EPS outlook was not checked; the call transcript was not opened.",
+   "Only the Q1 release was read; the Q2 outcome depends on retail written sales and wholesale margin, neither of which has data here.",
+   "The $0.48 consensus could not be verified on a page opened: MarketBeat, Benzinga and FinViz consensus pages were not read, and the Benzinga snippet gives no quarter label."
+  ]
+ },
+ "polymarket-6733682": {
+  "against": "The strongest case against Dani winning rests on the structure of the event and what could not be verified.\nPer AMBCrypto (2026-10-17), only six traders advance to London, so a win requires beating five others in one live match, and the final is a single event rather than a series.\nThe question's own rules make a non-appearance resolve No, and as of 2026-11-11 no finalist list naming Dani was found in any opened source; a search on that date surfaced only an unrelated Valorant player called DaNa, which is not evidence about GMGN.\nThe date conflict (AMBCrypto's November 17 against the question's November 16) means the schedule itself is unconfirmed.\nIf the final runs on November 17, the announcement still has to land before 11:59 PM ET that day or the market resolves Other, and GMGN's post-match review timing is unknown.\nNone of these points is verified from GMGN's own pages, which return",
+  "base_rate": "Empty: GGC Season 1 is the first season of this championship, so there is no earlier GGC series to count, and I did not count comparable single-match finals in this pass.",
+  "brief": "The question asks whether Dani wins the GMGN GGC Season 1 Grand Final, a single-match final in London with the Grand Champion being the finalist with the highest Grand Final PnL (per search snippets of GMGN's terms, https://gmgn.ai/static/ggc/rules.html; the page returned HTTP 403 and was not read). Six traders advanced from an online qualifier run 2026-10-17 to 2026-10-27 that ranked traders by realised profit and loss (AMBCrypto, 2026-10-17, https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/). No finalist list naming Dani was found as of 2026-11-11, so Dani's participation is unconfirmed, and an unlisted winner or no announcement by 2026-11-17 11:59 PM ET resolves Other. The final date conflicts: the terms snippet says 2026-11-16 while AMBCrypto says 2026-11-17, and the event is staged during Solana Breakpoint week. The champion wins a custom Aston Martin Vantage. This is the first season, so there is no prior series to give a base rate; with six equal finalists the naive share is one in six. The dependence of the winner on one live session's trading PnL makes outcomes high-variance and hard to predict from qualifier standing, which is not available here. What would change the answer: a published finalist list confirming or excluding Dani, qualifier rankings, or a schedule change.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The Grand Final is six days away and no finalist list was found, so whether Dani is a finalist is unconfirmed; if not, the listed-finalist rule resolves No.\nDate conflict: the question says Nov 16 (1:30\u20133:30 PM ET), but the only opened source says Nov 17.\nA Nov 17 final would still allow an announcement before the Nov 17 11:59 PM ET cutoff, but a post-match review that runs long, or a postponement, could push the result past it and resolve Other.\nThe final is staged during Solana Breakpoint week, a live event, which adds scheduling risk.",
+  "facts": [
+   {
+    "fact": "Per search-result snippets of the official GGC Season 1 terms, the Grand Final is a single match and the finalist with the highest PnL in the Grand Final is the Grand Champion (page not opened; 403 error).",
+    "source": 0
+   },
+   {
+    "fact": "Per search-result snippets of the official GGC Season 1 terms, the Grand Final is listed for Nov 16, 2026 in London, United Kingdom (page not opened; 403 error).",
+    "source": 0
+   },
+   {
+    "fact": "Per a search-result snippet of AMBCrypto, the London Grand Final is reported for November 17, which conflicts with the Nov 16 date in the official terms snippet.",
+    "source": 2
+   },
+   {
+    "fact": "Per a search-result snippet of the GMGN blog, the GGC Season 1 grand final falls in mid-November during Solana Breakpoint week (page not opened; 403 error).",
+    "source": 1
+   },
+   {
+    "fact": "Per search-result snippets, the online qualifier ran from 17 October 2026 00:00 UTC to 27 October 2026 00:00 UTC, ranking traders by realized profits and losses, and six traders advanced to the London final.",
+    "source": 0
+   },
+   {
+    "fact": "Per search-result snippets, the champion receives a one-of-one custom Aston Martin Vantage, GGC Edition, with the car delivered later.",
+    "source": 0
+   },
+   {
+    "fact": "AMBCrypto, published 2026-10-17, states the London Grand Final is on November 17 and the qualifiers run through October 26.\nThis conflicts with the question's November 16 date, which is the date in the official rules page; I could not open that page (HTTP 403), so the rules' date is unverified here.",
+    "source": 2
+   },
+   {
+    "fact": "GMGN's official GGC Season 1 rules page and GMGN blog post could not be opened (HTTP 403 on both), so their stated date, qualifier count and Grand Champion rule are unverified in this pass.",
+    "source": 0
+   },
+   {
+    "fact": "AMBCrypto, published 2026-10-17, states the qualifiers run through October 26 and the London Grand Final is on November 17, 2026.\nThis conflicts with the question's November 16 date.",
+    "source": 2
+   },
+   {
+    "fact": "AMBCrypto, published 2026-10-17, places the live Grand Final on November 17 during Solana Breakpoint.",
+    "source": 2
+   },
+   {
+    "fact": "As of 2026-11-11 (UTC), searches for GMGN GGC Season 1 finalists, including Dani, returned no published finalist list.\nThe only GGC coverage found was the 2026-10-17 AMBCrypto launch article, which says the finalists were 'set to' advance but does not name them.",
+    "source": 2
+   },
+   {
+    "fact": "AMBCrypto, published 2026-10-17, says six traders advance from the qualifiers to London.",
+    "source": 2
+   },
+   {
+    "fact": "AMBCrypto, published 2026-10-17, dates the live Grand Final on November 17, one day after the November 16 date in the question.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of GMGN's GGC rules page returned HTTP 403 Forbidden, so its date, time zone, finalist count and Grand Champion rule were not read.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of GMGN's GGC Season 1 blog post returned HTTP 403 Forbidden, so no GMGN-published finalist list or schedule was read.",
+    "source": 1
+   },
+   {
+    "fact": "As of 2026-10-17, AMBCrypto reported that six traders advance from the GGC qualifiers to London and that the London Grand Final is on November 17, 2026, one day after the November 16 date in the question.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of https://gmgn.ai/ggc returned HTTP 403 Forbidden, so GMGN's own GGC page, including any finalist list or schedule, was not read.",
+    "source": 3
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of the GMGN GGC Season 1 blog post returned HTTP 403 Forbidden, so GMGN's own statement of how the six finalists are picked and the final date was not read.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-11-11 (UTC), a curl request to https://gmgn.ai/static/ggc/rules.html returned HTTP 403 Forbidden, so the official GGC Season 1 rules (date, time zone, finalist count, Grand Champion rule) were not read.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of https://x.com/gmgnai returned HTTP 402 Payment Required, so no GMGN post, finalist list, or post-match announcement was read.",
+    "source": 4
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of the GMGN GGC Season 1 blog post returned HTTP 403 Forbidden, so GMGN's own statement of the finalists and Grand Final date was not read.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-11-11, WebFetch of https://solana.com/news/breakpoint-london-lineup returned HTTP 429 Too Many Requests, so Solana's own page confirming the Breakpoint London dates was not read.",
+    "source": 5
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.2563,
+  "research_failed": null,
+  "research_seconds": 185.9,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [],
+    "title": "GGC Season 1 \u2014 Official Terms & Conditions",
+    "url": "https://gmgn.ai/static/ggc/rules.html",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "GMGN Launches GGC Season 1: Six Seats to London, One Aston Martin \u2014 GMGN Blog",
+    "url": "https://gmgn.ai/blog/gmgn-ggc-season-1/",
+    "verified": null
+   },
+   {
+    "published": "2026-10-17",
+    "quotes": [
+     "The qualifiers run through October 26, with the London Grand Final on November 17.",
+     "for a live Grand Final on November 17 during Solana Breakpoint.",
+     "When the qualifiers close, six traders advance to London:",
+     "The six best qualifiers earn a trip to London, with travel and hotel covered, for a live Grand Final on November 17"
+    ],
+    "title": "GMGN Launches a 10-Day Onchain Trading Championship With a Custom Aston Martin on the Line - AMBCrypto",
+    "url": "https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "GMGN GGC page (not opened: HTTP 403)",
+    "url": "https://gmgn.ai/ggc",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "GMGN (@gmgnai) on X (not opened)",
+    "url": "https://x.com/gmgnai",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Solana Foundation: Breakpoint London lineup (not opened)",
+    "url": "https://solana.com/news/breakpoint-london-lineup",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The GMGN rules page (gmgn.ai/static/ggc/rules.html) returned HTTP 403 and was not opened, so the official date, time zone, finalist count, and Grand Champion rule are unverified.",
+   "The GMGN X account (x.com/gmgnai) and gmgn.ai/ggc were not opened, so no official finalist list or post-match announcement could be checked.",
+   "Whether Dani is among the six finalists is unknown; no finalist list was found in searches as of 2026-11-11.",
+   "The final date is conflicting (Nov 16 in the question and rules snippet, Nov 17 in AMBCrypto).\nThe official rules page would settle it.",
+   "How the Grand Champion is decided (the highest Grand Final PnL, per search snippets) and how long GMGN's post-match review takes are unverified.",
+   "Whether Dani is one of the six finalists: no GMGN or credible finalist list naming Dani was opened as of 2026-11-11."
+  ]
+ },
+ "polymarket-6753198": {
+  "against": "Dated 2026-11-08, XRP had just closed at a 30-day low on 2026-11-07 and the $1.12 floor was the level to hold (altcoinbuzz).\nBinance daily data read in the rules pass shows that floor was lost: the 2026-11-10 close was 1.0565, the lowest of the 31 candles returned, and the price fell about 21% from 1.3422 on 2026-10-12.\nThe ETF flow data points the same way: zero net flows Nov 3 to Nov 6 and an outflow Nov 2 (search snippet only).\nThe Oct CPI release was due 2026-11-10 (BLS schedule, not opened), so the macro data before the window is already out and its effect is not in this evidence.\nThe Ripple escrow release of 1 billion XRP on 2026-11-01 was re-locked in large part, so no large supply shock is confirmed.",
+  "base_rate": "No reference-class count was made.\nI could only pull the last 31 Binance daily candles (2026-10-12 to 2026-11-11), not a long history, so I cannot count how often comparable threshold outcomes happened.\nThe 30 daily log returns from those closes have a standard deviation of about 0.026 (sample, n=30; the last return uses the in-progress 2026-11-11 candle).\nThe exact read time of the spot price was not returned by the API, so read_at is the candle's open time.\nThe Binance trade page could not be confirmed: the fetched text did not state a last price, so it is not cited.",
+  "brief": "The question asks whether the Binance XRP/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-13 has a Close above $1.00. The Binance API price was 1.061 at 14:06 UTC on 2026-11-11, and the last completed daily close (2026-11-10) was 1.0565, the lowest of the last 31 daily candles (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). XRP has fallen about 21% from 1.3422 on 2026-10-12. The 30-day daily log-return standard deviation is about 0.026, so a two-day move has a standard deviation of about 3.8%, and the 6% cushion is about 1.5 of those. AltcoinBuzz reported on 2026-11-08 that XRP closed at a 30-day low and the $1.12 floor was in play (https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor); that floor then broke. Ripple unlocked 1 billion XRP on 2026-11-01 but re-locked about 700 million (Tapbit, 2026-11-03). Spot XRP ETFs saw zero flows for four sessions in early November and only $18.83 million in October (search summaries, figures conflict). October CPI came in at 0.4% on 2026-11-10 (BLS), so the main scheduled macro event is behind the window. No long price history was pulled, so no reference-class count exists. What would change the answer: further broad crypto liquidations or XRP-specific news pushing the price toward 1.00 before 2026-11-13.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The question is about a single 1m close at 17:00 UTC on 2026-11-13, so the price sits about 6% above $1.00 (1.061 vs 1.00) with roughly 51 hours left, while the 30-day daily log-return sd of about 0.026 implies a 2-day move of roughly 3.7%; the distance is about 1.6 sd of a two-day move, which is a smaller cushion than the 1.0565 low of the last 31 days.\nDownward pressure in the record: the price fell about 21% over the window, ETF flows were flat to negative in early November, and the 1 Nov escrow release was largely re-locked (700M of 1B), so no large supply shock is confirmed.\nNo scheduled ",
+  "facts": [
+   {
+    "fact": "Binance API XRPUSDT last price was 1.061 at 2026-11-11 14:06 UTC.",
+    "source": 0
+   },
+   {
+    "fact": "The last completed Binance daily XRPUSDT candle (2026-11-10 UTC) closed at 1.0565; the 2026-11-11 daily candle was still open at 1.0611 at 14:06 UTC.",
+    "source": 1
+   },
+   {
+    "fact": "The Binance XRP/USDT trade page title showed a price of 1.0623 at an undated capture time, which differs from the API print of 1.061 at 14:06 UTC on 2026-11-11.",
+    "source": 2
+   },
+   {
+    "fact": "Over the 30 completed daily closes from 2026-10-12 to 2026-11-10 UTC, XRPUSDT fell from about 1.34 to 1.0565; the 30-day daily log-return standard deviation computed from these closes is about 0.0263.",
+    "source": 1
+   },
+   {
+    "fact": "Binance XRPUSDT last price was 1.06020000 USDT when the ticker endpoint was read (exact read time not returned by the endpoint).",
+    "source": 0
+   },
+   {
+    "fact": "Binance XRPUSDT daily close for 2026-11-10 (UTC) was 1.0565.",
+    "source": 1
+   },
+   {
+    "fact": "Binance XRPUSDT daily close for 2026-10-12 (UTC) was 1.3422, the first of the 31 candles returned, and the latest in-progress 2026-11-11 candle closed at 1.0602 at read time.",
+    "source": 1
+   },
+   {
+    "fact": "Over the 31 daily candles returned (2026-10-12 to 2026-11-11), the lowest close was 1.0565 and no close was above 1.37 or below 1.0565; the close fell about 21% from 1.3422 to 1.0602.",
+    "source": 1
+   },
+   {
+    "fact": "Ripple's scheduled escrow release of 1 billion XRP was set for Sunday 2026-11-01 (KuCoin flash news, published 2026-10-31).",
+    "source": 3
+   },
+   {
+    "fact": "Per a Tapbit article dated 2026-11-03, Ripple re-locked about 700 million of the 1 billion XRP released on 2026-11-01 into new escrow contracts, leaving about 300 million outside escrow (secondary report, not opened in full).",
+    "source": 4
+   },
+   {
+    "fact": "Spot XRP ETFs took in $18.83 million in October 2026, their smallest monthly total since January, per search summaries (not opened; figures conflict across outlets).",
+    "source": 5
+   },
+   {
+    "fact": "A Coincentral report dated 2026-11-09 put XRP around $1.0876 that Monday; a 2026-11-07 report put it at $1.16 and a 2026-11-06 report at about $1.19 (search snippets only, conflicting with the Binance data already pulled).",
+    "source": 6
+   },
+   {
+    "fact": "Spot XRP ETFs posted zero net flows for four sessions in early November 2026, with only Canary's XRPC moving, a $529,500 outflow on 2026-11-02 (search summary; figures disagree across trackers).",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-11-07 XRP closed at its lowest level in 30 days, and a $1.12 floor was in play as of 2026-11-08 with XRP near $1.16.",
+    "source": 7
+   },
+   {
+    "fact": "The Binance XRPUSDT daily closes read in the rules pass show 2026-11-10 at 1.0565 and the 2026-11-11 candle open at 1.0611 at 14:06 UTC, so the $1.12 floor cited on 2026-11-08 was below the price by 2026-11-10.",
+    "source": 1
+   },
+   {
+    "fact": "BLS lists the October 2026 CPI release for 2026-11-10 at 08:30 ET; the search snippet gave the date but the BLS page was not opened, so no figure is quoted.",
+    "source": 8
+   },
+   {
+    "fact": "Spot XRP ETF flows were zero for Nov 3 to Nov 6, 2026, with a $529,500 outflow from Canary's XRPC on 2026-11-02, per a search snippet of this page (page not opened).",
+    "source": 9
+   },
+   {
+    "fact": "Ripple's escrow schedule released 1 billion XRP on 2026-11-01 per KuCoin flash news dated 2026-10-31; the next monthly release would fall on 2026-12-01 if the pattern holds, which no primary source confirmed.",
+    "source": 3
+   },
+   {
+    "fact": "The BLS reported that CPI-U rose 0.4% seasonally adjusted in October 2026, after a 0.6% rise in September, in a release dated 2026-11-10, so the October inflation print is already out before the 2026-11-13 resolution.",
+    "source": 10
+   },
+   {
+    "fact": "Binance identifies each kline by its open time, so the candle that closes at 17:00 UTC on 2026-11-13 is the one whose open time is 16:59 UTC; the question's 12:00 ET wording does not settle which timestamp Binance's display uses.",
+    "source": 11
+   },
+   {
+    "fact": "The Binance XRPUSDT API ticker read on 2026-11-11 at about 14:06 UTC returned 1.061 USDT, the spot figure carried over from the earlier rules pass.",
+    "source": 0
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1803,
+  "research_failed": null,
+  "research_seconds": 333.9,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "{\"symbol\":\"XRPUSDT\",\"price\":\"1.06100000\"}",
+     "{\"symbol\":\"XRPUSDT\",\"price\":\"1.06020000\"}"
+    ],
+    "title": "Binance API: XRPUSDT current price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "[1794268800000,\"1.09890000\",\"1.10630000\",\"1.03110000\",\"1.05650000\",\"150454992.20000000\",1794355199999,\"160893381.31221000\",641093,\"68971906.70000000\",\"73867115.52986000\",\"0\"]"
+    ],
+    "title": "Binance API: XRPUSDT daily klines (last 31 days)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "1.0623 Trade XRP/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade XRP/USDT Spot | Binance (page title as captured by WebFetch)",
+    "url": "https://www.binance.com/en/trade/XRP_USDT",
+    "verified": null
+   },
+   {
+    "published": "2026-10-31",
+    "quotes": [
+     "Ripple is scheduled to unlock 1 billion XRP tokens from its escrow accounts on Sunday, November 1, 2026"
+    ],
+    "title": "Ripple to Unlock 1 Billion XRP on November 1, 2026 (KuCoin flash news)",
+    "url": "https://www.kucoin.com/news/flash/ripple-to-unlock-1-billion-xrp-on-november-1-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [],
+    "title": "Ripple Unlocked 1 Billion XRP in November \u2014 But 700 Million Was Locked Again (Tapbit)",
+    "url": "https://www.tapbit.com/en/learn/article/xrp-supply-ripple-relocks-700m-after-1b-unlock-20261103",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "XRP ETFs Hold 1.20B Tokens: Did the Price Lead the Flows?\n(AltcoinBuzz)",
+    "url": "https://www.altcoinbuzz.io/xrp-etfs-hold-1-20b-tokens-did-the-price-lead-the-flows",
+    "verified": null
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [],
+    "title": "Coincentral XRP price report (search snippet, page not opened)",
+    "url": "https://coincentral.com/?p=216754",
+    "verified": null
+   },
+   {
+    "published": "2026-11-08",
+    "quotes": [
+     "XRP closed at its lowest in 30 days on 7 November, down about 7% over the past week.",
+     "The chart puts a floor at $1.12 and a ceiling at $1.18 in play.",
+     "XRP trades near $1.16."
+    ],
+    "title": "XRP closes at a 30 day low, can it hold the $1.12 floor",
+    "url": "https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "BLS release schedule: Consumer Price Index",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "US Spot XRP ETFs Record Their First Outflows Since November Launch",
+    "url": "https://coinmarketcap.com/academy/article/xrp-etfs-record-first-outflows-since-november-launch",
+    "verified": null
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+     "after rising 0.6 percent in September, the U.S.\nBureau of Labor Statistics reported today."
+    ],
+    "title": "BLS Consumer Price Index news release (October 2026)",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Klines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API docs: market data endpoints (klines)",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No primary-source page was opened for the ETF flow figures; the numbers come from search summaries that disagree with each other.",
+   "Coincentral and other news prices ($1.0876 on 2026-11-09, $1.16 on 2026-11-07) are not reconciled with Binance data; the sources could not be fetched.",
+   "The Binance trade page's own price print (1.0623, undated) differs from the API print (1.061 at 14:06 UTC); the exact spot time is uncertain by minutes.",
+   "Whether the 2026-11-13 17:00 UTC 1m candle is labelled by open or close time on Binance is not confirmed, which could shift the candle by one minute.",
+   "Scheduled events inside the window (macro releases, unlocks after 2026-11-01, XRP Ledger amendment fixCleanup3_4_0 possibly activating 2026-11-04) were not verified against primary sources.",
+   "The spot price and 30-day volatility come from the rules pass API reads; I did not re-read them, and the exact read time is uncertain by minutes."
+  ]
+ },
+ "polymarket-6759450": {
+  "against": "The case against a #2 rank on 2026-11-13 rests on the app's framing as a pilot.\nTikTok's own newsroom post dated 2026-06-03 calls the launch 'a pilot of TikTok Pro Events in the U.S.' and ties its debut to FIFA World Cup 2026, but it gives no end date, so the pilot's length is unknown.\nInstalls driven by a time-limited tournament can fall once that driver ends, which would move the app out of the #2 slot.\nThe newsroom's own debut framing is the main support for this.\nThe counterpoint is that Tubefilter (2026-06-04) reports TikTok describing the app as a way to 'deepen community immersion during major cultural milestones' and says it will continue after the World Cup, which points toward sustained installs.\nThe Tubefilter piece does not call the app a pilot, so the two sources disagree on its status.",
+  "base_rate": "",
+  "brief": "The question asks whether TikTok Pro - Events is ranked #2 on Apple's US iPhone Free Apps chart at 12:00 PM ET (17:00 UTC) on 2026-11-13. The Apple chart page opened on 2026-11-11 listed it first under Free Apps (https://apps.apple.com/us/charts/iphone), and the MWM tracker shows '#1 US Free - Overall' with data as of 2026-11-10 (https://mwm.ai/apps/tiktok-pro-events/6741796873), so the app is currently #1 rather than #2. TikTok launched the app as a U.S. pilot on 2026-06-03 with the FIFA World Cup 2026 Fan Hub (https://newsroom.tiktok.com/tiktok-pro-events?lang=en), with no end date given; Tubefilter (2026-06-04) reads TikTok's wording as a sign it continues. The App Store listing shows it at #1 in Entertainment with version 47.7.0 updated '1d ago' (https://apps.apple.com/us/app/tiktok-pro/id6741796873). Third-party snapshots in late August and early September put it 5th to 6th overall, so its rank has varied widely. No count of daily ranks is available, so no base rate was computed. A #2 result needs a one-place slip behind a new leader or a climb back from lower down; either is a narrow outcome among many possible positions. What would change the answer: a new app taking #1 on 2026-11-12 or 2026-11-13, or evidence that Apple's chart differs from the tracker reading.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The app is a time-limited World Cup pilot launched on 2026-06-03, and the World Cup is no longer the near-term driver as of 2026-11-11, so a #2 overall rank on 2026-11-13 would depend on whether its installs persist after the event.\nThe only current rank figure is a third-party tracker's #1 overall reading dated 2026-11-10, which is not Apple's chart and conflicts with other trackers.\nNo scheduled event between now and 2026-11-13 was found in the primary sources; the newsroom page gives no end date for the pilot.\nPushes toward uncertainty rather than a direction.",
+  "facts": [
+   {
+    "fact": "Apple's US iPhone Top Charts page (apps.apple.com/us/charts/iphone) was opened on 2026-11-11 and shows no ranking methodology, update schedule or per-app rank; it carries only a 2026 copyright footer.",
+    "source": 0
+   },
+   {
+    "fact": "MobileAction describes its Top Charts as a daily ranking tool; its page gives no update time and no publication date.",
+    "source": 1
+   },
+   {
+    "fact": "A third-party tracker (MWM) lists TikTok Pro - Events at '#1 US Free \u00b7 Overall' with data as of November 10, 2026, and says its entertainment chart is updated hourly.\nThis is a third-party reading, not Apple's chart, and the tracker's rank for the app is not the same as the #2 question.",
+    "source": 2
+   },
+   {
+    "fact": "TikTok launched a U.S.\npilot of TikTok Pro Events as a dedicated standalone app on 2026-06-03, with the FIFA World Cup 2026 as its first pilot.",
+    "source": 3
+   },
+   {
+    "fact": "The App Store listing for TikTok Pro - Events is priced 'Free \u00b7 In-App Purchases'.",
+    "source": 4
+   },
+   {
+    "fact": "The App Store listing page, captured for this check, shows TikTok Pro - Events at #1 in the Entertainment category, shows version 47.7.0 marked '1d ago', and shows no overall Top Free rank.\nThe page does not show a publication date.",
+    "source": 4
+   },
+   {
+    "fact": "The Apple US iPhone Top Charts page was opened, but the fetched text did not show which app held each position, so no overall Top Free rank for TikTok Pro - Events was read from it.",
+    "source": 0
+   },
+   {
+    "fact": "TikTok announced on 2026-06-03 that it was launching a U.S.\npilot of TikTok Pro Events, with the FIFA World Cup 2026 Fan Hub as its inaugural pilot.",
+    "source": 3
+   },
+   {
+    "fact": "A Tubefilter article dated 2026-06-04 describes TikTok Pro Events as a new, separate app and says it launched with the World Cup fast approaching, without giving an exact launch date.",
+    "source": 5
+   },
+   {
+    "fact": "The MWM tracker lists TikTok Pro - Events at '#1 US Free \u00b7 Overall' with data as of 2026-11-10, a third-party reading rather than Apple's chart.",
+    "source": 2
+   },
+   {
+    "fact": "No Apple-published per-app overall Top Free rank for TikTok Pro - Events was visible on the Apple US iPhone Top Charts page as opened.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-06-03 TikTok's newsroom said it was launching a U.S.\npilot of TikTok Pro Events as a dedicated standalone application, debuting with FIFA World Cup 2026.",
+    "source": 3
+   },
+   {
+    "fact": "The TikTok newsroom page gives no end date or duration for the TikTok Pro Events pilot, so the pilot's length is not published.",
+    "source": 3
+   },
+   {
+    "fact": "A Tubefilter article dated 2026-06-04 describes TikTok Pro Events as a new, separate app launched ahead of the World Cup, and does not call it a pilot.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-06-03 TechCrunch reported that TikTok Pro Events could be downloaded from the Apple App Store or Google Play Store in the U.S., and that the article does not describe the app as a pilot or give an end date.",
+    "source": 6
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1669,
+  "research_failed": null,
+  "research_seconds": 357.4,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Copyright \u00a9 2026 Apple Inc.\nAll rights reserved."
+    ],
+    "title": "Apple App Store Top Charts (iPhone)",
+    "url": "https://apps.apple.com/us/charts/iphone",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Top Charts is a daily ranking tool that shows the leading apps on the App Store and Google Play Store",
+     "Use it to get an instant read on who is winning in any category and market on any given day."
+    ],
+    "title": "About Top Charts - MobileAction Help Center",
+    "url": "https://helpcenter.mobileaction.co/en/about-top-charts",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "#1 US Free \u00b7 Overall",
+     "Top Entertainment apps on the App Store \u2014 hourly updated",
+     "Data as of November 10, 2026"
+    ],
+    "title": "TikTok Pro - Events, third-party App Store rank tracker",
+    "url": "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+    "verified": false
+   },
+   {
+    "published": "2026-06-03",
+    "quotes": [
+     "Today, we are launching a pilot of TikTok Pro Events in the U.S., a dedicated standalone application",
+     "Users can download TikTok Pro Events via the Apple App Store",
+     "Today, we are launching a pilot of TikTok Pro Events in the U.S.",
+     "The TikTok Pro Events experience is now live for users in the U.S.",
+     "debuting with the dedicated Fan Hub for the FIFA World Cup 2026\u2122 as its inaugural pilot."
+    ],
+    "title": "TikTok Pro Events (TikTok Newsroom)",
+    "url": "https://newsroom.tiktok.com/tiktok-pro-events?lang=en",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "TikTok Pro - Events is a global discovery platform for videos",
+     "Free \u00b7 In\u2011App Purchases"
+    ],
+    "title": "TikTok Pro - Events (Apple App Store listing)",
+    "url": "https://apps.apple.com/us/app/tiktok-pro/id6741796873",
+    "verified": true
+   },
+   {
+    "published": "2026-06-04",
+    "quotes": [
+     "with the launch of a new, separate app called TikTok Pro Events.",
+     "[w]ith the World Cup fast approaching"
+    ],
+    "title": "TikTok's new Events app rewards users for generating buzz about big events (Tubefilter)",
+    "url": "https://www.tubefilter.com/2026/06/04/tiktok-pro-events-app-world-cup/",
+    "verified": false
+   },
+   {
+    "published": "2026-06-03",
+    "quotes": [
+     "Users can download TikTok Pro Events via the Apple App Store or Google Play Store in the U.S."
+    ],
+    "title": "TikTok launches TikTok Pro Events, an app for cultural moments like the FIFA World Cup (TechCrunch)",
+    "url": "https://techcrunch.com/2026/06/03/tiktok-launches-tiktok-pro-events-an-app-for-cultural-moments-like-the-fifa-world-cup/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Apple's 'Free Apps' overall chart position for TikTok Pro - Events on 2026-11-13 at 12:00 PM ET was not read from any Apple page; the Apple chart page showed no per-app ranks in the fetched text.",
+   "Third-party trackers conflict: MWM shows #1 overall (2026-11-10), while other snapshots show category ranks only and are undated.",
+   "The newsroom page gives no end date for the pilot and no statement on whether the app continues after the World Cup.",
+   "Apple's refresh frequency for the chart is not stated in any source read, so intraday movement around the noon ET snapshot is unknown.",
+   "Whether any new event, promotion or TikTok announcement in the next two days would move installs is not found in the sources.",
+   "Whether TikTok ends the Pro Events pilot or keeps the app live after the World Cup; neither the newsroom page nor Tubefilter gives a date."
+  ]
+ },
+ "polymarket-6759462": {
+  "against": "For YES: MacRumors reported on 2026-10-30 that Chromagraph Camera was No.\n1 in Photo & Video on the U.S.\nApp Store, which shows the app can reach the top of a US chart in its launch window.\nOn the 2026-11-11 fetch of the Apple chart page, Chromagraph Camera sat at No.\n3, only two places behind the list leader.\nIf that list is the Paid chart, a launch-period app with a promotion behind it could move up within two days.\nTwo spots is a small gap on a chart that can reorder intraday, so the YES outcome is not ruled out by the one overall-chart snapshot.",
+  "base_rate": "Reference class: days an app held #1 on the US iPhone paid chart.\nThe only counted source I could open is Sensor Tower's July 2018 analysis of the App Store's first ten years: Minecraft held #1 for 847 days, more than any other paid app.\nThat is a cumulative day count over roughly a decade, not a rate for new launches, and it does not give how often a newly launched paid app reached overall #1 or how long it stayed there.\nI found no primary count of new paid-app launches reaching overall #1 on the US chart.\nThe Chromagraph Camera #1 result I found is a Photo & Video category rank (MacRumors, 2",
+  "brief": "The question settles on whether Chromagraph Camera is #1 on Apple's US iPhone Top Paid chart at 12:00 PM ET (17:00 UTC) on 2026-11-13. When the chart page (chart=top-paid) was fetched on 2026-11-11, Shadowrocket was at position 1 and Chromagraph Camera at position 3, although the page did not mark whether the Free or Paid tab was shown and carried no timestamp (https://apps.apple.com/us/iphone/charts/36?chart=top-paid). Chromagraph Camera is a $12.99 one-time purchase by Chromatic Applications LLC, reported on 2026-10-28 by News Shooter (https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/). MacRumors reported on 2026-10-30 that it was #1 in Photo & Video, a category rank and not the overall paid rank, after attention tied to filmmaker Rian Johnson (https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/). Apptopia (2022-02-01) says paid apps are ranked like free apps, by downloads and related metrics, not revenue. No count of new paid apps reaching overall #1 exists in the sources; Sensor Tower's 2018 study only shows Minecraft with 847 days at #1. Launch-driven spikes are generally followed by decay, while Shadowrocket is an established top paid app. Chart positions can reorder within hours, and the snapshot time is unverified. What would change the answer: a fresh wave of coverage or a sustained download surge before 2026-11-13, or evidence that the fetched list was not the Paid chart.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The only Chromagraph position found on a US chart is the Photo & Video category #1 from 2026-10-30, which is not the overall Top Paid chart the question settles on.\nThe one overall-chart snapshot (2026-11-11) puts it at #3, behind Shadowrocket at #1, but that list is unlabelled as Free or Paid, so it may not be the Top Paid ranking.\nThe app is a launch-period paid app whose early visibility came from a promotion by Rian Johnson (per the search reporting, not a page I opened), which differs from the reference class of long-running #1 paid apps such as Minecraft.\nNo scheduled events between now ",
+  "facts": [
+   {
+    "fact": "When the US iPhone Top Paid chart page (chart=top-paid) was fetched on 2026-11-11, position #1 was Shadowrocket (\"Rule based proxy utility\"); the page showed no date and no Chromagraph Camera position was visible in the extracted text.",
+    "source": 0
+   },
+   {
+    "fact": "News Shooter reported on 2026-10-28 that Chromagraph Camera is a one-off $12.99 USD purchase and is available on the Apple App Store.",
+    "source": 1
+   },
+   {
+    "fact": "On the Apple US iPhone chart page opened on 2026-11-11, the list shown at #1 under the 'All Apps' charts is Shadowrocket; the page does not say whether that list is the Free or Paid chart, so it does not show the Top Paid ranking for Chromagraph Camera.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-10-30, MacRumors reported that Chromagraph Camera ranked No.\n1 in Photo & Video on the U.S.\nApp Store, which is a category rank, not the overall Top Paid rank.",
+    "source": 2
+   },
+   {
+    "fact": "A 2018 Sensor Tower analysis of the first ten years of the App Store reports Minecraft with 847 days as the No.\n1 paid U.S.\niPhone app, more than any other app.",
+    "source": 3
+   },
+   {
+    "fact": "On 2026-10-30 MacRumors reported Chromagraph ranked No.\n1 in the Photo & Video category on the US App Store; this is a category rank, not the overall Top Paid rank.",
+    "source": 2
+   },
+   {
+    "fact": "Chromagraph Camera costs $12.99 as a one-time purchase on the US App Store and requires iOS 17 or later (MacRumors, 2026-10-30).",
+    "source": 2
+   },
+   {
+    "fact": "When the Apple US iPhone Top Charts page (chart=top-paid) was fetched on 2026-11-11, Shadowrocket (\"Rule based proxy utility\") was listed at position 1 and Chromagraph Camera (tagline \"Artful Photos Made Simple\") at position 3; the page shows no date, and the fetch did not establish whether the list shown was the Free or the Paid chart.",
+    "source": 0
+   },
+   {
+    "fact": "The Apple chart page fetched on 2026-11-11 carries only a footer date of \"Copyright \u00a9 2026 Apple Inc.\"; it shows no update time, so the ranking shown cannot be tied to a time of day or to 12:00 PM ET on 2026-11-13.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-10-30 MacRumors reported Chromagraph Camera ranked No.\n1 in the Photo & Video category on the U.S.\nApp Store, a category rank rather than the overall Paid Apps rank.",
+    "source": 2
+   },
+   {
+    "fact": "The Apple US iPhone chart page fetched on 2026-11-11 lists Chromagraph Camera at position 3 in its 'All Apps' list, with Free and Paid tabs present but neither marked as selected and no update time shown.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-10-30 MacRumors reported that Chromagraph ranked No.\n1 in the Photo & Video category on the U.S.\nApp Store, a category rank rather than the overall Top Paid rank.",
+    "source": 2
+   },
+   {
+    "fact": "The Apple US iPhone Top Charts page (chart=top-paid), fetched on 2026-11-11, lists Shadowrocket at position 1 and Chromagraph Camera at position 3 under 'All Apps'; neither the Free nor the Paid tab is marked as selected, and the only date on the page is the footer copyright line.",
+    "source": 0
+   },
+   {
+    "fact": "Apptopia (published 2022-02-01) states that Apple ranks paid apps in the same manner as free apps, so a paid app's overall rank depends on downloads and other metrics rather than on revenue.",
+    "source": 4
+   },
+   {
+    "fact": "When Apple's US iPhone Top Charts page (chart=top-paid) was fetched on 2026-11-11, the 'All Apps' list showed Shadowrocket at rank 1 and Chromagraph Camera at rank 3.\nThe page showed no update date or time, and the fetch did not establish whether the list was the Free or the Paid chart.",
+    "source": 0
+   },
+   {
+    "fact": "The Apple US App Store listing for Chromagraph Camera (id6803329435) states that the app requires iOS 17.0 or later and shows a price of $12.99.\nThe listing shows no release date beyond version dates without a year, such as '1.0 Oct 20'.",
+    "source": 5
+   },
+   {
+    "fact": "The Apple US App Store listing names the seller as Chromatic Applications LLC.",
+    "source": 5
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.2236,
+  "research_failed": null,
+  "research_seconds": 207.4,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Top Charts",
+     "All Apps",
+     "Free"
+    ],
+    "title": "Apple App Store Top Charts, US iPhone Top Paid Apps (chart 36)",
+    "url": "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+    "verified": false
+   },
+   {
+    "published": "2026-10-28",
+    "quotes": [
+     "Chromagraph Camera is a one off payment of $12.99 USD.\nIt is now available on the Apple App store."
+    ],
+    "title": "Chromagraph Camera iOS app by Steve Yedlin, News Shooter",
+    "url": "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-30",
+    "quotes": [
+     "Chromagraph currently ranks No.\n1 in Photo & Video on the U.S.\nApp Store.",
+     "Chromagraph Camera costs $12.99 as a one-time purchase on the App Store and requires iOS 17 or later."
+    ],
+    "title": "Rian Johnson's iPhone Camera App Goes Viral - MacRumors",
+    "url": "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Minecraft has spent more days as the No.\n1 paid U.S.\niPhone app than any other at 847."
+    ],
+    "title": "Number one apps on the App Store (Sensor Tower)",
+    "url": "https://sensortower.com/blog/number-one-apps",
+    "verified": true
+   },
+   {
+    "published": "2022-02-01",
+    "quotes": [
+     "Paid apps are ranked in the same manner free apps are.",
+     "This means that downloads, and several other metrics, influence a paid app's rank.",
+     "A paid app's rank is not determined by the value of, or revenue gained from, its downloads."
+    ],
+    "title": "App Store Rank Explained: What Is an App's Apple & Google Store Ranking and What Impacts It (Apptopia)",
+    "url": "https://apptopia.com/en/insights/app-store-rank-explained-what-is-an-apps-apple-google-store-ranking-and-what-impacts-it/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Requires iOS 17.0 or later.",
+     "$12.99"
+    ],
+    "title": "Chromagraph Camera - App Store (Apple US listing)",
+    "url": "https://apps.apple.com/us/app/chromagraph-camera/id6803329435",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Whether the 2026-11-11 chart page fetch was the Top Paid list: the page marks neither Free nor Paid as selected, so the #1 Shadowrocket and #3 Chromagraph positions may come from the Free chart.",
+   "The 2026-11-11 chart fetch returned no date or time, so the ranking's time of capture and whether it holds at 12:00 PM ET on 2026-11-13 are unknown.",
+   "No news from 2026-11-04 to 2026-11-11 about Chromagraph's overall paid ranking was found; the search returned only the late-October launch coverage.",
+   "I could not open Apple's chart-methodology page, so the chart's update frequency and tie handling are unverified.",
+   "The Newsshooter (2026-10-28) and Digg pages were not reopened in this pass, so I rely on the earlier pass for their content and cite none of them here.",
+   "The 2026-11-11 chart fetch does not show whether the list is Free or Paid, so the #3 position may not be the Top Paid rank that settles the question."
+  ]
+ },
+ "polymarket-6759476": {
+  "against": "The evidence for the outcome of TikTok Pro Events not being #1 on 2026-11-13 is weak and mostly inferential.\nThe only primary statement (TikTok newsroom, 2026-06-03) frames the app as a pilot built around the World Cup Fan Hub, with no stated duration, so a post-tournament engagement drop is plausible but unconfirmed.\nTubefilter (2026-06-04) reads TikTok's wording as a sign the app continues past the tournament, which cuts against the drop argument.\nRankings are volatile by nature, and the app's own third-party history placed it 5th to 6th in late August to early September 2026, so a fall from #1 to lower ranks is possible without any event.\nNone of this is a dated, direct measure of the chart on 2026-11-13.",
+  "base_rate": "Not counted.\nI did not open enough dated chart snapshots to count how often TikTok Pro - Events held #1 over a period.\nWhat I have: third-party snapshots from 2026-08-24 to 2026-09-10 showing 5th to 6th overall (not opened, from search summaries), and one current reading of #1 on 2026-11-10 (mwm.ai).\nApple's own chart archive was not found.\nThe reference-class count is therefore missing and needs the daily #1 history from Apple or a tracker.",
+  "brief": "The question settles on whether TikTok Pro - Events is #1 on Apple's US iPhone Free Apps chart at 12:00 PM ET (17:00 UTC) on 2026-11-13. The Apple chart page fetched on 2026-11-11 listed TikTok Pro - Events first under Free Apps, with no snapshot time (https://apps.apple.com/us/charts/iphone), and the MWM tracker showed #1 US Free overall with data as of 2026-11-10 (https://mwm.ai/apps/tiktok-pro-events/6741796873). The App Store listing shows version 47.7.0 updated '1d ago' (https://apps.apple.com/us/app/tiktok-pro/id6741796873). TikTok launched TikTok Pro Events as a U.S. pilot on 2026-06-03 debuting with the FIFA World Cup 2026 Fan Hub (https://newsroom.tiktok.com/tiktok-pro-events?lang=en); the post gives no end date, and Tubefilter (2026-06-04) reads it as continuing. Third-party snapshots from 2026-08-25 to 2026-09-10 had the app 5th to 6th overall, so its current #1 is a recent rise whose cause was not found. No news on the app dated 2026-11-04 to 2026-11-11 turned up. No count of how long #1 positions hold exists in the sources, so the base rate is not computed. Chart leaders can change within a day or two, as happened to Meta's Muse around 2026-10-31. What would change the answer: a rival app launch or viral event on 2026-11-12 or 2026-11-13, or a drop in TikTok's own promotion.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The app is a U.S.\npilot tied to the FIFA World Cup 2026 Fan Hub, which launched in June 2026.\nThe World Cup final ended in July, so any post-tournament engagement drop would push against #1 by 2026-11-13, but neither TikTok's newsroom nor TechCrunch says whether the app continues after the tournament, so this cannot be confirmed.\nNo news from the last 7 days (2026-11-04 to 2026-11-11) about the app turned up in two searches.\nNo scheduled event before 2026-11-13 that I found concerns the app.\nThe chart's data are not dated, so I cannot tell how current the #1 reading is.",
+  "facts": [
+   {
+    "fact": "On the US Apple App Store iPhone Top Charts fetched on 2026-11-11, TikTok Pro - Events was ranked #1 of 25 in the Top Free chart; the chart page shows no timestamp for the snapshot.",
+    "source": 0
+   },
+   {
+    "fact": "TikTok announced on 2026-06-03 that it was launching a pilot of TikTok Pro Events in the U.S.\nas a dedicated standalone app, debuting with the Fan Hub for the FIFA World Cup 2026.",
+    "source": 1
+   },
+   {
+    "fact": "The App Store listing for TikTok Pro - Events (id6741796873) shows a latest version of 47.7.0 marked '1d ago' on the fetched page, with no absolute date shown.",
+    "source": 2
+   },
+   {
+    "fact": "The mwm.ai page for TikTok Pro - Events shows a current US Free Overall rank of #1, with data as of 2026-11-10.",
+    "source": 3
+   },
+   {
+    "fact": "The Apple US iPhone Top Charts page, opened on 2026-11-11, listed TikTok Pro - Events first under All Apps Free.\nThis was read from the page list, not from a quoted sentence.",
+    "source": 0
+   },
+   {
+    "fact": "Third-party marlvel.ai US iOS all-apps snapshots from 2026-08-25 to 2026-09-10 place TikTok Pro - Events between 5th and 6th overall.\nI saw this in search result summaries; the 2026-09-09 page returned HTTP 403 when I tried to open it.",
+    "source": 4
+   },
+   {
+    "fact": "TikTok's newsroom post dated June 3, 2026 says TikTok Pro Events is a U.S.\npilot of a dedicated standalone app, debuting with the FIFA World Cup 2026 Fan Hub, and is live for U.S.\nusers.",
+    "source": 1
+   },
+   {
+    "fact": "TechCrunch, dated June 3, 2026, reports TikTok is launching the standalone app in the U.S.\nfor cultural milestones such as the FIFA World Cup, downloadable from the U.S.\nApple App Store and Google Play.",
+    "source": 5
+   },
+   {
+    "fact": "The Apple US iPhone Top Charts page, opened on 2026-11-11, lists TikTok Pro - Events first under Free Apps, with the chart heading \"All Apps\" and no snapshot date or time shown.",
+    "source": 0
+   },
+   {
+    "fact": "TikTok's newsroom, dated 2026-06-03, describes TikTok Pro Events as a U.S.\npilot whose inaugural pilot is the FIFA World Cup 2026 Fan Hub, and does not state how long the pilot runs or whether it continues after the tournament.",
+    "source": 1
+   },
+   {
+    "fact": "Tubefilter, dated 2026-06-04, reports that TikTok's stated aim is to deepen community immersion during major cultural milestones, and reads this as a sign the app will keep running after the tournament; Tubefilter itself calls this an inference, not a stated plan.",
+    "source": 6
+   },
+   {
+    "fact": "TikTok's newsroom post dated 2026-06-03 says TikTok Pro Events debuts with the dedicated Fan Hub for the FIFA World Cup 2026 as its inaugural pilot, and the post does not state how long the pilot runs.",
+    "source": 1
+   },
+   {
+    "fact": "The newsroom post dated 2026-06-03 does not say whether TikTok Pro Events continues after the FIFA World Cup 2026, so the post-tournament status remains unconfirmed.",
+    "source": 1
+   },
+   {
+    "fact": "MobileAction, a third-party ASO vendor, describes App Store Top Charts as a daily snapshot split into Free, Paid and Grossing rankings; the page is undated (copyright 2025) and is not Apple's methodology.",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1804,
+  "research_failed": null,
+  "research_seconds": 152.2,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "**#1 app under Free:** \"TikTok Pro - Events\" with the subtitle \"Watch, Discover, Join & Share\""
+    ],
+    "title": "Apple App Store Top Charts (iPhone), US",
+    "url": "https://apps.apple.com/us/charts/iphone",
+    "verified": false
+   },
+   {
+    "published": "2026-06-03",
+    "quotes": [
+     "Today, we are launching a pilot of TikTok Pro Events in the U.S., a dedicated standalone...",
+     "TikTok Pro Events is a U.S.\npilot of a \"dedicated standalone application\" for fan engagement during major cultural events, debuting with the FIFA World Cup 2026\u2122 Fan Hub.",
+     "The launch was announced in a June 3, 2026 post, which says the experience \"is now live for users in the U.S.\"",
+     "we are launching a pilot of TikTok Pro Events in the U.S.",
+     "with the dedicated Fan Hub for the FIFA World Cup 2026\u2122 as its inaugural pilot."
+    ],
+    "title": "TikTok Newsroom: TikTok Pro Events",
+    "url": "https://newsroom.tiktok.com/tiktok-pro-events?lang=en",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "TikTok Pro - Events is a global discovery platform for videos",
+     "Requires iOS 15.0 or later."
+    ],
+    "title": "TikTok Pro - Events on the US App Store",
+    "url": "https://apps.apple.com/us/app/tiktok-pro/id6741796873",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "TIKTOK PTE.\nLTD./Entertainment",
+     "\"Current rank\" is followed by \"#1\" and \"US Free \u00b7 Overall\""
+    ],
+    "title": "TikTok Pro - Events, mwm.ai app page",
+    "url": "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "marlvel.ai US iOS all-apps ranking, 2026-09-09 snapshot",
+    "url": "https://marlvel.ai/rankings/us/ios/all/2026-09-09",
+    "verified": null
+   },
+   {
+    "published": "2026-06-03",
+    "quotes": [
+     "TikTok \"launching a new stand-alone app in the U.S.\ndedicated to cultural milestones like the upcoming FIFA World Cup.\"",
+     "Users can download it \"via the Apple App Store or Google Play Store in the U.S.\""
+    ],
+    "title": "TikTok launches TikTok Pro Events, an app for cultural moments like the FIFA World Cup",
+    "url": "https://techcrunch.com/2026/06/03/tiktok-launches-tiktok-pro-events-an-app-for-cultural-moments-like-the-fifa-world-cup/",
+    "verified": false
+   },
+   {
+    "published": "2026-06-04",
+    "quotes": [
+     "deepen community immersion during major cultural milestones."
+    ],
+    "title": "TikTok's new Events app rewards users for generating buzz about big events (Tubefilter)",
+    "url": "https://www.tubefilter.com/2026/06/04/tiktok-pro-events-app-world-cup/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Top Charts gives you a daily snapshot of the leading apps on the App Store and Google Play Store"
+    ],
+    "title": "Top charts overview (MobileAction Help Center)",
+    "url": "https://helpcenter.mobileaction.co/en/top-charts-overview",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The newsroom and TechCrunch pages do not say how long the pilot runs or whether the app continues after the World Cup.",
+   "Apple's chart page shows no snapshot time, and I found no Apple methodology page, so how often the ranking refreshes is unknown.",
+   "No news from the last 7 days about TikTok Pro Events was found; search returned only June 2026 launch coverage.",
+   "The quotes from the newsroom and TechCrunch are fragments returned by WebFetch, not full sentences; the full wording should be checked on the pages.",
+   "Whether any TikTok or other app push (new event, promotion, or new TikTok release) will move the #1 spot before 12:00 PM ET on 2026-11-13 is unknown.",
+   "The chart page has no snapshot time, and no Apple methodology page was found, so the refresh cadence and the 12:00 PM ET reading cannot be verified."
+  ]
+ },
+ "polymarket-6763947": {
+  "against": "The evidence for YES, the outcome this evidence makes less likely, is that MSFT's Nov 10, 2026 low of 526.37 sat only about 1.37 points above the $525 threshold, and its 533.16 close was about 8.16 points (roughly 1.5%) above it.\nA session like Nov 10, which opened at 542.98 and fell 2.20%, shows that a similar downward move on any of the three remaining sessions (Nov 11, 12 and 13) would be enough to print 525.\nThe Nov 10 session also had a 17.8-point intraday range, so a single 1-minute candle touching 525 needs less than a full-session move.\nThe stock showed it would move at that size on the October CPI release day (Nov 10, 2026, 8:30 a.m.\nET), so a sharp reaction to a macro print is a precedent within this same week.\nThe NYSE calendar lists no holiday for Nov 11, so Veterans Day should trade under the 9:30 to 4:00 ET core session.",
+  "base_rate": "Reference class: weeks (Mon-Fri) where MSFT's daily low fell at least ~1.06% below the prior Friday close (the same gap as 525 vs the 530.61 Nov 6 close).\nCounted from the daily OHLC table on stockanalysis.com for 9 weeks, Sep 8 to Nov 6, 2026 (weeks of Sep 8, 14, 21, 28, Oct 5, 12, 19, 26, Nov 2): 7 of 9 weeks met the threshold (YES in Sep 8, Sep 14, Sep 28, Oct 12, Oct 19, Oct 26, Nov 2; NO in Sep 21 with low 491.22 vs threshold about 488.6, and Oct 5 with low 518.79 vs threshold about 512.0).\nThe window is short, one volatile 2-month stretch, and uses daily lows from an aggregator rather th",
+  "brief": "The question asks whether MSFT trades at or below $525 in any Pyth 1-minute candle during regular hours in the week of 2026-11-09 (Pyth MSFT/USD, https://app.pyth.com/explore/Equity.US.MSFT%2FUSD). The daily record from stockanalysis.com (https://stockanalysis.com/stocks/msft/history/) shows 2026-11-06 range 524.47-538.33 closing 530.61, 2026-11-09 range 538.70-548.28 closing 545.18, and 2026-11-10 range 526.37-544.19 closing 533.16 (down 2.20%), so the week's low so far is 526.37, 1.37 points above the threshold. MSFT rose 6.68% to 555.80 on 2026-11-04 (heygotrade) and set a 52-week high of 559.15, so the stock has been very volatile. A Pyth snapshot of 535.20 (-1.41% over 24h) was seen at 09:00 ET on an undated page, probably 2026-11-11 pre-market. The October CPI released 2026-11-10 rose 0.4% (BLS), above the 0.3% forecast per FXStreet. Three sessions remain (Nov 11, 12, 13), and NYSE has no Veterans Day closure. The reference class counted 7 of 9 weeks from 2026-09-08 to 2026-11-06 in which the daily low fell at least about 1.06% below the prior Friday close, but with the week already two sessions in, only a 1.5-2% drop in the remaining sessions matters. With recent daily ranges around 3%, a touch needs a move of under one daily standard deviation per session over three sessions. What would change the answer: a premarket or opening move on Nov 11-12, tech sector news, or a calming of volatility.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The window is Mon Nov 9 to Fri Nov 13, and two of its five sessions are already past.\nThe reported Nov 9 range (538.70 to 548.28) and Nov 10 range (526.37 to 544.19) both stayed above 525, and the Nov 10 low was 1.6 points (0.26%) above the threshold.\nOnly Nov 11, 12 and 13 remain (Nov 11 is a full NYSE session under the search summary, not opened).\nThat is a shorter remaining window than the reference class, which used the full week and pushes toward NO.\nAgainst that, the stock closed Nov 10 at 533.16 (about 1.5% above 525), so a modest decline would reach it.\nThe October CPI printed 0.4% m/m",
+  "facts": [
+   {
+    "fact": "MSFT rose 6.68% to close at $555.80 in the US session on Wednesday, November 4, 2026.",
+    "source": 2
+   },
+   {
+    "fact": "TradingKey reported MSFT moved up 3.24% on November 9, 2026; the article is timestamped 8:16 PM with no timezone and gives no price level.",
+    "source": 3
+   },
+   {
+    "fact": "The Pyth explore page for MSFT/USD showed a latest price of 535.20 USD with a 24h change of -1.41%, timestamped 09:00:43 UTC-5 with no date; the page's only date is a copyright line, so this snapshot's date is unknown.",
+    "source": 0
+   },
+   {
+    "fact": "Pyth feed pages show live and historical prices for each feed, identified by a feed ID.",
+    "source": 1
+   },
+   {
+    "fact": "MSFT closed at $555.80 on Nov 4, 2026, 0.60% below its new 52-week high of $559.15 that day.",
+    "source": 2
+   },
+   {
+    "fact": "MSFT on Nov 6, 2026 traded in a daily range of 524.47 to 538.33 and closed at 530.61.",
+    "source": 4
+   },
+   {
+    "fact": "MSFT on Nov 9, 2026 traded in a daily range of 538.70 to 548.28 and closed at 545.18.",
+    "source": 4
+   },
+   {
+    "fact": "MSFT on Nov 10, 2026 traded in a daily range of 526.37 to 544.19 (open 542.98) and closed at 533.16, down 2.20%; its low did not reach 525.",
+    "source": 4
+   },
+   {
+    "fact": "The Pyth MSFT/USD page showed a price of 535.20 with a 24h change of -1.41%, undated in the fetched page.",
+    "source": 0
+   },
+   {
+    "fact": "The BLS released October 2026 CPI on Tuesday, November 10, 2026, at 8:30 a.m.\nET, and the release text says the CPI-U rose 0.4% seasonally adjusted in October.",
+    "source": 5
+   },
+   {
+    "fact": "The BLS November 2026 schedule lists the October 2026 CPI release on Tuesday, November 10, 2026 at 08:30 AM, and the page was last modified November 3, 2026.",
+    "source": 6
+   },
+   {
+    "fact": "The Federal Reserve's FOMC calendar lists the December 2026 meeting as December 8-9, a meeting with a Summary of Economic Projections, on a page last updated October 28, 2026.",
+    "source": 7
+   },
+   {
+    "fact": "MSFT's Nov 10, 2026 regular-session low was 526.37 and its close was 533.16, down 2.20%, after opening at 542.98.",
+    "source": 4
+   },
+   {
+    "fact": "MSFT's Nov 10, 2026 session range was 526.37 to 544.19, about 17.8 points or roughly 3.3% of the 533.16 close.",
+    "source": 4
+   },
+   {
+    "fact": "The BLS released October 2026 CPI-U on Tuesday, November 10, 2026 at 8:30 a.m.\nET, showing a 0.4% seasonally adjusted rise.",
+    "source": 5
+   },
+   {
+    "fact": "The NYSE core trading session runs 9:30 a.m.\nto 4:00 p.m.\nET, the regular-hours window the resolution uses.",
+    "source": 8
+   },
+   {
+    "fact": "The NYSE 2026 holiday list on its calendar page does not include Veterans Day (Nov 11, 2026), so the exchange calendar shows no holiday closure for that date.",
+    "source": 8
+   },
+   {
+    "fact": "Opening the Pyth MSFT/USD explore page with the t=1794322800 parameter (2026-11-10 15:00 UTC, 10:00 ET) returned the same undated snapshot as before, price 535.20 with a -1.41% 24h change, timestamped 09:04:32 UTC-5.\nThe page showed no date and no candle high or low, so this did not confirm the Nov 10 candle values.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.2155,
+  "research_failed": null,
+  "research_seconds": 252.6,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "The page shows a price of \"535.20\" for MSFT/USD, with a 24h change of \"-1.41%\"."
+    ],
+    "title": "Pyth explore page for Equity.US.MSFT/USD (pythdata.app redirects here)",
+    "url": "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Each feed's page shows its symbol, feed ID, exponent, status and minimum channel, along with its live and historical prices."
+    ],
+    "title": "Pyth Network docs: price feed IDs",
+    "url": "https://docs.pyth.network/price-feeds/core/price-feeds/price-feed-ids",
+    "verified": true
+   },
+   {
+    "published": "2026-11-05",
+    "quotes": [
+     "shares of Microsoft (MSFT) rose 6.68% to close at $555.80 in the US session on Wednesday, November 4, 2026.",
+     "Microsoft (MSFT) rose 6.68% to close at $555.80 on November 4, 2026, finishing 0.60% below its new 52-week high of $559.15."
+    ],
+    "title": "Microsoft Stock (MSFT) Rises 6.7% as Big Tech Stocks Rally (Nov 4)",
+    "url": "https://www.heygotrade.com/en/news/microsoft-msft-stock-news-november-5-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "Microsoft Corp (MSFT) moved up by 3.24%."
+    ],
+    "title": "Market movers: MSFT, 2026-11-09",
+    "url": "https://www.tradingkey.com/news/market-movers/262296988-market-movers-msft-20261109",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "Nov 10, 2026 542.98 544.19 526.37 533.16 533.16 -2.20% 26,940,880",
+     "Nov 9, 2026 | 544.49 | 548.28 | 538.70 | 545.18",
+     "Nov 6, 2026 | 525.69 | 538.33 | 524.47 | 530.61"
+    ],
+    "title": "Microsoft Corporation (MSFT) price history, stockanalysis.com",
+    "url": "https://stockanalysis.com/stocks/msft/history/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+     "8:30 a.m.\n(ET) Tuesday, November 10, 2026"
+    ],
+    "title": "BLS Consumer Price Index news release",
+    "url": "https://www.bls.gov/news.release/cpi.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "Tuesday, November 10, 2026",
+     "Consumer Price Index for October 2026"
+    ],
+    "title": "BLS release schedule, November 2026",
+    "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-10-28",
+    "quotes": [
+     "December",
+     "8-9*"
+    ],
+    "title": "Federal Reserve FOMC calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Core Trading Session: 9:30 a.m.\nto 4:00 p.m.\nET"
+    ],
+    "title": "NYSE Hours & Calendars - NYSE",
+    "url": "https://www.nyse.com/markets/hours-calendars",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "535.20535.20",
+     "-1.41%-1.41%",
+     "09:04:32 UTC-5"
+    ],
+    "title": "Pyth Explore: Equity.US.MSFT/USD, historical view with t=1794322800 (2026-11-10 15:00 UTC)",
+    "url": "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD?t=1794322800",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "No Pyth 1-minute candle data or Pyth historical view was opened, so the high and low for each session are not confirmed from the settling source.",
+   "The 20-day realised volatility needed for the touch estimate was not computed: no full daily OHLC series for the last 20 sessions was opened, so the touch chance is not estimated.",
+   "The Nov 9 and Nov 10 ranges and the Nov 10 close of 533.16 come from the prompt's reference facts, not from a page I opened.",
+   "Veterans Day (Nov 11, 2026) NYSE session: a search summary said the NYSE is open 9:30-16:00 ET with no early close, but I did not open that page.",
+   "The consensus for October CPI (0.3% headline) and the market reaction to the print come from search summaries only; I did not open a page for either.",
+   "The Pyth 1-minute candles for Nov 9 to Nov 10 were not opened, so the settling-source lows are unconfirmed; the stockanalysis daily low of 526.37 may differ from Pyth's candle-level low."
+  ]
+ },
+ "polymarket-6771083": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.0734,
+  "research_failed": "ValueError: only 0 usable facts",
+  "research_seconds": 203.7,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-6801798": {
+  "against": "Evidence for No (Close at or below 72,000 at noon ET on 2026-11-14): ETF selling is extending, with outflows of $95 million on 2026-11-10 (a fourth straight day, CoinDesk 2026-11-11) after $1.28 billion of weekly outflows for the week ending 2026-11-06 (The Block, 2026-11-07), and year-to-date flows turned to about $914.1 million of outflows on 2026-11-06.\nThe hot October CPI on 2026-11-10 pushed the price to $72,700, only about 1% above the threshold.\nThe next CPI release is 2026-12-10, so no scheduled US inflation print falls inside the window, which leaves the outcome to flows and sentiment.\nThe CoinDesk report does describe a stabilization near $74,000, which cuts against this case.\nThe spot figure is carried from the earlier rules pass and was not re-read here.",
+  "base_rate": "Reference class: Binance BTCUSDT daily closes, 1000 daily candles from 2024-02-15 to 2026-11-10, computed by me from the klines endpoint.\nCounted every start day with a close three days later (997 windows): the close was above 97.47% of the start close (the 72000 threshold versus the 73868 spot) in 776 of 997 windows, 77.8%.\nThe 3-day horizon matches the 2026-11-11 to 2026-11-14 gap.\nThis is the unconditional frequency over that period and does not account for current conditions.\nThe 30-day daily vol of 1.87% is computed from the last 30 daily log returns of Binance closes ending 2026-11-10.",
+  "brief": "The question asks whether the Binance BTC/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-14 has a Close above 72,000. Binance's ticker read about 73,850-73,885 on 2026-11-11 around 14:03-14:05 UTC, and the last completed daily close (2026-11-10) was 73,796.06 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Daily closes were 74,851 (2026-11-08), 75,368 (2026-11-09) and 73,796 (2026-11-10), and 30-day daily log-return volatility is 1.87%. Over 997 three-day windows from 2024-02-15 to 2026-11-10, the close stayed above 97.47% of the start close (the 72,000 vs 73,868 ratio) in 776, or 77.8%. October CPI on 2026-11-10 came in at 0.4% headline against 0.3% expected and core 0.3% against 0.2%, pushing Bitcoin toward 72,700 with $716 million of liquidations (FXStreet, https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102). US spot bitcoin ETFs lost $95 million on 2026-11-10, a fourth day of outflows, after $1.28 billion of outflows in the week to 2026-11-06 (CoinDesk 2026-11-11; The Block 2026-11-07), though CoinDesk describes the price as stabilizing near 74,000. The next FOMC is 2026-12-8 to 9 and the next CPI is 2026-12-10, so no scheduled macro release falls before resolution. What would change the answer: a continuation of ETF outflows or a weekend liquidation cascade, versus a rebound above 75,000.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "Spot near 73,885 is about 2.6% above the 72,000 threshold.\nBitcoin's recent low was 72,700 on 2026-11-10, only about 1% above the threshold, after a hot October CPI print (core 0.3% vs 0.2% expected).\nMomentum is negative: ETF outflows for four straight days and about $716 million of liquidations on 2026-11-10, which leans toward the price weakening, not strengthening.\nNo FOMC decision or CPI release is confirmed inside the window; the next confirmed Fed meeting is December 8-9.\nThe threshold is strict and the candle is at noon ET (17:00 UTC) on a Saturday-to-Saturday gap, so the outcome depen",
+  "facts": [
+   {
+    "fact": "Binance BTCUSDT ticker price was 73884.79 USDT when read on 2026-11-11 at about 14:03 UTC.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance BTC/USDT trade page title showed a price of 73856.00 when fetched; the page itself shows no date or time.",
+    "source": 1
+   },
+   {
+    "fact": "Binance defines klines (candlestick bars) as uniquely identified by their open time, which is the basis for the 1-minute candle that settles the question.",
+    "source": 2
+   },
+   {
+    "fact": "Binance daily kline for 2026-11-10 UTC (completed day) has close 73796.06 USDT.",
+    "source": 3
+   },
+   {
+    "fact": "Binance daily kline for 2026-11-11 UTC (in progress, opened 00:00 UTC) has latest close 73884.79 USDT.",
+    "source": 3
+   },
+   {
+    "fact": "Standard deviation of daily log returns of Binance BTCUSDT daily closes from 2026-10-12 to 2026-11-10 (29 returns, my computation) is about 0.0187.",
+    "source": 3
+   },
+   {
+    "fact": "Binance BTCUSDT ticker price was 73868.00 USDT at 2026-11-11 14:03 UTC.",
+    "source": 0
+   },
+   {
+    "fact": "Binance BTC/USDT trade page showed a last price of 73876.79 at the time it was opened on 2026-11-11.",
+    "source": 1
+   },
+   {
+    "fact": "Binance BTCUSDT 1-day candle closed at 73796.06 USDT on 2026-11-10 (UTC), the latest complete daily close.",
+    "source": 0
+   },
+   {
+    "fact": "Binance daily candles from 2026-10-14 to 2026-11-10 show closes between 73796.06 and 84093.42 USDT (the 2026-10-23 close was 84093.42 in the 31-day window); the 31-day window has fallen from about 84000 to about 73800.",
+    "source": 0
+   },
+   {
+    "fact": "CoinGecko's daily series for BTC on 2026-11-11 (about 14:00 UTC) was 73800.12 USD, consistent with Binance's 73868 USDT within about 0.1%.",
+    "source": 4
+   },
+   {
+    "fact": "Binance BTCUSDT ticker read at 73884.79 USDT on 2026-11-11 at about 14:03 UTC; this is the spot figure reported in the spot field, taken from the rules pass and not re-read in this pass.",
+    "source": 0
+   },
+   {
+    "fact": "On 2026-11-10 the October US CPI came in with headline inflation up 0.4% against a 0.3% forecast, and core prices rose 0.3% against a 0.2% forecast, according to FXStreet dated 2026-11-10.",
+    "source": 6
+   },
+   {
+    "fact": "Bitcoin fell toward $73,000 after the 2026-11-10 inflation release, with crypto liquidations reaching $716 million, according to FXStreet dated 2026-11-10.",
+    "source": 6
+   },
+   {
+    "fact": "Bitcoin dipped to $72,700 on Tuesday 2026-11-10 and was about $74,000 at midnight UTC on 2026-11-11, according to CoinDesk dated 2026-11-11.",
+    "source": 5
+   },
+   {
+    "fact": "US spot bitcoin ETFs lost $95 million on Tuesday 2026-11-10 (SoSoValue data), extending outflows to a fourth straight day, according to CoinDesk dated 2026-11-11.",
+    "source": 5
+   },
+   {
+    "fact": "The December 2026 FOMC meeting is scheduled for December 8 to 9, which is after the 2026-11-14 resolution date, so no FOMC decision falls inside the window.",
+    "source": 7
+   },
+   {
+    "fact": "US spot bitcoin ETFs lost $95 million on Tuesday 2026-11-10 (SoSoValue data), a fourth straight day of outflows.",
+    "source": 5
+   },
+   {
+    "fact": "Bitcoin dipped to $72,700 on Tuesday 2026-11-10 and was around $74,000 at midnight UTC on 2026-11-11, per CoinDesk, which describes it as stabilizing.",
+    "source": 5
+   },
+   {
+    "fact": "US spot bitcoin ETFs logged $1.28 billion in net outflows in the week ending 2026-11-06, their largest weekly outflow since late June.",
+    "source": 9
+   },
+   {
+    "fact": "The 12 US spot bitcoin funds closed Friday 2026-11-06 at about $914.1 million in net outflows year to date, a reversal of earlier 2026 gains.",
+    "source": 9
+   },
+   {
+    "fact": "On Friday 2026-11-06, BlackRock's IBIT accounted for $403 million of outflows, about 88% of that day's gross outflows.",
+    "source": 9
+   },
+   {
+    "fact": "The October 2026 US CPI report is scheduled for 2026-11-10 at 08:30 AM ET, so the next CPI release (November data) is 2026-12-10, outside the 2026-11-14 resolution window.",
+    "source": 8
+   },
+   {
+    "fact": "Binance BTCUSDT ticker price was 73853.57 USDT when read at 2026-11-11 about 14:05 UTC, a single reading that replaces the earlier 73884.79 carried from the rules pass.",
+    "source": 0
+   },
+   {
+    "fact": "Binance daily closes for the last three completed UTC days were 74851.44 (2026-11-08), 75368.41 (2026-11-09) and 73796.06 (2026-11-10).",
+    "source": 10
+   },
+   {
+    "fact": "The 30-day standard deviation of daily log returns of Binance BTCUSDT completed daily closes (30 returns ending 2026-11-10) is 0.01868, recomputed in this pass and matching the earlier 0.0187.",
+    "source": 10
+   },
+   {
+    "fact": "A search for US spot bitcoin ETF flows on 2026-11-10 returned mainly 2025 articles, so no 2026 daily flow figure for 2026-11-10 or 2026-11-11 was confirmed; the latest 2026 weekly figure found remains the Nov 2-6 outflow of about $1.28 billion (The Block, 2026-11-07, snippet only).",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1709,
+  "research_failed": null,
+  "research_seconds": 185.9,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"73884.79000000\"}",
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"73868.00000000\"}",
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"73853.57000000\"}"
+    ],
+    "title": "Binance Spot API: ticker price BTCUSDT",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "73856.00 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+     "73876.79 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade BTC/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/BTC_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API docs: Market data endpoints",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Binance Spot API: daily klines BTCUSDT (31 rows)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "[1794405730000,73800.12068197742]"
+    ],
+    "title": "CoinGecko: BTC USD market chart, 31 days daily (cross-check)",
+    "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=31&interval=daily",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "Bitcoin is little changed since midnight UTC at around $74,000, stabilizing after dipping to $72,700 on Tuesday.",
+     "U.S.\nspot bitcoin ETFs lost $95 million on Tuesday, according to SoSoValue, extending outflows to a fourth straight day."
+    ],
+    "title": "Bitcoin sits out stock rebound as ETF outflows extend to fourth day",
+    "url": "https://www.coindesk.com/markets/2026/11/11/bitcoin-sits-out-stock-rebound-as-etf-outflows-extend-to-fourth-day",
+    "verified": null
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "Bitcoin falls toward $73,000 after US inflation rose 0.4% in October, above forecasts of 0.3%.",
+     "Crypto liquidations reached $716 million as Ethereum, XRP and Solana extended losses."
+    ],
+    "title": "Bitcoin falls toward $73,000 after hot US inflation triggers $700 million in liquidations",
+    "url": "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102",
+    "verified": null
+   },
+   {
+    "published": "2025-06-24",
+    "quotes": [
+     "Two-day meeting, December 8 - 9"
+    ],
+    "title": "December 2026 FOMC calendar, Federal Reserve Board",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "October 2026 / Nov.\n10, 2026 / 08:30 AM",
+     "November 2026 / Dec.\n10, 2026 / 08:30 AM"
+    ],
+    "title": "BLS release schedule: Consumer Price Index",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-11-07",
+    "quotes": [
+     "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week",
+     "the funds closed Friday at about $914.1 million in net outflows year to date.",
+     "BlackRock's IBIT accounted for $403 million of Friday's loss, or about 88% of the day's gross outflows."
+    ],
+    "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June (The Block)",
+    "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "2026-11-10 73796.06000000",
+     "2026-11-09 75368.41000000",
+     "2026-11-08 74851.44000000"
+    ],
+    "title": "Binance API daily klines BTCUSDT (last 32 days)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Bitcoin ETF weekly outflows hit $1.2B after largest daily outflow since August",
+    "url": "https://crypto.news/bitcoin-etf-weekly-outflows-hit-1-2b-after-largest-daily-outflow-since-august/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The spot price and 30-day volatility are carried from the rules pass; the Binance ticker page was not re-opened here, so the 14:03 UTC reading is unverified in this pass.",
+   "The 30-day daily volatility of 0.0187 was computed in the earlier pass from Binance closes and was not recomputed here.",
+   "I could not confirm the November 2026 CPI release date or any other macro release on bls.gov or BLS; calendar aggregators disagree.",
+   "No news from 2026-11-12 to 2026-11-14 is available because it is after the search date, so any weekend shock is unknown.",
+   "Weekly ETF flow data for November 9-11 was not found; the latest full week found (Nov 2-6) was a net outflow of about $1.28 billion from a CoinStats/Coinotag snapshot that I did not open.",
+   "The spot price of 73884.79 at 14:03 UTC on 2026-11-11 and the 30-day daily vol of 0.0187 were carried from the earlier pass and not re-read or recomputed in this pass."
+  ]
+ },
+ "polymarket-6891258": {
+  "against": "Evidence for Yes, the less likely outcome: the window opened on 2026-11-09 05:00 UTC, and the highest 1-minute High printed inside it so far is 2151.90 at 15:47 UTC that day, 6.9% short of 2300 (source 2).\nA daily high of 2160.50 on 2026-11-09 (source 2) shows ETH already traded above 2150 on that day, although that print probably fell before 05:00 UTC and so does not count.\nThe 30-day daily log-return volatility of 0.02663 (source 2, computed in the rules pass) means a 12% move is about 4.3 daily standard deviations from spot, so Yes needs a move that is large relative to recent behaviour, though the pass's long-run base rate of 16.5% of 5-day windows hitting a 12.12% higher daily high (not regime-matched) keeps it from being negligible.\nThe 2026-11-10 08:30 ET CPI release (source 0) fell inside the window and did not produce a print above 2136.77 that day in the rules-pass data, so no ",
+  "base_rate": "Reference class: every 5-day window (day t through day t+4) of Binance ETHUSDT daily candles, 2017-08-17 to 2026-11-11, 3,369 windows.\nA hit is a daily high at least 12.12% above that window's starting close, which is the 2,300 threshold relative to spot 2,051.\nResult: 555 hits, 16.5%.\nDaily highs are the maximum of the 1-minute highs in each day, so this is a close proxy for the 1-minute rule.\nThe count spans very different volatility regimes (2017-2026), so it is a long-run average, not a regime-matched rate.\nThe 30-day volatility figure includes the still-open 2026-11-11 candle.",
+  "brief": "The question asks whether any Binance ETH/USDT 1-minute candle has a High of at least 2,300 between 05:00 UTC on 2026-11-09 and 04:59 UTC on 2026-11-16. Binance's ticker read about 2,057 at 12:51 UTC and 2,059 at 14:00 UTC on 2026-11-11 (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). The highest 1-minute High printed inside the window so far is 2,151.90 at 15:47 UTC on 2026-11-09, which is 6.9% below 2,300; the 07:00-14:00 UTC candles on 2026-11-11 peaked at 2,070.70 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m). The 2026-11-09 daily high of 2,160.50 probably printed before the window opened. Spot is about 12% below 2,300, which is roughly 4.3 daily standard deviations using 30-day daily log-return volatility of 0.0266, or about 2 standard deviations over the remaining ~111 hours for a barrier touch. The base rate is the share of 3,369 five-day windows since 2017 in which a daily high reached 12.12% above the start close: 555, or 16.5%, but that spans much more volatile regimes than the present one. The October CPI release on 2026-11-10 (BLS schedule) already passed with no print above 2,136.77 that day. A Binance-specific security-breach selloff on 2026-11-03 (investinglive) fell before the window. No ETH-specific catalyst dated inside the window was found, and ETF flow data for the week was not verified. What would change the answer: a sudden macro or crypto-wide rally of about 12% within four days, or a short squeeze after heavy liquidations.",
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": "The window (05:00 UTC 2026-11-09 to 04:59 UTC 2026-11-16) is already about 2.4 days in.\nThe highest 1-minute High printed so far is 2151.90 (2026-11-09 15:47 UTC), which is 6.9% below 2300.\nSpot 2053.33 is 12.0% below 2300, about 4.3 daily 30-day standard deviations in log terms (ln(2300/2053.33)=0.113 vs daily vol 0.02663).\nAbout 111 hours remain from 14:00 UTC on 2026-11-11.\nThe 24-hour high of 2096.59 covers 2026-11-10 14:00 UTC onward, so the unfetched 2026-11-11 07:00-13:59 candles printed no High above 2096.59.\nThe 24-hour low of 2006.00 and the window low of 2006.00 are the same print.\n",
+  "facts": [
+   {
+    "fact": "Binance ETHUSDT ticker price read at about 2026-11-11 12:51 UTC was 2057.17 USDT.",
+    "source": 0
+   },
+   {
+    "fact": "Binance ETHUSDT daily candle for 2026-11-10 UTC closed at 2053.21 with a high of 2136.77.",
+    "source": 1
+   },
+   {
+    "fact": "Binance ETHUSDT daily candle for 2026-11-09 UTC had a high of 2160.50 and closed at 2135.24.",
+    "source": 1
+   },
+   {
+    "fact": "The Binance ETHUSDT daily candle for 2026-11-11 UTC was still open at the read time, with a high of 2073.41 and last close 2057.17.",
+    "source": 1
+   },
+   {
+    "fact": "Over the 30 completed daily closes ending 2026-11-10 UTC, the standard deviation of daily log returns computed from the Binance klines is 0.02663.",
+    "source": 1
+   },
+   {
+    "fact": "Binance ETHUSDT daily candle for 2026-11-10 (UTC) closed at 2053.21, with a high of 2136.77.",
+    "source": 3
+   },
+   {
+    "fact": "Binance ETHUSDT daily candle for 2026-11-11 (UTC, still open at the read) showed a last price of 2051.06 at about 13:36 UTC.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance ETH/USDT trade page showed 2053.99 in its title at the time of reading; the page gives no timestamp.",
+    "source": 2
+   },
+   {
+    "fact": "Across Binance ETHUSDT daily candles from 2017-08-17 to 2026-11-11 (3,374 candles, 3,369 five-day windows), 555 windows (16.5%) had a daily high at least 12.12% above the window's starting close.",
+    "source": 3
+   },
+   {
+    "fact": "The sample standard deviation of daily log returns of Binance ETHUSDT daily closes over the last 30 returns (2026-10-12 to 2026-11-11, the last close being the open day) is 0.02608.",
+    "source": 3
+   },
+   {
+    "fact": "Binance ETHUSDT 1-minute candles from 2026-11-09 05:00 UTC through 2026-11-11 06:59 UTC have a highest High of 2151.90, at 2026-11-09 15:47 UTC, and a lowest Low of 2006.00, at 2026-11-10 15:44 UTC; the 2026-11-11 07:00 to 13:59 UTC candles were not fetched.",
+    "source": 5
+   },
+   {
+    "fact": "The Binance ETHUSDT 24-hour ticker read at about 2026-11-11 13:52 UTC showed a high of 2096.59, a low of 2006.00 and a last price of 2053.33.",
+    "source": 4
+   },
+   {
+    "fact": "The Binance ETHUSDT daily candle for 2026-11-11 UTC, read at about 13:59 UTC, had an open of 2053.22, a high of 2073.41, a low of 2043.57 and a last close of 2057.55.",
+    "source": 6
+   },
+   {
+    "fact": "The BLS schedule lists the October 2026 CPI reference month with a release date of Nov.\n10, 2026 at 08:30 AM, which is 13:30 UTC and inside the 2026-11-09 to 2026-11-15 window.",
+    "source": 7
+   },
+   {
+    "fact": "On 2026-11-03 (Thursday) ETH sold off after news of a Binance security breach, a Binance-specific event that falls before the window.",
+    "source": 8
+   },
+   {
+    "fact": "The Binance ETHUSDT 1-minute candles from 2026-11-09 05:00 UTC onward printed a highest High of 2151.90 at 2026-11-09 15:47 UTC, 6.9% below 2300, and the 24-hour ticker showed a high of 2096.59 at about 13:52 UTC on 2026-11-11.",
+    "source": 4
+   },
+   {
+    "fact": "The Binance ETHUSDT daily candle for 2026-11-09 UTC had a high of 2160.50, the highest daily high in the window's vicinity, which shows ETH traded in the 2150-2160 band on the day the window opened.",
+    "source": 4
+   },
+   {
+    "fact": "Binance ETHUSDT 1-minute candles from 07:00 to 14:00 UTC on 2026-11-11 (420 rows, fetched with startTime 07:00 and endTime 14:00 UTC) have a highest High of 2070.70, at about 08:08 UTC, and a lowest Low of 2046.73, at 13:02 UTC; the last candle returned, at 14:00 UTC, closed at 2058.73.",
+    "source": 9
+   },
+   {
+    "fact": "The Binance ETHUSDT 1-minute candle starting 08:09 UTC on 2026-11-11 had a High of 2070.09 and a Close of 2069.29.",
+    "source": 9
+   },
+   {
+    "fact": "The Binance ETHUSDT ticker price read at about 14:00 UTC on 2026-11-11 was 2059.12 USDT.",
+    "source": 0
+   },
+   {
+    "fact": "With the 07:00-14:00 UTC candles now fetched, the highest 1-minute High in the 2026-11-09 05:00 UTC to 2026-11-11 14:00 UTC portion of the window is still 2151.90 (2026-11-09 15:47 UTC), which is 6.9% below 2300; the 2026-11-11 07:00-14:00 UTC candles printed no High above 2070.70, so the unknown gap in the earlier pass is closed.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1957,
+  "research_failed": null,
+  "research_seconds": 531.7,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"2057.17000000\"}",
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"2059.12000000\"}"
+    ],
+    "title": "Binance public API: ETHUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "[1794268800000,\"2135.23000000\",\"2136.77000000\",\"2006.00000000\",\"2053.21000000\""
+    ],
+    "title": "Binance public API: ETHUSDT daily klines",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=32",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "2057.01 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+     "2053.99 Trade ETH/USDT Spot"
+    ],
+    "title": "Trade ETH/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Binance public API: ETHUSDT daily klines (candlesticks)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [],
+    "title": "Binance ETHUSDT 24-hour ticker (API)",
+    "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [],
+    "title": "Binance ETHUSDT 1-minute klines, paged from 2026-11-09 05:00 UTC to 2026-11-11 13:59 UTC (API)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m",
+    "verified": null
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [],
+    "title": "Binance ETHUSDT daily klines, last two candles (API)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "\"October 2026\" / \"Nov.\n10, 2026\" / \"08:30 AM\""
+    ],
+    "title": "BLS Schedule of Release Dates for the Consumer Price Index",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "\"Ethereum sold off on Thursday following the news of the Binance security breach.\""
+    ],
+    "title": "Ethereum consolidates as focus shifts to US midterm elections while US-Iran negotiations continue",
+    "url": "https://investinglive.com/cryptocurrency/ethereum-consolidates-as-focus-shifts-to-us-midterm-elections-while-us-iran-negotiations-continue/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "[[1794384540000,\"2068.80000000\",\"2070.09000000\",\"2068.57000000\",\"2069.29000000\",\"186.40780000\",1794384599999,\"385799.00031300\",989,\"153.76250000\",\"318238.91031800\",\"0\"]]"
+    ],
+    "title": "Binance ETHUSDT 1-minute klines API (08:08 UTC, 2026-11-11)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794384480000&limit=1",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Binance 1m candles were not fetched for 2026-11-11 07:00 to 13:59 UTC; their highs are bounded only by the 24-hour ticker (<= 2096.59), not read directly.",
+   "The rules pass reported a 2026-11-09 daily high of 2160.50, but the 1m candles from 05:00 UTC on 2026-11-09 peak at 2151.90.\nThe 2160.50 print probably happened in 00:00-04:59 UTC, outside the window, but this was not verified.",
+   "No ETH news dated 2026-11-11 was found.\nThe search returned only older or undated pages, and the search snippets were not opened, so no quotes are given.",
+   "No ETF flow data for the week of 2026-11-09 was verified.\nA search snippet mentioned an outflow on 2026-11-03 and an inflow on 2026-11-04, but I did not open those pages, so they are not used as facts.",
+   "No SEC, central-bank, CPI or token-unlock date falling inside 2026-11-09 to 2026-11-15 was confirmed from a primary source.\nThe checklist asks for a touch probability from realised volatility; I did not give one, because this reply is limited to facts and no probability.",
+   "The 1-minute candles for 2026-11-11 07:00 to 13:59 UTC were not fetched in the rules pass; their highs are bounded only by the 24-hour high of 2096.59."
+  ]
+ },
+ "polymarket-6909743": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-11T14:21:59+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-11T14:19:00.358381+00:00",
+  "research_cost_usd": 0.1422,
+  "research_failed": "no running tally read for a count/total question; not forecast",
+  "research_seconds": 110.1,
+  "researched_at": "2026-11-11T14:16:32+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ }
+}
