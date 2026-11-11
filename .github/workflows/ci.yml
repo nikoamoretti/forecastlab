@@ -53,7 +53,15 @@ jobs:
           npm run build
       - name: Install Playwright
         working-directory: apps/web
-        run: npx playwright install --with-deps chromium
+        # The browser is required; its system packages are best effort. GitHub's runner image already carries every
+        # library Chromium needs, so the package step only adds fonts that no test depends on. When Ubuntu's package
+        # mirrors cannot be reached (2026-11-11: their names stopped resolving and every run failed here after all
+        # tests had passed), carry on with the runner's own packages. If the browser could not start without them,
+        # the end-to-end tests below would fail and say so.
+        run: |
+          npx playwright install chromium
+          timeout 240 npx playwright install-deps chromium \
+            || echo "::warning::Playwright's system packages were not installed (package mirrors unreachable); using the runner's own."
       - name: Start API and worker
         run: |
           mkdir -p data/local
