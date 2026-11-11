@@ -48,6 +48,13 @@
             "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
             "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.05,
+          "rationale": "Chromagraph sat at #3 behind Shadowrocket in the one unlabelled chart fetch; viral launch spikes decay, and its #1 was only a Photo & Video category rank. Agree with market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6759462",
@@ -137,6 +144,13 @@
             "https://mwm.ai/apps/tiktok-pro-events/6741796873",
             "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.62,
+          "rationale": "Apple chart and MWM both show #1 as of Nov 10-11, but the lead is a recent surge of unknown cause (it was 5th-6th in Sep), so holding #1 at a single noon ET instant two days out is only moderately likely. Close to market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6759476",
@@ -227,6 +241,13 @@
             "https://mwm.ai/apps/tiktok-pro-events/6741796873",
             "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.14,
+          "rationale": "App is #1 now; #2 is the main fallback if it slips one place, but staying #1 is likelier. Near market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6759450",
@@ -288,6 +309,13 @@
             "https://openrouter.ai/fr/data/october-2026",
             "https://zeli.app/story/50159464"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.27,
+          "rationale": "Third-party weekly totals were 197.9T to 204.5T in the week ending Nov 2-3, trending up about 4-8% a week, which puts Nov 9-15 more likely above 210T, though growth could stall and the chart's calendar week may differ.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6638953",
@@ -319,6 +347,13 @@
             "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
             "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "Roadshow launched Nov 10 with a $70-78 range; reported pricing Nov 18 and first trade Nov 19 leave one trading day of cushion. Launched roadshows rarely slip more than a few days. Slightly above market.",
+          "saw_market_price": true
         }
       ],
       "id": "manifold-dLEZL5CLgc",
@@ -350,6 +385,13 @@
             "https://arena.ai/leaderboard/text/overall-no-style-control",
             "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52"
           ]
+        },
+        {
+          "created_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.09,
+          "rationale": "Gemini 4 Carbon leads at 1526 against Claude's best listed entry at about 1506. Fable 5.2 (released Nov 9) is not yet on the board and would need to appear and beat 1526 by Nov 16; ties go to the higher score. Agree with market.",
+          "saw_market_price": true
         }
       ],
       "id": "kalshi-KXLLM1-26NOV16-ANTH",
