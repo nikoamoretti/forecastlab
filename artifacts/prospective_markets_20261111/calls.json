@@ -1,0 +1,98 @@
+{
+  "kalshi-KXLLM1-26NOV16-ANTH": {
+    "claude": 0.09,
+    "market": 0.095,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.095
+  },
+  "manifold-dLEZL5CLgc": {
+    "claude": 0.9,
+    "market": 0.8981,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.8981
+  },
+  "polymarket-6638953": {
+    "claude": 0.25,
+    "market": 0.31,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.31
+  },
+  "polymarket-6639367": {
+    "claude": 0.47,
+    "market": 0.615,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.615
+  },
+  "polymarket-6733682": {
+    "claude": 0.14,
+    "market": 0.475,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.475
+  },
+  "polymarket-6753198": {
+    "claude": 0.92,
+    "market": 0.8305,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.8305
+  },
+  "polymarket-6759450": {
+    "claude": 0.17,
+    "market": 0.13,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.13
+  },
+  "polymarket-6759462": {
+    "claude": 0.07,
+    "market": 0.05,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.05
+  },
+  "polymarket-6759476": {
+    "claude": 0.58,
+    "market": 0.64,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.64
+  },
+  "polymarket-6763947": {
+    "claude": 0.5,
+    "market": 0.51,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.51
+  },
+  "polymarket-6801798": {
+    "claude": 0.77,
+    "market": 0.795,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.795
+  },
+  "polymarket-6891258": {
+    "claude": 0.05,
+    "market": 0.06,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.06
+  }
+}

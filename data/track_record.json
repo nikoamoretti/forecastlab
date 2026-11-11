@@ -1,36 +1,62 @@
 {
   "calibration": {
-    "as_of": "2026-11-10",
-    "intercept": 0.343542,
-    "results": 215,
-    "slope": 0.758133
+    "as_of": "2026-11-11",
+    "intercept": 0.318129,
+    "results": 219,
+    "slope": 0.757935
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.2080068490535542,
+      "brier": 0.20636746943853085,
       "coin_flip_brier": 0.25,
-      "forecasts": 277,
+      "forecasts": 289,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-10",
+      "last_forecast_on": "2026-11-11",
       "method": "combined_median_v1",
-      "resolved": 222,
-      "right": 149,
+      "resolved": 228,
+      "right": 154,
       "toss_ups": 3,
-      "wrong": 70
+      "wrong": 71
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.2011175115207373,
+      "brier": 0.1991695067264574,
       "coin_flip_brier": 0.25,
-      "forecasts": 272,
+      "forecasts": 284,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-10",
+      "last_forecast_on": "2026-11-11",
       "method": "claude_code_forecaster_v1",
-      "resolved": 217,
-      "right": 144,
+      "resolved": 223,
+      "right": 149,
       "toss_ups": 6,
-      "wrong": 67
+      "wrong": 68
+    },
+    {
+      "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 6,
+      "label": "Claude, second look",
+      "last_forecast_on": "2026-11-11",
+      "method": "claude_second_look_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
+    },
+    {
+      "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 12,
+      "label": "Learned model",
+      "last_forecast_on": "2026-11-11",
+      "method": "learned_model_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -60,14 +86,14 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21295961538461539,
+      "brier": 0.2116057324840764,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 156,
-      "right": 104,
+      "resolved": 157,
+      "right": 105,
       "toss_ups": 1,
       "wrong": 51
     },
@@ -86,41 +112,41 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21012026143790852,
+      "brier": 0.20876623376623377,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 153,
-      "right": 110,
+      "resolved": 154,
+      "right": 111,
       "toss_ups": 0,
       "wrong": 43
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2158566037735849,
+      "brier": 0.2145175,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 159,
-      "right": 111,
+      "resolved": 160,
+      "right": 112,
       "toss_ups": 1,
       "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
-      "brier": 0.22129218750000001,
+      "brier": 0.21871515151515153,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "last_forecast_on": "2026-11-02",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 64,
-      "right": 42,
-      "toss_ups": 1,
+      "resolved": 66,
+      "right": 43,
+      "toss_ups": 2,
       "wrong": 21
     },
     {
@@ -190,59 +216,294 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.15258137662994445,
+      "brier": 0.15425636151926087,
       "coin_flip_brier": 0.25,
-      "forecasts": 47,
+      "forecasts": 59,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-10",
+      "last_forecast_on": "2026-11-11",
       "method": "claude_calibrated_v1",
-      "resolved": 18,
-      "right": 14,
+      "resolved": 23,
+      "right": 18,
       "toss_ups": 0,
-      "wrong": 4
+      "wrong": 5
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15670405,
+      "brier": 0.15354453084415584,
       "coin_flip_brier": 0.25,
-      "forecasts": 181,
+      "forecasts": 191,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-10",
+      "last_forecast_on": "2026-11-11",
       "method": "market_price_v1",
-      "resolved": 150,
-      "right": 113,
+      "resolved": 154,
+      "right": 117,
       "toss_ups": 0,
       "wrong": 37
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.14057755866666666,
+      "brier": 0.13604908468085108,
       "coin_flip_brier": 0.25,
-      "forecasts": 58,
+      "forecasts": 59,
       "label": "Manifold (benchmark)",
-      "last_forecast_on": "2026-11-06",
+      "last_forecast_on": "2026-11-11",
       "method": "manifold_price_v1",
-      "resolved": 45,
-      "right": 33,
+      "resolved": 47,
+      "right": 35,
       "toss_ups": 0,
       "wrong": 12
+    },
+    {
+      "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from Kalshi. From 2026-11-10 our call is this price unless a tested edge applies.",
+      "brier": null,
+      "coin_flip_brier": 0.25,
+      "forecasts": 1,
+      "label": "Kalshi (benchmark)",
+      "last_forecast_on": "2026-11-11",
+      "method": "kalshi_price_v1",
+      "resolved": 0,
+      "right": 0,
+      "toss_ups": 0,
+      "wrong": 0
     }
   ],
-  "generated_on": "2026-11-10",
+  "generated_on": "2026-11-11",
   "learned_model": {
-    "as_of": "2026-11-10",
-    "intercept": 0.370938,
-    "results": 193,
-    "slope": 1.090909,
+    "as_of": "2026-11-11",
+    "intercept": 0.351934,
+    "results": 197,
+    "slope": 1.1052,
     "weights": {
-      "Crypto": -0.324302,
-      "Economy": -0.207138,
-      "Politics": -0.29665,
-      "Tech": 0.532004,
-      "World": -0.411017
+      "Crypto": -0.329,
+      "Economy": -0.207462,
+      "Politics": -0.330474,
+      "Tech": 0.532066,
+      "World": -0.402812
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.22,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77
+        }
+      },
+      "detail": "This is a market about the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) published by the Bureau of Labor Statistics (BLS).\n\nThis market will resolve to the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) in October 2026 according to the monthly BLS report.\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly Consumer Price Index for All Urban Consumers (CPI-U) which BLS reports to one decimal point (e.g. 0.4%). Thus, this is the level of precision that will be used when resolving the market.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.22,
+          "rationale": "Claude researched this in one pass and the facts are search summaries, so I stay near the 20-25% base rate for a first-release seasonally adjusted m/m of 0.1% or less. September rose 0.6% (BLS 2026-10-14) with gasoline up 9.1%, and gasoline eased about 3% through October (EIA 4.465 to 4.269 dollars a gallon, 2026-09-28 to 2026-10-26), which lowers the October print; but TD Securities (2026-10-19) forecast +0.30% and the Cleveland Fed nowcast of 2026-10-30 is 0.24%, both above the threshold. Core near 0.2% plus a modest energy drag points to 0.2%, with a 0.1% print possible if seasonal adjustment amplifies the gasoline decline.",
+          "sources": [
+            "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+            "https://www.fxstreet.com/news/united-states-october-inflation-seen-cooling-td-securities-202610191339",
+            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+            "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=EMM_EPMR_PTE_NUS_DPG&f=W"
+          ]
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.325223,
+          "raw": 0.22,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.095
+        }
+      ],
+      "id": "polymarket-5691223",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/october-inflation-us-monthly",
+      "status": "resolved",
+      "title": "Will monthly inflation increase by 0.1% or less in October?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.8,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "If Marco Rubio leaves the Senate, there will be a special election in 2026 to decide who will fill the position for the remaining 2 years of that term. \n\nIf a GOP candidate wins this election, this market resolves yes.\n\nIf a non-GOP candidate wins, the election isn't held, or some other outcome occurs, this market resolves NO.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "Three late polls show Republican Ashley Moody ahead of Democrat Angie Nixon by 3-4 points: UNF 49-45 (2026-10-12/19), St. Pete Polls 49-45 (2026-10-25/27) and RedBox 48-45 (2026-10-30/31). Republicans lead Democrats by about 1.54 million registrants (2026-10-05 book closing) and led in-person early voting 1.43 million to 1.13 million on the 2026-11-01 file, though Democrats lead returned mail ballots, and independents favour Nixon. With a lead of 3-4 points in a state where polls have tended to understate Republicans, and a national mood favouring Democrats, I put Moody's chance at about four in five.",
+          "sources": [
+            "https://www.wlrn.org/government-politics/2026-10-21/republicans-donalds-moody-hold-slim-leads-in-tightening-governor-us-senate-races-unf-polls-finds",
+            "https://floridapolitics.com/archives/827489-final-st-pete-polls-ashley-moody-holds-49-to-45-over-angie-nixon-with-a-cushion-that-shrinks-if-republicans-stay-home/",
+            "https://afightworthhaving.com/polling/2026/florida",
+            "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
+            "https://files.floridados.gov/media/711452/1-party-by-county.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.85,
+          "rationale": "Florida has a ~1.5M Republican registration edge, and three late polls (UNF, St. Pete Polls, RedBox) all show Moody ahead by 3-4 points. The national environment favors Democrats and independents lean Nixon, so the lead is narrower than the registration gap suggests, and polls can miss by a few points. Moody is still a clear favorite, though a Democratic-wave turnout or a polling miss could flip it."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.818147,
+          "raw": 0.8,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.88
+        }
+      ],
+      "id": "manifold-CcysACRQAh",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://manifold.markets/Tripping/will-a-republican-win-the-us-senate",
+      "status": "resolved",
+      "title": "Will a Republican win the US Senate special election in Florida in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.25,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "The time must be longer than a period of a week, or allowing for betting on the day of the election. The markets can be separate, but should allow betting in some form of cryptocurrency. \n\n(update)\n\nA separate market or exchange is fine for US users. At least 80% of US users must be able to bet on the overall control of the House. The US market must allow cryptocurrency deposits and withdrawals. Other functionality besides election trading such as sports is irrelevant\n\nI will not bet in this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "The rule needs a market where at least 80% of US users can bet on House control and the US venue accepts cryptocurrency deposits and withdrawals. The digest finds the legal path open (the 2023 ban on congressional-control contracts was vacated and the appeal dismissed on 2025-05-07; the CFTC withdrew its gaming proposal effective 2026-02-04; a swap-definition proposal of 2026-10-19 treats politics contracts as swaps), but no opened source shows a US market for House control that takes crypto deposits and withdrawals, and CFTC staff letter 26-05 only covers crypto as margin at futures commission merchants. The Ninth Circuit ruling of 2026-08-28 also keeps state-law challenges alive. The evidence is mostly absence, so I set this below one half.",
+          "sources": [
+            "https://www.federalregister.gov/documents/2026/10/19/2026-21377.html",
+            "https://www.federalregister.gov/documents/full_text/text/2026/02/06/2026-02454.txt",
+            "https://www.cftc.gov/csl/26-05/download",
+            "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/08/28/25-7516.pdf",
+            "https://storage.courtlistener.com/recap/gov.uscourts.cadc.41256/gov.uscourts.cadc.41256.01208737436.0.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.5,
+          "rationale": "In reality, Polymarket relaunched a CFTC-regulated US exchange (via QCEX acquisition) in late 2025 and offered US users event contracts, including politics. Kalshi also offers House control to all US states. However, the brief documents no confirmed crypto deposit/withdrawal access for 80% of US users on a House-control contract. Polymarket US reportedly supports USDC funding in some form, but this is uncertain, and state-law challenges may limit access in some states. The question's resolution criteria are also ambiguous, and the requirement for 80% of US users and crypto funding adds risk. The legal path is open and the platform is likely live with House markets, but the specific crypto and coverage conditions are unverified."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.356827,
+          "raw": 0.25,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.7678
+        }
+      ],
+      "id": "manifold-t2O0uUtuPn",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://manifold.markets/nikki/will-polymarket-allow-us-citizens-t",
+      "status": "resolved",
+      "title": "Will Polymarket allow US persons to trade on the 2026 midterms?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.466436
+      },
+      "detail": "This is a market about the one-month percent change in the Consumer Price Index for All Urban Consumers excluding food and energy in October 2026 as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the one-month percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report (seasonally adjusted change from the preceding month).\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.3%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.34,
+          "rationale": "Core CPI printed 0.2 in 46 of 127 months since 2016 (about 36%, https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth), and 3 of the last 7 2026 prints (0.2, 0.4, 0.2, 0.0, 0.2, 0.3, 0.3 for March to September, https://www.bls.gov/news.release/cpi.nr0.htm, 2026-10-14). The Cleveland Fed 0.21 nowcast is only a 12-month moving average of past core inflation (https://www.clevelandfed.org/-/media/project/clevelandfedtenant/clevelandfedsite/indicators-and-data/inflation-nowcasting/nowcasting_faqs.pdf), so I give it little weight. The last two prints were 0.3 with broad strength (shelter 0.4, services 0.4, https://www.bls.gov/news.release/cpi.t03.htm) and PPI services accelerated (https://www.bls.gov/news.release/archives/ppi_10152026.htm, 2026-10-15), which makes 0.3 the modal outcome and 0.2 the second most likely.",
+          "sources": [
+            "https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth",
+            "https://www.bls.gov/news.release/cpi.nr0.htm",
+            "https://www.bls.gov/news.release/cpi.t03.htm",
+            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+            "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.466436,
+          "raw": 0.34,
+          "results": 189,
+          "slope": 0.728837
+        },
+        {
+          "made_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "market_price_v1",
+          "probability": 0.35
+        }
+      ],
+      "id": "polymarket-5699271",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261106",
+      "source_url": "https://polymarket.com/event/core-cpi-mom-october-2026",
+      "status": "resolved",
+      "title": "Will Core CPI MoM be 0.2% in October?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
     {
       "actual": "Manifold: No",
       "call": {
@@ -349,6 +610,49 @@
       "source_url": "https://manifold.markets/Jack1/will-any-us-senate-candidate-have-5",
       "status": "resolved",
       "title": "Will any US Senate candidate have 50.1% or more in the polling average and lose?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.07
+      },
+      "detail": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 3 12:00 PM ET to November 10, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-05T12:54:04+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The digest found no counted 2026 weekly series, only an NBC-reported 2025 pace of about 55 posts a day, roughly 390 a week (https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story, unchecked), so 180-199 (about 26-28 a day) would be a markedly quiet week for a window that spans the 2026 midterm aftermath. Weekly brackets listed for 2026 run from 80-99 to 500+ (https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159), so the distribution is wide and a 20-post bucket well below the recent pace holds only a small slice. Coherent with my 9% on the 320-339 bucket for Oct 30-Nov 6 (2026-11-02): that bucket sat near the middle of my expected range, and this one sits in the lower tail; evidence is thin and unchecked, so I keep some mass here rather than going lower."
+        },
+        {
+          "as_of": "2026-11-05",
+          "intercept": 0.359148,
+          "method": "claude_calibrated_v1",
+          "probability": 0.177079,
+          "raw": 0.07,
+          "results": 183,
+          "slope": 0.732756
+        },
+        {
+          "made_at": "2026-11-05T10:05:35.363807+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0755
+        }
+      ],
+      "id": "polymarket-6443529",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261105",
+      "source_url": "https://polymarket.com/event/elon-musk-of-tweets-november-3-november-10-2026",
+      "status": "resolved",
+      "title": "Will Elon Musk post 180-199 tweets from November 3 to November 10, 2026?",
       "topic": "Politics",
       "verdict": "right"
     },
@@ -7494,6 +7798,69 @@
       "status": "resolved",
       "title": "Will DeepSeek release V4.1-Pro (or a higher Pro tier) by October 31, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.03,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve to \"Yes\" if Houthi forces seize control of an oil tanker or a commercial vessel transporting oil as cargo between market creation and the specified date, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\n\"Houthi forces\" refers to the military forces of the Houthi movement (Ansar Allah), including any armed force operating under its direction or on its behalf.\n\nSeize control refers to Houthi forces taking custody of or asserting operational control over a commercial ship, including boarding and taking control of the ship, holding or detaining it for an indefinite period, or forcefully rerouting it to a location selected or controlled by the perpetrators. Attacks on military vessels will not be considered. Once a qualifying seizure has occured, any subsequent abandonment, release, rescue, recapture, or other loss of control will not affect the resolution of this market.\n\nMissile/drone strikes or any other form of kinetic attack not resulting in the seizure of the targeted ship will not be considered, regardless of any damage that occurs.\n\nA qualifying seizure must be attributed to Houthi forces.\n\nThe primary resolution source for this market will be a consensus of credible reporting.\n\nThe occurrence, attribution, and timing of a qualifying seizure will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence of the incident, whether the incident qualifies as a seizure, whether the ship was an oil tanker or commercial vessel transporting oil as cargo, or the attribution of the seizure to Houthi forces, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the seizure, and of the ship's status as an oil tanker or commercial vessel transporting oil as cargo, based on a consensus of information available from the resolution sources or ii) 3 full calendar days (ET) from the date of the first credibly reported evidence of the seizure. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. If, at the end of the third calendar day, conflicting reports remain as to the occurrence, attribution, or timing of the seizure, or as to the ship's status, the incident will be judged based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Houthi seizures of ships are rare: the one clear case is the car carrier Galaxy Leader on 19 Nov 2023, and none of an oil tanker in about three years of the campaign. The July 2026 blockade and the lethal August attack (CNBC, 2026-08-12) raise tanker risk, but the pattern remains missile and drone strikes, and the one August tanker seizure off Yemen was attributed to Somali pirates (Al Jazeera, 2026-08-20). No October seizure was found, so a seizure attributed to the Houthis in a 5-day window is a very low-frequency event.",
+          "sources": [
+            "https://www.aljazeera.com/news/2026/8/20/gunmen-seize-tanker-off-yemen-amid-resurgence-of-somali-piracy",
+            "https://www.cnbc.com/2026/08/12/us-iran-war-trump-hormuz-houthi-attack-blockade-.html",
+            "https://www.globalsecurity.org/military/library/news/2023/11/mil-231119-voa02.htm"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.02,
+          "rationale": "The base rate of Houthi seizures is extremely low: only one seizure of a non-oil tanker (car carrier) in roughly three years of maritime operations, and no oil tanker has been seized. Current evidence shows Houthis continue to rely on missile and drone strikes, with no reports of recent boarding attempts or oil tanker seizures despite an announced blockade. The 5-day window further reduces the likelihood of such a rare event occurring."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.04,
+          "rationale": "The base rate is very low: in roughly three years of Houthi maritime operations, they have seized only one vessel (the Galaxy Leader car carrier in Nov 2023), and their method is overwhelmingly missile and drone strikes rather than boarding operations. The 2026 escalation (Red Sea blockade, attacks on Saudi tankers) has increased general risk but the reported pattern remains kinetic strikes, not seizures. The Seamull tanker seizure in August 2026 was attributed to Somali piracy, not Houthis, and no October 2026 reports of a Houthi boarding were found. The five-day window (Oct 26-31) makes this a very low-frequency event, though the active blockade and war context provide a slight upward nudge from the near-zero baseline."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.04,
+          "rationale": "The base rate for a Houthi boarding and seizure within five days is very low, and the July\u2013August 2026 evidence shows missile and drone attacks rather than seizures; the August 20 tanker seizure was reported as Somali piracy and is not attributable to the Houthis. The Red Sea blockade and wider war raise risk above that base rate, but there is no evidence of renewed Houthi boarding operations or a recent Houthi seizure of an oil tanker. A credible confirmed Houthi boarding or forced diversion of an oil-carrying vessel would sharply increase the probability, while continued strike-only activity would leave it in the low single digits."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.055
+        }
+      ],
+      "id": "polymarket-4618741",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-01",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/houthis-seize-an-oil-tanker-by",
+      "status": "resolved",
+      "title": "Houthis seize an oil tanker by October 31, 2026?",
+      "topic": "World",
       "verdict": "right"
     },
     {
@@ -14908,69 +15275,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.03,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve to \"Yes\" if Houthi forces seize control of an oil tanker or a commercial vessel transporting oil as cargo between market creation and the specified date, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\n\"Houthi forces\" refers to the military forces of the Houthi movement (Ansar Allah), including any armed force operating under its direction or on its behalf.\n\nSeize control refers to Houthi forces taking custody of or asserting operational control over a commercial ship, including boarding and taking control of the ship, holding or detaining it for an indefinite period, or forcefully rerouting it to a location selected or controlled by the perpetrators. Attacks on military vessels will not be considered. Once a qualifying seizure has occured, any subsequent abandonment, release, rescue, recapture, or other loss of control will not affect the resolution of this market.\n\nMissile/drone strikes or any other form of kinetic attack not resulting in the seizure of the targeted ship will not be considered, regardless of any damage that occurs.\n\nA qualifying seizure must be attributed to Houthi forces.\n\nThe primary resolution source for this market will be a consensus of credible reporting.\n\nThe occurrence, attribution, and timing of a qualifying seizure will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence of the incident, whether the incident qualifies as a seizure, whether the ship was an oil tanker or commercial vessel transporting oil as cargo, or the attribution of the seizure to Houthi forces, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the seizure, and of the ship's status as an oil tanker or commercial vessel transporting oil as cargo, based on a consensus of information available from the resolution sources or ii) 3 full calendar days (ET) from the date of the first credibly reported evidence of the seizure. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. If, at the end of the third calendar day, conflicting reports remain as to the occurrence, attribution, or timing of the seizure, or as to the ship's status, the incident will be judged based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.03,
-          "rationale": "Houthi seizures of ships are rare: the one clear case is the car carrier Galaxy Leader on 19 Nov 2023, and none of an oil tanker in about three years of the campaign. The July 2026 blockade and the lethal August attack (CNBC, 2026-08-12) raise tanker risk, but the pattern remains missile and drone strikes, and the one August tanker seizure off Yemen was attributed to Somali pirates (Al Jazeera, 2026-08-20). No October seizure was found, so a seizure attributed to the Houthis in a 5-day window is a very low-frequency event.",
-          "sources": [
-            "https://www.aljazeera.com/news/2026/8/20/gunmen-seize-tanker-off-yemen-amid-resurgence-of-somali-piracy",
-            "https://www.cnbc.com/2026/08/12/us-iran-war-trump-hormuz-houthi-attack-blockade-.html",
-            "https://www.globalsecurity.org/military/library/news/2023/11/mil-231119-voa02.htm"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.02,
-          "rationale": "The base rate of Houthi seizures is extremely low: only one seizure of a non-oil tanker (car carrier) in roughly three years of maritime operations, and no oil tanker has been seized. Current evidence shows Houthis continue to rely on missile and drone strikes, with no reports of recent boarding attempts or oil tanker seizures despite an announced blockade. The 5-day window further reduces the likelihood of such a rare event occurring."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.04,
-          "rationale": "The base rate is very low: in roughly three years of Houthi maritime operations, they have seized only one vessel (the Galaxy Leader car carrier in Nov 2023), and their method is overwhelmingly missile and drone strikes rather than boarding operations. The 2026 escalation (Red Sea blockade, attacks on Saudi tankers) has increased general risk but the reported pattern remains kinetic strikes, not seizures. The Seamull tanker seizure in August 2026 was attributed to Somali piracy, not Houthis, and no October 2026 reports of a Houthi boarding were found. The five-day window (Oct 26-31) makes this a very low-frequency event, though the active blockade and war context provide a slight upward nudge from the near-zero baseline."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.04,
-          "rationale": "The base rate for a Houthi boarding and seizure within five days is very low, and the July\u2013August 2026 evidence shows missile and drone attacks rather than seizures; the August 20 tanker seizure was reported as Somali piracy and is not attributable to the Houthis. The Red Sea blockade and wider war raise risk above that base rate, but there is no evidence of renewed Houthi boarding operations or a recent Houthi seizure of an oil tanker. A credible confirmed Houthi boarding or forced diversion of an oil-carrying vessel would sharply increase the probability, while continued strike-only activity would leave it in the low single digits."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.055
-        }
-      ],
-      "id": "polymarket-4618741",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-01",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/houthis-seize-an-oil-tanker-by",
-      "status": "pending",
-      "title": "Houthis seize an oil tanker by October 31, 2026?",
-      "topic": "World",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.12,
@@ -15716,49 +16020,6 @@
       "actual": null,
       "call": {
         "members": 1,
-        "method": "claude_call_v1",
-        "probability": 0.07
-      },
-      "detail": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 3 12:00 PM ET to November 10, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-05T12:54:04+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.07,
-          "rationale": "The digest found no counted 2026 weekly series, only an NBC-reported 2025 pace of about 55 posts a day, roughly 390 a week (https://www.newsbytesapp.com/news/science/elon-musk-s-x-activity-49-posts-on-politics-often-fringe/story, unchecked), so 180-199 (about 26-28 a day) would be a markedly quiet week for a window that spans the 2026 midterm aftermath. Weekly brackets listed for 2026 run from 80-99 to 500+ (https://explorer.struct.to/markets/elon-musk-of-tweets-november-7-november-14-140-159), so the distribution is wide and a 20-post bucket well below the recent pace holds only a small slice. Coherent with my 9% on the 320-339 bucket for Oct 30-Nov 6 (2026-11-02): that bucket sat near the middle of my expected range, and this one sits in the lower tail; evidence is thin and unchecked, so I keep some mass here rather than going lower."
-        },
-        {
-          "as_of": "2026-11-05",
-          "intercept": 0.359148,
-          "method": "claude_calibrated_v1",
-          "probability": 0.177079,
-          "raw": 0.07,
-          "results": 183,
-          "slope": 0.732756
-        },
-        {
-          "made_at": "2026-11-05T10:05:35.363807+00:00",
-          "method": "market_price_v1",
-          "probability": 0.0755
-        }
-      ],
-      "id": "polymarket-6443529",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-10",
-      "scored": true,
-      "source": "prospective_markets_20261105",
-      "source_url": "https://polymarket.com/event/elon-musk-of-tweets-november-3-november-10-2026",
-      "status": "pending",
-      "title": "Will Elon Musk post 180-199 tweets from November 3 to November 10, 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
         "method": "claude_corrected_call_v1",
         "probability": 0.076737
       },
@@ -15919,228 +16180,6 @@
       "source_url": "https://polymarket.com/event/core-cpi-yoy-october-2026",
       "status": "pending",
       "title": "Will Core CPI YoY be 2.6% in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.22,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77
-        }
-      },
-      "detail": "This is a market about the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) published by the Bureau of Labor Statistics (BLS).\n\nThis market will resolve to the one-month percent change in the seasonally adjusted Consumer Price Index for All Urban Consumers (CPI-U) in October 2026 according to the monthly BLS report.\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly Consumer Price Index for All Urban Consumers (CPI-U) which BLS reports to one decimal point (e.g. 0.4%). Thus, this is the level of precision that will be used when resolving the market.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.22,
-          "rationale": "Claude researched this in one pass and the facts are search summaries, so I stay near the 20-25% base rate for a first-release seasonally adjusted m/m of 0.1% or less. September rose 0.6% (BLS 2026-10-14) with gasoline up 9.1%, and gasoline eased about 3% through October (EIA 4.465 to 4.269 dollars a gallon, 2026-09-28 to 2026-10-26), which lowers the October print; but TD Securities (2026-10-19) forecast +0.30% and the Cleveland Fed nowcast of 2026-10-30 is 0.24%, both above the threshold. Core near 0.2% plus a modest energy drag points to 0.2%, with a 0.1% print possible if seasonal adjustment amplifies the gasoline decline.",
-          "sources": [
-            "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
-            "https://www.fxstreet.com/news/united-states-october-inflation-seen-cooling-td-securities-202610191339",
-            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
-            "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=EMM_EPMR_PTE_NUS_DPG&f=W"
-          ]
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.325223,
-          "raw": 0.22,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.095
-        }
-      ],
-      "id": "polymarket-5691223",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-11",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/october-inflation-us-monthly",
-      "status": "pending",
-      "title": "Will monthly inflation increase by 0.1% or less in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.8,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "If Marco Rubio leaves the Senate, there will be a special election in 2026 to decide who will fill the position for the remaining 2 years of that term. \n\nIf a GOP candidate wins this election, this market resolves yes.\n\nIf a non-GOP candidate wins, the election isn't held, or some other outcome occurs, this market resolves NO.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.8,
-          "rationale": "Three late polls show Republican Ashley Moody ahead of Democrat Angie Nixon by 3-4 points: UNF 49-45 (2026-10-12/19), St. Pete Polls 49-45 (2026-10-25/27) and RedBox 48-45 (2026-10-30/31). Republicans lead Democrats by about 1.54 million registrants (2026-10-05 book closing) and led in-person early voting 1.43 million to 1.13 million on the 2026-11-01 file, though Democrats lead returned mail ballots, and independents favour Nixon. With a lead of 3-4 points in a state where polls have tended to understate Republicans, and a national mood favouring Democrats, I put Moody's chance at about four in five.",
-          "sources": [
-            "https://www.wlrn.org/government-politics/2026-10-21/republicans-donalds-moody-hold-slim-leads-in-tightening-governor-us-senate-races-unf-polls-finds",
-            "https://floridapolitics.com/archives/827489-final-st-pete-polls-ashley-moody-holds-49-to-45-over-angie-nixon-with-a-cushion-that-shrinks-if-republicans-stay-home/",
-            "https://afightworthhaving.com/polling/2026/florida",
-            "https://countyfilesvbm-ev.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
-            "https://files.floridados.gov/media/711452/1-party-by-county.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.85,
-          "rationale": "Florida has a ~1.5M Republican registration edge, and three late polls (UNF, St. Pete Polls, RedBox) all show Moody ahead by 3-4 points. The national environment favors Democrats and independents lean Nixon, so the lead is narrower than the registration gap suggests, and polls can miss by a few points. Moody is still a clear favorite, though a Democratic-wave turnout or a polling miss could flip it."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.818147,
-          "raw": 0.8,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.88
-        }
-      ],
-      "id": "manifold-CcysACRQAh",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-11",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://manifold.markets/Tripping/will-a-republican-win-the-us-senate",
-      "status": "pending",
-      "title": "Will a Republican win the US Senate special election in Florida in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.25,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "The time must be longer than a period of a week, or allowing for betting on the day of the election. The markets can be separate, but should allow betting in some form of cryptocurrency. \n\n(update)\n\nA separate market or exchange is fine for US users. At least 80% of US users must be able to bet on the overall control of the House. The US market must allow cryptocurrency deposits and withdrawals. Other functionality besides election trading such as sports is irrelevant\n\nI will not bet in this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.25,
-          "rationale": "The rule needs a market where at least 80% of US users can bet on House control and the US venue accepts cryptocurrency deposits and withdrawals. The digest finds the legal path open (the 2023 ban on congressional-control contracts was vacated and the appeal dismissed on 2025-05-07; the CFTC withdrew its gaming proposal effective 2026-02-04; a swap-definition proposal of 2026-10-19 treats politics contracts as swaps), but no opened source shows a US market for House control that takes crypto deposits and withdrawals, and CFTC staff letter 26-05 only covers crypto as margin at futures commission merchants. The Ninth Circuit ruling of 2026-08-28 also keeps state-law challenges alive. The evidence is mostly absence, so I set this below one half.",
-          "sources": [
-            "https://www.federalregister.gov/documents/2026/10/19/2026-21377.html",
-            "https://www.federalregister.gov/documents/full_text/text/2026/02/06/2026-02454.txt",
-            "https://www.cftc.gov/csl/26-05/download",
-            "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/08/28/25-7516.pdf",
-            "https://storage.courtlistener.com/recap/gov.uscourts.cadc.41256/gov.uscourts.cadc.41256.01208737436.0.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.5,
-          "rationale": "In reality, Polymarket relaunched a CFTC-regulated US exchange (via QCEX acquisition) in late 2025 and offered US users event contracts, including politics. Kalshi also offers House control to all US states. However, the brief documents no confirmed crypto deposit/withdrawal access for 80% of US users on a House-control contract. Polymarket US reportedly supports USDC funding in some form, but this is uncertain, and state-law challenges may limit access in some states. The question's resolution criteria are also ambiguous, and the requirement for 80% of US users and crypto funding adds risk. The legal path is open and the platform is likely live with House markets, but the specific crypto and coverage conditions are unverified."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.356827,
-          "raw": 0.25,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.7678
-        }
-      ],
-      "id": "manifold-t2O0uUtuPn",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-11",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://manifold.markets/nikki/will-polymarket-allow-us-citizens-t",
-      "status": "pending",
-      "title": "Will Polymarket allow US persons to trade on the 2026 midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "claude_corrected_call_v1",
-        "probability": 0.466436
-      },
-      "detail": "This is a market about the one-month percent change in the Consumer Price Index for All Urban Consumers excluding food and energy in October 2026 as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the one-month percentage change in the Consumer Price Index for All Urban Consumers excluding food and energy (Core CPI-U) in October 2026 according to the monthly Bureau of Labor Statistics (BLS) report (seasonally adjusted change from the preceding month).\n\nThe resolution source for this market will be the BLS Consumer Price Index report released for October 2026 (https://www.bls.gov/bls/news-release/cpi.htm), currently scheduled to be released on November 10, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS CPI news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.3%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core CPI figure (the all items index excluding food and energy), not the headline all items CPI figure.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next CPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-06T12:40:43+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.34,
-          "rationale": "Core CPI printed 0.2 in 46 of 127 months since 2016 (about 36%, https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth), and 3 of the last 7 2026 prints (0.2, 0.4, 0.2, 0.0, 0.2, 0.3, 0.3 for March to September, https://www.bls.gov/news.release/cpi.nr0.htm, 2026-10-14). The Cleveland Fed 0.21 nowcast is only a 12-month moving average of past core inflation (https://www.clevelandfed.org/-/media/project/clevelandfedtenant/clevelandfedsite/indicators-and-data/inflation-nowcasting/nowcasting_faqs.pdf), so I give it little weight. The last two prints were 0.3 with broad strength (shelter 0.4, services 0.4, https://www.bls.gov/news.release/cpi.t03.htm) and PPI services accelerated (https://www.bls.gov/news.release/archives/ppi_10152026.htm, 2026-10-15), which makes 0.3 the modal outcome and 0.2 the second most likely.",
-          "sources": [
-            "https://data.bls.gov/timeseries/CUSR0000SA0L1E?output_view=pct_1mth",
-            "https://www.bls.gov/news.release/cpi.nr0.htm",
-            "https://www.bls.gov/news.release/cpi.t03.htm",
-            "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
-            "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
-          ]
-        },
-        {
-          "as_of": "2026-11-06",
-          "intercept": 0.348975,
-          "method": "claude_calibrated_v1",
-          "probability": 0.466436,
-          "raw": 0.34,
-          "results": 189,
-          "slope": 0.728837
-        },
-        {
-          "made_at": "2026-11-06T10:23:48.311924+00:00",
-          "method": "market_price_v1",
-          "probability": 0.35
-        }
-      ],
-      "id": "polymarket-5699271",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-11",
-      "scored": true,
-      "source": "prospective_markets_20261106",
-      "source_url": "https://polymarket.com/event/core-cpi-mom-october-2026",
-      "status": "pending",
-      "title": "Will Core CPI MoM be 0.2% in October?",
       "topic": "Economy",
       "verdict": null
     },
@@ -16603,6 +16642,130 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.5,
+        "market": 0.51,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.51
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for Microsoft Corporation (MSFT) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Microsoft Corporation (MSFT) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.MSFT%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.MSFT%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "MSFT closed 533.16 on 2026-11-10 after a 526.37 low, and a Pyth print of 535.20 was seen pre-market (https://stockanalysis.com/stocks/msft/history/, https://app.pyth.com/explore/Equity.US.MSFT%2FUSD). Reaching 525 needs a drop of about 1.5-2% at some point in the remaining sessions of Nov 11-13, against recent daily ranges of 3% or more, so a touch is near a coin flip. The hot CPI print (0.4%, https://www.bls.gov/news.release/cpi.htm, 2026-11-10) has already been absorbed and fewer sessions remain than in the reference weeks.",
+          "sources": [
+            "https://stockanalysis.com/stocks/msft/history/",
+            "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD",
+            "https://www.bls.gov/news.release/cpi.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.5,
+          "claude_weight": -0.207462,
+          "intercept": 0.351934,
+          "market": 0.51,
+          "method": "learned_model_v1",
+          "probability": 0.599756,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.578868,
+          "raw": 0.5,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.51
+        }
+      ],
+      "id": "polymarket-6763947",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/will-msft-hit-week-of-november-9-2026",
+      "status": "pending",
+      "title": "Will Microsoft Corporation (MSFT) hit (LOW) $525 Week of November 9 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.92,
+        "market": 0.8305,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8305
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance XRP/USDT was 1.061 on 2026-11-11 about 14:06 UTC, 6% above 1.00, with 30-day daily log-return sd of 0.026 and about 51 hours to the 17:00 UTC close on 2026-11-13, which is roughly 1.5 sd (about 94%); (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). The coin has fallen about 21% since 2026-10-12 and lost the 1.12 floor (AltcoinBuzz, 2026-11-08), so I shade down for fat-tailed downside.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.92,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.8305,
+          "method": "learned_model_v1",
+          "probability": 0.861475,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.897456,
+          "raw": 0.92,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8305
+        }
+      ],
+      "id": "polymarket-6753198",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/xrp-above-on-november-13-2026",
+      "status": "pending",
+      "title": "Will the price of XRP be above $1.00 on November 13?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 1,
         "method": "combined_weighted_v1",
         "probability": 0.15,
@@ -16650,6 +16813,272 @@
       "status": "pending",
       "title": "Will PPI YoY be 6.8% or more in October?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.07,
+        "market": 0.05,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.05
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The Apple US top-paid chart fetched 2026-11-11 had Shadowrocket at #1 and Chromagraph Camera at #3 (https://apps.apple.com/us/iphone/charts/36?chart=top-paid), though the page did not mark Free or Paid. Chromagraph's earlier #1 was only a Photo & Video category rank (MacRumors, 2026-10-30), and a viral launch spike usually decays while Shadowrocket is a perennial paid leader. Two places of movement in two days is possible but not the usual path.",
+          "sources": [
+            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+            "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
+            "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.05,
+          "rationale": "Chromagraph sat at #3 behind Shadowrocket in the one unlabelled chart fetch; viral launch spikes decay, and its #1 was only a Photo & Video category rank. Agree with market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.07,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.05,
+          "method": "learned_model_v1",
+          "probability": 0.062274,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.162137,
+          "raw": 0.07,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.05
+        }
+      ],
+      "id": "polymarket-6759462",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-13",
+      "status": "pending",
+      "title": "Will Chromagraph Camera be #1 Paid App in the US Apple App Store on November 13?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.58,
+        "market": 0.64,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.64
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "Apple's US free chart fetched 2026-11-11 listed TikTok Pro - Events first, and the MWM tracker showed #1 US Free overall as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). It sat 5th-6th in late Aug-early Sep, so the #1 is a recent surge of unknown cause and the pilot has no stated end date (TikTok newsroom, 2026-06-03). Holding #1 at a single noon ET instant two days later is somewhat better than even; my earlier calls on top-chart apps (Muse) show such leads can fade quickly.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.62,
+          "rationale": "Apple chart and MWM both show #1 as of Nov 10-11, but the lead is a recent surge of unknown cause (it was 5th-6th in Sep), so holding #1 at a single noon ET instant two days out is only moderately likely. Close to market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.58,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.64,
+          "method": "learned_model_v1",
+          "probability": 0.701286,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.637093,
+          "raw": 0.58,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.64
+        }
+      ],
+      "id": "polymarket-6759476",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/1-free-app-in-the-us-apple-app-store-on-november-13",
+      "status": "pending",
+      "title": "Will TikTok Pro - Events be #1 Free App in the US Apple App Store on November 13?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.77,
+        "market": 0.795,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.795
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "Binance BTC/USDT was about 73,850 on 2026-11-11, roughly 2.5% above 72,000, with 30-day daily vol of 1.87% and about 3 days to the noon ET close on 2026-11-14; that gives roughly 78%, matching the 77.8% historical 3-day frequency (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Offsetting: four straight days of ETF outflows and a 72,700 low after hot CPI (CoinDesk, 2026-11-11), though CoinDesk also describes stabilization near 74,000. No FOMC or CPI falls before the resolution.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+            "https://www.coindesk.com/markets/2026/11/11/bitcoin-sits-out-stock-rebound-as-etf-outflows-extend-to-fourth-day",
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.77,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.795,
+          "method": "learned_model_v1",
+          "probability": 0.86969,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.774509,
+          "raw": 0.77,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-6801798",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-14-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $72,000 on November 14?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.17,
+        "market": 0.13,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.13
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #2 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "TikTok Pro - Events was #1 on Apple's US free chart fetched 2026-11-11 and #1 overall at MWM as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). #2 requires a one-place slip from the current spot, or a rise from below if it had dropped; with it at #1 now, #2 is the main fallback outcome but well short of the likeliest one. Kept coherent with the #1 question so the two outcomes sum below 1.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.14,
+          "rationale": "App is #1 now; #2 is the main fallback if it slips one place, but staying #1 is likelier. Near market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.17,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.13,
+          "method": "learned_model_v1",
+          "probability": 0.170622,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.292417,
+          "raw": 0.17,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.13
+        }
+      ],
+      "id": "polymarket-6759450",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-13",
+      "status": "pending",
+      "title": "Will TikTok Pro - Events be #2 Free App in the US Apple App Store on November 13?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -16908,6 +17337,205 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.05,
+        "market": 0.06,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.06
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for ETH/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"High\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.05,
+          "rationale": "Binance ETH/USDT was about 2,057 on 2026-11-11 and the highest 1-minute High in the window so far is 2,151.90 (2026-11-09 15:47 UTC), so 2,300 needs about +12% in roughly 111 hours. With 30-day daily vol of 2.66% that is about 2 sigma for a touch (about 5%), and the all-history 16.5% hit rate comes from higher-volatility regimes (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m, 2026-11-11). The CPI release on 2026-11-10 already passed without a spike.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=32",
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.05,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.06,
+          "method": "learned_model_v1",
+          "probability": 0.067509,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.128581,
+          "raw": 0.05,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.06
+        }
+      ],
+      "id": "polymarket-6891258",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-9-15-2026",
+      "status": "pending",
+      "title": "Will Ethereum reach $2,300 November 9-15?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.25,
+        "market": 0.31,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.31
+      },
+      "detail": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 9 to November 15, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 9 to November 15, 2026 once the figures for the week of November 16, 2026 are first displayed. If the figures for the week of November 16, 2026 have not been displayed by 11:59 PM ET on November 20, 2026, this market will resolve according to the total displayed for the week of November 9 to November 15, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.25,
+          "rationale": "AhaSignals computed 197.9T tokens for 2026-10-27 to 11-02 and 204.5T for 10-28 to 11-03, up from 188.4T a week earlier (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md, 2026-11-04). Carrying 4-5% weekly growth forward to Nov 9-15 gives about 214-220T, above the bracket, but growth could flatten (zeli.app, 2026-10-19) and the displayed chart figure may differ from the third-party series. The 200-210T bracket therefore needs growth to stall at roughly current levels.",
+          "sources": [
+            "https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md",
+            "https://ahasignals.com/data/demand-briefs/v1/briefs/2f42b504a801edfcac3de5c8e3240a8c0927fefb01beed677eab3340d3b6c41b.md",
+            "https://openrouter.ai/fr/data/october-2026",
+            "https://zeli.app/story/50159464"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.27,
+          "rationale": "Third-party weekly totals were 197.9T to 204.5T in the week ending Nov 2-3, trending up about 4-8% a week, which puts Nov 9-15 more likely above 210T, though growth could stall and the chart's calendar week may differ."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.25,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.31,
+          "method": "learned_model_v1",
+          "probability": 0.333772,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.374128,
+          "raw": 0.25,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.31
+        }
+      ],
+      "id": "polymarket-6638953",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-9",
+      "status": "pending",
+      "title": "Will OpenRouter process between 200T and 210T tokens the week of November 9?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.09,
+        "market": 0.095,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.095
+      },
+      "detail": "If Anthropic has the top-ranked LLM on Nov 16, 2026, then the market resolves to Yes.\n\nIf two models are tied under Rank (UB), then the model with the highest Arena Score will win. If two models are still tied after that, then the model with the most votes will win. If two models are still tied after that, the model that was released earlier will win. Important information: When checking the source for this market, check the 'Remove Style Control' toggle.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.09,
+          "rationale": "On the Arena text board dated 2026-11-09, Gemini 4 Carbon (High) leads at 1526 (1538 on the no-style-control page) while Claude Opus 5.5 (High) is at 1506-1513 and Fable 5 at 1504 (https://arena.ai/leaderboard/text). Anthropic released Fable 5.2 on 2026-11-09 (Constellation Research), which is not yet on the board, so a late entry could close a 15-30 point gap but must also appear by Nov 16. Consistent with my 86% on Gemini 4 Carbon being best on Nov 16.",
+          "sources": [
+            "https://arena.ai/leaderboard/text",
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.09,
+          "rationale": "Gemini 4 Carbon leads at 1526 against Claude's best listed entry at about 1506. Fable 5.2 (released Nov 9) is not yet on the board and would need to appear and beat 1526 by Nov 16; ties go to the higher score. Agree with market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.09,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.095,
+          "method": "learned_model_v1",
+          "probability": 0.10239,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.19225,
+          "raw": 0.09,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "kalshi_price_v1",
+          "probability": 0.095
+        }
+      ],
+      "id": "kalshi-KXLLM1-26NOV16-ANTH",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://kalshi.com/events/KXLLM1-26NOV16",
+      "status": "pending",
+      "title": "Best AI this week: Claude?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.86,
         "market": 0.82,
         "max_move": 0.0,
@@ -17008,6 +17636,198 @@
       "status": "pending",
       "title": "Will Home Depot (HD) beat quarterly earnings?",
       "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.47,
+        "market": 0.615,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.615
+      },
+      "detail": "As of market creation, La-Z-Boy is estimated to release earnings on December 2, 2026. The Street consensus estimate for La-Z-Boy\u2019s non-GAAP EPS for the relevant quarter is $0.48 as of market creation. This market will resolve to \"Yes\" if La-Z-Boy reports non-GAAP EPS greater than $0.48 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf La-Z-Boy releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "La-Z-Boy reports fiscal Q2 after the close on 2026-11-17; the bar is adjusted diluted EPS above $0.48, so exactly $0.48 is No (company release, https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call, 2026-11-03). Guidance of $500-520M sales and 4.0-5.5% adjusted operating margin (2026-08-18, https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm) implies roughly $0.44-0.52, bracketing the consensus. Fiscal Q1 adjusted EPS of $0.43 missed, while the company has beaten about 64% of estimates historically (unverified snippet).",
+          "sources": [
+            "https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call",
+            "https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm",
+            "https://www.marketbeat.com/instant-alerts/sidoti-issues-negative-outlook-for-la-z-boy-earnings-2026-08-21/"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.47,
+          "claude_weight": -0.207462,
+          "intercept": 0.351934,
+          "market": 0.615,
+          "method": "learned_model_v1",
+          "probability": 0.72942,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.556524,
+          "raw": 0.47,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        }
+      ],
+      "id": "polymarket-6639367",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/lzb-quarterly-earnings-nongaap-eps-12-02-2026-0pt48",
+      "status": "pending",
+      "title": "Will La-Z-Boy (LZB) beat quarterly earnings?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.14,
+        "market": 0.475,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.475
+      },
+      "detail": "This market will resolve according to the finalist GMGN declares Grand Champion of the GMGN Global Championship (GGC) Season 1 Grand Final, scheduled for November 16, 2026, from 1:30 PM to 3:30 PM ET (18:30 to 20:30 UTC), under the GGC rules (https://gmgn.ai/static/ggc/rules.html).\n\nFinalists are identified by their X accounts. If a listed finalist does not compete in the Grand Final for any reason, the corresponding market will resolve to \"No\". If an unlisted finalist is declared Grand Champion, this market will resolve to \"Other\".\n\nThis market will resolve according to the final result first announced by GMGN following its post-match review. Any subsequent changes will not be considered. If no Grand Champion has been announced by November 17, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nThe primary resolution source for this market will be information from GMGN, including its X account (https://x.com/gmgnai), however a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "GGC Season 1 sends six traders to a single-match London final decided by highest Grand Final PnL (AMBCrypto, 2026-10-17: https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/). No finalist list naming Dani was found and GMGN pages returned 403, so Dani's place is unconfirmed; a non-finalist resolves No. Taking roughly 1 in 6 for a listed finalist, trimmed for finalist uncertainty and the Nov 16/17 date conflict.",
+          "sources": [
+            "https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/",
+            "https://gmgn.ai/static/ggc/rules.html"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.14,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.475,
+          "method": "learned_model_v1",
+          "probability": 0.691176,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.257741,
+          "raw": 0.14,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.475
+        }
+      ],
+      "id": "polymarket-6733682",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-18",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/gmgn-ggc-season-1-winner",
+      "status": "pending",
+      "title": "Will Dani win the GMGN GGC Season 1 Grand Final?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.9,
+        "market": 0.8981,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8981
+      },
+      "detail": "This market resolves YES if Anthropic is trading on NASDAQ (or any other US exchange) at close of market (4:00 PM Eastern Time) on Friday Nov 20.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Anthropic publicly filed its S-1 on 2026-10-26, filed an S-1/A on 2026-11-10 setting a $70-78 range for 825M shares, and launched its roadshow the same day (https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/, https://www.anthropic.com/news). Sources report pricing on 2026-11-18 and first trade on 2026-11-19 (CNBC, 2026-11-10), leaving a day of cushion before the 2026-11-20 close. Risks are a market-driven delay or earlier timetable slips (September/October targets were missed), but a launched roadshow with a range rarely slips by more than a few days.",
+          "sources": [
+            "https://www.anthropic.com/news/s1-sec",
+            "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+            "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
+            "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "Roadshow launched Nov 10 with a $70-78 range; reported pricing Nov 18 and first trade Nov 19 leave one trading day of cushion. Launched roadshows rarely slip more than a few days. Slightly above market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.9,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.8981,
+          "method": "learned_model_v1",
+          "probability": 0.940939,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.879052,
+          "raw": 0.9,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.8981
+        }
+      ],
+      "id": "manifold-dLEZL5CLgc",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://manifold.markets/EriccNsnA/will-anthropic-ipo-by-nov-20",
+      "status": "pending",
+      "title": "Will Anthropic IPO by Nov 20?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -17395,7 +18215,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2080068490535542,
+    "brier": 0.20636746943853085,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -17438,15 +18258,15 @@
       {
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
-          "dates": 25,
-          "difference": 0.013371565230769183,
+          "dates": 26,
+          "difference": 0.013475970000000032,
           "interval": [
-            0.004077,
-            0.021979
+            0.004822,
+            0.021914
           ],
-          "market": 0.15298255200000002,
-          "questions": 195,
-          "rule": 0.1663541172307692
+          "market": 0.14945355587064676,
+          "questions": 201,
+          "rule": 0.1629295258706468
         },
         "counted": {
           "dates": 0,
@@ -17511,7 +18331,7 @@
         "status": "testing"
       }
     ],
-    "pending": 51,
+    "pending": 57,
     "progress": {
       "changes": [
         {
@@ -17533,16 +18353,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": null,
-          "market": null,
-          "ours": null,
-          "questions": 0
+          "claude": 0.11560000000000002,
+          "market": 0.12249999999999998,
+          "ours": 0.217562542096,
+          "questions": 1
         },
         "before": {
-          "claude": 0.19962461538461537,
-          "market": 0.15298255200000002,
-          "ours": 0.2022380769230769,
-          "questions": 195
+          "claude": 0.1979175,
+          "market": 0.14958832365,
+          "ours": 0.200465625,
+          "questions": 200
         },
         "date": "2026-11-06"
       },
@@ -17575,36 +18395,36 @@
           "wrong": 9
         },
         {
-          "claude": 0.2276968085106383,
-          "market": 0.16362627670212768,
-          "ours": 0.23041914893617024,
-          "questions": 94,
-          "right": 60,
+          "claude": 0.2253094736842105,
+          "market": 0.16193573694736843,
+          "ours": 0.22800315789473682,
+          "questions": 95,
+          "right": 61,
           "start": "2026-10-26",
           "wrong": 33
         },
         {
-          "claude": 0.13470588235294118,
-          "market": 0.11617286764705884,
-          "ours": 0.13470588235294118,
-          "questions": 17,
-          "right": 13,
+          "claude": 0.13915454545454548,
+          "market": 0.09911276545454545,
+          "ours": 0.1437892064589091,
+          "questions": 22,
+          "right": 17,
           "start": "2026-11-02",
-          "wrong": 4
+          "wrong": 5
         }
       ]
     },
-    "resolved": 222,
-    "right": 149,
+    "resolved": 228,
+    "right": 154,
     "toss_ups": 3,
-    "total": 277,
+    "total": 289,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19962461538461537,
-      "claude_questions": 195,
-      "market": 0.15298255200000002,
-      "ours": 0.2022380769230769,
-      "questions": 195,
+      "claude": 0.197507960199005,
+      "claude_questions": 201,
+      "market": 0.14945355587064676,
+      "ours": 0.2005506842890348,
+      "questions": 201,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",
@@ -17613,7 +18433,7 @@
         "questions": 0
       }
     },
-    "wrong": 70
+    "wrong": 71
   },
   "version": "track_record_v2"
 }
