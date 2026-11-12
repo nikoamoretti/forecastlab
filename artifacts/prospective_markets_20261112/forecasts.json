@@ -1,0 +1,122 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.235
+        },
+        {
+          "created_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Binance ETHUSDT printed 2052.00 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3), about 2.3% under 2100, with daily closes sliding from 2497.95 to about 2056 over 30 days. With 30-day daily volatility of 2.56% and roughly 2.3 days left, 2100 is about 0.6 standard deviations away, so a thin-tailed model gives roughly 27-28%. Spot ETH ETF outflows (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107) and the downtrend lean slightly bearish, while no scheduled macro event falls before resolution (https://www.bls.gov/schedule/news_release/cpi.htm); coherent with the earlier 78% for above 2,000 on Nov 13.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-6801715",
+      "market_id": "6801715",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $2,100 on November 14?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-14",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-14-2026",
+      "topic": "Crypto",
+      "volume": 4442.018649,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9485
+        },
+        {
+          "created_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was 73,589.59 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 7.5% above 68,000. That is about 1.9 sigma of a 5-day move at 1.84% daily volatility, and 89.3% of all 5-day windows since 2017 (94.8% in 2026) ended above a level this far below the start. Persistent spot BTC ETF outflows (https://www.tftc.io/bitcoin-etf-flows/november-2026) and the downtrend from 83,169 on 2026-10-13 argue for fatter tails than the model, but no scheduled macro event falls before Nov 17.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.tftc.io/bitcoin-etf-flows/november-2026",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
+          ]
+        }
+      ],
+      "id": "polymarket-6935919",
+      "market_id": "6935919",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $68,000 on November 17?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-17",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-17-2026",
+      "topic": "Crypto",
+      "volume": 3163.059014,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.9474
+        },
+        {
+          "created_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Take-Two reaffirmed November 19, 2026 repeatedly, including at its 2026-11-09 fiscal Q2 results, where it reportedly said GTA VI was ten days away with pre-orders at unprecedented levels (https://simulationdaily.com/news/take-two-q2-fy2027-gta5-gta6-pre-orders/, secondary). Earlier reaffirmations came on 2026-05-21 and 2026-08-07 (https://www.gfinityesports.com/article/gta-6-release-date-reaffirmed-by-take-two-after-exceptional-start-to-preorders), and pre-orders opened 2026-06-24. The game has slipped twice before, but a delay in the final week after pre-orders and a late investor update is very unlikely; residual risk is a last-minute slip or a time-zone/early-access wording issue, and no primary Rockstar page after August was readable.",
+          "sources": [
+            "https://simulationdaily.com/news/take-two-q2-fy2027-gta5-gta6-pre-orders/",
+            "https://www.gfinityesports.com/article/gta-6-release-date-reaffirmed-by-take-two-after-exceptional-start-to-preorders",
+            "https://www.take2games.com/ir/press-releases/",
+            "https://www.shacknews.com/article/149250/gta-6-release-date-confirmed"
+          ]
+        },
+        {
+          "created_at": "2026-11-12T12:43:04.252887+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.95,
+          "rationale": "Take-Two's 2026-11-09 Q2 results reportedly called GTA VI ten days away with pre-orders at record levels, so a slip in the last week is very unlikely; residual risk is a last-minute delay or wording and time-zone edge cases. I don't recall how this turned out and used no outcome knowledge.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "manifold-gPA98L9uQS",
+      "market_id": "gPA98L9uQS",
+      "outcome": null,
+      "question": "Will GTA 6 come out on November 19, 2026?",
+      "resolution_criteria": "Why would I bid?\nRecently there has been a lot of \"leaks\" from popular leaker \"CYBERLEEK\", this has caused the GTA and gaming community to wonder whether or not GTA 6 will be delayed or released early in compensation to these leaks.\n\nResolution criteria\n\nThis market will resolve to YES if Grand Theft Auto VI (GTA 6) is officially released to the general public on November 19, 2026, in any major global market. If the game's release is delayed to a later date, or if it is launched early on any other date, this market will resolve to NO. \n\nREGULAR LIQUIDITY UPDATES.",
+      "resolution_date": "2026-11-19",
+      "resolution_source": "https://manifold.markets/Jaygotpeps/will-gta-6-come-out-on-november-19",
+      "topic": "Tech",
+      "volume": 3478.9570437884336,
+      "volume_floor": 1000,
+      "volume_unit": "mana"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1",
+  "skipped": [
+    {
+      "id": "polymarket-6771084",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-6771159",
+      "reason": "no live tally for a count/total question"
+    },
+    {
+      "id": "polymarket-6921901",
+      "reason": "no live tally for a count/total question"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "manifold-gPA98L9uQS": {
+    "claude": 0.92,
+    "market": 0.9474,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.9474
+  },
+  "polymarket-6801715": {
+    "claude": 0.27,
+    "market": 0.235,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.235
+  },
+  "polymarket-6935919": {
+    "claude": 0.94,
+    "market": 0.9485,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.9485
+  }
+}

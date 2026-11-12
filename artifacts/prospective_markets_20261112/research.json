@@ -1,0 +1,830 @@
+{
+  "cost_usd": {
+    "manifold-gPA98L9uQS": 0.2663,
+    "polymarket-6771084": 0.0856,
+    "polymarket-6771159": 0.2148,
+    "polymarket-6801715": 0.215,
+    "polymarket-6921901": 0.2013,
+    "polymarket-6935919": 0.2307
+  },
+  "downloaded_at": "2026-11-12T10:33:55.112436+00:00",
+  "failed": {
+    "polymarket-6771084": "ValueError: only 0 usable sources",
+    "polymarket-6771159": "no running tally read for a count/total question; not forecast",
+    "polymarket-6921901": "no running tally read for a count/total question; not forecast"
+  },
+  "findings": {
+    "manifold-gPA98L9uQS": {
+      "against": "The strongest case for a later date or an early launch rests on the record of this date and on the thin primary trail after August.\nThe November 19 date was itself a move: the Take-Two Q2 FY2026 remarks dated 2025-11-04 say it was set to ensure polish, after the May 26, 2026 date (see the base-rate facts in the prior pass).\nThe latest primary company text I could open is the Take-Two Q1 FY2027 release dated 2026-08-07, which mentions the November 19 launch only in a sentence fragment; no later primary statement was readable.\nTake-Two's February 2026 remarks tie FY2027 expectations to the release, so a slip would move guidance, but that link does not show the date is safe.\nCyberLeek's claim that the build was not ready (about 2026-08-27) is unverified in the pages I could open.",
+      "base_rate": "Reference class: announced release dates for Grand Theft Auto VI, Dec 2023 to Nov 2026.\nTwo of two later-dated announced windows moved later: the 2025 window slipped to May 26, 2026 (set May 2025), and May 2026 slipped to Nov 19, 2026 (set Nov 2025).\nI found no reported case of GTA VI launching early.\nThese counts come from secondary coverage (search summaries and PC Gamer/Fox10 pages), not from Rockstar's newswire, which I could not open.\nRockstar's earlier titles (GTA V, RDR2) were not counted in this pass, so no base rate across Rockstar releases is given.",
+      "different_now": "The date has been reaffirmed by Take-Two at the May 2026 and August 2026 earnings points, and pre-orders opened in June 2026, which are commitments made at a late stage of development.\nThis pushes toward the date holding.\nThe Shacknews and Gfinity pages are secondary, and I could not open Rockstar's Newswire or any official statement dated after 2026-08-26, so this is weaker evidence than a primary statement.\nScheduled before resolution: Take-Two's next earnings report was not found, and no dated Rockstar event for November 2026 was confirmed in this pass.",
+      "facts": [
+        {
+          "fact": "Rockstar's statement quoted by Gfinity on 2026-08-26 still points to November 19 as the release day, asking fans to wait a bit longer for it.",
+          "source": 1
+        },
+        {
+          "fact": "On about 2026-08-27, Esquire India reported CyberLeek's caption that the Lucia build was recent and the game was not ready at all, and said this raised doubt about the November 19, 2026 launch.",
+          "source": 2
+        },
+        {
+          "fact": "Rockstar's Newswire page could be reached but its article text did not render, so I could not read the official November 19, 2026 date statement or any later one there.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-15 (CDT) press coverage described GTA VI as having a locked-in release date of Nov.\n19, 2026 after a series of delays.",
+          "source": 4
+        },
+        {
+          "fact": "PC Gamer reported that GTA 6 was delayed to November 2026, with Rockstar citing extra months to finish the game with polish; the article's date is not shown on the page.",
+          "source": 5
+        },
+        {
+          "fact": "The most recent item on Take-Two's investor press-release index is dated 2026-11-09; the index shows no GTA VI release-date change in its headlines.",
+          "source": 6
+        },
+        {
+          "fact": "Rockstar's newswire page could not be read (it returned only its title), so the November 19, 2026 date is not confirmed from Rockstar's own page in this pass.",
+          "source": 6
+        },
+        {
+          "fact": "Take-Two's investor press-release index has its most recent item dated 2026-11-09; its headlines include a Rockstar pre-order announcement dated June 24, 2026, and no headline changing the GTA VI date.",
+          "source": 6
+        },
+        {
+          "fact": "On 2026-05-21, Shacknews reported that Take-Two's Q4 2026 earnings release said GTA 6 had not been delayed and would still come out in November.",
+          "source": 7
+        },
+        {
+          "fact": "On 2026-08-07, Gfinity reported Take-Two's statement that fans can still expect GTA 6 on November 19, 2026, and tied the expected growth in anticipation to an Extended Look that Rockstar announced for August 27.",
+          "source": 8
+        },
+        {
+          "fact": "Pre-orders for GTA VI were announced by Rockstar on June 24, 2026, according to a headline on Take-Two's press-release index (headline only; the page body was not readable).",
+          "source": 6
+        },
+        {
+          "fact": "Take-Two's Q2 FY2026 prepared remarks, dated 2025-11-04, state that Rockstar announced the November 19, 2026 release date to ensure a high level of polish.",
+          "source": 9
+        },
+        {
+          "fact": "Take-Two's Q3 FY2026 prepared remarks, dated 2026-02-03, say the company expects Fiscal 2027 to be driven primarily by the November 19th release of GTA VI.",
+          "source": 10
+        },
+        {
+          "fact": "Take-Two's Q1 FY2027 earnings release, dated 2026-08-07, refers to the November 19, 2026 launch of GTA VI as the focus of investor anticipation.",
+          "source": 11
+        },
+        {
+          "fact": "The Rockstar Newswire page opened in this pass returned only its title, so no Rockstar statement dated after 2025-11 was read from that page.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-11-09 Take-Two published its fiscal Q2 2027 results release, listed on its investor press-release index with that date.",
+          "source": 6
+        },
+        {
+          "fact": "Simulation Daily, dated 2026-11-09, reported that in its fiscal Q2 2027 results Take-Two said GTA VI was \"ten days away\" from launch and that pre-orders were at unprecedented levels.\nThis is a secondary report of the release; its quoted wording was not checked against the Take-Two text.",
+          "source": 12
+        },
+        {
+          "fact": "On 2026-10-13 a GTABoom article said Take-Two's pre-launch call was its last public investor update before GTA VI launches on November 19, and that the company had reaffirmed the November 19 date on recent calls.\nThis is secondary reporting.",
+          "source": 13
+        },
+        {
+          "fact": "As of 2026-11-12, the most recent Take-Two statements I could find (2026-11-09 and 2026-10-13) still refer to November 19, 2026 as the launch date, and no later-date or early-launch statement was found.",
+          "source": 12
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 4,
+      "resolution": {
+        "criteria": "Resolves YES only if GTA VI is officially released to the general public on November 19, 2026 in any major global market; any later date, or any earlier date, resolves NO.",
+        "current_status": "Not confirmed from a primary source as of 2026-11-12.\nThe latest dated official-attributed statement I could read is Rockstar's quote via Gfinity, dated 2026-08-26, pointing to November 19.\nThe Newswire page did not render.\nCyberLeek's 'not ready' claim (about 2026-08-27) is a leaker's claim, not an official delay.",
+        "edge_cases": [
+          "Time zone: 'November 19' in US Pacific, UK or Japan time differs by up to a day; a launch at local midnight in one region may already be November 20 in UTC or another market.",
+          "Release versus early access, preload, pre-order unlock, or review embargo: only a general public release on November 19 counts, so a preload or early-access date does not count.",
+          "Market scope: 'any major global market' means a launch on Nov 19 in one major region is enough, even if another platform or region is later; a PC-only delay with console launch on Nov 19 would still resolve YES.",
+          "Platform gaps: reports I saw said the November 19 date covers PS5 and Xbox Series X|S and that no PC date was announced; a PC-only later date does not by itself flip the question if a console launch on Nov 19 happens."
+        ],
+        "settling_source": "Rockstar Games Newswire, https://www.rockstargames.com/newswire (official release-date statements; the market's own rules text was not available to me)"
+      },
+      "uncertainties": [
+        "Rockstar's Newswire page did not render text, so no primary Rockstar statement dated after 2026-08-26 was read; the most recent official-attributed date statement remains the Gfinity-quoted Rockstar statement from 2026-08-26.",
+        "CyberLeek's claim (about 2026-08-27) that the build was not ready is unverified and was not checked against any official source.",
+        "No Take-Two earnings report dated November 2026 was found; whether one is scheduled before 2026-11-19 is unknown.",
+        "Search summaries (not opened pages) said the date covers PS5 and Xbox Series X|S with PC unannounced, and that the PlayStation Store listing gives midnight release; these could not be verified from pages I opened.",
+        "Whether the August 27, 2026 Extended Look took place as announced was not verified.",
+        "The Rockstar Newswire text did not render, so no primary Rockstar statement after 2025-11 was read and the Rockstar X post of 2025-11-06 was seen only in search summaries."
+      ]
+    },
+    "polymarket-6801715": {
+      "against": "The strongest evidence for Yes is the benign October inflation print released on 2026-11-10: core CPI rose 0.3 percent, the same pace as September and August, and all-items rose 0.4 percent after 0.6 percent in September.\nThat removes the scheduled macro shock from the window before the 2026-11-14 resolution, and it leaves ETH only about 2.5 percent below 2100 on the earlier read.\nSecondary coverage of a post-midterm relief rally and a return of ETF inflows in the first days of November 2026 (search snippets only, not opened) would point the same way, but those figures are unverified.",
+      "base_rate": "",
+      "different_now": "Within the window (now to 2026-11-14 17:00 UTC) no primary-source scheduled macro event was found: October CPI was released on Nov.\n10, the FOMC minutes are due Nov.\n18 and the next FOMC decision is in December, both after resolution.\nSecondary coverage describes spot ether ETFs with heavy consecutive outflows through early November (a 23-day outflow streak to Oct.\n30 and $1.61 billion lost in October), which leans bearish for a close above 2100, but this comes from aggregators and was not verified against Farside or SoSoValue directly.\nThe price sits about 2.6% below the threshold, roughly on",
+      "facts": [
+        {
+          "fact": "Binance's ETHUSDT ticker price was 2047.25000000 at the time of the read on 2026-11-12; the endpoint returned no server timestamp.",
+          "source": 0
+        },
+        {
+          "fact": "The Binance 1-day ETHUSDT candle opening 2026-11-12 00:00 UTC (open time 1794441600000) showed close 2047.26 at read time, so that candle was still forming.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance 1-day ETHUSDT candles from 2026-10-12 to 2026-11-11 show closes falling from 2497.95 to 2056.36 (Binance candles, open times 1791849600000 to 1794355200000).",
+          "source": 1
+        },
+        {
+          "fact": "Binance's Ethereum price page states a live price of $2,087.67 with a last update of 11/11/26 6:02 PM UTC, which is about 0.4 days older than the ticker and differs from it by about $40.",
+          "source": 2
+        },
+        {
+          "fact": "The Binance ETH/USDT trade page title showed 2046.50 with no timestamp.",
+          "source": 3
+        },
+        {
+          "fact": "Computed from the 31 daily closes (30 log returns, sample standard deviation): daily log-return volatility over the last 30 days is about 0.0256.\nThe last candle is still forming, so the final return is partial.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance ETHUSDT daily kline endpoint, read on 2026-11-12, returned 31 daily candles; the last candle opens 2026-11-12 UTC with a close of 2048.54, so it is still in progress.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance ETH/USDT spot trade page, read on 2026-11-12, showed 2046.37 in its page title but reported a 'Disconnected' status, so that figure may not be live.",
+          "source": 3
+        },
+        {
+          "fact": "The BLS schedule lists the October 2026 CPI release for Nov.\n10, 2026 at 08:30 AM, which is before the Nov.\n14 resolution time and so is not a catalyst inside the window.",
+          "source": 4
+        },
+        {
+          "fact": "The Federal Reserve's November 2026 calendar lists the minutes of the October 27-28 FOMC meeting for November 18, 2026, which is after the resolution date.\nThe Fed page text was read as a list of fragments, so this date is taken from a table entry rather than a full sentence.",
+          "source": 5
+        },
+        {
+          "fact": "Mitrade, citing Farside-type daily data, reported on 2026-11-07 a further $99.9 million net outflow from US spot ether ETFs (the Nov.\n5 session), after the Nov.\n2 and Nov.\n3 outflows.\nOnly the headline was seen in search results; the article body was not opened.",
+          "source": 6
+        },
+        {
+          "fact": "Binance's ETHUSDT ticker price was 2047.25000000 on the 2026-11-12 read, with no server timestamp returned.\nThis is about 2.5% below the 2100 threshold (ln(2100/2047.25) \u2248 0.0255, about 1.0 times the 0.0256 30-day daily-return standard deviation).",
+          "source": 0
+        },
+        {
+          "fact": "The BLS October 2026 CPI release, published Tuesday, November 10, 2026, reported core CPI (all items less food and energy) up 0.3 percent in October, the same monthly pace as in September and August.",
+          "source": 7
+        },
+        {
+          "fact": "The BLS October 2026 CPI release reported all-items CPI up 0.4 percent seasonally adjusted in October, after a 0.6 percent rise in September.",
+          "source": 7
+        },
+        {
+          "fact": "Cointelegraph's ether rally article is dated 2025-11-11 and argues for a rally to $4,000; it is a year old and is not evidence about the November 2026 price.",
+          "source": 8
+        },
+        {
+          "fact": "The Binance ETHUSDT 1-minute candle opening 2026-11-12 10:25 UTC (open time 1794479100000) had its close at 2052.00 when read at about 10:25 UTC on 2026-11-12.",
+          "source": 9
+        },
+        {
+          "fact": "The Binance ETHUSDT ticker price read on 2026-11-12 was 2052.00000000, matching the 1-minute candle close at about 10:25 UTC; this is the latest timestamped Binance print found, about 2.3% below 2100.",
+          "source": 0
+        },
+        {
+          "fact": "Per a Spanish-language Incrypted report citing SoSoValue (snippet only, article not opened), US spot Ethereum ETFs lost $365.28 million between Nov.\n2 and Nov.\n6, 2026, with Fidelity's FETH the only clearly positive Ether fund that week at $15.34 million.",
+          "source": 10
+        },
+        {
+          "fact": "Search snippets (article not opened) report a Binance security breach in late October 2026, with estimates ranging from a suspected $3B+ hack to a $6.3B consequence figure; Binance says user funds are safe and withdrawals were paused.",
+          "source": 11
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 8,
+      "resolution": {
+        "criteria": "Yes if the Binance 1 minute ETH/USDT candle closing at 12:00 ET on 2026-11-14 has a final Close above 2100; otherwise No.",
+        "current_status": "As of 2026-11-12: Binance ticker 2047.25 (time not returned); Binance price page 2087.67 last updated 11/11/26 18:02 UTC; trade page title 2046.50 with no timestamp.\nThe sources disagree by up to about $40, so the live price was not settled from a single timestamped print.",
+        "edge_cases": [
+          "12:00 ET on 2026-11-14 is 17:00 UTC (EST, UTC-5, after the November DST change), so the candle is 16:59-17:00 or 17:00-17:01 depending on how the candle is labelled; the rules do not say which.",
+          "The 'Close' of a 1m candle is the last trade in that minute; a delayed or missing candle or a trading halt at that minute could leave the rule without a value.",
+          "Ties: a close of exactly 2100.00 is not 'higher than' 2100, so it resolves No.",
+          "Price precision follows Binance's displayed decimals (2 decimals on the trade page, 8 in the API), so a close such as 2100.004 would count as above 2100 on the API but may display as 2100.00 on the page."
+        ],
+        "settling_source": "Binance ETH/USDT 1m candles, Close price, at https://www.binance.com/en/trade/ETH_USDT (1m and Candles selected)"
+      },
+      "spot": {
+        "asset": "ETH/USDT (Binance)",
+        "daily_vol": 0.0256,
+        "price": 2052.0,
+        "read_at": "2026-11-12T10:25 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
+      },
+      "uncertainties": [
+        "The spot price has no exact timestamp: the Binance ticker read is dated 2026-11-12 with no hour.\nBinance's price page showed 2087.67 at 2026-11-11 18:02 UTC, and the trade page title showed 2046.50 with no timestamp, so the live level is uncertain by about $40.",
+        "No ETF flow data for Nov.\n6-12, 2026 was found from an official or Farside/SoSoValue page, so the latest flow trend is unknown.",
+        "The December 2026 FOMC decision date (Dec.\n8-9 per secondary calendars) and the November CPI date (Dec.\n10 per secondary calendars) were not confirmed on federalreserve.gov or bls.gov.",
+        "A Coinalyze futures page for Nov.\n13 was shown in search results with a price near $2,380, which conflicts with the Binance spot reads; it was not opened and was not used.",
+        "Secondary coverage mentions a Binance security breach, a sell-off tied to it, and US-Iran developments; none of these was opened or verified, and their timing and effect on price are unknown.",
+        "The spot figure of 2047.25 was carried from the earlier pass's Binance read and was not re-read in this pass, so its hour is unknown and the live level may differ by tens of dollars."
+      ]
+    },
+    "polymarket-6935919": {
+      "against": "For a No outcome (close at or below 68,000 at 17:00 UTC on 2026-11-17), the evidence is: (1) the October CPI, released 2026-11-10, rose 0.4% month on month (BLS, 2026-11-10), a firmer inflation print that can weigh on risk assets, although I did not check its consensus or the market reaction.\n(2) Spot BTC ETFs had their worst week since late June, with $1.28 billion of net outflows in the week to 2026-11-06, and year-to-date flows turned negative at about -$914.1 million (The Block, 2026-11-07).\nOutflows of this size point to weaker institutional demand.\n(3) Spot is about 7.5% above the strike, so a drop of that size over five days is not extreme in this sample, but the recent trend was down.\nWithout a dated spot read, the size of the cushion is less certain.",
+      "base_rate": "Reference class: every 5-day window of Binance BTCUSDT daily closes from 2017-08-17 to 2026-11-11 (3,369 windows, computed by me from the Binance klines API).\nCount of windows where the close 5 days later was above the level 7.8% below the start (ln(68000/73518.05) = -0.078): 3,008 of 3,369 (89.3%).\nBy calendar year: 2017 116/137 (84.7%), 2018 272/365 (74.5%), 2019 333/365 (91.2%), 2020 343/366 (93.7%), 2021 300/365 (82.2%), 2022 310/365 (84.9%), 2023 355/365 (97.3%), 2024 340/366 (92.9%), 2025 346/365 (94.8%), 2026 294/310 (94.8%).\nThe window here runs from about 10:20 UTC on 2026-11-12 to 16",
+      "different_now": "The threshold of 68,000 is 7.5% below spot (ln = -0.0776).\nThat is about 4.2 daily sigmas at 0.01837, or about 1.9 sigmas of a 5-day move (0.01837 x sqrt 5 = 0.0411).\nAbout 126.7 hours remain from 10:20 UTC on Nov 12 to the 17:00 UTC resolution candle on Nov 17.\nFlow evidence is negative: spot BTC ETFs had outflows in the week to Nov 6 and the year-to-date total turned negative.\nIn the sources I could open, no macro release falls inside the window: CPI was due Nov 10 (its result was not checked), and the next FOMC decision is Dec 8-9, after resolution.\nNothing else was checked for Nov 13-17.",
+      "facts": [
+        {
+          "fact": "Binance's BTCUSDT price endpoint returned 73510.70 with no server timestamp when fetched on 2026-11-12 (UTC date).",
+          "source": 0
+        },
+        {
+          "fact": "The last 1-day BTCUSDT candle on Binance (open time 2026-11-12 00:00 UTC, still forming) had a close of 73510.70, the same as the ticker.",
+          "source": 1
+        },
+        {
+          "fact": "Binance daily BTCUSDT closes fell from 83169.00 on 2026-10-13 to 73510.70 on 2026-11-12, about -11.6% over the 30 days.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC_USDT trading page title showed 73498.18 when fetched; the page itself showed no time, so it is not dated and differs from the API price by about 12 USD.",
+          "source": 2
+        },
+        {
+          "fact": "Daily closes from 2026-11-01 to 2026-11-12 ran between 73510.70 and 80504.01, with the lowest close on 2026-11-12.",
+          "source": 1
+        },
+        {
+          "fact": "Binance BTCUSDT last price was 73518.05 USDT at 2026-11-12 10:20 UTC.",
+          "source": 0
+        },
+        {
+          "fact": "The Binance BTC/USDT trading page title showed a price of 73527.71 when it was read (no timestamp shown on the page).",
+          "source": 2
+        },
+        {
+          "fact": "Binance BTCUSDT daily close on 2026-11-11 (last completed daily candle) was 74015.19 USDT.",
+          "source": 0
+        },
+        {
+          "fact": "From Binance BTCUSDT daily closes, the standard deviation of daily log returns over the last 30 completed days (through 2026-11-11) is 0.01837.",
+          "source": 0
+        },
+        {
+          "fact": "Binance BTCUSDT daily closes from 2017-08-17 to 2026-11-11 were used to count 5-day windows: 3,008 of 3,369 windows (89.3%) ended above the level 7.8% below the spot price of 73518.05 (log return above -0.078).",
+          "source": 0
+        },
+        {
+          "fact": "The 2026 FOMC calendar lists the October meeting as October 27-28 and the December meeting as December 8-9, with the December meeting marked for a Summary of Economic Projections; the December decision therefore falls after the 2026-11-17 resolution date.",
+          "source": 4
+        },
+        {
+          "fact": "BLS lists the October 2026 CPI release for Nov.\n10, 2026 at 08:30 AM, before the Nov 12 to Nov 17 window.",
+          "source": 5
+        },
+        {
+          "fact": "U.S.\nspot bitcoin ETFs logged $1.28 billion of net outflows in the week to Nov 6, 2026 (their worst week since late June), and 2026 year-to-date net flows turned to about -$914.1 million as of the Nov 7 report.",
+          "source": 6
+        },
+        {
+          "fact": "The Binance BTCUSDT ticker price was 73510.70 on 2026-11-12, but the endpoint returned no timestamp.",
+          "source": 0
+        },
+        {
+          "fact": "The Binance BTCUSDT daily close for 2026-11-11 was 74015.19, and the standard deviation of daily log returns over the last 30 completed days is 0.01837 (computed from the daily klines in an earlier pass).",
+          "source": 1
+        },
+        {
+          "fact": "The October 2026 CPI-U rose 0.4% on a seasonally adjusted basis, released 2026-11-10, which is a hotter monthly print than the 0.2% that the earlier 'outside view' assumed (no consensus figure was checked).",
+          "source": 7
+        },
+        {
+          "fact": "U.S.\nspot bitcoin ETFs logged $1.28 billion of net outflows in the week to 2026-11-06, their worst week since late June, and 2026 year-to-date net flows were about -$914.1 million.",
+          "source": 6
+        },
+        {
+          "fact": "The October 2026 CPI rose 0.4% month on month, seasonally adjusted, in the release published 2026-11-10 (September was 0.6%).",
+          "source": 8
+        },
+        {
+          "fact": "BLS did not publish a 12-month October 2026 CPI change because October 2025 data were not collected (lapse in appropriations), so the year-on-year inflation read for October is unavailable.",
+          "source": 8
+        },
+        {
+          "fact": "Spot bitcoin ETFs' daily net flows were outflows on Nov 9 (-$201.1M), Nov 10 (-$95.0M) and Nov 11 (-$299.9M), 2026, so the outflow trend continued after the week to Nov 6.",
+          "source": 9
+        },
+        {
+          "fact": "Month-to-date (Nov 2 to Nov 11, 2026) spot bitcoin ETF net flows sum to about -$1.88 billion, with only Nov 4 (+$74.6M) as an inflow day.",
+          "source": 9
+        },
+        {
+          "fact": "Binance BTCUSDT last price was 73589.59 USDT at 2026-11-12 10:25 UTC (server time 1794479138199 ms).",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 7,
+      "resolution": {
+        "criteria": "Resolves Yes if the Binance 1-minute BTC/USDT candle closing at 12:00 ET on 2026-11-17 has a final Close price higher than 68,000; otherwise No.\nBinance price only, not other exchanges or pairs; precision set by the source's decimal places.",
+        "current_status": "Last BTCUSDT price 73510.70 from the Binance API on 2026-11-12 (time not given, read on the UTC date).\nTrade page title showed 73498.18, undated.\nThreshold 68,000 is about 7.5% below the spot price.",
+        "edge_cases": [
+          "12:00 ET on 2026-11-17 is 17:00 UTC in November (EST, UTC-5), so the candle is 17:00-17:01 UTC; a DST change would shift this, but none falls in that window.",
+          "The rule uses the 1-minute candle's final Close, so the price at 12:00:00 to 12:00:59 ET matters, not an intraday or daily close.",
+          "Strictly 'higher than' 68,000: a close of exactly 68000.00 resolves No.",
+          "Price precision follows the decimal places shown by Binance, so a close such as 68000.01 would count as Yes."
+        ],
+        "settling_source": "Binance BTC/USDT 'Close' prices for the 1m candle at https://www.binance.com/en/trade/BTC_USDT (1m and Candles selected)"
+      },
+      "spot": {
+        "asset": "BTC/USDT (Binance)",
+        "daily_vol": 0.01837,
+        "price": 73589.59,
+        "read_at": "2026-11-12T10:25 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      },
+      "uncertainties": [
+        "ETF flow data for Nov 9-12 was not found; the most recent full week is Nov 2-6.",
+        "The Binance ticker (73510.70) has no timestamp, and the Binance trade page title showed a different undated price (73498.18).\nThe spot read time is only known to the UTC date.",
+        "The reporting on the Binance hack (about $6.3B, late October, BTC briefly near $76,300) appeared only in search snippets and was not opened, so it is not cited.",
+        "The FOMC minutes date (Nov 18) appeared only in a search snippet and was not confirmed on a primary page.",
+        "The October CPI result (released Nov 10) was not checked, so the inflation read is unknown.",
+        "ETF flows for Nov 9-12 were not found, so the outflow trend after Nov 6 is unknown."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-12T10:32:36+00:00",
+  "researched_by": {
+    "manifold-gPA98L9uQS": "claude-haiku",
+    "polymarket-6801715": "claude-haiku",
+    "polymarket-6935919": "claude-haiku"
+  },
+  "runs": 27,
+  "seconds": {
+    "manifold-gPA98L9uQS": 237.1,
+    "polymarket-6771084": 64.3,
+    "polymarket-6771159": 396.3,
+    "polymarket-6801715": 450.4,
+    "polymarket-6921901": 420.4,
+    "polymarket-6935919": 455.1
+  },
+  "sources": {
+    "manifold-gPA98L9uQS": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Newswire - Rockstar Games",
+        "url": "https://www.rockstargames.com/newswire",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-08-26",
+        "quotes": [
+          "we hope that everyone will wait a bit longer to experience the game for themselves on November 19."
+        ],
+        "text": "we hope that everyone will wait a bit longer to experience the game for themselves on November 19.\n\nrip clubs.\nAs the leaks continued to come out, Rockstar stayed silent, opting to file DMCA takedown requests to scrub the footage from social media.\nHowever, Rockstar has taken to X to share an official statement regarding the leaks.\nHere's everything we learned from their post.\nEverything We Learned From Rockstar's GTA 6 Statement\nIn their statement, they acknowledged the number of leaks that have been circulating, reconfirming that everything CyberLeek has released is legitimate footage of the game.\nRockstar stated that it \"has been heartbreaking for our team, and this is obviously not how we intended for you to see the game after all this time.\"\nThey apologized for how long the company has taken to release official details on the game, possibly alluding to the fact that GTA 6 was delayed twice before sticking with a November 19, 2026 release date.\nREAD MORE: New GTA 6 Leak Features Video Game Store With PS5 Console Parody\nDespite the leaks, Rockstar has confirmed that the extended look will still release tomorrow, August 27.\nThey acknowledged the gamers' expectations and added, \"While it is unfortunate that the intended gameplay experience may now be impacted by some spoilers, we hope that everyone will wait a bit longer to experience the game for themselves on November 19.\"\nGTA 6 is still on track for its November 19 release date despite all the leaked gameplay footage.\nThey thanked the fans for the support they've received and stated, \"Ultimately, we are making this game for you, and without you, we would not have the privilege of making games.\"\nFor more like this, stick with us here at Gfinityesports.com, the best website for gaming news, reviews, features, and guides.",
+        "title": "Regret and relief: What Rockstar's latest GTA 6 statement tells us",
+        "url": "https://www.gfinityesports.com/article/regret-and-relief-what-rockstars-latest-gta-6-statement-tells-us",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-08-27",
+        "quotes": [
+          "GTA 6 launch date may no longer be November 19, 2026 according to CyberLeek as the game is still not ready for a roll out.",
+          "This build is actually recent, and the game is not ready at all."
+        ],
+        "text": "GTA 6 launch date may no longer be November 19, 2026 according to CyberLeek as the game is still not ready for a roll out.\nThis build is actually recent, and the game is not ready at all.\n\nRockstar built its whole mythology on making players wait, and GTA 6 may be testing that patience one more time.\nLeaker Cyberleek, dropped a new prologue clip starring Lucia, and buried inside it is a claim that has got the internet spiralling: the build looks recent, and GTA 6 is apparently not ready.\nYes, the leaker is insinuating a GTA 6 release date delay well beyond the officially announced November 19, 2026.\nSuddenly, Rockstar's GTA 6 launch date feels less like a well-cemented date and more like a deadline nobody signed up for.\nHere's everything the CyberLeek leak actually shows, and whether the GTA 6 delay talk holds any water.\nMinimal spoilers, as promised, but the real story is not the plot - it is the caption Cyberleek dropped alongside it about the likelihood of a GTA 6 release date delay: \"This build is actually recent, and the game is not ready at all.\"\nThat line about the game not being ready has done all the damage and shone the spotlight on the official GTA 6 release date.\nThere was already back-and-forth over how old this build even was.\nAfter the basketball gameplay clip surfaced, insider NateTheHate pegged it at over a year old, while Bloomberg's Jason Schreier pushed back, calling the footage more recent.\nGTA 6 release date delay is not likely, according to some analysts.\nSchreier, for his part, says the game is \"pretty close to being finished\", with Rockstar developers deep in their final push.\nRockstar itself broke its silence on August 26 2026, confirming the game was \"nearly there!\" And whatever the leaks suggest, the GTA 6 Extended Look on Netflix slated for August 27 2026 is still airing as scheduled, with media previews expected right after.\nThe CyberLeek clip opens on an anxious Lucia at a restaurant table, ordering water because she is clearly running low on cash, before a waiter asks her to leave.\nFrom there, it cuts to prison, where Jason's partner walks the halls with inmate chatter humming in the background, and closes with Lucia sitting down acr",
+        "title": "GTA 6 Release Date: Delayed?\nCyberLeek Says Game Not Ready For November 19, 2026 Launch",
+        "url": "https://www.esquireindia.co.in/tech-and-auto/gaming/gta-6-release-date-delay-cyberleek-november-19-2026-launch-date-invalid",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "Grand Theft Auto 6 delayed again, but it'll still ship in 2026\nMark your calendars for November 19, 2026\n- Rockstar Games has confirmed another delay for GTA 6\n- Grand Theft Auto 6 will now release on November 19, 2026\n- It's all in the quest to deliver an 'unrivalled experience'\nThe wait for the next Grand Theft Auto is now even longer as Rockstar Games \u2013 and its parent company, Take-Two Interactive \u2013 have announced yet another delay, pushing the release date for GTA 6 to November 19, 2026.\nAfter sharing the new date, which is six months after the previous release date of May 26, 2026, in a released statement, Rockstar Games writes, \u201cWe are sorry for adding additional time to what we realize has been a long wait, but these extra months will allow us to finish the game with the level of polish you have come to expect and deserve.\u201d\nAny Grand Theft Auto title is a massive game, and GTA 6 looks to leapfrog even that of GTA 5.\nAnd it does make sense that Rockstar Games wants to ensure it gets the next chapter in the universe right, correct?\nGTA 6 is set to return to us a modern Vice City, dubbed Leonida, and follow the story of two protagonists, Lucia Caminos and Jason Duval.\nIt\u2019s a much-anticipated title, and Rockstar Games does hit on that with the conclusion of its statement:\n\u201cWe want to thank you again for your patience and support.\nWhile the wait is a little longer, we are incredibly excited for players to experience the sprawling state of Leonida and a return to modern-day Vice City.\u201d The move from Spring \u2013 May 26, 2026 \u2013 to Fall/Winter \u2013 November 19, 2026 \u2013 brings the launch closer to the holiday season as well.\nRockstar Games also confirmed the new release date on X (formerly Twitter), and during Take-Two Interactive\u2019s earnings call, CEO Strass Zelnick wrote in a statement, \u201cWe remain both excited and confident they will deliver an unrivalled blockbuster entertainment experience,\u201d after confirming the new timing.\nMany were expecting an update on GTA 6 during the earnings call, given we got other details and a full trailer in prior ones, but this is certainly not the happiest news for fans eager to play the title.\nRockstar Games seems more certain about this release date, and Zelnick's comments suggest it will ensure that when GTA 6 does release, it will be polished to the quality we expect, both in gameplay and story.\nSign up for breaking news, reviews, opinion, top tech deals, and more.\nWho knows, we might even get more trailers, in-game shots, and more details on the story as we march towards November 19, 2026.\nGTA 6 is still set to release on the Xbox Series X, Xbox Series S, and PS5, though considering it was originally announced in 2025 and then delayed to 2026, and now delayed to later in 2026 again, Rockstar might be thinking about support for future consoles as well \u2026 or maybe they should be.\nStick with TechRadar as we continue to track towards the release of Grand Theft Auto 6, including the all-important time when preorders for the title hit the market.\nFollow TechRadar on Google News and add us as a preferred source to get our expert news, reviews, and opinion in your feeds.\nMake sure to click the Follow button!\nAnd of course you can also follow TechRadar on TikTok for news, reviews, unboxings in video form, and get regular updates from us on WhatsApp too.\nJacob Krol is the US Managing Editor, News for TechRadar.\nHe\u2019s been writing about technology since he was 14 when he started his own tech blog.\nSince then Jacob has worked for a plethora of publications including CNN Underscored, TheStreet, Parade, Men\u2019s Journal, Mashable, CNET, and CNBC among others.\nHe specializes in covering companies like Apple, Samsung, and Google and going hands-on with mobile devices, smart home gadgets, TVs, and wearables.\nIn his spare time, you can find Jacob listening to Bruce Springsteen, building a Lego set, or binge-watching the latest from Disney, Marvel, or Star Wars.\nYou must confirm your public display name before commenting\nPlease logout and then login again, you will then be prompted to enter your display name.",
+        "title": "Grand Theft Auto 6 delayed again, but it'll still ship in 2026",
+        "url": "https://www.techradar.com/gaming/grand-theft-auto-6-delayed-again-but-itll-still-ship-in-2026",
+        "verified": null
+      },
+      {
+        "download_error": "the only archive copy predates the page",
+        "primary": false,
+        "published": "2026-10-15",
+        "quotes": [
+          "Grand Theft Auto VI finally has a locked-in release date \u2014 Nov.\n19 \u2014 after a series of delays."
+        ],
+        "text": "Grand Theft Auto VI finally has a locked-in release date \u2014 Nov.\n19 \u2014 after a series of delays.",
+        "title": "Fox10 (via search): GTA 6 locks in Nov.\n19 release date after delays",
+        "url": "https://tribune.com.pk/story/2543580/grand-theft-auto-vi-official-release-date-announced-by-rockstar-games?amp=1",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Grand Theft Auto 6 delayed to November 2026",
+          "These extra months will allow us to finish the game with the level of polish you have come to expect and deserve"
+        ],
+        "text": "Grand Theft Auto 6 delayed to November 2026\nThese extra months will allow us to finish the game with the level of polish you have come to expect and deserve\n\nGrand Theft Auto 6 delayed to November 2026: 'These extra months will allow us to finish the game with the level of polish you have come to expect and deserve'\nTake-Two announced the new release target in today's quarterly financial report.\nGrand Theft Auto 6 still hasn't been confirmed for PC, and Take-Two announced today that it's going to take longer than expected to come to consoles as well: Instead of launching on May 26, 2026 as planned, the game is now slated for release on November 19 .\n\"Grand Theft Auto 6 will now release on Thursday, November 19, 2026,\" Rockstar wrote on X.\n\"We are sorry for adding additional time to what we realize has been a long wait, but these extra months will allow us to finish the game with the level of polish you have come to expect and deserve.\"\n\"Rockstar Games will now release Grand Theft Auto VI on November 19, 2026, and we remain both excited and confident they will deliver an unrivalled blockbuster entertainment experience,\" Take-Two CEO Strauss Zelnick said in today's earnings release.\n\"With the most robust pipeline in our Company\u2019s history, we expect to achieve record levels of Net Bookings in Fiscal 2027, which will establish a new baseline for our business and set us on a path of en",
+        "title": "PC Gamer: Grand Theft Auto 6 is delayed to November",
+        "url": "https://www.pcgamer.com/games/action/grand-theft-auto-6-is-delayed-to-november-these-extra-months-will-allow-us-to-finish-the-game-with-the-level-of-polish-you-have-come-to-expect-and-deserve",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-11-09",
+        "quotes": [
+          "Rockstar Games Announces Grand Theft Auto VI, Coming 2025.",
+          "Take-Two Interactive Software, Inc.\nReports Results for Fiscal Second Quarter 2027 (November 9, 2026)"
+        ],
+        "text": "Rockstar Games Announces Grand Theft Auto VI, Coming 2025.\nTake-Two Interactive Software, Inc.\nReports Results for Fiscal Second Quarter 2027 (November 9, 2026)\n\nPress Releases\nOctober 13, 2026\nTake-Two Interactive Software, Inc.\nto Report Second Quarter Fiscal Year 2027 Results on Monday, November 9, 2026\nOctober 8, 2026\nWords With Friends Expands Its Dictionary with 25,000 New Words to Herald the Next Era of Word Games\nMay 21, 2026\nTake-Two Interactive Software, Inc.\nReports Results for Fourth Quarter and Fiscal Year 2026\nApril 23, 2026\nTake-Two Interactive Software, Inc.\nto Report Fourth Quarter and Fiscal Year 2026 Results on Thursday, May 21, 2026\nFebruary 18, 2026\nCBS and Zynga Bring Survivor Season 50 into The Hands of Fans with Partnership in Words With Friends, Zynga Poker, Two Dots, and More\nJanuary 6, 2026\nTake-Two Interactive Software, Inc.\nto Report Third Quarter Fiscal Year 2026 Results on Tuesday, February 3, 2026\nOctober 9, 2025\nTake-Two Interactive Software, Inc.\nto Report Second Quarter Fiscal Year 2026 Results on Thursday, November 6, 2025\nAugust 29, 2025\nBall Over Everything in NBA\u00ae 2K26; Superstar and Leave No Doubt Editions Now Available\nJuly 10, 2025\nTake-Two Interactive Software, Inc.\nto Report First Quarter Fiscal Year 2026 Results on Thursday, August 7, 2025\nJune 16, 2025\nBorderlands\u00ae 4 Now Available for Pre-Order; Post-Launch Content to Include Story Missions and All-New Vault Hunters\nMay 15, 2025\nTake-Two Interactive Software, Inc.\nReports Results for Fourth Quarter and Fiscal Year 2025\nApril 17, 2025\nTake-Two Interactive Software, Inc.\nto Report Fourth Quarter and Fiscal Year 2025 Results on Thursday, May 15, 2025\nMarch 7, 2025\n\u201cRule Beyond the Ring\u201d in WWE\u00ae 2K25; The Bloodline Edition and Deadman Edition Available Now Worldwide\nFebruary 11, 2025\nBuild Something You Believe In: Sid Meier's Civilization\u00ae VII Now Available Worldwide\nFebruary 4, 2025\nZynga\u2019s Game of Thrones: Legends Invites Fans to Join the Hunt in the Dragon Egg Hunt Sweepstakes\nJanuary 9, 2025\nTake-Two Interactive Software, Inc.\nto Report Third Quarter Fiscal Year 2025 Results on Thursday, February 6, 2025\nOctober 30, 2024\nZynga Poker and Rob Riggle Partner to Unveil Highly-Anticipated Multi-Table Tournaments\nOctober 9, 2024\nTake-Two Interactive Software, Inc.\nto Report Second Quarter Fiscal Year 2025 Results on Wednesday, November 6, 2024\nJuly 25, 2024\nZynga\u2019s Game of Thrones: Legends Now Available Worldwide with Launch Trailer Starring Kit Harington\nJuly 11, 2024\nTake-Two Interactive Software, Inc.\nto Report First Quarter Fiscal Year 2025 Results on Thursday, August 8, 2024\nJune 12, 2024\nTake-Two Interactive Software, Inc.\nAnnounces Pricing of Secondary Offering of Common Stock by Embracer Group AB\nJune 12, 2024\nTake-Two Interactive Software, Inc.\nAnnounces Secondary Offering of Common Stock by Embracer Group AB\nJune 10, 2024\nTake-Two Interactive Software, Inc.\nAnnounces Pricing of $600 Million Senior Notes Offering\nMay 16, 2024\nTake-Two Interactive Software, Inc.\nReports Results for Fourth Quarter and Fiscal Year 2024\nApril 22, 2024\nWelcome Home, Hobbit!\nPrivate Division and W\u0113t\u0101 Workshop Announce Tales of the Shire: A The Lord of the Rings Game\nApril 18, 2024\nTake-Two Interactive Software, Inc.\nto Report Fourth Quarter and Fiscal Year 2024 Results on Thursday, May 16, 2024\nMarch 5, 2024\n\u201cFinish Your Story\u201d in WWE\u00ae 2K24 Deluxe Edition and Forty Years of WrestleMania Edition Now Available Worldwide\nJanuary 24, 2024\nZynga and Automobili Lamborghini S.p.A.\nAnnounce Multi-year Deal Making CSR Racing Official Partner of Lamborghini\u2019s Squadra Corse Racing Team\nJanuary 22, 2024\nWWE\u00ae 2K24 Celebrates 40 Years of WrestleMania with 2K Showcase\u2026of the Immortals and Forty Years of WrestleMania Edition\nJanuary 11, 2024\nTake-Two Interactive Software, Inc.\nto Report Third Quarter Fiscal Year 2024 Results on Thursday, February 8, 2024\nJanuary 4, 2024\nTake-Two Interactive Software, Inc.\nAnnounces Pricing of Add-On Offering of $350 Million of Senior Notes\nOctober 11, 2023\nTake-Two Interactive Software, Inc.\nto Report Second Quarter Fiscal Year 2024 Results on Wednesday, November 8, 2023\nAugust 17, 2023\nRed Dead Redemption and Undead Nightmare Now Available for Nintendo Switch and PlayStation 4\nAugust 9, 2023\nRollic Partners with Dana White\u2019s Premier Slap Fighting Organization, Power Slap, to Launch New Mobile Game\nJuly 11, 2023\nTake-Two Interactive Software, Inc.\nto Report First Quarter Fiscal Year 2024 Results on Tuesday, August 8, 2023\nJuly 7, 2023",
+        "title": "Take-Two Interactive investor relations press releases",
+        "url": "https://www.take2games.com/ir/press-releases/",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-05-21",
+        "quotes": [
+          "Grand Theft Auto 6 has not been delayed.",
+          "The game will still come out this November."
+        ],
+        "text": "Grand Theft Auto 6 has not been delayed.\nThe game will still come out this November.\n\nGrand Theft Auto 6 release date not delayed in Take-Two Interactive (TTWO) Q4 2026 earnings release\nGTA 6 is still set to launch on November 19, 2026.\nTake-Two Interactive (TTWO) has published its latest earnings report and, breathe a sigh of relief, gamers: Grand Theft Auto 6 has not been delayed.\nThe game will still come out this November.\n\u201cWe believe Fiscal 2027 will establish new record levels of operating performance driven by the November 19th launch of Grand Theft Auto VI, along with strong execution across our portfolio,\u201d said CEO Strauss Zelnick in Take-Two Interactive\u2019s Q4 2026 earnings report.\nTake-Two Interactive is the parent company of GTA developer Rockstar Games.\nThe last time that GTA 6 got delayed, it was announced in a Take-Two earnings report.\nThis time, however, the company reaffirmed the current release date.\nShacknews staff does not use generative artificial intelligence (AI) in their content.\nShacknews strictly prohibits the use of its content for AI training or to generate text, including text in the style or format used for this publication.\nShacknews reserves all rights to this work.\n-\nDonovan Erskine posted a new article, Grand Theft Auto 6 release date not delayed in Take-Two Interactive (TTWO) Q4 2026 earnings release",
+        "title": "GTA 6 release date not delayed in Take-Two Interactive (TTWO) Q4 2026 earnings release",
+        "url": "https://www.shacknews.com/article/149250/gta-6-release-date-confirmed",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-08-07",
+        "quotes": [
+          "Fans can still expect the game on November 19, 2026.",
+          "we believe that consumers\u2019 passion and anticipation for the next evolution of this iconic series will grow further"
+        ],
+        "text": "Fans can still expect the game on November 19, 2026.\nwe believe that consumers\u2019 passion and anticipation for the next evolution of this iconic series will grow further\n\n- Primary Subject: Grand Theft Auto VI (GTA 6)\n- Key Update: Take-Two Interactive officially shut down delay rumors during its August earnings call, solidifying the game's high-stakes launch date and reporting \"unprecedented\" pre-order numbers.\n- Status: Confirmed\n- Last Verified: August 7, 2026\n- Quick Answer: Take-Two confirmed Grand Theft Auto VI is not delayed and will launch on November 19, 2026, driven by record-breaking early pre-orders.\nOn August 7, Take-Two held its much-anticipated earnings call.\nThere, they revealed data on the game everybody's waiting for: GTA 6.\nThe earnings call touched on everything from revenue to NBA 2K - but what everyone wanted to hear about was GTA 6.\nLucky for fans, they spoke about many things related to the anticipated title, including initial pre-order numbers.\nHere's everything we learned from the earnings call.\nGTA 6 Won't Be Delayed\nThe earnings call solidified that GTA 6 won't be delayed, despite recent concerns from players.\nFans can still expect the game on November 19, 2026.\nTake-Two stated, \"With Rockstar Games\u2019 recent announcement of Grand Theft Auto 6: An Extended Look coming on August 27th, we believe that consumers\u2019 passion and anticipation for the next evolution of this iconic series will grow further leading up to the title\u2019s November 19th release.\"\nThis directly shoots down previous rumors that GTA 6 will be delayed, which started when a former Rockstar dev claimed that the game could be delayed for another six months.\nGTA 6 Pre-Orders Reached Astonishing Levels\nBesides the confirmation that GTA 6 will still release in November, Take-Two touched on the game's \"exceptional start to pre-orders.\"\nAccording to Take-Two CEO Strauss Zelnick, the levels of pre-orders were \"unprecedented and astonishing.\" He stated, \"They are so unprecedented that we just don\u2019t know how it\u2019ll translate into sales, which is a question I answered earlier.\nWe genuinely don\u2019t, and we just don\u2019t believe in claiming victory before it occurs.\"\nREAD MORE: How Long Is the GTA 6 Extended Look?\nNetflix Runtime Explained\nThey notably didn't put a number on the GTA 6 pre-orders of revenue generated.\nHowever, with the hype surrounding the game, it's no surprise the pre-order period saw massive success.\nTake-Two reached $1.39 billion in sales across all of its titles between April 1 and June ",
+        "title": "GTA 6 Release Date Reaffirmed by Take-Two After \"Exceptional\" Start to Preorders",
+        "url": "https://www.gfinityesports.com/article/gta-6-release-date-reaffirmed-by-take-two-after-exceptional-start-to-preorders",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2025-11-04",
+        "quotes": [
+          "Rockstar Games announced a new release date for Grand Theft Auto VI on November 19, 2026, to ensure a high level of polish."
+        ],
+        "text": "Rockstar Games announced a new release date for Grand Theft Auto VI on November 19, 2026, to ensure a high level of polish.\n\n unlimited reading + AI research.\nCreate free account\nFinancial reportTake-Two Interactive\nTake-Two Interactive's Q2 Fiscal Year 2026 conference call details strong financial performance, exceeding expectations with Net Bookings of $1.96 billion, marking the best second quarter in company history.\nThis success was attributed to the robust performance of new releases like NBA 2K26, which saw double-digit unit sales growth and a 45% increase in Recurrent Consumer Spending, as well as the mobile business's substantial outperformance driven by Live Services innovation.\nKey mobile titles such as Toon Blast, Match Factory, and Color Block Jam achieved record Net Bookings and significant year-over-year growth, with Rollic surpassing 3.8 billion lifetime downloads.\nThe CSR franchise also reached $1 billion in lifetime in-game spending.\nThe company is raising its full fiscal year 2026 Net Bookings outlook to $6.4 to $6.5 billion, reflecting a 14% growth over Fiscal 2025.\nRecurrent consumer spending is now projected to grow approximately 11% for the full year, representing 77% of Net Bookings, more than double the prior forecast.\nThis growth is primarily driven by NBA 2K and mobile titles.\nRockstar Games announced a new release date for Grand Theft Auto VI on November 19, 2026, to ensure a high level of polish.\nGrand Theft Auto V continues to grow its audience, with over 220 million units sold worldwide, and GTA+ membership increased by over 20% year-over-year.\nOther successful launches in the quarter included Borderlands 4, which received critical acclaim and achieved the largest concurrent player count on Steam in franchise history, and Mafia: The Old Country, which surpassed internal expectations.\nThe company also highlighted its focus on the mobile direct-to-consumer business, leveraging new technologies for direct transactions and payment mechanisms to expand Net Bookings and margins.\nLooking ahead, Take-Two anticipates achieving record levels of Net Bookings in Fiscal 2027, driven by its diverse portfolio and long-term pipeline, which includes future titles like Judas, Project ETHOS, CSR 3, Top Goal, and the next BioShock.\nThe company expects to deploy approximately $180 million in capital expenditures, partly due to the acquisition of an office building.\nEach row is a game or company this document names, each column a document, oldest first.\nA mark means that d",
+        "title": "Take-Two Q2 FY2026 prepared remarks",
+        "url": "https://gameindustrylibrary.com/documents/q2-2026-prepared-remarks",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-02-03",
+        "quotes": [
+          "The company anticipates a groundbreaking Fiscal 2027, primarily driven by the November 19th release of Grand Theft Auto VI."
+        ],
+        "text": "The company anticipates a groundbreaking Fiscal 2027, primarily driven by the November 19th release of Grand Theft Auto VI.\n\negment.\nThe company reported Net Bookings of $1.76 billion for the quarter ended December 31, 2025, significantly exceeding guidance.\nThis strong performance led to a raised full fiscal year Net Bookings outlook, now projected to range from $6.65 billion to $6.7 billion, representing 18% growth over Fiscal 2025.\nRecurrent consumer spending was a major contributor, rising 23% for the period and accounting for 76% of Net Bookings, with NBA 2K growing 30%, Grand Theft Auto Online increasing 27%, and mobile up 19%.\nThe mobile business demonstrated exceptional growth, with Peak's Toon Blast growing 43% year-over-year and surpassing $3 billion in lifetime Net Bookings.\nMatch Factory grew approximately 17%, and advertising revenue increased 10%.\nNBA 2K26 sold approximately 8 million units, a high single-digit percentage increase over NBA 2K25, and is on track for its highest annual Net Bookings and Recurrent Consumer Spending in franchise history.\nThe Grand Theft Auto series also outperformed forecasts, with recurrent consumer spending growth of 27%, and Grand Theft Auto V having sold over 225 million units since its 2013 launch.\nGTA+ membership nearly doubled year-over-year.\nLooking ahead, the company anticipates a groundbreaking Fiscal 2027, primarily driven by the November 19th release of Grand Theft Auto VI.\nThis, coupled with ongoing momentum and a robust release schedule including titles like WWE 2K26 and Civilization VII for mobile, is expected to establish a higher financial baseline and enhanced profitability.\nThe Net Bookings breakdown for the full fiscal year is projected to be roughly 46% Zynga, 38% 2K, and 16% Rockstar Games.\nOperating cash flow is now forecast at approximately $450 million, up from a prior expectation of $250 million.\nThe company also plans to provide its initial three-year pipeline for Fiscal 2027 through Fiscal 2029 with its Q4 results in May.\nEach row is a game or company this document names, each column a document, oldest first.\nA mark means that document names it.\nSelect a row to see those documents.",
+        "title": "Take-Two Q3 FY2026 prepared remarks",
+        "url": "https://gameindustrylibrary.com/documents/q3-2026-prepared-remarks",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-08-07",
+        "quotes": [
+          "anticipation surrounding the November 19, 2026, launch of Grand Theft Auto VI"
+        ],
+        "text": "anticipation surrounding the November 19, 2026, launch of Grand Theft Auto VI\n\nSkip to main content\nGame Industry\nLibrary\nAsk AI\nAnswers with sources\nSearch\u2026\n\u2318\nK\nTL;DR\nLibrary\nExplore\nCheck your text\nPRO\nConnect your AI\nPRO\nBrowse\nTopics\nWriters\nGames\nCompanies\nGlossary highlights\nHelp & info\nGame Industry\nLibrary\nLibrary\nTL;DR\nAsk AI\nSearch\nSaved",
+        "title": "Take-Two Q1 FY2027 earnings release",
+        "url": "https://gameindustrylibrary.com/documents/q1-2027-earnings-release",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [
+          "Take-Two said Grand Theft Auto VI was \"ten days away\" from launch",
+          "\"pre-orders continuing to reach unprecedented levels\""
+        ],
+        "text": "Take-Two said Grand Theft Auto VI was \"ten days away\" from launch\n\"pre-orders continuing to reach unprecedented levels\"\n\nTake-Two Interactive Software announced its financial results for the second quarter of fiscal year 2027, related to the period between July and September 2026, also offering the usual update on the massive sales of GTA5 and Red Dead Redemption 2, on top of a glimpse on the outlook for GTA6.\nAccording to the press release, Net Bookings (which you can approximately identify with sales) were $1.60 billion, down 18% year-on-year.\nThe company also suffered a net loss of $54.0 million.\nWe also get the usual statement from Strauss Zelnick, Chairman and CEO of Take-Two, who talked about the pre-orders of GTA6 and confirmed the previously announced outlook for the full fiscal year.\n\u201cThe launch of Grand Theft Auto VI is ten days away and, with pre-orders continuing to reach unprecedented levels, we expect to deliver an historic year for our company.\nWe are reiterating our outlook for Fiscal 2027 Net Bookings of $8 to $8.2 billion, and are confident in our ability to build on this incredible year as we release new hits, explore emerging business opportunities, expand our geographic footprint, and pursue accretive M&A \u2013 all of which will set us on a path to unlock greater earnings power and long-term shareholder value.\u201d\nSpeaking of GTA, we learn that Grand Theft Auto 5 sold almost 235 million units.\nThe Grand Theft Auto franchise has now shipped nearly 480 million units.\nRed Dead Redemption 2 has now passed 89 million units shipped.\nThe franchise as a whole has passed 118 million units.\nIf you\u2019d like to compare with historical data, you can check out Take-Two\u2019s financial results from the previous quarter, announced in August.\nOther gaming companies have already announced their financial results this quarter, including Koei Tecmo, Capcom, Microsoft, Konami, Marvelous, Sony, Nintendo, and Sega.\nYou can expect more reports on this topic in the coming days and weeks.",
+        "title": "Take-Two Q2 FY2027: GTA 5, GTA 6 pre-orders (Simulation Daily)",
+        "url": "https://simulationdaily.com/news/take-two-q2-fy2027-gta5-gta6-pre-orders/",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-10-13",
+        "quotes": [
+          "Take-Two's pre-launch call is \"its last public investor update before Grand Theft Auto VI launches November 19.\"",
+          "\"On recent calls the company has reaffirmed the November 19 date and talked through its expectations for the year.\""
+        ],
+        "text": "Take-Two's pre-launch call is \"its last public investor update before Grand Theft Auto VI launches November 19.\"\n\"On recent calls the company has reaffirmed the November 19 date and talked through its expectations for the year.\"\n\nTake-Two Interactive has set the date for its last earnings call before Grand Theft Auto VI arrives.\nThe company will report its second-quarter fiscal 2027 results on Monday, November 9, after the US market closes, with a conference call at 4:30 p.m.\nEastern, ten days before GTA 6 launches on November 19.\nThe announcement itself is a routine scheduling notice.\nIt does not mention GTA 6 at all.\nIt only confirms the reporting date, the time and the call-in details.\nStill, the internet pays close attention whenever the company hosts these calls, simply because Take-Two owns Rockstar Games, the studio behind Grand Theft Auto.\nThese calls have become the main investor window into the game.\nIt's worth noting though that the quarter being reported, the three months ending September 30, obviously closes before the game ships, so these results will not include a single dollar of post-launch GTA 6 sales.\nThose sales figures arrive in the following quarter.\nSo why circle the date?\nBecause it is the last time Take-Two's leadership takes investor questions in public before launch.\nOn recent calls the company has reaffirmed the November 19 date and talked through its expectations for the year.\nThe November 9 call is management's final scheduled chance to set the tone for the biggest release in the company's history.\nWe are not predicting what they will say, only that this is the last public word from top executives, including Strauss Zelnick, before launch.\nThis completes a run of investor dates we have tracked through the countdown.\nAugust brought the first earnings call after GTA 6 pre-orders opened, September brought the annual shareholder meeting, where CEO Strauss Zelnick confirmed the game ships single-player at launch, meaning no online mode or microtransactions on day one.\nNovember 9 is the last of those investor dates before launch.\nWhatever November 9 brings, it is the final scheduled word from Take-Two before GTA 6 arrives on November 19.\nThe quarter being reported ends before launch, so the real numbers, the ones everyone wants, will not show up until the next call in early 2027.\nFor now, mark November 9.\nIt is the last investor date on the board before the countdown runs out.\nThere's a chance, though nothing confirmed, that Zelnick puts a numbe",
+        "title": "The final Take-Two investor update before GTA 6 is set for November 9 (GTABoom)",
+        "url": "https://www.gtaboom.com/the-final-take-two-investor-update-before-gta-6-is-set-for-november-9-40ac",
+        "verified": false
+      }
+    ],
+    "polymarket-6801715": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "2026-11-12",
+        "quotes": [
+          "Price: \"2047.25000000\"",
+          "{\"symbol\":\"ETHUSDT\",\"price\":\"2052.00000000\"}"
+        ],
+        "text": "Price: \"2047.25000000\"\n{\"symbol\":\"ETHUSDT\",\"price\":\"2052.00000000\"}",
+        "title": "Binance API: ticker price for ETHUSDT",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/S",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[1794441600000,\"2056.35000000\",\"2066.42000000\",\"2039.24000000\",\"2047.26000000\""
+        ],
+        "text": "[1794441600000,\"2056.35000000\",\"2066.42000000\",\"2039.24000000\",\"2047.26000000\"",
+        "title": "Binance API: ETHUSDT 1-day klines, last 31 candles",
+        "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "2026-11-11",
+        "quotes": [
+          "The live Ethereum price today is $2,087.67 USD.",
+          "Page last updated: 11/11/26, 6:02 PM (UTC)."
+        ],
+        "text": "The live Ethereum price today is $2,087.67 USD.\nPage last updated: 11/11/26, 6:02 PM (UTC).",
+        "title": "Binance: Ethereum price",
+        "url": "https://www.binance.com/en/price/ethereum",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "2046.50 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "2046.50 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "2046.50 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "url": "https://www.binance.com/en/trade/ETH_USDT",
+        "verified": null
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October 2026 Nov.\n10, 2026 08:30 AM"
+        ],
+        "snapshot": "https://web.archive.org/web/20261031012753id_/https://www.bls.gov/schedule/news_release/cpi.htm",
+        "text": "October 2026 Nov.\n10, 2026 08:30 AM\n\nAn official website of the United States government\n| | Schedule of Releases for the Consumer Price Index Subscribe to the BLS Online Calendar Online calendar subscription \u2014 automatically updated: If you use a recent version of an electronic calendar, you may be able to subscribe to the BLS Online Calendar.\nSee details below for users of different types of calendars.\nNOTE: We do not recommend using this online calendar with Outlook 2003 or older versions.\nThe calendar will not update automatically in those applications.\nThe BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date.\n|\n| Reference Month | Release Date | Release Time |\n|---|---|---|\n| October 2026 | Nov.\n10, 2026 | 08:30 AM |\n| November 2026 | Dec.\n10, 2026 | 08:30 AM |\n| December 2026 | Jan.\n13, 2027 | 08:30 AM |\n| January 2027 | Feb.\n11, 2027 | 08:30 AM |\n| February 2027 | Mar.\n10, 2027 | 08:30 AM |\n| March 2027 | Apr.\n13, 2027 | 08:30 AM |\n| April 2027 | May 12, 2027 | 08:30 AM |\n| May 2027 | Jun.\n10, 2027 | 08:30 AM |\n| June 2027 | Jul.\n14, 2027 | 08:30 AM |\n| July 2027 | Aug.\n11, 2027 | 08:30 AM |\n| August 2027 | Sep.\n14, 2027 | 08:30 AM |\n| September 2027 | Oct.\n14, 2027 | 08:30 AM |\n| October 2027 | Nov.\n10, 2027 | 08:30 AM |\n| November 2027 | Dec.\n10, 2027 | 08:30 AM |",
+        "title": "BLS release schedule: Consumer Price Index",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "The daily and weekly statistical releases scheduled for today will be released on Thursday, November 12."
+        ],
+        "text": "The daily and weekly statistical releases scheduled for today will be released on Thursday, November 12.\n\n Conference, Boston, Mass.\n9\n12:15 p.m.\nDiscussion - Vice Chair for Supervision Michelle W.\nBowman\nSupervision and Regulation\nAt the University of Mississippi Banking and Finance Symposium, Oxford, Miss.\n6\nFOMC Meetings\nTime:\nRelease Date(s):\n2:00 p.m.\nFOMC Minutes\nMeeting of October 27-28\n18\nBeige Book\nTime:\nRelease Date(s):\n2:00 p.m.\nBeige Book\n25\nStatistical Releases\nTime:\nRelease Date(s):\n4:15 p.m.\nG.5 - Foreign Exchange Rates\n2\n2:00 p.m.\nSenior Loan Officer Opinion Survey on Bank Lending Practices (SLOOS)\n2\n9:15 a.m.\nG.17 - Industrial Production and Capacity Utilization\n17\nG.20 - Finance Companies\nPublication date for this release is approximate.\n30\n3:00 p.m.\nG.19 - Consumer Credit\n6\n4:30 p.m.\nH.4.1 - Factors Affecting Reserve Balances\n5, 12, 19, 27\n1:00 p.m.\nH.6 - Money Stock Measures\n24\n4:15 p.m.\nH.10 - Foreign Exchange Rates\n2, 9, 16, 23, 30\n4:15 p.m.\nH.8 - Assets and Liabilities of Commercial Banks in the U.S.\n6, 13, 20, 27\n1:00 p.m.\nCP - Commercial Paper\n2, 3, 4, 5, 6, 9, 10, 12, 13, 16, 17, 18, 19, 20, 23, 24, 25, 27, 30\n4:15 p.m.\nH.15 - Selected Interest Rates\n2, 3, 4, 5, 6, 9, 10, 12, 13, 16, 17, 18, 19, 20, 23, 24, 25, 27, 30\nOther\nTime:\nRelease Date(s):\nHoliday - Veterans Day\nThe daily and weekly statistical releases scheduled for today will be released on Thursday, November 12.\n11\nHoliday - Thanksgiving Day\nThe daily and weekly statistical releases scheduled for today will be released on Friday, November 27.\n26",
+        "title": "Federal Reserve Board: November 2026 events calendar",
+        "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [
+          "show a $99.9 million net withdrawal on Thursday, November 5",
+          "November 6's table still contained unreported fields when reviewed"
+        ],
+        "text": "show a $99.9 million net withdrawal on Thursday, November 5\nNovember 6's table still contained unreported fields when reviewed\n\nTL;DR: US spot Ether ETFs posted a $99.9 million net outflow on November 5, Farside data show, following an $85.3 million outflow on November 3 and a temporary recovery on November 4.\nThe pattern highlights a fragile demand picture, but cannot establish a direct forecast for ETH\u2019s price.\nEther\u2019s exchange-traded fund market is still searching for consistency.\nThe latest fully reported daily figures in Farside Investors\u2019 Ether ETF table show a $99.9 million net withdrawal on Thursday, November 5, just a day after the same group recorded a $53 million inflow.\nThe reversal demonstrates why single-session data need context.\nNovember 6\u2019s table still contained unreported fields when reviewed, so it would be misleading to present the partial figure as a final market-wide total.\nA dated, complete session offers a better basis for an editorial assessment.\nOn November 5, BlackRock\u2019s ETHA recorded a $75.2 million outflow and the firm\u2019s ETHB line showed a further $22 million leaving.\nFidelity\u2019s FETH was down $2.2 million, while Grayscale\u2019s ETHE showed a modest $500,000 withdrawal.\nThose figures add up to the $99.9 million negative session.\nThe previous day looked different.\nOn November 4, the listed products collectively brought in $53 million, with positive flows in several funds offsetting negative readings elsewhere.\nBefore that, November 2 and 3 brought losses of $139.7 million and $85.3 million respectively.\nThe emerging picture is not a perfectly uninterrupted exodus.\nIt is a market in which intermittent buying has yet to overcome repeated bouts of selling.\nOur earlier report on November 2\u2019s Ether ETF withdrawals provides a useful baseline.\nThe subsequent sessions show that the pressure has persisted but has also varied substantially between days and issuers.\nAn ETF\u2019s reported flow measures changes ",
+        "title": "Ether ETFs Face Another $99.9M Outflow as Demand Stays Uneven (Mitrade)",
+        "url": "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+        "verified": true
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.",
+          "Tuesday, November 10, 2026"
+        ],
+        "snapshot": "https://web.archive.org/web/20261111060121id_/https://www.bls.gov/news.release/cpi.nr0.htm",
+        "text": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\nTuesday, November 10, 2026\n\nAn official website of the United States government\nTransmission of material in this release is embargoed until\n8:30 a.m.\n(ET) Tuesday, November 10, 2026 USDL-26-1685\nTechnical information: (202) 691-7000 * cpi_info@bls.gov * www.bls.gov/cpi\nMedia contact: (202) 691-5902 * PressOffice@bls.gov\nCONSUMER PRICE INDEX - OCTOBER 2026\nThe Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October\nafter rising 0.6 percent in September, the U.S.\nBureau of Labor Statistics reported today.\nThe index for shelter rose 0.3 percent in October, accounting for over thirty percent of the monthly all items increase.\nThe food index increased 0.5 percent in October, as the food at home index rose 0.4 percent and the food away from home\nindex increased 0.5 percent.\nThe index for energy increased 0.7 percent over the month following a 5.2-percent increase\nin September.\nThe index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\nIndexes that\nincreased over the month include recreation, medical care, motor vehicle insurance, household furnishings and operations,\nand education.\nConversely, the index for used cars and trucks and the index for communication were among the small number\nof major indexes that decreased in October.\n-----------------------------------------------------------------------------------------------------------------\nOctober 2026 12-Month Percent Changes\nBLS did not collect survey data for October 2025 because of a lapse in appropriations.\nFor most CPI series,\nBLS could not publish October 2025 indexes.\nAs a result, BLS cannot publish 12-month percent changes for\nOctober 2026 for indexes where October 2025 data are unavailable.\nInformation about handling missing data is\navailable online at www.bls.gov/cpi/factsheets/approximating-missing-data.htm\n-----------------------------------------------------------------------------------------------------------------\n| Table A.\nPercent changes in CPI for All Urban Consumers (CPI-U): U.S.\ncity average | | | | | | | | |\n|---|---|---|---|---|---|---|---|---|\n| | Seasonally adjusted chan",
+        "title": "BLS Consumer Price Index news release, October 2026",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2025-11-11",
+        "quotes": [
+          "Ethereum holders are back in the black, increasing the chances of a rally to $4,000."
+        ],
+        "text": "Ethereum holders are back in the black, increasing the chances of a rally to $4,000.\n\nEthereum holders back in profit as ETH price gears up for $4K breakout\nEthereum investors are back in profit, increasing the chance for a rally to $4,000, but resistance at $3,800 may delay recovery.\nKey takeaways:\n- Ethereum holders are back in the black, increasing the chances of a rally to $4,000.\n- Ether sell pressure risk exists around $3,800, a resistance level that may delay the bulls.\nEther\u2019s (ETH) rebound to $3,600 over the weekend pushed its value above its active realized price, implying that the average ETH holder is no longer in the red.\nIs this enough fuel for the bulls to push the ETH price above $4,000?\nEthereum trades above its active cost basis\nData from Cointelegraph Markets Pro and TradingView shows that Ether\u2019s price rose 20% to $3,650 on Sunday from its four-month low of $3,050 reached on Nov.\n4.\nThe recovery was fueled by Trump\u2019s promise of $2,000 tariff dividend payments and optimism toward the possible end of the US government shutdown.\nThis rebound has also pushed ETH above its active realized price, currently at $3,545, according to data from Glassnode.\nRelated: Ethereum network gas fees drop to just 0.067 gwei amid slowdown\nThe average ETH holder returning to profit after unrealized losses provides meaningful financial relief for many holders, signaling a bullish outlook.\nHistorically, breaking above this level shifted market sentiment from \u201cfear,\u201d reducing sell pr",
+        "title": "Ethereum holders are back in profit, ETH price gears up for 4K breakout (Cointelegraph)",
+        "url": "https://cointelegraph.com/markets/ethereum-holders-back-in-profit-eth-price-gears-up-4k-breakout",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St",
+        "primary": true,
+        "published": "2026-11-12",
+        "quotes": [
+          "[1794479100000,\"2050.59000000\",\"2052.43000000\",\"2050.59000000\",\"2052.00000000\""
+        ],
+        "text": "[1794479100000,\"2050.59000000\",\"2052.43000000\",\"2050.59000000\",\"2052.00000000\"",
+        "title": "Binance API: ETHUSDT 1-minute klines (last 3 candles)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "- Los ETF spot de Bitcoin en EE.\nUU.\nregistraron salidas por $1.28 mil millones durante la semana, y la mayor salida entre fondos individuales la registr\u00f3 IBIT de BlackRock: $1.21 mil millones.\n- Los ETF de Ethereum registraron salidas por $365.28 millones, de los cuales $345.96 millones provinieron de iShares Ethereum Trust (ETHA).\n- Entre los fondos de altcoins, solo los ETF de HBAR registraron un resultado positivo, con entradas por $3.01 millones.\nEntre el 2 y el 6 de noviembre de 2026, los ETF spot de Bitcoin en EE.\nUU.\nregistraron salidas totales por $1.28 mil millones, mientras que los ETF de Ethereum perdieron $365.28 millones, seg\u00fan datos de SoSoValue.\nLa mayor parte de las p\u00e9rdidas en el segmento de Bitcoin provino del fondo IBIT de BlackRock, que registr\u00f3 salidas por m\u00e1s de $1.2 mil millones.\nEntre los ETF basados en otras criptomonedas, la mayor\u00eda tambi\u00e9n cerr\u00f3 la semana en rojo.\nLos ETF de Bitcoin perdieron $1.28 mil millones durante la semana\nA lo largo de cinco sesiones de negociaci\u00f3n, los ETF spot de Bitcoin en EE.\nUU.\nperdieron $1.28 mil millones.\nSe registraron salidas en cuatro de los cinco d\u00edas.\nLa \u00fanica sesi\u00f3n con impulso positivo fue el 4 de noviembre:\n- 2 de noviembre: salidas por $398.62 millones\n- 3 de noviembre: salidas por $115.56 millones\n- 4 de noviembre: entradas por $74.57 millones\n- 5 de noviembre: salidas por $430.2 millones\n- 6 de noviembre: salidas por $411.92 millones\nLa mayor salida en un solo d\u00eda se registr\u00f3 el 5 de noviembre: $430.2 millones.\nMientras tanto, entre los fondos individuales, iShares Bitcoin Trust (IBIT) de BlackRock registr\u00f3 las mayores p\u00e9rdidas: $1.21 mil millones.\nSolo cuatro fondos registraron impulso positivo:\n- Fidelity Wise Origin Bitcoin Fund (FBTC): $93.12 millones\n- Bitwise Bitcoin ETF (BITB): $16.58 millones\n- Invesco Galaxy Bitcoin ETF (BTCO) \u2014 $3.98 millones\n- Morgan Stanley Bitcoin Trust (MSBT) \u2014 $3.34 millones\nOtros ETF de bitcoin cerraron la semana con salidas o flujos planos.\nLos ETF de Ethereum perdieron $365 millones durante la semana\nLos ETF spot de Ethereum en EE.\nUU.\ncerraron el per\u00edodo de reporte con salidas totales por $365.28 millones.\nSe registr\u00f3 una din\u00e1mica negativa en cuatro de las cinco sesiones de negociaci\u00f3n:\n- 2 de noviembre \u2014 salida de $139.8 millones\n- 3 de noviembre \u2014 salida de $85.35 millones\n- 4 de noviembre \u2014 entrada de $53.02 millones\n- 5 de noviembre \u2014 salida de $99.97 millones\n- 6 de noviembre \u2014 salida de $93.19 millones\nLa mayor salida en un solo d\u00eda se registr\u00f3 el 2 de noviembre: $139.8 millones.\nEntre los fondos individuales, la mayor parte de las p\u00e9rdidas provino de iShares Ethereum Trust (ETHA) de BlackRock, que registr\u00f3 salidas por $345.96 millones.\nEl \u00fanico fondo con el resultado positivo m\u00e1s s\u00f3lido fue el Fidelity Ethereum Fund (FETH), que capt\u00f3 $15.34 millones.\nEn un art\u00edculo aparte explicamos qu\u00e9 son los ETF de Ethereum:\nLos ETF de HBAR captaron $3 millones, mientras que la mayor\u00eda de los dem\u00e1s fondos de altcoins registraron salidas\nEntre los ETF basados en otras criptomonedas, solo los fondos de HBAR registraron un resultado positivo, con entradas por $3.01 millones.\nAl mismo tiempo, se registraron salidas en:\n- ETF de SOL \u2014 $26.25 millones\n- ETF de HYPE \u2014 $15.62 millones\n- ETF de ZEC \u2014 $13 millones\n- ETFs de NEAR \u2014 $4.38 million\n- ETF de AVAX \u2014 $1.27 million\n- ETF de LINK \u2014 $1.06 million\n- ETF de XRP \u2014 $0.53 million\n- ETF de BNB \u2014 $0.27 million\n- ETF de LTC \u2014 $0.27 million\nLos ETFs de TRX, DOGE y DOT cerraron la semana sin flujos de capital.\nEn el mercado de Hong Kong, los ETFs spot de bitcoin captaron 46.38 BTC, los fondos de Ethereum \u2014 269.43 ETH y los ETFs de SOL \u2014 509.57 SOL.\nPueden leer m\u00e1s sobre los resultados de octubre aqu\u00ed:",
+        "title": "Incrypted: spot Bitcoin ETF outflows totalled $1.28 billion in the week (Spanish; cites SoSoValue)",
+        "url": "https://incrypted.com/es/las-salidas-de-capital-de-los-etf-spot-de-bitcoin-totalizaron-128-mil-millones-durante-la-semana/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "Binance pauses withdrawals after suspected $3B+ hack as Tether, Circle freeze $2.4B\nSummary\n- Binance paused withdrawals on several networks after more than $3B was drained from its hot wallets in a suspected hack.\nTether and Circle froze $2.4B in stablecoins, but over $1B, mostly ether, is beyond reach.\nBinance says user funds are safe.\nThe market has largely moved past the initial shock.\nBNB has bounced off its low and bitcoin is steady near $78,800, which suggests traders see the freezes and CZ\u2019s pledge as limiting the damage to Binance itself.\nThe next risk is supply.\nThe attacker holds more than $1 billion in ether and has already been selling smaller tokens on decentralised exchanges, so large ETH sales could weigh on ether\u2019s price.\nPartial withdrawal pauses at the world\u2019s biggest exchange also tighten liquidity before Friday\u2019s monthly options expiry on Deribit at 08:00 GMT.\n---\nEarlier:\n- Binance appears hacked, CZ says, as Tether and Circle freeze $1.79B in stablecoins\n- Tether freezes $971M USDT amid suspected Binance hack as crypto sells off\n---\nBinance has stopped part of its withdrawals and stablecoin issuers have locked up $2.4 billion, but the ether that got away keeps this suspected hack on course to be crypto\u2019s largest.\nSummary:\n- Binance temporarily paused withdrawals on multiple networks after more than $3 billion was drained from its Ethereum hot wallets on 29 October.\n- Tether froze more than 1.567 billion USDT and Circle more than 800 million USDC, about $2.4 billion in total.\nMore than $1 billion, mostly ether, remains unfrozen.\n- Binance says user funds are completely safe but hasn\u2019t called it a hack or given a loss figure.\nCZ says it looks like a hack and expects losses to be covered.\n- The attacker used EIP-7702, an Ethereum feature that lets a wallet run contract code, from an address funded through Tornado Cash.\n- BNB fell to about $692 before recovering to around $704.\nBitcoin is near $78,800.\n- If confirmed, the theft would more than double Bybit\u2019s record $1.5 billion hack in 2025.\nBinance has paused withdrawals on several networks after more than $3 billion was drained from its Ethereum hot wallets late on Thursday, 29 October, in what co-founder Changpeng Zhao says looks like a hack.\nTether and Circle have together frozen about $2.4 billion in stablecoins, but more than $1 billion, mostly ether, remains out of reach.\nBinance spokesperson Ross O\u2019Leary told TechCrunch the exchange had temporarily suspended withdrawals on multiple networks as a precaution.\nBinance has said user funds are completely safe and that withdrawals will resume once the security issue is fully resolved.\nIt has not used the word hack, given a loss figure or explained how the funds left.\nAn early version of its statement on X said it had not confirmed any impact on user funds, and it was later edited to say funds were safe, FinanceFeeds reported.\nZhao, who stepped down as chief executive in 2023 but remains Binance\u2019s largest shareholder, said user funds are safe and that he expects them to be fully covered.\nTech-ish reported that he later put the loss after freezes at about $1 billion, possibly a little higher, and said Binance would cover it.\nThe freezes are larger than first reported.\nTether chief executive Paolo Ardoino said more than 1.567 billion USDT had been frozen, up from the roughly $971 million Zhao cited earlier.\nCircle said it froze more than 800 million USDC in coordination with law enforcement.\nAbout 700 million USDT left the receiving address before Tether\u2019s blacklist took effect, and much of it was swapped into ether, according to Tech-ish.\nOn-chain data points to an outside attacker.\nA wallet labelled Binance 14 was linked to a smart contract set up by an address funded through Tornado Cash, a crypto mixing service.\nThe attacker used EIP-7702, an Ethereum feature that lets an ordinary wallet run contract code.\nMinutes later, a single transaction moved about 167,000 ETH, roughly 1.6 billion USDT and 62 other tokens to a new address.\nThe attacker has since been selling tokens the stablecoin issuers cannot freeze, including UNI and PEPE, on decentralised exchanges.\nSome tallies circulating on X put total outflows above $5 billion, but those include bitcoin and Tron movements not yet tied to the attacker.\nCrypto markets steadied after the initial drop.\nBNB, Binance\u2019s own token used for trading-fee discounts and fees on its affiliated BNB Chain, fell from about $739 to a low near $692 before recovering to about $704 by 22:15 GMT, CryptoTicker data showed.\nBitcoin was near $78,800 and ether around $2,265.\nAbout $628 million in leveraged positions were liquidated within an hour, mostly longs.\nIf confirmed, the Ethereum transfers alone would more than double the $1.5 billion stolen from Bybit in February 2025, the largest crypto theft on record, which the FBI attributed to North Korea.\nTraders will watch for a formal Binance loss figure and reimbursement plan, whether the attacker dumps its ether on the market, and how quickly withdrawals reopen.\nYour market education doesn't end here.\nDiscover more insights and practical lessons in our investingLive video collection.",
+        "title": "InvestingLive: Binance pauses withdrawals after suspected $3B+ hack",
+        "url": "https://investinglive.com/cryptocurrency/binance-pauses-withdrawals-after-suspected-3b-hack-as-tether-circle-freeze-2-4b/",
+        "verified": null
+      }
+    ],
+    "polymarket-6935919": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "2026-11-12",
+        "quotes": [
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"73510.70000000\"}",
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"73518.05000000\"}",
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"73589.59000000\"}",
+          "{\"serverTime\":1794479138199}"
+        ],
+        "text": "{\"symbol\":\"BTCUSDT\",\"price\":\"73510.70000000\"}\n{\"symbol\":\"BTCUSDT\",\"price\":\"73518.05000000\"}\n{\"symbol\":\"BTCUSDT\",\"price\":\"73589.59000000\"}\n{\"serverTime\":1794479138199}",
+        "title": "Binance API: BTCUSDT symbol price ticker",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/S",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance API: BTCUSDT 1-day klines, last 31 candles",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "73498.18 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+          "73527.71 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "73498.18 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance\n73527.71 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "Trade BTC/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+        "title": "Binance Spot API docs: Market data endpoints",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "The FOMC holds eight regularly scheduled meetings during the year and other meetings as needed."
+        ],
+        "text": "The FOMC holds eight regularly scheduled meetings during the year and other meetings as needed.\n\nMeeting calendars, statements, and minutes (2021-2027)\nThe FOMC holds eight regularly scheduled meetings during the year and other meetings as needed.\nLinks to policy statements and minutes are in the calendars below.\nThe minutes of regularly scheduled meetings are released three weeks after the date of the policy decision.\nCommittee membership changes at the first regularly scheduled meeting of the year.\nFOIA\nThe FOMC makes an annual report pursuant to the Freedom of Information Act.\nThe FOMC FOIA Service Center provides information about the status of FOIA requests and the FOIA process.\n2026 | 2025 | 2024 | 2023 | 2022 | 2021\nFuture Year: 2027\nJanuary\n27-28\nMinutes:\nPDF\n|\nHTML\n(Released February 18, 2026)\nMarch\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released April 08, 2026)\nApril\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released May 20, 2026)\nJune\n16-17*\nMinutes:\nPDF\n|\nHTML\n(Released July 08, 2026)\nJuly\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released August 19, 2026)\nSeptember\n15-16*\nMinutes:\nPDF\n|\nHTML\n(Released October 07, 2026)\nJanuary\n28-29\nMinutes:\nPDF\n|\nHTML\n(Released February 19, 2025)\nMarch\n18-19*\nMinutes:\nPDF\n|\nHTML\n(Released April 09, 2025)\nMay\n6-7\nMinutes:\nPDF\n|\nHTML\n(Released May 28, 2025)\nJune\n17-18*\nMinutes:\nPDF\n|\nHTML\n(Released July 09, 2025)\nJuly\n29-30\nMi",
+        "title": "FOMC Calendars, Federal Reserve Board",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "verified": true
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October 2026 Nov.\n10, 2026 08:30 AM"
+        ],
+        "snapshot": "https://web.archive.org/web/20261031012753id_/https://www.bls.gov/schedule/news_release/cpi.htm",
+        "text": "October 2026 Nov.\n10, 2026 08:30 AM\n\nAn official website of the United States government\n| | Schedule of Releases for the Consumer Price Index Subscribe to the BLS Online Calendar Online calendar subscription \u2014 automatically updated: If you use a recent version of an electronic calendar, you may be able to subscribe to the BLS Online Calendar.\nSee details below for users of different types of calendars.\nNOTE: We do not recommend using this online calendar with Outlook 2003 or older versions.\nThe calendar will not update automatically in those applications.\nThe BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date.\n|\n| Reference Month | Release Date | Release Time |\n|---|---|---|\n| October 2026 | Nov.\n10, 2026 | 08:30 AM |\n| November 2026 | Dec.\n10, 2026 | 08:30 AM |\n| December 2026 | Jan.\n13, 2027 | 08:30 AM |\n| January 2027 | Feb.\n11, 2027 | 08:30 AM |\n| February 2027 | Mar.\n10, 2027 | 08:30 AM |\n| March 2027 | Apr.\n13, 2027 | 08:30 AM |\n| April 2027 | May 12, 2027 | 08:30 AM |\n| May 2027 | Jun.\n10, 2027 | 08:30 AM |\n| June 2027 | Jul.\n14, 2027 | 08:30 AM |\n| July 2027 | Aug.\n11, 2027 | 08:30 AM |\n| August 2027 | Sep.\n14, 2027 | 08:30 AM |\n| September 2027 | Oct.\n14, 2027 | 08:30 AM |\n| October 2027 | Nov.\n10, 2027 | 08:30 AM |\n| November 2027 | Dec.\n10, 2027 | 08:30 AM |",
+        "title": "BLS CPI release schedule",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984'\nFor more",
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [
+          "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,",
+          "The outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains.",
+          "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week,",
+          "their worst week since late June,"
+        ],
+        "text": "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,\nThe outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains.\nU.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week,\ntheir worst week since late June,",
+        "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June",
+        "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "download_error": "the only archive copy predates the page",
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October"
+        ],
+        "text": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+        "title": "BLS Consumer Price Index news release (October 2026 data)",
+        "url": "https://www.bls.gov/news.release/cpi.htm",
+        "verified": null
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "increased 0.4 percent on a seasonally adjusted basis in October",
+          "BLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable."
+        ],
+        "snapshot": "https://web.archive.org/web/20261111060121id_/https://www.bls.gov/news.release/cpi.nr0.htm",
+        "text": "increased 0.4 percent on a seasonally adjusted basis in October\nBLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.\n\nAn official website of the United States government\nTransmission of material in this release is embargoed until\n8:30 a.m.\n(ET) Tuesday, November 10, 2026 USDL-26-1685\nTechnical information: (202) 691-7000 * cpi_info@bls.gov * www.bls.gov/cpi\nMedia contact: (202) 691-5902 * PressOffice@bls.gov\nCONSUMER PRICE INDEX - OCTOBER 2026\nThe Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October\nafter rising 0.6 percent in September, the U.S.\nBureau of Labor Statistics reported today.\nThe index for shelter rose 0.3 percent in October, accounting for over thirty percent of the monthly all items increase.\nThe food index increased 0.5 percent in October, as the food at home index rose 0.4 percent and the food away from home\nindex increased 0.5 percent.\nThe index for energy increased 0.7 percent over the month following a 5.2-percent increase\nin September.\nThe index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\nIndexes that\nincreased over the month include recreation, medical care, motor vehicle insurance, household furnishings and operations,\nand education.\nConversely, the index for used cars and trucks and the index for communication were among the small number\nof major indexes that decreased in October.\n-----------------------------------------------------------------------------------------------------------------\nOctober 2026 12-Month Percent Changes\nBLS did not collect survey data for October 2025 because of a lapse in appropriations.\nFor most CPI series,\nBLS could not publish October 2025 indexes.\nAs a result, BLS cannot publish 12-month percent changes for\nOctober 2026 for indexes where October 2025 data are unavailable.\nInformation about handling missing data is\navailable online at www.bls.gov/cpi/factsheets/approximating-missing-data.htm\n-----------------------------------------------------------------------------------------------------------------\n| Table A.\nPercent changes in CPI for All Urban Consumers (CPI-U): U.S.\ncity average | | | | | | | | |\n|---|---|---|---|---|---|---|---|---|\n| | Seasonally adjusted changes from preceding month | | | | | | | Un- adjusted 12-mos.\nended Oct.\n2026 |\n|---|---|---|---|---|---|---|---|---|\n| | Apr.\n2026 | May 2026 | Jun.\n2026 | Jul.\n2026 | Aug.\n2026 | Sep.\n2026 | Oct.\n2026 | |\n| All items | 0.6 | 0.5 | -0.4 | 0.1 | 0.4 | 0.6 | 0.4 | - |\n| Food | 0.5 | 0.2 | 0.2 | 0.1 | 0.1 | 0.0 | 0.5 | - |\n| Food at home | 0.7 | 0.1 | 0.2 | -0.1 | 0.0 | -0.1 | 0.4 | - |\n| Food away from home(1) | 0.2 | 0.3 | 0.2 | 0.3 | 0.3 | 0.2 | 0.5 | - |\n| Energy | 3.8 | 3.9 | -5.7 | -1.5 | 2.1 | 5.2 | 0.7 | - |\n| Energy commodities | 5.6 | 6.7 | -9.5 | -2.9 | 4.2 | 9.3 | 0.8 | - |\n| Gasoline (all types) | 5.4 | 7.0 | -9.7 | -2.9 | 3.9 | 9.1 |",
+        "title": "BLS Consumer Price Index news release (October 2026 data)",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [
+          "Data updated Nov 11, 2026",
+          "Nov 9, 2026: \"(201.1)\" total",
+          "Nov 10, 2026: \"(95.0)\" total"
+        ],
+        "text": "Data updated Nov 11, 2026\nNov 9, 2026: \"(201.1)\" total\nNov 10, 2026: \"(95.0)\" total\n\nBitcoin ETF Flows \u00b7 Live Month\nBitcoin ETF Flows November 2026\nUS spot Bitcoin ETFs recorded a net outflow of $1.9B in November 2026 so far, across 8 trading days, with 1 day of inflows and 7 of outflows.\nThe biggest single session was Nov 5, 2026, at \u2212$430.2M.\nData updated \u00b7 Last checked for revisions \u00b7 Bitcoin ETF flows today \u2192\nNet Flow \u00b7 November 2026\n\u2212$1.9B\nmonth to date\nTrading Days\n8\n1 in \u00b7 7 out\nBiggest Day\n\u2212$430.2M\nNov 5, 2026\nDaily Average\n\u2212$234.7M\nper trading day\nDaily Bitcoin ETF net flows, November 2026\n\u25a0 inflows \u00b7 \u25a0 outflows\nNet flow by fund, November 2026\n| Net flow for each US spot Bitcoin ETF in November 2026, biggest inflow first | | |\n|---|---|---|\n| Fund | Issuer | Net flow |\n|---|---|---|\n| FBTC | Fidelity | +$56.3M |\n| MSBT | Morgan Stanley | +$54.4M |\n| BITB | Bitwise | +$16.6M |\n| BTCO | Invesco / Galaxy | +$4.0M |\n| BRRR | CoinShares | 0 |\n| BTCW | WisdomTree | 0 |\n| HODL | VanEck | \u2212$23.6M |\n| ARKB | ARK Invest / 21Shares | \u2212$29.0M |\n| EZBC | Franklin Templeton | \u2212$32.9M |\n| BTC | Grayscale | \u2212$52.6M |\n| GBTC | Grayscale | \u2212$100.1M |\n| IBIT | BlackRock | \u2212$1.8B |\nNovember 2026 daily flow table, by fund\n| US spot Bitcoin ETF daily net flows for November 2026, in millions of US dollars | | | | | | | | | | | | | |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| Date | | | | | | | | | | | | | Total (US$m) |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| | (269.7) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 9.0 | (39.1) | 0.0 | (299.9) |\n| | (78.2) | (36.8) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 20.0 | 0.0 | 0.0 | (95.0) |\n| | (213.2) | 0.0 | 0.0 | (9.9) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 22.1 | 0.0 | 0.0 | (201.1) |\n| | (403.0) | 42.8 | (20.5) | (20.1) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | (11.1) | 0.0 | (411.9) |\n| | (105.0) | (199.9) | 0.0 | (18.9) | 0.0 | (32.9) | 0.0 | (23.6) | 0.0 | 0.0 | (49.9) | 0.0 | (430.2) |\n| | (201.2) | 236.7 | 15.2 | 19.9 | 4.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 74.6 |\n| | (95.0) | 6.8 | 21.9 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 3.3 | 0.0 | (52.6) | (115.6) |\n| | (405.3) | 6.7 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | (398.6) |\nOutflows in (parentheses).\n0.0 = the fund reported no net creations or redemptions that day (routine for the smaller funds); \u2013 = no data (fund not yet trading, not tabulated that day, or day not yet reported).\nDays without a per-fund breakdown show the vendor aggregate only.\nTotal sums the available fund flows before rounding; rounded cells can differ slightly.\nWhat are these tickers?+\n- IBIT \u2014 iShares Bitcoin Trust (BlackRock)\n- FBTC \u2014 Wise Origin Bitcoin Fund (Fidelity)\n- BITB \u2014 Bitwise Bitcoin ETF (Bitwise)\n- ARKB \u2014 ARK 21Shares Bitcoin ETF (ARK Invest / 21Shares)\n- BTCO \u2014 Invesco Galaxy Bitcoin ETF (Invesco / Galaxy)\n- EZBC \u2014 Franklin Bitcoin ETF (Franklin Templeton)\n- BRRR \u2014 CoinShares Valkyrie Bitcoin Fund (CoinShares)\n- HODL \u2014 VanEck Bitcoin Trust (VanEck)\n- BTCW \u2014 WisdomTree Bitcoin Fund (WisdomTree)\n- MSBT \u2014 Morgan Stanley Bitcoin Trust (Morgan Stanley); launched Apr 2026 with the market's lowest fee (0.14%)\n- GBTC \u2014 Grayscale Bitcoin Trust (Grayscale); the converted legacy trust; its 1.5% fee drove the great outflow bleed\n- BTC \u2014 Grayscale Bitcoin Mini Trust (Grayscale); the low-fee (0.15%) spin-off seeded from GBTC in July 2024\nNovember 2026 Bitcoin ETF flow questions\nWhat were Bitcoin ETF flows in November 2026?\nWhich Bitcoin ETF had the most inflows in November 2026?\nWhat was the biggest Bitcoin ETF flow day in November 2026?\nThe full daily series is open JSON at data.json and the newest session at latest.json (CC BY 4.0).\nSources and formulas: methodology and changelog.",
+        "title": "Bitcoin ETF Flows, Live Month (November 2026)",
+        "url": "https://www.tftc.io/bitcoin-etf-flows/november-2026",
+        "verified": false
+      }
+    ]
+  }
+}
