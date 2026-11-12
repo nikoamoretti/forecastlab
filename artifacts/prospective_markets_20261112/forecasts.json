@@ -81,6 +81,13 @@
             "https://www.take2games.com/ir/press-releases/",
             "https://www.shacknews.com/article/149250/gta-6-release-date-confirmed"
           ]
+        },
+        {
+          "created_at": "2026-11-12T12:43:04.252887+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.95,
+          "rationale": "Take-Two's 2026-11-09 Q2 results reportedly called GTA VI ten days away with pre-orders at record levels, so a slip in the last week is very unlikely; residual risk is a last-minute delay or wording and time-zone edge cases. I don't recall how this turned out and used no outcome knowledge.",
+          "saw_market_price": true
         }
       ],
       "id": "manifold-gPA98L9uQS",
