@@ -1,34 +1,34 @@
 {
   "calibration": {
     "as_of": "2026-11-12",
-    "intercept": 0.302559,
-    "results": 226,
-    "slope": 0.744678
+    "intercept": 0.302191,
+    "results": 227,
+    "slope": 0.747539
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20950769658058024,
+      "brier": 0.2080605496047555,
       "coin_flip_brier": 0.25,
       "forecasts": 292,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-12",
       "method": "combined_median_v1",
-      "resolved": 231,
-      "right": 155,
+      "resolved": 233,
+      "right": 157,
       "toss_ups": 3,
       "wrong": 73
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.20027345132743363,
+      "brier": 0.19891315789473685,
       "coin_flip_brier": 0.25,
       "forecasts": 287,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-12",
       "method": "claude_code_forecaster_v1",
-      "resolved": 226,
-      "right": 151,
+      "resolved": 228,
+      "right": 153,
       "toss_ups": 6,
       "wrong": 69
     },
@@ -203,27 +203,27 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.24813632777903827,
+      "brier": 0.2510843953779359,
       "coin_flip_brier": 0.25,
       "forecasts": 29,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-10",
       "method": "statistical_baseline_v1",
-      "resolved": 24,
+      "resolved": 25,
       "right": 10,
       "toss_ups": 0,
-      "wrong": 14
+      "wrong": 15
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.14924546637799999,
+      "brier": 0.14091235926407691,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-12",
       "method": "claude_calibrated_v1",
-      "resolved": 24,
-      "right": 19,
+      "resolved": 26,
+      "right": 21,
       "toss_ups": 0,
       "wrong": 5
     },
@@ -242,14 +242,14 @@
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.13604908468085108,
+      "brier": 0.13333537895833333,
       "coin_flip_brier": 0.25,
       "forecasts": 60,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-12",
       "method": "manifold_price_v1",
-      "resolved": 47,
-      "right": 35,
+      "resolved": 48,
+      "right": 36,
       "toss_ups": 0,
       "wrong": 12
     },
@@ -270,18 +270,67 @@
   "generated_on": "2026-11-12",
   "learned_model": {
     "as_of": "2026-11-12",
-    "intercept": 0.294808,
-    "results": 203,
-    "slope": 1.072357,
+    "intercept": 0.294748,
+    "results": 204,
+    "slope": 1.074711,
     "weights": {
-      "Crypto": -0.345179,
-      "Economy": -0.22601,
-      "Politics": -0.391007,
-      "Tech": 0.50999,
-      "World": -0.407983
+      "Crypto": -0.345245,
+      "Economy": -0.225736,
+      "Politics": -0.39072,
+      "Tech": 0.514165,
+      "World": -0.408107
     }
   },
   "questions": [
+    {
+      "actual": "200,000 claims",
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.724425
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-07 be above 189,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.7,
+          "rationale": "The threshold equals the latest first print (189,000 for the week ending 2026-10-31, https://www.dol.gov/ui/data.pdf, 2026-11-05), so a repeat fails and a single tick down fails too. But 189,000 was a 5,000 step below the prior 194,000 and 195,000 prints (the 4-week average is 194,750), and the drop came from unadjusted claims falling while the factors expected a rise, a pattern that tends to partly reverse. The factor jumps from 0.933 to 1.036 for the week ending 2026-11-07 (https://www.bls.gov/lau/current-factors.htm), and raw claims rose about 10.5% in the same week of 2025 (https://fred.stlouisfed.org/data/ICNSA); with typical moves of 0 to 5,000, I put roughly 70% on a print of 190,000 or more.",
+          "sources": [
+            "https://www.dol.gov/ui/data.pdf",
+            "https://fred.stlouisfed.org/data/ICSA",
+            "https://fred.stlouisfed.org/data/ICNSA",
+            "https://www.bls.gov/lau/current-factors.htm"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4326923076923077
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.724425,
+          "raw": 0.7,
+          "results": 189,
+          "slope": 0.728837
+        }
+      ],
+      "id": "06d2e2a99c5b7e5b",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-12",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261106",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 7, 2026 come in above 189,000 claims?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -758,6 +807,55 @@
       "status": "resolved",
       "title": "Will Elon Musk post 180-199 tweets from November 3 to November 10, 2026?",
       "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.076737
+      },
+      "detail": "Coronae Borealis (T CrB), also known as the 'Blaze Star,' is a recurrent nova expected to undergo an outburst \"soon\". Historically, it has brightened to magnitude 2.0 or 3.0 during such events in 1866 and 1946 respectively.\n\nThis market resolves to 'Yes' if T CrB reaches magnitude 5.0 or brighter before November 11th, 2026 (12:00:00 am ET), as reported by reputable astronomical sources such as the American Association of Variable Star Observers (AAVSO).\n\nT Coronae Borealis - Wikipedia \n\n[link preview]",
+      "forecasts": [
+        {
+          "made_at": "2026-11-06T12:40:43+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Only two primary eruptions are on record (1866 and 1946, https://arxiv.org/pdf/2303.04933), and T CrB was still at B=11.235 on 2026-11-05 (https://theskylive.com/sky/stars/hr-5958-star) with no outburst reported as of 2026-11-03 (https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/). The rise is fast enough that an eruption on any remaining night would count, but nothing marks the 5 days before the cutoff as special; even a generous hazard of 30 to 50% a year gives under 1% for this window, so I sit at the 2% floor.",
+          "sources": [
+            "https://arxiv.org/pdf/2303.04933",
+            "https://theskylive.com/sky/stars/hr-5958-star",
+            "https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/",
+            "https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/"
+          ]
+        },
+        {
+          "as_of": "2026-11-06",
+          "intercept": 0.348975,
+          "method": "claude_calibrated_v1",
+          "probability": 0.076737,
+          "raw": 0.02,
+          "results": 189,
+          "slope": 0.728837
+        },
+        {
+          "made_at": "2026-11-06T10:23:48.311924+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0761
+        }
+      ],
+      "id": "manifold-gq5RCCO6PN",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-10",
+      "scored": true,
+      "source": "prospective_markets_20261106",
+      "source_url": "https://manifold.markets/EstMtz/t-coronae-borealis-reaches-magnitud-SpAug080pQ",
+      "status": "resolved",
+      "title": "T Coronae Borealis reaches magnitude 5.0 before November 11th, 2026?",
+      "topic": "Tech",
       "verdict": "right"
     },
     {
@@ -16066,55 +16164,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "claude_corrected_call_v1",
-        "probability": 0.076737
-      },
-      "detail": "Coronae Borealis (T CrB), also known as the 'Blaze Star,' is a recurrent nova expected to undergo an outburst \"soon\". Historically, it has brightened to magnitude 2.0 or 3.0 during such events in 1866 and 1946 respectively.\n\nThis market resolves to 'Yes' if T CrB reaches magnitude 5.0 or brighter before November 11th, 2026 (12:00:00 am ET), as reported by reputable astronomical sources such as the American Association of Variable Star Observers (AAVSO).\n\nT Coronae Borealis - Wikipedia \n\n[link preview]",
-      "forecasts": [
-        {
-          "made_at": "2026-11-06T12:40:43+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.02,
-          "rationale": "Only two primary eruptions are on record (1866 and 1946, https://arxiv.org/pdf/2303.04933), and T CrB was still at B=11.235 on 2026-11-05 (https://theskylive.com/sky/stars/hr-5958-star) with no outburst reported as of 2026-11-03 (https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/). The rise is fast enough that an eruption on any remaining night would count, but nothing marks the 5 days before the cutoff as special; even a generous hazard of 30 to 50% a year gives under 1% for this window, so I sit at the 2% floor.",
-          "sources": [
-            "https://arxiv.org/pdf/2303.04933",
-            "https://theskylive.com/sky/stars/hr-5958-star",
-            "https://earthsky.org/space/blaze-star-nova-corona-borealis-how-to-see-it/",
-            "https://aavso.org/blog/what-to-do-during-the-eruption-of-t-crb/"
-          ]
-        },
-        {
-          "as_of": "2026-11-06",
-          "intercept": 0.348975,
-          "method": "claude_calibrated_v1",
-          "probability": 0.076737,
-          "raw": 0.02,
-          "results": 189,
-          "slope": 0.728837
-        },
-        {
-          "made_at": "2026-11-06T10:23:48.311924+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.0761
-        }
-      ],
-      "id": "manifold-gq5RCCO6PN",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-10",
-      "scored": true,
-      "source": "prospective_markets_20261106",
-      "source_url": "https://manifold.markets/EstMtz/t-coronae-borealis-reaches-magnitud-SpAug080pQ",
-      "status": "pending",
-      "title": "T Coronae Borealis reaches magnitude 5.0 before November 11th, 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 2,
         "method": "combined_weighted_v1",
         "probability": 0.57,
@@ -16228,55 +16277,6 @@
       "status": "pending",
       "title": "Will Core CPI YoY be 2.6% in October?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "claude_corrected_call_v1",
-        "probability": 0.724425
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-07 be above 189,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-11-06T12:40:43+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.7,
-          "rationale": "The threshold equals the latest first print (189,000 for the week ending 2026-10-31, https://www.dol.gov/ui/data.pdf, 2026-11-05), so a repeat fails and a single tick down fails too. But 189,000 was a 5,000 step below the prior 194,000 and 195,000 prints (the 4-week average is 194,750), and the drop came from unadjusted claims falling while the factors expected a rise, a pattern that tends to partly reverse. The factor jumps from 0.933 to 1.036 for the week ending 2026-11-07 (https://www.bls.gov/lau/current-factors.htm), and raw claims rose about 10.5% in the same week of 2025 (https://fred.stlouisfed.org/data/ICNSA); with typical moves of 0 to 5,000, I put roughly 70% on a print of 190,000 or more.",
-          "sources": [
-            "https://www.dol.gov/ui/data.pdf",
-            "https://fred.stlouisfed.org/data/ICSA",
-            "https://fred.stlouisfed.org/data/ICNSA",
-            "https://www.bls.gov/lau/current-factors.htm"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.4326923076923077
-        },
-        {
-          "as_of": "2026-11-06",
-          "intercept": 0.348975,
-          "method": "claude_calibrated_v1",
-          "probability": 0.724425,
-          "raw": 0.7,
-          "results": 189,
-          "slope": 0.728837
-        }
-      ],
-      "id": "06d2e2a99c5b7e5b",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-12",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261106",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Nov 7, 2026 come in above 189,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -18410,7 +18410,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20950769658058024,
+    "brier": 0.2080605496047555,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18426,15 +18426,15 @@
       {
         "about": "On Tech questions, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
-          "dates": 8,
-          "difference": -0.01838722241379312,
+          "dates": 9,
+          "difference": -0.017954022,
           "interval": [
-            -0.034356,
-            0.008911
+            -0.033498,
+            0.00779
           ],
-          "market": 0.13758285241379312,
-          "questions": 29,
-          "rule": 0.11919563
+          "market": 0.13318979766666666,
+          "questions": 30,
+          "rule": 0.11523577566666666
         },
         "counted": {
           "dates": 0,
@@ -18454,14 +18454,14 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 26,
-          "difference": 0.013676576206896551,
+          "difference": 0.013583106666666678,
           "interval": [
-            0.004959,
-            0.022104
+            0.004876,
+            0.021909
           ],
-          "market": 0.15169039768472906,
-          "questions": 203,
-          "rule": 0.1653669738916256
+          "market": 0.1509752055882353,
+          "questions": 204,
+          "rule": 0.16455831225490197
         },
         "counted": {
           "dates": 0,
@@ -18526,7 +18526,7 @@
         "status": "testing"
       }
     ],
-    "pending": 57,
+    "pending": 55,
     "progress": {
       "changes": [
         {
@@ -18548,10 +18548,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.07400000000000002,
-          "market": 0.06363049999999999,
-          "ours": 0.1257787101125,
-          "questions": 2
+          "claude": 0.04946666666666668,
+          "market": 0.04435073666666666,
+          "ours": 0.08581532913133334,
+          "questions": 3
         },
         "before": {
           "claude": 0.200873631840796,
@@ -18599,11 +18599,11 @@
           "wrong": 34
         },
         {
-          "claude": 0.13915454545454548,
-          "market": 0.09911276545454545,
-          "ours": 0.1437892064589091,
-          "questions": 22,
-          "right": 17,
+          "claude": 0.1331217391304348,
+          "market": 0.09505530652173913,
+          "ours": 0.13779352648978263,
+          "questions": 23,
+          "right": 18,
           "start": "2026-11-02",
           "wrong": 5
         },
@@ -18618,17 +18618,17 @@
         }
       ]
     },
-    "resolved": 231,
-    "right": 155,
+    "resolved": 233,
+    "right": 157,
     "toss_ups": 3,
     "total": 292,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19962364532019705,
-      "claude_questions": 203,
-      "market": 0.15169039768472906,
-      "ours": 0.20264424837549264,
-      "questions": 203,
+      "claude": 0.19864705882352943,
+      "claude_questions": 204,
+      "market": 0.1509752055882353,
+      "ours": 0.20167975974212746,
+      "questions": 204,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",
