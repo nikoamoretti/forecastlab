@@ -1,0 +1,54 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-14T17:00:00Z",
+      "id": "polymarket-6801715",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-14-2026",
+      "question": "Will the price of Ethereum be above $2,100 on November 14?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-20T17:00:00Z",
+      "id": "polymarket-6921901",
+      "market_url": "https://polymarket.com/event/elon-musk-of-tweets-november-13-november-20-2026",
+      "question": "Will Elon Musk post 300-319 tweets from November 13 to November 20, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 13 12:00 PM ET to November 20, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-17T17:00:00Z",
+      "id": "polymarket-6935919",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-17-2026",
+      "question": "Will the price of Bitcoin be above $68,000 on November 17?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-17T17:00:00Z",
+      "id": "polymarket-6771084",
+      "market_url": "https://polymarket.com/event/nyc-mayor-of-tweets-november-10-november-17-2026",
+      "question": "Will NYC Mayor post 20-39 posts from November 10 to November 17, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times NYC Mayor Zohran Mamdani (@NYCMayor), posts on X between November 10, 12:00 PM ET and November 17, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-17T17:00:00Z",
+      "id": "polymarket-6771159",
+      "market_url": "https://polymarket.com/event/donald-trump-of-truth-social-posts-november-10-november-17-2026",
+      "question": "Will Donald Trump post 200+ Truth Social posts from November 10 to November 17, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Donald Trump (@realDonaldTrump), posts on Truth Social between November 10, 12:00 PM ET and November 17, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, Truth Social itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-19T23:59:00Z",
+      "id": "manifold-gPA98L9uQS",
+      "market_url": "https://manifold.markets/Jaygotpeps/will-gta-6-come-out-on-november-19",
+      "question": "Will GTA 6 come out on November 19, 2026?",
+      "resolution_criteria": "Why would I bid?\nRecently there has been a lot of \"leaks\" from popular leaker \"CYBERLEEK\", this has caused the GTA and gaming community to wonder whether or not GTA 6 will be delayed or released early in compensation to these leaks.\n\nResolution criteria\n\nThis market will resolve to YES if Grand Theft Auto VI (GTA 6) is officially released to the general public on November 19, 2026, in any major global market. If the game's release is delayed to a later date, or if it is launched early on any other date, this market will resolve to NO. \n\nREGULAR LIQUIDITY UPDATES.",
+      "topic": "Tech"
+    }
+  ],
+  "selected_at": "2026-11-12T10:17:40.338342+00:00",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
+}

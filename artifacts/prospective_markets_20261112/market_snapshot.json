@@ -1,0 +1,54 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6801715",
+      "market_id": "6801715",
+      "method": "market_price_v1",
+      "volume": 4442.018649,
+      "volume_floor": 2500,
+      "yes_price": 0.235
+    },
+    {
+      "id": "polymarket-6921901",
+      "market_id": "6921901",
+      "method": "market_price_v1",
+      "volume": 5540.807971,
+      "volume_floor": 2500,
+      "yes_price": 0.085
+    },
+    {
+      "id": "polymarket-6935919",
+      "market_id": "6935919",
+      "method": "market_price_v1",
+      "volume": 3163.059014,
+      "volume_floor": 2500,
+      "yes_price": 0.9485
+    },
+    {
+      "id": "polymarket-6771084",
+      "market_id": "6771084",
+      "method": "market_price_v1",
+      "volume": 4313.215554,
+      "volume_floor": 2500,
+      "yes_price": 0.89
+    },
+    {
+      "id": "polymarket-6771159",
+      "market_id": "6771159",
+      "method": "market_price_v1",
+      "volume": 4035.6081340000005,
+      "volume_floor": 2500,
+      "yes_price": 0.07
+    },
+    {
+      "id": "manifold-gPA98L9uQS",
+      "market_id": "gPA98L9uQS",
+      "method": "manifold_price_v1",
+      "volume": 3478.9570437884336,
+      "volume_floor": 1000,
+      "volume_unit": "mana",
+      "yes_price": 0.9474
+    }
+  ],
+  "taken_at": "2026-11-12T10:17:40.338342+00:00"
+}
