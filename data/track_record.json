@@ -1,34 +1,34 @@
 {
   "calibration": {
     "as_of": "2026-11-12",
-    "intercept": 0.290741,
-    "results": 227,
-    "slope": 0.743542
+    "intercept": 0.302559,
+    "results": 226,
+    "slope": 0.744678
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20959774961256047,
+      "brier": 0.20950769658058024,
       "coin_flip_brier": 0.25,
       "forecasts": 292,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-12",
       "method": "combined_median_v1",
-      "resolved": 232,
-      "right": 156,
+      "resolved": 231,
+      "right": 155,
       "toss_ups": 3,
       "wrong": 73
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.20028325991189427,
+      "brier": 0.20027345132743363,
       "coin_flip_brier": 0.25,
       "forecasts": 287,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-12",
       "method": "claude_code_forecaster_v1",
-      "resolved": 227,
-      "right": 152,
+      "resolved": 226,
+      "right": 151,
       "toss_ups": 6,
       "wrong": 69
     },
@@ -60,16 +60,16 @@
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.2065986111111111,
+      "brier": 0.20570000000000002,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "last_forecast_on": "2026-10-23",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 72,
+      "resolved": 71,
       "right": 49,
       "toss_ups": 0,
-      "wrong": 23
+      "wrong": 22
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -86,16 +86,16 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.2159679245283019,
+      "brier": 0.215623417721519,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 159,
+      "resolved": 158,
       "right": 105,
       "toss_ups": 1,
-      "wrong": 53
+      "wrong": 52
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -112,27 +112,27 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21166923076923078,
+      "brier": 0.21154838709677418,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 156,
-      "right": 112,
+      "resolved": 155,
+      "right": 111,
       "toss_ups": 0,
       "wrong": 44
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21428074534161493,
+      "brier": 0.2145175,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 161,
-      "right": 113,
+      "resolved": 160,
+      "right": 112,
       "toss_ups": 1,
       "wrong": 47
     },
@@ -242,14 +242,14 @@
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.13462306208333333,
+      "brier": 0.13604908468085108,
       "coin_flip_brier": 0.25,
       "forecasts": 60,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-12",
       "method": "manifold_price_v1",
-      "resolved": 48,
-      "right": 36,
+      "resolved": 47,
+      "right": 35,
       "toss_ups": 0,
       "wrong": 12
     },
@@ -270,15 +270,15 @@
   "generated_on": "2026-11-12",
   "learned_model": {
     "as_of": "2026-11-12",
-    "intercept": 0.286864,
-    "results": 204,
-    "slope": 1.074761,
+    "intercept": 0.294808,
+    "results": 203,
+    "slope": 1.072357,
     "weights": {
-      "Crypto": -0.347038,
-      "Economy": -0.226394,
-      "Politics": -0.413406,
-      "Tech": 0.50897,
-      "World": -0.409086
+      "Crypto": -0.345179,
+      "Economy": -0.22601,
+      "Politics": -0.391007,
+      "Tech": 0.50999,
+      "World": -0.407983
     }
   },
   "questions": [
@@ -4726,70 +4726,6 @@
       "title": "Will commitments to the 1W public sale exceed $60M?",
       "topic": "Crypto",
       "verdict": "wrong"
-    },
-    {
-      "actual": "Manifold: No",
-      "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.48
-      },
-      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-21T10:55:44+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
-          "sources": [
-            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
-            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
-            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
-            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
-          ]
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.52,
-          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.52,
-          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.48,
-          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
-        },
-        {
-          "made_at": "2026-10-21T09:17:28.572088+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.26
-        }
-      ],
-      "id": "manifold-ULun8EOAAn",
-      "note": null,
-      "outcome": 0,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261021",
-      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
-      "status": "resolved",
-      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
-      "topic": "Politics",
-      "verdict": "right"
     },
     {
       "actual": "Manifold: Yes",
@@ -15652,6 +15588,70 @@
     {
       "actual": null,
       "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
+          "sources": [
+            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
+            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
+            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
+          ]
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.52,
+          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.52,
+          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
+        },
+        {
+          "made_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.26
+        }
+      ],
+      "id": "manifold-ULun8EOAAn",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261021",
+      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "status": "pending",
+      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.86,
@@ -18410,7 +18410,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20959774961256047,
+    "brier": 0.20950769658058024,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18454,14 +18454,14 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 26,
-          "difference": 0.013913455735294122,
+          "difference": 0.013676576206896551,
           "interval": [
-            0.005023,
-            0.022537
+            0.004959,
+            0.022104
           ],
-          "market": 0.15127818985294117,
-          "questions": 204,
-          "rule": 0.1651916455882353
+          "market": 0.15169039768472906,
+          "questions": 203,
+          "rule": 0.1653669738916256
         },
         "counted": {
           "dates": 0,
@@ -18526,7 +18526,7 @@
         "status": "testing"
       }
     ],
-    "pending": 56,
+    "pending": 57,
     "progress": {
       "changes": [
         {
@@ -18554,10 +18554,10 @@
           "questions": 2
         },
         "before": {
-          "claude": 0.20088168316831684,
-          "market": 0.15214598876237623,
-          "ours": 0.203542698019802,
-          "questions": 202
+          "claude": 0.200873631840796,
+          "market": 0.1525666155721393,
+          "ours": 0.20340907960199003,
+          "questions": 201
         },
         "date": "2026-11-06"
       },
@@ -18581,11 +18581,11 @@
           "wrong": 4
         },
         {
-          "claude": 0.18248372093023255,
-          "market": 0.14818810069767444,
-          "ours": 0.1952122093023256,
-          "questions": 43,
-          "right": 33,
+          "claude": 0.18200714285714287,
+          "market": 0.150106865,
+          "ours": 0.19437440476190476,
+          "questions": 42,
+          "right": 32,
           "start": "2026-10-19",
           "wrong": 9
         },
@@ -18618,17 +18618,17 @@
         }
       ]
     },
-    "resolved": 232,
-    "right": 156,
+    "resolved": 231,
+    "right": 155,
     "toss_ups": 3,
     "total": 292,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19963774509803922,
-      "claude_questions": 204,
-      "market": 0.15127818985294117,
-      "ours": 0.2027803059814951,
-      "questions": 204,
+      "claude": 0.19962364532019705,
+      "claude_questions": 203,
+      "market": 0.15169039768472906,
+      "ours": 0.20264424837549264,
+      "questions": 203,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",
