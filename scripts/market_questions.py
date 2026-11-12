@@ -5,6 +5,7 @@
   python scripts/market_questions.py pool                      # read-only: the selection funnel per source, writes nothing
   python scripts/market_questions.py record <dir> <forecasts.json> [--skip <id>[,<id>...]] [--skip-failed]
   python scripts/market_questions.py resolve                   # every open market question
+  python scripts/market_questions.py hold <dir> <id> --until YYYY-MM-DD --reason "..." [--source <url>]
   python scripts/market_questions.py second-look export <dir> --out <file> [--topics Tech[,Politics...]]
   python scripts/market_questions.py second-look record <dir> <answers.json> [--topics Tech[,Politics...]]
 
@@ -26,6 +27,11 @@ in [0.02, 0.98] and that the forecast was made before each market closes, and wr
 
 ``resolve`` records the market's final result (Polymarket, Manifold or Kalshi) for questions whose market has closed.
 
+``hold`` sets one market's result aside until a day: for a market that was closed before the event it asks about was
+decided (a Manifold creator may close a market early, for example before an election is called). It clears a result
+``resolve`` already recorded and makes ``resolve`` skip the question until that day, when it reads the market again.
+The reason and its source stay in ``forecasts.json`` under ``resolution_hold``; forecasts and our call are untouched.
+
 ``second-look export`` writes a packet for the "second look": a second Claude forecast made after seeing the research
 digest, Claude's first (blind) forecast with its rationale, and the market's price. One item per eligible question: it has
 both a Claude forecast and a market price in ``forecasts.json``, a topic in ``--topics`` (default: the topics of the
@@ -40,7 +46,7 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -336,6 +342,39 @@ def second_look_record(directory: Path, answers_path: Path, topics: set[str] | N
     return path
 
 
+def _held(question: dict[str, Any], today: datetime) -> bool:
+    """True while the question's result is set aside (see ``hold``)."""
+    until = (question.get("resolution_hold") or {}).get("until")
+    return isinstance(until, str) and until > today.date().isoformat()
+
+
+def hold(directory: Path, question_id: str, until: str, reason: str, source: str | None = None,
+         today: datetime | None = None) -> Path:
+    """Set one market's result aside until ``until`` (YYYY-MM-DD) because the market closed before the event was decided.
+
+    A result ``resolve`` already recorded is cleared, so the question is open again and counts in no score; from
+    ``until`` on, ``resolve`` reads the market again. Nothing else in the file changes.
+    """
+    date.fromisoformat(until)  # refuse a day that is not a date
+    if not reason.strip():
+        raise SystemExit("a hold needs a reason")
+    path = directory / "forecasts.json"
+    data = json.loads(path.read_text())
+    question = next((q for q in data["questions"] if q["id"] == question_id), None)
+    if question is None:
+        raise SystemExit(f"{question_id} is not in {path}")
+    if question.get("cancelled"):
+        raise SystemExit(f"{question_id} was cancelled; there is no result to hold")
+    question.pop("outcome_note", None)
+    question.pop("outcome_source", None)
+    question |= {"outcome": None, "resolution_hold": {
+        "until": until, "reason": reason.strip(), "set_on": as_utc(today or utcnow()).date().isoformat(),
+        **({"source": source} if source else {})}}
+    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    print(f"{question_id}: result held until {until}")
+    return path
+
+
 def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, today: datetime | None = None) -> int:
     """Record final market results (Polymarket, Manifold, Kalshi); network errors leave a question open for the next run."""
     today = as_utc(today or utcnow())
@@ -345,6 +384,8 @@ def resolve(artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json, tod
         before = changed
         for question in data["questions"]:
             if question["outcome"] is not None or question.get("cancelled") or question["resolution_date"] > today.date().isoformat():
+                continue
+            if _held(question, today):
                 continue
             manifold, kalshi = question["id"].startswith("manifold-"), question["id"].startswith("kalshi-")
             name = "Kalshi" if kalshi else "Manifold" if manifold else "Polymarket"
@@ -417,6 +458,19 @@ def main(argv: list[str]) -> int:
         return _second_look_cli(argv)
     elif argv[:1] == ["resolve"]:
         resolve()
+    elif argv[:1] == ["hold"] and len(argv) >= 3:
+        rest, options = argv[3:], {}
+        while rest:
+            flag = rest.pop(0)
+            if flag in ("--until", "--reason", "--source") and rest:
+                options[flag[2:]] = rest.pop(0)
+            else:
+                print(__doc__)
+                return 2
+        if "until" not in options or "reason" not in options:
+            print(__doc__)
+            return 2
+        hold(Path(argv[1]), argv[2], options["until"], options["reason"], options.get("source"))
     else:
         print(__doc__)
         return 2

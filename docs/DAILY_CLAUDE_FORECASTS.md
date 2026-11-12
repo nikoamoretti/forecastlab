@@ -75,6 +75,7 @@ A scheduled Claude Code routine adds forecasts every weekday. From 2026-11-10 th
 - Never use information published after the forecast time.
 - Never edit a recorded forecast. A later view goes in a new day's artifact.
 - Holidays without a published value resolve as cancelled, not as yes or no. So does a Polymarket market settled 50/50.
+- A market closed before its event was decided does not count yet. A Manifold creator can close a market early (2026-11-12: the Alaska Senate question was closed as No while the race was uncalled and Polymarket's twin question was still open). When a result is found to be early, set it aside with `python scripts/market_questions.py hold <dir> <id> --until YYYY-MM-DD --reason "..." --source <url>`: the question is open again, `resolve` skips it until that day and then reads the market again, and the reason stays in `forecasts.json` under `resolution_hold`. Check the official result on that day before trusting the market's answer.
 - Market questions are forecast without looking at any market's odds.
 - Judges see only the question, its rule, Claude's brief and excerpts of the fetched sources. They never see Claude's probability or a market price.
 - The scorer reports Claude, the statistical baseline and every earlier method side by side, with the number of scored questions.

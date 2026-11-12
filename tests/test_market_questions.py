@@ -157,6 +157,53 @@ def test_prepare_record_resolve_and_score_without_the_market_in_our_call(tmp_pat
     assert (record["summary"]["right"], record["summary"]["wrong"], record["summary"]["unscored"]) == (1, 0, 1)
 
 
+def test_a_held_result_is_cleared_and_read_again_only_from_its_day(tmp_path: Path) -> None:
+    """A market closed before its event was decided: the result is set aside and the question is open again."""
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    directory = script.prepare(NOW, artifacts, fake_fetch)
+    assert directory is not None
+    questions = json.loads((directory / "questions.json").read_text())["questions"]
+    answers = tmp_path / "claude.json"
+    answers.write_text(json.dumps({"forecast_made_at": "2026-10-07T13:00:00Z", "forecasts": [
+        {"id": q["id"], "probability": 0.7, "rationale": "Because.", "sources": ["https://example.org"]}
+        for q in questions]}))
+    script.record(directory, answers)
+
+    def settled(_url: str):
+        return {"closed": True, "outcomePrices": '["1", "0"]', "umaResolutionStatuses": '["resolved"]'}
+
+    def question() -> dict:
+        data = json.loads((directory / "forecasts.json").read_text())
+        return next(q for q in data["questions"] if q["id"] == "polymarket-m1")
+
+    day = datetime(2026, 10, 16, tzinfo=UTC)
+    assert script.resolve(artifacts, settled, today=day) >= 1
+    before = question()
+    assert (before["outcome"], before["outcome_note"]) == (1, "Polymarket: Yes")
+
+    script.hold(directory, "polymarket-m1", "2026-10-20", " Closed before the count was official. ",
+                "https://example.org/news", today=day)
+    held = question()
+    assert held["outcome"] is None and "outcome_note" not in held and "outcome_source" not in held
+    assert held["resolution_hold"] == {"until": "2026-10-20", "reason": "Closed before the count was official.",
+                                       "set_on": "2026-10-16", "source": "https://example.org/news"}
+    assert held["forecasts"] == before["forecasts"]  # forecasts are never touched
+    row = next(q for q in build_track_record(artifacts, today=day.date())["questions"] if q["id"] == "polymarket-m1")
+    assert (row["status"], row["outcome"], row["verdict"]) == ("pending", None, None)
+
+    assert script.resolve(artifacts, settled, today=datetime(2026, 10, 19, tzinfo=UTC)) == 0  # still set aside
+    assert script.resolve(artifacts, settled, today=datetime(2026, 10, 20, tzinfo=UTC)) == 1  # read again from its day
+    assert question()["outcome"] == 1
+
+    with pytest.raises(SystemExit, match="is not in"):
+        script.hold(directory, "polymarket-unknown", "2026-10-20", "No such question.")
+    with pytest.raises(SystemExit, match="needs a reason"):
+        script.hold(directory, "polymarket-m1", "2026-10-20", "  ")
+    with pytest.raises(ValueError):
+        script.hold(directory, "polymarket-m1", "next week", "Not a date.")
+
+
 def _manifold(market_id: str, question: str, price: float, *, bettors: int = 40, volume: float = 5_000,
               closes: str = "2026-10-15T00:00:00+00:00") -> dict:
     return {"id": market_id, "question": question, "probability": price, "uniqueBettorCount": bettors,

@@ -564,12 +564,16 @@
       ],
       "id": "manifold-ULun8EOAAn",
       "market_id": "ULun8EOAAn",
-      "outcome": 0,
-      "outcome_note": "Manifold: No",
-      "outcome_source": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "outcome": null,
       "question": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
       "resolution_criteria": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
       "resolution_date": "2026-11-03",
+      "resolution_hold": {
+        "reason": "Manifold's creator closed this market as No on November 12, 2026 while the race was still uncalled: Peltola led Sullivan 49.0% to 47.2% of first choices, with Alaska's ranked-choice tabulation set for November 18. The result counts once Alaska's count is in.",
+        "set_on": "2026-11-12",
+        "source": "https://alaskapublic.org/news/politics/elections/2026-11-10/peltola-and-jkt-strengthen-leads-in-latest-alaska-election-results",
+        "until": "2026-11-20"
+      },
       "resolution_source": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
       "topic": "Politics"
     },
