@@ -1,44 +1,44 @@
 {
   "calibration": {
-    "as_of": "2026-11-11",
-    "intercept": 0.323446,
-    "results": 220,
-    "slope": 0.762257
+    "as_of": "2026-11-12",
+    "intercept": 0.290741,
+    "results": 227,
+    "slope": 0.743542
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20773005690823157,
+      "brier": 0.20959774961256047,
       "coin_flip_brier": 0.25,
-      "forecasts": 289,
+      "forecasts": 292,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "combined_median_v1",
-      "resolved": 229,
-      "right": 154,
+      "resolved": 232,
+      "right": 156,
       "toss_ups": 3,
-      "wrong": 72
+      "wrong": 73
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19838080357142857,
+      "brier": 0.20028325991189427,
       "coin_flip_brier": 0.25,
-      "forecasts": 284,
+      "forecasts": 287,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "claude_code_forecaster_v1",
-      "resolved": 224,
-      "right": 150,
+      "resolved": 227,
+      "right": 152,
       "toss_ups": 6,
-      "wrong": 68
+      "wrong": 69
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 6,
+      "forecasts": 7,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "claude_second_look_v1",
       "resolved": 0,
       "right": 0,
@@ -49,9 +49,9 @@
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 12,
+      "forecasts": 15,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "learned_model_v1",
       "resolved": 0,
       "right": 0,
@@ -60,16 +60,16 @@
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20570000000000002,
+      "brier": 0.2065986111111111,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "last_forecast_on": "2026-10-23",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 71,
+      "resolved": 72,
       "right": 49,
       "toss_ups": 0,
-      "wrong": 22
+      "wrong": 23
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -86,16 +86,16 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.2116057324840764,
+      "brier": 0.2159679245283019,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 157,
+      "resolved": 159,
       "right": 105,
       "toss_ups": 1,
-      "wrong": 51
+      "wrong": 53
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -112,42 +112,42 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.20876623376623377,
+      "brier": 0.21166923076923078,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 154,
-      "right": 111,
+      "resolved": 156,
+      "right": 112,
       "toss_ups": 0,
-      "wrong": 43
+      "wrong": 44
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2145175,
+      "brier": 0.21428074534161493,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 160,
-      "right": 112,
+      "resolved": 161,
+      "right": 113,
       "toss_ups": 1,
       "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
-      "brier": 0.21871515151515153,
+      "brier": 0.22835970149253731,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "last_forecast_on": "2026-11-02",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 66,
+      "resolved": 67,
       "right": 43,
       "toss_ups": 2,
-      "wrong": 21
+      "wrong": 22
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -216,40 +216,40 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.15425636151926087,
+      "brier": 0.14924546637799999,
       "coin_flip_brier": 0.25,
-      "forecasts": 59,
+      "forecasts": 62,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "claude_calibrated_v1",
-      "resolved": 23,
-      "right": 18,
+      "resolved": 24,
+      "right": 19,
       "toss_ups": 0,
       "wrong": 5
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15354453084415584,
+      "brier": 0.15640284455128206,
       "coin_flip_brier": 0.25,
-      "forecasts": 191,
+      "forecasts": 193,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "market_price_v1",
-      "resolved": 154,
-      "right": 117,
+      "resolved": 156,
+      "right": 118,
       "toss_ups": 0,
-      "wrong": 37
+      "wrong": 38
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.13604908468085108,
+      "brier": 0.13462306208333333,
       "coin_flip_brier": 0.25,
-      "forecasts": 59,
+      "forecasts": 60,
       "label": "Manifold (benchmark)",
-      "last_forecast_on": "2026-11-11",
+      "last_forecast_on": "2026-11-12",
       "method": "manifold_price_v1",
-      "resolved": 47,
-      "right": 35,
+      "resolved": 48,
+      "right": 36,
       "toss_ups": 0,
       "wrong": 12
     },
@@ -267,18 +267,18 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-11",
+  "generated_on": "2026-11-12",
   "learned_model": {
-    "as_of": "2026-11-11",
-    "intercept": 0.351934,
-    "results": 197,
-    "slope": 1.1052,
+    "as_of": "2026-11-12",
+    "intercept": 0.286864,
+    "results": 204,
+    "slope": 1.074761,
     "weights": {
-      "Crypto": -0.329,
-      "Economy": -0.207462,
-      "Politics": -0.330474,
-      "Tech": 0.532066,
-      "World": -0.402812
+      "Crypto": -0.347038,
+      "Economy": -0.226394,
+      "Politics": -0.413406,
+      "Tech": 0.50897,
+      "World": -0.409086
     }
   },
   "questions": [
@@ -502,6 +502,53 @@
       "status": "resolved",
       "title": "Will Core CPI MoM be 0.2% in October?",
       "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.815623
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-09T12:46:41+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "The last price I have is about $76,000 on 2026-11-06, down from about $80,200 on 2026-11-05 (Fortune daily pages, https://fortune.com/article/price-of-bitcoin-11-06-2026/, search summaries, quotes not checked), which leaves roughly an 8% cushion above $70,000 with about five days to the Nov 11 noon ET candle. At a typical 2.5-3% daily move that is about 1.2 standard deviations, so I start near 88%, then shade down because the trend was falling, ETF outflows were reported (https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week, not checked), the Nov 7-9 prices are unknown and the sources are unverified. This is coherent with my earlier calls that Bitcoin was unlikely to be above $80,000 on Nov 5-6 (both resolved no) and unlikely to dip to $70,000 by Nov 8.",
+          "sources": [
+            "https://fortune.com/article/price-of-bitcoin-11-06-2026/",
+            "https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week"
+          ]
+        },
+        {
+          "as_of": "2026-11-09",
+          "intercept": 0.356402,
+          "method": "claude_calibrated_v1",
+          "probability": 0.815623,
+          "raw": 0.82,
+          "results": 208,
+          "slope": 0.745587
+        },
+        {
+          "made_at": "2026-11-09T10:20:36.864097+00:00",
+          "method": "market_price_v1",
+          "probability": 0.931
+        }
+      ],
+      "id": "polymarket-6683300",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-11",
+      "scored": true,
+      "source": "prospective_markets_20261109",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-11-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $70,000 on November 11?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -4164,6 +4211,71 @@
     {
       "actual": "Polymarket: No",
       "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.89,
+        "weights": {
+          "claude_code_forecaster_v1": 26.67,
+          "judge_claude_sonnet55_v1": 15.74,
+          "judge_deepseek_v4_pro_v1": 28.59,
+          "judge_qwen38_27b_v1": 32.04
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm Mississippi U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-31T07:13:09+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.89,
+          "rationale": "Republicans won Mississippi's last two Senate generals by about 10 points (Hyde-Smith 54.1% to 44.1% in 2020) and 763,420 to 451,981 votes in 2024 (Wicker over Pinkins). Hyde-Smith is the incumbent, Trump campaigned for her on Oct 29, and the race is decided by plurality with no runoff, so independent Ty Pinkins staying in (Oct 29) likely splits the anti-incumbent vote. Reports of a 3-point lead in one poll and a Clinton visit for Democrat Scott Colom show some competitiveness in a poor environment for Republicans, so I stay well below the base rate.",
+          "sources": [
+            "https://www.sos.ms.gov/content/CandidateQualifying/default.aspx",
+            "https://www.sos.ms.gov/elections/electionresults/2024General/Statewide%20Results/2024%20Official%20Statewide%20Results.pdf",
+            "https://www.wlbt.com/2026/10/30/independent-ty-pinkins-says-he-is-staying-mississippi-us-senate-race/",
+            "https://www.wapt.com/article/mississippi-senate-race-trump-clinton-campaign-stops/74286829",
+            "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/"
+          ]
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.92,
+          "rationale": "Mississippi is a deep red state where Republicans have won recent Senate races by double digits (Hyde-Smith by 10 points in 2020, Wicker by 25 points in 2024). The three-way race with independent Ty Pinkins, a former Democrat, likely splits the anti-Republican vote, benefiting Hyde-Smith. Polls show Hyde-Smith leading, with one poll at 3 points but others larger, and no evidence suggests Pinkins draws disproportionately from Republican voters. The national environment may be less favorable for the president's party, but the state's strong partisan lean and split opposition make a Republican win highly probable."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.8,
+          "rationale": "The base rate strongly favors Republicans: Mississippi's Senate seat has been won by Republicans in both 2020 (54%) and 2024 (63%), with the 2024 margin being especially large. The main risk is the three-way plurality format with independent Ty Pinkins staying in the race, which could split the vote and tighten the race; however, polls still show Hyde-Smith leading by at least 3 points, Trump is campaigning for her, and the deep-red base in Mississippi is so strong that even a 10-15% independent candidate likely won't be enough to flip the result. The key uncertainty is whether Pinkins draws disproportionately from Hyde-Smith's voters rather than Colom's, which would be the scenario that could change the outcome."
+        },
+        {
+          "made_at": "2026-10-31T07:15:31.911665+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.93,
+          "rationale": "Mississippi is deep red: Hyde-Smith won by about 10 points in 2020 and Wicker by about 25 in 2024. The 2026 race has three candidates and a plurality rule, and Pinkins staying in splits the anti-incumbent vote, which helps Hyde-Smith. Polls disagree, with the closest showing a 3-point lead and others larger, and the national environment is less favorable for Republicans. Even so, a Democratic win would need a very large swing, so I put Republican odds at roughly 93%. A late poll inside two points would change this."
+        },
+        {
+          "made_at": "2026-10-30T09:45:59.030088+00:00",
+          "method": "market_price_v1",
+          "probability": 0.865
+        }
+      ],
+      "id": "polymarket-631018",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261030",
+      "source_url": "https://polymarket.com/event/mississippi-senate-election-winner",
+      "status": "resolved",
+      "title": "Will the Republicans win the Mississippi Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
         "members": 3,
         "method": "combined_weighted_v1",
         "probability": 0.14,
@@ -4614,6 +4726,70 @@
       "title": "Will commitments to the 1W public sale exceed $60M?",
       "topic": "Crypto",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
+          "sources": [
+            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
+            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
+            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
+          ]
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.52,
+          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.52,
+          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
+        },
+        {
+          "made_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.26
+        }
+      ],
+      "id": "manifold-ULun8EOAAn",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261021",
+      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "status": "resolved",
+      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Manifold: Yes",
@@ -15476,70 +15652,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.48
-      },
-      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-21T10:55:44+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
-          "sources": [
-            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
-            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
-            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
-            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
-          ]
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.52,
-          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.52,
-          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.48,
-          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
-        },
-        {
-          "made_at": "2026-10-21T09:17:28.572088+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.26
-        }
-      ],
-      "id": "manifold-ULun8EOAAn",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261021",
-      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
-      "status": "pending",
-      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.86,
@@ -15658,71 +15770,6 @@
       "source_url": "https://polymarket.com/event/alaska-senate-election-winner",
       "status": "pending",
       "title": "Will Mary Peltola win the Alaska Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.89,
-        "weights": {
-          "claude_code_forecaster_v1": 26.67,
-          "judge_claude_sonnet55_v1": 15.74,
-          "judge_deepseek_v4_pro_v1": 28.59,
-          "judge_qwen38_27b_v1": 32.04
-        }
-      },
-      "detail": "This market will resolve according to the winner of the 2026 midterm Mississippi U.S. Senate election, inclusive of any run-offs.\n\nA candidate shall be considered to represent a party in the event that he or she is the nominee of the party in question. Candidates other than the Democratic or Republican nominee (e.g., Greens, Libertarian, independent) may be added at a later date.\n\nCandidates who run as independents will not be encompassed by the \u201cDemocrat\u201d or \u201cRepublican\u201d options regardless of any affiliation they may have with the party.\n\nThe candidates may be named in the contract for the convenience of traders. In the event that any named candidate is replaced as the nominee of their respective party prior to election day, the name in the contract will be updated and the market will resolve based on the replacement nominee of the party.\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on the official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-31T07:13:09+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.89,
-          "rationale": "Republicans won Mississippi's last two Senate generals by about 10 points (Hyde-Smith 54.1% to 44.1% in 2020) and 763,420 to 451,981 votes in 2024 (Wicker over Pinkins). Hyde-Smith is the incumbent, Trump campaigned for her on Oct 29, and the race is decided by plurality with no runoff, so independent Ty Pinkins staying in (Oct 29) likely splits the anti-incumbent vote. Reports of a 3-point lead in one poll and a Clinton visit for Democrat Scott Colom show some competitiveness in a poor environment for Republicans, so I stay well below the base rate.",
-          "sources": [
-            "https://www.sos.ms.gov/content/CandidateQualifying/default.aspx",
-            "https://www.sos.ms.gov/elections/electionresults/2024General/Statewide%20Results/2024%20Official%20Statewide%20Results.pdf",
-            "https://www.wlbt.com/2026/10/30/independent-ty-pinkins-says-he-is-staying-mississippi-us-senate-race/",
-            "https://www.wapt.com/article/mississippi-senate-race-trump-clinton-campaign-stops/74286829",
-            "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/"
-          ]
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.92,
-          "rationale": "Mississippi is a deep red state where Republicans have won recent Senate races by double digits (Hyde-Smith by 10 points in 2020, Wicker by 25 points in 2024). The three-way race with independent Ty Pinkins, a former Democrat, likely splits the anti-Republican vote, benefiting Hyde-Smith. Polls show Hyde-Smith leading, with one poll at 3 points but others larger, and no evidence suggests Pinkins draws disproportionately from Republican voters. The national environment may be less favorable for the president's party, but the state's strong partisan lean and split opposition make a Republican win highly probable."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.8,
-          "rationale": "The base rate strongly favors Republicans: Mississippi's Senate seat has been won by Republicans in both 2020 (54%) and 2024 (63%), with the 2024 margin being especially large. The main risk is the three-way plurality format with independent Ty Pinkins staying in the race, which could split the vote and tighten the race; however, polls still show Hyde-Smith leading by at least 3 points, Trump is campaigning for her, and the deep-red base in Mississippi is so strong that even a 10-15% independent candidate likely won't be enough to flip the result. The key uncertainty is whether Pinkins draws disproportionately from Hyde-Smith's voters rather than Colom's, which would be the scenario that could change the outcome."
-        },
-        {
-          "made_at": "2026-10-31T07:15:31.911665+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.93,
-          "rationale": "Mississippi is deep red: Hyde-Smith won by about 10 points in 2020 and Wicker by about 25 in 2024. The 2026 race has three candidates and a plurality rule, and Pinkins staying in splits the anti-incumbent vote, which helps Hyde-Smith. Polls disagree, with the closest showing a 3-point lead and others larger, and the national environment is less favorable for Republicans. Even so, a Democratic win would need a very large swing, so I put Republican odds at roughly 93%. A late poll inside two points would change this."
-        },
-        {
-          "made_at": "2026-10-30T09:45:59.030088+00:00",
-          "method": "market_price_v1",
-          "probability": 0.865
-        }
-      ],
-      "id": "polymarket-631018",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261030",
-      "source_url": "https://polymarket.com/event/mississippi-senate-election-winner",
-      "status": "pending",
-      "title": "Will the Republicans win the Mississippi Senate race in 2026?",
       "topic": "Politics",
       "verdict": null
     },
@@ -16181,53 +16228,6 @@
       "status": "pending",
       "title": "Will Core CPI YoY be 2.6% in October?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "claude_corrected_call_v1",
-        "probability": 0.815623
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-09T12:46:41+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.82,
-          "rationale": "The last price I have is about $76,000 on 2026-11-06, down from about $80,200 on 2026-11-05 (Fortune daily pages, https://fortune.com/article/price-of-bitcoin-11-06-2026/, search summaries, quotes not checked), which leaves roughly an 8% cushion above $70,000 with about five days to the Nov 11 noon ET candle. At a typical 2.5-3% daily move that is about 1.2 standard deviations, so I start near 88%, then shade down because the trend was falling, ETF outflows were reported (https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week, not checked), the Nov 7-9 prices are unknown and the sources are unverified. This is coherent with my earlier calls that Bitcoin was unlikely to be above $80,000 on Nov 5-6 (both resolved no) and unlikely to dip to $70,000 by Nov 8.",
-          "sources": [
-            "https://fortune.com/article/price-of-bitcoin-11-06-2026/",
-            "https://www.nasdaq.com/articles/crypto-market-update-crypto-outflows-hit-us-13-billion-second-week"
-          ]
-        },
-        {
-          "as_of": "2026-11-09",
-          "intercept": 0.356402,
-          "method": "claude_calibrated_v1",
-          "probability": 0.815623,
-          "raw": 0.82,
-          "results": 208,
-          "slope": 0.745587
-        },
-        {
-          "made_at": "2026-11-09T10:20:36.864097+00:00",
-          "method": "market_price_v1",
-          "probability": 0.931
-        }
-      ],
-      "id": "polymarket-6683300",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-11",
-      "scored": true,
-      "source": "prospective_markets_20261109",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-11-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $70,000 on November 11?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -17084,6 +17084,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.27,
+        "market": 0.235,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.235
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Binance ETHUSDT printed 2052.00 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3), about 2.3% under 2100, with daily closes sliding from 2497.95 to about 2056 over 30 days. With 30-day daily volatility of 2.56% and roughly 2.3 days left, 2100 is about 0.6 standard deviations away, so a thin-tailed model gives roughly 27-28%. Spot ETH ETF outflows (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107) and the downtrend lean slightly bearish, while no scheduled macro event falls before resolution (https://www.bls.gov/schedule/news_release/cpi.htm); coherent with the earlier 78% for above 2,000 on Nov 13.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-12",
+          "claude": 0.27,
+          "claude_weight": -0.347038,
+          "intercept": 0.286864,
+          "market": 0.235,
+          "method": "learned_model_v1",
+          "probability": 0.259975,
+          "results": 204,
+          "slope": 1.074761
+        },
+        {
+          "as_of": "2026-11-12",
+          "intercept": 0.290741,
+          "method": "claude_calibrated_v1",
+          "probability": 0.389645,
+          "raw": 0.27,
+          "results": 227,
+          "slope": 0.743542
+        },
+        {
+          "made_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.235
+        }
+      ],
+      "id": "polymarket-6801715",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261112",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-14-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $2,100 on November 14?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 1,
         "method": "claude_corrected_call_v1",
         "probability": 0.388949
@@ -17703,6 +17766,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.94,
+        "market": 0.9485,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9485
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was 73,589.59 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 7.5% above 68,000. That is about 1.9 sigma of a 5-day move at 1.84% daily volatility, and 89.3% of all 5-day windows since 2017 (94.8% in 2026) ended above a level this far below the start. Persistent spot BTC ETF outflows (https://www.tftc.io/bitcoin-etf-flows/november-2026) and the downtrend from 83,169 on 2026-10-13 argue for fatter tails than the model, but no scheduled macro event falls before Nov 17.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.tftc.io/bitcoin-etf-flows/november-2026",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
+          ]
+        },
+        {
+          "as_of": "2026-11-12",
+          "claude": 0.94,
+          "claude_weight": -0.347038,
+          "intercept": 0.286864,
+          "market": 0.9485,
+          "method": "learned_model_v1",
+          "probability": 0.969942,
+          "results": 204,
+          "slope": 1.074761
+        },
+        {
+          "as_of": "2026-11-12",
+          "intercept": 0.290741,
+          "method": "claude_calibrated_v1",
+          "probability": 0.911865,
+          "raw": 0.94,
+          "results": 227,
+          "slope": 0.743542
+        },
+        {
+          "made_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9485
+        }
+      ],
+      "id": "polymarket-6935919",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261112",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-17-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $68,000 on November 17?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.14,
         "market": 0.475,
         "max_move": 0.0,
@@ -17759,6 +17885,75 @@
       "status": "pending",
       "title": "Will Dani win the GMGN GGC Season 1 Grand Final?",
       "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.92,
+        "market": 0.9474,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9474
+      },
+      "detail": "Why would I bid?\nRecently there has been a lot of \"leaks\" from popular leaker \"CYBERLEEK\", this has caused the GTA and gaming community to wonder whether or not GTA 6 will be delayed or released early in compensation to these leaks.\n\nResolution criteria\n\nThis market will resolve to YES if Grand Theft Auto VI (GTA 6) is officially released to the general public on November 19, 2026, in any major global market. If the game's release is delayed to a later date, or if it is launched early on any other date, this market will resolve to NO. \n\nREGULAR LIQUIDITY UPDATES.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Take-Two reaffirmed November 19, 2026 repeatedly, including at its 2026-11-09 fiscal Q2 results, where it reportedly said GTA VI was ten days away with pre-orders at unprecedented levels (https://simulationdaily.com/news/take-two-q2-fy2027-gta5-gta6-pre-orders/, secondary). Earlier reaffirmations came on 2026-05-21 and 2026-08-07 (https://www.gfinityesports.com/article/gta-6-release-date-reaffirmed-by-take-two-after-exceptional-start-to-preorders), and pre-orders opened 2026-06-24. The game has slipped twice before, but a delay in the final week after pre-orders and a late investor update is very unlikely; residual risk is a last-minute slip or a time-zone/early-access wording issue, and no primary Rockstar page after August was readable.",
+          "sources": [
+            "https://simulationdaily.com/news/take-two-q2-fy2027-gta5-gta6-pre-orders/",
+            "https://www.gfinityesports.com/article/gta-6-release-date-reaffirmed-by-take-two-after-exceptional-start-to-preorders",
+            "https://www.take2games.com/ir/press-releases/",
+            "https://www.shacknews.com/article/149250/gta-6-release-date-confirmed"
+          ]
+        },
+        {
+          "made_at": "2026-11-12T12:43:04.252887+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.95,
+          "rationale": "Take-Two's 2026-11-09 Q2 results reportedly called GTA VI ten days away with pre-orders at record levels, so a slip in the last week is very unlikely; residual risk is a last-minute delay or wording and time-zone edge cases. I don't recall how this turned out and used no outcome knowledge."
+        },
+        {
+          "as_of": "2026-11-12",
+          "claude": 0.92,
+          "claude_weight": 0.50897,
+          "intercept": 0.286864,
+          "market": 0.9474,
+          "method": "learned_model_v1",
+          "probability": 0.959521,
+          "results": 204,
+          "slope": 1.074761
+        },
+        {
+          "as_of": "2026-11-12",
+          "intercept": 0.290741,
+          "method": "claude_calibrated_v1",
+          "probability": 0.891555,
+          "raw": 0.92,
+          "results": 227,
+          "slope": 0.743542
+        },
+        {
+          "made_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.9474
+        }
+      ],
+      "id": "manifold-gPA98L9uQS",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "source": "prospective_markets_20261112",
+      "source_url": "https://manifold.markets/Jaygotpeps/will-gta-6-come-out-on-november-19",
+      "status": "pending",
+      "title": "Will GTA 6 come out on November 19, 2026?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -18215,7 +18410,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20773005690823157,
+    "brier": 0.20959774961256047,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18259,14 +18454,14 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 26,
-          "difference": 0.013475970000000032,
+          "difference": 0.013913455735294122,
           "interval": [
-            0.004822,
-            0.021914
+            0.005023,
+            0.022537
           ],
-          "market": 0.14945355587064676,
-          "questions": 201,
-          "rule": 0.1629295258706468
+          "market": 0.15127818985294117,
+          "questions": 204,
+          "rule": 0.1651916455882353
         },
         "counted": {
           "dates": 0,
@@ -18353,16 +18548,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.11560000000000002,
-          "market": 0.12249999999999998,
-          "ours": 0.217562542096,
-          "questions": 1
+          "claude": 0.07400000000000002,
+          "market": 0.06363049999999999,
+          "ours": 0.1257787101125,
+          "questions": 2
         },
         "before": {
-          "claude": 0.1979175,
-          "market": 0.14958832365,
-          "ours": 0.200465625,
-          "questions": 200
+          "claude": 0.20088168316831684,
+          "market": 0.15214598876237623,
+          "ours": 0.203542698019802,
+          "questions": 202
         },
         "date": "2026-11-06"
       },
@@ -18386,22 +18581,22 @@
           "wrong": 4
         },
         {
-          "claude": 0.18200714285714287,
-          "market": 0.150106865,
-          "ours": 0.19437440476190476,
-          "questions": 42,
-          "right": 32,
+          "claude": 0.18248372093023255,
+          "market": 0.14818810069767444,
+          "ours": 0.1952122093023256,
+          "questions": 43,
+          "right": 33,
           "start": "2026-10-19",
           "wrong": 9
         },
         {
-          "claude": 0.2253094736842105,
-          "market": 0.16193573694736843,
-          "ours": 0.22800315789473682,
-          "questions": 95,
+          "claude": 0.23121354166666666,
+          "market": 0.16804291677083336,
+          "ours": 0.23387916666666667,
+          "questions": 96,
           "right": 61,
           "start": "2026-10-26",
-          "wrong": 33
+          "wrong": 34
         },
         {
           "claude": 0.13915454545454548,
@@ -18411,20 +18606,29 @@
           "right": 17,
           "start": "2026-11-02",
           "wrong": 5
+        },
+        {
+          "claude": 0.03240000000000002,
+          "market": 0.0047609999999999935,
+          "ours": 0.033994878129000004,
+          "questions": 1,
+          "right": 1,
+          "start": "2026-11-09",
+          "wrong": 0
         }
       ]
     },
-    "resolved": 229,
-    "right": 154,
+    "resolved": 232,
+    "right": 156,
     "toss_ups": 3,
-    "total": 289,
+    "total": 292,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.197507960199005,
-      "claude_questions": 201,
-      "market": 0.14945355587064676,
-      "ours": 0.2005506842890348,
-      "questions": 201,
+      "claude": 0.19963774509803922,
+      "claude_questions": 204,
+      "market": 0.15127818985294117,
+      "ours": 0.2027803059814951,
+      "questions": 204,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",
@@ -18433,7 +18637,7 @@
         "questions": 0
       }
     },
-    "wrong": 72
+    "wrong": 73
   },
   "version": "track_record_v2"
 }
