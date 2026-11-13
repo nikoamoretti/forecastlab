@@ -86,6 +86,7 @@ SELECTION_VERSION = "polymarket_selection_v8"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
+REQUEST_HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "geopolitics": "World",
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
 MIN_DAYS, MAX_DAYS = 2, 10
@@ -138,7 +139,7 @@ def _count(stats: Stats | None, key: str, amount: int = 1) -> None:
 
 
 def fetch_json(url: str) -> Any:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+    request = urllib.request.Request(url, headers=REQUEST_HEADERS)
     with urllib.request.urlopen(request, timeout=30) as response:
         return json.load(response)
 
