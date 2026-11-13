@@ -5,7 +5,9 @@ name: Daily run steps
 # or no longer holds the OpenRouter key. Each step commits its output to the
 # daily branch claude/daily-forecasts-YYYYMMDD.
 #   prepare    create the branch from grok/forecastlab-mvp if needed, then run
-#              daily_forecasts.py prepare and market_questions.py prepare
+#              daily_forecasts.py prepare and market_questions.py prepare, each only if
+#              the day has no questions of that kind yet; if either fails or a market
+#              source is skipped, what was prepared is committed and the run fails
 #   research   run research_pack.py on DIRS (each needs research_queries.json):
 #              Tavily searches with full page text, saved as research.json (retired:
 #              research now comes from the routine's `cursor_research.py fill` (Claude Haiku); before 2026-11-10 from the Mac's cursor-agent job)
@@ -20,6 +22,8 @@ name: Daily run steps
 #              published the month the forecasts target
 #   pool       read-only diagnostic: market_questions.py pool prints the selection funnel
 #              (fetched, dropped by each rule, caps, chosen) per source; commits nothing
+#   probe      read-only diagnostic: market_probe.py asks each market API one small
+#              question per set of request headers and prints the status it gets
 #   check-key  only check that the key reaches OpenRouter
 # Triggers: no schedule (daily runs are paused until the research pipeline
 # plan is approved, 2026-10-13). A push to a daily
@@ -35,7 +39,7 @@ on:
     inputs:
       step:
         type: choice
-        options: [prepare, pool, research, download, finish, conflict-score, check-key]
+        options: [prepare, pool, probe, research, download, finish, conflict-score, check-key]
         required: true
       branch:
         description: "claude/daily-forecasts-YYYYMMDD"
@@ -85,7 +89,7 @@ jobs:
             *) STEP="$IN_STEP"; BRANCH="$IN_BRANCH"; DIRS="$IN_DIRS" ;;
           esac
           if [ "$STEP" != check-key ]; then
-            [[ "$STEP" =~ ^(prepare|pool|research|download|finish|conflict-score)$ ]] || { echo "unknown step $STEP"; exit 1; }
+            [[ "$STEP" =~ ^(prepare|pool|probe|research|download|finish|conflict-score)$ ]] || { echo "unknown step $STEP"; exit 1; }
             [[ "$BRANCH" =~ ^claude/daily-forecasts-[0-9]{8}(-[a-z0-9-]+)?$ ]] || { echo "branch must be claude/daily-forecasts-YYYYMMDD"; exit 1; }
           fi
           if [ -n "$DIRS" ]; then
@@ -113,25 +117,43 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: astral-sh/setup-uv@v5
-        if: env.STEP == 'prepare' || env.STEP == 'pool' || env.STEP == 'research' || env.STEP == 'download' || env.STEP == 'finish' || env.STEP == 'conflict-score'
+        if: env.STEP == 'prepare' || env.STEP == 'pool' || env.STEP == 'probe' || env.STEP == 'research' || env.STEP == 'download' || env.STEP == 'finish' || env.STEP == 'conflict-score'
         with:
           python-version: "3.12"
       - name: Prepare questions
         if: env.STEP == 'prepare'
         run: |
+          # The two kinds of question are prepared one by one, each only if the day has none of that kind yet. One
+          # that fails does not stop the other, and what was prepared is committed below before the job fails
+          # ("Fail when questions were lost"). On 2026-11-13 the market selection crashed, the pipe into tee hid the
+          # failure, the run stayed green and a second request was refused because the FRED questions existed.
+          set -o pipefail
           uv sync --frozen
-          if ls artifacts | grep -Eq "^prospective_(daily|markets)_${BRANCH#claude/daily-forecasts-}"; then
-            echo "Questions for this date already exist" | tee -a "$GITHUB_STEP_SUMMARY"
+          DAY=$(grep -Eo '[0-9]{8}' <<<"$BRANCH" | head -n 1)
+          LOST=""
+          if [ -d "artifacts/prospective_daily_$DAY" ]; then
+            echo "FRED questions for $DAY already exist" | tee -a "$GITHUB_STEP_SUMMARY"
           else
-            uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
-            uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY"
+            uv run --frozen python scripts/daily_forecasts.py prepare | tee -a "$GITHUB_STEP_SUMMARY" || LOST="$LOST fred"
           fi
+          if [ -d "artifacts/prospective_markets_$DAY" ]; then
+            echo "Market questions for $DAY already exist" | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            uv run --frozen python scripts/market_questions.py prepare | tee -a "$GITHUB_STEP_SUMMARY" || LOST="$LOST markets"
+          fi
+          echo "LOST=$LOST" >> "$GITHUB_ENV"
       - name: Show the market question pool
         if: env.STEP == 'pool'
         run: |
           # Read-only: fetches like prepare, writes nothing, commits nothing.
           uv sync --frozen
           { echo '```'; uv run --frozen python scripts/market_questions.py pool; echo '```'; } | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Probe the market APIs
+        if: env.STEP == 'probe'
+        run: |
+          # Read-only: one small request per market API and header set. Prints statuses and content types, never a body.
+          uv sync --frozen
+          { echo '```'; uv run --frozen python scripts/market_probe.py; echo '```'; } | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Fetch source documents
         if: env.STEP == 'research'
         run: |
@@ -180,6 +202,13 @@ jobs:
           if [ "$STEP" = conflict-score ]; then git reset -q artifacts data/track_record.json data/research; git add artifacts/conflict_panel_v1/live_score_*.json artifacts/conflict_panel_v1/live_score_countries_*.csv 2>/dev/null || true; fi
           if ! git diff --cached --quiet; then git commit -m "Daily run: $STEP"; fi
           git push origin "HEAD:$BRANCH"
+      - name: Fail when questions were lost
+        if: env.STEP == 'prepare' && env.LOST != ''
+        run: |
+          # After the commit, so the questions that were prepared are kept. For markets, the step summary and
+          # questions.json (skipped_sources) name the source; the probe step shows what each market API answers.
+          echo "::error title=Questions lost::prepare failed or skipped a source for:$LOST. What was prepared is committed."
+          exit 1
       - name: Run CI on the branch
         if: env.STEP == 'finish'
         run: gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"

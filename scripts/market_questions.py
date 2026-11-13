@@ -13,6 +13,9 @@
 ``market_snapshot.json`` with each market's price at selection. Forecasters read only
 ``questions.json`` and must not look up the market's odds, so our forecasts stay
 independent of the benchmark.
+A source that cannot be read is skipped: the other sources' questions are still written, the
+skipped source and its reason go under ``skipped_sources`` in ``questions.json``, and ``prepare`` exits 3
+so the run is seen to have lost questions (``scripts/market_probe.py`` shows what each market API answers).
 
 ``record`` takes ``{"method", "forecast_made_at", "forecasts": [{"id", "probability",
 "rationale", "sources", "integrity_note"?}]}`` (``integrity_note`` discloses, for example,
@@ -46,6 +49,7 @@ from __future__ import annotations
 
 import json
 import sys
+from collections.abc import Callable
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -111,27 +115,45 @@ def pending_questions(artifacts: Path) -> list[dict[str, Any]]:
     return pending
 
 
-def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json) -> Path | None:
+def _why(exc: Exception) -> str:
+    """Why a source was skipped. A network error or a refusal is given in full (it is the server's own text); any
+    other error only by its type, because a parsing error can quote market data and this goes to a public log."""
+    return f"{type(exc).__name__}: {exc}"[:400] if isinstance(exc, OSError) else type(exc).__name__
+
+
+def prepare(now: datetime | None = None, artifacts: Path = ROOT / "artifacts", fetch: Fetch = fetch_json,
+            skipped: dict[str, str] | None = None) -> Path | None:
+    """Select today's questions. Each source is read on its own: one that cannot be reached or read is skipped and
+    the others still run (on 2026-11-13 a refusal by Polymarket, then the only unguarded source, lost the whole day's
+    selection without a failed run). A skipped source is named with its reason in ``skipped`` (filled in for the
+    caller), in the log, as a warning on the Actions run, and in ``questions.json`` under ``skipped_sources``."""
     now = as_utc(now or utcnow())
     seen = known_ids(artifacts)
     pending = pending_questions(artifacts)
-    chosen = select(candidates(now, fetch), seen, pending=pending)
-    try:  # Manifold adds questions; if it is unreachable, Polymarket's still run
-        chosen += [manifold_rules(item, fetch) for item in select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT, pending + chosen)]
-    except Exception as exc:  # noqa: BLE001
-        print(f"manifold questions skipped today ({type(exc).__name__})")
-    try:  # Kalshi adds Tech questions; if it is unreachable, the other sources still run
-        chosen += select(kalshi_candidates(now, fetch), seen, KALSHI_DAILY_LIMIT, pending + chosen)
-    except Exception as exc:  # noqa: BLE001
-        print(f"kalshi questions skipped today ({type(exc).__name__})")
+    skipped = {} if skipped is None else skipped
+    chosen: list[dict[str, Any]] = []
+    sources: tuple[tuple[str, Callable[[], list[dict[str, Any]]]], ...] = (
+        ("polymarket", lambda: select(candidates(now, fetch), seen, pending=pending)),
+        ("manifold", lambda: [manifold_rules(item, fetch) for item in
+                              select(manifold_candidates(now, fetch), seen, MANIFOLD_DAILY_LIMIT, pending + chosen)]),
+        ("kalshi", lambda: select(kalshi_candidates(now, fetch), seen, KALSHI_DAILY_LIMIT, pending + chosen)),
+    )
+    for source, pick in sources:
+        try:
+            chosen += pick()  # in place, so the later sources see what the earlier ones chose
+        except Exception as exc:  # noqa: BLE001 - whatever stops one source must not stop the others
+            skipped[source] = _why(exc)
+            print(f"{source} questions skipped today ({skipped[source]})")
+            print(f"::warning title=Market source skipped::{source}: {skipped[source]}", file=sys.stderr)
     if not chosen:
-        print("no new market questions today")
+        print(f"no market questions selected: {', '.join(skipped)} could not be read" if skipped else "no new market questions today")
         return None
     directory = artifacts / f"prospective_markets_{now.strftime('%Y%m%d')}"
     directory.mkdir(parents=True, exist_ok=False)
     keep = ("id", "question", "topic", "resolution_criteria", "closes_at", "market_url")
     (directory / "questions.json").write_text(json.dumps(
-        {"selection": f"{SELECTION_VERSION}+{MANIFOLD_SELECTION_VERSION}+{KALSHI_SELECTION_VERSION}", "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen]},
+        {"selection": f"{SELECTION_VERSION}+{MANIFOLD_SELECTION_VERSION}+{KALSHI_SELECTION_VERSION}", "selected_at": now.isoformat(), "questions": [{k: c[k] for k in keep} for c in chosen],
+         **({"skipped_sources": skipped} if skipped else {})},
         indent=2, sort_keys=True) + "\n")
     (directory / "market_snapshot.json").write_text(json.dumps(
         {"taken_at": now.isoformat(), "markets": [{"id": c["id"], "market_id": c["market_id"], "yes_price": c["market_price"],
@@ -439,7 +461,10 @@ def _second_look_cli(argv: list[str]) -> int:
 
 def main(argv: list[str]) -> int:
     if argv[:1] == ["prepare"]:
-        prepare()
+        skipped: dict[str, str] = {}
+        prepare(skipped=skipped)
+        if skipped:  # what the other sources gave is written; the run still fails, so the loss is seen
+            return 3
     elif argv[:1] == ["pool"]:
         pool()
     elif argv[:1] == ["record"] and len(argv) >= 3:

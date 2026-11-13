@@ -74,8 +74,12 @@ closed, one outcome pays 1, and the last UMA resolution status is "resolved".
 
 from __future__ import annotations
 
+import gzip
+import http.client
 import json
 import re
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections.abc import Callable
@@ -86,6 +90,11 @@ SELECTION_VERSION = "polymarket_selection_v8"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
+# Sent with every request. Polymarket serves pages of more than 50 events gzip-compressed only (since 2026-11-13;
+# without the header it answers HTTP 406 "gzip_required"), so every request accepts gzip and fetch_json undoes it.
+REQUEST_HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json", "Accept-Encoding": "gzip"}
+FETCH_TRIES = 3  # a request that times out, cannot connect or gets one of RETRY_STATUSES is sent again
+RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
 TOPICS = {"economy": "Economy", "finance": "Economy", "politics": "Politics", "geopolitics": "World",
           "world": "World", "tech": "Tech", "crypto": "Crypto"}
 MIN_DAYS, MAX_DAYS = 2, 10
@@ -137,10 +146,42 @@ def _count(stats: Stats | None, key: str, amount: int = 1) -> None:
         stats[key] = stats.get(key, 0) + amount
 
 
-def fetch_json(url: str) -> Any:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.load(response)
+def response_body(raw: bytes, encoding: str | None) -> bytes:
+    """The body as it was before the server compressed it (urllib does not undo ``Content-Encoding`` itself)."""
+    return gzip.decompress(raw) if (encoding or "").strip().lower() in ("gzip", "x-gzip") else raw
+
+
+def refusal_text(error: urllib.error.HTTPError, limit: int = 300) -> str:
+    """What the server said when it refused, on one line. The status alone hides the cause: on 2026-11-13 the
+    body of Polymarket's HTTP 406 read "gzip_required" and named the header to send."""
+    try:
+        raw = response_body(error.read(), error.headers.get("Content-Encoding") if error.headers else None)
+    except Exception:  # noqa: BLE001 - the refusal is being reported; failing to read its text must not replace it
+        return ""
+    return " ".join(raw.decode("utf-8", "replace").split())[:limit]
+
+
+def fetch_json(url: str, *, opener: Callable[..., Any] = urllib.request.urlopen,
+               sleep: Callable[[float], None] = time.sleep) -> Any:
+    """GET ``url`` and parse the JSON. A timeout, a failed connection or a ``RETRY_STATUSES`` answer is tried again
+    (``FETCH_TRIES`` in all, a few seconds apart); any other refusal is raised at once with the server's own text."""
+    request = urllib.request.Request(url, headers=REQUEST_HEADERS)
+    for attempt in range(1, FETCH_TRIES + 1):
+        try:
+            with opener(request, timeout=30) as response:
+                return json.loads(response_body(response.read(), response.headers.get("Content-Encoding")))
+        except urllib.error.HTTPError as exc:
+            if exc.code in RETRY_STATUSES and attempt < FETCH_TRIES:
+                sleep(3 * attempt)
+                continue
+            said = refusal_text(exc)
+            raise urllib.error.HTTPError(exc.url or url, exc.code, f"{exc.reason}: {said}" if said else str(exc.reason),
+                                         exc.headers, None) from exc
+        except (OSError, http.client.HTTPException):  # no connection, a timeout, a body cut short
+            if attempt == FETCH_TRIES:
+                raise
+            sleep(3 * attempt)
+    raise AssertionError("unreachable")  # the loop returns or raises on its last attempt
 
 
 def _iso(moment: datetime) -> str:

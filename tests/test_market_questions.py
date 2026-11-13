@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import sys
+import urllib.error
 from datetime import UTC, datetime
+from email.message import Message
 from pathlib import Path
 
 import pytest
@@ -463,6 +465,57 @@ def test_prepare_still_writes_the_other_sources_when_kalshi_fails(tmp_path: Path
     ids = [q["id"] for q in json.loads((directory / "questions.json").read_text())["questions"]]
     assert "polymarket-m1" in ids and "manifold-f1" in ids and not any(i.startswith("kalshi-") for i in ids)
     assert "kalshi questions skipped today (RuntimeError)" in capsys.readouterr().out
+
+
+def test_prepare_still_writes_the_other_sources_when_polymarket_refuses(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    # 2026-11-13: Polymarket refused the selection request and, being the one unguarded source, lost the whole day.
+    def broken(url: str):
+        if "/events?" in url:
+            raise urllib.error.HTTPError(url, 406, 'Not Acceptable: {"error":"gzip_required"}', Message(), None)
+        return kalshi_fetch(url)
+
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    skipped: dict[str, str] = {}
+    directory = script.prepare(NOW, artifacts, broken, skipped)
+    assert directory is not None
+    selected = json.loads((directory / "questions.json").read_text())
+    ids = [q["id"] for q in selected["questions"]]
+    assert "manifold-f1" in ids and any(i.startswith("kalshi-") for i in ids) and not any(i.startswith("polymarket-") for i in ids)
+    assert skipped == {"polymarket": 'HTTPError: HTTP Error 406: Not Acceptable: {"error":"gzip_required"}'}
+    assert selected["skipped_sources"] == skipped
+    out, err = capsys.readouterr()
+    assert f"polymarket questions skipped today ({skipped['polymarket']})" in out
+    assert "::warning title=Market source skipped::polymarket: HTTPError" in err and "::warning" not in out
+
+
+def test_prepare_names_every_source_when_none_can_be_read(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    def down(url: str):
+        raise TimeoutError("timed out")
+
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    skipped: dict[str, str] = {}
+    assert script.prepare(NOW, artifacts, down, skipped) is None
+    assert list(skipped) == ["polymarket", "manifold", "kalshi"] and set(skipped.values()) == {"TimeoutError: timed out"}
+    assert "no market questions selected: polymarket, manifold, kalshi could not be read" in capsys.readouterr().out
+    assert list(artifacts.iterdir()) == []
+
+
+def test_a_day_with_every_source_answering_lists_no_skipped_source(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    skipped: dict[str, str] = {}
+    directory = script.prepare(NOW, artifacts, kalshi_fetch, skipped)
+    assert directory is not None and skipped == {}
+    assert "skipped_sources" not in json.loads((directory / "questions.json").read_text())
+
+
+def test_the_prepare_command_fails_when_a_source_was_skipped(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(script, "prepare", lambda skipped: skipped.update(polymarket="HTTPError: HTTP Error 406"))
+    assert script.main(["prepare"]) == 3  # the workflow commits what was prepared, then fails the run
+    monkeypatch.setattr(script, "prepare", lambda skipped: None)
+    assert script.main(["prepare"]) == 0
 
 
 def test_pool_lists_the_kalshi_funnel_and_the_ids_it_chose(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
