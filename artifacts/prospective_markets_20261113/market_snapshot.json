@@ -1,0 +1,77 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6967620",
+      "market_id": "6967620",
+      "method": "market_price_v1",
+      "volume": 28375.673096,
+      "volume_floor": 2500,
+      "yes_price": 0.9425
+    },
+    {
+      "id": "polymarket-6639352",
+      "market_id": "6639352",
+      "method": "market_price_v1",
+      "volume": 3040.401979,
+      "volume_floor": 2500,
+      "yes_price": 0.1225
+    },
+    {
+      "id": "polymarket-6771169",
+      "market_id": "6771169",
+      "method": "market_price_v1",
+      "volume": 32277.293486999995,
+      "volume_floor": 2500,
+      "yes_price": 0.094
+    },
+    {
+      "id": "polymarket-6909159",
+      "market_id": "6909159",
+      "method": "market_price_v1",
+      "volume": 6625.604514000001,
+      "volume_floor": 2500,
+      "yes_price": 0.765
+    },
+    {
+      "id": "polymarket-6948156",
+      "market_id": "6948156",
+      "method": "market_price_v1",
+      "volume": 10234.810400999999,
+      "volume_floor": 2500,
+      "yes_price": 0.945
+    },
+    {
+      "id": "polymarket-6990957",
+      "market_id": "6990957",
+      "method": "market_price_v1",
+      "volume": 6010.0,
+      "volume_floor": 2500,
+      "yes_price": 0.9245
+    },
+    {
+      "id": "polymarket-6921883",
+      "market_id": "6921883",
+      "method": "market_price_v1",
+      "volume": 9281.035063,
+      "volume_floor": 2500,
+      "yes_price": 0.14
+    },
+    {
+      "id": "polymarket-6967574",
+      "market_id": "6967574",
+      "method": "market_price_v1",
+      "volume": 4102.676667,
+      "volume_floor": 2500,
+      "yes_price": 0.7
+    },
+    {
+      "id": "polymarket-6771121",
+      "market_id": "6771121",
+      "method": "market_price_v1",
+      "volume": 3602.8857089999997,
+      "volume_floor": 2500,
+      "yes_price": 0.0605
+    }
+  ],
+  "taken_at": "2026-11-13T13:13:02.025033+00:00"
+}
