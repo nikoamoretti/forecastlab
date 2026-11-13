@@ -1,0 +1,1225 @@
+{
+  "cost_usd": {
+    "polymarket-6639352": 0.3353,
+    "polymarket-6771121": 0.1945,
+    "polymarket-6771169": 0.0636,
+    "polymarket-6909159": 0.062,
+    "polymarket-6921883": 0.0879,
+    "polymarket-6948156": 0.3335,
+    "polymarket-6967574": 0.0766,
+    "polymarket-6967620": 0.2351,
+    "polymarket-6990957": 0.2547
+  },
+  "failed": {
+    "polymarket-6771121": "no running tally read for a count/total question; not forecast",
+    "polymarket-6771169": "ValueError: only 1 usable sources",
+    "polymarket-6909159": "ValueError: only 0 usable facts",
+    "polymarket-6921883": "ValueError: only 0 usable facts",
+    "polymarket-6967574": "ValueError: only 1 usable facts"
+  },
+  "findings": {
+    "polymarket-6639352": {
+      "against": "Evidence that the release could show GAAP diluted EPS above $0.04: (1) In the same quarter last year, Getty reported Q3 2025 GAAP diluted EPS of $0.05 against a $0.04 Zacks consensus (Nov 2025 report, per a search summary).\n(2) The Q2 2026 GAAP loss of $85.8 million was driven by a $96.7 million increase in tax expense from a valuation-allowance change, a tax item rather than operating performance, and the company still reported adjusted EBITDA of $62.3 million (27.2% margin) on 2026-08-10.\nIf the tax charge does not recur, the pre-tax result could be closer to breakeven or positive.\n(3) The company's disclosed plan cuts unsecured notes to $270 million with $170.2 million cash payout, and the company says it is restructuring, so a lower interest burden is possible, though the effect on Q3 2026 is not quantified in any source I could read.\n(4) Analysts' consensus for Q3 2026 is set at a p",
+      "base_rate": "Not computed.\nEvery WebFetch call failed with 'proxy refused the connection' (15 attempts across company, SEC, and aggregator pages), so no page could be opened and no quotes could be copied.\nThe only evidence is search snippets from conflicting aggregators.\nFrom those snippets, GAAP diluted EPS was: Q4 2024 -$0.01; Q1 2025 -$0.25 (or -$0.19); Q2 2025 -$0.08; Q3 2025 +$0.05; Q2 2026 -$0.21 vs a +$0.01 consensus (a miss).\nNo consensus was found for any other quarter, so a beat rate cannot be counted from this data.\nThe needed reference class is every Getty GAAP EPS release versus its GAAP conse",
+      "different_now": "The case is not like the usual reference class.\nGetty filed a prepackaged Chapter 11 on 2026-10-21 (per CNBC summary) and expects to take the company private, with the plan wiping out public equity.\nIts stock was removed from NYSE in October and now trades OTC Pink.\nThe company declined to give earnings guidance on its Q2 call and withdrew 2026 revenue guidance.\nThe Q3 release was announced for 2026-11-16 after close (announcement dated 2026-10-28, per the already-found facts), so a release is still expected, but it is not certain that it will carry a diluted GAAP EPS line.\nThe resolution rule",
+      "facts": [
+        {
+          "fact": "Getty Images announced on 2026-10-28 that it will release third quarter 2026 results after market close on Monday, November 16, 2026, with a conference call at 4:30 p.m.\nEastern that day (prepared remarks only).",
+          "source": 0
+        },
+        {
+          "fact": "Getty Images' Q2 2026 net loss was $85.8 million, compared with a net loss of $34.4 million in Q2 2025, per the company's Q2 2026 release as summarized by search results.",
+          "source": 2
+        },
+        {
+          "fact": "Getty Images' Q2 2026 non-GAAP (adjusted) EPS was negative $0.05, per Barchart's summary of the Q2 2026 release.",
+          "source": 2
+        },
+        {
+          "fact": "A third-party earnings tracker reports Getty Images lost $0.21 per share on revenue of $229.10 million for Q2 2026 (quarter ended June 2026), against a reported consensus of a $0.01 profit per share.\nThis is unverified against the 8-K, and it is not stated whether $0.21 is GAAP diluted EPS.",
+          "source": 3
+        },
+        {
+          "fact": "Getty Images announced on 2026-10-28 that it will release third quarter 2026 financial results on Monday, November 16, 2026, after market close, with a call at 4:30 p.m.\nEastern.\nThis is per a search snippet of the reproduced release; the page could not be opened.",
+          "source": 0
+        },
+        {
+          "fact": "Per the same announcement snippet, the release lists the company as OTC Pink: GETYQ rather than NYSE-listed as in earlier releases.\nThis is unverified and bears on the U.S.-listing condition in the resolution rules.",
+          "source": 0
+        },
+        {
+          "fact": "Fintool lists Getty Images Q3 2025 GAAP diluted EPS as $0.05 on revenue of $240.0M, with adjusted diluted EPS of $0.08.\nNot verified against the company release; the page could not be opened.",
+          "source": 4
+        },
+        {
+          "fact": "Company newsroom reports Q3 2025 revenue of $240.0 million, down 0.2% year over year, and a Q3 2025 results call on Monday, November 10, 2025.\nSeen in a search snippet only; the page could not be opened.",
+          "source": 5
+        },
+        {
+          "fact": "Search snippets give Getty GAAP diluted EPS of -$0.01 for Q4 2024, -$0.25 for Q1 2025 (one table shows -$0.19), -$0.08 for Q2 2025, and -$0.21 for Q2 2026 against a $0.01 consensus, with sources disagreeing on several figures.\nNone of these were opened or verified against the company's own 8-K/EX-99 filings.",
+          "source": 4
+        },
+        {
+          "fact": "Per a search summary of NYSE's notice, NYSE Regulation began proceedings to delist Getty's Class A stock on 2026-09-29, citing an 'abnormally low selling price' and suspending trading; Getty did not appeal and moved to OTC Pink from 2026-09-30 under the GETY ticker.",
+          "source": 7
+        },
+        {
+          "fact": "Per a search summary of NYSE's Form 25 filing dated 2026-10-02, removal from NYSE listing and registration was set for 2026-10-13.\nThe search summary did not show the 'GETYQ' ticker quoted in the question, so the ticker is unconfirmed.",
+          "source": 7
+        },
+        {
+          "fact": "Per a CNBC search summary, Getty Images filed for Chapter 11 bankruptcy protection on 2026-10-21 in the U.S.\nBankruptcy Court for the District of Delaware, as a prepackaged case that takes the company private.",
+          "source": 8
+        },
+        {
+          "fact": "Sources disagree on the filing date: a Debtwire/Octus summary says first-day relief was sought on 2026-10-22, and another summary says the plan was announced 2026-10-12.",
+          "source": 9
+        },
+        {
+          "fact": "Per a Debtwire search summary, the Getty family and Koch Equity Development committed up to $533 million of new equity, and holders of equity interests would be wiped out and deemed to reject the plan; public shareholders would receive nothing.",
+          "source": 9
+        },
+        {
+          "fact": "Per the same Debtwire summary, the targeted confirmation hearing is 2026-12-14, the confirmation-order deadline is 2026-12-15, and the plan's effective-date target is 2027-01-04.\nAll of these fall after the 2026-11-16 release date.",
+          "source": 9
+        },
+        {
+          "fact": "Per a search summary, Getty expects to complete the restructuring by the end of 2026.",
+          "source": 8
+        },
+        {
+          "fact": "Per a Barchart search summary of the Q2 2026 release (dated around 2026-08-10), Getty's non-GAAP EPS was -$0.05 and revenue fell 2.5% to $229.1 million; a third-party tracker reported GAAP EPS of -$0.21 against a +$0.01 consensus, and the tracker figure is unverified.",
+          "source": 1
+        },
+        {
+          "fact": "Per a search summary of the Q2 2026 8-K Exhibit 99.1, Q2 2026 net loss was $85.8 million, against $34.4 million in Q2 2025.\nThe release attributed the loss mainly to a $96.7 million increase in tax expense from a change in valuation allowance, and it withdrew 2026 revenue guidance.",
+          "source": 1
+        },
+        {
+          "fact": "Getty's Q2 2026 net loss was $85.8 million, against a $34.4 million net loss in Q2 2025, and the company attributed the increase mainly to a $96.7 million rise in tax expense from a change in valuation allowance (per the Q2 2026 release as summarized in search results, dated 2026-08-10).",
+          "source": 1
+        },
+        {
+          "fact": "Getty reported Q2 2026 adjusted EBITDA of $62.3 million, down 8.4% year over year, with an adjusted EBITDA margin of 27.2% on revenue of $229.1 million (2026-08-10, per search results for the company's newsroom release).",
+          "source": 10
+        },
+        {
+          "fact": "For Q3 2025, Getty's GAAP diluted EPS was reported as $0.05 against a Zacks consensus of $0.04, a GAAP beat at the same $0.04 threshold used in this question (Q3 2025 report, Nov 2025, per a search summary; not opened).",
+          "source": 11
+        },
+        {
+          "fact": "The Q2 2026 release says the company drew the remaining $30.0 million available under its facility in July 2026 (per search results for the company's Q2 2026 release).",
+          "source": 10
+        },
+        {
+          "fact": "Under the Chapter 11 plan, unsecured noteholders are set to receive $170.2 million in cash on $270 million of unsecured notes, and KED affiliates would provide DIP financing of up to $143 million (per search summaries of the plan 8-K exhibit; the $533 million headline is disputed, with about $433 million described as true new equity).",
+          "source": 12
+        },
+        {
+          "fact": "Per a search snippet of the 2026-10-28 announcement, Getty Images said it will release third quarter 2026 results after market close on Monday, November 16, 2026, with a call at 4:30 p.m.\nEastern.\nThe page could not be opened.",
+          "source": 0
+        },
+        {
+          "fact": "As of 2026-11-13, no Q3 2026 earnings release, 8-K, or Q3 2026 GAAP EPS figure was found in the search index.\nThe release is still scheduled for 2026-11-16 after close, so the question is unresolved.",
+          "source": 1
+        },
+        {
+          "fact": "Per a search snippet of the Q2 2026 8-K Exhibit 99.1 (dated 2026-08-10), the Q2 2026 diluted GAAP EPS line could not be read.\nThe -$0.21 figure from a third-party aggregator is still unverified against the reconciliation table.",
+          "source": 1
+        },
+        {
+          "fact": "Per search snippets, Yahoo's OTC Markets page lists Getty Images Holdings as GETYQ at $0.0300 as of the 2026-10-23 close, while other quote pages and Benzinga list the ticker as GETY (OTC Pink).\nThe ticker is conflicting across sources, and the page could not be opened.",
+          "source": 13
+        },
+        {
+          "fact": "Per an Octus search snippet, Getty Images filed a prepackaged Chapter 11 case on 2026-10-21 (one summary says first-day relief was sought 2026-10-22).\nCourt docket number 26-11643 (Judge Stickles, D.\nDel.) comes from a search summary only and was not confirmed on the docket.",
+          "source": 14
+        },
+        {
+          "fact": "UNVERIFIED, search snippet only (page not opened): Getty's Q2 2026 net loss was $85.8 million, against a $34.4 million net loss in Q2 2025, with the increase mainly attributed to a $96.7 million rise in tax expense from a change in valuation allowance; diluted GAAP EPS for Q2 2026 is not confirmed from the exhibit.",
+          "source": 1
+        },
+        {
+          "fact": "UNVERIFIED, search snippet only (page not opened): a third-party tracker reports Getty lost $0.21 per share for Q2 2026 against a $0.01 profit consensus; the company's own GAAP EPS line for Q2 2026 could not be read.",
+          "source": 1
+        },
+        {
+          "fact": "UNVERIFIED, search snippet only (page not opened): NYSE Regulation began proceedings to delist Getty's Class A stock on 2026-09-29, citing an 'abnormally low selling price', and Getty moved to OTC Pink from 2026-09-30; the 'GETYQ' ticker quoted in the question was not confirmed in the notice.",
+          "source": 7
+        },
+        {
+          "fact": "UNVERIFIED, search snippet only (page not opened): Getty filed a prepackaged Chapter 11 case in the U.S.\nBankruptcy Court for the District of Delaware on 2026-10-21 (another summary says first-day relief was sought 2026-10-22), and the plan would wipe out existing equity so public shareholders receive nothing.",
+          "source": 12
+        },
+        {
+          "fact": "UNVERIFIED, search snippet only (page not opened): Getty said on 2026-10-28 it will release third quarter 2026 results after market close on Monday, November 16, 2026, with a prepared-remarks-only call at 4:30 p.m.\nEastern; the release lists the company as OTC Pink: GETYQ.",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 0,
+      "resolution": {
+        "criteria": "Resolves Yes if diluted GAAP EPS for Q3 2026 is greater than $0.04 (the Street consensus), using the company's official earnings documents; basic GAAP EPS only if diluted is not published; SeekingAlpha figure if no GAAP EPS is in the release; No if no figure is published within 96 hours of 4:00pm ET on the announcement day or if the release is more than 45 days after the estimated date.",
+        "current_status": "Not yet reported as of 2026-11-13.\nScheduled for after market close on 2026-11-16 (announced 2026-10-28).\nLatest GAAP EPS found is for Q2 2026: a loss of $0.21 per share per a third-party tracker, not verified against the company's 8-K; I could not open any page to confirm figures (WebFetch was refused by the proxy), so all facts come from search snippets.",
+        "edge_cases": [
+          "Timing: the release is after 4:00pm ET on 2026-11-16, so the 96-hour clock starts at 4:00pm ET that day and runs to about 2026-11-20 4:00pm ET; a release slipping past 2026-11-16 by up to 45 days still counts under the rule.",
+          "Diluted vs basic: the market uses diluted GAAP EPS; if the release shows only basic EPS, that figure governs.\nA net loss makes diluted and basic EPS equal, so the two rarely differ here.",
+          "Exact threshold: EPS of exactly $0.04 (rounds to $0.04) is a No; only $0.05 or higher, or a rounded value above $0.04, is a Yes.",
+          "Sign: a reported loss (negative EPS) is below the $0.04 consensus and resolves No; the Q2 2026 figure reported by a tracker was a loss."
+        ],
+        "settling_source": "Getty Images' Q3 2026 earnings release and its GAAP reconciliation (filed as Form 8-K Exhibit 99.1 on SEC EDGAR, https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055270/gety-20260630xex991.htm for the prior quarter's format), with Seeki"
+      },
+      "uncertainties": [
+        "Every WebFetch in this pass was refused by the proxy (4 attempts, including the NYSE notice, CNBC and the Barchart page), so no page was opened and no quotes could be copied; all facts come from search summaries.",
+        "Whether the 2026-11-16 release will include a diluted GAAP EPS figure during Chapter 11, or only basic EPS, a net-loss figure, or no per-share figure at all; if none is published within 96 hours, the market resolves No.",
+        "The Q2 2026 GAAP EPS is unverified: a tracker says -$0.21 and the Barchart summary cites non-GAAP -$0.05, and the 8-K was not opened.",
+        "Whether OTC Pink trading meets the rule's 'U.S.\nstock exchanges such as NYSE or Nasdaq' condition is unclear, and the question's 'GETYQ' ticker was not confirmed.",
+        "The filing date (2026-10-21 vs 2026-10-22) and the status of the plan and court dates (2026-12-14 hearing) were not confirmed against the court docket or a claims agent.",
+        "Every WebFetch call and a Bash curl attempt were refused or denied in this pass, so no page was opened and no quotes could be copied; all figures come from search snippets and must be verified against the 8-K/EX-99.1 before use."
+      ],
+      "warnings": [
+        "only 0 primary source(s) with quotes (need 2): rely on the facts less than on official data",
+        "no source has a quote: the pages could not be opened, so the facts rest on search summaries; rely on them less"
+      ]
+    },
+    "polymarket-6948156": {
+      "against": "The reading that Trump leaves China on 19 Nov CST rests on the Shenzhen meeting schedule ending that day.\nThe leaders' meeting is listed for 18-19 Nov (source 0) and the CEO Summit for 17-18 Nov (source 1), so 19 Nov is the last scheduled APEC day, and a departure that day would be the earliest exit consistent with a meeting that ends then.\nAny side meeting or extra stop, such as the unconfirmed three-way Xi-Trump-Putin idea that China's foreign ministry described on 2026-11-07 as still under discussion (from an earlier pass; no page was opened here), or a slipped schedule, would push the exit to 20 Nov CST or later.\nThe Manila leg, reported as running 16-18 Nov, also means entry into China is likely no earlier than 18 Nov, which leaves little margin.\nA late-evening 19 Nov US-time departure falls on 20 Nov CST under the rule's time zone.\nNone of these points is confirmed by an official i",
+      "base_rate": "Reference class: Trump's announced foreign trips with official dates, counted from the 2026 China trip only.\nFound so far: one trip with two announced windows.\nThe first window (31 Mar-2 Apr 2026, announced 20 Feb) slipped to 14-15 May (announced 25 Mar), and the May visit is reported as having taken place.\nThat is 1 of 2 announced windows moved, which is too small a sample to set a rate.\nI could not open any page (WebFetch was refused by the proxy on every site tried), so I did not count from primary archives or check Trump's trip record across 2017-2026.\nNo quotes are included because no pag",
+      "different_now": "Trump's trip is a two-stop routing: Manila (16 Nov, ASEAN summit running to 18 Nov) and then Shenzhen (APEC leaders' meeting 18-19 Nov, per most reports).\nEntry into China therefore likely falls on 17 or 18 Nov, inside the question's window.\nA departure on 19 Nov CST would be the day the leaders' meeting ends; a departure after that could fall on 20 Nov CST, which is the resolution date.\nTwo factors push toward a later or uncertain exit: the summit's last scheduled day is 19 Nov, and the Chinese side has not confirmed Trump's attendance.\nAgainst that, the trip is the only planned China visit i",
+      "facts": [
+        {
+          "fact": "The 33rd APEC Economic Leaders' Meeting is set for November 18-19, 2026, in Shenzhen, China, per Chinese government and news reports (page not opened; from search summary).",
+          "source": 0
+        },
+        {
+          "fact": "The APEC CEO Summit is set for November 17-18, 2026 in Shenzhen (page not opened; from search summary).",
+          "source": 0
+        },
+        {
+          "fact": "China's foreign ministry announced the APEC Shenzhen dates on December 12, 2025 (page not opened; from search summary).",
+          "source": 0
+        },
+        {
+          "fact": "Trump has publicly said he plans to attend the APEC summit in Shenzhen and expects to meet Xi and Putin there, per an RTHK report dated 2026-11-09 (page not opened; from search summary).",
+          "source": 2
+        },
+        {
+          "fact": "A VOA report dated 2026-11-05 said Trump is going to meet Xi on the sidelines of the Shenzhen APEC summit, citing a White House email to VOA rather than a formal announcement (page not opened; from search summary).",
+          "source": 1
+        },
+        {
+          "fact": "As of the latest reporting found (early November 2026), the White House had not confirmed Trump's China leg or a formal itinerary, and China's foreign ministry had not announced his attendance (search summaries; no official page opened).",
+          "source": 1
+        },
+        {
+          "fact": "Trump's earlier China state visit to Beijing ran May 13-15, 2026, after being postponed from March 31-April 2 by the Iran war; it began before the question window and so should not count as the visit in question (search summaries; Khaleej Times page not opened).",
+          "source": 3
+        },
+        {
+          "fact": "A Philippines stop reportedly set for November 16, 2026 before China was confirmed by the Philippine presidential palace (search summary; not verified on a page opened).",
+          "source": 1
+        },
+        {
+          "fact": "The 33rd APEC Economic Leaders' Meeting is set for 18-19 November 2026 in Shenzhen, according to the Longgang district government notice.",
+          "source": 4
+        },
+        {
+          "fact": "On about 25 September 2026, Trump posted on Truth Social that he and Xi would meet again in November in China and then at the G20 in December in Miami.",
+          "source": 5
+        },
+        {
+          "fact": "On 20 February 2026 the White House announced Trump's first Beijing visit for 31 March to 2 April 2026; it was postponed because of the Iran war.",
+          "source": 7
+        },
+        {
+          "fact": "On 25 March 2026 the White House announced the rescheduled Beijing meeting for 14-15 May 2026, and sources report the visit took place 13-15 May 2026.",
+          "source": 6
+        },
+        {
+          "fact": "On 2026-11-07, Chinese foreign ministry spokesperson Mao Ning said Beijing was in contact with other parties about a possible three-leader meeting with Xi, Trump and Putin, and that no meeting or agenda had been finalised (search summary; page not opened).",
+          "source": 8
+        },
+        {
+          "fact": "As of early November 2026, searches found no Chinese foreign ministry announcement confirming Trump's attendance at the Shenzhen APEC summit; coverage relied on media reports and the Trump-side statements (search summaries; no ministry page opened).",
+          "source": 8
+        },
+        {
+          "fact": "Reporting says the White House routed Trump to the ASEAN summit in Manila on 16 November and then on to Shenzhen for APEC; the Manila summit runs 16-18 November, and outlets give the Shenzhen dates as 17-19 or 18-19 November (search summaries; page not opened).",
+          "source": 10
+        },
+        {
+          "fact": "SCMP reported in early November 2026 that Melania Trump is unlikely to travel to the APEC summit in China (search summary; undated page not opened).",
+          "source": 9
+        },
+        {
+          "fact": "The 33rd APEC Economic Leaders' Meeting is listed for 18-19 November 2026 in Shenzhen, per the Longgang district government notice (page opened in an earlier pass; not re-read here, so no quote is kept).",
+          "source": 4
+        },
+        {
+          "fact": "A search summary of CGTN reporting gives the APEC CEO Summit in Shenzhen as 17-18 November 2026; the page's publication date was not visible in the summary.",
+          "source": 11
+        },
+        {
+          "fact": "A search summary of SCMP reporting, undated and not opened, says US Treasury Secretary Bessent may skip the APEC finance meetings in Hong Kong to focus on Trump's Shenzhen visit.",
+          "source": 13
+        },
+        {
+          "fact": "The White House page was refused by the proxy on every attempt in this pass, so no White House itinerary, departure time or announcement could be read from it.",
+          "source": 12
+        },
+        {
+          "fact": "Per search summaries, the APEC Economic Leaders' Meeting in Shenzhen is set for 18-19 November 2026, the official schedule being announced by China's foreign ministry on 2025-12-12.\nCoverage in late October 2026 still listed the same dates.\nNo conflicting dates were found in these summaries.",
+          "source": 14
+        },
+        {
+          "fact": "Per the search summary, the APEC CEO Summit runs 17-18 November 2026 and a final Senior Officials' Meeting is set for 14-15 November 2026, both in Shenzhen.",
+          "source": 14
+        },
+        {
+          "fact": "On 2026-11-09, a Chinese foreign ministry spokesperson (named as Guo Jiakun in the search summary) said China was in communication with relevant parties about a meeting of the Chinese, Russian and US presidents, and gave no confirmation of Trump's attendance.\nThe search summary attributes this to the ministry; the earlier pass attributed a similar 2026-11-07 statement to Mao Ning.",
+          "source": 15
+        },
+        {
+          "fact": "An undated SCMP report, per search summary, says US Treasury Secretary Bessent said Trump may travel to China in November 2026 for the APEC summit, and that the two leaders are expected to meet in Shenzhen.",
+          "source": 16
+        },
+        {
+          "fact": "As of 2026-11-13, search results still show no White House itinerary, no departure time and no formal Chinese confirmation of Trump's Shenzhen attendance.\nReporting on a Manila stop on 16 November was carried by one outlet and was not confirmed by a second source.",
+          "source": 16
+        },
+        {
+          "fact": "The White House briefings page could not be opened (proxy refused the connection), so no White House itinerary, departure time or announcement for a Shenzhen trip was read from it.",
+          "source": 12
+        },
+        {
+          "fact": "The Chinese Ministry of Foreign Affairs English page could not be opened (proxy refused the connection); per search summaries only, on 2026-11-07 and 2026-11-09 ministry spokespeople said China was in contact with other parties about a possible Xi-Trump-Putin meeting and gave no confirmation of Trump's attendance.",
+          "source": 17
+        },
+        {
+          "fact": "Per an earlier pass that opened the Longgang district notice, and per search summaries, the 33rd APEC Economic Leaders' Meeting is listed for 18-19 November 2026 in Shenzhen; this Shenzhen government page could not be reopened in this pass (proxy refused).",
+          "source": 14
+        },
+        {
+          "fact": "The APEC official site could not be opened (proxy refused the connection), so the official APEC schedule was not verified from a primary page in this pass.",
+          "source": 18
+        },
+        {
+          "fact": "Per search summaries, Trump said on about 2026-11-09 that he will go to China for the Shenzhen APEC summit, which runs 18-19 November; no official White House or Chinese ministry itinerary, arrival time or departure time was found.",
+          "source": 12
+        },
+        {
+          "fact": "Per search summaries, the Trump-Xi meeting timing and any Manila leg (ASEAN summit 16-18 November) remain unconfirmed by any primary page opened in this pass.",
+          "source": 17
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 0,
+      "resolution": {
+        "criteria": "Counts the calendar day (China Standard Time) on which Trump physically leaves China during his first visit to China beginning between market creation and Nov 22, 2026 23:59 CST.\nTerritory and maritime only; airspace does not count.\nIf the visit starts but he has not left by Nov 22 23:59 CST: 'After November 22'.\nNo visit by then: 'No visit by November 22'.",
+        "current_status": "As of 2026-11-13, no formal White House or Chinese foreign ministry confirmation of a November China visit was found in the sources I could reach.\nTrump has said publicly he plans to attend the APEC leaders' meeting in Shenzhen on Nov 18-19, 2026 (reported by RTHK on 2026-11-09).\nVOA (2026-11-05) cited a White House email, not a formal announcement.\nSources disagree on timing details.\nI could not ",
+        "edge_cases": [
+          "Visit must BEGIN after market creation and before Nov 22 23:59 CST; the May 13-15, 2026 Beijing visit is excluded as it began earlier.",
+          "Departure is by calendar day in China Standard Time (UTC+8): a departure late on Nov 19 US time may fall on Nov 20 CST, or an early-morning Nov 19 CST departure may be reported in US time as Nov 18.",
+          "Leaving China means crossing the terrestrial or maritime boundary, not just leaving the city.\nFlying out of Shenzhen to Manila (or another country) counts at the moment of exit from Chinese territory; the flight's Chinese airspace does not.",
+          "Hong Kong and Macau: whether a departure via Hong Kong or Macau counts as leaving China is not addressed in the rules as written; it is a possible ambiguity."
+        ],
+        "settling_source": "No single agency page.\nPer the question: official US government information, Trump's own statements or verified social media, and a consensus of credible reporting.\nRelevant official-channel pages: White House (whitehouse.gov) schedule and releases; "
+      },
+      "uncertainties": [
+        "No primary page was opened: WebFetch was refused by the proxy on whitehouse.gov, fmprc.gov.cn, koreatimes.co.kr and astig.ph, so no quotes are included and every fact rests on search summaries.",
+        "No White House itinerary or schedule for the Shenzhen trip was found; the latest official-style statement found is Trump's own (Truth Social, about 25 Sep 2026) that he would meet Xi in China in November.",
+        "Chinese government confirmation of Trump's attendance was not found; the Putin/Xi/Trump three-way meeting is unconfirmed and was only described as under discussion.",
+        "Exact APEC dates differ between outlets (17-19 vs 18-19 Nov), which matters for the departure day.",
+        "The Manila leg could change, so the sequence of entry and exit (Manila, then Shenzhen, then Manila again or elsewhere) could alter where the exit from Chinese territory falls.",
+        "No White House itinerary or Chinese foreign ministry announcement of Trump's Shenzhen attendance or departure time was read in this pass; WebFetch was refused on every site tried (sz.gov.cn, scmp.com, astig.ph, news.cgtn.com, whitehouse.gov)."
+      ],
+      "warnings": [
+        "only 0 primary source(s) with quotes (need 2): rely on the facts less than on official data",
+        "no source has a quote: the pages could not be opened, so the facts rest on search summaries; rely on them less"
+      ]
+    },
+    "polymarket-6967620": {
+      "against": "The strongest case for No: spot ETF outflows have run for at least two weeks (about $1.28B in Nov 2-6 and about $1.44B over the five days to Nov 11, per SoSoValue-based reports), with IBIT the main source.\nAnalysts reported on Nov 10-11 a breakdown of a descending channel and a conditional path to $65,000 if roughly $71,900 gives way.\nA report dated about Nov 13 put bitcoin at about $68,408 after roughly $1.47B of liquidations, which is about 6.9% above the $64,000 threshold, so a further drop of about 6.5% over the five days to Nov 18 would settle No.\nAnalyst levels cited for the zone are $65,000-$66,000 as support, with $62,000 as a bearish target if that zone fails (Bitget Wallet's Lacie Zhang, undated search snippet).\nMomentum and flow data point down, and the only central-bank event found (FOMC, Dec 8-9) falls after the window, so nothing scheduled is expected to stop the decline be",
+      "base_rate": "",
+      "different_now": "The settling price is Binance's BTC/USDT 1-minute candle labelled 12:00 ET, which is 17:00 UTC on 2026-11-18 (EST applies after DST ended Nov 1).\nBinance could not be read, so the settling venue's own price is unknown.\nThe last reported level is roughly $69,000 (Nov 13, time.news), about 7% above $64,000.\nSell-side pressure is visible: ETF outflows of $1.28B in the week of Nov 2-6 and a fifth straight weekly loss as of Nov 13.\nThe only central-bank event found is the FOMC on Dec 8-9, which falls after the resolution date.\nNothing in the window (Nov 13-18) has been confirmed yet.\nCould not chec",
+      "facts": [
+        {
+          "fact": "Fortune's Nov 10, 2026 snapshot put Bitcoin at about $74,260 at 7:15 a.m.\nET (not Binance; seen in a search snippet, page not opened).",
+          "source": 1
+        },
+        {
+          "fact": "Fortune's Nov 9, 2026 snapshot put Bitcoin at about $74,549 and its Nov 5 snapshot at about $80,221 (search snippets, pages not opened), so BTC fell through the first half of November.",
+          "source": 1
+        },
+        {
+          "fact": "No Binance BTC/USDT price for Nov 11 to 13, 2026 could be read: the Binance page, Binance API and the Fortune page all failed to open through the proxy.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-11-13 bitcoin fell about 6% in 24 hours to roughly $69,000, with an intraday low near $67,922; reports put liquidations at over $1.3 billion.",
+          "source": 2
+        },
+        {
+          "fact": "On 2026-11-06 bitcoin dropped below $75,000 for the first time since August 2026.",
+          "source": 5
+        },
+        {
+          "fact": "Bitcoin briefly topped $80,000 on 2026-11-04, after the US midterm elections, then declined.",
+          "source": 3
+        },
+        {
+          "fact": "Bitcoin was on track for a fifth straight weekly loss as of Friday 2026-11-13, with US spot bitcoin ETF outflows, a stronger dollar and rising Treasury yields cited as drivers.",
+          "source": 4
+        },
+        {
+          "fact": "The December 2026 FOMC meeting is listed for December 8-9, 2026, with the rate decision at 2:00 p.m.\nET on December 9.\nThis is after the November 18 resolution date.\nThe official federalreserve.gov page was listed but could not be opened, so this rests on search snippets from calendar sites.",
+          "source": 7
+        },
+        {
+          "fact": "US spot bitcoin ETFs logged about $1.28 billion in net outflows in the week of November 2-6, 2026, their worst week since late June (per The Block, citing SoSoValue data).\nSnippet-level; the page itself could not be opened.",
+          "source": 8
+        },
+        {
+          "fact": "Year-to-date 2026 net outflows from US spot bitcoin ETFs were about $914.1 million per The Block and about $919 million per SoSoValue (via Cointelegraph), so the 2026 gains were erased by early November.\nSnippet-level figures that differ by source.",
+          "source": 8
+        },
+        {
+          "fact": "Spot ether ETFs lost about $365.3 million in the week of November 2-6, 2026, their sixth straight week of net outflows (per SoSoValue as reported in search snippets).",
+          "source": 8
+        },
+        {
+          "fact": "No reporting covering US spot bitcoin ETF flows for the week of November 9-13, 2026 was found in this pass.",
+          "source": 8
+        },
+        {
+          "fact": "The latest external BTC price snapshot in 2026 found is Fortune's 7:15 a.m.\nET reading of about $74,260 on November 10, 2026.\nThe page was read in an earlier pass; its text could not be re-opened here.",
+          "source": 1
+        },
+        {
+          "fact": "Reporting dated November 13, 2026 puts Bitcoin at roughly $69,000 after a drop of about 6% in 24 hours.\nCompared with the $64,000 threshold, that is roughly 7% above it (about 0.075 in log terms).\nThis is a reported figure, not a Binance print.",
+          "source": 3
+        },
+        {
+          "fact": "US spot bitcoin ETFs had about $1.282 billion in net outflows in the week of Nov 2-6, 2026, with IBIT about $1.209 billion of that, per SoSoValue data.",
+          "source": 8
+        },
+        {
+          "fact": "US spot bitcoin ETFs recorded about $1.44 billion of outflows over the five days through Nov 11, 2026, per a search summary citing SoSoValue; the Nov 11 single-day net outflow was reported as about $299.9 million.",
+          "source": 9
+        },
+        {
+          "fact": "A Nov 11, 2026 analyst report (Tranquility Crypto) saw a possible move to $65,000 after a descending-channel breakdown, from a reference price of about $73,500.",
+          "source": 11
+        },
+        {
+          "fact": "A CIO (Hilbert, reported about Nov 10, 2026) sees a conditional drop toward $65,000 if support near $71,900 breaks, with AI and chip stock losses possibly forcing crypto selling.",
+          "source": 10
+        },
+        {
+          "fact": "One report puts bitcoin near $71,200 on Nov 12, 2026, a near 12-week low, and $68,408 on Nov 13 as $1.47B of leveraged positions were liquidated; the Nov 13 figure comes from a single outlet and is not a Binance print.",
+          "source": 9
+        },
+        {
+          "fact": "Search snippets from FedRateCalc list the December 2026 FOMC meeting as December 8-9, with the rate decision at 2:00 p.m.\nET on December 9, 2026.\nThis is snippet-level and was not confirmed on the official Fed page, which could not be opened.",
+          "source": 13
+        },
+        {
+          "fact": "A calendar feed snippet lists December 9, 2026 as the FOMC rate decision day (2:00 PM EST, with a Summary of Economic Projections).\nThis is snippet-level only.",
+          "source": 14
+        },
+        {
+          "fact": "The December 2026 FOMC decision date (December 9) is after the November 18, 2026 resolution date, so the Fed decision is not in the resolution window.\nThe official Fed calendar page could not be opened to confirm this.",
+          "source": 12
+        },
+        {
+          "fact": "A search for US spot bitcoin ETF flows for November 9-13, 2026 returned only reporting on the prior week: about $1.28 billion of net outflows in the week of Nov 2-6 (The Block, citing SoSoValue), and no article on the Nov 9-13 week.",
+          "source": 8
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 0,
+      "resolution": {
+        "criteria": "Resolves Yes if the Binance 1-minute BTC/USDT candle closing at 12:00 ET (noon) on 2026-11-18 has a final Close price higher than $64,000; otherwise No.\nBinance is the price source, not other exchanges or pairs.",
+        "current_status": "Not read.\nBinance could not be opened today, so the current Binance BTC/USDT price is unknown.\nThe latest external figure found is about $74,260 on 2026-11-10 (Fortune), about $10,000 above the threshold.",
+        "edge_cases": [
+          "Noon ET on 2026-11-18 is 17:00 UTC, since US Eastern Standard Time applies after DST ended on Nov 1, 2026.",
+          "The candle that counts is the one labelled 12:00 (covering 12:00:00 to 12:59), and its final Close, not the price at a different moment in the minute.",
+          "A Close exactly equal to $64,000 is not higher, so it resolves No (tie goes to No).",
+          "Price precision follows the decimal places shown by Binance, so a value like 64000.00 versus 63999.99 matters."
+        ],
+        "settling_source": "Binance BTC/USDT 1m candles, \"Close\" price, at https://www.binance.com/en/trade/BTC_USDT (\"1m\" and \"Candles\" selected)"
+      },
+      "spot": {
+        "asset": "BTC/USDT",
+        "price": 69000.0,
+        "read_at": "2026-11-13T07:30 UTC",
+        "source_url": "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/"
+      },
+      "uncertainties": [
+        "No Binance BTC/USDT price could be read for Nov 11-13, 2026, so the settling venue's current level is unknown.",
+        "The 30-day realised daily volatility could not be computed: no daily close series could be opened.",
+        "The Fed calendar date rests on secondary calendar sites; federalreserve.gov was listed but could not be opened through the proxy.",
+        "Fortune, Time.news, Cryptoticker, The Block and the Fed page could not be re-opened in this pass, so no quotes could be copied from them.\nFacts from them are snippet-level or carried over from the earlier pass.",
+        "ETF flow data for November 9-13, 2026 is missing, so the latest weekly flow trend is not confirmed.",
+        "No Binance BTC/USDT print for Nov 11-13, 2026 could be read; the settling venue's level is unknown, and the Nov 13 figures come from non-Binance reports."
+      ],
+      "warnings": [
+        "only 0 primary source(s) with quotes (need 2): rely on the facts less than on official data",
+        "no source has a quote: the pages could not be opened, so the facts rest on search summaries; rely on them less"
+      ]
+    },
+    "polymarket-6990957": {
+      "against": "The strongest case for No is that the price has been trending down and the threshold is about 12 to 14% below the last known level.\nFortune reported about $74,260.59 at 7:15 a.m.\nET on 2026-11-10, down about $289 from the previous morning, and a search summary said it fell below $73,000 later that day (2026-11-10).\nSpot ETFs had $1.28B of net outflows in the week to 2026-11-07, their worst since late June, and 2026 net flows turned negative (The Block, 2026-11-07).\nA Cointelegraph item dated 2026-11-09 describes an analyst weighing a $68K target (2026-11-09).\nAn undated Cryptonews-based summary from 2026-11-02, as a search snippet, said some analysts saw $60,000 as deeper support if $70,000 broke.\nDropping about 14% in roughly six days is possible at this volatility, but no 2026-11-13 or later price was read to confirm any move.",
+      "base_rate": "No count from a reference class applies.\nThis is an asset-price threshold, so the outcome depends on the current price and volatility, not on past releases or votes.\nSpot is about $74.3k on 2026-11-10, about 14% above the $64,000 threshold and roughly 3 days old; no price from 2026-11-13 was found.\nThe 30-day daily volatility could not be computed because exchange data pages would not open.",
+      "different_now": "The last price read in this session is from 2026-11-10 (about $74.3k in the morning, then below $73k later that day), not 2026-11-13.\nThe threshold of $64,000 sits roughly 12 to 14% below those levels, but the price has not been read since.\nRecent flow data point to net selling in ETFs (about $1.28B in the week to 2026-11-10, with the Fear & Greed index at 25), and the trend since early November has been down.\nNo FOMC decision falls before 2026-11-19.\nThe next scheduled FOMC decision is 2026-12-09.\nOther scheduled events in the window (for example, US CPI or ETF flow releases) were not verifie",
+      "facts": [
+        {
+          "fact": "The resolution page https://www.binance.com/en/trade/BTC_USDT could not be opened (proxy refused the connection), so its rules text and current BTC/USDT price were not read.",
+          "source": 0
+        },
+        {
+          "fact": "A search snippet for Fortune's 2026-11-10 Bitcoin price article reported BTC at $74,260.59 on November 10, 2026.\nThe page itself was not opened, so this is unverified.",
+          "source": 1
+        },
+        {
+          "fact": "Fortune reported Bitcoin at about $74,260.59 at 7:15 a.m.\nET on 2026-11-10, down about $289 from the previous morning.",
+          "source": 1
+        },
+        {
+          "fact": "Fortune reported Bitcoin at about $78,520 on 2026-11-04, so the price fell roughly 5% in the six days to 2026-11-10.",
+          "source": 1
+        },
+        {
+          "fact": "Binance and Coinbase price pages could not be opened from this session (proxy refused the connection), so no Binance 1-minute close or 30-day daily closes were read.",
+          "source": 0
+        },
+        {
+          "fact": "Fortune reported Bitcoin at about $74,260.59 at 7:15 a.m.\nET on 2026-11-10, down about $289 from the previous morning.\nThe page was not reopened in this pass.",
+          "source": 1
+        },
+        {
+          "fact": "A search summary dated 2026-11-10 says Bitcoin fell below $73,000 that day, after the week of November 7 closed at $75,916 following a post-election high of $81,196.\nThese figures come from a search summary, not an opened page.",
+          "source": 6
+        },
+        {
+          "fact": "A search summary says US spot Bitcoin ETFs lost $1.28 billion in the week to about 2026-11-10, their largest weekly exit in 19 weeks, and the Crypto Fear & Greed Index fell to 25 (Extreme Fear).\nNot verified against an opened page.",
+          "source": 6
+        },
+        {
+          "fact": "Partial tracker data show US spot Bitcoin ETFs had net outflows of about $869.8 million from 2026-11-02 to 2026-11-05, and 2026 year-to-date net flows of about -$502 million through 2026-11-05 (SoSoValue, as summarized).\nNo complete November 2026 total was found.",
+          "source": 5
+        },
+        {
+          "fact": "The December 2026 FOMC meeting is listed for December 8 to 9, 2026, with the decision on Wednesday 2026-12-09 at 2:00 p.m.\nET, according to calendar aggregators.\nThe Fed page was not opened, so this is unverified against the primary source.\nNo FOMC decision falls inside the 2026-11-19 window.",
+          "source": 4
+        },
+        {
+          "fact": "The Fed's December 2026 calendar page is the official source for the meeting dates, but its text could not be read in this session (proxy refused the connection).",
+          "source": 3
+        },
+        {
+          "fact": "The Block reported on 2026-11-07 that US spot bitcoin ETFs had $1.28 billion of net outflows in the week to about 2026-11-07, their worst weekly total since late June, and that 2026 net flows turned negative (about -$914.1 million per the summary).",
+          "source": 7
+        },
+        {
+          "fact": "Fortune reported bitcoin at about $74,260.59 at 7:15 a.m.\nET on 2026-11-10, down about $289 from the previous morning; a search summary said it fell below $73,000 later that day.",
+          "source": 1
+        },
+        {
+          "fact": "A Cointelegraph item dated 2026-11-09 covers an analyst weighing a $68K bitcoin target while the price was in the low-$70,000s.",
+          "source": 8
+        },
+        {
+          "fact": "The BLS schedule lists the October 2026 CPI release on 2026-11-10 and the November 2026 CPI on 2026-12-10, so no CPI release is scheduled between 2026-11-13 and 2026-11-19 (per search summaries of the BLS calendar; the BLS page itself was not opened).",
+          "source": 9
+        },
+        {
+          "fact": "Per a search summary of the BLS November 2026 schedule (the BLS page itself refused connection), the October 2026 Producer Price Index is scheduled for Friday 2026-11-13 at 8:30 a.m.\nET, and the Import and Export Price Indexes for 2026-11-17.\nBoth dates fall inside the question window.",
+          "source": 10
+        },
+        {
+          "fact": "No BTC price dated 2026-11-11, 2026-11-12 or 2026-11-13 was read in this pass.\nThe Fortune 11-12 and 11-13 pages and CoinDesk refused connection, so the last price for 2026 remains the 2026-11-10 Fortune figure of about $74,260.59 from earlier passes.",
+          "source": 11
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 0,
+      "resolution": {
+        "criteria": "Resolves Yes if the Binance 1-minute BTC/USDT candle closing at 12:00 ET on 2026-11-19 has a final Close price higher than $64,000.\nOtherwise No.",
+        "current_status": "Not verified as of 2026-11-13.\nNo live Binance price was read.\nA search snippet cited BTC at about $74,260.59 on 2026-11-10 (Fortune, page not opened).\nBinance and CoinGecko pages refused connection.",
+        "edge_cases": [
+          "Time zone: 12:00 ET in mid-November is 17:00 UTC (US Eastern Standard Time, UTC-5), so the target is 17:00 UTC on 2026-11-19.",
+          "Candle convention: a candle 'closing at 12:00' is ambiguous.\nIt could mean the minute from 11:59 to 12:00 or the minute opening at 12:00 and closing at 12:01.\nThe resolver's choice decides which Close price counts.",
+          "Threshold: the rule says 'higher than' $64,000, so an exact close of 64,000.00 resolves No.",
+          "Precision: Binance quotes BTC/USDT to two decimals, so a close such as 64,000.004 cannot occur at that precision; any close at or below 64,000.00 is No."
+        ],
+        "settling_source": "Binance BTC/USDT Close prices with 1m and Candles selected, https://www.binance.com/en/trade/BTC_USDT (per the question's stated rules; the page could not be opened to confirm)"
+      },
+      "spot": {
+        "asset": "BTC/USDT",
+        "price": 74260.59,
+        "read_at": "2026-11-10T12:15 UTC",
+        "source_url": "https://fortune.com/article/price-of-bitcoin-11-10-2026/"
+      },
+      "uncertainties": [
+        "No Binance or other exchange price was read for 2026-11-13 or later.\nThe Binance page and the Coinbase candles API both refused connection, so no Binance 1-minute close, 30-day daily closes or daily volatility could be computed.\ndaily_vol_30d is therefore null.",
+        "The latest price in the sources is from 2026-11-10 and comes from search summaries.\nIt may be stale by the time of the 2026-11-19 17:00 UTC target.",
+        "The Fortune 2026-11-10 page, the Fed calendar and the ETF tracker were not opened in this pass, so their quotes are empty.\nThe facts rely on search summaries and should be checked against the pages.",
+        "Scheduled events inside 2026-11-13 to 2026-11-19 (US CPI release date, ETF flow data, any token unlock, court or policy dates for crypto) were not verified from primary sources.",
+        "The candle convention for 'closing at 12:00 ET' (11:59 to 12:00 candle versus 12:00 to 12:01 candle) is unresolved and does not change the threshold logic.\nThe 17:00 UTC mapping assumes Eastern Standard Time, which holds on 2026-11-19.",
+        "No Binance, Coinbase or other exchange price from 2026-11-13 or later was read; Binance, Coinbase, Fortune 11-13, Trading Economics and Cointelegraph pages all refused connection, so the latest price is from 2026-11-10 search snippets."
+      ],
+      "warnings": [
+        "only 0 primary source(s) with quotes (need 2): rely on the facts less than on official data",
+        "no source has a quote: the pages could not be opened, so the facts rest on search summaries; rely on them less"
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-13T13:27:12+00:00",
+  "researched_by": {
+    "polymarket-6639352": "claude-haiku",
+    "polymarket-6948156": "claude-haiku",
+    "polymarket-6967620": "claude-haiku",
+    "polymarket-6990957": "claude-haiku"
+  },
+  "runs": 37,
+  "seconds": {
+    "polymarket-6639352": 273.8,
+    "polymarket-6771121": 211.8,
+    "polymarket-6771169": 58.2,
+    "polymarket-6909159": 68.7,
+    "polymarket-6921883": 171.0,
+    "polymarket-6948156": 365.5,
+    "polymarket-6967574": 94.1,
+    "polymarket-6967620": 228.0,
+    "polymarket-6990957": 325.7
+  },
+  "sources": {
+    "polymarket-6639352": [
+      {
+        "primary": false,
+        "published": "2026-10-28",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images to Release Third Quarter 2026 Financial Results on November 16, 2026 (syndicated copy)",
+        "url": "https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-08-10",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Holdings, Inc.\nForm 8-K Exhibit 99.1 (Q2 2026 results), SEC EDGAR",
+        "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055270/gety-20260630xex991.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Reports Second Quarter 2026 Results (Barchart copy)",
+        "url": "https://www.barchart.com/story/news/3762783/getty-images-reports-second-quarter-2026-results",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Earnings Whispers, GETY article on Q3 2026 earnings date and Q2 2026 EPS",
+        "url": "https://www.earningswhispers.com/article/GETY/2608107026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Fintool: Getty Images Q3 2025 earnings summary (aggregator)",
+        "url": "https://fintool.com/app/research/companies/GETY/earnings/Q3 2025",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Reports Third Quarter 2025 Results (company newsroom)",
+        "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-third-quarter-2025-results",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Q3 2024 earnings release, Exhibit 99.1 (SEC EDGAR)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1898496/000162828024046310/gety-20240930xex991.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-29",
+        "quotes": [],
+        "text": "",
+        "title": "NYSE to Commence Delisting Proceedings Against Getty Images Holdings Inc (GETY) (NYSE notice, PDF; not opened, WebFetch refused)",
+        "url": "https://s2.q4cdn.com/154085107/files/doc_news/NYSE-to-Commence-Delisting-Proceedings-Against-Getty-Images-Holdings-Inc--GETY-2026.pdf",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-21",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images files for bankruptcy, advances restructuring plan (CNBC; seen in search summary only, not opened)",
+        "url": "https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Holdings reaches deal with lenders, shareholders and noteholders to take company private through Chapter 11 (Debtwire legal analysis; seen in search summary only, not opened)",
+        "url": "https://ionanalytics.com/insights/debtwire/getty-images-holdings-reaches-deal-with-lenders-shareholders-and-noteholders-to-take-company-private-and-wipe-out-warrant-litigation-claims-through-chapter-11-legal-analysis/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-08-10",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Reports Second Quarter 2026 Results",
+        "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Holdings, Inc.\n(GETY) Q3 Earnings Surpass Estimates",
+        "url": "https://www.finanzen.net/nachricht/aktien/getty-images-holdings-inc-gety-q3-earnings-surpass-estimates-15255607",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Getty Images Holdings, Inc.\n- Form 8-K (Exhibit 99.2), Chapter 11 plan materials",
+        "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000121390026111193/ea030922501ex99-2.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "OTC Markets OTCPK quote, Getty Images Holdings, Inc.\n(GETYQ)",
+        "url": "https://finance.yahoo.com/quote/GETYQ",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-21",
+        "quotes": [],
+        "text": "",
+        "title": "Update 1: Getty Images files for prepackaged Chapter 11 (Octus)",
+        "url": "https://octus.com/resources/articles/update-1-getty-images-files-for-prepackaged-chapter-11/",
+        "verified": null
+      }
+    ],
+    "polymarket-6948156": [
+      {
+        "primary": false,
+        "published": "2025-12-13",
+        "quotes": [],
+        "text": "",
+        "title": "2026 APEC meeting to be held Nov 18-19 in Shenzhen, China (CGTN)",
+        "url": "https://news.cgtn.com/news/2025-12-13/2026-APEC-meeting-to-be-held-Nov-18-19-in-Shenzhen-China-1J43L2Fb2w0/share_amp.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-05",
+        "quotes": [],
+        "text": "",
+        "title": "Ahead of China trip, White House says America's 'best interest' will drive foreign policy (VOA)",
+        "url": "https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [],
+        "text": "",
+        "title": "Trump says Shenzhen talks with Xi and Putin likely (RTHK)",
+        "url": "https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump to arrive in Beijing on Wednesday evening: White House spokeswoman (Khaleej Times)",
+        "url": "https://www.khaleejtimes.com/world/americas/trump-arrive-beijing-wednesday-evening",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "The 33rd Asia-Pacific Economic Cooperation (APEC) Economic Leaders' Meeting to occur in Shenzhen (11.18-19, 2026)",
+        "url": "https://www.lg.gov.cn/english/news/latestnews/content/post_12588327.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-26",
+        "quotes": [],
+        "text": "",
+        "title": "Trump Confirms Further Meetings With Xi In November And December",
+        "url": "https://www.businesstoday.com.my/2026/09/26/trump-confirms-further-meetings-with-xi-in-november-and-december/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump travels to Beijing for rescheduled China trip May 14-15 after delay due to Iran war",
+        "url": "https://wtop.com/government/2026/03/trump-travels-to-beijing-for-rescheduled-china-trip-may-14-15-after-delay-due-to-iran-war",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump to travel to China from March 31 to April 2, says White House",
+        "url": "https://www.khaleejtimes.com/americas/trump-visit-china-march-31-to-april-2-2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [],
+        "text": "",
+        "title": "China confirms discussions underway on historic Xi-Trump-Putin meeting (Korea Times)",
+        "url": "https://www.koreatimes.co.kr/world/20261107/china-confirms-discussions-underway-on-historic-xi-trump-putin-meeting",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "US first lady Melania Trump unlikely to travel to APEC summit in China (SCMP)",
+        "url": "https://www.scmp.com/news/china/diplomacy/article/3372888/us-first-lady-melania-trump-unlikely-travel-apec-summit-china",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump to attend the ASEAN Summit in Manila on November 16 (Astig)",
+        "url": "https://astig.ph/trump-asean-summit-manila-november-16-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "2026 APEC CEO Summit to be held on Nov 17-18 in China's Shenzhen (CGTN)",
+        "url": "https://news.cgtn.com/news/2026-09-10/2026-APEC-CEO-Summit-to-be-held-on-Nov-17-18-in-China-s-Shenzhen-1QkpMIz9M2s/p.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "White House briefings and statements index",
+        "url": "https://www.whitehouse.gov/briefings-statements/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bessent may skip APEC Hong Kong to focus on Trump's Shenzhen visit, sources say (SCMP)",
+        "url": "https://www.scmp.com/news/china/diplomacy/article/3370295/bessent-may-skip-apec-hong-kong-focus-trumps-shenzhen-visit-sources-say",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Shenzhen Government Online, APEC 2026 news (search result, page not opened)",
+        "url": "https://www.sz.gov.cn/en_szgov/news/infocus/APEC2026/News/content/post_12977146.html",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Global Times, China diplomacy page, November 2026 (search result, page not opened)",
+        "url": "https://www.globaltimes.cn/page/202611/1373947.shtml",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "SCMP, Xi and Trump set APEC talks; major deliverables expected (search result, page not opened)",
+        "url": "https://www.scmp.com/news/china/diplomacy/article/3373969/xi-and-trump-set-apec-talks-major-deliverables-expected-wait-g20",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Ministry of Foreign Affairs of the PRC (English)",
+        "url": "https://www.fmprc.gov.cn/eng/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "APEC official site, leaders' declarations",
+        "url": "https://www.apec.org/meeting-papers/leaders-declarations",
+        "verified": null
+      }
+    ],
+    "polymarket-6967620": [
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance BTC/USDT spot trading page (settling source)",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-10",
+        "quotes": [],
+        "text": "",
+        "title": "Fortune: Price of Bitcoin 11/10/2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-10-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-13",
+        "quotes": [],
+        "text": "",
+        "title": "Crypto news, November 13: bitcoin down 6%, over $1.3 billion liquidated",
+        "url": "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-13",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin Prices Dropped Below $69,000 on November 13, 2026, Marking a Significant Decline",
+        "url": "https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin Drops 6% as Over $1.3 Billion in Crypto Futures Liquidated",
+        "url": "https://www.kucoin.com/news/flash/bitcoin-drops-6-as-over-1-3-billion-in-crypto-futures-liquidated",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Why Bitcoin Fell Below $75,000 in November 2026",
+        "url": "https://www.pouyam.com/guides/bitcoin-below-75000-november-2026-etf-outflows",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Federal Reserve: December 2026 FOMC calendar page",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "FOMC Meeting Schedule, December 2026 (fedratecalc)",
+        "url": "https://fedratecalc.com/fomc-meeting-schedule/december-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [],
+        "text": "",
+        "title": "The Block: Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week",
+        "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin ETFs Lose $1.28B in a Week as IBIT Sheds $1.21B",
+        "url": "https://financefeeds.com/bitcoin-etf-bleeds-1-28-billion-in-a-week/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin faces $65K risk as AI losses threaten forced selling, Hilbert CIO says",
+        "url": "https://crypto.news/bitcoin-65000-risk-ai-selloff-hilbert/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin price slides near $73K as analyst flags $65K risk",
+        "url": "https://finwire.io/news/crypto-news/bitcoin-price-slides-near-73k-as-analyst-flags-65k-risk",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Federal Reserve, Meeting calendars, statements, and minutes (2021-2027) (listed in search results, could not be opened through the proxy)",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "FOMC meeting dates 2026-2027, FedRateCalc (search result, page not opened in this pass)",
+        "url": "https://fedratecalc.com/data/fomc-meetings-2026-2027/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Fed FOMC Meeting Calendar, SmartCalendars (search result, page not opened in this pass)",
+        "url": "https://smartcalendars.ai/en/feeds/fed-fomc-meeting-calendar",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance API: BTCUSDT ticker price (not opened; proxy refused the connection)",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance: Bitcoin price page (not opened; proxy refused the connection)",
+        "url": "https://www.binance.com/en/price/bitcoin",
+        "verified": null
+      }
+    ],
+    "polymarket-6990957": [
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance BTC/USDT trade page (resolution source)",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-10",
+        "quotes": [],
+        "text": "",
+        "title": "Fortune: Price of Bitcoin 11-10-2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-10-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Coinbase Exchange daily BTC-USD candles (could not be opened)",
+        "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Federal Reserve calendar, December 2026",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "FOMC Meeting Schedule, December 2026 (aggregator)",
+        "url": "https://fedratecalc.com/fomc-meeting-schedule/december-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin ETF Flows, Live Month, November 2026",
+        "url": "https://www.tftc.io/bitcoin-etf-flows/november-2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin price bottom due this week, BTC down 20% in November (weekly recap)",
+        "url": "https://www.pulse.bot/crypto/news/bitcoin-price-bottom-due-this-week-with-btc-down-20-in-november-32ed247d-b30f-4563-90dc-c76ff64fcab8",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June",
+        "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [],
+        "text": "",
+        "title": "Bitcoin stocks Nvidia analyst 68K target (Cointelegraph)",
+        "url": "https://cointelegraph.com/markets/bitcoin-stocks-nvidia-analyst-68k-target",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "BLS CPI release schedule",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "BLS release schedule, November 2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Fortune: price of bitcoin, 11-12-2026 (not opened; URL surfaced in search results)",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-12-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Binance API: BTCUSDT ticker price",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Coinbase Exchange API: BTC-USD ticker",
+        "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+        "verified": null
+      }
+    ]
+  }
+}
