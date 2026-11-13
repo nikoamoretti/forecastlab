@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-13T12:40:35+00:00",
+      "entry_id": "6f27748ec336f18a",
+      "probability": 0.38,
+      "rationale": "FRED showed exactly 200,000 for the week ending 2026-11-07 (https://fred.stlouisfed.org/series/ICSA, 2026-11-12), after 191,000 the week before, and a 194K print on 2026-10-29 (https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/). Long-run base rates (85.6% above 200K since 2025) are high, but recent first prints cluster around 191-200K, so a strict 'above 200,000' needs a rise from a level near 195-200K and a tie of exactly 200,000 fails. The release is scheduled for 2026-11-19 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/); the 709,000 RTTNews figure was discarded as unreliable.",
+      "release_event": "claims-2026-11-19",
+      "sources": [
+        "https://fred.stlouisfed.org/series/ICSA",
+        "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
+        "https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/",
+        "https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261113",
+  "generated_at": "2026-11-13T12:40:35+00:00",
+  "manifest_hash": "3c5bc99f71d192a0f2a871794375de3c6b2283b0f2f4fbb70f3eb17001742b3a",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
