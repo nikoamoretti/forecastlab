@@ -10,7 +10,7 @@
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
       "brier": 0.20725516264063262,
       "coin_flip_brier": 0.25,
-      "forecasts": 293,
+      "forecasts": 297,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-13",
       "method": "combined_median_v1",
@@ -23,7 +23,7 @@
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
       "brier": 0.19813013100436683,
       "coin_flip_brier": 0.25,
-      "forecasts": 288,
+      "forecasts": 292,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-13",
       "method": "claude_code_forecaster_v1",
@@ -49,9 +49,9 @@
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
       "brier": null,
       "coin_flip_brier": 0.25,
-      "forecasts": 15,
+      "forecasts": 19,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-12",
+      "last_forecast_on": "2026-11-13",
       "method": "learned_model_v1",
       "resolved": 0,
       "right": 0,
@@ -218,7 +218,7 @@
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
       "brier": 0.13750992915151852,
       "coin_flip_brier": 0.25,
-      "forecasts": 63,
+      "forecasts": 67,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-13",
       "method": "claude_calibrated_v1",
@@ -231,9 +231,9 @@
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
       "brier": 0.15547034235668789,
       "coin_flip_brier": 0.25,
-      "forecasts": 193,
+      "forecasts": 197,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-12",
+      "last_forecast_on": "2026-11-13",
       "method": "market_price_v1",
       "resolved": 157,
       "right": 119,
@@ -17599,6 +17599,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.07,
+        "market": 0.1225,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.1225
+      },
+      "detail": "As of market creation, Getty Images is estimated to release earnings on November 16, 2026. The Street consensus estimate for Getty Images's GAAP EPS for the relevant quarter is $0.04 as of market creation. This market will resolve to \"Yes\" if Getty Images reports GAAP EPS greater than $0.04 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Getty Images releases earnings without GAAP EPS, then the market will resolve according to the GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve to \u201cNo\u201d.\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: GAAP EPS refers to diluted GAAP EPS, unless this is not published, in which case it refers to basic GAAP EPS.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "Getty filed a prepackaged Chapter 11 on 2026-10-21 that wipes out public equity, and Q2 2026 showed an $85.8M net loss with tax expense up $96.7M (https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html, https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results). Q3 2025 diluted GAAP EPS of $0.05 beat a $0.04 consensus, but restructuring costs, high interest and possible further valuation allowance make a GAAP EPS above $0.04 unlikely, and the release (due 2026-11-16 after close, https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/) may omit a per-share line, which resolves No. The $0.04 consensus is likely stale; all evidence is snippet-level.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html",
+            "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+            "https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/",
+            "https://www.finanzen.net/nachricht/aktien/getty-images-holdings-inc-gety-q3-earnings-surpass-estimates-15255607"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.07,
+          "claude_weight": -0.225736,
+          "intercept": 0.294748,
+          "market": 0.1225,
+          "method": "learned_model_v1",
+          "probability": 0.156847,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.163218,
+          "raw": 0.07,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1225
+        }
+      ],
+      "id": "polymarket-6639352",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/gety-quarterly-earnings-gaap-eps-11-16-2026-0pt04",
+      "status": "pending",
+      "title": "Will Getty Images (GETY) beat quarterly earnings?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.86,
         "market": 0.82,
         "max_move": 0.0,
@@ -17890,6 +17953,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.82,
+        "market": 0.9425,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9425
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "Reports dated 2026-11-13 put bitcoin near $68,400-69,000 after a roughly 6% one-day drop and about $1.3-1.5B of liquidations (https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/, https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/). That is about 7% above $64,000 with five days to the Nov 18 17:00 UTC Binance candle; at roughly 2.5-3% daily volatility this is about a 0.8-0.87 chance of staying above, trimmed for downward momentum, ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) and analyst $65K targets (https://finwire.io/news/crypto-news/bitcoin-price-slides-near-73k-as-analyst-flags-65k-risk). My earlier 94% on the $68,000 Nov 17 threshold was set when price was higher; the price has since dropped near that level, so that call is now much less safe than stated and this one is deliberately lower.",
+          "sources": [
+            "https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/",
+            "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://finwire.io/news/crypto-news/bitcoin-price-slides-near-73k-as-analyst-flags-65k-risk"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.82,
+          "claude_weight": -0.345245,
+          "intercept": 0.294748,
+          "market": 0.9425,
+          "method": "learned_model_v1",
+          "probability": 0.976854,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.809914,
+          "raw": 0.82,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9425
+        }
+      ],
+      "id": "polymarket-6967620",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-18",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-18-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $64,000 on November 18?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 1,
         "method": "claude_call_v1",
         "probability": 0.38
@@ -18008,6 +18134,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.8,
+        "market": 0.9245,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9245
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "Reports dated 2026-11-13 put bitcoin near $68,400-69,000 after a roughly 6% daily drop and over $1.3B of liquidations (https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/, https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/), about 7% above $64,000. With six days to the Nov 19 17:00 UTC Binance candle and roughly 2.5-3% daily volatility, staying above is about 0.80-0.85 likely; I shade down for the five-week losing streak and ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984). It is set slightly below the Nov 18 threshold to stay nested, and no FOMC decision falls before 2026-12-09.",
+          "sources": [
+            "https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/",
+            "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://fedratecalc.com/fomc-meeting-schedule/december-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.8,
+          "claude_weight": -0.345245,
+          "intercept": 0.294748,
+          "market": 0.9245,
+          "method": "learned_model_v1",
+          "probability": 0.96686,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.794407,
+          "raw": 0.8,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9245
+        }
+      ],
+      "id": "polymarket-6990957",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-19-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $64,000 on November 19?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.9,
         "market": 0.8981,
         "max_move": 0.0,
@@ -18072,6 +18261,70 @@
       "status": "pending",
       "title": "Will Anthropic IPO by Nov 20?",
       "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.4,
+        "market": 0.945,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.945
+      },
+      "detail": "This market will resolve according to the calendar day, in China Standard Time, on which Donald Trump physically leaves China during his first visit to China that begins between market creation and November 22, 2026, 11:59 PM China Standard Time.\n\nA \"visit\" is defined as Trump physically entering the terrestrial or maritime territory of China. Trump will be considered to leave China once he physically leaves the terrestrial and maritime territory of China. Trump\u2019s presence in Chinese airspace will not be considered as being physically present in China.\n\nIf Donald Trump begins a visit to China before November 22, 2026, 11:59 PM China Standard Time, but does not leave China by that time, this market will resolve to \u201cAfter November 22\u201d.\n\nIf Donald Trump does not visit China by November 22, 2026, 11:59 PM China Standard Time, this market will resolve to \u201cNo visit by November 22\u201d.\n\nThe resolution source for this market will be official information from the government of the United States of America, official information from Trump or released by his verified social media accounts, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.4,
+          "rationale": "Trump said around 2026-11-09 he will attend the Shenzhen APEC leaders' meeting on Nov 18-19 (https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm), with a reported Manila ASEAN stop on Nov 16 first (https://astig.ph/trump-asean-summit-manila-november-16-2026/). No White House itinerary or Chinese confirmation exists yet (https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html). I put roughly 80% on the visit happening, and given a visit, Nov 19 China time is the most likely exit day (meeting's last day) but Nov 18 (short trip) and Nov 20 or later (extra Xi/Putin talks, late US-time departure) are real alternatives.",
+          "sources": [
+            "https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm",
+            "https://astig.ph/trump-asean-summit-manila-november-16-2026/",
+            "https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html",
+            "https://www.lg.gov.cn/english/news/latestnews/content/post_12588327.html",
+            "https://koreatimes.co.kr/world/20261107/china-confirms-discussions-underway-on-historic-xi-trump-putin-meeting"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.4,
+          "claude_weight": -0.39072,
+          "intercept": 0.294748,
+          "market": 0.945,
+          "method": "learned_model_v1",
+          "probability": 0.98,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.501244,
+          "raw": 0.4,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.945
+        }
+      ],
+      "id": "polymarket-6948156",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/when-will-trump-leave-china-20261110",
+      "status": "pending",
+      "title": "Will Trump leave China on November 19?",
+      "topic": "Politics",
       "verdict": null
     },
     {
@@ -18575,7 +18828,7 @@
         "status": "testing"
       }
     ],
-    "pending": 54,
+    "pending": 58,
     "progress": {
       "changes": [
         {
@@ -18670,7 +18923,7 @@
     "resolved": 234,
     "right": 158,
     "toss_ups": 3,
-    "total": 293,
+    "total": 297,
     "unscored": 6,
     "vs_market": {
       "claude": 0.19777365853658535,
