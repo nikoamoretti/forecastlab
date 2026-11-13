@@ -48,10 +48,11 @@ def targets() -> dict[str, str]:
               "end_date_min": (now + timedelta(days=MIN_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "end_date_max": (now + timedelta(days=MAX_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ"), "tag_slug": "economy"}
     return {
-        "polymarket events (selection)": f"{GAMMA}/events?{urllib.parse.urlencode(window)}",
+        "polymarket events (selection, one event)": f"{GAMMA}/events?{urllib.parse.urlencode(window)}",
+        "polymarket events (selection, as prepare asks)": f"{GAMMA}/events?{urllib.parse.urlencode(window | {'limit': '100'})}",
         "polymarket markets (results)": f"{GAMMA}/markets?limit=1&closed=true",
         "manifold search": f"{MANIFOLD}/search-markets?limit=1",
-        "kalshi series": f"{KALSHI}/series?limit=1",
+        "kalshi markets": f"{KALSHI}/markets?limit=1",
     }
 
 
