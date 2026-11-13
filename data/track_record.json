@@ -1,34 +1,34 @@
 {
   "calibration": {
-    "as_of": "2026-11-12",
-    "intercept": 0.302191,
-    "results": 227,
-    "slope": 0.747539
+    "as_of": "2026-11-13",
+    "intercept": 0.309733,
+    "results": 228,
+    "slope": 0.75162
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.2080605496047555,
+      "brier": 0.20725516264063262,
       "coin_flip_brier": 0.25,
-      "forecasts": 292,
+      "forecasts": 293,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-12",
+      "last_forecast_on": "2026-11-13",
       "method": "combined_median_v1",
-      "resolved": 233,
-      "right": 157,
+      "resolved": 234,
+      "right": 158,
       "toss_ups": 3,
       "wrong": 73
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19891315789473685,
+      "brier": 0.19813013100436683,
       "coin_flip_brier": 0.25,
-      "forecasts": 287,
+      "forecasts": 288,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-12",
+      "last_forecast_on": "2026-11-13",
       "method": "claude_code_forecaster_v1",
-      "resolved": 228,
-      "right": 153,
+      "resolved": 229,
+      "right": 154,
       "toss_ups": 6,
       "wrong": 69
     },
@@ -205,9 +205,9 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2510843953779359,
       "coin_flip_brier": 0.25,
-      "forecasts": 29,
+      "forecasts": 30,
       "label": "Statistical baseline",
-      "last_forecast_on": "2026-11-10",
+      "last_forecast_on": "2026-11-13",
       "method": "statistical_baseline_v1",
       "resolved": 25,
       "right": 10,
@@ -216,27 +216,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.14091235926407691,
+      "brier": 0.13750992915151852,
       "coin_flip_brier": 0.25,
-      "forecasts": 62,
+      "forecasts": 63,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-12",
+      "last_forecast_on": "2026-11-13",
       "method": "claude_calibrated_v1",
-      "resolved": 26,
-      "right": 21,
+      "resolved": 27,
+      "right": 22,
       "toss_ups": 0,
       "wrong": 5
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15640284455128206,
+      "brier": 0.15547034235668789,
       "coin_flip_brier": 0.25,
       "forecasts": 193,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-12",
       "method": "market_price_v1",
-      "resolved": 156,
-      "right": 118,
+      "resolved": 157,
+      "right": 119,
       "toss_ups": 0,
       "wrong": 38
     },
@@ -267,9 +267,9 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-12",
+  "generated_on": "2026-11-13",
   "learned_model": {
-    "as_of": "2026-11-12",
+    "as_of": "2026-11-13",
     "intercept": 0.294748,
     "results": 204,
     "slope": 1.074711,
@@ -282,6 +282,58 @@
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.14,
+        "weights": {
+          "claude_code_forecaster_v1": 23.92
+        }
+      },
+      "detail": "This market will resolve according to the UK real gross domestic product (GDP) growth rate (% change) for Q3 of 2026 compared with the most recent quarter (quarter-on-previous-quarter) in the \"GDP first quarterly estimate, UK\" release for Q3 of 2026, scheduled for November 12, 2026.\n\nThe GDP release will be made available here: https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/previousreleases\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution.\n\nNote: the resolution source for this market reports GDP growth rates to only one decimal point (e.g. 1.8%). Thus, this is the level of precision that will be used when resolving the market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-03T11:05:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "Monthly GDP was +0.4% in June and July and +0.1% in August 2026 (https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline, 2026-10-15; https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf, 2026-10-15), and the ONS put growth in the three months to August at 0.7%. Under a flat September that gives roughly 0.6-0.8% for Q3, and landing in the 0.4-0.5% band would take a September fall of about 0.5-1% or sizeable downward revisions; Deutsche Bank's slowing-momentum call (https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200, 2026-10-08) was already beaten by August. The April and May levels are unverified, so I keep some weight on the band rather than going lower.",
+          "sources": [
+            "https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf",
+            "https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200",
+            "https://www.financecalendar.com/?p=2217"
+          ]
+        },
+        {
+          "as_of": "2026-11-03",
+          "intercept": 0.310486,
+          "method": "claude_calibrated_v1",
+          "probability": 0.221465,
+          "raw": 0.14,
+          "results": 126,
+          "slope": 0.863574
+        },
+        {
+          "made_at": "2026-11-03T10:54:58.017715+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1
+        }
+      ],
+      "id": "polymarket-3566406",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261103",
+      "source_url": "https://polymarket.com/event/uk-gdp-growth-in-q3-2026-qoq-20260813112748100",
+      "status": "resolved",
+      "title": "Will UK GDP growth in Q3 2026 be between 0.4% and 0.5%?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
     {
       "actual": "200,000 claims",
       "call": {
@@ -330,6 +382,58 @@
       "title": "Will weekly U.S. jobless claims for the week ending Nov 7, 2026 come in above 189,000 claims?",
       "topic": "Jobs",
       "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.52,
+        "market": 0.555,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.555
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "Binance BTCUSDT was about 74,250 on 2026-11-10 at 10:40 UTC, only 0.34% above the strict 74,000 line, with about 54 hours left to the noon ET candle on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT). With 1.86% daily volatility the line is about 0.1 standard deviations away, which gives roughly 54%, and the two-day base rate of closing above a level 0.37% below spot is 57.3% over 1,998 windows. I trim it to 52% because the price has trended from 77,381 on 2026-10-30 down to 74,250, spot ETFs lost $1.28B in the week to Nov 7 (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), and the October CPI (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.599702,
+          "raw": 0.52,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.555
+        }
+      ],
+      "id": "polymarket-6716576",
+      "note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-12",
+      "scored": false,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-12-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $74,000 on November 12?",
+      "topic": "Crypto",
+      "verdict": "wrong"
     },
     {
       "actual": "Polymarket: No",
@@ -16282,110 +16386,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.52,
-        "market": 0.555,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.555
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.52,
-          "rationale": "Binance BTCUSDT was about 74,250 on 2026-11-10 at 10:40 UTC, only 0.34% above the strict 74,000 line, with about 54 hours left to the noon ET candle on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT). With 1.86% daily volatility the line is about 0.1 standard deviations away, which gives roughly 54%, and the two-day base rate of closing above a level 0.37% below spot is 57.3% over 1,998 windows. I trim it to 52% because the price has trended from 77,381 on 2026-10-30 down to 74,250, spot ETFs lost $1.28B in the week to Nov 7 (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), and the October CPI (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.599702,
-          "raw": 0.52,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.555
-        }
-      ],
-      "id": "polymarket-6716576",
-      "note": "About a minute before this forecast was written down, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109) while looking up the record format. It showed the market's price for another Bitcoin question from the same week, polymarket-6683300 (Bitcoin above $70,000 on November 11). This forecast cannot be shown to be blind, so it is left out of the scores.",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-12",
-      "scored": false,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-12-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $74,000 on November 12?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.14,
-        "weights": {
-          "claude_code_forecaster_v1": 23.92
-        }
-      },
-      "detail": "This market will resolve according to the UK real gross domestic product (GDP) growth rate (% change) for Q3 of 2026 compared with the most recent quarter (quarter-on-previous-quarter) in the \"GDP first quarterly estimate, UK\" release for Q3 of 2026, scheduled for November 12, 2026.\n\nThe GDP release will be made available here: https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/previousreleases\n\nIf no data for the specified quarter is released by the date the next quarter's data is scheduled to be released, this market will resolve based on data from the last available quarter.\n\nNote: data from the initial release of the referenced GDP report is what will be used to resolve this market. Data may be revised during the following quarter or as a part of the next estimate's publication, however any revisions to GDP report data made after the initial release will not be considered for this market's resolution.\n\nNote: the resolution source for this market reports GDP growth rates to only one decimal point (e.g. 1.8%). Thus, this is the level of precision that will be used when resolving the market.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-03T11:05:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.14,
-          "rationale": "Monthly GDP was +0.4% in June and July and +0.1% in August 2026 (https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline, 2026-10-15; https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf, 2026-10-15), and the ONS put growth in the three months to August at 0.7%. Under a flat September that gives roughly 0.6-0.8% for Q3, and landing in the 0.4-0.5% band would take a September fall of about 0.5-1% or sizeable downward revisions; Deutsche Bank's slowing-momentum call (https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200, 2026-10-08) was already beaten by August. The April and May levels are unverified, so I keep some weight on the band rather than going lower.",
-          "sources": [
-            "https://www.staffingindustry.com/news/global-daily-news/uk-economy-grows-01-in-august-defying-forecasts-of-a-decline",
-            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/august2026/pdf",
-            "https://www.tmgm.com/es/analysis/market-news/article/united-kingdom-gdp-momentum-seen-slowing-deutsche-bank-202610081200",
-            "https://www.financecalendar.com/?p=2217"
-          ]
-        },
-        {
-          "as_of": "2026-11-03",
-          "intercept": 0.310486,
-          "method": "claude_calibrated_v1",
-          "probability": 0.221465,
-          "raw": 0.14,
-          "results": 126,
-          "slope": 0.863574
-        },
-        {
-          "made_at": "2026-11-03T10:54:58.017715+00:00",
-          "method": "market_price_v1",
-          "probability": 0.1
-        }
-      ],
-      "id": "polymarket-3566406",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261103",
-      "source_url": "https://polymarket.com/event/uk-gdp-growth-in-q3-2026-qoq-20260813112748100",
-      "status": "pending",
-      "title": "Will UK GDP growth in Q3 2026 be between 0.4% and 0.5%?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 1,
         "method": "claude_corrected_call_v1",
         "probability": 0.217241
@@ -17890,6 +17890,55 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.38
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-14 be above 200,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T12:40:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.38,
+          "rationale": "FRED showed exactly 200,000 for the week ending 2026-11-07 (https://fred.stlouisfed.org/series/ICSA, 2026-11-12), after 191,000 the week before, and a 194K print on 2026-10-29 (https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/). Long-run base rates (85.6% above 200K since 2025) are high, but recent first prints cluster around 191-200K, so a strict 'above 200,000' needs a rise from a level near 195-200K and a tie of exactly 200,000 fails. The release is scheduled for 2026-11-19 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/); the 709,000 RTTNews figure was discarded as unreliable.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/ICSA",
+            "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
+            "https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/",
+            "https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4391025641025641
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.485449,
+          "raw": 0.38,
+          "results": 228,
+          "slope": 0.75162
+        }
+      ],
+      "id": "6f27748ec336f18a",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261113",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 14, 2026 come in above 200,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.92,
         "market": 0.9474,
         "max_move": 0.0,
@@ -18410,7 +18459,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2080605496047555,
+    "brier": 0.20725516264063262,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18453,15 +18502,15 @@
       {
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
-          "dates": 26,
-          "difference": 0.013583106666666678,
+          "dates": 27,
+          "difference": 0.01356367687804877,
           "interval": [
-            0.004876,
-            0.021909
+            0.004693,
+            0.02203
           ],
-          "market": 0.1509752055882353,
-          "questions": 204,
-          "rule": 0.16455831225490197
+          "market": 0.1502875216585366,
+          "questions": 205,
+          "rule": 0.16385119853658536
         },
         "counted": {
           "dates": 0,
@@ -18526,7 +18575,7 @@
         "status": "testing"
       }
     ],
-    "pending": 55,
+    "pending": 54,
     "progress": {
       "changes": [
         {
@@ -18554,10 +18603,10 @@
           "questions": 3
         },
         "before": {
-          "claude": 0.200873631840796,
-          "market": 0.1525666155721393,
-          "ours": 0.20340907960199003,
-          "questions": 201
+          "claude": 0.19997623762376238,
+          "market": 0.15186084024752475,
+          "ours": 0.20249913366336636,
+          "questions": 202
         },
         "date": "2026-11-06"
       },
@@ -18599,11 +18648,11 @@
           "wrong": 34
         },
         {
-          "claude": 0.1331217391304348,
-          "market": 0.09505530652173913,
-          "ours": 0.13779352648978263,
-          "questions": 23,
-          "right": 18,
+          "claude": 0.12839166666666668,
+          "market": 0.09151133541666667,
+          "ours": 0.132868796219375,
+          "questions": 24,
+          "right": 19,
           "start": "2026-11-02",
           "wrong": 5
         },
@@ -18618,17 +18667,17 @@
         }
       ]
     },
-    "resolved": 233,
-    "right": 157,
+    "resolved": 234,
+    "right": 158,
     "toss_ups": 3,
-    "total": 292,
+    "total": 293,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19864705882352943,
-      "claude_questions": 204,
-      "market": 0.1509752055882353,
-      "ours": 0.20167975974212746,
-      "questions": 204,
+      "claude": 0.19777365853658535,
+      "claude_questions": 205,
+      "market": 0.1502875216585366,
+      "ours": 0.20079156579216587,
+      "questions": 205,
       "since_anchored": {
         "claude": null,
         "date": "2026-11-10",

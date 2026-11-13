@@ -1,0 +1,27 @@
+{
+  "frozen_at": "2026-11-13T10:03:39.763109+00:00",
+  "manifest": {
+    "created_at": "2026-11-13T10:03:39.763109+00:00",
+    "entries": [
+      {
+        "cutoff": "2026-11-13T16:03:00+00:00",
+        "entry_id": "6f27748ec336f18a",
+        "macro": {
+          "comparison": "gt",
+          "indicator": "jobless_claims",
+          "observation_period": "2026-11-14",
+          "release_at": "2026-11-19T13:30:00Z",
+          "revision_policy": "first_release",
+          "threshold": 200000.0
+        },
+        "release_event": "claims-2026-11-19"
+      }
+    ],
+    "methods": [
+      "statistical_baseline_v1"
+    ],
+    "schema_version": "prospective_daily_v1",
+    "selection": "fast_fred_question_selection_v3"
+  },
+  "manifest_hash": "3c5bc99f71d192a0f2a871794375de3c6b2283b0f2f4fbb70f3eb17001742b3a"
+}
