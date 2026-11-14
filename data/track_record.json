@@ -1,153 +1,153 @@
 {
   "calibration": {
-    "as_of": "2026-11-13",
-    "intercept": 0.309733,
-    "results": 228,
-    "slope": 0.75162
+    "as_of": "2026-11-14",
+    "intercept": 0.254878,
+    "results": 237,
+    "slope": 0.741517
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20725516264063262,
+      "brier": 0.20623092260158143,
       "coin_flip_brier": 0.25,
       "forecasts": 297,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-13",
       "method": "combined_median_v1",
-      "resolved": 234,
-      "right": 158,
+      "resolved": 246,
+      "right": 167,
       "toss_ups": 3,
-      "wrong": 73
+      "wrong": 76
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19813013100436683,
+      "brier": 0.19658340248962658,
       "coin_flip_brier": 0.25,
       "forecasts": 292,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-13",
       "method": "claude_code_forecaster_v1",
-      "resolved": 229,
-      "right": 154,
-      "toss_ups": 6,
-      "wrong": 69
+      "resolved": 241,
+      "right": 162,
+      "toss_ups": 7,
+      "wrong": 72
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": null,
+      "brier": 0.0555,
       "coin_flip_brier": 0.25,
       "forecasts": 7,
       "label": "Claude, second look",
       "last_forecast_on": "2026-11-12",
       "method": "claude_second_look_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 3,
+      "right": 3,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": null,
+      "brier": 0.060320881383400006,
       "coin_flip_brier": 0.25,
       "forecasts": 19,
       "label": "Learned model",
       "last_forecast_on": "2026-11-13",
       "method": "learned_model_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 5,
+      "right": 5,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20570000000000002,
+      "brier": 0.20393194444444446,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "last_forecast_on": "2026-10-23",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 71,
-      "right": 49,
+      "resolved": 72,
+      "right": 50,
       "toss_ups": 0,
       "wrong": 22
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
-      "brier": 0.17338,
+      "brier": 0.17120588235294118,
       "coin_flip_brier": 0.25,
       "forecasts": 57,
       "label": "Nemotron Super (judge)",
       "last_forecast_on": "2026-10-19",
       "method": "judge_nemotron_super_v1",
-      "resolved": 50,
-      "right": 38,
+      "resolved": 51,
+      "right": 39,
       "toss_ups": 1,
       "wrong": 11
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.215623417721519,
+      "brier": 0.21466037735849056,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 158,
-      "right": 105,
+      "resolved": 159,
+      "right": 106,
       "toss_ups": 1,
       "wrong": 52
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
-      "brier": 0.19785333333333333,
+      "brier": 0.1949786885245902,
       "coin_flip_brier": 0.25,
       "forecasts": 62,
       "label": "Kimi K2.6 (judge)",
       "last_forecast_on": "2026-10-23",
       "method": "judge_kimi_k26_v1",
-      "resolved": 60,
-      "right": 44,
+      "resolved": 61,
+      "right": 45,
       "toss_ups": 0,
       "wrong": 16
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21154838709677418,
+      "brier": 0.21033653846153846,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 155,
-      "right": 111,
+      "resolved": 156,
+      "right": 112,
       "toss_ups": 0,
       "wrong": 44
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2145175,
+      "brier": 0.2132745341614907,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 160,
-      "right": 112,
+      "resolved": 161,
+      "right": 113,
       "toss_ups": 1,
       "wrong": 47
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
-      "brier": 0.22835970149253731,
+      "brier": 0.232625,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "last_forecast_on": "2026-11-02",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 67,
+      "resolved": 68,
       "right": 43,
       "toss_ups": 2,
-      "wrong": 22
+      "wrong": 23
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -216,40 +216,40 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.13750992915151852,
+      "brier": 0.15671581393192105,
       "coin_flip_brier": 0.25,
       "forecasts": 67,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-13",
       "method": "claude_calibrated_v1",
-      "resolved": 27,
-      "right": 22,
+      "resolved": 38,
+      "right": 30,
       "toss_ups": 0,
-      "wrong": 5
+      "wrong": 8
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15547034235668789,
+      "brier": 0.15894657142857144,
       "coin_flip_brier": 0.25,
       "forecasts": 197,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-13",
       "method": "market_price_v1",
-      "resolved": 157,
-      "right": 119,
+      "resolved": 168,
+      "right": 127,
       "toss_ups": 0,
-      "wrong": 38
+      "wrong": 41
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.13333537895833333,
+      "brier": 0.1313926587755102,
       "coin_flip_brier": 0.25,
       "forecasts": 60,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-12",
       "method": "manifold_price_v1",
-      "resolved": 48,
-      "right": 36,
+      "resolved": 49,
+      "right": 37,
       "toss_ups": 0,
       "wrong": 12
     },
@@ -267,21 +267,277 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-13",
+  "generated_on": "2026-11-14",
   "learned_model": {
-    "as_of": "2026-11-13",
-    "intercept": 0.294748,
-    "results": 204,
-    "slope": 1.074711,
+    "as_of": "2026-11-14",
+    "intercept": 0.202271,
+    "results": 213,
+    "slope": 1.036223,
     "weights": {
-      "Crypto": -0.345245,
-      "Economy": -0.225736,
-      "Politics": -0.39072,
-      "Tech": 0.514165,
-      "World": -0.408107
+      "Crypto": -0.327193,
+      "Economy": -0.147365,
+      "Politics": -0.346645,
+      "Tech": 0.482409,
+      "World": -0.418248
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.15,
+        "weights": {
+          "claude_code_forecaster_v1": 22.89
+        }
+      },
+      "detail": "This is a market about the Producer Price Index (PPI) for final demand over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Producer Price Index (PPI) for final demand over the 12-month period ending in October 2026, before seasonal adjustment, according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Producer Price Index report released for October 2026 (https://www.bls.gov/ppi/), currently scheduled to be released on November 13, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS PPI news release, which reports PPI over 12-month periods to only one decimal point (e.g., 6.0%). Thus, this is the level of precision that will be used when resolving the market. This market resolves on the total PPI for final demand figure, not the core PPI figure excluding food and energy.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next PPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-04T11:08:28.500325+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.15,
+          "rationale": "BLS reported 6.3% year-over-year for September 2026 (https://www.bls.gov/news.release/ppi.nr0.htm, 2026-10-15), so 6.8% needs about 0.5 points more, meaning October's not-seasonally-adjusted monthly rise would have to beat the unconfirmed October 2025 base month by roughly that much. Retail gasoline fell about 20 cents over October (https://gasprices.aaa.com/2026/10/), which points to a smaller energy contribution after September's 10.8% energy-goods jump, though crude readings conflict ($92 to $114) and core rose 0.7% in September. Such a further acceleration is rare outside energy shocks, but the September print surprised far above a reported 5.3% consensus, which keeps the upside tail alive.",
+          "sources": [
+            "https://www.bls.gov/news.release/ppi.nr0.htm",
+            "https://www.bls.gov/opub/ted/2026/producer-price-index-up-6-3-percent-in-september-largest-12-month-increase-since-december-2022.htm",
+            "https://gasprices.aaa.com/2026/10/",
+            "https://www.stocktitan.net/articles/september-2026-ppi-energy-share"
+          ]
+        },
+        {
+          "as_of": "2026-11-04",
+          "intercept": 0.393016,
+          "method": "claude_calibrated_v1",
+          "probability": 0.289767,
+          "raw": 0.15,
+          "results": 146,
+          "slope": 0.743417
+        },
+        {
+          "made_at": "2026-11-04T10:48:19.736754+00:00",
+          "method": "market_price_v1",
+          "probability": 0.345
+        }
+      ],
+      "id": "polymarket-5765625",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261104",
+      "source_url": "https://polymarket.com/event/ppi-yoy-october-2026",
+      "status": "resolved",
+      "title": "Will PPI YoY be 6.8% or more in October?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.07,
+        "market": 0.05,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.05
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "The Apple US top-paid chart fetched 2026-11-11 had Shadowrocket at #1 and Chromagraph Camera at #3 (https://apps.apple.com/us/iphone/charts/36?chart=top-paid), though the page did not mark Free or Paid. Chromagraph's earlier #1 was only a Photo & Video category rank (MacRumors, 2026-10-30), and a viral launch spike usually decays while Shadowrocket is a perennial paid leader. Two places of movement in two days is possible but not the usual path.",
+          "sources": [
+            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+            "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
+            "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.05,
+          "rationale": "Chromagraph sat at #3 behind Shadowrocket in the one unlabelled chart fetch; viral launch spikes decay, and its #1 was only a Photo & Video category rank. Agree with market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.07,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.05,
+          "method": "learned_model_v1",
+          "probability": 0.062274,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.162137,
+          "raw": 0.07,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.05
+        }
+      ],
+      "id": "polymarket-6759462",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-13",
+      "status": "resolved",
+      "title": "Will Chromagraph Camera be #1 Paid App in the US Apple App Store on November 13?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.58,
+        "market": 0.64,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.64
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "Apple's US free chart fetched 2026-11-11 listed TikTok Pro - Events first, and the MWM tracker showed #1 US Free overall as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). It sat 5th-6th in late Aug-early Sep, so the #1 is a recent surge of unknown cause and the pilot has no stated end date (TikTok newsroom, 2026-06-03). Holding #1 at a single noon ET instant two days later is somewhat better than even; my earlier calls on top-chart apps (Muse) show such leads can fade quickly.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.62,
+          "rationale": "Apple chart and MWM both show #1 as of Nov 10-11, but the lead is a recent surge of unknown cause (it was 5th-6th in Sep), so holding #1 at a single noon ET instant two days out is only moderately likely. Close to market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.58,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.64,
+          "method": "learned_model_v1",
+          "probability": 0.701286,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.637093,
+          "raw": 0.58,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.64
+        }
+      ],
+      "id": "polymarket-6759476",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/1-free-app-in-the-us-apple-app-store-on-november-13",
+      "status": "resolved",
+      "title": "Will TikTok Pro - Events be #1 Free App in the US Apple App Store on November 13?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.17,
+        "market": 0.13,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.13
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #2 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.17,
+          "rationale": "TikTok Pro - Events was #1 on Apple's US free chart fetched 2026-11-11 and #1 overall at MWM as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). #2 requires a one-place slip from the current spot, or a rise from below if it had dropped; with it at #1 now, #2 is the main fallback outcome but well short of the likeliest one. Kept coherent with the #1 question so the two outcomes sum below 1.",
+          "sources": [
+            "https://apps.apple.com/us/charts/iphone",
+            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.14,
+          "rationale": "App is #1 now; #2 is the main fallback if it slips one place, but staying #1 is likelier. Near market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.17,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.13,
+          "method": "learned_model_v1",
+          "probability": 0.170622,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.292417,
+          "raw": 0.17,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.13
+        }
+      ],
+      "id": "polymarket-6759450",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-13",
+      "status": "resolved",
+      "title": "Will TikTok Pro - Events be #2 Free App in the US Apple App Store on November 13?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -332,6 +588,386 @@
       "status": "resolved",
       "title": "Will UK GDP growth in Q3 2026 be between 0.4% and 0.5%?",
       "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 1,
+        "method": "claude_corrected_call_v1",
+        "probability": 0.217241
+      },
+      "detail": "This market will resolve according to the number of times Donald Trump (@realDonaldTrump), posts on Truth Social between November 6, 12:00 PM ET and November 13, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, Truth Social itself may be used as a secondary resolution source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-09T12:46:41+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Trump averaged about 19 Truth Social posts a day in the first four months of 2026 and about 18 a day in 2025 (https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report, snippet only, not checked), about 130 a week, so 200+ needs roughly 28.6 a day, about 50% above his pace. His 2024 average of about 24 a day (https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/, 2024-10-02) and late-night repost bursts show 200-post weeks are possible, and the post-midterm news cycle could lift volume. No running tally from the xtracker.io counter was read and I have no count of past 200+ weeks, so I keep the estimate weakly grounded, low, and with some room for a fat tail and for the window being longer than seven days.",
+          "sources": [
+            "https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
+            "https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/",
+            "https://www.xtracker.io/?platform=TRUTH_SOCIAL"
+          ]
+        },
+        {
+          "as_of": "2026-11-09",
+          "intercept": 0.356402,
+          "method": "claude_calibrated_v1",
+          "probability": 0.217241,
+          "raw": 0.1,
+          "results": 208,
+          "slope": 0.745587
+        },
+        {
+          "made_at": "2026-11-09T10:20:36.864097+00:00",
+          "method": "market_price_v1",
+          "probability": 0.075
+        }
+      ],
+      "id": "polymarket-6625358",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261109",
+      "source_url": "https://polymarket.com/event/donald-trump-of-truth-social-posts-november-6-november-13-2026",
+      "status": "resolved",
+      "title": "Will Donald Trump post 200+ Truth Social posts from November 6 to November 13, 2026?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.18,
+        "market": 0.355,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.355
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.18,
+          "rationale": "A regular-hours print of 192 needs NVDA to rise 7.5% from the 178.67 close of 2026-11-09 (that day's high was 179.92) within the four sessions of 2026-11-10 to 11-13 (https://stockanalysis.com/stocks/nvda/history, 2026-11-09). With about 3% daily moves in this high-volatility selloff, a touch of that height is about 1.2 standard deviations away and comes out near 20-25% before discounting for regular-hours-only candles and a recent downtrend (202.06 on Nov 2 to 178.67). The October CPI on 2026-11-10 could trigger a relief rally (https://www.bls.gov/schedule/news_release/cpi.htm), but earnings are on 2026-11-17, after the window (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873), so I settle at 18%, consistent with my view that the close above 170 is likely but far from certain.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.308733,
+          "raw": 0.18,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.355
+        }
+      ],
+      "id": "polymarket-6764151",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/will-nvda-hit-week-of-november-9-2026",
+      "status": "resolved",
+      "title": "Will NVIDIA (NVDA) hit (HIGH) $192 Week of November 9 2026?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.78,
+        "market": 0.805,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.805
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.78,
+          "rationale": "Binance ETHUSDT was 2,086.55 on 2026-11-10 at 10:41 UTC, 4.3% above 2,000, with about 78 hours to the noon ET candle on 2026-11-13 and 30-day daily volatility of 2.61% (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365). That is about 0.9 standard deviations of the three-day move, or roughly 81-83%, and 80.3% of 361 three-day windows in the last year did not fall 4.1% or more. I shade it to 78% because ETH has slid from about 2,135 to 2,087 in a day, spot ether ETFs saw $99.9M outflows on Nov 5 (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107), the October CPI due 2026-11-10 is unknown (https://www.bls.gov/schedule/news_release/cpi.htm) and ETH touched 2,090 in May with no proven floor near 2,000. It is a little less safe than my BTC above 70,000 call because ETH moves more per day.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365",
+            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://cointelegraph.com/markets/ethereum-traders-say-bears-in-control-eth-price-drop-2k"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.786354,
+          "raw": 0.78,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.805
+        }
+      ],
+      "id": "polymarket-6753102",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-13-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,000 on November 13?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.91,
+        "market": 0.93,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.93
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Binance BTC/USDT was about 74,176 on 2026-11-10 (10:47 UTC), 5.9% above 70,000, and the noon ET candle on 2026-11-13 is about 78 hours away. With 30-day daily volatility of 1.86% that is roughly 3.2 standard deviations over one day and about 1.7 over three days, and in 88.8% of 3,370 three-day windows (93.4% over the last year) the close stayed above a 5.6% fall. I take 91% rather than the 96-97% the normal model gives because the trend is down (about 5% drop on 2026-11-06, ETF outflows of $1.28B in the week to Nov 7, https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) and the October CPI on 2026-11-10 (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown; this stays above my 40% for a touch of 72,000 and my coin-flip view of 74,000 on Nov 12.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://bravenewcoin.com/insights/bitcoin-cpi-inflation-ai-stock-sell-off"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.890668,
+          "raw": 0.91,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.93
+        }
+      ],
+      "id": "polymarket-6753150",
+      "note": "While looking up the record format, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109), which showed the market's price for a closely related question, polymarket-6683300 (Bitcoin above $70,000 on November 11). That was about a minute before this forecast was written down, so it cannot be shown to be blind and it is left out of the scores. The forecaster reports that the number came from the digest alone and was not changed.",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": false,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-13-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $70,000 on November 13?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.77,
+        "market": 0.825,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.825
+      },
+      "detail": "This market will resolve to \"Yes\" if the Close price for NVIDIA (NVDA) on the final day of trading of the week specified in the title (normally Friday) is higher than the listed price. Otherwise, this market will resolve to \"No.\"\n\nIf the two specified prices are exactly equal, this market will resolve to \"No\".\n\nClosing prices will be used exactly as published by Pyth, without rounding.\n\nIf NVIDIA (NVDA) does not trade at all during the regular session of the final trading day of the week, the market will resolve 50-50.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. If the relevant session is shortened (for example, due to a market-holiday schedule), the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of that shortened session will be used.\n\nIf the relevant day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other technical disruption, the official closing price published by the primary exchange on which the listed security trades will be used to determine the closing price for that day.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed security during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth. The target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" values for the relevant 1-minute candle for NVIDIA (NVDA) available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "NVDA closed at 178.67 on 2026-11-09 (low 170.24), so the 170 line is 4.9% below with four sessions left to the Friday 2026-11-13 close (https://stockanalysis.com/stocks/nvda/history/, 2026-11-09). The stock has been extremely volatile (202.06 on Nov 2, a 9.26% drop on Nov 5 to 181.60, then 186.64, then 178.67), so I use about 3% a day, which puts the line near 0.8 standard deviations away for roughly 79%. I take 77% because Monday's low came within 0.25 of 170, the October CPI on 2026-11-10 is unresolved (https://www.bls.gov/schedule/news_release/cpi.htm), and there is no earnings catalyst before the 2026-11-17 report (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873); an undated Pyth reading of 181.38 hints at a higher start but I do not rely on it.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history/",
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.778958,
+          "raw": 0.77,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.825
+        }
+      ],
+      "id": "polymarket-6764126",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/nvda-above-on-november-13-2026",
+      "status": "resolved",
+      "title": "Will NVIDIA (NVDA) finish week of November 9 above $170?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.5,
+        "market": 0.51,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.51
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for Microsoft Corporation (MSFT) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Microsoft Corporation (MSFT) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.MSFT%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.MSFT%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "MSFT closed 533.16 on 2026-11-10 after a 526.37 low, and a Pyth print of 535.20 was seen pre-market (https://stockanalysis.com/stocks/msft/history/, https://app.pyth.com/explore/Equity.US.MSFT%2FUSD). Reaching 525 needs a drop of about 1.5-2% at some point in the remaining sessions of Nov 11-13, against recent daily ranges of 3% or more, so a touch is near a coin flip. The hot CPI print (0.4%, https://www.bls.gov/news.release/cpi.htm, 2026-11-10) has already been absorbed and fewer sessions remain than in the reference weeks.",
+          "sources": [
+            "https://stockanalysis.com/stocks/msft/history/",
+            "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD",
+            "https://www.bls.gov/news.release/cpi.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.5,
+          "claude_weight": -0.207462,
+          "intercept": 0.351934,
+          "market": 0.51,
+          "method": "learned_model_v1",
+          "probability": 0.599756,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.578868,
+          "raw": 0.5,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.51
+        }
+      ],
+      "id": "polymarket-6763947",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/will-msft-hit-week-of-november-9-2026",
+      "status": "resolved",
+      "title": "Will Microsoft Corporation (MSFT) hit (LOW) $525 Week of November 9 2026?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.92,
+        "market": 0.8305,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8305
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance XRP/USDT was 1.061 on 2026-11-11 about 14:06 UTC, 6% above 1.00, with 30-day daily log-return sd of 0.026 and about 51 hours to the 17:00 UTC close on 2026-11-13, which is roughly 1.5 sd (about 94%); (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). The coin has fallen about 21% since 2026-10-12 and lost the 1.12 floor (AltcoinBuzz, 2026-11-08), so I shade down for fat-tailed downside.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.92,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.8305,
+          "method": "learned_model_v1",
+          "probability": 0.861475,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.897456,
+          "raw": 0.92,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8305
+        }
+      ],
+      "id": "polymarket-6753198",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-13",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/xrp-above-on-november-13-2026",
+      "status": "resolved",
+      "title": "Will the price of XRP be above $1.00 on November 13?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -2304,6 +2940,66 @@
       "title": "Will the price of Bitcoin be above $80,000 on November 5?",
       "topic": "Crypto",
       "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.52,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This market will resolve according to the individual who wins the CA-04 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.52,
+          "rationale": "Incumbents win about 93% of House races, and Thompson led the 2026-06-02 primary with 41.0% to Jones's 22.2% and a Republican's 20.7%, which means Jones needs about three quarters of the roughly 37% of primary voters who backed neither Democrat. Against that, two polls paid for by the Jones campaign (Binder 2026-10-15/21 and Fulcrum 2026-10-18/20, reported 2026-10-28) show Jones ahead by 10 and 13 points, the Republican runner-up endorsed Jones, Khanna switched to him, and Jones has put $10 million of his own money in. Campaign-released polls overstate their sponsor's standing and no independent poll exists, so I treat the race as close to even with a slight edge to the incumbent's organization and the party endorsement.",
+          "sources": [
+            "https://www.sacbee.com/news/politics-government/capitol-alert/article317806576.html",
+            "https://davisvanguard.org/2026/10/jones-leading-thompson-polls/",
+            "https://elections.cdn.sos.ca.gov/sov/2026-primary/sov/06-sov-summary.pdf",
+            "https://www.pressdemocrat.com/2026/10/16/eric-jones-campaign-spending-congress-california/",
+            "https://www.brookings.edu/wp-content/uploads/2024/11/2-7-Full.pdf"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.72,
+          "rationale": "Incumbents win about 93% of the time, and Thompson led the primary 41% to 22% over Jones with the party endorsement. Riehle's Republican voters (about 37% of primary voters chose neither Democrat) mostly going to Jones makes this a real contest, though, and Jones's $10M self-funding and two internal polls showing him ahead (45-35 and 53-40) are meaningful. Internal polls overstate their sponsor's position and are uncorroborated, so I keep Thompson as a moderate favorite. An independent poll or turnout shifts could change this."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.599554,
+          "raw": 0.52,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "market_price_v1",
+          "probability": 0.545
+        }
+      ],
+      "id": "polymarket-2822661",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://polymarket.com/event/ca-04-house-election-winner-by-individual-20260630172946503",
+      "status": "resolved",
+      "title": "Will Mike Thompson win the CA-04 House seat?",
+      "topic": "Politics",
+      "verdict": "wrong"
     },
     {
       "actual": "Polymarket: Yes",
@@ -6239,6 +6935,80 @@
       "status": "resolved",
       "title": "Diesel export ban before midterms?",
       "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 7,
+        "method": "combined_median_v1",
+        "probability": 0.15
+      },
+      "detail": "Resolution criteria\n\nThis market will resolve to YES if, at any point before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026), Dr. Abdul El-Sayed or his official campaign issues an explicit public statement that condemns, disavows, or formally distances his campaign from Twitch streamer Hasan Piker.\n\nFor a YES resolution, the statement must meet the following criteria:\n\nMust be before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026)\n\nMust be published by a credible news organization, via an official campaign press release, or through El-Sayed\u2019s official verified social media channels.\n\nMust feature El-Sayed (or his campaign) explicitly condemning, or disavowing Piker, or explicitly stating regret or an apology for holding joint campaign events with him.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-13T11:01:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "El-Sayed is the Democratic nominee in a toss-up Michigan Senate race against Mike Rogers, leading by 1-7 points in six recent polls (InsiderAdvantage Oct 9-10: 48-46). He has repeatedly appeared with Hasan Piker, including a final primary event on Aug 3, and when asked on Oct 12 dismissed the line of questioning as silly rather than distancing himself. An explicit condemnation or disavowal would cost him the base in a close race, so it is unlikely before Nov 3 unless a new Piker controversy forces it.",
+          "sources": [
+            "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776",
+            "https://www.detroitnews.com/story/news/politics/2026/08/03/abdul-el-sayed-hasan-piker-michigan-senate-campaign-haley-stevens/91150258007/"
+          ]
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.28,
+          "rationale": "Base rate for candidates in tight races disavowing controversial figures in final weeks is moderate (~30%), but El-Sayed has consistently dismissed Piker questions since August without disavowing, suggesting a strategic choice to avoid alienating progressive voters. The Toss-Up race and pressure from Jewish leaders/Democrats create incentive, but with only 3 weeks left and a slight polling lead, a reversal would risk appearing calculating and depressing youth turnout. A major new Piker controversy or polling shift could trigger a statement, but current trajectory favors maintaining the 'dismiss as silly' stance."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_nemotron_super_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for candidates issuing explicit disavowals of controversial supporters before an election is roughly 30%. El\u2011Sayed has so far dismissed concerns about Hasan Piker without disavowing him, showing reluctance, but ongoing criticism from Jewish leaders and Michigan Democrats could create pressure. His current lead in the polls reduces the incentive to take a risky move, lowering the likelihood somewhat."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.25,
+          "rationale": "The base rate for a candidate explicitly disavowing a controversial former associate mid-campaign is low, as it risks alienating supporters. El-Sayed has consistently dismissed calls to condemn Piker, most recently on Oct 12, and with the election only three weeks away, he likely calculates that a disavowal would do more harm than good in a tight race. However, if external pressure from Jewish leaders or Democratic officials intensifies, he might still issue a statement, so the probability is not negligible."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_kimi_k26_v1",
+          "probability": 0.15,
+          "rationale": "Candidates rarely explicitly condemn a progressive ally who helped them win a primary unless a major new scandal forces their hand. El-Sayed dismissed Piker-related questions as 'silly' on October 12 and has resisted months of pressure from Michigan Democrats and Jewish leaders, suggesting he sees disavowal as costlier than the ongoing controversy. With only three weeks until polls close and El-Sayed holding a narrow lead, a last-minute reversal would risk alienating his base and appearing opportunistic without clear electoral benefit. The probability would rise only if Piker generates a severe new controversy or polling shows the association is decisively sinking El-Sayed with swing voters."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.15,
+          "rationale": "The base rate for a candidate formally disavowing a past campaign ally is low unless the ally becomes a major liability or new scandal emerges. The evidence lowers the probability because El-Sayed is polling ahead and, as of Oct. 12, was still refusing to disavow Piker and dismissing comparisons. The probability could rise if Piker says or does something new, if Jewish-voter pressure intensifies, or if the campaign decides an apology for the joint events is strategically necessary."
+        },
+        {
+          "made_at": "2026-10-13T11:02:28.145687+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.12,
+          "rationale": "El-Sayed has had months since the primary events to distance himself from Piker but has consistently refused, dismissing criticism as 'silly' as recently as Oct 12. Politicians leading in polls rarely disavow allies who helped them in primaries, as it risks alienating the progressive base while not gaining moderate votes. With only ~3 weeks remaining and El-Sayed already up 1-7 points, the incentive to create a controversy by formally condemning Piker is very low; a YES would require either a damaging leak/surprise or sudden poll movement driven by Piker-related attacks."
+        },
+        {
+          "made_at": "2026-10-13T10:54:44.534467+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.1953
+        }
+      ],
+      "id": "manifold-0ppnynEdpg",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-02",
+      "scored": true,
+      "source": "prospective_markets_20261013",
+      "source_url": "https://manifold.markets/SaiVazquez/elsayed-comdemn-or-disavow-hasan-pi",
+      "status": "resolved",
+      "title": "El-Sayed comdemn or disavow Hasan Piker before midterms?",
+      "topic": "Politics",
       "verdict": "right"
     },
     {
@@ -15716,80 +16486,6 @@
     {
       "actual": null,
       "call": {
-        "members": 7,
-        "method": "combined_median_v1",
-        "probability": 0.15
-      },
-      "detail": "Resolution criteria\n\nThis market will resolve to YES if, at any point before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026), Dr. Abdul El-Sayed or his official campaign issues an explicit public statement that condemns, disavows, or formally distances his campaign from Twitch streamer Hasan Piker.\n\nFor a YES resolution, the statement must meet the following criteria:\n\nMust be before the polls close in Michigan for the U.S. midterm general election (8:00 PM EST on November 3, 2026)\n\nMust be published by a credible news organization, via an official campaign press release, or through El-Sayed\u2019s official verified social media channels.\n\nMust feature El-Sayed (or his campaign) explicitly condemning, or disavowing Piker, or explicitly stating regret or an apology for holding joint campaign events with him.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-13T11:01:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.04,
-          "rationale": "El-Sayed is the Democratic nominee in a toss-up Michigan Senate race against Mike Rogers, leading by 1-7 points in six recent polls (InsiderAdvantage Oct 9-10: 48-46). He has repeatedly appeared with Hasan Piker, including a final primary event on Aug 3, and when asked on Oct 12 dismissed the line of questioning as silly rather than distancing himself. An explicit condemnation or disavowal would cost him the base in a close race, so it is unlikely before Nov 3 unless a new Piker controversy forces it.",
-          "sources": [
-            "https://www.newsweek.com/mike-rogers-abdul-el-sayed-michigan-senate-seat-12557776",
-            "https://www.detroitnews.com/story/news/politics/2026/08/03/abdul-el-sayed-hasan-piker-michigan-senate-campaign-haley-stevens/91150258007/"
-          ]
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.28,
-          "rationale": "Base rate for candidates in tight races disavowing controversial figures in final weeks is moderate (~30%), but El-Sayed has consistently dismissed Piker questions since August without disavowing, suggesting a strategic choice to avoid alienating progressive voters. The Toss-Up race and pressure from Jewish leaders/Democrats create incentive, but with only 3 weeks left and a slight polling lead, a reversal would risk appearing calculating and depressing youth turnout. A major new Piker controversy or polling shift could trigger a statement, but current trajectory favors maintaining the 'dismiss as silly' stance."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_nemotron_super_v1",
-          "probability": 0.25,
-          "rationale": "The base rate for candidates issuing explicit disavowals of controversial supporters before an election is roughly 30%. El\u2011Sayed has so far dismissed concerns about Hasan Piker without disavowing him, showing reluctance, but ongoing criticism from Jewish leaders and Michigan Democrats could create pressure. His current lead in the polls reduces the incentive to take a risky move, lowering the likelihood somewhat."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.25,
-          "rationale": "The base rate for a candidate explicitly disavowing a controversial former associate mid-campaign is low, as it risks alienating supporters. El-Sayed has consistently dismissed calls to condemn Piker, most recently on Oct 12, and with the election only three weeks away, he likely calculates that a disavowal would do more harm than good in a tight race. However, if external pressure from Jewish leaders or Democratic officials intensifies, he might still issue a statement, so the probability is not negligible."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_kimi_k26_v1",
-          "probability": 0.15,
-          "rationale": "Candidates rarely explicitly condemn a progressive ally who helped them win a primary unless a major new scandal forces their hand. El-Sayed dismissed Piker-related questions as 'silly' on October 12 and has resisted months of pressure from Michigan Democrats and Jewish leaders, suggesting he sees disavowal as costlier than the ongoing controversy. With only three weeks until polls close and El-Sayed holding a narrow lead, a last-minute reversal would risk alienating his base and appearing opportunistic without clear electoral benefit. The probability would rise only if Piker generates a severe new controversy or polling shows the association is decisively sinking El-Sayed with swing voters."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.15,
-          "rationale": "The base rate for a candidate formally disavowing a past campaign ally is low unless the ally becomes a major liability or new scandal emerges. The evidence lowers the probability because El-Sayed is polling ahead and, as of Oct. 12, was still refusing to disavow Piker and dismissing comparisons. The probability could rise if Piker says or does something new, if Jewish-voter pressure intensifies, or if the campaign decides an apology for the joint events is strategically necessary."
-        },
-        {
-          "made_at": "2026-10-13T11:02:28.145687+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.12,
-          "rationale": "El-Sayed has had months since the primary events to distance himself from Piker but has consistently refused, dismissing criticism as 'silly' as recently as Oct 12. Politicians leading in polls rarely disavow allies who helped them in primaries, as it risks alienating the progressive base while not gaining moderate votes. With only ~3 weeks remaining and El-Sayed already up 1-7 points, the incentive to create a controversy by formally condemning Piker is very low; a YES would require either a damaging leak/surprise or sudden poll movement driven by Piker-related attacks."
-        },
-        {
-          "made_at": "2026-10-13T10:54:44.534467+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.1953
-        }
-      ],
-      "id": "manifold-0ppnynEdpg",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-02",
-      "scored": true,
-      "source": "prospective_markets_20261013",
-      "source_url": "https://manifold.markets/SaiVazquez/elsayed-comdemn-or-disavow-hasan-pi",
-      "status": "pending",
-      "title": "El-Sayed comdemn or disavow Hasan Piker before midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_median_v1",
         "probability": 0.48
@@ -16041,66 +16737,6 @@
       "source_url": "https://manifold.markets/EvanDaniel/will-there-be-another-assassination-StRlcEuPUp",
       "status": "pending",
       "title": "Will there be another assassination of a US politician before the 2026 midterms?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.52,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This market will resolve according to the individual who wins the CA-04 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/).",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.52,
-          "rationale": "Incumbents win about 93% of House races, and Thompson led the 2026-06-02 primary with 41.0% to Jones's 22.2% and a Republican's 20.7%, which means Jones needs about three quarters of the roughly 37% of primary voters who backed neither Democrat. Against that, two polls paid for by the Jones campaign (Binder 2026-10-15/21 and Fulcrum 2026-10-18/20, reported 2026-10-28) show Jones ahead by 10 and 13 points, the Republican runner-up endorsed Jones, Khanna switched to him, and Jones has put $10 million of his own money in. Campaign-released polls overstate their sponsor's standing and no independent poll exists, so I treat the race as close to even with a slight edge to the incumbent's organization and the party endorsement.",
-          "sources": [
-            "https://www.sacbee.com/news/politics-government/capitol-alert/article317806576.html",
-            "https://davisvanguard.org/2026/10/jones-leading-thompson-polls/",
-            "https://elections.cdn.sos.ca.gov/sov/2026-primary/sov/06-sov-summary.pdf",
-            "https://www.pressdemocrat.com/2026/10/16/eric-jones-campaign-spending-congress-california/",
-            "https://www.brookings.edu/wp-content/uploads/2024/11/2-7-Full.pdf"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.72,
-          "rationale": "Incumbents win about 93% of the time, and Thompson led the primary 41% to 22% over Jones with the party endorsement. Riehle's Republican voters (about 37% of primary voters chose neither Democrat) mostly going to Jones makes this a real contest, though, and Jones's $10M self-funding and two internal polls showing him ahead (45-35 and 53-40) are meaningful. Internal polls overstate their sponsor's position and are uncorroborated, so I keep Thompson as a moderate favorite. An independent poll or turnout shifts could change this."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.599554,
-          "raw": 0.52,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "market_price_v1",
-          "probability": 0.545
-        }
-      ],
-      "id": "polymarket-2822661",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://polymarket.com/event/ca-04-house-election-winner-by-individual-20260630172946503",
-      "status": "pending",
-      "title": "Will Mike Thompson win the CA-04 House seat?",
       "topic": "Politics",
       "verdict": null
     },
@@ -16386,574 +17022,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "claude_corrected_call_v1",
-        "probability": 0.217241
-      },
-      "detail": "This market will resolve according to the number of times Donald Trump (@realDonaldTrump), posts on Truth Social between November 6, 12:00 PM ET and November 13, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, Truth Social itself may be used as a secondary resolution source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-09T12:46:41+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.1,
-          "rationale": "Trump averaged about 19 Truth Social posts a day in the first four months of 2026 and about 18 a day in 2025 (https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report, snippet only, not checked), about 130 a week, so 200+ needs roughly 28.6 a day, about 50% above his pace. His 2024 average of about 24 a day (https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/, 2024-10-02) and late-night repost bursts show 200-post weeks are possible, and the post-midterm news cycle could lift volume. No running tally from the xtracker.io counter was read and I have no count of past 200+ weeks, so I keep the estimate weakly grounded, low, and with some room for a fat tail and for the window being longer than seven days.",
-          "sources": [
-            "https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
-            "https://rollcall.com/2024/10/02/trump-averages-more-than-24-truth-social-posts-a-day-and-he-was-even-busier-during-the-vp-debate/",
-            "https://www.xtracker.io/?platform=TRUTH_SOCIAL"
-          ]
-        },
-        {
-          "as_of": "2026-11-09",
-          "intercept": 0.356402,
-          "method": "claude_calibrated_v1",
-          "probability": 0.217241,
-          "raw": 0.1,
-          "results": 208,
-          "slope": 0.745587
-        },
-        {
-          "made_at": "2026-11-09T10:20:36.864097+00:00",
-          "method": "market_price_v1",
-          "probability": 0.075
-        }
-      ],
-      "id": "polymarket-6625358",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261109",
-      "source_url": "https://polymarket.com/event/donald-trump-of-truth-social-posts-november-6-november-13-2026",
-      "status": "pending",
-      "title": "Will Donald Trump post 200+ Truth Social posts from November 6 to November 13, 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.18,
-        "market": 0.355,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.355
-      },
-      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.18,
-          "rationale": "A regular-hours print of 192 needs NVDA to rise 7.5% from the 178.67 close of 2026-11-09 (that day's high was 179.92) within the four sessions of 2026-11-10 to 11-13 (https://stockanalysis.com/stocks/nvda/history, 2026-11-09). With about 3% daily moves in this high-volatility selloff, a touch of that height is about 1.2 standard deviations away and comes out near 20-25% before discounting for regular-hours-only candles and a recent downtrend (202.06 on Nov 2 to 178.67). The October CPI on 2026-11-10 could trigger a relief rally (https://www.bls.gov/schedule/news_release/cpi.htm), but earnings are on 2026-11-17, after the window (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873), so I settle at 18%, consistent with my view that the close above 170 is likely but far from certain.",
-          "sources": [
-            "https://stockanalysis.com/stocks/nvda/history",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
-            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.308733,
-          "raw": 0.18,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.355
-        }
-      ],
-      "id": "polymarket-6764151",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/will-nvda-hit-week-of-november-9-2026",
-      "status": "pending",
-      "title": "Will NVIDIA (NVDA) hit (HIGH) $192 Week of November 9 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.78,
-        "market": 0.805,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.805
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.78,
-          "rationale": "Binance ETHUSDT was 2,086.55 on 2026-11-10 at 10:41 UTC, 4.3% above 2,000, with about 78 hours to the noon ET candle on 2026-11-13 and 30-day daily volatility of 2.61% (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365). That is about 0.9 standard deviations of the three-day move, or roughly 81-83%, and 80.3% of 361 three-day windows in the last year did not fall 4.1% or more. I shade it to 78% because ETH has slid from about 2,135 to 2,087 in a day, spot ether ETFs saw $99.9M outflows on Nov 5 (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107), the October CPI due 2026-11-10 is unknown (https://www.bls.gov/schedule/news_release/cpi.htm) and ETH touched 2,090 in May with no proven floor near 2,000. It is a little less safe than my BTC above 70,000 call because ETH moves more per day.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=365",
-            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://cointelegraph.com/markets/ethereum-traders-say-bears-in-control-eth-price-drop-2k"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.786354,
-          "raw": 0.78,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.805
-        }
-      ],
-      "id": "polymarket-6753102",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-13-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,000 on November 13?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.91,
-        "market": 0.93,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.93
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.91,
-          "rationale": "Binance BTC/USDT was about 74,176 on 2026-11-10 (10:47 UTC), 5.9% above 70,000, and the noon ET candle on 2026-11-13 is about 78 hours away. With 30-day daily volatility of 1.86% that is roughly 3.2 standard deviations over one day and about 1.7 over three days, and in 88.8% of 3,370 three-day windows (93.4% over the last year) the close stayed above a 5.6% fall. I take 91% rather than the 96-97% the normal model gives because the trend is down (about 5% drop on 2026-11-06, ETF outflows of $1.28B in the week to Nov 7, https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) and the October CPI on 2026-11-10 (https://www.bls.gov/schedule/news_release/cpi.htm) is unknown; this stays above my 40% for a touch of 72,000 and my coin-flip view of 74,000 on Nov 12.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
-            "https://bravenewcoin.com/insights/bitcoin-cpi-inflation-ai-stock-sell-off"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.890668,
-          "raw": 0.91,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.93
-        }
-      ],
-      "id": "polymarket-6753150",
-      "note": "While looking up the record format, the forecaster printed part of an earlier day's forecasts.json (artifacts/prospective_markets_20261109), which showed the market's price for a closely related question, polymarket-6683300 (Bitcoin above $70,000 on November 11). That was about a minute before this forecast was written down, so it cannot be shown to be blind and it is left out of the scores. The forecaster reports that the number came from the digest alone and was not changed.",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": false,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-13-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $70,000 on November 13?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.77,
-        "market": 0.825,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.825
-      },
-      "detail": "This market will resolve to \"Yes\" if the Close price for NVIDIA (NVDA) on the final day of trading of the week specified in the title (normally Friday) is higher than the listed price. Otherwise, this market will resolve to \"No.\"\n\nIf the two specified prices are exactly equal, this market will resolve to \"No\".\n\nClosing prices will be used exactly as published by Pyth, without rounding.\n\nIf NVIDIA (NVDA) does not trade at all during the regular session of the final trading day of the week, the market will resolve 50-50.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. If the relevant session is shortened (for example, due to a market-holiday schedule), the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of that shortened session will be used.\n\nIf the relevant day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other technical disruption, the official closing price published by the primary exchange on which the listed security trades will be used to determine the closing price for that day.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed security during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth. The target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" values for the relevant 1-minute candle for NVIDIA (NVDA) available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.77,
-          "rationale": "NVDA closed at 178.67 on 2026-11-09 (low 170.24), so the 170 line is 4.9% below with four sessions left to the Friday 2026-11-13 close (https://stockanalysis.com/stocks/nvda/history/, 2026-11-09). The stock has been extremely volatile (202.06 on Nov 2, a 9.26% drop on Nov 5 to 181.60, then 186.64, then 178.67), so I use about 3% a day, which puts the line near 0.8 standard deviations away for roughly 79%. I take 77% because Monday's low came within 0.25 of 170, the October CPI on 2026-11-10 is unresolved (https://www.bls.gov/schedule/news_release/cpi.htm), and there is no earnings catalyst before the 2026-11-17 report (https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873); an undated Pyth reading of 181.38 hints at a higher start but I do not rely on it.",
-          "sources": [
-            "https://stockanalysis.com/stocks/nvda/history/",
-            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-6-2026/",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.778958,
-          "raw": 0.77,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.825
-        }
-      ],
-      "id": "polymarket-6764126",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/nvda-above-on-november-13-2026",
-      "status": "pending",
-      "title": "Will NVIDIA (NVDA) finish week of November 9 above $170?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.5,
-        "market": 0.51,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.51
-      },
-      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 9 2026, any 1-minute candle for Microsoft Corporation (MSFT) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Microsoft Corporation (MSFT) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.MSFT%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.MSFT%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.5,
-          "rationale": "MSFT closed 533.16 on 2026-11-10 after a 526.37 low, and a Pyth print of 535.20 was seen pre-market (https://stockanalysis.com/stocks/msft/history/, https://app.pyth.com/explore/Equity.US.MSFT%2FUSD). Reaching 525 needs a drop of about 1.5-2% at some point in the remaining sessions of Nov 11-13, against recent daily ranges of 3% or more, so a touch is near a coin flip. The hot CPI print (0.4%, https://www.bls.gov/news.release/cpi.htm, 2026-11-10) has already been absorbed and fewer sessions remain than in the reference weeks.",
-          "sources": [
-            "https://stockanalysis.com/stocks/msft/history/",
-            "https://app.pyth.com/explore/Equity.US.MSFT%2FUSD",
-            "https://www.bls.gov/news.release/cpi.htm"
-          ]
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.5,
-          "claude_weight": -0.207462,
-          "intercept": 0.351934,
-          "market": 0.51,
-          "method": "learned_model_v1",
-          "probability": 0.599756,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.578868,
-          "raw": 0.5,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.51
-        }
-      ],
-      "id": "polymarket-6763947",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/will-msft-hit-week-of-november-9-2026",
-      "status": "pending",
-      "title": "Will Microsoft Corporation (MSFT) hit (LOW) $525 Week of November 9 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.92,
-        "market": 0.8305,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.8305
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.92,
-          "rationale": "Binance XRP/USDT was 1.061 on 2026-11-11 about 14:06 UTC, 6% above 1.00, with 30-day daily log-return sd of 0.026 and about 51 hours to the 17:00 UTC close on 2026-11-13, which is roughly 1.5 sd (about 94%); (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). The coin has fallen about 21% since 2026-10-12 and lost the 1.12 floor (AltcoinBuzz, 2026-11-08), so I shade down for fat-tailed downside.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
-            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
-            "https://www.altcoinbuzz.io/xrp-closes-at-a-30-day-low-can-it-hold-the-1-12-floor"
-          ]
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.92,
-          "claude_weight": -0.329,
-          "intercept": 0.351934,
-          "market": 0.8305,
-          "method": "learned_model_v1",
-          "probability": 0.861475,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.897456,
-          "raw": 0.92,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.8305
-        }
-      ],
-      "id": "polymarket-6753198",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-13",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/xrp-above-on-november-13-2026",
-      "status": "pending",
-      "title": "Will the price of XRP be above $1.00 on November 13?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.15,
-        "weights": {
-          "claude_code_forecaster_v1": 22.89
-        }
-      },
-      "detail": "This is a market about the Producer Price Index (PPI) for final demand over the 12-month period ending October 2026, before seasonal adjustment, as reported by the Bureau of Labor Statistics.\n\nThis market will resolve to the percentage change in the Producer Price Index (PPI) for final demand over the 12-month period ending in October 2026, before seasonal adjustment, according to the monthly Bureau of Labor Statistics (BLS) report.\n\nThe resolution source for this market will be the BLS Producer Price Index report released for October 2026 (https://www.bls.gov/ppi/), currently scheduled to be released on November 13, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BLS PPI news release, which reports PPI over 12-month periods to only one decimal point (e.g., 6.0%). Thus, this is the level of precision that will be used when resolving the market. This market resolves on the total PPI for final demand figure, not the core PPI figure excluding food and energy.\n\nIf the BLS does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next PPI report (https://www.bls.gov/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-04T11:08:28.500325+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.15,
-          "rationale": "BLS reported 6.3% year-over-year for September 2026 (https://www.bls.gov/news.release/ppi.nr0.htm, 2026-10-15), so 6.8% needs about 0.5 points more, meaning October's not-seasonally-adjusted monthly rise would have to beat the unconfirmed October 2025 base month by roughly that much. Retail gasoline fell about 20 cents over October (https://gasprices.aaa.com/2026/10/), which points to a smaller energy contribution after September's 10.8% energy-goods jump, though crude readings conflict ($92 to $114) and core rose 0.7% in September. Such a further acceleration is rare outside energy shocks, but the September print surprised far above a reported 5.3% consensus, which keeps the upside tail alive.",
-          "sources": [
-            "https://www.bls.gov/news.release/ppi.nr0.htm",
-            "https://www.bls.gov/opub/ted/2026/producer-price-index-up-6-3-percent-in-september-largest-12-month-increase-since-december-2022.htm",
-            "https://gasprices.aaa.com/2026/10/",
-            "https://www.stocktitan.net/articles/september-2026-ppi-energy-share"
-          ]
-        },
-        {
-          "as_of": "2026-11-04",
-          "intercept": 0.393016,
-          "method": "claude_calibrated_v1",
-          "probability": 0.289767,
-          "raw": 0.15,
-          "results": 146,
-          "slope": 0.743417
-        },
-        {
-          "made_at": "2026-11-04T10:48:19.736754+00:00",
-          "method": "market_price_v1",
-          "probability": 0.345
-        }
-      ],
-      "id": "polymarket-5765625",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261104",
-      "source_url": "https://polymarket.com/event/ppi-yoy-october-2026",
-      "status": "pending",
-      "title": "Will PPI YoY be 6.8% or more in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.07,
-        "market": 0.05,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.05
-      },
-      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.07,
-          "rationale": "The Apple US top-paid chart fetched 2026-11-11 had Shadowrocket at #1 and Chromagraph Camera at #3 (https://apps.apple.com/us/iphone/charts/36?chart=top-paid), though the page did not mark Free or Paid. Chromagraph's earlier #1 was only a Photo & Video category rank (MacRumors, 2026-10-30), and a viral launch spike usually decays while Shadowrocket is a perennial paid leader. Two places of movement in two days is possible but not the usual path.",
-          "sources": [
-            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
-            "https://macrumors.com/2026/10/30/rian-johnson-iphone-camera-app/",
-            "https://www.newsshooter.com/2026/10/28/chromagraph-camera-ios-app-by-steve-yedlin-asc/"
-          ]
-        },
-        {
-          "made_at": "2026-11-11T14:24:14.311285+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.05,
-          "rationale": "Chromagraph sat at #3 behind Shadowrocket in the one unlabelled chart fetch; viral launch spikes decay, and its #1 was only a Photo & Video category rank. Agree with market."
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.07,
-          "claude_weight": 0.532066,
-          "intercept": 0.351934,
-          "market": 0.05,
-          "method": "learned_model_v1",
-          "probability": 0.062274,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.162137,
-          "raw": 0.07,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.05
-        }
-      ],
-      "id": "polymarket-6759462",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-13",
-      "status": "pending",
-      "title": "Will Chromagraph Camera be #1 Paid App in the US Apple App Store on November 13?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.58,
-        "market": 0.64,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.64
-      },
-      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.58,
-          "rationale": "Apple's US free chart fetched 2026-11-11 listed TikTok Pro - Events first, and the MWM tracker showed #1 US Free overall as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). It sat 5th-6th in late Aug-early Sep, so the #1 is a recent surge of unknown cause and the pilot has no stated end date (TikTok newsroom, 2026-06-03). Holding #1 at a single noon ET instant two days later is somewhat better than even; my earlier calls on top-chart apps (Muse) show such leads can fade quickly.",
-          "sources": [
-            "https://apps.apple.com/us/charts/iphone",
-            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
-            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
-          ]
-        },
-        {
-          "made_at": "2026-11-11T14:24:14.311285+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.62,
-          "rationale": "Apple chart and MWM both show #1 as of Nov 10-11, but the lead is a recent surge of unknown cause (it was 5th-6th in Sep), so holding #1 at a single noon ET instant two days out is only moderately likely. Close to market."
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.58,
-          "claude_weight": 0.532066,
-          "intercept": 0.351934,
-          "market": 0.64,
-          "method": "learned_model_v1",
-          "probability": 0.701286,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.637093,
-          "raw": 0.58,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.64
-        }
-      ],
-      "id": "polymarket-6759476",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/1-free-app-in-the-us-apple-app-store-on-november-13",
-      "status": "pending",
-      "title": "Will TikTok Pro - Events be #1 Free App in the US Apple App Store on November 13?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.77,
         "market": 0.795,
         "max_move": 0.0,
@@ -17011,74 +17079,6 @@
       "status": "pending",
       "title": "Will the price of Bitcoin be above $72,000 on November 14?",
       "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.17,
-        "market": 0.13,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.13
-      },
-      "detail": "This market will resolve according to the iOS app, ranked #2 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.17,
-          "rationale": "TikTok Pro - Events was #1 on Apple's US free chart fetched 2026-11-11 and #1 overall at MWM as of 2026-11-10 (https://apps.apple.com/us/charts/iphone, https://mwm.ai/apps/tiktok-pro-events/6741796873). #2 requires a one-place slip from the current spot, or a rise from below if it had dropped; with it at #1 now, #2 is the main fallback outcome but well short of the likeliest one. Kept coherent with the #1 question so the two outcomes sum below 1.",
-          "sources": [
-            "https://apps.apple.com/us/charts/iphone",
-            "https://mwm.ai/apps/tiktok-pro-events/6741796873",
-            "https://newsroom.tiktok.com/tiktok-pro-events?lang=en"
-          ]
-        },
-        {
-          "made_at": "2026-11-11T14:24:14.311285+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.14,
-          "rationale": "App is #1 now; #2 is the main fallback if it slips one place, but staying #1 is likelier. Near market."
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.17,
-          "claude_weight": 0.532066,
-          "intercept": 0.351934,
-          "market": 0.13,
-          "method": "learned_model_v1",
-          "probability": 0.170622,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.292417,
-          "raw": 0.17,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.13
-        }
-      ],
-      "id": "polymarket-6759450",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-13",
-      "status": "pending",
-      "title": "Will TikTok Pro - Events be #2 Free App in the US Apple App Store on November 13?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -18712,7 +18712,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20725516264063262,
+    "brier": 0.20623092260158143,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18739,13 +18739,13 @@
           "rule": 0.11523577566666666
         },
         "counted": {
-          "dates": 0,
-          "difference": null,
+          "dates": 1,
+          "difference": 0.020400000000000015,
           "interval": null,
-          "market": null,
+          "market": 0.049666666666666665,
           "meets_bar": false,
-          "questions": 0,
-          "rule": null
+          "questions": 3,
+          "rule": 0.07006666666666668
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -18755,24 +18755,27 @@
       {
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
-          "dates": 27,
-          "difference": 0.01356367687804877,
+          "dates": 28,
+          "difference": 0.012776285933014359,
           "interval": [
-            0.004693,
-            0.02203
+            0.003598,
+            0.020473
           ],
-          "market": 0.1502875216585366,
-          "questions": 205,
-          "rule": 0.16385119853658536
+          "market": 0.1496112872248804,
+          "questions": 209,
+          "rule": 0.16238757315789476
         },
         "counted": {
-          "dates": 0,
-          "difference": null,
-          "interval": null,
-          "market": null,
+          "dates": 2,
+          "difference": -0.01744753124999998,
+          "interval": [
+            -0.040156,
+            0.0204
+          ],
+          "market": 0.23406315625,
           "meets_bar": false,
-          "questions": 0,
-          "rule": null
+          "questions": 8,
+          "rule": 0.216615625
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -18790,13 +18793,13 @@
           "rule": null
         },
         "counted": {
-          "dates": 0,
-          "difference": null,
+          "dates": 1,
+          "difference": 0.005833333333333336,
           "interval": null,
-          "market": null,
+          "market": 0.049666666666666665,
           "meets_bar": false,
-          "questions": 0,
-          "rule": null
+          "questions": 3,
+          "rule": 0.0555
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -18814,13 +18817,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 0,
-          "difference": null,
-          "interval": null,
-          "market": null,
+          "dates": 2,
+          "difference": -0.023245168616599983,
+          "interval": [
+            -0.044723,
+            -0.008927
+          ],
+          "market": 0.08356604999999999,
           "meets_bar": false,
-          "questions": 0,
-          "rule": null
+          "questions": 5,
+          "rule": 0.060320881383400006
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -18828,7 +18834,7 @@
         "status": "testing"
       }
     ],
-    "pending": 58,
+    "pending": 45,
     "progress": {
       "changes": [
         {
@@ -18850,16 +18856,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.04946666666666668,
-          "market": 0.04435073666666666,
-          "ours": 0.08581532913133334,
-          "questions": 3
+          "claude": 0.15489166666666668,
+          "market": 0.16759853833333335,
+          "ours": 0.18142874078958335,
+          "questions": 12
         },
         "before": {
-          "claude": 0.19997623762376238,
-          "market": 0.15186084024752475,
-          "ours": 0.20249913366336636,
-          "questions": 202
+          "claude": 0.19848634146341465,
+          "market": 0.1518540576585366,
+          "ours": 0.20107426829268293,
+          "questions": 205
         },
         "date": "2026-11-06"
       },
@@ -18874,11 +18880,11 @@
           "wrong": 7
         },
         {
-          "claude": 0.16929047619047619,
-          "market": 0.12960348,
-          "ours": 0.1613952380952381,
-          "questions": 21,
-          "right": 17,
+          "claude": 0.1616681818181818,
+          "market": 0.1254461440909091,
+          "ours": 0.15508181818181818,
+          "questions": 22,
+          "right": 18,
           "start": "2026-10-12",
           "wrong": 4
         },
@@ -18901,45 +18907,45 @@
           "wrong": 34
         },
         {
-          "claude": 0.12839166666666668,
-          "market": 0.09151133541666667,
-          "ours": 0.132868796219375,
-          "questions": 24,
-          "right": 19,
+          "claude": 0.12978076923076926,
+          "market": 0.10047392499999999,
+          "ours": 0.1339135042025,
+          "questions": 26,
+          "right": 20,
           "start": "2026-11-02",
-          "wrong": 5
+          "wrong": 6
         },
         {
-          "claude": 0.03240000000000002,
-          "market": 0.0047609999999999935,
-          "ours": 0.033994878129000004,
-          "questions": 1,
-          "right": 1,
+          "claude": 0.17427,
+          "market": 0.188289125,
+          "ours": 0.19536937802100002,
+          "questions": 10,
+          "right": 8,
           "start": "2026-11-09",
-          "wrong": 0
+          "wrong": 2
         }
       ]
     },
-    "resolved": 234,
-    "right": 158,
+    "resolved": 246,
+    "right": 167,
     "toss_ups": 3,
     "total": 297,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19777365853658535,
-      "claude_questions": 205,
-      "market": 0.1502875216585366,
-      "ours": 0.20079156579216587,
-      "questions": 205,
+      "claude": 0.19607557603686637,
+      "claude_questions": 217,
+      "market": 0.1527247201843318,
+      "ours": 0.199987879675,
+      "questions": 217,
       "since_anchored": {
-        "claude": null,
+        "claude": 0.21253750000000002,
         "date": "2026-11-10",
-        "market": null,
-        "ours": null,
-        "questions": 0
+        "market": 0.23406315625,
+        "ours": 0.23406315625,
+        "questions": 8
       }
     },
-    "wrong": 73
+    "wrong": 76
   },
   "version": "track_record_v2"
 }
