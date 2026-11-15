@@ -1,36 +1,36 @@
 {
   "calibration": {
-    "as_of": "2026-11-14",
-    "intercept": 0.254878,
-    "results": 237,
-    "slope": 0.741517
+    "as_of": "2026-11-15",
+    "intercept": 0.227024,
+    "results": 243,
+    "slope": 0.745643
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20623092260158143,
+      "brier": 0.20735605204814875,
       "coin_flip_brier": 0.25,
       "forecasts": 297,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-13",
       "method": "combined_median_v1",
-      "resolved": 246,
-      "right": 167,
+      "resolved": 249,
+      "right": 169,
       "toss_ups": 3,
-      "wrong": 76
+      "wrong": 77
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19658340248962658,
+      "brier": 0.19827377049180328,
       "coin_flip_brier": 0.25,
       "forecasts": 292,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-13",
       "method": "claude_code_forecaster_v1",
-      "resolved": 241,
-      "right": 162,
+      "resolved": 244,
+      "right": 163,
       "toss_ups": 7,
-      "wrong": 72
+      "wrong": 74
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
@@ -47,16 +47,16 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.060320881383400006,
+      "brier": 0.16079315766314287,
       "coin_flip_brier": 0.25,
       "forecasts": 19,
       "label": "Learned model",
       "last_forecast_on": "2026-11-13",
       "method": "learned_model_v1",
-      "resolved": 5,
-      "right": 5,
+      "resolved": 7,
+      "right": 6,
       "toss_ups": 0,
-      "wrong": 0
+      "wrong": 1
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -216,29 +216,29 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.15671581393192105,
+      "brier": 0.16909289983512193,
       "coin_flip_brier": 0.25,
       "forecasts": 67,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-13",
       "method": "claude_calibrated_v1",
-      "resolved": 38,
-      "right": 30,
+      "resolved": 41,
+      "right": 32,
       "toss_ups": 0,
-      "wrong": 8
+      "wrong": 9
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15894657142857144,
+      "brier": 0.1614144678362573,
       "coin_flip_brier": 0.25,
       "forecasts": 197,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-13",
       "method": "market_price_v1",
-      "resolved": 168,
-      "right": 127,
+      "resolved": 171,
+      "right": 129,
       "toss_ups": 0,
-      "wrong": 41
+      "wrong": 42
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
@@ -267,21 +267,74 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-14",
+  "generated_on": "2026-11-15",
   "learned_model": {
-    "as_of": "2026-11-14",
-    "intercept": 0.202271,
-    "results": 213,
-    "slope": 1.036223,
+    "as_of": "2026-11-15",
+    "intercept": 0.159847,
+    "results": 219,
+    "slope": 1.030713,
     "weights": {
-      "Crypto": -0.327193,
-      "Economy": -0.147365,
-      "Politics": -0.346645,
-      "Tech": 0.482409,
-      "World": -0.418248
+      "Crypto": -0.325941,
+      "Economy": -0.093747,
+      "Politics": -0.356788,
+      "Tech": 0.462034,
+      "World": -0.423701
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.42,
+        "market": 0.54,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.54
+      },
+      "detail": "This market will resolve to \"Yes\" if the US national average price of regular gasoline published by AAA is equal to or below the specified price for any date from the creation of this market through November 15, 2026. Otherwise, this market will resolve to \"No\". Price action before this market's creation will not be considered.\n\nThis market resolves based on the US national average price of regular gasoline published by AAA at https://gasprices.aaa.com/ in the \"National Average Gas Prices\" table under the \"Regular\" column and the \"Current Avg.\" row.\n\nEach date's price is the price displayed at 10:00 AM ET on that date, provided that at that time the \"Price as of\" date shown on the webpage is that date and the \"Yesterday Avg.\" row in the same column shows the previous date's price. If either condition is not met at 10:00 AM ET, the price will be observed at the first time on that date at which both are met; if both are not met by 11:59 PM ET on that date, the price displayed in the table at that time will be used. If AAA does not display the US national average price of regular gasoline in the table at the time of observation, the price displayed elsewhere on the webpage will be used.\n\nIf AAA displays no US national average price of regular gasoline on the specified webpage at any time on one or more dates within the specified week, this market will resolve based on the prices observed for the remaining dates.\n\nThe resolution source for this market will be the American Automobile Association (AAA) (https://gasprices.aaa.com/).\n\nNote: AAA currently publishes gas prices to four decimal places (e.g., $4.3718). The price will be used as published, without rounding.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "AAA's regular national average was $3.9788 on 2026-11-10, down from $4.0093 the day before and $4.10 on 2026-11-05, so it needs another 7.9 cents by 2026-11-15, about 1.6 cents a day over five readings (https://gasprices.aaa.com/, https://gasprices.aaa.com/?p=5262). The last five days averaged about 2.4 cents a day and crude fell about 16% in the week to Nov 6, which should keep feeding through to pumps with a lag, but Brent had rebounded to about 97-98 (https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/, https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran, 2026-11-08), retail declines usually slow as they near the wholesale price, and Monday's drop was only about 1 cent. That leaves it a bit below even.",
+          "sources": [
+            "https://gasprices.aaa.com/",
+            "https://gasprices.aaa.com/?p=5262",
+            "https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/",
+            "https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran",
+            "https://www.eia.gov/petroleum/gasdiesel/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.524689,
+          "raw": 0.42,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.54
+        }
+      ],
+      "id": "polymarket-6906853",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-15",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/will-gas-hit-week-of-november-9-2026",
+      "status": "resolved",
+      "title": "Will US gas hit $3.90 (Low) the week of November 9?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -473,6 +526,68 @@
     {
       "actual": "Polymarket: No",
       "call": {
+        "claude": 0.77,
+        "market": 0.795,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.795
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "Binance BTC/USDT was about 73,850 on 2026-11-11, roughly 2.5% above 72,000, with 30-day daily vol of 1.87% and about 3 days to the noon ET close on 2026-11-14; that gives roughly 78%, matching the 77.8% historical 3-day frequency (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Offsetting: four straight days of ETF outflows and a 72,700 low after hot CPI (CoinDesk, 2026-11-11), though CoinDesk also describes stabilization near 74,000. No FOMC or CPI falls before the resolution.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+            "https://www.coindesk.com/markets/2026/11/11/bitcoin-sits-out-stock-rebound-as-etf-outflows-extend-to-fourth-day",
+            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.77,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.795,
+          "method": "learned_model_v1",
+          "probability": 0.86969,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.774509,
+          "raw": 0.77,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-6801798",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-14-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $72,000 on November 14?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
         "claude": 0.17,
         "market": 0.13,
         "max_move": 0.0,
@@ -536,6 +651,69 @@
       "status": "resolved",
       "title": "Will TikTok Pro - Events be #2 Free App in the US Apple App Store on November 13?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.27,
+        "market": 0.235,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.235
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "Binance ETHUSDT printed 2052.00 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3), about 2.3% under 2100, with daily closes sliding from 2497.95 to about 2056 over 30 days. With 30-day daily volatility of 2.56% and roughly 2.3 days left, 2100 is about 0.6 standard deviations away, so a thin-tailed model gives roughly 27-28%. Spot ETH ETF outflows (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107) and the downtrend lean slightly bearish, while no scheduled macro event falls before resolution (https://www.bls.gov/schedule/news_release/cpi.htm); coherent with the earlier 78% for above 2,000 on Nov 13.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-12",
+          "claude": 0.27,
+          "claude_weight": -0.347038,
+          "intercept": 0.286864,
+          "market": 0.235,
+          "method": "learned_model_v1",
+          "probability": 0.259975,
+          "results": 204,
+          "slope": 1.074761
+        },
+        {
+          "as_of": "2026-11-12",
+          "intercept": 0.290741,
+          "method": "claude_calibrated_v1",
+          "probability": 0.389645,
+          "raw": 0.27,
+          "results": 227,
+          "slope": 0.743542
+        },
+        {
+          "made_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.235
+        }
+      ],
+      "id": "polymarket-6801715",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-14",
+      "scored": true,
+      "source": "prospective_markets_20261112",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-14-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $2,100 on November 14?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -17022,131 +17200,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.77,
-        "market": 0.795,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.795
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.77,
-          "rationale": "Binance BTC/USDT was about 73,850 on 2026-11-11, roughly 2.5% above 72,000, with 30-day daily vol of 1.87% and about 3 days to the noon ET close on 2026-11-14; that gives roughly 78%, matching the 77.8% historical 3-day frequency (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Offsetting: four straight days of ETF outflows and a 72,700 low after hot CPI (CoinDesk, 2026-11-11), though CoinDesk also describes stabilization near 74,000. No FOMC or CPI falls before the resolution.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
-            "https://www.coindesk.com/markets/2026/11/11/bitcoin-sits-out-stock-rebound-as-etf-outflows-extend-to-fourth-day",
-            "https://www.fxstreet.com/cryptocurrencies/news/bitcoin-crypto-market-fall-as-hot-us-inflation-triggers-700-million-in-liquidations-202611102102"
-          ]
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.77,
-          "claude_weight": -0.329,
-          "intercept": 0.351934,
-          "market": 0.795,
-          "method": "learned_model_v1",
-          "probability": 0.86969,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.774509,
-          "raw": 0.77,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.795
-        }
-      ],
-      "id": "polymarket-6801798",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-14-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $72,000 on November 14?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.27,
-        "market": 0.235,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.235
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-12T12:40:50+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.27,
-          "rationale": "Binance ETHUSDT printed 2052.00 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3), about 2.3% under 2100, with daily closes sliding from 2497.95 to about 2056 over 30 days. With 30-day daily volatility of 2.56% and roughly 2.3 days left, 2100 is about 0.6 standard deviations away, so a thin-tailed model gives roughly 27-28%. Spot ETH ETF outflows (https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107) and the downtrend lean slightly bearish, while no scheduled macro event falls before resolution (https://www.bls.gov/schedule/news_release/cpi.htm); coherent with the earlier 78% for above 2,000 on Nov 13.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&limit=3",
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
-            "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
-            "https://www.bls.gov/schedule/news_release/cpi.htm"
-          ]
-        },
-        {
-          "as_of": "2026-11-12",
-          "claude": 0.27,
-          "claude_weight": -0.347038,
-          "intercept": 0.286864,
-          "market": 0.235,
-          "method": "learned_model_v1",
-          "probability": 0.259975,
-          "results": 204,
-          "slope": 1.074761
-        },
-        {
-          "as_of": "2026-11-12",
-          "intercept": 0.290741,
-          "method": "claude_calibrated_v1",
-          "probability": 0.389645,
-          "raw": 0.27,
-          "results": 227,
-          "slope": 0.743542
-        },
-        {
-          "made_at": "2026-11-12T10:17:40.338342+00:00",
-          "method": "market_price_v1",
-          "probability": 0.235
-        }
-      ],
-      "id": "polymarket-6801715",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-14",
-      "scored": true,
-      "source": "prospective_markets_20261112",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-14-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $2,100 on November 14?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 1,
         "method": "claude_corrected_call_v1",
         "probability": 0.388949
@@ -17192,59 +17245,6 @@
       "status": "pending",
       "title": "Are neural networks already clean?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.42,
-        "market": 0.54,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.54
-      },
-      "detail": "This market will resolve to \"Yes\" if the US national average price of regular gasoline published by AAA is equal to or below the specified price for any date from the creation of this market through November 15, 2026. Otherwise, this market will resolve to \"No\". Price action before this market's creation will not be considered.\n\nThis market resolves based on the US national average price of regular gasoline published by AAA at https://gasprices.aaa.com/ in the \"National Average Gas Prices\" table under the \"Regular\" column and the \"Current Avg.\" row.\n\nEach date's price is the price displayed at 10:00 AM ET on that date, provided that at that time the \"Price as of\" date shown on the webpage is that date and the \"Yesterday Avg.\" row in the same column shows the previous date's price. If either condition is not met at 10:00 AM ET, the price will be observed at the first time on that date at which both are met; if both are not met by 11:59 PM ET on that date, the price displayed in the table at that time will be used. If AAA does not display the US national average price of regular gasoline in the table at the time of observation, the price displayed elsewhere on the webpage will be used.\n\nIf AAA displays no US national average price of regular gasoline on the specified webpage at any time on one or more dates within the specified week, this market will resolve based on the prices observed for the remaining dates.\n\nThe resolution source for this market will be the American Automobile Association (AAA) (https://gasprices.aaa.com/).\n\nNote: AAA currently publishes gas prices to four decimal places (e.g., $4.3718). The price will be used as published, without rounding.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.42,
-          "rationale": "AAA's regular national average was $3.9788 on 2026-11-10, down from $4.0093 the day before and $4.10 on 2026-11-05, so it needs another 7.9 cents by 2026-11-15, about 1.6 cents a day over five readings (https://gasprices.aaa.com/, https://gasprices.aaa.com/?p=5262). The last five days averaged about 2.4 cents a day and crude fell about 16% in the week to Nov 6, which should keep feeding through to pumps with a lag, but Brent had rebounded to about 97-98 (https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/, https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran, 2026-11-08), retail declines usually slow as they near the wholesale price, and Monday's drop was only about 1 cent. That leaves it a bit below even.",
-          "sources": [
-            "https://gasprices.aaa.com/",
-            "https://gasprices.aaa.com/?p=5262",
-            "https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/",
-            "https://www.qatar-tribune.com/article/263012/business/crude-gains-on-worries-about-renewed-us-attacks-on-iran",
-            "https://www.eia.gov/petroleum/gasdiesel/"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.524689,
-          "raw": 0.42,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.54
-        }
-      ],
-      "id": "polymarket-6906853",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-15",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/will-gas-hit-week-of-november-9-2026",
-      "status": "pending",
-      "title": "Will US gas hit $3.90 (Low) the week of November 9?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -18712,7 +18712,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20623092260158143,
+    "brier": 0.20735605204814875,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -18766,16 +18766,16 @@
           "rule": 0.16238757315789476
         },
         "counted": {
-          "dates": 2,
-          "difference": -0.01744753124999998,
+          "dates": 3,
+          "difference": -0.0053663863636363995,
           "interval": [
-            -0.040156,
-            0.0204
+            -0.027233,
+            0.034821
           ],
-          "market": 0.23406315625,
+          "market": 0.2519413863636364,
           "meets_bar": false,
-          "questions": 8,
-          "rule": 0.216615625
+          "questions": 11,
+          "rule": 0.246575
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -18818,15 +18818,15 @@
         },
         "counted": {
           "dates": 2,
-          "difference": -0.023245168616599983,
+          "difference": 0.0029245505202857014,
           "interval": [
             -0.044723,
-            -0.008927
+            0.021984
           ],
-          "market": 0.08356604999999999,
+          "market": 0.15786860714285716,
           "meets_bar": false,
-          "questions": 5,
-          "rule": 0.060320881383400006
+          "questions": 7,
+          "rule": 0.16079315766314287
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -18834,7 +18834,7 @@
         "status": "testing"
       }
     ],
-    "pending": 45,
+    "pending": 42,
     "progress": {
       "changes": [
         {
@@ -18856,10 +18856,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.15489166666666668,
-          "market": 0.16759853833333335,
-          "ours": 0.18142874078958335,
-          "questions": 12
+          "claude": 0.19072666666666666,
+          "market": 0.194002164,
+          "ours": 0.205066325965,
+          "questions": 15
         },
         "before": {
           "claude": 0.19848634146341465,
@@ -18916,36 +18916,36 @@
           "wrong": 6
         },
         {
-          "claude": 0.17427,
-          "market": 0.188289125,
-          "ours": 0.19536937802100002,
-          "questions": 10,
-          "right": 8,
+          "claude": 0.21114615384615387,
+          "market": 0.21398009615384617,
+          "ours": 0.21942644463153846,
+          "questions": 13,
+          "right": 10,
           "start": "2026-11-09",
-          "wrong": 2
+          "wrong": 3
         }
       ]
     },
-    "resolved": 246,
-    "right": 167,
+    "resolved": 249,
+    "right": 169,
     "toss_ups": 3,
     "total": 297,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19607557603686637,
-      "claude_questions": 217,
-      "market": 0.1527247201843318,
-      "ours": 0.199987879675,
-      "questions": 217,
+      "claude": 0.19795727272727273,
+      "claude_questions": 220,
+      "market": 0.15472779218181817,
+      "ours": 0.20134645404306817,
+      "questions": 220,
       "since_anchored": {
-        "claude": 0.21253750000000002,
+        "claude": 0.2456818181818182,
         "date": "2026-11-10",
-        "market": 0.23406315625,
-        "ours": 0.23406315625,
-        "questions": 8
+        "market": 0.2519413863636364,
+        "ours": 0.2519413863636364,
+        "questions": 11
       }
     },
-    "wrong": 76
+    "wrong": 77
   },
   "version": "track_record_v2"
 }
