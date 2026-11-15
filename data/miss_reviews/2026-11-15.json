@@ -1,0 +1,65 @@
+{
+  "reviewed_on": "2026-11-15",
+  "summary": "Six misses: two touch questions that did touch, two confident above-level calls that fell short of the level, one overconfident rules call and one absence-of-evidence call. No topic shows a new shared pattern, so no checklist items are proposed; neither confident miss lacked the latest price.",
+  "misses": [
+    {
+      "id": "polymarket-6563861",
+      "cause": "stale_data",
+      "note": "The window had already run two days and the highs printed inside it on Nov 2-3 were never looked up, so the touch chance started from the current price alone.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-09",
+      "probability": 0.42,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6563893",
+      "cause": "unlucky",
+      "note": "A 40% touch estimate from distance and realised range was sound; the level printed anyway.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-09",
+      "probability": 0.4,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-qg6Ql2nUEO",
+      "cause": "overconfident",
+      "note": "72% rested on drop-box and vote-centre watch reports while its own base rate was 1 in 4 and the rules may not count drop boxes.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-10",
+      "probability": 0.72,
+      "outcome": 0
+    },
+    {
+      "id": "manifold-t2O0uUtuPn",
+      "cause": "other",
+      "note": "Set 25% because no source showing a qualifying venue was opened; absence of evidence was treated as evidence of absence on a question with an empty title.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-11",
+      "probability": 0.25,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6753102",
+      "cause": "unlucky",
+      "note": "78% with a 4.3% cushion over three days was in line with the volatility estimate; the price fell through the level after the October inflation release.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-13",
+      "probability": 0.78,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6764126",
+      "cause": "overconfident",
+      "note": "77% from about 3% daily moves ignored fat tails after a 9% weekly drop and an unresolved inflation release the same morning; no count of past weeks was made.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-13",
+      "probability": 0.77,
+      "outcome": 0
+    }
+  ],
+  "checklist_items": {},
+  "checklist_added": {},
+  "checklist_dropped": {},
+  "checklist_version": 2,
+  "saved_on": "2026-11-15"
+}
