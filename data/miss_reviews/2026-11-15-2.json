@@ -1,0 +1,56 @@
+{
+  "reviewed_on": "2026-11-15",
+  "summary": "Five misses whose results arrived after the review of their week, found once the export stopped using a date window. Three are election calls made before the Nov 8 checklist item on national swing existed (a state or incumbent record weighed over this year's environment); two were near coin flips. That pattern is already covered, so no checklist items are proposed.",
+  "misses": [
+    {
+      "id": "manifold-5nLRAAdRt5",
+      "cause": "unlucky",
+      "note": "A near coin flip at 55%: through Oct 22 two of three trackers showed a Ukrainian net gain for the month and one showed about zero; the resolving tracker's month ended the other way.",
+      "topic": "World",
+      "resolves_on": "2026-10-31",
+      "probability": 0.55,
+      "outcome": 0
+    },
+    {
+      "id": "manifold-sgUZP8EzSq",
+      "cause": "unlucky",
+      "note": "58% for a touch 4% above spot with 19 days left was no higher than the volatility estimate; the level was not reached.",
+      "topic": "Economy",
+      "resolves_on": "2026-10-31",
+      "probability": 0.58,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-631018",
+      "cause": "wrong_base_rate",
+      "note": "89% rested on two past wins of about 10 points; this year's national swing and a poll showing a 3-point race were named but hardly weighed, and no poll was listed with its numbers.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.89,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-2822661",
+      "cause": "wrong_base_rate",
+      "note": "Anchored on the 93% incumbent rate, which does not fit a same-party contest in a redrawn district; two sponsor polls at +10 and +13 and the Republican runner-up's endorsement pointed to the challenger even after a discount.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-05",
+      "probability": 0.52,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-4927096",
+      "cause": "overconfident",
+      "note": "80% on an expected margin of a few points among white voters, with one of three late polls showing Democrats ahead in that group and a tie resolving against; a margin that thin supports about 60 to 65%.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-07",
+      "probability": 0.8,
+      "outcome": 0
+    }
+  ],
+  "checklist_items": {},
+  "checklist_added": {},
+  "checklist_dropped": {},
+  "checklist_version": 2,
+  "saved_on": "2026-11-15"
+}

@@ -6,9 +6,11 @@
 ``export`` prints a compact packet (JSON) of Claude's misses: every resolved, scored question it got wrong,
 and any resolved forecast with a squared error of 0.36 or more (a call of 60 points or more off), each with
 the rule, Claude's probability and rationale, the outcome and the research it had (base rate, what was
-different, facts, the passes that ran). By default it lists misses since the newest review in
-``data/miss_reviews/`` that are not yet in any review; ``--since`` lists every miss resolving on or after a
-date. Nothing in it is a market price, and the research files it reads carry none.
+different, facts, the passes that ran). By default it lists every miss that no review in
+``data/miss_reviews/`` covers yet, whenever it resolved: a result can arrive after the review of its week (a
+held result, a slow count), and a date window would lose that miss for good. Such a miss is marked
+``arrived_late``. ``--since`` lists every miss resolving on or after a date, reviewed or not. Nothing in it is
+a market price, and the research files it reads carry none.
 
 ``apply`` takes a review written from that packet:
 
@@ -116,10 +118,11 @@ def export(root: Path, since: str | None = None, today: str | None = None) -> di
     """The review packet: the misses to look at, and the checklists they would change."""
     track = load(root / TRACK_RECORD)
     saved = reviews(root)
-    # By default: after the newest review, and not any miss a review already covers. An explicit --since lists them all.
+    # By default: every miss no saved review covers, whenever it resolved. The reviews are the only memory of what was
+    # looked at; a window starting at the newest review dropped every result that came in after its week's review
+    # (5 of 72 misses by 2026-11-15). An explicit --since lists every miss from that date on, reviewed or not.
     reviewed = {m["id"] for _, review in saved for m in review.get("misses", [])} if since is None else set()
-    if since is None and saved:
-        since = saved[-1][0].name[:10]
+    last_review = saved[-1][0].name[:10] if saved else None
     found = []
     for question, mine in misses(track):
         p = float(mine["probability"])
@@ -127,7 +130,9 @@ def export(root: Path, since: str | None = None, today: str | None = None) -> di
             continue
         outcome = int(question["outcome"])
         actual = re.sub(r"^(Polymarket|Manifold|Kalshi|Metaculus):\s*", "", question.get("actual") or "")
-        found.append({"id": question["id"], "date": question["resolves_on"], "topic": question.get("topic") or "Other",
+        found.append({"id": question["id"], "date": question["resolves_on"],
+                      "arrived_late": bool(since is None and last_review and question["resolves_on"] < last_review),
+                      "topic": question.get("topic") or "Other",
                       "question": say(question.get("title"), 300), "resolution_rule": say(question.get("detail"), 1200),
                       "probability": p, "squared_error": round((p - outcome) ** 2, 3),
                       "rationale": say(mine.get("rationale"), 1500),
@@ -135,7 +140,7 @@ def export(root: Path, since: str | None = None, today: str | None = None) -> di
                       "research": research_for(root, question.get("source") or "", question["id"])})
     checklist = root / CHECKLIST_FILE
     return {"generated_on": today or datetime.now(UTC).date().isoformat(), "forecaster": FORECASTER,
-            "since": since, "criteria": f"wrong calls, and any resolved forecast with squared error >= {BIG_ERROR}",
+            "since": since, "last_review": last_review, "criteria": f"wrong calls, and any resolved forecast with squared error >= {BIG_ERROR}",
             "causes": list(CAUSES),
             "answer_with": {"reviewed_on": "YYYY-MM-DD", "summary": "one or two sentences",
                             "misses": [{"id": "<id>", "cause": "<one of causes>", "note": "one line"}],
