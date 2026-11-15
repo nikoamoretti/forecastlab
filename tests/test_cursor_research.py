@@ -837,7 +837,7 @@ def test_export_with_a_squared_error_of_at_least_036_includes_rights_and_wrongs_
                for m in miss_review.export(root)["misses"])
 
 
-def test_export_starts_after_the_newest_review_and_skips_misses_already_reviewed(tmp_path: Path) -> None:
+def test_export_lists_every_miss_no_review_covers_and_skips_misses_already_reviewed(tmp_path: Path) -> None:
     root = review_root(tmp_path)
     review = tmp_path / "review.json"
     review.write_text(json.dumps({"reviewed_on": "2026-10-22", "misses": [
@@ -845,10 +845,36 @@ def test_export_starts_after_the_newest_review_and_skips_misses_already_reviewed
         {"id": "big", "cause": "unlucky", "note": "A late revision."}]}))
     saved = miss_review.apply(root, review, today="2026-10-31")
     assert saved["path"] == "data/miss_reviews/2026-10-22.json"
-    assert [m["id"] for m in miss_review.export(root)["misses"]] == ["late"]
-    assert miss_review.export(root)["since"] == "2026-10-22"
+    packet = miss_review.export(root)
+    assert [m["id"] for m in packet["misses"]] == ["late"]
+    assert packet["since"] is None and packet["last_review"] == "2026-10-22"
     again = miss_review.export(root, since="2026-10-01")  # an explicit date lists everything from then
     assert [m["id"] for m in again["misses"]] == ["wrong", "big", "late"]
+
+
+def test_export_keeps_a_miss_whose_result_arrived_after_the_review_of_its_week(tmp_path: Path) -> None:
+    root = review_root(tmp_path)
+    review = tmp_path / "review.json"
+    review.write_text(json.dumps({"reviewed_on": "2026-10-29", "misses": [
+        {"id": "wrong", "cause": "stale_data", "note": "Used a headline level."},
+        {"id": "big", "cause": "unlucky", "note": "A late revision."},
+        {"id": "late", "cause": "unlucky", "note": "A coin flip."}]}))
+    miss_review.apply(root, review, today="2026-10-31")
+    assert miss_review.export(root)["misses"] == []
+    # A count that was still open at the review (resolving 2026-10-21) is decided afterwards, and one resolves after it.
+    path = root / "data" / "track_record.json"
+    track = json.loads(path.read_text())
+    track["questions"] += [tr_question("slow", 0.7, 0, "Politics", "2026-10-21"), tr_question("new", 0.3, 1, "Jobs", "2026-10-30")]
+    path.write_text(json.dumps(track))
+    packet = miss_review.export(root)
+    assert [(m["id"], m["arrived_late"]) for m in packet["misses"]] == [("slow", True), ("new", False)]
+    second = tmp_path / "second.json"
+    second.write_text(json.dumps({"reviewed_on": "2026-11-05", "misses": [
+        {"id": "slow", "cause": "unlucky", "note": "A close count."}, {"id": "new", "cause": "other", "note": "Thin."}]}))
+    miss_review.apply(root, second, today="2026-11-05")
+    assert miss_review.export(root)["misses"] == []  # reviewed once, never listed again
+    listed = miss_review.export(root, since="2026-10-01")["misses"]  # an explicit date marks nothing as late
+    assert [m["id"] for m in listed] == ["wrong", "slow", "big", "late", "new"] and not any(m["arrived_late"] for m in listed)
 
 
 def test_apply_validates_the_review(tmp_path: Path) -> None:
