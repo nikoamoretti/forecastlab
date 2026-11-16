@@ -1,0 +1,134 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-20T17:00:00Z",
+      "id": "polymarket-7018476",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-20-2026",
+      "question": "Will the price of Bitcoin be above $58,000 on November 20?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-23T23:59:00Z",
+      "id": "polymarket-6403128",
+      "market_url": "https://polymarket.com/event/bank-of-israel-decision-in-november-2026",
+      "question": "Will the Bank of Israel make no change to the Bank of Israel Interest Rate at the November meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the Bank of Israel Interest Rate resulting from the November 2026 meeting of the Bank of Israel Monetary Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Israel, including the statement or release from its November 2026 meeting, scheduled for November 23, 2026, as listed on the official Bank of Israel calendar (https://www.boi.org.il/en/economic-roles/monetary-policy/). This market may resolve as soon as the statement or release of the Bank of Israel Monetary Committee resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-20T17:00:00Z",
+      "id": "polymarket-6921897",
+      "market_url": "https://polymarket.com/event/elon-musk-of-tweets-november-13-november-20-2026",
+      "question": "Will Elon Musk post 280-299 tweets from November 13 to November 20, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 13 12:00 PM ET to November 20, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-23T04:59:00Z",
+      "id": "polymarket-6942351",
+      "market_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-16",
+      "question": "Will OpenRouter process between 220T and 230T tokens the week of November 16?",
+      "resolution_criteria": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 16 to November 22, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the total displayed for the week of November 16 to November 22, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-23T05:00:00Z",
+      "id": "polymarket-7085177",
+      "market_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-16-22-2026",
+      "question": "Will Bitcoin dip to $56,000 November 16-22?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-25T13:30:00Z",
+      "id": "polymarket-6390067",
+      "market_url": "https://polymarket.com/event/core-pce-yoy-october-2026",
+      "question": "Will Core PCE YoY be 3.2% in October?",
+      "resolution_criteria": "This is a market about percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 12-month periods to only one decimal point (e.g., 3.7%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-20T17:00:00Z",
+      "id": "polymarket-6921785",
+      "market_url": "https://polymarket.com/event/donald-trump-of-truth-social-posts-november-13-november-20-2026",
+      "question": "Will Donald Trump post 40-59 Truth Social posts from November 13 to November 20, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Donald Trump (@realDonaldTrump), posts on Truth Social between November 13, 12:00 PM ET and November 20, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, Truth Social itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-21T04:59:00Z",
+      "id": "polymarket-7029795",
+      "market_url": "https://polymarket.com/event/1-free-app-in-the-us-apple-app-store-on-november-20",
+      "question": "Will TikTok Pro - Events be #1 Free App in the US Apple App Store on November 20?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-19T17:00:00Z",
+      "id": "polymarket-6990900",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-19-2026",
+      "question": "Will the price of Ethereum be above $1,600 on November 19?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-25T13:30:00Z",
+      "id": "polymarket-6390045",
+      "market_url": "https://polymarket.com/event/core-pce-mom-october-2026",
+      "question": "Will Core PCE MoM be 0.3% in October?",
+      "resolution_criteria": "This is a market about core inflation (excluding food and energy) over the 1-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 1-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.2%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-20T17:00:00Z",
+      "id": "polymarket-6921773",
+      "market_url": "https://polymarket.com/event/cz-binance-of-tweets-november-13-november-20-2026",
+      "question": "Will CZ post 20-39 posts from November 13 to November 20, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times CZ (@cz_binance), posts on X between November 13, 12:00 PM ET and November 20, 2026, 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies which are recorded on the main feed will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nThe resolution source for this market is the \"Post Counter\" figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-24T04:59:00Z",
+      "id": "polymarket-6949221",
+      "market_url": "https://polymarket.com/event/best-ai-model-on-november-23",
+      "question": "Will gemini-4-carbon-high be the best AI model on November 23, 2026?",
+      "resolution_criteria": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-22T17:00:00Z",
+      "id": "polymarket-7073766",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-22-2026",
+      "question": "Will the price of Bitcoin be above $58,000 on November 22?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-20T14:00:00Z",
+      "id": "polymarket-5778706",
+      "market_url": "https://polymarket.com/event/mogpta-quarterly-earnings-nongaap-eps-10-30-2026-2pt77",
+      "question": "Will Moog (MOG.A) beat quarterly earnings?",
+      "resolution_criteria": "As of market creation, Moog is estimated to release earnings on October 30, 2026. The Street consensus estimate for Moog\u2019s non-GAAP EPS for the relevant quarter is $2.77 as of market creation. This market will resolve to \"Yes\" if Moog reports non-GAAP EPS greater than $2.77 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Moog releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-24T17:00:00Z",
+      "id": "polymarket-7030580",
+      "market_url": "https://polymarket.com/event/elon-musk-of-tweets-november-17-november-24-2026",
+      "question": "Will Elon Musk post 220-239 tweets from November 17 to November 24, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of times Elon Musk (@elonmusk), posts on X from November 17 12:00 PM ET to November 24, 2026 12:00 PM ET.\n\nFor the purposes of this market, only main feed posts, quote posts and reposts will count.\n\nReplies will NOT count towards the total - however, replies on the main feed such as https://x.com/elonmusk/status/1786073478711353576 will be counted by the tracker.\n\nDeleted posts will count as long as they remain available long enough to be captured by the tracker (~5 minutes).\n\nCommunity reposts which are not counted by the tracker not count toward the total.\n\nThe resolution source for this market is the 'Post Counter' figure for posts found at https://xtracker.polymarket.com. Individual posts can be viewed by clicking \"Export Data\". If the tracker does not update correctly in accordance with the rules, X itself may be used as a secondary resolution source.",
+      "topic": "Politics"
+    },
+    {
+      "closes_at": "2026-11-21T04:59:00Z",
+      "id": "polymarket-7029806",
+      "market_url": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-20",
+      "question": "Will ChatGPT be #2 Free App in the US Apple App Store on November 20?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #2 in the United States on the iPhone Apple App Store's overall Top Charts under \"Free Apps\", as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \"Apps\" at the bottom of the US iOS App Store app, scroll down to \"Top Free Apps\" and click \"See All\". Then under \"Free Apps\" in the \"Top Charts\" section, you'll see the list that will be used as the resolution source to this market (https://apps.apple.com/us/charts/iphone).",
+      "topic": "Tech"
+    }
+  ],
+  "selected_at": "2026-11-16T12:32:17.258238+00:00",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
+}
