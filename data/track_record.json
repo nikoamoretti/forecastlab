@@ -8,53 +8,53 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20581805638155967,
+      "brier": 0.20510265829981508,
       "coin_flip_brier": 0.25,
       "forecasts": 309,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-16",
       "method": "combined_median_v1",
-      "resolved": 252,
-      "right": 172,
+      "resolved": 254,
+      "right": 174,
       "toss_ups": 3,
       "wrong": 77
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.1963429149797571,
+      "brier": 0.1956855421686747,
       "coin_flip_brier": 0.25,
       "forecasts": 304,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-16",
       "method": "claude_code_forecaster_v1",
-      "resolved": 247,
-      "right": 166,
+      "resolved": 249,
+      "right": 168,
       "toss_ups": 7,
       "wrong": 74
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": 0.05985,
+      "brier": 0.0495,
       "coin_flip_brier": 0.25,
       "forecasts": 11,
       "label": "Claude, second look",
       "last_forecast_on": "2026-11-16",
       "method": "claude_second_look_v1",
-      "resolved": 4,
-      "right": 4,
+      "resolved": 5,
+      "right": 5,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.13794592407855555,
+      "brier": 0.12519970288069998,
       "coin_flip_brier": 0.25,
       "forecasts": 31,
       "label": "Learned model",
       "last_forecast_on": "2026-11-16",
       "method": "learned_model_v1",
-      "resolved": 9,
-      "right": 8,
+      "resolved": 10,
+      "right": 9,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -203,27 +203,27 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2510843953779359,
+      "brier": 0.2508807474389097,
       "coin_flip_brier": 0.25,
       "forecasts": 30,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-13",
       "method": "statistical_baseline_v1",
-      "resolved": 25,
-      "right": 10,
+      "resolved": 26,
+      "right": 11,
       "toss_ups": 0,
       "wrong": 15
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.16418424943975,
+      "brier": 0.16120724631158695,
       "coin_flip_brier": 0.25,
       "forecasts": 79,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-16",
       "method": "claude_calibrated_v1",
-      "resolved": 44,
-      "right": 35,
+      "resolved": 46,
+      "right": 37,
       "toss_ups": 0,
       "wrong": 9
     },
@@ -255,14 +255,14 @@
     },
     {
       "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from Kalshi. From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": null,
+      "brier": 0.009025,
       "coin_flip_brier": 0.25,
       "forecasts": 1,
       "label": "Kalshi (benchmark)",
       "last_forecast_on": "2026-11-11",
       "method": "kalshi_price_v1",
-      "resolved": 0,
-      "right": 0,
+      "resolved": 1,
+      "right": 1,
       "toss_ups": 0,
       "wrong": 0
     }
@@ -282,6 +282,55 @@
     }
   },
   "questions": [
+    {
+      "actual": "5.15%",
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.53
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-13 be above 4.86 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.53,
+          "rationale": "The threshold of 4.86 equals the last FRED DGS10 print (2026-11-06) and the Treasury par curve read 4.88 on 2026-11-09, so the start is about 2 basis points above the line with four trading days to go and a strict test (a tie at 4.86 is No). Five-observation changes were higher in 54.5% of pairs over the last year and 49.4% over 10 years, and a typical weekly move of 10 basis points or more makes this close to a coin flip with a slight edge from the 4.88 starting point and the October CPI (2026-11-10) following a 3.7% September inflation print and two hawkish FOMC dissents. I shade it back toward 50% because the six earlier 10-year questions in my record all resolved no while yields drifted down from about 5.3% and a tie counts against yes. Sources: https://fred.stlouisfed.org/series/DGS10 (2026-11-09), https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611 (2026-11-09), https://www.bls.gov/schedule/news_release/cpi.htm, https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm (2026-10-28).",
+          "sources": [
+            "https://fred.stlouisfed.org/series/DGS10",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5042283298097252
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.606978,
+          "raw": 0.53,
+          "results": 215,
+          "slope": 0.758133
+        }
+      ],
+      "id": "5993599385e99923",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261110",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 13, 2026 be above 4.86%?",
+      "topic": "Interest rates",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -511,6 +560,74 @@
       "source_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-9",
       "status": "resolved",
       "title": "Will OpenRouter process between 200T and 210T tokens the week of November 9?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Kalshi: No",
+      "call": {
+        "claude": 0.09,
+        "market": 0.095,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.095
+      },
+      "detail": "If Anthropic has the top-ranked LLM on Nov 16, 2026, then the market resolves to Yes.\n\nIf two models are tied under Rank (UB), then the model with the highest Arena Score will win. If two models are still tied after that, then the model with the most votes will win. If two models are still tied after that, the model that was released earlier will win. Important information: When checking the source for this market, check the 'Remove Style Control' toggle.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.09,
+          "rationale": "On the Arena text board dated 2026-11-09, Gemini 4 Carbon (High) leads at 1526 (1538 on the no-style-control page) while Claude Opus 5.5 (High) is at 1506-1513 and Fable 5 at 1504 (https://arena.ai/leaderboard/text). Anthropic released Fable 5.2 on 2026-11-09 (Constellation Research), which is not yet on the board, so a late entry could close a 15-30 point gap but must also appear by Nov 16. Consistent with my 86% on Gemini 4 Carbon being best on Nov 16.",
+          "sources": [
+            "https://arena.ai/leaderboard/text",
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.09,
+          "rationale": "Gemini 4 Carbon leads at 1526 against Claude's best listed entry at about 1506. Fable 5.2 (released Nov 9) is not yet on the board and would need to appear and beat 1526 by Nov 16; ties go to the higher score. Agree with market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.09,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.095,
+          "method": "learned_model_v1",
+          "probability": 0.10239,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.19225,
+          "raw": 0.09,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "kalshi_price_v1",
+          "probability": 0.095
+        }
+      ],
+      "id": "kalshi-KXLLM1-26NOV16-ANTH",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://kalshi.com/events/KXLLM1-26NOV16",
+      "status": "resolved",
+      "title": "Best AI this week: Claude?",
       "topic": "Tech",
       "verdict": "right"
     },
@@ -17482,123 +17599,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "claude_call_v1",
-        "probability": 0.53
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-13 be above 4.86 percent?",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.53,
-          "rationale": "The threshold of 4.86 equals the last FRED DGS10 print (2026-11-06) and the Treasury par curve read 4.88 on 2026-11-09, so the start is about 2 basis points above the line with four trading days to go and a strict test (a tie at 4.86 is No). Five-observation changes were higher in 54.5% of pairs over the last year and 49.4% over 10 years, and a typical weekly move of 10 basis points or more makes this close to a coin flip with a slight edge from the 4.88 starting point and the October CPI (2026-11-10) following a 3.7% September inflation print and two hawkish FOMC dissents. I shade it back toward 50% because the six earlier 10-year questions in my record all resolved no while yields drifted down from about 5.3% and a tie counts against yes. Sources: https://fred.stlouisfed.org/series/DGS10 (2026-11-09), https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611 (2026-11-09), https://www.bls.gov/schedule/news_release/cpi.htm, https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm (2026-10-28).",
-          "sources": [
-            "https://fred.stlouisfed.org/series/DGS10",
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
-            "https://www.bls.gov/schedule/news_release/cpi.htm",
-            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5042283298097252
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.606978,
-          "raw": 0.53,
-          "results": 215,
-          "slope": 0.758133
-        }
-      ],
-      "id": "5993599385e99923",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-16",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261110",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Nov 13, 2026 be above 4.86%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.09,
-        "market": 0.095,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.095
-      },
-      "detail": "If Anthropic has the top-ranked LLM on Nov 16, 2026, then the market resolves to Yes.\n\nIf two models are tied under Rank (UB), then the model with the highest Arena Score will win. If two models are still tied after that, then the model with the most votes will win. If two models are still tied after that, the model that was released earlier will win. Important information: When checking the source for this market, check the 'Remove Style Control' toggle.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.09,
-          "rationale": "On the Arena text board dated 2026-11-09, Gemini 4 Carbon (High) leads at 1526 (1538 on the no-style-control page) while Claude Opus 5.5 (High) is at 1506-1513 and Fable 5 at 1504 (https://arena.ai/leaderboard/text). Anthropic released Fable 5.2 on 2026-11-09 (Constellation Research), which is not yet on the board, so a late entry could close a 15-30 point gap but must also appear by Nov 16. Consistent with my 86% on Gemini 4 Carbon being best on Nov 16.",
-          "sources": [
-            "https://arena.ai/leaderboard/text",
-            "https://arena.ai/leaderboard/text/overall-no-style-control",
-            "https://www.constellationr.com/insights/news/anthropic-releases-mythos-52-fable-52"
-          ]
-        },
-        {
-          "made_at": "2026-11-11T14:24:14.311285+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.09,
-          "rationale": "Gemini 4 Carbon leads at 1526 against Claude's best listed entry at about 1506. Fable 5.2 (released Nov 9) is not yet on the board and would need to appear and beat 1526 by Nov 16; ties go to the higher score. Agree with market."
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.09,
-          "claude_weight": 0.532066,
-          "intercept": 0.351934,
-          "market": 0.095,
-          "method": "learned_model_v1",
-          "probability": 0.10239,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.19225,
-          "raw": 0.09,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "kalshi_price_v1",
-          "probability": 0.095
-        }
-      ],
-      "id": "kalshi-KXLLM1-26NOV16-ANTH",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-16",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://kalshi.com/events/KXLLM1-26NOV16",
-      "status": "pending",
-      "title": "Best AI this week: Claude?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.07,
         "market": 0.1225,
         "max_move": 0.0,
@@ -19420,7 +19420,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20581805638155967,
+    "brier": 0.20510265829981508,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -19448,15 +19448,15 @@
         },
         "counted": {
           "dates": 2,
-          "difference": 0.00690000000000001,
+          "difference": 0.005335000000000013,
           "interval": [
-            -0.0336,
+            -0.017263,
             0.0204
           ],
-          "market": 0.061275,
+          "market": 0.050824999999999995,
           "meets_bar": false,
-          "questions": 4,
-          "rule": 0.06817500000000001
+          "questions": 5,
+          "rule": 0.05616000000000001
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -19478,15 +19478,15 @@
         },
         "counted": {
           "dates": 4,
-          "difference": -0.0072100192307691935,
+          "difference": -0.006761089285714256,
           "interval": [
-            -0.031271,
+            -0.029551,
             0.023625
           ],
-          "market": 0.22085040384615384,
+          "market": 0.20572001785714283,
           "meets_bar": false,
-          "questions": 13,
-          "rule": 0.21364038461538465
+          "questions": 14,
+          "rule": 0.19895892857142858
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -19505,15 +19505,15 @@
         },
         "counted": {
           "dates": 2,
-          "difference": -0.0014250000000000027,
+          "difference": -0.0013249999999999929,
           "interval": [
-            -0.0232,
+            -0.012063,
             0.005833
           ],
-          "market": 0.061275,
+          "market": 0.050824999999999995,
           "meets_bar": false,
-          "questions": 4,
-          "rule": 0.05985
+          "questions": 5,
+          "rule": 0.0495
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -19532,15 +19532,15 @@
         },
         "counted": {
           "dates": 3,
-          "difference": 0.0040814518563333235,
+          "difference": 0.003819177880699978,
           "interval": [
-            -0.027105,
-            0.019675
+            -0.023025,
+            0.018273
           ],
-          "market": 0.13386447222222222,
+          "market": 0.121380525,
           "meets_bar": false,
-          "questions": 9,
-          "rule": 0.13794592407855555
+          "questions": 10,
+          "rule": 0.12519970288069998
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -19548,7 +19548,7 @@
         "status": "testing"
       }
     ],
-    "pending": 50,
+    "pending": 48,
     "progress": {
       "changes": [
         {
@@ -19570,10 +19570,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.1654888888888889,
-          "market": 0.17164103944444442,
-          "ours": 0.18391600764661112,
-          "questions": 18
+          "claude": 0.15720526315789476,
+          "market": 0.16308230052631578,
+          "ours": 0.1747112177704737,
+          "questions": 19
         },
         "before": {
           "claude": 0.19848634146341465,
@@ -19630,33 +19630,33 @@
           "wrong": 6
         },
         {
-          "claude": 0.178925,
-          "market": 0.18507796875,
-          "ours": 0.192939814273375,
-          "questions": 16,
-          "right": 13,
+          "claude": 0.1688764705882353,
+          "market": 0.1747219117647059,
+          "ours": 0.18212129578670588,
+          "questions": 17,
+          "right": 14,
           "start": "2026-11-09",
           "wrong": 3
         }
       ]
     },
-    "resolved": 252,
-    "right": 172,
+    "resolved": 254,
+    "right": 174,
     "toss_ups": 3,
     "total": 309,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19582286995515696,
-      "claude_questions": 223,
-      "market": 0.15345121313901344,
-      "ours": 0.1996892965813408,
-      "questions": 223,
+      "claude": 0.19498482142857143,
+      "claude_questions": 224,
+      "market": 0.15280645325892858,
+      "ours": 0.19883811668588838,
+      "questions": 224,
       "since_anchored": {
-        "claude": 0.2128846153846154,
+        "claude": 0.19825714285714288,
         "date": "2026-11-10",
-        "market": 0.22085040384615384,
-        "ours": 0.22085040384615384,
-        "questions": 13
+        "market": 0.20572001785714283,
+        "ours": 0.20572001785714283,
+        "questions": 14
       }
     },
     "wrong": 77
