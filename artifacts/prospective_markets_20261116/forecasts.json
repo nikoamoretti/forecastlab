@@ -66,6 +66,13 @@
           "probability": 0.26,
           "rationale": "The latest platform-level weekly totals were about 197.9T-204.5T for the weeks to 2026-11-02/03, growing 4-8.5% week on week (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md, 2026-11-04). Three more weeks of 3-4% growth would land near 223-230T, while flat usage would stay near 205T; the top model alone is now 59.2T versus 32.8T on 2026-10-19 (https://openrouter.ai/rankings), hinting at further growth. A 10T-wide bracket, an unclear definition of the displayed weekly total and the trailing-window mismatch keep this well under a coin flip.",
           "sources": []
+        },
+        {
+          "created_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.27,
+          "rationale": "Last weekly totals ~198-205T (AhaSignals) imply ~215-230T after three more weeks at 2-4% growth; a 10T bracket plus ambiguity over the displayed total keeps it near the market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6942351",
@@ -170,6 +177,13 @@
           "probability": 0.72,
           "rationale": "Apple's US iPhone Free chart listed TikTok Pro - Events first on 2026-11-16 with Muse from Meta second (https://apps.apple.com/us/charts/iphone), and a tracker shows it at #1 as of 2026-11-15 (https://mwm.ai/apps/tiktok-pro-events/6741796873); it was also #1 around November 13 per my earlier forecast outcome. The #1 slot has turned over before, for example Muse displacing ChatGPT on 2026-09-20 (https://mixed-news.com/en/meta-muse-tops-apple-free-iphone-chart-ahead-of-chatgpt/), and no catalyst for this app was found before the 12:00 PM ET 2026-11-20 check. Persistence over four days is likely but not secure, and the Apple page was read only through a summarizing fetch.",
           "sources": []
+        },
+        {
+          "created_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.63,
+          "rationale": "Apple chart read 2026-11-16 shows it #1 with Muse #2 and no known catalyst, but the sources are a summarized fetch, and a tracker showing Entertainment rank 123 alongside overall #1 casts doubt on the data.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7029795",
@@ -248,6 +262,13 @@
           "probability": 0.72,
           "rationale": "On the arena.ai Text Overall (no style control) page dated 2026-11-11, Gemini 4 Carbon (High) was first at 1538 (preliminary, 4,273 votes) with Gemini 4 Argon (High) second at 1529 (https://arena.ai/leaderboard/text/overall-no-style-control); Carbon has led since about 2026-10-28 (https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The main threats are Anthropic's Fable 5.2, released 2026-11-09 and not yet on the text board (https://www.siliconreport.com/anthropic-releases-mythos-5-2-and-fable-5-2), and score drift within the overlapping 1538 plus or minus 10 interval. A seven-day horizon with new entries likely keeps Carbon ahead, but the lead is thin and the page was read only via a summarizing fetch.",
           "sources": []
+        },
+        {
+          "created_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.79,
+          "rationale": "Carbon led at 1538 vs Argon 1529 on 2026-11-11 and wins the unrounded-score tiebreak if ranks tie; the main risk is Fable 5.2 entering the text board, but Fable 5.1 sits 26 points back.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6949221",
@@ -300,6 +321,13 @@
           "probability": 0.1,
           "rationale": "On 2026-11-16 Apple's US iPhone chart showed TikTok Pro - Events first, Muse from Meta second and ChatGPT around fourth (https://apps.apple.com/us/charts/iphone), and a 2026-11-11 snapshot reports ChatGPT was No. 1 in none of 15 countries while staying top 10 in 14 (https://fourweekmba.com/ai-chatgpt-leads-no-app-store-of-15-muse-and-claude-take-no-1/). ChatGPT can move up quickly, as on 2026-03-09 (https://9to5mac.com/2026/03/09/chatgpt-returns-to-the-top-of-the-app-store-after-dod-deal-controversy/), but it would have to pass Muse or take #2 from a rotating field by 12:00 PM ET 2026-11-20, and no launch or promotion was found.",
           "sources": []
+        },
+        {
+          "created_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.05,
+          "rationale": "ChatGPT was #4 on the 2026-11-16 Apple chart behind TikTok Pro - Events and Muse, with no catalyst found for a jump to #2 by 2026-11-20.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7029806",
