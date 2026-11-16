@@ -40,8 +40,8 @@
   },
   "outcomes": {
     "6f27748ec336f18a": {
-      "reason": "official_fred_vintage_unavailable",
-      "status": "exception"
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
     }
   },
   "resolved_entries": 0,
