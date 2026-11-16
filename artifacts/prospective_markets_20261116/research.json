@@ -1,0 +1,2687 @@
+{
+  "cost_usd": {
+    "polymarket-5778706": 0.1111,
+    "polymarket-6390045": 0.2417,
+    "polymarket-6390067": 0.2304,
+    "polymarket-6403128": 0.3454,
+    "polymarket-6921773": 0.0717,
+    "polymarket-6921785": 0.1684,
+    "polymarket-6921897": 0.0752,
+    "polymarket-6942351": 0.1861,
+    "polymarket-6949221": 0.2662,
+    "polymarket-6990900": 0.2346,
+    "polymarket-7018476": 0.1982,
+    "polymarket-7029795": 0.2546,
+    "polymarket-7029806": 0.2173,
+    "polymarket-7030580": 0.0851,
+    "polymarket-7073766": 0.2038,
+    "polymarket-7085177": 0.17
+  },
+  "failed": {
+    "polymarket-5778706": "ValueError: the reply is not valid JSON: Extra data",
+    "polymarket-6921773": "ValueError: only 1 usable facts",
+    "polymarket-6921897": "ValueError: only 1 usable sources",
+    "polymarket-7030580": "ValueError: only 1 usable sources"
+  },
+  "findings": {
+    "polymarket-6390045": {
+      "against": "The strongest case for a print below 0.3% rests on the PPI component path.\nThe BLS October 2026 PPI release, published 2026-11-13, says prices for airline passenger services declined in October, and PCE takes its airline component from PPI rather than CPI, so that decline pushes the core PCE estimate down.\nThe CPI release of 2026-11-10 reported the opposite direction for airline fares (up over the month), so the two sources disagree and the PPI reading is the one that feeds PCE.\nThe Cleveland Fed row of 0.27 for October sits only 0.02 points above the 0.25 rounding line, and the page does not label its columns, so a modest downward revision of the nowcast, or a drop in another PCE-specific component, would round to 0.2%.\nThe PPI page does not report portfolio management, another PCE-linked component, so its October direction is unknown.",
+      "base_rate": "Not completed.\nI could open only the BEA releases for June, August and September 2026, so I did not count 0.3% prints over the full history of the series.\nWithin 2026, the core m/m first prints I verified or found are: May 0.3 (from the June release table), June 0.1, August 0.2 (later revised to 0.3), September 0.3.\nSecondary sources (not verified against BEA) also give January 0.3 and February 0.4.\nThat is 3 of 7 known 2026 first prints at 0.3, with no full-history count.\nThe BEA historical table (pi0226-hist.pdf) would give the full count but could not be read here.",
+      "different_now": "October core CPI already printed at 0.3% (BLS, 2026-11-10), the same as September and August, and the Cleveland Fed nowcast updated 2026-11-13 places October core PCE at 0.27%, which rounds to 0.3% but sits close to the 0.25 boundary, so the outcome is sensitive to small revisions.\nThe nowcast is a model output, not an economist consensus, and it does not incorporate PPI-based components that the nowcast may only partly reflect.\nUpward pressure from the CPI surprise is already in the nowcast; the scheduled events before resolution are the BEA release on 2026-11-25 and the FOMC meeting on Decem",
+      "facts": [
+        {
+          "fact": "The BEA reported that core PCE (PCE price index excluding food and energy) increased 0.3% in September 2026, in the release dated October 29, 2026.",
+          "source": 0
+        },
+        {
+          "fact": "The BEA reported core PCE up 3.1% from a year earlier for September 2026.",
+          "source": 0
+        },
+        {
+          "fact": "The BEA release schedule lists Personal Income and Outlays, October 2026 for November 25, 2026 at 8:30 AM.",
+          "source": 1
+        },
+        {
+          "fact": "The BEA release schedule page was last modified on 2026-11-16.",
+          "source": 1
+        },
+        {
+          "fact": "The BEA PCE data page shows headline PCE for September 2026 at +3.6% from a year earlier; it does not state the core October value, which is not yet released.",
+          "source": 2
+        },
+        {
+          "fact": "BEA's September 2026 release (published 2026-10-29) reported core PCE up 0.3% m/m.",
+          "source": 0
+        },
+        {
+          "fact": "BEA's August 2026 release (published 2026-09-30) first reported core PCE up 0.2% m/m; the September release's table lists August as 0.3% after revision.",
+          "source": 3
+        },
+        {
+          "fact": "BEA's June 2026 release (published 2026-07-30) reported core PCE up 0.1% m/m; its table lists May 2026 core at 0.3%.",
+          "source": 4
+        },
+        {
+          "fact": "BEA's February 2026 historical PDF could not be read as text, so its monthly core figures were not verified.",
+          "source": 5
+        },
+        {
+          "fact": "BLS reported on 2026-11-10 that core CPI (all items less food and energy) rose 0.3% in October 2026, the same as in September and August.",
+          "source": 6
+        },
+        {
+          "fact": "BLS reported on 2026-11-10 that headline CPI rose 0.4% in October 2026 seasonally adjusted, and BLS will not publish October 2026 12-month changes because October 2025 data were not collected.",
+          "source": 6
+        },
+        {
+          "fact": "The Cleveland Fed inflation nowcast, updated 2026-11-13, has October 2026 core PCE at 0.27% month over month, which rounds to 0.3%, and headline PCE at 0.31%.",
+          "source": 7
+        },
+        {
+          "fact": "The Cleveland Fed nowcast's October 2026 core PCE year-over-year figure is 3.21% on the 2026-11-13 update, per the table's October row.",
+          "source": 7
+        },
+        {
+          "fact": "The Federal Reserve's December 2026 calendar lists the FOMC meeting as December 8 to 9, 2026, and the minutes entry as the meeting of December 8-9.",
+          "source": 8
+        },
+        {
+          "fact": "The Cleveland Fed nowcast's core PCE estimate for October (0.27%) is 0.02 percentage points above the 0.25% rounding threshold, so a downward revision of about 0.03 would move the rounded print to 0.2%.",
+          "source": 7
+        },
+        {
+          "fact": "BLS's October 2026 PPI release, published 2026-11-13, says prices for airline passenger services declined over the month, while the headline final demand index rose 0.3% seasonally adjusted.",
+          "source": 9
+        },
+        {
+          "fact": "The Cleveland Fed nowcast table, updated 11/13, shows an October 2026 row with values 0.31 and 0.27, but the page does not label the columns, so 0.27 being core PCE is unconfirmed.",
+          "source": 7
+        },
+        {
+          "fact": "BLS's October 2026 CPI release, published 2026-11-10, says the airline fares index increased over October, the opposite direction to the PPI airline passenger services decline.",
+          "source": 6
+        },
+        {
+          "fact": "The BLS October 2026 CPI release gives core CPI at 0.3% for October, the same as September and August.",
+          "source": 6
+        },
+        {
+          "fact": "On the Cleveland Fed nowcast page, updated 11/13, the October 2026 row shows values 0.31 and 0.27, with CPI and core CPI cells blank.\nBecause those CPI cells are blank, the 0.27 figure most likely corresponds to core PCE, but the page itself does not label the columns.",
+          "source": 7
+        },
+        {
+          "fact": "The BLS October 2026 PPI additions and deletions notice was last modified 2026-11-06.\nIt says the list is a draft and that there are no planned industry- or commodity-based index recodes with this sample update.\nIt does not mention portfolio management or airline passenger services.",
+          "source": 10
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 9,
+      "resolution": {
+        "criteria": "Resolves on the 1-month percent change in the PCE price index excluding food and energy (core PCE) for October 2026, seasonally adjusted, as reported in the BEA Personal Income and Outlays release, rounded to one decimal place.\nHeadline PCE does not count.",
+        "current_status": "No October 2026 core PCE value is published yet.\nLatest official core print: September 2026 +0.3% m/m and 3.1% y/y, BEA release dated 2026-10-29.\nOctober release scheduled for 2026-11-25 at 8:30 AM (schedule page modified 2026-11-16).",
+        "edge_cases": [
+          "Release timing: the release is at 8:30 AM ET on 2026-11-25; a question dated 2026-11-25 is settled by that print, and the market resolution date is the same day.",
+          "Rounding: resolution uses the one-decimal figure BEA publishes, so an unrounded value near 0.25 or 0.35 is decided by BEA's rounding, not by the reader's own computation.",
+          "Revisions: the question says the first BEA report for October 2026 governs; later revisions to October (or to September's 0.3%) in subsequent releases should not change the answer unless the question's wording is read to use a later vintage.",
+          "Ties and exact threshold: a print of exactly 0.3% resolves YES for 'be 0.3%'; 0.2% or 0.4% resolves NO, with no tie band beyond the one-decimal rounding."
+        ],
+        "settling_source": "U.S.\nBureau of Economic Analysis, Personal Income and Outlays, October 2026 news release (https://www.bea.gov/news/schedule for the date; https://www.bea.gov/data/personal-consumption-expenditures-price-index for the PCE series)"
+      },
+      "uncertainties": [
+        "No economist consensus for October core PCE was opened; the only forecast found is the Cleveland Fed model value of 0.27%.",
+        "The Cleveland Fed table has no explicit column labels in the flattened text beyond the header order, so the 0.27 value is read as core PCE from the header order and the fact that CPI cells are blank after release; this reading was not confirmed on the page itself.",
+        "The October PPI release and its effect on the PCE components (for example portfolio management and airfares) was not checked, so the nowcast may move before 2026-11-25.",
+        "A secondary search snippet mentioned a possible half-point Fed hike in December; that claim was not verified on any opened page and is not used here.",
+        "The Federal Reserve calendar page opened gave no publication date, and its 'Last Update' text reads June 24, 2025, so its currency is unconfirmed beyond the dates it lists.",
+        "The PPI release page gives no October portfolio management figure, and the portfolio management and other financial-services PPI inputs to PCE are not verified."
+      ]
+    },
+    "polymarket-6390067": {
+      "against": "As of 2026-10-29, the BEA September 2026 release printed core PCE at 3.1% year over year, and the one-decimal figure can sit anywhere from 3.05 to 3.15 unrounded.\nThe 12-month rate for October 2026 moves by roughly the October 2026 monthly change minus the October 2025 monthly change.\nThe October 2025 monthly change was printed at 0.2% on 2026-01-22, so an October 2026 monthly print near 0.2% would leave the 12-month rate close to 3.1%, not 3.2%.\nThe September 2026 monthly figure was 0.3%, so the outcome depends on whether October 2026 slows.\nThe BEA also revised July and August 2026 on 2026-10-29, so earlier months may move again.",
+      "base_rate": "Not counted.\nI did not pull the full BEA or FRED history of core PCE, so I have no count of how often the 12-month rate moved by exactly one tenth from the prior month or stayed the same.\nWhat the sources establish: the latest reported core figure is 3.1% (September 2026, released 2026-10-29), so the question asks whether the October 2026 figure rises by 0.1 point.\nThe reference class would be monthly core PCE 12-month prints over a long history, counting how often the one-decimal figure changed by +0.1, stayed flat, or moved otherwise.\nSecondary coverage gives August 2026 at 3.0% and July at ",
+      "different_now": "No October core PCE print exists yet, and the BLS CPI cannot give an official October year-over-year rate because October 2025 data are missing.\nThe October core CPI monthly rate of 0.3% matches September's and August's, so the monthly pace has not slowed; whether the 12-month rate moves from 3.1% to 3.2% depends mostly on the October 2025 base month, which I did not verify from an opened page.\nThe only core-related nowcast I opened does not show a core PCE value for October, so it gives no usable estimate.\nScheduled events before resolution: the BEA Personal Income and Outlays release for Oct",
+      "facts": [
+        {
+          "fact": "BEA's Personal Income and Outlays, September 2026 release, dated 2026-10-29, reported core PCE (excluding food and energy) up 3.1% from a year earlier, with a 0.3% monthly increase.",
+          "source": 0
+        },
+        {
+          "fact": "The same BEA release reported headline PCE up 3.6% from September 2025.",
+          "source": 0
+        },
+        {
+          "fact": "The BEA release schedule lists Personal Income and Outlays, October 2026 for November 25 at 8:30 AM, the release that resolves this question.",
+          "source": 2
+        },
+        {
+          "fact": "The BEA core PCE data page (last modified 2026-10-29) gives the latest 12-month core change as +3.1% for September 2026.",
+          "source": 1
+        },
+        {
+          "fact": "Core PCE (excluding food and energy) rose 3.1% from a year earlier in September 2026, per the BEA release dated 2026-10-29.",
+          "source": 3
+        },
+        {
+          "fact": "Headline PCE rose 3.6% from a year earlier in September 2026, per the BEA release dated 2026-10-29.",
+          "source": 3
+        },
+        {
+          "fact": "The FRED series PCEPILFE shows a September 2026 index level of 130.902 (2017=100, seasonally adjusted), updated 2026-10-29.",
+          "source": 4
+        },
+        {
+          "fact": "The BLS October 2026 CPI release was published on 2026-11-10, and its core CPI (all items less food and energy) rose 0.3% month over month in October, the same as in September and August.",
+          "source": 5
+        },
+        {
+          "fact": "BLS did not publish a 12-month change for October 2026 because October 2025 data are unavailable, so no official year-over-year October core inflation comparison exists in the CPI series.",
+          "source": 5
+        },
+        {
+          "fact": "The Cleveland Fed inflation nowcasting page, updated 11/13 per the page, shows an October 2026 row with values in only its first two columns (CPI 3.81 and core CPI 3.21 as read from the page); no October 2026 core PCE value was visible in the text I read.",
+          "source": 6
+        },
+        {
+          "fact": "The Federal Reserve FOMC calendar lists the next meeting on December 8-9, 2026, which is associated with a Summary of Economic Projections, and the page was last updated on 2026-11-12.",
+          "source": 7
+        },
+        {
+          "fact": "The BEA September 2026 release (2026-10-29) reports core PCE up 3.1% from a year earlier and up 0.3% month over month, and says July and August estimates were revised for BLS CES data.",
+          "source": 0
+        },
+        {
+          "fact": "The BEA October and November 2025 release (2026-01-22, delayed by the shutdown) reports core PCE up 0.2% month over month in October 2025, the base month for the October 2026 12-month rate.",
+          "source": 8
+        },
+        {
+          "fact": "The BEA October and November 2025 release reports core PCE up 2.7% from a year earlier in October 2025 (first print).",
+          "source": 8
+        },
+        {
+          "fact": "The BEA's first print for core PCE in October 2025 was +0.2% month over month, the base month for the October 2026 12-month rate.",
+          "source": 8
+        },
+        {
+          "fact": "The BEA's first print for core PCE 12-month change in October 2025 was 2.7%, with November 2025 at 2.8%, in the January 22, 2026 release.",
+          "source": 8
+        },
+        {
+          "fact": "On the Cleveland Fed inflation nowcasting page (last updated 11/13), the October 2026 rows show only CPI values (month over month 0.27 for core CPI; year over year 3.21 for core CPI), and the core PCE cells for October 2026 are blank.",
+          "source": 6
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 9,
+      "resolution": {
+        "criteria": "Percent change in the PCE price index excluding food and energy over the 12 months ending October 2026, seasonally adjusted, as reported in the BEA release, to one decimal place.\nHeadline PCE does not count.",
+        "current_status": "Latest official core value: September 2026 at +3.1% year over year (+0.3% month over month), from the BEA release dated 2026-10-29.\nOctober 2026 data is scheduled for 2026-11-25 at 8:30 AM ET; the BEA schedule page was last modified 2026-11-16 and still lists that date.",
+        "edge_cases": [
+          "Date and time: the release is 8:30 AM Eastern on 2026-11-25; the market's resolution date is also 2026-11-25, so a same-day resolution depends on the release landing that morning.",
+          "Rounding: the resolving figure is the one-decimal figure printed in the BEA release, so a value like 3.15% in unrounded terms is printed as one decimal; the question says exactly 3.2% counts only if BEA prints 3.2.",
+          "Revisions: the question names the figure as reported in the October 2026 release; later revisions to October or to earlier months in subsequent releases should not change the resolution unless the rules say otherwise.\nA secondary source (not opened) ",
+          "Headline versus core: headline PCE (September 3.6%) is not the resolving series; a reader quoting the headline figure would be wrong."
+        ],
+        "settling_source": "U.S.\nBureau of Economic Analysis, Personal Income and Outlays, October 2026 news release (https://www.bea.gov/news/schedule ; core series at https://www.bea.gov/data/personal-consumption-expenditures-price-index-excluding-food-and-energy)"
+      },
+      "uncertainties": [
+        "No economists' consensus or survey for October 2026 core PCE was found on a page I opened; search summaries gave a figure only from a page dated after today, which I did not use.",
+        "The October 2025 core PCE monthly change, which sets the base for the October 2026 12-month rate, was not verified from an opened BEA page; the BEA release and data page for the October 2025 base were not opened.",
+        "The Cleveland Fed page's October core CPI figure (3.21) conflicts in concept with BLS not publishing an October 12-month rate, so its model basis is unclear and it is not a core PCE nowcast.",
+        "The August 2026 core PCE of 3.0% and the September headline CPI of 3.7% come from search summaries and secondary coverage, not opened pages, so I did not rely on them.",
+        "The BEA October release could be revised or delayed; the BEA schedule date was already in the brief and I did not reopen it.",
+        "The October 2025 monthly base (0.2%) is a first print from 2026-01-22; the BEA's later revisions to 2025 data were not opened, so the current base value is unverified."
+      ]
+    },
+    "polymarket-6403128": {
+      "against": "For a rate change at the 2026-11-23 meeting (a cut toward 3%), the strongest evidence is the October CPI print released 2026-11-15, which Globes reported as -0.1% m/m and 1.1% y/y, far below the expected +0.2-0.4% m/m.\nThe 2026-10-20 Reuters poll said a further reduction to 3% was widely expected, and the Bank's own July 2026 path saw 3% in 12 months.\nThe Bank's July guidance and the poll both point to a further cut from 3.25%, and the November print is the most recent data before the meeting.\nWeaknesses: the poll and guidance predate the 2026-10-21 hold and carry no November date; the CPI is a single month and was reported from Globes citing CBS, not the CBS release; no November economist survey was opened.",
+      "base_rate": "Reference class: Bank of Israel policy-rate decisions.\nI could not complete an exact count from the BoI's own decision archive: its PDFs and press-release pages returned no readable text, so every count below is from secondary pages.\nWhat I could verify: a hold streak of at least nine consecutive meetings ended in 2025 (nine holds as of 2025-02-24, the Feb 2025 hold at 4.5%), and in 2026 the readable decisions were a cut on 2026-07-06 to 3.5%, a hold on 2026-10-21 at 3.25% after three straight cuts.\nSecondary search snippets (not opened, so not relied on) report later hold streaks of 12 and 14",
+      "different_now": "The CPI print released 2026-11-15, after the 2026-10-21 decision, came in well below consensus (-0.1% m/m against +0.2-0.4% expected; 1.1% y/y, the lowest in about five and a half years per Globes).\nThis is new information since the last meeting and points toward easing, not a hold.\nAgainst that, the October poll had every economist expecting a hold, so the market view was hold, and that was the surprise-free expectation then.\nScheduled before 2026-11-23: no other verified event.\nThe 2026-11-23 meeting date comes from the question and is not confirmed on the BoI calendar.",
+      "facts": [
+        {
+          "fact": "On 2026-05-25 the Bank of Israel Monetary Committee cut the interest rate 0.25 percentage points to 3.75% (per Globes).",
+          "source": 1
+        },
+        {
+          "fact": "On 2026-07-06 the Bank of Israel Monetary Committee cut the interest rate 0.25 percentage points to 3.5% (per Globes).",
+          "source": 0
+        },
+        {
+          "fact": "The official BoI interest-rate-dates schedule and the monetary-policy page could not be opened: both returned a browser-verification page, so the November 23, 2026 date is not confirmed from the primary source.",
+          "source": 2
+        },
+        {
+          "fact": "On 2025-02-24 the Monetary Committee kept the rate unchanged at 4.5%, the ninth consecutive hold.",
+          "source": 4
+        },
+        {
+          "fact": "On 2026-07-06 the Monetary Committee cut the rate by 0.25 points to 3.5%, its second consecutive cut and fourth since November 2025.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-21 the Monetary Committee left the rate unchanged at 3.25%, after three consecutive cuts.",
+          "source": 5
+        },
+        {
+          "fact": "The Bank of Israel's own decision notice for 2026-10-21 exists at boi.org.il, but its PDF text could not be read here, so its wording is not quoted.",
+          "source": 6
+        },
+        {
+          "fact": "Israel's October 2026 CPI fell 0.1% month on month and rose 1.1% year on year; Globes reported it on 2026-11-15, the day it was released.",
+          "source": 7
+        },
+        {
+          "fact": "Consensus had expected October 2026 CPI to rise 0.2-0.4% month on month, so the print undershot by a wide margin.",
+          "source": 7
+        },
+        {
+          "fact": "A Reuters poll published 2026-10-20 found all 15 economists expected the Bank of Israel to hold at 3.25% at its decision on Wednesday 2026-10-21.",
+          "source": 8
+        },
+        {
+          "fact": "Citi's base case, as of 2026-08-25, was one more 25 bp cut in 2026 and another in Q1 2027 to 3%.",
+          "source": 9
+        },
+        {
+          "fact": "Israel's CPI fell 0.1% in October 2026 versus September and rose 1.1% over the twelve months to end-October, reported by Globes on 2026-11-15.",
+          "source": 7
+        },
+        {
+          "fact": "On 2026-10-20 Reuters reported that at least one more reduction to 3% was widely expected, following the 3.25% hold that was due at the 2026-10-21 decision.",
+          "source": 8
+        },
+        {
+          "fact": "On 2026-07-06 Globes reported the Bank of Israel saw the interest rate at 3% in 12 months' time, when the rate was cut to 3.5%.",
+          "source": 0
+        },
+        {
+          "fact": "The Bank of Israel's October 2026 discussion report exists at boi.org.il, but its PDF text could not be read, so its decision wording and forward guidance are not quoted here.",
+          "source": 10
+        },
+        {
+          "fact": "As of 2026-11-16, the Trading Economics Israel interest-rate page gives the latest Bank of Israel decision as a hold at 3.25% on 2026-10-21 and lists 2026-11-23 as the next scheduled decision date, which matches the question's date.\nThis is an aggregator's calendar, not the BoI calendar.",
+          "source": 11
+        },
+        {
+          "fact": "Israel's annual CPI inflation rate fell to 1.10% in October 2026 from 1.60% in September 2026, per the Trading Economics release entry dated 2026-11-15.",
+          "source": 12
+        },
+        {
+          "fact": "The Bank of Israel monetary-policy page (boi.org.il/en/economic-roles/monetary-policy/) could not be read in this pass; the fetch returned a browser-verification page, so the November 23, 2026 meeting date and the current rate are not confirmed from it.",
+          "source": 3
+        },
+        {
+          "fact": "The Bank of Israel interest-rate-dates schedule (boi.org.il/roles/monetary-policy/interest-rate-dates/) could not be read in this pass; the fetch returned a browser-verification page, so no 2026 decision dates are confirmed from it.",
+          "source": 2
+        },
+        {
+          "fact": "The PDF for the October 21, 2026 decision has a metadata creation date of 2026-10-21, but its text is compressed and unreadable here, so the decision outcome and rate level it contains are not confirmed.",
+          "source": 6
+        },
+        {
+          "fact": "The Bank of Israel October 2026 PDF has a metadata creation date of 2026-11-04, but its text is unreadable here, so its content, including any decision or rate level, is not confirmed.",
+          "source": 13
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 0,
+      "resolution": {
+        "criteria": "Resolves on the change in the Bank of Israel Interest Rate from the November 2026 Monetary Committee meeting (scheduled 2026-11-23 per the question), relative to the level before the meeting.\nChanges under 25 bps round to 25 bps; larger changes round to the nearest 25 bps, away from zero on ties.\n'No Change' if the meeting is cancelled or no decision is announced before the next scheduled meeting.\nEmergency changes do not count.",
+        "current_status": "Not verified from a primary source.\nThe latest rate cut I could open is 2026-07-06 (to 3.5%, Globes).\nSearch snippets (not opened, so not quoted) indicate a 0.25 pt cut around 2026-09-01 and a hold on 2026-10-21 at 3.25%, but I could not open the official pages to confirm these.\nThe sources also conflict on the rate level (one undated ynet article says 4% with a six-week hold).",
+        "edge_cases": [
+          "Current level is unconfirmed (3.25% vs 3.5% vs 4% across sources), so the 'prior level' baseline needs the official BoI announcement.",
+          "The meeting date 2026-11-23 comes from the question text and was not checked against the BoI calendar, which may change; a postponed meeting resolves on its outcome if it falls before the next scheduled meeting.",
+          "Time zone: BoI announcements are dated Israel local time, while the question's resolution date is given without a time zone.",
+          "Rounding: a move of 10 bps counts as 25 bps; 37.5 bps rounds to 50 bps; a 0 bps change is the only 'No Change' outcome."
+        ],
+        "settling_source": "Bank of Israel Monetary Committee statement/release for the November 2026 meeting, per the BoI calendar at https://www.boi.org.il/en/economic-roles/monetary-policy/ (schedule also at https://boi.org.il/roles/monetary-policy/interest-rate-dates/).\nNot"
+      },
+      "uncertainties": [
+        "The BoI calendar page and the October 21 decision PDF could not be read (browser check and binary PDF), so the 2026-11-23 date and the October outcome (hold at 3.25%) are not confirmed from a primary source here.",
+        "No November 2026 economists' survey (Reuters, Bloomberg or BoI expectations survey) was found from an opened page.",
+        "The October 21 statement and minutes wording on the next move could not be read; the search snippet that Deputy Governor Andrew Abir said rates could keep declining if price pressures stayed stable was not opened, so it is not relied on.",
+        "The CBS release page was unreadable; the October CPI figures rest on Globes, which cites the CBS.",
+        "The September 2026 CPI figure (1.6% y/y) appeared only in search snippets and is not relied on.\nThe prior two CPI prints beyond October were not opened.",
+        "No November 2026 economist poll or Bank of Israel expectations survey was opened, so the market view for 2026-11-23 is unverified."
+      ],
+      "warnings": [
+        "only 0 primary source(s) with quotes (need 2): rely on the facts less than on official data"
+      ]
+    },
+    "polymarket-6921785": {
+      "against": "The 40 to 59 band is the less likely outcome on the reference rates.\nThe tally is 35 with about 4.25 days left to Nov 20 12:00 PM ET, so the band needs only 5 to 24 more posts, about 5.6 per day or fewer.\nThe archive's recent pace is about 12.7 per day (my arithmetic on the archive, Nov 13 to Nov 16), which would add about 54 posts and put the total near 89.\nThe 2025 average of 18 per day (Ground News citing WCVB, 2026-01-11) would add about 77 and put the total near 112.\nThe per-day counts for Nov 14 (17) and Nov 15 (14) show no slowdown toward the band's pace.",
+      "base_rate": "No live count was readable.\nThe named tracker (xtracker.io) failed to resolve (DNS error), and no tracker page showed a running count for Nov 13 to Nov 20.\nReference class: Truth Social posting volume over 2025 and Jan to Apr 2026.\nReported averages are about 18 to 19 posts per day (about 6,168 posts in 2025, per a search snippet; about 2,249 in Jan to Apr 2026, per NPR and Mediaite snippets, neither page opened).\nAt that rate a 7-day window averages roughly 126 to 133 posts.\nThe 40 to 59 band corresponds to about 6 to 8 posts a day.\nDay-level counts I could read range from 4 (Nov 13, partial)",
+      "different_now": "The window is partly elapsed: about 35 posts are already dated inside it, as of Nov 16 6:05 AM ET, with about 4.25 days left to Nov 20 12:00 PM ET.\nOver the elapsed part, the archive pace is about 12.7 per day, well below the 18 to 19 per day averages reported for 2025 and early 2026, so the recent pace is slower than the reference class.\nNov 14 (17 entries) and Nov 15 (14 entries) are steady, with no burst like the 190-post peak on 2026-11-03 cited in the stats.\nNo scheduled events in the sources would change posting volume in the window.\nThis is a count question, not an election, so the poll",
+      "facts": [
+        {
+          "fact": "The xtracker.io Truth Social page, opened 2026-11-16, showed only the title 'Truth Tracker' and no post count, period or counting rules, so the live resolution count could not be read.",
+          "source": 0
+        },
+        {
+          "fact": "trumpstruth.org states that it archives all of Trump's Truth Social posts and that its timestamps are in America/New York time.",
+          "source": 1
+        },
+        {
+          "fact": "trumpstruth.org stats, read on 2026-11-16, show 39,009 archived posts covering 2022-02-14 to 2026-11-16, an average of 22.5 posts per day, with a peak of 190 posts on 2026-11-03.",
+          "source": 2
+        },
+        {
+          "fact": "The trumpstruth.org stats page also lists '1,195 posts' at '39.8 per day' under a window label it does not show, so that row's period is unknown.",
+          "source": 2
+        },
+        {
+          "fact": "Ground News reports, citing WCVB, that Trump posted 6,168 times on Truth Social in 2025, about 18 posts a day.",
+          "source": 3
+        },
+        {
+          "fact": "A search snippet (Mediaite, not opened because the fetch returned HTTP 403) reports Trump averaged about 19 Truth Social posts a day in 2026.",
+          "source": 0
+        },
+        {
+          "fact": "The American Presidency Project's page for 2026-11-13 lists 4 timestamped Truth Social posts (3:22 AM, 6:02 AM, 2:52 PM and 2:58 PM PT); the page is a daily log, not a running total, and the question window opens 12:00 PM ET on Nov 13.",
+          "source": 4
+        },
+        {
+          "fact": "The American Presidency Project's page for 2026-11-14 lists about 18 timestamped Truth Social posts, by my count of its entries.",
+          "source": 5
+        },
+        {
+          "fact": "NPR reported that Trump posted 2,249 times on Truth Social in the first four months of 2026, just under 19 posts per day (figure from a search result, page not opened).",
+          "source": 7
+        },
+        {
+          "fact": "Mediaite reported Trump averaged about 19 Truth Social posts a day in 2026 (headline from a search result, page not opened).",
+          "source": 6
+        },
+        {
+          "fact": "The trumpstruth.org archive listing, read 2026-11-16, shows its newest entry as statuses/43602 at Nov 16, 2026, 6:05 AM, with 43601 at the same time.",
+          "source": 8
+        },
+        {
+          "fact": "The trumpstruth.org listing shows Nov 14, 2026 entries from 9:52 PM down to 9:54 AM, covering status IDs 43570 to 43586, which is 17 entries.",
+          "source": 8
+        },
+        {
+          "fact": "The trumpstruth.org listing shows Nov 15, 2026 entries from 8:58 PM down to 8:16 AM, covering status IDs 43587 to 43600, which is 14 entries.",
+          "source": 8
+        },
+        {
+          "fact": "The trumpstruth.org listing shows two Nov 13, 2026 entries after noon, at 5:52 PM (43568) and 5:58 PM (43569).\nEarlier Nov 13 entries are at 9:02 AM (43567) and 6:22 AM (43566), before the window opens.",
+          "source": 8
+        },
+        {
+          "fact": "Counting status IDs 43568 to 43602 gives 35 entries dated from Nov 13, 2026 12:00 PM through the Nov 16, 2026 6:05 AM snapshot, which is about 2.75 days, or about 12.7 entries per day.\nThis rate is my arithmetic on the archive, not a figure a source states.",
+          "source": 8
+        },
+        {
+          "fact": "The Nov 14, 2026 count in the trumpstruth.org archive is 17 entries, against about 18 in the American Presidency Project page for Nov 14 that I read earlier, so the two sources differ by one for that day.",
+          "source": 8
+        },
+        {
+          "fact": "The xtracker.io Truth Tracker page, read 2026-11-16, shows only the title and no post count, so it gives no running total for the window.",
+          "source": 0
+        },
+        {
+          "fact": "The trumpstruth.org stats page, read earlier on 2026-11-16, reports 22.5 posts per day across the whole archive, which is an all-time average and not the current pace.",
+          "source": 2
+        },
+        {
+          "fact": "The trumpstruth.org archive lists 39,009 archived posts for 2022-02-14 to 2026-11-16, with a stated average of 22.5 per day, as read on 2026-11-16.",
+          "source": 2
+        },
+        {
+          "fact": "The Ground News summary of WCVB's data reports Trump posted 6,168 times on Truth Social in 2025, about 18 posts a day; the article is dated 2026-01-11.",
+          "source": 3
+        },
+        {
+          "fact": "The trumpstruth.org archive states that all its post timestamps are in America/New York time, which settles the ET-versus-UTC question for the archive proxy.",
+          "source": 1
+        },
+        {
+          "fact": "On a re-read at the 2026-11-16 snapshot, the newest archive entries are status 43602 and 43601, both dated November 16, 2026, 6:05 AM, and the Nov 15 entries run from 8:58 PM down to 8:16 AM, which is consistent with the earlier 35-entry count.\nThe listing was summarized by the fetch tool, not quoted verbatim, and it was not re-read for the Nov 13 entries.",
+          "source": 8
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 3,
+      "resolution": {
+        "criteria": "Count main-feed posts, quote posts and reposts by @realDonaldTrump from Nov 13 2026 12:00 PM ET to Nov 20 2026 12:00 PM ET.\nReplies do not count unless they appear on the main feed.\nDeleted posts count if captured by the tracker (about 5 minutes).",
+        "current_status": "No live count for the window was read.\nArchive-wide trumpstruth.org stats as of 2026-11-16: 39,009 posts since 2022-02-14, 22.5 per day on average.\n2025 total reported as 6,168 (about 18 per day).\nA 2026 average of about 19 per day appears only in a search snippet.",
+        "edge_cases": [
+          "The window runs 12:00 PM ET on Nov 13 to 12:00 PM ET on Nov 20, which is 7 days exactly, so the count must be taken in ET, not UTC.",
+          "Only main-feed posts, quote posts and reposts count; replies count only if they show on the main feed.",
+          "Deleted posts count only if the tracker captures them within about 5 minutes; a post deleted before capture may not count.",
+          "The tracker's own counting may differ from trumpstruth.org's archive, so the archive's per-day averages are a proxy and not the settling count."
+        ],
+        "settling_source": "Truth Social @realDonaldTrump posts, as captured by the tracker named in the question (xtracker.io is the likely tracker; the question does not name it).\nTruth Social itself is the fallback."
+      },
+      "tally": {
+        "read_at": "2026-11-16T11:05 UTC",
+        "source_url": "https://trumpstruth.org/?per_page=100",
+        "unit": "Truth Social main-feed posts by @realDon",
+        "value": 35.0
+      },
+      "uncertainties": [
+        "The trumpstruth.org listing is a long page, and my reads cover only about the first 200,000 of 277,700 characters.\nPosts in the window beyond what I saw could change the count, though entries from Nov 13 before noon already appear, which bounds the window's start.",
+        "The archive page does not state its timezone in the text I read.\nIf its timestamps are UTC, not America/New_York, the window boundaries shift by five hours, which would change the Nov 13 and Nov 16 edges of the count.",
+        "The archive listing may include replies, reposts or edits that the tracker treats differently, so the 35 is a proxy for the settling count.",
+        "xtracker.io, the named tracker, showed no count when I read it, so no tracker figure confirms this.",
+        "The Nov 14 archive count (17) and the American Presidency Project count (about 18, counted by me from its entries) differ by one, so the exact count is uncertain by at least that much.",
+        "The tally of 35 comes from the prior pass; I did not re-open the trumpstruth.org listing, so the count and timestamps are unverified here."
+      ]
+    },
+    "polymarket-6942351": {
+      "against": "The strongest case against the 220T to 230T bracket is that the only week-level series found does not show steady acceleration.\nOn 2026-10-19 a secondary report said OpenRouter's live rankings showed weekly token usage flattening, with the top model down 20% (zeli, 2026-10-19).\nAhaSignals' trailing seven-day totals rose only 4.1% in the window ending 2026-11-02 (about 197.9T, AhaSignals, 2026-11-03), so the week-over-week gain was small in that window.\nOpenRouter's own newsletter (2026-09-22) warns that the curve is not smooth, so one strong reading (the 8.5% rise to about 204.5T through 2026-11-03, from my earlier pass) could be noise rather than a trend.\nThe 220T line also sits about 8% above the last trailing total found, so a bracket hit needs sustained growth at the high end of the recent range.",
+      "base_rate": "No count of displayed weekly totals was possible: none of the pages I could open show a platform-wide weekly total for any past week, so the reference class of past weekly figures is zero observed weeks.\nThe only platform-level series found is monthly: October 2026 at 790T, up 37% from September and 25x January (so January is about 32T for the month).\nConverting October's monthly total to a weekly average gives roughly 178T (790T / 31 days x 7), which is my arithmetic, not a figure OpenRouter displays.\nThe 220T to 230T bracket therefore sits above that October-implied average, but the sources ",
+      "different_now": "The only week-level platform totals I could open are AhaSignals' trailing seven-day figures built from OpenRouter rankings data, not a figure OpenRouter itself displays.\nThe latest one found (2026-10-28 to 2026-11-03, about 204.5T) sits below the 220T to 230T bracket, and it was 8.5% above the prior seven-day window.\nIf a rise of that size repeated, the trailing total would pass 220T within about two weeks, which points toward the bracket.\nThat is one week-over-week observation, not a trend, and it is not a forecast.\nThe 2026-10-28 to 2026-11-03 window runs Wednesday to Tuesday, which is not t",
+      "facts": [
+        {
+          "fact": "OpenRouter's rankings week view defines 'This Week' as a trailing seven-day window, with usage aggregated into daily buckets in UTC, not a Monday-to-Sunday week.",
+          "source": 1
+        },
+        {
+          "fact": "The OpenRouter rankings page showed 'Usage data through Nov 15, 2026' as its newest usage bucket when fetched on 2026-11-16.",
+          "source": 1
+        },
+        {
+          "fact": "The OpenRouter rankings page's date header is the newest usage bucket the leaderboard is computed from, and it advances only when new usage data is aggregated.",
+          "source": 0
+        },
+        {
+          "fact": "The OpenRouter rankings main page showed the top model at about 59.2T tokens when fetched on 2026-11-16, with no overall weekly sum shown on the page.",
+          "source": 0
+        },
+        {
+          "fact": "OpenRouter's FAQ states that it receives the total number of tokens processed by the provider for each request, which is the counting basis for token totals.",
+          "source": 2
+        },
+        {
+          "fact": "The OpenRouter October 2026 recap states October 2026 was 790T tokens, up 37% from September and 25 times January.",
+          "source": 3
+        },
+        {
+          "fact": "The Chinese-language October 2026 recap gives the same 790T monthly total, up 37% from September.",
+          "source": 4
+        },
+        {
+          "fact": "A 2026-10-19 article reports weekly token usage on OpenRouter's leaderboard was flattening, with DeepSeek V4.1 Flash at 32.8T tokens, down 20%.",
+          "source": 5
+        },
+        {
+          "fact": "The live rankings page, with usage data through Nov 15, 2026, lists DeepSeek V4.1 Flash 1017 at 59.2T tokens at rank 1 but shows no combined weekly total.",
+          "source": 0
+        },
+        {
+          "fact": "When fetched on 2026-11-16, the OpenRouter rankings page showed usage data through Nov 15, 2026, and it showed no weekly total for any week.",
+          "source": 0
+        },
+        {
+          "fact": "The OpenRouter rankings page labels its market-share summary by the week beginning Nov 9, 2026, which is the Monday-start week label, while its newest usage bucket is Nov 15.",
+          "source": 0
+        },
+        {
+          "fact": "AhaSignals, citing OpenRouter rankings data, reported 204,471,678,441,606 tokens (about 204.5T) for 2026-10-28 to 2026-11-03, up 8.52% from 188,413,718,979,913 (about 188.4T) for 2026-10-21 to 2026-10-27; the brief was published 2026-11-04.",
+          "source": 6
+        },
+        {
+          "fact": "A 2026-10-19 secondary report says OpenRouter's live rankings show weekly token usage flattening, with the top model at 32.8T tokens and down 20%.",
+          "source": 5
+        },
+        {
+          "fact": "AhaSignals' seven-day platform total for 2026-10-27 to 2026-11-02 was 197.9T tokens, up 4.1% from the prior seven days (2026-10-20 to 2026-10-26, about 190.0T).",
+          "source": 7
+        },
+        {
+          "fact": "OpenRouter's own newsletter put weekly volume at 128.4T tokens for the week of 2026-09-14, and said the curve is not smooth at granular points, so single-week readings can wobble.",
+          "source": 8
+        },
+        {
+          "fact": "OpenRouter's newsletter states its weekly totals are computed from OpenRouter usage data and that its charts exclude reseller activity.",
+          "source": 8
+        },
+        {
+          "fact": "The 2026-11-04 AhaSignals week figures are labelled as AhaSignals calculations on top of OpenRouter rankings data, so they are not a total OpenRouter itself publishes.",
+          "source": 6
+        },
+        {
+          "fact": "When fetched on 2026-11-16, the OpenRouter weekly rankings view showed usage data through Nov 15, 2026, listed per-model counts (59.2T for the top model), and displayed no overall weekly sum.",
+          "source": 1
+        },
+        {
+          "fact": "The OpenRouter rankings 'This Week' view is a trailing seven-day window, not a Monday-to-Sunday calendar week, so it cannot by itself show the Nov 16 to Nov 22 week the question resolves on.",
+          "source": 1
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 6,
+      "resolution": {
+        "criteria": "Total tokens processed on OpenRouter for the week of Nov 16 to Nov 22, 2026, as the weekly total displayed in the Top Models chart; resolves once the Nov 23 week figures are first displayed, or at 11:59 PM ET on Nov 27, 2026 if they are not displayed by then; boundary values resolve to the higher bracket.",
+        "current_status": "As of 2026-11-16, the rankings page shows usage data through Nov 15, 2026.\nNo figure for the week of Nov 16 to Nov 22 is displayed yet, and the page showed no overall weekly sum in the pages I opened; the top model showed about 59.2T tokens.",
+        "edge_cases": [
+          "The question defines weeks as Monday 12:00 AM UTC to Sunday 11:59 PM UTC, but the rankings page describes its 'This Week' view as a trailing seven-day window of daily UTC buckets; the two can differ in which days are included.",
+          "The page does not display a single weekly total in the pages opened; the resolver must identify which figure in the Top Models chart counts as the 'weekly total' (sum of listed models, or a total label), and this is not stated in the pages read.",
+          "The week's figures keep updating until the following week's figures are first displayed, so a value read before Nov 23 or after may differ; revised or later-corrected values count only if they are the value displayed at resolution.",
+          "The freshness date on the page is the newest usage bucket, which can lag the calendar; a week figure shown before the bucket covers all seven days is incomplete."
+        ],
+        "settling_source": "OpenRouter AI Model Rankings, https://openrouter.ai/rankings (Top Models chart, weekly figure)"
+      },
+      "uncertainties": [
+        "No weekly figure for any week after 2026-11-03 was found in pages I could open, so the level of the week of Nov 9 and the partial week of Nov 16 is unknown.",
+        "It is not established that AhaSignals' trailing seven-day sums match the total OpenRouter's Top Models chart would display, or what rounding OpenRouter applies.",
+        "The question's Monday-to-Sunday week and the rankings page's trailing seven-day window can include different days, which can move a total across the 220T line.",
+        "Whether week-over-week growth of about 8.5% persists is unknown; I found no later growth reading and only a single week of this series.",
+        "The OpenRouter rankings page was fetched without a publication date, and a WebFetch summary, not the page's full text, is the basis for the Nov 15 freshness date.",
+        "No OpenRouter-published weekly total for any week was found; the Top Models chart's summed figure and any rounding are unverified, and AhaSignals' trailing sums may not match what the chart displays."
+      ]
+    },
+    "polymarket-6949221": {
+      "against": "The strongest case for a non-Carbon #1 on 2026-11-23 is a new Anthropic model entering the board.\nOn 2026-11-09 Anthropic said Fable 5.2 was generally available on all platforms, and on 2026-11-10 Reuters reported it was being made available more broadly and was up to 30% faster than Claude 5.1.\nAny Fable 5.2 Text Arena entry would need only about two weeks of votes to challenge a leader whose lead on the 2026-11-11 page is 1538\u00b110 (preliminary, 4,273 votes), a 9-point margin over Argon.\nCarbon's own score moved from 1,528 on 2026-10-28 to 1,538 by 2026-11-11, so the number is still drifting upward, not settled.",
+      "base_rate": "Reference class: changes in the #1 spot of the Arena Text Overall board.\nI could not obtain a daily archive of the board, so no complete count exists.\nSparse snapshots in 2026, mostly from third-party aggregators, show at least four different leaders: Opus 4.7 (thinking) at about 1,503 in May (DataLearner), Claude Opus 4.8 Thinking at about 1,512 in July (ToolCenter/Swfte), Gemini 4 Argon at 1,524 preliminary in mid-October (developersdigest, data through 2026-10-15), and Gemini 4 Carbon (High) from about 2026-10-28 (OfficeChai, and the arena.ai page of 2026-11-11).\nThat is roughly three to fo",
+      "different_now": "The rank-1 lead is preliminary and thin: the leader's score is 1538 with a \u00b110 interval, against Gemini 4 Argon (High) at 1529 on the same page, a gap of 9 points that is inside the stated interval.\nIf the two rank spreads overlap, both can share rank 1 and the tie then goes to the unrounded Arena score, where Carbon currently holds the higher number.\nThis pushes toward Carbon keeping the top spot, but only while votes keep arriving in the same direction.\nI found no dated scheduled release, vote close, or board change between 2026-11-16 and the 2026-11-23 12:00 PM ET check; the only dated item",
+      "facts": [
+        {
+          "fact": "On the arena.ai Text Arena Overall (no style control) page, Gemini 4 Carbon (High) is ranked 1 with 1538 and Gemini 4 Argon (High) is ranked 2 with 1529, as of the page's latest update shown on Nov 11, 2026 (read via a summarizing fetch, not a verbatim quote).",
+          "source": 0
+        },
+        {
+          "fact": "On the same page, Claude Opus 5.5 (High) is ranked 3 with 1514, Claude Fable 5.1 (Max) is ranked 4 with 1512, and Claude Opus 5 (Max) is ranked 5 with 1507.",
+          "source": 0
+        },
+        {
+          "fact": "An OfficeChai article published 2026-10-28 reported that Gemini 4 Carbon (High) claimed first place overall on the Text Arena with an Arena Elo score of 1,528.",
+          "source": 1
+        },
+        {
+          "fact": "The arena.ai leaderboard changelog records an entry dated November 9, 2026 announcing that Kimi K3.1 Pro (Max) was added to the Text Arena leaderboard.",
+          "source": 2
+        },
+        {
+          "fact": "On the arena.ai Text Overall (no style control) page dated 2026-11-11, Gemini 4 Carbon (High) by Google is rank 1 with a score of 1538\u00b110 marked Preliminary, based on 4,273 votes.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-10-28, OfficeChai reported that Gemini 4 Carbon (High) claimed first place on the main Text Arena leaderboard with an Arena Elo of 1,528.",
+          "source": 1
+        },
+        {
+          "fact": "Arena's ranking method defines the raw rank as the rank of the model's Arena score, and models are tied when their rank spreads overlap.",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-10-28, Artificial Analysis reported Gemini 4 Carbon as the new #1 on its Intelligence Index v5.\nThis is a different leaderboard from Arena.",
+          "source": 4
+        },
+        {
+          "fact": "On the arena.ai Text Overall (no style control) page, the rank-1 entry is Gemini 4 Carbon (High), shown with a score of 1538 (\u00b110, marked Preliminary), with Nov 11, 2026 the only date shown on the page.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-09-24, Google DeepMind's Koray Kavukcuoglu said he hopes Gemini 4 will be released 'much earlier' than the end of 2026, and no specific release timeline was given.",
+          "source": 5
+        },
+        {
+          "fact": "On 2026-11-09 Anthropic said Claude Fable 5.2 was generally available across all platforms, a model that can be ranked on the Text Arena and was not on the board as checked in this pass.",
+          "source": 7
+        },
+        {
+          "fact": "Reuters, reported 2026-11-10, says Fable 5.2 is available more broadly and that the new models generate outputs up to 30% faster than Claude 5.1 predecessors.",
+          "source": 6
+        },
+        {
+          "fact": "On the arena.ai Text Overall (no style control) page dated 2026-11-11, Gemini 4 Carbon (High) is shown at 1538\u00b110 marked Preliminary on 4,273 votes, with Gemini 4 Argon (High) 9 points behind at 1529 in the rules-pass reading.\nThe Carbon lead is inside its own stated interval and rests on about 4,300 votes.",
+          "source": 0
+        },
+        {
+          "fact": "On the arena.ai Text Overall (no style control) page, dated 2026-11-11, Gemini 4 Carbon (High) is rank 1 at score 1538 (\u00b110, preliminary) and Gemini 4 Argon (High) is rank 2 at 1529 (\u00b15).\nThis came from a summarizing fetch on 2026-11-16, so no verbatim sentence could be copied.",
+          "source": 0
+        },
+        {
+          "fact": "The same 2026-11-11 page, as read on 2026-11-16, lists Claude Fable 5.1 (Max) at rank 4 with 1512 (\u00b15) and Claude Fable 5 (High) at rank 12 with 1492 (\u00b14).\nIt does not show a Claude Fable 5.2 Text Overall entry.",
+          "source": 0
+        },
+        {
+          "fact": "The rank-1 and rank-2 intervals overlap on the 2026-11-11 page.\nCarbon's range is about 1528 to 1548 and Argon's is about 1524 to 1534.\nUnder the ranking rule, that means both could share rank 1, and the tie would go to the unrounded Arena score.",
+          "source": 0
+        },
+        {
+          "fact": "The 2026-11-11 page as read on 2026-11-16 does not show a rank 3.\nThe earlier rules pass reported Claude Opus 5.5 (High) at rank 3 with 1514, and this fetch did not confirm it.",
+          "source": 0
+        },
+        {
+          "fact": "A web search on 2026-11-16 found no Text Arena rank for Claude Fable 5.2.\nThe results showed Fable 5.2 (Max) ranked first on Arena's separate Agent Arena board in a snapshot dated 2026-11-11.\nThat source was not opened, so it is a lead only.",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 4,
+      "resolution": {
+        "criteria": "The model with the highest Rank on the Text Arena (Overall) table, style control off, Adjustments None, filtered to Models, checked on 2026-11-23 at 12:00 PM ET.\nAutoEval-marked models are excluded.\nTies go to the higher Arena score (unrounded), then alphabetical order of the full model name.",
+        "current_status": "Latest value I could read: the arena.ai page (last update shown Nov 11, 2026) lists Gemini 4 Carbon (High) first at 1538, then Gemini 4 Argon (High) at 1529.\nContrary data: a Developers Digest page cites Gemini 4 Argon (High) first at 1524\u00b19 (preliminary) as of Oct 17, 2026, which is stale.\nI could not read a verbatim quote from the arena.ai page, so the ranking is from a summarizing fetch and sho",
+        "edge_cases": [
+          "Check time is 12:00 PM ET on 2026-11-23, which is 17:00 UTC; the resolution date is 2026-11-24, so a later check could show a different order.",
+          "Scores are preliminary and shift as votes arrive; a 9-point gap (1538 vs 1529) can close or invert before the check.",
+          "Ties on Rank are broken by unrounded Arena score, which the rounded table may not show; the granular value sits in the data below the table.",
+          "Models marked AutoEval at check time are excluded even if they rank first."
+        ],
+        "settling_source": "arena.ai Text Arena Overall leaderboard, Rank column, with style control off and filter set to Models: https://arena.ai/leaderboard/text/overall-no-style-control"
+      },
+      "uncertainties": [
+        "The arena.ai page was read through a summarizing fetch, so the quotes above are fragments the fetch returned, not full sentences; the Argon 1529 and Opus 5.5 3rd-place figures come from the earlier rules pass and were not re-verified in this pass.",
+        "Search summaries disagree on the scores: AF.NET (citing BenchLeader, not Arena) reports Carbon 1528, Argon 1520, Claude Opus 5.5 1509, and some undated arena.ai mirror pages show claude-fable-5 at the top near 1508\u20131509.\nI could not open AF.NET to verify, and the undated mirrors may be stale.",
+        "The Axios page on Gemini 4 (dated 2026-09-30 in search results) returned HTTP 403, so its availability claims are unverified and I did not rely on them.",
+        "No primary Google or Arena announcement dated within the last 7 days (2026-11-09 to 2026-11-16) was found, so whether a new model is about to be added or ranked before 2026-11-23 is unknown.",
+        "Whether any model is marked AutoEval at check time, and whether the rank 1 spread overlaps Argon's, were not checked against the live table.",
+        "I could not open the arena.ai page verbatim; the rank, score and vote figures came from a summarizing fetch, so the quotes for source 0 are empty and the figures need checking on the live table."
+      ]
+    },
+    "polymarket-6990900": {
+      "against": "Hot inflation data from the week before resolution points toward a lower ETH level.\nBLS reported on 2026-11-10 that seasonally adjusted CPI rose 0.4% in October after 0.6% in September, and core rose 0.3% for the third month running.\nUS spot ether ETFs had net withdrawals, including $184.6M on 2026-11-09 per Farside via Mitrade, a source with no stated date.\nA search snippet (not opened, so unverified) says Fed Governor Waller put a larger rate hike on the table after the CPI print.\nThe rates reference class shows ETH falling 11% in a 3-day window is rare: one of 28 overlapping windows, which is a thin sample.\nA 0.4% monthly headline and ongoing outflows do not by themselves move ETH 11% in about 2.3 days, so this is a weak case for No.",
+      "base_rate": "Reference class: ETHUSDT 3-day close-to-close log returns from Binance daily closes, 2026-10-17 to 2026-11-16 (31 closes, 28 overlapping 3-day windows).\nOne of 28 windows fell by at least the log return needed to end below 1600 from 1794.56 (ln(1600/1794.56) = -0.1148).\nZero of 30 single-day returns in the same window were that large.\nThe sample covers 31 days and the windows overlap, so it is not an independent or long-run sample.",
+      "different_now": "Nothing inside the window is a scheduled ETH-specific catalyst that I could confirm.\nThe FOMC meeting is on Dec 8-9, after resolution.\nSpot ETF flows were negative in the recent reports I could read (Nov 9 at -$184.6M), and a search snippet describes hawkish Fed-hike talk and hot CPI, which leans toward downside pressure on the level in the reference class.\nDistance from the threshold at the 2026-11-16 09:30 UTC read: $1,797.49 is 11.0% above $1,600 (ln ratio +0.1169).\nTime from that read to the 2026-11-19 17:00 UTC resolution is about 55.5 hours.",
+      "facts": [
+        {
+          "fact": "Binance's ETH price page showed ETH at $1,797.49 with a last update of 11/16/26 9:30 AM UTC.",
+          "source": 0
+        },
+        {
+          "fact": "Binance's ETH/USDT trade page title on fetch showed a price of 1794.99, with no timestamp.",
+          "source": 1
+        },
+        {
+          "fact": "Investing.com's ETH/USD (Binance) daily close series shows 1,769.63 on Nov 14, 2026, 1,836.66 on Nov 15, and 1,794.61 on Nov 16, 2026, down from 2,423.29 on Oct 16, 2026.",
+          "source": 2
+        },
+        {
+          "fact": "Binance ETHUSDT daily candles show a close of 2402.82 on 2026-10-17, the first candle in the 31-candle window.",
+          "source": 3
+        },
+        {
+          "fact": "Binance ETHUSDT daily close was 1929.88 on 2026-11-13 and 1769.20 on 2026-11-14.",
+          "source": 3
+        },
+        {
+          "fact": "Binance ETHUSDT daily close was 1835.35 on 2026-11-15.",
+          "source": 3
+        },
+        {
+          "fact": "The 2026-11-16 Binance ETHUSDT daily candle, still open when read, showed a close of 1794.56 with a 24-hour range of 1787.11 to 1838.77.\nThe read time is not shown, so 1794.56 is the latest value at read time, not a final close.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance ETH/USDT trade page title showed 1796.03, but the page had no timestamp and displayed a 'Disconnected' status, so that figure may be stale.",
+          "source": 1
+        },
+        {
+          "fact": "The December 2026 FOMC meeting is scheduled for December 8 to 9, which is after the 2026-11-19 resolution date, so no FOMC decision falls inside the window.",
+          "source": 4
+        },
+        {
+          "fact": "US spot ether ETFs had $184.6 million of net withdrawals on Monday, November 9, 2026, per Farside Investors.",
+          "source": 5
+        },
+        {
+          "fact": "Investinglive reported that ether extended losses as Fed Governor Waller put a larger rate hike on the table and US CPI remained hot; the article could not be opened, so this is from the search snippet only.",
+          "source": 6
+        },
+        {
+          "fact": "A KuCoin flash item reports over $297M of major token unlocks scheduled from November 17 to 24, 2026; its publication date could not be verified and it does not name ETH.",
+          "source": 7
+        },
+        {
+          "fact": "A KuCoin flash item says Ethereum's 'Hegota' upgrade is scheduled for late 2026; the search snippet gives no date inside November 16 to 19, 2026.",
+          "source": 8
+        },
+        {
+          "fact": "Binance's ETH price page showed $1,797.49 with a last update of 2026-11-16 09:30 UTC (from the already-read page; no quotes captured).",
+          "source": 0
+        },
+        {
+          "fact": "BLS reported that the seasonally adjusted all-items CPI rose 0.4% in October 2026, after a 0.6% rise in September, in a release dated Tuesday, November 10, 2026.",
+          "source": 9
+        },
+        {
+          "fact": "BLS reported that core CPI (all items less food and energy) rose 0.3% in October 2026, the same pace as in September and August.",
+          "source": 9
+        },
+        {
+          "fact": "Farside Investors reported $184.6 million of net withdrawals from US spot ether ETFs on Monday, November 9, 2026, with BlackRock's ETHA accounting for $119.3 million of that.",
+          "source": 5
+        },
+        {
+          "fact": "Binance's ETH price page showed ETH at $1,797.49 with a last update of 2026-11-16 09:30 UTC.\nThis value was taken in the earlier rules pass and was not re-read in this pass.",
+          "source": 0
+        },
+        {
+          "fact": "Binance ETHUSDT ticker price was 1799.25 when read at about 2026-11-16 12:44 UTC; the API response carries no timestamp, so this is the read time.",
+          "source": 10
+        },
+        {
+          "fact": "The Binance ETHUSDT daily candle for 2026-11-16 (still open at read) showed a last price of 1799.25, an open of 1835.35, and a range of 1787.11 to 1838.77.",
+          "source": 3
+        },
+        {
+          "fact": "Over the 30 daily log returns from the 31 Binance ETHUSDT daily closes (2026-10-17 to 2026-11-16, last close partial), the sample standard deviation is 0.0311 (0.0316 if the partial 2026-11-16 close is excluded).",
+          "source": 3
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 6,
+      "resolution": {
+        "criteria": "Resolves Yes if the Binance 1-minute ETH/USDT candle closing at 12:00 ET on 2026-11-19 has a final Close price higher than $1,600; otherwise No.",
+        "current_status": "As of 2026-11-16 09:30 UTC, Binance's price page showed ETH at $1,797.49, about 12% above the $1,600 threshold.\nInvesting.com's Binance daily closes show Nov 16, 2026 at 1,794.61.",
+        "edge_cases": [
+          "12:00 ET on 2026-11-19 is 17:00 UTC, since US daylight saving time ended on 2026-11-01 and ET is then UTC-5.",
+          "The 1m candle is the one that opens at 12:00 ET; the 'final Close' is the close of that candle, not the price at the start of the minute or an intraday tick.",
+          "A close exactly equal to $1,600 does not count as higher, so it resolves No.",
+          "The source is the Binance ETH/USDT pair only; other exchanges, ETH/USD, or index prices do not count."
+        ],
+        "settling_source": "Binance ETH/USDT 1-minute candle close, https://www.binance.com/en/trade/ETH_USDT (1m, Candles view)"
+      },
+      "spot": {
+        "asset": "ETH/USDT (Binance)",
+        "daily_vol": 0.0311,
+        "price": 1799.25,
+        "read_at": "2026-11-16T12:44 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
+      },
+      "uncertainties": [
+        "No ETH price was read after 2026-11-16 09:30 UTC.\nThe 1794.56 daily-candle value has no read time, so it is not a settled spot.",
+        "The 30-day realised volatility was not computed.\nOnly a few of the 31 daily closes were available in the context I had, so daily_vol_30d is null.",
+        "US spot ETF flows for Nov 12 to 16, 2026 were not found; the latest verified day is Nov 9.\nSnippet totals for Nov 5 to 11 disagree (about $379M vs $326M), so I did not rely on them.",
+        "The Investinglive article and the Hegota and token-unlock pages could not be opened, so their quotes are empty and their dates are unverified.",
+        "The Binance ETH/USDT trade page showed a title price with no timestamp and a 'Disconnected' status in the context I had, so it is not used as spot.",
+        "No ETH price was read after 2026-11-16 09:30 UTC, so the distance to $1,600 may have changed by the time of this pass."
+      ]
+    },
+    "polymarket-7018476": {
+      "against": "The strongest case for NO is weakening spot demand in early November 2026.\nOn 2026-11-07 The Block reported that US spot bitcoin ETFs logged $1.28 billion in net outflows in the week before, their worst week since late June 2026, and that 2026 year-to-date flows had turned to about $914.1 million in net outflows.\nA sustained run of outflows would support a further fall of roughly 9% from the 64,037.46 level read earlier, to below 58,000 by the noon ET print on 2026-11-20.\nThe earlier spot read is not from this pass, and I could not confirm any post-November-7 flow data.",
+      "base_rate": "Not computed.\nI found no comparable-event counts from primary data, and this is an asset-price threshold question, so it has no statistics-office series or vote archive to count.\nThe spot figure is unresolved: the Binance title (63,979.96, undated) conflicts with Fortune's 73,937.78 on 2026-11-11.\nThe 30-day daily volatility could not be computed because I had no daily close series.\nResolving the spot level is needed before any threshold comparison with 58,000.",
+      "different_now": "",
+      "facts": [
+        {
+          "fact": "The Binance spot API ticker returned BTCUSDT price 64037.46 at the time of the fetch; the response carried no server time.",
+          "source": 0
+        },
+        {
+          "fact": "Binance daily BTCUSDT candle opening 2026-11-16 00:00 UTC has close 64037.46 (still forming at fetch time).",
+          "source": 1
+        },
+        {
+          "fact": "The prior daily BTCUSDT closes were 68314.00 (2026-11-13), 64150.00 (2026-11-14) and 65351.05 (2026-11-15), all UTC daily candles from the Binance klines endpoint.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance Binance.com BTC_USDT trade page showed 63979.97 in its page title when opened; the page shows no publication date.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance developer docs define klines as bars 'uniquely identified by their open time' and list close as element index 4 of each array, but do not say which price type (last trade, mark, index) the close uses.",
+          "source": 2
+        },
+        {
+          "fact": "Fortune reported BTC at $73,937.78 at 7:30 a.m.\nET on 2026-11-11.",
+          "source": 4
+        },
+        {
+          "fact": "The Binance BTC/USDT spot page title shows 63979.96 at the time I read it.\nThe page gives no timestamp, so this figure is undated and conflicts with the 2026-11-11 Fortune quote, about 13% higher.",
+          "source": 3
+        },
+        {
+          "fact": "A tech-insider.org article titled 'bitcoin price today november 6 2026 76023 87 after 5 1 percent drop' appeared in search results, but its page returned HTTP 410 and I could not read it.",
+          "source": 4
+        },
+        {
+          "fact": "US spot bitcoin ETFs logged $1.28 billion in net outflows in the week before 2026-11-07, their worst week since late June 2026.",
+          "source": 5
+        },
+        {
+          "fact": "As of 2026-11-07, bitcoin ETFs were about $914.1 million in net outflows for 2026, reversing their year-to-date gains.",
+          "source": 5
+        },
+        {
+          "fact": "The Binance BTCUSDT ticker price was 64086.75 USDT when read at about 12:35 UTC on 2026-11-16 (the API returned no server time; read time taken from the local clock).",
+          "source": 0
+        },
+        {
+          "fact": "The Binance 1-minute BTCUSDT candle opening 12:35 UTC on 2026-11-16 showed close 64086.75 when read; the candle was still forming.",
+          "source": 6
+        },
+        {
+          "fact": "The Binance daily BTCUSDT candle for 2026-11-11 opened at 73796.06, traded between 73209.12 and 74811.45, and closed at 74015.19, so Fortune's 73,937.78 quote for 7:30 a.m.\nET that day falls inside the day's range.",
+          "source": 1
+        },
+        {
+          "fact": "From the 30 closed Binance daily BTCUSDT closes from 2026-10-17 to 2026-11-15 (UTC), the standard deviation of the 29 daily log returns is 0.0234, computed by me from the klines endpoint.",
+          "source": 1
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "against",
+        "gap"
+      ],
+      "passes_failed": {
+        "inside": "ValueError: the reply is not valid JSON: Extra data"
+      },
+      "primary_sources": 5,
+      "resolution": {
+        "criteria": "YES if the Binance 1-minute BTC/USDT candle closing at 12:00 ET on 2026-11-20 has a final Close price higher than $58,000; otherwise NO.",
+        "current_status": "Latest Binance spot ticker read: 64037.46 USDT (API ticker, read 2026-11-16, time not returned).\nLatest completed daily Binance close: 65351.05 on 2026-11-15 UTC.\nThe trade-page title read 63979.97 at a separate fetch.\nThreshold 58000 is about 9.4% below the 64037.46 read.",
+        "edge_cases": [
+          "12:00 ET on 2026-11-20 is 17:00 UTC, since US daylight saving time ended before that date; the candle is the one opening at 17:00 UTC.",
+          "The 'final Close' of the 1-minute candle is the value at candle close, not a later revised value; the question does not say whether intra-minute corrections or late-printed trades count.",
+          "The threshold is strict: a close exactly equal to 58000 resolves NO because the rule requires a price higher than 58000.",
+          "The settling page is the Binance web UI; the API kline endpoint may differ from the UI if the UI shows mark or index-based candles (the docs do not specify the price type).\nConfirm which the UI uses."
+        ],
+        "settling_source": "Binance BTC/USDT 1-minute candle 'Close' at https://www.binance.com/en/trade/BTC_USDT (1m, Candles view), per the market's stated rules"
+      },
+      "spot": {
+        "asset": "BTC/USDT",
+        "daily_vol": 0.0234,
+        "price": 64086.75,
+        "read_at": "2026-11-16T12:35 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      },
+      "uncertainties": [
+        "The spot price was not re-read in this pass; the 64,037.46 Binance API ticker from the rules pass has no server time, and the undated Binance page title (63,979.97 or 63,979.96) conflicts with it.",
+        "No 30-day daily close series was available, so the daily log-return volatility cannot be computed.",
+        "The Forex.com 2026-10-30 page (six-week lows, 52-week moving average near 76,166) returned HTTP 403 and was not read, so its claims are unverified.",
+        "The ETF flow article is a news outlet, not a primary source; it is dated 2026-11-07 and says nothing about flows after that date, so the November 2026 monthly total is unknown.",
+        "Whether the Binance UI close uses last-trade, mark or index price is undetermined, which can shift a noon print by small amounts near the threshold.",
+        "The undated Binance trade-page title (63,979.96 / 63,979.97) was not re-read in this pass; the API ticker of 64,086.75 at 12:35 UTC now supersedes it, but I did not confirm the page's own time stamp."
+      ]
+    },
+    "polymarket-7029795": {
+      "against": "Evidence for the No outcome is thin.\nThe strongest point is that the #1 free slot on Apple's US chart has turned over recently: a 2026-09-20 report says Meta's Muse displaced ChatGPT at No.\n1, which shows a fresh launch can take the top spot quickly, and Muse was still the No.\n2 app on the 2026-11-16 Apple read.\nThe Apple read on 2026-11-16 is itself a single summarizing fetch, so it cannot be treated as a dated snapshot.\nA weaker point is an undated eMarketer analysis (search snippet only) warning that the app could draw usage from the main TikTok app once the World Cup ended, which would suggest engagement could fall.\nNo dated source I could open shows downloads or ranks for TikTok Pro - Events after its 2026-06-03 launch, and no scheduled catalyst between 2026-11-16 and 2026-11-20 was found.",
+      "base_rate": "Not counted.\nI found no primary, day-by-day archive of the US iOS Free chart's #1 position that I could open, so I cannot give a count of how often a given app held #1 on a given day.\nWhat I have is three points: TikTok Pro - Events at #1 on the Apple chart page fetched 2026-11-16 and on the MWM tracker as of 2026-11-15 (the app had been out since 2026-06-03, about five months); ChatGPT at #1 in two third-party snapshots (2026-03-09 and 2026-07-15), which I saw only in search snippets.\nThe reference class I would count next is past US iOS Free #1 holders by day, from an archive such as Apple's",
+      "different_now": "The question's own check is 12:00 PM ET on 2026-11-20; I found no scheduled TikTok Pro Events event, Apple chart event or other dated catalyst between now and then.\nThe app's launch was tied to FIFA World Cup 2026 and the newsroom names no later events, which pushes against a stable #1 five months after launch.\nAgainst that, the 2026-11-16 Apple read still shows it first, and Muse from Meta sits second and is a newer AI agent app that has reportedly topped the chart before, so a rival is close behind.\nNet direction is mildly toward displacement, with no known scheduled trigger either way.",
+      "facts": [
+        {
+          "fact": "On 2026-11-16, the Apple US iPhone Top Charts page listed TikTok Pro - Events first under Free Apps.\nApple's page was read through a summarizing fetch, so no sentence from it is quoted.",
+          "source": 0
+        },
+        {
+          "fact": "A mwm.ai listing dated with 'Data as of November 15, 2026' shows TikTok Pro - Events at 'Current rank #1 US Free \u00b7 Overall'.\nThis is a third-party snapshot, not Apple's chart.",
+          "source": 1
+        },
+        {
+          "fact": "TikTok announced on 2026-06-03 a new stand-alone app in the US for cultural milestones, which became TikTok Pro - Events.",
+          "source": 2
+        },
+        {
+          "fact": "TikTok launched TikTok Pro Events as a U.S.\npilot on 2026-06-03, as a standalone app for major cultural moments, debuting with the FIFA World Cup 2026.",
+          "source": 3
+        },
+        {
+          "fact": "On the MWM tracker, TikTok Pro - Events shows 'Current rank #1 US Free \u00b7 Overall' with data as of 2026-11-15, and its Entertainment-category rank was 123 on the same page.",
+          "source": 1
+        },
+        {
+          "fact": "When fetched on 2026-11-16, Apple's US iPhone Top Charts 'All Apps' Free tab listed 'TikTok Pro - Events' as the number one free app.\nThe page shows no date of its own, and I could not get a verbatim sentence from it.",
+          "source": 0
+        },
+        {
+          "fact": "A third-party tracker snapshot dated 2026-07-15, seen only in search results and not opened (it returned HTTP 403 when fetched), lists ChatGPT as the #1 free iOS app in the US; a 2026-03-09 snapshot does the same.",
+          "source": 4
+        },
+        {
+          "fact": "TikTok's newsroom, dated 2026-06-03, says the US pilot of TikTok Pro Events launched as a standalone app debuting with FIFA World Cup 2026, and names no events beyond that debut.",
+          "source": 3
+        },
+        {
+          "fact": "The Apple US iPhone Top Charts page, read on 2026-11-16 with no chart date shown, lists TikTok Pro - Events first, Muse from Meta second and Vinted third under Top Free Apps, out of 25 apps.",
+          "source": 0
+        },
+        {
+          "fact": "Search summaries (not opened pages) say Meta's Muse launched 2026-09-08 and reached No.\n1 on the US free apps chart by 2026-09-18 in one report, while another says No.\n1 in the Productivity category only.",
+          "source": 5
+        },
+        {
+          "fact": "Searches for a November 2026 TikTok Pro Events event, challenge or Stars campaign returned nothing dated after the June 2026 launch coverage.",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-11-16, Apple's US iPhone Top Charts 'Free' list showed \"TikTok Pro - Events\" as the first entry, per a summarizing fetch with no date shown on the page.",
+          "source": 0
+        },
+        {
+          "fact": "Reports dated 2026-09-20 say Meta's Muse took the top spot on Apple's US free iPhone chart, displacing ChatGPT, which fell to No.\n2; this shows the #1 free slot changed hands within weeks of a launch (search snippet only, page not opened).",
+          "source": 6
+        },
+        {
+          "fact": "An eMarketer analysis, undated in the snippet, says the TikTok Pro - Events app could cannibalize usage of the main TikTok app during the World Cup, and that TikTok said the app would continue past the tournament (search snippet only, page not opened).",
+          "source": 7
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against"
+      ],
+      "passes_failed": {
+        "gap": "ValueError: only 0 usable facts"
+      },
+      "primary_sources": 2,
+      "resolution": {
+        "criteria": "The app ranked #1 in the United States on the iPhone App Store overall Top Charts under 'Free Apps', as of 12:00 PM ET on the specified date (2026-11-20).",
+        "current_status": "As of 2026-11-16 the Apple chart page, read via a summarizing fetch, lists TikTok Pro - Events first under Free Apps.\nA third-party listing dated 2026-11-15 shows it at #1 US Free Overall.\nNeither is an Apple dated snapshot, and the Apple page could not be quoted directly.",
+        "edge_cases": [
+          "The check is at 12:00 PM ET on 2026-11-20 (16:00 UTC, or 09:00 PT).\nChart positions at other hours do not count, and the resolution date listed is 2026-11-21.",
+          "If the chart is unavailable at 12:00 PM ET, the market can stay open up to 48 hours.\nIf data stays unavailable, the last published ranking settles it.",
+          "Only the iPhone App Store's US overall Top Free Apps chart counts.\nCategory charts, the iPad chart, Google Play, and the 'Top Free' chart in other countries do not count.",
+          "The question names the app 'TikTok Pro - Events'.\nA rename, a different app, or a separate TikTok listing could change which app is judged."
+        ],
+        "settling_source": "Apple's US iPhone App Store overall Top Charts, Free Apps list, https://apps.apple.com/us/charts/iphone (the question's own rule; Apple publishes no ranking formula, per third-party sources I could not confirm from Apple)"
+      },
+      "uncertainties": [
+        "The Apple chart page was read through a summarizing fetch with no date, so there is no dated Apple snapshot of the #1 position and its ordering could be paraphrased.",
+        "No primary day-by-day archive of the US iOS Free #1 position was opened, so the persistence of TikTok Pro - Events at #1 across the last weeks is unverified.",
+        "The Muse ranking history conflicts across reports (No.\n1 overall versus No.\n1 in Productivity) and the claim comes from search summaries, not opened pages.",
+        "No source found shows TikTok Pro - Events' download or usage trend after June 2026, so its momentum is unknown.",
+        "Unknown whether TikTok plans a new event, feature or marketing push in the 2026-11-16 to 2026-11-20 window, since no announcement was found.",
+        "The Apple chart page was read only through a summarizing fetch with no date, so the quote is a list entry, not a dated sentence, and the ordering could be paraphrased."
+      ]
+    },
+    "polymarket-7029806": {
+      "against": "The case for ChatGPT being #2 on 2026-11-20 rests on it staying in the top tier rather than falling away.\nOn 2026-03-09 ChatGPT regained #1 on the US free chart within a single day, ahead of Claude and Gemini (9to5mac), so its position can change quickly in either direction.\nThe 2026-11-11 third-party snapshot puts ChatGPT in the top 10 in 14 of 15 countries, which means it sits close to the leaders even while Muse from Meta and Claude hold No.\n1 in other markets; that makes a No.\n2 placement within reach rather than out of range.\nSensor Tower's Q3 2026 index shows ChatGPT as the top-grossing app worldwide and the top in-app purchase earner, which signals strong engagement, though it measures revenue, not downloads, so it is only a weak proxy for the free chart.",
+      "base_rate": "No count could be made.\nThe primary Apple chart history is not available to me, and the daily third-party chart snapshots (marlvel.ai) returned HTTP 403, so I could not count how often ChatGPT was #2 over any period.\nWhat I could confirm is one dated event: ChatGPT was #1 on the US App Store on 2026-03-09.\nSecondary reports say it was #1 on several dates in 2026 and that rivals (Claude, Gemini, Meta's Muse) were #1 or #2 at other times, but those reports were not opened, so their counts are not used here.\nThe reference class would be daily US top-free ranks of ChatGPT across 2026 from Apple or",
+      "different_now": "Revenue strength runs the other way from download rank.\nChatGPT is the top-grossing app worldwide in Q3 2026 per Sensor Tower, but on the Free chart it has been below #2 in the most recent evidence: #4 on the All Apps chart on 2026-11-16, and not No.\n1 in any of 15 countries on 2026-11-11 per FourWeekMBA.\nMuse from Meta and Claude have taken the top spots, which pushes against ChatGPT holding #2 on 2026-11-20.\nI found no primary source announcing a scheduled ChatGPT launch, promotion or Apple chart event between 2026-11-16 and 2026-11-20 that would move the ranking.\nThe OpenAI release-notes pa",
+      "facts": [
+        {
+          "fact": "On the Apple US iPhone Top Charts page opened on 2026-11-16, the #1 free iPhone app was TikTok Pro - Events and the #2 was Muse from Meta.\nChatGPT did not appear in the top two.\nThe page shows no timestamp, so the snapshot date is my fetch date, not a printed date.",
+          "source": 0
+        },
+        {
+          "fact": "Apple's annual US App Store rankings for 2025 put ChatGPT at #1 among free iPhone apps by downloads, ahead of Threads, Google, TikTok and WhatsApp.",
+          "source": 1
+        },
+        {
+          "fact": "ChatGPT ranked #4 among US free apps in 2024 on Apple's annual download ranking.",
+          "source": 1
+        },
+        {
+          "fact": "On 2026-03-09 ChatGPT reclaimed the top spot on the US App Store free chart; Claude was second and Google Gemini third.",
+          "source": 2
+        },
+        {
+          "fact": "Apple's live US iPhone chart page (apps.apple.com/us/charts/iphone) was reachable, but the copy retrieved showed no date and no ChatGPT rank, so it gives no ranking for 2026-11-20.",
+          "source": 0
+        },
+        {
+          "fact": "On the Apple US iPhone Top Charts page fetched 2026-11-16 (no printed timestamp), TikTok Pro - Events was #1 and Muse from Meta was #2 in the Free Apps list, and ChatGPT appeared at #4 in the All Apps free chart.",
+          "source": 0
+        },
+        {
+          "fact": "Sensor Tower's Q3 2026 index, published November 2026, reports ChatGPT became the #1 grossing app worldwide in Q3 2026 for the first time.",
+          "source": 4
+        },
+        {
+          "fact": "A FourWeekMBA snapshot dated 2026-11-11 (page not opened; figures from search snippet) reported ChatGPT was not No.\n1 free iPhone app in any of 15 countries checked, Muse from Meta was No.\n1 in four and Claude in two, and ChatGPT was in the top 10 in 14 of 15.",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-03-09 ChatGPT reclaimed the #1 spot on the US App Store free chart, with Claude second and Google Gemini third.",
+          "source": 2
+        },
+        {
+          "fact": "Sensor Tower's Q3 2026 index (published November 2026) says ChatGPT became the #1 grossing app worldwide for the first time and held the top in-app purchase revenue spot across key markets; it gives no ChatGPT download figures.",
+          "source": 4
+        },
+        {
+          "fact": "A third-party snapshot dated 2026-11-11 (search snippet only, page not opened) reports ChatGPT was the No.\n1 free iPhone app in none of 15 countries checked but was in the top 10 in 14 of 15.",
+          "source": 3
+        },
+        {
+          "fact": "OpenAI's release-notes page was unreachable (HTTP 403), so no November 2026 ChatGPT launch could be checked against the primary changelog.",
+          "source": 5
+        },
+        {
+          "fact": "On the Apple US iPhone Top Charts page re-fetched on 2026-11-16, the All Apps Free tab listed TikTok Pro - Events at #1, Muse from Meta at #2, and ChatGPT at #4.\nThe page shows no timestamp, so this is my fetch date, not a printed date.",
+          "source": 0
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 2,
+      "resolution": {
+        "criteria": "Rank #2 in the United States on the iPhone App Store overall Top Charts under 'Free Apps', as of 12:00 PM ET on 2026-11-20.\nResolution date 2026-11-21.",
+        "current_status": "Latest value I could open: the Apple US chart page, fetched 2026-11-16 with no printed timestamp, showed TikTok Pro - Events at #1 and Muse from Meta at #2; ChatGPT was not in the top two.\nApple's annual 2025 US ranking had ChatGPT at #1 (published 2025-12-11).\nI found no published ChatGPT rank for 2026-11-16 or 2026-11-20.\nA third-party search snippet dated 2026-11-11 (FourWeekMBA, not opened, 40",
+        "edge_cases": [
+          "The chart is a live, daily-moving list with no printed timestamp on the Apple page, so the value at 12:00 PM ET on 2026-11-20 can differ from any snapshot taken earlier.",
+          "The question is 'as of 12:00 PM ET' on the date; the market text also allows up to 48 hours for data availability and falls back to the last published ranking, so the exact cut-off time matters if the chart is delayed.",
+          "Apple's ranking formula is not published; third-party analyses (Apptopia, Sensor Tower) describe recent download velocity, usage and ratings as factors, but I did not open a primary Apple methodology page.",
+          "Ties and rank-sharing are not addressed on the Apple chart page; a tie or a re-ordering within minutes of noon ET could change the answer."
+        ],
+        "settling_source": "Apple's public Top Free Apps chart for iPhone, US App Store: https://apps.apple.com/us/charts/iphone (the 'Free Apps' list under Top Charts, reached via Apps > Top Free Apps > See All)"
+      },
+      "uncertainties": [
+        "The Apple chart page carries no timestamp, so the 2026-11-16 reading is my fetch date, not a printed date; the page showed the All Apps list, not confirmed as the Free Apps list the question resolves on.",
+        "The FourWeekMBA page returned HTTP 403, so its 2026-11-11 figures come only from a search snippet and are unverified.",
+        "The Sensor Tower page gives only 'November 2026' as its date, and its grossing claim is about revenue, not downloads.",
+        "Apple's ranking formula is not published, so the day-to-day movement of ChatGPT between #2 and #4 cannot be predicted from primary sources.",
+        "No primary source for any ChatGPT release, event or promotion scheduled for 2026-11-17 to 2026-11-20 was found; OpenAI's release notes could not be opened.",
+        "The Apple US chart page has no printed timestamp, so the 2026-11-16 reading (ChatGPT not in the top two) is a fetch-date value and was not re-checked here."
+      ]
+    },
+    "polymarket-7073766": {
+      "against": "The No outcome needs BTC/USDT on Binance to close at or below 58,000 at 12:00 ET on 2026-11-22, about 9.6% below the latest Binance read of 64170.27 (the 2026-11-16 daily candle, still open).\nNo scheduled CPI or FOMC decision falls between now and the resolution date (BLS and Federal Reserve schedules), so no fixed event is available to stop a slide.\nThe 2025-11-05 Trading Economics page shows the same market has previously sold off hard on risk-off flows, but that is a 2025 datapoint and not evidence for the 2026 window.",
+      "base_rate": "Not counted.\nI did not retrieve the full 30-day daily close series or a multi-year BTC history in a form I could compute from, so I have no count of past 6-day, 10%-down-threshold outcomes to report.\nThe kline response returned only the last candle's close in readable form.",
+      "different_now": "The most recent search-visible prices conflict.\nFortune shows $73,937.78 on 2026-11-11, while the Binance daily closes for 2026-11-14 (64150.00) and 2026-11-15 (65351.05) and the 2026-11-16 candle (64236.13 at read) sit about 13% lower.\nBinance is the settling source, so its candles govern and the search figures do not.\nScheduled macro events are absent from the window: the October CPI came out on 2026-11-10, before the window, and the November CPI (2026-12-10) and December FOMC (2026-12-08 to 12-09) both fall after the 2026-11-22 resolution.\nThe threshold 58,000 sits about 9.7% below the 64,2",
+      "facts": [
+        {
+          "fact": "The Binance BTC/USDT daily kline for 2026-11-16 (open time 1794787200000 = 00:00 UTC) shows a close of 64236.13, the latest value in that candle when read; the candle was still open at read time.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC/USDT daily kline for 2026-11-15 closed at 65351.05.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC/USDT daily kline for 2026-11-14 closed at 64150.00.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC/USDT daily close on 2026-11-01 (open time 1792195200000) was 81491.04, so BTC/USDT fell about 21% over the 31 daily candles shown.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC/USDT trade page title, read without a date, shows 64234.01, which is consistent with the kline API's ~64,236 level.",
+          "source": 0
+        },
+        {
+          "fact": "Binance's docs state that klines are identified by open time and that startTime and endTime are always interpreted in UTC regardless of timeZone.",
+          "source": 2
+        },
+        {
+          "fact": "Binance BTCUSDT ticker price was 64177.88 USDT when the API was read; the response carries no timestamp.",
+          "source": 3
+        },
+        {
+          "fact": "The last 1-day BTCUSDT kline returned by Binance (open time 2026-11-15 00:00 UTC) has a close of 64177.88, which matches the ticker price.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTC/USDT trading page title showed 64268.98 USDT when it was read; the page shows no timestamp, so it is a slightly later or differently sourced quote than the API figure.",
+          "source": 0
+        },
+        {
+          "fact": "The threshold of 58000 is about 9.6% below the 64177.88 spot price (6177.88 / 64177.88).",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-11-11 at 7:30 a.m.\nET, Fortune's page priced BTC at $73,937.78, the most recent dated BTC price from a page I opened; it is about 13% above the Binance daily closes for 2026-11-14 and 2026-11-15 shown in the facts already found, which points to a large drop in the last five days.",
+          "source": 4
+        },
+        {
+          "fact": "The BLS schedule lists the October 2026 CPI release for 2026-11-10 at 08:30 ET, which is before the question was opened, so no CPI release falls inside the 2026-11-16 to 2026-11-22 window on that schedule.",
+          "source": 5
+        },
+        {
+          "fact": "The BLS schedule lists the November 2026 CPI release for 2026-12-10 at 08:30 ET, which is after the 2026-11-22 resolution date.",
+          "source": 5
+        },
+        {
+          "fact": "The Federal Reserve calendar lists the December 2026 FOMC as a two-day meeting on December 8 to 9, which is after the 2026-11-22 resolution date, so no FOMC decision falls inside the window.",
+          "source": 6
+        },
+        {
+          "fact": "The Binance BTCUSDT daily kline for 2026-11-15 closed at 65351.05 and the 2026-11-14 daily close was 64150.00, both from the earlier kline pull; Binance remains the settling source, and the 2026-11-16 candle was still open at read time.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance BTCUSDT 1-day candle opening 2026-11-16 00:00 UTC showed a close of 64170.27 when read; that candle was still open, so the figure is intraday and not a final close.",
+          "source": 1
+        },
+        {
+          "fact": "From 64170.27, a close at or below 58000 by the resolution time requires a decline of about 9.6% ((64170.27 - 58000) / 64170.27).",
+          "source": 1
+        },
+        {
+          "fact": "The November 2026 CPI release is scheduled for 2026-12-10 at 08:30, after the 2026-11-22 resolution, so no CPI release falls inside the window.",
+          "source": 5
+        },
+        {
+          "fact": "The December 2026 FOMC meets 2026-12-08 to 2026-12-09, after the resolution date, so no rate decision falls inside the window to reverse a decline.",
+          "source": 6
+        },
+        {
+          "fact": "A Trading Economics BTC news page dated 2025-11-05 describes a 'global risk-off wave' and Bitcoin below $100,000; it is a 2025 event and does not confirm the 2026 drop.",
+          "source": 7
+        },
+        {
+          "fact": "The Binance BTCUSDT daily kline for 2026-11-16 (open 00:00 UTC) showed a close of 64210.44 when fetched by curl; that candle was still open at fetch time.",
+          "source": 1
+        },
+        {
+          "fact": "Using the 31 Binance BTCUSDT daily closes from 2026-10-17 to 2026-11-16, the standard deviation of the 30 daily log returns is about 0.0231.",
+          "source": 1
+        },
+        {
+          "fact": "Tokenomist lists over $113M in scheduled token unlocks for the Nov 16-22, 2026 window, headlined by LayerZero's $34.69M ZRO cliff, in a page published 2026-11-09.",
+          "source": 8
+        },
+        {
+          "fact": "Binance daily closes show BTCUSDT falling from 74015.19 (2026-11-11) to 71460.00 (11-12), 68314.00 (11-13), and 64150.00 (11-14), a decline of about 13% in three days.",
+          "source": 1
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 6,
+      "resolution": {
+        "criteria": "Resolves Yes if the Binance 1-minute BTC/USDT candle closing at 12:00 ET on 2026-11-22 has a final Close price higher than 58,000; otherwise No.",
+        "current_status": "Latest read: about 64,236 USD (daily candle 2026-11-16 close 64236.13 at read; exact minute not recorded).\nThreshold 58,000 is about 9.7% below this level.",
+        "edge_cases": [
+          "12:00 ET on 2026-11-22 is 17:00 UTC (EST, UTC-5), since US daylight saving time has ended; check the candle's open vs close time, because a 1m candle 'closing at 12:00' may mean the one opening at 11:59 rather than 12:00.",
+          "Strictly 'higher than' 58,000: an exact close of 58,000.00 resolves No.",
+          "Price precision follows Binance's displayed decimals (two decimals for BTC/USDT on the trade page), so a close like 58000.004 would be rounded in the display and could be ambiguous.",
+          "Kline timestamps in the API are UTC; the trade page's time display depends on the user's timezone setting, so use the UTC candle time, not local clock time."
+        ],
+        "settling_source": "Binance BTC/USDT 1m candles, Close price, at https://www.binance.com/en/trade/BTC_USDT"
+      },
+      "spot": {
+        "asset": "BTC/USDT",
+        "daily_vol": 0.0231,
+        "price": 64210.44,
+        "read_at": "2026-11-16T00:00 UTC",
+        "source_url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31"
+      },
+      "uncertainties": [
+        "The exact time of the 64,236.13 spot read is unknown; the trade-page ticker (64,177.88 and 64,268.98) carry no timestamp, so the current price could differ by a few hundred dollars.",
+        "No 30-day daily-close series was retrieved, so the 30-day realised daily volatility is not computed and is reported as null.",
+        "No news from 2026-11-12 to 2026-11-16 was opened, so the cause of the drop from about 74,000 to about 64,000 is not confirmed.",
+        "ETF flow totals for 2026-11-10 onward were not found, and the snippet figures for Nov 2 to 6 were not opened.",
+        "Scheduled events between 2026-11-16 and 2026-11-22 (US jobs, Fed speakers, options expiries, token unlocks, court dates or policy deadlines) were not confirmed beyond the CPI and FOMC dates above.",
+        "The 64170.27 price is from a daily candle that was still open at read time; the exact minute of the read is unknown, and the trade-page ticker was not read with a timestamp."
+      ]
+    },
+    "polymarket-7085177": {
+      "against": "The less likely outcome is Yes, but the strongest evidence for a touch of 56,000 is the recent slide and flow weakness.\nFortune's 2026-11-11 quote of $73,937.78 against the 64,081.41 spot on 2026-11-16 shows roughly a 13% fall in five days.\nThe 2026-11-15 Binance daily low of 62,006.00 shows the market already traded more than 2,000 below the 2026-11-16 low in the prior pass.\nThe Block's 2026-11-07 report of $1.28 billion in weekly ETF outflows, the worst since late June, and $914.1 million year-to-date outflows points to continued selling pressure.\nA 1-minute low counts, so a brief wick to 56,000 would resolve Yes even if the daily close holds higher.",
+      "base_rate": "Reference class: 7-day windows of Binance BTCUSDT daily candles, 2019-09-08 to 2026-11-16 (2,620 windows, computed by me from the klines API): 273 windows (10.4%) had a daily low at or below 87.4% of the prior close, the 56,000/64,081 ratio.\nSince 2023-01-01: 76 of 1,409 windows (5.4%).\nCaveats: daily lows understate the intraday 1-minute lows the question resolves on, so the true hit rate for a 1-minute low is somewhat higher; the final window includes the in-progress 2026-11-16 candle.",
+      "different_now": "Distance from spot to 56,000 is about 12.6% (ln ratio -0.135).\nAgainst the 30-day daily vol of 0.0231, a 7-day move is about 0.061 in log terms, so the level sits roughly 2.2 seven-day sigmas below spot, which is further than the typical 7-day window in the reference class; I have not converted this into a touch probability.\nFlow backdrop is negative: ETFs posted their worst week since June in the Nov 2-6 week and were negative year-to-date.\nThe window opens 05:00 UTC on 2026-11-16 and closes 04:59 UTC on 2026-11-24, so about 184 hours remain from 12:37 UTC.\nNo scheduled macro event inside the",
+      "facts": [
+        {
+          "fact": "Binance BTCUSDT daily candle opening 2026-11-16 00:00 UTC (open time 1794787200000) shows low 63905.01 and latest close 64091.74 at the time of the read.",
+          "source": 0
+        },
+        {
+          "fact": "Binance BTCUSDT daily candle for 2026-11-15 UTC closed at 65351.05, with high 66132.01 and low 62006.00.",
+          "source": 0
+        },
+        {
+          "fact": "The Binance BTC/USDT trade page title read '64127.57 Trade BTC/USDT Spot | Binance' when opened, and the page showed 'Disconnected', so its live price could not be confirmed.",
+          "source": 1
+        },
+        {
+          "fact": "Binance's API documentation states that klines are uniquely identified by their open time.",
+          "source": 2
+        },
+        {
+          "fact": "Binance BTCUSDT last price was 64,081.41 USDT at about 12:37 UTC on 2026-11-16.",
+          "source": 3
+        },
+        {
+          "fact": "The 30-day standard deviation of daily log returns of Binance BTCUSDT daily closes is 0.0231 (computed from the last 31 daily closes, including the in-progress day's close).",
+          "source": 0
+        },
+        {
+          "fact": "Over 2019-09-08 to 2026-11-16, 273 of 2,620 seven-day windows (10.4%) on Binance BTCUSDT daily candles had a low at or below 87.4% of the prior day's close, the level that 56,000 is from the 64,081 spot.",
+          "source": 0
+        },
+        {
+          "fact": "Since 2023-01-01, 76 of 1,409 seven-day windows (5.4%) had a daily low at or below 87.4% of the prior close on Binance BTCUSDT.",
+          "source": 0
+        },
+        {
+          "fact": "U.S.\nspot bitcoin ETFs had about $1.28 billion in net outflows in the week of Nov 2-6, 2026, their worst week since June; year-to-date net outflows stood at about $914.1 million as of the 2026-11-07 report.",
+          "source": 4
+        },
+        {
+          "fact": "The Federal Reserve's December 2026 FOMC meeting is a two-day meeting on December 8-9, 2026, so no FOMC decision falls inside the Nov 16-23 window.",
+          "source": 5
+        },
+        {
+          "fact": "Binance BTCUSDT last price was 64,081.41 USDT at about 12:37 UTC on 2026-11-16 (from prior pass; ticker endpoint cited).",
+          "source": 3
+        },
+        {
+          "fact": "Binance BTCUSDT daily klines give a 30-day standard deviation of daily log returns of 0.0231 (from prior pass; klines endpoint cited).",
+          "source": 0
+        },
+        {
+          "fact": "Fortune reported BTC at $73,937.78 at 7:30 a.m.\nET on 2026-11-11, so the price was about 13% above the 64,081.41 spot read on 2026-11-16.",
+          "source": 7
+        },
+        {
+          "fact": "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows in the week ending 2026-11-06, their worst week since late June, and closed the year-to-date at about $914.1 million in net outflows.",
+          "source": 6
+        },
+        {
+          "fact": "Binance's BTCUSDT daily candle for 2026-11-15 UTC printed a low of 62,006.00, below the 56,000 threshold's nearest prior-day low by about 6,000 USDT but still 6,006 above the threshold.",
+          "source": 0
+        },
+        {
+          "fact": "Binance BTCUSDT 1-minute klines from 05:00 UTC to 12:39 UTC on 2026-11-16 (460 candles) have a lowest 1-minute Low of 63905.01, printed at 12:29 UTC; no candle in that span reached 56,000.",
+          "source": 8
+        },
+        {
+          "fact": "At about 12:39 UTC on 2026-11-16, the Binance BTCUSDT 24-hour ticker showed lastPrice 64105.67, 24h lowPrice 63905.01, highPrice 65800.75 and openPrice 65455.00.",
+          "source": 9
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 6,
+      "resolution": {
+        "criteria": "Resolves Yes if any Binance BTC/USDT 1-minute candle with a final Low price at or below 56,000 occurs from 12:00 AM ET on 2026-11-16 to 11:59 PM ET on 2026-11-23; otherwise No.\nOnly Binance BTC/USDT prices count.",
+        "current_status": "As of 2026-11-16 UTC: daily candle low 63905.01 (open 65351.05, latest close 64091.74).\nThe 56,000 threshold is about 12.6% below the latest close.\nThe Binance trade page was disconnected when opened.",
+        "edge_cases": [
+          "Window is ET: 12:00 AM ET 2026-11-16 is 05:00 UTC and 11:59 PM ET 2026-11-23 is 04:59 UTC on 2026-11-24, so it does not match UTC daily candles.",
+          "The resolution uses 1-minute candle Lows on Binance, not daily candles or closes; a single wick at or below 56,000 counts.",
+          "A low exactly equal to 56,000 counts as Yes (tie resolves Yes).",
+          "The 2026-11-16 daily candle is still open, so its low and close change during the day and the window's first hours are not yet fixed."
+        ],
+        "settling_source": "Binance BTC/USDT spot market, https://www.binance.com/en/trade/BTC_USDT (1m candles, Low price)"
+      },
+      "spot": {
+        "asset": "BTCUSDT (Binance spot)",
+        "daily_vol": 0.0231,
+        "price": 64105.67,
+        "read_at": "2026-11-16T12:39 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT"
+      },
+      "uncertainties": [
+        "I could not open a live Binance BTC/USDT page: the trade page showed 'Disconnected' in the prior pass, so the live price and the low printed since 05:00 UTC on 2026-11-16 are unknown; the 63,905.01 low covers 00:00-latest UTC and includes hours before the window.",
+        "ETF flow data after 2026-11-07 was not found in searches from the last 7 days; the Nov 9-16 flow figures are unknown and I widened the range to November month-to-date reports, which showed net outflows of about $1.48B over six sessions to Nov 9 (TradingNEWS, not opened).",
+        "Searches for bitcoin price news dated 2026-11-16 returned no coverage from the last 7 days; the most recent dated price report found was 2026-10-30 (Fortune), so news context for the drop from about 77,000 to 64,000 is unverified.",
+        "No scheduled token unlock, court date or ETF decision inside Nov 16-23 was found in primary sources; the Fed calendar page shows 'Last Update: June 24, 2025', so its currency is uncertain.",
+        "The 30-day daily vol and the 64,081.41 spot come from the prior pass and were not recomputed here; the touch probability was deliberately not given in this forecast-free pass.",
+        "I could not open a live Binance BTC/USDT page, so the live price and the lows printed since 05:00 UTC on 2026-11-16 are unknown."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-16T12:52:59+00:00",
+  "researched_by": {
+    "polymarket-6390045": "claude-haiku",
+    "polymarket-6390067": "claude-haiku",
+    "polymarket-6403128": "claude-haiku",
+    "polymarket-6921785": "claude-haiku",
+    "polymarket-6942351": "claude-haiku",
+    "polymarket-6949221": "claude-haiku",
+    "polymarket-6990900": "claude-haiku",
+    "polymarket-7018476": "claude-haiku",
+    "polymarket-7029795": "claude-haiku",
+    "polymarket-7029806": "claude-haiku",
+    "polymarket-7073766": "claude-haiku",
+    "polymarket-7085177": "claude-haiku"
+  },
+  "runs": 69,
+  "seconds": {
+    "polymarket-5778706": 113.1,
+    "polymarket-6390045": 204.3,
+    "polymarket-6390067": 208.0,
+    "polymarket-6403128": 361.2,
+    "polymarket-6921773": 66.8,
+    "polymarket-6921785": 475.1,
+    "polymarket-6921897": 66.3,
+    "polymarket-6942351": 208.7,
+    "polymarket-6949221": 247.5,
+    "polymarket-6990900": 223.5,
+    "polymarket-7018476": 220.4,
+    "polymarket-7029795": 186.2,
+    "polymarket-7029806": 204.8,
+    "polymarket-7030580": 78.5,
+    "polymarket-7073766": 230.8,
+    "polymarket-7085177": 215.2
+  },
+  "sources": {
+    "polymarket-6390045": [
+      {
+        "primary": true,
+        "published": "2026-10-29",
+        "quotes": [
+          "Excluding food and energy, the PCE price index increased 0.3 percent.",
+          "Excluding food and energy, the PCE price index increased 3.1 percent from one year ago.",
+          "Thursday, October 29, 2026"
+        ],
+        "text": "Excluding food and energy, the PCE price index increased 0.3 percent.\nExcluding food and energy, the PCE price index increased 3.1 percent from one year ago.\nThursday, October 29, 2026",
+        "title": "Personal Income and Outlays, September 2026 (BEA News Release)",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "November 25 8:30 AM News Personal Income and Outlays, October 2026"
+        ],
+        "text": "November 25 8:30 AM News Personal Income and Outlays, October 2026",
+        "title": "BEA Release Schedule",
+        "url": "https://www.bea.gov/news/schedule",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Personal Consumption Expenditures Price Index (BEA data page)",
+        "url": "https://www.bea.gov/data/personal-consumption-expenditures-price-index",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-09-30",
+        "quotes": [
+          "Excluding food and energy, the PCE price index increased 0.2 percent."
+        ],
+        "text": "Excluding food and energy, the PCE price index increased 0.2 percent.",
+        "title": "News Release: Personal Income and Outlays, August 2026 (BEA)",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-07-30",
+        "quotes": [
+          "Excluding food and energy, the PCE price index increased 0.1 percent."
+        ],
+        "text": "Excluding food and energy, the PCE price index increased 0.1 percent.",
+        "title": "News Release: Personal Income and Outlays, June 2026 (BEA)",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-june-2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-04-08",
+        "quotes": [],
+        "text": "",
+        "title": "PIO Historical Comparisons, February 2026 release (BEA, PDF)",
+        "url": "https://www.bea.gov/sites/default/files/2026-04/pi0226-hist.pdf",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.",
+          "BLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.",
+          "The personal care index, the airline fares index, and the apparel index also increased over the month."
+        ],
+        "text": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\nBLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.\nThe personal care index, the airline fares index, and the apparel index also increased over the month.",
+        "title": "BLS CPI news release archive, October 2026 (released 2026-11-10)",
+        "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-13",
+        "quotes": [
+          "Updated each business day.",
+          "October 2026 0.31 0.27 11/13"
+        ],
+        "text": "Updated each business day.\nOctober 2026 0.31 0.27 11/13",
+        "title": "Federal Reserve Bank of Cleveland, Inflation Nowcasting",
+        "url": "https://www.clevelandfed.org/our-research/indicators-and-data/inflation-nowcasting",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Two-day meeting, December 8 - 9",
+          "Meeting of December 8-9"
+        ],
+        "text": "Two-day meeting, December 8 - 9\nMeeting of December 8-9",
+        "title": "Federal Reserve Board, December 2026 calendar",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-13",
+        "quotes": [
+          "Prices for system software publishing and for airline passenger services also declined.",
+          "The Producer Price Index news release for November 2026 is scheduled to be published on Tuesday,"
+        ],
+        "text": "Prices for system software publishing and for airline passenger services also declined.\nThe Producer Price Index news release for November 2026 is scheduled to be published on Tuesday,",
+        "title": "BLS Producer Price Index news release, October 2026 (page as opened)",
+        "url": "https://www.bls.gov/news.release/ppi.nr0.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-06",
+        "quotes": [
+          "Please note that this is a draft list.",
+          "There are no planned industry- or commodity-based index recodes with this sample update."
+        ],
+        "text": "Please note that this is a draft list.\nThere are no planned industry- or commodity-based index recodes with this sample update.",
+        "title": "BLS PPI notice: additions and deletions, October 2026",
+        "url": "https://www.bls.gov/ppi/notices/2026/ppi-adds-deletes-october-2026.htm",
+        "verified": null
+      }
+    ],
+    "polymarket-6390067": [
+      {
+        "primary": true,
+        "published": "2026-10-29",
+        "quotes": [
+          "Excluding food and energy, the PCE price index increased 0.3 percent.",
+          "Excluding food and energy, the PCE price index increased 3.1 percent from one year ago.",
+          "From the same month one year ago, the PCE price index for September increased 3.6 percent.",
+          "Estimates have been updated for July and August reflecting revised BLS CES data."
+        ],
+        "text": "Excluding food and energy, the PCE price index increased 0.3 percent.\nExcluding food and energy, the PCE price index increased 3.1 percent from one year ago.\nFrom the same month one year ago, the PCE price index for September increased 3.6 percent.\nEstimates have been updated for July and August reflecting revised BLS CES data.",
+        "title": "Personal Income and Outlays, September 2026 (BEA news release)",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-29",
+        "quotes": [
+          "A measure of prices that people living in the United States, or those buying on their behalf, pay for goods and services."
+        ],
+        "text": "A measure of prices that people living in the United States, or those buying on their behalf, pay for goods and services.",
+        "title": "Personal Consumption Expenditures Price Index, Excluding Food and Energy (BEA)",
+        "url": "https://www.bea.gov/data/personal-consumption-expenditures-price-index-excluding-food-and-energy",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "November 25 8:30 AM News Personal Income and Outlays, October 2026"
+        ],
+        "text": "November 25 8:30 AM News Personal Income and Outlays, October 2026",
+        "title": "BEA release schedule",
+        "url": "https://www.bea.gov/news/schedule",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-29",
+        "quotes": [
+          "Excluding food and energy, the PCE price index increased 3.1 percent from one year ago.",
+          "From the same month one year ago, the PCE price index for September increased 3.6 percent."
+        ],
+        "text": "Excluding food and energy, the PCE price index increased 3.1 percent from one year ago.\nFrom the same month one year ago, the PCE price index for September increased 3.6 percent.",
+        "title": "Personal Income and Outlays, September 2026 (BEA News Release)",
+        "url": "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-29",
+        "quotes": [
+          "Sep 2026: 130.902 | Index 2017=100, Seasonally Adjusted | Monthly"
+        ],
+        "text": "Sep 2026: 130.902 | Index 2017=100, Seasonally Adjusted | Monthly",
+        "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index), FRED",
+        "url": "https://fred.stlouisfed.org/series/PCEPILFE",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.",
+          "BLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable."
+        ],
+        "text": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\nBLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.",
+        "title": "BLS Consumer Price Index news release, October 2026 (archive)",
+        "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "If the cell is blank, it implies that the actual data corresponding to the month"
+        ],
+        "text": "If the cell is blank, it implies that the actual data corresponding to the month",
+        "title": "Federal Reserve Bank of Cleveland, Inflation Nowcasting",
+        "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-12",
+        "quotes": [
+          "Last Update: November 12, 2026"
+        ],
+        "text": "Last Update: November 12, 2026",
+        "title": "Federal Reserve Board, FOMC calendars",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-01-22",
+        "quotes": [
+          "Excluding food and energy, the PCE price index also increased 0.2 percent in both months.",
+          "Excluding food and energy, the PCE price index also increased 2.7 percent followed by an increase of 2.8 percent."
+        ],
+        "text": "Excluding food and energy, the PCE price index also increased 0.2 percent in both months.\nExcluding food and energy, the PCE price index also increased 2.7 percent followed by an increase of 2.8 percent.",
+        "title": "BEA News Release: Personal Income and Outlays, October and November 2025",
+        "url": "https://bea.gov/news/2026/personal-income-and-outlays-october-and-november-2025",
+        "verified": null
+      }
+    ],
+    "polymarket-6403128": [
+      {
+        "primary": false,
+        "published": "2026-07-06",
+        "quotes": [
+          "The Bank of Israel Monetary Committee, headed by Governor Prof.\nAmir Yaron, has cut the interest rate 0.25% to 3.5%",
+          "has cut the interest rate 0.25% to 3.5%, as most economists had expected.",
+          "This is the second successive interest rate cut",
+          "sees the interest rate at 3% in 12 months time"
+        ],
+        "text": "The Bank of Israel Monetary Committee, headed by Governor Prof.\nAmir Yaron, has cut the interest rate 0.25% to 3.5%\nhas cut the interest rate 0.25% to 3.5%, as most economists had expected.\nThis is the second successive interest rate cut\nsees the interest rate at 3% in 12 months time",
+        "title": "Bank of Israel cuts interest rate again",
+        "url": "https://en.globes.co.il/en/article-1001547993",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-05-25",
+        "quotes": [
+          "The Bank of Israel Monetary Committee, headed by Governor Prof.\nAmir Yaron, has cut the interest rate 0.25% to 3.75%"
+        ],
+        "text": "The Bank of Israel Monetary Committee, headed by Governor Prof.\nAmir Yaron, has cut the interest rate 0.25% to 3.75%",
+        "title": "Bank of Israel cuts interest rate 0.25%",
+        "url": "https://en.globes.co.il/en/article-1001543856",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bank of Israel interest rate decision dates 2026 (official schedule; could not be opened)",
+        "url": "https://boi.org.il/roles/monetary-policy/interest-rate-dates/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bank of Israel, Monetary Policy (named in the question; could not be opened)",
+        "url": "https://www.boi.org.il/en/economic-roles/monetary-policy/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2025-02-24",
+        "quotes": [
+          "has announced that it has kept the interest rate unchanged at 4.5%, as expected.",
+          "This is the ninth consecutive time that the Bank of Israel has left the interest rate unchanged"
+        ],
+        "text": "has announced that it has kept the interest rate unchanged at 4.5%, as expected.\nThis is the ninth consecutive time that the Bank of Israel has left the interest rate unchanged",
+        "title": "BoI keeps rate unchanged for ninth consecutive time",
+        "url": "https://en.globes.co.il/en/article-boi-keeps-rate-unchanged-for-ninth-consecutive-time-1001502913",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-21",
+        "quotes": [
+          "The Bank of Israel left its benchmark interest rate unchanged at 3.25% at its latest meeting",
+          "its lowest level since 2022, following three consecutive rate cuts."
+        ],
+        "text": "The Bank of Israel left its benchmark interest rate unchanged at 3.25% at its latest meeting\nits lowest level since 2022, following three consecutive rate cuts.",
+        "title": "Bank of Israel Holds Key Rate at 3.25%",
+        "url": "https://tradingeconomics.com/israel/interest-rate/news/593876",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-21",
+        "quotes": [],
+        "text": "",
+        "title": "October 21 2026 (Bank of Israel interest rate decision notice)",
+        "url": "https://www.boi.org.il/media/cqqn1hr3/october-21-2026.pdf",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-15",
+        "quotes": [
+          "Israel\u2019s Consumer Price Index (CPI) fell by 0.1% in October in comparison with September 2026",
+          "In the twelve months to the end of October, the CPI rose 1.1%.",
+          "The consensus analysts\u2019 estimate had been for a rise of 0.2-0.4% in October."
+        ],
+        "text": "Israel\u2019s Consumer Price Index (CPI) fell by 0.1% in October in comparison with September 2026\nIn the twelve months to the end of October, the CPI rose 1.1%.\nThe consensus analysts\u2019 estimate had been for a rise of 0.2-0.4% in October.",
+        "title": "Inflation unexpectedly falls sharply, home prices fall - Globes",
+        "url": "https://en.globes.co.il/en/article-inflation-unexpectedly-falls-sharply-home-prices-fall-1001563497",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-20",
+        "quotes": [
+          "all 15 economists polled expect the Bank of Israel to keep its benchmark interest rate at a four-year low of 3.25%",
+          "At least one more reduction to 3% is widely expected \u2014 a divergence from a broader global trend of tighter monetary policy."
+        ],
+        "text": "all 15 economists polled expect the Bank of Israel to keep its benchmark interest rate at a four-year low of 3.25%\nAt least one more reduction to 3% is widely expected \u2014 a divergence from a broader global trend of tighter monetary policy.",
+        "title": "Bank of Israel to pause rate cuts ahead of October 27 election - Reuters poll",
+        "url": "https://gvwire.com/2026/10/20/bank-of-israel-to-pause-rate-cuts-ahead-of-october-27-election-reuters-poll/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-08-25",
+        "quotes": [
+          "Citi's base scenario is another 25 basis point cut this year, and another cut in the first quarter of 2027 to a level of 3%."
+        ],
+        "text": "Citi's base scenario is another 25 basis point cut this year, and another cut in the first quarter of 2027 to a level of 3%.",
+        "title": "Citi: No rate cut next week but two more by Q1 2027 - Globes",
+        "url": "https://en.globes.co.il/en/article-1001553362",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bank of Israel October 2026 monetary policy discussion report (PDF)",
+        "url": "https://boi.org.il/media/h1bl2ng2/october-2026.pdf",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "The Bank of Israel left its benchmark interest rate unchanged at 3.25% at its latest meeting"
+        ],
+        "text": "The Bank of Israel left its benchmark interest rate unchanged at 3.25% at its latest meeting",
+        "title": "Israel Interest Rate, Trading Economics (calendar page)",
+        "url": "https://tradingeconomics.com/israel/interest-rate",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-15",
+        "quotes": [
+          "Inflation Rate in Israel decreased to 1.10 percent in October from 1.60 percent in September of 2026."
+        ],
+        "text": "Inflation Rate in Israel decreased to 1.10 percent in October from 1.60 percent in September of 2026.",
+        "title": "Israel Inflation Rate, Trading Economics (October 2026 release)",
+        "url": "https://tradingeconomics.com/israel/inflation-cpi",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Bank of Israel October 2026 document (PDF)",
+        "url": "https://www.boi.org.il/media/h1bl2ng2/october-2026.pdf",
+        "verified": null
+      }
+    ],
+    "polymarket-6921785": [
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Truth Tracker (xtracker.io, Truth Social platform)",
+        "url": "https://www.xtracker.io/?platform=TRUTH_SOCIAL",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Our site archives all of Donald Trump's TRUTH Social posts",
+          "All timestamps are in America/New York."
+        ],
+        "text": "Our site archives all of Donald Trump's TRUTH Social posts\nAll timestamps are in America/New York.",
+        "title": "About - trumpstruth.org",
+        "url": "https://trumpstruth.org/about",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "39,009 Posts archived",
+          "22.5 Average per day",
+          "190 Peak-day posts November 3, 2026",
+          "Date range: \"February 14, 2022 \u2013 November 16, 2026\"",
+          "Total posts: \"39,009 Posts archived\""
+        ],
+        "text": "39,009 Posts archived\n22.5 Average per day\n190 Peak-day posts November 3, 2026\nDate range: \"February 14, 2022 \u2013 November 16, 2026\"\nTotal posts: \"39,009 Posts archived\"",
+        "title": "Stats - trumpstruth.org",
+        "url": "https://trumpstruth.org/stats",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-01-11",
+        "quotes": [
+          "posted 6,168 times on Truth Social in 2025, averaging 18 posts a day",
+          "The page reports that Trump \"posted 6,168 times on Truth Social in 2025, averaging 18 posts a day\" (excerpt from the Get the Facts Data Team summary; the full sentence exceeds the 125-character limit)."
+        ],
+        "text": "posted 6,168 times on Truth Social in 2025, averaging 18 posts a day\nThe page reports that Trump \"posted 6,168 times on Truth Social in 2025, averaging 18 posts a day\" (excerpt from the Get the Facts Data Team summary; the full sentence exceeds the 125-character limit).",
+        "title": "Here's the data on how President Donald Trump posted on Truth Social in 2025",
+        "url": "https://ground.news/article/heres-the-data-on-how-president-donald-trump-posted-on-truth-social-in-2025",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Truth Social Posts of November 13, 2026"
+        ],
+        "text": "Truth Social Posts of November 13, 2026",
+        "title": "Truth Social Posts of November 13, 2026 (American Presidency Project)",
+        "url": "https://www.presidency.ucsb.edu/documents/truth-social-posts-november-13-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Truth Social Posts of November 14, 2026"
+        ],
+        "text": "Truth Social Posts of November 14, 2026",
+        "title": "Truth Social Posts of November 14, 2026 (American Presidency Project)",
+        "url": "https://www.presidency.ucsb.edu/documents/truth-social-posts-november-14-2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trump Has Averaged a Whopping 19 Truth Social Posts a Day in 2026: Report (Mediaite)",
+        "url": "https://mediaite.com/politics/trump-has-averaged-a-whopping-19-truth-social-posts-a-day-in-2026-report",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-05-08",
+        "quotes": [],
+        "text": "",
+        "title": "NPR: Trump's Truth Social lays bare narrow obsessions of an extremely online president (2026-05-08)",
+        "url": "https://www.npr.org/2026/05/08/nx-s1-5749358/trump-truth-social-online-posts-iran-white-house-ballroom",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-16",
+        "quotes": [],
+        "text": "",
+        "title": "trumpstruth.org Trump post archive, per_page=100 listing",
+        "url": "https://trumpstruth.org/?per_page=100",
+        "verified": null
+      }
+    ],
+    "polymarket-6942351": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "The date above the rankings is the newest usage bucket the leaderboard is computed from, so the numbers shift as new data is aggregated.",
+          "Usage data through Nov 15, 2026",
+          "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026"
+        ],
+        "text": "The date above the rankings is the newest usage bucket the leaderboard is computed from, so the numbers shift as new data is aggregated.\nUsage data through Nov 15, 2026\nShare of text requests made on OpenRouter in the week beginning Nov 9, 2026",
+        "title": "AI Model Rankings - OpenRouter",
+        "url": "https://openrouter.ai/rankings",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Today, This Week, and This Month each cover a trailing window of one day, seven days, and thirty days, and usage is aggregated into daily buckets in UTC.",
+          "Usage data through Nov 15, 2026",
+          "Today, This Week, and This Month each cover a trailing window of one day, seven days, and thirty days"
+        ],
+        "text": "Today, This Week, and This Month each cover a trailing window of one day, seven days, and thirty days, and usage is aggregated into daily buckets in UTC.\nUsage data through Nov 15, 2026\nToday, This Week, and This Month each cover a trailing window of one day, seven days, and thirty days",
+        "title": "AI Model Rankings (week view) - OpenRouter",
+        "url": "https://openrouter.ai/rankings?view=week",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "When you make a request to OpenRouter, we receive the total number of tokens processed by the provider."
+        ],
+        "text": "When you make a request to OpenRouter, we receive the total number of tokens processed by the provider.",
+        "title": "OpenRouter FAQ - OpenRouter docs",
+        "url": "https://openrouter.ai/docs/faq",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October was the largest month in OpenRouter's history: 790T tokens, up 37% from September and a startling 25x from January."
+        ],
+        "text": "October was the largest month in OpenRouter's history: 790T tokens, up 37% from September and a startling 25x from January.",
+        "title": "OpenRouter October 2026 data recap",
+        "url": "https://openrouter.ai/data/october-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "10 \u6708\u662f OpenRouter \u5386\u53f2\u4e0a\u89c4\u6a21\u6700\u5927\u7684\u6708\u4efd\uff1atoken \u7528\u91cf\u8fbe\u5230 790T\uff0c\u8f83 9 \u6708\u589e\u957f 37%\uff0c\u66f4\u8fbe\u5230 1 \u6708\u7684\u60ca\u4eba 25 \u500d\u3002"
+        ],
+        "text": "10 \u6708\u662f OpenRouter \u5386\u53f2\u4e0a\u89c4\u6a21\u6700\u5927\u7684\u6708\u4efd\uff1atoken \u7528\u91cf\u8fbe\u5230 790T\uff0c\u8f83 9 \u6708\u589e\u957f 37%\uff0c\u66f4\u8fbe\u5230 1 \u6708\u7684\u60ca\u4eba 25 \u500d\u3002",
+        "title": "OpenRouter 2026\u5e7410\u6708\u6570\u636e\u56de\u987e",
+        "url": "https://openrouter.ai/zh-CN/data/october-2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-19",
+        "quotes": [
+          "OpenRouter's live rankings show weekly token usage flattening across its leaderboard",
+          "with DeepSeek V4.1 Flash still on top at 32.8T tokens but down 20%"
+        ],
+        "text": "OpenRouter's live rankings show weekly token usage flattening across its leaderboard\nwith DeepSeek V4.1 Flash still on top at 32.8T tokens but down 20%",
+        "title": "OpenRouter's token usage plateaus as the token-maxxing era ends",
+        "url": "https://zeli.app/story/50159464",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-04",
+        "quotes": [
+          "The platform reported 204471678441606 tokens during 2026-10-28\u20132026-11-03",
+          "versus 188413718979913 during 2026-10-21\u20132026-10-27: 8.522712%.",
+          "Source: OpenRouter (openrouter.ai/rankings), as of 2026-11-04T17:20:20.613Z.\nAhaSignals calculations."
+        ],
+        "text": "The platform reported 204471678441606 tokens during 2026-10-28\u20132026-11-03\nversus 188413718979913 during 2026-10-21\u20132026-10-27: 8.522712%.\nSource: OpenRouter (openrouter.ai/rankings), as of 2026-11-04T17:20:20.613Z.\nAhaSignals calculations.",
+        "title": "Seven-day platform token change: 8.522712% through 2026-11-03",
+        "url": "https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-03",
+        "quotes": [
+          "The platform reported 197866105410220 tokens during 2026-10-27\u20132026-11-02",
+          "versus 190048844282169 during 2026-10-20\u20132026-10-26: 4.113291%."
+        ],
+        "text": "The platform reported 197866105410220 tokens during 2026-10-27\u20132026-11-02\nversus 190048844282169 during 2026-10-20\u20132026-10-26: 4.113291%.",
+        "title": "Seven-day platform token change: 4.113291% through 2026-11-02",
+        "url": "https://ahasignals.com/data/demand-briefs/v1/briefs/2f42b504a801edfcac3de5c8e3240a8c0927fefb01beed677eab3340d3b6c41b.md",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-09-22",
+        "quotes": [
+          "Weekly token volume on OpenRouter went from 0.5 trillion in the week of Jan 13, 2025",
+          "to 128.4 trillion in the week of Sep 14, 2026.",
+          "All figures are weekly totals from OpenRouter usage data, Jan 1, 2025 through Sep 20, 2026.",
+          "All charts exclude reseller activity."
+        ],
+        "text": "Weekly token volume on OpenRouter went from 0.5 trillion in the week of Jan 13, 2025\nto 128.4 trillion in the week of Sep 14, 2026.\nAll figures are weekly totals from OpenRouter usage data, Jan 1, 2025 through Sep 20, 2026.\nAll charts exclude reseller activity.",
+        "title": "The Token State of Play (OpenRouter newsletter)",
+        "url": "https://openrouter.ai/data/newsletter/the-token-state-of-play",
+        "verified": null
+      }
+    ],
+    "polymarket-6949221": [
+      {
+        "primary": true,
+        "published": "2026-11-11",
+        "quotes": [
+          "\"Gemini 4 Carbon (High),\" listed as a Google proprietary model.",
+          "1538 with a \u00b110 margin, marked \"Preliminary.\""
+        ],
+        "text": "\"Gemini 4 Carbon (High),\" listed as a Google proprietary model.\n1538 with a \u00b110 margin, marked \"Preliminary.\"",
+        "title": "Text Arena Overall (no style control) leaderboard, arena.ai",
+        "url": "https://arena.ai/leaderboard/text/overall-no-style-control",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-10-28",
+        "quotes": [
+          "In the main Text Arena leaderboard, Gemini 4 Carbon (High) claimed first place overall with an Arena Elo score of 1,528."
+        ],
+        "text": "In the main Text Arena leaderboard, Gemini 4 Carbon (High) claimed first place overall with an Arena Elo score of 1,528.",
+        "title": "Gemini 4 Carbon Tops Text Arena, Places 2nd On Agent Arena",
+        "url": "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kimi K3.1 Pro (Max) has been added to the Text Arena leaderboard."
+        ],
+        "text": "Kimi K3.1 Pro (Max) has been added to the Text Arena leaderboard.",
+        "title": "Leaderboard Changelog, arena.ai",
+        "url": "https://arena.ai/blog/leaderboard-changelog/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2025-11-14",
+        "quotes": [
+          "The raw rank is simply the rank of the model's Arena score.",
+          "two models are tied if their rank spreads overlap."
+        ],
+        "text": "The raw rank is simply the rank of the model's Arena score.\ntwo models are tied if their rank spreads overlap.",
+        "title": "Arena ranking method (LMArena blog, redirected from news.lmarena.ai/ranking-method)",
+        "url": "https://arena.ai/blog/ranking-method",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-28",
+        "quotes": [
+          "\"Google\u2019s Gemini 4 Carbon is the new #1 on the Artificial Analysis Intelligence Index v5\""
+        ],
+        "text": "\"Google\u2019s Gemini 4 Carbon is the new #1 on the Artificial Analysis Intelligence Index v5\"",
+        "title": "Gemini 4 Carbon is the new #1 on the Artificial Analysis Intelligence Index v5",
+        "url": "https://artificialanalysis.ai/articles/gemini-4-carbon-new-number-1",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-24",
+        "quotes": [
+          "He adds that he hopes the model will be released \u2018much earlier\u2019 than the end of 2026, but a specific timeline was not shared."
+        ],
+        "text": "He adds that he hopes the model will be released \u2018much earlier\u2019 than the end of 2026, but a specific timeline was not shared.",
+        "title": "Google says Gemini 4 release is coming as soon as possible",
+        "url": "https://9to5google.com/2026/09/24/google-says-gemini-4-release-is-coming-as-soon-as-possible/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-10",
+        "quotes": [
+          "Anthropic on Monday unveiled two new AI models",
+          "Claude Fable 5.2 is available more broadly",
+          "generate outputs up to 30% faster than their Claude 5.1 predecessors"
+        ],
+        "text": "Anthropic on Monday unveiled two new AI models\nClaude Fable 5.2 is available more broadly\ngenerate outputs up to 30% faster than their Claude 5.1 predecessors",
+        "title": "Anthropic unveils new Fable, Mythos models as competition heats up ahead of IPO (The Star, Reuters)",
+        "url": "https://www.thestar.com.my/tech/tech-news/2026/11/10/anthropic-unveils-new-fable-mythos-models-as-competition-heats-up-ahead-of-ipo",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [
+          "Anthropic said Fable 5.2 is generally available across all platforms on Monday, Nov.\n9, 2026."
+        ],
+        "text": "Anthropic said Fable 5.2 is generally available across all platforms on Monday, Nov.\n9, 2026.",
+        "title": "Anthropic releases Mythos 5.2 and Fable 5.2 (Silicon Report)",
+        "url": "https://www.siliconreport.com/anthropic-releases-mythos-5-2-and-fable-5-2",
+        "verified": null
+      }
+    ],
+    "polymarket-6990900": [
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "The live Ethereum price today is $1,797.49 USD.",
+          "Page last updated: 11/16/26, 9:30 AM (UTC)"
+        ],
+        "text": "The live Ethereum price today is $1,797.49 USD.\nPage last updated: 11/16/26, 9:30 AM (UTC)",
+        "title": "Ethereum Price - Binance",
+        "url": "https://www.binance.com/en/price/ethereum",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "1794.99 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "1794.99 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "Trade ETH/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/ETH_USDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "The ETH/USD price today is 1,794.79, with a previous close of 1,836.04."
+        ],
+        "text": "The ETH/USD price today is 1,794.79, with a previous close of 1,836.04.",
+        "title": "ETH/USD Historical Data (Binance), Investing.com",
+        "url": "https://www.investing.com/crypto/ethereum/eth-usd-historical-data",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[1794787200000,\"1835.35000000\",\"1838.77000000\",\"1787.11000000\",\"1799.25000000\""
+        ],
+        "text": "[1794787200000,\"1835.35000000\",\"1838.77000000\",\"1787.11000000\",\"1799.25000000\"",
+        "title": "Binance API: ETHUSDT daily klines, last 31 candles",
+        "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Two-day meeting, December 8 - 9"
+        ],
+        "text": "Two-day meeting, December 8 - 9",
+        "title": "December 2026 FOMC meeting calendar, Federal Reserve Board",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Farside Investors reports $184.6 million of net withdrawals on Monday, November 9.",
+          "BlackRock's ETHA accounted for $119.3 million, making it the largest identifiable contributor to the day's negative reading."
+        ],
+        "text": "Farside Investors reports $184.6 million of net withdrawals on Monday, November 9.\nBlackRock's ETHA accounted for $119.3 million, making it the largest identifiable contributor to the day's negative reading.",
+        "title": "Ether ETFs Shed $184.6M in a Day as BlackRock Leads Redemptions (Mitrade)",
+        "url": "https://www.mitrade.com/insights/news/live-news/article-3-2246353-20261111",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Ethereum extends losses as Fed's Waller puts a larger rate hike on the table and US CPI remains hot (investinglive)",
+        "url": "https://investinglive.com/cryptocurrency/ethereum-extends-losses-as-fed-s-waller-puts-a-larger-rate-hike-on-the-table-and-us-cpi-remains-hot/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Over $297M in Major Token Unlocks Scheduled from November 17 to 24 (KuCoin flash news)",
+        "url": "https://www.kucoin.com/news/flash/over-297m-in-major-token-unlocks-scheduled-from-november-17-to-24",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Ethereum's 'Hegota' Upgrade Scheduled for Late 2026 (KuCoin flash news)",
+        "url": "https://www.kucoin.com/news/flash/ethereum-s-hegota-upgrade-scheduled-for-late-2026",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-10",
+        "quotes": [
+          "increased 0.4 percent on a seasonally adjusted basis in October after rising 0.6 percent in September",
+          "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August."
+        ],
+        "text": "increased 0.4 percent on a seasonally adjusted basis in October after rising 0.6 percent in September\nThe index for all items less food and energy rose 0.3 percent in October, as it did in September and August.",
+        "title": "BLS Consumer Price Index news release, October 2026 (archived)",
+        "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "{\"symbol\":\"ETHUSDT\",\"price\":\"1799.25000000\"}"
+        ],
+        "text": "{\"symbol\":\"ETHUSDT\",\"price\":\"1799.25000000\"}",
+        "title": "Binance API ticker price, ETHUSDT",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+        "verified": null
+      }
+    ],
+    "polymarket-7018476": [
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"64037.46000000\"}",
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"64086.75000000\"}"
+        ],
+        "text": "{\"symbol\":\"BTCUSDT\",\"price\":\"64037.46000000\"}\n{\"symbol\":\"BTCUSDT\",\"price\":\"64086.75000000\"}",
+        "title": "Binance API: BTCUSDT ticker price",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64037.46000000\"",
+          "[1794355200000,\"73796.06000000\",\"74811.45000000\",\"73209.12000000\",\"74015.19000000\",\"16145.87951000\"",
+          "[1794700800000,\"64150.01000000\",\"66132.01000000\",\"62006.00000000\",\"65351.05000000\""
+        ],
+        "text": "[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64037.46000000\"\n[1794355200000,\"73796.06000000\",\"74811.45000000\",\"73209.12000000\",\"74015.19000000\",\"16145.87951000\"\n[1794700800000,\"64150.01000000\",\"66132.01000000\",\"62006.00000000\",\"65351.05000000\"",
+        "title": "Binance API: BTCUSDT daily klines",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+        "title": "Binance Spot API docs: Market data endpoints",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "63979.97 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "63979.97 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "Trade BTC/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [
+          "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78."
+        ],
+        "text": "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78.",
+        "title": "Price of Bitcoin 11/11/2026 - Fortune",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-11-2026/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [
+          "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,",
+          "The outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains."
+        ],
+        "text": "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,\nThe outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains.",
+        "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June",
+        "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "[1794832500000,\"64105.05000000\",\"64139.40000000\",\"64086.75000000\",\"64086.75000000\",\"8.67150000\""
+        ],
+        "text": "[1794832500000,\"64105.05000000\",\"64139.40000000\",\"64086.75000000\",\"64086.75000000\",\"8.67150000\"",
+        "title": "Binance API: BTCUSDT 1-minute klines (3 bars)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=3",
+        "verified": null
+      }
+    ],
+    "polymarket-7029795": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "TikTok Pro - Events Watch, Discover, Join & Share",
+          "Muse from Meta Your personal AI agent",
+          "Vinted: Pre-loved marketplace Sell & buy second-hand clothes",
+          "\"TikTok Pro - Events\" with the subtitle \"Watch, Discover, Join & Share\""
+        ],
+        "text": "TikTok Pro - Events Watch, Discover, Join & Share\nMuse from Meta Your personal AI agent\nVinted: Pre-loved marketplace Sell & buy second-hand clothes\n\"TikTok Pro - Events\" with the subtitle \"Watch, Discover, Join & Share\"",
+        "title": "Apple App Store Top Charts (iPhone), US",
+        "url": "https://apps.apple.com/us/charts/iphone",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-15",
+        "quotes": [
+          "Current rank #1 US Free \u00b7 Overall",
+          "Data as of November 15, 2026",
+          "Data as of November 15, 2026."
+        ],
+        "text": "Current rank #1 US Free \u00b7 Overall\nData as of November 15, 2026\nData as of November 15, 2026.",
+        "title": "TikTok Pro - Events, app listing and rank (mwm.ai)",
+        "url": "https://mwm.ai/apps/tiktok-pro-events/6741796873",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-06-03",
+        "quotes": [
+          "TikTok announced on Wednesday that it\u2019s launching a new stand-alone app in the U.S.\ndedicated to cultural milestones"
+        ],
+        "text": "TikTok announced on Wednesday that it\u2019s launching a new stand-alone app in the U.S.\ndedicated to cultural milestones",
+        "title": "TikTok launches TikTok Pro Events, an app for cultural moments like the FIFA World Cup",
+        "url": "https://techcrunch.com/2026/06/03/tiktok-launches-tiktok-pro-events-an-app-for-cultural-moments-like-the-fifa-world-cup/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-06-03",
+        "quotes": [
+          "a dedicated standalone application designed to deepen community immersion during major cultural milestones.",
+          "Today, we are launching a pilot of TikTok Pro Events in the U.S.",
+          "Today, we are launching a pilot of TikTok Pro Events in the U.S., a dedicated standalone application",
+          "The TikTok Pro Events experience is now live for users in the U.S.",
+          "Debuting with FIFA World Cup 2026\u2122"
+        ],
+        "text": "a dedicated standalone application designed to deepen community immersion during major cultural milestones.\nToday, we are launching a pilot of TikTok Pro Events in the U.S.\nToday, we are launching a pilot of TikTok Pro Events in the U.S., a dedicated standalone application\nThe TikTok Pro Events experience is now live for users in the U.S.\nDebuting with FIFA World Cup 2026\u2122",
+        "title": "TikTok Pro Events (TikTok Newsroom)",
+        "url": "https://newsroom.tiktok.com/tiktok-pro-events?lang=en",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-07-15",
+        "quotes": [],
+        "text": "",
+        "title": "Top Free apps in United States, iOS (Marlvel, 2026-07-15 snapshot)",
+        "url": "https://marlvel.ai/rankings/us/ios/all/2026-07-15",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Meta's AI agent Muse tops mobile app charts after launch",
+        "url": "https://cryptobriefing.com/meta-muse-ai-agent-tops-app-charts/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-20",
+        "quotes": [],
+        "text": "",
+        "title": "Meta's Muse tops Apple's US free iPhone chart on September 20, with ChatGPT at No.\n2",
+        "url": "https://mixed-news.com/en/meta-muse-tops-apple-free-iphone-chart-ahead-of-chatgpt/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "TikTok's new standalone app turns World Cup engagement into an ad playground for brands",
+        "url": "https://www.emarketer.com/content/tiktok-new-standalone-app-turns-world-cup-engagement-ad-playground-brands",
+        "verified": null
+      }
+    ],
+    "polymarket-7029806": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Muse from Meta Your personal AI agent",
+          "ChatGPT Your everyday AI assistant",
+          "The list itself is under the \"All Apps\" heading, with the \"Free\" tab selected:"
+        ],
+        "text": "Muse from Meta Your personal AI agent\nChatGPT Your everyday AI assistant\nThe list itself is under the \"All Apps\" heading, with the \"Free\" tab selected:",
+        "title": "Apple App Store Top Charts (iPhone), US",
+        "url": "https://apps.apple.com/us/charts/iphone",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2025-12-11",
+        "quotes": [
+          "has claimed the top spot on Apple\u2019s annual U.S.\nApp Store download rankings for 2025",
+          "to emerge as the most downloaded free iPhone app of the year in the U.S.",
+          "In 2024 it ranked at number four among free apps"
+        ],
+        "text": "has claimed the top spot on Apple\u2019s annual U.S.\nApp Store download rankings for 2025\nto emerge as the most downloaded free iPhone app of the year in the U.S.\nIn 2024 it ranked at number four among free apps",
+        "title": "ChatGPT Tops App Store Downloads in the US for 2025",
+        "url": "https://www.iphoneincanada.ca/2025/12/11/chatgpt-tops-app-store-downloads-in-the-us-for-2025/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-03-09",
+        "quotes": [
+          "Earlier today, ChatGPT reclaimed the top spot on the U.S.\nApp Store.",
+          "Earlier today, ChatGPT reclaimed the top spot on the U.S.\nApp Store,",
+          "followed by Claude in second place and Google Gemini in third."
+        ],
+        "text": "Earlier today, ChatGPT reclaimed the top spot on the U.S.\nApp Store.\nEarlier today, ChatGPT reclaimed the top spot on the U.S.\nApp Store,\nfollowed by Claude in second place and Google Gemini in third.",
+        "title": "ChatGPT returns to the top of the App Store after DoD deal controversy",
+        "url": "https://9to5mac.com/2026/03/09/chatgpt-returns-to-the-top-of-the-app-store-after-dod-deal-controversy/",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [],
+        "text": "",
+        "title": "ChatGPT Leads No App Store of 15; Muse and Claude Take No.\n1",
+        "url": "https://fourweekmba.com/ai-chatgpt-leads-no-app-store-of-15-muse-and-claude-take-no-1/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "ChatGPT climbed to the #1 grossing app worldwide for the first time",
+          "ChatGPT secured the top in-app purchase revenue spot across key markets"
+        ],
+        "text": "ChatGPT climbed to the #1 grossing app worldwide for the first time\nChatGPT secured the top in-app purchase revenue spot across key markets",
+        "title": "Sensor Tower Q3 2026 Digital Market Index",
+        "url": "https://sensortower.com/blog/q3-2026-digital-market-index",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "ChatGPT release notes (OpenAI Help Center)",
+        "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+        "verified": null
+      }
+    ],
+    "polymarket-7073766": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "64234.01 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+          "64268.98 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "64234.01 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance\n64268.98 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "Trade BTC/USDT Spot | Binance (page title)",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "1794787200000: 64236.13000000",
+          "1794700800000: 65351.05000000",
+          "1794614400000: 64150.00000000",
+          "64170.27000000",
+          "1794787200000"
+        ],
+        "text": "1794787200000: 64236.13000000\n1794700800000: 65351.05000000\n1794614400000: 64150.00000000\n64170.27000000\n1794787200000",
+        "title": "Binance Spot API daily klines for BTCUSDT (last 31 daily candles)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+          "Note that `startTime` and `endTime` are always interpreted in UTC, regardless of `timeZone`."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.\nNote that `startTime` and `endTime` are always interpreted in UTC, regardless of `timeZone`.",
+        "title": "Binance Spot API docs: Market data endpoints",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"64177.88000000\"}"
+        ],
+        "text": "{\"symbol\":\"BTCUSDT\",\"price\":\"64177.88000000\"}",
+        "title": "Binance API: BTCUSDT ticker price",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [
+          "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78."
+        ],
+        "text": "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78.",
+        "title": "Fortune: Price of Bitcoin 11/11/2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-11-2026/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October 2026 / Nov.\n10, 2026 / 08:30 AM",
+          "November 2026 / Dec.\n10, 2026 / 08:30 AM",
+          "November 2026 Dec.\n10, 2026 08:30 AM"
+        ],
+        "text": "October 2026 / Nov.\n10, 2026 / 08:30 AM\nNovember 2026 / Dec.\n10, 2026 / 08:30 AM\nNovember 2026 Dec.\n10, 2026 08:30 AM",
+        "title": "BLS CPI release schedule 2026",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2025-06-24",
+        "quotes": [
+          "Two-day meeting, December 8 - 9"
+        ],
+        "text": "Two-day meeting, December 8 - 9",
+        "title": "Federal Reserve: December 2026 FOMC meeting",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2025-11-05",
+        "quotes": [
+          "Bitcoin fell below $100,000 in early November, nearing six-month lows",
+          "as a global risk-off wave gripped financial markets."
+        ],
+        "text": "Bitcoin fell below $100,000 in early November, nearing six-month lows\nas a global risk-off wave gripped financial markets.",
+        "title": "Trading Economics: Bitcoin news (dated 2025-11-05)",
+        "url": "https://tradingeconomics.com/btcusd:cur/news/499171",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-09",
+        "quotes": [
+          "LayerZero's $34.69M ZRO cliff (5.82% of circulating supply) headlines over $113M in scheduled unlocks,"
+        ],
+        "text": "LayerZero's $34.69M ZRO cliff (5.82% of circulating supply) headlines over $113M in scheduled unlocks,",
+        "title": "Tokenomist weekly unlock digest, Nov 9-15 2026 (teaser for Nov 16-22 2026)",
+        "url": "https://tokenomist.ai/research/weekly-unlock-digest-nov-9-15-2026-alloras-first-year-cliff-2",
+        "verified": null
+      }
+    ],
+    "polymarket-7085177": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64091.74000000\"]",
+          "[1794614400000,\"68314.01000000\",\"68446.21000000\",\"63320.00000000\",\"64150.00000000\"",
+          "[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64081.41000000\""
+        ],
+        "text": "[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64091.74000000\"]\n[1794614400000,\"68314.01000000\",\"68446.21000000\",\"63320.00000000\",\"64150.00000000\"\n[1794787200000,\"65351.05000000\",\"65392.01000000\",\"63905.01000000\",\"64081.41000000\"",
+        "title": "Binance REST API: BTCUSDT daily klines (limit 31)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trade BTC/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+        "title": "Binance Spot API docs: Market data endpoints",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"64081.41000000\"}"
+        ],
+        "text": "{\"symbol\":\"BTCUSDT\",\"price\":\"64081.41000000\"}",
+        "title": "Binance API: BTCUSDT ticker price (read 2026-11-16 12:37 UTC)",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [
+          "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week",
+          "The outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains."
+        ],
+        "text": "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week\nThe outflows left bitcoin ETFs with about $914.1 million in net outflows for 2026, reversing their year-to-date gains.",
+        "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June",
+        "url": "https://www.theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Two-day meeting, December 8 - 9"
+        ],
+        "text": "Two-day meeting, December 8 - 9",
+        "title": "Federal Reserve Board, December 2026 FOMC calendar",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-07",
+        "quotes": [
+          "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,",
+          "The funds closed Friday at about $914.1 million in net outflows year to date."
+        ],
+        "text": "U.S.\nspot bitcoin ETFs logged $1.28 billion in net outflows last week, their worst week since late June,\nThe funds closed Friday at about $914.1 million in net outflows year to date.",
+        "title": "Bitcoin ETFs flip negative for 2026 after $1.28 billion outflow week, worst since June",
+        "url": "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-11",
+        "quotes": [
+          "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78."
+        ],
+        "text": "At 7:30 a.m.\nEastern Time on November 11, 2026, one Bitcoin (BTC) is priced at $73,937.78.",
+        "title": "Price of Bitcoin 11/11/2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-11-2026/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "[1794815400000,\"64973.74000000\",\"64999.78000000\",\"64956.19000000\",\"64995.71000000\""
+        ],
+        "text": "[1794815400000,\"64973.74000000\",\"64999.78000000\",\"64956.19000000\",\"64995.71000000\"",
+        "title": "Binance API: BTCUSDT 1-minute klines from 2026-11-16 05:00 UTC",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&startTime=1794805200000&limit=1000",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "\"lastPrice\":\"64105.67000000\"",
+          "\"lowPrice\":\"63905.01000000\"",
+          "\"highPrice\":\"65800.75000000\""
+        ],
+        "text": "\"lastPrice\":\"64105.67000000\"\n\"lowPrice\":\"63905.01000000\"\n\"highPrice\":\"65800.75000000\"",
+        "title": "Binance API: BTCUSDT 24-hour ticker",
+        "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT",
+        "verified": null
+      }
+    ]
+  }
+}
