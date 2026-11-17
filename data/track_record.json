@@ -1,34 +1,34 @@
 {
   "calibration": {
-    "as_of": "2026-11-16",
-    "intercept": 0.237097,
-    "results": 244,
-    "slope": 0.745812
+    "as_of": "2026-11-17",
+    "intercept": 0.229744,
+    "results": 250,
+    "slope": 0.765096
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20510265829981508,
+      "brier": 0.2036854744459103,
       "coin_flip_brier": 0.25,
-      "forecasts": 309,
+      "forecasts": 319,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "combined_median_v1",
-      "resolved": 254,
-      "right": 174,
+      "resolved": 256,
+      "right": 176,
       "toss_ups": 3,
       "wrong": 77
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.1956855421686747,
+      "brier": 0.19422390438247011,
       "coin_flip_brier": 0.25,
-      "forecasts": 304,
+      "forecasts": 313,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "claude_code_forecaster_v1",
-      "resolved": 249,
-      "right": 168,
+      "resolved": 251,
+      "right": 170,
       "toss_ups": 7,
       "wrong": 74
     },
@@ -36,9 +36,9 @@
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
       "brier": 0.0495,
       "coin_flip_brier": 0.25,
-      "forecasts": 11,
+      "forecasts": 14,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "claude_second_look_v1",
       "resolved": 5,
       "right": 5,
@@ -47,14 +47,14 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.12519970288069998,
+      "brier": 0.1160543645650909,
       "coin_flip_brier": 0.25,
-      "forecasts": 31,
+      "forecasts": 40,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "learned_model_v1",
-      "resolved": 10,
-      "right": 9,
+      "resolved": 11,
+      "right": 10,
       "toss_ups": 0,
       "wrong": 1
     },
@@ -205,9 +205,9 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2508807474389097,
       "coin_flip_brier": 0.25,
-      "forecasts": 30,
+      "forecasts": 31,
       "label": "Statistical baseline",
-      "last_forecast_on": "2026-11-13",
+      "last_forecast_on": "2026-11-17",
       "method": "statistical_baseline_v1",
       "resolved": 26,
       "right": 11,
@@ -216,27 +216,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.16120724631158695,
+      "brier": 0.15552598033035417,
       "coin_flip_brier": 0.25,
-      "forecasts": 79,
+      "forecasts": 88,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "claude_calibrated_v1",
-      "resolved": 46,
-      "right": 37,
+      "resolved": 48,
+      "right": 39,
       "toss_ups": 0,
       "wrong": 9
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15966310488505747,
+      "brier": 0.15811810511363636,
       "coin_flip_brier": 0.25,
-      "forecasts": 209,
+      "forecasts": 218,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-16",
+      "last_forecast_on": "2026-11-17",
       "method": "market_price_v1",
-      "resolved": 174,
-      "right": 132,
+      "resolved": 176,
+      "right": 134,
       "toss_ups": 0,
       "wrong": 42
     },
@@ -267,21 +267,73 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-16",
+  "generated_on": "2026-11-17",
   "learned_model": {
-    "as_of": "2026-11-16",
-    "intercept": 0.171912,
-    "results": 220,
-    "slope": 1.03356,
+    "as_of": "2026-11-17",
+    "intercept": 0.151961,
+    "results": 225,
+    "slope": 1.051321,
     "weights": {
-      "Crypto": -0.323328,
-      "Economy": -0.116804,
-      "Politics": -0.353737,
-      "Tech": 0.465602,
-      "World": -0.422179
+      "Crypto": -0.325984,
+      "Economy": -0.095769,
+      "Politics": -0.356561,
+      "Tech": 0.47212,
+      "World": -0.425401
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.86,
+        "market": 0.82,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.82
+      },
+      "detail": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.86,
+          "rationale": "The arena.ai Text Arena (style control off) snapshot of 2026-11-09 lists Gemini 4 Carbon (High) at rank 1 with 1538 (preliminary, 9.1 million votes), up from the 1,528 reported when it took the top on 2026-10-28 (https://arena.ai/leaderboard/text/overall-no-style-control, https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The only new entry, Kimi K3.1 Pro (Max) added 2026-11-09, sits at rank 44 with 1457, about 81 points behind (https://arena.ai/blog/leaderboard-changelog/). The lead changed hands a handful of times in 2026, so a week with no leader change is the usual case; the risks are a surprise release from a rival lab before 2026-11-16, vote drift on a preliminary score, and an unverified margin over the second-place model, so I stop at 86%.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/",
+            "https://arena.ai/blog/leaderboard-changelog/",
+            "https://www.deeplearning.ai/the-batch/gemini-leads-the-pack-again/"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.8481,
+          "raw": 0.86,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.82
+        }
+      ],
+      "id": "polymarket-6665168",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/best-ai-model-on-november-16",
+      "status": "resolved",
+      "title": "Will gemini-4-carbon-high be the best AI model on November 16, 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
     {
       "actual": "5.15%",
       "call": {
@@ -629,6 +681,69 @@
       "status": "resolved",
       "title": "Best AI this week: Claude?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.07,
+        "market": 0.1225,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.1225
+      },
+      "detail": "As of market creation, Getty Images is estimated to release earnings on November 16, 2026. The Street consensus estimate for Getty Images's GAAP EPS for the relevant quarter is $0.04 as of market creation. This market will resolve to \"Yes\" if Getty Images reports GAAP EPS greater than $0.04 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Getty Images releases earnings without GAAP EPS, then the market will resolve according to the GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve to \u201cNo\u201d.\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: GAAP EPS refers to diluted GAAP EPS, unless this is not published, in which case it refers to basic GAAP EPS.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "Getty filed a prepackaged Chapter 11 on 2026-10-21 that wipes out public equity, and Q2 2026 showed an $85.8M net loss with tax expense up $96.7M (https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html, https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results). Q3 2025 diluted GAAP EPS of $0.05 beat a $0.04 consensus, but restructuring costs, high interest and possible further valuation allowance make a GAAP EPS above $0.04 unlikely, and the release (due 2026-11-16 after close, https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/) may omit a per-share line, which resolves No. The $0.04 consensus is likely stale; all evidence is snippet-level.",
+          "sources": [
+            "https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html",
+            "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+            "https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/",
+            "https://www.finanzen.net/nachricht/aktien/getty-images-holdings-inc-gety-q3-earnings-surpass-estimates-15255607"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.07,
+          "claude_weight": -0.225736,
+          "intercept": 0.294748,
+          "market": 0.1225,
+          "method": "learned_model_v1",
+          "probability": 0.156847,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.163218,
+          "raw": 0.07,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1225
+        }
+      ],
+      "id": "polymarket-6639352",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-16",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/gety-quarterly-earnings-gaap-eps-11-16-2026-0pt04",
+      "status": "resolved",
+      "title": "Will Getty Images (GETY) beat quarterly earnings?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -17599,121 +17714,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.07,
-        "market": 0.1225,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.1225
-      },
-      "detail": "As of market creation, Getty Images is estimated to release earnings on November 16, 2026. The Street consensus estimate for Getty Images's GAAP EPS for the relevant quarter is $0.04 as of market creation. This market will resolve to \"Yes\" if Getty Images reports GAAP EPS greater than $0.04 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Getty Images releases earnings without GAAP EPS, then the market will resolve according to the GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve to \u201cNo\u201d.\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: GAAP EPS refers to diluted GAAP EPS, unless this is not published, in which case it refers to basic GAAP EPS.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-13T13:29:57+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.07,
-          "rationale": "Getty filed a prepackaged Chapter 11 on 2026-10-21 that wipes out public equity, and Q2 2026 showed an $85.8M net loss with tax expense up $96.7M (https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html, https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results). Q3 2025 diluted GAAP EPS of $0.05 beat a $0.04 consensus, but restructuring costs, high interest and possible further valuation allowance make a GAAP EPS above $0.04 unlikely, and the release (due 2026-11-16 after close, https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/) may omit a per-share line, which resolves No. The $0.04 consensus is likely stale; all evidence is snippet-level.",
-          "sources": [
-            "https://www.cnbc.com/2026/10/21/getty-images-files-for-bankruptcy-advances-restructuring-plan.html",
-            "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
-            "https://easternherald.com/press-release/getty-images-to-release-third-quarter-2026-financial-results-on-november-16-2026/",
-            "https://www.finanzen.net/nachricht/aktien/getty-images-holdings-inc-gety-q3-earnings-surpass-estimates-15255607"
-          ]
-        },
-        {
-          "as_of": "2026-11-13",
-          "claude": 0.07,
-          "claude_weight": -0.225736,
-          "intercept": 0.294748,
-          "market": 0.1225,
-          "method": "learned_model_v1",
-          "probability": 0.156847,
-          "results": 204,
-          "slope": 1.074711
-        },
-        {
-          "as_of": "2026-11-13",
-          "intercept": 0.309733,
-          "method": "claude_calibrated_v1",
-          "probability": 0.163218,
-          "raw": 0.07,
-          "results": 228,
-          "slope": 0.75162
-        },
-        {
-          "made_at": "2026-11-13T13:13:02.025033+00:00",
-          "method": "market_price_v1",
-          "probability": 0.1225
-        }
-      ],
-      "id": "polymarket-6639352",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-16",
-      "scored": true,
-      "source": "prospective_markets_20261113",
-      "source_url": "https://polymarket.com/event/gety-quarterly-earnings-gaap-eps-11-16-2026-0pt04",
-      "status": "pending",
-      "title": "Will Getty Images (GETY) beat quarterly earnings?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.86,
-        "market": 0.82,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.82
-      },
-      "detail": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.86,
-          "rationale": "The arena.ai Text Arena (style control off) snapshot of 2026-11-09 lists Gemini 4 Carbon (High) at rank 1 with 1538 (preliminary, 9.1 million votes), up from the 1,528 reported when it took the top on 2026-10-28 (https://arena.ai/leaderboard/text/overall-no-style-control, https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The only new entry, Kimi K3.1 Pro (Max) added 2026-11-09, sits at rank 44 with 1457, about 81 points behind (https://arena.ai/blog/leaderboard-changelog/). The lead changed hands a handful of times in 2026, so a week with no leader change is the usual case; the risks are a surprise release from a rival lab before 2026-11-16, vote drift on a preliminary score, and an unverified margin over the second-place model, so I stop at 86%.",
-          "sources": [
-            "https://arena.ai/leaderboard/text/overall-no-style-control",
-            "https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/",
-            "https://arena.ai/blog/leaderboard-changelog/",
-            "https://www.deeplearning.ai/the-batch/gemini-leads-the-pack-again/"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.8481,
-          "raw": 0.86,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.82
-        }
-      ],
-      "id": "polymarket-6665168",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-17",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/best-ai-model-on-november-16",
-      "status": "pending",
-      "title": "Will gemini-4-carbon-high be the best AI model on November 16, 2026?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.64,
         "market": 0.4745,
         "max_move": 0.0,
@@ -18501,6 +18501,259 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.04,
+        "market": 0.15,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.15
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 16 2026, any 1-minute candle for Meta Platforms, Inc. (META) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Meta Platforms, Inc. (META) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.META%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.META%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "META closed at 626.41 on 2026-11-16 and the week's regular-session high so far is 640.70, so 680 needs about +8.6% from the close (+6.1% above the high) in four sessions (https://stockanalysis.com/stocks/meta/history/, 2026-11-16). Daily vol is 2.6% over a window that includes the -6.98% post-earnings day; excluding that it is nearer 1.8-2.2%, which puts 680 at roughly 1.9-2.3 sigma and a touch chance of about 2-6%. The only regular-session high above 680 since mid-October was 2026-10-22 (681.07), and the JPMorgan Focus List news (https://www.webull.com/news/15894359755441152, 2026-11-09) is already in the price.",
+          "sources": [
+            "https://stockanalysis.com/stocks/meta/history/",
+            "https://finance.yahoo.com/quote/META/",
+            "https://www.webull.com/news/15894359755441152"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.04,
+          "claude_weight": -0.095769,
+          "intercept": 0.151961,
+          "market": 0.15,
+          "method": "learned_model_v1",
+          "probability": 0.177493,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.099591,
+          "raw": 0.04,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.15
+        }
+      ],
+      "id": "polymarket-7025042",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/will-meta-hit-week-of-november-16-2026",
+      "status": "pending",
+      "title": "Will Meta Platforms, Inc. (META) hit (HIGH) $680 Week of November 16 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.94,
+        "market": 0.943,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.943
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance ETHUSDT was about 1794 at 2026-11-17 10:31 UTC, so 1,600 is about 10.8% below spot with about 3.3 days to the 12:00 ET (17:00 UTC) 2026-11-20 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That is about 2 sigma at 3.15% daily vol, and 957 of 996 rolling 3-day windows (96.1%) held above that ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). I shade down for ETF outflows of about $399M in the week of Nov 9-13 (https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/, 2026-11-16) and negative momentum; no CPI or FOMC falls in the window. This is consistent with my 93% on the Nov 19 question.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+            "https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/",
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.94,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.943,
+          "method": "learned_model_v1",
+          "probability": 0.9577,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.911729,
+          "raw": 0.94,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.943
+        }
+      ],
+      "id": "polymarket-7018420",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-20-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $1,600 on November 20?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.83,
+        "market": 0.8,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.83,
+          "rationale": "Binance XRPUSDT was 0.9583 at 2026-11-17 10:35 UTC, about 6.5% above 0.90, with about 78 hours to the noon-ET 2026-11-20 candle and 30-day daily vol of 3.33% (https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT). That is about 1.05 horizon sigma, or roughly 85% Yes by price math. XRP already traded to 0.893 on 2026-11-14 and ETF outflows were the largest in eight months (https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high, 2026-11-14), and FOMC minutes may land on 2026-11-18. My 75-90% calls have run slightly overconfident, so I trim a little.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+            "https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high",
+            "https://admiralmarkets.com/analytics/traders-blog/fomc-minutes-october-2026"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.83,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.8,
+          "method": "learned_model_v1",
+          "probability": 0.824107,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.808903,
+          "raw": 0.83,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8
+        }
+      ],
+      "id": "polymarket-7018528",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/xrp-above-on-november-20-2026",
+      "status": "pending",
+      "title": "Will the price of XRP be above $0.90 on November 20?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.35,
+        "market": 0.4,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.4
+      },
+      "detail": "A \"full lid\" at the White House is an official announcement indicating that the President's public activities for the day have concluded and no further public events, appearances, or news are expected.\n\nThis market will resolve to \u201cYes\u201d if the White House Press Office calls a full lid for the specified date by 6:30 PM ET on that date. Otherwise, this market will resolve to \u201cNo\u201d.\n\nOnly a full lid will qualify; lunch lids, intermissions, or any other press lid not explicitly listed as a full lid will not be sufficient to qualify this market towards a \"Yes\" resolution.\n\nA qualifying full lid may be reported by the resolution sources through 11:59 PM ET on the following day, provided the source indicates that it was called by the 6:30 PM ET cutoff.\n\nThis market will resolve according to the time listed by Roll Call of the first full lid called in the daily calendar (https://rollcall.com/factbase/trump/calendar/). If Roll Call does not list a lid time or is for any reason unavailable, this market will resolve according to Forth (https://www.forth.news/whpool).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "No schedule for 2026-11-19 was found as of 2026-11-17. Roll Call's calendar already lists the date but its update rule is midnight ET or social push (https://rollcall.com/factbase/trump/calendar/). Recent evening lids were a travel/photo lid at 18:01 on 2026-11-05 (https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026), a lid at 9:05 pm on 2026-11-13 and an evening lid of unstated type on 2026-11-12. The 2025-11-19 lid came at 6:17 pm with type unstated (https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025). No 'Full lid called' entry was confirmed on any Roll Call month page opened, and only a full lid by 6:30 PM ET counts, so I stay below even odds.",
+          "sources": [
+            "https://rollcall.com/factbase/trump/calendar/",
+            "https://rollcall.com/factbase/trump/calendar/november-2026/",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.35,
+          "claude_weight": -0.356561,
+          "intercept": 0.151961,
+          "market": 0.4,
+          "method": "learned_model_v1",
+          "probability": 0.450621,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.43933,
+          "raw": 0.35,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4
+        }
+      ],
+      "id": "polymarket-7088768",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/will-the-white-house-call-a-full-lid-by-630-pm-on-november-19-2026",
+      "status": "pending",
+      "title": "Will the White House call a full lid by 6:30 PM on November 19?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.6,
         "max_move": 0.0,
@@ -18684,6 +18937,101 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.92,
+        "market": 0.9325,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9325
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance ETHUSDT was 1792.43 at 2026-11-17 10:37 UTC, 10.8% above 1,600, with about 102 hours to the 12:00 ET (17:00 UTC) 2026-11-22 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That distance is about 3.4-3.6 daily sigma, or about 1.6 horizon sigma, and 93.5% of 5-day windows since 2024 held above this ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). ETF outflows of $2.35B over seven weeks (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12) and Waller's hike talk (2026-11-10) add downside risk, so I sit slightly below the Nov 20 forecast.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+            "https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.92,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.9325,
+          "method": "learned_model_v1",
+          "probability": 0.951304,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.890745,
+          "raw": 0.92,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9325
+        }
+      ],
+      "id": "polymarket-7073692",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-22",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-22-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $1,600 on November 22?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.5105708245243129,
+        "weights": {
+          "statistical_baseline_v1": 15.92
+        }
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-20 be above 5.15 percent?",
+      "forecasts": [
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5105708245243129
+        }
+      ],
+      "id": "1346d2fd3076f500",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261117",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 20, 2026 be above 5.15%?",
+      "topic": "Interest rates",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.38,
         "market": 0.8305,
         "max_move": 0.0,
@@ -18861,6 +19209,138 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.03,
+        "market": 0.055,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.055
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Binance ETHUSDT was 1795.36 at 2026-11-17 10:26 UTC, and the lowest 1-minute Low since the window opened (2026-11-16 05:00 UTC) was 1787.11, so 1,500 is about 16.4% below spot (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). With 30-day daily vol of 3.1% and about 138 hours left, the threshold is roughly 2.2-2.4 sigma away, a touch chance of about 2% on thin tails. I add a little for fat tails, ETF outflows and hot-CPI/Fed-hike pressure (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12), against a 6.7-11% historical 7-day base rate that starts from the full window.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.03,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.055,
+          "method": "learned_model_v1",
+          "probability": 0.067124,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.080928,
+          "raw": 0.03,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.055
+        }
+      ],
+      "id": "polymarket-7085204",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-16-22-2026",
+      "status": "pending",
+      "title": "Will Ethereum dip to $1,500 November 16-22?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.2,
+        "market": 0.43,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.43
+      },
+      "detail": "This market will resolve according to the number of qualifying resets announced or initiated between 12:00 a.m. ET on November 16, 2026, and 11:59 p.m. ET on November 22, 2026.\n\nResets will be counted by the calendar date (ET) on which OpenAI announces or initiates them, and at most one reset will be counted per calendar date. Announcements, confirmations, or phased rollouts of a reset already counted will not add to the total.\n\nA qualifying reset is a discretionary, non-scheduled action by OpenAI that, ahead of the normal reset schedule, either zeroes or refills the weekly or generally applicable usage allowance for paid Codex or ChatGPT Work subscription users, or grants those users a reset that OpenAI characterizes as a banked or redeemable rate-limit reset, regardless of whether or when individual users redeem it. A reset will still qualify if certain models with separate usage limits, certain plans, or some users are not covered due to technical exceptions, phased rollout, or plan differences.\n\nNormal scheduled resets, resets granted only to individually selected users or accounts, temporary limit increases, additional usage or credits that do not refill existing allowances, and changes to pricing, plans, or usage caps will not qualify. Resets of OpenAI API rate limits or organizational usage tiers will also not qualify. Only qualifying resets announced or initiated within the specified week will be counted.\n\nAn official announcement stating that OpenAI has reset, is resetting, or will reset the limits on the same date as the announcement will count if published within the specified week, regardless of when the technical reset begins or is completed. Qualifying announcements include X posts by official OpenAI accounts or OpenAI employees authorized to announce Codex usage changes, for example: https://x.com/OpenAI/status/2042296046009626989 and https://x.com/sama/status/2041658719839383945.\n\nThis market will resolve to \"No\" as soon as the specified number of resets becomes impossible, for example because more resets than the specified number have already occurred.\n\nThe primary resolution source for this market will be official communications from OpenAI, including X posts published by @OpenAI, @OpenAIDevs, @sama, @thsottiaux, or any other OpenAI-operated account, as well as official OpenAI blog posts, changelogs, and in-product notices. However, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Dated discretionary Codex resets were 2026-04-08, about 2026-06-01 and 2026-07-14, with the 4M-user reset reported only in a snippet (https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/, 2026-06-01). That is about 4-5 of roughly 32 weeks, and no week had two. Resets look more frequent lately (2026-10-28, and a banked reset announced 2026-11-12, reported at https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/, 2026-11-14), but the rollout of the Nov 12 reset does not count again. One BigGo article (2026-11-11) says Codex lead Sottiaux stepped back, and the evidence has only 1 primary source, so I stay near the base rate.",
+          "sources": [
+            "https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/",
+            "https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/",
+            "https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/",
+            "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
+            "https://learn.chatgpt.com/docs/changelog"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.3,
+          "rationale": "Recent resets came about every two weeks (Oct 28, Nov 12) and a banked reset was just announced, but the Codex lead's 'graduated from the reset company' remark points to fewer resets. Exactly one in a 7-day window is about 30%."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.2,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.43,
+          "method": "learned_model_v1",
+          "probability": 0.339441,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.303454,
+          "raw": 0.2,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.43
+        }
+      ],
+      "id": "polymarket-7088841",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/how-many-codex-resets-week-of-november-16",
+      "status": "pending",
+      "title": "Will there be exactly 1 Codex weekly usage limit reset in the week of November 16?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.81,
         "max_move": 0.0,
@@ -18918,6 +19398,143 @@
       "source_url": "https://polymarket.com/event/best-ai-model-on-november-23",
       "status": "pending",
       "title": "Will gemini-4-carbon-high be the best AI model on November 23, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.29,
+        "market": 0.635,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.635
+      },
+      "detail": "This market will resolve to the AI lab with the second highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 2nd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.29,
+          "rationale": "On the OpenRouter Market Share chart for the week beginning 2026-11-09, DeepSeek had 31.8%, OpenAI 19.0% and Google 15.1% (up 14% on the week), so Google is third, 3.9 points behind OpenAI (https://openrouter.ai/rankings?view=week). Google released Gemini 4 Carbon (2026-11-10) and Gemini 4 Hydrogen (2026-11-12), per https://aistudio.google.com/docs/changelog, which could lift its share in the Nov 16-22 week. One week of change is thin evidence, though, and overtaking OpenAI needs a swing of about 4 points in a week, so I stay below one-third.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog",
+            "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.5,
+          "rationale": "Nov 9 week had Google 15.1% (+14%, likely relative, from about 13.2%) vs OpenAI 19.0% (+1%), a 3.9-point gap; Gemini 4 launched Nov 10 and 12, so a full launch week could close it. The market at 63.5% may see daily data, so I moved partway up from the first forecast."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.29,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.635,
+          "method": "learned_model_v1",
+          "probability": 0.512485,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.388099,
+          "raw": 0.29,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        }
+      ],
+      "id": "polymarket-7088838",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/2nd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "status": "pending",
+      "title": "Will Google have the second highest OpenRouter market share the week of November 16?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.64,
+        "market": 0.325,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.325
+      },
+      "detail": "This market will resolve to the AI lab with the third highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 3rd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64,
+          "rationale": "In the OpenRouter week beginning 2026-11-09, Google was third at 15.1% behind DeepSeek 31.8% and OpenAI 19.0%, and 8.1 points ahead of Z.ai at 7.0% (https://openrouter.ai/rankings?view=week). Third place holds unless Google closes the 3.9-point gap to OpenAI, which the Gemini 4 releases of 2026-11-10 and 2026-11-12 could help it do (https://aistudio.google.com/docs/changelog), or falls far below Z.ai and Anthropic, which is unlikely in one week. The chance of Google passing OpenAI is about 30%, so third is the clear but not safe outcome. This is consistent with my Google-second forecast.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.45,
+          "rationale": "Google was third at 15.1% in the Nov 9 week, 3.9 points behind OpenAI and 8 points ahead of Z.ai, so third holds unless Gemini 4 momentum carries it past OpenAI. Complement of the Google-second question, with a small chance Google finishes first or lower."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.64,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.325,
+          "method": "learned_model_v1",
+          "probability": 0.500068,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.661493,
+          "raw": 0.64,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.325
+        }
+      ],
+      "id": "polymarket-7088823",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/3rd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "status": "pending",
+      "title": "Will Google have the third highest OpenRouter market share the week of November 16?",
       "topic": "Tech",
       "verdict": null
     },
@@ -19420,7 +20037,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20510265829981508,
+    "brier": 0.2036854744459103,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -19447,16 +20064,16 @@
           "rule": 0.11523577566666666
         },
         "counted": {
-          "dates": 2,
-          "difference": 0.005335000000000013,
+          "dates": 3,
+          "difference": 0.002312500000000002,
           "interval": [
-            -0.017263,
-            0.0204
+            -0.01637,
+            0.015657
           ],
-          "market": 0.050824999999999995,
+          "market": 0.047754166666666674,
           "meets_bar": false,
-          "questions": 5,
-          "rule": 0.05616000000000001
+          "questions": 6,
+          "rule": 0.050066666666666676
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -19477,16 +20094,16 @@
           "rule": 0.16186620376190475
         },
         "counted": {
-          "dates": 4,
-          "difference": -0.006761089285714256,
+          "dates": 5,
+          "difference": -0.006715953125000007,
           "interval": [
-            -0.029551,
-            0.023625
+            -0.025558,
+            0.021425
           ],
-          "market": 0.20572001785714283,
+          "market": 0.18296790625,
           "meets_bar": false,
-          "questions": 14,
-          "rule": 0.19895892857142858
+          "questions": 16,
+          "rule": 0.176251953125
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -19532,15 +20149,15 @@
         },
         "counted": {
           "dates": 3,
-          "difference": 0.003819177880699978,
+          "difference": 0.0034719798915454625,
           "interval": [
-            -0.023025,
-            0.018273
+            -0.020146,
+            0.016968
           ],
-          "market": 0.121380525,
+          "market": 0.11171013636363636,
           "meets_bar": false,
-          "questions": 10,
-          "rule": 0.12519970288069998
+          "questions": 11,
+          "rule": 0.11518211625518182
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -19548,7 +20165,7 @@
         "status": "testing"
       }
     ],
-    "pending": 48,
+    "pending": 56,
     "progress": {
       "changes": [
         {
@@ -19570,10 +20187,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.15720526315789476,
-          "market": 0.16308230052631578,
-          "ours": 0.1747112177704737,
-          "questions": 19
+          "claude": 0.1434,
+          "market": 0.14980809333333334,
+          "ours": 0.1603294946494762,
+          "questions": 21
         },
         "before": {
           "claude": 0.19848634146341465,
@@ -19630,33 +20247,33 @@
           "wrong": 6
         },
         {
-          "claude": 0.1688764705882353,
-          "market": 0.1747219117647059,
-          "ours": 0.18212129578670588,
-          "questions": 17,
-          "right": 14,
+          "claude": 0.15238947368421052,
+          "market": 0.15882519736842104,
+          "ours": 0.16544569886178948,
+          "questions": 19,
+          "right": 16,
           "start": "2026-11-09",
           "wrong": 3
         }
       ]
     },
-    "resolved": 254,
-    "right": 174,
+    "resolved": 256,
+    "right": 176,
     "toss_ups": 3,
-    "total": 309,
+    "total": 319,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19498482142857143,
-      "claude_questions": 224,
-      "market": 0.15280645325892858,
-      "ours": 0.19883811668588838,
-      "questions": 224,
+      "claude": 0.19336769911504426,
+      "claude_questions": 226,
+      "market": 0.15166394592920354,
+      "ours": 0.19728824950282745,
+      "questions": 226,
       "since_anchored": {
-        "claude": 0.19825714285714288,
+        "claude": 0.17500625,
         "date": "2026-11-10",
-        "market": 0.20572001785714283,
-        "ours": 0.20572001785714283,
-        "questions": 14
+        "market": 0.18296790625,
+        "ours": 0.18296790625,
+        "questions": 16
       }
     },
     "wrong": 77

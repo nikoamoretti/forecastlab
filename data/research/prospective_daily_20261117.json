@@ -1,0 +1,20 @@
+{
+ "1346d2fd3076f500": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": null,
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-17T10:39:34.663848+00:00",
+  "research_cost_usd": 0.0563,
+  "research_failed": "ValueError: the reply is not valid JSON: Extra data",
+  "research_seconds": 110.1,
+  "researched_at": "2026-11-17T10:26:09+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ }
+}
