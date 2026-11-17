@@ -455,16 +455,42 @@ def _resolution(value: Any) -> dict[str, Any]:
     return found if any(found.values()) else {}
 
 
+def reply_object(reply: str) -> Any:
+    """The JSON object an agent's reply carries, or ValueError saying why none can be read.
+
+    A reply is not always one clean object: an agent may add a note after it, write a brace in its prose, or print the
+    object twice (a draft, then the final one). Taking everything from the first brace to the last one made all of those
+    "not valid JSON: Extra data" and lost the question (2026-11-16 and 2026-11-17). So every object in the reply is read
+    where it starts, and the last one with a sources list wins: a correction comes after what it corrects.
+    """
+    text = reply or ""
+    decoder = json.JSONDecoder()
+    found: list[Any] = []
+    first_error: json.JSONDecodeError | None = None
+    at = text.find("{")
+    while at != -1:
+        try:
+            value, end = decoder.raw_decode(text, at)
+        except json.JSONDecodeError as error:
+            first_error = first_error or error
+            at = text.find("{", at + 1)
+            continue
+        found.append(value)
+        at = text.find("{", end)
+    usable = [value for value in found if isinstance(value, dict) and isinstance(value.get("sources"), list)]
+    if usable:
+        return usable[-1]
+    if first_error is not None:
+        raise ValueError(f"the reply is not valid JSON: {first_error.msg}") from None
+    if not found:
+        raise ValueError("no JSON object in the reply")
+    return found[0]  # an object without a sources list: validate says so
+
+
 def validate(reply: str, *, min_sources: int = MIN_SOURCES, min_facts: int = MIN_FACTS,
              need_against: bool = False) -> dict[str, Any]:
     """The evidence in an agent's reply, cleaned, or ValueError saying why it cannot be used."""
-    match = re.search(r"\{.*\}", reply or "", re.DOTALL)
-    if not match:
-        raise ValueError("no JSON object in the reply")
-    try:
-        data = json.loads(match.group(0))
-    except json.JSONDecodeError as error:
-        raise ValueError(f"the reply is not valid JSON: {error.msg}") from None
+    data = reply_object(reply)
     if not isinstance(data, dict) or not isinstance(data.get("sources"), list):
         raise ValueError("the reply has no sources list")
     sources: list[dict[str, Any]] = []
