@@ -131,6 +131,33 @@ def test_validate_rejects_unusable_replies(reply: str, reason: str) -> None:
         cr.validate(reply)
 
 
+@pytest.mark.parametrize("reply", [
+    answer() + "\nNote: the schema asks for {\"sources\": [...]} and I followed it.",  # a brace in a closing note
+    "I will fill the template {sources, facts} now.\n" + answer(),  # a brace before the object
+    answer() + "\n\nThe same object again:\n" + answer(),  # printed twice
+    answer() + "\nSummary: {\"status\": \"done\", \"pages_opened\": 7}",  # a second object that is not the evidence
+])
+def test_validate_reads_the_evidence_when_the_reply_has_more_than_the_object(reply: str) -> None:
+    # each of these used to fail as "the reply is not valid JSON: Extra data" (or "Expecting ...") and lose the question
+    assert cr.validate(reply) == cr.validate(answer())
+
+
+def test_validate_takes_the_last_evidence_object_when_the_agent_corrects_itself() -> None:
+    draft = answer(base_rate="A first guess.")
+    final = answer(base_rate="14 of the last 24 months.")
+    assert cr.validate(draft + "\nCorrection, the final answer:\n" + final)["base_rate"] == "14 of the last 24 months."
+
+
+def test_validate_still_says_why_a_broken_object_cannot_be_used() -> None:
+    broken = answer().replace('"facts"', 'facts')  # an unquoted key: the object itself is not JSON
+    with pytest.raises(ValueError, match="not valid JSON"):
+        cr.validate(broken)  # the source objects inside it parse, but none of them is the evidence
+    with pytest.raises(ValueError, match="no sources list"):
+        cr.validate('Done. {"status": "no evidence found"}')
+    with pytest.raises(ValueError, match="no sources list"):
+        cr.validate('{"result": ' + json.dumps({"sources": []}) + "}")  # wrapped: not searched for, as before
+
+
 def test_research_saves_evidence_skips_failures_and_respects_the_budget(tmp_path: Path) -> None:
     directory = market_dir(tmp_path)
     second = dict(MARKET, id="polymarket-2", question="Will payrolls rise?")
