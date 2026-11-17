@@ -1,36 +1,36 @@
 {
   "calibration": {
     "as_of": "2026-11-17",
-    "intercept": 0.229744,
-    "results": 250,
-    "slope": 0.765096
+    "intercept": 0.239015,
+    "results": 251,
+    "slope": 0.746386
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.2036854744459103,
+      "brier": 0.20625981282229858,
       "coin_flip_brier": 0.25,
       "forecasts": 319,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-17",
       "method": "combined_median_v1",
-      "resolved": 256,
-      "right": 176,
+      "resolved": 258,
+      "right": 177,
       "toss_ups": 3,
-      "wrong": 77
+      "wrong": 78
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19422390438247011,
+      "brier": 0.19765296442687746,
       "coin_flip_brier": 0.25,
       "forecasts": 313,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-17",
       "method": "claude_code_forecaster_v1",
-      "resolved": 251,
+      "resolved": 253,
       "right": 170,
       "toss_ups": 7,
-      "wrong": 74
+      "wrong": 76
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
@@ -138,16 +138,16 @@
     },
     {
       "about": "Anthropic's Claude Sonnet 5.5 that forecasts from the research notes. It sits out questions it researched itself.",
-      "brier": 0.232625,
+      "brier": 0.24317246376811594,
       "coin_flip_brier": 0.25,
       "forecasts": 73,
       "label": "Claude Sonnet 5.5 (judge)",
       "last_forecast_on": "2026-11-02",
       "method": "judge_claude_sonnet55_v1",
-      "resolved": 68,
+      "resolved": 69,
       "right": 43,
       "toss_ups": 2,
-      "wrong": 23
+      "wrong": 24
     },
     {
       "about": "Free open-weights model (Google Gemma 4 31B) that forecasts from Claude's research notes.",
@@ -216,42 +216,42 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.15552598033035417,
+      "brier": 0.17309730483014,
       "coin_flip_brier": 0.25,
       "forecasts": 88,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-17",
       "method": "claude_calibrated_v1",
-      "resolved": 48,
+      "resolved": 50,
       "right": 39,
       "toss_ups": 0,
-      "wrong": 9
+      "wrong": 11
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15811810511363636,
+      "brier": 0.15849681779661018,
       "coin_flip_brier": 0.25,
       "forecasts": 218,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-17",
       "method": "market_price_v1",
-      "resolved": 176,
-      "right": 134,
+      "resolved": 177,
+      "right": 135,
       "toss_ups": 0,
       "wrong": 42
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.1313926587755102,
+      "brier": 0.1466253056,
       "coin_flip_brier": 0.25,
       "forecasts": 60,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-12",
       "method": "manifold_price_v1",
-      "resolved": 49,
+      "resolved": 50,
       "right": 37,
       "toss_ups": 0,
-      "wrong": 12
+      "wrong": 13
     },
     {
       "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from Kalshi. From 2026-11-10 our call is this price unless a tested edge applies.",
@@ -270,15 +270,15 @@
   "generated_on": "2026-11-17",
   "learned_model": {
     "as_of": "2026-11-17",
-    "intercept": 0.151961,
-    "results": 225,
-    "slope": 1.051321,
+    "intercept": 0.168266,
+    "results": 226,
+    "slope": 1.010964,
     "weights": {
-      "Crypto": -0.325984,
-      "Economy": -0.095769,
-      "Politics": -0.356561,
-      "Tech": 0.47212,
-      "World": -0.425401
+      "Crypto": -0.322248,
+      "Economy": -0.097593,
+      "Politics": -0.320679,
+      "Tech": 0.463616,
+      "World": -0.421934
     }
   },
   "questions": [
@@ -332,6 +332,59 @@
       "status": "resolved",
       "title": "Will gemini-4-carbon-high be the best AI model on November 16, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.64,
+        "market": 0.4745,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.4745
+      },
+      "detail": "As of market creation, Home Depot is estimated to release earnings on November 17, 2026. The Street consensus estimate for Home Depot\u2019s non-GAAP EPS for the relevant quarter is $3.95 as of market creation. This market will resolve to \"Yes\" if Home Depot reports non-GAAP EPS greater than $3.95 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Home Depot releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-10T10:58:00+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64,
+          "rationale": "Home Depot reports fiscal Q3 2026 on 2026-11-17 (https://ir.homedepot.com/) and the question needs non-GAAP EPS above $3.95, which is 5.6% over last year's $3.74 (https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm, 2025-11-18). That Q3 2025 figure was depressed by a lack of storms, Q2 2026 came in at $4.92 against $4.68 a year earlier (+5%) and beat consensus, and the company has beaten in its last three quarters after three misses in 2025 (https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings). Against that, full-year guidance of flat to +4.0% was reaffirmed rather than raised, demand is in smaller projects, and I could not confirm the $3.95 consensus or the base rate beyond 5 beats in 8 quarters, so I put it modestly above the roughly 70% typical beat rate of large caps less ties.",
+          "sources": [
+            "https://ir.homedepot.com/",
+            "https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings",
+            "https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm",
+            "https://ir.homedepot.com/news-releases/2026/02-24-2026-110040985",
+            "https://247wallst.com/companies/hd/earnings/trends"
+          ]
+        },
+        {
+          "as_of": "2026-11-10",
+          "intercept": 0.343542,
+          "method": "claude_calibrated_v1",
+          "probability": 0.685625,
+          "raw": 0.64,
+          "results": 215,
+          "slope": 0.758133
+        },
+        {
+          "made_at": "2026-11-10T10:30:26.482205+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4745
+        }
+      ],
+      "id": "polymarket-6639361",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261110",
+      "source_url": "https://polymarket.com/event/hd-quarterly-earnings-nongaap-eps-11-17-2026-3pt95",
+      "status": "resolved",
+      "title": "Will Home Depot (HD) beat quarterly earnings?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -3640,6 +3693,64 @@
       "source_url": "https://polymarket.com/event/ca-04-house-election-winner-by-individual-20260630172946503",
       "status": "resolved",
       "title": "Will Mike Thompson win the CA-04 House seat?",
+      "topic": "Politics",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 2,
+        "method": "combined_weighted_v1",
+        "probability": 0.08,
+        "weights": {
+          "claude_code_forecaster_v1": 26.77,
+          "judge_claude_sonnet55_v1": 15.81
+        }
+      },
+      "detail": "This market resolves to YES if there is a credible assassination attempt on Elon Musk before the 2026 U.S. midterm elections, as reported by at least two major news outlets. A credible attempt means law enforcement confirms the threat was real and steps were taken to prevent it.\n\nResolution will be based on official law enforcement statements and verified news reports.\n\nReferences:\n\nhttps://timesofindia.indiatimes.com/technology/tech-news/kill-elon-musk-says-tiktoker-to-followers-elon-musk-replies-everybody-/articleshow/118346755.cms\n\nhttps://www.ndtv.com/world-news/elon-musk-faces-assassination-threat-cryptic-social-media-post-targets-the-tesla-boss-7292764",
+      "forecasts": [
+        {
+          "made_at": "2026-11-02T11:09:24+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "No source from 2026-10-26 to 2026-11-02 reports a new confirmed threat against Musk; the only podcast prediction (Mediaite, 2026-10-26) is opinion. The one confirmed episode is the plot against the 2026-06-14 White House UFC event, where the Justice Department indictment of 2026-07-09 alleges a plan to kill Musk among others and the FBI and Secret Service disrupted it; a lenient reading of the rule could count that as a credible attempt before the midterms, but the market has stayed open since, so I give it only a small weight. A new attempt confirmed by law enforcement in the remaining days is very unlikely.",
+          "sources": [
+            "https://www.justice.gov/opa/pr/federal-grand-jury-indicts-8-men-conspiracies-related-plot-attack-ufc-freedom-250-event",
+            "https://www.cbsnews.com/news/fbi-disrupts-alleged-plot-targeting-ufc-event-white-house/",
+            "https://www.mediaite.com/politics/patrick-bet-david-predicts-elon-musk-will-be-assassinated-im-telling-you-theyre-not-gonna-let-this-guy-live/"
+          ]
+        },
+        {
+          "made_at": "2026-11-02T11:12:05.952188+00:00",
+          "method": "judge_claude_sonnet55_v1",
+          "probability": 0.02,
+          "rationale": "The window is about three days (to the Nov 3 midterms, resolution Nov 5), and the base rate of a law-enforcement-confirmed, publicly reported attempt on a private figure in any such window is tiny. The June UFC plot, which listed Musk among its targets, falls outside the window, and no new threat announcement was found from Oct 26 to Nov 2. A lenient resolver counting the June plot, or a surprise announcement, is the main upside risk."
+        },
+        {
+          "as_of": "2026-11-02",
+          "intercept": 0.336186,
+          "method": "claude_calibrated_v1",
+          "probability": 0.151745,
+          "raw": 0.08,
+          "results": 117,
+          "slope": 0.842289
+        },
+        {
+          "made_at": "2026-11-02T10:19:34.582260+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.055
+        }
+      ],
+      "id": "manifold-cq5ZZ2hh8I",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-05",
+      "scored": true,
+      "source": "prospective_markets_20261102",
+      "source_url": "https://manifold.markets/DSalomon/elon-musk-faces-a-credible-assassin",
+      "status": "resolved",
+      "title": "Will there be a Assassination attempt on Elon Musks life between now and the mid terms of 2026.",
       "topic": "Politics",
       "verdict": "wrong"
     },
@@ -17385,64 +17496,6 @@
     {
       "actual": null,
       "call": {
-        "members": 2,
-        "method": "combined_weighted_v1",
-        "probability": 0.08,
-        "weights": {
-          "claude_code_forecaster_v1": 26.77,
-          "judge_claude_sonnet55_v1": 15.81
-        }
-      },
-      "detail": "This market resolves to YES if there is a credible assassination attempt on Elon Musk before the 2026 U.S. midterm elections, as reported by at least two major news outlets. A credible attempt means law enforcement confirms the threat was real and steps were taken to prevent it.\n\nResolution will be based on official law enforcement statements and verified news reports.\n\nReferences:\n\nhttps://timesofindia.indiatimes.com/technology/tech-news/kill-elon-musk-says-tiktoker-to-followers-elon-musk-replies-everybody-/articleshow/118346755.cms\n\nhttps://www.ndtv.com/world-news/elon-musk-faces-assassination-threat-cryptic-social-media-post-targets-the-tesla-boss-7292764",
-      "forecasts": [
-        {
-          "made_at": "2026-11-02T11:09:24+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.08,
-          "rationale": "No source from 2026-10-26 to 2026-11-02 reports a new confirmed threat against Musk; the only podcast prediction (Mediaite, 2026-10-26) is opinion. The one confirmed episode is the plot against the 2026-06-14 White House UFC event, where the Justice Department indictment of 2026-07-09 alleges a plan to kill Musk among others and the FBI and Secret Service disrupted it; a lenient reading of the rule could count that as a credible attempt before the midterms, but the market has stayed open since, so I give it only a small weight. A new attempt confirmed by law enforcement in the remaining days is very unlikely.",
-          "sources": [
-            "https://www.justice.gov/opa/pr/federal-grand-jury-indicts-8-men-conspiracies-related-plot-attack-ufc-freedom-250-event",
-            "https://www.cbsnews.com/news/fbi-disrupts-alleged-plot-targeting-ufc-event-white-house/",
-            "https://www.mediaite.com/politics/patrick-bet-david-predicts-elon-musk-will-be-assassinated-im-telling-you-theyre-not-gonna-let-this-guy-live/"
-          ]
-        },
-        {
-          "made_at": "2026-11-02T11:12:05.952188+00:00",
-          "method": "judge_claude_sonnet55_v1",
-          "probability": 0.02,
-          "rationale": "The window is about three days (to the Nov 3 midterms, resolution Nov 5), and the base rate of a law-enforcement-confirmed, publicly reported attempt on a private figure in any such window is tiny. The June UFC plot, which listed Musk among its targets, falls outside the window, and no new threat announcement was found from Oct 26 to Nov 2. A lenient resolver counting the June plot, or a surprise announcement, is the main upside risk."
-        },
-        {
-          "as_of": "2026-11-02",
-          "intercept": 0.336186,
-          "method": "claude_calibrated_v1",
-          "probability": 0.151745,
-          "raw": 0.08,
-          "results": 117,
-          "slope": 0.842289
-        },
-        {
-          "made_at": "2026-11-02T10:19:34.582260+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.055
-        }
-      ],
-      "id": "manifold-cq5ZZ2hh8I",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-05",
-      "scored": true,
-      "source": "prospective_markets_20261102",
-      "source_url": "https://manifold.markets/DSalomon/elon-musk-faces-a-credible-assassin",
-      "status": "pending",
-      "title": "Will there be a Assassination attempt on Elon Musks life between now and the mid terms of 2026.",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 1,
         "method": "combined_weighted_v1",
         "probability": 0.5,
@@ -17709,59 +17762,6 @@
       "status": "pending",
       "title": "Are neural networks already clean?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.64,
-        "market": 0.4745,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.4745
-      },
-      "detail": "As of market creation, Home Depot is estimated to release earnings on November 17, 2026. The Street consensus estimate for Home Depot\u2019s non-GAAP EPS for the relevant quarter is $3.95 as of market creation. This market will resolve to \"Yes\" if Home Depot reports non-GAAP EPS greater than $3.95 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf Home Depot releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-10T10:58:00+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.64,
-          "rationale": "Home Depot reports fiscal Q3 2026 on 2026-11-17 (https://ir.homedepot.com/) and the question needs non-GAAP EPS above $3.95, which is 5.6% over last year's $3.74 (https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm, 2025-11-18). That Q3 2025 figure was depressed by a lack of storms, Q2 2026 came in at $4.92 against $4.68 a year earlier (+5%) and beat consensus, and the company has beaten in its last three quarters after three misses in 2025 (https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings). Against that, full-year guidance of flat to +4.0% was reaffirmed rather than raised, demand is in smaller projects, and I could not confirm the $3.95 consensus or the base rate beyond 5 beats in 8 quarters, so I put it modestly above the roughly 70% typical beat rate of large caps less ties.",
-          "sources": [
-            "https://ir.homedepot.com/",
-            "https://corporate.homedepot.com/news/earnings/home-depot-announces-second-quarter-2026-earnings",
-            "https://www.sec.gov/Archives/edgar/data/354950/000035495025000238/hd_exhibit991x11022025.htm",
-            "https://ir.homedepot.com/news-releases/2026/02-24-2026-110040985",
-            "https://247wallst.com/companies/hd/earnings/trends"
-          ]
-        },
-        {
-          "as_of": "2026-11-10",
-          "intercept": 0.343542,
-          "method": "claude_calibrated_v1",
-          "probability": 0.685625,
-          "raw": 0.64,
-          "results": 215,
-          "slope": 0.758133
-        },
-        {
-          "made_at": "2026-11-10T10:30:26.482205+00:00",
-          "method": "market_price_v1",
-          "probability": 0.4745
-        }
-      ],
-      "id": "polymarket-6639361",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-17",
-      "scored": true,
-      "source": "prospective_markets_20261110",
-      "source_url": "https://polymarket.com/event/hd-quarterly-earnings-nongaap-eps-11-17-2026-3pt95",
-      "status": "pending",
-      "title": "Will Home Depot (HD) beat quarterly earnings?",
-      "topic": "Economy",
       "verdict": null
     },
     {
@@ -20037,7 +20037,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2036854744459103,
+    "brier": 0.20625981282229858,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -20084,26 +20084,26 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 29,
-          "difference": 0.01258732147619046,
+          "difference": 0.012306694360189607,
           "interval": [
-            0.003723,
-            0.020277
+            0.003578,
+            0.019831
           ],
-          "market": 0.1492788822857143,
-          "questions": 210,
-          "rule": 0.16186620376190475
+          "market": 0.15280374540284358,
+          "questions": 211,
+          "rule": 0.1651104397630332
         },
         "counted": {
           "dates": 5,
-          "difference": -0.006715953125000007,
+          "difference": -0.00015030882352939923,
           "interval": [
-            -0.025558,
-            0.021425
+            -0.021933,
+            0.034838
           ],
-          "market": 0.18296790625,
+          "market": 0.1854492205882353,
           "meets_bar": false,
-          "questions": 16,
-          "rule": 0.176251953125
+          "questions": 17,
+          "rule": 0.1852989117647059
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -20165,7 +20165,7 @@
         "status": "testing"
       }
     ],
-    "pending": 56,
+    "pending": 54,
     "progress": {
       "changes": [
         {
@@ -20187,16 +20187,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.1434,
-          "market": 0.14980809333333334,
-          "ours": 0.1603294946494762,
-          "questions": 21
+          "claude": 0.1555,
+          "market": 0.1532327368181818,
+          "ours": 0.16327589261995454,
+          "questions": 22
         },
         "before": {
-          "claude": 0.19848634146341465,
-          "market": 0.1518540576585366,
-          "ours": 0.20107426829268293,
-          "questions": 205
+          "claude": 0.20163155339805824,
+          "market": 0.15545197485436896,
+          "ours": 0.20420691747572817,
+          "questions": 206
         },
         "date": "2026-11-06"
       },
@@ -20238,45 +20238,45 @@
           "wrong": 34
         },
         {
-          "claude": 0.12978076923076926,
-          "market": 0.10047392499999999,
-          "ours": 0.1339135042025,
-          "questions": 26,
+          "claude": 0.15632222222222222,
+          "market": 0.1298276685185185,
+          "ours": 0.16030189293574076,
+          "questions": 27,
           "right": 20,
           "start": "2026-11-02",
-          "wrong": 6
+          "wrong": 7
         },
         {
-          "claude": 0.15238947368421052,
-          "market": 0.15882519736842104,
-          "ours": 0.16544569886178948,
-          "questions": 19,
-          "right": 16,
+          "claude": 0.16525,
+          "market": 0.16214145,
+          "ours": 0.1684309264187,
+          "questions": 20,
+          "right": 17,
           "start": "2026-11-09",
           "wrong": 3
         }
       ]
     },
-    "resolved": 256,
-    "right": 176,
+    "resolved": 258,
+    "right": 177,
     "toss_ups": 3,
     "total": 319,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19336769911504426,
-      "claude_questions": 226,
-      "market": 0.15166394592920354,
-      "ours": 0.19728824950282745,
-      "questions": 226,
+      "claude": 0.19718026315789475,
+      "claude_questions": 228,
+      "market": 0.15523783785087722,
+      "ours": 0.2002574326212237,
+      "questions": 228,
       "since_anchored": {
-        "claude": 0.17500625,
+        "claude": 0.18880588235294118,
         "date": "2026-11-10",
-        "market": 0.18296790625,
-        "ours": 0.18296790625,
-        "questions": 16
+        "market": 0.1854492205882353,
+        "ours": 0.1854492205882353,
+        "questions": 17
       }
     },
-    "wrong": 77
+    "wrong": 78
   },
   "version": "track_record_v2"
 }
