@@ -1,0 +1,21 @@
+{
+  "cost_usd": {
+    "1346d2fd3076f500": 0.0563
+  },
+  "failed": {
+    "1346d2fd3076f500": "ValueError: the reply is not valid JSON: Extra data"
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-17T10:26:09+00:00",
+  "researched_by": {},
+  "runs": 2,
+  "seconds": {
+    "1346d2fd3076f500": 110.1
+  },
+  "sources": {}
+}
