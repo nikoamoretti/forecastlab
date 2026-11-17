@@ -79,6 +79,13 @@
             "https://aistudio.google.com/docs/changelog",
             "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/"
           ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.5,
+          "rationale": "Nov 9 week had Google 15.1% (+14%, likely relative, from about 13.2%) vs OpenAI 19.0% (+1%), a 3.9-point gap; Gemini 4 launched Nov 10 and 12, so a full launch week could close it. The market at 63.5% may see daily data, so I moved partway up from the first forecast.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7088838",
@@ -141,6 +148,13 @@
             "https://openrouter.ai/rankings",
             "https://aistudio.google.com/docs/changelog"
           ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.45,
+          "rationale": "Google was third at 15.1% in the Nov 9 week, 3.9 points behind OpenAI and 8 points ahead of Z.ai, so third holds unless Gemini 4 momentum carries it past OpenAI. Complement of the Google-second question, with a small chance Google finishes first or lower.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7088823",
@@ -236,6 +250,13 @@
             "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
             "https://learn.chatgpt.com/docs/changelog"
           ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.3,
+          "rationale": "Recent resets came about every two weeks (Oct 28, Nov 12) and a banked reset was just announced, but the Codex lead's 'graduated from the reset company' remark points to fewer resets. Exactly one in a 7-day window is about 30%.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7088841",
